@@ -4,13 +4,11 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_administration
-    - field.storage.node.field_clp_faq_paragraphs
     - field.storage.node.field_facility_location
     - field.storage.node.field_last_saved_by_an_editor
     - field.storage.node.field_other_categories
     - field.storage.node.field_primary_category
     - field.storage.paragraph.field_question
-    - field.storage.paragraph.field_questions
     - field.storage.paragraph.field_topics
     - node.type.basic_landing_page
     - node.type.checklist
@@ -32,12 +30,10 @@ dependencies:
     - user.role.content_admin
     - user.role.content_creator_resources_and_support
     - user.role.redirect_administrator
-    - workflows.workflow.editorial
   module:
     - content_lock
     - content_moderation
     - csv_serialization
-    - entity_reference_revisions
     - node
     - paragraphs
     - rest
@@ -518,6 +514,7 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
+          pagination_heading_level: h4
       exposed_form:
         type: basic
         options:
@@ -765,20 +762,24 @@ display:
           row_class: ''
           default_row_class: true
           columns:
+            views_bulk_operations_bulk_form_1: views_bulk_operations_bulk_form_1
             title: title
-            nid: nid
-            edit_node: edit_node
+            operations: operations
             type: type
-            revision_uid: revision_uid
-            changed: changed
             moderation_state: moderation_state
             field_administration: field_administration
-            name: name
-            timestamp: timestamp
-            break: break
-            is_locked: is_locked
+            changed: changed
+            revision_uid: revision_uid
+            field_question_1: field_question_1
+            field_question: field_question
+            nothing: nothing
           default: changed
           info:
+            views_bulk_operations_bulk_form_1:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             title:
               sortable: true
               default_sort_order: asc
@@ -786,16 +787,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            nid:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            edit_node:
-              sortable: false
-              default_sort_order: asc
+            operations:
               align: ''
               separator: ''
               empty_column: false
@@ -807,20 +799,6 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            revision_uid:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            changed:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ' by '
-              empty_column: false
-              responsive: priority-low
             moderation_state:
               sortable: false
               default_sort_order: asc
@@ -835,30 +813,35 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            name:
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ' by '
+              empty_column: false
+              responsive: priority-low
+            revision_uid:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            timestamp:
+            field_question_1:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            break:
+            field_question:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            is_locked:
-              sortable: false
-              default_sort_order: asc
+            nothing:
               align: ''
               separator: ''
               empty_column: false
@@ -6643,90 +6626,10 @@ display:
     id: page_qa
     display_title: 'Q&A'
     display_plugin: page
-    position: 9
+    position: 1
     display_options:
       title: 'Page-specific Q&A Content'
       fields:
-        views_bulk_operations_bulk_form_1:
-          id: views_bulk_operations_bulk_form_1
-          table: views
-          field: views_bulk_operations_bulk_form
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: views_bulk_operations_bulk_form
-          label: Action
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          batch: true
-          batch_size: 25
-          form_step: true
-          buttons: false
-          action_title: Action
-          clear_on_exposed: true
-          force_selection_info: false
-          selected_actions:
-            -
-              action_id: node_save_action
-              preconfiguration:
-                add_confirmation: false
-            -
-              action_id: node_assign_owner_action
-              preconfiguration:
-                add_confirmation: false
-            -
-              action_id: publish_latest_revision_action
-            -
-              action_id: archive_node_action
-            -
-              action_id: views_bulk_edit
-              preconfiguration:
-                add_confirmation: false
-                get_bundles_from_results: true
-            -
-              action_id: views_bulk_operations_delete_entity
-            -
-              action_id: 'entity:pathauto_update_alias:node'
-              preconfiguration:
-                add_confirmation: false
         title:
           id: title
           table: node_field_data
@@ -6747,16 +6650,18 @@ display:
           type: string
           settings:
             link_to_entity: true
-        operations:
-          id: operations
-          table: node
-          field: operations
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: entity_operations
-          label: Operations
-          exclude: false
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
+          label: ID
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -6796,7 +6701,74 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          destination: false
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        edit_node:
+          id: edit_node
+          table: node_field_revision
+          field: edit_node
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: entity_link_edit
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: '<a href="/node/{{ nid }}/edit" class="button">Edit</a>'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          text: ''
+          output_url_as_text: true
+          absolute: false
         type:
           id: type
           table: node_field_data
@@ -6862,28 +6834,138 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        revision_uid:
+          id: revision_uid
+          table: node_revision
+          field: revision_uid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: revision_uid
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         changed:
           id: changed
           table: node_field_data
           field: changed
+          relationship: none
+          group_type: group
+          admin_label: ''
           entity_type: node
           entity_field: changed
           plugin_id: field
           label: Updated
           exclude: false
           alter:
-            alter_text: false
+            alter_text: true
+            text: '{{ changed }} by {{ revision_uid }}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
           element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
           empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          click_sort_column: value
           type: timestamp
           settings:
             date_format: short
             custom_date_format: ''
             timezone: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         moderation_state:
           id: moderation_state
           table: content_moderation_state_field_data
@@ -7001,7 +7083,7 @@ display:
           click_sort_column: target_id
           type: entity_reference_label
           settings:
-            link: false
+            link: true
           group_column: target_id
           group_columns: {  }
           group_rows: true
@@ -7012,18 +7094,18 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        revision_uid:
-          id: revision_uid
-          table: node_revision
-          field: revision_uid
-          relationship: none
+        name:
+          id: name
+          table: users_field_data
+          field: name
+          relationship: uid_1
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: revision_uid
+          entity_type: user
+          entity_field: name
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -7063,11 +7145,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
+          click_sort_column: value
+          type: user_name
           settings:
-            link: true
-          group_column: target_id
+            link_to_entity: true
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -7077,15 +7159,169 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_question_1:
-          id: field_question_1
+        timestamp:
+          id: timestamp
+          table: content_lock
+          field: timestamp
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: date
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          date_format: 'raw time ago'
+          custom_date_format: '1'
+          timezone: ''
+        break:
+          id: break
+          table: content_lock
+          field: break
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: content_lock_break_link
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+        is_locked:
+          id: is_locked
+          table: content_lock
+          field: is_locked
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          label: 'Is Locked'
+          exclude: true
+          alter:
+            alter_text: true
+            text: "{% if is_locked == true %}\r\n Locked for editing {{ timestamp }} by {{ name }} | {{ break }}\r\n{% endif %} \r\n"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: boolean
+          type_custom_true: ''
+          type_custom_false: ''
+          not: false
+        field_question:
+          id: field_question
           table: paragraph__field_question
           field: field_question
           relationship: field_clp_faq_paragraphs
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'clp faq question'
+          label: 'clp faq paragraph'
           exclude: true
           alter:
             alter_text: false
@@ -7139,15 +7375,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_question:
-          id: field_question
+        field_question_1:
+          id: field_question_1
           table: paragraph__field_question
           field: field_question
           relationship: field_questions
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'content block question'
+          label: ''
           exclude: true
           alter:
             alter_text: false
@@ -7180,7 +7416,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -7213,7 +7449,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{{ field_question_1}} \r\n{{ field_question }}"
+            text: "{{ field_question }}\r\n{{ field_question_1 }} "
             make_link: false
             path: ''
             absolute: false
@@ -7250,6 +7486,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: false
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      sorts: {  }
       filters:
         title:
           id: title
@@ -7308,9 +7549,8 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: type_op
             label: 'Content type'
-            description: ''
+            description: null
             use_operator: false
             operator: type_op
             operator_limit_selection: false
@@ -7319,19 +7559,6 @@ display:
             required: false
             remember: false
             multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              vamc_content_creator: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -7345,22 +7572,17 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
-            editorial-draft: editorial-draft
-            editorial-review: editorial-review
-            editorial-published: editorial-published
-            editorial-archived: editorial-archived
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -7368,7 +7590,7 @@ display:
             label: 'Moderation state'
             description: ''
             use_operator: false
-            operator: moderation_state_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: moderation_state
@@ -7378,14 +7600,70 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
               administrator: '0'
-              page_creator: '0'
-              layout_manager: '0'
-              page_reviewer: '0'
-              landing_page_creator: '0'
-              landing_page_reviewer: '0'
-              media_creator: '0'
-              media_manager: '0'
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: 0
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: owner
+            label: Section
+            description: ''
+            use_operator: false
+            operator: field_administration_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: owner
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              redirect_administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -7399,6 +7677,15 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: false
+          vid: administration
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
+          parent: 0
+          level_labels: ''
+          force_deepest: false
         field_clp_faq_paragraphs_target_revision_id:
           id: field_clp_faq_paragraphs_target_revision_id
           table: node__field_clp_faq_paragraphs
@@ -7487,6 +7774,142 @@ display:
         groups:
           1: AND
           2: OR
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            title: title
+            nid: nid
+            edit_node: edit_node
+            type: type
+            revision_uid: revision_uid
+            changed: changed
+            moderation_state: moderation_state
+            field_administration: field_administration
+            name: name
+            timestamp: timestamp
+            break: break
+            is_locked: is_locked
+            field_question: field_question
+            field_question_1: field_question_1
+            nothing: nothing
+          default: changed
+          info:
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            revision_uid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ' by '
+              empty_column: false
+              responsive: priority-low
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            timestamp:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            break:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            is_locked:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_question:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_question_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nothing:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: true
+          summary: ''
+          empty_table: true
+          caption: 'Page-specific Q&As'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       query:
         type: views_query
         options:
@@ -7496,12 +7919,17 @@ display:
           replica: false
           query_tags: {  }
       defaults:
+        access: false
         query: false
         title: false
+        style: false
+        row: false
         relationships: false
         fields: false
+        sorts: false
         filters: false
         filter_groups: false
+        header: false
       relationships:
         uid:
           id: uid
@@ -7547,6 +7975,17 @@ display:
           plugin_id: standard
           required: false
       display_description: ''
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: 'Displaying @start - @end of @total'
       display_extenders:
         jsonapi_views:
           enabled: true
@@ -7555,7 +7994,7 @@ display:
         type: tab
         title: 'Page-specific Q&A'
         description: ''
-        weight: 0
+        weight: -150
         expanded: false
         menu_name: admin
         parent: system.admin_content
@@ -7565,19 +8004,25 @@ display:
         local_task_parent: 'views_view:view.centralized_content_paragraphs.centralized_content_paragraphs'
         local_task_weight: 0
         local_task_custom_parent_route: ''
+      tab_options:
+        type: normal
+        title: Content
+        description: 'Find and manage content'
+        weight: -10
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.paragraph.field_question'
-        - 'config:workflow_list'
+    deleted: false
   resources_support_dashboard:
     id: resources_support_dashboard
     display_title: 'Resources and support'
