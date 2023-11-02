@@ -3,8 +3,12 @@ langcode: en
 status: true
 dependencies:
   module:
+    - block_diff_ui
     - content_moderation
+    - media
+    - message_ui
     - node
+    - paragraphs
     - subrequests
     - system
     - va_gov_backend
@@ -21,3 +25,5 @@ permissions:
   - 'issue subrequests'
   - 'view all revisions'
   - 'view any unpublished content'
+  - 'view latest version'
+  - 'view media'
