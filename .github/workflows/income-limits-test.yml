@@ -3,6 +3,9 @@ on:
   push:
   workflow_dispatch: null
 
+env:
+  NODE_EXTRA_CA_CERTS: /etc/ssl/certs/ca-certificates.crt
+
 jobs:
   # Testing
   test:
