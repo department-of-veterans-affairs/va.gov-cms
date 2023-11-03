@@ -3,6 +3,8 @@
 namespace Drupal\va_gov_media\EventSubscriber;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
@@ -15,6 +17,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class MediaEventSubscriber implements EventSubscriberInterface {
 
+  use StringTranslationTrait;
+
   /**
    * Max length for alt text.
    */
@@ -26,6 +30,18 @@ class MediaEventSubscriber implements EventSubscriberInterface {
   const COUNT_HTML = FALSE;
 
   /**
+   * Constructs the EventSubscriber object.
+   *
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
+   *   The string translation service.
+   */
+  public function __construct(
+    TranslationInterface $string_translation
+  ) {
+    $this->stringTranslation = $string_translation;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
@@ -35,7 +51,7 @@ class MediaEventSubscriber implements EventSubscriberInterface {
     ];
   }
 
-   /**
+  /**
    * Form alter Event call.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormAlterEvent $event
@@ -46,10 +62,11 @@ class MediaEventSubscriber implements EventSubscriberInterface {
 
     $form_id = $form['#id'];
     if ($form_id === 'media-image-add-form') {
-      $form['name']['widget'][0]['value']['#description'] = t('Provide a name that will help other users of the CMS find and reuse this image. The name is not visible to end users.');
+      $form['name']['widget'][0]['value']['#description'] = $this->t('Provide a name that will help other users of the CMS find and reuse this image. The name is not visible to end users.');
       unset($form['field_media_submission_guideline']);
     }
   }
+
   /**
    * Widget form alter Event call.
    *
