@@ -4,7 +4,6 @@ namespace Drupal\va_gov_media\EventSubscriber;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
@@ -28,18 +27,6 @@ class MediaEventSubscriber implements EventSubscriberInterface {
    * Boolean for whether to count HTML characters.
    */
   const COUNT_HTML = FALSE;
-
-  /**
-   * Constructs the EventSubscriber object.
-   *
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
-   *   The string translation service.
-   */
-  public function __construct(
-    TranslationInterface $string_translation
-  ) {
-    $this->stringTranslation = $string_translation;
-  }
 
   /**
    * {@inheritdoc}
