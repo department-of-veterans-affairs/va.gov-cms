@@ -21,7 +21,7 @@ var _this = this;
         type: "post",
         data: {
           value: function value() {
-            return $("input[data-drupal-selector='edit-image-0-alt']").val();
+            return $("textarea[data-drupal-selector='edit-image-0-alt']").val();
           }
         },
         dataType: "json"
@@ -33,7 +33,7 @@ var _this = this;
         type: "post",
         data: {
           value: function value() {
-            return $("input[data-drupal-selector='edit-media-0-fields-image-0-alt']").val();
+            return $("textarea[data-drupal-selector='edit-media-0-fields-image-0-alt']").val();
           }
         },
         dataType: "json"

@@ -3,6 +3,8 @@
 namespace Drupal\va_gov_media\EventSubscriber;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
+use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
 use Drupal\field_event_dispatcher\FieldHookEvents;
 use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
@@ -29,9 +31,25 @@ class MediaEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       FieldHookEvents::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'formWidgetAlter',
+      FormHookEvents::FORM_ALTER => 'formAlter',
     ];
   }
 
+   /**
+   * Form alter Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormAlterEvent $event
+   *   The event.
+   */
+  public function formAlter(FormAlterEvent $event): void {
+    $form = &$event->getForm();
+
+    $form_id = $form['#id'];
+    if ($form_id === 'media-image-add-form') {
+      $form['name']['widget'][0]['value']['#description'] = t('Provide a name that will help other users of the CMS find and reuse this image. The name is not visible to end users.');
+      unset($form['field_media_submission_guideline']);
+    }
+  }
   /**
    * Widget form alter Event call.
    *
@@ -66,6 +84,8 @@ class MediaEventSubscriber implements EventSubscriberInterface {
       $element['alt']['#element_validate'] = [
         [static::class, 'validateAltText'],
       ];
+      $element['alt']['#type'] = 'textarea';
+      $element['alt']['#rows'] = 3;
 
       // Add the textfield counter to the alt text field.
       $position = 'after';
