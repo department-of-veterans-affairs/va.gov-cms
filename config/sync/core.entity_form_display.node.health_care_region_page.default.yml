@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_va_health_connect_phone
     - field.field.node.health_care_region_page.field_vamc_ehr_system
     - field.field.node.health_care_region_page.field_vamc_system_official_name
+    - field.field.node.health_care_region_page.field_youtube
     - node.type.health_care_region_page
     - workflows.workflow.editorial
   module:
@@ -128,6 +129,7 @@ third_party_settings:
         - field_twitter
         - field_instagram
         - field_flickr
+        - field_youtube
       label: 'Social Media'
       region: content
       parent_name: group_get_updates_from_us
@@ -260,6 +262,7 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -275,7 +278,7 @@ content:
     third_party_settings: {  }
   field_flickr:
     type: linkit
-    weight: 18
+    weight: 17
     region: content
     settings:
       placeholder_url: ''
@@ -301,7 +304,7 @@ content:
     third_party_settings: {  }
   field_instagram:
     type: linkit
-    weight: 17
+    weight: 16
     region: content
     settings:
       placeholder_url: ''
@@ -319,6 +322,7 @@ content:
       maxlength: 600
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -380,7 +384,7 @@ content:
     third_party_settings: {  }
   field_twitter:
     type: linkit
-    weight: 16
+    weight: 15
     region: content
     settings:
       placeholder_url: ''
@@ -408,6 +412,16 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_youtube:
+    type: linkit
+    weight: 18
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default

@@ -1,0 +1,94 @@
+uuid: 8755942a-7c8b-442b-9bef-3e5260b8db39
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.service_region
+  module:
+    - content_moderation
+id: restricted_archive
+label: 'Restricted archive workflow'
+type: content_moderation
+type_settings:
+  states:
+    approved:
+      label: Approved
+      weight: 3
+      published: false
+      default_revision: false
+    archived:
+      label: Archived
+      weight: 4
+      published: false
+      default_revision: true
+    draft:
+      label: Draft
+      weight: 0
+      published: false
+      default_revision: false
+    published:
+      label: Published
+      weight: 1
+      published: true
+      default_revision: true
+    review:
+      label: 'In review'
+      weight: 2
+      published: false
+      default_revision: false
+  transitions:
+    approve:
+      label: Approve
+      from:
+        - review
+      to: approved
+      weight: 3
+    archive:
+      label: Archive
+      from:
+        - approved
+        - draft
+        - published
+        - review
+      to: archived
+      weight: 4
+    archived_draft:
+      label: 'Restore from archive to draft'
+      from:
+        - archived
+      to: draft
+      weight: 6
+    archived_published:
+      label: 'Restore from archive to published'
+      from:
+        - archived
+      to: published
+      weight: 5
+    create_new_draft:
+      label: Edit
+      from:
+        - draft
+        - published
+        - review
+      to: draft
+      weight: 0
+    publish:
+      label: Publish
+      from:
+        - approved
+        - draft
+        - published
+        - review
+      to: published
+      weight: 1
+    review:
+      label: Review
+      from:
+        - draft
+        - review
+      to: review
+      weight: 2
+  entity_types:
+    node:
+      - service_region
+  default_moderation_state: draft
