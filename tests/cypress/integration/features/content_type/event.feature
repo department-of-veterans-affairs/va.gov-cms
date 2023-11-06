@@ -2,8 +2,9 @@
 Feature: Content Type: Event
 
   Scenario: Log in and create an event.
-    Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "content_admin" role
     When I set the "feature_event_outreach_checkbox" feature toggle to "on"
+    And I set the "feature_event_outreach_checkbox_all" feature toggle to "on"
     Then I create a "event" node
 
   Scenario: Confirm that event form conditional fields are cleared out if parent options change
