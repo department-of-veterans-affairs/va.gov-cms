@@ -232,7 +232,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    */
   public function getContentBuildVersionItem(): array {
     return [
-      'title' => $this->t('<code>content-build</code> version'),
+      'title' => $this->t('content-build version'),
       'value' => $this->status->getContentBuildVersion(),
     ];
   }
@@ -245,7 +245,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    */
   public function getVetsWebsiteVersionItem(): array {
     return [
-      'title' => $this->t('<code>vets-website</code> version'),
+      'title' => $this->t('vets-website version'),
       'value' => $this->status->getVetsWebsiteVersion(),
     ];
   }
