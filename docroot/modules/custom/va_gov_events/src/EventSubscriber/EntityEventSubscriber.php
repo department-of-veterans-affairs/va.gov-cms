@@ -51,6 +51,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   const OUTREACH_CHECKBOX_FEATURE_NAME = 'feature_event_outreach_checkbox';
 
   /**
+   * The Feature toggle name that controls displaying the checkbox to all users.
+   */
+  const OUTREACH_CHECKBOX_ALL_NAME = 'feature_event_outreach_checkbox_all';
+
+  /**
    * The list of users allowed to view the outreach checkbox.
    */
   const OUTREACH_CHECKBOX_TEST_USERS = [
@@ -102,6 +107,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   private bool $outreachCheckboxFeatureEnabled;
 
   /**
+   * TRUE if the outreach checkbox feature toggle is enabled for all users.
+   *
+   * @var bool
+   */
+  private bool $outreachCheckboxAllFeatureEnabled;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
@@ -115,6 +127,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->currentUser = $account_proxy->getAccount();
     $this->outreachCheckboxFeatureEnabled = $feature_status->getStatus(self::OUTREACH_CHECKBOX_FEATURE_NAME);
+    $this->outreachCheckboxAllFeatureEnabled = $feature_status->getStatus(self::OUTREACH_CHECKBOX_ALL_NAME);
   }
 
   /**
@@ -135,7 +148,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   TRUE if the outreach checkbox should be enabled.
    */
   protected function outreachCheckboxEnabled(): bool {
+    // If both feature toggles are on, display the checkbox to all users.
+    if ($this->outreachCheckboxFeatureEnabled && $this->outreachCheckboxAllFeatureEnabled) {
+      return TRUE;
+    }
     $admin = $this->userPermsService->hasAdminRole(TRUE);
+    // If only the primary outreach feature toggle is on, and the user is either
+    // an admin, or in the test user list, display the checkbox.
     return (
       $this->outreachCheckboxFeatureEnabled
       && (in_array($this->currentUser->id(), self::OUTREACH_CHECKBOX_TEST_USERS) || $admin)
