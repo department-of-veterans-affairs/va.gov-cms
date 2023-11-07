@@ -36,4 +36,4 @@ Use the appropriate template for the type of research you are conducting:
 - [ ] Feedback incorporated from VA PO 
 - [ ] Conversation guide aligns with prototype(s)
 - [ ] Conversation guide posted on github in project research folder
-- [ ] Final approval obtained from PO and documented at the bottom of the file in preparation for Research Review cycle
+- [ ] Final approval obtained from VA PO and documented at the bottom of the file in preparation for Research Review cycle
