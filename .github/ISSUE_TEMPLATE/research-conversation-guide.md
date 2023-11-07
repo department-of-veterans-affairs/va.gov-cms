@@ -9,6 +9,11 @@ assignees: ''
 
 ## Description
 
+### User story
+**AS A** Researcher
+**I WANT** to document the details for conducting PAW usability sessions
+**SO THAT** the research will achieve the stated goals and answer the research questions
+
 Use the appropriate templates for the type of research you are conducting:
 - [Editor-facing Conversation Guide Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/research/editor-moderation-guide.md)
 - [Veteran-facing Conversation Guide Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/planning/conversation-guide-template.md)
@@ -21,8 +26,8 @@ Suggested workflow:
 - [ ] Convert into markdown files for final approval and sending to Research Review cycle
 
 ## Acceptance Criteria
-- [ ] Identify Moderator(s), Notetaker(s), and Observer(s) 
-- [ ] Identify timeslots for research sessions (should be 2 times as many slots as # of desired participants)
+- [ ]  
+- [ ] 
 - [ ] Update artifacts with PO feedback from review meeting
 - [ ] Convert artifacts to markdown format and store in github Research Folder
 - [ ] Get final approval from PO before sending to Research Review cycle
