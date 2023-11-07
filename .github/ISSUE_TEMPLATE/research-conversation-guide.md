@@ -22,9 +22,9 @@ Use the appropriate template for the type of research you are conducting:
 - [Editor-facing Conversation Guide Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/research/editor-moderation-guide.md)
 - [Veteran-facing Conversation Guide Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/planning/conversation-guide-template.md)
 
-### Suggested workflow:
+## Suggested workflow/tasks:
 - [ ] Brainstorm potential tasks
-- [ ] Create your initial draft
+- [ ] Create initial draft of conversation guide
 - [ ] Solicit feedback from UX Lead and/or Product Manager (PM)
 - [ ] Solicit feedback from VA Product Owner (PO) async or in a meeting w/PM
 - [ ] Test prototype(s) with conversation guide and align
