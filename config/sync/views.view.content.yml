@@ -7820,7 +7820,7 @@ display:
               empty_column: false
               responsive: ''
             type:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -7989,7 +7989,7 @@ display:
       display_extenders:
         jsonapi_views:
           enabled: true
-      path: admin/content/qa
+      path: admin/content/audit/qa
       menu:
         type: tab
         title: 'Page-specific Q&A'
@@ -7999,10 +7999,10 @@ display:
         menu_name: admin
         parent: system.admin_content
         context: '0'
-        as_local_task: false
-        local_task_link_title: ''
-        local_task_parent: 'views_view:view.centralized_content_paragraphs.centralized_content_paragraphs'
-        local_task_weight: 0
+        as_local_task: true
+        local_task_link_title: 'Page-specific Q&A'
+        local_task_parent: 'views_view:view.content.content_audit_page'
+        local_task_weight: -150
         local_task_custom_parent_route: ''
       tab_options:
         type: normal
