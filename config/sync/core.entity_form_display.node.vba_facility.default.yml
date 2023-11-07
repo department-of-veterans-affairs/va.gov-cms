@@ -304,10 +304,10 @@ third_party_settings:
     group_banner:
       children:
         - field_vba_banner_panel
-        - field_banner_title
-        - field_banner_content
         - field_alert_type
         - field_dismissible_option
+        - field_banner_title
+        - field_banner_content
       label: Banner
       region: content
       parent_name: ''
@@ -341,13 +341,13 @@ content:
     third_party_settings: {  }
   field_alert_type:
     type: options_select
-    weight: 30
+    weight: 28
     region: content
     settings: {  }
     third_party_settings: {  }
   field_banner_content:
     type: text_textarea
-    weight: 29
+    weight: 31
     region: content
     settings:
       rows: 5
@@ -355,7 +355,7 @@ content:
     third_party_settings: {  }
   field_banner_title:
     type: string_textfield
-    weight: 28
+    weight: 30
     region: content
     settings:
       size: 60
@@ -434,8 +434,8 @@ content:
       show_source_updated_date: '1'
     third_party_settings: {  }
   field_dismissible_option:
-    type: options_select
-    weight: 31
+    type: options_buttons
+    weight: 29
     region: content
     settings: {  }
     third_party_settings: {  }
