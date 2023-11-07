@@ -23,14 +23,17 @@ Use the appropriate template for the type of research you are conducting:
 - [Veteran-facing Conversation Guide Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/planning/conversation-guide-template.md)
 
 ### Suggested workflow:
-- [ ] Create your initial draft for collaborative editing
-- [ ] Solicit feedback from Design Lead and Product Manager, and incorporate their feedback
-- [ ] Solicit feedback from the Product Owner (async or in a meeting w/PM), and incorporate their feedback 
-- [ ] Post on github for final approval before submitting to Research Review cycle
+- [ ] Brainstorm potential tasks
+- [ ] Create your initial draft
+- [ ] Solicit feedback from UX Lead and/or Product Manager (PM)
+- [ ] Solicit feedback from VA Product Owner (PO) async or in a meeting w/PM
+- [ ] Test prototype(s) with conversation guide and align
+- [ ] Post on github in project research folder for final approval before submitting to Research Review cycle
 
 ## Acceptance Criteria
-- [ ]  
-- [ ] 
-- [ ] Update artifacts with PO feedback from review meeting
-- [ ] Convert artifacts to markdown format and store in github Research Folder
-- [ ] Get final approval from PO before sending to Research Review cycle
+- [ ] Conversation guide drafted
+- [ ] Feedback incorporated from UX Lead and/or PM
+- [ ] Feedback incorporated from VA PO 
+- [ ] Conversation guide aligns with prototype(s)
+- [ ] Conversation guide posted on github in project research folder
+- [ ] Final approval obtained from PO in preparation for Research Review cycle
