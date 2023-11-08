@@ -39,11 +39,20 @@ trap "rm -f ${reporoot}/.buildlock" INT TERM EXIT
 # Just because the path is really long:
 logfile="${reporoot}/docroot/sites/default/files/build.txt"
 
+# The currently selected version of content-build (may be "__default", a PR#, or a git ref)
+content_build_version=$(drush va-gov-content-release:vets-website-version:get content_build | tail -1)
+
+# The currently selected version of vets-website (may be "__default", a PR#, or a git ref)
+vets_website_version=$(drush va-gov-content-release:vets-website-version:get vets_website | tail -1)
+
 # Create a fresh log file.
 [ -f "${logfile}" ] && rm ${logfile}
 touch ${logfile}
 
 date >> ${logfile}
+
+echo "content-build version: ${content_build_version}" >> ${logfile}
+echo "vets-website version: ${vets_website_version}" >> ${logfile}
 
 # Tell the frontend (and the user) that we're starting.
 drush va-gov:content-release:advance-state starting
@@ -54,17 +63,16 @@ echo "==> Resetting VA repos to default versions" >> ${logfile}
 rm -rf ${reporoot}/docroot/vendor/va-gov
 composer install --no-scripts &>> ${logfile}
 
-# Get the requested frontend version
-feversion=$(drush va-gov-content-release:frontend-version:get content_build | tail -1)
-if [ "${feversion}" != "__default" ]; then
+# Get the requested content-build version
+if [ "${content_build_version}" != "__default" ]; then
   echo "==> Checking out the requested frontend version" >> ${logfile}
   pushd ${reporoot}/docroot/vendor/va-gov/content-build
-  if echo "$feversion" | grep -qE '^[0-9]+$' > /dev/null; then
-    echo "==> Checking out PR #${feversion}"
-    git fetch origin pull/${feversion}/head &>> ${logfile}
+  if echo "${content_build_version}" | grep -qE '^[0-9]+$' > /dev/null; then
+    echo "==> Checking out PR #${content_build_version}"
+    git fetch origin pull/${content_build_version}/head &>> ${logfile}
   else
-    echo "==> Checking out git ref ${feversion}"
-    git fetch origin ${feversion} &>> ${logfile}
+    echo "==> Checking out git ref ${content_build_version}"
+    git fetch origin ${content_build_version} &>> ${logfile}
   fi
   git checkout FETCH_HEAD &>> ${logfile}
   popd
@@ -75,16 +83,15 @@ echo "==> Installing yarn dependencies" >> ${logfile}
 composer va:web:install &>> ${logfile}
 
 # Get the requested vets-website version
-vwversion=$(drush va-gov-content-release:vets-website-version:get vets_website | tail -1)
-if [ "${vwversion}" != "__default" ]; then
+if [ "${vets_website_version}" != "__default" ]; then
   echo "==> Checking out the requested vets-website version" >> ${logfile}
   pushd ${reporoot}/docroot/vendor/va-gov/vets-website
-  if echo "$vwversion" | grep -qE '^[0-9]+$' > /dev/null; then
-    echo "==> Checking out PR #${vwversion}"
-    git fetch origin pull/${vwversion}/head &>> ${logfile}
+  if echo "$vets_website_version" | grep -qE '^[0-9]+$' > /dev/null; then
+    echo "==> Checking out PR #${vets_website_version}"
+    git fetch origin pull/${vets_website_version}/head &>> ${logfile}
   else
-    echo "==> Checking out git ref ${vwversion}"
-    git fetch origin ${vwversion} &>> ${logfile}
+    echo "==> Checking out git ref ${vets_website_version}"
+    git fetch origin ${vets_website_version} &>> ${logfile}
   fi
   git checkout FETCH_HEAD &>> ${logfile}
   popd
