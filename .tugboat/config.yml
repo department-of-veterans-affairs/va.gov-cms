@@ -237,14 +237,14 @@ services:
         - find -L "${DOCROOT}/vendor/va-gov/content-build/node_modules/.bin" -type f -exec chmod +x {} \+
         - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
 
-        # Build storybook and the frontends (web, next) in parallel
-        - bash -lc 'time task --taskfile=tugboat.yml'
-
-        # Put necessary env variables in place for next's Drupal Preview before starting server
+        # Put necessary env variables in place for next's Drupal Preview before building server
         - echo "NEXT_PUBLIC_DRUPAL_BASE_URL=${TUGBOAT_SERVICE_URL}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "NEXT_IMAGE_DOMAIN=${TUGBOAT_SERVICE_URL}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+
+        # Build storybook and the frontends (web, next) in parallel
+        - bash -lc 'time task --taskfile=tugboat.yml'
 
         # Start the next build server
         - bash -lc 'composer va:next:start'
