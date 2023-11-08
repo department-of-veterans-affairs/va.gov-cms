@@ -2,8 +2,8 @@
 
 namespace tests\phpunit\va_gov_git\functional\BranchSearch\Factory;
 
-use Drupal\va_gov_git\BranchSearch\Factory\BranchSearchFactory;
 use Drupal\va_gov_git\BranchSearch\BranchSearchInterface;
+use Drupal\va_gov_git\BranchSearch\Factory\BranchSearchFactory;
 use Drupal\va_gov_git\Repository\Settings\RepositorySettingsInterface;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
@@ -66,6 +66,14 @@ class BranchSearchFactoryTest extends VaGovExistingSiteBase {
    */
   public function testGetContentBuild() {
     $branchSearch = \Drupal::service('va_gov_git.branch_search_factory')->getContentBuild();
+    $this->assertInstanceOf(BranchSearchInterface::class, $branchSearch);
+  }
+
+  /**
+   * Test the getVetsWebsite() method.
+   */
+  public function testGetVetsWebsite() {
+    $branchSearch = \Drupal::service('va_gov_git.branch_search_factory')->getVetsWebsite();
     $this->assertInstanceOf(BranchSearchInterface::class, $branchSearch);
   }
 

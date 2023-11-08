@@ -13,3 +13,7 @@ services:
     class: Drupal\va_gov_github\Api\Client\ApiClientInterface
     factory: ['@va_gov_github.api_client_factory', 'getContentBuild']
     arguments: []
+  va_gov_github.api_client.vets_website:
+    class: Drupal\va_gov_github\Api\Client\ApiClientInterface
+    factory: ['@va_gov_github.api_client_factory', 'getVetsWebsite']
+    arguments: []

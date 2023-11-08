@@ -4,10 +4,12 @@ namespace Drupal\va_gov_content_release\Form;
 
 use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface;
-use Drupal\va_gov_content_release\Request\RequestInterface;
-use Drupal\va_gov_content_release\Reporter\ReporterInterface;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
+use Drupal\va_gov_content_release\Frontend\Frontend;
+use Drupal\va_gov_content_release\Frontend\FrontendInterface;
+use Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface;
+use Drupal\va_gov_content_release\Reporter\ReporterInterface;
+use Drupal\va_gov_content_release\Request\RequestInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -100,29 +102,57 @@ class GitForm extends BaseForm {
       '#suffix' => '</h2>',
     ];
 
-    $form['build_request']['selection'] = [
-      '#title' => $this->t('Which version of the VA.gov front end would you like to use?'),
+    $form['build_request']['content_build_selection'] = [
+      '#title' => $this->t('Which version of content-build would you like to use?'),
       '#type' => 'radios',
       '#options' => [
-        'default' => $this->t('Use default - the frontend version from the time this demo environment was created.'),
-        'choose' => $this->t('Select a different frontend branch/pull request - for example, to see your content in a newer frontend design.'),
+        'default' => $this->t('Use default - the content-build version from the time this demo environment was created.'),
+        'choose' => $this->t('Select a different content-build branch/pull request - for example, to see your content in a newer frontend design.'),
       ],
       '#default_value' => 'default',
     ];
 
-    $form['build_request']['git_ref'] = [
+    $form['build_request']['content_build_git_ref'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Select branch/pull request'),
-      '#description' => $this->t('Start typing to select a branch for the frontend version you want to use.'),
-      '#autocomplete_route_name' => 'va_gov_build_trigger.front_end_branches_autocomplete',
+      '#description' => $this->t('Start typing to select a branch for the content-build version you want to use.'),
+      '#autocomplete_route_name' => 'va_gov_content_release.frontend_version_autocomplete',
       '#autocomplete_route_parameters' => [
+        'frontend' => 'content_build',
         'count' => 10,
       ],
       '#size' => 72,
       '#maxlength' => 1024,
       '#hidden' => TRUE,
       '#states' => [
-        'visible' => [':input[name="selection"]' => ['value' => 'choose']],
+        'visible' => [':input[name="content_build_selection"]' => ['value' => 'choose']],
+      ],
+    ];
+
+    $form['build_request']['vets_website_selection'] = [
+      '#title' => $this->t('Which version of vets-website would you like to use?'),
+      '#type' => 'radios',
+      '#options' => [
+        'default' => $this->t('Use default - the vets-website version from the time this demo environment was created.'),
+        'choose' => $this->t('Select a different vets-website branch/pull request - for example, to see your content in a newer frontend design.'),
+      ],
+      '#default_value' => 'default',
+    ];
+
+    $form['build_request']['vets_website_git_ref'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Select branch/pull request'),
+      '#description' => $this->t('Start typing to select a branch for the vets-website version you want to use.'),
+      '#autocomplete_route_name' => 'va_gov_content_release.frontend_version_autocomplete',
+      '#autocomplete_route_parameters' => [
+        'frontend' => 'vets_website',
+        'count' => 10,
+      ],
+      '#size' => 72,
+      '#maxlength' => 1024,
+      '#hidden' => TRUE,
+      '#states' => [
+        'visible' => [':input[name="vets_website_selection"]' => ['value' => 'choose']],
       ],
     ];
 
@@ -152,70 +182,108 @@ class GitForm extends BaseForm {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getValue('selection') === 'default') {
-      $this->resetFrontendVersion($form_state);
+    $this->submitFormForFrontend(Frontend::ContentBuild, $form_state);
+    $this->submitFormForFrontend(Frontend::VetsWebsite, $form_state);
+    parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Submit the form.
+   *
+   * @param \Drupal\va_gov_content_release\Frontend\FrontendInterface $frontend
+   *   The frontend whose version we are managing.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Object containing current form state.
+   */
+  protected function submitFormForFrontend(FrontendInterface $frontend, FormStateInterface $form_state) {
+    $selectionName = $frontend->getRawValue() . '_selection';
+    if ($form_state->getValue($selectionName) === 'default') {
+      $this->resetFrontendVersion($frontend, $form_state);
     }
     else {
-      $this->setFrontendVersion($form_state);
+      $this->setFrontendVersion($frontend, $form_state);
     }
-
-    parent::submitForm($form, $form_state);
   }
 
   /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getValue('selection') === 'default') {
-      return;
-    }
-    if (empty($this->getGitRef($form_state))) {
-      $form_state->setErrorByName('git_ref', $this->t('Invalid selection.'));
+    $this->validateFormForFrontend(Frontend::ContentBuild, $form_state);
+    $this->validateFormForFrontend(Frontend::VetsWebsite, $form_state);
+  }
+
+  /**
+   * Validate the form.
+   *
+   * @param \Drupal\va_gov_content_release\Frontend\FrontendInterface $frontend
+   *   The frontend whose version we are managing.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Object containing current form state.
+   */
+  protected function validateFormForFrontend(FrontendInterface $frontend, FormStateInterface $form_state) {
+    $selectionName = $frontend->getRawValue() . '_selection';
+    $gitRefName = $frontend->getRawValue() . '_git_ref';
+    if ($form_state->getValue($selectionName) !== 'default') {
+      if (empty($this->getGitRef($frontend, $form_state))) {
+        $form_state->setErrorByName($gitRefName, $this->t('Invalid selection.'));
+      }
     }
   }
 
   /**
    * Reset the frontend version.
    *
+   * @param \Drupal\va_gov_content_release\Frontend\FrontendInterface $frontend
+   *   The frontend whose version we are resetting.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Object containing current form state.
    */
-  public function resetFrontendVersion(FormStateInterface $form_state) {
+  public function resetFrontendVersion(FrontendInterface $frontend, FormStateInterface $form_state) {
     if (!$this->isUnderTest($form_state)) {
-      $this->frontendVersion->reset();
+      $this->frontendVersion->resetVersion($frontend);
     }
     else {
-      $this->reporter->reportInfo($this->t('Reset frontend version skipped; form is under test.'));
+      $this->reporter->reportInfo($this->t('Reset :frontend version skipped; form is under test.', [
+        ':frontend' => $frontend->getRawValue(),
+      ]));
     }
   }
 
   /**
    * Set the frontend version according to the form.
    *
+   * @param \Drupal\va_gov_content_release\Frontend\FrontendInterface $frontend
+   *   The frontend whose version we are setting.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Object containing current form state.
    */
-  public function setFrontendVersion(FormStateInterface $form_state) {
+  public function setFrontendVersion(FrontendInterface $frontend, FormStateInterface $form_state) {
     if (!$this->isUnderTest($form_state)) {
-      $this->frontendVersion->set($this->getGitRef($form_state));
+      $this->frontendVersion->setVersion($frontend, $this->getGitRef($frontend, $form_state));
     }
     else {
-      $this->reporter->reportInfo($this->t('Set frontend version skipped; form is under test.'));
+      $this->reporter->reportInfo($this->t('Set :frontend version skipped; form is under test.', [
+        ':frontend' => $frontend->getRawValue(),
+      ]));
     }
   }
 
   /**
    * Parse a git ref out of the `git_ref` field value.
    *
+   * @param \Drupal\va_gov_content_release\Frontend\FrontendInterface $frontend
+   *   The frontend whose version we are setting.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Object containing current form state.
    *
    * @return string
    *   A standalone git ref, or an empty string.
    */
-  public function getGitRef(FormStateInterface $form_state) : string {
+  public function getGitRef(FrontendInterface $frontend, FormStateInterface $form_state) : string {
     // If they selected a specific git ref, use that.
-    $formValue = $form_state->getValue('git_ref');
+    $gitRefName = $frontend->getRawValue() . '_git_ref';
+    $formValue = $form_state->getValue($gitRefName);
     $result = '';
     if (preg_match("/.+\\s\\(([^\\)]+)\\)/", $formValue, $matches)) {
       $result = $matches[1];
