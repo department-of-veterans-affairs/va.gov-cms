@@ -1,9 +1,8 @@
 ---
-name: Research Recruitment and Scheduling
-about: Use this template when recruting and scheduling participants for a research
-  study
-title: Recruit and schedule participants for [PRODUCT/INITIATIVE] research
-labels: Design, Research
+name: Research Prep Tasks
+about: Use this template when prepping for a research study
+title: Prep for [PRODUCT/INITIATIVE] research
+labels: UX, Research
 assignees: ''
 
 ---

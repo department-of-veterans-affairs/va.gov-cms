@@ -1,8 +1,7 @@
 ---
-name: Research Readout and Documentation
-about: Use this template when reporting your research via readouts and documentation.
-title: Conduct [PRODUCT/INITIATIVE] Research Readout and Document Findings in Research
-  Repository
+name: Research Readout and Post-Research tasks
+about: Use this template when sharing your research via readouts and doing final clean-up tasks.
+title: Conduct [PRODUCT/INITIATIVE] research readout and complete post-research tasks
 labels: Research, UX
 assignees: ''
 
