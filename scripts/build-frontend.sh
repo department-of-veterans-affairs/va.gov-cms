@@ -76,6 +76,8 @@ if [ "${content_build_version}" != "__default" ]; then
   fi
   git checkout FETCH_HEAD &>> ${logfile}
   popd
+else
+  echo "==> Using default content-build version" >> ${logfile}
 fi
 
 # Install 3rd party deps.
@@ -95,6 +97,8 @@ if [ "${vets_website_version}" != "__default" ]; then
   fi
   git checkout FETCH_HEAD &>> ${logfile}
   popd
+else
+  echo "==> Using default vets-website version" >> ${logfile}
 fi
 
 # Run the build.
