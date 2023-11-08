@@ -40,10 +40,10 @@ trap "rm -f ${reporoot}/.buildlock" INT TERM EXIT
 logfile="${reporoot}/docroot/sites/default/files/build.txt"
 
 # The currently selected version of content-build (may be "__default", a PR#, or a git ref)
-content_build_version=$(drush va-gov-content-release:vets-website-version:get content_build | tail -1)
+content_build_version=$(drush va-gov-content-release:frontend-version:get content_build | tail -1)
 
 # The currently selected version of vets-website (may be "__default", a PR#, or a git ref)
-vets_website_version=$(drush va-gov-content-release:vets-website-version:get vets_website | tail -1)
+vets_website_version=$(drush va-gov-content-release:frontend-version:get vets_website | tail -1)
 
 # Create a fresh log file.
 [ -f "${logfile}" ] && rm ${logfile}
