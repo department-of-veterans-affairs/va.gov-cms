@@ -5,6 +5,7 @@
  * Update functions for the va_gov_migrate module.
  */
 
+use Drupal\content_model_documentation\CmDocumentMover\CmDocumentImport;
 use Drupal\Core\Database\Database;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\StreamWrapper\PublicStream;
@@ -200,4 +201,27 @@ function va_gov_migrate_update_8010() {
   }
 
   return $messages;
+}
+
+/**
+ * Update Content Model Documentation ahead of config import.
+ */
+function va_gov_migrate_update_9001() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('content_model_documentation.settings');
+  $config->set('export_location', 'va_gov_migrate');
+  $config->save(TRUE);
+  return 'Added storage location for Content Model Documentation module.';
+}
+
+/**
+ * Import documentation about Importing documentation.
+ */
+function va_gov_migrate_update_9002() {
+  $cm_documents_to_import = [
+    '/admin/structure/cm_document/process/125/importing-site-documentation',
+  ];
+  // Consider using TRUE for new CM Documents, and FALSE for updating existing.
+  $strict = TRUE;
+  return CmDocumentImport::import($cm_documents_to_import, $strict);
 }

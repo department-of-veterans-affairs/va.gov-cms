@@ -1,8 +1,8 @@
 ---
-name: Public Websites Epic
-about: A epic for the Public Websites team.
+name: Sitewide Epic - Web Governance Board
+about: Epic template for Sitewide projects that need to be publicized in the Web Governance Board project view, for Public Websites and Facilities teams.
 title: ""
-labels: Epic, Public Websites
+labels: Epic
 assignees: ''
 
 ---
@@ -18,7 +18,7 @@ assignees: ''
 ## Headlines
 **VA stakeholders** - 
 
-**OCTO lead** - Dave Conlon
+**OCTO lead** - 
 
 **Is this project tracked to an upcoming event or congressional deadline?** - 
 
@@ -30,7 +30,7 @@ assignees: ''
 
 **What is the user impact and scale of impact?** - 
 
-**Who would manage this product long term?** - Public Websites
+**Who would manage this product long term?** - 
 
 **How much leverage will this create to solve more problems in the future?** -  
 

@@ -1,23 +1,133 @@
 
 # Lines starting with '#' are comments.
 # Each line is a file pattern followed by one or more owners.
+# The '*' pattern is global owners.
+# Order is important. The last matching pattern has the most precedence.
 
 # More details are here: https://help.github.com/articles/about-codeowners/
 
-# The '*' pattern is global owners.
-
-# Order is important. The last matching pattern has the most precedence.
-# The folders are ordered as follows:
-
-# In each subsection folders are ordered first by depth, then alphabetically.
-# This should make it easy to add new rules without breaking existing ones.
-
 # CMS teams: See https://github.com/orgs/department-of-veterans-affairs/teams?query=cms for full list
+# Also see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/15563 re: cleanup
+#
 # @department-of-veterans-affairs/cms-infrastructure
+# @department-of-veterans-affairs/facilities-cms
+# @department-of-veterans-affairs/public-websites-cms
 # @department-of-veterans-affairs/vfs-cms-team
-# @department-of-veterans-affairs/vfs-cms-team-core
-# @department-of-veterans-affairs/vfs-cms-team-product
-# @department-of-veterans-affairs/vfs-cms-team-infrastructure
 
-# Global rule:
-# @department-of-veterans-affairs/vfs-cms-team
+# By default, ownership reverts to platform-cms-drupal-engineers
+*                                                                   @department-of-veterans-affairs/platform-cms-drupal-engineers
+
+# Local/Codespaces/Tugboat/GitHub stuff belongs to DevOps...
+/.ddev/                                                             @department-of-veterans-affairs/platform-cms-devops-engineers
+/.devcontainer/                                                     @department-of-veterans-affairs/platform-cms-devops-engineers
+/.dumps/                                                            @department-of-veterans-affairs/platform-cms-devops-engineers
+/.github/                                                           @department-of-veterans-affairs/platform-cms-devops-engineers
+/.storybook/                                                        @department-of-veterans-affairs/platform-cms-ux @department-of-veterans-affairs/platform-cms-accessibility
+/.tugboat/                                                          @department-of-veterans-affairs/platform-cms-devops-engineers
+/.vscode/                                                           # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/bin/                                                               @department-of-veterans-affairs/platform-cms-devops-engineers
+
+# Config belongs to anyone by default.
+/config/                                                            @department-of-veterans-affairs/vfs-cms-team
+/config/sync/                                                       # @department-of-veterans-affairs/vfs-cms-team
+# aka VAMC System Banner Alert with Situation Updates
+/config/sync/*full_width_banner_alert*                              @department-of-veterans-affairs/facilities-cms
+# To catch VAMC stuff with older naming convention
+/config/sync/*health_care*                                          @department-of-veterans-affairs/facilities-cms
+/config/sync/*jsonapi*                                              @department-of-veterans-affairs/accelerated-publishing
+# aka VAMC System Locations List
+/config/sync/*locations_listing*                                    @department-of-veterans-affairs/facilities-cms
+/config/sync/*nca*                                                  @department-of-veterans-affairs/facilities-cms
+/config/sync/*vamc*                                                 @department-of-veterans-affairs/facilities-cms
+/config/sync/*vba*                                                  @department-of-veterans-affairs/facilities-cms
+/config/sync/*vet_center*                                           @department-of-veterans-affairs/facilities-cms
+/docroot/                                                           # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/cypress/                                                   @department-of-veterans-affairs/platform-cms-qa
+/docroot/design-system/                                             @department-of-veterans-affairs/platform-cms-ux
+/docroot/modules/                                                   # @department-of-veterans-affairs/platform-cms-drupal-engineers
+
+# Custom modules should be owned by the teams with primary responsibility for maintaining them.
+/docroot/modules/custom/va_gov_api                                  @department-of-veterans-affairs/accelerated-publishing
+/docroot/modules/custom/va_gov_backend                              # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_banner                               # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_benefits                             @department-of-veterans-affairs/public-websites-cms
+/docroot/modules/custom/va_gov_block_types                          # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_build_trigger                        # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_bulk                                 # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_clone                                # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_clp                                  # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_consumers                            @department-of-veterans-affairs/facilities-cms @department-of-veterans-affairs/public-websites-cms
+/docroot/modules/custom/va_gov_content_release                      # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_content_types                        @department-of-veterans-affairs/platform-cms-drupal-engineers @department-of-veterans-affairs/public-websites-cms @department-of-veterans-affairs/facilities-cms 
+/docroot/modules/custom/va_gov_dashboards                           @department-of-veterans-affairs/platform-cms-drupal-engineers @department-of-veterans-affairs/facilities-cms 
+/docroot/modules/custom/va_gov_db                                   # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_entity_browser                       @department-of-veterans-affairs/public-websites-cms
+/docroot/modules/custom/va_gov_environment                          # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_events                               @department-of-veterans-affairs/public-websites-cms
+/docroot/modules/custom/va_gov_facilities                           @department-of-veterans-affairs/facilities-cms
+/docroot/modules/custom/va_gov_flags                                @department-of-veterans-affairs/platform-cms-drupal-engineers @department-of-veterans-affairs/public-websites-cms @department-of-veterans-affairs/facilities-cms 
+/docroot/modules/custom/va_gov_git                                  # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_github                               # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_govdelivery                          @department-of-veterans-affairs/facilities-cms
+/docroot/modules/custom/va_gov_graphql                              # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_header_footer                        @department-of-veterans-affairs/public-websites-cms
+/docroot/modules/custom/va_gov_help_center                          # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_home                                 @department-of-veterans-affairs/public-websites-cms
+/docroot/modules/custom/va_gov_links                                # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_live_field_migration                 # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_login                                # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_lovell                               @department-of-veterans-affairs/facilities-cms
+/docroot/modules/custom/va_gov_magichead                            @department-of-veterans-affairs/public-websites-cms
+/docroot/modules/custom/va_gov_media                                # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_menu_access                          # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_menus                                # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_migrate                              @department-of-veterans-affairs/facilities-cms @department-of-veterans-affairs/public-websites-cms
+/docroot/modules/custom/va_gov_multilingual                         # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_notifications                        @department-of-veterans-affairs/platform-cms-drupal-engineers @department-of-veterans-affairs/facilities-cms 
+/docroot/modules/custom/va_gov_post_api                             @department-of-veterans-affairs/facilities-cms
+/docroot/modules/custom/va_gov_preview                              # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/modules/custom/va_gov_profile                              @department-of-veterans-affairs/facilities-cms
+/docroot/modules/custom/va_gov_resources_and_support                @department-of-veterans-affairs/public-websites-cms
+/docroot/modules/custom/va_gov_user                                 @department-of-veterans-affairs/platform-cms-drupal-engineers @department-of-veterans-affairs/facilities-cms @department-of-veterans-affairs/public-websites-cms 
+/docroot/modules/custom/va_gov_vamc                                 @department-of-veterans-affairs/facilities-cms
+/docroot/modules/custom/va_gov_vba_facility                         @department-of-veterans-affairs/facilities-cms
+/docroot/modules/custom/va_gov_vet_center                           @department-of-veterans-affairs/facilities-cms
+/docroot/modules/custom/va_gov_workflow                             @department-of-veterans-affairs/platform-cms-drupal-engineers @department-of-veterans-affairs/facilities-cms @department-of-veterans-affairs/public-websites-cms 
+/docroot/modules/custom/va_gov_workflow_assignments                 # @department-of-veterans-affairs/platform-cms-drupal-engineers
+
+/docroot/profiles/                                                  @department-of-veterans-affairs/platform-cms-qa
+/docroot/scripts/                                                   @department-of-veterans-affairs/platform-cms-devops-engineers
+/docroot/simplesaml/                                                @department-of-veterans-affairs/platform-cms-devops-engineers
+/docroot/sites/                                                     @department-of-veterans-affairs/platform-cms-devops-engineers @department-of-veterans-affairs/platform-cms-drupal-engineers
+/docroot/themes/                                                    @department-of-veterans-affairs/platform-cms-ux @department-of-veterans-affairs/platform-cms-accessibility
+/drush/                                                             # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/hooks/                                                             @department-of-veterans-affairs/platform-cms-devops-engineers
+/patches/                                                           # @department-of-veterans-affairs/platform-cms-drupal-engineers
+/scripts/                                                           @department-of-veterans-affairs/platform-cms-devops-engineers
+/tests/                                                             @department-of-veterans-affairs/platform-cms-qa
+/tests/cypress/                                                     # @department-of-veterans-affairs/platform-cms-qa
+/tests/phpunit/                                                     # @department-of-veterans-affairs/platform-cms-qa
+/tests/scripts/                                                     @department-of-veterans-affairs/platform-cms-qa @department-of-veterans-affairs/platform-cms-devops-engineers
+.env.example                                                        @department-of-veterans-affairs/platform-cms-devops-engineers
+.gitattributes                                                      @department-of-veterans-affairs/platform-cms-devops-engineers
+.gitignore                                                          @department-of-veterans-affairs/platform-cms-devops-engineers
+.web                                                                @department-of-veterans-affairs/platform-cms-devops-engineers
+composer.json                                                       # @department-of-veterans-affairs/platform-cms-drupal-engineers
+composer.lock                                                       # @department-of-veterans-affairs/platform-cms-drupal-engineers
+cypress.config.js                                                   @department-of-veterans-affairs/platform-cms-qa
+Jenkinsfile.cd                                                      @department-of-veterans-affairs/platform-cms-devops-engineers
+multi-reporter-config.json                                          @department-of-veterans-affairs/platform-cms-qa
+package-lock.json                                                   # @department-of-veterans-affairs/platform-cms-drupal-engineers
+package.json                                                        # @department-of-veterans-affairs/platform-cms-drupal-engineers
+phpcs.xml.dist                                                      @department-of-veterans-affairs/platform-cms-qa
+phploc.phar                                                         @department-of-veterans-affairs/platform-cms-qa
+phpstan_bootstrap.php                                               @department-of-veterans-affairs/platform-cms-qa
+phpstan-baseline.neon                                               @department-of-veterans-affairs/platform-cms-qa
+phpstan.neon                                                        @department-of-veterans-affairs/platform-cms-qa
+phpunit.xml                                                         @department-of-veterans-affairs/platform-cms-qa
+LICENSE.md                                                          @department-of-veterans-affairs/platform-cms
+README.md                                                           @department-of-veterans-affairs/platform-cms
+SECURITY.md                                                         @department-of-veterans-affairs/platform-cms-qa
+tasks-periodic.yml                                                  @department-of-veterans-affairs/platform-cms-devops-engineers
+tests.yml                                                           @department-of-veterans-affairs/platform-cms-qa
+tugboat.yml                                                         @department-of-veterans-affairs/platform-cms-devops-engineers
