@@ -52,7 +52,11 @@ class PreventPreviewUrlsAsPathsInLinksValidator extends ConstraintValidator {
     /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventPreviewUrlsAsPathsInLinks $constraint */
     $dom = Html::load($html);
     $xpath = new \DOMXPath($dom);
-    foreach ($xpath->query('//a[starts-with(@href, "preview-staging.vfs.va.gov")] | //a[starts-with(@href, "preview-prod.vfs.va.gov")]') as $element) {
+    foreach ($xpath->query('//a[contains(@href, "preview-staging.vfs.va.gov") or contains(@href, "preview-prod.vfs.va.gov")]') as $element) {
+      // Ignore non-element nodes.
+      if (!($element instanceof \DOMElement)) {
+        continue;
+      }
       $url = $element->getAttribute('href');
       $firstChild = $element->hasChildNodes() ? $element->childNodes[0] : NULL;
       $link = $element->ownerDocument->saveHTML($firstChild ?? $element);
