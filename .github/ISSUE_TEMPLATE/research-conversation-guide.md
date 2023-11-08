@@ -11,9 +11,7 @@ assignees: ''
 
 ### User story
 **AS A** Researcher
-
 **I WANT** to document the details for conducting PAW usability sessions
-
 **SO THAT** the research will achieve the stated goals and answer the research questions
 
 ### Templates
