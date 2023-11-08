@@ -241,6 +241,8 @@ services:
         - bash -lc 'time task --taskfile=tugboat.yml'
 
         # Put necessary env variables in place for next's Drupal Preview before starting server
+        - echo "NEXT_PUBLIC_DRUPAL_BASE_URL=${TUGBOAT_SERVICE_URL}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+        - echo "NEXT_IMAGE_DOMAIN=${TUGBOAT_SERVICE_URL}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
 
