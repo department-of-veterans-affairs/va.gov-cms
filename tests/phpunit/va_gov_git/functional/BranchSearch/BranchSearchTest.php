@@ -35,6 +35,7 @@ class BranchSearchTest extends VaGovExistingSiteBase {
     return [
       ['va_gov_git.branch_search.va_gov_cms'],
       ['va_gov_git.branch_search.content_build'],
+      ['va_gov_git.branch_search.vets_website'],
     ];
   }
 
@@ -65,6 +66,7 @@ class BranchSearchTest extends VaGovExistingSiteBase {
     return [
       ['va_gov_git.branch_search.va_gov_cms', 'main'],
       ['va_gov_git.branch_search.content_build', 'main'],
+      ['va_gov_git.branch_search.vets_website', 'main'],
     ];
   }
 

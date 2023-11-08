@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_build_trigger\Controller;
+namespace Drupal\va_gov_content_release\Controller;
 
 use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Controller\ControllerBase;
@@ -9,9 +9,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Retrieves the content release status block.
+ * Retrieves the status block.
  */
-class ContentReleaseStatusBlockController extends ControllerBase {
+class StatusBlockController extends ControllerBase {
 
   /**
    * Drupal\Core\Block\BlockManagerInterface definition.

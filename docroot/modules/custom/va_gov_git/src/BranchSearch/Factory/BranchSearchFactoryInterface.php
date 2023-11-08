@@ -10,9 +10,10 @@ use Drupal\va_gov_git\BranchSearch\BranchSearchInterface;
  * This service provides a way to create branch search services corresponding
  * to specific Git repositories.
  *
- * At this time, we're primarily interested in two repositories:
+ * At this time, we're primarily interested in three repositories:
  * - The `va.gov-cms` repository.
  * - The `content-build` repository.
+ * - The `vets-website` repository.
  */
 interface BranchSearchFactoryInterface {
 
@@ -45,5 +46,13 @@ interface BranchSearchFactoryInterface {
    *   The content-build branch search object.
    */
   public function getContentBuild(): BranchSearchInterface;
+
+  /**
+   * Get the vets-website branch search service.
+   *
+   * @return \Drupal\va_gov_git\BranchSearch\BranchSearchInterface
+   *   The vets-website branch search object.
+   */
+  public function getVetsWebsite(): BranchSearchInterface;
 
 }

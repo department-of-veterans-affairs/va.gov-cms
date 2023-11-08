@@ -59,6 +59,7 @@ $settings['va_gov_frontend_url'] = getenv('FRONTEND_ADDRESS');
 $settings['va_gov_frontend_build_type'] = 'tugboat';
 $settings['va_gov_app_root'] = getenv('TUGBOAT_ROOT');
 $settings['va_gov_web_root'] = getenv('TUGBOAT_ROOT') . '/web';
+$settings['va_gov_vets_website_root'] = getenv('TUGBOAT_ROOT') . '/docroot/vendor/va-gov/vets-website';
 
 $settings['memcache']['servers'] = [
   'memcache:11211' => 'default',
@@ -71,7 +72,7 @@ $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
 
 // PIV login does not currently work on Tugboat.
 //
-// To avoid confusing editors, we want to disable PIV login completely on 
+// To avoid confusing editors, we want to disable PIV login completely on
 // Tugboat demo environments.
 //
 // However, we want to _preserve_ the PIV login interface on Tugboat PR
