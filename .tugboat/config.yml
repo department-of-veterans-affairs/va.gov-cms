@@ -238,8 +238,9 @@ services:
         - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
 
         # Put necessary env variables in place for next's Drupal Preview before building server
-        - echo "NEXT_PUBLIC_DRUPAL_BASE_URL=${TUGBOAT_SERVICE_URL}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
-        - echo "NEXT_IMAGE_DOMAIN=${TUGBOAT_SERVICE_URL}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+        # Need to construct this way instead of TUGBOAT_DEFAULT_SERVICE_URL in order to drop the trailing /
+        - echo "NEXT_PUBLIC_DRUPAL_BASE_URL=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+        - echo "NEXT_IMAGE_DOMAIN=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
 
