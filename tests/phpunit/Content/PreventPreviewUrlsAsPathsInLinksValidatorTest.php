@@ -69,7 +69,7 @@ class PreventPreviewUrlsAsPathsInLinksValidatorTest extends VaGovUnitTestBase {
   public function validateDataProvider() {
     return [
       [
-        FALSE,
+        TRUE,
         'Normal string_long text should not fail validation.',
       ],
       [
