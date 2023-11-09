@@ -70,7 +70,7 @@ third_party_settings:
       label: 'Locations and contact information'
       parent_name: ''
       region: content
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -108,7 +108,7 @@ third_party_settings:
       label: 'Facility Intro and Photo'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -139,7 +139,7 @@ third_party_settings:
       label: 'Benefit office overview'
       parent_name: ''
       region: content
-      weight: 1
+      weight: 2
       format_type: tooltip
       format_settings:
         show_empty_fields: '1'
@@ -157,7 +157,7 @@ third_party_settings:
       label: 'Benefits hotline'
       parent_name: ''
       region: content
-      weight: 5
+      weight: 6
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -177,7 +177,7 @@ third_party_settings:
       label: 'Benefit office hours may vary'
       parent_name: ''
       region: content
-      weight: 4
+      weight: 5
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -199,7 +199,7 @@ third_party_settings:
       label: 'National spotlight'
       parent_name: ''
       region: content
-      weight: 7
+      weight: 8
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -219,7 +219,7 @@ third_party_settings:
       label: 'Can''t find benefits'
       parent_name: ''
       region: content
-      weight: 8
+      weight: 9
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -239,7 +239,7 @@ third_party_settings:
       label: 'Get updates from VBA'
       parent_name: ''
       region: content
-      weight: 9
+      weight: 10
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -267,6 +267,24 @@ third_party_settings:
         id: ''
         description: ''
         description_display: after
+    group_banner:
+      children:
+        - field_vba_banner_panel
+        - field_alert_type
+        - field_dismissible_option
+        - field_banner_title
+        - field_banner_content
+      label: Banner
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
 id: node.vba_facility.default
 targetEntityType: node
 bundle: vba_facility
@@ -284,7 +302,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 19
+    weight: 15
     region: content
   field_banner_content:
     type: text_default
@@ -362,7 +380,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 20
+    weight: 16
     region: content
   field_facility_locator_api_id:
     type: string
@@ -379,6 +397,15 @@ content:
     third_party_settings: {  }
     weight: 14
     region: content
+  field_location_services:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
   field_media:
     type: entity_reference_entity_view
     label: above
@@ -386,7 +413,7 @@ content:
       view_mode: default
       link: true
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   field_non_va_location_url:
     type: link
@@ -503,7 +530,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 21
+    weight: 14
     region: content
 hidden:
   breadcrumbs: true
