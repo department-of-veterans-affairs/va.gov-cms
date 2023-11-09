@@ -23,3 +23,18 @@ va_gov_content_release.form.simple:
     _form: '\Drupal\va_gov_content_release\Form\SimpleForm'
   requirements:
     _permission: "va gov deploy content build"
+
+va_gov_content_release.status_block_controller_get_block:
+  path: '/admin/content_release_status_block/ajax'
+  defaults:
+    _controller: '\Drupal\va_gov_content_release\Controller\StatusBlockController::getBlock'
+  requirements:
+    _permission: "va gov deploy content build"
+
+va_gov_content_release.frontend_version_autocomplete:
+  path: '/admin/content/deploy/frontend_version_autocomplete/{frontend}/{count}'
+  defaults:
+    _controller: '\Drupal\va_gov_content_release\Controller\FrontendVersionAutocompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    _permission: "va gov deploy content build"
