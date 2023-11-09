@@ -105,8 +105,8 @@ services:
         - update-ca-certificates
 
         # Write OAuth keys to files for next-build Preview Server validation
-        - echo ${OAUTH_PUBLIC_KEY} >> ${TUGBOAT_ROOT}/public.key
-        - echo ${OAUTH_PRIVATE_KEY} >> ${TUGBOAT_ROOT}/private.key
+        - echo "${OAUTH_PUBLIC_KEY}" >> ${TUGBOAT_ROOT}/public.key
+        - echo "${OAUTH_PRIVATE_KEY}" >> ${TUGBOAT_ROOT}/private.key
 
         # Install drush-launcher, if desired.
         - wget -O /usr/local/bin/drush https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar
