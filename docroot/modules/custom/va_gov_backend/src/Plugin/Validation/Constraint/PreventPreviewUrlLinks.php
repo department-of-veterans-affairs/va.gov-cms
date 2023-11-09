@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * In other words, we want to avoid things like this:
  *
- * `<a href="https://www.va.gov/">VA.gov</a>`
+ * `<a href="https://preview-staging.vfs.va.gov/path/to/content/">VA.gov</a>`
  *
  * @Constraint(
  *   id = "PreventPreviewUrlLinks",
