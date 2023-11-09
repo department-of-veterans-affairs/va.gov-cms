@@ -9,9 +9,9 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * Validates the PreventPreviewUrlsAsPathsInLinks constraint.
+ * Validates the PreventPreviewUrlLinks constraint.
  */
-class PreventPreviewUrlsAsPathsInLinksValidator extends ConstraintValidator {
+class PreventPreviewUrlLinksValidator extends ConstraintValidator {
 
   use TextValidatorTrait;
   use ValidatorContextAccessTrait;
@@ -37,7 +37,7 @@ class PreventPreviewUrlsAsPathsInLinksValidator extends ConstraintValidator {
      *
      * In other words, we look for a string that looks like a preview URL.
      */
-    /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventPreviewUrlsAsPathsInLinks $constraint */
+    /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventPreviewUrlLinks $constraint */
     if (preg_match('#(https?://preview-(staging|prod).vfs.va.gov[^\s]+)#', $text, $matches)) {
       $this->addViolation($delta, $constraint->plainTextMessage, [
         ':url' => $matches[1],
@@ -49,7 +49,7 @@ class PreventPreviewUrlsAsPathsInLinksValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validateHtml(string $html, Constraint $constraint, int $delta) {
-    /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventPreviewUrlsAsPathsInLinks $constraint */
+    /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventPreviewUrlLinks $constraint */
     $dom = Html::load($html);
     $xpath = new \DOMXPath($dom);
     foreach ($xpath->query('//a[contains(@href, "preview-staging.vfs.va.gov") or contains(@href, "preview-prod.vfs.va.gov")]') as $element) {

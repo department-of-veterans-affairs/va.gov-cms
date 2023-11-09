@@ -2,8 +2,8 @@
 
 namespace tests\phpunit\Content;
 
-use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventPreviewUrlsAsPathsInLinks;
-use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventPreviewUrlsAsPathsInLinksValidator;
+use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventPreviewUrlLinks;
+use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventPreviewUrlLinksValidator;
 use Tests\Support\Classes\VaGovUnitTestBase;
 use Tests\Support\Traits\ValidatorTestTrait;
 
@@ -16,7 +16,7 @@ use Tests\Support\Traits\ValidatorTestTrait;
  *
  * @coversDefaultClass \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventProtocolRelativeLinksValidator
  */
-class PreventPreviewUrlsAsPathsInLinksValidatorTest extends VaGovUnitTestBase {
+class PreventPreviewUrlLinksValidatorTest extends VaGovUnitTestBase {
 
   use ValidatorTestTrait;
 
@@ -26,7 +26,7 @@ class PreventPreviewUrlsAsPathsInLinksValidatorTest extends VaGovUnitTestBase {
    * @covers ::addViolation
    */
   public function testAddViolation() {
-    $validator = new PreventPreviewUrlsAsPathsInLinksValidator();
+    $validator = new PreventPreviewUrlLinksValidator();
     $this->prepareValidator($validator, FALSE);
     $validator->addViolation(3, 'Test violation');
   }
@@ -58,9 +58,9 @@ class PreventPreviewUrlsAsPathsInLinksValidatorTest extends VaGovUnitTestBase {
     $items = $this->getFieldItemList([
       $this->getFieldItem($value, $fieldType),
     ]);
-    $validator = new PreventPreviewUrlsAsPathsInLinksValidator();
+    $validator = new PreventPreviewUrlLinksValidator();
     $this->prepareValidator($validator, $willValidate);
-    $validator->validate($items, new PreventPreviewUrlsAsPathsInLinks());
+    $validator->validate($items, new PreventPreviewUrlLinks());
   }
 
   /**
@@ -78,11 +78,11 @@ class PreventPreviewUrlsAsPathsInLinksValidatorTest extends VaGovUnitTestBase {
       ],
       [
         FALSE,
-        'However, string_long text with http://preview-staging.vfs.va.gov/path/to/content a path that consists of an Preview URL should fail validation.',
+        'However, string_long text with http://preview-staging.vfs.va.gov/path/to/content that consists of an Preview URL should fail validation.',
       ],
       [
         FALSE,
-        'However, string_long text with http://preview-prod.vfs.va.gov/path/to/content a path that consists of an Preview URL should fail validation.',
+        'However, string_long text with http://preview-prod.vfs.va.gov/path/to/content that consists of an Preview URL should fail validation.',
       ],
       [
         TRUE,
