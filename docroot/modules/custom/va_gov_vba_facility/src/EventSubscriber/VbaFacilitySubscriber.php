@@ -179,6 +179,13 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form['#attached']['library'][] = 'va_gov_vba_facility/set_banner_content_to_required';
     $selector = ':input[name="field_vba_banner_panel[value]"]';
+    // Expand the fieldset when the show banner checkbox is checked.
+    $form['group_banner']['#states'] = [
+      'expanded' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+    ];
+    // Show the other banner fields, too.
     $form['field_alert_type']['widget']['#states'] = [
       'required' => [
         [$selector => ['checked' => TRUE]],
@@ -210,14 +217,14 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
       'visible' => [
         [$selector => ['checked' => TRUE]],
       ],
-      // Unfortunately we can not set the requiredness of a ckeditor field using
+      // Unfortunately we can not set ckeditor field as required using
       // states.  So we end up adding this with JS to bypass HTML5 validation
       // and let the validation constraint handle it.
       // This is to prevent the error:
       // An invalid form control with name='field_body[0][value]' is not
       // focusable.
       // because ckeditor changes the id of the field, so when html5 validation
-      // kicks in, it can't find the field to hilight as being required.
+      // kicks in, it can't find the field to highlight as being required.
       // @see https://www.drupal.org/project/drupal/issues/2722319
       // 'required' => [[$selector => ['checked' => TRUE]],],
     ];
@@ -238,6 +245,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->appendServiceTermDescriptionToVbaFacilityService($event);
+
   }
 
 
