@@ -169,23 +169,18 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     }
   }
 
-   /**
-   * Add states management to bio fields to determine visibility based on bool.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
+  /**
+  * Add states management to banner fields to determine visibility based on bool.
+  *
+  * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+  *   The event.
+  */
   public function addStateManagementToBannerFields(FormIdAlterEvent $event) {
     $form = &$event->getForm();
     $form['#attached']['library'][] = 'va_gov_vba_facility/set_banner_content_to_required';
     $selector = ':input[name="field_vba_banner_panel[value]"]';
-    // Expand the fieldset when the show banner checkbox is checked.
-    $form['group_banner']['#states'] = [
-      'expanded' => [
-        [$selector => ['checked' => TRUE]],
-      ],
-    ];
-    // Show the other banner fields, too.
+
+    // Show the banner fields when show banner is checked.
     $form['field_alert_type']['widget']['#states'] = [
       'required' => [
         [$selector => ['checked' => TRUE]],
@@ -245,7 +240,30 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->appendServiceTermDescriptionToVbaFacilityService($event);
+    $this->hideBannerFieldsWhenNotEnabled($event);
 
+  }
+
+  /**
+   * Hides the VBA facility banner fields when the banner is not enabled.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   * The entity view alter service.
+  */
+  public function hideBannerFieldsWhenNotEnabled(EntityViewAlterEvent $event):void {
+    $display = $event->getDisplay();
+    if (($display->getTargetBundle() === 'vba_facility')) {
+      $vbaNode = $event->getEntity();
+      $build = &$event->getBuild();
+      if ($vbaNode->field_vba_banner_panel->value == FALSE) {
+        if ($build['field_dismissible_option']) {
+          $build['field_dismissible_option'] = [];
+        }
+        if ($build['field_alert_type']) {
+          $build['field_alert_type'] = [];
+        }
+      }
+    }
   }
 
 
