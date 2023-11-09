@@ -25,7 +25,7 @@ class PreventPreviewUrlsAsPathsInLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventPreviewUrlsAsPathsInLinksValidator
    */
-  public $plainTextMessage = 'Remove the preview link ":url" and replace it with a public production URL.';
+  public $plainTextMessage = 'Replace the preview link ":url" with a public URL.';
 
   /**
    * The error message for rich text fields.
@@ -33,6 +33,6 @@ class PreventPreviewUrlsAsPathsInLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventPreviewUrlsAsPathsInLinksValidator
    */
-  public $richTextMessage = 'Review the linked text ":link" (:url) and update the preview URL with a public production URL.';
+  public $richTextMessage = 'Review the linked text ":link" (:url) and replace the preview URL with a public URL.';
 
 }
