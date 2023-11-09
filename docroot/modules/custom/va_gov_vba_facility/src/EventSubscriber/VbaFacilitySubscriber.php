@@ -10,17 +10,13 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
-
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
-
-use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\node\NodeInterface;
-
 use Drupal\va_gov_user\Service\UserPermsService;
-use Drupal\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -88,8 +84,23 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vba_facility_edit_form.alter' => 'alterVbaFacilityNodeForm',
       'hook_event_dispatcher.form_node_vba_facility_form.alter' => 'alterVbaFacilityNodeForm',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      EntityHookEvents::ENTITY_TYPE_ALTER => 'entityTypeAlter',
 
     ];
+  }
+
+  /**
+   * Equivalent of hook_entity_type_alter().
+   *
+   * @param Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent $event
+   *   The event for entityTypeAlter.
+   */
+  public function entityTypeAlter(EntityTypeAlterEvent $event): void {
+    $entity_types = $event->getEntityTypes();
+    if (!empty($entity_types['node'])) {
+      $entity = $entity_types['node'];
+      $entity->addConstraint('VbaFacilityRequiredFieldsConstraint');
+    }
   }
 
   /**
@@ -116,9 +127,9 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
 
     if ($entity->bundle() === "vba_facility") {
       if($entity->hasField('field_vba_banner_panel')
-      && $entity->field_vba_banner_panel->value === 0) {
+      && $entity->field_vba_banner_panel->value == FALSE) {
         $entity->field_banner_title->value = '';
-
+        $entity->field_banner_content->value = '';
       }
     }
 
@@ -166,9 +177,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    */
   public function addStateManagementToBannerFields(FormIdAlterEvent $event) {
     $form = &$event->getForm();
-    // TODO: Add a library
-    // $form['#attached']['library'][] = 'va_gov_profile/set_body_to_required';
-    // TODO: For 8 Nov: Start on changing this method
+    $form['#attached']['library'][] = 'va_gov_vba_facility/set_banner_content_to_required';
     $selector = ':input[name="field_vba_banner_panel[value]"]';
     $form['field_alert_type']['widget']['#states'] = [
       'required' => [
@@ -188,7 +197,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
       ],
     ];
 
-    $form['field_banner_title']['#states'] = [
+    $form['field_banner_title']['widget'][0]['value']['#states'] = [
       'required' => [
         [$selector => ['checked' => TRUE]],
       ],
@@ -197,7 +206,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
       ],
     ];
 
-    $form['field_body']['widget'][0]['#states'] = [
+    $form['field_banner_content']['widget'][0]['#states'] = [
       'visible' => [
         [$selector => ['checked' => TRUE]],
       ],
@@ -213,17 +222,12 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
       // 'required' => [[$selector => ['checked' => TRUE]],],
     ];
 
-    $form['field_body']['#states'] = [
+    $form['field_banner_content']['#states'] = [
       'visible' => [
         [$selector => ['checked' => TRUE]],
       ],
     ];
 
-    $form['field_complete_biography']['#states'] = [
-      'visible' => [
-        [$selector => ['checked' => TRUE]],
-      ],
-    ];
   }
 
   /**
@@ -236,8 +240,10 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     $this->appendServiceTermDescriptionToVbaFacilityService($event);
   }
 
+
+
   /**
-   * Appends VBA facility service description to title on facility node:view.
+   * Appends VBA facility service description to title on facility service node:view.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
    *   The entity view alter service.
