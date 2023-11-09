@@ -153,6 +153,15 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    */
   public function alterVbaFacilityNodeForm(FormIdAlterEvent $event): void {
     $this->addStateManagementToBannerFields($event);
+    $this->changeBannerTypeNoneToSelectAValue($event);
+  }
+
+  protected function changeBannerTypeNoneToSelectAValue(FormIdAlterEvent $event) {
+    // Add the '- Select a value -' option (_none)
+    $form = &$event->getForm();
+    if (isset($form['field_alert_type']['widget']['#options']) && array_key_exists('_none', $form['field_alert_type']['widget']['#options'])) {
+      $form['field_alert_type']['widget']['#options'] = ['_none' => '- Select a value -'] + $form['field_alert_type']['widget']['#options'];
+    }
   }
 
   /**
