@@ -87,7 +87,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   /**
    * Equivalent of hook_entity_type_alter().
    *
-   * @param Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent $event
    *   The event for entityTypeAlter.
    */
   public function entityTypeAlter(EntityTypeAlterEvent $event): void {
@@ -129,7 +129,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Form alterations for staff profile content type.
+   * Form alterations for VBA facility content type.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
