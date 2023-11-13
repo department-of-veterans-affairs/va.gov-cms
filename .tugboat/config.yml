@@ -49,7 +49,7 @@ services:
         - docker-php-ext-install zip
 
         # Enable php intl extension
-        - docker-php-ext-enable intl
+        - docker-php-ext-install intl
 
         # Install opcache, and Apache modules
         - docker-php-ext-install opcache
