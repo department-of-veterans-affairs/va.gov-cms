@@ -192,22 +192,9 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
       ],
     ];
 
-    $form['field_banner_content']['widget'][0]['#states'] = [
-      'visible' => [
-        [$selector => ['checked' => TRUE]],
-      ],
-      // Unfortunately we can not set ckeditor field as required using
-      // states.  So we end up adding this with JS to bypass HTML5 validation
-      // and let the validation constraint handle it.
-      // This is to prevent the error:
-      // An invalid form control with name='field_body[0][value]' is not
-      // focusable.
-      // because ckeditor changes the id of the field, so when html5 validation
-      // kicks in, it can't find the field to highlight as being required.
-      // @see https://www.drupal.org/project/drupal/issues/2722319
-      // 'required' => [[$selector => ['checked' => TRUE]],],
-    ];
-
+    // Unfortunately we can not set ckeditor field as required using
+    // states.  So we end up adding this with JS to bypass HTML5 validation
+    // and let the validation constraint handle it.
     $form['field_banner_content']['#states'] = [
       'visible' => [
         [$selector => ['checked' => TRUE]],

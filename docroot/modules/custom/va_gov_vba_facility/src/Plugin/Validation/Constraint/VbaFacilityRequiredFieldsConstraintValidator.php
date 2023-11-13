@@ -15,12 +15,14 @@ class VbaFacilityRequiredFieldsConstraintValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($entity, Constraint $constraint) {
+    /** @var \Drupal\va_gov_vba_facility\Plugin\Validation\Constraint\VbaFacilityRequiredFieldsConstraint $constraint */
     if (!isset($entity)) {
       return;
     }
     if ($entity instanceof NodeInterface && $entity->bundle() === 'vba_facility') {
       if ($entity->get('field_vba_banner_panel')->value == TRUE) {
-        // To have VBA Facility banner created, it must have a title and content.
+        // To have VBA Facility banner created,
+        // it must have a title and content.
         $empty_fields = [];
         $field_error_path = 'field_vba_banner_panel';
         if (empty(trim($entity->get('field_banner_title')->value))) {
