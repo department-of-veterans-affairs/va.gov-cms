@@ -48,6 +48,9 @@ services:
         - apt-get install libzip-dev zip
         - docker-php-ext-install zip
 
+        # Enable php intl extension
+        - docker-php-ext-enable intl
+
         # Install opcache, and Apache modules
         - docker-php-ext-install opcache
         - a2enmod headers rewrite vhost_alias proxy proxy_http
@@ -156,7 +159,7 @@ services:
       update:
         # Install/update packages managed by composer, including drush.
         # Composer options are in composer.json, 'config' key.
-        - composer install --ignore-platform-req=ext-intl
+        - composer install
         - bash -lc 'nvm install'
         - bash -lc 'npm install'
         - bash -lc 'composer va:theme:compile'
@@ -190,7 +193,7 @@ services:
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.next/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.next/503-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/503-error-document.html"
-        - composer install --ignore-platform-req=ext-intl
+        - composer install
         - bash -lc 'nvm install'
         - bash -lc 'npm install'
         - bash -lc 'composer va:theme:compile'
