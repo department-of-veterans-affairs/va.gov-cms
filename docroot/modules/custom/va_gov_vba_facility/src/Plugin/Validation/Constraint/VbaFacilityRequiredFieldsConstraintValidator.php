@@ -12,13 +12,14 @@ use Symfony\Component\Validator\ConstraintValidator;
 class VbaFacilityRequiredFieldsConstraintValidator extends ConstraintValidator {
 
   /**
-   * {@inheritdoc}
+   * Determines whether a value is valid.
+   *
+   * @param \Drupal\node\NodeInterface $entity
+   *   The node to test.
+   * @param \Drupal\va_gov_vba_facility\Plugin\Validation\Constraint\VbaFacilityRequiredFieldsConstraint $constraint
+   *   The constraint with which to test.
    */
   public function validate($entity, Constraint $constraint) {
-    /** @var \Drupal\va_gov_vba_facility\Plugin\Validation\Constraint\VbaFacilityRequiredFieldsConstraint $constraint */
-    if (!isset($entity)) {
-      return;
-    }
     if ($entity instanceof NodeInterface && $entity->bundle() === 'vba_facility') {
       if ($entity->get('field_vba_banner_panel')->value == TRUE) {
         // To have VBA Facility banner created,
