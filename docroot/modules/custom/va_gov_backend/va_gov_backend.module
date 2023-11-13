@@ -1011,7 +1011,7 @@ function va_gov_backend_preprocess_page(&$variables) {
         $host = \Drupal::request()->getHost();
         $preview_form = new PreviewForm();
         $url = $preview_form->getEnvironment($host, $nid);
-        $button = '<a class="button button--primary js-form-submit form-submit node-preview-button" target="_blank" href="' . $url . '">Preview</a>';
+        $button = '<a class="button button--primary js-form-submit form-submit node-preview-button" rel="noopener" target="_blank" href="' . $url . '">Preview</a>';
         $variables['page']['sidebar_second']['#markup'] = $button;
       }
     }
@@ -1323,6 +1323,7 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
       $field->addConstraint('PreventAbsoluteUrlsAsPathsInLinks');
       $field->addConstraint('PreventVaGovDomainsAsPathsInLinks');
       $field->addConstraint('PreventDomainsAsPathsInLinks');
+      $field->addConstraint('PreventPreviewUrlLinks');
     }
     elseif ($field->getType() === 'text_long') {
       $field->addConstraint('PreventAbsoluteCmsLinks');
@@ -1332,6 +1333,7 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
       $field->addConstraint('PreventAbsoluteUrlsAsPathsInLinks');
       $field->addConstraint('PreventVaGovDomainsAsPathsInLinks');
       $field->addConstraint('PreventDomainsAsPathsInLinks');
+      $field->addConstraint('PreventPreviewUrlLinks');
     }
   }
   // Add paragraph checks on clp panels.

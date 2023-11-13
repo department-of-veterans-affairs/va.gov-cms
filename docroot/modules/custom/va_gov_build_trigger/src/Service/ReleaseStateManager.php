@@ -326,4 +326,11 @@ class ReleaseStateManager implements ReleaseStateManagerInterface {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getLastReleaseCompleteTimestamp() : int {
+    return $this->state->get(self::LAST_RELEASE_COMPLETE_KEY, 0);
+  }
+
 }

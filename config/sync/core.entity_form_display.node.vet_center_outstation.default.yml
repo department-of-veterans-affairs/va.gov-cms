@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.vet_center_outstation.field_media
     - field.field.node.vet_center_outstation.field_office
     - field.field.node.vet_center_outstation.field_office_hours
+    - field.field.node.vet_center_outstation.field_official_name
     - field.field.node.vet_center_outstation.field_operating_status_facility
     - field.field.node.vet_center_outstation.field_operating_status_more_info
     - field.field.node.vet_center_outstation.field_phone_number
@@ -39,7 +40,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -52,7 +53,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -63,12 +64,13 @@ third_party_settings:
         weight: 0
     group_facility_name:
       children:
-        - group_page_title_tooltip
+        - field_official_name
+        - title
         - field_office
       label: 'Facility name'
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -76,24 +78,6 @@ third_party_settings:
         id: facility-name
         description: ''
         required_fields: true
-    group_page_title_tooltip:
-      children: {  }
-      label: 'Page title'
-      region: content
-      parent_name: group_facility_name
-      weight: 20
-      format_type: tooltip
-      format_settings:
-        show_empty_fields: '1'
-        show_label: '0'
-        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
-        description: '<strong>Page title</strong>'
-        required_fields: '1'
-        id: ''
-        classes: 'not-editable '
-        element: div
-        label_element: h3
-        attributes: ''
     group_locations_and_contact_info:
       children:
         - group_vet_center_data
@@ -115,7 +99,7 @@ third_party_settings:
       label: 'Operating status'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
@@ -181,20 +165,20 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 26
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   field_media:
     type: media_library_widget
-    weight: 5
+    weight: 4
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_office:
     type: options_select
-    weight: 21
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -202,7 +186,16 @@ content:
     type: office_hours_default
     weight: 25
     region: content
-    settings: {  }
+    settings:
+      collapsed: false
+    third_party_settings: {  }
+  field_official_name:
+    type: string_textfield
+    weight: 9
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_operating_status_facility:
     type: options_select
@@ -220,6 +213,7 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -253,6 +247,14 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 11
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
 hidden:
   created: true
   langcode: true
@@ -260,6 +262,5 @@ hidden:
   promote: true
   status: true
   sticky: true
-  title: true
   uid: true
   url_redirects: true

@@ -5,7 +5,7 @@
 // This should be set to something different, e.g. 'lando', if not in DDEV.
 //
 // We should shift to using the string 'ddev' rather than 'local' in the future
-// to avoid confusion (especially given that we can have local overrides on 
+// to avoid confusion (especially given that we can have local overrides on
 // _any_ environment).
 $settings['va_gov_environment']['environment'] = 'ddev';
 
@@ -46,6 +46,7 @@ $settings['va_gov_frontend_build_type'] = 'local';
 $settings['va_gov_frontend_url'] = $webhost_on_cli . '/static';
 $settings['va_gov_app_root'] = getenv('DDEV_APPROOT');
 $settings['va_gov_web_root'] = getenv('DDEV_APPROOT') . '/web';
+$settings['va_gov_vets_website_root'] = getenv('DDEV_APPROOT') . '/docroot/vendor/va-gov/vets-website';
 
 $settings['memcache']['servers'] = [
   'memcached:11211' => 'default',

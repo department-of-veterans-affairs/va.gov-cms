@@ -6,6 +6,7 @@ use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Traits\RunsDuringBusinessHours;
+use Drupal\va_gov_content_release\Request\RequestInterface;
 
 /**
  * The build scheduler service.
@@ -19,9 +20,9 @@ class BuildScheduler implements BuildSchedulerInterface {
   /**
    * The build requester service.
    *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
+   * @var \Drupal\va_gov_content_release\Request\RequestInterface
    */
-  protected $buildRequester;
+  protected $requestService;
 
   /**
    * The state management service.
@@ -31,9 +32,9 @@ class BuildScheduler implements BuildSchedulerInterface {
   protected $state;
 
   /**
-   * Construct a new BuildRequester.
+   * Construct a new BuildScheduler.
    *
-   * @param \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
+   * @param \Drupal\va_gov_content_release\Request\RequestInterface $requestService
    *   The build requester service.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
@@ -42,8 +43,8 @@ class BuildScheduler implements BuildSchedulerInterface {
    * @param \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter
    *   The date formatter service.
    */
-  public function __construct(BuildRequesterInterface $buildRequester, StateInterface $state, TimeInterface $time, DateFormatterInterface $dateFormatter) {
-    $this->buildRequester = $buildRequester;
+  public function __construct(RequestInterface $requestService, StateInterface $state, TimeInterface $time, DateFormatterInterface $dateFormatter) {
+    $this->requestService = $requestService;
     $this->state = $state;
     $this->time = $time;
     $this->dateFormatter = $dateFormatter;
@@ -59,10 +60,10 @@ class BuildScheduler implements BuildSchedulerInterface {
 
     $this->runDuringBusinessHours(function () use ($currentTime, $time_since_last_build) {
       if ($time_since_last_build >= 3600) {
-        $this->buildRequester->requestFrontendBuild('Scheduled hourly build');
+        $this->requestService->submitRequest('Scheduled hourly build');
         $this->state->set(self::VA_GOV_LAST_SCHEDULED_BUILD_REQUEST, $currentTime);
       }
-    }, $this->buildRequester, $this->state, $time_since_last_build);
+    }, $this->requestService, $this->state, $time_since_last_build);
   }
 
 }

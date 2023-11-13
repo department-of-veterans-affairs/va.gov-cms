@@ -1,0 +1,24 @@
+uuid: 4bcbbc89-3484-4924-bcc5-fe9579bfd3ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_regional_service_descripti
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.health_care_service_taxonomy.field_regional_service_descripti
+field_name: field_regional_service_descripti
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'Regional service description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
