@@ -2,9 +2,8 @@
 
 namespace Drupal\va_gov_lovell\Variables;
 
-use Drupal\preprocess_event_dispatcher\Variables\AbstractEventVariables;
-
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\preprocess_event_dispatcher\Variables\AbstractEventVariables;
 
 /**
  * Wrapper class for breadcrumb preprocess event variables.

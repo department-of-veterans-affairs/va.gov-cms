@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_flags\Controller;
 
-use Drupal\va_gov_flags\FeatureFlagDataBuilder;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\va_gov_flags\FeatureFlagDataBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

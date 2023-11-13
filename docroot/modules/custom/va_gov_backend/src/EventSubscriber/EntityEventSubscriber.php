@@ -2,13 +2,13 @@
 
 namespace Drupal\va_gov_backend\EventSubscriber;
 
+use Drupal\Core\Config\Entity\ConfigEntityType;
+use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityTypeBuildEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
-use Drupal\Core\Config\Entity\ConfigEntityType;
-use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
 use Drupal\field_event_dispatcher\FieldHookEvents;
 use Drupal\node\NodeInterface;

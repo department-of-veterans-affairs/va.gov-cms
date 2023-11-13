@@ -2,10 +2,10 @@
 
 namespace tests\phpunit\va_gov_content_release\unit\Request;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\advancedqueue\Entity\QueueInterface;
 use Drupal\advancedqueue\Job;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\va_gov_content_release\Exception\RequestException;
 use Drupal\va_gov_content_release\Request\Request;
 use Drupal\va_gov_content_release\Request\RequestInterface;

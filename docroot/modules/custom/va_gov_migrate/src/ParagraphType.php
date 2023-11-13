@@ -2,9 +2,9 @@
 
 namespace Drupal\va_gov_migrate;
 
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\migration_tools\Message;
+use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
 
 /**

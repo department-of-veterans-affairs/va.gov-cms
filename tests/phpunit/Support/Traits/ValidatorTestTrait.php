@@ -5,9 +5,9 @@ namespace Tests\Support\Traits;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Prophecy\Argument;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
-use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 /**
  * Useful methods for testing constraint validation.

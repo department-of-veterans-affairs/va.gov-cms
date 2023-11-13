@@ -2,12 +2,12 @@
 
 namespace Drupal\va_gov_migrate\EventSubscriber;
 
+use Drupal\Core\File\FileUrlGeneratorInterface;
+use Drupal\Core\State\StateInterface;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migration_tools\Event\MessageEvent;
 use Drupal\migration_tools\Message;
-use Drupal\Core\File\FileUrlGeneratorInterface;
-use Drupal\Core\State\StateInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
