@@ -3,15 +3,15 @@
 namespace Drupal\va_gov_user\EventSubscriber;
 
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\hook_event_dispatcher\HookEventDispatcherModuleHandler;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\externalauth\ExternalAuth;
+use Drupal\hook_event_dispatcher\HookEventDispatcherModuleHandler;
+use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Drupal\migrate\Event\MigratePreRowSaveEvent;
-use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\MigrateSkipRowException;
 use Drupal\migrate\Row;
 use Drupal\user\UserInterface;

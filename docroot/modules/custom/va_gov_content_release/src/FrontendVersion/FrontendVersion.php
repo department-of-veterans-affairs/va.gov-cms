@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_content_release\FrontendVersion;
 
 use Drupal\Core\State\StateInterface;
+use Drupal\va_gov_content_release\Frontend\FrontendInterface;
 
 /**
  * The FrontendVersion service.
@@ -30,30 +31,40 @@ class FrontendVersion implements FrontendVersionInterface {
   }
 
   /**
-   * Get the current version of the frontend.
+   * Get the key for the frontend version.
+   *
+   * @param \Drupal\va_gov_content_release\Frontend\FrontendInterface $frontend
+   *   The frontend whose version we are getting or setting.
    *
    * @return string
-   *   The current version of the frontend.
+   *   The key for the frontend version.
    */
-  public function get() : string {
-    return $this->state->get(FrontendVersionInterface::FRONTEND_VERSION, FrontendVersionInterface::FRONTEND_VERSION_DEFAULT);
+  protected function getKey(FrontendInterface $frontend) : string {
+    return FrontendVersionInterface::FRONTEND_VERSION_PREFIX . $frontend->getRawValue();
   }
 
   /**
-   * Set the current version of the frontend.
-   *
-   * @param string $version
-   *   The version to set.
+   * {@inheritDoc}
    */
-  public function set(string $version) : void {
-    $this->state->set(FrontendVersionInterface::FRONTEND_VERSION, $version);
+  public function getVersion(FrontendInterface $frontend) : string {
+    $key = $this->getKey($frontend);
+    return $this->state->get($key, FrontendVersionInterface::FRONTEND_VERSION_DEFAULT);
   }
 
   /**
-   * Reset the current version of the frontend.
+   * {@inheritDoc}
    */
-  public function reset() : void {
-    $this->state->delete(FrontendVersionInterface::FRONTEND_VERSION);
+  public function setVersion(FrontendInterface $frontend, string $version) : void {
+    $key = $this->getKey($frontend);
+    $this->state->set($key, $version);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function resetVersion(FrontendInterface $frontend) : void {
+    $key = $this->getKey($frontend);
+    $this->state->delete($key);
   }
 
 }

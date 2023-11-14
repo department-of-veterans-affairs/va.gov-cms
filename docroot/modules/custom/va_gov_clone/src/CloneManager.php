@@ -2,12 +2,12 @@
 
 namespace Drupal\va_gov_clone;
 
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity_clone\Event\EntityCloneEvent;
 use Drupal\entity_clone\Event\EntityCloneEvents;
 use Drupal\va_gov_clone\CloneEntityFinder\CloneEntityFinderDiscovery;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * The Clone Manager to clone content.

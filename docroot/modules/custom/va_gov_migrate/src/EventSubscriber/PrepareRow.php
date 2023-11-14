@@ -3,9 +3,9 @@
 namespace Drupal\va_gov_migrate\EventSubscriber;
 
 use Drupal\migrate\MigrateSkipRowException;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\migrate_plus\Event\MigratePrepareRowEvent;
 use Drupal\migrate_plus\Event\MigrateEvents;
+use Drupal\migrate_plus\Event\MigratePrepareRowEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Add paragraphs to node after save.

@@ -2,7 +2,10 @@
 
 namespace tests\phpunit\FrontendBuild;
 
+use Drupal\Core\Datetime\DateFormatter;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\State\State;
 use Drupal\prometheus_exporter\MetricsCollectorManager;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
@@ -11,15 +14,12 @@ use Drupal\va_gov_build_trigger\EventSubscriber\ContentReleaseIntervalSubscriber
 use Drupal\va_gov_build_trigger\EventSubscriber\ContentReleaseMetricsRecalculationSubscriber;
 use Drupal\va_gov_build_trigger\EventSubscriber\ContinuousReleaseSubscriber;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseInterval;
-use Drupal\va_gov_build_trigger\Service\BuildRequester;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Tests\Support\Mock\SpecifiedTime;
-use Drupal\Core\Datetime\DateFormatter;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\va_gov_content_release\Request\RequestInterface;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Tests\Support\Classes\VaGovUnitTestBase;
+use Tests\Support\Mock\SpecifiedTime;
 
 /**
  * Unit test for build state event subscribers.
@@ -77,12 +77,12 @@ class BuildStateEventSubscriberTest extends VaGovUnitTestBase {
    * Tests the ContentReleaseErrorSubscriber class.
    */
   public function testContentReleaseErrorSubscriber() {
-    $buildRequester = $this->getMockBuilder(BuildRequester::class)
+    $buildRequester = $this->getMockBuilder(RequestInterface::class)
       ->disableOriginalConstructor()
       ->getMock();
 
     $buildRequester->expects($this->never())
-      ->method('requestFrontendBuild');
+      ->method('submitRequest');
 
     $no_states = [
       'ready',
@@ -99,12 +99,12 @@ class BuildStateEventSubscriberTest extends VaGovUnitTestBase {
       $subscriber->handleError($event);
     }
 
-    $buildRequester = $this->getMockBuilder(BuildRequester::class)
+    $buildRequester = $this->getMockBuilder(RequestInterface::class)
       ->disableOriginalConstructor()
       ->getMock();
 
     $buildRequester->expects($this->once())
-      ->method('requestFrontendBuild')
+      ->method('submitRequest')
       ->with($this->callback(function ($reason) {
         $contains_str = str_contains($reason, 'Retrying build');
         $this->assertTrue($contains_str);
@@ -223,17 +223,17 @@ class BuildStateEventSubscriberTest extends VaGovUnitTestBase {
     $state = new State(new KeyValueMemoryFactory());
     $state->set(ContinuousReleaseSubscriber::CONTINUOUS_RELEASE_ENABLED, $continuous_release_enabled);
 
-    $buildRequester = $this->getMockBuilder(BuildRequester::class)
+    $buildRequester = $this->getMockBuilder(RequestInterface::class)
       ->disableOriginalConstructor()
       ->getMock();
 
     if ($expected) {
       $buildRequester->expects($this->once())
-        ->method('requestFrontendBuild');
+        ->method('submitRequest');
     }
     else {
       $buildRequester->expects($this->never())
-        ->method('requestFrontendBuild');
+        ->method('submitRequest');
     }
 
     $continuous_release_subscriber = new ContinuousReleaseSubscriber($state, $time, $buildRequester, $this->dateFormatter);
