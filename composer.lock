@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "08f620d95b73058a67aed476a9070dae",
+    "content-hash": "782d00549944f970d02bb65812fd711b",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -27577,6 +27577,57 @@
                 "source": "https://github.com/minkphp/MinkBrowserKitDriver/tree/v2.1.0"
             },
             "time": "2022-03-28T14:33:51+00:00"
+        },
+        {
+            "name": "digitalrevolution/php-codesniffer-baseline",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/123inkt/php-codesniffer-baseline.git",
+                "reference": "00d7cd414cc0fc12e88ee3321d92fe3d2313a9e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/123inkt/php-codesniffer-baseline/zipball/00d7cd414cc0fc12e88ee3321d92fe3d2313a9e7",
+                "reference": "00d7cd414cc0fc12e88ee3321d92fe3d2313a9e7",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "php": ">=7.4",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "require-dev": {
+                "composer/composer": "^2.0",
+                "micheh/phpcs-gitlab": "^1.1",
+                "mikey179/vfsstream": "1.6.10",
+                "phpmd/phpmd": "@stable",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan": "^1.4",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpstan/phpstan-strict-rules": "^1.1",
+                "phpunit/phpunit": "^9.5",
+                "roave/security-advisories": "dev-latest"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "DR\\CodeSnifferBaseline\\Plugin\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "DR\\CodeSnifferBaseline\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Digital Revolution PHP_Codesniffer baseline extension",
+            "support": {
+                "issues": "https://github.com/123inkt/php-codesniffer-baseline/issues",
+                "source": "https://github.com/123inkt/php-codesniffer-baseline/tree/v1.1.2"
+            },
+            "time": "2022-05-31T08:26:56+00:00"
         },
         {
             "name": "drupal/html_tag_usage",
