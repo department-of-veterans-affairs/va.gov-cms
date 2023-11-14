@@ -112,7 +112,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Clear status details when banner is not enabled.
+   * Clear details when banner is not enabled.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity.
@@ -122,8 +122,18 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     if ($entity->bundle() === "vba_facility") {
       if ($entity->hasField('field_vba_banner_panel')
       && $entity->field_vba_banner_panel->value == FALSE) {
-        $entity->field_banner_title->value = '';
-        $entity->field_banner_content->value = '';
+        if ($entity->field_alert_type) {
+          $entity->field_alert_type->value = NULL;
+        }
+        if ($entity->field_dismissible_option) {
+          $entity->field_dismissible_option->value = NULL;
+        }
+        if ($entity->field_banner_title->value) {
+          $entity->field_banner_title->value = '';
+        }
+        if ($entity->field_banner_content->value) {
+          $entity->field_banner_content->value = '';
+        }
       }
     }
   }
@@ -136,20 +146,20 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    */
   public function alterVbaFacilityNodeForm(FormIdAlterEvent $event): void {
     $this->addStateManagementToBannerFields($event);
-    $this->changeBannerTypeNone($event);
+    $this->changeBannerType($event);
   }
 
   /**
-   * Changes test of default select list option for Banner Type.
+   * Changes the select list for Banner Type.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
    */
-  protected function changeBannerTypeNone(FormIdAlterEvent $event) {
+  protected function changeBannerType(FormIdAlterEvent $event) {
     // Add the '- Select a value -' option to replace '- None -'.
     $form = &$event->getForm();
     if (isset($form['field_alert_type']['widget']['#options']) && array_key_exists('_none', $form['field_alert_type']['widget']['#options'])) {
-      $form['field_alert_type']['widget']['#options'] = ['_none' => '- Select a value -'] + $form['field_alert_type']['widget']['#options'];
+      $form['field_alert_type']['widget']['#options']['_none'] = '- Select a value -';
     }
   }
 
@@ -164,7 +174,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     $form['#attached']['library'][] = 'va_gov_vba_facility/set_banner_content_to_required';
     $selector = ':input[name="field_vba_banner_panel[value]"]';
 
-    // Show the banner fields when show banner is checked.
+    // Show and require the banner fields when show banner is checked.
     $form['field_alert_type']['widget']['#states'] = [
       'required' => [
         [$selector => ['checked' => TRUE]],
@@ -175,9 +185,6 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     ];
 
     $form['field_dismissible_option']['#states'] = [
-      'required' => [
-        [$selector => ['checked' => TRUE]],
-      ],
       'visible' => [
         [$selector => ['checked' => TRUE]],
       ],
@@ -210,29 +217,6 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->appendServiceTermDescriptionToVbaFacilityService($event);
-    $this->hideBannerFieldsWhenNotEnabled($event);
-  }
-
-  /**
-   * Hides the VBA facility banner fields when the banner is not enabled.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
-   *   The entity view alter service.
-   */
-  public function hideBannerFieldsWhenNotEnabled(EntityViewAlterEvent $event):void {
-    $display = $event->getDisplay();
-    if (($display->getTargetBundle() === 'vba_facility')) {
-      $vbaNode = $event->getEntity();
-      $build = &$event->getBuild();
-      if ($vbaNode->field_vba_banner_panel->value == FALSE) {
-        if ($build['field_dismissible_option']) {
-          $build['field_dismissible_option'] = [];
-        }
-        if ($build['field_alert_type']) {
-          $build['field_alert_type'] = [];
-        }
-      }
-    }
   }
 
   /**
