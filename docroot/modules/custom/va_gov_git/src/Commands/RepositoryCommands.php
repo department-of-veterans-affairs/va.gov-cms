@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_git\Commands;
 
-use Drupal\va_gov_git\BranchSearch\Factory\BranchSearchFactoryInterface;
 use Drupal\va_gov_git\BranchSearch\BranchSearchInterface;
+use Drupal\va_gov_git\BranchSearch\Factory\BranchSearchFactoryInterface;
 use Drupal\va_gov_git\Repository\Factory\RepositoryFactoryInterface;
 use Drupal\va_gov_git\Repository\RepositoryInterface;
 use Drush\Commands\DrushCommands;

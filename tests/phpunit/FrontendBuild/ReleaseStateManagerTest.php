@@ -7,9 +7,9 @@ use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\State\State;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
-use Tests\Support\Mock\SpecifiedTime;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Tests\Support\Classes\VaGovUnitTestBase;
+use Tests\Support\Mock\SpecifiedTime;
 
 /**
  * Unit test for the release state manager.

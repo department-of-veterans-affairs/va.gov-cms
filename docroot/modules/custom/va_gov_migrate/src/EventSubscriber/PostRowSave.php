@@ -3,12 +3,12 @@
 namespace Drupal\va_gov_migrate\EventSubscriber;
 
 use Drupal\menu_link_content\Entity\MenuLinkContent;
-use Drupal\migration_tools\Message;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\va_gov_migrate\ParagraphMigrator;
-use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Drupal\migrate\Event\MigrateEvents;
+use Drupal\migrate\Event\MigratePostRowSaveEvent;
+use Drupal\migration_tools\Message;
 use Drupal\node\Entity\Node;
+use Drupal\va_gov_migrate\ParagraphMigrator;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Add paragraphs to node after save.

@@ -3,8 +3,8 @@
 namespace Drupal\va_gov_notifications\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\message_notify\MessageNotifier;
 use Drupal\message\Entity\Message;
+use Drupal\message_notify\MessageNotifier;
 use Drupal\node\NodeInterface;
 
 /**

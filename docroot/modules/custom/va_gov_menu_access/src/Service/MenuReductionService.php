@@ -8,8 +8,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeForm;
 use Drupal\path_alias\AliasManagerInterface;
-use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_lovell\LovellOps;
+use Drupal\va_gov_user\Service\UserPermsService;
 
 /**
  * Class MenuReductionService a service for reducing possible menu items.

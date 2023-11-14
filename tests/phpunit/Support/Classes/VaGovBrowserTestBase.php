@@ -2,8 +2,8 @@
 
 namespace Tests\Support\Classes;
 
-use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Tests\BrowserTestBase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Common functionality for BrowserTestBase derivative test classes.
