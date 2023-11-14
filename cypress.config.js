@@ -13,7 +13,7 @@ const path = require("path");
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-const BASE_URL = "http://va-gov-cms.ddev.site";
+const BASE_URL = process.env.BASE_URL || "https://va-gov-cms.ddev.site";
 
 async function setupNodeEvents(on, config) {
   // This is required for the preprocessor to be able to generate JSON reports after each run, and more,

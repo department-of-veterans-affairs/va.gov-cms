@@ -78,6 +78,14 @@ interface ReleaseStateManagerInterface {
   public function releaseStateIsStale() : bool;
 
   /**
+   * Get the last-release-complete timestamp.
+   *
+   * @return int
+   *   The last-release-complete timestamp.
+   */
+  public function getLastReleaseCompleteTimestamp() : int;
+
+  /**
    * Handle an error condition.
    */
   public function handleError() : void;

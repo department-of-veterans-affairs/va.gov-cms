@@ -5,8 +5,8 @@ namespace Drupal\va_gov_content_release\EntityEvent\Strategy\Plugin;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

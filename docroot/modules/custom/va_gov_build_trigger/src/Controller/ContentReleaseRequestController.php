@@ -3,10 +3,10 @@
 namespace Drupal\va_gov_build_trigger\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\va_gov_content_release\Request\RequestInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
@@ -15,11 +15,11 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class ContentReleaseRequestController extends ControllerBase {
 
   /**
-   * The release state manager.
+   * The request service.
    *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
+   * @var \Drupal\va_gov_content_release\Request\RequestInterface
    */
-  protected $buildRequester;
+  protected $requestService;
 
   /**
    * The current request stack.
@@ -31,13 +31,13 @@ class ContentReleaseRequestController extends ControllerBase {
   /**
    * Constructor for the content release request controller.
    *
-   * @param \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
+   * @param \Drupal\va_gov_content_release\Request\RequestInterface $requestService
    *   The build requester service.
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The current request stack.
    */
-  public function __construct(BuildRequesterInterface $buildRequester, RequestStack $requestStack) {
-    $this->buildRequester = $buildRequester;
+  public function __construct(RequestInterface $requestService, RequestStack $requestStack) {
+    $this->requestService = $requestService;
     $this->requestStack = $requestStack;
   }
 
@@ -46,7 +46,7 @@ class ContentReleaseRequestController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov_build_trigger.build_requester'),
+      $container->get('va_gov_content_release.request'),
       $container->get('request_stack')
     );
   }
@@ -63,7 +63,7 @@ class ContentReleaseRequestController extends ControllerBase {
       throw new BadRequestHttpException('Must provide a reason for requesting a frontend build.');
     }
 
-    $this->buildRequester->requestFrontendBuild($reason);
+    $this->requestService->submitRequest($reason);
 
     return new Response('Build requested.');
   }

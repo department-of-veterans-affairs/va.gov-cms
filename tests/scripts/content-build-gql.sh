@@ -13,6 +13,11 @@ set -ex
 repo_root="$(git rev-parse --show-toplevel)"
 pushd "${repo_root}" > /dev/null
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+source ~/.bashrc
+
 composer va:web:prepare-dotenv
 
 touch ./.buildlock
@@ -35,6 +40,7 @@ popd
 pushd "${web_path}"
 export INSTALL_HOOKS=no
 export NODE_ENV=production
+nvm use
 yarn build \
   --pull-drupal \
   --gql-queries-only \

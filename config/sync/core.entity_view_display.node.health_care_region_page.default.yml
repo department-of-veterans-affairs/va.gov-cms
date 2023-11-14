@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_va_health_connect_phone
     - field.field.node.health_care_region_page.field_vamc_ehr_system
     - field.field.node.health_care_region_page.field_vamc_system_official_name
+    - field.field.node.health_care_region_page.field_youtube
     - image.style.large
     - node.type.health_care_region_page
   module:
@@ -85,6 +86,7 @@ third_party_settings:
         - field_flickr
         - field_instagram
         - field_twitter
+        - field_youtube
         - field_related_links
       label: 'Social media and links'
       parent_name: ''
@@ -239,6 +241,8 @@ content:
     settings:
       image_link: ''
       image_style: large
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 5
     region: content
@@ -267,7 +271,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 14
     region: content
   field_twitter:
     type: linkit
@@ -304,6 +308,19 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 6
+    region: content
+  field_youtube:
+    type: linkit
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+      linkit_profile: default
+    third_party_settings: {  }
+    weight: 13
     region: content
 hidden:
   breadcrumbs: true

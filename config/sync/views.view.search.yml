@@ -2111,6 +2111,7 @@ display:
       tags:
         - 'config:field.storage.media.field_owner'
         - 'config:search_api.index.content'
+        - 'search_api_list:content'
   content_search:
     id: content_search
     display_title: Search
@@ -2135,7 +2136,7 @@ display:
         as_local_task: true
         local_task_link_title: 'Content Search'
         local_task_parent: 'views_view:view.content.content_audit_page'
-        local_task_weight: 2
+        local_task_weight: 200
         local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
@@ -2149,6 +2150,7 @@ display:
       tags:
         - 'config:field.storage.media.field_owner'
         - 'config:search_api.index.content'
+        - 'search_api_list:content'
   search_data_export:
     id: search_data_export
     display_title: 'Search data export'
@@ -3561,3 +3563,4 @@ display:
       tags:
         - 'config:field.storage.media.field_owner'
         - 'config:search_api.index.content'
+        - 'search_api_list:content'

@@ -8,11 +8,11 @@ use Drupal\Core\Http\RequestStack;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\State\State;
-use Drupal\va_gov_build_trigger\Service\BuildRequester;
 use Drupal\va_gov_build_trigger\Service\BuildScheduler;
+use Drupal\va_gov_content_release\Request\RequestInterface;
 use Symfony\Component\DependencyInjection\Container;
-use Tests\Support\Mock\SpecifiedTime;
 use Tests\Support\Classes\VaGovUnitTestBase;
+use Tests\Support\Mock\SpecifiedTime;
 
 /**
  * Unit test for the build scheduler.
@@ -25,7 +25,7 @@ class BuildSchedulerTest extends VaGovUnitTestBase {
   /**
    * The build requester service.
    *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
+   * @var \Drupal\va_gov_content_release\Request\RequestInterface
    */
   protected $buildRequester;
 
@@ -207,22 +207,22 @@ class BuildSchedulerTest extends VaGovUnitTestBase {
    * @param bool $shouldExpectBuildRequest
    *   Whether or not the build requester should get a request.
    *
-   * @return \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
+   * @return \Drupal\va_gov_content_release\Request\RequestInterface
    *   (mocked)
    */
   protected function getBuildRequester($shouldExpectBuildRequest = FALSE) {
-    $build_requester = $this->getMockBuilder(BuildRequester::class)
+    $build_requester = $this->getMockBuilder(RequestInterface::class)
       ->disableOriginalConstructor()
       ->getMock();
 
     if ($shouldExpectBuildRequest) {
       $build_requester->expects($this->once())
-        ->method('requestFrontendBuild')
+        ->method('submitRequest')
         ->with('Scheduled hourly build');
     }
     else {
       $build_requester->expects($this->never())
-        ->method('requestFrontendBuild');
+        ->method('submitRequest');
     }
 
     return $build_requester;

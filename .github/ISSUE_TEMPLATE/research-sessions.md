@@ -1,7 +1,7 @@
 ---
 name: Research Sessions
 about: Use this template when you are conducting research session
-title: Conduct [PRODUCT/INITIATIVE] Research Sessions
+title: Conduct [PRODUCT/INITIATIVE] research sessions
 labels: UX, Research
 assignees: ''
 

@@ -3,8 +3,8 @@
 namespace tests\phpunit\va_gov_git\functional\Repository\Factory;
 
 use Drupal\va_gov_git\Repository\Factory\RepositoryFactory;
-use Drupal\va_gov_git\Repository\Settings\RepositorySettingsInterface;
 use Drupal\va_gov_git\Repository\RepositoryInterface;
+use Drupal\va_gov_git\Repository\Settings\RepositorySettingsInterface;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
@@ -66,6 +66,14 @@ class RepositoryFactoryTest extends VaGovExistingSiteBase {
    */
   public function testGetContentBuild() {
     $repository = \Drupal::service('va_gov_git.repository_factory')->getContentBuild();
+    $this->assertInstanceOf(RepositoryInterface::class, $repository);
+  }
+
+  /**
+   * Test the getVetsWebsite() method.
+   */
+  public function testGetVetsWebsite() {
+    $repository = \Drupal::service('va_gov_git.repository_factory')->getVetsWebsite();
     $this->assertInstanceOf(RepositoryInterface::class, $repository);
   }
 

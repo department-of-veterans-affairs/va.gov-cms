@@ -2,8 +2,8 @@
 
 namespace tests\phpunit\va_gov_content_release\functional\EntityEvent\Strategy\Plugin;
 
-use Drupal\va_gov_content_release\Exception\StrategyErrorException;
 use Drupal\va_gov_content_release\EntityEvent\Strategy\Plugin\StrategyPluginInterface;
+use Drupal\va_gov_content_release\Exception\StrategyErrorException;
 use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 

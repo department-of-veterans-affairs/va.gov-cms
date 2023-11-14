@@ -142,6 +142,68 @@
             p4.prepend(s4);
           }
         }
+        // VBA terms have nationalized regional data.
+        if (
+          drupalSettings.availableHealthServices[service.value] !== undefined &&
+          drupalSettings.availableHealthServices[service.value]
+            .vba_regional_service_header !== ""
+        ) {
+          const p5 = context.createElement("p");
+          const s5 = context.createElement("strong");
+          p5.textContent = drupalSettings.availableHealthServices[
+            service.value
+          ].vba_regional_service_header.replace(/&nbsp;/g, " ");
+          s5.textContent = "Regional service header: ";
+          div.classList.remove("no-content");
+          div.appendChild(p5);
+          p5.prepend(s5);
+        }
+        if (
+          drupalSettings.availableHealthServices[service.value] !== undefined &&
+          drupalSettings.availableHealthServices[service.value]
+            .vba_regional_service_description !== ""
+        ) {
+          const p6 = context.createElement("p");
+          const s6 = context.createElement("strong");
+          p6.textContent = drupalSettings.availableHealthServices[
+            service.value
+          ].vba_regional_service_description.replace(/&nbsp;/g, " ");
+          s6.textContent = "Regional service description: ";
+          div.classList.remove("no-content");
+          div.appendChild(p6);
+          p6.prepend(s6);
+        }
+        // VBA terms have nationalized facility data.
+        if (
+          drupalSettings.availableHealthServices[service.value] !== undefined &&
+          drupalSettings.availableHealthServices[service.value]
+            .vba_facility_service_header !== ""
+        ) {
+          const p7 = context.createElement("p");
+          const s7 = context.createElement("strong");
+          p7.textContent = drupalSettings.availableHealthServices[
+            service.value
+          ].vba_facility_service_header.replace(/&nbsp;/g, " ");
+          s7.textContent = "Facility service header: ";
+          div.classList.remove("no-content");
+          div.appendChild(p7);
+          p7.prepend(s7);
+        }
+        if (
+          drupalSettings.availableHealthServices[service.value] !== undefined &&
+          drupalSettings.availableHealthServices[service.value]
+            .vba_facility_service_description !== ""
+        ) {
+          const p8 = context.createElement("p");
+          const s8 = context.createElement("strong");
+          p8.textContent = drupalSettings.availableHealthServices[
+            service.value
+          ].vba_facility_service_description.replace(/&nbsp;/g, " ");
+          s8.textContent = "Facility service description: ";
+          div.classList.remove("no-content");
+          div.appendChild(p8);
+          p8.prepend(s8);
+        }
         // Plug in the term text below the select.
         service.after(div);
         // If we have contents, add a label above.
