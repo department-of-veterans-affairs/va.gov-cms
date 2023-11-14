@@ -29,7 +29,6 @@ use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
-use Drupal\va_gov_build_trigger\Form\PreviewForm;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
@@ -967,53 +966,6 @@ function va_gov_backend_preprocess_page_title(&$variables) {
     if (in_array($vocab, $vocabs) && isset($variables['title'])) {
       $markup = Markup::create('All articles in: ' . $term->getName());
       $variables['title'] = $markup;
-    }
-  }
-}
-
-/**
- * Add va_gov preview button to view node on the front end.
- */
-function va_gov_backend_preprocess_page(&$variables) {
-
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node instanceof NodeInterface) {
-    // It's a node.
-    $exclusion_types_from_config = \Drupal::service('va_gov_backend.exclusion_types')->getExcludedTypes();
-    $list_types = [
-      // List pages don't play nicely with preview.
-      'event_listing',
-      'health_services_listing,',
-      'leadership_listing',
-      'locations_listing',
-      'press_releases_listing',
-      'publication_listing',
-      'story_listing',
-    ];
-    $exclusion_types = array_merge(array_values($exclusion_types_from_config), array_values($list_types));
-    $last_saved_by_an_editor = $node->get('field_last_saved_by_an_editor')->value;
-    $variables['page']['last_saved_by_an_editor'] = $last_saved_by_an_editor ? \Drupal::service('date.formatter')->format($last_saved_by_an_editor, 'custom', 'F j Y g:ia') : 'Unknown';
-    // Exclude staff pages without bios.
-    if ($node->bundle() === 'person_profile' && $node->field_complete_biography_create->value === '0') {
-      $exclusion_types[] = 'person_profile';
-    }
-    // Make sure we aren't on the node form or an excluded type.
-    $route_name = \Drupal::routeMatch()->getRouteName();
-    $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    if (($route_name !== 'entity.node.edit_form') &&
-      (!in_array($node->bundle(), $exclusion_types)) &&
-      ($language === 'en')) {
-      // Make sure we aren't on /training-guide.
-      $current_uri = \Drupal::request()->getRequestUri();
-      if ($current_uri !== '/training-guide') {
-        $node = \Drupal::routeMatch()->getParameter('node');
-        $nid = $node->id();
-        $host = \Drupal::request()->getHost();
-        $preview_form = new PreviewForm();
-        $url = $preview_form->getEnvironment($host, $nid);
-        $button = '<a class="button button--primary js-form-submit form-submit node-preview-button" rel="noopener" target="_blank" href="' . $url . '">Preview</a>';
-        $variables['page']['sidebar_second']['#markup'] = $button;
-      }
     }
   }
 }
