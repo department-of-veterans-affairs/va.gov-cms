@@ -194,7 +194,7 @@ jobs:
 
           body="$(awk 'FNR==1 && NR!=1 {print "\n<hr/>\n"}{print}' ./.pr_advice/*.md)";
 
-          # Create a new comment containing the compiled advice.
+          # Create a new comment containing the complaint.
           gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
