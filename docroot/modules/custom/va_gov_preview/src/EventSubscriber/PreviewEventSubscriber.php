@@ -85,7 +85,7 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
     $this->routeMatch = $route_match;
     $this->nextEntityTypeManager = $next_entity_type_manager;
     $this->nextSettingsManager = $next_settings_manager;
-    $this->next_preview_enabled = $feature_status->getStatus(self::NEXT_PREVIEW_FEATURE_NAME);
+    $this->nextPreviewEnabled = $feature_status->getStatus(self::NEXT_PREVIEW_FEATURE_NAME);
   }
 
   /**
@@ -134,7 +134,7 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
    */
   protected function generatePreviewButton(NodeInterface $node): string|null {
     // Needs to come first because listing types are allowed here.
-    if ($this->next_preview_enabled && $this->checkNextEnabledTypes($node->bundle())) {
+    if ($this->nextPreviewEnabled && $this->checkNextEnabledTypes($node->bundle())) {
       $url = $this->generateNextBuildPreviewLink($node);
     }
     // Otherwise return default preview experience.
