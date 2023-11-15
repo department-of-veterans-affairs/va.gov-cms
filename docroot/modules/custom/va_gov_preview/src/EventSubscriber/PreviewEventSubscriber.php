@@ -46,7 +46,7 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
   /**
    * The request stack.
    *
-   * @var \Symfony\Component\HttpFoundation\RequestStack
+   * @var \Drupal\Core\Http\RequestStack
    */
   protected $requestStack;
 
@@ -99,7 +99,7 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
    *   The string entity type service.
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   Interface for classes representing the result of routing.
-   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   * @param \Drupal\Core\Http\RequestStack $request_stack
    *   The request stack.
    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
    *   The language manager.
