@@ -85,6 +85,134 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Alteration to entity view pages.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function entityViewAlter(EntityViewAlterEvent $event):void {
+    $this->appendServiceTermDescriptionToVbaFacilityService($event);
+  }
+
+  /**
+   * Appends VBA facility service description to title on service node:view.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function appendServiceTermDescriptionToVbaFacilityService(EntityViewAlterEvent $event):void {
+    $display = $event->getDisplay();
+    if (($display->getTargetBundle() === 'vba_facility_service') && ($display->getOriginalMode() === 'full')) {
+      $build = &$event->getBuild();
+      $service_node = $event->getEntity();
+      $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
+      // Render the national service term description (if available).
+      if (!empty($referenced_terms)) {
+        $description = "";
+        $referenced_term = reset($referenced_terms);
+        if ($referenced_term) {
+          $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
+          $referenced_term_content = $view_builder->view($referenced_term, 'vba_facility_service');
+          $description = $this->renderer->renderRoot($referenced_term_content);
+        }
+      }
+      else {
+        $description = new FormattableMarkup(
+          '<div><strong>Notice: The national service description was not found.</strong></div>',
+            []);
+      }
+      $formatted_markup = new FormattableMarkup($description, []);
+      $build['field_service_name_and_descripti']['#suffix'] = $formatted_markup;
+    }
+  }
+
+  /**
+   * Form alterations for VBA facility content type.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVbaFacilityNodeForm(FormIdAlterEvent $event): void {
+    $this->addStateManagementToBannerFields($event);
+    $this->changeBannerType($event);
+    $this->changeDismissibleOption($event);
+  }
+
+  /**
+   * Add states management to banner fields, based on bool.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function addStateManagementToBannerFields(FormIdAlterEvent $event) {
+    $form = &$event->getForm();
+    $form['#attached']['library'][] = 'va_gov_vba_facility/set_banner_fields_to_required';
+    $selector = ':input[name="field_vba_banner_panel[value]"]';
+
+    // Show and require the banner fields when show banner is checked.
+    $form['field_alert_type']['widget']['#states'] = [
+      'required' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+      'visible' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+    ];
+
+    $form['field_dismissible_option']['#states'] = [
+      'visible' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+    ];
+
+    $form['field_banner_title']['widget'][0]['value']['#states'] = [
+      'required' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+      'visible' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+    ];
+
+    // Unfortunately we can not set ckeditor field as required using
+    // states.  So we end up adding this with JS to bypass HTML5 validation
+    // and let the validation constraint handle it.
+    $form['field_banner_content']['#states'] = [
+      'visible' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+    ];
+  }
+
+  /**
+   * Changes the select list for Banner Type.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  protected function changeBannerType(FormIdAlterEvent $event) {
+    // Add the '- Select a value -' option to replace '- None -'.
+    $form = &$event->getForm();
+    if (isset($form['field_alert_type']['widget']['#options']) && array_key_exists('_none', $form['field_alert_type']['widget']['#options'])) {
+      $form['field_alert_type']['widget']['#options']['_none'] = '- Select a value -';
+    }
+  }
+
+  /**
+   * Changes the radio buttons for Dismissible option.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  protected function changeDismissibleOption(FormIdAlterEvent $event) {
+    // Remove N/A option.
+    $form = &$event->getForm();
+    if (isset($form['field_dismissible_option']['widget']['#options']) && array_key_exists('_none', $form['field_dismissible_option']['widget']['#options'])) {
+      unset($form['field_dismissible_option']['widget']['#options']['_none']);
+    }
+  }
+
+  /**
    * Equivalent of hook_entity_type_alter().
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent $event
@@ -135,134 +263,6 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
           $entity->field_banner_content->value = '';
         }
       }
-    }
-  }
-
-  /**
-   * Form alterations for VBA facility content type.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
-  public function alterVbaFacilityNodeForm(FormIdAlterEvent $event): void {
-    $this->addStateManagementToBannerFields($event);
-    $this->changeBannerType($event);
-    $this->changeDismissibleOption($event);
-  }
-
-  /**
-   * Changes the radio buttons for Dissmissible option.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
-  protected function changeDismissibleOption(FormIdAlterEvent $event) {
-    // Remove N/A option.
-    $form = &$event->getForm();
-    if (isset($form['field_dismissible_option']['widget']['#options']) && array_key_exists('_none', $form['field_dismissible_option']['widget']['#options'])) {
-      unset($form['field_dismissible_option']['widget']['#options']['_none']);
-    }
-  }
-
-  /**
-   * Changes the select list for Banner Type.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
-  protected function changeBannerType(FormIdAlterEvent $event) {
-    // Add the '- Select a value -' option to replace '- None -'.
-    $form = &$event->getForm();
-    if (isset($form['field_alert_type']['widget']['#options']) && array_key_exists('_none', $form['field_alert_type']['widget']['#options'])) {
-      $form['field_alert_type']['widget']['#options']['_none'] = '- Select a value -';
-    }
-  }
-
-  /**
-   * Add states management to banner fields, based on bool.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
-  public function addStateManagementToBannerFields(FormIdAlterEvent $event) {
-    $form = &$event->getForm();
-    $form['#attached']['library'][] = 'va_gov_vba_facility/set_banner_fields_to_required';
-    $selector = ':input[name="field_vba_banner_panel[value]"]';
-
-    // Show and require the banner fields when show banner is checked.
-    $form['field_alert_type']['widget']['#states'] = [
-      'required' => [
-        [$selector => ['checked' => TRUE]],
-      ],
-      'visible' => [
-        [$selector => ['checked' => TRUE]],
-      ],
-    ];
-
-    $form['field_dismissible_option']['#states'] = [
-      'visible' => [
-        [$selector => ['checked' => TRUE]],
-      ],
-    ];
-
-    $form['field_banner_title']['widget'][0]['value']['#states'] = [
-      'required' => [
-        [$selector => ['checked' => TRUE]],
-      ],
-      'visible' => [
-        [$selector => ['checked' => TRUE]],
-      ],
-    ];
-
-    // Unfortunately we can not set ckeditor field as required using
-    // states.  So we end up adding this with JS to bypass HTML5 validation
-    // and let the validation constraint handle it.
-    $form['field_banner_content']['#states'] = [
-      'visible' => [
-        [$selector => ['checked' => TRUE]],
-      ],
-    ];
-  }
-
-  /**
-   * Alteration to entity view pages.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
-   *   The entity view alter service.
-   */
-  public function entityViewAlter(EntityViewAlterEvent $event):void {
-    $this->appendServiceTermDescriptionToVbaFacilityService($event);
-  }
-
-  /**
-   * Appends VBA facility service description to title on service node:view.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
-   *   The entity view alter service.
-   */
-  public function appendServiceTermDescriptionToVbaFacilityService(EntityViewAlterEvent $event):void {
-    $display = $event->getDisplay();
-    if (($display->getTargetBundle() === 'vba_facility_service') && ($display->getOriginalMode() === 'full')) {
-      $build = &$event->getBuild();
-      $service_node = $event->getEntity();
-      $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
-      // Render the national service term description (if available).
-      if (!empty($referenced_terms)) {
-        $description = "";
-        $referenced_term = reset($referenced_terms);
-        if ($referenced_term) {
-          $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
-          $referenced_term_content = $view_builder->view($referenced_term, 'vba_facility_service');
-          $description = $this->renderer->renderRoot($referenced_term_content);
-        }
-      }
-      else {
-        $description = new FormattableMarkup(
-          '<div><strong>Notice: The national service description was not found.</strong></div>',
-            []);
-      }
-      $formatted_markup = new FormattableMarkup($description, []);
-      $build['field_service_name_and_descripti']['#suffix'] = $formatted_markup;
     }
   }
 
