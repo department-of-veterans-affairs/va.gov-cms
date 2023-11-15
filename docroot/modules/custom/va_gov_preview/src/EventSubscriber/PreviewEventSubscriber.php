@@ -2,11 +2,12 @@
 
 namespace Drupal\va_gov_preview\EventSubscriber;
 
-
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\feature_toggle\FeatureStatus;
+use Drupal\next\NextEntityTypeManagerInterface;
+use Drupal\next\NextSettingsManagerInterface;
 use Drupal\node\NodeInterface;
 use Drupal\preprocess_event_dispatcher\Event\PagePreprocessEvent;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
@@ -39,11 +40,25 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
   protected $routeMatch;
 
   /**
+   * The next entity type manager.
+   *
+   * @var \Drupal\next\NextEntityTypeManagerInterface
+   */
+  protected NextEntityTypeManagerInterface $nextEntityTypeManager;
+
+  /**
+   * The next settings manager.
+   *
+   * @var \Drupal\next\NextSettingsManagerInterface
+   */
+  protected NextSettingsManagerInterface $nextSettingsManager;
+
+  /**
    * TRUE if the next preview checkbox feature toggle is enabled.
    *
    * @var bool
    */
-  private bool $next_preview_enabled;
+  private bool $nextPreviewEnabled;
 
   /**
    * Constructs the EventSubscriber object.
@@ -51,15 +66,25 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
    *   The string entity type service.
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
-   *   Provides an interface for classes representing the result of routing.
+   *   Interface for classes representing the result of routing.
+   * @param \Drupal\next\NextEntityTypeManagerInterface $next_entity_type_manager
+   *   Interface for retrieving all connected Next.js sites.
+   * @param \Drupal\next\NextSettingsManagerInterface $next_settings_manager
+   *   Interface for retrieving specific Next.js site settings.
+   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
+   *   Interface for checking CMS feature flags.
    */
   public function __construct(
-    EntityTypeManager             $entityTypeManager,
-    RouteMatchInterface           $route_match,
-    FeatureStatus                 $feature_status,
+    EntityTypeManager $entityTypeManager,
+    RouteMatchInterface $route_match,
+    NextEntityTypeManagerInterface $next_entity_type_manager,
+    NextSettingsManagerInterface $next_settings_manager,
+    FeatureStatus $feature_status,
   ) {
     $this->entityTypeManager = $entityTypeManager;
     $this->routeMatch = $route_match;
+    $this->nextEntityTypeManager = $next_entity_type_manager;
+    $this->nextSettingsManager = $next_settings_manager;
     $this->next_preview_enabled = $feature_status->getStatus(self::NEXT_PREVIEW_FEATURE_NAME);
   }
 
@@ -103,24 +128,24 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
 
   /**
    * Generate a preview button for a node.
+   *
    * @param \Drupal\node\NodeInterface $node
-   *    Node.
+   *   Node.
    */
   protected function generatePreviewButton(NodeInterface $node): string|null {
-    // If next-build enabled, use drupal/next generated link. Needs to come first because listing types are enabled here.
+    // Needs to come first because listing types are allowed here.
     if ($this->next_preview_enabled && $this->checkNextEnabledTypes($node->bundle())) {
-      $test = $this->generateNextBuildPreviewLink($node);
-      $button = $test;
+      $url = $this->generateNextBuildPreviewLink($node);
     }
     // Otherwise return default preview experience.
     else {
       if ($this->checkExcludedTypes($node)) {
-        return null;
+        return NULL;
       }
       // Make sure we aren't on /training-guide.
       $current_uri = \Drupal::request()->getRequestUri();
       if ($current_uri === '/training-guide') {
-        return null;
+        return NULL;
       }
 
       $node = $this->routeMatch->getParameter('node');
@@ -128,16 +153,18 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
       $host = \Drupal::request()->getHost();
       $preview_form = new PreviewForm();
       $url = $preview_form->getEnvironment($host, $nid);
-      $button = '<a class="button button--primary js-form-submit form-submit node-preview-button" rel="noopener" target="_blank" href="' . $url . '">' . $this->t('Preview'). '</a>';
     }
-    return $button;
+    return '<a class="button button--primary js-form-submit form-submit node-preview-button" rel="noopener" target="_blank" href="' . $url . '">' . $this->t('Preview') . '</a>';
   }
 
   /**
-   * Next-build enabled preview requires certain config entities to exist for a node type.
+   * Next-build enabled preview requires certain config entities to exist.
    *
    * @param string $type
+   *   The node type.
+   *
    * @return bool
+   *   TRUE if the node type has a corresponding next config entity.
    */
   protected function checkNextEnabledTypes(string $type): bool {
     // Replace this array with a config check.
@@ -148,8 +175,11 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
   /**
    * Existing preview functionality has some conditions.
    *
-   * @param NodeInterface $node
+   * @param \Drupal\node\NodeInterface $node
+   *   The node type.
+   *
    * @return bool
+   *   TRUE if the node type is excluded from preview.
    */
   protected function checkExcludedTypes(NodeInterface $node): bool {
     $exclusion_types_from_config = \Drupal::service('va_gov_backend.exclusion_types')->getExcludedTypes();
@@ -175,12 +205,18 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
   /**
    * Generate a preview link targeting an associated next-build server.
    *
-   * @param NodeInterface $node
+   * @param \Drupal\node\NodeInterface $node
+   *   Node.
+   *
    * @return string
+   *   Preview link with required URL query params.
    */
   protected function generateNextBuildPreviewLink(NodeInterface $node): string {
+    $sites = $this->nextEntityTypeManager->getSitesForEntity($node);
 
-    return 'https://a-link-from-next' . $node->getTitle();
+    $url = $sites['next_build_preview_server']->getPreviewUrlForEntity($node);
+
+    return $url->toString();
   }
 
 }
