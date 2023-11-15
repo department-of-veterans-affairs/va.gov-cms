@@ -2,11 +2,11 @@
 
 namespace Drupal\va_gov_profile\EventSubscriber;
 
+use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
-use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

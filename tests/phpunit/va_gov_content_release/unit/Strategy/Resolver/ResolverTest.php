@@ -4,8 +4,8 @@ namespace tests\phpunit\va_gov_content_release\unit\Strategy\Resolver;
 
 use Drupal\va_gov_content_release\Strategy\Resolver\Resolver;
 use Drupal\va_gov_content_release\Strategy\Resolver\ResolverInterface;
-use Drupal\va_gov_environment\Environment\Environment;
 use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
+use Drupal\va_gov_environment\Environment\Environment;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**

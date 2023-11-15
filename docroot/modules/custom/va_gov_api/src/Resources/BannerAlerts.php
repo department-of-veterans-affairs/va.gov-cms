@@ -2,9 +2,6 @@
 
 namespace Drupal\va_gov_api\Resources;
 
-use Drupal\jsonapi\ResourceResponse;
-use Drupal\jsonapi_resources\Resource\EntityResourceBase;
-use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -13,8 +10,11 @@ use Drupal\Core\Path\PathMatcherInterface;
 use Drupal\Core\Path\PathValidatorInterface;
 use Drupal\jsonapi\JsonApiResource\ResourceObject;
 use Drupal\jsonapi\JsonApiResource\ResourceObjectData;
+use Drupal\jsonapi\ResourceResponse;
 use Drupal\jsonapi\ResourceType\ResourceType;
+use Drupal\jsonapi_resources\Resource\EntityResourceBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * The BannerAlerts JSON:API resource.

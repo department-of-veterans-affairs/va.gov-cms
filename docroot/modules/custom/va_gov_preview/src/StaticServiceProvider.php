@@ -2,9 +2,9 @@
 
 namespace Drupal\va_gov_preview;
 
-use Drupal\Core\StackMiddleware\NegotiationMiddleware;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceModifierInterface;
+use Drupal\Core\StackMiddleware\NegotiationMiddleware;
 
 /**
  * Adds application/static+html as known format.

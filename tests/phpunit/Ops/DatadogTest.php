@@ -2,11 +2,11 @@
 
 namespace tests\phpunit\Ops;
 
-use PNX\Prometheus\Gauge;
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_backend\Service\Datadog;
-use Tests\Support\Mock\HttpClient;
+use PNX\Prometheus\Gauge;
 use Tests\Support\Classes\VaGovExistingSiteBase;
+use Tests\Support\Mock\HttpClient;
 
 /**
  * Test the Datadog service.

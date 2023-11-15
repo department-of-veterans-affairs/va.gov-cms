@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_backend\Plugin\field_group\FieldGroupFormatter;
 
-use Drupal\field_group\Plugin\field_group\FieldGroupFormatter\HtmlElement;
 use Drupal\Component\Utility\Html;
+use Drupal\field_group\Plugin\field_group\FieldGroupFormatter\HtmlElement;
 
 /**
  * Tooltip field group formatter.

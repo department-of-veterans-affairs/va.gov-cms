@@ -5,9 +5,9 @@ namespace Drupal\va_gov_vamc;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Tags;
 use Drupal\Core\Entity\EntityAutocompleteMatcherInterface;
+use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface;
 use Drupal\Core\Entity\EntityRepository;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface;
 
 /**
  * Matcher class to get autocompletion results for entity reference.

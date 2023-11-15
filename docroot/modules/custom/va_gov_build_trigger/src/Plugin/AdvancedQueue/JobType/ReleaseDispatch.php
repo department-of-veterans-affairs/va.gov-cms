@@ -8,10 +8,10 @@ use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 
 /**
  * AdvancedQueue queue processor plugin for content release dispatch.
