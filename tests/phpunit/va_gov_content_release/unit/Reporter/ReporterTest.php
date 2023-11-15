@@ -2,9 +2,9 @@
 
 namespace tests\phpunit\va_gov_content_release\unit\Reporter;
 
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\va_gov_content_release\Reporter\Reporter;
 use Prophecy\Argument;
 use Psr\Log\LoggerInterface;

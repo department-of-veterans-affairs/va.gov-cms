@@ -6,11 +6,10 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Controller\ContentReleaseNotificationController;
 use Drupal\va_gov_build_trigger\EventSubscriber\ContinuousReleaseSubscriber;
-use Drupal\va_gov_build_trigger\Service\BuildRequester;
-use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
 use Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
+use Drupal\va_gov_content_release\Request\RequestInterface;
 use Drush\Commands\DrushCommands;
 
 /**
@@ -25,18 +24,18 @@ class ContentReleaseCommands extends DrushCommands {
   protected $releaseStateManager;
 
   /**
-   * The build requester service.
-   *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
-   */
-  protected $buildRequester;
-
-  /**
    * The build scheduler service.
    *
    * @var \Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface
    */
   protected $buildScheduler;
+
+  /**
+   * The content release request service.
+   *
+   * @var \Drupal\va_gov_content_release\Request\RequestInterface
+   */
+  protected $requestService;
 
   /**
    * The state management service.
@@ -59,8 +58,8 @@ class ContentReleaseCommands extends DrushCommands {
    *   The release state manager service.
    * @param \Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface $buildScheduler
    *   The build scheduler service.
-   * @param \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
-   *   The build requester service.
+   * @param \Drupal\va_gov_content_release\Request\RequestInterface $requestService
+   *   The request service.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
@@ -69,13 +68,13 @@ class ContentReleaseCommands extends DrushCommands {
   public function __construct(
     ReleaseStateManagerInterface $releaseStateManager,
     BuildSchedulerInterface $buildScheduler,
-    BuildRequesterInterface $buildRequester,
+    RequestInterface $requestService,
     StateInterface $state,
     LoggerChannelFactoryInterface $loggerChannelFactory
   ) {
     $this->releaseStateManager = $releaseStateManager;
     $this->buildScheduler = $buildScheduler;
-    $this->buildRequester = $buildRequester;
+    $this->requestService = $requestService;
     $this->state = $state;
     $this->logger = $loggerChannelFactory->get('va_gov_build_trigger');
   }
@@ -89,19 +88,6 @@ class ContentReleaseCommands extends DrushCommands {
   public function resetState() {
     $this->releaseStateManager->resetState();
     $this->logger()->info('Content release state has been reset to \'ready\'.');
-  }
-
-  /**
-   * Reset the content release frontend version.
-   *
-   * @command va-gov:content-release:reset-frontend-version
-   * @aliases va-gov-content-release-reset-frontend-version
-   */
-  public function resetFrontendVersion() {
-    $this->state->delete(BuildRequester::VA_GOV_FRONTEND_VERSION);
-    $this->logger()->info('Content release state has been reset to @state.', [
-      '@state' => ReleaseStateManager::STATE_DEFAULT,
-    ]);
   }
 
   /**
@@ -132,17 +118,6 @@ class ContentReleaseCommands extends DrushCommands {
   }
 
   /**
-   * Get the frontend version that was requested by the user.
-   *
-   * @command va-gov:content-release:get-frontend-version
-   * @aliases va-gov-content-release-get-frontend-version
-   */
-  public function getFrontendVersion() {
-    $state = $this->state->get(BuildRequester::VA_GOV_FRONTEND_VERSION, '__default');
-    $this->io()->write($state);
-  }
-
-  /**
    * Get the current release state.
    *
    * @command va-gov:content-release:get-state
@@ -151,18 +126,6 @@ class ContentReleaseCommands extends DrushCommands {
   public function getReleaseState() {
     $state = $this->releaseStateManager->getState();
     $this->io()->write($state);
-  }
-
-  /**
-   * Request a frontend build (but do not initiate it).
-   *
-   * @command va-gov:content-release:request-frontend-build
-   * @aliases va-gov-content-release-request-frontend-build
-   */
-  public function requestFrontendBuild() {
-    $this->buildRequester->resetFrontendVersion();
-    $this->buildRequester->requestFrontendBuild('Build requested via Drush.');
-    $this->io()->writeln('Frontend build has been requested');
   }
 
   /**
@@ -184,7 +147,7 @@ class ContentReleaseCommands extends DrushCommands {
   public function checkStale() {
     if ($this->releaseStateManager->releaseStateIsStale()) {
       $this->resetState();
-      $this->requestFrontendBuild();
+      $this->requestService->submitRequest('Submitting new request due to staleness.');
     }
   }
 

@@ -4,14 +4,14 @@ namespace Drupal\va_gov_migrate\Plugin\migrate\source;
 
 use Drupal\Core\Site\Settings;
 use Drupal\migrate\MigrateException;
+use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migration_tools\Message;
 use Drupal\migration_tools\Plugin\migrate\source\UrlList;
 use Drupal\migration_tools\StringTools;
 use Drupal\va_gov_migrate\AnomalyMessage;
-use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Drupal\migrate\Plugin\MigrationInterface;
 use GuzzleHttp\Exception\RequestException;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Gets frontmatter and page urls from metalsmith files.

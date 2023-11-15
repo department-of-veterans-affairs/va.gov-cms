@@ -3,8 +3,8 @@
 namespace Drupal\va_gov_build_trigger\Plugin\MetricsCollector;
 
 use Drupal\Component\Datetime\TimeInterface;
-use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Drupal\Core\State\StateInterface;
+use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

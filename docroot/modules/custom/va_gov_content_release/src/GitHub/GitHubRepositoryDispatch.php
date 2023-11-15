@@ -2,9 +2,9 @@
 
 namespace Drupal\va_gov_content_release\GitHub;
 
-use Drupal\va_gov_github\Api\Client\ApiClientInterface;
 use Drupal\va_gov_content_release\Exception\ContentReleaseInProgressException;
 use Drupal\va_gov_content_release\Exception\GitHubRepositoryDispatchException;
+use Drupal\va_gov_github\Api\Client\ApiClientInterface;
 
 /**
  * The GitHub repository dispatch service.

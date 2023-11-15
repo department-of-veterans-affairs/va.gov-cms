@@ -33,14 +33,6 @@ interface EnvironmentInterface extends PluginInspectionInterface {
   public function contentEditsShouldTriggerFrontendBuild() : bool;
 
   /**
-   * The Build Trigger Form Class.
-   *
-   * @return string
-   *   The build trigger form class
-   */
-  public function getBuildTriggerFormClass() : string;
-
-  /**
    * Determine whether or not build log and frontend version are displayed.
    *
    * This mainly affects the content release form at /admin/content/deploy.

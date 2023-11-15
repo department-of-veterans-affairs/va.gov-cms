@@ -2,10 +2,10 @@
 
 namespace tests\phpunit\va_gov_content_release\unit\GitHub;
 
-use Drupal\va_gov_github\Api\Client\ApiClientInterface;
 use Drupal\va_gov_content_release\Exception\ContentReleaseInProgressException;
 use Drupal\va_gov_content_release\Exception\GitHubRepositoryDispatchException;
 use Drupal\va_gov_content_release\GitHub\GitHubRepositoryDispatch;
+use Drupal\va_gov_github\Api\Client\ApiClientInterface;
 use Prophecy\Argument;
 use Tests\Support\Classes\VaGovUnitTestBase;
 

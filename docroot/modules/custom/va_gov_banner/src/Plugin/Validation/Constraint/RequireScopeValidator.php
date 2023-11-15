@@ -4,9 +4,9 @@ namespace Drupal\va_gov_banner\Plugin\Validation\Constraint;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Validates the RequireScope constraint.

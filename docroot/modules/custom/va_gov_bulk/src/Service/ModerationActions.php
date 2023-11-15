@@ -2,9 +2,9 @@
 
 namespace Drupal\va_gov_bulk\Service;
 
-use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\node\NodeInterface;
 
 /**
