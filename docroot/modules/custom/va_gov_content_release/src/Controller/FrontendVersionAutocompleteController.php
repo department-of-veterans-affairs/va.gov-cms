@@ -69,12 +69,12 @@ class FrontendVersionAutocompleteController extends ControllerBase {
       $frontend = Frontend::from($frontend);
     }
     catch (\InvalidArgumentException $e) {
-      return JsonResponse::create(['error' => 'Invalid frontend type provided.']);
+      return new JsonResponse(['error' => 'Invalid frontend type provided.']);
     }
     $input = $request->query->get('q') ?? 'main';
     $query = mb_strtolower($input);
     $results = $this->frontendVersionSearch->getMatchingReferences($frontend, $query, $count);
-    return JsonResponse::create($results);
+    return new JsonResponse($results);
   }
 
 }
