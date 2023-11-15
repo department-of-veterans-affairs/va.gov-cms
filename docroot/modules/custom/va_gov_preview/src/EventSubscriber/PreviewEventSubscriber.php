@@ -2,7 +2,10 @@
 
 namespace Drupal\va_gov_preview\EventSubscriber;
 
+use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Http\RequestStack;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\feature_toggle\FeatureStatus;
@@ -10,6 +13,7 @@ use Drupal\next\NextEntityTypeManagerInterface;
 use Drupal\next\NextSettingsManagerInterface;
 use Drupal\node\NodeInterface;
 use Drupal\preprocess_event_dispatcher\Event\PagePreprocessEvent;
+use Drupal\va_gov_backend\Service\ExclusionTypes;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -40,6 +44,34 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
   protected $routeMatch;
 
   /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
+   * The language manager interface.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface
+   */
+  protected $languageManager;
+
+  /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatter
+   */
+  protected $dateFormatter;
+
+  /**
+   * The VA gov backend exclusion types service.
+   *
+   * @var \Drupal\va_gov_backend\Service\ExclusionTypes
+   */
+  protected $exclusionTypes;
+
+  /**
    * The next entity type manager.
    *
    * @var \Drupal\next\NextEntityTypeManagerInterface
@@ -67,6 +99,14 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
    *   The string entity type service.
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   Interface for classes representing the result of routing.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   *   The language manager.
+   * @param \Drupal\Core\Datetime\DateFormatter $date_formatter
+   *   The date formatter.
+   * @param \Drupal\va_gov_backend\Service\ExclusionTypes $exclusion_types
+   *   The va_gov_backend exclusion types service.
    * @param \Drupal\next\NextEntityTypeManagerInterface $next_entity_type_manager
    *   Interface for retrieving all connected Next.js sites.
    * @param \Drupal\next\NextSettingsManagerInterface $next_settings_manager
@@ -77,12 +117,20 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
   public function __construct(
     EntityTypeManager $entityTypeManager,
     RouteMatchInterface $route_match,
+    RequestStack $request_stack,
+    LanguageManagerInterface $language_manager,
+    DateFormatter $date_formatter,
+    ExclusionTypes $exclusion_types,
     NextEntityTypeManagerInterface $next_entity_type_manager,
     NextSettingsManagerInterface $next_settings_manager,
     FeatureStatus $feature_status,
   ) {
     $this->entityTypeManager = $entityTypeManager;
     $this->routeMatch = $route_match;
+    $this->requestStack = $request_stack;
+    $this->languageManager = $language_manager;
+    $this->dateFormatter = $date_formatter;
+    $this->exclusionTypes = $exclusion_types;
     $this->nextEntityTypeManager = $next_entity_type_manager;
     $this->nextSettingsManager = $next_settings_manager;
     $this->nextPreviewEnabled = $feature_status->getStatus(self::NEXT_PREVIEW_FEATURE_NAME);
@@ -114,12 +162,12 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
     }
 
     $route_name = $this->routeMatch->getRouteName();
-    $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    $language = $this->languageManager->getCurrentLanguage()->getId();
 
     // Make sure we aren't on the node form or an excluded type.
     if (($route_name !== 'entity.node.edit_form') && ($language === 'en')) {
       $last_saved_by_an_editor = $node->get('field_last_saved_by_an_editor')->value;
-      $vars['page']['last_saved_by_an_editor'] = $last_saved_by_an_editor ? \Drupal::service('date.formatter')->format($last_saved_by_an_editor, 'custom', 'F j Y g:ia') : 'Unknown';
+      $vars['page']['last_saved_by_an_editor'] = $last_saved_by_an_editor ? $this->dateFormatter->format($last_saved_by_an_editor, 'custom', 'F j Y g:ia') : 'Unknown';
 
       $button = $this->generatePreviewButton($node);
       $vars['page']['sidebar_second']['#markup'] = $button;
@@ -143,14 +191,14 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
         return NULL;
       }
       // Make sure we aren't on /training-guide.
-      $current_uri = \Drupal::request()->getRequestUri();
+      $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
       if ($current_uri === '/training-guide') {
         return NULL;
       }
 
       $node = $this->routeMatch->getParameter('node');
       $nid = $node->id();
-      $host = \Drupal::request()->getHost();
+      $host = $this->requestStack->getCurrentRequest()->getHost();
       $preview_form = new PreviewForm();
       $url = $preview_form->getEnvironment($host, $nid);
     }
@@ -167,7 +215,7 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
    *   TRUE if the node type has a corresponding next config entity.
    */
   protected function checkNextEnabledTypes(string $type): bool {
-    // Replace this array with a config check.
+    // @todo Replace this array with a proper config check.
     $enabled_types = ['news_story', 'story_listing'];
     return in_array($type, $enabled_types);
   }
@@ -182,7 +230,7 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
    *   TRUE if the node type is excluded from preview.
    */
   protected function checkExcludedTypes(NodeInterface $node): bool {
-    $exclusion_types_from_config = \Drupal::service('va_gov_backend.exclusion_types')->getExcludedTypes();
+    $exclusion_types_from_config = $this->exclusionTypes->getExcludedTypes();
     $list_types = [
       // List pages don't play nicely with preview.
       'event_listing',
