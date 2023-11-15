@@ -5,8 +5,12 @@
 * @preserve
 **/
 (function (Drupal) {
-  Drupal.behaviors.vaGovVbaBannerContentConditional = {
+  Drupal.behaviors.vaGovVbaBannerFieldsConditional = {
     attach: function attach() {
+      if (document.querySelector('fieldset[data-drupal-selector="edit-field-dismissible-option"] legend span')) {
+        var dismissibleOption = document.querySelector('fieldset[data-drupal-selector="edit-field-dismissible-option"] legend span');
+        dismissibleOption.classList.add("js-form-required", "form-required");
+      }
       if (document.querySelector('label[for="edit-field-banner-content-0-value"]')) {
         var bannerContentWysiwygLabel = document.querySelector('label[for="edit-field-banner-content-0-value"]');
         bannerContentWysiwygLabel.classList.add("js-form-required", "form-required");

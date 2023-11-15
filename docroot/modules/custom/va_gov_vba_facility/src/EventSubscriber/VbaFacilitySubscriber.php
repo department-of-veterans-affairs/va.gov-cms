@@ -147,6 +147,21 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   public function alterVbaFacilityNodeForm(FormIdAlterEvent $event): void {
     $this->addStateManagementToBannerFields($event);
     $this->changeBannerType($event);
+    $this->changeDismissibleOption($event);
+  }
+
+  /**
+   * Changes the radio buttons for Dissmissible option.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  protected function changeDismissibleOption(FormIdAlterEvent $event) {
+    // Remove N/A option.
+    $form = &$event->getForm();
+    if (isset($form['field_dismissible_option']['widget']['#options']) && array_key_exists('_none', $form['field_dismissible_option']['widget']['#options'])) {
+      unset($form['field_dismissible_option']['widget']['#options']['_none']);
+    }
   }
 
   /**
@@ -171,7 +186,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    */
   public function addStateManagementToBannerFields(FormIdAlterEvent $event) {
     $form = &$event->getForm();
-    $form['#attached']['library'][] = 'va_gov_vba_facility/set_banner_content_to_required';
+    $form['#attached']['library'][] = 'va_gov_vba_facility/set_banner_fields_to_required';
     $selector = ':input[name="field_vba_banner_panel[value]"]';
 
     // Show and require the banner fields when show banner is checked.
