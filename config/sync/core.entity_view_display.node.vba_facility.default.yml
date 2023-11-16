@@ -34,7 +34,7 @@ dependencies:
     - field.field.node.vba_facility.field_shared_vha_location
     - field.field.node.vba_facility.field_table_of_contents
     - field.field.node.vba_facility.field_timezone
-    - field.field.node.vba_facility.field_vba_banner_panel
+    - field.field.node.vba_facility.field_show_banner
     - node.type.vba_facility
   module:
     - address
@@ -269,7 +269,7 @@ third_party_settings:
         description_display: after
     group_banner:
       children:
-        - field_vba_banner_panel
+        - field_show_banner
         - field_alert_type
         - field_dismissible_option
         - field_banner_title
@@ -522,7 +522,7 @@ content:
     third_party_settings: {  }
     weight: 9
     region: content
-  field_vba_banner_panel:
+  field_show_banner:
     type: boolean
     label: above
     settings:

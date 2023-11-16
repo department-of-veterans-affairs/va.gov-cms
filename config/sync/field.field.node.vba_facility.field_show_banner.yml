@@ -3,15 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_vba_banner_panel
+    - field.storage.node.field_show_banner
     - node.type.vba_facility
   module:
     - tmgmt_content
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: node.vba_facility.field_vba_banner_panel
-field_name: field_vba_banner_panel
+id: node.vba_facility.field_show_banner
+field_name: field_show_banner
 entity_type: node
 bundle: vba_facility
 label: 'Display a banner alert on this facility'

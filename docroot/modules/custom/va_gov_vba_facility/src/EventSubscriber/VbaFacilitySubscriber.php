@@ -147,7 +147,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   public function addStateManagementToBannerFields(FormIdAlterEvent $event) {
     $form = &$event->getForm();
     $form['#attached']['library'][] = 'va_gov_vba_facility/set_banner_fields_to_required';
-    $selector = ':input[name="field_vba_banner_panel[value]"]';
+    $selector = ':input[name="field_show_banner[value]"]';
 
     // Show and require the banner fields when show banner is checked.
     $form['field_alert_type']['widget']['#states'] = [
@@ -205,7 +205,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    *   The event.
    */
   protected function changeDismissibleOption(FormIdAlterEvent $event) {
-    // Remove N/A option.
+    // Remove N/A option, which is the result of not being a "required" field.
     $form = &$event->getForm();
     if (isset($form['field_dismissible_option']['widget']['#options']) && array_key_exists('_none', $form['field_dismissible_option']['widget']['#options'])) {
       unset($form['field_dismissible_option']['widget']['#options']['_none']);
@@ -248,8 +248,8 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   protected function clearBannerFields(EntityInterface $entity): void {
     /** @var \Drupal\node\NodeInterface $entity */
     if ($entity->bundle() === "vba_facility") {
-      if ($entity->hasField('field_vba_banner_panel')
-      && $entity->field_vba_banner_panel->value == FALSE) {
+      if ($entity->hasField('field_show_banner')
+      && $entity->field_show_banner->value == FALSE) {
         if ($entity->field_alert_type) {
           $entity->field_alert_type->value = NULL;
         }
