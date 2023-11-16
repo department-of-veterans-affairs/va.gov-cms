@@ -64,7 +64,7 @@ body:
   - type: dropdown
     id: research
     attributes:
-      label: Are you doing user research with CMS editors?
+      label: Will you be doing user research with CMS editors?
       multiple: false
       options:
         - "Yes"
@@ -76,6 +76,17 @@ body:
     id: UX
     attributes:
       label: Will your work result in visible changes to the user experience of the CMS?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+        - "Maybe (Leave notes in the Additional Information section of this form)"
+    validations:
+      required: true
+ - type: dropdown
+    id: DS
+    attributes:
+      label: Will your work require introducing a new CMS Design System component or changes to an existing component?
       multiple: false
       options:
         - "Yes"
@@ -95,9 +106,20 @@ body:
     validations:
       required: true
   - type: dropdown
+    id: fields
+    attributes:
+      label: Will your work require introducing new input fields or making changes to existing input fields?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+        - "Maybe (Leave notes in the Additional Information section of this form)"
+    validations:
+      required: true
+  - type: dropdown
     id: analytics
     attributes:
-      label: Do you need to capture any analytics or metrics?
+      label: Will this work require you to capture any analytics or metrics?
       multiple: false
       options:
         - "Yes"
