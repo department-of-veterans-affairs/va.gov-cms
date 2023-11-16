@@ -143,15 +143,12 @@ body:
     attributes:
       label: Additional Information
       description: Please include any additional information or context that may be relevant to your request.
-    validations:
-      required: false
   - type: checkboxes
     id: terms-agreement
     attributes:
       label:  I acknowledge that I must submit this form as an Epic and notify the cms-team user group in the cms-support Slack channel with a link to the Epic that is created.
       options:
-        - I agree.
-    validations:
-      required: true
+        - label: I agree.
+          required: true
           
           
