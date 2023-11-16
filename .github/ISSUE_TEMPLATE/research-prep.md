@@ -33,8 +33,7 @@ assignees: ''
 
 **Notetaking prep**
 - [ ] Make note-taking spreadsheet/Mural
-- [ ] Create a Mural board for research debrief sessions 
-
+- [ ] Create a Mural board for research debrief sessions and/or data synthesis
 
 **Pilots** 
 - [ ] Recruit pilot participant(s) from your company or another one
