@@ -18,3 +18,10 @@ Feature: Alt-Text Validation
     Given I am logged in as a user with the "administrator" role
     When I create an image with "polygon_image.png" as alt-text
     Then I should see "Alternative text cannot contain file names." as an error message
+
+  Scenario: An editor supplies the name of the image file and then correctly edits field
+    Given I am logged in as a user with the "administrator" role
+    When I create an image with "polygon_image.png" as alt-text
+    Then I should see "Alternative text cannot contain file names." as an error message
+    Then I update alt-text content to display "a simple polygon placeholder"
+    Then I should see no error message

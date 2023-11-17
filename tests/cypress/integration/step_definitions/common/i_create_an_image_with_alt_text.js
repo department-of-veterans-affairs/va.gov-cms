@@ -43,6 +43,21 @@ When(
   }
 );
 
+Then("I update alt-text content to display {string}", (altTextContent) => {
+  cy.findAllByLabelText("Alternative text").clear();
+  cy.findAllByLabelText("Alternative text").type(altTextContent, {
+    force: true,
+  });
+});
+
+Then("I should see no error message", () => {
+  cy.get("div.form-item--error-message > strong").should(
+    "have.attr",
+    "style",
+    "display: none;"
+  );
+});
+
 Then("I should see {string} as an error message", (errorMessage) => {
   cy.get("div.form-item--error-message").find("strong").contains(errorMessage);
 });
