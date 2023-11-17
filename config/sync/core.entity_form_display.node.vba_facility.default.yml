@@ -18,7 +18,6 @@ dependencies:
     - field.field.node.vba_facility.field_geolocation
     - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
-    - field.field.node.vba_facility.field_location_services
     - field.field.node.vba_facility.field_media
     - field.field.node.vba_facility.field_non_va_location_url
     - field.field.node.vba_facility.field_non_va_official_name
@@ -27,6 +26,7 @@ dependencies:
     - field.field.node.vba_facility.field_operating_status_facility
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
+    - field.field.node.vba_facility.field_prepare_for_visit
     - field.field.node.vba_facility.field_shared_vha_location
     - field.field.node.vba_facility.field_table_of_contents
     - field.field.node.vba_facility.field_timezone
@@ -45,6 +45,7 @@ dependencies:
     - media_library
     - office_hours
     - paragraphs
+    - paragraphs_features
     - telephone
     - textfield_counter
     - tzfield
@@ -159,19 +160,20 @@ third_party_settings:
         description_display: after
     group_prepare_for_your_visit:
       children:
-        - field_location_services
+        - field_prepare_for_visit
       label: 'Prepare for your visit'
       region: content
       parent_name: ''
       weight: 7
-      format_type: details
+      format_type: fieldset
       format_settings:
         classes: ''
         show_empty_fields: true
         id: prepare-for-your-visit
-        open: true
         description: 'Add location services available at this facility such as transportation, parking, visiting hours, lodging options, food options, etc. Do not use this for benefit services.'
         required_fields: true
+        open: true
+        description_display: after
     group_benefit_office_overview:
       children:
         - field_cc_vba_facility_overview
@@ -417,22 +419,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_location_services:
-    type: entity_reference_paragraphs
-    weight: 5
-    region: content
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: closed
-      add_mode: button
-      form_display_mode: default
-      default_paragraph_type: _none
-    third_party_settings:
-      limited_field_widgets:
-        limit_values: '0'
-      change_labels:
-        add_another: ''
   field_media:
     type: media_library_widget
     weight: 4
@@ -496,6 +482,34 @@ content:
     settings:
       placeholder: ''
     third_party_settings: {  }
+  field_prepare_for_visit:
+    type: paragraphs
+    weight: 27
+    region: content
+    settings:
+      title: accordion
+      title_plural: accordions
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+    third_party_settings:
+      paragraphs_features:
+        add_in_between: false
+        add_in_between_link_count: 3
+        delete_confirmation: false
+        show_drag_and_drop: true
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: ''
   field_shared_vha_location:
     type: entity_reference_autocomplete
     weight: 17
