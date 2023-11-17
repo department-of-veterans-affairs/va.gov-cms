@@ -20,14 +20,14 @@ assignees: ''
 - [ ] Update research plan and conversation guide with any timeline or protocol tweaks
 
 **Coordinate with Research-Ops and Perigean**
-- [ ] Create recruiting request and submit to VA Research-Ops. Use Easy Recruitment Request (for moderated research) or "Easy Recruitment Request for Unmoderated Cohorts" (for unmoderated research) on [this page](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/new/choose)
+- [ ] Create recruiting request and submit to VA Research-Ops. Use *Easy Recruitment Request* (for moderated research) or *Easy Recruitment Request for Unmoderated Cohorts* (for unmoderated research) on [this page](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/new/choose)
   - Schedule 20-25% more sessions than the desired # of participants to account for no-shows & cancellations 
-- [ ] Create new issue for research in VA research repository using this [New Research Intake form](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/new?assignees=&labels=&template=new-research-intake.md&title=YYYY-MM+Title+of+Study). 
-  - [ ] In description, add links to research folder and recruiting request
+- [ ] Create *New Research Intake* request from [this page](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/new/choose)
+  - [ ] In description, add links to github research folder and (from previous step) recruiting request form
   - [ ] Make yourself the assignee
   - [ ] Add labels for the project's product, research methodology, audience, etc. from [this list](https://github.com/department-of-veterans-affairs/va.gov-research-repository/labels?page=1&sort=name-asc)
 - [ ] Make agenda for kickoff meeting w/Perigean
-- [ ] Review Perigean's recruitment survey before the kickoff meeting
+- [ ] Review Perigean's recruitment survey before kickoff meeting
 - [ ] Attend kickoff meeting with Perigean and Sitewide UX Lead and/or PM
 - [ ] Test Zoom login from Perigean 
 - [ ] Change display name of Perigean Zoom account to "*<Moderator's first name>* (Moderator)" 
