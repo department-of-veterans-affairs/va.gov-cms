@@ -247,6 +247,20 @@ third_party_settings:
         tooltip_description: "Why can’t I edit this? \r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
         open: false
         required_fields: false
+    group_prepare_for_your_visit:
+      children:
+        - field_prepare_for_visit
+      label: 'Prepare for your visit'
+      parent_name: ''
+      region: content
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
 id: node.vba_facility.default
 targetEntityType: node
 bundle: vba_facility
