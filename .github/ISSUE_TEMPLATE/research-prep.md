@@ -21,6 +21,7 @@ assignees: ''
 
 **Coordinate with Research-Ops and Perigean**
 - [ ] Create recruiting request and submit to VA Research-Ops. Use Easy Recruitment Request (for moderated research) or "Easy Recruitment Request for Unmoderated Cohorts" (for unmoderated research) on [this page](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/new/choose)
+  - Schedule 20-25% more sessions than the desired # of participants to account for no-shows & cancellations 
 - [ ] Create new issue for research in VA research repository using this [New Research Intake form](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/new?assignees=&labels=&template=new-research-intake.md&title=YYYY-MM+Title+of+Study). 
   - [ ] In description, add links to research folder and recruiting request
   - [ ] Make yourself the assignee
@@ -88,7 +89,6 @@ These types of studies have additional logistical considerations
 
 ## Acceptance Criteria
 - [ ] The target number(s) of participants have been recruited and scheduled (for overall & primary criteria)
-  - Schedule 20-25% more sessions than the desired # of participants to account for no-shows & cancellations 
 - [ ] The moderator(s), notetaker(s), and observer(s) have been invited to research sessions and daily debriefs
 - [ ] Pilot session(s) have been conducted
 - [ ] All preparation done before the first day of research sessions
