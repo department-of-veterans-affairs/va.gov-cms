@@ -150,6 +150,12 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     $selector = ':input[name="field_show_banner[value]"]';
 
     // Show and require the banner fields when show banner is checked.
+    $form['field_banner_types_description']['#states'] = [
+      'visible' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+    ];
+
     $form['field_alert_type']['widget']['#states'] = [
       'required' => [
         [$selector => ['checked' => TRUE]],

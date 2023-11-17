@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.vba_facility.field_alert_type
     - field.field.node.vba_facility.field_banner_content
     - field.field.node.vba_facility.field_banner_title
+    - field.field.node.vba_facility.field_banner_types_description
     - field.field.node.vba_facility.field_cc_benefit_office_hours_va
     - field.field.node.vba_facility.field_cc_benefits_hotline
     - field.field.node.vba_facility.field_cc_cant_find_benefits
@@ -32,9 +33,9 @@ dependencies:
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_prepare_for_visit
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_show_banner
     - field.field.node.vba_facility.field_table_of_contents
     - field.field.node.vba_facility.field_timezone
-    - field.field.node.vba_facility.field_show_banner
     - node.type.vba_facility
   module:
     - address
@@ -515,13 +516,6 @@ content:
     third_party_settings: {  }
     weight: 12
     region: content
-  field_timezone:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 9
-    region: content
   field_show_banner:
     type: boolean
     label: above
@@ -532,10 +526,18 @@ content:
     third_party_settings: {  }
     weight: 14
     region: content
+  field_timezone:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
 hidden:
   breadcrumbs: true
   content_moderation_control: true
   field_administration: true
+  field_banner_types_description: true
   field_facility_vba_classificatio: true
   field_geolocation: true
   field_last_saved_by_an_editor: true

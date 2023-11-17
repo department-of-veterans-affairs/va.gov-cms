@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.vba_facility.field_alert_type
     - field.field.node.vba_facility.field_banner_content
     - field.field.node.vba_facility.field_banner_title
+    - field.field.node.vba_facility.field_banner_types_description
     - field.field.node.vba_facility.field_cc_benefit_office_hours_va
     - field.field.node.vba_facility.field_cc_benefits_hotline
     - field.field.node.vba_facility.field_cc_cant_find_benefits
@@ -33,9 +34,9 @@ dependencies:
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_prepare_for_visit
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_show_banner
     - field.field.node.vba_facility.field_table_of_contents
     - field.field.node.vba_facility.field_timezone
-    - field.field.node.vba_facility.field_show_banner
     - node.type.vba_facility
   module:
     - user
@@ -61,6 +62,7 @@ hidden:
   field_alert_type: true
   field_banner_content: true
   field_banner_title: true
+  field_banner_types_description: true
   field_cc_benefit_office_hours_va: true
   field_cc_benefits_hotline: true
   field_cc_cant_find_benefits: true
@@ -85,9 +87,9 @@ hidden:
   field_phone_number: true
   field_prepare_for_visit: true
   field_shared_vha_location: true
+  field_show_banner: true
   field_table_of_contents: true
   field_timezone: true
-  field_show_banner: true
   flag_awaiting_csv: true
   flag_awaiting_editor: true
   flag_awaiting_redirect: true

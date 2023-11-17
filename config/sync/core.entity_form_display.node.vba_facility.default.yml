@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.vba_facility.field_alert_type
     - field.field.node.vba_facility.field_banner_content
     - field.field.node.vba_facility.field_banner_title
+    - field.field.node.vba_facility.field_banner_types_description
     - field.field.node.vba_facility.field_cc_benefit_office_hours_va
     - field.field.node.vba_facility.field_cc_benefits_hotline
     - field.field.node.vba_facility.field_cc_cant_find_benefits
@@ -32,9 +33,9 @@ dependencies:
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_prepare_for_visit
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_show_banner
     - field.field.node.vba_facility.field_table_of_contents
     - field.field.node.vba_facility.field_timezone
-    - field.field.node.vba_facility.field_show_banner
     - node.type.vba_facility
     - workflows.workflow.editorial
   module:
@@ -304,17 +305,18 @@ third_party_settings:
     group_banner:
       children:
         - field_show_banner
+        - field_banner_types_description
         - field_alert_type
         - field_dismissible_option
         - field_banner_title
         - field_banner_content
-      label: Banner
+      label: 'Banner alert'
       region: content
       parent_name: ''
       weight: 2
       format_type: detailswithimage
       format_settings:
-        description: 'This optional segment allows you to add a banner to the VBA facility.'
+        description: 'This optional segment allows you to add a banner alert to the VBA facility.'
         open: '1'
         visual_guide_file_name: ''
         visual_guide_alt_text: ''
@@ -341,13 +343,13 @@ content:
     third_party_settings: {  }
   field_alert_type:
     type: options_select
-    weight: 28
+    weight: 29
     region: content
     settings: {  }
     third_party_settings: {  }
   field_banner_content:
     type: text_textarea_with_counter
-    weight: 31
+    weight: 32
     region: content
     settings:
       rows: 5
@@ -364,11 +366,17 @@ content:
         hide_guidelines: '1'
   field_banner_title:
     type: string_textfield
-    weight: 30
+    weight: 31
     region: content
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_banner_types_description:
+    type: markup
+    weight: 28
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_cc_benefit_office_hours_va:
     type: entity_field_fetch_widget
@@ -444,7 +452,7 @@ content:
     third_party_settings: {  }
   field_dismissible_option:
     type: options_buttons
-    weight: 29
+    weight: 30
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -584,6 +592,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_show_banner:
+    type: boolean_checkbox
+    weight: 27
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_table_of_contents:
     type: markup
     weight: 0
@@ -595,13 +610,6 @@ content:
     weight: 12
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_show_banner:
-    type: boolean_checkbox
-    weight: 27
-    region: content
-    settings:
-      display_label: true
     third_party_settings: {  }
   flag:
     weight: 6
