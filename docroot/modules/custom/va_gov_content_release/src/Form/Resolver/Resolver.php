@@ -2,9 +2,9 @@
 
 namespace Drupal\va_gov_content_release\Form\Resolver;
 
+use Drupal\va_gov_content_release\Exception\CouldNotDetermineFormException;
 use Drupal\va_gov_content_release\Form\GitForm;
 use Drupal\va_gov_content_release\Form\SimpleForm;
-use Drupal\va_gov_content_release\Exception\CouldNotDetermineFormException;
 use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 
 /**

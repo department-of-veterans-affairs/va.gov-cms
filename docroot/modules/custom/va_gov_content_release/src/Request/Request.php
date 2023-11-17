@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_content_release\Request;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\advancedqueue\Job;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\va_gov_content_release\Exception\RequestException;
 
 /**

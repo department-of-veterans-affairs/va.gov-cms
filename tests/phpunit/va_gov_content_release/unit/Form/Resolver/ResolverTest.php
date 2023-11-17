@@ -2,11 +2,11 @@
 
 namespace tests\phpunit\va_gov_content_release\unit\Form\Resolver;
 
-use Drupal\va_gov_content_release\Form\SimpleForm;
 use Drupal\va_gov_content_release\Form\GitForm;
 use Drupal\va_gov_content_release\Form\Resolver\Resolver;
-use Drupal\va_gov_environment\Environment\Environment;
+use Drupal\va_gov_content_release\Form\SimpleForm;
 use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
+use Drupal\va_gov_environment\Environment\Environment;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**

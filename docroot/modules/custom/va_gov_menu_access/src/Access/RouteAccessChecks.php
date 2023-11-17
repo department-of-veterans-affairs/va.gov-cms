@@ -3,13 +3,13 @@
 namespace Drupal\va_gov_menu_access\Access;
 
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
-use Symfony\Component\Routing\Route;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Symfony\Component\Routing\Route;
 
 /**
  * Determines access rules for particular routes.

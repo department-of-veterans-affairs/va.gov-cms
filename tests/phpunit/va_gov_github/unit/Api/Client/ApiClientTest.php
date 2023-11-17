@@ -3,15 +3,15 @@
 namespace Tests\va_gov_github\unit\Api\Client;
 
 use Drupal\va_gov_github\Api\Client\ApiClient;
-use Tests\Support\Traits\RawGitHubApiClientTrait;
-use Tests\Support\Classes\VaGovUnitTestBase;
-use Github\AuthMethod;
 use Github\Api\Repo;
-use Github\Api\Search;
 use Github\Api\Repository\Actions\WorkflowRuns;
 use Github\Api\Repository\Actions\Workflows;
+use Github\Api\Search;
+use Github\AuthMethod;
 use Github\Client as RawApiClient;
 use Prophecy\Argument;
+use Tests\Support\Classes\VaGovUnitTestBase;
+use Tests\Support\Traits\RawGitHubApiClientTrait;
 
 /**
  * Unit test of the API Client class.

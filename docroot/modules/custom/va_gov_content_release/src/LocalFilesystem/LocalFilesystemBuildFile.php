@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_content_release\LocalFilesystem;
 
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\File\Exception\FileException;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\va_gov_content_release\Exception\StrategyErrorException;
 
 /**
