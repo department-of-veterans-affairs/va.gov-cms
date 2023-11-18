@@ -25,8 +25,8 @@ Use the appropriate template for the group you're conducting research with:
 - [ ] Solicit review/feedback from Sitewide UX Lead 
 - [ ] Solicit review/feedback from Product Manager (PM) and/or other team members
 - [ ] Solicit review/feedback from VA Product Owner (PO) async or in a meeting w/PM
-- [ ] Identify moderator(s), notetaker(s), and observer(s) 
-- [ ] Identify time slots for research sessions (twice as many slots as # of participants desired)
+- [ ] Identify moderator(s), notetaker(s), and observer(s) if moderated research
+- [ ] Identify time slots for research sessions (twice as many slots as # of participants desired) if moderated research
 - [ ] Post on github in project research folder for final approval before submitting to Research Review cycle
 
 ## Acceptance Criteria
