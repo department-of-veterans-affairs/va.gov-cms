@@ -49,7 +49,7 @@ assignees: ''
 - [ ] Make any revisions needed to conversation guide and prototype
 - [ ] Send thank you slack message to pilot participant(s) 
 
-**Recruitment / scheduling sessions** 
+**Recruitment / scheduling sessions** (for moderated research only)
 - [ ] Review recruited participant list from Perigean for requirements met
 - [ ] Follow-up with Perigean re participant list, if needed
 - [ ] Make sure all research sessions scheduled by Perigean are in your calendar
