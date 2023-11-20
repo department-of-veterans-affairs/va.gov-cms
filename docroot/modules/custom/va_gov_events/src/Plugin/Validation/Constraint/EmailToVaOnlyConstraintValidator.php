@@ -14,6 +14,9 @@ class EmailToVaOnlyConstraintValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($items, Constraint $constraint) {
+    if (!$constraint instanceof EmailToVaOnlyConstraint) {
+      return;
+    }
     foreach ($items->getValue() as $item) {
       $value = $item['value'];
       $domain = substr($value, strpos($value, '@') + 1);
