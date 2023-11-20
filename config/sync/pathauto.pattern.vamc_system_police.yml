@@ -1,0 +1,22 @@
+uuid: fe9a3a23-c10e-49a1-b44f-1750c9b4e4a6
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vamc_system_police
+label: 'VAMC System Police'
+type: 'canonical_entities:node'
+pattern: '[node:field_office:entity:url:path]/va-police'
+selection_criteria:
+  6508ce38-314e-478d-abde-fbef3a9f8d1a:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 6508ce38-314e-478d-abde-fbef3a9f8d1a
+    context_mapping:
+      node: node
+    bundles:
+      vamc_system_va_police: vamc_system_va_police
+selection_logic: and
+weight: -5
+relationships: {  }
