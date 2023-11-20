@@ -1,0 +1,122 @@
+uuid: 8d5d6c51-bc09-4f5f-8f6f-30cc23dc4b4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vamc_system_va_police.body
+    - field.field.node.vamc_system_va_police.field_administration
+    - field.field.node.vamc_system_va_police.field_cc_faq
+    - field.field.node.vamc_system_va_police.field_cc_police_report
+    - field.field.node.vamc_system_va_police.field_cc_term_definitions
+    - field.field.node.vamc_system_va_police.field_cc_va_police_overview
+    - field.field.node.vamc_system_va_police.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_va_police.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_va_police.field_office
+    - node.type.vamc_system_va_police
+  module:
+    - allow_only_one
+    - content_moderation
+    - entity_field_fetch
+id: node.vamc_system_va_police.default
+targetEntityType: node
+bundle: vamc_system_va_police
+mode: default
+content:
+  field_administration:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_cc_faq:
+    type: entity_field_fetch_widget
+    weight: 9
+    region: content
+    settings:
+      show_field_label: true
+      show_link_to_source: false
+      show_source_updated_date: false
+    third_party_settings: {  }
+  field_cc_police_report:
+    type: entity_field_fetch_widget
+    weight: 7
+    region: content
+    settings:
+      show_field_label: true
+      show_link_to_source: false
+      show_source_updated_date: false
+    third_party_settings: {  }
+  field_cc_term_definitions:
+    type: entity_field_fetch_widget
+    weight: 8
+    region: content
+    settings:
+      show_field_label: true
+      show_link_to_source: false
+      show_source_updated_date: false
+    third_party_settings: {  }
+  field_cc_va_police_overview:
+    type: entity_field_fetch_widget
+    weight: 6
+    region: content
+    settings:
+      show_field_label: true
+      show_link_to_source: false
+      show_source_updated_date: false
+    third_party_settings: {  }
+  field_enforce_unique_combo_offic:
+    type: allow_only_one_widget
+    weight: 5
+    region: content
+    settings:
+      size: 1
+    third_party_settings: {  }
+  field_office:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  created: true
+  field_last_saved_by_an_editor: true
+  langcode: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true
