@@ -1,22 +1,22 @@
-uuid: 03737c7e-c4fb-4fd1-b2c8-c6d825f17780
+uuid: 2a9fff3f-dea4-411f-8daa-cc8ad1d5cd4c
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_location_services
+    - field.storage.node.field_prepare_for_visit
     - node.type.vba_facility
-    - paragraphs.paragraphs_type.health_care_local_facility_servi
+    - paragraphs.paragraphs_type.basic_accordion
   module:
     - entity_reference_revisions
     - tmgmt_content
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: node.vba_facility.field_location_services
-field_name: field_location_services
+id: node.vba_facility.field_prepare_for_visit
+field_name: field_prepare_for_visit
 entity_type: node
 bundle: vba_facility
-label: 'Location services'
+label: 'Prepare for your visit accordions'
 description: ''
 required: false
 translatable: true
@@ -26,7 +26,7 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      health_care_local_facility_servi: health_care_local_facility_servi
+      basic_accordion: basic_accordion
     negate: 0
     target_bundles_drag_drop:
       address:
@@ -43,7 +43,7 @@ settings:
         enabled: false
       basic_accordion:
         weight: 50
-        enabled: false
+        enabled: true
       button:
         weight: 51
         enabled: false
@@ -82,7 +82,7 @@ settings:
         enabled: false
       health_care_local_facility_servi:
         weight: 63
-        enabled: true
+        enabled: false
       link_teaser:
         weight: 64
         enabled: false

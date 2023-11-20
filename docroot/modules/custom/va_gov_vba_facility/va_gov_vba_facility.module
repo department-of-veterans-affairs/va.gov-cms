@@ -10,4 +10,5 @@
  */
 function va_gov_vba_facility_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'va_gov_vba_facility/display_service_descriptions';
+  $attachments['#attached']['library'][] = 'va_gov_vba_facility/set_banner_fields_to_required';
 }
