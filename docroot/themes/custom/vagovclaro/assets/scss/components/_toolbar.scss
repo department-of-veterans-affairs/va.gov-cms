@@ -37,7 +37,7 @@ body.toolbar-fixed {
     }
 
     &:active {
-      color: var(--color-white) !important;
+      color: var(--va-white) !important;
     }
 
     &::before {
@@ -88,7 +88,7 @@ body.toolbar-fixed {
 
         // this element is a <button> instead of <a>, add bg color for consistency
         &:hover {
-          background-color: var(--va-blue-lighter);
+          background-color: var(--va-blue-lightest);
         }
       }
     }
@@ -184,7 +184,7 @@ body.toolbar-fixed {
 
         // this element is a <button> instead of <a>, add bg color for consistency
         &:hover {
-          background-color: var(--va-blue-lighter);
+          background-color: var(--va-blue-lightest);
         }
       }
     }
@@ -214,13 +214,13 @@ body.toolbar-fixed {
 }
 
 .toolbar-tray .button--primary {
-  color: var(--color-white);
+  color: var(--va-white);
   margin: 5px 10px;
 }
 
 /* Admin menus with route:<nolink> links should look OK */
 .toolbar-tray span.toolbar-icon {
-  color: var(--va-gray-med);
+  color: var(--va-gray-darkest);
   cursor: pointer;
   display: block;
   padding: 1em 1.333em;

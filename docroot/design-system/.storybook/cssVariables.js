@@ -6,12 +6,15 @@
  */
 const postcss = require('postcss');
 const postcssExtract = require('@csstools/postcss-extract');
+const postcssSass = require('@csstools/postcss-sass');
 const fs = require('fs');
 const path = require('path');
 
 fs.readFile(path.resolve(__dirname,'../components/tokens/_variables.scss'), (err, css) => {
   postcss({
+    syntax: require('postcss-scss'),
     plugins: [
+      postcssSass(),
       postcssExtract({
         queries: {
           'custom-properties': 'rule[selector*=":root" i] > decl[variable]'
@@ -37,6 +40,7 @@ fs.readFile(path.resolve(__dirname,'../components/tokens/_variables.scss'), (err
       })
     ]
   }).process(css, {
+    syntax: require('postcss-scss'),
     from: path.resolve(__dirname, '../components/tokens/_variables.scss'),
     to: '' // don't need a css file here, just want the .json output frm above
   }).then(result => {
