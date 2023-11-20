@@ -1,0 +1,28 @@
+uuid: 61128356-6678-46bc-8a04-475887f4b785
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_show_banner
+    - node.type.vba_facility
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_show_banner
+field_name: field_show_banner
+entity_type: node
+bundle: vba_facility
+label: 'Display a banner alert on this facility'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

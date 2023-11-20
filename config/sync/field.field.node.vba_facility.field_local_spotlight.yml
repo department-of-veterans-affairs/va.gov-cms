@@ -1,32 +1,32 @@
-uuid: 03737c7e-c4fb-4fd1-b2c8-c6d825f17780
+uuid: ddfced12-67a7-4d03-8f90-c716095c97bd
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_location_services
+    - field.storage.node.field_local_spotlight
     - node.type.vba_facility
-    - paragraphs.paragraphs_type.health_care_local_facility_servi
+    - paragraphs.paragraphs_type.featured_content
   module:
     - entity_reference_revisions
     - tmgmt_content
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: node.vba_facility.field_location_services
-field_name: field_location_services
+id: node.vba_facility.field_local_spotlight
+field_name: field_local_spotlight
 entity_type: node
 bundle: vba_facility
-label: 'Location services'
-description: ''
+label: 'Local spotlight(s)'
+description: 'Highlight up to two office activities, such as events or programs.'
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      health_care_local_facility_servi: health_care_local_facility_servi
+      featured_content: featured_content
     negate: 0
     target_bundles_drag_drop:
       address:
@@ -79,10 +79,10 @@ settings:
         enabled: false
       featured_content:
         weight: 62
-        enabled: false
+        enabled: true
       health_care_local_facility_servi:
         weight: 63
-        enabled: true
+        enabled: false
       link_teaser:
         weight: 64
         enabled: false
