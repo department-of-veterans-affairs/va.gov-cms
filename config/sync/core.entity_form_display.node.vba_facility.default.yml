@@ -5,6 +5,10 @@ dependencies:
   config:
     - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
+    - field.field.node.vba_facility.field_alert_type
+    - field.field.node.vba_facility.field_banner_content
+    - field.field.node.vba_facility.field_banner_title
+    - field.field.node.vba_facility.field_banner_types_description
     - field.field.node.vba_facility.field_cc_benefit_office_hours_va
     - field.field.node.vba_facility.field_cc_benefits_hotline
     - field.field.node.vba_facility.field_cc_cant_find_benefits
@@ -13,6 +17,7 @@ dependencies:
     - field.field.node.vba_facility.field_cc_national_spotlight_2
     - field.field.node.vba_facility.field_cc_national_spotlight_3
     - field.field.node.vba_facility.field_cc_vba_facility_overview
+    - field.field.node.vba_facility.field_dismissible_option
     - field.field.node.vba_facility.field_facility_locator_api_id
     - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
@@ -28,12 +33,14 @@ dependencies:
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_prepare_for_visit
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_show_banner
     - field.field.node.vba_facility.field_table_of_contents
     - field.field.node.vba_facility.field_timezone
     - node.type.vba_facility
     - workflows.workflow.editorial
   module:
     - address
+    - allowed_formats
     - change_labels
     - content_moderation
     - entity_field_fetch
@@ -73,7 +80,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -90,7 +97,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: fieldset
       format_settings:
         classes: ''
@@ -103,7 +110,7 @@ third_party_settings:
       label: 'Locations and contact information'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -149,7 +156,7 @@ third_party_settings:
       label: 'Top of page information'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -164,7 +171,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: fieldset
       format_settings:
         classes: ''
@@ -180,7 +187,7 @@ third_party_settings:
       label: 'Benefit office overview'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: tooltip
       format_settings:
         show_empty_fields: '1'
@@ -199,7 +206,7 @@ third_party_settings:
       label: 'Benefits hotline'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -219,7 +226,7 @@ third_party_settings:
       label: 'Benefit office hours may vary'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -241,7 +248,7 @@ third_party_settings:
       label: 'National spotlight'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -261,7 +268,7 @@ third_party_settings:
       label: 'Can''t find benefits'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -281,7 +288,7 @@ third_party_settings:
       label: 'Get updates from VBA'
       region: content
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -295,6 +302,28 @@ third_party_settings:
         description: ''
         tooltip_description: "Why can’t I edit this? \r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
         open: false
+    group_banner:
+      children:
+        - field_show_banner
+        - field_banner_types_description
+        - field_alert_type
+        - field_dismissible_option
+        - field_banner_title
+        - field_banner_content
+      label: 'Banner alert'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: detailswithimage
+      format_settings:
+        description: 'This optional segment allows you to add a banner alert to the VBA facility.'
+        open: '1'
+        visual_guide_file_name: ''
+        visual_guide_alt_text: ''
+        required_fields: '1'
+        id: ''
+        classes: ''
+        show_empty_fields: 0
 id: node.vba_facility.default
 targetEntityType: node
 bundle: vba_facility
@@ -309,6 +338,43 @@ content:
   field_administration:
     type: options_select
     weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_alert_type:
+    type: options_select
+    weight: 29
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_banner_content:
+    type: text_textarea_with_counter
+    weight: 32
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 300
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
+  field_banner_title:
+    type: string_textfield
+    weight: 31
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_banner_types_description:
+    type: markup
+    weight: 28
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -384,6 +450,12 @@ content:
       show_link_to_source: '1'
       show_source_updated_date: '1'
     third_party_settings: {  }
+  field_dismissible_option:
+    type: options_buttons
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_facility_locator_api_id:
     type: string_textfield
     weight: 5
@@ -415,7 +487,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -519,6 +591,13 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_show_banner:
+    type: boolean_checkbox
+    weight: 27
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_table_of_contents:
     type: markup

@@ -1,0 +1,27 @@
+uuid: 0f329c6a-9a65-4644-b3c7-b15038e88731
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_dismissible_option
+    - node.type.vba_facility
+  module:
+    - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_dismissible_option
+field_name: field_dismissible_option
+entity_type: node
+bundle: vba_facility
+label: 'Dismissible by user?'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: dismiss
+default_value_callback: ''
+settings: {  }
+field_type: list_string

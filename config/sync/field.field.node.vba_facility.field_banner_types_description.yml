@@ -1,0 +1,29 @@
+uuid: 917a8c24-9096-4700-b88b-6f70c92712b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_banner_types_description
+    - node.type.vba_facility
+  module:
+    - markup
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_banner_types_description
+field_name: field_banner_types_description
+entity_type: node
+bundle: vba_facility
+label: 'Banner types description'
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>Two types of Banner alerts are supported:</p>\r\n\r\n<ol>\r\n\t<li><strong>Informational alerts:</strong> These are used to provide helpful information or call attention to an announcement.</li>\r\n\t<li><strong>Warning alertsP</strong> These are used to warn a user and call out negative consequences. Warning alerts are necessary when something has gone wrong.</li>\r\n</ol>\r\n<p>You can read more about these banner types on the site in the <a href=\"\" target=\"_blank\")>VA Design System (opens in a new window)</a>, or learn how to create them in the CMS in the <a href=\"\" target=\"_blank\">Knowledge Base (opens in a new window)</a>.</p>"
+    format: rich_text
+field_type: markup
