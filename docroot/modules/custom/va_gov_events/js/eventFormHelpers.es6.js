@@ -198,6 +198,7 @@
 
     // Check on change of cta value, and require input if so.
     ctaSelect.addEventListener("change", (e) => {
+      emptyAllCtaInputs();
       toggleAllCtaInputsRequired(false);
       if (e.target.value !== "_none") {
         toggleCtaInputRequired(
@@ -205,9 +206,6 @@
           fieldCtaHowToSignUpWrapper,
           fieldCtaHowToSignUp
         );
-      } else {
-        emptyAllCtaInputs();
-        toggleAllCtaInputsRequired(false);
       }
     });
 

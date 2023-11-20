@@ -88,12 +88,10 @@
       }
     }
     ctaSelect.addEventListener("change", function (e) {
+      emptyAllCtaInputs();
       toggleAllCtaInputsRequired(false);
       if (e.target.value !== "_none") {
         toggleCtaInputRequired(fieldCtaHowToSignUpLabel, fieldCtaHowToSignUpWrapper, fieldCtaHowToSignUp);
-      } else {
-        emptyAllCtaInputs();
-        toggleAllCtaInputsRequired(false);
       }
     });
     fieldCtaHowToSignUp.addEventListener("change", function (e) {
