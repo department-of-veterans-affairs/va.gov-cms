@@ -14,8 +14,6 @@ dependencies:
     - field.field.node.vba_facility.field_cc_cant_find_benefits
     - field.field.node.vba_facility.field_cc_get_updates_from_vba
     - field.field.node.vba_facility.field_cc_national_spotlight_1
-    - field.field.node.vba_facility.field_cc_national_spotlight_2
-    - field.field.node.vba_facility.field_cc_national_spotlight_3
     - field.field.node.vba_facility.field_cc_vba_facility_overview
     - field.field.node.vba_facility.field_dismissible_option
     - field.field.node.vba_facility.field_facility_locator_api_id
@@ -23,6 +21,7 @@ dependencies:
     - field.field.node.vba_facility.field_geolocation
     - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
+    - field.field.node.vba_facility.field_local_spotlight
     - field.field.node.vba_facility.field_media
     - field.field.node.vba_facility.field_non_va_location_url
     - field.field.node.vba_facility.field_non_va_official_name
@@ -243,11 +242,9 @@ third_party_settings:
     group_national_spotlight:
       children:
         - field_cc_national_spotlight_1
-        - field_cc_national_spotlight_2
-        - field_cc_national_spotlight_3
       label: 'National spotlight'
       region: content
-      parent_name: ''
+      parent_name: group_spotlight_content
       weight: 9
       format_type: tooltip
       format_settings:
@@ -324,6 +321,22 @@ third_party_settings:
         id: ''
         classes: ''
         show_empty_fields: 0
+    group_spotlight_content:
+      children:
+        - group_national_spotlight
+        - field_local_spotlight
+      label: 'Spotlight content'
+      region: content
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: true
+        description_display: after
 id: node.vba_facility.default
 targetEntityType: node
 bundle: vba_facility
@@ -423,24 +436,6 @@ content:
       show_link_to_source: '1'
       show_source_updated_date: '1'
     third_party_settings: {  }
-  field_cc_national_spotlight_2:
-    type: entity_field_fetch_widget
-    weight: 11
-    region: content
-    settings:
-      show_field_label: '1'
-      show_link_to_source: '1'
-      show_source_updated_date: '1'
-    third_party_settings: {  }
-  field_cc_national_spotlight_3:
-    type: entity_field_fetch_widget
-    weight: 12
-    region: content
-    settings:
-      show_field_label: '1'
-      show_link_to_source: '1'
-      show_source_updated_date: '1'
-    third_party_settings: {  }
   field_cc_vba_facility_overview:
     type: entity_field_fetch_widget
     weight: 2
@@ -491,6 +486,48 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_local_spotlight:
+    type: paragraphs
+    weight: 10
+    region: content
+    settings:
+      title: spotlight
+      title_plural: spotlights
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: featured_content
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings:
+      paragraphs_features:
+        add_in_between: false
+        add_in_between_link_count: 3
+        delete_confirmation: false
+        show_drag_and_drop: true
+      change_labels:
+        add_another: ''
+  field_location_services:
+    type: entity_reference_paragraphs
+    weight: 5
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: ''
   field_media:
     type: media_library_widget
     weight: 4

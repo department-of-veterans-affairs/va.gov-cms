@@ -1,19 +1,23 @@
-uuid: a6c2a5cb-a7d5-4a6c-91e5-8eb94f1002a1
+uuid: ddfced12-67a7-4d03-8f90-c716095c97bd
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_vet_center_feature_content
-    - node.type.vet_center
+    - field.storage.node.field_local_spotlight
+    - node.type.vba_facility
     - paragraphs.paragraphs_type.featured_content
   module:
     - entity_reference_revisions
-id: node.vet_center.field_vet_center_feature_content
-field_name: field_vet_center_feature_content
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_local_spotlight
+field_name: field_local_spotlight
 entity_type: node
-bundle: vet_center
+bundle: vba_facility
 label: 'Local spotlight(s)'
-description: 'Highlight up to two Vet Center activities, such as events or programs.'
+description: 'Highlight up to two office activities, such as events or programs.'
 required: false
 translatable: false
 default_value: {  }
@@ -26,135 +30,138 @@ settings:
     negate: 0
     target_bundles_drag_drop:
       address:
-        weight: 45
-        enabled: false
-      alert:
         weight: 46
         enabled: false
-      alert_single:
+      alert:
         weight: 47
         enabled: false
-      audience_topics:
+      alert_single:
         weight: 48
         enabled: false
-      basic_accordion:
+      audience_topics:
         weight: 49
         enabled: false
-      button:
+      basic_accordion:
         weight: 50
         enabled: false
-      centralized_content_descriptor:
+      button:
         weight: 51
         enabled: false
-      checklist:
+      centralized_content_descriptor:
         weight: 52
         enabled: false
-      checklist_item:
+      checklist:
         weight: 53
         enabled: false
-      collapsible_panel:
+      checklist_item:
         weight: 54
         enabled: false
-      collapsible_panel_item:
+      collapsible_panel:
         weight: 55
         enabled: false
-      contact_information:
+      collapsible_panel_item:
         weight: 56
         enabled: false
-      downloadable_file:
+      contact_information:
         weight: 57
         enabled: false
-      email_contact:
+      downloadable_file:
         weight: 58
         enabled: false
-      expandable_text:
+      email_contact:
         weight: 59
         enabled: false
-      featured_content:
+      embedded_video:
         weight: 60
-        enabled: true
-      health_care_local_facility_servi:
+        enabled: false
+      expandable_text:
         weight: 61
         enabled: false
-      link_teaser:
+      featured_content:
         weight: 62
-        enabled: false
-      link_teaser_with_image:
+        enabled: true
+      health_care_local_facility_servi:
         weight: 63
         enabled: false
-      list_of_link_teasers:
-        weight: 66
-        enabled: false
-      list_of_links:
-        weight: 65
-        enabled: false
-      lists_of_links:
+      link_teaser:
         weight: 64
         enabled: false
-      media:
-        weight: 67
+      link_teaser_with_image:
+        weight: 65
         enabled: false
-      media_list_images:
+      list_of_link_teasers:
         weight: 68
         enabled: false
-      media_list_videos:
+      list_of_links:
+        weight: 67
+        enabled: false
+      lists_of_links:
+        weight: 66
+        enabled: false
+      magichead_group:
         weight: 69
         enabled: false
-      non_reusable_alert:
+      media:
         weight: 70
         enabled: false
-      number_callout:
+      media_list_images:
         weight: 71
         enabled: false
-      phone_number:
+      media_list_videos:
         weight: 72
         enabled: false
-      process:
+      non_reusable_alert:
         weight: 73
         enabled: false
-      q_a:
+      number_callout:
         weight: 74
         enabled: false
-      q_a_group:
+      phone_number:
         weight: 75
         enabled: false
-      q_a_section:
+      process:
         weight: 76
         enabled: false
-      react_widget:
+      q_a:
         weight: 77
         enabled: false
-      rich_text_char_limit_1000:
+      q_a_group:
         weight: 78
         enabled: false
-      service_location:
+      q_a_section:
         weight: 79
         enabled: false
-      service_location_address:
+      react_widget:
         weight: 80
         enabled: false
-      situation_update:
+      rich_text_char_limit_1000:
         weight: 81
         enabled: false
-      spanish_translation_summary:
+      service_location:
         weight: 82
         enabled: false
-      staff_profile:
+      service_location_address:
         weight: 83
         enabled: false
-      starred_horizontal_rule:
+      situation_update:
         weight: 84
         enabled: false
-      step:
+      spanish_translation_summary:
         weight: 85
         enabled: false
-      step_by_step:
+      staff_profile:
         weight: 86
         enabled: false
-      table:
+      step:
         weight: 87
         enabled: false
-      wysiwyg:
+      step_by_step:
         weight: 88
+        enabled: false
+      table:
+        weight: 89
+        enabled: false
+      wysiwyg:
+        weight: 90
         enabled: false
 field_type: entity_reference_revisions
