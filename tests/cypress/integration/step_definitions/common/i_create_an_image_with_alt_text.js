@@ -43,7 +43,7 @@ When(
   }
 );
 
-Then("I update alt-text content to display {string}", (altTextContent) => {
+When("I update alt-text content to display {string}", (altTextContent) => {
   cy.findAllByLabelText("Alternative text").clear();
   cy.findAllByLabelText("Alternative text").type(altTextContent, {
     force: true,
