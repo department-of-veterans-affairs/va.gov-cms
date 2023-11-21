@@ -2,9 +2,9 @@
 
 namespace Tests\va_gov_github\unit\Api\Client;
 
-use Tests\Support\Traits\RawGitHubApiClientTrait;
-use Tests\Support\Classes\VaGovUnitTestBase;
 use Github\AuthMethod;
+use Tests\Support\Classes\VaGovUnitTestBase;
+use Tests\Support\Traits\RawGitHubApiClientTrait;
 
 /**
  * Unit test of the API Client class.

@@ -4,8 +4,8 @@ namespace tests\phpunit\Content;
 
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventLocalFileLinks;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventLocalFileLinksValidator;
-use Tests\Support\Traits\ValidatorTestTrait;
 use Tests\Support\Classes\VaGovUnitTestBase;
+use Tests\Support\Traits\ValidatorTestTrait;
 
 /**
  * A test to confirm the proper functioning of this validator.

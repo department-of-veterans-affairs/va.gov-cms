@@ -3,8 +3,8 @@
 namespace tests\phpunit\va_gov_environment\unit\Discovery;
 
 use Drupal\Core\Site\Settings;
-use Drupal\va_gov_environment\Environment\Environment;
 use Drupal\va_gov_environment\Discovery\Discovery;
+use Drupal\va_gov_environment\Environment\Environment;
 use Drupal\va_gov_environment\Exception\InvalidEnvironmentException;
 use Tests\Support\Classes\VaGovUnitTestBase;
 

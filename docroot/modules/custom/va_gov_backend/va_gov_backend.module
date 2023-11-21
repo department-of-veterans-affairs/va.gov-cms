@@ -1323,6 +1323,7 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
       $field->addConstraint('PreventAbsoluteUrlsAsPathsInLinks');
       $field->addConstraint('PreventVaGovDomainsAsPathsInLinks');
       $field->addConstraint('PreventDomainsAsPathsInLinks');
+      $field->addConstraint('PreventPreviewUrlLinks');
     }
     elseif ($field->getType() === 'text_long') {
       $field->addConstraint('PreventAbsoluteCmsLinks');
@@ -1332,6 +1333,7 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
       $field->addConstraint('PreventAbsoluteUrlsAsPathsInLinks');
       $field->addConstraint('PreventVaGovDomainsAsPathsInLinks');
       $field->addConstraint('PreventDomainsAsPathsInLinks');
+      $field->addConstraint('PreventPreviewUrlLinks');
     }
   }
   // Add paragraph checks on clp panels.

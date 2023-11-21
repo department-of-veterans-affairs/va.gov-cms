@@ -2,14 +2,14 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
-use Drupal\core_event_dispatcher\EntityHookEvents;
-use Drupal\core_event_dispatcher\Event\Entity\EntityAccessEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityViewEvent;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityAccessEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewEvent;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_facilities\FacilityOps;
 use Drupal\va_gov_user\Service\UserPermsService;

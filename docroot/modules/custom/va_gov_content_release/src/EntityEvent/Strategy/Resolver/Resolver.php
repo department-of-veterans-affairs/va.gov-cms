@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_content_release\EntityEvent\Strategy\Resolver;
 
-use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 use Drupal\va_gov_content_release\Exception\CouldNotDetermineStrategyException;
+use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 
 /**
  * The strategy resolver service.

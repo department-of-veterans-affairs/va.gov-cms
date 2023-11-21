@@ -3,14 +3,14 @@
 namespace tests\phpunit\va_gov_content_release\unit\Plugin\EntityEventStrategy;
 
 use Drupal\Core\Link;
-use Drupal\va_gov_content_types\Entity\VaNodeInterface;
-use Drupal\va_gov_content_release\Plugin\EntityEventStrategy\VerboseFalse;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Tests\Traits\Core\GeneratePermutationsTrait;
+use Drupal\va_gov_content_release\Plugin\EntityEventStrategy\VerboseFalse;
+use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 use Prophecy\Argument;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tests\Support\Classes\VaGovUnitTestBase;
-use Drupal\Tests\Traits\Core\GeneratePermutationsTrait;
 
 /**
  * Unit test of the Verbose FALSE entity event strategy plugin.

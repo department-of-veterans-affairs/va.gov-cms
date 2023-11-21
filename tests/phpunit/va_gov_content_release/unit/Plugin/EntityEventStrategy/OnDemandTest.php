@@ -3,9 +3,9 @@
 namespace tests\phpunit\va_gov_content_release\unit\Plugin\EntityEventStrategy;
 
 use Drupal\Core\Link;
-use Drupal\va_gov_content_types\Entity\VaNodeInterface;
-use Drupal\va_gov_content_release\Plugin\EntityEventStrategy\OnDemand;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\va_gov_content_release\Plugin\EntityEventStrategy\OnDemand;
+use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 use Prophecy\Argument;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;

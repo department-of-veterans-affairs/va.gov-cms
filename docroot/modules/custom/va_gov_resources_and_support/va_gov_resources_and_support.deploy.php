@@ -16,8 +16,8 @@
 require_once __DIR__ . '/../../../../scripts/content/script-library.php';
 
 use Drupal\node\Entity\Node;
-use Psr\Log\LogLevel;
 use Drupal\taxonomy\Entity\Term;
+use Psr\Log\LogLevel;
 
 /**
  * Migrate Publication field_benefits data to new field_lc_categories field.

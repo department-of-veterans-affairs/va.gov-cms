@@ -2,11 +2,11 @@
 
 namespace Drupal\va_gov_migrate\Paragraph;
 
+use Drupal\migration_tools\Message;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_migrate\AnomalyMessage;
 use Drupal\va_gov_migrate\Paragraph\Base\QABase;
 use QueryPath\DOMQuery;
-use Drupal\migration_tools\Message;
 
 /**
  * For converting accordions to Q&A paragraphs.
