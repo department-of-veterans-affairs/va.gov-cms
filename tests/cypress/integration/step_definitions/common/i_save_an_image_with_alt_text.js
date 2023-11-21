@@ -1,4 +1,4 @@
-import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import { When } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
 
 const navigateToAndFillMediaForm = () => {
@@ -17,20 +17,21 @@ const navigateToAndFillMediaForm = () => {
     .wait(1000);
 };
 
-const focusOnNameField = () => {
-  cy.findAllByLabelText("Name").focus();
+const clickSaveButton = () => {
+  cy.get("form.media-form input#edit-submit").click();
+  cy.wait(1000);
 };
 
-When("I create an image with {string} as alt-text", (altTextContent) => {
+When("I save an image with {string} as alt-text", (altTextContent) => {
   navigateToAndFillMediaForm();
   cy.findAllByLabelText("Alternative text").type(altTextContent, {
     force: true,
   });
-  focusOnNameField();
+  clickSaveButton();
 });
 
 When(
-  "I create an image with {int} characters of alt-text content",
+  "I save an image with {int} characters of alt-text content",
   (charCount) => {
     navigateToAndFillMediaForm();
     cy.findAllByLabelText("Alternative text").type(
@@ -39,21 +40,6 @@ When(
         force: true,
       }
     );
-    focusOnNameField();
+    clickSaveButton();
   }
 );
-
-Then("I update alt-text content to display {string}", (altTextContent) => {
-  cy.findAllByLabelText("Alternative text").clear();
-  cy.findAllByLabelText("Alternative text").type(altTextContent, {
-    force: true,
-  });
-});
-
-Then("I should see no error message", () => {
-  cy.get("div.form-item--error-message > strong").should(
-    "have.attr",
-    "style",
-    "display: none;"
-  );
-});
