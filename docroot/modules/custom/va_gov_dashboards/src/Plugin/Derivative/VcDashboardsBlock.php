@@ -67,9 +67,9 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
         'image' => 'services.svg',
       ],
       'featured_content' => [
-        'title' => 'Featured content',
+        'title' => 'Spotlight content',
         'description' => 'Highlight up to two Vet center activities, such as events or programs',
-        'action' => 'Go to featured content',
+        'action' => 'Go to spotlight content',
         'nid' => NULL,
         'anchor' => '#featured-content',
         'image' => 'featured_content.svg',
