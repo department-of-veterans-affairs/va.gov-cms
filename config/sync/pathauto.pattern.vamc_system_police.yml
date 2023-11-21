@@ -7,12 +7,12 @@ dependencies:
 id: vamc_system_police
 label: 'VAMC System Police'
 type: 'canonical_entities:node'
-pattern: '[node:field_office:entity:url:path]/va-police'
+pattern: '[node:field_office:entity:url:path]/[node:title]'
 selection_criteria:
-  6508ce38-314e-478d-abde-fbef3a9f8d1a:
+  bfa1c1fd-444d-4a4b-9463-965a209b3dd1:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 6508ce38-314e-478d-abde-fbef3a9f8d1a
+    uuid: bfa1c1fd-444d-4a4b-9463-965a209b3dd1
     context_mapping:
       node: node
     bundles:
