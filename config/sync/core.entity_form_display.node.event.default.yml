@@ -115,7 +115,7 @@ third_party_settings:
         - field_how_to_sign_up
         - field_link
         - field_cta_email
-      label: 'Call to action link'
+      label: 'Call to action'
       region: content
       parent_name: group_link
       weight: 30
@@ -124,8 +124,9 @@ third_party_settings:
         classes: ''
         show_empty_fields: false
         id: ''
-        description: 'Direct people to take the next step. For example, "Register" with a link to event registration.'
+        description: 'Tell people what they should do next to join this event. For example, "Register" with a link to event registration.'
         required_fields: true
+        description_display: after
     group_feature_this_content:
       children:
         - field_featured
