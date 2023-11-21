@@ -19,6 +19,6 @@ class EmailToVaOnlyConstraint extends Constraint {
    *
    * @var string
    */
-  public $errorMessage = '%value is not a VA.gov email address.';
+  public $errorMessage = 'The email must be a VA.gov email address.';
 
 }

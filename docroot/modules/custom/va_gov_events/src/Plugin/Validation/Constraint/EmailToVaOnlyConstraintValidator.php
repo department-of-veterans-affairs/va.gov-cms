@@ -21,7 +21,7 @@ class EmailToVaOnlyConstraintValidator extends ConstraintValidator {
       $value = $item['value'];
       $domain = substr($value, strpos($value, '@') + 1);
       if ($domain !== 'va.gov') {
-        $this->context->addViolation($constraint->errorMessage, ['%value' => $item['value']]);
+        $this->context->addViolation($constraint->errorMessage);
       }
     }
   }
