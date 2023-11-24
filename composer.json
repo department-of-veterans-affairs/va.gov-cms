@@ -533,6 +533,7 @@
         "va:drush": "Run Drush transparently (all arguments will be passed).",
         "va:npm": "Run NPM transparently (all arguments will be passed).",
         "va:nuke": "Remove all Composer package and cache directories.",
+        "va:phpcbf": "Run PHP Code Beautifier and Fixer transparently (all arguments will be passed).",
         "va:remove-git-dirs": "Remove .git directories within this directory, e.g. those created by Composer.",
         "va:set-path": "Display a command for updating the path to include `./bin`.",
         "va:ds:drupal": "Build the Drupal theme.",
@@ -621,6 +622,11 @@
             "# Remove all Composer package and cache directories.",
             "! ./scripts/should-run-directly.sh || ./scripts/nuke-composer-directories.sh",
             "./scripts/should-run-directly.sh || ddev composer va:nuke --"
+        ],
+        "va:phpcbf": [
+            "# Run PHP Code Beautifier and Fixer transparently (all arguments will be passed).",
+            "! ./scripts/should-run-directly.sh || bin/phpcbf -p --",
+            "./scripts/should-run-directly.sh || ddev composer va:phpcbf --"
         ],
         "va:proxy:socks": [
             "# Set up a SOCKS proxy.",
