@@ -53,7 +53,7 @@ trait EventOutreachTrait {
         if ($addToCalValue['value'] === 1 || $this->outreachHubOnlyUser()) {
           // Add to Outreach calendar selected, or user is Outreach Hub only
           // user.
-          if (!in_array(EventOutreachInterface::OUTREACH_CAL_NID, array_column($listings + $additionalListings, 'target_id'))) {
+          if (!in_array(EventOutreachInterface::OUTREACH_CAL_NID, array_column(array_merge($listings, $additionalListings), 'target_id'))) {
             $additionalListings[] = [
               'target_id' => EventOutreachInterface::OUTREACH_CAL_NID,
             ];
