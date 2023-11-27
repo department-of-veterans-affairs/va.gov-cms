@@ -14,8 +14,6 @@ dependencies:
     - field.field.node.vba_facility.field_cc_cant_find_benefits
     - field.field.node.vba_facility.field_cc_get_updates_from_vba
     - field.field.node.vba_facility.field_cc_national_spotlight_1
-    - field.field.node.vba_facility.field_cc_national_spotlight_2
-    - field.field.node.vba_facility.field_cc_national_spotlight_3
     - field.field.node.vba_facility.field_cc_vba_facility_overview
     - field.field.node.vba_facility.field_dismissible_option
     - field.field.node.vba_facility.field_facility_locator_api_id
@@ -23,6 +21,7 @@ dependencies:
     - field.field.node.vba_facility.field_geolocation
     - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
+    - field.field.node.vba_facility.field_local_spotlight
     - field.field.node.vba_facility.field_media
     - field.field.node.vba_facility.field_non_va_location_url
     - field.field.node.vba_facility.field_non_va_official_name
@@ -195,8 +194,6 @@ third_party_settings:
     group_national_spotlight:
       children:
         - field_cc_national_spotlight_1
-        - field_cc_national_spotlight_2
-        - field_cc_national_spotlight_3
       label: 'National spotlight'
       parent_name: ''
       region: content
@@ -220,7 +217,7 @@ third_party_settings:
       label: 'Can''t find benefits'
       parent_name: ''
       region: content
-      weight: 9
+      weight: 10
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -240,7 +237,7 @@ third_party_settings:
       label: 'Get updates from VBA'
       parent_name: ''
       region: content
-      weight: 10
+      weight: 11
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -260,7 +257,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       parent_name: ''
       region: content
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -355,20 +352,6 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  field_cc_national_spotlight_2:
-    type: entity_field_fetch
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 7
-    region: content
-  field_cc_national_spotlight_3:
-    type: entity_field_fetch
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 8
-    region: content
   field_cc_vba_facility_overview:
     type: entity_field_fetch
     label: above
@@ -397,6 +380,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 14
+    region: content
+  field_local_spotlight:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_location_services:
     type: entity_reference_revisions_entity_view
