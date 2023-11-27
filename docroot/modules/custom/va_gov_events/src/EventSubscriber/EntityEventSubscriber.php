@@ -2,14 +2,11 @@
 
 namespace Drupal\va_gov_events\EventSubscriber;
 
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Session\AccountProxy;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\va_gov_content_types\Entity\Event;
 use Drupal\va_gov_content_types\Traits\EventOutreachTrait;
-use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -18,33 +15,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class EntityEventSubscriber implements EventSubscriberInterface {
 
   use EventOutreachTrait;
-
-  /**
-   * The User Perms Service.
-   *
-   * @var \Drupal\va_gov_user\Service\UserPermsService
-   */
-  protected UserPermsService $userPermsService;
-
-  /**
-   * The current user.
-   *
-   * @var \Drupal\Core\Session\AccountInterface
-   */
-  protected AccountInterface $currentUser;
-
-  /**
-   * Constructs the EventSubscriber object.
-   *
-   * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
-   *   The current user perms service.
-   * @param \Drupal\Core\Session\AccountProxy $account_proxy
-   *   The account proxy service.
-   */
-  public function __construct(UserPermsService $user_perms_service, AccountProxy $account_proxy) {
-    $this->userPermsService = $user_perms_service;
-    $this->currentUser = $account_proxy->getAccount();
-  }
 
   /**
    * {@inheritdoc}
