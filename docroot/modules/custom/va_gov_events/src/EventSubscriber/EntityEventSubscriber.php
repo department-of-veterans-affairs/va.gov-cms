@@ -68,7 +68,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     if (is_a($entity, Event::class)) {
-      $entity->preSave($entity);
+      $entity->eventEntityPresave($entity);
     }
   }
 

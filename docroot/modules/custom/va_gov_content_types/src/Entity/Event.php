@@ -18,7 +18,7 @@ class Event extends VaNode implements EventInterface {
    *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  public function entityPresave(EventInterface $event): void {
+  public function eventEntityPresave(EventInterface $event): void {
     $this->addToNationalOutreachCalendar($event);
   }
 

@@ -15,6 +15,6 @@ interface EventInterface extends VaNodeInterface, EventOutreachInterface {
    * @param \Drupal\va_gov_content_types\Entity\EventInterface $event
    *   The event node.
    */
-  public function entityPresave(self $event) :void;
+  public function eventEntityPresave(self $event) :void;
 
 }
