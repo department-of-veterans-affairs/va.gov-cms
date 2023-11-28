@@ -5,8 +5,8 @@ namespace Drupal\va_gov_build_trigger\EventSubscriber;
 use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseAttemptsSinceLastSuccess;
-use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
+use Drupal\va_gov_content_release\Request\RequestInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -22,22 +22,22 @@ class ContentReleaseErrorSubscriber implements EventSubscriberInterface {
   protected $state;
 
   /**
-   * The build requester service.
+   * The content release request service.
    *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
+   * @var \Drupal\va_gov_content_release\Request\RequestInterface
    */
-  protected $buildRequester;
+  protected $requestService;
 
   /**
    * Constructor for ContentReleaseErrorSubscriber objects.
    *
-   * @param \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
+   * @param \Drupal\va_gov_content_release\Request\RequestInterface $requestService
    *   The build requester service.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
    */
-  public function __construct(BuildRequesterInterface $buildRequester, StateInterface $state) {
-    $this->buildRequester = $buildRequester;
+  public function __construct(RequestInterface $requestService, StateInterface $state) {
+    $this->requestService = $requestService;
     $this->state = $state;
   }
 
@@ -57,7 +57,7 @@ class ContentReleaseErrorSubscriber implements EventSubscriberInterface {
    */
   public function handleError(ReleaseStateTransitionEvent $event) {
     if ($event->getNewReleaseState() === ReleaseStateManager::STATE_ERROR) {
-      $this->buildRequester->requestFrontendBuild('Retrying build after build failure.');
+      $this->requestService->submitRequest('Retrying build after build failure.');
     }
 
     if ($event->getNewReleaseState() === ReleaseStateManager::STATE_DISPATCHED) {

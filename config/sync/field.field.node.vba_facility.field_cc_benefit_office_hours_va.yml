@@ -1,0 +1,31 @@
+uuid: 1ae9a0b4-0cfb-455d-bb83-a7df049c299d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_benefit_office_hours_va
+    - node.type.vba_facility
+  module:
+    - entity_field_fetch
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_cc_benefit_office_hours_va
+field_name: field_cc_benefit_office_hours_va
+entity_type: node
+bundle: vba_facility
+label: 'Benefit office hours may vary'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '61744'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: 9777245d-83b7-4c9e-aa71-d73065869e39
+field_type: entity_field_fetch

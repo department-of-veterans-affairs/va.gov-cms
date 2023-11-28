@@ -2,10 +2,10 @@
 
 namespace Drupal\va_gov_migrate\Paragraph;
 
+use Drupal\migration_tools\Message;
 use Drupal\va_gov_migrate\AnomalyMessage;
 use Drupal\va_gov_migrate\ParagraphType;
 use QueryPath\DOMQuery;
-use Drupal\migration_tools\Message;
 
 /**
  * Migration for ReactWidget paragraphs.

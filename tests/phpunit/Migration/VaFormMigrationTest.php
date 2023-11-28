@@ -2,10 +2,10 @@
 
 namespace tests\phpunit\Migration;
 
+use Tests\Support\Classes\VaGovExistingSiteBase;
 use Tests\Support\Entity\Storage as EntityStorage;
 use Tests\Support\Migration\Migrator;
 use Tests\Support\Mock\HttpClient as MockHttpClient;
-use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm that the VA Form Migration works correctly.

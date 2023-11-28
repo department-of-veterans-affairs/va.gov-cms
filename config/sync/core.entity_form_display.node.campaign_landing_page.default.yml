@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.campaign_landing_page.field_clp_resources_header
     - field.field.node.campaign_landing_page.field_clp_resources_intro_text
     - field.field.node.campaign_landing_page.field_clp_resources_panel
+    - field.field.node.campaign_landing_page.field_clp_reusable_q_a
     - field.field.node.campaign_landing_page.field_clp_spotlight_cta
     - field.field.node.campaign_landing_page.field_clp_spotlight_header
     - field.field.node.campaign_landing_page.field_clp_spotlight_intro_text
@@ -261,6 +262,7 @@ third_party_settings:
       children:
         - field_clp_faq_panel
         - field_clp_faq_paragraphs
+        - field_clp_reusable_q_a
         - field_clp_faq_cta
       label: FAQs
       region: content
@@ -268,7 +270,7 @@ third_party_settings:
       weight: 8
       format_type: detailswithimage
       format_settings:
-        description: 'This optional segment allows you to add reusable question and answer content related to the campaign''s message.'
+        description: 'This optional segment allows you to add question and answer content related to the campaign''s message. Choose between creating a page-specific Q&A or adding a reusable Q&A. '
         visual_guide_file_name: faqs-guide.svg
         visual_guide_alt_text: 'Basic visual layout of the faqs page segment.'
         required_fields: '1'
@@ -315,6 +317,8 @@ content:
       field_widget_replace: 0
       open: 0
       field_widget_display_settings: {  }
+      additional_fields:
+        options: null
     third_party_settings:
       limited_field_widgets:
         limit_values: '2'
@@ -343,6 +347,7 @@ content:
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -367,10 +372,12 @@ content:
       selection_mode: selection_append
       field_widget_edit: 0
       field_widget_replace: 0
+      additional_fields:
+        options: null
     third_party_settings: {  }
   field_clp_faq_cta:
     type: paragraphs
-    weight: 40
+    weight: 42
     region: content
     settings:
       title: Paragraph
@@ -389,14 +396,14 @@ content:
     third_party_settings: {  }
   field_clp_faq_panel:
     type: boolean_checkbox
-    weight: 36
+    weight: 39
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_clp_faq_paragraphs:
     type: paragraphs
-    weight: 37
+    weight: 40
     region: content
     settings:
       title: Paragraph
@@ -431,6 +438,7 @@ content:
       collapsible: false
       collapsed: false
       revision: true
+      removed_reference: optional
       allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
@@ -465,6 +473,7 @@ content:
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -478,6 +487,7 @@ content:
       maxlength: 350
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: "Maximum <span class=\"maxlength_count\">@maxlength</span> characters, but 120 characters is recommended. <span class=\"current_count\">@current_length</span> characters, <span class=\"remaining_count\">@remaining_count</span> characters remaining\r\n"
     third_party_settings: {  }
@@ -488,6 +498,34 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
+  field_clp_reusable_q_a:
+    type: paragraphs
+    weight: 41
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings:
+      paragraphs_features:
+        add_in_between: false
+        add_in_between_link_count: 3
+        delete_confirmation: false
+        show_drag_and_drop: true
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: ''
   field_clp_spotlight_cta:
     type: paragraphs
     weight: 16
@@ -517,6 +555,7 @@ content:
       maxlength: 0
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: true
       textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
@@ -530,6 +569,7 @@ content:
       maxlength: 350
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -582,6 +622,7 @@ content:
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining.'
     third_party_settings: {  }
@@ -595,6 +636,7 @@ content:
       maxlength: 350
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: 'Maximum <span class="maxlength_count">@maxlength</span> characters, but 120 characters is recommended. <br /> <span class="current_count">@current_length</span> characters,<br /><span class="remaining_count">@remaining_count</span> characters remaining.'
     third_party_settings: {  }
@@ -635,6 +677,7 @@ content:
       maxlength: 0
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -666,6 +709,7 @@ content:
       maxlength: 0
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
@@ -679,6 +723,7 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -698,6 +743,7 @@ content:
       collapsible: false
       collapsed: false
       revision: true
+      removed_reference: optional
       allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
@@ -712,6 +758,7 @@ content:
       maxlength: 350
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -726,6 +773,7 @@ content:
       maxlength: 0
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -833,6 +881,7 @@ content:
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }

@@ -2,12 +2,12 @@
 
 namespace Drupal\va_gov_migrate\Plugin\migrate\source;
 
-use Drupal\migration_tools\Message;
-use QueryPath\DOMQuery;
-use Drupal\migration_tools\StringTools;
-use Drupal\migration_tools\Obtainer\ObtainHtml;
-use Michelf\MarkdownExtra;
 use Drupal\migrate\MigrateException;
+use Drupal\migration_tools\Message;
+use Drupal\migration_tools\Obtainer\ObtainHtml;
+use Drupal\migration_tools\StringTools;
+use Michelf\MarkdownExtra;
+use QueryPath\DOMQuery;
 
 /**
  * Gets blocks from pages referenced by metalsmith files.

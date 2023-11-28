@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - workflows.workflow.editorial
+    - workflows.workflow.restricted_archive
   module:
     - block_content_permissions
     - block_diff_ui
@@ -16,7 +17,7 @@ third_party_settings:
     vgb_description: 'Can create home page related components (news and benefit promo blocks; news spotlight and hero entityqueues).'
 id: homepage_manager
 label: 'Homepage Manager'
-weight: 5
+weight: 6
 is_admin: null
 permissions:
   - 'create benefit_promo block content'
@@ -41,6 +42,13 @@ permissions:
   - 'use editorial transition create_new_draft'
   - 'use editorial transition publish'
   - 'use editorial transition review'
+  - 'use restricted_archive transition approve'
+  - 'use restricted_archive transition archive'
+  - 'use restricted_archive transition archived_draft'
+  - 'use restricted_archive transition archived_published'
+  - 'use restricted_archive transition create_new_draft'
+  - 'use restricted_archive transition publish'
+  - 'use restricted_archive transition review'
   - 'view any unpublished content'
   - 'view benefit_promo revisions'
   - 'view cta_with_link revisions'

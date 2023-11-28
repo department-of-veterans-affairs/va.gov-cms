@@ -1,0 +1,49 @@
+name: CMS Team Engineering Pre-Refinement 
+description: Create a ticket to document engineering pre-refinement.
+title: "[CMS Team]: Engineering Pre-Refinement "
+labels:
+  - "CMS Team"
+  - "DevOps"
+  - "Drupal Engineering"
+  - "Quality Assurance"
+projects:
+  - "department-of-veterans-affairs/1043"
+  - "department-of-veterans-affairs/1044"
+assignees: []
+body:
+  - type: textarea
+    attributes:
+      label: Issues
+      value: |
+        In preparation for this sprint's backlog refinement, please review the tickets listed below, using the following steps:
+
+        **Review the Issue**: Begin by reading the ticket thoroughly. Understand the requirements, goals, and any associated challenges.
+
+        If something is unclear, please comment in the ticket thread or start a thread on Slack.
+
+        Problems with the ticket as written may include:
+        - _Clarity_: If it just needs to be worded better, or provide more detail.
+        - _Approach_: If you have questions or suggestions about the approach as written, or alternative approaches.
+        - _Dependencies_: If there are potential blocking tickets or situations that might prevent or delay completion.
+        - _Complexity_: If this ticket requires a substantial amount of knowledge and experience with the platform just to be able to 
+        address this ticket comfortably.
+        - _Risks_: If there are any risks associated with the ticket. This could be in terms of technical challenges, external 
+        dependencies, or any other potential roadblocks.
+        - _Wait-Time vs. Work Time_: If this ticket involves a substantial amount of wait time, e.g. it will involve interactions with
+        other teams before the work can be completed, take that into consideration.
+
+        **Self-assessment**: Determine whether you have all the knowledge necessary to work on this ticket independently. If not, comment in the ticket what additional information or clarifications you might need, or start a thread on Slack.
+
+        **Estimation**: Based on your understanding, provide an estimate of the effort required to complete the issue. If an issue is not fully refined, with an estimate, I will not bring it in to refinement.
+
+        Don't be afraid to estimate -- no one cares if you estimate "too low" or "too high", no one has ever cared, no one will ever care.
+
+        **Fibonacci Sequence**: Don't think of points as "hours", but "effort" or "risk" or "aggravation". Here's a rough guide based on the three years I've been here:
+
+        - 0 - Took more effort to create a ticket than it would've to just do the thing.
+        - 1 - Low risk and aggravation, but something worth devoting a little time to. Approving a Dependabot update that passed all the tests and doesn't have anything scary in the release notes, or updating an outdated paragraph in some documentation.
+        - 2 - Straightforward and low risk, but will require a PR or more time updating documentation, etc.
+        - 3 - Will require a PR and code review, could break things.
+
+        Beyond a 3, just approximate how much suffering it will involve. If there are substantial unknowns or the amount of work is significant enough that it merits a 13, we should really consider breaking it up into smaller tickets. Anything 21 or higher should absolutely be broken up.
+  

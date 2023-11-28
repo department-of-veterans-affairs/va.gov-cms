@@ -8,12 +8,16 @@ dependencies:
     - paragraphs.paragraphs_type.q_a
   module:
     - entity_reference_revisions
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: node.campaign_landing_page.field_clp_faq_paragraphs
 field_name: field_clp_faq_paragraphs
 entity_type: node
 bundle: campaign_landing_page
-label: 'Add between 3 and 10 Q&As'
-description: ''
+label: 'Page-Specific Q&A'
+description: 'Add questions and answers that provide information specific to the page content.'
 required: false
 translatable: false
 default_value: {  }
@@ -37,8 +41,14 @@ settings:
       audience_topics:
         weight: 45
         enabled: false
+      basic_accordion:
+        weight: 50
+        enabled: false
       button:
         weight: 46
+        enabled: false
+      centralized_content_descriptor:
+        weight: 52
         enabled: false
       checklist:
         weight: 47
@@ -61,8 +71,14 @@ settings:
       email_contact:
         weight: 53
         enabled: false
+      embedded_video:
+        weight: 60
+        enabled: false
       expandable_text:
         weight: 54
+        enabled: false
+      featured_content:
+        weight: 62
         enabled: false
       health_care_local_facility_servi:
         weight: 55
@@ -81,6 +97,9 @@ settings:
         enabled: false
       lists_of_links:
         weight: 58
+        enabled: false
+      magichead_group:
+        weight: 69
         enabled: false
       media:
         weight: 61
@@ -132,9 +151,6 @@ settings:
         enabled: false
       staff_profile:
         weight: 77
-        enabled: false
-      starred_horizontal_rule:
-        weight: 78
         enabled: false
       step:
         weight: 79

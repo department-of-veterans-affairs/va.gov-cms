@@ -11,8 +11,8 @@ use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseInterval;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseIntervalRollingAverage;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\TimeSinceLastContentRelease;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
-use Tests\Support\Mock\SpecifiedTime;
 use Tests\Support\Classes\VaGovUnitTestBase;
+use Tests\Support\Mock\SpecifiedTime;
 
 /**
  * Unit test for build metrics.

@@ -7,12 +7,16 @@ Feature: Content Release
   Scenario: The user should be able to deploy a content release from the Simple form
     Given I am logged in as a user with the "content_admin" role
     And I reset the content release state from the command line
+
+    # Require user confirmation.
     When I am at "/admin/content/deploy/simple"
     And I stub form submission for the current page
     And I click the "Release content" button
     And I wait for form submission
     Then I should see "1 error has been found"
     And I should see "You must confirm that you understand this implication."
+
+    # Confirm and release.
     When I check the checkbox with selector "#edit-confirm"
     And I click the "Release content" button
     And I wait for form submission
@@ -23,32 +27,88 @@ Feature: Content Release
   Scenario: The user should be able to deploy a content release from the Git form
     Given I am logged in as a user with the "content_admin" role
     And I reset the content release state from the command line
+
+    # Default content release.
     When I am at "/admin/content/deploy/git"
     And I stub form submission for the current page
     And I click the "Release content" button
     And I wait for form submission
     Then I should see "Content release requested successfully"
     And I should see "Build request skipped; form is under test."
-    And I should see "Reset frontend version skipped; form is under test."
+    And I should see "Reset content_build version skipped; form is under test."
+    And I should see "Reset vets_website version skipped; form is under test."
 
   @new_content_release
-  Scenario: The user should be able to deploy a content release from the Git form with a branch selected.
+  Scenario: The user should be able to deploy a content release from the Git form with a content-build branch selected.
     Given I am logged in as a user with the "content_admin" role
     And I reset the content release state from the command line
+
+    # Require that we select a content-build branch.
     When I am at "/admin/content/deploy/git"
     And I stub form submission for the current page
-    And I select the "Select a different frontend branch/pull request" radio button
+    And I select the "Select a different content-build branch/pull request" radio button
     And I click the "Release content" button
     And I wait for form submission
     Then I should see "Invalid selection."
-    When I fill in autocomplete field with selector "#edit-git-ref" with value "main"
+
+    # Select content-build branch.
+    When I fill in autocomplete field with selector "#edit-content-build-git-ref" with value "main"
     Then I should see "BRANCH main"
-    When I fill in autocomplete field with selector "#edit-git-ref" with value "BRANCH main (main)"
+    When I fill in autocomplete field with selector "#edit-content-build-git-ref" with value "BRANCH main (main)"
     And I click the "Release content" button
     And I wait for form submission
     Then I should see "Content release requested successfully"
     And I should see "Build request skipped; form is under test."
-    And I should see "Set frontend version skipped; form is under test."
+    And I should see "Set content_build version skipped; form is under test."
+    And I should see "Reset vets_website version skipped; form is under test."
+
+  @new_content_release
+  Scenario: The user should be able to deploy a content release from the Git form with a vets-website branch selected.
+    Given I am logged in as a user with the "content_admin" role
+    And I reset the content release state from the command line
+
+    # Require that we select a vets-website branch.
+    When I am at "/admin/content/deploy/git"
+    And I stub form submission for the current page
+    And I select the "Select a different vets-website branch/pull request" radio button
+    And I click the "Release content" button
+    And I wait for form submission
+    Then I should see "Invalid selection."
+
+    # Select vets-website branch.
+    When I fill in autocomplete field with selector "#edit-vets-website-git-ref" with value "main"
+    Then I should see "BRANCH main"
+    When I fill in autocomplete field with selector "#edit-vets-website-git-ref" with value "BRANCH main (main)"
+    And I click the "Release content" button
+    And I wait for form submission
+    Then I should see "Content release requested successfully"
+    And I should see "Build request skipped; form is under test."
+    And I should see "Reset content_build version skipped; form is under test."
+    And I should see "Set vets_website version skipped; form is under test."
+
+  @new_content_release
+  Scenario: The user should be able to deploy a content release from the Git form with a content-build and vets-website branch selected.
+    Given I am logged in as a user with the "content_admin" role
+    And I reset the content release state from the command line
+
+    # Basic form setup.
+    When I am at "/admin/content/deploy/git"
+    And I stub form submission for the current page
+
+    # Select a content-build branch.
+    And I select the "Select a different content-build branch/pull request" radio button
+    And I fill in autocomplete field with selector "#edit-content-build-git-ref" with value "BRANCH main (main)"
+
+    # Select a vets-website branch.
+    And I select the "Select a different vets-website branch/pull request" radio button
+    And I fill in autocomplete field with selector "#edit-vets-website-git-ref" with value "BRANCH main (main)"
+
+    When I click the "Release content" button
+    And I wait for form submission
+    Then I should see "Content release requested successfully"
+    And I should see "Build request skipped; form is under test."
+    And I should see "Set content_build version skipped; form is under test."
+    And I should see "Set vets_website version skipped; form is under test."
 
   @new_content_release
   Scenario: The Simple content release form should not display the content release status block.
@@ -69,87 +129,3 @@ Feature: Content Release
     Then "Ready" should exist
     # This is only on local/Tugboat ATM. I should add it back later.
     # And I should see "View the full output of the last completed build process (including a broken link report)."
-
-  @skip_on_brd @old_content_release
-  # When we shift to the new content release system, this will be obsoleted by
-  # the new content release tests above.
-  Scenario: The content release page should normally display no in-process releases
-    Given I am logged in as a user with the "content_admin" role
-    And I reset the content release state from the command line
-    When I am at "/admin/content/deploy"
-    And I reload the page
-    And I scroll to position "bottom"
-    Then "Ready" should exist
-
-  @skip_on_brd @old_content_release
-  # When we shift to the new content release system, this will be obsoleted by
-  # the new content release tests above.
-  Scenario: The content release page should show a pending default release initiated within the browser
-    Given I am logged in as a user with the "content_admin" role
-    And I reset the content release state from the command line
-    When I am at "/admin/content/deploy"
-    And I click the "Release content" button
-    And I process the content release queue
-    And I reload the page
-    And I scroll to position "bottom"
-    Then "Preparing" should exist
-    And I reset the content release state from the command line
-    And I reload the page
-    And I scroll to position "bottom"
-    Then "Ready" should exist
-
-  @skip_on_brd @old_content_release
-  # When we shift to the new content release system, this will be obsoleted by
-  # the new content release tests above.
-  # This test concerns functionality that is currently broken or not available
-  # in all environments, specifically interactions with the frontend git repo.
-  Scenario: The content release page should show a pending chosen release initiated within the browser
-    Given I am logged in as a user with the "content_admin" role
-    And I reset the content release state from the command line
-    When I initiate a content release with the branch "main"
-    And I process the content release queue
-    And I am at "/admin/content/deploy"
-    And I scroll to position "bottom"
-    Then "Preparing" should exist
-    And I reset the content release state from the command line
-    And I reload the page
-    And I scroll to position "bottom"
-    Then "Ready" should exist
-
-  @skip_on_brd @old_content_release
-  # When we shift to the new content release system, this will be obsoleted by
-  # the new content release tests above.
-  Scenario: The content release page should show a pending default release initiated from the command line
-    Given I am logged in as a user with the "content_admin" role
-    And I reset the content release state from the command line
-    And I initiate a content release from the command line
-    And I process the content release queue
-    And I am at "/admin/content/deploy"
-    And I scroll to position "bottom"
-    Then "Preparing" should exist
-    And I reset the content release state from the command line
-    And I reload the page
-    And I scroll to position "bottom"
-    Then "Ready" should exist
-
-  @skip_on_brd @ignore @old_content_release
-  # When we shift to the new content release system, this will be obsoleted by
-  # the new content release tests above.
-  # This test concerns functionality that is currently not available,
-  # specifically initiating releases from the command line with a specific
-  # branch.
-  # If this unavailable functionality is permanently removed, this test should
-  # be as well.
-  Scenario: The content release page should show a pending chosen release initiated from the command line
-    Given I am logged in as a user with the "content_admin" role
-    And I reset the content release state from the command line
-    And I initiate a content release from the command line with the branch "main"
-    And I process the content release queue
-    And I reload the page
-    And I scroll to position "bottom"
-    Then "Branch: " should exist
-    And "Preparing" should exist
-    And I reset the content release state from the command line
-    And I reload the page
-    And I scroll to position "bottom"
-    Then "Ready" should exist

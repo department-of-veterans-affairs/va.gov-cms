@@ -31,9 +31,20 @@ services:
   va_gov_content_release.request:
     class: Drupal\va_gov_content_release\Request\Request
     arguments: ['@entity_type.manager']
+  va_gov_content_release.frontend_url:
+    class: Drupal\va_gov_content_release\FrontendUrl\FrontendUrl
+    arguments: ['@settings']
   va_gov_content_release.frontend_version:
     class: Drupal\va_gov_content_release\FrontendVersion\FrontendVersion
     arguments: ['@state']
+  va_gov_content_release.frontend_version_search:
+    class: Drupal\va_gov_content_release\FrontendVersionSearch\FrontendVersionSearch
+    arguments:
+      - '@va_gov_git.branch_search.content_build'
+      - '@va_gov_github.api_client.content_build'
+      - '@va_gov_git.branch_search.vets_website'
+      - '@va_gov_github.api_client.vets_website'
+      - '@logger.factory'
   va_gov_content_release.entity_event_subscriber:
     class: Drupal\va_gov_content_release\EventSubscriber\EntityEventSubscriber
     arguments:
@@ -42,3 +53,11 @@ services:
       - '@va_gov_content_release.request'
     tags:
       - { name: event_subscriber }
+  va_gov_content_release.status:
+    class: Drupal\va_gov_content_release\Status\Status
+    arguments:
+      - '@string_translation'
+      - '@date.formatter'
+      - '@va_gov_build_trigger.release_state_manager'
+      - '@va_gov_content_release.strategy_resolver'
+      - '@va_gov_content_release.frontend_version'

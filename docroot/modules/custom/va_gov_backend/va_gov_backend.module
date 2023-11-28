@@ -24,12 +24,11 @@ use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldStorageConfigInterface;
 use Drupal\file\Entity\File;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
-use Drupal\va_gov_build_trigger\Form\PreviewForm;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
@@ -252,6 +251,9 @@ function _va_gov_backend_get_clp_toggles() {
           'field_clp_faq_paragraphs' => [
             'required' => TRUE,
             'show-indicator' => TRUE,
+          ],
+          'field_clp_reusable_q_a' => [
+            'required' => FALSE,
           ],
           'field_clp_faq_cta' => [
             'required' => FALSE,
@@ -969,53 +971,6 @@ function va_gov_backend_preprocess_page_title(&$variables) {
 }
 
 /**
- * Add va_gov preview button to view node on the front end.
- */
-function va_gov_backend_preprocess_page(&$variables) {
-
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node instanceof NodeInterface) {
-    // It's a node.
-    $exclusion_types_from_config = \Drupal::service('va_gov_backend.exclusion_types')->getExcludedTypes();
-    $list_types = [
-      // List pages don't play nicely with preview.
-      'event_listing',
-      'health_services_listing,',
-      'leadership_listing',
-      'locations_listing',
-      'press_releases_listing',
-      'publication_listing',
-      'story_listing',
-    ];
-    $exclusion_types = array_merge(array_values($exclusion_types_from_config), array_values($list_types));
-    $last_saved_by_an_editor = $node->get('field_last_saved_by_an_editor')->value;
-    $variables['page']['last_saved_by_an_editor'] = $last_saved_by_an_editor ? \Drupal::service('date.formatter')->format($last_saved_by_an_editor, 'custom', 'F j Y g:ia') : 'Unknown';
-    // Exclude staff pages without bios.
-    if ($node->bundle() === 'person_profile' && $node->field_complete_biography_create->value === '0') {
-      $exclusion_types[] = 'person_profile';
-    }
-    // Make sure we aren't on the node form or an excluded type.
-    $route_name = \Drupal::routeMatch()->getRouteName();
-    $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    if (($route_name !== 'entity.node.edit_form') &&
-      (!in_array($node->bundle(), $exclusion_types)) &&
-      ($language === 'en')) {
-      // Make sure we aren't on /training-guide.
-      $current_uri = \Drupal::request()->getRequestUri();
-      if ($current_uri !== '/training-guide') {
-        $node = \Drupal::routeMatch()->getParameter('node');
-        $nid = $node->id();
-        $host = \Drupal::request()->getHost();
-        $preview_form = new PreviewForm();
-        $url = $preview_form->getEnvironment($host, $nid);
-        $button = '<a class="button button--primary js-form-submit form-submit node-preview-button" target="_blank" href="' . $url . '">Preview</a>';
-        $variables['page']['sidebar_second']['#markup'] = $button;
-      }
-    }
-  }
-}
-
-/**
  * Callback handler for workbench_access_assign_user form - invalidate cache.
  *
  * @param array $form
@@ -1320,6 +1275,7 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
       $field->addConstraint('PreventAbsoluteUrlsAsPathsInLinks');
       $field->addConstraint('PreventVaGovDomainsAsPathsInLinks');
       $field->addConstraint('PreventDomainsAsPathsInLinks');
+      $field->addConstraint('PreventPreviewUrlLinks');
     }
     elseif ($field->getType() === 'text_long') {
       $field->addConstraint('PreventAbsoluteCmsLinks');
@@ -1329,6 +1285,7 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
       $field->addConstraint('PreventAbsoluteUrlsAsPathsInLinks');
       $field->addConstraint('PreventVaGovDomainsAsPathsInLinks');
       $field->addConstraint('PreventDomainsAsPathsInLinks');
+      $field->addConstraint('PreventPreviewUrlLinks');
     }
   }
   // Add paragraph checks on clp panels.
