@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9852c7b384bc0261e13c35fa65865700",
+    "content-hash": "688708b5d6cd3bf326b3a940e63700ca",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1176,16 +1176,16 @@
         },
         {
             "name": "datadog/dd-trace",
-            "version": "0.93.2",
+            "version": "0.94.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DataDog/dd-trace-php.git",
-                "reference": "7850350e97f1bc26466ccaf72d0b41cf2ade4127"
+                "reference": "dc23b0c7f826fb832e8d69e350524de5a07002c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/7850350e97f1bc26466ccaf72d0b41cf2ade4127",
-                "reference": "7850350e97f1bc26466ccaf72d0b41cf2ade4127",
+                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/dc23b0c7f826fb832e8d69e350524de5a07002c2",
+                "reference": "dc23b0c7f826fb832e8d69e350524de5a07002c2",
                 "shasum": ""
             },
             "require": {
@@ -1204,6 +1204,16 @@
             "type": "library",
             "extra": {
                 "scenarios": {
+                    "opentelemetry1": {
+                        "require": {
+                            "open-telemetry/sdk": "@stable",
+                            "open-telemetry/extension-propagator-b3": "@stable",
+                            "open-telemetry/opentelemetry-logger-monolog": "@stable"
+                        },
+                        "scenario-options": {
+                            "create-lockfile": false
+                        }
+                    },
                     "opentracing_beta5": {
                         "require": {
                             "opentracing/opentracing": "1.0.0-beta5"
@@ -1264,9 +1274,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DataDog/dd-trace-php/issues",
-                "source": "https://github.com/DataDog/dd-trace-php/tree/0.93.2"
+                "source": "https://github.com/DataDog/dd-trace-php/tree/0.94.0"
             },
-            "time": "2023-11-13T11:35:31+00:00"
+            "time": "2023-11-20T17:09:04+00:00"
         },
         {
             "name": "davedevelopment/stiphle",
@@ -6571,6 +6581,7 @@
                 "geo6/geocoder-php-geopunt-provider": "^1.0",
                 "geo6/geocoder-php-spw-provider": "^1.0",
                 "geocoder-php/arcgis-online-provider": "^4.0",
+                "geocoder-php/azure-maps-provider": "^1.2",
                 "geocoder-php/bing-maps-provider": "^4.0",
                 "geocoder-php/free-geoip-provider": "^4.1",
                 "geocoder-php/geo-plugin-provider": "^4.0",
@@ -6590,7 +6601,8 @@
                 "geocoder-php/pelias-provider": "^1.1",
                 "geocoder-php/photon-provider": "^0.1.0",
                 "geocoder-php/tomtom-provider": "^4.0",
-                "geocoder-php/yandex-provider": "^4.0"
+                "geocoder-php/yandex-provider": "^4.0",
+                "systonic/ban-france-provider": "^1.0"
             },
             "type": "drupal-module",
             "extra": {
@@ -18735,16 +18747,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.43",
+            "version": "1.10.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "2c4129f6ca8c7cfa870098884b8869b410a5a361"
+                "reference": "bf84367c53a23f759513985c54ffe0d0c249825b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2c4129f6ca8c7cfa870098884b8869b410a5a361",
-                "reference": "2c4129f6ca8c7cfa870098884b8869b410a5a361",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/bf84367c53a23f759513985c54ffe0d0c249825b",
+                "reference": "bf84367c53a23f759513985c54ffe0d0c249825b",
                 "shasum": ""
             },
             "require": {
@@ -18793,7 +18805,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-19T19:55:25+00:00"
+            "time": "2023-11-21T16:30:46+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -25612,7 +25624,7 @@
             },
             "require-dev": {
                 "psr/container": "^1.0|^2.0",
-                "symfony/phpunit-bridge": "^4.4.9|^5.0.9|^6.0"
+                "symfony/phpunit-bridge": "^5.4.9|^6.3"
             },
             "type": "library",
             "autoload": {
@@ -25664,16 +25676,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3390",
+            "version": "v0.0.3393",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "994a34581a367ba5f5d80471373307bd60571650"
+                "reference": "98905f700263ccb9f19690ef5d51c70aa8712e4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/994a34581a367ba5f5d80471373307bd60571650",
-                "reference": "994a34581a367ba5f5d80471373307bd60571650",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/98905f700263ccb9f19690ef5d51c70aa8712e4b",
+                "reference": "98905f700263ccb9f19690ef5d51c70aa8712e4b",
                 "shasum": ""
             },
             "type": "node-project",
@@ -25700,9 +25712,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3390"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3393"
             },
-            "time": "2023-11-20T18:56:17+00:00"
+            "time": "2023-11-27T19:24:05+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
