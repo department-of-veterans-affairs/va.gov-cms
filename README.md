@@ -29,6 +29,7 @@ The VA.gov CMS Team
    1. [WEB & CMS Integration](READMES/unity.md)
    1. [Workflow](READMES/workflow.md)
    1. [Project Conventions](READMES/project-conventions.md)
+   1. [Code Ownership](READMES/codeowners.md)
    1. [Environments](READMES/environments.md)
       1. [CI Environments](READMES/tugboat.md)
       1. [Local - DDEV](READMES/local.md)
@@ -45,19 +46,21 @@ The VA.gov CMS Team
    1. [Code Review](READMES/code-review.md)
    1. [Testing](READMES/testing.md)
    1. [Debugging](READMES/debugging.md)
-   1. [Comparing GraphQL Output](READMES/graph_ql.md)
+   1. [Comparing GraphQL Output](READMES/comparing-graphql-output.md)
    1. [Dependabot Updates](READMES/dependabot-updates.md)
+   1. [Profiling with Blackfire](READMES/blackfire.md)
+   1. [Scalability Testing](READMES/scalability-testing.md)
 1. **Release & Deployment**
    1. [The BRD System: Build, Release, Deploy](READMES/brd.md)
    1. [CMS Release Process](READMES/brd.md#cms-release-process)
    1. [CMS-CI Release Process (TODO)](READMES/brd.md#cmsci-release-process)
 1. **Architecture**
-   1. Overview
    1. Drupal
       1. [Memcache](READMES/drupal-memcache.md)
    1. [Content Models and Documentation](READMES/content-models.md)
       1. [Centralized Content](READMES/content-model-centralized-content.md)
    1. MetalSmith
+   1. [GraphQL](READMES/graph_ql.md)
    1. [Interfaces](READMES/interfaces.md) - APIs and Feature Flag
    1. Migrations (data imports)
       1. [Facility](READMES/migrations-facility.md)
