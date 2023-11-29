@@ -13,36 +13,17 @@ See [the Codespaces README](./codespaces.md) to get a fully functional cloud-bas
 
 ## Step 1: Get Source Code / Git Setup
 
-- Fork the repo by pressing the "Fork" button: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms)
-- Clone your fork.
+- Clone the repo: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms)
   ```sh
-   $ git clone git@github.com:YOUR-GITHUB-USERNAME/va.gov-cms.git
+   $ git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git
    $ cd va.gov-cms
   ```
 
-* Add upstream repo (Recommended):
-
-  ```sh
-  $ git remote add upstream git@github.com:department-of-veterans-affairs/va.gov-cms.git
-  ```
-* Optionally rename your fork so its name is more meaningful and ensures your upstream and origin are not misnamed.
-  ```sh
-  $ git remote rename origin myfork
-  ```
-* Verify your remotes, it should list upstream and myfork/origin as remotes.
-  ```sh
-  $ git remote -v
-
-  myfork  git@github.com:YOUR_GIT_USERNAME/va.gov-cms.git (fetch)
-  myfork  git@github.com:YOUR_GIT_USERNAME/va.gov-cms.git (push)
-  upstream        git@github.com:department-of-veterans-affairs/va.gov-cms.git (fetch)
-  upstream        git@github.com:department-of-veterans-affairs/va.gov-cms.git (push)
-  ```
 * Make sure your local repo is aware of what's on the remotes.
   ```sh
   $ git fetch --all
   ```
-
+q
 * Make sure git is not tracking perms
   ```sh
   $ git config core.fileMode false
@@ -55,27 +36,21 @@ See [the Codespaces README](./codespaces.md) to get a fully functional cloud-bas
   $ git config --global branch.main.rebase true
   ```
 
-* Make branch main always pulls from the remote: upstream.
-  ```sh
-  $ git checkout main
-  $ git branch --set-upstream-to upstream/main
-  ```
-
 *  Make changes to simplesaml storage not be tracked locally.
 
   ```sh
    git update-index --skip-worktree samlsessiondb.sq3
   ```
 
-  You should periodically update your branch from `upstream main` branch:
+  You should periodically update your branch from `origin main` branch. This will rebase your current branch on top of new commits in main:
 
   ```sh
-   $ git pull upstream main
+   $ git pull origin main
   ```
 
 ## Step 2: Launch development environment
 
-1. Set ddev environment variables: 
+1. Set ddev environment variables:
 
 ```bash
 $ cd va.gov-cms
