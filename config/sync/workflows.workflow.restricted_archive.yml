@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.full_width_banner_alert
     - node.type.service_region
   module:
     - content_moderation
@@ -90,5 +91,6 @@ type_settings:
       weight: 2
   entity_types:
     node:
+      - vba_facility
       - service_region
   default_moderation_state: draft
