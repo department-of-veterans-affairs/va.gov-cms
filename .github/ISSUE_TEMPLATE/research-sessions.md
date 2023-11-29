@@ -48,13 +48,15 @@ assignees: ''
 - [ ] Researcher debriefed (i.e., into note-taking spreadsheet/Mural)
 - [ ] Session recording and transcript downloaded from Zoom
 - [ ] Notes taken by observers have been reviewed
-- [ ] Session is checked off as completed or no-show in Recruitment Request ticket
+- [ ] *(for Veteran-facing research)* Session is checked off as completed or no-show in Recruitment Request ticket 
 
 **After ALL sessions**
 - [ ] Have enough research sessions to satisfy recruitment criteria or Sitewide UX Lead/PO
-- [ ]  Final participant list has been downloaded from Perigean (for Veteran-facing research)
-- [ ]  Display name of Perigean Zoom account changed back to what it was (for Veteran-facing research)
 - [ ] All notes stored in the research folder on github
   - [ ] Notes documents for cancelled/no-show sessions have been deleted
-- [ ] Recruitment tracker updated with participant demographics 
 
+*For Veteran-facing research ONLY:*
+- [ ]  Final participant list has been downloaded from Perigean 
+- [ ]  Display name of Perigean Zoom account changed back to what it was 
+- [ ] Recruitment tracker updated with participant demographics 
+  - [ ] For no-show participants, data entered as "N"'s
