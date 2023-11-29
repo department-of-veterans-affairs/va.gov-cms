@@ -17,10 +17,10 @@ $config['config_split.config_split.local']['status'] = FALSE;
 $config['config_split.config_split.tugboat']['status'] = FALSE;
 
 $config['system.performance']['cache']['page']['use_internal'] = TRUE;
-$config['system.performance']['css']['preprocess'] = FALSE;
-$config['system.performance']['css']['gzip'] = FALSE;
-$config['system.performance']['js']['preprocess'] = FALSE;
-$config['system.performance']['js']['gzip'] = FALSE;
+$config['system.performance']['css']['preprocess'] = TRUE;
+$config['system.performance']['css']['gzip'] = TRUE;
+$config['system.performance']['js']['preprocess'] = TRUE;
+$config['system.performance']['js']['gzip'] = TRUE;
 $config['system.performance']['response']['gzip'] = TRUE;
 $config['views.settings']['ui']['show']['sql_query']['enabled'] = FALSE;
 $config['views.settings']['ui']['show']['performance_statistics'] = FALSE;
