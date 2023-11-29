@@ -199,7 +199,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterEventNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     $this->addDisplayManagementToEventFields($form);
-    $this->modifyFormFieldsetElements($form);
+    $this->modifyFormFieldSetElements($form);
     $this->modifyRecurringEventsWidgetFieldPresentation($form);
     $this->modifyAddToOutreachCalendarElements($form);
   }
@@ -344,6 +344,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     unset($form['field_datetime_range_timezone']['widget'][0]['repeat-advanced']['restrict-minutes']);
     unset($form['field_datetime_range_timezone']['widget'][0]['repeat-label']);
     unset($form['field_datetime_range_timezone']['widget'][0]['duration']['#title']);
+
+    // Remove the extra fieldset and add more button.
+    $extra_fieldset = $form['field_datetime_range_timezone']['widget']['#max_delta'];
+    if ($extra_fieldset > 0) {
+      unset($form['field_datetime_range_timezone']['widget'][$extra_fieldset]);
+    }
+    unset($form['field_datetime_range_timezone']['widget']['add_more']);
   }
 
   /**
@@ -371,7 +378,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form['field_address']['widget'][0]['#type'] = 'div';
     unset($form['field_address']['widget'][0]['#title']);
     // Use help text from config instead of linkit module.
-    $form['field_url_of_an_online_event']['widget'][0]['uri']['#description'] = $form['field_url_of_an_online_event']['widget'][0]['#description']->__toString();
+    $form['field_url_of_an_online_event']['widget'][0]['uri']['#description'] = (string) $form['field_url_of_an_online_event']['widget'][0]['#description'];
   }
 
 }

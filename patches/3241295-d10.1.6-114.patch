@@ -1,0 +1,14 @@
+diff --git a/modules/ckeditor5/js/ckeditor5.js b/modules/ckeditor5/js/ckeditor5.js
+--- a/modules/ckeditor5/js/ckeditor5.js	(revision 65b03ce802b202577c4074fb78196b93d9fcaa40)
++++ b/modules/ckeditor5/js/ckeditor5.js	(date 1699995360654)
+@@ -387,7 +387,9 @@
+             editor.ui.view.editable.element.append(element);
+
+             const styles = window.getComputedStyle(element);
+-            const height = element.clientHeight;
++            // If the element has a height, use that, otherwise use 24px. This is for
++            // ckeditors that are not in the viewport, which calculate height to only 65px once displayed.
++            const height = element.clientHeight > 0 ? element.clientHeight : 24;
+             const marginTop = parseInt(styles.marginTop, 10);
+             const marginBottom = parseInt(styles.marginBottom, 10);
+             const mostMargin =

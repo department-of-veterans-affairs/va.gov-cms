@@ -45,13 +45,6 @@ class ContentReleaseCommands extends DrushCommands {
   protected $state;
 
   /**
-   * Logger Channel.
-   *
-   * @var \Psr\Log\LoggerInterface
-   */
-  protected $logger;
-
-  /**
    * Constructor.
    *
    * @param \Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface $releaseStateManager

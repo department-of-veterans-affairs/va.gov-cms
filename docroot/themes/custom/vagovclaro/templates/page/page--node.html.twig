@@ -50,6 +50,14 @@
     {{ page.breadcrumb }}
 
     <div class="node-columns">
+      {% set has_sidebar_first = page.sidebar_first|render|striptags|trim is not empty %}
+      {% if has_sidebar_first %}
+        <aside class="layout-sidebar-first" aria-label="Section Menu" role="complementary">
+        {{ page.sidebar_first }}
+
+        </aside>{# /.layout-sidebar-first #}
+      {% endif %}
+
       <main class="page-content clearfix" role="main">
         <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
         {{ page.highlighted }}
@@ -60,14 +68,6 @@
 
         {{ page.content }}
       </main>
-
-      {% set has_sidebar_first = page.sidebar_first|render|striptags|trim is not empty %}
-      {% if has_sidebar_first %}
-        <aside class="layout-sidebar-first" aria-label="Section Menu" role="complementary">
-          {{ page.sidebar_first }}
-
-        </aside>{# /.layout-sidebar-first #}
-      {% endif %}
 
       {% if page.sidebar_second %}
         <aside class="layout-sidebar-second" aria-label="Content Metadata" role="complementary">

@@ -27,13 +27,13 @@ Scenario: Log in and create a Person Profile with attention to conditional field
   Then I should see "1 error has been found: Body text"
 
   # Create the page with intention of using biography providing required fields.
-  Given I fill in ckeditor "field-body-0-value" with "[Test Data] Profile Body"
+  Given I fill in ckeditor "edit-field-body-0-value" with "[Test Data] Profile Body"
   And I click the "Save" button
   Then I should see "Staff Profile James Smith has been updated."
 
   # Check to see if a change of intention still allows data saving.
   Given I click the edit tab
-  And I fill in ckeditor "field-body-0-value" with "[Test Data] Fresh body."
+  And I fill in ckeditor "edit-field-body-0-value" with "[Test Data] Fresh body."
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
   And I fill in field with selector "#edit-field-intro-text-0-value" with value "[Test Data] Better words."
   And I uncheck the "Create profile page with biography" checkbox
