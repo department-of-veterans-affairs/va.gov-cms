@@ -75,15 +75,21 @@ See [the Codespaces README](./codespaces.md) to get a fully functional cloud-bas
 
 ## Step 2: Launch development environment
 
-1. [Install ddev](https://ddev.readthedocs.io/en/stable/#installation)
-2. Change into the project directory and run `ddev start`:
+1. Set ddev environment variables: 
 
-   ```bash
-   $ cd va.gov-cms
-   $ ddev start
-   ```
+```bash
+$ cd va.gov-cms
+$ cp .env.example .env
+```
 
-The `ddev start` command will include the `composer install` command.
+2. [Install ddev](https://ddev.readthedocs.io/en/stable/#installation)
+3. Change into the project directory and run `ddev start`:
+
+```bash
+$ ddev start
+```
+
+The `ddev start` command will include the `composer install` command. Ensure that a CMS account is created and [Step 3](#step-3-sync-your-local-site-with-production-data) is run to sync login information before logging into the local CMS environment.
 
 See [Environments: Local](./local.md) for more information on ddev.
 
@@ -96,7 +102,7 @@ correct locations in your local development environment.
 
 - `ddev pull va `  or  `ddev pull va --skip-files`
 
-NOTE: This command downloads and impoorts the db followed by any configuration import.
+NOTE: This command downloads and imports the db followed by any configuration import.
 
 If you are not using ddev, the scripts will
 fail, but the files will still be available. The `sync-db.sh` script downloads the
