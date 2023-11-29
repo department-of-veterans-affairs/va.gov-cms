@@ -97,6 +97,15 @@ $config['image.settings']['allow_insecure_derivatives'] = TRUE;
 $config['image.settings']['suppress_itok_output'] = TRUE;
 
 /**
+ * Optimized assets path:
+ *
+ * A local file system path where optimized assets will be stored. This directory
+ * must exist and be writable by Drupal. This directory must be relative to
+ * the Drupal installation directory and be accessible over the web.
+ */
+$settings['file_assets_path'] = 'sites/default/files';
+
+/**
  * CMS Build settings.
  *
  * These are settings to trigger a static file, front-end WEB build job.

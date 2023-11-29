@@ -3,12 +3,12 @@ langcode: en
 status: true
 dependencies:
   module:
-    1: editor
-    2: linkit
-    3: linky
-    4: media
-    5: pathologic
-    6: va_gov_backend
+    - editor
+    - linkit
+    - linky
+    - media
+    - pathologic
+    - va_gov_backend
 _core:
   default_config_hash: Mc8Hl-Ya14lrbMXaUx7Ybmv-18vtqE4lw2DpgNHPj-s
 name: 'Rich Text Limited'
@@ -45,7 +45,7 @@ filters:
     status: true
     weight: -50
     settings:
-      allowed_html: '<em> <strong> <br> <p> <a href hreflang aria-label data-entity-substitution data-entity-type data-entity-uuid title> <ol> <li> <ul> <blockquote>'
+      allowed_html: '<br> <p> <a hreflang aria-label data-entity-substitution data-entity-type data-entity-uuid title href> <strong> <blockquote> <ul> <ol> <li> <abbr title>'
       filter_html_help: true
       filter_html_nofollow: false
   filter_autop:

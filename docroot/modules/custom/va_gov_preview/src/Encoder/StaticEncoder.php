@@ -51,7 +51,7 @@ class StaticEncoder implements SerializerAwareInterface, EncoderInterface {
    *   The string translation service.
    */
   public function __construct(MessengerInterface $messenger, TranslationInterface $string_translation) {
-    $this->messenger = $messenger;
+    $this->messenger         = $messenger;
     $this->stringTranslation = $string_translation;
   }
 
@@ -60,7 +60,7 @@ class StaticEncoder implements SerializerAwareInterface, EncoderInterface {
    *
    * This reads the static files right off the server and returns them.
    */
-  public function encode($data, $format, array $context = []) {
+  public function encode(mixed $data, $format, array $context = []): string {
     $requested_path = Url::fromRoute('<current>', [], ['absolute' => FALSE])->toString();
     $content_path = StaticServiceProvider::urlPathToServerPath($requested_path);
 
@@ -84,7 +84,7 @@ class StaticEncoder implements SerializerAwareInterface, EncoderInterface {
   /**
    * {@inheritdoc}
    */
-  public function supportsEncoding($format) {
+  public function supportsEncoding($format): bool {
     return in_array($format, static::$format);
   }
 

@@ -471,7 +471,11 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       '#type' => 'submit',
       '#weight' => 10,
       '#value' => 'Save draft and continue editing',
-      '#submit' => ['::submitForm', 'va_gov_backend_form_alter_submit'],
+      '#submit' => [
+        '::submitForm',
+        '::save',
+        'va_gov_backend_form_alter_submit',
+      ],
     ];
 
     // Remove the default preview button from types not in workflow.
@@ -541,9 +545,9 @@ function va_gov_backend_form_field_config_edit_form_alter(&$form, FormStateInter
 }
 
 /**
- * Implements hook_field_widget_WIDGET_TYPE_form_alter() for moderation_state widgets.
+ * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter() for moderation_state widgets.
  */
-function va_gov_backend_field_widget_moderation_state_default_form_alter(&$element, FormStateInterface $form_state, $context) {
+function va_gov_backend_field_widget_single_element_moderation_state_default_form_alter(&$element, FormStateInterface $form_state, $context) {
   $base_form_id = $form_state->getBuildInfo()['base_form_id'] ?? '';
   if ($base_form_id === 'node_form') {
 
@@ -568,9 +572,9 @@ function va_gov_backend_form_media_library_add_form_upload_alter(&$form, FormSta
 }
 
 /**
- * Implements hook_field_widget_WIDGET_TYPE_form_alter() for checkbox widgets.
+ * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter() for checkbox widgets.
  */
-function va_gov_backend_field_widget_boolean_checkbox_form_alter(&$element, FormStateInterface $form_state, $context) {
+function va_gov_backend_field_widget_single_element_boolean_checkbox_form_alter(&$element, FormStateInterface $form_state, $context) {
   $field_definition = $context['items']->getFieldDefinition();
   if ($field_definition instanceof FieldConfig) {
     [$entity_type, , $field_name] = explode('.', $field_definition->id());
@@ -1100,9 +1104,9 @@ function _va_gov_backend_smart_date_paragraph_formatting(array &$element) {
 }
 
 /**
- * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
  */
-function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+function va_gov_backend_field_widget_single_element_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
   // Hide Trigger Text in Alert paragraph form unless Alert Type is "Expanding".
   $field_definition = $context['items']->getFieldDefinition();
   /**
@@ -1166,9 +1170,9 @@ function _va_gov_backend_restrict_qa_answer_types(array &$element) {
 }
 
 /**
- * Implements hook_field_widget_entity_reference_paragraphs_form_alter().
+ * Implements hook_field_widget_single_element_entity_reference_paragraphs_form_alter().
  */
-function va_gov_backend_field_widget_entity_reference_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+function va_gov_backend_field_widget_single_element_entity_reference_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
   _va_gov_backend_modify_alert_single_states($element, $form_state, $context);
   _va_gov_backend_modify_contact_information_states($element, $form_state, $context);
 }
@@ -1840,7 +1844,7 @@ function _va_gov_backend_set_file_type(FieldableEntityInterface $entity) {
     $mime = $guesser->guessMimeType($uri);
   }
   else {
-    $mime = $guesser->guess($uri);
+    $mime = $guesser->guessMimeType($uri);
     @trigger_error('\Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface is deprecated in drupal:9.1.0 and will be removed in drupal:10.0.0. See https://www.drupal.org/node/3133341', E_USER_DEPRECATED);
   }
   $entity->set('field_mime_type', $mime);
@@ -1886,14 +1890,14 @@ function _va_gov_backend_apply_filter_to_tablefield_cells(FieldableEntityInterfa
 }
 
 /**
- * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
  *
  * Deprecated in va_gov_backend:9.2.3 and is removed from va_gov_backend:10.0.1
  *   This should be removed in #10675.
  *
  * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/10675
  */
-function va_gov_backend_field_widget_tablefield_form_alter(&$element, FormStateInterface $form_state, $context): void {
+function va_gov_backend_field_widget_single_element_tablefield_form_alter(&$element, FormStateInterface $form_state, $context): void {
   $element["#description"] = t('The first row will be formatted as the table header. The labels in the first row should accurately describe the corresponding columns.');
 }
 
