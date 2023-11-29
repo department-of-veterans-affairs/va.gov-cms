@@ -9,6 +9,11 @@ assignees: ''
 
 ## Description
 
+### User story
+**AS A** researcher
+**I WANT** to conduct research sessions with participants
+**SO THAT** we can get feedback on [PRODUCT/INITIATIVE]
+
 **Guidelines**
 - [Moderator guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/conducting-research-sessions)
   - [Research Safety guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/research-safety-and-emergency-exit-strategies) 
@@ -24,25 +29,32 @@ assignees: ''
 - Editor-Facing research should track participants in the [VA.gov CMS UX research base](https://airtable.com/invite/l?inviteId=inv9nYvS8HoNGoZpu&inviteToken=7d5d76876f2b9f45c44a18ad316f6989c54017e5504ef23742f4153d8b658df3&utm_medium=email&utm_source=product_team&utm_content=transactional-alerts)
 
 **No-shows and rescheduling**
-- If a particpant hasn't shown up within 5 minutes of the scheduled start time, they should be contacted as a reminder
-  - In Veteran-facing research, the Perigean Notetaker will handle contacting the participant by phone and email
+- If a participant doesn't show up at the scheduled start time, they should be contacted
+  - In Veteran-facing research, the Perigean will contact the participant by phone and email
   - In Editor-facing research, the Moderator should contact the participant through email or Microsoft Teams
-- If the participant hasn't shown up within 15 minutes of the start, consider it a no show
+- If the participant hasn't shown up within 15 minutes of the start, consider it a no-show
   - Contact the participant to see if they can reschedule for a different available slot 
-  - If unable to reschedule, mark them officially as a no show in the recruitment tracker 
-- Keep the PM and PO in the loop about no-shows in case additional sessions need to be scheduled
+  - If unable to reschedule, mark them officially as a no-show in the recruitment tracker 
+- Keep the PM and Sitewide UX Lead in the loop about no-shows in case additional sessions need to be scheduled
 
 ## Acceptance Criteria
 
 **Before 1st session**
-- [ ] Pilot session has been conducted and any relevant edits have been made to research protocol
-- [ ] Moderator(s), Notetaker(s), & Observer(s) have reviewed guidelines for their role(s)
+- [ ] Pilot session conducted and any relevant edits made to conversation guide
+- [ ] Moderator(s), Notetaker(s), & Observer(s) reviewed guidelines for their role(s)
 
-**After sessions**
-- [ ] Observers and Notetakers have shared their notes with Research Lead
-- [ ] All notes are stored in the research folder
-- [ ] Update the recruitment tracker with participant demographics daily
-- [ ] Download all session recording to your local machine for synthesis
-- [ ] You have conducted enough sessions to satisfy our intended demographics from research plan 
-  - [ ] OR Product Owner has signed off that you've done enough to move forward
+**After each session**
+- [ ] Observers and Notetakers shared their notes with Research Lead
+- [ ] Researcher debriefed (i.e., into note-taking spreadsheet/Mural)
+- [ ] Session recording and transcript downloaded from Zoom
+- [ ] Notes taken by observers have been reviewed
+- [ ] Session is checked off as completed or no-show in Recruitment Request ticket
+
+**After ALL sessions**
+- [ ] Have enough research sessions to satisfy recruitment criteria or Sitewide UX Lead/PO
+- [ ]  Final participant list has been downloaded from Perigean (for Veteran-facing research)
+- [ ]  Display name of Perigean Zoom account changed back to what it was (for Veteran-facing research)
+- [ ] All notes stored in the research folder on github
+  - [ ] Notes documents for cancelled/no-show sessions have been deleted
+- [ ] Recruitment tracker updated with participant demographics 
 
