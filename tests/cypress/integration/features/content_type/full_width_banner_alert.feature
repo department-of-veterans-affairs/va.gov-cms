@@ -9,7 +9,7 @@ Scenario: Log in and create VAMC Full Width Banner Alert
   And I check the "VA Boston health care" checkbox within "#edit-field-banner-alert-vamcs--wrapper"
   And I select option "Information" from dropdown "Alert type"
   And I fill in "Title" with "[Test Data] Banner alert title"
-  And I fill in ckeditor "field-body-0-value" with "[Test Data] Banner alert Body"
+  And I fill in ckeditor "edit-field-body-0-value" with "[Test Data] Banner alert Body"
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
   And I save the node
   Then the primary tab "Edit" should exist

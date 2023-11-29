@@ -3,12 +3,12 @@ langcode: en
 status: true
 dependencies:
   module:
-    1: editor
-    2: linkit
-    3: linky
-    4: media
-    5: pathologic
-    6: va_gov_backend
+    - editor
+    - linkit
+    - linky
+    - media
+    - pathologic
+    - va_gov_backend
 _core:
   default_config_hash: Mc8Hl-Ya14lrbMXaUx7Ybmv-18vtqE4lw2DpgNHPj-s
 name: 'Rich Text'
@@ -45,7 +45,7 @@ filters:
     status: true
     weight: -50
     settings:
-      allowed_html: '<em> <strong> <b> <cite> <blockquote cite> <ul type> <ol type start> <li> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <hr> <br> <p id class="va-address-block block-va-gov-text"> <drupal-entity data-* title alt data-entity-type data-entity-uuid data-align data-caption data-langcode> <a href hreflang aria-label data-entity-substitution data-entity-type data-entity-uuid target title class="button button-action button--primary usa-button usa-button-primary usa-button-secondary va-button-primary login-required block-vet-center-facility-button vads-c-action-link--green vads-c-action-link--blue">'
+      allowed_html: '<br> <p class="va-address-block block-va-gov-text" id> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <a class="vads-c-action-link--green vads-c-action-link--blue button button-action button--primary login-required block-vet-center-facility-button usa-button usa-button-primary usa-button-secondary va-button-primary" hreflang aria-label data-entity-substitution data-entity-type data-entity-uuid target title href> <b> <cite> <drupal-entity data-* title alt> <blockquote cite> <ul type> <ol type start> <strong> <li> <hr> <abbr title>'
       filter_html_help: true
       filter_html_nofollow: false
   filter_autop:
