@@ -17,15 +17,14 @@ assignees: ''
 **Guidelines**
 - [Moderator guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/conducting-research-sessions)
   - [Research Safety guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/research-safety-and-emergency-exit-strategies) 
-- [Notetaker guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/observer-guidelines#Observerguidelines-Howtobeagoodnotetaker)
+- [Notetaker guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/notetaker-guidelines)
   - For Veteran-facing research, Perigean can provide a notetaker
   - For Editor-facing research, the Product Manager or a member of the UX Team should take notes
 - [Observer guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/observer-guidelines)
 
 **Recruitment Trackers**
-- Veteran-Facing research should follow [Platform guidance](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/teams/vsa/accessibility/research/recruitment.md#Maximum-Variation-Sampling) on recruitment tracking
-  - [VA recruitment checker spreadsheet on Microsoft Excel teams](https://governmentcio.sharepoint.com/:x:/r/sites/VSATeam/Shared%20Documents/Accessibility/RecruitmentChecker.xlsx?d=we0ffb06d5bac4cd5902c5f8b23fe988c&csf=1&web=1&e=FzYt5t)
-  - [Google Sheets version of the recruitment checker](https://docs.google.com/spreadsheets/d/1pq7TSHZonfpzAQBJj6B2geGHlNUwZEs4DzEvxcRgu0o/edit?usp=sharing)
+- Veteran-Facing research should follow [Platform guidance](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/teams/vsa/accessibility/research/recruitment.md) on recruitment tracking
+  - [VA recruitment checker spreadsheet in Google Sheets](https://docs.google.com/spreadsheets/d/1pq7TSHZonfpzAQBJj6B2geGHlNUwZEs4DzEvxcRgu0o/edit?usp=sharing)
 - Editor-Facing research should track participants in the [VA.gov CMS UX research base](https://airtable.com/invite/l?inviteId=inv9nYvS8HoNGoZpu&inviteToken=7d5d76876f2b9f45c44a18ad316f6989c54017e5504ef23742f4153d8b658df3&utm_medium=email&utm_source=product_team&utm_content=transactional-alerts)
 
 **No-shows and rescheduling**
@@ -33,21 +32,21 @@ assignees: ''
   - In Veteran-facing research, the Perigean will contact the participant by phone and email
   - In Editor-facing research, the Moderator should contact the participant through email or Microsoft Teams
 - If the participant hasn't shown up within 15 minutes of the start, consider it a no-show
-  - Contact the participant to see if they can reschedule for a different available slot 
+  - See if the participant can reschedule for a different available slot 
   - If unable to reschedule, mark them officially as a no-show in the recruitment tracker 
 - Keep the PM and Sitewide UX Lead in the loop about no-shows in case additional sessions need to be scheduled
 
 ## Acceptance Criteria
 
-**Before 1st session**
-- [ ] Pilot session conducted and any relevant edits made to conversation guide
+**Before first session**
+- [ ] Pilot session(s) conducted and any relevant edits made to conversation guide
 - [ ] Moderator(s), Notetaker(s), & Observer(s) reviewed guidelines for their role(s)
 
-**After each session**
+**After every session**
 - [ ] Observers and Notetakers shared their notes with Research Lead
 - [ ] Researcher debriefed (i.e., into note-taking spreadsheet/Mural)
 - [ ] Session recording and transcript downloaded from Zoom
-- [ ] Notes taken by observers have been reviewed
+- [ ] Notes taken by observers have been reviewed by Research Lead
 - [ ] *(for Veteran-facing research)* Session is checked off as completed or no-show in Recruitment Request ticket 
 
 **After ALL sessions**
@@ -56,7 +55,7 @@ assignees: ''
   - [ ] Notes documents for cancelled/no-show sessions have been deleted
 
 *For Veteran-facing research ONLY:*
-- [ ]  Final participant list has been downloaded from Perigean 
+- [ ]  Final participant list downloaded from Perigean 
 - [ ]  Display name of Perigean Zoom account changed back to what it was 
 - [ ] Recruitment tracker updated with participant demographics 
   - [ ] For no-show participants, data entered as "N"'s
