@@ -9,11 +9,24 @@ assignees: ''
 
 ## Description
 
+### User story
+
+**AS A** researcher
+**I WANT** to wrap up my research study
+**SO THAT** I can share it with others and then move on
+
 **Crafting Recommendations**
 
 Recommendations are key outputs of the research process. They connect your findings back to the product roadmap(s) and shape the experience of future users. Depending on the type of research conducted, recommendations might be narrowly focused on improving a specific interface component of your team's product, or they might have broad implications for multiple parts of the VA.gov ecosystem. Work with your UX team, Product Manager, & Product Owner to generate, refine, and categorize recommendations. PMs and POs also play a key role in socializing recommendations to other teams.
 
+**Report shared with team**
+
 **Research Readout(s)**
+
+- [ ] Discussed with Sitewide UX Lead, PM, and/or PO re type of research readout needed and with whom
+- [ ] Research readout scheduled
+- [ ] Research readout presentation slides drafted
+
 - Work with PM & PO to determine audience(s) and meeting length(s)
 - Default to a 30-min meeting with 20 min for presenting and 10 min for discussion
 - [Research Presentation Template](https://docs.google.com/presentation/d/13G80avWGdY7tHU40PbP_l05W1yRpDr-opOk0u_AAhzQ/edit#slide=id.g892adcb623_0_141)

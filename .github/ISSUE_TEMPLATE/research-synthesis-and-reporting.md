@@ -13,7 +13,7 @@ assignees: ''
 
 **AS A(N)** researcher
 **I WANT** to synthesize data from research sessions
-**SO THAT** I can summarize findings and share with team and stakeholders
+**SO THAT** I can summarize findings to share with team and stakeholders
 
 ## Acceptance Criteria
 
@@ -31,21 +31,8 @@ assignees: ''
 - [ ] Research report drafted
 
 **Collaboration with Sitewide UX Lead**
-- [ ] Some initial findings shared and discussed, along with potential recomendations 
+- [ ] Some initial findings shared and discussed (in Mural?), along with potential recomendations--what's important, what we might do next.
 - [ ] Research report feedback requested
 - [ ] Research report feedback incorporated
 - [ ] Sitewide UX Lead requested feedback from VA PO and shared with researcher
 - [ ] All feedback on research report incorporated 
-
-**Readout**
-- [ ] Discussed with Sitewide UX Lead, PM, and/or PO re type of research readout needed and with whom
-- [ ] Research readout scheduled
-- [ ] Research readout presentation slides drafted
-
-Next Steps:
-- [ ] The Research Lead should work with the UX Team & PM to create recommendations 
-- [ ] The PM & PO should decide if a full research readout is required and who needs to be invited
-
-## Acceptance Criteria
-- [ ] Create Topline Summary, share with PO, and update if needed 
-- [ ] Schedule a full research readout (if PM & PO request)
