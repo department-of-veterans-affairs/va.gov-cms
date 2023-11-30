@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4021cb5119f043c65b6619b15d1df4a",
+    "content-hash": "eedc8329ec33a6e48a398cac11e02034",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -8497,6 +8497,50 @@
             "homepage": "https://www.drupal.org/project/linkyreplacer",
             "support": {
                 "source": "https://git.drupalcode.org/project/linkyreplacer"
+            }
+        },
+        {
+            "name": "drupal/log_everything",
+            "version": "1.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/log_everything.git",
+                "reference": "1.0.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/log_everything-1.0.0-alpha2.zip",
+                "reference": "1.0.0-alpha2",
+                "shasum": "5fcbec37dde68f87cc23ee0bd4286fc2c5851a7f"
+            },
+            "require": {
+                "drupal/core": "^8.9 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-alpha2",
+                    "datestamp": "1619888929",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Nixou",
+                    "homepage": "https://www.drupal.org/user/2304734"
+                }
+            ],
+            "description": "Log every operation on every entitites",
+            "homepage": "https://www.drupal.org/project/log_everything",
+            "support": {
+                "source": "https://git.drupalcode.org/project/log_everything"
             }
         },
         {
@@ -27879,5 +27923,5 @@
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * @file
+ * Install file for Va Gov VBA Facility.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\node\Entity\Node;
+use Drupal\pathauto\PathautoState;
+use Psr\Log\LogLevel;
+
+/**
+ * Change the workflow of archived records
+ */
+function va_gov_vba_facility_update_9001() {
+  // Get the VBA nids
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $node_storage->getQuery();
+  $query->condition('type', 'vba_facility');
+  $nids = $query->execute();
+  $count = 0;
+  foreach ($nids as $nid) {
+    $changed = FALSE;
+    $connection = \Drupal::database();
+    $tables = [
+      'content_moderation_state_field_data',
+      'content_moderation_state_field_revision',
+    ];
+    foreach ($tables as $table) {
+      $success = $connection->update($table)
+        ->fields([
+          'uid' => '1317', // CMS Migrator ID
+          'workflow' => 'restricted_archive' // Change workflow to new one
+        ])
+        ->condition('workflow', 'editorial', '=')
+        ->condition('moderation_state', 'archived', '=')
+        ->condition('content_entity_id', $nid, '=')
+
+        ->execute();
+
+      $vars = [
+        '%table' => $table,
+        '%nid' => $nid,
+      ];
+      if ($success) {
+        Drupal::logger('va_gov_vba')->log('info', "The '%table' table's 'uid' changed to 1317 (the CMS Migrator ID) and 'workflow' changed to 'restricted_archive' for archived VBA facility %nid.", $vars);
+        $changed = TRUE;
+      }
+    }
+    if ($changed) {
+        $count++;
+    }
+  }
+  Drupal::logger('va_gov_vba')->log('info', "A total of %count VBA facilities were changed", [
+    '%count' => $count,
+  ]);
+
+  return "content_moderation_state_field_data and content_moderation_state_field_revision updated with the CMS Migrator ID.";
+}
