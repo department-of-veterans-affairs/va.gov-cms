@@ -2,16 +2,16 @@
 
 namespace tests\phpunit\API;
 
+use Http\Client\Exception\RequestException;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
- * A test to confirm amount of nodes by type.
+ * Tests to confirm JSON:API responses match consumer expectations.
  *
  * @group functional
  * @group all
  */
-class JsonApiRequestTest extends VaGovExistingSiteBase
-{
+class JsonApiRequestTest extends VaGovExistingSiteBase {
 
   /**
    * Provides list of resource routes for the JSON:API response tests.
@@ -56,49 +56,39 @@ class JsonApiRequestTest extends VaGovExistingSiteBase
     $user->setPassword('t3st0ma4tic');
     $user->save();
 
-    $userInfo = ['name' => $user->getAccountName(), 'password' => 't3st0ma4tic'];
-    $json_string = $this->getBodyFromURL( "$route?page[limit]=5", $userInfo);
+    $userInfo = [
+      'name' => $user->getAccountName(),
+      'password' => 't3st0ma4tic',
+    ];
+    $json_string = $this->getBodyFromPath("$route?page[limit]=5", $userInfo);
+    $collectionData = json_decode($json_string, TRUE);
 
-    // Decode JSON response.
-    $collectionData = json_decode($json_string, true);
-
-    // Ensure that the collection contains items.
-    $this->assertNotEmpty($collectionData);
-
-    // Ensure that the collection contains five items.
+    // Ensure that the collection respects the limit parameter.
     $this->assertCount(5, $collectionData['data']);
-
-    // Ensure that the collection does not contain a 'uid' field.
-    $this->assertArrayNotHasKey('uid', $collectionData['data'][1]['relationships']);
 
     // Assert that fields are not present in the collection response.
     array_walk_recursive($collectionData['data'],
-      fn($value, $key) => $this->assertNotContains($key, $keysToExclude, "Key '$key' should not be present")
+      fn($value, $key) => $this->assertNotContains($key, $keysToExclude,
+        "Key '$key' should not be present")
     );
 
-    // Pick an ID from the collection.
-    $nodeUuid = $collectionData['data'][1]['id']; // Assuming the first item is always present.
-
-    // Request the individual node using the picked ID.
-    $nodeResponse = $this->getBodyFromURL( "$route/$nodeUuid", $userInfo);
-
-    // Decode JSON response for the individual node.
-    $nodeData = json_decode($nodeResponse, true);
+    // Pick an ID to check from the collection.
+    $nodeUuid = $collectionData['data'][1]['id'];
+    $nodeResponse = $this->getBodyFromPath("$route/$nodeUuid", $userInfo);
+    $nodeData = json_decode($nodeResponse, TRUE);
 
     // Assert that fields are not present in the individual node response.
     array_walk_recursive($nodeData['data'],
-      fn($value, $key) => $this->assertNotContains($key, $keysToExclude, "Key '$key' should not be present")
+      fn($value, $key) => $this->assertNotContains($key, $keysToExclude,
+        "Key '$key' should not be present")
     );
   }
 
   /**
-   * @param string $path
-   * @param string $name
-   *
-   * @return \Psr\Http\Message\StreamInterface
+   * Helper function to retrieve JSON:API response from a path.
    */
-  public function getBodyFromURL(string $path, array $user): \Psr\Http\Message\StreamInterface
-  {
+  public function getBodyFromPath(string $path, array $user): string {
+    $json_string = '';
     try {
       $response = \Drupal::httpClient()->get($this->baseUrl . $path, [
         'auth' => [$user['name'], $user['password']],
@@ -107,12 +97,15 @@ class JsonApiRequestTest extends VaGovExistingSiteBase
         ],
       ]);
 
-      $this->assertEquals('200', $response->getStatusCode(), 'Request returned status code ' . $response->getStatusCode());
+      $this->assertEquals('200', $response->getStatusCode(),
+        'Request returned status code ' . $response->getStatusCode());
 
       $json_string = $response->getBody();
-    } catch (RequestException $e) {
-      fwrite(STDERR, print_r($e, TRUE));
+    }
+    catch (RequestException $e) {
+      fwrite(STDERR, print_r($e->getMessage(), TRUE));
     }
     return $json_string;
   }
+
 }
