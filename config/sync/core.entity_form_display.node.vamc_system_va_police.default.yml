@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.vamc_system_va_police.field_cc_faq
     - field.field.node.vamc_system_va_police.field_cc_police_report
     - field.field.node.vamc_system_va_police.field_cc_term_definitions
+    - field.field.node.vamc_system_va_police.field_cc_term_definitions_nation
     - field.field.node.vamc_system_va_police.field_cc_va_police_overview
     - field.field.node.vamc_system_va_police.field_enforce_unique_combo
     - field.field.node.vamc_system_va_police.field_enforce_unique_combo_offic
@@ -59,6 +60,7 @@ third_party_settings:
         - field_cc_va_police_overview
         - field_cc_police_report
         - field_cc_term_definitions
+        - field_cc_term_definitions_nation
         - field_cc_faq
       label: 'National content'
       region: content
@@ -89,12 +91,12 @@ content:
     third_party_settings: {  }
   field_cc_faq:
     type: entity_field_fetch_widget
-    weight: 8
+    weight: 9
     region: content
     settings:
+      show_field_label: '1'
       show_link_to_source: '1'
       show_source_updated_date: '1'
-      show_field_label: '1'
     third_party_settings: {  }
   field_cc_police_report:
     type: entity_field_fetch_widget
@@ -108,6 +110,15 @@ content:
   field_cc_term_definitions:
     type: entity_field_fetch_widget
     weight: 7
+    region: content
+    settings:
+      show_field_label: '1'
+      show_link_to_source: 0
+      show_source_updated_date: 0
+    third_party_settings: {  }
+  field_cc_term_definitions_nation:
+    type: entity_field_fetch_widget
+    weight: 8
     region: content
     settings:
       show_field_label: '1'
