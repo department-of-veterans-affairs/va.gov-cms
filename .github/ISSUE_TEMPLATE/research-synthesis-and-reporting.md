@@ -28,7 +28,7 @@ assignees: ''
 - [ ] Different paths participants took in prototypes have been documented/illustrated (usability testing)
 - [ ] Research questions from the Research Plan revisited to check whether they've all been answered
 - [ ] Revisit the hypotheses from the Research Plan to see which can be confirmed
-- [ ] Research report drafted
+- [ ] Research report drafted (use this [template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/sharing-research/research-findings-template.md))
 
 **Collaboration with Sitewide UX Lead**
 - [ ] Some initial findings shared and discussed (in Mural?), along with potential recomendations--what's important, what we might do next.

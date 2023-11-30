@@ -15,38 +15,42 @@ assignees: ''
 **I WANT** to wrap up my research study
 **SO THAT** I can share it with others and then move on
 
-**Crafting Recommendations**
+## Tasks
 
-Recommendations are key outputs of the research process. They connect your findings back to the product roadmap(s) and shape the experience of future users. Depending on the type of research conducted, recommendations might be narrowly focused on improving a specific interface component of your team's product, or they might have broad implications for multiple parts of the VA.gov ecosystem. Work with your UX team, Product Manager, & Product Owner to generate, refine, and categorize recommendations. PMs and POs also play a key role in socializing recommendations to other teams.
+**Collaborate**
 
-**Report shared with team**
+- [ ] Share draft research report with team and ask for feedback
+- [ ] Incorporate feedback into report
+- [ ] Discuss draft recommendations with team 
+
+  - Recommendations are key outputs of the research process. They connect your findings back to the product roadmap(s) and shape the experience of future users. Depending on the type of research conducted, recommendations might be narrowly focused on improving a specific interface component of your team's product, or they might have broad implications for multiple parts of the VA.gov ecosystem. Work with your UX team, Product Manager, & Product Owner to generate, refine, and categorize recommendations. PMs and POs also play a key role in socializing recommendations to other teams.
+
+- [ ] Work with Sitewide UX Lead, PM, and/or PO to discuss whether research readout(s) are needed. If so, determine audience and meeting length (default to a 30-min meeting with 20 min for presenting and 10 min for discussion).
+- [ ] Work with PM to schedule research readout(s)
+- [ ] *(optional)* Consider presenting research at Veteran Digital User Experience Weekly Design Sync meeting, slack Naomi Marcussen to schedule a date.
 
 **Research Readout(s)**
+- [ ] Draft readout presentation slides ([template here, which can be slimmed down](https://docs.google.com/presentation/d/13G80avWGdY7tHU40PbP_l05W1yRpDr-opOk0u_AAhzQ/edit#slide=id.g892adcb623_0_141)
+- [ ] Share readout slides with Sitewide UX Lead for feedback
+- [ ] Consider doing a practice runthrough to gauge flow and length
+- [ ] Present readout(s) to team and/or stakeholders
+- [ ] Revise report and/or readout slides per feedback from readout(s)
+- [ ] *(optional)* If want to present research at Sprint Demo (recommended!), make a *very short* version of your readout slides
 
-- [ ] Discussed with Sitewide UX Lead, PM, and/or PO re type of research readout needed and with whom
-- [ ] Research readout scheduled
-- [ ] Research readout presentation slides drafted
-
-- Work with PM & PO to determine audience(s) and meeting length(s)
-- Default to a 30-min meeting with 20 min for presenting and 10 min for discussion
-- [Research Presentation Template](https://docs.google.com/presentation/d/13G80avWGdY7tHU40PbP_l05W1yRpDr-opOk0u_AAhzQ/edit#slide=id.g892adcb623_0_141)
-  - Consider slimming down this template based on your audience
-  - Consider doing a practice runthrough with Design Team or PM to ensure it flows
-- After readout(s) with your immediate team(s) and stakeholder(s), consider presenting your research at Platform's weekly Design + Content + Research meeting
-  - Message Naomi Marcussen on Slack to sign up
 
 **Documenting Findings**
-- Building off the Topline Summary, fill out the [Research Findings Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/sharing-research/research-findings-template.md) and add it to your Research Folder
-- Once your findings are fully written up, make sure they are linked to from the relevant research repository
-- Veteran-facing research:[How to add reserach to Platform Repo](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/70)
+- Once your report is final, link to the relevant research repository
+- Veteran-facing research:[How to add research to Platform Repo](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/70)
 - Editor-facing research: [CMS Research Repository](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/research)
 
 **Destroying and Archiving Research Materials**
-- Once your synthesis is complete, you should destroy any [session recordings](https://depo-platform-documentation.scrollhelp.site/research-design/recording-user-research-sessions) saved to your local machine
 - Review your notes and synthesis materials to make sure they don't contain any PII. Then make sure they are added to your github Research Folder for archival purposes
+- Once your readouts are complete, you should destroy any [session recordings](https://depo-platform-documentation.scrollhelp.site/research-design/recording-user-research-sessions) and transcripts saved to your local machine
+
 
 ## Acceptance Criteria
-- [ ] Craft recommendations
-- [ ] Conduct readout(s)
-- [ ] Document findings in Research Repo
-- [ ] Destroy or archive research materials
+- [ ] Feedback incorporated into research report
+- [ ] Recommendations drafted
+- [ ] Readout(s) conducted
+- [ ] Findings in Research Repo
+- [ ] Session recordings and transcripts deleted from your local machine
