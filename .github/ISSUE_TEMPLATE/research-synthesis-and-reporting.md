@@ -11,7 +11,7 @@ assignees: ''
 
 ### User story
 
-**AS A(N)** researcher
+**AS A** researcher
 **I WANT** to synthesize data from research sessions
 **SO THAT** I can summarize findings to share with team and stakeholders
 
@@ -27,11 +27,11 @@ assignees: ''
 - [ ] Session recordings/transcripts used to make additional notes and/or pull exact quotes
 - [ ] Different paths participants took in prototypes have been documented/illustrated (usability testing)
 - [ ] Research questions from the Research Plan revisited to check whether they've all been answered
-- [ ] Revisit the hypotheses from the Research Plan to see which can be confirmed
+- [ ] Hypotheses from the Research Plan revisited to see which can be confirmed
 - [ ] Research report drafted (use this [template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/sharing-research/research-findings-template.md))
 
 **Collaboration with Sitewide UX Lead**
-- [ ] Some initial findings shared and discussed (in Mural?), along with potential recomendations--what's important, what we might do next.
+- [ ] Some initial findings and potential recommendations shared (in Mural?). What's important and what we might do next have been discussed.
 - [ ] Research report feedback requested
 - [ ] Research report feedback incorporated
 - [ ] Sitewide UX Lead requested feedback from VA PO and shared with researcher
