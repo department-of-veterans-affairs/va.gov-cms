@@ -13,7 +13,7 @@ assignees: ''
 
 **AS A** researcher
 **I WANT** to wrap up my research study
-**SO THAT** I can share insights and protect participants' private information
+**SO THAT** I can share insights with others and protect participants' private information
 
 ## Tasks
 
@@ -23,7 +23,7 @@ assignees: ''
 - [ ] Incorporate feedback into report
 - [ ] Discuss draft recommendations with team 
 
-  - Recommendations are key outputs of the research process. They connect your findings back to the product roadmap(s) and shape the experience of future users. Depending on the type of research conducted, recommendations might be narrowly focused on improving a specific interface component of your team's product, or they might have broad implications for multiple parts of the VA.gov ecosystem. Work with the Sitewide UX Lead, UX team, Product Manager, & Product Owner to generate, refine, and categorize recommendations. PMs and POs also play a key role in socializing recommendations to other teams.
+  - Recommendations are key outputs of the research process. They connect your findings back to the product roadmap(s) and shape the experience of future users. Depending on the type of research conducted, recommendations might be narrowly focused on improving a specific interface component of your team's product, or they might have broad implications for multiple parts of the VA.gov ecosystem. Work with the Sitewide UX Lead, UX team, Product Manager, and Product Owner to generate, refine, and categorize recommendations. PMs and POs also play a key role in socializing recommendations to other teams.
 
 - [ ] Work with Sitewide UX Lead, PM, and/or PO to discuss whether research readout(s) are needed. If so, determine audience and meeting length (e.g., 30-min meeting with 20-min presentation and 10-min discussion).
 - [ ] Work with PM to schedule research readout(s)
