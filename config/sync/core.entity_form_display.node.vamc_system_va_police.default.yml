@@ -1,0 +1,185 @@
+uuid: 8d5d6c51-bc09-4f5f-8f6f-30cc23dc4b4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vamc_system_va_police.field_administration
+    - field.field.node.vamc_system_va_police.field_cc_faq
+    - field.field.node.vamc_system_va_police.field_cc_police_report
+    - field.field.node.vamc_system_va_police.field_cc_term_definitions
+    - field.field.node.vamc_system_va_police.field_cc_term_definitions_nation
+    - field.field.node.vamc_system_va_police.field_cc_va_police_overview
+    - field.field.node.vamc_system_va_police.field_enforce_unique_combo
+    - field.field.node.vamc_system_va_police.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_va_police.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_va_police.field_office
+    - node.type.vamc_system_va_police
+    - workflows.workflow.editorial
+  module:
+    - allow_only_one
+    - content_moderation
+    - entity_field_fetch
+    - field_group
+third_party_settings:
+  field_group:
+    group_section_settings:
+      children:
+        - field_enforce_unique_combo
+        - field_administration
+      label: 'Section settings'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: 0
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      label: 'Editorial workflow'
+      region: content
+      parent_name: ''
+      weight: 9
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: true
+        description_display: after
+    group_national_content:
+      children:
+        - field_cc_va_police_overview
+        - field_cc_police_report
+        - field_cc_term_definitions
+        - field_cc_term_definitions_nation
+        - field_cc_faq
+      label: 'National content'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        description: ''
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        required_fields: 0
+        attributes: ''
+id: node.vamc_system_va_police.default
+targetEntityType: node
+bundle: vamc_system_va_police
+mode: default
+content:
+  field_administration:
+    type: options_select
+    weight: 27
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_cc_faq:
+    type: entity_field_fetch_widget
+    weight: 9
+    region: content
+    settings:
+      show_field_label: '1'
+      show_link_to_source: '1'
+      show_source_updated_date: '1'
+    third_party_settings: {  }
+  field_cc_police_report:
+    type: entity_field_fetch_widget
+    weight: 6
+    region: content
+    settings:
+      show_field_label: '1'
+      show_link_to_source: 0
+      show_source_updated_date: 0
+    third_party_settings: {  }
+  field_cc_term_definitions:
+    type: entity_field_fetch_widget
+    weight: 7
+    region: content
+    settings:
+      show_field_label: '1'
+      show_link_to_source: 0
+      show_source_updated_date: 0
+    third_party_settings: {  }
+  field_cc_term_definitions_nation:
+    type: entity_field_fetch_widget
+    weight: 8
+    region: content
+    settings:
+      show_field_label: '1'
+      show_link_to_source: 0
+      show_source_updated_date: 0
+    third_party_settings: {  }
+  field_cc_va_police_overview:
+    type: entity_field_fetch_widget
+    weight: 5
+    region: content
+    settings:
+      show_field_label: '1'
+      show_link_to_source: 0
+      show_source_updated_date: 0
+    third_party_settings: {  }
+  field_enforce_unique_combo:
+    type: allow_only_one_widget
+    weight: 26
+    region: content
+    settings:
+      size: 1
+    third_party_settings: {  }
+  field_enforce_unique_combo_offic:
+    type: allow_only_one_widget
+    weight: 2
+    region: content
+    settings:
+      size: 1
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_office:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

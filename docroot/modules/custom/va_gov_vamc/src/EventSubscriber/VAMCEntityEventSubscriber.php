@@ -50,6 +50,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vamc_system_policies_page_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_register_for_care_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_register_for_care_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_va_police_edit_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_va_police_form.alter' => 'alterTopTaskNodeForm',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',

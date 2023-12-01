@@ -225,3 +225,14 @@ function va_gov_migrate_update_9002() {
   $strict = TRUE;
   return CmDocumentImport::import($cm_documents_to_import, $strict);
 }
+
+/**
+ * Import documentation about VAMC VA Police.
+ */
+function va_gov_migrate_update_9003() {
+  $cm_documents_to_import = [
+    '/admin/structure/types/manage/vamc_system_va_police/document',
+  ];
+  $strict = TRUE;
+  return CmDocumentImport::import($cm_documents_to_import, $strict);
+}
