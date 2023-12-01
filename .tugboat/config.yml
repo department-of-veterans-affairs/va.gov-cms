@@ -42,11 +42,14 @@ services:
 
         # Ensure GD has support for JPEG.
         - apt-get install libjpeg-dev
-        - docker-php-ext-configure gd --with-jpeg --with-freetype && docker-php-ext-install gd
+        - docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype && docker-php-ext-install gd
 
         # Install php ZIP extension (drush 10 requires it).
         - apt-get install libzip-dev zip
         - docker-php-ext-install zip
+
+        # Enable php intl extension
+        - docker-php-ext-install intl
 
         # Install opcache, and Apache modules
         - docker-php-ext-install opcache

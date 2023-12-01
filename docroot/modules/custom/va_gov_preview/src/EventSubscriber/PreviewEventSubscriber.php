@@ -4,7 +4,6 @@ namespace Drupal\va_gov_preview\EventSubscriber;
 
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Http\RequestStack;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -16,6 +15,7 @@ use Drupal\preprocess_event_dispatcher\Event\PagePreprocessEvent;
 use Drupal\va_gov_backend\Service\ExclusionTypes;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * VA.gov Lovell Entity Event Subscriber.
@@ -46,7 +46,7 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
   /**
    * The request stack.
    *
-   * @var \Drupal\Core\Http\RequestStack
+   * @var \Symfony\Component\HttpFoundation\RequestStack
    */
   protected $requestStack;
 
@@ -99,7 +99,7 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
    *   The string entity type service.
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   Interface for classes representing the result of routing.
-   * @param \Drupal\Core\Http\RequestStack $request_stack
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
    *   The request stack.
    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
    *   The language manager.

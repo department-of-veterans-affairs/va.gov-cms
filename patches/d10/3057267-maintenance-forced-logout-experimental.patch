@@ -1,0 +1,11 @@
+diff --git a/core/modules/user/src/EventSubscriber/MaintenanceModeSubscriber.php b/core/modules/user/src/EventSubscriber/MaintenanceModeSubscriber.php
+--- a/core/modules/user/src/EventSubscriber/MaintenanceModeSubscriber.php	(revision 4516f2318fd18a2beb3f58a1df750cf7dae392fa)
++++ b/core/modules/user/src/EventSubscriber/MaintenanceModeSubscriber.php	(date 1675185289526)
+@@ -51,7 +51,6 @@
+   public function onMaintenanceModeRequest(RequestEvent $event) {
+     // If the site is offline, log out unprivileged users.
+     if ($this->account->isAuthenticated()) {
+-      user_logout();
+       // Redirect to homepage.
+       $event->setResponse(
+         new RedirectResponse(Url::fromRoute('<front>')->toString())

@@ -1,52 +1,70 @@
-uuid: f95e6861-ad94-47ee-847c-2bfdf3f3d4e7
+uuid: 16118084-684f-4186-8c8c-88c0a5fcd4f2
 langcode: en
 status: true
 dependencies:
   config:
     - filter.format.rich_text
   module:
-    - ckeditor
-_core:
-  default_config_hash: 0bVELtfx9sXhjZ6s6W-dJo8SW-IR9jiEIEylzm-2Cro
+    - ckeditor5
 format: rich_text
-editor: ckeditor
+editor: ckeditor5
 settings:
   toolbar:
-    rows:
-      -
-        -
-          name: Formatting
-          items:
-            - Bold
-            - Italic
-            - '-'
-        -
-          name: Linking
-          items:
-            - DrupalLink
-            - DrupalUnlink
-        -
-          name: Lists
-          items:
-            - BulletedList
-            - NumberedList
-        -
-          name: Media
-          items:
-            - HorizontalRule
-            - Source
-        -
-          name: 'Block Formatting'
-          items:
-            - Blockquote
-            - Format
-            - Styles
+    items:
+      - bold
+      - '|'
+      - link
+      - '|'
+      - bulletedList
+      - numberedList
+      - '|'
+      - horizontalLine
+      - sourceEditing
+      - '|'
+      - blockQuote
+      - heading
+      - style
+      - abbreviation
   plugins:
-    drupallink:
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_list:
+      reversed: false
+      startIndex: true
+    ckeditor5_sourceEditing:
+      allowed_tags:
+        - '<b>'
+        - '<cite>'
+        - '<drupal-entity data-* title alt>'
+        - '<blockquote cite>'
+        - '<ul type>'
+        - '<ol type>'
+        - '<h2 id>'
+        - '<h3 id>'
+        - '<h4 id>'
+        - '<h5 id>'
+        - '<h6 id>'
+        - '<p id class="block-va-gov-text">'
+        - '<a hreflang aria-label data-entity-substitution data-entity-type data-entity-uuid target title class="button button-action button--primary login-required block-vet-center-facility-button usa-button usa-button-primary usa-button-secondary va-button-primary" href>'
+    ckeditor5_style:
+      styles:
+        -
+          label: 'Address Block'
+          element: '<p class="va-address-block">'
+        -
+          label: 'Primary action link'
+          element: '<a class="vads-c-action-link--green">'
+        -
+          label: 'Secondary action link'
+          element: '<a class="vads-c-action-link--blue">'
+    linkit_extension:
       linkit_enabled: true
       linkit_profile: default
-    stylescombo:
-      styles: "p.va-address-block|Address Block\r\na.usa-button|Default link button\r\na.usa-button-primary.va-button-primary|Primary link button\r\na.usa-button.usa-button-secondary|Secondary link button\r\na.vads-c-action-link--green|Primary action link\r\na.vads-c-action-link--blue|Secondary action link"
 image_upload:
   status: true
   scheme: public
