@@ -6,18 +6,6 @@
  */
 
 /**
- * Change the workflow of the revisions of VBA facilities.
- */
-function va_gov_workflow_update_9001() {
-  $contentType = 'vba_facility';
-  $oldWorkflow = 'editorial';
-  $newWorklow = 'restricted_archive';
-  return _va_gov_workflow_change_content_type_workflow(
-    $contentType, $oldWorkflow, $newWorklow
-  );
-}
-
-/**
  * Change the workflow of the revisions of a content type.
  *
  * @param string $contentType
@@ -66,4 +54,16 @@ function _va_gov_workflow_change_content_type_workflow(
   ]);
 
   return "A total of $count rows in tables 'content_moderation_state_field_data' and 'content_moderation_state_field_revision' were updated to '$newWorkflow' workflow for $contentType.";
+}
+
+/**
+ * Change the workflow of the revisions of VBA facilities.
+ */
+function va_gov_workflow_update_9001() {
+  $contentType = 'vba_facility';
+  $oldWorkflow = 'editorial';
+  $newWorklow = 'restricted_archive';
+  return _va_gov_workflow_change_content_type_workflow(
+    $contentType, $oldWorkflow, $newWorklow
+  );
 }
