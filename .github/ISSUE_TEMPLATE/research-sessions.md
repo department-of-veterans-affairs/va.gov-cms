@@ -25,7 +25,7 @@ assignees: ''
 **Recruitment Trackers**
 - Veteran-Facing research should follow [Platform guidance](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/teams/vsa/accessibility/research/recruitment.md) on recruitment tracking
   - [VA recruitment checker spreadsheet in Google Sheets](https://docs.google.com/spreadsheets/d/1pq7TSHZonfpzAQBJj6B2geGHlNUwZEs4DzEvxcRgu0o/edit?usp=sharing)
-- Editor-Facing research should track participants in the [VA.gov CMS UX research base](https://airtable.com/invite/l?inviteId=inv9nYvS8HoNGoZpu&inviteToken=7d5d76876f2b9f45c44a18ad316f6989c54017e5504ef23742f4153d8b658df3&utm_medium=email&utm_source=product_team&utm_content=transactional-alerts)
+- Editor-Facing research should track participants in the [VA.gov CMS UX research base](link TBD--see Joann Agnitti)
 
 **No-shows and rescheduling**
 - If a participant doesn't show up at the scheduled start time, they should be contacted
