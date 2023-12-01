@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - node.type.service_region
+    - node.type.vba_facility
   module:
     - content_moderation
 id: restricted_archive
@@ -91,4 +92,5 @@ type_settings:
   entity_types:
     node:
       - service_region
+      - vba_facility
   default_moderation_state: draft
