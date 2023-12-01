@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\State\State;
-use Drupal\va_gov_build_trigger\Service\BuildRequester;
+use Drupal\va_gov_content_release\Request\Request as BuildRequester;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
@@ -38,7 +38,7 @@ class BuildRequesterTest extends VaGovUnitTestBase {
   /**
    * Test that we're getting state values back from getState().
    */
-  public function testRequestFrontendBuild() {
+  public function testSubmitRequest() {
     // Mock the queue and assert that we're getting the right things in the job
     // that is created and enqueued.
     $queue = $this->getMockBuilder(QueueInterface::class)
@@ -67,26 +67,8 @@ class BuildRequesterTest extends VaGovUnitTestBase {
 
     // Finally, create a build requester and request a build (which should
     // trigger the assertions above).
-    $buildRequester = new BuildRequester($entityTypeManager, $this->state);
-    $buildRequester->requestFrontendBuild('TEST REASON');
-  }
-
-  /**
-   * Test that setting and unsetting the frontend version works.
-   */
-  public function testFrontendVersionSelection() {
-    $queue = $this->getMockBuilder(QueueInterface::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $entityTypeManager = $this->getEntityTypeManagerWithStorageAndQueue($queue);
-
-    $buildRequester = new BuildRequester($entityTypeManager, $this->state);
-
-    $buildRequester->switchFrontendVersion('foobar');
-    $this->assertEquals('foobar', $this->state->get(BuildRequester::VA_GOV_FRONTEND_VERSION));
-
-    $buildRequester->resetFrontendVersion();
-    $this->assertEquals('NOT PRESENT', $this->state->get(BuildRequester::VA_GOV_FRONTEND_VERSION, 'NOT PRESENT'));
+    $buildRequester = new BuildRequester($entityTypeManager);
+    $buildRequester->submitRequest('TEST REASON');
   }
 
   /**

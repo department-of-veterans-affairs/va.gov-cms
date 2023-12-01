@@ -3,17 +3,24 @@ langcode: en
 status: true
 dependencies:
   module:
+    - content_moderation
+    - media
     - node
     - subrequests
+    - system
     - va_gov_backend
 third_party_settings:
   va_gov_backend:
     vgb_description: 'Role for Next.js JSON API data access.'
 id: next_js
 label: Next.js
-weight: 8
+weight: 7
 is_admin: null
 permissions:
+  - 'access content'
   - 'access user profiles'
-  - 'bypass node access'
   - 'issue subrequests'
+  - 'view all revisions'
+  - 'view any unpublished content'
+  - 'view latest version'
+  - 'view media'

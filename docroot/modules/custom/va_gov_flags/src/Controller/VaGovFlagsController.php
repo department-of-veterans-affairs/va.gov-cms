@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_flags\Controller;
 
-use Drupal\va_gov_flags\FeatureFlagDataBuilder;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\va_gov_flags\FeatureFlagDataBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -41,10 +41,8 @@ class VaGovFlagsController implements ContainerInjectionInterface {
   /**
    * Callback for the API.
    */
-  public function renderApi() {
-    return JsonResponse::create(
-      $this->featureFlagDataBuilder->buildData()
-    );
+  public function renderApi(): JsonResponse {
+    return new JsonResponse($this->featureFlagDataBuilder->buildData());
   }
 
 }

@@ -7,6 +7,7 @@ use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Theme\ThemeSuggestionsAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\core_event_dispatcher\ThemeHookEvents;
+use Drupal\core_event_dispatcher\ThemeHookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

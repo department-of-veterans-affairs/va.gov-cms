@@ -9,7 +9,7 @@ services:
     arguments:
       - '@va_gov_build_trigger.release_state_manager'
       - '@va_gov_build_trigger.build_scheduler'
-      - '@va_gov_build_trigger.build_requester'
+      - '@va_gov_content_release.request'
       - '@state'
       - '@logger.factory'
     tags:

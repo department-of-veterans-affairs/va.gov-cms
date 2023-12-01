@@ -13,9 +13,11 @@ interface RepositorySettingsInterface {
   // Repository names.
   const VA_GOV_CMS = 'va.gov-cms';
   const CONTENT_BUILD = 'content-build';
+  const VETS_WEBSITE = 'vets-website';
   const REPOSITORY_NAMES = [
     self::VA_GOV_CMS,
     self::CONTENT_BUILD,
+    self::VETS_WEBSITE,
   ];
 
   // Settings keys for the repositories' filesystem paths.
@@ -23,9 +25,11 @@ interface RepositorySettingsInterface {
   // should point to values matching those paths.
   const VA_GOV_CMS_PATH_KEY = 'va_gov_app_root';
   const CONTENT_BUILD_PATH_KEY = 'va_gov_web_root';
+  const VETS_WEBSITE_PATH_KEY = 'va_gov_vets_website_root';
   const PATH_KEYS = [
     self::VA_GOV_CMS => self::VA_GOV_CMS_PATH_KEY,
     self::CONTENT_BUILD => self::CONTENT_BUILD_PATH_KEY,
+    self::VETS_WEBSITE => self::VETS_WEBSITE_PATH_KEY,
   ];
 
   /**

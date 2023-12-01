@@ -4,8 +4,8 @@ namespace Drupal\va_gov_build_trigger\EventSubscriber;
 
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\State\StateInterface;
-use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseInterval;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
+use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseInterval;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

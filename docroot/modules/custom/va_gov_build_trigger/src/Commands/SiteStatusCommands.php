@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_build_trigger\Commands;
 
-use Drush\Commands\DrushCommands;
 use Drupal\va_gov_build_trigger\SiteStatus\SiteStatusInterface;
+use Drush\Commands\DrushCommands;
 
 /**
  * A Drush interface to the Site Status service.

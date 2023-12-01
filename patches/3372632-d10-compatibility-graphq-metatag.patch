@@ -1,0 +1,28 @@
+diff --git a/graphql_metatag.info.yml b/graphql_metatag.info.yml
+index 10333ef..5e0dfe2 100644
+--- a/graphql_metatag.info.yml
++++ b/graphql_metatag.info.yml
+@@ -2,7 +2,7 @@ name: GraphQL Metatag
+ type: module
+ description: 'Adds support for metatags.'
+ package: GraphQL
+-core_version_requirement: ^8 || ^9
++core_version_requirement: ^8.8 || ^9 || ^10
+ dependencies:
+-  - graphql_core (8.x-3.x)
+-  - metatag
++  - graphql_core:graphql_core (8.x-3.x)
++  - metatag:metatag
+diff --git a/src/Plugin/GraphQL/Fields/Entity/EntityMetatags.php b/src/Plugin/GraphQL/Fields/Entity/EntityMetatags.php
+index 20babed..099d141 100644
+--- a/src/Plugin/GraphQL/Fields/Entity/EntityMetatags.php
++++ b/src/Plugin/GraphQL/Fields/Entity/EntityMetatags.php
+@@ -12,7 +12,7 @@ use Drupal\graphql\Plugin\GraphQL\Fields\FieldPluginBase;
+ use Drupal\metatag\MetatagManagerInterface;
+ use Drupal\metatag\MetatagToken;
+ use GraphQL\Type\Definition\ResolveInfo;
+-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
++use Drupal\Core\Routing\RouteObjectInterface;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\RequestStack;

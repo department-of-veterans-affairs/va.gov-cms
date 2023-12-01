@@ -5,20 +5,23 @@ dependencies:
   config:
     - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
+    - field.field.node.vba_facility.field_alert_type
+    - field.field.node.vba_facility.field_banner_content
+    - field.field.node.vba_facility.field_banner_title
+    - field.field.node.vba_facility.field_banner_types_description
     - field.field.node.vba_facility.field_cc_benefit_office_hours_va
     - field.field.node.vba_facility.field_cc_benefits_hotline
     - field.field.node.vba_facility.field_cc_cant_find_benefits
     - field.field.node.vba_facility.field_cc_get_updates_from_vba
     - field.field.node.vba_facility.field_cc_national_spotlight_1
-    - field.field.node.vba_facility.field_cc_national_spotlight_2
-    - field.field.node.vba_facility.field_cc_national_spotlight_3
     - field.field.node.vba_facility.field_cc_vba_facility_overview
+    - field.field.node.vba_facility.field_dismissible_option
     - field.field.node.vba_facility.field_facility_locator_api_id
     - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
     - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
-    - field.field.node.vba_facility.field_location_services
+    - field.field.node.vba_facility.field_local_spotlight
     - field.field.node.vba_facility.field_media
     - field.field.node.vba_facility.field_non_va_location_url
     - field.field.node.vba_facility.field_non_va_official_name
@@ -27,7 +30,9 @@ dependencies:
     - field.field.node.vba_facility.field_operating_status_facility
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
+    - field.field.node.vba_facility.field_prepare_for_visit
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_show_banner
     - field.field.node.vba_facility.field_table_of_contents
     - field.field.node.vba_facility.field_timezone
     - node.type.vba_facility
@@ -40,6 +45,7 @@ dependencies:
     - office_hours
     - options
     - telephone
+    - text
     - user
 third_party_settings:
   field_group:
@@ -64,7 +70,7 @@ third_party_settings:
       label: 'Locations and contact information'
       parent_name: ''
       region: content
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -102,7 +108,7 @@ third_party_settings:
       label: 'Facility Intro and Photo'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -133,7 +139,7 @@ third_party_settings:
       label: 'Benefit office overview'
       parent_name: ''
       region: content
-      weight: 1
+      weight: 2
       format_type: tooltip
       format_settings:
         show_empty_fields: '1'
@@ -151,7 +157,7 @@ third_party_settings:
       label: 'Benefits hotline'
       parent_name: ''
       region: content
-      weight: 5
+      weight: 6
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -171,7 +177,7 @@ third_party_settings:
       label: 'Benefit office hours may vary'
       parent_name: ''
       region: content
-      weight: 4
+      weight: 5
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -188,12 +194,10 @@ third_party_settings:
     group_national_spotlight:
       children:
         - field_cc_national_spotlight_1
-        - field_cc_national_spotlight_2
-        - field_cc_national_spotlight_3
       label: 'National spotlight'
       parent_name: ''
       region: content
-      weight: 7
+      weight: 8
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -213,7 +217,7 @@ third_party_settings:
       label: 'Can''t find benefits'
       parent_name: ''
       region: content
-      weight: 8
+      weight: 10
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -233,7 +237,7 @@ third_party_settings:
       label: 'Get updates from VBA'
       parent_name: ''
       region: content
-      weight: 9
+      weight: 11
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -247,6 +251,38 @@ third_party_settings:
         tooltip_description: "Why can’t I edit this? \r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
         open: false
         required_fields: false
+    group_prepare_for_your_visit:
+      children:
+        - field_prepare_for_visit
+      label: 'Prepare for your visit'
+      parent_name: ''
+      region: content
+      weight: 7
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
+    group_banner:
+      children:
+        - field_show_banner
+        - field_alert_type
+        - field_dismissible_option
+        - field_banner_title
+        - field_banner_content
+      label: Banner
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
 id: node.vba_facility.default
 targetEntityType: node
 bundle: vba_facility
@@ -258,6 +294,28 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_alert_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_banner_content:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  field_banner_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 17
     region: content
   field_cc_benefit_office_hours_va:
     type: entity_field_fetch
@@ -294,26 +352,19 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  field_cc_national_spotlight_2:
-    type: entity_field_fetch
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 7
-    region: content
-  field_cc_national_spotlight_3:
-    type: entity_field_fetch
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 8
-    region: content
   field_cc_vba_facility_overview:
     type: entity_field_fetch
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_dismissible_option:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 16
     region: content
   field_facility_locator_api_id:
     type: string
@@ -329,6 +380,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 14
+    region: content
+  field_local_spotlight:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_location_services:
     type: entity_reference_revisions_entity_view
@@ -346,7 +406,7 @@ content:
       view_mode: default
       link: true
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   field_non_va_location_url:
     type: link
@@ -431,6 +491,15 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
+  field_prepare_for_visit:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 17
+    region: content
   field_shared_vha_location:
     type: entity_reference_label
     label: above
@@ -438,6 +507,16 @@ content:
       link: true
     third_party_settings: {  }
     weight: 12
+    region: content
+  field_show_banner:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 14
     region: content
   field_timezone:
     type: basic_string
@@ -450,6 +529,7 @@ hidden:
   breadcrumbs: true
   content_moderation_control: true
   field_administration: true
+  field_banner_types_description: true
   field_facility_vba_classificatio: true
   field_geolocation: true
   field_last_saved_by_an_editor: true

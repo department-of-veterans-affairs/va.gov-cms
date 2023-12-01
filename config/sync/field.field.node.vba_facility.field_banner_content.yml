@@ -1,0 +1,29 @@
+uuid: d53ef76f-4797-4b80-bc8e-aeb360056af0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_banner_content
+    - node.type.vba_facility
+  module:
+    - allowed_formats
+    - text
+    - tmgmt_content
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_banner_content
+field_name: field_banner_content
+entity_type: node
+bundle: vba_facility
+label: 'Banner alert message'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
