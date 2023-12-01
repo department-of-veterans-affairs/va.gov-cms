@@ -37,22 +37,22 @@ assignees: ''
 - [ ] Present readout(s) to team and/or stakeholders
 - [ ] Revise report and/or readout slides per feedback from readout(s)
 - [ ] *(optional)* Consider presenting at Sprint Demo; make a *very short* version of your readout slides
-- [ ] *(optional)* Consider presenting at Veteran Digital User Experience Weekly Design Sync meeting; slack Naomi Marcussen to schedule a date. ([Presentation template here](https://docs.google.com/presentation/d/13G80avWGdY7tHU40PbP_l05W1yRpDr-opOk0u_AAhzQ/edit#slide=id.g892adcb623_0_141))
+- [ ] *(optional)* Consider presenting at Veteran Digital User Experience Weekly Design Sync meeting; slack Naomi Marcussen to schedule a date; [presentation template here](https://docs.google.com/presentation/d/13G80avWGdY7tHU40PbP_l05W1yRpDr-opOk0u_AAhzQ/edit#slide=id.g892adcb623_0_141)
 
 
 **Add Findings to Research Repository**
-- Once your report is final, link to the relevant research repository
-- Veteran-facing research: [How to add research to Research Repo](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/70) > *What to do when you complete your research*
-- Editor-facing research: [CMS Research Repository](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/research)
+- Once your report is final, link to the relevant research repository:
+  - Veteran-facing research: [How to add research to Research Repo](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/70) > *What to do when you complete your research*
+  - Editor-facing research: [CMS Research Repository](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/research)
 
 **Destroy and Archive Research Materials**
-- Review your notes and synthesis materials to make sure they don't contain any PII (Personally Identifiable Information). Then add them to your github research folder for archival purposes.
+- Review your notes and synthesis materials to make sure they don't contain any PII ([Personally Identifiable Information](https://depo-platform-documentation.scrollhelp.site/research-design/what-is-pii)). Then add them to your github research folder, and link to them in your research report.
 - Once your readouts are complete, you should destroy any [session recordings](https://depo-platform-documentation.scrollhelp.site/research-design/recording-user-research-sessions) and transcripts saved to your local machine
 
 
 ## Acceptance Criteria
 - [ ] Feedback incorporated into research report
-- [ ] Recommendations drafted
 - [ ] Readout(s) conducted
 - [ ] Findings added to Research Repo
+- [ ] Notes and synthesis materials scrubbed of PII, posted to github, and linked to report
 - [ ] Session recordings and transcripts deleted from your local machine
