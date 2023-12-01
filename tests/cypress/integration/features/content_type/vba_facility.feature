@@ -9,4 +9,4 @@ Feature: CMS User may effectively interact with the VBA Facility form
     And my workbench access sections are set to "1065"
     Then I am at "/node/4071/"
     And I should see an element with the selector "li.tabs__tab[data-original-order=1]"
-    Then an element with the selector "li.tabs__tab a[attr^=edit]" should not exist
+    Then the primary tab "Edit" should not exist
