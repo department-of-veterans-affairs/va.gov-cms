@@ -12,7 +12,7 @@ function va_gov_workflow_update_9001() {
   $contentType = 'vba_facility';
   $oldWorkflow = 'editorial';
   $newWorklow = 'restricted_archive';
-  return _va_gov_workflow_change_revisions(
+  return _va_gov_workflow_change_content_type_workflow(
     $contentType, $oldWorkflow, $newWorklow
   );
 }
