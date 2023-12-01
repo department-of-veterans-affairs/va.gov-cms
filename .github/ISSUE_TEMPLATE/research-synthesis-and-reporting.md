@@ -30,9 +30,8 @@ assignees: ''
 - [ ] Hypotheses from the Research Plan revisited to see which can be confirmed
 - [ ] Research report drafted (use this [template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/sharing-research/research-findings-template.md))
 
-**Collaboration with Sitewide UX Lead**
-- [ ] Some initial findings and potential recommendations shared (in Mural?). What's important and what we might do next have been discussed.
-- [ ] Research report feedback requested
-- [ ] Research report feedback incorporated
+**Collaboration with Sitewide UX Lead and others**
+- [ ] Some initial findings and potential recommendations shared (in Mural?) with Sitewide UX Lead and/or team members. What's important and what we might do next have been discussed.
+- [ ] Research report feedback requested from Sitewide UX Lead and other team members.
 - [ ] Sitewide UX Lead requested feedback from VA PO and shared with researcher
 - [ ] All feedback on research report incorporated 
