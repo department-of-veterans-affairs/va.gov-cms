@@ -21,11 +21,11 @@ assignees: ''
 - [ ] Create a [Research Discovery](ADD LINK AS LAST STEP) issue
 - [ ] Create a [Research Plan](ADD LINK AS LAST STEP) issue
 - [ ] Create a [Research Conversation Guide](ADD LINK AS LAST STEP) issue
-- [ ] Create a [Research Review Cycle](ADD LINK AS LAST STEP) issue
+- [ ] Create a [Research Collab Cycle](ADD LINK AS LAST STEP) issue
 - [ ] Create a [Research Prep](ADD LINK AS LAST STEP) issue
 - [ ] Create a [Research Sessions](ADD LINK AS LAST STEP) issue
-- [ ] Create a [Research Synthesis & Reporting](ADD LINK AS LAST STEP) issue
-- [ ] Create a [Research Readout & Post-tasks](ADD LINK AS LAST STEP) issue
+- [ ] Create a [Research Synthesis and Reporting](ADD LINK AS LAST STEP) issue
+- [ ] Create a [Research Readout and Post-tasks](ADD LINK AS LAST STEP) issue
 - [ ] Add all the above issues to the Research Epic and add dependencies
 
 ## Acceptance Criteria
