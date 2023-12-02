@@ -8,5 +8,5 @@ Feature: CMS User may effectively interact with the VBA Facility form
     When I am logged in as a user with the roles "content_creator_vba, content_publisher"
     And my workbench access sections are set to "1065"
     Then I am at "/node/4071/"
-    And I should see an element with the selector "li.tabs__tab[data-original-order=1]"
+    Then the primary tab "View" should exist
     Then the primary tab "Edit" should not exist
