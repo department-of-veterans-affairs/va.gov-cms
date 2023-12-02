@@ -10,6 +10,7 @@ use Drupal\Core\Utility\UpdateException;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
+use Drupal\va_gov_lovell\LovellOps;
 use Psr\Log\LogLevel;
 
 /**
@@ -84,7 +85,9 @@ function _va_gov_vamc_get_systems_to_process($top_task_bundle) {
   $systems_to_process = [];
   $system_nids = _va_gov_get_vamc_systems();
   $systems_with_existing_pages_nids = _va_gov_get_systems_with_existing_pages($top_task_bundle);
-  $systems_needing_pages_nids = array_diff($system_nids, $systems_with_existing_pages_nids);
+  // Also remove Lovell Federal and Lovell Tricare.
+  $non_va_lovell = [LovellOps::TRICARE_SYSTEM_ID, LovellOps::LOVELL_FEDERAL_SYSTEM_ID];
+  $systems_needing_pages_nids = array_diff($system_nids, $systems_with_existing_pages_nids, $non_va_lovell);
   if (!empty($systems_needing_pages_nids)) {
     $needy_systems = Node::loadMultiple($systems_needing_pages_nids);
     foreach ($needy_systems as $needy_system) {
@@ -127,7 +130,7 @@ function _va_gov_get_vamc_systems() {
  *   The machine name of the top task bundle.
  *
  * @return array
- *   An array of system nids that aready have one of these top task pages.
+ *   An array of system nids that already have one of these top task pages.
  */
 function _va_gov_get_systems_with_existing_pages($top_task_bundle) {
   $existing_tt_nids = \Drupal::entityQuery('node')
@@ -143,30 +146,42 @@ function _va_gov_get_systems_with_existing_pages($top_task_bundle) {
 }
 
 /**
- * Creates top task pages.
+ * Creates designated facility pages for each VAMC system.
  *
  * @param array $sandbox
  *   Hook_update_n sandbox for keeping state.
  * @param string $build_bundle
  *   The bundle name of the node to build.
+ * @param string $moderation_state
+ *   The machine name of the moderation state to assign. default: draft.
+ * @param int $weight
+ *   The weight of the menu item.
  */
-function _va_gov_vamc_create_top_task_pages(array &$sandbox, $build_bundle) {
+function _va_gov_vamc_create_system_content_pages(array &$sandbox, string $build_bundle, string $moderation_state = 'draft', int $weight = -50) {
   $cms_migrator = 1317;
   // Run through a batch of 25.
   $i = 0;
+
   foreach ($sandbox['items_to_process'] as $system_nid => $system_info) {
     if (++$i > 25) {
       break;
     }
+
     $new_tt_page = Node::create([
       'type' => $build_bundle,
-      'status' => 0,
-      'moderation_state' => 'draft',
+      'status' => ($moderation_state === 'published') ? 1 : 0,
+      'moderation_state' => $moderation_state,
       'revision_log' => 'Created automatically.',
     ]);
     // CMS migrator.
     $new_tt_page->setOwnerId($cms_migrator);
     $new_tt_page->setRevisionUserId($cms_migrator);
+    if ($moderation_state === 'published') {
+      $new_tt_page->setPublished();
+    }
+    else {
+      $new_tt_page->setUnpublished();
+    }
     $new_tt_page->setUnpublished();
     $new_tt_page->setTitle(_va_gov_vamc_get_title($build_bundle));
     $new_tt_page->set('field_administration', $system_info['field_administration']);
@@ -177,9 +192,9 @@ function _va_gov_vamc_create_top_task_pages(array &$sandbox, $build_bundle) {
       'title' => _va_gov_vamc_get_title($build_bundle),
       'link' => ['uri' => "entity:node/{$new_tt_page->id()}"],
       'menu_name' => $system_info['menu_link_name'],
-      'enabled' => 0,
+      'enabled' => ($moderation_state === 'published') ? 1 : 0,
       'parent' => $system_info['menu_item_id'],
-      'weight' => -50,
+      'weight' => $weight,
     ])->save();
 
     unset($sandbox['items_to_process'][$system_nid]);
@@ -201,6 +216,7 @@ function _va_gov_vamc_get_title($build_bundle) {
     'vamc_system_medical_records_offi' => 'Medical records office',
     'vamc_system_billing_insurance' => 'Billing and insurance',
     'vamc_system_register_for_care' => 'Register for care',
+    'vamc_system_va_police' => 'VA police',
   ];
 
   return $lookup[$build_bundle] ?? 'MISTAKE - DELETE ME';
@@ -243,7 +259,7 @@ function va_gov_vamc_update_9003() {
 function va_gov_vamc_update_9004(&$sandbox) {
   $build_bundle = 'vamc_system_billing_insurance';
   _va_gov_vamc_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
-  _va_gov_vamc_create_top_task_pages($sandbox, $build_bundle);
+  _va_gov_vamc_create_system_content_pages($sandbox, $build_bundle);
   return _va_gov_vamc_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
 }
 
@@ -253,7 +269,7 @@ function va_gov_vamc_update_9004(&$sandbox) {
 function va_gov_vamc_update_9005(&$sandbox) {
   $build_bundle = 'vamc_system_medical_records_offi';
   _va_gov_vamc_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
-  _va_gov_vamc_create_top_task_pages($sandbox, $build_bundle);
+  _va_gov_vamc_create_system_content_pages($sandbox, $build_bundle);
   return _va_gov_vamc_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
 }
 
@@ -263,7 +279,7 @@ function va_gov_vamc_update_9005(&$sandbox) {
 function va_gov_vamc_update_9006(&$sandbox) {
   $build_bundle = 'vamc_system_register_for_care';
   _va_gov_vamc_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
-  _va_gov_vamc_create_top_task_pages($sandbox, $build_bundle);
+  _va_gov_vamc_create_system_content_pages($sandbox, $build_bundle);
   return _va_gov_vamc_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
 }
 
@@ -294,4 +310,14 @@ function va_gov_vamc_update_9007() {
     '%ct_count' => count($alerts),
     '%ct_updated' => $updated,
   ]);
+}
+
+/**
+ * Build top VA Police page for each system.
+ */
+function va_gov_vamc_update_9008(&$sandbox) {
+  $build_bundle = 'vamc_system_va_police';
+  _va_gov_vamc_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
+  _va_gov_vamc_create_system_content_pages($sandbox, $build_bundle, 'published', -46);
+  return _va_gov_vamc_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
 }
