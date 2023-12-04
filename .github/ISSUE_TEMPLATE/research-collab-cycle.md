@@ -16,7 +16,7 @@ assignees: ''
 **SO THAT** any design prototypes will be reviewed
 
 - Veteran-facing research must go through Platform's [Collaboration Cycle](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/)
-- Editor-facing research must go through the [CMS Collaboration Cycle](link TBD)
+- Editor-facing research must go through the [CMS Collaboration Cycle](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/collaboration-cycle)
 
 Note: This step is a hard blocker for Veteran-facing research, but may be less so for Editor-facing research. 
 
