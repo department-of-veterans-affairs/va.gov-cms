@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - node.type.service_region
+    - node.type.vba_facility
   module:
     - content_moderation
 id: restricted_archive
@@ -13,7 +14,7 @@ type_settings:
   states:
     approved:
       label: Approved
-      weight: 3
+      weight: 2
       published: false
       default_revision: false
     archived:
@@ -28,12 +29,12 @@ type_settings:
       default_revision: false
     published:
       label: Published
-      weight: 1
+      weight: 3
       published: true
       default_revision: true
     review:
       label: 'In review'
-      weight: 2
+      weight: 1
       published: false
       default_revision: false
   transitions:
@@ -91,4 +92,5 @@ type_settings:
   entity_types:
     node:
       - service_region
+      - vba_facility
   default_moderation_state: draft
