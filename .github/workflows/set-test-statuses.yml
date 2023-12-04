@@ -65,14 +65,14 @@ jobs:
             va/tests/phpunit
             va/tests/content-build-gql
             va/tests/status-error
-            Composer Validate
-            Check Fields
+            'Composer Validate'
+            'Check Fields'
             ESLint
             Stylelint
             PHPStan
-            PHPStan
+            PHPUnit
             PHP_CodeSniffer
-            PHP Lint
+            'PHP Lint'
           )
           for test_name in "${test_names[@]}"; do
             gh api \
