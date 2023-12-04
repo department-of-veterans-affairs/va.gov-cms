@@ -398,7 +398,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     }
   }
 
-  _va_gov_backend_alter_standalone_page_validation($form);
+  _va_gov_backend_alter_standalone_page_validation($form, $form_state);
 
   // If Contact Information paragraph component.
   if (isset($form['field_contact_information'])) {
@@ -797,19 +797,28 @@ function _va_gov_backend_audience_topics_validation(array $form, FormStateInterf
  *
  * @param array $form
  *   Form array by reference.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current form state.
  */
-function _va_gov_backend_alter_standalone_page_validation(array &$form) {
+function _va_gov_backend_alter_standalone_page_validation(array &$form, FormStateInterface $form_state) {
+  // Check existence of 'field_standalone_page' user input. We need to use the
+  // un-sanitized user input here because of the timing of the form rebuild
+  // by the paragraph module.
+  $input = $form_state->getUserInput();
+  $standalone = !empty($input['field_standalone_page']['value']);
   // Add states + custom validation if the Standalone Page field is present.
-  if (isset($form['field_standalone_page'])) {
+  $field_tags_exists = !empty($form['field_tags']['widget']);
+  $field_related_information_exists = !empty($form['field_related_information']['widget'][0]['subform']['field_link']['widget']);
+  if (isset($form['field_standalone_page']) && $field_tags_exists && $field_related_information_exists) {
     $form['field_primary_category']['widget']['#states']['required']['input[data-drupal-selector="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
     $form['field_tags']['widget'][0]['subform']['field_topics']['#states']['required']['input[data-drupal-selector="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
     $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['uri']['#states']['required']['input[data-drupal-selector="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
     $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['title']['#states']['required']['input[data-drupal-selector="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
 
-    // Change field uri and title widget to optional.
-    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['uri']['#required'] = FALSE;
-    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['title']['#required'] = FALSE;
-    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['#required'] = FALSE;
+    // Require field uri and title widget if the standalone field is set.
+    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['uri']['#required'] = $standalone;
+    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['title']['#required'] = $standalone;
+    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['#required'] = $standalone;
     // Buttons paragraph.
     foreach ($form['field_buttons']['widget'] as $key => $button) {
       if (is_numeric($key)) {
@@ -851,11 +860,24 @@ function _va_gov_backend_alter_standalone_page_validation(array &$form) {
  */
 function _va_gov_backend_standalone_page_validation(array &$form, FormStateInterface &$form_state) {
   if ($form_state->getValue('field_standalone_page')['value'] === 0) {
-    // If we don't unset this field, validation prevents the form from
-    // submitting. This is undesirable when the standalone option is not
-    // toggled on.
+    // If the standalone option is unset, we don't want any form errors on
+    // fields in the 'field_related_information' widget to prevent saving the
+    // form. Formerly, this was handled by using $form_state->unsetValue() on
+    // the 'field_related_information' field, but this stopped working at some
+    // point. So we conditionally remove the errors from the form state,
+    // re-applying any that do not have a 'field_related_information' parent.
+    $form_errors = $form_state->getErrors();
+    $form_state->clearErrors();
+    foreach ($form_errors as $path => $error) {
+      if (!str_starts_with($path, 'field_related_information')) {
+        $form_state->setErrorByName($path, $error);
+      }
+    }
+
+    // To prevent values from persisting on the entity.
     $form_state->unsetValue('field_related_information');
   }
+
   if (!empty($form_state->getValue('field_standalone_page')['value'])) {
     if (empty($form_state->getValue('field_primary_category'))) {
       $form['field_primary_category']['#required'] = TRUE;
