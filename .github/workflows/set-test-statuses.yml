@@ -58,7 +58,7 @@ jobs:
             return "true"
           result-encoding: string
       - name: Set status for documentation changes.
-        if: ${{ steps.docs-only.outputs.docs-only == 'true' }}
+        if: ${{ steps.docs-only.outputs.result == 'true' }}
         run: |
           test_names=(
             va/tests/cypress
@@ -86,7 +86,7 @@ jobs:
           SHA: ${{ github.event.pull_request.head.sha }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Set status for code changes.
-        if: ${{ steps.docs-only.outputs.docs-only == 'false' }}
+        if: ${{ steps.docs-only.outputs.result == 'false' }}
         run: |
           test_names=(
             va/tests/cypress
