@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @file
+ * Install file for Va Gov Workflow.
+ */
+
+/**
+ * Change the workflow of the revisions of a content type.
+ *
+ * @param string $contentType
+ *   The machine name of the content type.
+ * @param string $oldWorkflow
+ *   The machine name of the content type's previous workflow.
+ * @param string $newWorkflow
+ *   The machine name of the content type's current workflow.
+ *
+ * @return string
+ *   A message about the results.
+ */
+function _va_gov_workflow_change_content_type_workflow(
+  string $contentType,
+  string $oldWorkflow,
+  string $newWorkflow) {
+  // Get the content type nids.
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $query = $node_storage->getQuery();
+  $query->condition('type', $contentType);
+  $query->accessCheck(FALSE);
+  $nids = $query->execute();
+  $count = 0;
+  $tables = [
+    'content_moderation_state_field_data',
+    'content_moderation_state_field_revision',
+  ];
+  foreach ($tables as $table) {
+    $connection = \Drupal::database();
+    $numberOfRowsUpdated = $connection->update($table)
+      ->fields([
+        'workflow' => $newWorkflow,
+      ])
+      ->condition('workflow', $oldWorkflow, '=')
+      ->condition('content_entity_id', $nids, 'IN')
+      ->execute();
+
+    $count += $numberOfRowsUpdated;
+  }
+  $logMessage = "A total of %count rows in tables 'content_moderation_state_field_data' and 'content_moderation_state_field_revision' were updated to '%new_workflow' workflow for %content_type";
+
+  Drupal::logger('va_gov_workflow')->log('info', $logMessage, [
+    '%count' => $count,
+    '%new_workflow' => $newWorkflow,
+    '%content_type' => $contentType,
+  ]);
+
+  return "A total of $count rows in tables 'content_moderation_state_field_data' and 'content_moderation_state_field_revision' were updated to '$newWorkflow' workflow for $contentType.";
+}
+
+/**
+ * Change the workflow of the revisions of VBA facilities.
+ */
+function va_gov_workflow_update_9001() {
+  $contentType = 'vba_facility';
+  $oldWorkflow = 'editorial';
+  $newWorklow = 'restricted_archive';
+  return _va_gov_workflow_change_content_type_workflow(
+    $contentType, $oldWorkflow, $newWorklow
+  );
+}
