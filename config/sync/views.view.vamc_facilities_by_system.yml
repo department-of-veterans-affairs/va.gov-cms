@@ -13,8 +13,8 @@ dependencies:
     - serialization
     - user
     - views_data_export
-id: facilities_by_system
-label: 'Facilities by system'
+id: vamc_facilities_by_system
+label: 'VAMC Facilities by system'
 module: views
 description: ''
 tag: ''
@@ -269,22 +269,34 @@ display:
           content: 'No content available.'
           tokenize: false
       sorts:
-        created:
-          id: created
+        field_region_page_target_id:
+          id: field_region_page_target_id
+          table: node__field_region_page
+          field: field_region_page_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: 'VAMC system (field_region_page)'
+            field_identifier: field_region_page_target_id
+          exposed: false
+        title:
+          id: title
           table: node_field_data
-          field: created
+          field: title
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          entity_field: created
-          plugin_id: date
-          order: DESC
+          entity_field: title
+          plugin_id: standard
+          order: ASC
           expose:
             label: ''
             field_identifier: ''
           exposed: false
-          granularity: second
       arguments: {  }
       filters:
         status:
@@ -309,6 +321,43 @@ display:
             health_care_local_facility: health_care_local_facility
       style:
         type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            field_region_page: field_region_page
+            title: title
+            field_facility_locator_api_id: field_facility_locator_api_id
+          default: '-1'
+          info:
+            field_region_page:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_facility_locator_api_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
       row:
         type: fields
       query:
@@ -409,7 +458,7 @@ display:
         context: '1'
         as_local_task: false
         local_task_link_title: Exports
-        local_task_parent: 'views_view:view.facilities_by_system.vamc_facilities_export_page'
+        local_task_parent: 'views_view:view.vamc_facilities_by_system.vamc_facilities_export_page'
         local_task_weight: 0
         local_task_custom_parent_route: ''
     cache_metadata:
