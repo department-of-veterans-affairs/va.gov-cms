@@ -19,13 +19,13 @@ assignees: ''
   - [Research Safety guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/research-safety-and-emergency-exit-strategies) 
 - [Notetaker guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/notetaker-guidelines)
   - For Veteran-facing research, Perigean can provide a notetaker
-  - For Editor-facing research, the Product Manager or a member of the UX Team should take notes
+  - For Editor-facing research, recruit a member of the product team to take notes
 - [Observer guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/observer-guidelines)
 
 **Recruitment Trackers**
 - Veteran-Facing research should follow [Platform guidance](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/teams/vsa/accessibility/research/recruitment.md) on recruitment tracking
   - [VA recruitment checker spreadsheet in Google Sheets](https://docs.google.com/spreadsheets/d/1pq7TSHZonfpzAQBJj6B2geGHlNUwZEs4DzEvxcRgu0o/edit?usp=sharing)
-- Editor-Facing research should track participants in the [VA.gov CMS UX research base](link TBD--see Joann Agnitti)
+- Editor-Facing research should track participants in the [VA.gov CMS UX research base](link TBD from CMS Platform team)
 
 **No-shows and rescheduling**
 - If a participant doesn't show up at the scheduled start time, they should be contacted
