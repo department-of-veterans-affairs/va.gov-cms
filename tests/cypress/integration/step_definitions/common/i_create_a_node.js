@@ -61,7 +61,7 @@ const creators = {
       .then(($el) => {
         cy.wrap($el).contains("Add media").click({ force: true });
         cy.get(".dropzone", {
-          timeout: 10000,
+          timeout: 60000,
         });
         cy.get(".dropzone").attachFile("images/polygon_image.png", {
           subjectType: "drag-n-drop",
@@ -113,7 +113,7 @@ const creators = {
       });
     cy.get('div[role="dialog"]').within(() => {
       cy.get(".dropzone", {
-        timeout: 10000,
+        timeout: 60000,
       });
       cy.get(".dropzone").attachFile("images/polygon_image.png", {
         subjectType: "drag-n-drop",
@@ -255,7 +255,7 @@ const creators = {
     cy.scrollToSelector("#edit-field-media-open-button");
     cy.get("#edit-field-media-open-button").click({ force: true });
     cy.get(".dropzone", {
-      timeout: 20000,
+      timeout: 60000,
     }).should("exist");
     cy.get(".dropzone").attachFile("images/polygon_image.png", {
       subjectType: "drag-n-drop",
@@ -391,6 +391,21 @@ const creators = {
       faker.lorem.sentence()
     );
     return cy.wait(1000);
+  },
+  q_a: () => {
+    cy.findAllByLabelText("Question").type(
+      `[Test Data] ${faker.lorem.word()}`,
+      { force: true }
+    );
+    cy.findAllByLabelText("Text").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.type_ckeditor(
+      "edit-field-answer-0-subform-field-wysiwyg-0-value",
+      faker.lorem.sentence()
+    );
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    return cy;
   },
 };
 

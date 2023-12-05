@@ -1,0 +1,26 @@
+uuid: f2474de6-b16a-47f2-b42b-03701f564193
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_last_saved_by_an_editor
+    - node.type.vamc_system_va_police
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vamc_system_va_police.field_last_saved_by_an_editor
+field_name: field_last_saved_by_an_editor
+entity_type: node
+bundle: vamc_system_va_police
+label: 'Last Saved by an Editor'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1700448976
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

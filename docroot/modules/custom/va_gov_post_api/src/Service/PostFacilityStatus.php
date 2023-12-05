@@ -172,6 +172,9 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
           'additional_info' => (strtoupper($this->statusToPush) != 'NORMAL') ? $this->additionalInfoToPush : NULL,
         ],
       ];
+      if ($this->getFacilityMentalHealthPhone()) {
+        $payload['core']['mental_health_phone'] = $this->getFacilityMentalHealthPhone();
+      }
 
       $this->addSupplementalStatus($payload);
       $this->getRelatedSystemInfo($payload);
@@ -398,6 +401,39 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
       $push = TRUE;
     }
     return $push;
+  }
+
+  /**
+   * Gathers the mental health phone number from the facility.
+   *
+   * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/15686
+   *
+   * @return string
+   *   The mental health phone number.
+   */
+  protected function getFacilityMentalHealthPhone(): string {
+    // This is the original and life-long field.
+    $mental_health_phone = $this->getFieldSafe('field_mental_health_phone');
+    // This is the temporary shuffle field that will be removed once conversion
+    // to fully edited is complete.
+    $mental_health_contact = $this->getFieldSafe('field_mental_health_contact_phon');
+    return (!empty($mental_health_contact)) ? $mental_health_contact : $mental_health_phone;
+  }
+
+  /**
+   * Retrieves a field and returns the value if there is one or empty string.
+   *
+   * @param string $field_name
+   *   The field name to get.
+   *
+   * @return string
+   *   The field value if it exists, empty string otherwise.
+   */
+  protected function getFieldSafe(string $field_name): string {
+    if ($this->facilityNode->hasField($field_name) && (!empty($this->facilityNode->get($field_name)->value))) {
+      $value = $this->facilityNode->get($field_name)->value;
+    }
+    return $value ?? '';
   }
 
 }
