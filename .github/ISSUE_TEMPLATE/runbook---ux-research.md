@@ -18,14 +18,14 @@ assignees: ''
 **How to set up a new UX research epic**
 - [ ] Create a Research [Epic](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Epic%2C+Needs+refining&template=cms-epic.md&title=%3CInsert+summary+of+epic%3E) for your product/initiative
 - [ ] Create a Research Folder following [Platform's Research guidance](https://depo-platform-documentation.scrollhelp.site/research-design/research-checklist#ResearchChecklist-1.Planningforresearch)
-- [ ] Create a [Research Discovery](ADD LINK AS LAST STEP) issue
-- [ ] Create a [Research Plan](ADD LINK AS LAST STEP) issue
-- [ ] Create a [Research Conversation Guide](ADD LINK AS LAST STEP) issue
-- [ ] Create a [Research Collab Cycle](ADD LINK AS LAST STEP) issue
-- [ ] Create a [Research Prep](ADD LINK AS LAST STEP) issue
-- [ ] Create a [Research Sessions](ADD LINK AS LAST STEP) issue
-- [ ] Create a [Research Synthesis and Reporting](ADD LINK AS LAST STEP) issue
-- [ ] Create a [Research Readout and Post-tasks](ADD LINK AS LAST STEP) issue
+- [ ] Create a [Research Discovery](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/.github/ISSUE_TEMPLATE/research-discovery.md) issue
+- [ ] Create a [Research Plan](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/.github/ISSUE_TEMPLATE/research-plan.md) issue
+- [ ] Create a [Research Conversation Guide](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/.github/ISSUE_TEMPLATE/research-conversation-guide.md) issue
+- [ ] Create a [Research Collab Cycle](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/.github/ISSUE_TEMPLATE/research-collab-cycle.md) issue
+- [ ] Create a [Research Prep](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/.github/ISSUE_TEMPLATE/research-prep.md) issue
+- [ ] Create a [Research Sessions](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/.github/ISSUE_TEMPLATE/research-sessions.md) issue
+- [ ] Create a [Research Synthesis and Reporting](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/.github/ISSUE_TEMPLATE/research-synthesis-and-reporting.md) issue
+- [ ] Create a [Research Readout and Post-tasks](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/.github/ISSUE_TEMPLATE/research-readout-and-post-tasks.md) issue
 - [ ] Add all the above issues to the Research Epic and add dependencies
 
 ## Acceptance Criteria
