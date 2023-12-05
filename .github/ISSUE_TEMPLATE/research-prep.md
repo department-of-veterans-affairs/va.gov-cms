@@ -66,15 +66,18 @@ assignees: ''
 ## For Editor-facing research
 
 **Recruitment / scheduling sessions** 
-* The Research Lead should work with Product Manager, Product Owner, and Business Stakeholders to identify a list of potential participants
+* The Research Lead should work with PM, PO, and Business Stakeholders to identify a list of potential participants
   * The pool of potential participants should be at least 2-3 times larger than the desired # of participants
+  * Consult with the CMS Platform Team on any requirements or limitations for participant recruiting
 * The Research Lead contacts and schedules participants 
   * Using their VA.gov email address or the shared VADrupalCMS@va.gov email address
   * Consider using Calendly or Microsoft Bookings to set up timeslots so participants can pick slots
   * The Research Lead should create placeholder calendar events to block those time slots and invite other team members
   * Ensure that teleconferencing rooms connected to the calendar events have correct permissions for Moderator(s)
 * The Research Lead should create placeholder calendar events to block those time slots and invite other team members 
-* Ideally one of the Observers should be a Drupal developer so that they might be there to help answer technical questions or see defects in action
+  * Identify a member of the Product Team who will serve as official Notetaker for each time slot. 
+  * Ideally one of the Observers should be a Drupal developer so that they might be there to help answer technical questions or see defects in action
+  * Coordinate with the CMS Platform team to fill additional Observer slots
 * Once participants are scheduled, the Research Lead invites other team members to official calendar events
 * The Research Lead should schedule 30-minute Daily Research Debrief meetings and invite Notetaker(s) & Observer(s)
 
