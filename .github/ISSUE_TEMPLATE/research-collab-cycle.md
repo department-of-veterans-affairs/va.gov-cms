@@ -24,5 +24,5 @@ Note: This step is a hard blocker for Veteran-facing research, but may be less s
 
 ## Acceptance Criteria
 - [ ] Initiated the Research touchpoint request
-- [ ] Incorporated any feedback from into the Research Plan and Conversation Guide
+- [ ] Incorporated any feedback into the Research Plan and Conversation Guide
 - [ ] Discussed any significant changes with the Sitewide UX Lead and maybe your Product Manager or Product Owner
