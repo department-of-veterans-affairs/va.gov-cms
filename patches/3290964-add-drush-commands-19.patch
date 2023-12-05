@@ -26,7 +26,7 @@ new file mode 100644
 index 0000000..01fa363
 --- /dev/null
 +++ b/src/CliCommands.php
-@@ -0,0 +1,220 @@
+@@ -0,0 +1,221 @@
 +<?php
 +
 +declare(strict_types = 1);
@@ -212,6 +212,7 @@ index 0000000..01fa363
 +      $storage = $this->entityTypeManager->getStorage('sitewide_alert');
 +      $query = $storage->getQuery();
 +      $query->condition('name', $label, '=');
++      $query->accessCheck(FALSE);
 +      if ($status !== NULL) {
 +        $query->condition('status', $status);
 +      }

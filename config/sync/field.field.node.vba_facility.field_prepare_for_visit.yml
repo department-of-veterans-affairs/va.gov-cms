@@ -1,0 +1,167 @@
+uuid: 2a9fff3f-dea4-411f-8daa-cc8ad1d5cd4c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_prepare_for_visit
+    - node.type.vba_facility
+    - paragraphs.paragraphs_type.basic_accordion
+  module:
+    - entity_reference_revisions
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_prepare_for_visit
+field_name: field_prepare_for_visit
+entity_type: node
+bundle: vba_facility
+label: 'Prepare for your visit accordions'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      basic_accordion: basic_accordion
+    negate: 0
+    target_bundles_drag_drop:
+      address:
+        weight: 46
+        enabled: false
+      alert:
+        weight: 47
+        enabled: false
+      alert_single:
+        weight: 48
+        enabled: false
+      audience_topics:
+        weight: 49
+        enabled: false
+      basic_accordion:
+        weight: 50
+        enabled: true
+      button:
+        weight: 51
+        enabled: false
+      centralized_content_descriptor:
+        weight: 52
+        enabled: false
+      checklist:
+        weight: 53
+        enabled: false
+      checklist_item:
+        weight: 54
+        enabled: false
+      collapsible_panel:
+        weight: 55
+        enabled: false
+      collapsible_panel_item:
+        weight: 56
+        enabled: false
+      contact_information:
+        weight: 57
+        enabled: false
+      downloadable_file:
+        weight: 58
+        enabled: false
+      email_contact:
+        weight: 59
+        enabled: false
+      embedded_video:
+        weight: 60
+        enabled: false
+      expandable_text:
+        weight: 61
+        enabled: false
+      featured_content:
+        weight: 62
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 63
+        enabled: false
+      link_teaser:
+        weight: 64
+        enabled: false
+      link_teaser_with_image:
+        weight: 65
+        enabled: false
+      list_of_link_teasers:
+        weight: 68
+        enabled: false
+      list_of_links:
+        weight: 67
+        enabled: false
+      lists_of_links:
+        weight: 66
+        enabled: false
+      magichead_group:
+        weight: 69
+        enabled: false
+      media:
+        weight: 70
+        enabled: false
+      media_list_images:
+        weight: 71
+        enabled: false
+      media_list_videos:
+        weight: 72
+        enabled: false
+      non_reusable_alert:
+        weight: 73
+        enabled: false
+      number_callout:
+        weight: 74
+        enabled: false
+      phone_number:
+        weight: 75
+        enabled: false
+      process:
+        weight: 76
+        enabled: false
+      q_a:
+        weight: 77
+        enabled: false
+      q_a_group:
+        weight: 78
+        enabled: false
+      q_a_section:
+        weight: 79
+        enabled: false
+      react_widget:
+        weight: 80
+        enabled: false
+      rich_text_char_limit_1000:
+        weight: 81
+        enabled: false
+      service_location:
+        weight: 82
+        enabled: false
+      service_location_address:
+        weight: 83
+        enabled: false
+      situation_update:
+        weight: 84
+        enabled: false
+      spanish_translation_summary:
+        weight: 85
+        enabled: false
+      staff_profile:
+        weight: 86
+        enabled: false
+      step:
+        weight: 87
+        enabled: false
+      step_by_step:
+        weight: 88
+        enabled: false
+      table:
+        weight: 89
+        enabled: false
+      wysiwyg:
+        weight: 90
+        enabled: false
+field_type: entity_reference_revisions

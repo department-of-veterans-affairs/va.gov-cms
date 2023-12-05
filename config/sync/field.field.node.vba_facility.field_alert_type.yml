@@ -1,0 +1,25 @@
+uuid: a49cc07c-b351-49df-bf8e-abb5292f90af
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alert_type
+    - node.type.vba_facility
+  module:
+    - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_alert_type
+field_name: field_alert_type
+entity_type: node
+bundle: vba_facility
+label: 'Banner alert type'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

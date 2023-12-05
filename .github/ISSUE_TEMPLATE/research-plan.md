@@ -9,20 +9,33 @@ assignees: ''
 
 ## Description
 
-DEMO Use the appropriate templates for the type of research you are conducting:
+### User story
+**AS A** Researcher
+**I WANT** to document the details for planning [PRODUCT/INITIATIVE] research
+**SO THAT** the research will achieve its purpose
+
+### Templates
+Use the appropriate template for the group you're conducting research with:
 - [Editor-facing Research Plan Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/research/sitewide-cms-editor-research-plan-template.md)
 - [Veteran-facing Research Plan Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/research-plan-template.md)
 
-Suggested workflow:
-- [ ] Create your initial drafts in Sharepoint for collaborative editing
-- [ ] Solicit feedback on artifacts from Design Team and Product Manager
-- [ ] Schedule a 1-hour meeting with the Product Owner to review artifacts (also invite Product Manager) 
-- [ ] Send artifacts to PO for review at least 24 hours in advance of the review meeting
-- [ ] Convert into markdown files for final approval and sending to Research Review cycle
+## Suggested workflow/tasks:
+- [ ] Brainstorm ideas for research
+- [ ] Create initial draft of research plan
+- [ ] Solicit review/feedback from Sitewide UX Lead 
+- [ ] Solicit review/feedback from Product Manager (PM) and/or other team members
+- [ ] Solicit review/feedback from VA Product Owner (PO) async or in a meeting w/PM
+- [ ] Identify moderator(s), notetaker(s), and observer(s) if moderated research
+- [ ] Identify time slots for research sessions (twice as many slots as # of participants desired) if moderated research
+- [ ] Post on github in project research folder for final approval before submitting to Research Review cycle
 
 ## Acceptance Criteria
-- [ ] Identify Moderator(s), Notetaker(s), and Observer(s) 
-- [ ] Identify timeslots for research sessions (should be 2 times as many slots as # of desired participants)
-- [ ] Update artifacts with PO feedback from review meeting
-- [ ] Convert artifacts to markdown format and store in github Research Folder
-- [ ] Get final approval from PO before sending to Research Review cycle
+- [ ] Research plan drafted
+- [ ] Feedback incorporated from Sitewide UX Lead 
+- [ ] Feedback incorporated from PM and/or other team members
+- [ ] Feedback incorporated from VA PO 
+- [ ] Research plan posted on github in project research folder
+- [ ] Final approval obtained from VA PO and documented at the bottom of the file in preparation for Research Review cycle
+
+
+

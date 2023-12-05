@@ -134,3 +134,42 @@
     max-width: 30vw;
   }
 }
+
+.views-bulk-actions {
+  background: #f1f1f1;
+  border: 0.5px #dedfe4 solid;
+  border-radius: 4px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .views-bulk-actions__item {
+    color: var(--va-gray-darkest);
+
+    &.js-form-type-select {
+      margin-right: 60px;
+      order: 1;
+    }
+
+    &.form-actions {
+      order: 4;
+    }
+
+    &.js-form-item-select-all {
+      order: 2;
+    }
+  }
+
+  .views-bulk-actions__item--status {
+    display: none;
+    order: 5;
+  }
+
+  details.vbo-multipage-selector {
+    flex: 0 0 100%;
+    order: 3;
+
+    summary {
+      justify-content: flex-start;
+    }
+  }
+}

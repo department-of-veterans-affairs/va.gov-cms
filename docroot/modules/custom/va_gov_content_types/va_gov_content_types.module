@@ -5,6 +5,7 @@
  * Contains va_gov_content_types.module.
  */
 
+use Drupal\va_gov_content_types\Entity\Event;
 use Drupal\va_gov_content_types\Entity\HealthCareLocalFacility;
 use Drupal\va_gov_content_types\Entity\VaNode;
 
@@ -14,6 +15,7 @@ use Drupal\va_gov_content_types\Entity\VaNode;
 function va_gov_content_types_entity_bundle_info_alter(array &$bundles): void {
   $bundleClasses = [
     'health_care_local_facility' => HealthCareLocalFacility::class,
+    'event' => Event::class,
   ];
   foreach (array_keys($bundles['node']) as $machine_name) {
     $bundles['node'][$machine_name]['class'] = $bundleClasses[$machine_name] ?? VaNode::class;

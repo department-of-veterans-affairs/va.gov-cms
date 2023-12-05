@@ -1,0 +1,113 @@
+Subject: [PATCH] UPDATE LIBRARY TO V14
+---
+Index: src/Plugin/TypePluginManagerAggregator.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Plugin/TypePluginManagerAggregator.php b/src/Plugin/TypePluginManagerAggregator.php
+--- a/src/Plugin/TypePluginManagerAggregator.php	(revision 8418bb7f6a869d0482eb45bfe22efa2f817d7efd)
++++ b/src/Plugin/TypePluginManagerAggregator.php	(date 1688153952582)
+@@ -46,7 +46,7 @@
+   /**
+    * {@inheritdoc}
+    */
+-  public function getIterator() {
++  public function getIterator(): \ArrayIterator {
+     return new \ArrayIterator($this->pluginManagers);
+   }
+-}
+\ No newline at end of file
++}
+Index: graphql.info.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/graphql.info.yml b/graphql.info.yml
+--- a/graphql.info.yml	(revision 8418bb7f6a869d0482eb45bfe22efa2f817d7efd)
++++ b/graphql.info.yml	(date 1688153969579)
+@@ -3,4 +3,4 @@
+ description: 'Base module for integrating GraphQL with Drupal.'
+ package: GraphQL
+ configure: graphql.config_page
+-core_version_requirement: ^8.8 || ^9
++core_version_requirement: ^8.8 || ^9 || ^10
+Index: src/Plugin/GraphQL/Schemas/SchemaPluginBase.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Plugin/GraphQL/Schemas/SchemaPluginBase.php b/src/Plugin/GraphQL/Schemas/SchemaPluginBase.php
+--- a/src/Plugin/GraphQL/Schemas/SchemaPluginBase.php	(revision 8418bb7f6a869d0482eb45bfe22efa2f817d7efd)
++++ b/src/Plugin/GraphQL/Schemas/SchemaPluginBase.php	(date 1688153952574)
+@@ -288,7 +288,7 @@
+
+     $config->setPersistentQueryLoader([$this->queryProvider, 'getQuery']);
+     $config->setQueryBatching(TRUE);
+-    $config->setDebug(!!$this->parameters['development']);
++    //$config->setDebug(!!$this->parameters['development']);
+     $config->setSchema($this->getSchema());
+
+     // Always log the errors.
+Index: modules/graphql_core/graphql_core.info.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/modules/graphql_core/graphql_core.info.yml b/modules/graphql_core/graphql_core.info.yml
+--- a/modules/graphql_core/graphql_core.info.yml	(revision 8418bb7f6a869d0482eb45bfe22efa2f817d7efd)
++++ b/modules/graphql_core/graphql_core.info.yml	(date 1688153982340)
+@@ -2,6 +2,6 @@
+ type: module
+ description: 'Provides type system plugins and derivers on behalf of core modules.'
+ package: GraphQL
+-core_version_requirement: ^8.8 || ^9
++core_version_requirement: ^8.8 || ^9 || ^10
+ dependencies:
+   - graphql:graphql
+Index: src/GraphQL/Execution/QueryProcessor.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/GraphQL/Execution/QueryProcessor.php b/src/GraphQL/Execution/QueryProcessor.php
+--- a/src/GraphQL/Execution/QueryProcessor.php	(revision 8418bb7f6a869d0482eb45bfe22efa2f817d7efd)
++++ b/src/GraphQL/Execution/QueryProcessor.php	(date 1688153952568)
+@@ -154,7 +154,8 @@
+         $result->setErrorsHandler($config->getErrorsHandler());
+       }
+
+-      if ($config->getErrorFormatter() || $config->getDebug()) {
++      //if ($config->getErrorFormatter() || $config->getDebug()) {
++      if ($config->getErrorFormatter()) {
+         $result->setErrorFormatter(FormattedError::prepareFormatter($config->getErrorFormatter(), $config->getDebug()));
+       }
+
+@@ -230,7 +231,8 @@
+    */
+   protected function executeCacheableOperation(PromiseAdapter $adapter, ServerConfig $config, OperationParams $params, DocumentNode $document, $validate = TRUE) {
+     $contextCacheId = 'ccid:' . $this->cacheIdentifier($params, $document);
+-    if (!$config->getDebug() && $contextCache = $this->cacheBackend->get($contextCacheId)) {
++    //if (!$config->getDebug() && $contextCache = $this->cacheBackend->get($contextCacheId)) {
++    if ($contextCache = $this->cacheBackend->get($contextCacheId)) {
+       $contexts = $contextCache->data ?: [];
+       $cid = 'cid:' . $this->cacheIdentifier($params, $document, $contexts);
+       if ($cache = $this->cacheBackend->get($cid)) {
+Index: modules/graphql_core/src/Plugin/GraphQL/Fields/EntityQuery/EntityQuery.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/modules/graphql_core/src/Plugin/GraphQL/Fields/EntityQuery/EntityQuery.php b/modules/graphql_core/src/Plugin/GraphQL/Fields/EntityQuery/EntityQuery.php
+--- a/modules/graphql_core/src/Plugin/GraphQL/Fields/EntityQuery/EntityQuery.php	(revision 8418bb7f6a869d0482eb45bfe22efa2f817d7efd)
++++ b/modules/graphql_core/src/Plugin/GraphQL/Fields/EntityQuery/EntityQuery.php	(date 1688153952561)
+@@ -17,7 +17,7 @@
+ /**
+  * @GraphQLField(
+  *   id = "entity_query",
+- *   secure = false,
++ *   secure = true,
+  *   type = "EntityQueryResult",
+  *   arguments = {
+  *     "filter" = "EntityQueryFilterInput",

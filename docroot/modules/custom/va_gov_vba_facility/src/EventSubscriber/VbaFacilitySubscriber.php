@@ -3,12 +3,17 @@
 namespace Drupal\va_gov_vba_facility\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
+use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\node\NodeInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -72,6 +77,10 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
+      'hook_event_dispatcher.form_node_vba_facility_edit_form.alter' => 'alterVbaFacilityNodeForm',
+      'hook_event_dispatcher.form_node_vba_facility_form.alter' => 'alterVbaFacilityNodeForm',
+      EntityHookEvents::ENTITY_TYPE_ALTER => 'entityTypeAlter',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
     ];
   }
 
@@ -86,7 +95,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Appends VBA facility service description to title on facility node:view.
+   * Appends VBA facility service description to title on service node:view.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
    *   The entity view alter service.
@@ -114,6 +123,152 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
       }
       $formatted_markup = new FormattableMarkup($description, []);
       $build['field_service_name_and_descripti']['#suffix'] = $formatted_markup;
+    }
+  }
+
+  /**
+   * Form alterations for VBA facility content type.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVbaFacilityNodeForm(FormIdAlterEvent $event): void {
+    $this->addStateManagementToBannerFields($event);
+    $this->changeBannerType($event);
+    $this->changeDismissibleOption($event);
+  }
+
+  /**
+   * Add states management to banner fields, based on bool.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function addStateManagementToBannerFields(FormIdAlterEvent $event) {
+    $form = &$event->getForm();
+    $form['#attached']['library'][] = 'va_gov_vba_facility/set_banner_fields_to_required';
+    $selector = ':input[name="field_show_banner[value]"]';
+
+    // Show and require the banner fields when show banner is checked.
+    $form['field_banner_types_description']['#states'] = [
+      'visible' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+    ];
+
+    $form['field_alert_type']['widget']['#states'] = [
+      'required' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+      'visible' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+    ];
+
+    $form['field_dismissible_option']['#states'] = [
+      'visible' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+    ];
+
+    $form['field_banner_title']['widget'][0]['value']['#states'] = [
+      'required' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+      'visible' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+    ];
+
+    // Unfortunately we can not set ckeditor field as required using
+    // states.  So we end up adding this with JS to bypass HTML5 validation
+    // and let the validation constraint handle it.
+    $form['field_banner_content']['#states'] = [
+      'visible' => [
+        [$selector => ['checked' => TRUE]],
+      ],
+    ];
+  }
+
+  /**
+   * Changes the select list for Banner Type.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  protected function changeBannerType(FormIdAlterEvent $event) {
+    // Add the '- Select a value -' option to replace '- None -'.
+    $form = &$event->getForm();
+    if (isset($form['field_alert_type']['widget']['#options']) && array_key_exists('_none', $form['field_alert_type']['widget']['#options'])) {
+      $form['field_alert_type']['widget']['#options']['_none'] = '- Select a value -';
+    }
+  }
+
+  /**
+   * Changes the radio buttons for Dismissible option.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  protected function changeDismissibleOption(FormIdAlterEvent $event) {
+    // Remove N/A option, which is the result of not being a "required" field.
+    $form = &$event->getForm();
+    if (isset($form['field_dismissible_option']['widget']['#options']) && array_key_exists('_none', $form['field_dismissible_option']['widget']['#options'])) {
+      unset($form['field_dismissible_option']['widget']['#options']['_none']);
+    }
+  }
+
+  /**
+   * Equivalent of hook_entity_type_alter().
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent $event
+   *   The event for entityTypeAlter.
+   */
+  public function entityTypeAlter(EntityTypeAlterEvent $event): void {
+    $entity_types = $event->getEntityTypes();
+    if (!empty($entity_types['node'])) {
+      $entity = $entity_types['node'];
+      $entity->addConstraint('VbaFacilityRequiredFieldsConstraint');
+    }
+  }
+
+  /**
+   * Entity presave Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event.
+   */
+  public function entityPresave(EntityPresaveEvent $event): void {
+    $entity = $event->getEntity();
+    if ($entity instanceof NodeInterface) {
+      $this->clearBannerFields($entity);
+    }
+  }
+
+  /**
+   * Clear details when banner is not enabled.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity.
+   */
+  protected function clearBannerFields(EntityInterface $entity): void {
+    /** @var \Drupal\node\NodeInterface $entity */
+    if ($entity->bundle() === "vba_facility") {
+      if ($entity->hasField('field_show_banner')
+      && $entity->field_show_banner->value == FALSE) {
+        if ($entity->field_alert_type) {
+          $entity->field_alert_type->value = NULL;
+        }
+        if ($entity->field_dismissible_option) {
+          $entity->field_dismissible_option->value = NULL;
+        }
+        if ($entity->field_banner_title->value) {
+          $entity->field_banner_title->value = '';
+        }
+        if ($entity->field_banner_content->value) {
+          $entity->field_banner_content->value = '';
+        }
+      }
     }
   }
 

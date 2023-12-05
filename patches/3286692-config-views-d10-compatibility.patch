@@ -1,0 +1,43 @@
+diff --git a/composer.json b/composer.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..7f85ba37329c11f6a6dd730543cf20395722f6a2
+--- /dev/null
++++ b/composer.json
+@@ -0,0 +1,24 @@
++{
++    "name": "drupal/config_views",
++    "type": "drupal-module",
++    "description": "Provides view plugins for Configuration Entities",
++    "keywords": ["Drupal"],
++    "license": "GPL-2.0+",
++    "homepage": "https://www.drupal.org/project/config_views",
++    "authors": [
++        {
++            "name": "Vijay Mani",
++            "homepage": "https://www.drupal.org/u/vijaycs85",
++            "role": "Maintainer"
++        },
++        {
++            "name": "Contributors",
++            "homepage": "https://www.drupal.org/node/2353587/committers",
++            "role": "Contributors"
++        }
++    ],
++    "support": {
++        "issues": "https://www.drupal.org/project/issues/config_views",
++        "source": "http://cgit.drupalcode.org/config_views"
++    }
++}
+diff --git a/config_views.info.yml b/config_views.info.yml
+index f97d5a49835f576de3204a001deae519b555cd66..77d6d768a43516fd7a23802c5786841453205701 100644
+--- a/config_views.info.yml
++++ b/config_views.info.yml
+@@ -1,7 +1,6 @@
+ name: 'Configuration Entity View'
+ description: 'Views handler implementation for configuration entities.'
+-core: 8.x
+-core_version_requirement: ^8 || ^9
++core_version_requirement: ^8 || ^9 || ^10
+ type: module
+ package: Views
+ dependencies:

@@ -4,3 +4,19 @@ services:
     arguments: ['@messenger', '@string_translation']
     tags:
       - { name: encoder, priority: 10, format: static_html }
+  va_gov_preview.preview_event_subscriber:
+    class: Drupal\va_gov_preview\EventSubscriber\PreviewEventSubscriber
+    arguments:
+      [
+        '@entity_type.manager',
+        '@current_route_match',
+        '@request_stack',
+        '@language_manager',
+        '@date.formatter',
+        '@va_gov_backend.exclusion_types',
+        '@next.entity_type.manager',
+        '@next.settings.manager',
+        '@feature_toggle.feature_status'
+      ]
+    tags:
+      - { name: event_subscriber }
