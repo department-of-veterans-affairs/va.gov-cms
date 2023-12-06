@@ -8228,6 +8228,72 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
+        name_2:
+          id: name_2
+          table: taxonomy_term_field_data
+          field: name
+          relationship: field_service_name_and_descripti_1
+          group_type: group
+          admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
+          label: 'Service Name (for non-VAMC services)'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          convert_spaces: false
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -8562,73 +8628,52 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        name_2:
-          id: name_2
-          table: taxonomy_term_field_data
-          field: name
-          relationship: field_service_name_and_descripti_1
+      filters:
+        type_1:
+          id: type_1
+          table: node_field_data
+          field: type
+          relationship: none
           group_type: group
           admin_label: ''
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
-          label: Name
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          convert_spaces: false
-      filters:
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            service_region: service_region
+            health_care_local_health_service: health_care_local_health_service
+            vha_facility_nonclinical_service: vha_facility_nonclinical_service
+            vba_facility_service: vba_facility_service
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         title_1:
           id: title_1
           table: node_field_data
@@ -8747,216 +8792,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_service_name_and_descripti_target_id:
-          id: field_service_name_and_descripti_target_id
-          table: node__field_service_name_and_descripti
-          field: field_service_name_and_descripti_target_id
-          relationship: field_regional_health_service
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value:
-            112: 112
-            47: 47
-            104: 104
-            106: 106
-            80: 80
-            107: 107
-            33: 33
-            108: 108
-            58: 58
-            109: 109
-            81: 81
-            110: 110
-            48: 48
-            125: 125
-            111: 111
-            1004: 1004
-            121: 121
-            1005: 1005
-            321: 321
-            82: 82
-            83: 83
-            84: 84
-            122: 122
-            85: 85
-            126: 126
-            86: 86
-            127: 127
-            36: 36
-            100: 100
-            128: 128
-            87: 87
-            39: 39
-            129: 129
-            130: 130
-            123: 123
-            151: 151
-            88: 88
-            54: 54
-            43: 43
-            116: 116
-            152: 152
-            52: 52
-            56: 56
-            89: 89
-            159: 159
-            131: 131
-            61: 61
-            90: 90
-            91: 91
-            101: 101
-            132: 132
-            133: 133
-            134: 134
-            135: 135
-            118: 118
-            63: 63
-            93: 93
-            136: 136
-            137: 137
-            64: 64
-            138: 138
-            37: 37
-            97: 97
-            34: 34
-            117: 117
-            98: 98
-            139: 139
-            140: 140
-            124: 124
-            153: 153
-            59: 59
-            113: 113
-            55: 55
-            141: 141
-            142: 142
-            119: 119
-            114: 114
-            96: 96
-            35: 35
-            95: 95
-            143: 143
-            115: 115
-            144: 144
-            103: 103
-            92: 92
-            156: 156
-            102: 102
-            145: 145
-            94: 94
-            60: 60
-            120: 120
-            57: 57
-            146: 146
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_service_name_and_descripti_target_id_op
-            label: 'Service name'
-            description: ''
-            use_operator: false
-            operator: field_service_name_and_descripti_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_service_name_and_descripti_target_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: true
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: health_care_service_taxonomy
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-        moderation_state_multiple_workflow_filter:
-          id: moderation_state_multiple_workflow_filter
-          table: node
-          field: moderation_state_multiple_workflow_filter
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: moderation_state_multiple_workflow_filter
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: moderation_state_op
-            label: 'Moderation state'
-            description: ''
-            use_operator: false
-            operator: moderation_state_multiple_workflow_filter_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: moderation_state
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-              homepage_manager: '0'
-              translation_manager: '0'
-              next_js: '0'
-            reduce: 0
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: 0
         workbench_access_section__section:
           id: workbench_access_section__section
           table: node
@@ -9014,51 +8849,6 @@ display:
           reduce_duplicates: 0
           section_filter:
             show_hierarchy: 1
-        type_1:
-          id: type_1
-          table: node_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          operator: in
-          value:
-            service_region: service_region
-            health_care_local_health_service: health_care_local_health_service
-            vha_facility_nonclinical_service: vha_facility_nonclinical_service
-            vba_facility_service: vba_facility_service
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         field_service_location_target_id:
           id: field_service_location_target_id
           table: node__field_service_location
@@ -9121,6 +8911,64 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: moderation_state_op
+            label: 'Moderation state'
+            description: ''
+            use_operator: false
+            operator: moderation_state_multiple_workflow_filter_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: moderation_state
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: 0
       filter_groups:
         operator: AND
         groups:
@@ -9396,7 +9244,7 @@ display:
         as_local_task: true
         local_task_link_title: 'Facility services'
         local_task_parent: 'views_view:view.content.content_audit_page'
-        local_task_weight: 3
+        local_task_weight: 1000
         local_task_custom_parent_route: ''
       tab_options:
         type: none
@@ -9823,6 +9671,72 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
+        name_2:
+          id: name_2
+          table: taxonomy_term_field_data
+          field: name
+          relationship: field_service_name_and_descripti_1
+          group_type: group
+          admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
+          label: 'Service name (for non-VAMC services)'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          convert_spaces: false
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -10157,72 +10071,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        name_2:
-          id: name_2
-          table: taxonomy_term_field_data
-          field: name
-          relationship: field_service_name_and_descripti_1
-          group_type: group
-          admin_label: ''
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
-          label: Name
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          convert_spaces: false
       sorts:
         field_service_location_target_id:
           id: field_service_location_target_id
@@ -10238,6 +10086,51 @@ display:
             field_identifier: ''
           exposed: false
       filters:
+        type_1:
+          id: type_1
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            service_region: service_region
+            health_care_local_health_service: health_care_local_health_service
+            vha_facility_nonclinical_service: vha_facility_nonclinical_service
+            vba_facility_service: vba_facility_service
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         title_1:
           id: title_1
           table: node_field_data
@@ -10356,216 +10249,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_service_name_and_descripti_target_id:
-          id: field_service_name_and_descripti_target_id
-          table: node__field_service_name_and_descripti
-          field: field_service_name_and_descripti_target_id
-          relationship: field_regional_health_service
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value:
-            112: 112
-            47: 47
-            104: 104
-            106: 106
-            80: 80
-            107: 107
-            33: 33
-            108: 108
-            58: 58
-            109: 109
-            81: 81
-            110: 110
-            48: 48
-            125: 125
-            111: 111
-            1004: 1004
-            121: 121
-            1005: 1005
-            321: 321
-            82: 82
-            83: 83
-            84: 84
-            122: 122
-            85: 85
-            126: 126
-            86: 86
-            127: 127
-            36: 36
-            100: 100
-            128: 128
-            87: 87
-            39: 39
-            129: 129
-            130: 130
-            123: 123
-            151: 151
-            88: 88
-            54: 54
-            43: 43
-            116: 116
-            152: 152
-            52: 52
-            56: 56
-            89: 89
-            159: 159
-            131: 131
-            61: 61
-            90: 90
-            91: 91
-            101: 101
-            132: 132
-            133: 133
-            134: 134
-            135: 135
-            118: 118
-            63: 63
-            93: 93
-            136: 136
-            137: 137
-            64: 64
-            138: 138
-            37: 37
-            97: 97
-            34: 34
-            117: 117
-            98: 98
-            139: 139
-            140: 140
-            124: 124
-            153: 153
-            59: 59
-            113: 113
-            55: 55
-            141: 141
-            142: 142
-            119: 119
-            114: 114
-            96: 96
-            35: 35
-            95: 95
-            143: 143
-            115: 115
-            144: 144
-            103: 103
-            92: 92
-            156: 156
-            102: 102
-            145: 145
-            94: 94
-            60: 60
-            120: 120
-            57: 57
-            146: 146
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_service_name_and_descripti_target_id_op
-            label: 'Service name'
-            description: ''
-            use_operator: false
-            operator: field_service_name_and_descripti_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_service_name_and_descripti_target_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: true
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: health_care_service_taxonomy
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-        moderation_state_multiple_workflow_filter:
-          id: moderation_state_multiple_workflow_filter
-          table: node
-          field: moderation_state_multiple_workflow_filter
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: moderation_state_multiple_workflow_filter
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: moderation_state_op
-            label: 'Moderation state'
-            description: ''
-            use_operator: false
-            operator: moderation_state_multiple_workflow_filter_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: moderation_state
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-              homepage_manager: '0'
-              translation_manager: '0'
-              next_js: '0'
-            reduce: 0
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: 0
         workbench_access_section__section:
           id: workbench_access_section__section
           table: node
@@ -10623,51 +10306,6 @@ display:
           reduce_duplicates: 0
           section_filter:
             show_hierarchy: 1
-        type_1:
-          id: type_1
-          table: node_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          operator: in
-          value:
-            service_region: service_region
-            health_care_local_health_service: health_care_local_health_service
-            vha_facility_nonclinical_service: vha_facility_nonclinical_service
-            vba_facility_service: vba_facility_service
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         field_service_location_target_id:
           id: field_service_location_target_id
           table: node__field_service_location
@@ -10730,6 +10368,64 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: moderation_state_op
+            label: 'Moderation state'
+            description: ''
+            use_operator: false
+            operator: moderation_state_multiple_workflow_filter_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: moderation_state
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: 0
       filter_groups:
         operator: AND
         groups:
