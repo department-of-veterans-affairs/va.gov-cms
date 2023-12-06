@@ -392,6 +392,21 @@ const creators = {
     );
     return cy.wait(1000);
   },
+  q_a: () => {
+    cy.findAllByLabelText("Question").type(
+      `[Test Data] ${faker.lorem.word()}`,
+      { force: true }
+    );
+    cy.findAllByLabelText("Text").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.type_ckeditor(
+      "edit-field-answer-0-subform-field-wysiwyg-0-value",
+      faker.lorem.sentence()
+    );
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    return cy;
+  },
 };
 
 Given("I create a {string} node", (contentType) => {

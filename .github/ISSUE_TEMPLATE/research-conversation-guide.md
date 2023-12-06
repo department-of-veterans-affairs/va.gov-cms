@@ -25,15 +25,15 @@ Use the appropriate template for the group you're conducting research with:
 - [ ] Create initial draft of conversation guide
 - [ ] Solicit review/feedback from Sitewide UX Lead 
 - [ ] Solicit review/feedback from Product Manager (PM) and/or other team members
-- [ ] Solicit review/feedback from VA Product Owner (PO) async or in a meeting w/PM
+- [ ] Sitewide UX Lead solicits feedback from VA Product Owner (PO)
 - [ ] Test prototype(s) with conversation guide and align
 - [ ] Post on github in project research folder for final approval before submitting to Research Review cycle
 
+
 ## Acceptance Criteria
 - [ ] Conversation guide drafted
-- [ ] Feedback incorporated from Sitewide UX Lead 
+- [ ] Feedback incorporated from Sitewide UX Lead and PO
 - [ ] Feedback incorporated from PM and/or other team members
-- [ ] Feedback incorporated from VA PO 
 - [ ] Conversation guide aligns with prototype(s)
 - [ ] Conversation guide posted on github in project research folder
-- [ ] Final approval obtained from VA PO and documented at the bottom of the file in preparation for Research Review cycle
+- [ ] Final approval obtained from Sitewide UX Lead and documented at the bottom of the file in preparation for Research Review cycle
