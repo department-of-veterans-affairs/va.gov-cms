@@ -247,6 +247,9 @@ services:
         - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
 
+        # Ensure next-build can find vets-website assets
+        - ln -snf "${TUGBOAT_ROOT}/docroot/vendor/va-gov/content-build/build/vagovdev/generated" "${TUGBOAT_ROOT}/next/public/generated"
+
         # Build storybook and the frontends (web, next) in parallel
         - bash -lc 'time task --taskfile=tugboat.yml'
 
