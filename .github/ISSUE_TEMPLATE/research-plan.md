@@ -23,8 +23,8 @@ Use the appropriate template for the group you're conducting research with:
 - [ ] Brainstorm ideas for research
 - [ ] Create initial draft of research plan
 - [ ] Solicit review/feedback from Sitewide UX Lead
-- [ ] Solicit review/feedback from Product Manager (PM) and/or other team members
-- [ ] Sitewide UX Lead solicits feedback from VA Product Owner (PO)
+- [ ] Solicit review/feedback from PO, PM, and/or other team members in a public slack post
+- [ ] Sitewide UX Lead provides consolidated feedback including from PO
 - [ ] Identify moderator(s), notetaker(s), and observer(s) if moderated research
 - [ ] Identify time slots for research sessions (twice as many slots as # of participants desired) if moderated research
 - [ ] Post on github in project research folder for final approval before submitting to Research Review cycle
