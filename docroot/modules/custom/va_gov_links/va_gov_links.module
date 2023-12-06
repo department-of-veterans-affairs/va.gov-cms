@@ -8,19 +8,35 @@
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Implements hook_form_FORM_ID_alter().
+ * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
  */
-function va_gov_links_form_editor_link_dialog_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Retrieve the link element's attributes from form state.
-  $input = $form_state->get('link_element') ?: [];
-  if (isset($input['href']) && preg_match('#/admin/content/linky/(\d+)#', $input['href'], $matches)) {
-    $linky_id = $matches[1];
-    $linky = \Drupal::entityTypeManager()->getStorage('linky')->load($linky_id);
-    $link_uri = $linky->get('link')->getValue()[0]['uri'];
-    if (!empty($linky)) {
-      $form['attributes']['href'] = array_merge($form['attributes']['href'], [
-        '#default_value' => $link_uri ?? $input['href'],
-      ]);
-    }
+function va_gov_links_field_widget_single_element_text_textarea_form_alter(&$element, FormStateInterface $form_state, $context) {
+  if (isset($element['#default_value'])) {
+    $element['#default_value'] = va_gov_links_replace_linky_urls($element['#default_value']);
   }
+  return $element;
+}
+
+/**
+ * Replace Linky URLs with external URLs.
+ */
+function va_gov_links_replace_linky_urls($text) {
+  if (!str_contains($text, '/admin/content/linky/')) {
+    return $text;
+  }
+  $linky_storage = \Drupal::entityTypeManager()->getStorage('linky');
+  $replaced_text = preg_replace_callback(
+    '#/admin/content/linky/(\d+)#',
+    function ($matches) use ($linky_storage) {
+      $linky_id = $matches[1];
+      $linky = $linky_storage->load($linky_id);
+      $link_uri = $linky->get('link')->getValue()[0]['uri'];
+      if (!empty($linky)) {
+        return $link_uri;
+      }
+      return $matches[0];
+    },
+    $text
+  );
+  return $replaced_text;
 }
