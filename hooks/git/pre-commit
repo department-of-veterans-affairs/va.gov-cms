@@ -3,7 +3,7 @@
 # Check a specified branch name against a list of allowed patterns.
 function check_branch_name() {
   case $1 in
-    VAGOV-TEAM-[1-9][0-9]* | VACMS-[1-9][0-9]* | dependabot/* | revert-* | "") return 0;;
+    VAGOV-TEAM-[1-9][0-9]* | VACMS-[1-9][0-9]* | dependabot/* | revert-* | [1-9][0-9]* | "") return 0;;
     *) return 1;;
   esac
 }
@@ -22,7 +22,8 @@ function branch_name_error() {
   cat <<-EOF >&2
     Aborting commit. Your branch name must be prefixed with one of the following:
       - a VAGOV-TEAM-* or VACMS-* Github issue number format,
-        e.g. VAGOV-TEAM-123-issue-name or VACMS-123-issue-name.
+        e.g. VAGOV-TEAM-123-issue-name or VACMS-123-issue-name
+      - a new GitHub issue number format, e.g. 123-issue-name
       - dependabot/* (for work on Dependabot PRs)
       - revert-* (for work on GitHub-initiated revert PRs)
 

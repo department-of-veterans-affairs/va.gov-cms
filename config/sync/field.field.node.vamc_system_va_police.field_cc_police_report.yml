@@ -1,0 +1,31 @@
+uuid: 3ad26a79-9e06-4a78-b0f5-69e2c511ebd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_police_report
+    - node.type.vamc_system_va_police
+  module:
+    - entity_field_fetch
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vamc_system_va_police.field_cc_police_report
+field_name: field_cc_police_report
+entity_type: node
+bundle: vamc_system_va_police
+label: 'Police report'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: null
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '63204'
+  field_to_fetch: field_block_content
+  target_paragraph_uuid: '141561'
+field_type: entity_field_fetch

@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_github\Commands;
 
-use Drupal\va_gov_github\Api\Client\Factory\ApiClientFactoryInterface;
 use Drupal\va_gov_github\Api\Client\ApiClientInterface;
+use Drupal\va_gov_github\Api\Client\Factory\ApiClientFactoryInterface;
 use Drush\Commands\DrushCommands;
 
 /**

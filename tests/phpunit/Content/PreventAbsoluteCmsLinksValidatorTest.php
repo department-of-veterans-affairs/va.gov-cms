@@ -4,8 +4,8 @@ namespace tests\phpunit\Content;
 
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinks;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinksValidator;
-use Tests\Support\Traits\ValidatorTestTrait;
 use Tests\Support\Classes\VaGovUnitTestBase;
+use Tests\Support\Traits\ValidatorTestTrait;
 
 /**
  * A test to confirm the proper functioning of this validator.

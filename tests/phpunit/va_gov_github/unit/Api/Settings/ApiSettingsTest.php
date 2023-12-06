@@ -3,8 +3,8 @@
 namespace Tests\va_gov_github\unit\Api\Settings;
 
 use Drupal\Core\Site\Settings;
-use Tests\Support\Classes\VaGovUnitTestBase;
 use Drupal\va_gov_github\Api\Settings\ApiSettings;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * Unit test of the API Settings class.

@@ -1,0 +1,48 @@
+Subject: [PATCH] 3226473-opt-in-system-delete-2
+---
+Index: src/Plugin/Field/FieldWidget/InlineEntityFormComplex.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Plugin/Field/FieldWidget/InlineEntityFormComplex.php b/src/Plugin/Field/FieldWidget/InlineEntityFormComplex.php
+--- a/src/Plugin/Field/FieldWidget/InlineEntityFormComplex.php	(revision 869ba9980c0a6a55577c8caf95ab5445896491d5)
++++ b/src/Plugin/Field/FieldWidget/InlineEntityFormComplex.php	(date 1680022925199)
+@@ -118,6 +118,7 @@
+     $defaults += [
+       'allow_new' => TRUE,
+       'allow_existing' => FALSE,
++      'allow_system_delete' => FALSE,
+       'removed_reference' => self::REMOVED_OPTIONAL,
+       'match_operator' => 'CONTAINS',
+       'allow_duplicate' => FALSE,
+@@ -144,6 +145,11 @@
+       '#title' => $this->t('Allow users to add existing @label.', ['@label' => $labels['plural']]),
+       '#default_value' => $this->getSetting('allow_existing'),
+     ];
++    $element['allow_system_delete'] = [
++      '#type' => 'checkbox',
++      '#title' => $this->t('Allow users to delete existing @label from system.', ['@label' => $labels['plural']]),
++      '#default_value' => $this->getSetting('allow_system_delete'),
++    ];
+     $element['match_operator'] = [
+       '#type' => 'select',
+       '#title' => $this->t('Autocomplete matching'),
+@@ -478,7 +484,7 @@
+         // Determine if a reference may be removed.
+         // Unless the user has permission to delete the entity, then they should
+         // not be able to remove it if that will lead to its deletion.
+-        $may_remove_existing = $settings['removed_reference'] !== self::REMOVED_DELETE || $entity->access('delete');
++        $may_remove_existing = $settings['removed_reference'] !== self::REMOVED_DELETE || $entity->access('delete') || $entity->access('allow_system_delete');
+ 
+         // Don't allow a user to remove the only entity if an entity is required
+         // and the user cannot replace the entity if they remove it, because
+@@ -911,7 +917,7 @@
+       '#markup' => $message,
+     ];
+ 
+-    if (!empty($entity_id) && $this->getSetting('removed_reference') === self::REMOVED_OPTIONAL && $entity->access('delete')) {
++    if (!empty($entity_id) && $this->getSetting('removed_reference') === self::REMOVED_OPTIONAL && $this->getSetting('allow_system_delete') && $entity->access('delete')) {
+       $form['delete'] = [
+         '#type' => 'checkbox',
+         '#title' => $this->t('Delete this @type_singular from the system.', ['@type_singular' => $labels['singular']]),

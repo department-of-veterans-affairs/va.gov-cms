@@ -1,0 +1,31 @@
+diff --git a/core/themes/claro/css/components/tableselect.css b/core/themes/claro/css/components/tableselect.css
+index c2b3badf7bc8c57497f4dbd9e2a931e1e79c65b3..c26d82301f9f6412b539b14b17aa59ebd15ed3eb 100644
+--- a/core/themes/claro/css/components/tableselect.css
++++ b/core/themes/claro/css/components/tableselect.css
+@@ -76,11 +76,11 @@ tr.selected td {
+   box-shadow: none;
+ }
+
+-.views-bulk-actions__item .button--primary {
++.views-bulk-actions__item .button--primary:not(:disabled, .is-disabled) {
+   background: var(--color-blue-400);
+ }
+
+-.views-bulk-actions__item .button--primary:hover {
++.views-bulk-actions__item .button--primary:not(:disabled, .is-disabled):hover {
+   background: var(--color-blue-500);
+ }
+
+diff --git a/core/themes/claro/css/components/tableselect.pcss.css b/core/themes/claro/css/components/tableselect.pcss.css
+index b808197c2295decd3d8c1c23679d8eadcc0ef201..015280fd1f3599465e01c79154efa0e251196775 100644
+--- a/core/themes/claro/css/components/tableselect.pcss.css
++++ b/core/themes/claro/css/components/tableselect.pcss.css
+@@ -67,7 +67,7 @@ tr.selected td {
+       box-shadow: none;
+     }
+   }
+-  & .button--primary {
++  & .button--primary:not(:disabled, .is-disabled) {
+     background: var(--color-blue-400);
+     &:hover {
+       background: var(--color-blue-500);

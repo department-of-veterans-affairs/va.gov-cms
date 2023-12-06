@@ -2,8 +2,8 @@
 
 namespace Tests\Support\Classes;
 
-use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Tests\UnitTestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Common functionality for UnitTestCase derivative test classes.
