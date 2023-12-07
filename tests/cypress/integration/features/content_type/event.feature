@@ -96,4 +96,4 @@ Feature: Content Type: Event
 Scenario: Confirm tabledrag is not enabled on the event date field
   Given I am logged in as a user with the "content_admin" role
   When I am at "node/add/event"
-  Then I should not see an element with the selector "#edit-field-datetime-range-timezone-wrapper button.tabledrag-toggle-weight"
+  Then an element with the selector "#edit-field-datetime-range-timezone-wrapper button.tabledrag-toggle-weight" should not exist
