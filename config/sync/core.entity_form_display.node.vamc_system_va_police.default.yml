@@ -13,13 +13,18 @@ dependencies:
     - field.field.node.vamc_system_va_police.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_va_police.field_last_saved_by_an_editor
     - field.field.node.vamc_system_va_police.field_office
+    - field.field.node.vamc_system_va_police.field_phone_number
+    - field.field.node.vamc_system_va_police.field_phone_numbers_paragraph
     - node.type.vamc_system_va_police
     - workflows.workflow.editorial
   module:
     - allow_only_one
     - content_moderation
+    - entity_browser_entity_form
     - entity_field_fetch
     - field_group
+    - ief_table_view_mode
+    - telephone
 third_party_settings:
   field_group:
     group_section_settings:
@@ -46,7 +51,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -65,7 +70,7 @@ third_party_settings:
       label: 'National content'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 6
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -78,6 +83,27 @@ third_party_settings:
         label_element: h3
         required_fields: 0
         attributes: ''
+    group_external_content:
+      children:
+        - field_phone_number
+        - field_phone_numbers_paragraph
+      label: 'External content'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: external-content
+        classes: ''
+        element: div
+        show_label: '0'
+        label_element: h3
+        required_fields: 1
+        attributes: ''
+        description: '<a class="admin-help-email-tpl" href="/help/vamc-system/how-do-i-update-my-facilitys-police-data">Learn how to correct or update centrally-managed data</a>.'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        open: false
 id: node.vamc_system_va_police.default
 targetEntityType: node
 bundle: vamc_system_va_police
@@ -143,23 +169,51 @@ content:
     third_party_settings: {  }
   field_enforce_unique_combo_offic:
     type: allow_only_one_widget
-    weight: 2
+    weight: 3
     region: content
     settings:
       size: 1
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 10
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   field_office:
     type: options_select
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_phone_number:
+    type: telephone_default
+    weight: 5
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_phone_numbers_paragraph:
+    type: inline_entity_form_complex_table_view_mode
+    weight: 6
+    region: content
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: 'phone number'
+      label_plural: 'phone numbers'
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      removed_reference: optional
+      allow_system_delete: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
   moderation_state:
     type: moderation_state_default
     weight: 11

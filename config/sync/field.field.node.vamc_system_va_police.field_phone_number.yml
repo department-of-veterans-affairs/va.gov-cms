@@ -1,0 +1,25 @@
+uuid: 5553841d-f4fc-4e5d-a84a-37bd154f2085
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_phone_number
+    - node.type.vamc_system_va_police
+  module:
+    - telephone
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vamc_system_va_police.field_phone_number
+field_name: field_phone_number
+entity_type: node
+bundle: vamc_system_va_police
+label: 'Phone Number'
+description: 'System VA Police contact line'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone
