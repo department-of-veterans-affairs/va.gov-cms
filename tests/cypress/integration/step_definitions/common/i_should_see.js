@@ -76,3 +76,12 @@ Then(`I should see {string} in ckeditor {string}`, (value, label) => {
 Then("I should see the {string} button", (text) => {
   cy.contains("input", text).parent().should("be.visible");
 });
+
+Then(
+  "I should see the value of the Cypress variable {string}",
+  (variableName) => {
+    cy.get(`@${variableName}`).then((value) => {
+      cy.contains(value).should("be.visible");
+    });
+  }
+);

@@ -363,6 +363,32 @@ const creators = {
     });
     return cy.wait(1000);
   },
+  press_release: () => {
+    cy.findAllByLabelText("Press Release Title").type(
+      `[Test Data] ${faker.lorem.word()}`,
+      { force: true }
+    );
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.findAllByLabelText("News releases listing").select(
+      "VA Alaska health care: News Releases",
+      { force: true }
+    );
+    cy.findAllByLabelText("City").type(faker.lorem.word(), {
+      force: true,
+    });
+    cy.findAllByLabelText("State").select("Alaska", { force: true });
+    cy.findAllByLabelText("Introduction").type(
+      faker.lorem.paragraph().substring(0, 250),
+      {
+        force: true,
+      }
+    );
+    cy.type_ckeditor(
+      "edit-field-press-release-fulltext-0-value",
+      faker.lorem.paragraph()
+    );
+    return cy.wait(1000);
+  },
   step_by_step: () => {
     cy.findAllByLabelText("Page title").type(
       `[Test Data] ${faker.lorem.word()}`,
