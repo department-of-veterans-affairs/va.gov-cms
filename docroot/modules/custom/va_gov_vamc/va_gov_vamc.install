@@ -5,10 +5,10 @@
  * Install file for VA Gov VAMC.
  */
 
+use Drupal\codit_menu_tools\MenuInsert;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Utility\UpdateException;
 use Drupal\field\Entity\FieldConfig;
-use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
 use Drupal\va_gov_lovell\LovellOps;
 use Psr\Log\LogLevel;
@@ -57,7 +57,7 @@ function _va_gov_vamc_sandbox_init(array &$sandbox, $counter_callback, array $ca
 function _va_gov_vamc_sandbox_complete(array &$sandbox, $completed_message) {
   // Determine when to stop batching.
   $sandbox['current'] = ($sandbox['total'] - count($sandbox['items_to_process']));
-  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
+  $sandbox['#finished'] = (empty($sandbox['total'])) ? 1 : ($sandbox['current'] / $sandbox['total']);
   $vars = [
     '@completed' => $sandbox['current'],
     '@total' => $sandbox['total'],
@@ -154,10 +154,8 @@ function _va_gov_get_systems_with_existing_pages($top_task_bundle) {
  *   The bundle name of the node to build.
  * @param string $moderation_state
  *   The machine name of the moderation state to assign. default: draft.
- * @param int $weight
- *   The weight of the menu item.
  */
-function _va_gov_vamc_create_system_content_pages(array &$sandbox, string $build_bundle, string $moderation_state = 'draft', int $weight = -50) {
+function _va_gov_vamc_create_system_content_pages(array &$sandbox, string $build_bundle, string $moderation_state = 'draft') {
   $cms_migrator = 1317;
   // Run through a batch of 25.
   $i = 0;
@@ -188,14 +186,15 @@ function _va_gov_vamc_create_system_content_pages(array &$sandbox, string $build
     $new_tt_page->set('field_office', $system_info['field_office']);
     $new_tt_page->save();
 
-    MenuLinkContent::create([
-      'title' => _va_gov_vamc_get_title($build_bundle),
-      'link' => ['uri' => "entity:node/{$new_tt_page->id()}"],
-      'menu_name' => $system_info['menu_link_name'],
-      'enabled' => ($moderation_state === 'published') ? 1 : 0,
-      'parent' => $system_info['menu_item_id'],
-      'weight' => $weight,
-    ])->save();
+    $menuManipulator = new MenuInsert($system_info['menu_link_name']);
+    $menu_item_title = "VA police";
+    $menu_item_destination = "entity:node/{$new_tt_page->id()}";
+    $menu_item_description = '';
+    $menu_item_enabled = TRUE;
+    $parent_title = '';
+    $adjacent_sibling = 'Policies';
+    $place_below = FALSE;
+    $menuManipulator->addMenuItem($menu_item_title, $menu_item_destination, $menu_item_description, $menu_item_enabled, $parent_title, $adjacent_sibling, $place_below);
 
     unset($sandbox['items_to_process'][$system_nid]);
   }
@@ -310,14 +309,4 @@ function va_gov_vamc_update_9007() {
     '%ct_count' => count($alerts),
     '%ct_updated' => $updated,
   ]);
-}
-
-/**
- * Build top VA Police page for each system.
- */
-function va_gov_vamc_update_9008(&$sandbox) {
-  $build_bundle = 'vamc_system_va_police';
-  _va_gov_vamc_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
-  _va_gov_vamc_create_system_content_pages($sandbox, $build_bundle, 'published', -46);
-  return _va_gov_vamc_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
 }
