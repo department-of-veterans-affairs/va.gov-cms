@@ -165,30 +165,30 @@ function _va_gov_vamc_create_system_content_pages(array &$sandbox, string $build
       break;
     }
 
-    $new_tt_page = Node::create([
+    $new_page = Node::create([
       'type' => $build_bundle,
       'status' => ($moderation_state === 'published') ? 1 : 0,
       'moderation_state' => $moderation_state,
       'revision_log' => 'Created automatically.',
     ]);
     // CMS migrator.
-    $new_tt_page->setOwnerId($cms_migrator);
-    $new_tt_page->setRevisionUserId($cms_migrator);
+    $new_page->setOwnerId($cms_migrator);
+    $new_page->setRevisionUserId($cms_migrator);
     if ($moderation_state === 'published') {
-      $new_tt_page->setPublished();
+      $new_page->setPublished();
     }
     else {
-      $new_tt_page->setUnpublished();
+      $new_page->setUnpublished();
     }
-    $new_tt_page->setUnpublished();
-    $new_tt_page->setTitle(_va_gov_vamc_get_title($build_bundle));
-    $new_tt_page->set('field_administration', $system_info['field_administration']);
-    $new_tt_page->set('field_office', $system_info['field_office']);
-    $new_tt_page->save();
+    $new_page->setUnpublished();
+    $new_page->setTitle(_va_gov_vamc_get_title($build_bundle));
+    $new_page->set('field_administration', $system_info['field_administration']);
+    $new_page->set('field_office', $system_info['field_office']);
+    $new_page->save();
 
     $menuManipulator = new MenuInsert($system_info['menu_link_name']);
     $menu_item_title = "VA police";
-    $menu_item_destination = "entity:node/{$new_tt_page->id()}";
+    $menu_item_destination = "entity:node/{$new_page->id()}";
     $menu_item_description = '';
     $menu_item_enabled = TRUE;
     $parent_title = '';
