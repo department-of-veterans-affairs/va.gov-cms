@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3236114c7b94a9f420f610e22b6587ed",
+    "content-hash": "ac585d37af39279899b9e11a111d7971",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5457,7 +5457,7 @@
                 "reference": "2eb18091039d747fd36ab5120fe94ac1d3511212"
             },
             "require": {
-                "drupal/core": "^9.3.0 || ^10",
+                "drupal/core": "^8.7.7 || ^9 || ^10",
                 "drupal/diff": "^1.0"
             },
             "type": "drupal-module",
@@ -5466,8 +5466,8 @@
                     "dev-1.0.x": "1.0.x-dev"
                 },
                 "drupal": {
-                    "version": "1.0.1+3-dev",
-                    "datestamp": "1685489856",
+                    "version": "1.0.2+1-dev",
+                    "datestamp": "1701893668",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -5482,6 +5482,10 @@
                 {
                     "name": "Mingsong",
                     "homepage": "https://www.drupal.org/user/2986445"
+                },
+                {
+                    "name": "Watergate",
+                    "homepage": "https://www.drupal.org/user/1096864"
                 }
             ],
             "description": "Provide UI plugins of diff for entities.",
@@ -8451,35 +8455,30 @@
         },
         {
             "name": "drupal/linky",
-            "version": "1.0.0-beta3",
+            "version": "2.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/linky.git",
-                "reference": "8.x-1.0-beta3"
+                "reference": "2.0.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/linky-8.x-1.0-beta3.zip",
-                "reference": "8.x-1.0-beta3",
-                "shasum": "5304726c888f568e6d904e29539c41a020bea69b"
+                "url": "https://ftp.drupal.org/files/projects/linky-2.0.0-beta1.zip",
+                "reference": "2.0.0-beta1",
+                "shasum": "14f165d9ac33c7f7890ddc2098eaf2ea5ed47b5a"
             },
             "require": {
-                "drupal/core": "^8 || ^9 || ^10",
+                "drupal/core": ">=10.1",
                 "drupal/dynamic_entity_reference": "*"
             },
-            "conflict": {
-                "drupal/linkit": "<5.0"
-            },
             "suggest": {
-                "drupal/ds": "Plugin is available to show Linky title as a DsField.",
-                "drupal/linkit": "Integration with Linkit suggestions.",
-                "drupal/linky_revision_ui": "Adds a Revision UI (tab) for Managed Links."
+                "drupal/linkit": "Integration with Linkit suggestions."
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta3",
-                    "datestamp": "1663944858",
+                    "version": "2.0.0-beta1",
+                    "datestamp": "1698281829",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -8520,7 +8519,7 @@
                     "homepage": "https://www.drupal.org/user/1485048"
                 }
             ],
-            "description": "Link management Drupal 8 style",
+            "description": "Link management.",
             "homepage": "https://www.drupal.org/project/linky",
             "keywords": [
                 "Drupal"
@@ -21658,12 +21657,12 @@
             "version": "3.7.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
                 "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ed8e00df0a83aa96acf703f8c2979ff33341f879",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/ed8e00df0a83aa96acf703f8c2979ff33341f879",
                 "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879",
                 "shasum": ""
             },
@@ -21708,6 +21707,20 @@
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
+            "funding": [
+                {
+                    "url": "https://github.com/PHPCSStandards",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/jrfnl",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/php_codesniffer",
+                    "type": "open_collective"
+                }
+            ],
             "time": "2023-02-22T23:07:41+00:00"
         },
         {
@@ -26772,7 +26785,6 @@
         "drupal/limited_field_widgets": 15,
         "drupal/linkit": 5,
         "drupal/linky": 10,
-        "drupal/linkychecker": 10,
         "drupal/menu_breadcrumb": 15,
         "drupal/message_ui": 10,
         "drupal/mimemail": 15,
@@ -26796,5 +26808,5 @@
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
