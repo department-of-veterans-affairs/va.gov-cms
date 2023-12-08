@@ -27,11 +27,13 @@ dependencies:
     - field.field.node.vet_center.field_vet_center_feature_content
     - node.type.vet_center
     - workflows.workflow.editorial
+    - entity_browser.browser.q_a_browser
   module:
     - address
     - change_labels
     - content_moderation
     - entity_browser_entity_form
+    - entity_browser_table
     - entity_field_fetch
     - field_group
     - geofield
@@ -315,22 +317,19 @@ content:
       html5_geolocation: false
     third_party_settings: {  }
   field_health_services:
-    type: inline_entity_form_complex_table_view_mode
+    type: entity_reference_browser_table_widget
     weight: 8
     region: content
     settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: service
-      label_plural: services
-      allow_new: true
-      allow_existing: false
-      match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: true
-      allow_system_delete: false
+      entity_browser: q_a_browser
+      field_widget_display: linked_title
+      field_widget_display_settings:
+        target_blank: '1'
+      field_widget_remove: '1'
+      selection_mode: selection_append
+      field_widget_edit: 0
+      field_widget_replace: 0
+      open: 0
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: _none
