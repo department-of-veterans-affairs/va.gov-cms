@@ -1,0 +1,22 @@
+uuid: 7670d9bb-6ebe-4f07-84d8-6f3cc80e9bd3
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_va_police
+id: node.vamc_system_va_police.promote
+field_name: promote
+entity_type: node
+bundle: vamc_system_va_police
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

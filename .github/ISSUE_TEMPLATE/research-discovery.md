@@ -9,15 +9,20 @@ assignees: ''
 
 ## Description
 
-Research Discovery is a time to establish the fundamental approach for a research initiative. Possible tasks may include:
+### User story
+**AS A** Researcher
+**I WANT** to see what we know and could learn with [PRODUCT/INITIATIVE] research
+**SO THAT** we can provide value
+
+Research Discovery is a time to establish the fundamental approach for a research initiative. Potential tasks may include the following:
 
 **What do we want to know?**
-- [ ] Align with Product Manager & Product Owner on the high-level purpose and scope of the research
-- [ ] Review Product outline to understand background context
+- [ ] Align with Sitewide UX Lead, Product Manager, and Product Owner on the high-level purpose and scope of the research
+- [ ] Review Product Outline to understand background context
 - [ ] Draft big picture research questions
 
 **Has anyone else researched this before?**
-- [ ] Review previous research on this Product (if available)
+- [ ] Review previous research on this product (if available)
 - [ ] Review Research Repo for previous relevant research from other teams
 - [ ] Summarize findings from research review
 
