@@ -23,9 +23,9 @@ Use the appropriate template for the group you're conducting research with:
 ## Suggested workflow/tasks:
 - [ ] Brainstorm potential tasks
 - [ ] Create initial draft of conversation guide
-- [ ] Solicit review/feedback from Sitewide UX Lead 
-- [ ] Solicit review/feedback from Product Manager (PM) and/or other team members
-- [ ] Sitewide UX Lead solicits feedback from VA Product Owner (PO)
+- [ ] Solicit review/feedback from Sitewide UX Lead
+- [ ] Solicit review/feedback from PO, PM, and/or other team members in a public slack post
+- [ ] Sitewide UX Lead provides consolidated feedback including from PO
 - [ ] Test prototype(s) with conversation guide and align
 - [ ] Post on github in project research folder for final approval before submitting to Research Review cycle
 
