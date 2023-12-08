@@ -14,10 +14,10 @@ dependencies:
     - field.field.node.vamc_system_va_police.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_va_police.field_last_saved_by_an_editor
     - field.field.node.vamc_system_va_police.field_office
-    - field.field.node.vamc_system_va_police.field_phone_number
     - field.field.node.vamc_system_va_police.field_phone_numbers_paragraph
     - node.type.vamc_system_va_police
   module:
+    - entity_reference_revisions
     - user
 id: node.vamc_system_va_police.teaser
 targetEntityType: node
@@ -27,12 +27,16 @@ content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: -20
+    weight: 0
     region: content
-  links:
-    settings: {  }
+  field_phone_numbers_paragraph:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    weight: 100
+    weight: 1
     region: content
 hidden:
   breadcrumbs: true
@@ -46,7 +50,6 @@ hidden:
   field_enforce_unique_combo_offic: true
   field_last_saved_by_an_editor: true
   field_office: true
-  field_phone_number: true
-  field_phone_numbers_paragraph: true
   langcode: true
+  links: true
   search_api_excerpt: true
