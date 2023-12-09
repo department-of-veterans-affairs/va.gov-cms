@@ -1,0 +1,38 @@
+name: Rebuild Tugboat Preview
+on:
+  pull_request:
+    types:
+      - synchronize
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  tugboat_rebuild_preview:
+    runs-on: self-hosted
+    env:
+      NODE_EXTRA_CA_CERTS: /etc/ssl/certs/ca-certificates.crt
+    name: Rebuild Tugboat Preview
+    steps:
+    - name: Restore Preview ID
+      uses: actions/cache/restore@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
+      with:
+        path: .tugboat_preview.txt
+        key: ${{ runner.os }}-tugboat-preview-id-pr-${{ github.event.pull_request.number }}
+    - name: Set Preview ID
+      run: |
+        if ! [ -f .tugboat_preview.txt ]; then
+          echo "Preview ID not found, please manually rebuild Tugboat Preview."
+          exit 1
+        fi
+        PREVIEW_ID=$(cat .tugboat_preview.txt)
+        echo "Preview ID: ${PREVIEW_ID}"
+        echo "PREVIEW_ID=$PREVIEW_ID" >> $GITHUB_ENV
+    - name: Cleanup temporary file
+      run: rm .tugboat_preview.txt
+    - name: Rebuild Tugboat Preview
+      run: |
+        curl -H "Authorization: Bearer ${{ secrets.TUGBOAT_API_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -X POST \
+          -d '{ "children": "false", "force": "false" }' \
+          https://api.tugboat.vfs.va.gov/v3/previews/${{ env.PREVIEW_ID }}/rebuild
