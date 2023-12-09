@@ -31,7 +31,8 @@ jobs:
       run: rm .tugboat_preview.txt
     - name: Rebuild Tugboat Preview
       run: |
-        curl -H "Authorization: Bearer ${{ secrets.TUGBOAT_API_TOKEN }}" \
+        curl --fail \
+          -H "Authorization: Bearer ${{ secrets.TUGBOAT_API_TOKEN }}" \
           -H "Content-Type: application/json" \
           -X POST \
           -d '{ "children": "false", "force": "false" }' \

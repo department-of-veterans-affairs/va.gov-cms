@@ -17,7 +17,8 @@ jobs:
     - name: Create Tugboat Preview
       id: tugboat_pr_preview
       run: |
-        curl -H "Authorization: Bearer ${{ secrets.TUGBOAT_API_TOKEN }}" \
+        curl --fail \
+          -H "Authorization: Bearer ${{ secrets.TUGBOAT_API_TOKEN }}" \
           -H "Content-Type: application/json" \
           -X POST \
           -d '{ "repo": "${{ secrets.TUGBOAT_REPOSITORY }}", "ref": "${{ github.event.pull_request.number }}", "name": "${{ github.event.pull_request.title }}", "type": "pullrequest" }' \
