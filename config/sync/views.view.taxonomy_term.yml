@@ -466,6 +466,15 @@ display:
             date_format: short
             custom_date_format: 'M j Y, g:ia'
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1684,22 +1693,17 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
-            editorial-draft: editorial-draft
-            editorial-review: editorial-review
-            editorial-published: editorial-published
-            editorial-archived: editorial-archived
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -1707,10 +1711,10 @@ display:
             label: 'Moderation state'
             description: ''
             use_operator: false
-            operator: moderation_state_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: moderation_state
+            identifier: moderation_state_multiple_workflow_filter
             required: false
             remember: false
             multiple: false
@@ -1722,6 +1726,7 @@ display:
               content_creator_resources_and_support: '0'
               office_content_creator: '0'
               vamc_content_creator: '0'
+              content_creator_vba: '0'
               content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
@@ -1730,7 +1735,10 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+              homepage_manager: '0'
+              next_js: '0'
+              translation_manager: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -1743,6 +1751,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: 0
       filter_groups:
         operator: AND
         groups:
@@ -1769,4 +1778,3 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
-        - 'config:workflow_list'
