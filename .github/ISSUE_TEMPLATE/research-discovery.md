@@ -31,7 +31,8 @@ Research Discovery is a time to establish the fundamental approach for a researc
 - [ ] Consider participants - do we have access to the right users?
 - [ ] Consider timeline - how long will this take? how much time do we have?
 
-## Acceptance Criteria
+## Possible Acceptance Criteria
+- [ ] Findings from research review are documented and shared with Sitewide UX Lead, Product Manager, and Product Owner
 - [ ] High-level scope of research is drafted and agreed upon
 - [ ] Subsequent tickets are created
 
