@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a409936e2403c0287e2ea1ec6d6dc82",
+    "content-hash": "955b67028cf46b5113b35ba53dfc0198",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5450,27 +5450,30 @@
         },
         {
             "name": "drupal/entity_diff_ui",
-            "version": "dev-1.0.x",
+            "version": "2.0.0-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_diff_ui.git",
-                "reference": "2eb18091039d747fd36ab5120fe94ac1d3511212"
+                "reference": "2.0.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_diff_ui-2.0.0-alpha1.zip",
+                "reference": "2.0.0-alpha1",
+                "shasum": "ba7ce7c7f8ee03c98ee326706901274fc62b4439"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9 || ^10",
-                "drupal/diff": "^1.0"
+                "drupal/core": "^9.3.0 || ^10",
+                "drupal/diff": "^1.1"
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.0.x": "1.0.x-dev"
-                },
                 "drupal": {
-                    "version": "1.0.2+1-dev",
-                    "datestamp": "1701893668",
+                    "version": "2.0.0-alpha1",
+                    "datestamp": "1701889658",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "message": "Alpha releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -5488,7 +5491,7 @@
                     "homepage": "https://www.drupal.org/user/1096864"
                 }
             ],
-            "description": "Provide UI plugins of diff for entities.",
+            "description": "Provides the capabilities to compare the difference between entity revisions.",
             "homepage": "https://www.drupal.org/project/entity_diff_ui",
             "support": {
                 "source": "https://git.drupalcode.org/project/entity_diff_ui"
@@ -11979,66 +11982,6 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/seckit",
                 "issues": "http://drupal.org/project/issues/seckit"
-            }
-        },
-        {
-            "name": "drupal/seven",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/seven.git",
-                "reference": "1.0.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/seven-1.0.0.zip",
-                "reference": "1.0.0",
-                "shasum": "88e86926388c7e6cf66b0502d13a0470ce2399cd"
-            },
-            "require": {
-                "drupal/core": "^9 || ^10"
-            },
-            "type": "drupal-theme",
-            "extra": {
-                "drupal": {
-                    "version": "1.0.0",
-                    "datestamp": "1683652106",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "bnjmnm",
-                    "homepage": "https://www.drupal.org/user/2369194"
-                },
-                {
-                    "name": "lauriii",
-                    "homepage": "https://www.drupal.org/user/1078742"
-                },
-                {
-                    "name": "mcrittenden",
-                    "homepage": "https://www.drupal.org/user/420631"
-                },
-                {
-                    "name": "mrfelton",
-                    "homepage": "https://www.drupal.org/user/305669"
-                },
-                {
-                    "name": "TravisCarden",
-                    "homepage": "https://www.drupal.org/user/236758"
-                }
-            ],
-            "description": "The Seven theme from Drupal 8/9 moved to contrib",
-            "homepage": "https://www.drupal.org/project/seven",
-            "support": {
-                "source": "https://git.drupalcode.org/project/seven"
             }
         },
         {
@@ -26857,7 +26800,7 @@
         "drupal/danse_content_moderation": 10,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 15,
-        "drupal/entity_diff_ui": 20,
+        "drupal/entity_diff_ui": 15,
         "drupal/entity_field_fetch": 10,
         "drupal/entity_reference_hierarchy": 10,
         "drupal/entity_reference_validators": 15,
@@ -26881,7 +26824,6 @@
         "drupal/pathologic": 15,
         "drupal/prometheus_exporter": 10,
         "drupal/schemata": 10,
-        "drupal/seven": 15,
         "drupal/simplesamlphp_auth": 5,
         "drupal/styleguide": 10,
         "drupal/user_history": 15,
