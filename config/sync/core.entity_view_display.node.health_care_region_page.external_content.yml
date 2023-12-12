@@ -30,7 +30,6 @@ dependencies:
   module:
     - field_group
     - layout_builder
-    - link
     - options
     - telephone
     - user
@@ -134,18 +133,6 @@ targetEntityType: node
 bundle: health_care_region_page
 mode: external_content
 content:
-  breadcrumbs:
-    type: link
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: -5
-    region: content
   field_va_health_connect_phone:
     type: telephone_link
     label: above
