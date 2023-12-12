@@ -1,0 +1,29 @@
+uuid: 8e17f221-14a1-4920-b33f-4739d8ddf543
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_meta_tags
+    - node.type.vba_facility
+  module:
+    - entity_field_fetch
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_cc_meta_tags
+field_name: field_cc_meta_tags
+entity_type: node
+bundle: vba_facility
+label: 'Meta tags'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '61744'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: '142580'
+field_type: entity_field_fetch
