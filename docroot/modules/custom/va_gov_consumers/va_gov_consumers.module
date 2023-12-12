@@ -269,7 +269,7 @@ function _va_gov_consumers_modify_vamc_system_related_fields(array &$form, $form
 function _va_gov_consumers_disable_external_content_editing(array &$form, FormStateInterface $form_state, $display_if_empty_field) {
   $node = $form_state->getformObject()->getEntity();
 
-  $is_admin = in_array('administrator', \Drupal::currentUser()->getRoles());
+  $is_admin = \Drupal::service('va_gov_user.user_perms')->hasAdminRole(TRUE);
   // TRUE means to skip field value check.
   if ($display_if_empty_field === TRUE) {
     // TRUE indicates we need to use external content.
@@ -281,10 +281,11 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
 
   // If the user is not admin or and there is migrated data, hide the fields.
   // We want admins to have access to fields in case they have to temporarily
-  // fix bad data from the forms db. It will get wiped out each night.
+  // fix bad data from the data source. It will get wiped out the next time
+  // the source row changes.
   if ((!$is_admin) && ($has_field_value) && (!empty($form) && !empty($form['#fieldgroups']))) {
     // Hide the actual fields.
-    foreach ($form['#fieldgroups'] as &$fieldgroup) {
+    foreach ($form['#fieldgroups'] as $fieldgroup) {
       if (!empty($fieldgroup->format_settings['id']) && $fieldgroup->format_settings['id'] === 'external-content') {
         foreach ($fieldgroup->children as $field) {
           unset($form[$field]);
@@ -294,8 +295,7 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
       }
 
     }
-    // Break the reference from the foreach.
-    unset($fieldgroup);
+
     // Display the readonly version of the fields.
     $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $readonly_content = $viewBuilder->view($node, 'external_content');
