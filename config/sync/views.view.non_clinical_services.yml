@@ -537,10 +537,10 @@ display:
           condition: eq
           equalto: 'On'
           then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
-          then_translate: 1
+          then_translate: true
           or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         field_office_hours:
           id: field_office_hours
           table: node__field_office_hours
@@ -816,12 +816,12 @@ display:
           hide_alter_empty: true
           if: field_hours
           condition: eq
-          equalto: 'Use the facility''s hours'
+          equalto: "Use the facility's hours"
           then: '{{ field_office_hours_1 }}'
-          then_translate: 1
+          then_translate: true
           or: ''
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         views_conditional_field_2:
           id: views_conditional_field_2
           table: views_conditional
@@ -873,12 +873,12 @@ display:
           hide_alter_empty: true
           if: field_hours
           condition: eq
-          equalto: 'Use the facility''s hours'
+          equalto: "Use the facility's hours"
           then: '{{ field_office_hours }}'
-          then_translate: 1
+          then_translate: true
           or: '{{ views_conditional_field_3 }}'
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -999,6 +999,15 @@ display:
             date_format: short
             custom_date_format: ''
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1799,10 +1808,10 @@ display:
           condition: eq
           equalto: 'On'
           then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
-          then_translate: 1
+          then_translate: true
           or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         field_office_hours:
           id: field_office_hours
           table: node__field_office_hours
@@ -2080,10 +2089,10 @@ display:
           condition: eq
           equalto: 'Provide specific hours for this service'
           then: '{{ field_office_hours_1 }}'
-          then_translate: 1
+          then_translate: true
           or: ''
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         views_conditional_field:
           id: views_conditional_field
           table: views_conditional
@@ -2135,12 +2144,12 @@ display:
           hide_alter_empty: true
           if: field_hours
           condition: eq
-          equalto: 'Use the facility''s hours'
+          equalto: "Use the facility's hours"
           then: '{{ field_office_hours }}'
-          then_translate: 1
+          then_translate: true
           or: '{{ views_conditional_field_3 }}'
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -2261,6 +2270,15 @@ display:
             date_format: short
             custom_date_format: ''
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -3065,10 +3083,10 @@ display:
           condition: eq
           equalto: 'On'
           then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
-          then_translate: 1
+          then_translate: true
           or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         field_office_hours:
           id: field_office_hours
           table: node__field_office_hours
@@ -3346,10 +3364,10 @@ display:
           condition: eq
           equalto: 'Provide specific hours for this service'
           then: '{{ field_office_hours_1 }}'
-          then_translate: 1
+          then_translate: true
           or: ''
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         views_conditional_field:
           id: views_conditional_field
           table: views_conditional
@@ -3401,12 +3419,12 @@ display:
           hide_alter_empty: true
           if: field_hours
           condition: eq
-          equalto: 'Use the facility''s hours'
+          equalto: "Use the facility's hours"
           then: '{{ field_office_hours }}'
-          then_translate: 1
+          then_translate: true
           or: '{{ views_conditional_field_3 }}'
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -3527,6 +3545,15 @@ display:
             date_format: short
             custom_date_format: ''
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -4396,10 +4423,10 @@ display:
           condition: eq
           equalto: 'On'
           then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
-          then_translate: 1
+          then_translate: true
           or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         field_office_hours:
           id: field_office_hours
           table: node__field_office_hours
@@ -4677,10 +4704,10 @@ display:
           condition: eq
           equalto: 'Provide specific hours for this service'
           then: '{{ field_office_hours_1 }}'
-          then_translate: 1
+          then_translate: true
           or: ''
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         views_conditional_field:
           id: views_conditional_field
           table: views_conditional
@@ -4732,12 +4759,12 @@ display:
           hide_alter_empty: true
           if: field_hours
           condition: eq
-          equalto: 'Use the facility''s hours'
+          equalto: "Use the facility's hours"
           then: '{{ field_office_hours }}'
-          then_translate: 1
+          then_translate: true
           or: '{{ views_conditional_field_3 }}'
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -4858,6 +4885,15 @@ display:
             date_format: short
             custom_date_format: ''
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
           group_column: value
           group_columns: {  }
           group_rows: true
