@@ -118,7 +118,13 @@
   * If you have a suggestion for an alternative approach, or a concern about the ticket or the approach, escalate it to your PM/DM/PO.
 * Do not review PRs that do not belong to a member of your team unless your review has been requested.
   * If your review has been requested as a result of code ownership, but the code in question is owned by multiple teams, consider whether your review is necessary or valuable in this context.
-  * For example, `config/sync` is massive, messy, and ownership is shared between multiple teams. It is good to be aware of changes to configuration, but it is not necessarily appropriate for *you* to review those changes formally.
+  * If in doubt of when and what to review, consult the badges on individual files:
+    * If you are on a team that has sole ownership of a particular file, treat the review request as explicit.
+    * ![Owned by my team](./images/ownership-badge.png)
+    * If the file is owned only by another team, don't review the file (or PR) unless you see a problem.
+    * ![Owned only by another team](./images/ownership-badge-2.png)
+    * If the file is owned by multiple teams, including yours, don't review the file (or PR) unless you see a problem.
+    * ![Owned by multiple teams](./images/ownership-badge-none.png)
 * Do not make changes to PRs that do not belong to a member of your team without their consent and approval.
   * Instead, make suggestions, justify them, and allow the owner to approve or reject them.
 * Do not merge new changes into PRs that do not belong to a member of your team (excluding Dependabot, etc) without their consent and approval.
