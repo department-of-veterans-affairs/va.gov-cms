@@ -53,6 +53,18 @@
   * Prefer modern object-oriented alternatives like event subscribers and other object-oriented APIs to legacy hook implementations.
   * Refactor when appropriate. You are empowered to improve the design of existing code.
 
+### Security
+
+* We follow a [Zero Trust Security Model](https://en.wikipedia.org/wiki/Zero_trust_security_model).
+  * Strictly define roles and permissions in Drupal, ensuring users have only the access they need, following the Principle of Least Privilege.
+  * Limit the number of administrative accounts and use them only when necessary.
+  * Regularly update Drupal core and modules to their latest secure versions.
+  * Assess the severity of vulnerabilities regardless of whether:
+    * the vulnerability needs to be exploited by a user
+    * the vulnerability needs to be exploited by a user with a specific role
+    * the vulnerability needs to be exploited from within the VA network
+    * the vulnerability needs to be exploited from the command line
+
 ### Theming
 
 * Prefer [BEM (Block, Element, Modifier)](https://getbem.com/introduction/) syntax when possible.
