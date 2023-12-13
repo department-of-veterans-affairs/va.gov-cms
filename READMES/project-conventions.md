@@ -95,6 +95,9 @@
   * Do not rely on labels, title prefixes, etc. Only Draft mode mechanically prevents a premature merge.
 * Write QA Steps that demonstrate that the PR addresses the Acceptance Criteria of the related ticket.
 * If these QA Steps are automatable (and most should be), then consider adding a Cypress test.
+* Do not merge a PR with unresolved comments.
+* Do not resolve a comment unless you opened it.
+* Resolve a comment promptly when it has received a satisfactory response.
 
 ## Code Review
 
