@@ -1,19 +1,23 @@
-uuid: f9e8fbba-1a80-4d17-899f-f7be0220a1e8
+uuid: 74b8f7af-5c44-4768-bbf3-bcd3d4348893
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_phone_numbers_paragraph
-    - node.type.health_care_local_health_service
+    - node.type.vamc_system_va_police
     - paragraphs.paragraphs_type.phone_number
   module:
     - entity_reference_revisions
-id: node.health_care_local_health_service.field_phone_numbers_paragraph
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vamc_system_va_police.field_phone_numbers_paragraph
 field_name: field_phone_numbers_paragraph
 entity_type: node
-bundle: health_care_local_health_service
-label: 'Phone number for appointments'
-description: "If you don't provide a phone number, the main Facility phone number will be displayed."
+bundle: vamc_system_va_police
+label: 'Contact phone number'
+description: 'The phone number should always be the Emergency contact line.'
 required: false
 translatable: false
 default_value: {  }
@@ -34,8 +38,17 @@ settings:
       alert_single:
         weight: 41
         enabled: false
+      audience_topics:
+        weight: 49
+        enabled: false
+      basic_accordion:
+        weight: 50
+        enabled: false
       button:
         weight: 33
+        enabled: false
+      centralized_content_descriptor:
+        weight: 52
         enabled: false
       checklist:
         weight: 36
@@ -58,14 +71,23 @@ settings:
       email_contact:
         weight: 49
         enabled: false
+      embedded_video:
+        weight: 60
+        enabled: false
       expandable_text:
         weight: 28
+        enabled: false
+      featured_content:
+        weight: 62
         enabled: false
       health_care_local_facility_servi:
         weight: 29
         enabled: false
       link_teaser:
         weight: 30
+        enabled: false
+      link_teaser_with_image:
+        weight: 65
         enabled: false
       list_of_link_teasers:
         weight: 31
@@ -75,6 +97,9 @@ settings:
         enabled: false
       lists_of_links:
         weight: 42
+        enabled: false
+      magichead_group:
+        weight: 69
         enabled: false
       media:
         weight: 32
@@ -109,6 +134,9 @@ settings:
       react_widget:
         weight: 38
         enabled: false
+      rich_text_char_limit_1000:
+        weight: 81
+        enabled: false
       service_location:
         weight: 51
         enabled: false
@@ -123,9 +151,6 @@ settings:
         enabled: false
       staff_profile:
         weight: 41
-        enabled: false
-      starred_horizontal_rule:
-        weight: 42
         enabled: false
       step:
         weight: 57
