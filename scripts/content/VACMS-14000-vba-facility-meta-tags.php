@@ -14,10 +14,9 @@ require_once __DIR__ . '/script-library.php';
 
 use Psr\Log\LogLevel;
 
-$revision_message = 'In a separate action, the facility meta tags were populated from centralized content.';
 $sandbox = ['#finished' => 0];
 do {
-  print(va_gov_set_vba_facility_meta_tags($sandbox, $revision_message));
+  print(va_gov_set_vba_facility_meta_tags($sandbox));
 } while ($sandbox['#finished'] < 1);
 // Node processing complete.  Call this done.
 return;
@@ -27,13 +26,11 @@ return;
  *
  * @param array $sandbox
  *   Modeling the structure of hook_update_n sandbox.
- * @param string $revision_message
- *   Text to be used in revision log message.
  *
  * @return string
  *   Status message.
  */
-function va_gov_set_vba_facility_meta_tags(array &$sandbox, $revision_message) {
+function va_gov_set_vba_facility_meta_tags(array &$sandbox) {
   $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
   // Get the count for VBA facilities.
@@ -75,7 +72,7 @@ function va_gov_set_vba_facility_meta_tags(array &$sandbox, $revision_message) {
 
     update_field_cc_meta_tags_table($nid, $nvid);
 
-    // Set the latest revision, if different.
+    // Set the latest revision, if different than the default.
     if ($nvid < $latest_nvid) {
       update_field_cc_meta_tags_table($nid, $latest_nvid);
     }
@@ -115,7 +112,7 @@ function va_gov_set_vba_facility_meta_tags(array &$sandbox, $revision_message) {
  * @param string $revisionId
  *   The id of the node revision.
  */
-function update_field_cc_meta_tags_table($nodeId, $revisionId) {
+function update_field_cc_meta_tags_table(string $nodeId, string $revisionId) {
   $connection = \Drupal::database();
   $connection->upsert('node__field_cc_meta_tags')
     ->fields([
