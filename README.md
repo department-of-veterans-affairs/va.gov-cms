@@ -1,6 +1,6 @@
 # VA.gov CMS
 
-This is the public/open documentation for the VA.gov Content Management System (CMS). The private/sensitive documentation is [here](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms). See [sensitive-guidance.md](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md) to read about what should be public vs. private. We follow the U.S. Digital Services Playbook and [default to open/public](https://playbook.cio.gov/#play13)).
+This is the public/open documentation for the VA.gov Content Management System (CMS) for development, QA and DevOps topics. For product, design, research and cross-team documentation, visit the [platform/cms docs](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms). For private/sensitive documentation, visit the [private docs repo](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms). See [sensitive-guidance.md](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md) to read about what should be public vs. private. We follow the U.S. Digital Services Playbook and [default to open/public](https://playbook.cio.gov/#play13)).
 
 [VA.gov](https://www.va.gov) is constructed at the highest level by three projects:
 - the **CMS** or **Content Management System**, in this repository
@@ -47,7 +47,9 @@ The VA.gov CMS Team
    1. [Testing](READMES/testing.md)
    1. [Debugging](READMES/debugging.md)
    1. [Comparing GraphQL Output](READMES/comparing-graphql-output.md)
+   1. [Dependabot Alerts](READMES/dependabot-alerts.md)
    1. [Dependabot Updates](READMES/dependabot-updates.md)
+   1. [Sentry](READMES/sentry.md)
    1. [Profiling with Blackfire](READMES/blackfire.md)
    1. [Scalability Testing](READMES/scalability-testing.md)
 1. **Release & Deployment**
@@ -65,6 +67,7 @@ The VA.gov CMS Team
    1. Migrations (data imports)
       1. [Facility](READMES/migrations-facility.md)
       1. [Form](READMES/migrations-forms.md)
+   1. [Removing deprecated fields](READMES/remove-deprecated-fields.md)
    1. [Security](READMES/security.md)
    1. [Upstream Dependencies](READMES/upstream-dependencies.md)
    1. [Downstream Dependencies](READMES/downstream_dependencies.md)
@@ -141,7 +144,7 @@ This section outlines only the systems utilized by the CMS. See the READMEs in t
 - A single "mirror" environment is regularly populated with a sanitized production database copy.
 - Open Pull Requests get environments created automatically, cloned from the "mirror" environment, with URLs like:
    - [pr123-{hash}.ci.cms.va.gov](https://pr123-{hash}.ci.cms.va.gov) for the CMS
-      - Cypress test logs and artifacts, navigate to https://pr123-{hash}.ci.cms.va.gov/cypress/
+      - Cypress test logs and artifacts, see [Testing](READMES/testing.md) for details.
    - [web-{hash}.ci.cms.va.gov](http://web-{hash}.ci.cms.va.gov) for the frontend web build
    - [storybook-{hash}.ci.cms.va.gov](http://storybook-{hash}.ci.cms.va.gov) for design system documentation
 - Ad-hoc environments can be created and deleted at any time by any logged in user on [tugboat.vfs.va.gov/](https://tugboat.vfs.va.gov/):

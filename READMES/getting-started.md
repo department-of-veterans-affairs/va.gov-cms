@@ -23,7 +23,7 @@ See [the Codespaces README](./codespaces.md) to get a fully functional cloud-bas
   ```sh
   $ git fetch --all
   ```
-q
+
 * Make sure git is not tracking perms
   ```sh
   $ git config core.fileMode false
