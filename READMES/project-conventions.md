@@ -9,7 +9,7 @@
 
 ## Tickets
 
-* The title should be clear and descriptive. Keep in mind that this ticket may contain useful information for years, so make it easy to search for and find.
+* The title should be clear and descriptive. Keep in mind that this ticket may contain useful information for years, so make it searchable.
 * The description should contain as much detail as possible. It is great to link to a Slack thread, but it is better to summarize the salient points of the thread, copy and paste comments, *et cetera*, to make the ticket the source of truth.
 * Acceptance Criteria
   * Must be **SMART**:
