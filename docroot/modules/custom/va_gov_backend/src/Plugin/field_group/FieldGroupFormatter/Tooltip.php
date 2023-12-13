@@ -29,7 +29,7 @@ class Tooltip extends HtmlElement {
     $element['#attached']['library'][] = 'va_gov_backend/field_group_tooltip';
     $element['#attached']['library'][] = 'va_gov_backend/tippy_popover_theme';
 
-    $element['#attributes']['class'][] = 'tooltip-layout';
+    $element['#attributes']->addClass('tooltip-layout');
 
     if (!empty($this->getSetting('tooltip_description'))) {
       $element['tooltip_description'] = [
