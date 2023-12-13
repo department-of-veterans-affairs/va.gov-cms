@@ -1,9 +1,9 @@
-uuid: 8e093143-50b6-43c0-97ec-9cf041f54048
+uuid: a6e50d9b-da73-40fe-83b7-0a2325751c77
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.search_index
     - field.field.node.vamc_system_va_police.field_administration
     - field.field.node.vamc_system_va_police.field_cc_faq
     - field.field.node.vamc_system_va_police.field_cc_police_report
@@ -19,15 +19,15 @@ dependencies:
   module:
     - entity_reference_revisions
     - user
-id: node.vamc_system_va_police.teaser
+id: node.vamc_system_va_police.search_index
 targetEntityType: node
 bundle: vamc_system_va_police
-mode: teaser
+mode: search_index
 content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
   field_phone_numbers_paragraph:
     type: entity_reference_revisions_entity_view

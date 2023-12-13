@@ -31,11 +31,13 @@ dependencies:
   module:
     - address
     - allowed_formats
+    - change_labels
     - content_moderation
     - field_group
     - limited_field_widgets
     - linkit
     - media_library
+    - no_table_drag
     - path
     - smart_date
     - smart_date_recur
@@ -262,9 +264,11 @@ content:
       hide_date: false
       separator: to
       add_abbreviations: ''
-      allday: true
-      remove_seconds: false
+      allday: '1'
+      remove_seconds: 0
     third_party_settings:
+      no_table_drag:
+        no_table_drag: true
       smart_date_recur:
         modal: true
         allowed_recur_freq_values:
@@ -276,6 +280,8 @@ content:
           YEARLY: '0'
       limited_field_widgets:
         limit_values: '1'
+      change_labels:
+        add_another: ''
   field_description:
     type: string_textfield
     weight: 3

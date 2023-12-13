@@ -1,9 +1,9 @@
-uuid: 8e093143-50b6-43c0-97ec-9cf041f54048
+uuid: 42235b75-4873-4721-8cba-18298ed81527
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.external_content
     - field.field.node.vamc_system_va_police.field_administration
     - field.field.node.vamc_system_va_police.field_cc_faq
     - field.field.node.vamc_system_va_police.field_cc_police_report
@@ -18,17 +18,33 @@ dependencies:
     - node.type.vamc_system_va_police
   module:
     - entity_reference_revisions
+    - field_group
     - user
-id: node.vamc_system_va_police.teaser
+third_party_settings:
+  field_group:
+    group_contact_data:
+      children:
+        - field_phone_numbers_paragraph
+      label: 'Contact data'
+      parent_name: ''
+      region: content
+      weight: 50
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        description: '<a class="admin-help-email-tpl" href="/help/vamc/about-va-police">Learn how to correct or update centrally-managed VA police data</a>.'
+        id: ''
+        classes: 'not-editable '
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+id: node.vamc_system_va_police.external_content
 targetEntityType: node
 bundle: vamc_system_va_police
-mode: teaser
+mode: external_content
 content:
-  content_moderation_control:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
   field_phone_numbers_paragraph:
     type: entity_reference_revisions_entity_view
     label: above
@@ -36,10 +52,11 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
 hidden:
   breadcrumbs: true
+  content_moderation_control: true
   field_administration: true
   field_cc_faq: true
   field_cc_police_report: true
