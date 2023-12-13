@@ -59,11 +59,11 @@
   * Strictly define roles and permissions in Drupal, ensuring users have only the access they need, following the Principle of Least Privilege.
   * Limit the number of administrative accounts and use them only when necessary.
   * Regularly update Drupal core and modules to their latest secure versions.
-  * Assess the severity of vulnerabilities regardless of whether:
-    * the vulnerability needs to be exploited by a user
-    * the vulnerability needs to be exploited by a user with a specific role
-    * the vulnerability needs to be exploited from within the VA network
-    * the vulnerability needs to be exploited from the command line
+  * Assess the severity of vulnerabilities regardless of whether it needs to be exploited:
+    * by a user
+    * by a user with a specific role
+    * from within the VA network
+    * from the command line
 
 ### Theming
 
