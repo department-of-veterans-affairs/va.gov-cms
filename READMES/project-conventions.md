@@ -62,12 +62,23 @@
 
 * If your work depends on a contrib module behaving in a specific way, add automated tests to assure consistency across updates moving forward.
 * If functionality for which your team is responsible breaks as a result of a bug added by an update to a contrib module, add automated tests to guard against regressions.
+* Ensure that contrib modules are explicitly listed as dependencies by custom modules that rely on them.
 
 ## Automated Testing
 
-* Prefer unit testing for basic functionality of classes, methods, and functions.
-* Prefer "existing site base" tests for complex functionality interacting with or dependent upon hooks and/or Drupal Core functionality.
+* Prefer PHPUnit unit testing for basic functionality of classes, methods, and functions.
+* Prefer PHPUnit "existing site base" (functional) tests for complex functionality interacting with or dependent upon hooks and/or Drupal Core functionality.
+* Add new PHPUnit tests in `tests/phpunit/<module>/(unit|functional)/<namespace>`, e.g. `tests/phpunit/va_gov_magichead/functional/Field/MaxDepthTest.php`.
 * Prefer Cypress tests for complex UI functionality, forms, etc.
+* Add new Cypress tests in:
+  * `tests/cypress/integration/features/content_type` for general functionality of a specific content type.
+  * `tests/cypress/integration/features/<team name>` for team-specific tests
+    * This is intended to protect against unexpected changes to tests that support your team's mission
+* Add new Cypress step definitions in:
+  * `tests/cypress/integration/step_definitions/common` for general purpose step definitions
+  * `tests/cypress/integration/step_definitions/<team name>` for team-specific step definitions
+    * This is intended to protect against unexpected changes to tests that support your team's mission
+  * `tests/cypress/integration/step_definitions/<subject>` for step definitions only relevant to a specific subject or concept
 
 ## Pull Requests
 
@@ -92,12 +103,18 @@
   * If you have a suggestion for an alternative approach, or a concern about the ticket or the approach, escalate it to your PM/DM/PO.
 * Do not review PRs that do not belong to a member of your team unless your review has been requested.
   * If your review has been requested as a result of code ownership, but the code in question is owned by multiple teams, consider whether your review is necessary or valuable in this context.
-  * For example, `config/sync` is massive, messy, and ownership is shared between multiple teams. It is good to be aware of changes to configuration, but it is not necessarily appropriate for you to review those changes formally.
+  * For example, `config/sync` is massive, messy, and ownership is shared between multiple teams. It is good to be aware of changes to configuration, but it is not necessarily appropriate for *you* to review those changes formally.
 * Do not make changes to PRs that do not belong to a member of your team without their consent and approval.
   * Instead, make suggestions, justify them, and allow the owner to approve or reject them.
 * Do not merge new changes into PRs that do not belong to a member of your team (excluding Dependabot, etc) without their consent and approval.
 * Do not merge a PR that does not belong to a member of your team without their consent and approval.
 * Do not review PRs that are in "Draft" status unless you have been specifically requested.
+
+## Communication
+
+* Prefer communication in the open. Ask questions in the open.
+  * If the documentation does not contain the answer to a procedural question, add documentation containing the answer.
+  * If the documentation *does* contain the answer, consider revising/improving it to improve searchability/relevance/readability/anything else.
 
 ----
 
