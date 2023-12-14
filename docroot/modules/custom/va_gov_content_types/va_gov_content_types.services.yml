@@ -1,0 +1,6 @@
+services:
+  va_gov_content_types.entity_bundle_create_event_subscriber:
+    class: Drupal\va_gov_content_types\EventSubscriber\EntityBundleCreateEventSubscriber
+    arguments: ['@config.factory', '@prometheus_exporter.metrics_collector_manager']
+    tags:
+      - { name: event_subscriber }
