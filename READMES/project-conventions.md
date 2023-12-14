@@ -24,6 +24,7 @@
 * Prefer opening multiple small tickets to a single large ticket.
   * Smaller tickets are easier to write, easier to test, easier to debug, easier to review, easier to close, and easier to report.
   * The overhead is negligible.
+  * Use epics, GitHub Projects, or links between tickets to make it easier to track down related tickets.
 * Use the `Defect` label to identify tickets for issues actively and meaningfully impacting the user experience.
 * Use the `Critical Defect` label to identify tickets for issues impacting the user experience to such a degree that they need to be resolved within the current sprint.
   * This will generally also be `Unplanned Work`.
