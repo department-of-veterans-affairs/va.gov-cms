@@ -17,7 +17,7 @@
     "require": {
         "bower-asset/cropper": "^4.1",
         "caxy/php-htmldiff": "^0.1.14",
-        "composer/installers": "^2.2.0",
+        "composer/installers": "^2.2",
         "consolidation/site-process": "^5.2",
         "cweagans/composer-patches": "^1.7",
         "datadog/dd-trace": "^0.95.0",
@@ -143,6 +143,8 @@
         "drupal/office_hours": "^1.9",
         "drupal/openapi": "^2.0@RC",
         "drupal/openapi_jsonapi": "^3.0",
+        "drupal/openapi_ui": "^1.0@RC",
+        "drupal/openapi_ui_swagger": "^1.0",
         "drupal/override_node_options": "^2.4",
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.1",
@@ -201,6 +203,7 @@
         "mglaman/phpstan-drupal": "^1.0",
         "michelf/php-markdown": "^2.0",
         "mikey179/vfsstream": "^1.6",
+        "mnsami/composer-custom-directory-installer": "^2.0",
         "npm-asset/dropzone": "^5.5",
         "npm-asset/yarn": "1.19.1",
         "oomphinc/composer-installers-extender": "^2.0",
@@ -303,7 +306,8 @@
             "php-http/discovery": true,
             "cweagans/composer-patches": true,
             "orakili/composer-drupal-info-file-patch-helper": true,
-            "digitalrevolution/php-codesniffer-baseline": true
+            "digitalrevolution/php-codesniffer-baseline": true,
+            "mnsami/composer-custom-directory-installer": true
         }
     },
     "extra": {
@@ -334,6 +338,7 @@
                 "type:drupal-core"
             ],
             "docroot/libraries/{$name}": [
+                "swagger-api/swagger-ui",
                 "type:drupal-library",
                 "type:bower-asset",
                 "type:npm-asset"
@@ -464,6 +469,9 @@
                 "3110109 - Support renamed resource types Part 1": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/17070f1ef70ff89f732619a11c29730107a2083e.patch",
                 "3110109 - Support renamed resource types Part 2": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/9b02c70521c499152c915e481aaf4925992bc8f9.patch",
                 "3185778 - Fix TypeError: Cannot read property 'anyOf' of undefined": "https://www.drupal.org/files/issues/2020-12-21/add_required_keyword_8.x_2.x-3185778-5.patch"
+            },
+            "drupal/openapi_ui_swagger": {
+                "3259746 - Add more UI config defaults": "https://www.drupal.org/files/issues/2023-12-13/add-more-config-defaults-3259746-3.patch"
             },
             "drupal/paragraphs": {
                 "3138609 - Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
