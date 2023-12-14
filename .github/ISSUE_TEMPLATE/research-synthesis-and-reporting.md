@@ -1,7 +1,7 @@
 ---
 name: Research Synthesis and Reporting
-about: Use this template when synthesizing your research and reporting the topline findings.
-title: Synthesize [PRODUCT/INITIATIVE] research & create Topline Summary
+about: Use this template when synthesizing your research and reporting findings.
+title: Synthesize [PRODUCT/INITIATIVE] research & write report
 labels: Research, UX
 assignees: ''
 
