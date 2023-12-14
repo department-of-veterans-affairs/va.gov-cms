@@ -88,18 +88,18 @@ The VA.gov CMS Team
 
 ### About the CMS
 
-This repository hosts the source code for the _Content Management System_ (**CMS** or **CMS-API**) utilized by [VA.gov](https://www.va.gov). 
+This repository hosts the source code for the _Content Management System_ (**CMS** or **CMS-API**) utilized by [VA.gov](https://www.va.gov).
 
 The production instance can be found at [prod.cms.va.gov](https://prod.cms.va.gov/). Please note that access to the production CMS is limited; refer to [Getting Access](READMES/access.md) for more information.
 
-Built on [Drupal 9.5](https://www.drupal.org), the **CMS** employs the [Composer](https://getcomposer.org) package management system. To get started, consult [Getting Started](READMES/getting-started.md).
+Built on [Drupal 10.1](https://www.drupal.org), the **CMS** employs the [Composer](https://getcomposer.org) package management system. To get started, consult [Getting Started](READMES/getting-started.md).
 
 ### Contributing
 
 All of the source code used for generating VA.gov is open source, listed under the [department-of-veterans-affairs](https://github.com/department-of-veterans-affairs)
 organization on GitHub:
 
-- **CMS**: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) - Drupal 9.5
+- **CMS**: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) - Drupal 10.1
 - **vets-website**: [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website) - Node.js
 - **vets-api**: [github.com/department-of-veterans-affairs/vets-api](https://github.com/department-of-veterans-affairs/vets-api) - Ruby
 - **content-build**: [github.com/department-of-veterans-affairs/vagov-content](https://github.com/department-of-veterans-affairs/vagov-content) - Node.js, Metalsmith
@@ -112,7 +112,7 @@ All development on these projects is done via Pull Requests.
 
 The public-facing website at [VA.gov](https://www.va.gov) is a static site hosted on S3, composed of HTML, CSS, JavaScript, and images.
 
-[This codebase](https://github.com/department-of-veterans-affairs/va.gov-cms) is dedicated to the CMS, built on Drupal 9.
+[This codebase](https://github.com/department-of-veterans-affairs/va.gov-cms) is dedicated to the CMS, built on Drupal 10.
 
 The source code for generating the public site is located in the [vets-website](https://github.com/department-of-veterans-affairs/vets-website) repository. The component responsible for extracting raw content from the CMS and converting it to HTML is developed in a separate repository, [content-build](https://github.com/department-of-veterans-affairs/content-build).
 
