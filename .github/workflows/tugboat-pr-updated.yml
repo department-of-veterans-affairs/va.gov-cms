@@ -21,7 +21,7 @@ jobs:
     - name: Set Preview ID
       run: |
         if ! [ -f .tugboat_preview.txt ]; then
-          echo "Preview ID not found, please manually rebuild Tugboat Preview."
+          echo "Preview ID not found, please manually rebuild Tugboat Preview. Contact platform-cms-qa on Github or CMS QA Engineers in #cms-support on Slack for assistance."
           exit 1
         fi
         PREVIEW_ID=$(cat .tugboat_preview.txt)
