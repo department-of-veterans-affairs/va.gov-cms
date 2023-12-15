@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Theme settings for the va.gov theme.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_page_attachments().
+ */
+function va_gov_api_page_attachments(array &$attachments): void {
+  // Get the current path.
+  $current_path = \Drupal::service('path.current')->getPath();
+
+  if ($current_path == '/admin/config/services/openapi') {
+    $attachments['#attached']['library'][] = 'va_gov_api/json_schemas_table_filter';
+  }
+
+  $foo = 'bar';
+}
