@@ -1,3 +1,4 @@
+uuid: 76c51618-4d13-499e-8cf9-3022715c0070
 langcode: en
 status: true
 dependencies: {  }
@@ -14,7 +15,7 @@ source:
   plugin: csv
   path: modules/custom/va_gov_migrate/data/police_system_contacts.csv
   delimiter: ','
-  enclosure: ''''
+  enclosure: "'"
   escape: \
   header_offset: 1
   track_changes: true
@@ -37,31 +38,35 @@ source:
       label: 'VISN number'
     -
       name: vamc_system_label
-      label: "VAMC System name"
+      label: 'VAMC System name'
     -
       name: facility_id
-      label: "The API id of the main facility"
+      label: 'The API id of the main facility'
     -
       name: status
-      label: "Status of the entry (used for internal tracking)"
+      label: 'Status of the entry (used for internal tracking)'
     -
       name: skip
-      label: "A boolean indicating if the row should be skipped"
+      label: 'A boolean indicating if the row should be skipped'
 process:
-  # This is where we process the incoming row and assign to fields.
   pseudo_clean_phone:
     -
       plugin: str_replace
-      search: ["(", ")", "X"]
-      replace: ["", "-", "x"]
+      search:
+        - (
+        - )
+        - X
+      replace:
+        - ''
+        - '-'
+        - x
       source: telephone_ops
-
   pseudo_phone:
     -
       plugin: explode
       delimiter: x
       limit: 2
-      source: "@pseudo_clean_phone"
+      source: '@pseudo_clean_phone'
     -
       plugin: array_shift
     -
@@ -72,17 +77,16 @@ process:
       plugin: explode
       delimiter: x
       limit: 2
-      source: "@pseudo_clean_phone"
+      source: '@pseudo_clean_phone'
     -
       plugin: array_pop
     -
       plugin: callback
       callable: trim
-    # Remove the original number if it made it this far.
     -
-       plugin: str_replace
-       search: '@pseudo_phone'
-       replace: ''
+      plugin: str_replace
+      search: '@pseudo_phone'
+      replace: ''
   skip:
     -
       plugin: skip_on_value
@@ -166,5 +170,5 @@ destination:
     - revision_timestamp
     - uid
 migration_dependencies:
-  required: []
-  optional: []
+  required: {  }
+  optional: {  }
