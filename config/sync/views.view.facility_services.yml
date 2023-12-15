@@ -9361,59 +9361,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        edit_node:
-          id: edit_node
-          table: node_field_revision
-          field: edit_node
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: entity_link_edit
-          label: ''
-          exclude: false
-          alter:
-            alter_text: true
-            text: '<a href="/node/{{ nid }}/edit" class="button">Edit</a>'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          text: ''
-          output_url_as_text: true
-          absolute: false
         type:
           id: type
           table: node_field_data
@@ -10049,8 +9996,8 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: short
-            custom_date_format: ''
+            date_format: custom
+            custom_date_format: 'Y-m-d H:ia'
             timezone: ''
             tooltip:
               date_format: ''
@@ -10061,6 +10008,7 @@ display:
               past_format: '@interval ago'
               granularity: 2
               refresh: 60
+              description: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -10071,6 +10019,55 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: custom
+          label: URL
+          exclude: false
+          alter:
+            alter_text: true
+            text: 'https://prod.cms.va.gov/node/{{ nid }}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
       sorts:
         field_service_location_target_id:
           id: field_service_location_target_id
@@ -10587,10 +10584,13 @@ display:
         vet_center_services_page: '0'
       filename: va-gov-cms-facility-services.csv
       automatic_download: false
+      redirect_path: /admin/content/audit/facility-services
+      export_method: batch
+      export_batch_size: 500
       store_in_public_file_directory: null
-      custom_redirect_path: false
+      custom_redirect_path: true
       redirect_to_display: none
-      include_query_params: false
+      include_query_params: true
     cache_metadata:
       max-age: -1
       contexts:
