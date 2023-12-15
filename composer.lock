@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5076eab84ec9f08c56247c3fc868efef",
+    "content-hash": "a3cb7d2f587c883513e7df7cb6b8332c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -10977,23 +10977,23 @@
         },
         {
             "name": "drupal/path_redirect_import",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/path_redirect_import.git",
-                "reference": "2.0.7"
+                "reference": "2.0.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/path_redirect_import-2.0.7.zip",
-                "reference": "2.0.7",
-                "shasum": "20c746f7dcccf1377e89741b20cd1ae22c64ddaf"
+                "url": "https://ftp.drupal.org/files/projects/path_redirect_import-2.0.8.zip",
+                "reference": "2.0.8",
+                "shasum": "a1fb1fe44bf657228d099576874ade5e6065c414"
             },
             "require": {
                 "drupal/core": ">=9.1",
                 "drupal/migrate_source_csv": "^3.5",
-                "drupal/migrate_tools": "^5.0 || ^6.0",
-                "drupal/redirect": "*",
+                "drupal/migrate_tools": "^6.0.2",
+                "drupal/redirect": ">=1.7",
                 "php": ">=7.1"
             },
             "require-dev": {
@@ -11002,11 +11002,16 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.7",
-                    "datestamp": "1686322209",
+                    "version": "2.0.8",
+                    "datestamp": "1701853731",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": ">=9"
                     }
                 }
             },
@@ -11032,7 +11037,7 @@
             "description": "Migrate Drupal redirects from CSV.",
             "homepage": "https://www.drupal.org/project/path_redirect_import",
             "support": {
-                "source": "https://cgit.drupalcode.org/path_redirect_import",
+                "source": "https://git.drupalcode.org/path_redirect_import",
                 "issues": "https://www.drupal.org/project/issues/path_redirect_import"
             }
         },
