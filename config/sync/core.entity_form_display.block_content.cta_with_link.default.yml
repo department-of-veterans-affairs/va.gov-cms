@@ -11,7 +11,6 @@ dependencies:
     - field.field.block_content.cta_with_link.field_related_info_links
     - workflows.workflow.editorial
   module:
-    - change_labels
     - content_moderation
     - field_group
     - linkit
@@ -124,8 +123,6 @@ content:
       linkit_profile: default
       linkit_auto_link_text: false
     third_party_settings:
-      change_labels:
-        add_another: 'Add another link'
   info:
     type: string_textfield
     weight: 0

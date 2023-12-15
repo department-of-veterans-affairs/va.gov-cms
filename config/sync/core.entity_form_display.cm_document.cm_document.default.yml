@@ -16,7 +16,6 @@ dependencies:
     - field.field.cm_document.cm_document.field_stakeholders
     - image.style.medium
   module:
-    - change_labels
     - content_model_documentation
     - field_group
     - image
@@ -73,8 +72,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: 'Add another source'
+
   field_data_pushed_to:
     type: options_buttons
     weight: 2
@@ -83,8 +81,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: 'Add another destination'
+
   field_diagram:
     type: mermaid_diagram_widget
     weight: 1
@@ -93,8 +90,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: 'Add another diagram'
+
   field_link_to_cms_design_system:
     type: link_default
     weight: 5
@@ -105,8 +101,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: 'Add another link to CMS Design System'
+
   field_link_to_va_design_system:
     type: link_default
     weight: 7
@@ -117,8 +112,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: 'Add another link to VA design system'
+
   field_links_to_design:
     type: link_default
     weight: 4
@@ -129,8 +123,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: 'Add another design link'
+
   field_links_to_research:
     type: link_default
     weight: 6
@@ -141,8 +134,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: 'Add another link to research'
+
   field_other_links:
     type: link_default
     weight: 5
@@ -153,8 +145,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: 'Add another link'
+
   field_related_knowledgebase:
     type: entity_reference_autocomplete
     weight: 3
@@ -167,8 +158,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: 'Add another Knowledge Base article link'
+
   field_screenshots:
     type: image_image
     weight: 6
@@ -179,9 +169,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: 'Add another screenshot'
-        remove_label: ''
+
   field_stakeholders:
     type: options_buttons
     weight: 4

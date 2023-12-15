@@ -40,7 +40,7 @@ dependencies:
   module:
     - address
     - allowed_formats
-    - change_labels
+
     - content_moderation
     - entity_field_fetch
     - field_group
@@ -510,8 +510,7 @@ content:
         add_in_between_link_count: 3
         delete_confirmation: false
         show_drag_and_drop: true
-      change_labels:
-        add_another: ''
+
   field_location_services:
     type: entity_reference_paragraphs
     weight: 5
@@ -526,8 +525,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: ''
+
   field_media:
     type: media_library_widget
     weight: 4
@@ -617,8 +615,7 @@ content:
         show_drag_and_drop: true
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: ''
+
   field_shared_vha_location:
     type: entity_reference_autocomplete
     weight: 17

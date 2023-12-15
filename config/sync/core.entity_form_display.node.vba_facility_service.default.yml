@@ -13,7 +13,7 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - allow_only_one
-    - change_labels
+
     - content_moderation
     - field_group
     - limited_field_widgets
@@ -134,8 +134,7 @@ content:
         show_drag_and_drop: true
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: ''
+
   field_service_name_and_descripti:
     type: options_select
     weight: 3

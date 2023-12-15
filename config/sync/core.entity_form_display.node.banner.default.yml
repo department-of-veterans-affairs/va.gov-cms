@@ -13,7 +13,7 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - allowed_formats
-    - change_labels
+
     - content_moderation
     - field_group
     - limited_field_widgets
@@ -110,8 +110,7 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-      change_labels:
-        add_another: 'Add another path'
+
   moderation_state:
     type: moderation_state_default
     weight: 21
