@@ -17,7 +17,7 @@
     "require": {
         "bower-asset/cropper": "^4.1",
         "caxy/php-htmldiff": "^0.1.14",
-        "composer/installers": "^2.2.0",
+        "composer/installers": "^2.2",
         "consolidation/site-process": "^5.2",
         "cweagans/composer-patches": "^1.7",
         "datadog/dd-trace": "^0.95.0",
@@ -132,7 +132,7 @@
         "drupal/migrate_source_csv": "^3.4",
         "drupal/migrate_source_ui": "^1.0",
         "drupal/migrate_tools": "^6.0",
-        "drupal/migration_tools": "^2.7",
+        "drupal/migration_tools": "^2.8",
         "drupal/mimemail": "^1.0@alpha",
         "drupal/monolog": "^2.0",
         "drupal/next": "^1.1",
@@ -143,6 +143,8 @@
         "drupal/office_hours": "^1.9",
         "drupal/openapi": "^2.0@RC",
         "drupal/openapi_jsonapi": "^3.0",
+        "drupal/openapi_ui": "^1.0@RC",
+        "drupal/openapi_ui_swagger": "^1.0",
         "drupal/override_node_options": "^2.4",
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.1",
@@ -201,6 +203,7 @@
         "mglaman/phpstan-drupal": "^1.0",
         "michelf/php-markdown": "^2.0",
         "mikey179/vfsstream": "^1.6",
+        "mnsami/composer-custom-directory-installer": "^2.0",
         "npm-asset/dropzone": "^5.5",
         "npm-asset/yarn": "1.19.1",
         "oomphinc/composer-installers-extender": "^2.0",
@@ -219,7 +222,7 @@
         "symfony/phpunit-bridge": "^5.1",
         "symfony/process": "^6.3",
         "symfony/routing": "^6.3",
-        "va-gov/content-build": "^0.0.3405",
+        "va-gov/content-build": "^0.0.3407",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -335,6 +338,7 @@
                 "type:drupal-core"
             ],
             "docroot/libraries/{$name}": [
+                "swagger-api/swagger-ui",
                 "type:drupal-library",
                 "type:bower-asset",
                 "type:npm-asset"
@@ -466,6 +470,9 @@
                 "3110109 - Support renamed resource types Part 2": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/9b02c70521c499152c915e481aaf4925992bc8f9.patch",
                 "3185778 - Fix TypeError: Cannot read property 'anyOf' of undefined": "https://www.drupal.org/files/issues/2020-12-21/add_required_keyword_8.x_2.x-3185778-5.patch"
             },
+            "drupal/openapi_ui_swagger": {
+                "3259746 - Add more UI config defaults": "https://www.drupal.org/files/issues/2023-12-13/add-more-config-defaults-3259746-3.patch"
+            },
             "drupal/paragraphs": {
                 "3138609 - Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
                 "2919186 - Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
@@ -476,9 +483,6 @@
             "drupal/pathauto": {
                 "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2022-10-28/pathauto-add_deriver_for_alias_update_action-3204586-28_0.patch",
                 "3214658 - Omit nolink items from url path args and add token that uses parent url": "https://www.drupal.org/files/issues/2022-05-08/remove-nolink-args-use-parent-entity-url-3214658-18.patch"
-            },
-            "drupal/path_redirect_import": {
-                "3373025 - Update to support path redirect import migrate_tools 6.0.2": "https://www.drupal.org/files/issues/2023-07-06/path_redirect_import-3373025.patch"
             },
             "drupal/prometheus_exporter": {
                 "3214628 - Add published/unpublished node statistics to NodeCount.": "https://www.drupal.org/files/issues/2021-06-29/prometheus_exporter-add_status_metrics_to_node_count-3214628-3.patch"
