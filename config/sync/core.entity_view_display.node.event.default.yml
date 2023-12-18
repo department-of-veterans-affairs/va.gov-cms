@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.event.field_address
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
+    - field.field.node.event.field_cta_email
     - field.field.node.event.field_datetime_range_timezone
     - field.field.node.event.field_description
     - field.field.node.event.field_event_cost
@@ -15,6 +16,7 @@ dependencies:
     - field.field.node.event.field_event_registrationrequired
     - field.field.node.event.field_facility_location
     - field.field.node.event.field_featured
+    - field.field.node.event.field_how_to_sign_up
     - field.field.node.event.field_include_registration_info
     - field.field.node.event.field_last_saved_by_an_editor
     - field.field.node.event.field_link
@@ -86,9 +88,11 @@ third_party_settings:
         description: ''
     group_registration_related:
       children:
-        - field_link
         - field_event_registrationrequired
         - field_event_cost
+        - field_how_to_sign_up
+        - field_link
+        - field_cta_email
         - field_additional_information_abo
       label: 'Registration related'
       parent_name: group_c
@@ -124,7 +128,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 21
+    weight: 28
     region: content
   field_additional_listings:
     type: entity_reference_label
@@ -147,6 +151,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_cta_email:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 27
     region: content
   field_datetime_range_timezone:
     type: smartdate_default
@@ -184,7 +195,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 19
+    weight: 24
     region: content
   field_event_cta:
     type: list_default
@@ -201,7 +212,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 18
+    weight: 23
     region: content
   field_facility_location:
     type: entity_reference_label
@@ -220,6 +231,13 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 30
+    region: content
+  field_how_to_sign_up:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 25
     region: content
   field_include_registration_info:
     type: boolean
@@ -241,7 +259,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 17
+    weight: 26
     region: content
   field_listing:
     type: entity_reference_label
