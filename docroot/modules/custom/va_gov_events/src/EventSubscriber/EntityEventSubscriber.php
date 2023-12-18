@@ -2,133 +2,19 @@
 
 namespace Drupal\va_gov_events\EventSubscriber;
 
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Session\AccountProxy;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
-use Drupal\feature_toggle\FeatureStatus;
-use Drupal\node\NodeInterface;
-use Drupal\va_gov_user\Service\UserPermsService;
+use Drupal\va_gov_content_types\Entity\Event;
+use Drupal\va_gov_content_types\Traits\EventOutreachTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * VA.gov VAMC Entity Event Subscriber.
+ * VA.gov Event content type subscriber.
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
 
-  use StringTranslationTrait;
-
-  /**
-   * The 'publish to the national outreach calendar' field name.
-   */
-  const PUBLISH_TO_OUTREACH_CAL_FIELD = 'field_publish_to_outreach_cal';
-
-  /**
-   * The 'field_listing' field name.
-   */
-  const LISTING_FIELD = 'field_listing';
-
-  /**
-   * The 'field_additional_listings' field name.
-   */
-  const ADDITIONAL_LISTING_FIELD = 'field_additional_listings';
-
-  /**
-   * The National Outreach Calendar node id.
-   */
-  const OUTREACH_CAL_NID = 736;
-
-  /**
-   * The 'Outreach Hub' Section term id.
-   */
-  const OUTREACH_HUB_TID = 7;
-
-  /**
-   * The Feature toggle name for outreach checkbox.
-   */
-  const OUTREACH_CHECKBOX_FEATURE_NAME = 'feature_event_outreach_checkbox';
-
-  /**
-   * The Feature toggle name that controls displaying the checkbox to all users.
-   */
-  const OUTREACH_CHECKBOX_ALL_NAME = 'feature_event_outreach_checkbox_all';
-
-  /**
-   * The list of users allowed to view the outreach checkbox.
-   */
-  const OUTREACH_CHECKBOX_TEST_USERS = [
-    2910,
-    1448,
-    4356,
-    2861,
-    2922,
-    3421,
-    3314,
-    4573,
-    3864,
-    1583,
-    3610,
-    2927,
-    2955,
-    3314,
-    2957,
-    3420,
-    2962,
-    2719,
-    4356,
-    1448,
-    2574,
-    1444,
-    2906,
-    31,
-  ];
-
-  /**
-   * The User Perms Service.
-   *
-   * @var \Drupal\va_gov_user\Service\UserPermsService
-   */
-  protected UserPermsService $userPermsService;
-
-  /**
-   * The current user.
-   *
-   * @var \Drupal\Core\Session\AccountInterface
-   */
-  protected AccountInterface $currentUser;
-
-  /**
-   * TRUE if the outreach checkbox feature toggle is enabled.
-   *
-   * @var bool
-   */
-  private bool $outreachCheckboxFeatureEnabled;
-
-  /**
-   * TRUE if the outreach checkbox feature toggle is enabled for all users.
-   *
-   * @var bool
-   */
-  private bool $outreachCheckboxAllFeatureEnabled;
-
-  /**
-   * Constructs the EventSubscriber object.
-   *
-   * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
-   *   The current user perms service.
-   * @param \Drupal\Core\Session\AccountProxy $account_proxy
-   *   The account proxy service.
-   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
-   *   The feature status service.
-   */
-  public function __construct(UserPermsService $user_perms_service, AccountProxy $account_proxy, FeatureStatus $feature_status) {
-    $this->userPermsService = $user_perms_service;
-    $this->currentUser = $account_proxy->getAccount();
-    $this->outreachCheckboxFeatureEnabled = $feature_status->getStatus(self::OUTREACH_CHECKBOX_FEATURE_NAME);
-    $this->outreachCheckboxAllFeatureEnabled = $feature_status->getStatus(self::OUTREACH_CHECKBOX_ALL_NAME);
-  }
+  use EventOutreachTrait;
 
   /**
    * {@inheritdoc}
@@ -142,51 +28,17 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Determines if the 'add to National Outreach Calendar' checkbox is enabled.
-   *
-   * @return bool
-   *   TRUE if the outreach checkbox should be enabled.
-   */
-  protected function outreachCheckboxEnabled(): bool {
-    // If both feature toggles are on, display the checkbox to all users.
-    if ($this->outreachCheckboxFeatureEnabled && $this->outreachCheckboxAllFeatureEnabled) {
-      return TRUE;
-    }
-    $admin = $this->userPermsService->hasAdminRole(TRUE);
-    // If only the primary outreach feature toggle is on, and the user is either
-    // an admin, or in the test user list, display the checkbox.
-    return (
-      $this->outreachCheckboxFeatureEnabled
-      && (in_array($this->currentUser->id(), self::OUTREACH_CHECKBOX_TEST_USERS) || $admin)
-    );
-  }
-
-  /**
-   * Determines if the current user is an 'Outreach Hub' only user.
-   *
-   * @return bool
-   *   TRUE if the current user only has the 'Outreach Hub' section.
-   */
-  protected function outreachHubOnlyUser(): bool {
-    $sections = $this->userPermsService->getSections($this->currentUser);
-    if (count($sections) === 1 && array_key_first($sections) === self::OUTREACH_HUB_TID) {
-      return TRUE;
-    }
-    return FALSE;
-  }
-
-  /**
-   * Entity presave Event call.
+   * Entity pre-save Event call.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event.
    *
-   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+   * @throws \Exception
    */
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
-    if ($entity instanceof NodeInterface) {
-      $this->addToNationalOutreachCalendar($entity);
+    if (is_a($entity, Event::class)) {
+      $entity->eventEntityPresave($entity);
     }
   }
 
@@ -202,75 +54,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->modifyFormFieldSetElements($form);
     $this->modifyRecurringEventsWidgetFieldPresentation($form);
     $this->modifyAddToOutreachCalendarElements($form);
-  }
-
-  /**
-   * Adds the event to the National Outreach Calendar (event_listing).
-   *
-   * The purpose of this method is to add the current node event to the National
-   * Outreach Calendar (an event listing node) if the $listingField
-   * checkbox/boolean has been set, or if the current user is an Outreach Hub
-   * user.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node to be modified.
-   *
-   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
-   */
-  public function addToNationalOutreachCalendar(NodeInterface $node): void {
-    if ($node->hasField(self::LISTING_FIELD) &&
-      $node->hasField(self::PUBLISH_TO_OUTREACH_CAL_FIELD) &&
-      $node->hasField(self::ADDITIONAL_LISTING_FIELD) &&
-      $this->outreachCheckboxEnabled()) {
-      $addToCalValue = $node->get(self::PUBLISH_TO_OUTREACH_CAL_FIELD)->first()->getValue();
-      if (isset($addToCalValue['value'])) {
-        $listings = $node->get(self::LISTING_FIELD)->getValue();
-        $additionalListings = $node->get(self::ADDITIONAL_LISTING_FIELD)->getValue();
-        if ($addToCalValue['value'] === 1 || $this->outreachHubOnlyUser()) {
-          // Add to Outreach calendar selected, or user is Outreach Hub only
-          // user.
-          if (!in_array(self::OUTREACH_CAL_NID, array_column($listings + $additionalListings, 'target_id'))) {
-            $additionalListings[] = [
-              'target_id' => self::OUTREACH_CAL_NID,
-            ];
-          }
-        }
-        else {
-          // Checkbox is unset. Ensure that additional listings are removed.
-          $additionalListings = [];
-        }
-        $node->set(self::ADDITIONAL_LISTING_FIELD, $additionalListings);
-      }
-    }
-  }
-
-  /**
-   * Form changes for 'Publish to National Outreach Calendar' related elements.
-   *
-   * @param array $form
-   *   The form array.
-   */
-  public function modifyAddToOutreachCalendarElements(array &$form) :void {
-    if ($this->outreachHubOnlyUser() && $this->outreachCheckboxEnabled()) {
-      // Disable the checkbox.
-      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#disabled'] = TRUE;
-      // Set the default value of the checkbox.
-      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['widget']['value']['#default_value'] = TRUE;
-      // Override the field label for the checkbox.
-      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['widget']['value']['#title'] = $this->t('This event will automatically be published to the National Outreach Calendar');
-      // Set the default value to the Outreach cal on the dropdown if is not
-      // already set.
-      if (empty($form[self::LISTING_FIELD]['widget']['#default_value'])) {
-        $form[self::LISTING_FIELD]['widget']['#default_value'] = self::OUTREACH_CAL_NID;
-      }
-    }
-    // Add the '- Select a value -' option (_none) since it was removed by
-    // the Limited Widgets for Unlimited Field module.
-    if (isset($form[self::LISTING_FIELD]['widget']['#options']) && !array_key_exists('_none', $form[self::LISTING_FIELD]['widget']['#options'])) {
-      $form[self::LISTING_FIELD]['widget']['#options'] = ['_none' => '- Select a value -'] + $form[self::LISTING_FIELD]['widget']['#options'];
-    }
-    // Only allow access to the checkbox if it should be enabled.
-    $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#access'] = $this->outreachCheckboxEnabled();
   }
 
   /**

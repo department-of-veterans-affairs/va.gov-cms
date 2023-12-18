@@ -1,0 +1,78 @@
+uuid: e57e70be-60e2-4a2f-a3f7-8388f17739a8
+langcode: en
+type: cm_document
+bundle: cm_document
+id: '128'
+dependencies:
+  config:
+    - cm_document.cm_document_type.cm_document
+    - field.field.cm_document.cm_document.field_data_pulled_from
+    - field.field.cm_document.cm_document.field_data_pushed_to
+    - field.field.cm_document.cm_document.field_diagram
+    - field.field.cm_document.cm_document.field_links_to_design
+    - field.field.cm_document.cm_document.field_links_to_research
+    - field.field.cm_document.cm_document.field_link_to_cms_design_system
+    - field.field.cm_document.cm_document.field_link_to_va_design_system
+    - field.field.cm_document.cm_document.field_other_links
+    - field.field.cm_document.cm_document.field_related_knowledgebase
+    - field.field.cm_document.cm_document.field_screenshots
+    - field.field.cm_document.cm_document.field_stakeholders
+  entity:
+    0: 'user:user:efa9900b-7446-41bf-b6a9-a99287ae2235'
+    2: 'taxonomy_term:products:2fe1cb98-c03e-49fe-bb09-d73b66b99c8d'
+fields:
+  vid: '202'
+  revision_created: '1700540002'
+  revision_user:
+    target_id: '1215'
+    _entity: 'user:user:efa9900b-7446-41bf-b6a9-a99287ae2235'
+  revision_log_message: 'Adding more links'
+  status: '1'
+  user_id:
+    target_id: '1215'
+    _entity: 'user:user:efa9900b-7446-41bf-b6a9-a99287ae2235'
+  name: 'Content: VAMC System VA Police page: '
+  documented_entity: node.vamc_system_va_police
+  notes:
+    value: "<p>This content type was added in 11/2023 to account for a mandate to display police transparency data to the public.</p>\r\n\r\n<p>The page itself has no content of its own, but provides a seed to generate the page on the FE.&nbsp; The FE page will have an embedded React App on the page.&nbsp;</p>\r\n"
+    format: rich_text
+  created: '1700539720'
+  changed: '1700540002'
+  revision_translation_affected: {  }
+  revision_default: '1'
+  metatag:
+    -
+      tag: meta
+      attributes:
+        name: title
+        content: '| Veterans Affairs'
+  field_data_pulled_from: {  }
+  field_data_pushed_to: {  }
+  field_diagram: {  }
+  field_links_to_design:
+    -
+      uri: 'https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/products/information-architecture/ia-design-docs/va-police-facilities-page.md#url'
+      title: 'CAIA documentation'
+      options: {  }
+    -
+      uri: 'https://app.mural.co/t/departmentofveteransaffairs9999/m/departmentofveteransaffairs9999/1698092447003/c969debf289d4e43e3cdd293d90053c2c137c338?wid=0-1698094046232&sender=b9853516-5a30-4307-a728-cefbf39bd98f'
+      title: 'Initial content modelling'
+      options: {  }
+    -
+      uri: 'https://www.sketch.com/s/b48c905c-7c7f-46fb-9ae5-6020ff0e5174'
+      title: 'Sketch file'
+      options: {  }
+  field_links_to_research: {  }
+  field_link_to_cms_design_system: {  }
+  field_link_to_va_design_system: {  }
+  field_other_links:
+    -
+      uri: 'https://github.com/department-of-veterans-affairs/va.gov-cms/issues/15714'
+      title: 'Initiating issue'
+      options: {  }
+  field_related_knowledgebase: {  }
+  field_screenshots: {  }
+  field_stakeholders:
+    -
+      target_id: '284'
+      _entity: 'taxonomy_term:products:2fe1cb98-c03e-49fe-bb09-d73b66b99c8d'

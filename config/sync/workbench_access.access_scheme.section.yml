@@ -53,6 +53,7 @@ dependencies:
     - field.field.node.vamc_system_medical_records_offi.field_administration
     - field.field.node.vamc_system_policies_page.field_administration
     - field.field.node.vamc_system_register_for_care.field_administration
+    - field.field.node.vamc_system_va_police.field_administration
     - field.field.node.vba_facility.field_administration
     - field.field.node.vba_facility_service.field_administration
     - field.field.node.vet_center.field_administration
@@ -62,6 +63,7 @@ dependencies:
     - field.field.node.vet_center_mobile_vet_center.field_administration
     - field.field.node.vet_center_outstation.field_administration
     - field.field.node.vha_facility_nonclinical_service.field_administration
+    - field.field.taxonomy_term.facility_supplemental_status.field_administration
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - taxonomy.vocabulary.administration
 id: section
@@ -309,6 +311,14 @@ scheme_settings:
       bundle: service_region
       field: field_administration
     -
+      entity_type: node
+      bundle: vamc_system_va_police
+      field: field_administration
+    -
       entity_type: taxonomy_term
       bundle: health_care_service_taxonomy
       field: field_owner
+    -
+      entity_type: taxonomy_term
+      bundle: facility_supplemental_status
+      field: field_administration

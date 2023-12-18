@@ -22,7 +22,7 @@ runs:
       uses: shivammathur/setup-php@cb8f453143149404c7fd670b5f37c91d395b3054 # v2.25.1
       with:
         php-version: '8.1'
-        extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, gd, exif, iconv
+        extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, gd, exif, iconv, :php-psr
         tools: composer:v2
         coverage: xdebug
 

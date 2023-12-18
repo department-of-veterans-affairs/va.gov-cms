@@ -3,8 +3,6 @@ Feature: Content Type: Event
 
   Scenario: Log in and create an event.
     Given I am logged in as a user with the "content_admin" role
-    When I set the "feature_event_outreach_checkbox" feature toggle to "on"
-    And I set the "feature_event_outreach_checkbox_all" feature toggle to "on"
     Then I create a "event" node
 
   Scenario: Confirm that event location conditional fields are cleared out if parent options change
@@ -141,3 +139,8 @@ Feature: Content Type: Event
     And I should not see an element with the selector "#edit-field-link-0-uri"
     And "How to sign up" should not be visible
     And I should not see an element with the selector "#edit-field-cta-email-0-value"
+
+  Scenario: Confirm tabledrag is not enabled on the event date field
+    Given I am logged in as a user with the "content_admin" role
+    When I am at "node/add/event"
+    Then an element with the selector "#edit-field-datetime-range-timezone-wrapper button.tabledrag-toggle-weight" should not exist
