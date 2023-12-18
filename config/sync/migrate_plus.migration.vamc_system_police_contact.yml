@@ -17,12 +17,14 @@ source:
   delimiter: ','
   enclosure: "'"
   escape: \
-  header_offset: 1
+  header_offset: 0
   track_changes: true
   ids:
     - vamc_system_label
     - facility_name
     - facility_id
+  constants:
+    cms_migrator: 1317
   fields:
     -
       name: city
@@ -84,9 +86,11 @@ process:
       plugin: callback
       callable: trim
     -
-      plugin: str_replace
-      search: '@pseudo_phone'
-      replace: ''
+      plugin: gate_comparator
+      value_a: '@source'
+      comparison: '!=='
+      value_b: '@pseudo_phone'
+      when_false_value: ''
   skip:
     -
       plugin: skip_on_value
@@ -100,9 +104,21 @@ process:
       ignore_case: true
       entity_type: node
       bundle_key: type
+      bundle: health_care_region_page
+      value_key: title
+      source: vamc_system_label
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup found no VAMC System for @vamc_system_label.'
+    -
+      plugin: entity_lookup
+      access_check: false
+      ignore_case: true
+      entity_type: node
+      bundle_key: type
       bundle: vamc_system_va_police
       value_key: field_office
-      source: vamc_system_label
     -
       plugin: skip_on_empty
       method: row
@@ -116,22 +132,6 @@ process:
         field_phone_label: 'non-emergency phone number, 24/7'
         field_phone_number: '@pseudo_phone'
         field_phone_extension: '@pseudo_extension'
-  field_facility_location:
-    -
-      plugin: callback
-      callable: trim
-      source: field_facility_location
-    -
-      plugin: entity_lookup
-      ignore_case: true
-      value_key: title
-      entity_type: node
-      bundle_key: type
-      bundle: health_care_local_facility
-    -
-      plugin: skip_on_empty
-      method: row
-      message: 'Entity lookup for field_facility_location found nothing.'
   changed:
     plugin: callback
     callable: va_gov_migrate_time
@@ -143,19 +143,19 @@ process:
     default_value: true
   revision_log:
     plugin: default_value
-    default_value: 'Imported by VAMC System Police contact migration.'
+    default_value: 'Updated contact data by VAMC System Police contact migration.'
   revision_timestamp:
     plugin: callback
     callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
-    default_value: 1317
+    default_value: constants/cms_migrator
   langcode:
     plugin: default_value
     default_value: en
   uid:
     plugin: default_value
-    default_value: 1317
+    default_value: constants/cms_migrator
 destination:
   plugin: 'entity:node'
   default_bundle: vamc_system_va_police
@@ -168,7 +168,7 @@ destination:
     - revision_default
     - revision_log
     - revision_timestamp
-    - uid
+    - revision_uid
 migration_dependencies:
   required: {  }
   optional: {  }
