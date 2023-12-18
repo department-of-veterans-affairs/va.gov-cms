@@ -51,7 +51,7 @@ class StaticEncoder implements SerializerAwareInterface, EncoderInterface {
    *   The string translation service.
    */
   public function __construct(MessengerInterface $messenger, TranslationInterface $string_translation) {
-    $this->messenger         = $messenger;
+    $this->messenger = $messenger;
     $this->stringTranslation = $string_translation;
   }
 
