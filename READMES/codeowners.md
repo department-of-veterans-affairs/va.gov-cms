@@ -27,3 +27,9 @@ The important ideas are:
 6. Viewing the CODEOWNERS file in GitHub should provide debugging information.
 
 As with everything else in this project, CODEOWNERS is subject to continual refinement and development. Please raise issues and suggest improvements where appropriate.
+
+For specifics about when and what you should review, see [Project Conventions](./project-conventions.md#code-review)
+
+----
+
+[Table of Contents](../README.md)

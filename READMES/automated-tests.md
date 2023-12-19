@@ -1,4 +1,4 @@
-# Testing
+# Automated Tests
 
 The CMS codebase is tested several times in the development lifecycle:
 
@@ -169,7 +169,7 @@ eliminate these issues, we opted instead to generate a _baseline_ and fail only
 builds that introduced new code issues.
 
 A PHPStan baseline is simply a list of existing errors.  We maintain the
-baseline in our codebase (see [phpstan-baseline.neon](../phpstan-baseline.neon)
+baseline in our codebase (see [phpstan-baseline.neon](../phpstan-baseline.neon))
 to prevent these historical errors from interfering with our CI/CD processes.
 
 This does have drawbacks, though; it can be confusing to have the same code in
