@@ -189,9 +189,9 @@ process:
   field_phone_number:
     -
       plugin: str_replace
+      search: ['(', ')', 'X', ' ', 'ext', '.', ',', 'Ext']
+      replace: ['', '-', 'x', '', 'Ext', '', '', 'x']
       source: phone-main
-      search: Ext.
-      replace: x
     -
       plugin: explode
       delimiter: x
