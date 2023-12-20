@@ -50,3 +50,7 @@ jq -S '.data.nodeQuery.entities|=sort_by(.entityId)' pages2.json > pages3.json
 ```
 
 After processing both the "before" and "after" `pages.json` in this way, diffing the two should yield a far more useful visualization of the changes.
+
+----
+
+[Table of Contents](../README.md)
