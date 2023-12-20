@@ -253,7 +253,7 @@ services:
         # Build storybook and the frontends (web, next) in parallel
         - bash -lc 'time task --taskfile=tugboat.yml'
 
-        # Start the next build server
+        # Start the next build preview server
         - bash -lc 'composer va:next:start'
 
   memcache:
