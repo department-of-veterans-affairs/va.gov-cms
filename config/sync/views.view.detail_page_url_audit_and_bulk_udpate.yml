@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - node.type.health_care_region_detail_page
-    - system.menu.admin
     - user.role.administrator
     - user.role.content_admin
   module:
@@ -781,9 +780,19 @@ display:
           enabled: true
       path: admin/content/audit/vamc-detail-pages
       menu:
-        type: normal
-        title: 'Detail page URL audit and bulk udpate'
+        type: tab
+        title: 'Detail page URL bulk update'
+        description: ''
+        weight: 0
+        expanded: false
         menu_name: admin
+        parent: system.admin_content
+        context: '0'
+        as_local_task: true
+        local_task_link_title: 'VAMC Detail pages'
+        local_task_parent: 'views_view:view.content.content_audit_page'
+        local_task_weight: 720
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: 0
       contexts:
