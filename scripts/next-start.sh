@@ -7,4 +7,5 @@ source ~/.bashrc
 
 cd next
 
-APP_ENV=tugboat yarn start
+# Start the dev server. Vets-website assets will be available to the preview server after content-build builds them.
+APP_ENV=tugboat yarn dev
