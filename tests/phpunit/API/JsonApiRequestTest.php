@@ -21,6 +21,7 @@ class JsonApiRequestTest extends VaGovExistingSiteBase {
       ['/jsonapi/node/event'],
       ['/jsonapi/node/event_listing'],
       ['/jsonapi/node/news_story'],
+      ['/jsonapi/node/person_profile'],
       ['/jsonapi/node/story_listing'],
     ];
   }
@@ -48,7 +49,6 @@ class JsonApiRequestTest extends VaGovExistingSiteBase {
       'menu_link',
       'content_translation_source',
       'content_translation_outdate',
-      'field_last_saved_by_an_editor',
     ];
 
     $user = $this->createUser();
