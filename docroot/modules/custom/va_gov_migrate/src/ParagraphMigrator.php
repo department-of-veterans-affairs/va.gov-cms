@@ -5,9 +5,9 @@ namespace Drupal\va_gov_migrate;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Drupal\migrate\MigrateException;
+use Drupal\migration_tools\Message;
 use Drupal\paragraphs\Entity\Paragraph;
 use QueryPath\DOMQuery;
-use Drupal\migration_tools\Message;
 
 /**
  * ParagraphMigrator migrates paragraphs from query path.

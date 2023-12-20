@@ -2,16 +2,16 @@
 
 namespace tests\phpunit\va_gov_content_release\unit\EventSubscriber;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Link;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\AbstractEntityEvent;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\user\UserInterface;
-use Drupal\va_gov_content_release\EntityEvent\Strategy\Plugin\StrategyPluginManagerInterface;
 use Drupal\va_gov_content_release\EntityEvent\Strategy\Plugin\StrategyPluginInterface;
+use Drupal\va_gov_content_release\EntityEvent\Strategy\Plugin\StrategyPluginManagerInterface;
 use Drupal\va_gov_content_release\EntityEvent\Strategy\Resolver\ResolverInterface;
-use Drupal\va_gov_content_release\Request\RequestInterface;
 use Drupal\va_gov_content_release\EventSubscriber\EntityEventSubscriber;
+use Drupal\va_gov_content_release\Request\RequestInterface;
 use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\Container;

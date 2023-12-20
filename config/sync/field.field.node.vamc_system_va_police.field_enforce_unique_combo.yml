@@ -1,0 +1,38 @@
+uuid: 42de19ff-3e1b-4ba4-836d-d2a327798bd4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_enforce_unique_combo
+    - node.type.vamc_system_va_police
+  module:
+    - allow_only_one
+    - tmgmt_content
+third_party_settings:
+  allow_only_one:
+    field_administration: 1
+    field_cc_faq: 0
+    field_cc_police_report: 0
+    field_cc_term_definitions: 0
+    field_cc_va_police_overview: 0
+    field_last_saved_by_an_editor: 0
+    field_office: 0
+    title: 0
+    case_sensitive: null
+    limit_validation_to_published: 0
+  tmgmt_content:
+    excluded: false
+id: node.vamc_system_va_police.field_enforce_unique_combo
+field_name: field_enforce_unique_combo
+entity_type: node
+bundle: vamc_system_va_police
+label: 'Enforce unique combo section'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one

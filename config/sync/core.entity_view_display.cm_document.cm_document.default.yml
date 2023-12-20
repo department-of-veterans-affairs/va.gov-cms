@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.cm_document.cm_document.field_data_pulled_from
     - field.field.cm_document.cm_document.field_data_pushed_to
+    - field.field.cm_document.cm_document.field_diagram
     - field.field.cm_document.cm_document.field_link_to_cms_design_system
     - field.field.cm_document.cm_document.field_link_to_va_design_system
     - field.field.cm_document.cm_document.field_links_to_design
@@ -19,6 +20,7 @@ dependencies:
     - field_group
     - image
     - link
+    - mermaid_diagram_field
     - text
 third_party_settings:
   field_group:
@@ -31,7 +33,7 @@ third_party_settings:
       label: Design
       parent_name: ''
       region: content
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -46,7 +48,7 @@ third_party_settings:
       label: Data
       parent_name: ''
       region: content
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: data
@@ -74,6 +76,13 @@ content:
       link: true
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_diagram:
+    type: mermaid_diagram_formatter
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
     region: content
   field_link_to_cms_design_system:
     type: link
@@ -133,7 +142,7 @@ content:
       rel: '0'
       target: '0'
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_related_knowledgebase:
     type: entity_reference_label
@@ -141,7 +150,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_screenshots:
     type: image
@@ -152,7 +161,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   field_stakeholders:
     type: entity_reference_label
@@ -160,7 +169,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   notes:
     type: text_default

@@ -1,0 +1,19 @@
+uuid: 26f626ef-6627-482e-b730-ff8545f36081
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vba_facility_service
+  module:
+    - node
+    - va_gov_backend
+third_party_settings:
+  va_gov_backend:
+    vgb_description: 'Can create VBA facility services'
+id: content_creator_vba
+label: 'Content creator - VBA'
+weight: -3
+is_admin: null
+permissions:
+  - 'create vba_facility_service content'
+  - 'view node link report'

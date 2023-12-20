@@ -2,10 +2,10 @@
 
 namespace Drupal\va_gov_migrate\Paragraph;
 
-use Drupal\va_gov_migrate\ParagraphType;
-use QueryPath\DOMQuery;
 use Drupal\migration_tools\Message;
 use Drupal\migration_tools\StringTools;
+use Drupal\va_gov_migrate\ParagraphType;
+use QueryPath\DOMQuery;
 
 /**
  * Link list item paragraph type.

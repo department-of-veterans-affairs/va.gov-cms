@@ -15,8 +15,8 @@ use Drupal\Core\Render\Renderer;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\smart_date\Plugin\Field\FieldWidget\SmartDateWidgetBase;
-use Drupal\va_gov_events\Controller\Instances;
 use Drupal\smart_date_recur\Entity\SmartDateOverride;
+use Drupal\va_gov_events\Controller\Instances;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

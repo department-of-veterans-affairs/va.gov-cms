@@ -3,16 +3,16 @@
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Session\AccountInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
@@ -50,6 +50,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vamc_system_policies_page_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_register_for_care_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_register_for_care_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_va_police_edit_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_va_police_form.alter' => 'alterTopTaskNodeForm',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',

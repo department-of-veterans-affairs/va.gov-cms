@@ -79,6 +79,15 @@ content:
       date_format: medium
       custom_date_format: ''
       timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
     third_party_settings: {  }
     weight: 3
     region: content
@@ -109,6 +118,7 @@ content:
     region: content
 hidden:
   body: true
+  breadcrumbs: true
   content_moderation_control: true
   langcode: true
   links: true

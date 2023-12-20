@@ -6,7 +6,6 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
-use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
 use Drupal\va_gov_github\Api\Client\ApiClientInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -106,13 +105,6 @@ class BRD extends EnvironmentPluginBase {
    */
   public function contentEditsShouldTriggerFrontendBuild(): bool {
     return TRUE;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function getBuildTriggerFormClass() : string {
-    return BrdBuildTriggerForm::class;
   }
 
   /**

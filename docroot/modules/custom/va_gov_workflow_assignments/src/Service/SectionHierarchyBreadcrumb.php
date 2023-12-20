@@ -3,10 +3,10 @@
 namespace Drupal\va_gov_workflow_assignments\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\TermInterface;
 

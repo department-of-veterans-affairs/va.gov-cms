@@ -1,7 +1,6 @@
 services:
   va_gov_events.entity_event_subscriber:
     class: Drupal\va_gov_events\EventSubscriber\EntityEventSubscriber
-    arguments: ['@string_translation']
     tags:
       - { name: event_subscriber }
   va_gov_events.route_subscriber:
@@ -17,6 +16,4 @@ services:
   va_gov_events.smart_date.instances:
     class: Drupal\va_gov_events\Controller\Instances
     arguments: ['@entity_type.manager', '@form_builder']
-
-
 

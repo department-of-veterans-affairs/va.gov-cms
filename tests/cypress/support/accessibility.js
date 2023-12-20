@@ -19,6 +19,9 @@ const axeRuntimeOptions = {
     type: "tag",
     values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"],
   },
+  rules: {
+    "aria-allowed-attr": { enabled: false }, // See department-of-veterans-affairs/va.gov-cms#14358
+  },
 };
 
 Cypress.Commands.add("checkAccessibility", () => {

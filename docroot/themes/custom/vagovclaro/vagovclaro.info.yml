@@ -10,6 +10,9 @@ base theme: claro
 ckeditor_stylesheets:
   - dist/wysiwyg.css
 
+ckeditor5-stylesheets:
+  - dist/wysiwyg.css
+
 # Claro's libraries need to be included here due to how Drupal handles admin sub-themes.
 # See https://www.drupal.org/project/claro/issues/3085894 for more context.
 libraries:
@@ -106,12 +109,6 @@ libraries-override:
         css/views_ui.admin.theme.css: css/theme/views_ui.admin.theme.css
 
 libraries-extend:
-  ckeditor/drupal.ckeditor:
-    - claro/ckeditor-editor
-  ckeditor/drupal.ckeditor.admin:
-    - claro/ckeditor-admin
-  core/ckeditor:
-    - claro/ckeditor-dialog
   core/drupal.collapse:
     - claro/details-focus
   core/drupal.dialog:

@@ -17,6 +17,7 @@ class ApiClientFactory implements ApiClientFactoryInterface {
   const OWNER = 'department-of-veterans-affairs';
   const VA_GOV_CMS = 'va.gov-cms';
   const CONTENT_BUILD = 'content-build';
+  const VETS_WEBSITE = 'vets-website';
 
   /**
    * The settings service.
@@ -54,6 +55,13 @@ class ApiClientFactory implements ApiClientFactoryInterface {
    */
   public function getContentBuild(): ApiClientInterface {
     return $this->get(static::OWNER, static::CONTENT_BUILD, $this->settings->getApiToken());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getVetsWebsite(): ApiClientInterface {
+    return $this->get(static::OWNER, static::VETS_WEBSITE, $this->settings->getApiToken());
   }
 
 }

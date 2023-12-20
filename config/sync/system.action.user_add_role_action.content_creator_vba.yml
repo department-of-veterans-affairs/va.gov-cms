@@ -1,0 +1,14 @@
+uuid: 598ff07d-2137-4b9e-b42b-bcb12ee8ce73
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.content_creator_vba
+  module:
+    - user
+id: user_add_role_action.content_creator_vba
+label: 'Add the Content creator - VBA role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: content_creator_vba

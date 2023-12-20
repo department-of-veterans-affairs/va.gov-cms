@@ -216,18 +216,31 @@ Cypress.Commands.add("iframe", { prevSubject: "element" }, ($iframe) => {
 Cypress.Commands.add("get_ckeditor", (element) => {
   cy.wait(5000);
   return cy.window().then((win) => {
-    const elements = Object.keys(win.CKEDITOR.instances);
-    const index = elements.indexOf(element);
-    if (index === -1) {
-      const matches = elements.filter((el) => el.includes(element));
-      if (matches.length) {
+    const editors = [];
+    let instance = {};
+    win.Drupal.CKEditor5Instances.forEach((editor, key) => {
+      const sourceElement = {
+        element: editor.sourceElement.dataset.drupalSelector,
+        key,
+      };
+      editors.push(sourceElement);
+      console.log(editors);
+    });
+    const isElementsNotEmpty = (elements) => {
+      return JSON.stringify(elements) !== "{}";
+    };
+    if (isElementsNotEmpty) {
+      const matches = editors.find((item) => item.element === element);
+      console.log(matches);
+      if (matches) {
         // eslint-disable-next-line prefer-destructuring
-        element = matches[0];
+        instance = matches;
+        console.log(instance);
       } else {
         throw new Error(`CKEditor instance not found: ${element}`);
       }
     }
-    return cy.wrap(win.CKEDITOR.instances[element]);
+    return cy.wrap(win.Drupal.CKEditor5Instances.get(instance.key));
   });
 });
 
@@ -249,7 +262,9 @@ Cypress.Commands.add("scrollToSelector", (selector) => {
     if (htmlElement) {
       htmlElement.style.scrollBehavior = "inherit";
     }
-    cy.get(selector).scrollIntoView({ offset: { top: 0 } });
+    cy.get(selector)
+      .first()
+      .scrollIntoView({ offset: { top: 0 } });
     return cy.get(selector);
   });
 });
@@ -284,6 +299,7 @@ Cypress.Commands.add("getLastCreatedTaxonomyTerm", () => {
         $result = $query
           ->condition('revision_user', ${uid})
           ->sort('revision_created' , 'DESC')
+          ->accessCheck(FALSE)
           ->execute();
         echo reset($result);
       `;
@@ -319,6 +335,14 @@ Cypress.Commands.add("setWorkbenchAccessSections", (value) => {
       `;
       return cy.drupalDrushEval(command);
     });
+});
+
+Cypress.Commands.add("setAFeatureToggle", (name, label, value) => {
+  const command = `
+    $feature = new \\Drupal\\feature_toggle\\Feature('${name}', '${label}');
+    $service = \\Drupal::service('feature_toggle.feature_status')->setStatus($feature, ${value});
+  `;
+  return cy.drupalDrushEval(command);
 });
 
 compareSnapshotCommand();

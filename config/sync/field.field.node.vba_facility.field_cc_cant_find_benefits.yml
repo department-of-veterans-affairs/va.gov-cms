@@ -1,0 +1,31 @@
+uuid: 66abc7ce-8bb9-43ee-a472-8762d9f3ea5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_cant_find_benefits
+    - node.type.vba_facility
+  module:
+    - entity_field_fetch
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_cc_cant_find_benefits
+field_name: field_cc_cant_find_benefits
+entity_type: node
+bundle: vba_facility
+label: "Can't find benefits"
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: null
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '61744'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: bb9545bd-10e1-41e1-9924-ab07eb3b92fa
+field_type: entity_field_fetch

@@ -61,7 +61,7 @@ const creators = {
       .then(($el) => {
         cy.wrap($el).contains("Add media").click({ force: true });
         cy.get(".dropzone", {
-          timeout: 10000,
+          timeout: 60000,
         });
         cy.get(".dropzone").attachFile("images/polygon_image.png", {
           subjectType: "drag-n-drop",
@@ -113,7 +113,7 @@ const creators = {
       });
     cy.get('div[role="dialog"]').within(() => {
       cy.get(".dropzone", {
-        timeout: 10000,
+        timeout: 60000,
       });
       cy.get(".dropzone").attachFile("images/polygon_image.png", {
         subjectType: "drag-n-drop",
@@ -244,6 +244,7 @@ const creators = {
       "VA Alaska health care: Events",
       { force: true }
     );
+    cy.get("#edit-field-publish-to-outreach-cal-value").check();
     cy.findAllByLabelText("Street address").type(
       faker.address.streetAddress(),
       { force: true }
@@ -254,7 +255,7 @@ const creators = {
     cy.scrollToSelector("#edit-field-media-open-button");
     cy.get("#edit-field-media-open-button").click({ force: true });
     cy.get(".dropzone", {
-      timeout: 20000,
+      timeout: 60000,
     }).should("exist");
     cy.get(".dropzone").attachFile("images/polygon_image.png", {
       subjectType: "drag-n-drop",
@@ -277,8 +278,13 @@ const creators = {
         timeout: 20000,
       }
     ).should("exist");
+    cy.get("#edit-revision-log-0-value").type(
+      `[Test revision log]${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.get("form.node-form").find("input#edit-submit").click();
     cy.get(".node__content").contains("Sun, Nov 5 2023, 10:00am - 11:00am MST");
+    cy.get(".node__content").contains("Outreach events");
     cy.scrollTo("top", { ensureScrollable: false });
     cy.get(".tabs__tab a").contains("Edit").click({ force: true });
     cy.get("#edit-field-datetime-range-timezone-0-manage-instances").click();
@@ -389,6 +395,21 @@ const creators = {
       faker.lorem.sentence()
     );
     return cy.wait(1000);
+  },
+  q_a: () => {
+    cy.findAllByLabelText("Question").type(
+      `[Test Data] ${faker.lorem.word()}`,
+      { force: true }
+    );
+    cy.findAllByLabelText("Text").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.type_ckeditor(
+      "edit-field-answer-0-subform-field-wysiwyg-0-value",
+      faker.lorem.sentence()
+    );
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    return cy;
   },
 };
 

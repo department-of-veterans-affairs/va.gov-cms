@@ -4,8 +4,8 @@ namespace Drupal\va_gov_content_release\Strategy\Plugin;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\va_gov_content_release\Reporter\ReporterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

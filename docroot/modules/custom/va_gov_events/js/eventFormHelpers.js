@@ -4,7 +4,6 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-
 (function (Drupal) {
   var registrationRequiredBool = document.getElementById("edit-field-event-registrationrequired-value");
   var includeRegistrationsBool = document.getElementById("edit-field-include-registration-info-value");
@@ -12,6 +11,12 @@
   var fieldLinkWrapper = document.getElementById("edit-field-link-wrapper");
   var fieldLinkInput = document.getElementById("edit-field-link-0-uri");
   var fieldLinkWrapperLabel = document.querySelector("#edit-field-link-wrapper label");
+  var fieldCtaEmailInput = document.getElementById("edit-field-cta-email-0-value");
+  var fieldCtaEmailWrapper = document.getElementById("edit-field-cta-email-wrapper");
+  var fieldCtaEmailWrapperLabel = document.querySelector("#edit-field-cta-email-wrapper label");
+  var fieldCtaHowToSignUp = document.getElementById("edit-field-how-to-sign-up");
+  var fieldCtaHowToSignUpWrapper = document.getElementById("edit-field-how-to-sign-up-wrapper");
+  var fieldCtaHowToSignUpLabel = document.querySelector("#edit-field-how-to-sign-up-wrapper label");
   var fieldLocationTypeFacility = document.getElementById("edit-field-location-type-facility");
   var fieldLocationTypeNonFacility = document.getElementById("edit-field-location-type-non-facility");
   var includeLocationItemsRadios = document.getElementById("edit-field-location-type");
@@ -32,48 +37,84 @@
   var fieldAddressAdminArea = document.getElementById("edit-field-address-0-address-administrative-area");
   var fieldAddressAdminAreaLabel = document.querySelector("label[for='edit-field-address-0-address-administrative-area']");
   var targetRegistrationElements = document.querySelectorAll(".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper");
-
-  var toggleCtaLinkRequired = function toggleCtaLinkRequired() {
-    var required = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-
+  var toggleCtaInputRequired = function toggleCtaInputRequired(label, wrapper, input) {
+    var required = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
     var addRemove = required ? "add" : "remove";
-    fieldLinkWrapper.style.display = required ? "block" : "none";
-    fieldLinkInput.required = required ? "required" : "";
-    fieldLinkWrapperLabel.classList[addRemove]("js-form-required", "form-required");
+    wrapper.style.display = required ? "block" : "none";
+    input.required = required ? "required" : "";
+    label.classList[addRemove]("js-form-required", "form-required");
   };
-
+  var toggleAllCtaInputsRequired = function toggleAllCtaInputsRequired() {
+    var required = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+    toggleCtaInputRequired(fieldLinkWrapperLabel, fieldLinkWrapper, fieldLinkInput, required);
+    toggleCtaInputRequired(fieldCtaEmailWrapperLabel, fieldCtaEmailWrapper, fieldCtaEmailInput, required);
+    toggleCtaInputRequired(fieldCtaHowToSignUpLabel, fieldCtaHowToSignUpWrapper, fieldCtaHowToSignUp, required);
+  };
+  var emptyAllCtaInputs = function emptyAllCtaInputs() {
+    fieldCtaEmailInput.value = "";
+    fieldLinkInput.value = "";
+    fieldCtaHowToSignUp.value = "_none";
+  };
   var toggleRegistrationElements = function toggleRegistrationElements() {
     var toggleVal = !!includeRegistrationsBool.checked;
     var elementDisplayStyle = "block";
     if (!toggleVal) {
       fieldLinkInput.value = "";
+      fieldCtaEmailInput.value = "";
       ctaSelect.value = "_none";
       elementDisplayStyle = "none";
       registrationRequiredBool.checked = false;
-      toggleCtaLinkRequired(false);
+      toggleAllCtaInputsRequired(false);
     }
     targetRegistrationElements.forEach(function (element) {
       element.style.display = elementDisplayStyle;
     });
   };
-
   var requireCTA = function requireCTA() {
     fieldLinkWrapper.style.display = "none";
-
+    fieldCtaEmailWrapper.style.display = "none";
+    fieldCtaHowToSignUpWrapper.style.display = "none";
     if (ctaSelect.value !== "_none") {
-      toggleCtaLinkRequired();
-    }
-
-    ctaSelect.addEventListener("change", function (e) {
-      toggleCtaLinkRequired(false);
-      if (e.target.value !== "_none") {
-        toggleCtaLinkRequired();
+      if (fieldCtaEmailInput.value.length > 0) {
+        toggleCtaInputRequired(fieldCtaEmailWrapperLabel, fieldCtaEmailWrapper, fieldCtaEmailInput, true);
+        toggleCtaInputRequired(fieldCtaHowToSignUpLabel, fieldCtaHowToSignUpWrapper, fieldCtaHowToSignUp, true);
+        fieldCtaHowToSignUp.value = "email";
+      } else if (fieldLinkInput.value.length > 0) {
+        toggleCtaInputRequired(fieldLinkWrapperLabel, fieldLinkWrapper, fieldLinkInput, true);
+        toggleCtaInputRequired(fieldCtaHowToSignUpLabel, fieldCtaHowToSignUpWrapper, fieldCtaHowToSignUp, true);
+        fieldCtaHowToSignUp.value = "url";
       } else {
-        fieldLinkInput.value = "";
+        toggleCtaInputRequired(fieldCtaHowToSignUpLabel, fieldCtaHowToSignUpWrapper, fieldCtaHowToSignUpWrapper);
+      }
+    }
+    ctaSelect.addEventListener("change", function (e) {
+      emptyAllCtaInputs();
+      toggleAllCtaInputsRequired(false);
+      if (e.target.value !== "_none") {
+        toggleCtaInputRequired(fieldCtaHowToSignUpLabel, fieldCtaHowToSignUpWrapper, fieldCtaHowToSignUp);
+      }
+    });
+    fieldCtaHowToSignUp.addEventListener("change", function (e) {
+      switch (e.target.value) {
+        case "url":
+          fieldCtaEmailInput.value = "";
+          toggleCtaInputRequired(fieldCtaEmailWrapperLabel, fieldCtaEmailWrapper, fieldCtaEmailInput, false);
+          toggleCtaInputRequired(fieldLinkWrapperLabel, fieldLinkWrapper, fieldLinkInput);
+          break;
+        case "email":
+          fieldLinkInput.value = "";
+          toggleCtaInputRequired(fieldLinkWrapperLabel, fieldLinkWrapper, fieldLinkInput, false);
+          toggleCtaInputRequired(fieldCtaEmailWrapperLabel, fieldCtaEmailWrapper, fieldCtaEmailInput);
+          break;
+        default:
+          toggleCtaInputRequired(fieldLinkWrapperLabel, fieldLinkWrapper, fieldLinkInput, false);
+          toggleCtaInputRequired(fieldCtaEmailWrapperLabel, fieldCtaEmailWrapper, fieldCtaEmailInput, false);
+          fieldLinkInput.value = "";
+          fieldCtaEmailInput.value = "";
+          break;
       }
     });
   };
-
   var toggleAddressRequiredFields = function toggleAddressRequiredFields(enableDisable, addRemove) {
     if (fieldAddressLine1) {
       fieldAddressLine1.required = enableDisable;
@@ -81,14 +122,12 @@
     if (fieldAddressLine1Label) {
       fieldAddressLine1Label.classList[addRemove]("form-required");
     }
-
     if (fieldAddressLocality) {
       fieldAddressLocality.required = enableDisable;
     }
     if (fieldAddressLocalityLabel) {
       fieldAddressLocalityLabel.classList[addRemove]("form-required");
     }
-
     if (fieldAddressAdminArea) {
       fieldAddressAdminArea.required = enableDisable;
     }
@@ -96,7 +135,6 @@
       fieldAddressAdminAreaLabel.classList[addRemove]("form-required");
     }
   };
-
   var toggleLocationElements = function toggleLocationElements() {
     targetLocationElements.forEach(function (element) {
       element.style.display = "none";
@@ -128,20 +166,17 @@
       fieldLocationHumanreadable.value = "";
     }
   };
-
   var operate = function operate() {
     requireCTA();
     includeRegistrationsBool.addEventListener("click", function () {
       toggleRegistrationElements();
     });
     toggleRegistrationElements();
-
     includeLocationItemsRadios.addEventListener("change", function () {
       toggleLocationElements();
     });
     toggleLocationElements();
   };
-
   Drupal.behaviors.vaGovEventFormHelpers = {
     attach: function attach() {
       operate();

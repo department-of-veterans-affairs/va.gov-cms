@@ -1,0 +1,24 @@
+Subject: [PATCH] 3341726-remove-getImplementations
+---
+Index: src/HookEventDispatcherModuleHandlerProxyTrait.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/HookEventDispatcherModuleHandlerProxyTrait.php b/src/HookEventDispatcherModuleHandlerProxyTrait.php
+--- a/src/HookEventDispatcherModuleHandlerProxyTrait.php	(revision 7a5bc4d7e88a3b2537b5993cc8e2b2d220d50fe1)
++++ b/src/HookEventDispatcherModuleHandlerProxyTrait.php	(date 1676410889720)
+@@ -107,13 +107,6 @@
+     return $this->inner->getHookInfo();
+   }
+ 
+-  /**
+-   * {@inheritdoc}
+-   */
+-  public function getImplementations($hook) {
+-    return $this->inner->getImplementations($hook);
+-  }
+-
+   /**
+    * {@inheritdoc}
+    */

@@ -10,7 +10,7 @@ services:
     parent: default_plugin_manager
   va_gov_build_trigger.content_release_error_subscriber:
     class: Drupal\va_gov_build_trigger\EventSubscriber\ContentReleaseErrorSubscriber
-    arguments: ['@va_gov_build_trigger.build_requester', '@state']
+    arguments: ['@va_gov_content_release.request', '@state']
     tags:
       - { name: event_subscriber }
   va_gov_build_trigger.content_release_interval_subscriber:
@@ -25,7 +25,7 @@ services:
       - { name: event_subscriber }
   va_gov_build_trigger.continuous_release_subscriber:
     class: Drupal\va_gov_build_trigger\EventSubscriber\ContinuousReleaseSubscriber
-    arguments: ['@state', '@datetime.time', '@va_gov_build_trigger.build_requester', '@date.formatter']
+    arguments: ['@state', '@datetime.time', '@va_gov_content_release.request', '@date.formatter']
     tags:
       - { name: event_subscriber }
   va_gov_build_trigger.release_state_manager:
@@ -34,9 +34,6 @@ services:
   va_gov.site_status:
     class: Drupal\va_gov_build_trigger\SiteStatus\SiteStatus
     arguments: ['@state']
-  va_gov_build_trigger.build_requester:
-    class: Drupal\va_gov_build_trigger\Service\BuildRequester
-    arguments: ['@entity_type.manager', '@state']
   va_gov_build_trigger.build_scheduler:
     class: Drupal\va_gov_build_trigger\Service\BuildScheduler
-    arguments: ['@va_gov_build_trigger.build_requester', '@state', '@datetime.time', '@date.formatter']
+    arguments: ['@va_gov_content_release.request', '@state', '@datetime.time', '@date.formatter']

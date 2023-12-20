@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_git\BranchSearch;
 
-use Drupal\va_gov_git\Repository\RepositoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\va_gov_git\Repository\RepositoryInterface;
 
 /**
  * The branch search service.

@@ -2,27 +2,19 @@
 
 namespace Drupal\va_gov_events\EventSubscriber;
 
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\va_gov_content_types\Entity\Event;
+use Drupal\va_gov_content_types\Traits\EventOutreachTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * VA.gov VAMC Entity Event Subscriber.
+ * VA.gov Event content type subscriber.
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
 
-  use StringTranslationTrait;
-
-  /**
-   * Constructs the EventSubscriber object.
-   *
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
-   *   The string translation service.
-   */
-  public function __construct(TranslationInterface $string_translation) {
-    $this->stringTranslation = $string_translation;
-  }
+  use EventOutreachTrait;
 
   /**
    * {@inheritdoc}
@@ -31,11 +23,27 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     return [
       'hook_event_dispatcher.form_node_event_form.alter' => 'alterEventNodeForm',
       'hook_event_dispatcher.form_node_event_edit_form.alter' => 'alterEventNodeForm',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
     ];
   }
 
   /**
-   * Form alterations for eventcontent type.
+   * Entity pre-save Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event.
+   *
+   * @throws \Exception
+   */
+  public function entityPresave(EntityPresaveEvent $event): void {
+    $entity = $event->getEntity();
+    if (is_a($entity, Event::class)) {
+      $entity->eventEntityPresave($entity);
+    }
+  }
+
+  /**
+   * Form alterations for event content type.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
@@ -43,8 +51,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterEventNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     $this->addDisplayManagementToEventFields($form);
-    $this->modifyFormFieldsetElements($form);
+    $this->modifyFormFieldSetElements($form);
     $this->modifyRecurringEventsWidgetFieldPresentation($form);
+    $this->modifyAddToOutreachCalendarElements($form);
   }
 
   /**
@@ -53,7 +62,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param array $form
    *   The form.
    */
-  public function modifyRecurringEventsWidgetFieldPresentation(array &$form) {
+  public function modifyRecurringEventsWidgetFieldPresentation(array &$form): void {
     // Add our js for toggling items depending on duration choices.
     $form['#attached']['library'][] = 'va_gov_events/recurring_dates';
 
@@ -118,6 +127,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     unset($form['field_datetime_range_timezone']['widget'][0]['repeat-advanced']['restrict-minutes']);
     unset($form['field_datetime_range_timezone']['widget'][0]['repeat-label']);
     unset($form['field_datetime_range_timezone']['widget'][0]['duration']['#title']);
+
+    // Remove the extra fieldset and add more button.
+    $extra_fieldset = $form['field_datetime_range_timezone']['widget']['#max_delta'];
+    if ($extra_fieldset > 0) {
+      unset($form['field_datetime_range_timezone']['widget'][$extra_fieldset]);
+    }
+    unset($form['field_datetime_range_timezone']['widget']['add_more']);
   }
 
   /**
@@ -126,7 +142,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param array $form
    *   The form.
    */
-  public function addDisplayManagementToEventFields(array &$form) {
+  public function addDisplayManagementToEventFields(array &$form): void {
     $form['#attached']['library'][] = 'va_gov_events/event_form_states_helpers';
   }
 
@@ -140,12 +156,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param array $form
    *   The form.
    */
-  public function modifyFormFieldSetElements(array &$form) {
+  public function modifyFormFieldSetElements(array &$form): void {
     // Remove the wrap and title around address widget.
     $form['field_address']['widget'][0]['#type'] = 'div';
     unset($form['field_address']['widget'][0]['#title']);
     // Use help text from config instead of linkit module.
-    $form['field_url_of_an_online_event']['widget'][0]['uri']['#description'] = $form['field_url_of_an_online_event']['widget'][0]['#description']->__toString();
+    $form['field_url_of_an_online_event']['widget'][0]['uri']['#description'] = (string) $form['field_url_of_an_online_event']['widget'][0]['#description'];
   }
 
 }
