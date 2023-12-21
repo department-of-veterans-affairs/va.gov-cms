@@ -13,12 +13,21 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class AddJsEventSubscriber implements EventSubscriberInterface {
 
+  /**
+   * The module handler.
+   */
   private ModuleHandlerInterface $moduleHandler;
 
+  /**
+   * Constructor.
+   */
   public function __construct(ModuleHandlerInterface $moduleHandler) {
     $this->moduleHandler = $moduleHandler;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public static function getSubscribedEvents(): array {
     return [
       KernelEvents::RESPONSE => ['onResponse'],
@@ -45,7 +54,7 @@ class AddJsEventSubscriber implements EventSubscriberInterface {
       $responseContent = $event->getResponse()->getContent();
       $dom = new \DOMDocument();
       // Need to suppress errors due to <nav> tags.
-      libxml_use_internal_errors(true);
+      libxml_use_internal_errors(TRUE);
       $dom->loadHTML($responseContent);
       libxml_clear_errors();
 
