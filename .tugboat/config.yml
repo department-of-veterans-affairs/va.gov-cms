@@ -160,6 +160,9 @@ services:
         # Build vets-website so assets are available (various widgets, fonts, etc)
         - ./scripts/vets-web-setup.sh
 
+        # Create symlink between vets-website assets and next-build
+        - ln -snf "${DOCROOT}/vendor/va-gov/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
+
       # Commands that import files, databases,  or other assets. When an
       # existing preview is refreshed, the build workflow starts here,
       # skipping the init step, because the results of that step will
@@ -250,10 +253,6 @@ services:
         - echo "NEXT_IMAGE_DOMAIN=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
-
-        # Ensure next-build can find vets-website assets
-        - mkdir ${TUGBOAT_ROOT}/next/public/generated
-        - ln -snf "${TUGBOAT_ROOT}/docroot/vendor/va-gov/content-build/build/vagovdev/generated" "${TUGBOAT_ROOT}/next/public/generated"
 
         # Build storybook and the frontends (web, next) in parallel
         - bash -lc 'time task --taskfile=tugboat.yml'
