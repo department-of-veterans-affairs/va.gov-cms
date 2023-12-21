@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4726d4915fbaeb386a31a876ffd0c6ae",
+    "content-hash": "64e595873f42dc18baa9eeaaa378e1b1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2250,10 +2250,6 @@
                     "homepage": "https://www.drupal.org/user/972218"
                 },
                 {
-                    "name": "mglaman",
-                    "homepage": "https://www.drupal.org/user/2416470"
-                },
-                {
                     "name": "rszrama",
                     "homepage": "https://www.drupal.org/user/49344"
                 }
@@ -4393,38 +4389,34 @@
         },
         {
             "name": "drupal/danse",
-            "version": "2.2.19",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/danse.git",
-                "reference": "2.2.19"
+                "reference": "2.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/danse-2.2.19.zip",
-                "reference": "2.2.19",
-                "shasum": "623b5628233f756eb8b6195785812fea342e004d"
+                "url": "https://ftp.drupal.org/files/projects/danse-2.3.0.zip",
+                "reference": "2.3.0",
+                "shasum": "202b5ec257177bb9e93aaa74f400a4b8581e7dbf"
             },
             "require": {
-                "drupal/core": "^9.5 || ^10",
-                "php": ">=7.4"
+                "drupal/core": "^10 || ^11",
+                "php": ">=8.1"
             },
             "require-dev": {
-                "drupal/eca": "*"
+                "drupal/eca": "^2.0",
+                "drupal/push_framework": "^2.3"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.2.19",
-                    "datestamp": "1701675669",
+                    "version": "2.3.0",
+                    "datestamp": "1702473774",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
-                    }
-                },
-                "drush": {
-                    "services": {
-                        "drush.services.yml": "^9 | ^10 | ^11"
                     }
                 }
             },
@@ -5452,20 +5444,20 @@
         },
         {
             "name": "drupal/entity_reference_hierarchy",
-            "version": "1.0.0-beta3",
+            "version": "1.0.0-beta4",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_reference_hierarchy.git",
-                "reference": "1.0.0-beta3"
+                "reference": "1.0.0-beta4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_reference_hierarchy-1.0.0-beta3.zip",
-                "reference": "1.0.0-beta3",
-                "shasum": "a53423e364ee96a94af5328d9dfd4cd358c63f62"
+                "url": "https://ftp.drupal.org/files/projects/entity_reference_hierarchy-1.0.0-beta4.zip",
+                "reference": "1.0.0-beta4",
+                "shasum": "4159c2b83b23ded933a669c3551e39d6819d9084"
             },
             "require": {
-                "drupal/core": "^9"
+                "drupal/core": "^9 || ^10"
             },
             "require-dev": {
                 "drupal/entity_reference_hierarchy_revisions": "*",
@@ -5481,8 +5473,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.0-beta3",
-                    "datestamp": "1621678352",
+                    "version": "1.0.0-beta4",
+                    "datestamp": "1703062848",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
