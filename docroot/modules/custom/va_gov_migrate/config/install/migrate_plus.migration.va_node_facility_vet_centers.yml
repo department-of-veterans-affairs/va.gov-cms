@@ -176,8 +176,8 @@ process:
   field_phone_number:
     # Covert all ext variants to x and then replace it with, ', ext. ' last.
     plugin: str_replace
-    search: ['(', ')', 'X', ' ', 'ext', '.', ',', 'Ext', 'x']
-    replace: ['', '-', 'x', '', 'x', '', '', 'x', ', ext. ']
+    search: ['(', ')', 'X', ' ', 'ext', 'Ext', '.', ',', 'x']
+    replace: ['', '-', 'x', '', 'x', 'x', '', '', ', ext. ']
     source: phone-main
   field_office_hours:
     plugin: va_field_office_hours
