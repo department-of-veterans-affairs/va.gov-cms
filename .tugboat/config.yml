@@ -248,6 +248,7 @@ services:
         - echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
 
         # Ensure next-build can find vets-website assets
+        - mkdir ${TUGBOAT_ROOT}/next/public/generated
         - ln -snf "${TUGBOAT_ROOT}/docroot/vendor/va-gov/content-build/build/vagovdev/generated" "${TUGBOAT_ROOT}/next/public/generated"
 
         # Build storybook and the frontends (web, next) in parallel
