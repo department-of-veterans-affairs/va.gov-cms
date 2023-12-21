@@ -1,0 +1,36 @@
+diff --git a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
+index 13df19e50ae44393a651c46a0524065d0c29c921..f9df033be5e7a0d616105ff8f2f69f756a366af7 100644
+--- a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
++++ b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
+@@ -835,7 +835,31 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+         }
+       }
+       return $entities;
++    }foreach ($stored_ids as $entity_id) {
++      if (isset($indexed_entities[$entity_id])) {
++        $entities[] = $indexed_entities[$entity_id];
++      }
++    }
++    if (!empty($entities)) {
++      return $entities;
++    }
++    // We are loading for for the first time so we need to load any existing
++    // values that might already exist on the entity. Also, remove any leftover
++    // data from removed entity references.
++    else {
++      foreach ($items as $item) {
++        if (isset($item->target_id)) {
++          if (!is_null($entity_storage)) {
++            $entity = $entity_storage->load($item->target_id);
++            if (!empty($entity)) {
++              $entities[] = $entity;
++            }
++          }
++        }
++      }
++      return $entities;
+     }
++
+   }
+
+   /**
