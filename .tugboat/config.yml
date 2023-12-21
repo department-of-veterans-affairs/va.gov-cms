@@ -161,6 +161,7 @@ services:
         - ./scripts/vets-web-setup.sh
 
         # Create symlink between vets-website assets and next-build
+        - mkdir ${TUGBOAT_ROOT}/next/public/generated
         - ln -snf "${DOCROOT}/vendor/va-gov/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
 
       # Commands that import files, databases,  or other assets. When an
