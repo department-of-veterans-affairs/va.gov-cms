@@ -30,9 +30,14 @@ jobs:
       run: jq -r .preview .tugboat_response.json > .tugboat_preview.txt
     - name: Delete Previous Preview ID
       continue-on-error: true
-      run: |
-        gh extension install actions/gh-actions-cache
-        gh actions-cache delete "${{ runner.os }}-tugboat-preview-id-pr-${{ github.event.pull_request.number }}" --confirm
+      uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
+      with:
+        script: |
+          await github.rest.actions.deleteActionsCacheByKey({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            key: `${{ runner.os }}-tugboat-preview-id-pr-${{ github.event.pull_request.number }}`,
+          });
     - name: Save Preview ID
       uses: actions/cache/save@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
       with:
