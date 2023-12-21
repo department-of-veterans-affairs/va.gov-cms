@@ -15,6 +15,24 @@
   const fieldLinkWrapperLabel = document.querySelector(
     "#edit-field-link-wrapper label"
   );
+  const fieldCtaEmailInput = document.getElementById(
+    "edit-field-cta-email-0-value"
+  );
+  const fieldCtaEmailWrapper = document.getElementById(
+    "edit-field-cta-email-wrapper"
+  );
+  const fieldCtaEmailWrapperLabel = document.querySelector(
+    "#edit-field-cta-email-wrapper label"
+  );
+  const fieldCtaHowToSignUp = document.getElementById(
+    "edit-field-how-to-sign-up"
+  );
+  const fieldCtaHowToSignUpWrapper = document.getElementById(
+    "edit-field-how-to-sign-up-wrapper"
+  );
+  const fieldCtaHowToSignUpLabel = document.querySelector(
+    "#edit-field-how-to-sign-up-wrapper label"
+  );
   const fieldLocationTypeFacility = document.getElementById(
     "edit-field-location-type-facility"
   );
@@ -76,14 +94,38 @@
     ".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper"
   );
 
-  const toggleCtaLinkRequired = (required = true) => {
+  const toggleCtaInputRequired = (label, wrapper, input, required = true) => {
     const addRemove = required ? "add" : "remove";
-    fieldLinkWrapper.style.display = required ? "block" : "none";
-    fieldLinkInput.required = required ? "required" : "";
-    fieldLinkWrapperLabel.classList[addRemove](
-      "js-form-required",
-      "form-required"
+    wrapper.style.display = required ? "block" : "none";
+    input.required = required ? "required" : "";
+    label.classList[addRemove]("js-form-required", "form-required");
+  };
+
+  const toggleAllCtaInputsRequired = (required = true) => {
+    toggleCtaInputRequired(
+      fieldLinkWrapperLabel,
+      fieldLinkWrapper,
+      fieldLinkInput,
+      required
     );
+    toggleCtaInputRequired(
+      fieldCtaEmailWrapperLabel,
+      fieldCtaEmailWrapper,
+      fieldCtaEmailInput,
+      required
+    );
+    toggleCtaInputRequired(
+      fieldCtaHowToSignUpLabel,
+      fieldCtaHowToSignUpWrapper,
+      fieldCtaHowToSignUp,
+      required
+    );
+  };
+
+  const emptyAllCtaInputs = () => {
+    fieldCtaEmailInput.value = "";
+    fieldLinkInput.value = "";
+    fieldCtaHowToSignUp.value = "_none";
   };
 
   const toggleRegistrationElements = () => {
@@ -91,10 +133,11 @@
     let elementDisplayStyle = "block";
     if (!toggleVal) {
       fieldLinkInput.value = "";
+      fieldCtaEmailInput.value = "";
       ctaSelect.value = "_none";
       elementDisplayStyle = "none";
       registrationRequiredBool.checked = false;
-      toggleCtaLinkRequired(false);
+      toggleAllCtaInputsRequired(false);
     }
     targetRegistrationElements.forEach((element) => {
       element.style.display = elementDisplayStyle;
@@ -104,19 +147,123 @@
   const requireCTA = () => {
     // Default should be hidden.
     fieldLinkWrapper.style.display = "none";
+    fieldCtaEmailWrapper.style.display = "none";
+    fieldCtaHowToSignUpWrapper.style.display = "none";
 
-    // If there is a cta on page load, require an input.
+    // If there is a cta on page load, show conditional fields.
     if (ctaSelect.value !== "_none") {
-      toggleCtaLinkRequired();
+      // If there is an email field value, display the email field.
+      if (fieldCtaEmailInput.value.length > 0) {
+        toggleCtaInputRequired(
+          fieldCtaEmailWrapperLabel,
+          fieldCtaEmailWrapper,
+          fieldCtaEmailInput,
+          true
+        );
+        // Also display the 'how to apply' field, and set the value accordingly.
+        toggleCtaInputRequired(
+          fieldCtaHowToSignUpLabel,
+          fieldCtaHowToSignUpWrapper,
+          fieldCtaHowToSignUp,
+          true
+        );
+        fieldCtaHowToSignUp.value = "email";
+      }
+      // If there is an url field value, display the url field.
+      else if (fieldLinkInput.value.length > 0) {
+        toggleCtaInputRequired(
+          fieldLinkWrapperLabel,
+          fieldLinkWrapper,
+          fieldLinkInput,
+          true
+        );
+        // Also display the 'how to apply' field, and set the value accordingly.
+        toggleCtaInputRequired(
+          fieldCtaHowToSignUpLabel,
+          fieldCtaHowToSignUpWrapper,
+          fieldCtaHowToSignUp,
+          true
+        );
+        fieldCtaHowToSignUp.value = "url";
+      }
+      // Otherwise, display the 'how to sign up' field.
+      else {
+        toggleCtaInputRequired(
+          fieldCtaHowToSignUpLabel,
+          fieldCtaHowToSignUpWrapper,
+          fieldCtaHowToSignUpWrapper
+        );
+      }
     }
 
-    // Check on change if cta value, and require input if so.
+    // Check on change of cta value, and require input if so.
     ctaSelect.addEventListener("change", (e) => {
-      toggleCtaLinkRequired(false);
+      emptyAllCtaInputs();
+      toggleAllCtaInputsRequired(false);
       if (e.target.value !== "_none") {
-        toggleCtaLinkRequired();
-      } else {
-        fieldLinkInput.value = "";
+        toggleCtaInputRequired(
+          fieldCtaHowToSignUpLabel,
+          fieldCtaHowToSignUpWrapper,
+          fieldCtaHowToSignUp
+        );
+      }
+    });
+
+    fieldCtaHowToSignUp.addEventListener("change", (e) => {
+      switch (e.target.value) {
+        case "url":
+          // Empty email field.
+          fieldCtaEmailInput.value = "";
+          // Hide email field.
+          toggleCtaInputRequired(
+            fieldCtaEmailWrapperLabel,
+            fieldCtaEmailWrapper,
+            fieldCtaEmailInput,
+            false
+          );
+          // Display url field and make required.
+          toggleCtaInputRequired(
+            fieldLinkWrapperLabel,
+            fieldLinkWrapper,
+            fieldLinkInput
+          );
+          break;
+
+        case "email":
+          // Empty url field.
+          fieldLinkInput.value = "";
+          // Hide url field.
+          toggleCtaInputRequired(
+            fieldLinkWrapperLabel,
+            fieldLinkWrapper,
+            fieldLinkInput,
+            false
+          );
+          // Display email field and make required.
+          toggleCtaInputRequired(
+            fieldCtaEmailWrapperLabel,
+            fieldCtaEmailWrapper,
+            fieldCtaEmailInput
+          );
+          break;
+
+        default:
+          // Hide both url and email fields and empty their values.
+          toggleCtaInputRequired(
+            fieldLinkWrapperLabel,
+            fieldLinkWrapper,
+            fieldLinkInput,
+            false
+          );
+          toggleCtaInputRequired(
+            fieldCtaEmailWrapperLabel,
+            fieldCtaEmailWrapper,
+            fieldCtaEmailInput,
+            false
+          );
+          fieldLinkInput.value = "";
+          fieldCtaEmailInput.value = "";
+          break;
       }
     });
   };
