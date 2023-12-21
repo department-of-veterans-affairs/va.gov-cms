@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - node.type.health_care_region_detail_page
-    - system.menu.admin
     - user.role.administrator
     - user.role.content_admin
   module:
@@ -474,8 +473,8 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
-          reset_button: false
+          submit_button: Filter
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -619,25 +618,25 @@ display:
           reduce_duplicates: 0
           section_filter:
             show_hierarchy: 1
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: moderation_state_op
+            operator_id: moderation_state_multiple_workflow_filter_op
             label: 'Moderation state'
             description: ''
-            use_operator: true
-            operator: moderation_state_op
+            use_operator: false
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: moderation_state
@@ -652,6 +651,7 @@ display:
               content_creator_resources_and_support: '0'
               office_content_creator: '0'
               vamc_content_creator: '0'
+              content_creator_vba: '0'
               content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
@@ -660,7 +660,10 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+              homepage_manager: '0'
+              next_js: '0'
+              translation_manager: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -673,6 +676,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: 0
       filter_groups:
         operator: AND
         groups:
@@ -768,7 +772,6 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:workflow_list'
         - workbench_access_view
   audit_page:
     id: audit_page
@@ -781,9 +784,19 @@ display:
           enabled: true
       path: admin/content/audit/vamc-detail-pages
       menu:
-        type: normal
-        title: 'Detail page URL audit and bulk udpate'
+        type: tab
+        title: 'Detail page URL bulk update'
+        description: ''
+        weight: 0
+        expanded: false
         menu_name: admin
+        parent: system.admin_content
+        context: '0'
+        as_local_task: true
+        local_task_link_title: 'VAMC Detail pages'
+        local_task_parent: 'views_view:view.content.content_audit_page'
+        local_task_weight: 720
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: 0
       contexts:
@@ -795,7 +808,6 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:workflow_list'
         - workbench_access_view
   data_export_1:
     id: data_export_1
@@ -841,5 +853,4 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:workflow_list'
         - workbench_access_view
