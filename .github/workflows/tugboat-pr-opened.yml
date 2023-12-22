@@ -1,0 +1,47 @@
+name: Create Tugboat Preview
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  tugboat_create_preview:
+    runs-on: self-hosted
+    env:
+      NODE_EXTRA_CA_CERTS: /etc/ssl/certs/ca-certificates.crt
+    name: Create Tugboat Preview
+    steps:
+    - name: Create Tugboat Preview
+      id: tugboat_pr_preview
+      run: |
+        curl --fail \
+          -H "Authorization: Bearer ${{ secrets.TUGBOAT_API_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -X POST \
+          -d '{ "repo": "${{ secrets.TUGBOAT_REPOSITORY }}", "ref": "${{ github.event.pull_request.number }}", "name": "${{ github.event.pull_request.title }}", "type": "pullrequest" }' \
+          -o .tugboat_response.json \
+          https://api.tugboat.vfs.va.gov/v3/previews
+    - name: Diagnostics
+      run: cat .tugboat_response.json
+    - name: Extract Preview ID
+      run: jq -r .preview .tugboat_response.json > .tugboat_preview.txt
+    - name: Delete Previous Preview ID
+      continue-on-error: true
+      uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
+      with:
+        script: |
+          await github.rest.actions.deleteActionsCacheByKey({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            key: `${{ runner.os }}-tugboat-preview-id-pr-${{ github.event.pull_request.number }}`,
+          });
+    - name: Save Preview ID
+      uses: actions/cache/save@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
+      with:
+        path: .tugboat_preview.txt
+        key: ${{ runner.os }}-tugboat-preview-id-pr-${{ github.event.pull_request.number }}
+    - name: Cleanup temporary file
+      run: rm .tugboat_preview.txt

@@ -3,9 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_administration
     - node.type.health_care_region_detail_page
-    - system.menu.admin
     - taxonomy.vocabulary.administration
     - user.role.administrator
     - user.role.content_admin
@@ -462,7 +460,7 @@ display:
           entity_type: node
           entity_field: revision_log
           plugin_id: field
-          label: ''
+          label: 'Revision message'
           exclude: false
           alter:
             alter_text: false
@@ -540,7 +538,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Filter
           reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -1513,18 +1511,20 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_administration'
         - 'config:workflow_list'
+        - workbench_access_view
   page_1:
     id: page_1
     display_title: Page
     display_plugin: page
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/vamc-top-task-page-revision-histories
       menu:
-        type: normal
+        type: tab
         title: 'VAMC top task page revision histories'
         description: ''
         weight: 0
@@ -1532,6 +1532,11 @@ display:
         menu_name: admin
         parent: system.admin_content
         context: '0'
+        as_local_task: true
+        local_task_link_title: 'VAMC top task pages'
+        local_task_parent: 'views_view:view.content.content_audit_page'
+        local_task_weight: 730
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
       contexts:
@@ -1543,5 +1548,5 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_administration'
         - 'config:workflow_list'
+        - workbench_access_view
