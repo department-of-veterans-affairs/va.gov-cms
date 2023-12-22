@@ -308,7 +308,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       '<p class="vc-help-text"><strong>Review nearby locations</strong>
       <br />Nearby locations provide alternative
         options to the main and satellite locations and are automatically selected based on the
-        five closest locations in an 80-mile radius.</p>
+        five closest locations in an 120-mile radius.</p>
 
         <p class="vc-help-text"><a target="_blank" href="@preview_link">Preview page to review nearby locations (opens in a new tab)</a></p>
 
