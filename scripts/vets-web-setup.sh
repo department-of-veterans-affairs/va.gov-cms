@@ -6,13 +6,15 @@ export NVM_DIR="$HOME/.nvm"
 source ~/.bashrc
 
 # Installs & builds vets-website dependencies for next-build preview.
-if [ ! -d docroot/vendor/va-gov/vets-website ]; then
+#if [ ! -d docroot/vendor/va-gov/vets-website ]; then
+if [ ! -d vets-website ]; then
   git clone --single-branch --depth 1 https://github.com/department-of-veterans-affairs/vets-website.git docroot/vendor/va-gov/vets-website
 else
   echo "Repo vets-website already cloned."
 fi
 
-cd docroot/vendor/va-gov/vets-website
+#cd docroot/vendor/va-gov/vets-website
+cd vets-website
 
 nvm install 14.15.1
 nvm use 14.15.1
@@ -23,6 +25,5 @@ echo "NPM $(npm -v)"
 echo "Yarn $(yarn -v)"
 
 export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
-export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE
 yarn install
 yarn build
