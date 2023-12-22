@@ -209,8 +209,7 @@ services:
         - bash -lc 'composer va:next:install'
 
         # Create symlink between vets-website assets and next-build
-        - mkdir ${TUGBOAT_ROOT}/next/public/generated
-        - ln -sTf "${DOCROOT}/vendor/va-gov/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
+        - ln -sf "${DOCROOT}/vendor/va-gov/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
 
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
