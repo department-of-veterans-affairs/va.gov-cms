@@ -4,6 +4,6 @@ parameters:
 services:
   va_gov_api.add_js_to_ui:
       class: Drupal\va_gov_api\EventSubscriber\AddJsEventSubscriber
-      arguments: ['@module_handler']
+      arguments: ['@request_stack']
       tags:
       - { name: event_subscriber }
