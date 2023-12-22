@@ -554,7 +554,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: custom
-          label: ''
+          label: Product
           exclude: false
           alter:
             alter_text: true
@@ -654,8 +654,8 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
-          reset_button: false
+          submit_button: Filter
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -677,15 +677,44 @@ display:
           id: vid
           table: taxonomy_term_field_data
           field: vid
+          relationship: none
+          group_type: group
+          admin_label: ''
           entity_type: taxonomy_term
           entity_field: vid
           plugin_id: bundle
+          operator: in
           value:
             administration: administration
           group: 1
+          exposed: false
           expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
             operator_limit_selection: false
             operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         name:
           id: name
           table: taxonomy_term_field_data
@@ -917,7 +946,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<p>This view is designed to help section admins see and make connections between sections and products, for dashboards or other purposes.</p>\r\n\r\n<p><a href=\"/admin/content/audit/sections-hierarchy/vagov-cms-sections\" class=\"button\">Download as CSV</a></p>"
+            value: "<p>This view is designed to help section admins see and make connections between sections and products, for dashboards or other purposes.</p>\r\n"
             format: rich_text
           tokenize: false
       footer: {  }
@@ -1458,8 +1487,13 @@ display:
             use_serializer_encode_only: false
       defaults:
         fields: false
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/sections-hierarchy/vagov-cms-sections
+      displays:
+        page_1: page_1
+        default: '0'
       filename: ''
       automatic_download: false
       store_in_public_file_directory: null
@@ -1483,8 +1517,24 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/sections-hierarchy
+      menu:
+        type: tab
+        title: Sections
+        description: ''
+        weight: 0
+        expanded: false
+        menu_name: admin
+        parent: system.admin_content
+        context: '0'
+        as_local_task: false
+        local_task_link_title: Sections
+        local_task_parent: 'views_view:view.content.content_audit_page'
+        local_task_weight: 1020
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: 0
       contexts:
