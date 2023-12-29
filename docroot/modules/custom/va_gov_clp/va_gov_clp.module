@@ -5,6 +5,7 @@
  * Contains va_gov_clp.module.
  */
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -47,5 +48,15 @@ function va_gov_clp_field_group_build_pre_render_alter(array &$variables) {
   }
   if (empty($variables['field_clip_resources_panel'])) {
     $variables['group_resources']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_reference_form_alter().
+ */
+function va_gov_clp_inline_entity_form_reference_form_alter(array &$reference_form, FormStateInterface &$form_state) {
+  // Hide save button when using entity browser.
+  if (!empty($reference_form['entity_browser'] && !empty($reference_form['actions']['ief_reference_save']))) {
+    $reference_form['actions']['ief_reference_save']['#attributes']['style'] = 'display: none;';
   }
 }
