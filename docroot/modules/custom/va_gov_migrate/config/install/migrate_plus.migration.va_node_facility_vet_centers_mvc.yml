@@ -170,20 +170,11 @@ process:
   field_address/administrative_area: state
   field_address/postal_code: zip
   field_phone_number:
-    -
-      plugin: str_replace
-      source: phone-main
-      search: Ext.
-      replace: x
-    -
-      plugin: explode
-      delimiter: x
-    -
-      plugin: callback
-      callable: trim
-    -
-      plugin: concat
-      delimiter: ' x'
+    # Covert all ext variants to x and then replace it with, ', ext. ' last.
+    plugin: str_replace
+    search: ['(', ')', 'X', ' ', 'ext', 'Ext', '.', ',', 'x']
+    replace: ['', '-', 'x', '', 'x', 'x', '', '', ', ext. ']
+    source: phone-main
   field_office_hours:
     plugin: va_field_office_hours
     source: hours
