@@ -156,6 +156,10 @@ services:
         # Install GitHub Status Updater, which updates the status of GitHub check runs.
         - ./scripts/install_github_status_updater.sh
 
+        # Install & build vets-website early for next-build preview
+        # Build vets-website so assets are available (various widgets, fonts, etc)
+        - ./scripts/vets-web-setup.sh
+
       # Commands that import files, databases,  or other assets. When an
       # existing preview is refreshed, the build workflow starts here,
       # skipping the init step, because the results of that step will
@@ -203,6 +207,12 @@ services:
         - bash -lc 'composer va:theme:compile'
         - bash -lc 'composer va:web:install'
         - bash -lc 'composer va:next:install'
+
+        # Create symlink between vets-website assets and next-build
+#        - ln -snf "${DOCROOT}/vendor/va-gov/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
+        - ln -snf "${TUGBOAT_ROOT}/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
+
+
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
 
@@ -250,7 +260,7 @@ services:
         # Build storybook and the frontends (web, next) in parallel
         - bash -lc 'time task --taskfile=tugboat.yml'
 
-        # Start the next build server
+        # Start the next build preview server
         - bash -lc 'composer va:next:start'
 
   memcache:
