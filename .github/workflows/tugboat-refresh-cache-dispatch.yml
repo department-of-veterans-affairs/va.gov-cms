@@ -5,16 +5,14 @@ on:
     - cron: '0 */6 * * *'
 jobs:
   # Collects the cache keys that need to be refreshed
-  collect_cache_keys:
-    name: Collect Tugboat Preview ID cache keys that need to be refreshed
-    outputs:
-      matrix: ${{ steps.cache-keys.outputs.result }}
+  dispatch_cache_keys:
+    name: Dispatch Tugboat Preview ID cache keys that need to be refreshed
     runs-on: ubuntu-latest
     steps:
       - name: Cross reference open PRs against cache keys in repo
-        id: cache-keys
         uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
         with:
+          github-token: ${{ secrets.LABEL_API_TOKEN }}
           script: |
             const prs = await github.paginate(
               github.rest.pulls.list,
@@ -43,32 +41,14 @@ jobs:
               console.log(`Key: ${key}`)
             }
 
-            const toRefresh = []
             for (const pr of prs) {
               if (cacheKeys.includes(`${{ runner.os }}-tugboat-preview-id-pr-${pr}`)) {
                 console.log(`Need to refresh: ${pr}`)
-                toRefresh.push(pr)
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: `${pr}`,
+                  labels: ['refresh-tugboat-cache'],
+                });
               }
             }
-
-            const result = JSON.stringify(toRefresh)
-            console.log(`Refresh Keys: ${result}`)
-            return result
-          result-encoding: string
-
-  # Refresh cache for given keys
-  refresh_cache:
-    name: Refresh cache for given keys
-    needs: [ collect_cache_keys ]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        value: ${{fromJSON(needs.collect_cache_keys.outputs.matrix)}}
-    steps:
-      - name: Refresh Preview ID
-        uses: actions/cache/restore@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
-        with:
-          path: .tugboat_preview.txt
-          key: ${{ runner.os }}-tugboat-preview-id-pr-${{ matrix.value }}
-      - name: Cleanup temporary file
-        run: rm .tugboat_preview.txt

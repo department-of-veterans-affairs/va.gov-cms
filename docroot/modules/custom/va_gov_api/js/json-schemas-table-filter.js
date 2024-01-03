@@ -9,13 +9,14 @@
 
       rows.forEach(function(row) {
         // Get the first cell (td) of the row, which contains the schema label.
-        const firstCell = row.cells[0];
+        const schemaLabel = row.cells[0];
 
         // Remove all but 'VA.gov JSON:API'.
-        if (firstCell.textContent.trim() !== 'VA.gov JSON:API') {
+        if (schemaLabel.textContent.trim() !== 'VA.gov JSON:API') {
           row.remove();
         }
       });
     }
   }
 })(jQuery, Drupal, drupalSettings);
+
