@@ -18,7 +18,3 @@ labels: Needs refining, Accelerated Publishing
 <!-- any suppporting information, links etc. -->
 <!-- solution-specific discussion is great here. -->
 
-```[tasklist]
-### Implementation tasks
-- [ ] Use this if it helps you or feel free to delete.
-```

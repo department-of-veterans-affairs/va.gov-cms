@@ -1,3 +1,9 @@
 # Increases the # of items in the response for any given jsonapi request.
 parameters:
   next_jsonapi.size_max: 2000
+services:
+  va_gov_api.add_js_to_ui:
+      class: Drupal\va_gov_api\EventSubscriber\AddJsEventSubscriber
+      arguments: ['@request_stack']
+      tags:
+      - { name: event_subscriber }
