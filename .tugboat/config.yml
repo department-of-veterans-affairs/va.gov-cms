@@ -111,10 +111,6 @@ services:
         - echo "${OAUTH_PUBLIC_KEY}" >> ${TUGBOAT_ROOT}/public.key
         - echo "${OAUTH_PRIVATE_KEY}" >> ${TUGBOAT_ROOT}/private.key
 
-        # Install drush-launcher, if desired.
-        - wget -O /usr/local/bin/drush https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar
-        - chmod +x /usr/local/bin/drush
-
         # Link the document root to the expected path. This example links /docroot
         # to the docroot.
         - ln -snf "${TUGBOAT_ROOT}/docroot" "${DOCROOT}"
