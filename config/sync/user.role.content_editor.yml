@@ -3,6 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.alert
+    - block_content.type.promo
     - filter.format.rich_text
     - filter.format.rich_text_limited
     - media.type.document
@@ -66,7 +68,7 @@ dependencies:
     - workflows.workflow.restricted_archive
   module:
     - actions_permissions
-    - block_content_permissions
+    - block_content
     - block_diff_ui
     - content_lock
     - content_moderation
@@ -93,6 +95,7 @@ weight: -1
 is_admin: null
 permissions:
   - 'access administration pages'
+  - 'access block library'
   - 'access content overview'
   - 'access files overview'
   - 'access media overview'
@@ -107,6 +110,7 @@ permissions:
   - 'create media'
   - 'create promo block content'
   - 'create video media'
+  - 'edit any alert block content'
   - 'edit any banner content'
   - 'edit any basic_landing_page content'
   - 'edit any campaign_landing_page content'
@@ -138,6 +142,7 @@ permissions:
   - 'edit any person_profile content'
   - 'edit any press_release content'
   - 'edit any press_releases_listing content'
+  - 'edit any promo block content'
   - 'edit any promo_banner content'
   - 'edit any publication_listing content'
   - 'edit any q_a content'
@@ -175,9 +180,7 @@ permissions:
   - 'revert image revisions'
   - 'revert promo revisions'
   - 'revert video revisions'
-  - 'update any alert block content'
   - 'update any media'
-  - 'update any promo block content'
   - 'update media'
   - 'use editorial transition create_new_draft'
   - 'use editorial transition review'

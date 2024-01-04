@@ -3,6 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.alert
+    - block_content.type.benefit_promo
+    - block_content.type.cta_with_link
+    - block_content.type.news_promo
+    - block_content.type.promo
     - filter.format.rich_text
     - filter.format.rich_text_limited
     - media.type.document
@@ -66,7 +71,7 @@ dependencies:
     - workflows.workflow.restricted_archive
   module:
     - actions_permissions
-    - block_content_permissions
+    - block_content
     - block_diff_ui
     - content_lock
     - content_moderation
@@ -94,6 +99,7 @@ weight: 1
 is_admin: null
 permissions:
   - 'access administration pages'
+  - 'access block library'
   - 'access content overview'
   - 'access files overview'
   - 'access media overview'
@@ -108,11 +114,14 @@ permissions:
   - 'create media'
   - 'create promo block content'
   - 'create video media'
+  - 'edit any alert block content'
   - 'edit any banner content'
   - 'edit any basic_landing_page content'
+  - 'edit any benefit_promo block content'
   - 'edit any campaign_landing_page content'
   - 'edit any centralized_content content'
   - 'edit any checklist content'
+  - 'edit any cta_with_link block content'
   - 'edit any document media'
   - 'edit any document_external media'
   - 'edit any documentation_page content'
@@ -132,6 +141,7 @@ permissions:
   - 'edit any media_list_images content'
   - 'edit any media_list_videos content'
   - 'edit any nca_facility content'
+  - 'edit any news_promo block content'
   - 'edit any news_story content'
   - 'edit any office content'
   - 'edit any outreach_asset content'
@@ -139,6 +149,7 @@ permissions:
   - 'edit any person_profile content'
   - 'edit any press_release content'
   - 'edit any press_releases_listing content'
+  - 'edit any promo block content'
   - 'edit any promo_banner content'
   - 'edit any publication_listing content'
   - 'edit any q_a content'
@@ -237,12 +248,7 @@ permissions:
   - 'unflag changed_title'
   - 'unflag deleted'
   - 'unflag new_form'
-  - 'update any alert block content'
-  - 'update any benefit_promo block content'
-  - 'update any cta_with_link block content'
   - 'update any media'
-  - 'update any news_promo block content'
-  - 'update any promo block content'
   - 'update media'
   - 'use editorial transition approve'
   - 'use editorial transition archive'
