@@ -3,6 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.alert
+    - block_content.type.benefit_promo
+    - block_content.type.cta_with_link
+    - block_content.type.news_promo
+    - block_content.type.promo
     - filter.format.rich_text
     - filter.format.rich_text_limited
     - media.type.document
@@ -16,7 +21,7 @@ dependencies:
     - workflows.workflow.restricted_archive
   module:
     - actions_permissions
-    - block_content_permissions
+    - block_content
     - block_diff_ui
     - content_lock
     - content_moderation
@@ -54,6 +59,7 @@ is_admin: null
 permissions:
   - 'accept translation jobs'
   - 'access administration pages'
+  - 'access block library'
   - 'access files overview'
   - 'access media overview'
   - 'access taxonomy overview'
@@ -94,9 +100,14 @@ permissions:
   - 'delete image revisions'
   - 'delete promo revisions'
   - 'delete video revisions'
+  - 'edit any alert block content'
+  - 'edit any benefit_promo block content'
+  - 'edit any cta_with_link block content'
   - 'edit any document media'
   - 'edit any document_external media'
   - 'edit any image media'
+  - 'edit any news_promo block content'
+  - 'edit any promo block content'
   - 'edit any video media'
   - 'execute changed_filename_unflag node'
   - 'execute changed_title_unflag node'
@@ -131,12 +142,7 @@ permissions:
   - 'unflag new'
   - 'unflag new_form'
   - 'unflag removed_from_source'
-  - 'update any alert block content'
-  - 'update any benefit_promo block content'
-  - 'update any cta_with_link block content'
   - 'update any media'
-  - 'update any news_promo block content'
-  - 'update any promo block content'
   - 'update content translations'
   - 'update media'
   - 'use editorial transition approve'
