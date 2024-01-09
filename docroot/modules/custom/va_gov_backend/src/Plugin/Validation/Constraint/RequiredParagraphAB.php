@@ -27,4 +27,11 @@ class RequiredParagraphAB extends RequiredParagraph {
    */
   public $fieldParagraphB;
 
+  /**
+   * Displays error as Drupal message, rather than form error.
+   *
+   * @var bool
+   */
+  public $requiredErrorDisplayAsMessage;
+
 }

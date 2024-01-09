@@ -2,23 +2,42 @@
 
 namespace Drupal\va_gov_backend\Plugin\Validation\Constraint;
 
-use Drupal\node\NodeInterface;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * Validates the RequiredParagraph constraint.
  */
-class RequiredParagraphABValidator extends ConstraintValidator {
+class RequiredParagraphABValidator extends ConstraintValidator implements ContainerInjectionInterface {
+
+  use StringTranslationTrait;
+
+  /**
+   * The messenger service.
+   *
+   * @var \Drupal\Core\Messenger\Messenger
+   */
+  protected $messenger;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container): static {
+    $instance = new static();
+    $instance->messenger = $container->get('messenger');
+    return $instance;
+  }
 
   /**
    * {@inheritdoc}
    */
   public function validate($entity, Constraint $constraint) {
+    assert($entity instanceof FieldableEntityInterface, 'Entity should inherit from FieldableEntityInterface.');
     /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\RequiredParagraphAB $constraint */
-    if (!$entity instanceof NodeInterface) {
-      return;
-    }
     if (!$entity->hasField($constraint->toggle) && !$entity->hasField($constraint->fieldParagraphA) && !$entity->hasField($constraint->fieldParagraphB)) {
       return;
     }
@@ -27,21 +46,16 @@ class RequiredParagraphABValidator extends ConstraintValidator {
     $countA = $this->getCountForParagraphField($constraint->fieldParagraphA);
     $countB = $this->getCountForParagraphField($constraint->fieldParagraphB);
     $number = $countA + $countB;
-
-    if ($panel_enabled && $number < $constraint->min) {
+    $paragraphAField = $this->getBaseField($constraint->fieldParagraphA);
+    $paragraphBField = $this->getBaseField($constraint->fieldParagraphB);
+    $errorPath = $countA ? $paragraphAField : $paragraphBField;
+    if ($panel_enabled && $number < $constraint->min && $number > 0) {
       $this->context->buildViolation($constraint->tooFew, [
         '%number' => $number,
         '%min' => $constraint->min,
         '%paragraph' => $constraint->readable,
       ])
-        ->atPath($constraint->fieldParagraphA)
-        ->addViolation();
-      $this->context->buildViolation($constraint->tooFew, [
-        '%number' => $number,
-        '%min' => $constraint->min,
-        '%paragraph' => $constraint->readable,
-      ])
-        ->atPath($constraint->fieldParagraphB)
+        ->atPath($errorPath)
         ->addViolation();
     }
     elseif ($panel_enabled && $number > $constraint->max) {
@@ -50,30 +64,21 @@ class RequiredParagraphABValidator extends ConstraintValidator {
         '%max' => $constraint->max,
         '%paragraph' => $constraint->readable,
       ])
-        ->atPath($constraint->fieldParagraphA)
-        ->addViolation();
-      $this->context->buildViolation($constraint->tooMany, [
-        '%number' => $number,
-        '%max' => $constraint->max,
-        '%paragraph' => $constraint->readable,
-      ])
-        ->atPath($constraint->fieldParagraphB)
+        ->atPath($errorPath)
         ->addViolation();
     }
     elseif ($panel_enabled && $number === 0) {
-      $this->context->addViolation($constraint->required, [
+      // Displaying an error for an element that has no form element on the
+      // page, combined with using inline error messages, creates form errors
+      // that have no place to live in the DOM, thereby hiding them from the
+      // user. So we add an error message outside the form context so that it
+      // can be seen.
+      if ($constraint->requiredErrorDisplayAsMessage) {
+        $this->messenger->addError($this->t('%paragraph entry is required.', ['%paragraph' => $constraint->readable]));
+      }
+      $this->context->addViolation('', [
         '%paragraph' => $constraint->readable,
       ]);
-      $this->context->buildViolation($constraint->required, [
-        '%paragraph' => $constraint->readable,
-      ])
-        ->atPath($constraint->fieldParagraphA)
-        ->addViolation();
-      $this->context->buildViolation($constraint->required, [
-        '%paragraph' => $constraint->readable,
-      ])
-        ->atPath($constraint->fieldParagraphB)
-        ->addViolation();
     }
   }
 
@@ -82,7 +87,7 @@ class RequiredParagraphABValidator extends ConstraintValidator {
    *
    * To target a nested field (a field within a paragraph), specify the $field
    * with a colon ":" between the parent and child field names. Only one level
-   * of nesting is supported.
+   * of nesting is supported. eg: field_faq_group:field_faq_items.
    *
    * @param string $field
    *   The field name to get the count from.
@@ -113,6 +118,25 @@ class RequiredParagraphABValidator extends ConstraintValidator {
       $count = $entity->get($field)->count();
     }
     return $count;
+  }
+
+  /**
+   * Get a base field from a given paragraph field identifier.
+   *
+   * Since fields can contain colon's (":") to separate parent:child, this
+   * method is used to get the base field.
+   *
+   * @return string
+   *   The base field name.
+   */
+  private function getBaseField(string $field): string {
+    if (str_contains(':', $field)) {
+      [$baseField] = explode(":", $field);
+      return $baseField;
+    }
+    else {
+      return $field;
+    }
   }
 
 }

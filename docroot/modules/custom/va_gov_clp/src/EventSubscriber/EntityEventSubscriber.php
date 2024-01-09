@@ -47,6 +47,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'readable' => 'Q&A',
       'fieldParagraphA' => 'field_clp_faq_paragraphs',
       'fieldParagraphB' => 'field_clp_reusable_q_a:field_q_as',
+      'requiredErrorDisplayAsMessage' => TRUE,
       'min' => 3,
       'max' => 10,
     ]);
