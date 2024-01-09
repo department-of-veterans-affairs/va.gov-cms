@@ -14,10 +14,9 @@ pushd "${repo_root}" > /dev/null
 composer va:web:prepare-dotenv
 touch ./.buildlock
 
-build_type="vagovdev"
+build_type="localhost"
 web_path="./web"
 build_path="${web_path}/build/${build_type}"
-assets_base_url="https://dev-va-gov-assets\.s3-us-gov-west-1\.amazonaws\.com"
 rm -rf "${build_path}"
 
 pushd "${web_path}"
@@ -33,19 +32,6 @@ yarn build \
   --api="${build_api_url}" \
   --buildtype="${build_type}"
 popd
-
-echo "Replacing s3 address with local in generated files."
-find \
-  "${build_path}/generated" \
-  -type f \
-  -exec sed -i -e "s#${assets_base_url}##g" {} \+;
-
-echo "Replacing s3 address with local in built content."
-dev_base_url="https://s3-us-gov-west-1\.amazonaws\.com/content\.dev\.va\.gov"
-find \
-  "${build_path}" \
-  -type f \
-  -exec sed -i -e "s#${dev_base_url}##g" {} \+;
 
 rm ./.buildlock
 
