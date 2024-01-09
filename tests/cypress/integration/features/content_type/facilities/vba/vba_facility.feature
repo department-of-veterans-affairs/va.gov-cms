@@ -10,3 +10,16 @@ Feature: CMS User may effectively interact with the VBA Facility form
     Then I am at "/node/4071/"
     Then the primary tab "View" should exist
     Then the primary tab "Edit" should not exist
+
+  Scenerio: Enable banner segment and ensure expected fields are present
+    Given I am logged in as a user with the "content_admin" role
+    When I am at "node/add/vba_facility"
+    Then I should not see an element with the selector "#edit-field-alert-type"
+    And I should not see an element with the selector "#edit-field-dismissible-option--wrapper"
+    And I should not see an element with the selector "#edit-field-banner-title-0-value"
+    And I should not see an element with the selector "#edit-field-banner-content-wrapper"
+    When I click to "Display a banner alert on this facility"
+    Then I should not see an element with the selector "#edit-field-alert-type"
+    And I should see an element with the selector "#edit-field-dismissible-option--wrapper"
+    And I should see an element with the selector "#edit-field-banner-title-0-value"
+    And I should not see an element with the selector "#edit-field-banner-content-wrapper"
