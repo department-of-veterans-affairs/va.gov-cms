@@ -12,7 +12,7 @@ The following were added in #5611 to work with certain S3 buckets; these are int
 - `svc-dsva-vagov-staging-cms-files`
 - `svc-dsva-vagov-staging-cms-test-files`
 
-The following account may be necessary for GitHub Actions workflows to interact with AWS resources.
+The following account may be necessary for GitHub Actions workflows (currently under the purview of Accelerated Publishing) to interact with AWS resources.
 
 - `svc-gh-vagov-ap-user`
 
