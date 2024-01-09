@@ -18,6 +18,7 @@ build_type="vagovdev"
 web_path="./web"
 build_path="${web_path}/build/${build_type}"
 assets_base_url="https://dev-va-gov-assets\.s3-us-gov-west-1\.amazonaws\.com"
+assets2_base_url="https://s3-us-gov-west-1\.amazonaws\.com/content\.dev\.va\.gov"
 rm -rf "${build_path}"
 
 pushd "${web_path}"
@@ -38,7 +39,14 @@ echo "Replacing s3 address with local in generated files."
 find \
   "${build_path}/generated" \
   -type f \
-  -exec sed -i "s#${assets_base_url}##g" {} \+;
+  -exec sed -i -e "s#${assets_base_url}##g" {} \+;
+
+echo "Replacing s3 address with local in built content."
+dev_base_url="https://s3-us-gov-west-1\.amazonaws\.com/content\.dev\.va\.gov"
+find \
+  "${build_path}" \
+  -type f \
+  -exec sed -i -e "s#${dev_base_url}##g" {} \+;
 
 rm ./.buildlock
 
