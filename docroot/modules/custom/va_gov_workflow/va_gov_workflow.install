@@ -67,3 +67,29 @@ function va_gov_workflow_update_9001() {
     $contentType, $oldWorkflow, $newWorklow
   );
 }
+
+/**
+ * Change the workflow of the revisions of VAMC system pages.
+ */
+function va_gov_workflow_update_9002() {
+  $contentTypes = [
+    'health_care_region_page',
+    'locations_listing',
+    'vamc_operating_status_and_alerts',
+    'vamc_system_billing_insurance',
+    'vamc_system_medical_records_offi',
+    'vamc_system_policies_page',
+    'vamc_system_register_for_care',
+    'vamc_system_va_police',
+  ];
+  $message = '';
+  foreach ($contentTypes as $contentType) {
+    $oldWorkflow = 'editorial';
+    $newWorkflow = 'restricted_archive';
+    $message .= _va_gov_workflow_change_content_type_workflow(
+      $contentType, $oldWorkflow, $newWorkflow
+    ) . PHP_EOL;
+  }
+  return $message;
+
+}
