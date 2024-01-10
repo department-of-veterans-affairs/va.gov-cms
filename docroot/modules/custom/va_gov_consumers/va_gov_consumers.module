@@ -29,7 +29,7 @@ function va_gov_consumers_module_implements_alter(&$implementations, $hook) {
  */
 function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   _va_gov_consumers_modify_va_form_fields($form, $form_id, $form_state);
-  _va_gov_consumers_modify_vamc_system_fields($form, $form_id, $form_state);
+  _va_gov_consumers_modify_vamc_system_related_fields($form, $form_id, $form_state);
   _va_gov_consumers_modify_facility_fields($form, $form_id, $form_state);
   _va_gov_consumers_disable_vha_api_form_fields($form, $form_id);
   _va_gov_consumers_disable_non_vha_facilities_api_form_fields($form, $form_id);
@@ -170,7 +170,6 @@ function _va_gov_consumers_modify_va_form_fields(array &$form, $form_id, FormSta
  *   The form state by reference.
  */
 function _va_gov_consumers_modify_facility_fields(array &$form, $form_id, FormStateInterface &$form_state) {
-
   // We want to modify display of fields for specific form id's.
   $external_content_form_ids = [
     'node_nca_facility_edit_form',
@@ -236,12 +235,14 @@ function _va_gov_consumers_modify_facility_fields(array &$form, $form_id, FormSt
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state by reference.
  */
-function _va_gov_consumers_modify_vamc_system_fields(array &$form, $form_id, FormStateInterface &$form_state) {
+function _va_gov_consumers_modify_vamc_system_related_fields(array &$form, $form_id, FormStateInterface &$form_state) {
 
   // We want to modify display of fields for specific form id's.
   $external_content_form_ids = [
     'node_health_care_region_page_form',
     'node_health_care_region_page_edit_form',
+    'node_vamc_system_va_police_form',
+    'node_vamc_system_va_police_edit_form',
   ];
 
   // We want to confirm we are on a specific form.
@@ -268,7 +269,7 @@ function _va_gov_consumers_modify_vamc_system_fields(array &$form, $form_id, For
 function _va_gov_consumers_disable_external_content_editing(array &$form, FormStateInterface $form_state, $display_if_empty_field) {
   $node = $form_state->getformObject()->getEntity();
 
-  $is_admin = in_array('administrator', \Drupal::currentUser()->getRoles());
+  $is_admin = \Drupal::service('va_gov_user.user_perms')->hasAdminRole(TRUE);
   // TRUE means to skip field value check.
   if ($display_if_empty_field === TRUE) {
     // TRUE indicates we need to use external content.
@@ -280,10 +281,11 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
 
   // If the user is not admin or and there is migrated data, hide the fields.
   // We want admins to have access to fields in case they have to temporarily
-  // fix bad data from the forms db. It will get wiped out each night.
+  // fix bad data from the data source. It will get wiped out the next time
+  // the source row changes.
   if ((!$is_admin) && ($has_field_value) && (!empty($form) && !empty($form['#fieldgroups']))) {
     // Hide the actual fields.
-    foreach ($form['#fieldgroups'] as &$fieldgroup) {
+    foreach ($form['#fieldgroups'] as $fieldgroup) {
       if (!empty($fieldgroup->format_settings['id']) && $fieldgroup->format_settings['id'] === 'external-content') {
         foreach ($fieldgroup->children as $field) {
           unset($form[$field]);
@@ -293,24 +295,13 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
       }
 
     }
-    // Break the reference from the foreach.
-    unset($fieldgroup);
+
     // Display the readonly version of the fields.
     $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $readonly_content = $viewBuilder->view($node, 'external_content');
 
     $form['external_content'] = [
       '#markup' => \Drupal::service('renderer')->render($readonly_content),
-    ];
-
-    // We want to modify display of fields for specific node id's.
-    $external_content_node_ids = [
-      'nca_facility',
-      'health_care_local_facility',
-      'vba_facility',
-      'vet_center',
-      'vet_center_mobile_vet_center',
-      'vet_center_outstation',
     ];
 
     // We want the external content to appear in the fieldgroup
@@ -320,10 +311,9 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
       $form['group_ehr_info']['external_content'] = $form['external_content'];
       unset($form['external_content']);
     }
-
-    // We want the external content to appear in the fieldgroup
-    // group_locations_and_contact_info on other node types.
-    if (in_array($node->getType(), $external_content_node_ids)) {
+    elseif (isset($form['external_content'])) {
+      // We want the external content to appear in the fieldgroup
+      // group_locations_and_contact_info on other node types.
       $form['group_locations_and_contact_info']['external_content'] = $form['external_content'];
       unset($form['external_content']);
     }

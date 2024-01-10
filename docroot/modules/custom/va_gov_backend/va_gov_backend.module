@@ -419,12 +419,12 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   // Only run when on a node.
   // Additionally, reduce the number of times called when editing a paragraph,
   // which will have a triggering_element set.
-  if (isset($form['#entity_type'])
-    && $form['#entity_type'] === 'node'
-    && (!$form_state->getTriggeringElement())) {
+  $base_form_id = $form_state->getBuildInfo()['base_form_id'] ?? '';
+  if ((!$form_state->getTriggeringElement()) && ($base_form_id === "node_form")) {
     $targets = [
       'field_office',
       'field_listing',
+      'field_facility_location',
     ];
     _va_gov_backend_dropdown_field_access($form, $targets);
   }
@@ -1043,6 +1043,13 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
             if (!in_array($option_key, $allowed_options)) {
               unset($form[$target]['widget']['#options'][$header_key][$option_key]);
             }
+          }
+        }
+        elseif (!empty($option_header)) {
+          // If not an array, it's just an option.
+          // If not in the allowed items array, take it out.
+          if (!in_array($header_key, $allowed_options)) {
+            unset($form[$target]['widget']['#options'][$header_key]);
           }
         }
       }

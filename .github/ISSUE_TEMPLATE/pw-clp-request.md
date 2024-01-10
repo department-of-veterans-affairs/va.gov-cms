@@ -43,7 +43,7 @@ Helpdesk will use #sitewide-public-websites channel to request approvals
 <insert_CLP_node_link>
 - [ ] If a new CMS editor user is needed, Helpdesk or any Drupal admin can create them and assign proper permissions according to [CLP CMS account administration policy](https://prod.cms.va.gov/help/cms-account-admin-policies/clp-cms-account-administration-policy).
 - [ ] Send the editor a link to the KB article: [self-guided Campaign Landing Page training](https://prod.cms.va.gov/help/campaign-landing-pages/how-to-manage-campaign-landing-pages)
-- [ ] Notify #sitewide-public-websites team "New CLP requested and approved" with link to this Github issue for next steps.
+- [ ] Create a post in DSVA slack channel #sitewide-public-websites, and @ mention Jill Adams and Fran Cross: "New CLP requested and approved, for your awareness:" with a link to this Github issue for next steps.
 
 
 #### Public Websites steps
