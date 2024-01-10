@@ -8,9 +8,10 @@ dependencies:
     - field.field.media.image.field_media_submission_guideline
     - field.field.media.image.field_owner
     - field.field.media.image.image
-    - image.style.3_2_medium_thumbnail
+    - image.style.full_content_width
     - media.type.image
   module:
+    - change_labels
     - field_group
     - image_widget_crop
     - markup
@@ -47,6 +48,7 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: true
       textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
@@ -68,14 +70,23 @@ content:
     region: content
     settings:
       progress_indicator: throbber
-      preview_image_style: 3_2_medium_thumbnail
+      preview_image_style: full_content_width
       crop_preview_image_style: crop_thumbnail
-      crop_list: {  }
+      crop_list:
+        - '2_1'
+        - '2_3'
+        - '3_2'
+        - '7_2'
+        - freeform
+        - original
+        - square
       crop_types_required: {  }
       warn_multiple_usages: false
       show_crop_area: true
       show_default_crop: true
-    third_party_settings: {  }
+    third_party_settings:
+      change_labels:
+        remove_label: ''
   name:
     type: string_textfield
     weight: 1
@@ -83,6 +94,11 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
