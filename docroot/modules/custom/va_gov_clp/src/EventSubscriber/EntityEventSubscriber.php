@@ -45,6 +45,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $entityType->addConstraint('RequiredParagraphAB', [
       'toggle' => 'field_clp_faq_panel',
       'readable' => 'Q&A',
+      'pluralLabel' => 'Page-Specific or Reusable Q&As',
+      'panelLabel' => 'FAQ',
       'fieldParagraphA' => 'field_clp_faq_paragraphs',
       'fieldParagraphB' => 'field_clp_reusable_q_a:field_q_as',
       'requiredErrorDisplayAsMessage' => TRUE,
