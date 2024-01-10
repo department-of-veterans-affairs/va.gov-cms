@@ -2,35 +2,14 @@
 
 namespace Drupal\va_gov_backend\Plugin\Validation\Constraint;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * Validates the RequiredParagraph constraint.
  */
-class RequiredParagraphABValidator extends ConstraintValidator implements ContainerInjectionInterface {
-
-  use StringTranslationTrait;
-
-  /**
-   * The messenger service.
-   *
-   * @var \Drupal\Core\Messenger\Messenger
-   */
-  protected $messenger;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): static {
-    $instance = new static();
-    $instance->messenger = $container->get('messenger');
-    return $instance;
-  }
+class RequiredParagraphABValidator extends ConstraintValidator {
 
   /**
    * {@inheritdoc}
@@ -51,33 +30,29 @@ class RequiredParagraphABValidator extends ConstraintValidator implements Contai
     $errorPath = $countA ? $paragraphAField : $paragraphBField;
     if ($panel_enabled && $number < $constraint->min && $number > 0) {
       $this->context->buildViolation($constraint->tooFew, [
-        '%number' => $number,
+        '%plurlLabel' => $constraint->pluralLabel,
+        '%readable' => $constraint->readable,
         '%min' => $constraint->min,
-        '%paragraph' => $constraint->readable,
       ])
         ->atPath($errorPath)
         ->addViolation();
     }
     elseif ($panel_enabled && $number > $constraint->max) {
       $this->context->buildViolation($constraint->tooMany, [
-        '%number' => $number,
+        '%plurlLabel' => $constraint->pluralLabel,
+        '%readable' => $constraint->readable,
         '%max' => $constraint->max,
-        '%paragraph' => $constraint->readable,
       ])
         ->atPath($errorPath)
         ->addViolation();
     }
     elseif ($panel_enabled && $number === 0) {
-      // Displaying an error for an element that has no form element on the
-      // page, combined with using inline error messages, creates form errors
-      // that have no place to live in the DOM, thereby hiding them from the
-      // user. So we add an error message outside the form context so that it
-      // can be seen.
-      if ($constraint->requiredErrorDisplayAsMessage) {
-        $this->messenger->addError($this->t('%paragraph entry is required.', ['%paragraph' => $constraint->readable]));
-      }
-      $this->context->addViolation('', [
-        '%paragraph' => $constraint->readable,
+      // Adding a violation in this way ensures that it is displayed even if
+      // paragraphA and paragraphB have no values.
+      $this->context->addViolation($constraint->required, [
+        '%min' => $constraint->min,
+        '%panelLabel' => $constraint->panelLabel,
+        '%readable' => $constraint->readable,
       ]);
     }
   }
@@ -130,7 +105,7 @@ class RequiredParagraphABValidator extends ConstraintValidator implements Contai
    *   The base field name.
    */
   private function getBaseField(string $field): string {
-    if (str_contains(':', $field)) {
+    if (str_contains($field, ':')) {
       [$baseField] = explode(":", $field);
       return $baseField;
     }
