@@ -40,13 +40,6 @@
   {% if has_meta or data.preview %}
   <div class="form-managed-file__meta-wrapper">
     <div class="form-managed-file__meta">
-      {% if data.preview %}
-        <div class="form-managed-file__image-preview image-preview">
-          <div class="image-preview__img-wrapper">
-            {{ data.preview }}
-          </div>
-        </div>
-      {% endif %}
       {% if data.description or display or data.alt or data.title %}
         <div class="form-managed-file__meta-items">
           {{ data.description }}
@@ -63,20 +56,26 @@
           {% set inlineguidance %}
             <p><strong>Best practices</strong></p>
             <ul>
-              <li>Be accurate and descriptive, clearly identifying the main purpose of the image.</li>
-              <li>Be concise, ideally no more that 150 characters.</li>
-              <li>Avoid phrases like “image of”, “photo of”, “graphic of”, etc.</li>
-              <li>Leave the file name of the image out of the alt text.</li>
-              <li><a href="/help/cms-basics/alternative-text">Learn more about alt text guidelines</a></li>
+              <li>Be accurate and descriptive.</li>
+              <li>Don’t use phrases that screen readers already use to describe images such as “image of”, “photo of”, “graphic of”, or “picture of”.</li>
+              <li>Don't use the name of the image file as alt text. This does not provide clear information to people that use a screen reader.</li>
+              <li><a href="/help/cms-basics/alternative-text" target="_blank">Learn more about alt text guidelines (opens in a new tab)</a></li>
             </ul>
           {% endset %}
           {% include '@components/inline-guidance/text-box.twig' with {
             "content": inlineguidance,
-            "classes": 'show',
+            "classes": 'hide',
           } %}
           {{ data.alt|without('#title', '#description') }}
 
           {{ data.title }}
+        </div>
+      {% endif %}
+      {% if data.preview %}
+        <div class="form-managed-file__image-preview image-preview">
+          <div class="image-preview__img-wrapper">
+            {{ data.preview }}
+          </div>
         </div>
       {% endif %}
     </div>

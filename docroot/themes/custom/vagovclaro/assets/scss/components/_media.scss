@@ -52,3 +52,37 @@
     max-width: calc(100% - 1.7rem);
   }
 }
+
+.form-item--image-0 {
+  .form-managed-file.no-upload {
+    display: flex;
+  }
+}
+
+.image-widget {
+  &.form-managed-file.has-meta .form-managed-file__image-preview {
+    margin: 0 0 1rem 1rem;
+    max-width: 600px;
+  }
+
+  .form-managed-file__main {
+    display: flex;
+  }
+
+  .form-managed-file__meta-items {
+    .form-item__description {
+      margin-right: 16px;
+    }
+  }
+
+  .image-preview__img-wrapper {
+    box-shadow: unset;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+
+    img {
+      width: 100%;
+    }
+  }
+}
