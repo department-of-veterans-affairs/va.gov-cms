@@ -1933,9 +1933,15 @@ function _va_gov_backend_disable_autopath_alias(FieldableEntityInterface $entity
     $toggled_on_this_save = $current_use_alias_pattern && !$original_use_alias_pattern;
     $active_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity->id());
     $published_previously = ($active_entity instanceof NodeInterface) ? $active_entity->isPublished() : FALSE;
+    // Determine whether path alias is set.
+    $path = '/node/' . (int) $active_entity->nid->value;
+    $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($path, $langcode);
+    $path_alias_set = (bool) preg_match('/\/node\/\d+/', $path_alias) ? FALSE : TRUE;
 
-    if ($published_previously && !$toggled_on_this_save) {
-      // This was published and this was not an intentional toggle on.
+    if ($path_alias_set && $published_previously && !$toggled_on_this_save) {
+      // This has a path alias, was published,
+      // and was not an intentional toggle on.
       // Disable the pathauto pattern.
       $entity->path->pathauto = 0;
     }
