@@ -18,7 +18,8 @@ Feature: Content Type: Campaign Landing Page
     Then I create a "campaign_landing_page" node and continue
 
     # Test maximum FAQs cannot be exceeded.
-    When I click the "Add Reusable Q&A Group" button
+    When I click to expand "FAQs"
+    And I click the "Add Reusable Q&A Group" button
     And I click to expand "Q&As"
     And I enable the page segment within selector "#edit-group-faqs"
     And I click the "Add Page-Specific Q&A" button
