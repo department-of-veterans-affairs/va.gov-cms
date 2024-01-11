@@ -1,0 +1,8 @@
+va_gov_media.alt_text_validate:
+  path: /media/validate
+  defaults:
+    _title: 'Validate Alt Text'
+    _controller: '\Drupal\va_gov_media\Controller\AltTextValidationController::validate'
+  methods: ['POST']
+  requirements:
+    _user_is_logged_in: 'TRUE'

@@ -3,7 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.health_care_region_page
+    - node.type.locations_listing
     - node.type.service_region
+    - node.type.vamc_operating_status_and_alerts
+    - node.type.vamc_system_billing_insurance
+    - node.type.vamc_system_medical_records_offi
+    - node.type.vamc_system_policies_page
+    - node.type.vamc_system_register_for_care
+    - node.type.vamc_system_va_police
     - node.type.vba_facility
   module:
     - content_moderation
@@ -91,6 +99,14 @@ type_settings:
       weight: 2
   entity_types:
     node:
+      - health_care_region_page
+      - locations_listing
       - service_region
+      - vamc_operating_status_and_alerts
+      - vamc_system_billing_insurance
+      - vamc_system_medical_records_offi
+      - vamc_system_policies_page
+      - vamc_system_register_for_care
+      - vamc_system_va_police
       - vba_facility
   default_moderation_state: draft

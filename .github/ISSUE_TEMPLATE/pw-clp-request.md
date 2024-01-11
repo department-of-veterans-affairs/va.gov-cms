@@ -25,6 +25,15 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
+- Campaign title: 
+- Who the editor(s) will be for the Campaign Landing Page and any appropriate stakeholders for awareness: 
+- The goals/outcomes you are looking to achieve with the campaign: 
+- Outcome success measurement & how it will be measured (note: "Page views" is not a generally accepted success measurement): 
+- Target Audience(s): 
+-  Campaign start/end dates: 
+- Is this a seasonal campaign? 
+- If not: when campaign ends, should campaign page be archived or redirected? 
+- If redirected, where should it redirect?
 
 ## Acceptance criteria
   
