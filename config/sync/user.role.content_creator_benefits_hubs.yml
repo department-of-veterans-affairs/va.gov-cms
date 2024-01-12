@@ -3,11 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.promo
     - node.type.landing_page
     - node.type.page
     - node.type.support_service
   module:
-    - block_content_permissions
+    - block_content
     - file
     - node
     - node_link_report
@@ -20,6 +21,7 @@ label: 'Content creator - Benefits hubs'
 weight: -7
 is_admin: null
 permissions:
+  - 'access block library'
   - 'access files overview'
   - 'create landing_page content'
   - 'create page content'

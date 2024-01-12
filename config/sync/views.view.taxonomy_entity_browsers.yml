@@ -362,7 +362,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: '{{ vid | replace({''Audience - '':''''}) }}'
+            text: "{{ vid | replace({'Audience - ':''}) }}"
             make_link: false
             path: ''
             absolute: false

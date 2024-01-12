@@ -9,56 +9,59 @@ collectors:
     settings:
       status: 1
       bundles:
-        banner: 0
-        basic_landing_page: 0
-        campaign_landing_page: 0
-        centralized_content: 0
-        checklist: 0
-        documentation_page: 0
-        event: 0
-        event_listing: 0
-        faq_multiple_q_a: 0
-        full_width_banner_alert: 0
-        health_care_local_facility: 0
-        health_care_local_health_service: 0
-        health_care_region_detail_page: 0
-        health_care_region_page: 0
-        health_services_listing: 0
-        landing_page: 0
-        leadership_listing: 0
-        locations_listing: 0
-        media_list_images: 0
-        media_list_videos: 0
-        nca_facility: 0
-        news_story: 0
-        office: 0
-        outreach_asset: 0
-        page: 0
-        person_profile: 0
-        press_release: 0
-        press_releases_listing: 0
-        promo_banner: 0
-        publication_listing: 0
-        q_a: 0
-        regional_health_care_service_des: 0
-        step_by_step: 0
-        story_listing: 0
-        support_resources_detail_page: 0
-        support_service: 0
-        vamc_operating_status_and_alerts: 0
-        vamc_system_billing_insurance: 0
-        vamc_system_medical_records_offi: 0
-        vamc_system_policies_page: 0
-        vamc_system_register_for_care: 0
-        va_form: 0
-        vba_facility: 0
-        vet_center: 0
-        vet_center_cap: 0
-        vet_center_facility_health_servi: 0
-        vet_center_locations_list: 0
-        vet_center_mobile_vet_center: 0
-        vet_center_outstation: 0
-        vha_facility_nonclinical_service: 0
+        banner: banner
+        basic_landing_page: basic_landing_page
+        campaign_landing_page: campaign_landing_page
+        centralized_content: centralized_content
+        checklist: checklist
+        documentation_page: documentation_page
+        event: event
+        event_listing: event_listing
+        faq_multiple_q_a: faq_multiple_q_a
+        full_width_banner_alert: full_width_banner_alert
+        health_care_local_facility: health_care_local_facility
+        health_care_local_health_service: health_care_local_health_service
+        health_care_region_detail_page: health_care_region_detail_page
+        health_care_region_page: health_care_region_page
+        health_services_listing: health_services_listing
+        landing_page: landing_page
+        leadership_listing: leadership_listing
+        locations_listing: locations_listing
+        media_list_images: media_list_images
+        media_list_videos: media_list_videos
+        nca_facility: nca_facility
+        news_story: news_story
+        office: office
+        outreach_asset: outreach_asset
+        page: page
+        person_profile: person_profile
+        press_release: press_release
+        press_releases_listing: press_releases_listing
+        promo_banner: promo_banner
+        publication_listing: publication_listing
+        q_a: q_a
+        regional_health_care_service_des: regional_health_care_service_des
+        service_region: service_region
+        step_by_step: step_by_step
+        story_listing: story_listing
+        support_resources_detail_page: support_resources_detail_page
+        support_service: support_service
+        vamc_operating_status_and_alerts: vamc_operating_status_and_alerts
+        vamc_system_billing_insurance: vamc_system_billing_insurance
+        vamc_system_medical_records_offi: vamc_system_medical_records_offi
+        vamc_system_policies_page: vamc_system_policies_page
+        vamc_system_register_for_care: vamc_system_register_for_care
+        vamc_system_va_police: vamc_system_va_police
+        va_form: va_form
+        vba_facility: vba_facility
+        vba_facility_service: vba_facility_service
+        vet_center: vet_center
+        vet_center_cap: vet_center_cap
+        vet_center_facility_health_servi: vet_center_facility_health_servi
+        vet_center_locations_list: vet_center_locations_list
+        vet_center_mobile_vet_center: vet_center_mobile_vet_center
+        vet_center_outstation: vet_center_outstation
+        vha_facility_nonclinical_service: vha_facility_nonclinical_service
   user_count:
     id: user_count
     provider: prometheus_exporter
@@ -94,6 +97,30 @@ collectors:
     provider: va_gov_build_trigger
     enabled: true
     weight: -41
+    settings: {  }
+  va_gov_content_release_attempts_since_last_success:
+    id: va_gov_content_release_attempts_since_last_success
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: 0
+    settings: {  }
+  va_gov_outdated_content:
+    id: va_gov_outdated_content
+    provider: va_gov_backend
+    enabled: true
+    weight: 0
+    settings: {  }
+  va_gov_time_since_last_content_release:
+    id: va_gov_time_since_last_content_release
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: 0
+    settings: {  }
+  va_gov_time_since_last_content_release_error:
+    id: va_gov_time_since_last_content_release_error
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: 0
     settings: {  }
   phpinfo:
     id: phpinfo
@@ -147,6 +174,7 @@ collectors:
         publication_listing: 0
         q_a: 0
         regional_health_care_service_des: 0
+        service_region: 0
         step_by_step: 0
         story_listing: 0
         support_resources_detail_page: 0
@@ -156,8 +184,10 @@ collectors:
         vamc_system_medical_records_offi: 0
         vamc_system_policies_page: 0
         vamc_system_register_for_care: 0
+        vamc_system_va_police: 0
         va_form: 0
         vba_facility: 0
+        vba_facility_service: 0
         vet_center: 0
         vet_center_cap: 0
         vet_center_facility_health_servi: 0
@@ -165,9 +195,3 @@ collectors:
         vet_center_mobile_vet_center: 0
         vet_center_outstation: 0
         vha_facility_nonclinical_service: 0
-  va_gov_time_since_last_content_release:
-    id: va_gov_time_since_last_content_release
-    provider: va_gov_build_trigger
-    enabled: true
-    weight: 0
-    settings: {  }

@@ -1,0 +1,29 @@
+
+
+name: Refresh Tugboat Preview ID Cache
+on:
+  pull_request:
+    types: [ labeled ]
+jobs:
+  refresh_cache:
+    name: Refresh Tugboat Preview ID Cache
+    runs-on: ubuntu-latest
+    if: ${{ github.event.label.name == 'refresh-tugboat-cache' }}
+    steps:
+      - name: Refresh Preview ID
+        uses: actions/cache/restore@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        with:
+          path: .tugboat_preview.txt
+          key: ${{ runner.os }}-tugboat-preview-id-pr-${{ github.event.pull_request.number }}
+      - name: Cleanup temporary file
+        run: rm .tugboat_preview.txt
+      - name: Remove refresh label
+        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
+        with:
+          script: |
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.pull_request.number }},
+              name: 'refresh-tugboat-cache',
+            });

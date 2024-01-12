@@ -121,7 +121,6 @@ You can view team sprint boards using either the Github view with Zenhub browser
 
 ### Context & History
 - [ ] How does the team fit into the larger OCTO ecosystem? [View this Mural diagram](https://app.mural.co/t/departmentofveteransaffairs9999/m/departmentofveteransaffairs9999/1686789362540/fb8f73b8d536f088e56bd3e38f0e37141560f62a?sender=u0b235d03cbd64f7f93673243)
-- [ ] Why is VA.gov using a Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
 - [ ] [Watch the Drupal GovCon presentation about the project](https://www.youtube.com/watch?v=WN4bGjEuQdM).
 - [ ] Why are VA Medical Centers changing their websites? Watch the [2-minute YouTube video](https://youtu.be/Xrv5wCv6cKY).
 - [ ] Why are Vet Centers important to Veterans? Watch the [2-minute YouTube video](https://www.youtube.com/watch?v=VMzkZNbKk1I).
@@ -183,7 +182,7 @@ Drupal is the VA's content management system of choice. For anyone on our team, 
   - [ ] **Drupal production access**: (SOCKS or VA network required) - in DSVA #cms-support channel, use the Slack workflow to file a helpdesk support request. Ask the helpdesk to create a Drupal user for you in [prod.cms.va.gov](prod.cms.va.gov).
      * DevOps team members require an administrator account. (SOCKS or VA access with PIV card required)
      * Standard practice for other roles is to have minimal access in prod (content editor or even a blocked account) and full admin access in lower environments.
-  - [ ] [View short presentations on specific topics](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives). Topics include site alerts, release and deploy, Facility API, etc.
+  - [ ] [View Topic Dives](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/teams/sitewide/topic-dives) (short presentations on specific topics). Topics include site alerts, release and deploy, Facility API, etc.
   - [ ] [Browse the VA Drupal CMS Knowledge Base articles](https://prod.cms.va.gov/help/).
   - [ ] What is Drupal? [Link list for Drupal context and community](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
   - [ ] If you have a Drupal.org account, add your Agency & VA. Drupal.org > Login > My Account > Edit profile > Work tab > Add your agency, and "Department of Veterans Affairs" & save. This will help our team track Drupal open source contributions.
@@ -325,7 +324,7 @@ Each repository includes READMEs to help with setup.
  - [ ] [Platform Collab Cycle calendar](https://calendar.google.com/calendar/u/0/embed?src=c_7iurst2mk3hdhfuto5u7lemgbk@group.calendar.google.com&ctz=America/New_York)
 
 **CMS Collab Cycle**
-- [ ] [CMS Collab Cycle documentation](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1791459333/CMS+Collaboration+Flow#like-section)
+- [ ] [CMS Collab Cycle documentation](LINK TBD on CMS provision of Plat Confluence access or migration of docs to DEPO website)
 - [ ] [CMS Collab Cycle kanban board](https://github.com/department-of-veterans-affairs/va.gov-cms#workspaces/cms-collaboration-cycle-reviews-62f50368ef32b60022d76d64/board?repos=154174777)
 
 **Tracking features**

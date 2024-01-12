@@ -1,0 +1,34 @@
+uuid: bd90f725-df1c-43f4-aa5f-a6bcdd42b9ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.square
+  module:
+    - crop
+name: 1_1_square_large
+label: '1:1 square large'
+effects:
+  99727f11-9ba0-4b77-83c4-cf6b225c3bfd:
+    uuid: 99727f11-9ba0-4b77-83c4-cf6b225c3bfd
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: square
+      automatic_crop_provider: null
+  56613f9c-cd3a-464b-961f-12a8731ef468:
+    uuid: 56613f9c-cd3a-464b-961f-12a8731ef468
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 500
+      height: 500
+      anchor: center-center
+  2926c64d-82f2-4550-af7a-93abbe4797bc:
+    uuid: 2926c64d-82f2-4550-af7a-93abbe4797bc
+    id: image_scale
+    weight: 3
+    data:
+      width: 500
+      height: 500
+      upscale: false

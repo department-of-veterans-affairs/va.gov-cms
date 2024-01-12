@@ -25,6 +25,15 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
+- Campaign title: 
+- Who the editor(s) will be for the Campaign Landing Page and any appropriate stakeholders for awareness: 
+- The goals/outcomes you are looking to achieve with the campaign: 
+- Outcome success measurement & how it will be measured (note: "Page views" is not a generally accepted success measurement): 
+- Target Audience(s): 
+-  Campaign start/end dates: 
+- Is this a seasonal campaign? 
+- If not: when campaign ends, should campaign page be archived or redirected? 
+- If redirected, where should it redirect?
 
 ## Acceptance criteria
   
@@ -43,7 +52,7 @@ Helpdesk will use #sitewide-public-websites channel to request approvals
 <insert_CLP_node_link>
 - [ ] If a new CMS editor user is needed, Helpdesk or any Drupal admin can create them and assign proper permissions according to [CLP CMS account administration policy](https://prod.cms.va.gov/help/cms-account-admin-policies/clp-cms-account-administration-policy).
 - [ ] Send the editor a link to the KB article: [self-guided Campaign Landing Page training](https://prod.cms.va.gov/help/campaign-landing-pages/how-to-manage-campaign-landing-pages)
-- [ ] Notify #sitewide-public-websites team "New CLP requested and approved" with link to this Github issue for next steps.
+- [ ] Create a post in DSVA slack channel #sitewide-public-websites, and @ mention Jill Adams and Fran Cross: "New CLP requested and approved, for your awareness:" with a link to this Github issue for next steps.
 
 
 #### Public Websites steps

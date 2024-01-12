@@ -1,0 +1,27 @@
+uuid: b3dc57ec-4a04-4426-9d41-498a09b98cc4
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_how_to_sign_up
+field_name: field_how_to_sign_up
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: url
+      label: URL
+    -
+      value: email
+      label: Email
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
