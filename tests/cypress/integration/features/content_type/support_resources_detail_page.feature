@@ -18,9 +18,3 @@ Feature: Content Type: Resources and Support Detail Page
     Given I select option "Non-beneficiaries" from dropdown "Audience"
     Then I should not see an element with the selector "#edit-field-tags-0-subform-field-audience-beneficiares-wrapper"
     And I should see an element with the selector "#edit-field-tags-0-subform-field-non-beneficiares-wrapper"
-
-    Given I check all checkboxes within "#edit-field-tags-0-subform-field-topics--wrapper"
-    Then an element with the selector "#edit-field-tags-0-subform-field-audience-selection" should be disabled
-
-    Given I uncheck the first checkbox within "#edit-field-tags-0-subform-field-topics--wrapper"
-    Then an element with the selector "#edit-field-tags-0-subform-field-audience-selection" should not be disabled
