@@ -7,11 +7,15 @@ dependencies:
     - node.type.health_care_local_facility
   module:
     - telephone
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: node.health_care_local_facility.field_mental_health_phone
 field_name: field_mental_health_phone
 entity_type: node
 bundle: health_care_local_facility
-label: 'Mental Health Phone'
+label: 'Mental health phone number'
 description: ''
 required: false
 translatable: false
