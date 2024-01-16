@@ -786,9 +786,6 @@ function _va_gov_backend_audience_topics_validation(array $form, FormStateInterf
     if ($tag_count == 0) {
       $form_state->setErrorByName('field_tags][0][subform][field_topics', t('Please select at least one Topic or Audience tag.'));
     }
-    elseif ($tag_count > 4) {
-      $form_state->setErrorByName('field_tags][0][subform][field_topics', t('No more than 4 Topic/Audience tags may be selected.'));
-    }
   }
 }
 
