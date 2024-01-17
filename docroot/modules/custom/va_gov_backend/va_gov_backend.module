@@ -1945,6 +1945,12 @@ function _va_gov_backend_disable_autopath_alias(FieldableEntityInterface $entity
       // Disable the pathauto pattern.
       $entity->path->pathauto = 0;
     }
+    elseif (!$path_alias_set) {
+      // If this is not set pathauto already is 0,
+      // so we need to explicitly set it to 1
+      // to get an alias generated.
+      $entity->path->pathauto = 1;
+    }
   }
 }
 
