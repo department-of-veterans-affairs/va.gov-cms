@@ -106,11 +106,11 @@ class MediaEventSubscriber implements EventSubscriberInterface {
       }
 
       $delta = $element['#delta'];
-      $fieldDefinition = $entity->getFieldDefinition('image');
+      $fieldDefinition = $entity->getFieldDefinition($element['#field_name']);
 
       $keys = [$element['#entity_type']];
       $keys[] = $entity->id() ? $entity->id() : 0;
-      if (method_exists($fieldDefinition, 'id')) {
+      if (is_object($fieldDefinition) && method_exists($fieldDefinition, 'id')) {
         $field_definition_id = str_replace('.', '--', $fieldDefinition->id());
       }
       else {
