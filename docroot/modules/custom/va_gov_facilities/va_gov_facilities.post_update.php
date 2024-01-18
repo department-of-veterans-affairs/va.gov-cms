@@ -45,6 +45,14 @@ function va_gov_db_post_update_move_service_location_to_paragraphs(&$sandbox) {
   $nodes = $node_storage->loadMultiple($node_ids);
 
   foreach ($nodes as $node) {
+
+    _migrate_address();
+    _migrate_appointment_into_text();
+    _migrate_appointment_phone_number();
+    _migrate_contact_info();
+    _migrate_schedule_online();
+    _migrate_walkins_accepted();
+
     // Make this change a new revision.
     $node->setNewRevision(TRUE);
 
@@ -80,6 +88,46 @@ function va_gov_db_post_update_move_service_location_to_paragraphs(&$sandbox) {
   }
 
   return "Processing health service nodes...{$sandbox['current']} / {$sandbox['total']}";
+}
+
+function _migrate_address(){
+
+}
+
+  function _migrate_appointment_into_text(){
+    // Needs a bifurcation for VAMC vs VBA.
+  }
+
+  function _migrate_appointment_phone_number() {
+
+  }
+
+  function _migrate_contact_info() {
+
+  }
+
+function _migrate_schedule_online($option) {
+  $schedule_online_map = [
+    // schedule online => service location schedule online
+    'yes' => 'yes',
+    'no' => 'no',
+    // This is the do no harm, option defaulting to most restrictive.
+    // 'unspecified' => '??? @todo is this needed',
+  ];
+
+  return $schedule_online_map[$option];
+}
+
+function _migrate_walkins_accepted($option) {
+  $walkins_accepted_map = [
+    // walkins accepted => office visits
+    'yes' => 'yes with or without an appointment',
+    'no' => 'yes by appointment only',
+    // This is the do no harm, option defaulting to most restrictive.
+    'unspecified' => 'yes by appointment only',
+  ];
+
+  return $walkins_accepted_map[$option];
 }
 
 /**
