@@ -127,6 +127,10 @@ $settings['va_gov_web_root'] = '/var/www/cms/web';
 $settings['va_gov_app_root'] = '/var/www/cms';
 $settings['va_gov_vets_website_root'] = '/var/www/cms/docroot/vendor/va-gov/vets-website';
 
+// @todo Add the next build root to the settings.
+// For a workaround, I cloned the next-build repo into the docroot/vendor/va-gov/next-build directory.
+$settings['va_gov_next_build_root'] = '/var/www/html/docroot/vendor/va-gov/next-build';
+
 // Defaults (should only be local that doesn't set these), default to dev for config_split
 $config['config_split.config_split.dev']['status'] = TRUE;
 $config['config_split.config_split.stg']['status'] = FALSE;

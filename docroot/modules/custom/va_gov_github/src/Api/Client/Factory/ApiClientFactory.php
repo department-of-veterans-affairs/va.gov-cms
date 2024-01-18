@@ -19,6 +19,8 @@ class ApiClientFactory implements ApiClientFactoryInterface {
   const CONTENT_BUILD = 'content-build';
   const VETS_WEBSITE = 'vets-website';
 
+  const NEXT_BUILD = 'next-build';
+
   /**
    * The settings service.
    *
@@ -62,6 +64,14 @@ class ApiClientFactory implements ApiClientFactoryInterface {
    */
   public function getVetsWebsite(): ApiClientInterface {
     return $this->get(static::OWNER, static::VETS_WEBSITE, $this->settings->getApiToken());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getNextBuild(): ApiClientInterface {
+    return $this->get(static::OWNER, static::NEXT_BUILD,
+      $this->settings->getApiToken());
   }
 
 }
