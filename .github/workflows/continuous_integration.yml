@@ -130,8 +130,15 @@ jobs:
         run: bin/phpunit \
           --group unit \
           --exclude-group disabled \
-          --coverage-text \
+          --coverage-clover coverage.xml \
           tests/phpunit
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # v3.1.4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: true
+          verbose: true
 
   # Check styles of modules and themes with Stylelint.
   stylelint:
