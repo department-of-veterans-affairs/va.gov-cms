@@ -5,6 +5,7 @@
  * Post update file for VA Facilities.
  */
 
+use Drupal\paragraphs\Entity\Paragraph;
 use Psr\Log\LogLevel;
 
 /**
@@ -13,14 +14,13 @@ use Psr\Log\LogLevel;
 function va_gov_db_post_update_move_service_location_to_paragraphs(&$sandbox) {
   $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
-  // Get the node count for system/facility health service nodes.
+  // Get the node count for facility health service nodes.
   // This runs only once.
   if (!isset($sandbox['total'])) {
     $query = $node_storage->getQuery();
     $group = $query
       ->orConditionGroup()
-      ->condition('type', 'health_care_local_health_service')
-      ->condition('type', 'regional_health_care_service_des');
+      ->condition('type', 'health_care_local_health_service');
 
     $nids_to_update = $query
       ->condition($group)->accessCheck(FALSE)->execute();
@@ -42,31 +42,42 @@ function va_gov_db_post_update_move_service_location_to_paragraphs(&$sandbox) {
 
   // Load entities.
   $node_ids = array_slice($sandbox['nids_to_update'], 0, $limit, TRUE);
-  $nodes = $node_storage->loadMultiple($node_ids);
+  $facility_health_service_nodes = $node_storage->loadMultiple($node_ids);
 
-  foreach ($nodes as $node) {
+  foreach ($facility_health_service_nodes as $facility_health_service_node) {
+    // Gather existing service locations.
+    $service_locations = $facility_health_service_node->get('field_service_location')->referencedEntities();;
+    foreach ($service_locations as $service_location) {
+      _migrate_address();
+      _migrate_appointment_into_text();
+      _migrate_appointment_phone_number();
+      _migrate_contact_info();
+      _migrate_hours();
+      _migrate_schedule_online();
+      _migrate_walkins_accepted();
+      // Save the paragraph as a new revision.
+      $service_location->setNewRevision(TRUE);
+      // @todo I think I need to grab a new revision id for the node save.
+     // put this into the node field'target_revision_id' => $service_location->getRevisionId(),
+     //$service_location->set('field_fieldname1', 'some value');
+      $service_location->save();
 
-    _migrate_address();
-    _migrate_appointment_into_text();
-    _migrate_appointment_phone_number();
-    _migrate_contact_info();
-    _migrate_schedule_online();
-    _migrate_walkins_accepted();
+    }
 
     // Make this change a new revision.
-    $node->setNewRevision(TRUE);
+    $facility_health_service_node->setNewRevision(TRUE);
 
     // Set revision author to uid 1317 (CMS Migrator user).
-    $node->setRevisionAuthorId(1317);
-    $node->setChangedTime(time());
-    $node->setRevisionCreationTime(time());
-    $node->setOwnerId(1317);
+    $facility_health_service_node->setRevisionAuthorId(1317);
+    $facility_health_service_node->setChangedTime(time());
+    $facility_health_service_node->setRevisionCreationTime(time());
+    $facility_health_service_node->setOwnerId(1317);
 
     // Set revision log message.
-    $node->setRevisionLogMessage('Resaved node to update title and path alias.');
-    $node->save();
-    unset($sandbox['nids_to_update']["node_{$node->id()}"]);
-    $nids[] = $node->id();
+    $facility_health_service_node->setRevisionLogMessage('Resaved node to update title and path alias.');
+    $facility_health_service_node->save();
+    unset($sandbox['nids_to_update']["node_{$facility_health_service_node->id()}"]);
+    $nids[] = $facility_health_service_node->id();
     $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
   }
 
@@ -91,22 +102,38 @@ function va_gov_db_post_update_move_service_location_to_paragraphs(&$sandbox) {
 }
 
 function _migrate_address(){
+  // Moving from:
+  // Moving to: service_location -> field_service_location_address
 
 }
 
   function _migrate_appointment_into_text(){
+    // Moving from:
+    // Moving to: paragraph.service_location.field_appointment_intro_text
+
     // Needs a bifurcation for VAMC vs VBA.
   }
 
   function _migrate_appointment_phone_number() {
-
+    // Moving from: field_phone_numbers_paragraph ??
+    // Moving to: field_phone (paragraphs)
+    // and: field_use_main_facility_phone (boolean)
   }
 
   function _migrate_contact_info() {
+    // Moving from:
+    // Moving to: service_location ->field_email_contacts.
+  }
 
+  function _migrate_hours() {
+    // Moving from:
+    // Moving to: service_location ->field_office_hours (Office hours field).
+    // and: service_location ->field_hours (list).
   }
 
 function _migrate_schedule_online($option) {
+  // Moving from: field_online_scheduling_availabl
+  // Moving to:
   $schedule_online_map = [
     // schedule online => service location schedule online
     'yes' => 'yes',
@@ -119,6 +146,8 @@ function _migrate_schedule_online($option) {
 }
 
 function _migrate_walkins_accepted($option) {
+  // Moving from: 	node field_walk_ins_accepted
+  // Moving to:
   $walkins_accepted_map = [
     // walkins accepted => office visits
     'yes' => 'yes with or without an appointment',
@@ -139,6 +168,6 @@ function _migrate_walkins_accepted($option) {
  * @return string
  *   The node id concatenated to the end o node_
  */
-function _va_gov_db_stringifynid($nid) {
+function _va_gov_facilities_stringifynid($nid) {
   return "node_$nid";
 }
