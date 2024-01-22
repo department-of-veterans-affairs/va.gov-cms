@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
     - field.field.node.health_care_local_facility.field_media
+    - field.field.node.health_care_local_facility.field_mental_health_contact_phon
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_mobile
@@ -30,7 +31,6 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - address
-    - allowed_formats
     - content_moderation
     - field_group
     - geofield
@@ -49,7 +49,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -65,7 +65,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: fieldset
       format_settings:
         classes: ''
@@ -78,7 +78,7 @@ third_party_settings:
       label: '"Prepare for your visit"'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -119,7 +119,7 @@ third_party_settings:
       label: 'Social Media'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -158,6 +158,7 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_facility_data_from_vast
+        - field_mental_health_contact_phon
       label: 'Locations and contact information'
       region: content
       parent_name: ''
@@ -204,7 +205,7 @@ third_party_settings:
       label: 'COVID-19 health protection guidelines'
       region: hidden
       parent_name: ''
-      weight: 19
+      weight: 21
       format_type: html_element
       format_settings:
         classes: ''
@@ -246,6 +247,7 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -280,12 +282,13 @@ content:
       maxlength: 600
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -315,6 +318,13 @@ content:
     settings:
       media_types: {  }
     third_party_settings: {  }
+  field_mental_health_contact_phon:
+    type: telephone_default
+    weight: 21
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_mental_health_phone:
     type: telephone_default
     weight: 28
@@ -333,7 +343,8 @@ content:
     type: office_hours_default
     weight: 29
     region: content
-    settings: {  }
+    settings:
+      collapsed: false
     third_party_settings: {  }
   field_operating_status_facility:
     type: options_buttons
@@ -351,6 +362,7 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -386,7 +398,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -401,6 +413,7 @@ content:
       maxlength: 150
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }

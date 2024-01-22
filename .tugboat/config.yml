@@ -111,10 +111,6 @@ services:
         - echo "${OAUTH_PUBLIC_KEY}" >> ${TUGBOAT_ROOT}/public.key
         - echo "${OAUTH_PRIVATE_KEY}" >> ${TUGBOAT_ROOT}/private.key
 
-        # Install drush-launcher, if desired.
-        - wget -O /usr/local/bin/drush https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar
-        - chmod +x /usr/local/bin/drush
-
         # Link the document root to the expected path. This example links /docroot
         # to the docroot.
         - ln -snf "${TUGBOAT_ROOT}/docroot" "${DOCROOT}"
@@ -214,14 +210,14 @@ services:
 
 
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
-        - drush deploy
+        - bash -lc 'drush deploy'
 
         # Disable sitewide alerts so as not to interfere with testing.
-        - drush sitewide-alert:disable
+        - bash -lc 'drush sitewide-alert:disable'
 
         # Prevent continuous releases from running on Tugboat, and reset to ready.
-        - drush sset va_gov_build_trigger.continuous_release_enabled 0
-        - drush sset va_gov_build_trigger.release_state ready
+        - bash -lc 'drush sset va_gov_build_trigger.continuous_release_enabled 0'
+        - bash -lc 'drush sset va_gov_build_trigger.release_state ready'
 
         # Setup background processing service.  This uses runit to keep process up
         # See https://docs.tugboat.qa/setting-up-services/how-to-set-up-services/running-a-background-process

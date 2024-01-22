@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
     - field.field.node.health_care_local_facility.field_media
+    - field.field.node.health_care_local_facility.field_mental_health_contact_phon
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_mobile
@@ -94,6 +95,7 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_facility_data_from_vast
+        - field_mental_health_contact_phon
       label: 'Locations and contact information'
       parent_name: ''
       region: content
@@ -155,7 +157,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 17
+    weight: 16
     region: content
   field_description:
     type: string
@@ -200,13 +202,21 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_mental_health_phone:
+  field_mental_health_contact_phon:
     type: telephone_link
     label: inline
     settings:
       title: ''
     third_party_settings: {  }
     weight: 20
+    region: content
+  field_mental_health_phone:
+    type: telephone_link
+    label: inline
+    settings:
+      title: ''
+    third_party_settings: {  }
+    weight: 19
     region: content
   field_mobile:
     type: boolean
@@ -216,7 +226,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 19
+    weight: 18
     region: content
   field_office_hours:
     type: office_hours
@@ -249,7 +259,7 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 21
+    weight: 20
     region: content
   field_operating_status_facility:
     type: list_default
@@ -271,14 +281,14 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 18
+    weight: 17
     region: content
   field_timezone:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 22
+    weight: 21
     region: content
   flag_email_node:
     settings: {  }
