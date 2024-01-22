@@ -1466,7 +1466,7 @@ display:
           type: timestamp
           settings:
             date_format: custom
-            custom_date_format: 'F j, Y, g:ia'
+            custom_date_format: 'Y-m-d H:i:s'
             timezone: ''
             tooltip:
               date_format: ''
@@ -1477,6 +1477,7 @@ display:
               past_format: '@interval ago'
               granularity: 2
               refresh: 60
+              description: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1501,7 +1502,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if access__value %}\r\n    {{ access__value|format_date('custom', 'F j, Y, g:ia') }}\r\n{% else %}\r\n    Never\r\n{% endif %}"
+            text: "{% if access__value %}\r\n    {{ access__value|format_date('custom', 'Y-m-d H:i:s') }}\r\n{% else %}\r\n    Never\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -2006,7 +2007,7 @@ display:
           type: timestamp
           settings:
             date_format: custom
-            custom_date_format: 'F j, Y, g:ia'
+            custom_date_format: 'Y-m-d H:i:s'
             timezone: ''
             tooltip:
               date_format: ''
@@ -2042,7 +2043,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if access__value %}\r\n    {{ access__value|format_date('custom', 'F j, Y, g:ia') }}\r\n{% else %}\r\n    Never\r\n{% endif %}"
+            text: "{% if access__value %}\r\n    {{ access__value|format_date('custom', 'Y-m-d H:i:s') }}\r\n{% else %}\r\n    Never\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
