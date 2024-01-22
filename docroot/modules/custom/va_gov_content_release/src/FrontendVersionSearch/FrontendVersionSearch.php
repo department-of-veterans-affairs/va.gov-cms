@@ -142,6 +142,9 @@ class FrontendVersionSearch implements FrontendVersionSearchInterface {
       case $frontend->isVetsWebsite():
         return $this->vwApiClient;
 
+      case $frontend->isNextBuild():
+        return $this->nbApiClient;
+
       default:
         throw new \InvalidArgumentException('Invalid frontend: ' . $frontend->getRawValue());
     }
