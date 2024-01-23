@@ -4,15 +4,15 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.service_location.field_additional_hours_info
+    - field.field.paragraph.service_location.field_appointment_intro_text
     - field.field.paragraph.service_location.field_email_contacts
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_office_hours
+    - field.field.paragraph.service_location.field_office_visits
     - field.field.paragraph.service_location.field_phone
-    - field.field.paragraph.service_location.field_service_delivery_options
     - field.field.paragraph.service_location.field_service_location_address
-    - field.field.paragraph.service_location.field_service_location_descripti
-    - field.field.paragraph.service_location.field_task_oriented_header
     - field.field.paragraph.service_location.field_use_main_facility_phone
+    - field.field.paragraph.service_location.field_virtual_support
     - paragraphs.paragraphs_type.service_location
   module:
     - entity_reference_revisions
@@ -29,7 +29,7 @@ third_party_settings:
       label: Hours
       parent_name: group_service_location
       region: content
-      weight: 8
+      weight: 23
       format_type: fieldset
       format_settings:
         classes: ''
@@ -44,7 +44,7 @@ third_party_settings:
       label: 'Contact info'
       parent_name: group_service_location
       region: content
-      weight: 9
+      weight: 24
       format_type: fieldset
       format_settings:
         classes: ''
@@ -57,7 +57,7 @@ third_party_settings:
       label: Address
       parent_name: group_service_location
       region: content
-      weight: 7
+      weight: 22
       format_type: fieldset
       format_settings:
         classes: ''
@@ -66,9 +66,8 @@ third_party_settings:
         open: true
     group_service_location:
       children:
-        - field_task_oriented_header
-        - field_service_location_descripti
-        - field_service_delivery_options
+        - group_service_options
+        - group_appointments
         - group_address
         - group_hours
         - group_contact_info
@@ -81,6 +80,35 @@ third_party_settings:
         classes: ''
         id: ''
         description: ''
+    group_service_options:
+      children:
+        - field_office_visits
+        - field_virtual_support
+      label: 'Service options'
+      parent_name: group_service_location
+      region: content
+      weight: 20
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
+    group_appointments:
+      children:
+        - field_appointment_intro_text
+      label: Appointments
+      parent_name: group_service_location
+      region: content
+      weight: 21
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
 id: paragraph.service_location.default
 targetEntityType: paragraph
 bundle: service_location
@@ -93,6 +121,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_appointment_intro_text:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 25
     region: content
   field_email_contacts:
     type: entity_reference_revisions_entity_view
@@ -143,6 +178,13 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
+  field_office_visits:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
   field_phone:
     type: entity_reference_revisions_entity_view
     label: visually_hidden
@@ -152,14 +194,6 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  field_service_delivery_options:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: false
-    third_party_settings: {  }
-    weight: 6
-    region: content
   field_service_location_address:
     type: entity_reference_revisions_entity_view
     label: visually_hidden
@@ -168,22 +202,6 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 7
-    region: content
-  field_service_location_descripti:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  field_task_oriented_header:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 4
     region: content
   field_use_main_facility_phone:
     type: boolean
@@ -195,5 +213,13 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
+  field_virtual_support:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
 hidden:
+  field_appointment_introduction_t: true
   search_api_excerpt: true

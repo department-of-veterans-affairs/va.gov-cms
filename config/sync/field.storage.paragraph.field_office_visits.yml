@@ -1,0 +1,33 @@
+uuid: 932ddf2d-9dd5-4b8e-8c50-6dfb84e0f8c0
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_office_visits
+field_name: field_office_visits
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'no'
+      label: 'No'
+    -
+      value: yes_appointment_only
+      label: 'Yes, by appointment only'
+    -
+      value: yes_first_come_first_served
+      label: 'Yes, on a first-come, first-served basis'
+    -
+      value: yes_with_or_without_appt
+      label: 'Yes, with or without an appointment'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

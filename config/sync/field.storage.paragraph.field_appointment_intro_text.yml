@@ -1,0 +1,30 @@
+uuid: b6d8181a-e2b6-42de-adb6-63a844f9cd3a
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_appointment_intro_text
+field_name: field_appointment_intro_text
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: use_default_text
+      label: 'Use default text'
+    -
+      value: customize_text
+      label: 'Customize text'
+    -
+      value: remove_text
+      label: 'Remove text'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

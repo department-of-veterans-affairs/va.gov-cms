@@ -1,0 +1,25 @@
+uuid: 67aac162-bc76-4972-85ed-65616b7e6ec3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_virtual_support
+    - paragraphs.paragraphs_type.service_location
+  module:
+    - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.service_location.field_virtual_support
+field_name: field_virtual_support
+entity_type: paragraph
+bundle: service_location
+label: 'Virtual support'
+description: 'Select whether Veterans can receive services by phone or video call.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
