@@ -5,10 +5,14 @@ dependencies:
   config:
     - field.field.paragraph.service_location.field_additional_hours_info
     - field.field.paragraph.service_location.field_appointment_intro_text
+    - field.field.paragraph.service_location.field_appointment_phone_number
+    - field.field.paragraph.service_location.field_appt_custom_text
+    - field.field.paragraph.service_location.field_appt_use_facility_phone
     - field.field.paragraph.service_location.field_email_contacts
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_office_hours
     - field.field.paragraph.service_location.field_office_visits
+    - field.field.paragraph.service_location.field_online_scheduling_avail
     - field.field.paragraph.service_location.field_phone
     - field.field.paragraph.service_location.field_service_location_address
     - field.field.paragraph.service_location.field_use_main_facility_phone
@@ -21,6 +25,7 @@ dependencies:
     - limited_field_widgets
     - office_hours
     - paragraphs
+    - textfield_counter
 third_party_settings:
   field_group:
     group_service_hours:
@@ -117,7 +122,9 @@ third_party_settings:
     group_appointments:
       children:
         - field_appointment_intro_text
-        - field_appointment_phone_number
+        - field_appt_custom_text
+        - group_add_phone_number_for_appt
+        - field_online_scheduling_avail
       label: Appointments
       region: content
       parent_name: ''
@@ -131,6 +138,22 @@ third_party_settings:
         description: 'Provide information that helps site visitors make an appointment for this service.'
         required_fields: true
         description_display: before
+    group_add_phone_number_for_appt:
+      children:
+        - field_appt_use_facility_phone
+        - field_appointment_phone_number
+      label: 'Add phone number for appointments'
+      region: content
+      parent_name: group_appointments
+      weight: 31
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
 id: paragraph.service_location.default
 targetEntityType: paragraph
 bundle: service_location
@@ -149,6 +172,50 @@ content:
     weight: 29
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_appointment_phone_number:
+    type: inline_entity_form_complex_table_view_mode
+    weight: 32
+    region: content
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: 'phone number'
+      label_plural: 'phone numbers'
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      removed_reference: optional
+      allow_system_delete: 0
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+      change_labels:
+        add_another: ''
+  field_appt_custom_text:
+    type: string_textarea_with_counter
+    weight: 30
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 200
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_appt_use_facility_phone:
+    type: boolean_checkbox
+    weight: 31
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_email_contacts:
     type: inline_entity_form_complex_table_view_mode
@@ -189,6 +256,12 @@ content:
   field_office_visits:
     type: options_buttons
     weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_online_scheduling_avail:
+    type: options_select
+    weight: 32
     region: content
     settings: {  }
     third_party_settings: {  }
