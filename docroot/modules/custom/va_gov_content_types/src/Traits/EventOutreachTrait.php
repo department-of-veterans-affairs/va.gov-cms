@@ -46,10 +46,11 @@ trait EventOutreachTrait {
     if ($node->hasField(EventOutreachInterface::LISTING_FIELD) &&
       $node->hasField(EventOutreachInterface::PUBLISH_TO_OUTREACH_CAL_FIELD) &&
       $node->hasField(EventOutreachInterface::ADDITIONAL_LISTING_FIELD)) {
-      $addToCalValue = $node->get(EventOutreachInterface::PUBLISH_TO_OUTREACH_CAL_FIELD)->first()->getValue();
-      if (isset($addToCalValue['value'])) {
+      if ($node->get(EventOutreachInterface::PUBLISH_TO_OUTREACH_CAL_FIELD)->first()) {
+        $addToCalValue = $node->get(EventOutreachInterface::PUBLISH_TO_OUTREACH_CAL_FIELD)->first()->getValue();
         $listings = $node->get(EventOutreachInterface::LISTING_FIELD)->getValue();
         $additionalListings = $node->get(EventOutreachInterface::ADDITIONAL_LISTING_FIELD)->getValue();
+        assert(array_key_exists('value', $addToCalValue));
         if ($addToCalValue['value'] === 1 || $this->outreachHubOnlyUser()) {
           // Add to Outreach calendar selected, or user is Outreach Hub only
           // user.
