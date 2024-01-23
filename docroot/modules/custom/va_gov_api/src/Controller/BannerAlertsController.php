@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_api\Controller;
 
+use Drupal\Core\Cache\CacheableJsonResponse;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Path\PathMatcherInterface;
@@ -73,13 +74,17 @@ class BannerAlertsController extends ControllerBase {
       return new JsonResponse(['error' => 'No path provided.']);
     }
 
-    $banners = $this->collectBannerData($path);
-    $promo_banners = $this->collectPromoBannerData($path);
-    $full_width_banner_alerts = $this->collectFullWidthBannerAlertData($path);
+    [$banners, $banner_cache_tags] = $this->collectBannerData($path);
+    [$promo_banners, $promo_cache_tags] = $this->collectPromoBannerData($path);
+    [$full_width_banner_alerts, $full_width_banner_alert_cache_tags] = $this->collectFullWidthBannerAlertData($path);
 
-    return new JsonResponse([
+    $response = new CacheableJsonResponse([
       'data' => array_merge($banners, $promo_banners, $full_width_banner_alerts),
     ]);
+
+    $cache_tags = array_merge($banner_cache_tags, $promo_cache_tags, $full_width_banner_alert_cache_tags);
+    $response->getCacheableMetadata()->addCacheTags($cache_tags);
+    return $response;
   }
 
   /**
@@ -117,10 +122,13 @@ class BannerAlertsController extends ControllerBase {
 
     // Add the banners to the response.
     $banner_data = [];
+    $cache_tags = [];
     foreach ($banners as $entity) {
       $banner_data[] = $this->serializer->normalize($entity);
+      $cache_tags = array_merge($cache_tags, $entity->getCacheTags());
     }
-    return $banner_data;
+
+    return ['data' => $banner_data, 'cache_tags' => $cache_tags];
   }
 
   /**
@@ -158,10 +166,12 @@ class BannerAlertsController extends ControllerBase {
 
     // Add the promo_banners to the response.
     $promo_banner_data = [];
+    $cache_tags = [];
     foreach ($promo_banners as $entity) {
       $promo_banner_data[] = $this->serializer->normalize($entity);
+      $cache_tags = array_merge($cache_tags, $entity->getCacheTags());
     }
-    return $promo_banner_data;
+    return ['data' => $promo_banner_data, 'cache_tags' => $cache_tags];
   }
 
   /**
@@ -228,18 +238,20 @@ class BannerAlertsController extends ControllerBase {
 
     // Add the banners to the response.
     $full_width_banner_alert_data = [];
+    $cache_tags = [];
     foreach ($facility_banners as $entity) {
-      $full_width_banner_alert_data[] = $this->serializer->normalize($entity);
+      $full_width_banner_alert_data[] = $this->serializer->normalize($entity, 'json', ['plugin_id' => 'entity']);
+      $cache_tags = array_merge($cache_tags, $entity->getCacheTags());
 
       // Override field_situation_updates with referenced paragraph data.
       $situation_updates = $entity->get('field_situation_updates')->referencedEntities();
       $situation_update_data = [];
       foreach ($situation_updates as $situation_update) {
-        $situation_update_data[] = $this->serializer->normalize($situation_update);
+        $situation_update_data[] = $this->serializer->normalize($situation_update, 'json', ['plugin_id' => 'entity']);
       }
-      $full_width_banner_alert_data['field_situation_updates'] = $situation_update_data;
+      $full_width_banner_alert_data[count($full_width_banner_alert_data) - 1]['field_situation_updates'] = $situation_update_data;
     }
-    return $full_width_banner_alert_data;
+    return ['data' => $full_width_banner_alert_data, 'cache_tags' => $cache_tags];
   }
 
 }
