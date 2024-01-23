@@ -144,3 +144,11 @@ Feature: Content Type: Event
     Given I am logged in as a user with the "content_admin" role
     When I am at "node/add/event"
     Then an element with the selector "#edit-field-datetime-range-timezone-wrapper button.tabledrag-toggle-weight" should not exist
+
+  Scenario: Confirm creating "Featured" Events is possible.
+    Given I am logged in as a user with the "content_admin" role
+    And I create a "event" node and continue
+    And I fill in field with selector "#edit-revision-log-0-value" with fake text
+    And I feature the content
+    When I save the node
+    Then I should see "has been updated."
