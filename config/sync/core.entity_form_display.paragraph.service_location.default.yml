@@ -7,9 +7,11 @@ dependencies:
     - field.field.paragraph.service_location.field_email_contacts
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_office_hours
+    - field.field.paragraph.service_location.field_office_visits
     - field.field.paragraph.service_location.field_phone
     - field.field.paragraph.service_location.field_service_location_address
     - field.field.paragraph.service_location.field_use_main_facility_phone
+    - field.field.paragraph.service_location.field_virtual_support
     - paragraphs.paragraphs_type.service_location
   module:
     - entity_browser_entity_form
@@ -28,7 +30,7 @@ third_party_settings:
       label: Hours
       region: content
       parent_name: ''
-      weight: 4
+      weight: 2
       format_type: details
       format_settings:
         classes: ''
@@ -42,7 +44,7 @@ third_party_settings:
       label: Address
       region: content
       parent_name: ''
-      weight: 3
+      weight: 1
       format_type: details
       format_settings:
         classes: ''
@@ -57,7 +59,7 @@ third_party_settings:
       label: 'Contact info'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 3
       format_type: details
       format_settings:
         classes: ''
@@ -94,6 +96,22 @@ third_party_settings:
         open: true
         description: ''
         required_fields: false
+    group_service_options:
+      children:
+        - field_office_visits
+        - field_virtual_support
+      label: 'Service options'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
 id: paragraph.service_location.default
 targetEntityType: paragraph
 bundle: service_location
@@ -143,6 +161,12 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
+  field_office_visits:
+    type: options_buttons
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_phone:
     type: inline_entity_form_complex_table_view_mode
     weight: 5
@@ -189,6 +213,12 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_virtual_support:
+    type: options_buttons
+    weight: 5
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

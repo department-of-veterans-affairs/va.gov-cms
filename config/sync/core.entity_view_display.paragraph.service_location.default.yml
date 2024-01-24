@@ -7,9 +7,11 @@ dependencies:
     - field.field.paragraph.service_location.field_email_contacts
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_office_hours
+    - field.field.paragraph.service_location.field_office_visits
     - field.field.paragraph.service_location.field_phone
     - field.field.paragraph.service_location.field_service_location_address
     - field.field.paragraph.service_location.field_use_main_facility_phone
+    - field.field.paragraph.service_location.field_virtual_support
     - paragraphs.paragraphs_type.service_location
   module:
     - entity_reference_revisions
@@ -140,6 +142,13 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
+  field_office_visits:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
   field_phone:
     type: entity_reference_revisions_entity_view
     label: visually_hidden
@@ -167,6 +176,13 @@ content:
       format_custom_true: 'Yes, display the general facility phone number'
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_virtual_support:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
     region: content
 hidden:
   search_api_excerpt: true
