@@ -270,7 +270,11 @@ class MenuReductionService {
 
         $menu_element_type = $this->getMenuItemType($alias);
         $menu_element_type = $menu_element_type ?? $this->checkForSeparator($allowed_separators, $menu_item);
-
+        if (str_contains($subject_uuid['option'], 'Work with us')) {
+          // This is a special case where we want to allow the menu item
+          // to be enabled.
+          $menu_element_type = self::ENABLED;
+        }
         $this->addAllowedParent($allowed_parents, $enabled_count, $menu_element_type, $subject_uuid);
       }
     }
