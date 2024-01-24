@@ -8,10 +8,7 @@ dependencies:
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_office_hours
     - field.field.paragraph.service_location.field_phone
-    - field.field.paragraph.service_location.field_service_delivery_options
     - field.field.paragraph.service_location.field_service_location_address
-    - field.field.paragraph.service_location.field_service_location_descripti
-    - field.field.paragraph.service_location.field_task_oriented_header
     - field.field.paragraph.service_location.field_use_main_facility_phone
     - paragraphs.paragraphs_type.service_location
   module:
@@ -152,14 +149,6 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  field_service_delivery_options:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: false
-    third_party_settings: {  }
-    weight: 6
-    region: content
   field_service_location_address:
     type: entity_reference_revisions_entity_view
     label: visually_hidden
@@ -168,22 +157,6 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 7
-    region: content
-  field_service_location_descripti:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  field_task_oriented_header:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 4
     region: content
   field_use_main_facility_phone:
     type: boolean
