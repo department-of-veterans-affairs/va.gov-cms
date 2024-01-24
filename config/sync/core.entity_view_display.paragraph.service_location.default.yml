@@ -10,6 +10,7 @@ dependencies:
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_office_hours
     - field.field.paragraph.service_location.field_office_visits
+    - field.field.paragraph.service_location.field_online_scheduling_avail
     - field.field.paragraph.service_location.field_other_phone_numbers
     - field.field.paragraph.service_location.field_phone
     - field.field.paragraph.service_location.field_service_location_address
@@ -166,6 +167,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 10
+    region: content
+  field_online_scheduling_avail:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 16
     region: content
   field_other_phone_numbers:
     type: entity_reference_revisions_entity_view

@@ -10,6 +10,7 @@ dependencies:
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_office_hours
     - field.field.paragraph.service_location.field_office_visits
+    - field.field.paragraph.service_location.field_online_scheduling_avail
     - field.field.paragraph.service_location.field_other_phone_numbers
     - field.field.paragraph.service_location.field_phone
     - field.field.paragraph.service_location.field_service_location_address
@@ -122,6 +123,7 @@ third_party_settings:
         - field_appt_intro_text_type
         - field_appt_intro_text_custom
         - group_phone_number_for_appt
+        - field_online_scheduling_avail
       label: Appointments
       region: content
       parent_name: ''
@@ -222,6 +224,12 @@ content:
   field_office_visits:
     type: options_buttons
     weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_online_scheduling_avail:
+    type: options_select
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
