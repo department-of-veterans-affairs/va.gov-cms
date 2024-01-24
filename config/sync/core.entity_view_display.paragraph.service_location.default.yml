@@ -14,6 +14,7 @@ dependencies:
     - field.field.paragraph.service_location.field_office_visits
     - field.field.paragraph.service_location.field_online_scheduling_avail
     - field.field.paragraph.service_location.field_phone
+    - field.field.paragraph.service_location.field_service_delivery_options
     - field.field.paragraph.service_location.field_service_location_address
     - field.field.paragraph.service_location.field_use_main_facility_phone
     - field.field.paragraph.service_location.field_virtual_support
@@ -230,6 +231,14 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_service_delivery_options:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 6
     region: content
   field_service_location_address:
     type: entity_reference_revisions_entity_view
