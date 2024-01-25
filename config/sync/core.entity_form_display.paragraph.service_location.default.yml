@@ -4,22 +4,28 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.service_location.field_additional_hours_info
+    - field.field.paragraph.service_location.field_appt_intro_text_custom
+    - field.field.paragraph.service_location.field_appt_intro_text_type
     - field.field.paragraph.service_location.field_email_contacts
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_office_hours
+    - field.field.paragraph.service_location.field_office_visits
+    - field.field.paragraph.service_location.field_online_scheduling_avail
+    - field.field.paragraph.service_location.field_other_phone_numbers
     - field.field.paragraph.service_location.field_phone
-    - field.field.paragraph.service_location.field_service_delivery_options
     - field.field.paragraph.service_location.field_service_location_address
+    - field.field.paragraph.service_location.field_use_facility_phone_number
     - field.field.paragraph.service_location.field_use_main_facility_phone
+    - field.field.paragraph.service_location.field_virtual_support
     - paragraphs.paragraphs_type.service_location
   module:
-    - change_labels
     - entity_browser_entity_form
     - field_group
     - ief_table_view_mode
     - limited_field_widgets
     - office_hours
     - paragraphs
+    - textfield_counter
 third_party_settings:
   field_group:
     group_service_hours:
@@ -30,7 +36,7 @@ third_party_settings:
       label: Hours
       region: content
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: details
       format_settings:
         classes: ''
@@ -44,7 +50,7 @@ third_party_settings:
       label: Address
       region: content
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: details
       format_settings:
         classes: ''
@@ -59,7 +65,7 @@ third_party_settings:
       label: 'Contact info'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: details
       format_settings:
         classes: ''
@@ -96,6 +102,56 @@ third_party_settings:
         open: true
         description: ''
         required_fields: false
+    group_service_options:
+      children:
+        - field_office_visits
+        - field_virtual_support
+      label: 'Service options'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: ''
+        required_fields: true
+    group_appointments:
+      children:
+        - field_appt_intro_text_type
+        - field_appt_intro_text_custom
+        - group_phone_number_for_appt
+        - field_online_scheduling_avail
+      label: Appointments
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: false
+        description: 'Provide information that helps site visitors make an appointment for this service.'
+        required_fields: true
+    group_phone_number_for_appt:
+      children:
+        - field_use_facility_phone_number
+        - field_other_phone_numbers
+      label: 'Phone number for appointments'
+      region: content
+      parent_name: group_appointments
+      weight: 7
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
 id: paragraph.service_location.default
 targetEntityType: paragraph
 bundle: service_location
@@ -108,6 +164,26 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_appt_intro_text_custom:
+    type: string_textarea_with_counter
+    weight: 6
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 200
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span>  characters remaining'
+    third_party_settings: {  }
+  field_appt_intro_text_type:
+    type: options_buttons
+    weight: 5
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_email_contacts:
     type: inline_entity_form_complex_table_view_mode
@@ -145,6 +221,41 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
+  field_office_visits:
+    type: options_buttons
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_online_scheduling_avail:
+    type: options_select
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_other_phone_numbers:
+    type: inline_entity_form_complex_table_view_mode
+    weight: 30
+    region: content
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: 'phone number'
+      label_plural: 'phone numbers'
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      removed_reference: optional
+      allow_system_delete: 0
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+      change_labels:
+        add_another: ''
   field_phone:
     type: inline_entity_form_complex_table_view_mode
     weight: 5
@@ -166,19 +277,9 @@ content:
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: _none
-  field_service_delivery_options:
-    type: options_buttons
-    weight: 2
-    region: content
-    settings: {  }
-    third_party_settings:
-      limited_field_widgets:
-        limit_values: '0'
-      change_labels:
-        add_another: ''
   field_service_location_address:
     type: paragraphs
-    weight: 25
+    weight: 21
     region: content
     settings:
       title: Address
@@ -195,12 +296,25 @@ content:
         collapse_edit_all: '0'
         duplicate: '0'
     third_party_settings: {  }
+  field_use_facility_phone_number:
+    type: boolean_checkbox
+    weight: 29
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_use_main_facility_phone:
     type: boolean_checkbox
     weight: 4
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_virtual_support:
+    type: options_buttons
+    weight: 5
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

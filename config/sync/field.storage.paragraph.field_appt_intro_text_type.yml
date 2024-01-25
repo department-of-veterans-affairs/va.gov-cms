@@ -1,0 +1,30 @@
+uuid: 6c7b3a37-c14d-4993-9c41-264a3add5058
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_appt_intro_text_type
+field_name: field_appt_intro_text_type
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: use_default_text
+      label: 'Use default text'
+    -
+      value: customize_text
+      label: 'Customize text'
+    -
+      value: remove_text
+      label: 'Remove text'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
