@@ -13,14 +13,12 @@ dependencies:
     - field.field.paragraph.service_location.field_online_scheduling_avail
     - field.field.paragraph.service_location.field_other_phone_numbers
     - field.field.paragraph.service_location.field_phone
-    - field.field.paragraph.service_location.field_service_delivery_options
     - field.field.paragraph.service_location.field_service_location_address
     - field.field.paragraph.service_location.field_use_facility_phone_number
     - field.field.paragraph.service_location.field_use_main_facility_phone
     - field.field.paragraph.service_location.field_virtual_support
     - paragraphs.paragraphs_type.service_location
   module:
-    - change_labels
     - entity_browser_entity_form
     - field_group
     - ief_table_view_mode
@@ -279,16 +277,6 @@ content:
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: _none
-  field_service_delivery_options:
-    type: options_buttons
-    weight: 2
-    region: content
-    settings: {  }
-    third_party_settings:
-      limited_field_widgets:
-        limit_values: '0'
-      change_labels:
-        add_another: ''
   field_service_location_address:
     type: paragraphs
     weight: 21
