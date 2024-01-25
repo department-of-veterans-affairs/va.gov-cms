@@ -64,7 +64,7 @@ class BannerEndpointTest extends VaGovExistingSiteBase {
 
     $url = $this->baseUrl;
 
-    // Make sure the banner is found in all of the requests that it _should_ be
+    // Make sure the banner is found in all the requests that it _should_ be
     // included in (and not in the places where it should not be).
     $response = \Drupal::httpClient()->get($url . '/jsonapi/banner-alerts?item-path=' . $path);
     $this->assertEquals('200', $response->getStatusCode(), 'request returned status code ' . $response->getStatusCode());

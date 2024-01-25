@@ -82,8 +82,11 @@ class BannerAlertsController extends ControllerBase {
       'data' => array_merge($banners, $promo_banners, $full_width_banner_alerts),
     ]);
 
+    // @todo Add path to cache somehow...
+    // $item_path_context = (new CacheableMetadata())->addCacheContexts(['url.query_args:item-path']);
     $cache_tags = array_merge($banner_cache_tags, $promo_cache_tags, $full_width_banner_alert_cache_tags);
     $response->getCacheableMetadata()->addCacheTags($cache_tags);
+
     return $response;
   }
 
@@ -128,7 +131,7 @@ class BannerAlertsController extends ControllerBase {
       $cache_tags = array_merge($cache_tags, $entity->getCacheTags());
     }
 
-    return ['data' => $banner_data, 'cache_tags' => $cache_tags];
+    return [$this->flattenData($banner_data), $cache_tags];
   }
 
   /**
@@ -171,7 +174,7 @@ class BannerAlertsController extends ControllerBase {
       $promo_banner_data[] = $this->serializer->normalize($entity);
       $cache_tags = array_merge($cache_tags, $entity->getCacheTags());
     }
-    return ['data' => $promo_banner_data, 'cache_tags' => $cache_tags];
+    return [$this->flattenData($promo_banner_data), $cache_tags];
   }
 
   /**
@@ -240,18 +243,61 @@ class BannerAlertsController extends ControllerBase {
     $full_width_banner_alert_data = [];
     $cache_tags = [];
     foreach ($facility_banners as $entity) {
-      $full_width_banner_alert_data[] = $this->serializer->normalize($entity, 'json', ['plugin_id' => 'entity']);
-      $cache_tags = array_merge($cache_tags, $entity->getCacheTags());
+      $normalized_data = $this->serializer->normalize($entity);
 
       // Override field_situation_updates with referenced paragraph data.
       $situation_updates = $entity->get('field_situation_updates')->referencedEntities();
       $situation_update_data = [];
       foreach ($situation_updates as $situation_update) {
-        $situation_update_data[] = $this->serializer->normalize($situation_update, 'json', ['plugin_id' => 'entity']);
+        $situation_update_data[] = $this->serializer->normalize($situation_update);
       }
-      $full_width_banner_alert_data[count($full_width_banner_alert_data) - 1]['field_situation_updates'] = $situation_update_data;
+      $normalized_data['field_situation_updates'] = $this->flattenData($situation_update_data);
+
+      $full_width_banner_alert_data[] = $normalized_data;
+      $cache_tags = array_merge($cache_tags, $entity->getCacheTags());
     }
-    return ['data' => $full_width_banner_alert_data, 'cache_tags' => $cache_tags];
+
+    return [$this->flattenData($full_width_banner_alert_data), $cache_tags];
+  }
+
+  /**
+   * Format the data into a flatter structure.
+   *
+   * @param array $data
+   *   The data to flatten.
+   *
+   * @return array
+   *   The flattened data.
+   */
+  private function flattenData(array $data): array {
+    return array_map(function ($item) {
+      $result = [];
+      foreach ($item as $key => $value) {
+        // Check if value is an array with exactly one element.
+        if (is_array($value) && count($value) === 1) {
+          // Get the first element of the array.
+          $firstElement = reset($value);
+
+          // Check if the first element itself is an associative array with exactly one key.
+          if (is_array($firstElement)
+            && count($firstElement) === 1
+            && array_key_exists('value', $firstElement)) {
+            // Assign the 'value' directly.
+            $result[$key] = $firstElement['value'];
+          }
+          else {
+            // Keep the first element as is, since it's an associative array with multiple keys.
+            $result[$key] = $firstElement;
+          }
+        }
+        else {
+          // Copy the value as is.
+          $result[$key] = $value;
+        }
+      }
+      return $result;
+    },
+      $data);
   }
 
 }
