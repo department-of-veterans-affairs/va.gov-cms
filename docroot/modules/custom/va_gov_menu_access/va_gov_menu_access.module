@@ -60,7 +60,7 @@ function _va_gov_menu_access_set_menu_parent_requirement(array $form, FormStateI
       'menu',
       'menu_parent',
     ]);
-    if (MenuReductionService::isCurrentMenuParentDisabled($form, $menu_parent)) {
+    if (!empty($menu_parent) && MenuReductionService::isCurrentMenuParentDisabled($form, $menu_parent)) {
       // The clientside_validation_jquery module's validation is too aggressive
       // with the menu parent, and considers any option that is disabled as
       // empty, even though there is a value in the option list.

@@ -616,7 +616,7 @@ class MenuReductionService {
       $form['menu']['link']['menu_parent']['#value'] = $this->currentMenuParent;
     }
     // Check for rare possibility that menu parent is the default menu root.
-    elseif ($this->currentMenuParent === "pittsburgh-health-care:") {
+    elseif (empty($this->currentMenuParent) || $this->currentMenuParent === "pittsburgh-health-care:") {
       return;
     }
     // This is not new so check the current parent exists in the reduced form.
