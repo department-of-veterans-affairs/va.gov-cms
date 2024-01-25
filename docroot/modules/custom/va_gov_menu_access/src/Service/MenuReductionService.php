@@ -270,11 +270,7 @@ class MenuReductionService {
 
         $menu_element_type = $this->getMenuItemType($alias);
         $menu_element_type = $menu_element_type ?? $this->checkForSeparator($allowed_separators, $menu_item);
-        if (str_contains($subject_uuid['option'], 'Work with us')) {
-          // This is a special case where we want to allow the menu item
-          // to be enabled.
-          $menu_element_type = self::ENABLED;
-        }
+
         $this->addAllowedParent($allowed_parents, $enabled_count, $menu_element_type, $subject_uuid);
       }
     }
@@ -620,11 +616,11 @@ class MenuReductionService {
       $form['menu']['link']['menu_parent']['#value'] = $this->currentMenuParent;
     }
     // Check for rare possibility that menu parent is the default menu root.
-    elseif ($this->currentMenuParent === "pittsburgh-health-care:") {
+    elseif (empty($this->currentMenuParent) || $this->currentMenuParent === "pittsburgh-health-care:") {
       return;
     }
     // This is not new so check the current parent exists in the reduced form.
-    elseif (!$current_menu_item_is_present || $this->isCurrentMenuSettingDisabled($form)) {
+    elseif (!$current_menu_item_is_present || $this->isCurrentMenuParentDisabledAndLocked($form)) {
       // Parent does not exist in reduced form, Put the original parent options
       // back to prevent data loss. The existing menu setting should not be
       // allowed, but it exists, so allow it to persist. It may have been
@@ -637,10 +633,11 @@ class MenuReductionService {
       $title .= " ($can_not_change)";
       $form['menu']['link']['menu_parent']['#title'] = $title;
     }
+
   }
 
   /**
-   * Checks to see if the current menu parent is disabled.
+   * Checks to see if the current menu parent is disabled and children locked.
    *
    * @param array $form
    *   The form array.
@@ -648,10 +645,31 @@ class MenuReductionService {
    * @return bool
    *   TRUE if the current menu parent is disabled.  FALSE otherwise.
    */
-  protected function isCurrentMenuSettingDisabled(array $form) : bool {
+  protected function isCurrentMenuParentDisabledAndLocked(array $form) : bool {
     $is_disabled = FALSE;
     $current_menu_setting = $form['menu']['link']['menu_parent']['#options'][$this->currentMenuParent] ?? '';
     if (strpos($current_menu_setting, 'Disabled no-link') !== FALSE) {
+      $is_disabled = TRUE;
+    }
+
+    return $is_disabled;
+  }
+
+  /**
+   * Checks if the current menu parent is disabled but might allow children.
+   *
+   * @param array $form
+   *   The form array.
+   * @param string $menu_parent
+   *   The id of the menu parent currently selected at node load.
+   *
+   * @return bool
+   *   TRUE if the current menu parent is disabled.  FALSE otherwise.
+   */
+  public static function isCurrentMenuParentDisabled(array $form, $menu_parent) : bool {
+    $is_disabled = FALSE;
+    $current_menu_setting = $form['menu']['link']['menu_parent']['#options'][$menu_parent] ?? '';
+    if (strpos($current_menu_setting, 'Disabled') !== FALSE) {
       $is_disabled = TRUE;
     }
 
