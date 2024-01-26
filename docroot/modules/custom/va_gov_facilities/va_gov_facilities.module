@@ -5,6 +5,8 @@
  * Contains va_gov_facilities.module.
  */
 
+use Drupal\Core\Field\WidgetBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_facilities\EventSubscriber\FacilitiesSubscriber;
 
 /**
@@ -37,4 +39,37 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
       $variables['actual_hours'] = FacilitiesSubscriber::createRenderArrayFromFieldOnRefdEntity($node_parent, $related_field, $field_to_render);
     }
   }
+}
+
+/**
+ * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
+ */
+function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+  // Hide Appointment Text Custom text unless explicitly selected.
+  $field_definition = $context['items']->getFieldDefinition();
+  /**
+   * @var \Drupal\field\Entity\FieldConfig $field_definition */
+  $paragraph_entity_reference_field_name = $field_definition->getName();
+
+  $target_paragraph_ref_fields = [
+    'field_service_location',
+  ];
+
+  if (in_array($paragraph_entity_reference_field_name, $target_paragraph_ref_fields)) {
+    $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
+
+    $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
+    $paragraph_type = $paragraph_instance->bundle();
+
+    if ($paragraph_type == 'service_location') {
+      $selector = sprintf(':input[name="%s[%d][subform][%s]"]', $paragraph_entity_reference_field_name, $element['#delta'], 'field_appt_intro_text_type');
+
+      $element['subform']['field_appt_intro_text_custom']['#states'] = [
+        'visible' => [
+          $selector => ['value' => 'customize_text'],
+        ],
+      ];
+    }
+  }
+
 }
