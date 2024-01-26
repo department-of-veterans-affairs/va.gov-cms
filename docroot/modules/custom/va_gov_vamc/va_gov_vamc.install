@@ -73,6 +73,29 @@ function _va_gov_vamc_sandbox_complete(array &$sandbox, $completed_message) {
 }
 
 /**
+ * Get an array of system nids for batch processing.
+ *
+ * @param string $node_bundle
+ *   The bundle name of the nodes to lookup.
+ * @param bool $published_only
+ *   TRUE if you need only published nodes.
+ *
+ * @return array
+ *   An array of nids for for the requested bundle.
+ */
+function _va_gov_vamc_get_nids_of_type($node_bundle, $published_only = FALSE) {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', $node_bundle)
+    ->accessCheck(FALSE);
+  if ($published_only) {
+    $query->condition('status', 1);
+  }
+
+  $nids = $query->execute();
+  return array_values($nids);
+}
+
+/**
  * Calculates an array of system nids that need to have a top task page created.
  *
  * @param string $top_task_bundle
