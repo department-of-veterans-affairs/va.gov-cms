@@ -17,6 +17,9 @@ dependencies:
     - node.type.service_region
     - node.type.vba_facility_service
     - node.type.vha_facility_nonclinical_service
+    - taxonomy.vocabulary.administration
+    - user.role.administrator
+    - user.role.content_admin
   module:
     - content_moderation
     - csv_serialization
@@ -26,6 +29,7 @@ dependencies:
     - paragraphs
     - rest
     - serialization
+    - taxonomy
     - user
     - views_data_export
 id: service_locations_audit
@@ -1007,17 +1011,19 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
-          reset_button: false
+          submit_button: Filter
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            content_admin: content_admin
+            administrator: administrator
       cache:
         type: tag
         options: {  }
@@ -1041,6 +1047,65 @@ display:
           granularity: second
       arguments: {  }
       filters:
+        title:
+          id: title
+          table: node_field_revision
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: title_op
+            label: 'Facility service name contains'
+            description: ''
+            use_operator: false
+            operator: title_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: title
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vba: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+              next_js: '0'
+              translation_manager: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         status:
           id: status
           table: node_field_data
@@ -1176,6 +1241,73 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: 0
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_administration_target_id_op
+            label: Section
+            description: ''
+            use_operator: false
+            operator: field_administration_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_administration_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vba: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+              next_js: '0'
+              translation_manager: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: administration
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: table
         options:
@@ -1325,7 +1457,17 @@ display:
           admin_label: 'field_service_location: Paragraph'
           plugin_id: standard
           required: true
-      header: {  }
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: 'Displaying @start - @end of @total'
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -1336,7 +1478,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_hservice_appt_intro_select'
@@ -1381,7 +1523,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_hservice_appt_intro_select'
@@ -1418,17 +1560,26 @@ display:
             encoding: utf8
             utf8_bom: '0'
             use_serializer_encode_only: false
+      defaults:
+        access: true
       display_description: ''
       display_extenders:
         jsonapi_views:
           enabled: true
-      path: admin/content/audit/service-locations-detailed
+      path: admin/content/audit/service-locations-detailed-exports
       displays:
         audit_service_locations: audit_service_locations
         default: '0'
+      filename: va-gov-cms-service-locations.csv
+      automatic_download: false
+      redirect_path: /admin/content/audit/service-locations-detailed
       export_method: batch
       export_batch_size: 500
       export_limit: 0
+      store_in_public_file_directory: null
+      custom_redirect_path: true
+      redirect_to_display: none
+      include_query_params: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -1437,7 +1588,7 @@ display:
         - request_format
         - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_hservice_appt_intro_select'
