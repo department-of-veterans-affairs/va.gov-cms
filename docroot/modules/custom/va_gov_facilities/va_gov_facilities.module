@@ -45,7 +45,6 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
  * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
  */
 function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
-  // Hide Appointment Text Custom text unless explicitly selected.
   $field_definition = $context['items']->getFieldDefinition();
   /**
    * @var \Drupal\field\Entity\FieldConfig $field_definition */
@@ -62,6 +61,7 @@ function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$e
     $paragraph_type = $paragraph_instance->bundle();
 
     if ($paragraph_type == 'service_location') {
+      // Hide Appointments Custom text unless explicitly selected.
       $selector = sprintf(':input[name="%s[%d][subform][%s]"]', $paragraph_entity_reference_field_name, $element['#delta'], 'field_appt_intro_text_type');
 
       $element['subform']['field_appt_intro_text_custom']['#states'] = [
@@ -69,6 +69,20 @@ function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$e
           $selector => ['value' => 'customize_text'],
         ],
       ];
+
+      // Create the element in the form just under the field_appt_intro_text_type
+      // TODO: Try to make a form that sits at weight 5 but above the Custom
+      // Right now, I can't get it in the right place
+      $element['subform']['aaa_default_text'] = [
+         '#type' => 'textarea',
+         '#title' => t('Default text'),
+         '#weight' => 1,
+         '#disabled' => TRUE,
+       ];
+
+      // Atta
+      // $attachments['#attached']['drupalSettings']['appt-default-text'] = _va_gov_facilities_appt_default_text();
+
     }
   }
 
