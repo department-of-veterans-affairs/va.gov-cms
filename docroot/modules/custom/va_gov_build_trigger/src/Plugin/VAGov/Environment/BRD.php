@@ -77,7 +77,7 @@ class BRD extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild() : void {
+  public function triggerFrontendBuild(array $payload) : void {
     try {
       if ($this->pendingWorkflowRunExists()) {
         $vars = [

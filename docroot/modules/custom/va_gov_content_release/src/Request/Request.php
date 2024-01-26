@@ -32,10 +32,11 @@ class Request implements RequestInterface {
   /**
    * {@inheritDoc}
    */
-  public function submitRequest(string $reason) : void {
+  public function submitRequest(string $reason, array $options) : void {
     try {
       $job = Job::create(static::JOB_TYPE, [
         'reason' => $reason,
+        'frontend' => $options['frontend'],
       ]);
       $this->queue->enqueueJob($job);
     }

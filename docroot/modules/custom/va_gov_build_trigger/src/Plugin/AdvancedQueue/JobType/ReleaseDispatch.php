@@ -100,7 +100,8 @@ class ReleaseDispatch extends JobTypeBase implements ContainerFactoryPluginInter
     switch ($this->releaseStateManager->canAdvanceStateTo(ReleaseStateManager::STATE_DISPATCHED)) {
       case ReleaseStateManager::STATE_TRANSITION_OK:
         try {
-          $this->environmentDiscovery->triggerFrontendBuild();
+          $payload = $job->getPayload();
+          $this->environmentDiscovery->triggerFrontendBuild($payload);
         }
         catch (\Exception $e) {
           return JobResult::failure('Release dispatch failed with error: ' . $e->getMessage());
