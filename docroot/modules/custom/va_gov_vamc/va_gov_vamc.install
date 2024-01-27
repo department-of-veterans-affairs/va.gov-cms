@@ -6,94 +6,12 @@
  */
 
 use Drupal\codit_menu_tools\MenuInsert;
-use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Core\Utility\UpdateException;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\node\Entity\Node;
 use Drupal\va_gov_lovell\LovellOps;
 use Psr\Log\LogLevel;
 
-/**
- * Initializes the basic sandbox values.
- *
- * @param array $sandbox
- *   Standard drupal $sandbox var to keep state in hook_update_N.
- * @param string $counter_callback
- *   A function name to call to get the items to process. Must return an array.
- * @param array $callback_args
- *   A flat array of arguments to pass to the counter_callback.
- *
- * @throws Drupal\Core\Utility\UpdateException
- *   If the counter callback can not be found.
- */
-function _va_gov_vamc_sandbox_init(array &$sandbox, $counter_callback, array $callback_args = []) {
-  if (empty($sandbox['total'])) {
-    // Sandbox has not been initiated.
-    if (is_callable($counter_callback)) {
-      $sandbox['items_to_process'] = call_user_func_array($counter_callback, $callback_args);
-      $sandbox['total'] = count($sandbox['items_to_process']);
-      $sandbox['current'] = 0;
-    }
-    else {
-      // Something went wrong could not use callback. Throw exception.
-      throw new UpdateException(
-        "Counter callback {$counter_callback} provided in _va_gov_vamc_sandbox_init() is not callable. Can not proceed."
-      );
-    }
-  }
-}
-
-/**
- * Updates the counts and log if complete.
- *
- * @param array $sandbox
- *   Hook_update_n sandbox for keeping state.
- * @param string $completed_message
- *   Message to log when completed. Can use '@completed' and '@total' as tokens.
- *
- * @return string
- *   String to be used as update hook messages.
- */
-function _va_gov_vamc_sandbox_complete(array &$sandbox, $completed_message) {
-  // Determine when to stop batching.
-  $sandbox['current'] = ($sandbox['total'] - count($sandbox['items_to_process']));
-  $sandbox['#finished'] = (empty($sandbox['total'])) ? 1 : ($sandbox['current'] / $sandbox['total']);
-  $vars = [
-    '@completed' => $sandbox['current'],
-    '@total' => $sandbox['total'],
-  ];
-  $message = t('Processing... @completed/@total.', $vars) . PHP_EOL;
-  // Log the all finished notice.
-  if ($sandbox['#finished'] === 1) {
-    Drupal::logger('va_gov_vamc')->log(LogLevel::INFO, $completed_message, $vars);
-    $logged_message = new FormattableMarkup($completed_message, $vars);
-    $message = t('Process completed:') . " {$logged_message}" . PHP_EOL;
-  }
-  return $message;
-}
-
-/**
- * Get an array of system nids for batch processing.
- *
- * @param string $node_bundle
- *   The bundle name of the nodes to lookup.
- * @param bool $published_only
- *   TRUE if you need only published nodes.
- *
- * @return array
- *   An array of nids for for the requested bundle.
- */
-function _va_gov_vamc_get_nids_of_type($node_bundle, $published_only = FALSE) {
-  $query = \Drupal::entityQuery('node')
-    ->condition('type', $node_bundle)
-    ->accessCheck(FALSE);
-  if ($published_only) {
-    $query->condition('status', 1);
-  }
-
-  $nids = $query->execute();
-  return array_values($nids);
-}
+require_once __DIR__ . '/../../../../scripts/content/script-library.php';
 
 /**
  * Calculates an array of system nids that need to have a top task page created.
@@ -280,9 +198,9 @@ function va_gov_vamc_update_9003() {
  */
 function va_gov_vamc_update_9004(&$sandbox) {
   $build_bundle = 'vamc_system_billing_insurance';
-  _va_gov_vamc_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
+  script_library_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
   _va_gov_vamc_create_system_content_pages($sandbox, $build_bundle);
-  return _va_gov_vamc_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
+  return script_library_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
 }
 
 /**
@@ -290,9 +208,9 @@ function va_gov_vamc_update_9004(&$sandbox) {
  */
 function va_gov_vamc_update_9005(&$sandbox) {
   $build_bundle = 'vamc_system_medical_records_offi';
-  _va_gov_vamc_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
+  script_library_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
   _va_gov_vamc_create_system_content_pages($sandbox, $build_bundle);
-  return _va_gov_vamc_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
+  return script_library_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
 }
 
 /**
@@ -300,9 +218,9 @@ function va_gov_vamc_update_9005(&$sandbox) {
  */
 function va_gov_vamc_update_9006(&$sandbox) {
   $build_bundle = 'vamc_system_register_for_care';
-  _va_gov_vamc_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
+  script_library_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
   _va_gov_vamc_create_system_content_pages($sandbox, $build_bundle);
-  return _va_gov_vamc_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
+  return script_library_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
 }
 
 /**

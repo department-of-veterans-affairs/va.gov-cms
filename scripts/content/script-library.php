@@ -3,13 +3,21 @@
 /**
  * @file
  * Common code related to drupal content scripts.
+ *
+ * This file can also be included in other things that run during non-full
+ * bootstrap processes like hook_update_n, post update, and deploy.
+ * Put the following line wherever you want to use this library.
+ * require_once __DIR__ . '/script-library.php';
  */
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Utility\UpdateException;
 use Drupal\node\NodeInterface;
 use Drupal\node\NodeStorageInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\UserStorageInterface;
+use Psr\Log\LogLevel;
 
 const CMS_MIGRATOR_ID = 1317;
 
@@ -153,6 +161,37 @@ function normalize_crisis_number($input, $plain = FALSE): string {
 }
 
 /**
+ * Get an array of node ids for batch processing.
+ *
+ * @param string $node_bundle
+ *   The bundle name of the nodes to lookup.
+ * @param bool $published_only
+ *   TRUE if you need only published nodes.
+ *
+ * @return array
+ *   An array of nids for for the requested bundle.
+ */
+function get_nids_of_type($node_bundle, $published_only = FALSE): array {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', $node_bundle)
+    ->accessCheck(FALSE);
+  if ($published_only) {
+    $query->condition('status', 1);
+  }
+
+  $nids = $query->execute();
+  // Having a node ids as a numeric keyed array is problematic when it comes
+  // to removing things from the array. As soon as you unset one, the array
+  // becomes renumbered.  So we create string keys, with numeric values.
+  // [35, 75, 20] becomes
+  // ['node_35' => 35, 'node_75' => 75, 'node_20' => 20].
+  $node_ids = array_combine(
+    array_map('_va_gov_stringifynid', array_values($nids)),
+    array_values($nids));
+  return $node_ids;
+}
+
+/**
  * Saves a node revision with log messaging.
  *
  * @param \Drupal\node\NodeInterface $node
@@ -256,6 +295,65 @@ function save_new_terms($vocabulary_id, array $terms): int {
     }
   }
   return $terms_created;
+}
+
+/**
+ * Initializes the basic sandbox values.
+ *
+ * @param array $sandbox
+ *   Standard drupal $sandbox var to keep state in hook_update_N.
+ * @param string $counter_callback
+ *   A function name to call to get the items to process. Must return an array.
+ * @param array $callback_args
+ *   A flat array of arguments to pass to the counter_callback.
+ *
+ * @throws Drupal\Core\Utility\UpdateException
+ *   If the counter callback can not be found.
+ */
+function script_library_sandbox_init(array &$sandbox, $counter_callback, array $callback_args = []) {
+  if (empty($sandbox['total'])) {
+    // Sandbox has not been initiated.
+    if (is_callable($counter_callback)) {
+      $sandbox['items_to_process'] = call_user_func_array($counter_callback, $callback_args);
+      $sandbox['total'] = count($sandbox['items_to_process']);
+      $sandbox['current'] = 0;
+    }
+    else {
+      // Something went wrong could not use callback. Throw exception.
+      throw new UpdateException(
+        "Counter callback {$counter_callback} provided in _va_gov_vamc_sandbox_init() is not callable. Can not proceed."
+      );
+    }
+  }
+}
+
+/**
+ * Updates the counts and log if complete.
+ *
+ * @param array $sandbox
+ *   Hook_update_n sandbox for keeping state.
+ * @param string $completed_message
+ *   Message to log when completed. Can use '@completed' and '@total' as tokens.
+ *
+ * @return string
+ *   String to be used as update hook messages.
+ */
+function script_library_sandbox_complete(array &$sandbox, $completed_message) {
+  // Determine when to stop batching.
+  $sandbox['current'] = ($sandbox['total'] - count($sandbox['items_to_process']));
+  $sandbox['#finished'] = (empty($sandbox['total'])) ? 1 : ($sandbox['current'] / $sandbox['total']);
+  $vars = [
+    '@completed' => $sandbox['current'],
+    '@total' => $sandbox['total'],
+  ];
+  $message = t('Processing... @completed/@total.', $vars) . PHP_EOL;
+  // Log the all finished notice.
+  if ($sandbox['#finished'] === 1) {
+    Drupal::logger('va_gov_vamc')->log(LogLevel::INFO, $completed_message, $vars);
+    $logged_message = new FormattableMarkup($completed_message, $vars);
+    $message = t('Process completed:') . " {$logged_message}" . PHP_EOL;
+  }
+  return $message;
 }
 
 /**
