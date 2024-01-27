@@ -72,7 +72,7 @@ class ContinuousReleaseSubscriber implements EventSubscriberInterface {
 
     if ($is_complete && $is_enabled) {
       $this->runDuringBusinessHours(function () {
-        $this->requestService->submitRequest('Continuous release');
+        $this->requestService->submitRequest('Continuous release', []);
       });
     }
   }

@@ -36,7 +36,7 @@ class Request implements RequestInterface {
     try {
       $job = Job::create(static::JOB_TYPE, [
         'reason' => $reason,
-        'frontend' => $options['frontend'],
+        'frontend' => $options['frontend'] ?? 'content_build',
       ]);
       $this->queue->enqueueJob($job);
     }
