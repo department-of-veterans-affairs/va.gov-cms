@@ -357,6 +357,42 @@ function script_library_sandbox_complete(array &$sandbox, $completed_message) {
 }
 
 /**
+ * Lookup a key in a map array and return the value from the map.
+ *
+ * @param string $lookup
+ *   A map key to lookup. Do not lookup int as indexes can shift.
+ * @param array $map
+ *   An array containing string key value pairs. [lookup => value].
+ * @param bool $strict
+ *   TRUE = only want a value from the array, FALSE = want your lookup back.
+ *
+ * @return mixed
+ *   Whatever the value associated with the key.
+ */
+function script_libary_map_to_value(string $lookup, array $map, bool $strict = TRUE) : mixed {
+  if (empty($lookup)) {
+    if (isset($map['default'])) {
+      // There is a default set, so use it.
+      return $map['default'];
+    }
+    elseif ($strict) {
+      return NULL;
+    }
+    else {
+      return $lookup;
+    }
+  }
+  if ($strict) {
+    // Strict, so either it is there, or nothing.
+    return $map[$lookup] ?? NULL;
+  }
+  else {
+    // Not strict, so pass back what given it its not in the map.
+    return $map[$lookup] ?? $lookup;
+  }
+}
+
+/**
  * Callback function to concat node ids with string.
  *
  * @param int $nid
