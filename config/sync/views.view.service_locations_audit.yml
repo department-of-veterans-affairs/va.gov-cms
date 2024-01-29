@@ -6,11 +6,13 @@ dependencies:
     - field.storage.node.field_administration
     - field.storage.node.field_hservice_appt_intro_select
     - field.storage.node.field_hservice_appt_leadin
+    - field.storage.node.field_online_scheduling_availabl
     - field.storage.node.field_phone_numbers_paragraph
     - field.storage.node.field_walk_ins_accepted
     - field.storage.paragraph.field_appt_intro_text_custom
     - field.storage.paragraph.field_appt_intro_text_type
     - field.storage.paragraph.field_office_visits
+    - field.storage.paragraph.field_online_scheduling_avail
     - field.storage.paragraph.field_other_phone_numbers
     - field.storage.paragraph.field_use_facility_phone_number
     - node.type.health_care_local_health_service
@@ -745,7 +747,131 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Office visits'
+          label: 'NEW: Office visits'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_online_scheduling_availabl:
+          id: field_online_scheduling_availabl
+          table: node__field_online_scheduling_availabl
+          field: field_online_scheduling_availabl
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'OLD: Is online scheduling available for this service?'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_online_scheduling_avail:
+          id: field_online_scheduling_avail
+          table: paragraph__field_online_scheduling_avail
+          field: field_online_scheduling_avail
+          relationship: field_service_location
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'NEW: Is online scheduling available for this service?'
           exclude: false
           alter:
             alter_text: false
@@ -1472,11 +1598,13 @@ display:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_hservice_appt_intro_select'
         - 'config:field.storage.node.field_hservice_appt_leadin'
+        - 'config:field.storage.node.field_online_scheduling_availabl'
         - 'config:field.storage.node.field_phone_numbers_paragraph'
         - 'config:field.storage.node.field_walk_ins_accepted'
         - 'config:field.storage.paragraph.field_appt_intro_text_custom'
         - 'config:field.storage.paragraph.field_appt_intro_text_type'
         - 'config:field.storage.paragraph.field_office_visits'
+        - 'config:field.storage.paragraph.field_online_scheduling_avail'
         - 'config:field.storage.paragraph.field_other_phone_numbers'
         - 'config:field.storage.paragraph.field_use_facility_phone_number'
   audit_service_locations:
@@ -1517,11 +1645,13 @@ display:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_hservice_appt_intro_select'
         - 'config:field.storage.node.field_hservice_appt_leadin'
+        - 'config:field.storage.node.field_online_scheduling_availabl'
         - 'config:field.storage.node.field_phone_numbers_paragraph'
         - 'config:field.storage.node.field_walk_ins_accepted'
         - 'config:field.storage.paragraph.field_appt_intro_text_custom'
         - 'config:field.storage.paragraph.field_appt_intro_text_type'
         - 'config:field.storage.paragraph.field_office_visits'
+        - 'config:field.storage.paragraph.field_online_scheduling_avail'
         - 'config:field.storage.paragraph.field_other_phone_numbers'
         - 'config:field.storage.paragraph.field_use_facility_phone_number'
   service_location_audit_export:
@@ -1582,10 +1712,12 @@ display:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_hservice_appt_intro_select'
         - 'config:field.storage.node.field_hservice_appt_leadin'
+        - 'config:field.storage.node.field_online_scheduling_availabl'
         - 'config:field.storage.node.field_phone_numbers_paragraph'
         - 'config:field.storage.node.field_walk_ins_accepted'
         - 'config:field.storage.paragraph.field_appt_intro_text_custom'
         - 'config:field.storage.paragraph.field_appt_intro_text_type'
         - 'config:field.storage.paragraph.field_office_visits'
+        - 'config:field.storage.paragraph.field_online_scheduling_avail'
         - 'config:field.storage.paragraph.field_other_phone_numbers'
         - 'config:field.storage.paragraph.field_use_facility_phone_number'
