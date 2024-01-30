@@ -5,8 +5,14 @@
  * Contains va_gov_facilities.module.
  */
 
+use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityInterface;
+
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use \Drupal\node\NodeInterface;
 use Drupal\va_gov_facilities\EventSubscriber\FacilitiesSubscriber;
 
 /**
@@ -41,10 +47,61 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
   }
 }
 
+function _va_gov_facilities_get_service_default_appt_text(FormStateInterface $form_state) {
+  $default_text = "Default text placeholder";
+  /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+  $form_object = $form_state->getFormObject();
+  $type = $form_object->getEntity()->getEntityType()->id();
+  $bundle = $form_object->getEntity()->bundle();
+  $entity = $form_object->getEntity();
+
+  switch($bundle) {
+
+    case 'health_care_local_health_service':
+      // If the markup exists and has some markup, let's put it in the default text.
+      if ($entity->field_hservices_lead_in_default && !$entity->field_hservices_lead_in_default->isEmpty()) {
+        $default_text = trim(strip_tags($entity->field_hservices_lead_in_default->getFieldDefinition()->getSetting('markup')['value']));
+      }
+      break;
+
+    case 'service_region':
+      // If the markup exists and has some markup, let's put it in the default text.
+      if ($entity->field_vba_serv_reg_appt_default && !$entity->field_vba_serv_reg_appt_default->isEmpty()) {
+        $default_text = trim(strip_tags($entity->field_vba_serv_reg_appt_default->getFieldDefinition()->getSetting('markup')['value']));
+      }
+      break;
+
+
+  }
+
+
+  return $default_text;
+}
+
+function _va_gov_facilities_set_service_location_field_states() {
+
+}
+
 /**
  * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
  */
 function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+
+  // Create the element in the form just under the field_appt_intro_text_type
+      // TODO: Try to make a form that sits at weight 5 but above the Custom
+      // Right now, I can't get it in the right place
+
+      $default_text = _va_gov_facilities_get_service_default_appt_text($form_state) ?? '';
+      $description = new FormattableMarkup($default_text, []);
+
+      $element['subform']['field_appt_intro_text_type']['temp_default_text'] = [
+        '#type' => 'textarea',
+        '#title' => t('Default text'),
+        '#value' => $description,
+        '#weight' => 1,
+        '#disabled' => TRUE,
+      ];
+
   $field_definition = $context['items']->getFieldDefinition();
   /**
    * @var \Drupal\field\Entity\FieldConfig $field_definition */
@@ -69,21 +126,20 @@ function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$e
           $selector => ['value' => 'customize_text'],
         ],
       ];
+      $element['subform']['field_appt_intro_text_type']['temp_default_text']['#states'] = [
+        'visible' => [
+          $selector => ['value' => 'use_default_text'],
+        ],
+      ];
 
-      // Create the element in the form just under the field_appt_intro_text_type
-      // TODO: Try to make a form that sits at weight 5 but above the Custom
-      // Right now, I can't get it in the right place
-      $element['subform']['aaa_default_text'] = [
-         '#type' => 'textarea',
-         '#title' => t('Default text'),
-         '#weight' => 1,
-         '#disabled' => TRUE,
-       ];
+
 
       // Atta
       // $attachments['#attached']['drupalSettings']['appt-default-text'] = _va_gov_facilities_appt_default_text();
 
     }
   }
+
+
 
 }
