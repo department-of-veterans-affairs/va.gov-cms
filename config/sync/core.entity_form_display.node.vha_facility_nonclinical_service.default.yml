@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.vha_facility_nonclinical_service.field_last_saved_by_an_editor
     - field.field.node.vha_facility_nonclinical_service.field_service_location
     - field.field.node.vha_facility_nonclinical_service.field_service_name_and_descripti
+    - field.field.node.vha_facility_nonclinical_service.field_vamc_nonclin_appt_default
     - node.type.vha_facility_nonclinical_service
     - workflows.workflow.editorial
   module:
@@ -77,7 +78,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 26
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -130,6 +131,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_vamc_nonclin_appt_default: true
   langcode: true
   promote: true
   status: true
