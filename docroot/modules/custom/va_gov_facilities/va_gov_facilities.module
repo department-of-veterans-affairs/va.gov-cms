@@ -55,32 +55,54 @@ function _va_gov_facilities_get_service_default_appt_text(FormStateInterface $fo
   $bundle = $form_object->getEntity()->bundle();
   $entity = $form_object->getEntity();
 
-  switch($bundle) {
+  $service_types = [
+    'health_care_local_health_service' => 'field_hservices_lead_in_default',
+    'service_region' => 'field_vba_serv_reg_appt_default',
+    'vba_facility_service' => 'field_vba_serv_reg_appt_default',
+    'vha_facility_nonclinical_service' => 'field_vamc_nonclin_appt_default',
+  ];
 
-    case 'health_care_local_health_service':
-      // If the markup exists and has some markup, let's put it in the default text.
-      if ($entity->field_hservices_lead_in_default && !$entity->field_hservices_lead_in_default->isEmpty()) {
-        $default_text = trim(strip_tags($entity->field_hservices_lead_in_default->getFieldDefinition()->getSetting('markup')['value']));
+  foreach ($service_types as $service_type => $default_field) {
+    if ($bundle === $service_type) {
+      if ($entity->$default_field && !$entity->$default_field->isEmpty()) {
+        $default_text = trim(strip_tags($entity->$default_field->getFieldDefinition()->getSetting('markup')['value']));
+
       }
-      break;
-
-    case 'service_region':
-      // If the markup exists and has some markup, let's put it in the default text.
-      if ($entity->field_vba_serv_reg_appt_default && !$entity->field_vba_serv_reg_appt_default->isEmpty()) {
-        $default_text = trim(strip_tags($entity->field_vba_serv_reg_appt_default->getFieldDefinition()->getSetting('markup')['value']));
-      }
-      break;
-
-      case 'vba_facility_service':
-        // If the markup exists and has some markup, let's put it in the default text.
-        if ($entity->field_vba_fac_serv_appt_default && !$entity->field_vba_fac_serv_appt_default->isEmpty()) {
-          $default_text = trim(strip_tags($entity->field_vba_fac_serv_appt_default->getFieldDefinition()->getSetting('markup')['value']));
-        }
-        break;
-
-
-
+    }
   }
+
+  // switch($bundle) {
+
+  //   case 'health_care_local_health_service':
+  //     // If the markup exists and has some markup, let's put it in the default text.
+  //     if ($entity->field_hservices_lead_in_default && !$entity->field_hservices_lead_in_default->isEmpty()) {
+  //       $default_text = trim(strip_tags($entity->field_hservices_lead_in_default->getFieldDefinition()->getSetting('markup')['value']));
+  //     }
+  //     break;
+
+  //   case 'service_region':
+  //     // If the markup exists and has some markup, let's put it in the default text.
+  //     if ($entity->field_vba_serv_reg_appt_default && !$entity->field_vba_serv_reg_appt_default->isEmpty()) {
+  //       $default_text = trim(strip_tags($entity->field_vba_serv_reg_appt_default->getFieldDefinition()->getSetting('markup')['value']));
+  //     }
+  //     break;
+
+  //   case 'vba_facility_service':
+  //     // If the markup exists and has some markup, let's put it in the default text.
+  //     if ($entity->field_vba_fac_serv_appt_default && !$entity->field_vba_fac_serv_appt_default->isEmpty()) {
+  //       $default_text = trim(strip_tags($entity->field_vba_fac_serv_appt_default->getFieldDefinition()->getSetting('markup')['value']));
+  //     }
+  //     break;
+
+  //   case 'vha_facility_nonclinical_service':
+  //     // If the markup exists and has some markup, let's put it in the default text.
+  //     if ($entity->field_vamc_nonclin_appt_default && !$entity->field_vamc_nonclin_appt_default->isEmpty()) {
+  //       $default_text = trim(strip_tags($entity->field_vamc_nonclin_appt_default->getFieldDefinition()->getSetting('markup')['value']));
+  //     }
+  //     break;
+
+
+  // }
 
 
   return $default_text;
