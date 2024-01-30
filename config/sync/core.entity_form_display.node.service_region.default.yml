@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.service_region.field_service_location
     - field.field.node.service_region.field_service_name_and_descripti
     - field.field.node.service_region.field_vba_region_facility_list
+    - field.field.node.service_region.field_vba_serv_reg_appt_default
     - node.type.service_region
     - workflows.workflow.restricted_archive
   module:
@@ -39,7 +40,6 @@ third_party_settings:
         description_display: after
     group_primary_facility:
       children:
-        - field_office
         - field_facility_location
         - field_service_location
       label: 'Primary facility'
@@ -73,7 +73,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
@@ -169,6 +168,7 @@ hidden:
   body: true
   created: true
   field_last_saved_by_an_editor: true
+  field_vba_serv_reg_appt_default: true
   langcode: true
   path: true
   promote: true
