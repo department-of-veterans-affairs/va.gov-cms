@@ -7,8 +7,3 @@ services:
     arguments: ['@request_stack']
     tags:
     - { name: event_subscriber }
-#  va_gov_api.full_width_banner_alert_subscriber:
-#    class: Drupal\va_gov_api\EventSubscriber\FullWidthBannerAlertSubscriber
-#    arguments: ['@entity_type.manager']
-#    tags:
-#      - { name: event_subscriber }

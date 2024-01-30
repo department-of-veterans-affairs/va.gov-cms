@@ -82,10 +82,14 @@ class BannerAlertsController extends ControllerBase {
       'data' => array_merge($banners, $promo_banners, $full_width_banner_alerts),
     ]);
 
-    // @todo Add path to cache somehow...
-    // $item_path_context = (new CacheableMetadata())->addCacheContexts(['url.query_args:item-path']);
+    // Add the 'path' query parameter to the cache contexts.
+    $response->getCacheableMetadata()->addCacheContexts(['url.query_args:path']);
+
+    // Add the cache tags from the banner nodes and set TTL.
     $cache_tags = array_merge($banner_cache_tags, $promo_cache_tags, $full_width_banner_alert_cache_tags);
     $response->getCacheableMetadata()->addCacheTags($cache_tags);
+    $one_day = 60 * 60 * 24;
+    $response->getCacheableMetadata()->setCacheMaxAge($one_day);
 
     return $response;
   }
@@ -99,7 +103,7 @@ class BannerAlertsController extends ControllerBase {
    * @param string $path
    *   The path to the item to find banners for.
    */
-  protected function collectBannerData(string $path) {
+  protected function collectBannerData(string $path): array {
     $node_storage = $this->entityTypeManager->getStorage('node');
 
     // Get all published banner nodes.
@@ -143,7 +147,7 @@ class BannerAlertsController extends ControllerBase {
    * @param string $path
    *   The path to the item to find promo_banners for.
    */
-  protected function collectPromoBannerData(string $path) {
+  protected function collectPromoBannerData(string $path): array {
     $node_storage = $this->entityTypeManager->getStorage('node');
 
     // Get all published promo_banner nodes.
@@ -187,7 +191,7 @@ class BannerAlertsController extends ControllerBase {
    * @param string $path
    *   The path to the item to find full_width_banner_alerts for.
    */
-  protected function collectFullWidthBannerAlertData(string $path) {
+  protected function collectFullWidthBannerAlertData(string $path): array {
     // Find the first fragment of the path; this will correspond to a facility,
     // if this is a facility page of some kind.
     $region_fragment = '__not_a_real_url';
@@ -201,7 +205,7 @@ class BannerAlertsController extends ControllerBase {
     if ($url === FALSE || !$url->isRouted() || !isset($url->getRouteParameters()['node'])) {
       // If the alias is invalid, it's not a routed URL, or there is not a node
       // in the route params, there's not much else that can be done here.
-      return;
+      return [[], []];
     }
 
     // Load the system that we found.
@@ -212,7 +216,7 @@ class BannerAlertsController extends ControllerBase {
 
     // If it's not a published VAMC system node, bail early.
     if (is_null($system_node) || $system_node->getType() != 'health_care_region_page' || $system_node->isPublished() === FALSE) {
-      return;
+      return [[], []];
     }
 
     // Find all operating status nodes which have this system as their office.
@@ -225,7 +229,7 @@ class BannerAlertsController extends ControllerBase {
 
     // If there are no operating status nids, bail.
     if (count($operating_status_nids) === 0) {
-      return;
+      return [[], []];
     }
 
     // Find any facility banners connected to the operating status nodes.
@@ -269,7 +273,7 @@ class BannerAlertsController extends ControllerBase {
    * @return array
    *   The flattened data.
    */
-  private function flattenData(array $data): array {
+  private function flattenData(array $data = []): array {
     return array_map(function ($item) {
       $result = [];
       foreach ($item as $key => $value) {
@@ -278,7 +282,8 @@ class BannerAlertsController extends ControllerBase {
           // Get the first element of the array.
           $firstElement = reset($value);
 
-          // Check if the first element itself is an associative array with exactly one key.
+          // Check if the first element itself is an associative array
+          // with exactly one key.
           if (is_array($firstElement)
             && count($firstElement) === 1
             && array_key_exists('value', $firstElement)) {
@@ -286,7 +291,8 @@ class BannerAlertsController extends ControllerBase {
             $result[$key] = $firstElement['value'];
           }
           else {
-            // Keep the first element as is, since it's an associative array with multiple keys.
+            // Keep the first element as is,
+            // since it's an associative array with multiple keys.
             $result[$key] = $firstElement;
           }
         }

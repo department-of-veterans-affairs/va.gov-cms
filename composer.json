@@ -772,7 +772,7 @@
         ],
         "va:test:phpunit-functional": [
             "# Run PHPUnit (functional) tests.",
-            "! ./scripts/should-run-directly.sh || bin/phpunit --group foo-functional --exclude-group disabled tests/phpunit --",
+            "! ./scripts/should-run-directly.sh || bin/phpunit --group functional --exclude-group disabled tests/phpunit --",
             "./scripts/should-run-directly.sh || ddev composer va:test:phpunit-functional --"
         ],
         "va:test:phpunit-unit": [
