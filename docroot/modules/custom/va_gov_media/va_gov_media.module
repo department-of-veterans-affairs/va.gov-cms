@@ -80,4 +80,5 @@ function va_gov_media_clientside_validation_validator_info_alter(&$validators) {
   foreach ($validators as &$validator) {
     $validator['attachments']['library'][] = 'va_gov_media/cv.alt-text.validate';
   }
+  unset($validator);
 }
