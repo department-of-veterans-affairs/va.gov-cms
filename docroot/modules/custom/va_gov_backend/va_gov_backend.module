@@ -380,12 +380,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $form['description']['widget']['#after_build'][] = '_va_gov_backend_allowed_formats_remove_textarea_help';
   }
 
-  if (isset($form['field_hservice_appt_intro_select'])) {
-    $form['field_hservice_appt_leadin']['widget'][0]['value']['#title_display'] = 'invisible';
-    _va_gov_backend_modify_appt_intro_text_states($form, $form_state);
-    $form['#validate'][] = '_va_gov_backend_appt_intro_text_validation';
-  }
-
   // Disable path alias modification after lc node is published.
   _va_gov_backend_disable_alias_widget($form, $form_state);
 
@@ -654,49 +648,6 @@ function _va_gov_backend_get_unlocked_alias_bundles() {
 
   // Insert into array bundles that do not need alias locked upon publish.
   return ['documentation_page'];
-}
-
-/**
- * Visibility of Appointment Lead-in Text field.
- *
- * @param array $form
- *   The node form array.
- * @param Drupal\Core\Form\FormStateInterface $form_state
- *   Instance of FormStateInterface.
- */
-function _va_gov_backend_modify_appt_intro_text_states(array &$form, FormStateInterface $form_state) {
-  if (isset($form['field_hservice_appt_intro_select'])) {
-    $form['field_hservice_appt_leadin']['#states'] = [
-      'visible' => [
-        ':input[name="field_hservice_appt_intro_select"]' => ['value' => 'custom_intro_text'],
-      ],
-    ];
-    $form['field_hservices_lead_in_default']['#states'] = [
-      'visible' => [
-        ':input[name="field_hservice_appt_intro_select"]' => ['value' => 'default_intro_text'],
-      ],
-    ];
-  }
-}
-
-/**
- * Adds Validation to check for an empty Appointment lead-in field.
- *
- * @param array $form
- *   The exposed widget form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- */
-function _va_gov_backend_appt_intro_text_validation(array $form, FormStateInterface $form_state) {
-  if (!empty($form_state->getValue('field_hservice_appt_leadin')) && !empty($form_state->getValue('field_hservice_appt_intro_select'))) {
-    $intro_type = $form_state->getValue('field_hservice_appt_intro_select');
-    $intro_text_value = $form_state->getValue('field_hservice_appt_leadin');
-    if ($intro_type[0]['value'] === 'custom_intro_text') {
-      if (($intro_text_value[0]['value'] === "")) {
-        $form_state->setErrorByName("field_hservice_appt_leadin", t('Appointment lead-in text required'));
-      }
-    }
-  }
 }
 
 /**
