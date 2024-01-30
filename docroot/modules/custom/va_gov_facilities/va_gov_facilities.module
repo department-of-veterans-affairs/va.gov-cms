@@ -71,6 +71,14 @@ function _va_gov_facilities_get_service_default_appt_text(FormStateInterface $fo
       }
       break;
 
+      case 'vba_facility_service':
+        // If the markup exists and has some markup, let's put it in the default text.
+        if ($entity->field_vba_fac_serv_appt_default && !$entity->field_vba_fac_serv_appt_default->isEmpty()) {
+          $default_text = trim(strip_tags($entity->field_vba_fac_serv_appt_default->getFieldDefinition()->getSetting('markup')['value']));
+        }
+        break;
+
+
 
   }
 
