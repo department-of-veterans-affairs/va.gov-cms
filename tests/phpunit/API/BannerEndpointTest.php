@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\API;
+namespace tests\phpunit\API;
 
 use Drupal\paragraphs\Entity\Paragraph;
 use Tests\Support\Classes\VaGovExistingSiteBase;

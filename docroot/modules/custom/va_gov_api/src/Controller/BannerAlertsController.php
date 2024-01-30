@@ -13,7 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Returns responses for Content API routes.
+ * Returns responses for the Banner Alerts API.
+ *
+ * Currently, there are three banner types included in the response:
+ * - Banner
+ * - Promo Banner
+ * - Full Width Banner Alert.
  */
 class BannerAlertsController extends ControllerBase {
 
@@ -98,7 +103,7 @@ class BannerAlertsController extends ControllerBase {
    * Collect `banner` entities to be returned in the response.
    *
    * Given a path, retrieves any `banner` that should show there, constructs a
-   * ResponseObject for it, and adds it to cacheableDependencies.
+   * response for it, and adds it to cacheable dependencies.
    *
    * @param string $path
    *   The path to the item to find banners for.
@@ -142,7 +147,7 @@ class BannerAlertsController extends ControllerBase {
    * Collect `promo_banner` entities to be returned in the response.
    *
    * Given a path, retrieves any `promo_banner` that should show there,
-   *  constructs a ResponseObject for it, and adds it to cacheableDependencies.
+   * constructs a Response for it, and adds it to cacheable dependencies.
    *
    * @param string $path
    *   The path to the item to find promo_banners for.
@@ -185,8 +190,8 @@ class BannerAlertsController extends ControllerBase {
    * Collect `full_width_banner_alert` entities to be returned in the response.
    *
    * Given a path, retrieves any `full_width_banner_alert` that should show
-   * there, constructs a ResponseObject for it, and adds it to
-   * cacheableDependencies.
+   * there, constructs a response for it, and adds it to
+   * cacheable dependencies.
    *
    * @param string $path
    *   The path to the item to find full_width_banner_alerts for.
