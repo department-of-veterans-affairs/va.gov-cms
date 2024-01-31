@@ -14,7 +14,6 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\node\NodeInterface;
-use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
@@ -156,8 +155,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     $this->contentHardeningDeduper->removeDuplicate($entity);
-    $this->clearCustomAppointmentIntroText($entity);
-    $this->clearUnusedServiceLocationHours($entity);
   }
 
   /**
@@ -333,51 +330,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
     $form['#attached']['library'][] = 'va_gov_vamc/limit_vamcs_to_workbench';
-  }
-
-  /**
-   * Clear custom appointment intro text when unused.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   */
-  protected function clearCustomAppointmentIntroText(EntityInterface $entity): void {
-    if ($entity instanceof NodeInterface) {
-      $bundle = $entity->bundle();
-      /** @var \Drupal\node\NodeInterface $entity */
-      if (($bundle === 'health_care_local_health_service')
-      && ($entity->hasField('field_hservice_appt_intro_select'))
-      && ($entity->hasField('field_hservice_appt_leadin'))) {
-        $appt_select = $entity->get('field_hservice_appt_intro_select')->value;
-        $appt_leadin = $entity->get('field_hservice_appt_leadin')->value;
-        if ($appt_select !== 'custom_intro_text' && !empty($appt_leadin)) {
-          $entity->set('field_hservice_appt_leadin', '');
-        }
-      }
-    }
-  }
-
-  /**
-   * Clear service location hours when unused.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   */
-  protected function clearUnusedServiceLocationHours(EntityInterface $entity): void {
-    if ($entity instanceof ParagraphInterface) {
-      $type = $entity->getType();
-      /** @var \Drupal\paragraphs\ParagraphInterface $entity */
-      if (($type === 'service_location')
-      && ($entity->hasField('field_hours'))
-      && ($entity->hasField('field_office_hours'))) {
-        $hours = $entity->get('field_hours')->value;
-        $office_hours = $entity->get('field_office_hours')->getValue();
-        // 2 = Provide specific hours for this service.
-        if ($hours !== '2' && count($office_hours) > 0) {
-          $entity->set('field_office_hours', []);
-        }
-      }
-    }
   }
 
   /**

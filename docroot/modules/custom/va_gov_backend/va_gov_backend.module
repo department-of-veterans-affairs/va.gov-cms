@@ -603,39 +603,6 @@ function va_gov_backend_entity_view_alter(array &$build, EntityInterface $entity
     }
   }
 
-  // Check if correct content bundle and unset fields.
-  if ($entity instanceof FieldableEntityInterface && $entity->getEntityTypeId() === 'node' && $entity->bundle() === 'health_care_local_health_service') {
-    foreach (_va_gov_backend_unset_fields($entity) as $appt_intro_field) {
-      unset($build[$appt_intro_field]);
-    }
-  };
-
-}
-
-/**
- * Returns the fields that need to be unset.
- *
- * @return array
- *   Fields that should be unset.
- */
-function _va_gov_backend_unset_fields(FieldableEntityInterface $entity) {
-  $appt_intro_select = $entity->get('field_hservice_appt_intro_select')->value;
-  if ($appt_intro_select === 'default_intro_text') {
-    return [
-      'field_hservice_appt_leadin',
-    ];
-  }
-  elseif ($appt_intro_select === 'custom_intro_text') {
-    return [
-      'field_hservices_lead_in_default',
-    ];
-  }
-  else {
-    return [
-      'field_hservices_lead_in_default',
-      'field_hservice_appt_leadin',
-    ];
-  }
 }
 
 /**
