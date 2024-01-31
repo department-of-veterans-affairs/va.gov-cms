@@ -1,10 +1,9 @@
-va_gov_api.banner_alerts:
-  path: '/%jsonapi%/banner-alerts'
-  methods: ['GET']
+va_gov_api.new_banner_alerts:
+  path: '/api/v1/banner-alerts'
   defaults:
-    _jsonapi_resource: Drupal\va_gov_api\Resources\BannerAlerts
-    _jsonapi_resource_types: ['node--banner', 'node--full_width_banner_alert', 'node--promo_banner']
+    _title: 'Banner Alerts'
+    _controller: '\Drupal\va_gov_api\Controller\BannerAlertsController::bannerAlertsByPath'
   requirements:
     _permission: 'access content'
-    _content_type_format: api_json
-    _format: api_json
+  methods:
+    - GET
