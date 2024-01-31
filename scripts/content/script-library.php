@@ -209,16 +209,18 @@ function save_node_revision(NodeInterface $node, $message = '', $new = TRUE): in
   $node->setNewRevision($new);
   $node->setSyncing(TRUE);
   $node->setValidationRequired(FALSE);
+  $node->enforceIsNew(FALSE);
   // New revisions deserve special treatment.
   if ($new) {
-    $node->enforceIsNew(TRUE);
     $node->setChangedTime(time());
     $node->setRevisionCreationTime(time());
     $uid = CMS_MIGRATOR_ID;
   }
   else {
-    $node->enforceIsNew(FALSE);
     $uid = $node->getRevisionUserId();
+    // Append new log message to previous log message.
+    $prefix = !empty($message) ? $node->getRevisionLogMessage() . ' - ' : '';
+    $message = $prefix . $message;
   }
   $node->setRevisionUserId($uid);
   $revision_time = $node->getRevisionCreationTime();
@@ -227,9 +229,7 @@ function save_node_revision(NodeInterface $node, $message = '', $new = TRUE): in
   // the value is not different from the original value.
   $revision_time++;
   $node->setRevisionCreationTime($revision_time);
-  // Append new log message to previous log message.
-  $prefix = !empty($message) ? $node->getRevisionLogMessage() . ' - ' : '';
-  $node->setRevisionLogMessage($prefix . $message);
+  $node->setRevisionLogMessage($message);
   $node->set('moderation_state', $moderation_state);
 
   return $node->save();
