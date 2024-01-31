@@ -359,7 +359,7 @@ function script_library_sandbox_complete(array &$sandbox, $completed_message) {
 /**
  * Lookup a key in a map array and return the value from the map.
  *
- * @param string $lookup
+ * @param string|null $lookup
  *   A map key to lookup. Do not lookup int as indexes can shift.
  * @param array $map
  *   An array containing string key value pairs. [lookup => value].
@@ -369,7 +369,7 @@ function script_library_sandbox_complete(array &$sandbox, $completed_message) {
  * @return mixed
  *   Whatever the value associated with the key.
  */
-function script_libary_map_to_value(string $lookup, array $map, bool $strict = TRUE) : mixed {
+function script_libary_map_to_value(string|null $lookup, array $map, bool $strict = TRUE) : mixed {
   if (empty($lookup)) {
     if (isset($map['default'])) {
       // There is a default set, so use it.
