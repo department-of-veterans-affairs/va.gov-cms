@@ -7,7 +7,6 @@
 
 use Drupal\Component\Render\FormattableMarkup;
 
-use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_facilities\EventSubscriber\FacilitiesSubscriber;
 
@@ -79,48 +78,72 @@ function _va_gov_facilities_populate_service_default_appt_text(FormStateInterfac
 }
 
 /**
+ * Adds Validation to check for an empty Appointment lead-in field.
+ *
+ * @param array $element
+ *   The element.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function _va_gov_facilities_appt_intro_text_validation($element, FormStateInterface $form_state) {
+  $service_location = $form_state->getValue('field_service_location');
+  if (isset($service_location[0]['subform']['field_appt_intro_text_type'])) {
+    $appt_text_type = $service_location[0]['subform']['field_appt_intro_text_type'][0]['value'];
+    $custom_text = $service_location[0]['subform']['field_appt_intro_text_custom'][0]['value'];
+    if ($appt_text_type === 'customize_text' && $custom_text === '') {
+      $form_state->setErrorByName("field_service_location][0][subform][field_appt_intro_text_custom'", t('Custom text for appointment introduction text is required'));
+    }
+  }
+}
+
+/**
  * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
  */
 function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
-  $field_definition = $context['items']->getFieldDefinition();
   /** @var \Drupal\field\Entity\FieldConfig $field_definition */
-  $paragraph_entity_reference_field_name = $field_definition->getName();
+  // $field_definition = $context['items']->getFieldDefinition();
+  // $paragraph_entity_reference_field_name = $field_definition->getName();
+  $paragraph_type = $element['#paragraph_type'] ?? '';
 
-  if ($paragraph_entity_reference_field_name === "field_service_location") {
-    $widget_state = WidgetBase::getWidgetState($element['#field_parents'], 'field_service_location', $form_state);
-    $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
-    $paragraph_type = $paragraph_instance->bundle();
+  if ($paragraph_type === 'service_location') {
 
-    if ($paragraph_type == 'service_location') {
-      // Set the default text for appointments.
-      $default_text = _va_gov_facilities_populate_service_default_appt_text($form_state) ?? '';
-      $description = new FormattableMarkup($default_text, []);
+    // Set the default text for appointments.
+    $default_text = _va_gov_facilities_populate_service_default_appt_text($form_state) ?? '';
+    $description = new FormattableMarkup($default_text, []);
 
-      // Create the form element for the default text for appointments.
-      // Nest it under the select list about the type of text.
-      $element['subform']['field_appt_intro_text_type']['temp_default_text'] = [
-        '#type' => 'textarea',
-        '#title' => t('Default text'),
-        '#value' => $description,
-        '#weight' => 1,
-        '#disabled' => TRUE,
-      ];
+    // Create the form element for the default text for appointments.
+    // Nest it under the select list about the type of text.
+    $element['subform']['field_appt_intro_text_type']['temp_default_text'] = [
+      '#type' => 'textarea',
+      '#title' => t('Default text'),
+      '#value' => $description,
+      '#weight' => 1,
+      '#disabled' => TRUE,
+    ];
 
-      // Hide appointments custom text unless explicitly selected.
-      $selector = sprintf(':input[name="field_service_location[%d][subform][field_appt_intro_text_type]"]', $element['#delta']);
+    // Hide appointments custom text unless explicitly selected.
+    $selector = sprintf(':input[name="field_service_location[%d][subform][field_appt_intro_text_type]"]', $element['#delta']);
 
-      $element['subform']['field_appt_intro_text_custom']['#states'] = [
-        'visible' => [
-          $selector => ['value' => 'customize_text'],
-        ],
-      ];
+    $element['subform']['field_appt_intro_text_custom']['#states'] = [
+      'required' => [
+        $selector => ['value' => 'customize_text'],
+      ],
+      'visible' => [
+        $selector => ['value' => 'customize_text'],
+      ],
 
-      // The default appointment text shows as a disabled form element.
-      $element['subform']['field_appt_intro_text_type']['temp_default_text']['#states'] = [
-        'visible' => [
-          $selector => ['value' => 'use_default_text'],
-        ],
-      ];
+    ];
+
+    // The default appointment text shows as a disabled form element.
+    $element['subform']['field_appt_intro_text_type']['temp_default_text']['#states'] = [
+      'visible' => [
+        $selector => ['value' => 'use_default_text'],
+      ],
+    ];
+
+    // Make sure the custom text field is filled out (when option is selected).
+    if (isset($element['subform']['field_appt_intro_text_type'])) {
+      $element['subform']['field_appt_intro_text_custom']['widget']['#element_validate'][] = '_va_gov_facilities_appt_intro_text_validation';
     }
   }
 
