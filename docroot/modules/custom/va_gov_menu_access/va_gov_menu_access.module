@@ -7,6 +7,7 @@
 
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\va_gov_menu_access\Service\MenuReductionService;
 
 /**
  * Implements hook_page_attachments().
@@ -55,7 +56,26 @@ function _va_gov_menu_access_hide_menu_fields(array &$form) {
  */
 function _va_gov_menu_access_set_menu_parent_requirement(array $form, FormStateInterface $form_state) {
   if ($form_state->getValue(['menu', 'enabled'])) {
-    $form['menu']['link']['menu_parent']['#required'] = TRUE;
+    $menu_parent = $form_state->getValue([
+      'menu',
+      'menu_parent',
+    ]);
+    if (!empty($menu_parent) && MenuReductionService::isCurrentMenuParentDisabled($form, $menu_parent)) {
+      // The clientside_validation_jquery module's validation is too aggressive
+      // with the menu parent, and considers any option that is disabled as
+      // empty, even though there is a value in the option list.
+      // Since the parent field contains a disabled parent, we have to turn off
+      // clientside_validation for that field.
+      $form['menu']['link']['menu_parent']['#attributes']['novalidate'] = 'novalidate';
+      $form['menu']['link']['menu_parent']['#attributes']['formnovalidate'] = 'formnovalidate';
+      // Those should have been enough to make clientside_validation happy,
+      // but we need this too. No worries, there is drupal validation to prevent
+      // a save with no parent from succeeding.
+      $form['menu']['link']['menu_parent']['#required'] = FALSE;
+    }
+    else {
+      $form['menu']['link']['menu_parent']['#required'] = TRUE;
+    }
     $form['#validate'][] = '_va_gov_menu_access_parent_menu_selected_validation';
   }
   return $form;

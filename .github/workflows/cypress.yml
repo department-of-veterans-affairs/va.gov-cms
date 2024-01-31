@@ -37,7 +37,7 @@ jobs:
           ref: ${{ inputs.commit_sha }}
 
       - name: Setup the Node environment
-        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
         with:
           node-version: '18.13'
 
@@ -47,7 +47,7 @@ jobs:
           NODE_TLS_REJECT_UNAUTHORIZED: 0
 
       - name: Cypress run
-        uses: cypress-io/github-action@ebe8b24c4428922d0f793a5c4c96853a633180e3 # v6.6.0
+        uses: cypress-io/github-action@1b70233146622b69e789ccdd4f9452adc638d25a # v6.6.1
         with:
           wait-on: "${{ inputs.preview_url }}"
           command: 'npm run test:cypress:parallel'

@@ -33,6 +33,20 @@ In the CMS, pages are either Clones or singles.
    - Single: A page that only appears in one or the other.  Any page with a field_administration of "Lovell - TRICARE" (tid: 1039) OR "Lovell - VA" (tid: 1040)
    - Twins: Separate CMS nodes that have a non-identical counterpart in both subsystems.  In the CMS a twin has no connection to its twin.  It has no knowledge that the twin exists.  So a twin is just a single, that has another similar single out there.  Twin is a human construct, not a CMS construct.
 
+Side note to correctly trigger processing of a Lovell - VA system page on content-build:
+    1. In GraphQL make sure you pull the fieldAdministration as:    
+    ```
+    fieldAdministration {
+      entity {
+         ... on TaxonomyTermAdministration {
+        	    entityId
+        	    name
+          }
+       }
+    }```
+    2. the `entityId` is the same as the `tid` above and will pull in the page as a single or clone or whichever process.
+    
+
 ### Content-Build
 There are a set of steps that run during the content build. The order for these may not be reflected correctly here.
    1. Deep copy any node with a field administration of a clone, to become the TRICARE clones.
@@ -40,6 +54,7 @@ There are a set of steps that run during the content build. The order for these 
    1. Alter all titles of fieldOffice and fieldRegionPage for use in querying the menus
    1. Alterations to titles of some pages to match VA or TRICARE.
    1. Put the new TRICARE copies back in the pages data.
+
 
 ## Menus
 

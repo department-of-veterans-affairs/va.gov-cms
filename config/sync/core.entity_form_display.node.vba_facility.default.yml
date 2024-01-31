@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.vba_facility.field_cc_benefits_hotline
     - field.field.node.vba_facility.field_cc_cant_find_benefits
     - field.field.node.vba_facility.field_cc_get_updates_from_vba
+    - field.field.node.vba_facility.field_cc_meta_tags
     - field.field.node.vba_facility.field_cc_national_spotlight_1
     - field.field.node.vba_facility.field_cc_vba_facility_overview
     - field.field.node.vba_facility.field_dismissible_option
@@ -36,7 +37,7 @@ dependencies:
     - field.field.node.vba_facility.field_table_of_contents
     - field.field.node.vba_facility.field_timezone
     - node.type.vba_facility
-    - workflows.workflow.editorial
+    - workflows.workflow.restricted_archive
   module:
     - address
     - allowed_formats
@@ -328,7 +329,7 @@ third_party_settings:
       label: 'Spotlight content'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: fieldset
       format_settings:
         classes: ''
@@ -336,6 +337,21 @@ third_party_settings:
         id: ''
         description: ''
         required_fields: true
+        description_display: after
+    group_meta_tags:
+      children:
+        - field_cc_meta_tags
+      label: 'Meta tags'
+      region: content
+      parent_name: ''
+      weight: 15
+      format_type: fieldset
+      format_settings:
+        classes: hidden
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: false
         description_display: after
 id: node.vba_facility.default
 targetEntityType: node
@@ -427,9 +443,18 @@ content:
       show_link_to_source: '1'
       show_source_updated_date: '1'
     third_party_settings: {  }
+  field_cc_meta_tags:
+    type: entity_field_fetch_widget
+    weight: 0
+    region: content
+    settings:
+      show_field_label: '1'
+      show_link_to_source: 0
+      show_source_updated_date: 0
+    third_party_settings: {  }
   field_cc_national_spotlight_1:
     type: entity_field_fetch_widget
-    weight: 10
+    weight: 1
     region: content
     settings:
       show_field_label: '1'

@@ -278,6 +278,10 @@ const creators = {
         timeout: 20000,
       }
     ).should("exist");
+    cy.get("#edit-revision-log-0-value").type(
+      `[Test revision log]${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.get("form.node-form").find("input#edit-submit").click();
     cy.get(".node__content").contains("Sun, Nov 5 2023, 10:00am - 11:00am MST");
     cy.get(".node__content").contains("Outreach events");

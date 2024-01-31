@@ -419,12 +419,12 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   // Only run when on a node.
   // Additionally, reduce the number of times called when editing a paragraph,
   // which will have a triggering_element set.
-  if (isset($form['#entity_type'])
-    && $form['#entity_type'] === 'node'
-    && (!$form_state->getTriggeringElement())) {
+  $base_form_id = $form_state->getBuildInfo()['base_form_id'] ?? '';
+  if ((!$form_state->getTriggeringElement()) && ($base_form_id === "node_form")) {
     $targets = [
       'field_office',
       'field_listing',
+      'field_facility_location',
     ];
     _va_gov_backend_dropdown_field_access($form, $targets);
   }
@@ -786,9 +786,6 @@ function _va_gov_backend_audience_topics_validation(array $form, FormStateInterf
     if ($tag_count == 0) {
       $form_state->setErrorByName('field_tags][0][subform][field_topics', t('Please select at least one Topic or Audience tag.'));
     }
-    elseif ($tag_count > 4) {
-      $form_state->setErrorByName('field_tags][0][subform][field_topics', t('No more than 4 Topic/Audience tags may be selected.'));
-    }
   }
 }
 
@@ -1043,6 +1040,13 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
             if (!in_array($option_key, $allowed_options)) {
               unset($form[$target]['widget']['#options'][$header_key][$option_key]);
             }
+          }
+        }
+        elseif (!empty($option_header)) {
+          // If not an array, it's just an option.
+          // If not in the allowed items array, take it out.
+          if (!in_array($header_key, $allowed_options)) {
+            unset($form[$target]['widget']['#options'][$header_key]);
           }
         }
       }
@@ -1316,15 +1320,6 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   }
   // Add paragraph checks on clp panels.
   if ($entity_type->id() === 'node' && $bundle === 'campaign_landing_page') {
-    // Add range check on faq panel.
-    if (isset($fields['field_clp_faq_paragraphs'])) {
-      $fields['field_clp_faq_paragraphs']->addConstraint('RequiredParagraph', [
-        'toggle' => 'field_clp_faq_panel',
-        'readable' => 'Q&A',
-        'min' => 3,
-        'max' => 10,
-      ]);
-    }
     // Add range check on stories panel.
     if (isset($fields['field_clp_stories_teasers'])) {
       $fields['field_clp_stories_teasers']->addConstraint('RequiredParagraph', [
@@ -1938,11 +1933,23 @@ function _va_gov_backend_disable_autopath_alias(FieldableEntityInterface $entity
     $toggled_on_this_save = $current_use_alias_pattern && !$original_use_alias_pattern;
     $active_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity->id());
     $published_previously = ($active_entity instanceof NodeInterface) ? $active_entity->isPublished() : FALSE;
+    $path = '/node/' . (int) $active_entity->nid->value;
+    $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($path, $langcode);
+    // If the path_alias is the node path, alias is not set.
+    $path_alias_set = (bool) preg_match('/\/node\/\d+/', $path_alias) ? FALSE : TRUE;
 
-    if ($published_previously && !$toggled_on_this_save) {
-      // This was published and this was not an intentional toggle on.
+    if ($path_alias_set && $published_previously && !$toggled_on_this_save) {
+      // This has a path alias, was published,
+      // and was not an intentional toggle on.
       // Disable the pathauto pattern.
       $entity->path->pathauto = 0;
+    }
+    elseif (!$path_alias_set) {
+      // If this is not set pathauto already is 0,
+      // so we need to explicitly set it to 1
+      // to get an alias generated.
+      $entity->path->pathauto = 1;
     }
   }
 }

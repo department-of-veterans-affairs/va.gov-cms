@@ -175,20 +175,28 @@ process:
         'Veteran Readiness and Employment Office': 6
         'VetSuccess On Campus': 7
   field_phone_number:
-    -
-      plugin: str_replace
-      source: phone-main
-      search: Ext.
-      replace: x
-    -
-      plugin: explode
-      delimiter: x
-    -
-      plugin: callback
-      callable: trim
-    -
-      plugin: concat
-      delimiter: ' x'
+    plugin: str_replace
+    search:
+      - (
+      - )
+      - X
+      - ' '
+      - ext
+      - Ext
+      - .
+      - ','
+      - x
+    replace:
+      - ''
+      - '-'
+      - x
+      - ''
+      - x
+      - x
+      - ''
+      - ''
+      - ', ext. '
+    source: phone-main
   status:
     plugin: default_value
     default_value: 0

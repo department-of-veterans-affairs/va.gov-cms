@@ -180,35 +180,51 @@ process:
         'Extended Care Site (Community Living Center) (Stand-Alone)': 7
         'Residential Care Site (MH RRTP/DRRTP) (Stand-Alone)': 8
   field_mental_health_phone:
-    -
-      plugin: str_replace
-      source: phone-mental-health
-      search: Ext.
-      replace: x
-    -
-      plugin: explode
-      delimiter: x
-    -
-      plugin: callback
-      callable: trim
-    -
-      plugin: concat
-      delimiter: ' x'
+    plugin: str_replace
+    search:
+      - (
+      - )
+      - X
+      - ' '
+      - ext
+      - Ext
+      - .
+      - ','
+      - x
+    replace:
+      - ''
+      - '-'
+      - x
+      - ''
+      - x
+      - x
+      - ''
+      - ''
+      - ', ext. '
+    source: phone-mental-health
   field_phone_number:
-    -
-      plugin: str_replace
-      source: phone-main
-      search: Ext.
-      replace: x
-    -
-      plugin: explode
-      delimiter: x
-    -
-      plugin: callback
-      callable: trim
-    -
-      plugin: concat
-      delimiter: ' x'
+    plugin: str_replace
+    search:
+      - (
+      - )
+      - X
+      - ' '
+      - ext
+      - Ext
+      - .
+      - ','
+      - x
+    replace:
+      - ''
+      - '-'
+      - x
+      - ''
+      - x
+      - x
+      - ''
+      - ''
+      - ', ext. '
+    source: phone-main
   field_mobile:
     plugin: convert_boolean
     source: mobile

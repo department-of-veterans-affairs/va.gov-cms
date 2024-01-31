@@ -11,7 +11,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Send GitHub Actions metrics to DataDog
-        uses: int128/datadog-actions-metrics@6c6a657047c0452b33ec3c254009c331e47c1370 # v1.64.0
+        uses: int128/datadog-actions-metrics@56be1c4bf92adece9d10f7fef4ba48bccf8e8c81 # v1.77.0
         with:
           datadog-api-key: ${{ secrets.DATADOG_API_KEY }}
           collect-job-metrics: true
