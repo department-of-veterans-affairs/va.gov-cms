@@ -321,7 +321,7 @@ function script_library_sandbox_init(array &$sandbox, $counter_callback, array $
     else {
       // Something went wrong could not use callback. Throw exception.
       throw new UpdateException(
-        "Counter callback {$counter_callback} provided in _va_gov_vamc_sandbox_init() is not callable. Can not proceed."
+        "Counter callback {$counter_callback} provided in script_library_sandbox_init() is not callable. Can not proceed."
       );
     }
   }
@@ -401,12 +401,12 @@ function script_libary_map_to_value(string|null $lookup, array $map, bool $stric
  * @param bool $state
  *   TRUE to toggle the settings on, FALSE to toggle them off.
  */
-function script_library_toggle_post_api_queueing(bool $state): void {
+function script_library_disable_post_api_queueing(bool $state): void {
   $on = ($state) ? 1 : 0;
   $config_post_api = \Drupal::configFactory()->getEditable('post_api.settings');
   $config_post_api->set('disable_queueing', $on)
     ->save(FALSE);
-  script_library_toggle_post_api_data_check($state);
+  script_library_skip_post_api_data_check($state);
 }
 
 /**
@@ -415,7 +415,7 @@ function script_library_toggle_post_api_queueing(bool $state): void {
  * @param bool $state
  *   TRUE to toggle the settings on, FALSE to toggle them off.
  */
-function script_library_toggle_post_api_data_check(bool $state): void {
+function script_library_skip_post_api_data_check(bool $state): void {
   $on = ($state) ? 1 : 0;
   $config_va_gov_post_api = \Drupal::configFactory()->getEditable('va_gov_post_api.settings');
   $config_va_gov_post_api->set('bypass_data_check', $on)

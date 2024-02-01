@@ -128,9 +128,8 @@ class ServiceLocationMigration {
    * Move the appointment text from the service node to the service location.
    */
   protected function migrateAppointmentIntroText(): void {
-    // Moving from: field_hservice_appt_leadin
-    // Moving to: paragraph.service_location.field_appointment_intro_text
-    // Needs a bifurcation for VAMC vs VBA.
+    // Moving from: field_hservice_appt_leadin.
+    // Moving to: paragraph.service_location.field_appointment_intro_text.
     $intro_text = $this->facilityService->get('field_hservice_appt_leadin')->value;
     $this->serviceLocation->set('field_appt_intro_text_custom', $intro_text);
   }

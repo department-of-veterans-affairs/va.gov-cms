@@ -28,13 +28,13 @@ run();
  *   Indicating the run is complete.
  */
 function run(): string {
-  script_library_toggle_post_api_data_check(TRUE);
+  script_library_skip_post_api_data_check(TRUE);
   $sandbox = ['#finished' => 0];
   do {
     print(va_gov_vamc_deploy_migrate_service_data_to_service_location($sandbox));
   } while ($sandbox['#finished'] < 1);
   // Migration is done.
-  script_library_toggle_post_api_data_check(FALSE);
+  script_library_skip_post_api_data_check(FALSE);
   return "Script run complete.";
 }
 
