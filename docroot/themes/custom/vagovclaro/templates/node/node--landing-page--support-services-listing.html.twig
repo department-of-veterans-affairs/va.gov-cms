@@ -86,13 +86,13 @@
   {{ title_prefix }}
   {% if label and not page %}
     <h3{{ title_attributes }}>
-      <ul>{{ label }}</ul>
+      {{ label }}
     </h3>
   {% endif %}
   {{ title_suffix }}
 
   <div{{ content_attributes.addClass('node__content') }}>
-    <ul>{{ content }}</ul>
+    {{ content }}
   </div>
 
 </article>
