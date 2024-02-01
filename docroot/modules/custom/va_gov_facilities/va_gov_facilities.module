@@ -125,13 +125,15 @@ function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$e
     $selector = sprintf(':input[name="field_service_location[%d][subform][field_appt_intro_text_type]"]', $element['#delta']);
 
     $element['subform']['field_appt_intro_text_custom']['#states'] = [
-      'required' => [
-        $selector => ['value' => 'customize_text'],
-      ],
       'visible' => [
         $selector => ['value' => 'customize_text'],
       ],
 
+    ];
+    $element['subform']['field_appt_intro_text_custom']['widget'][$element['#delta']]['value']['#states'] = [
+      'required' => [
+        $selector => ['value' => 'customize_text'],
+      ],
     ];
 
     // The default appointment text shows as a disabled form element.
