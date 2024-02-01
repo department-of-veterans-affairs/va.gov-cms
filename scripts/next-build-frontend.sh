@@ -64,15 +64,15 @@ rm -rf ${reporoot}/docroot/vendor/va-gov
 composer install --no-scripts &>> ${logfile}
 
 # Get the requested content-build version
-if [ "${content_build_version}" != "__default" ]; then
+if [ "${next_build_version}" != "__default" ]; then
   echo "==> Checking out the requested frontend version" >> ${logfile}
   pushd ${reporoot}/docroot/vendor/va-gov/content-build
-  if echo "${content_build_version}" | grep -qE '^[0-9]+$' > /dev/null; then
-    echo "==> Checking out PR #${content_build_version}"
-    git fetch origin pull/${content_build_version}/head &>> ${logfile}
+  if echo "${next_build_version}" | grep -qE '^[0-9]+$' > /dev/null; then
+    echo "==> Checking out PR #${next_build_version}"
+    git fetch origin pull/${next_build_version}/head &>> ${logfile}
   else
-    echo "==> Checking out git ref ${content_build_version}"
-    git fetch origin ${content_build_version} &>> ${logfile}
+    echo "==> Checking out git ref ${next_build_version}"
+    git fetch origin ${next_build_version} &>> ${logfile}
   fi
   git checkout FETCH_HEAD &>> ${logfile}
   popd
@@ -82,7 +82,7 @@ fi
 
 # Install 3rd party deps.
 echo "==> Installing yarn dependencies" >> ${logfile}
-composer va:web:install &>> ${logfile}
+composer va:next:install &>> ${logfile}
 
 # Get the requested vets-website version
 if [ "${vets_website_version}" != "__default" ]; then
@@ -104,7 +104,7 @@ fi
 # Run the build.
 echo "==> Starting build" >> ${logfile}
 drush va-gov:content-release:advance-state inprogress
-composer va:web:build &>> ${logfile}
+composer va:next:build &>> ${logfile}
 
 # Advance the state in the frontend so another build can start.
 echo "==> Build complete" >> ${logfile}
