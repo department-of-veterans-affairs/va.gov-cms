@@ -75,5 +75,10 @@ body:
       - [ ] Content is reviewed by relevant stakeholders
       - [ ] (List any necessary review and approval steps here)
       - [ ] Term is published
+      If term is part of VA Service Taxonomy & the term name changes:
+      - [ ] Bulk resave system services to pick up name change (filtered for the old name)
+      - [ ] Bulk Update alias for all system services (filtered for new name)
+      - [ ] Bulk update facility services (filtered for the old name)
+      - [ ] Bulk update alias for all facility services (filtered for new name)
   validations:
     required: true

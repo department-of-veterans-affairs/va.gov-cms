@@ -206,6 +206,7 @@ services:
 
         # Create symlink between vets-website assets and next-build
 #        - ln -snf "${DOCROOT}/vendor/va-gov/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
+        - mkdir -p "${TUGBOAT_ROOT}/next/public"
         - ln -snf "${TUGBOAT_ROOT}/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
 
 
