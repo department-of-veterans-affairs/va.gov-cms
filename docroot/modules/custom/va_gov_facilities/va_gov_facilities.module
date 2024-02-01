@@ -57,19 +57,16 @@ function _va_gov_facilities_populate_service_default_appt_text(FormStateInterfac
   $form_object = $form_state->getFormObject();
   $bundle = $form_object->getEntity()->bundle();
   $entity = $form_object->getEntity();
-
   $service_types = [
     'health_care_local_health_service' => 'field_hservices_lead_in_default',
     'service_region' => 'field_vba_serv_reg_appt_default',
     'vba_facility_service' => 'field_vba_fac_serv_appt_default',
     'vha_facility_nonclinical_service' => 'field_vamc_nonclin_appt_default',
   ];
-
   foreach ($service_types as $service_type => $default_field) {
     if ($bundle === $service_type) {
       if ($entity->$default_field && !$entity->$default_field->isEmpty()) {
         $default_text = trim(strip_tags($entity->$default_field->getFieldDefinition()->getSetting('markup')['value']));
-
       }
     }
   }
@@ -81,17 +78,11 @@ function _va_gov_facilities_populate_service_default_appt_text(FormStateInterfac
  * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
  */
 function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
-  /** @var \Drupal\field\Entity\FieldConfig $field_definition */
-  // $field_definition = $context['items']->getFieldDefinition();
-  // $paragraph_entity_reference_field_name = $field_definition->getName();
   $paragraph_type = $element['#paragraph_type'] ?? '';
-
   if ($paragraph_type === 'service_location') {
-
     // Set the default text for appointments.
     $default_text = _va_gov_facilities_populate_service_default_appt_text($form_state) ?? '';
     $description = new FormattableMarkup($default_text, []);
-
     // Create the form element for the default text for appointments.
     // Nest it under the select list about the type of text.
     $element['subform']['field_appt_intro_text_type']['temp_default_text'] = [
@@ -101,17 +92,14 @@ function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$e
       '#weight' => 1,
       '#disabled' => TRUE,
     ];
-
     // Hide appointments custom text unless explicitly selected.
     $selector = sprintf(':input[name="field_service_location[%d][subform][field_appt_intro_text_type]"]', $element['#delta']);
-
     // The default appointment text shows as a disabled form element.
     $element['subform']['field_appt_intro_text_type']['temp_default_text']['#states'] = [
       'visible' => [
         $selector => ['value' => 'use_default_text'],
       ],
     ];
-
     $element['subform']['field_appt_intro_text_custom']['#states'] = [
       'visible' => [
         $selector => ['value' => 'customize_text'],
