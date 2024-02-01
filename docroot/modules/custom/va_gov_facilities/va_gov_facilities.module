@@ -78,25 +78,6 @@ function _va_gov_facilities_populate_service_default_appt_text(FormStateInterfac
 }
 
 /**
- * Adds Validation to check for an empty Appointment lead-in field.
- *
- * @param array $element
- *   The element.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- */
-function _va_gov_facilities_appt_intro_text_validation($element, FormStateInterface $form_state) {
-  $service_location = $form_state->getValue('field_service_location');
-  if (isset($service_location[0]['subform']['field_appt_intro_text_type'])) {
-    $appt_text_type = $service_location[0]['subform']['field_appt_intro_text_type'][0]['value'];
-    $custom_text = $service_location[0]['subform']['field_appt_intro_text_custom'][0]['value'];
-    if ($appt_text_type === 'customize_text' && $custom_text === '') {
-      $form_state->setErrorByName("field_service_location][0][subform][field_appt_intro_text_custom'", t('Custom text for appointment introduction text is required'));
-    }
-  }
-}
-
-/**
  * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
  */
 function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
@@ -124,18 +105,6 @@ function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$e
     // Hide appointments custom text unless explicitly selected.
     $selector = sprintf(':input[name="field_service_location[%d][subform][field_appt_intro_text_type]"]', $element['#delta']);
 
-    $element['subform']['field_appt_intro_text_custom']['#states'] = [
-      'visible' => [
-        $selector => ['value' => 'customize_text'],
-      ],
-
-    ];
-    $element['subform']['field_appt_intro_text_custom']['widget'][$element['#delta']]['value']['#states'] = [
-      'required' => [
-        $selector => ['value' => 'customize_text'],
-      ],
-    ];
-
     // The default appointment text shows as a disabled form element.
     $element['subform']['field_appt_intro_text_type']['temp_default_text']['#states'] = [
       'visible' => [
@@ -143,10 +112,12 @@ function va_gov_facilities_field_widget_single_element_paragraphs_form_alter(&$e
       ],
     ];
 
-    // Make sure the custom text field is filled out (when option is selected).
-    if (isset($element['subform']['field_appt_intro_text_type'])) {
-      $element['subform']['field_appt_intro_text_custom']['widget']['#element_validate'][] = '_va_gov_facilities_appt_intro_text_validation';
-    }
+    $element['subform']['field_appt_intro_text_custom']['#states'] = [
+      'visible' => [
+        $selector => ['value' => 'customize_text'],
+      ],
+    ];
+
   }
 
 }
