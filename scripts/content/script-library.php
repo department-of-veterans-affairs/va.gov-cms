@@ -393,22 +393,32 @@ function script_libary_map_to_value(string|null $lookup, array $map, bool $stric
 }
 
 /**
- * Turns on or off settings related to the post_api.
+ * Turns on or off queueing of items to the post_api.
+ *
+ * CAUTION: The only time we would want to fully disable queueing is during a
+ * deploy when editors can not save anything.
  *
  * @param bool $state
  *   TRUE to toggle the settings on, FALSE to toggle them off.
  */
 function script_library_toggle_post_api_queueing(bool $state): void {
-  $state = ($state) ? 1 : 0;
+  $on = ($state) ? 1 : 0;
   $config_post_api = \Drupal::configFactory()->getEditable('post_api.settings');
-
-  $config_post_api->set('pause_cron_processing', $state)
-  // CONSIDER: The only time we would want to fully disable queueing is during
-  // a deploy when editors can not save anything.
-  // ->set('disable_queueing', $state) .
+  $config_post_api->set('disable_queueing', $on)
     ->save(FALSE);
+  script_library_toggle_post_api_data_check($state);
+}
+
+/**
+ * Turns on or off data checks and deduping for adding items to post_api queue.
+ *
+ * @param bool $state
+ *   TRUE to toggle the settings on, FALSE to toggle them off.
+ */
+function script_library_toggle_post_api_data_check(bool $state): void {
+  $on = ($state) ? 1 : 0;
   $config_va_gov_post_api = \Drupal::configFactory()->getEditable('va_gov_post_api.settings');
-  $config_va_gov_post_api->set('bypass_data_check', $state)
+  $config_va_gov_post_api->set('bypass_data_check', $on)
     ->save(FALSE);
 }
 
