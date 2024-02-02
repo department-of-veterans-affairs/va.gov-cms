@@ -70,7 +70,7 @@ class ServiceLocationMigration {
         $forward_revision = get_node_at_latest_revision($nid);
         $this->facilityService = $forward_revision;
         $this->migrateServicesLocationsFromFacility($service_locations);
-        save_node_revision($facility_service_node, $message, TRUE);
+        save_node_revision($this->facilityService, $message, TRUE);
         $sandbox['forward_revisions_count'] = (isset($sandbox['forward_revisions_count'])) ? ++$sandbox['forward_revisions_count'] : 1;
       }
 
