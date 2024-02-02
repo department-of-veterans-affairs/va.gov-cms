@@ -203,10 +203,9 @@ class ServiceLocationMigration {
     $walkins_accepted_map = [
       // Walkins accepted => office visits.
       // 'No' => 'yes by appointment only'.
-      '0' => 'no',
+      '0' => 'yes_appointment_only',
       // 'Yes' => 'Yes, with or without an appointment'.
       '1' => 'yes_with_or_without_appointment',
-      '' => '',
       // This is the do no harm, option defaulting to most restrictive.
       // 'unspecified' => 'yes by appointment only'.
       'not_applicable' => 'yes_appointment_only',
