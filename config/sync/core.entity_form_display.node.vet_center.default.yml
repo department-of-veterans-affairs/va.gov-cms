@@ -29,7 +29,6 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - address
-    - change_labels
     - content_moderation
     - entity_browser_entity_form
     - entity_field_fetch
@@ -41,7 +40,6 @@ dependencies:
     - media_library
     - office_hours
     - paragraphs
-    - paragraphs_features
     - telephone
     - textfield_counter
     - tzfield
@@ -330,6 +328,7 @@ content:
       collapsible: false
       collapsed: false
       revision: true
+      removed_reference: optional
       allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
@@ -361,7 +360,8 @@ content:
     type: office_hours_default
     weight: 11
     region: content
-    settings: {  }
+    settings:
+      collapsed: false
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
@@ -375,7 +375,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_operating_status_facility:
-    type: options_select
+    type: options_buttons
     weight: 9
     region: content
     settings: {  }
@@ -390,6 +390,7 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
