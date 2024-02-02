@@ -73,7 +73,10 @@ class ServiceLocationMigration {
       if (!$is_latest_revision) {
         $this->facilityService = $forward_revision;
         $this->migrateServicesLocationsFromFacility($service_locations);
+        // Append new log message to previous log message.
+        $original_message = $this->facilityService->getRevisionLogMessage();
         $message .= "- Draft revision carried forward.";
+        $message = "$original_message - $message";
         save_node_revision($this->facilityService, $message, TRUE);
         $sandbox['forward_revisions_count'] = (isset($sandbox['forward_revisions_count'])) ? ++$sandbox['forward_revisions_count'] : 1;
       }
