@@ -3,25 +3,25 @@
 ## Summary of Tugboat
 [Tugboat](https://www.tugboat.qa) (SOCKS required to access) is a fast, modern Preview Environment creation tool based on containers ([Docker Swarm](https://docs.docker.com/engine/swarm/)). Tugboat creates "Previews" which are environments that you can test proposed code changes in, login with a web shell, and view logs in the UI. Each Preview is built from a Base Preview.
 
-At VA, Tugboat is used primarily in conjunction with the CMS and content-build. It's helpful to understand a couple of basic terms from Tugboat, to make clear how lower environments receive their data.
+At VA, Tugboat is used primarily in conjunction with the CMS and content-build. It's helpful to understand a couple of basic terms from Tugboat, to make clear how lower environments receive their data.  
 
-Tugboat contains **Projects**. Each Project can contain **Repositories** (not related to Github). Each Repository then has a **Base Preview**, and **Previews**.
+Tugboat contains **Projects**. Each Project can contain **Repositories** (not related to Github). Each Repository then has a **Base Preview**, and **Previews**. 
 * **Previews**, or PR Previews, are the built environments you interact with for a given set of Pull Request (PR) changes.
-* **Base Preview**
-Take the term Base to mean bottom or foundation: Base Preview is a container, built from a versioned state of the CMS code, with a production database snapshot baked in. Tugboat uses Base Previews to make PR Preview creation quick and disk storage efficient. After a 30-40min build, Base Previews are ready to layer va.gov-cms code changes on top and run post-deploy operations (updatedb, config:import).
+* **Base Preview** 
+Take the term Base to mean bottom or foundation: Base Preview is a container, built from a versioned state of the CMS code, with a production database snapshot baked in. Tugboat uses Base Previews to make PR Preview creation quick and disk storage efficient. After a 30-40min build, Base Previews are ready to layer va.gov-cms code changes on top and run post-deploy operations (updatedb, config:import). 
 
 ## VA Usage
-At VA, our lower environments are each built from a Tugboat Base Preview, in some fashion. Our Tugboat configuration is relevant to the discussion:
+At VA, our lower environments are each built from a Tugboat Base Preview, in some fashion. Our Tugboat configuration is relevant to the discussion:  
 
-1. **Project**: [CMS PROD Mirrors](https://tugboat.vfs.va.gov/6042eeed6a89948104399d3c)
-    1. **Repository**: [Mirrors](https://tugboat.vfs.va.gov/6042eeed6a89945a99399d3d)
+1. **Project**: [CMS PROD Mirrors](https://tugboat.vfs.va.gov/6042eeed6a89948104399d3c) 
+    1. **Repository**: [Mirrors](https://tugboat.vfs.va.gov/6042eeed6a89945a99399d3d) 
         1. **Base Preview**: Built daily at 7am UTC (2am EST, 1am EDT). This data will then be used on Staging until the next time this Base Preview is refreshed.
         2. **Previews**: [content-build-branch-builds](https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5) — This Prod mirror snapshot of code + data backups is the base for building Staging.
 1. **Project**: [CMS](https://tugboat.vfs.va.gov/5fd3b8ee7b465711575722d5)
     1. **Repository**: [CMS Demo Environments](https://tugboat.vfs.va.gov/5ffe2f4dfa1ca136135134f6) — Is used for building Demo & Training Previews, manually triggered.
     2. **Repository**: [CMS Pull Request Environments](https://tugboat.vfs.va.gov/5fd3b8ee7b4657022b5722d6) — Is used for managing PR Previews, automatically triggered by Pull Requests in va.gov-cms or content-build repos.
         1. **Base Preview**: Built nightly at 10am UTC (5am EST, 4am EDT). This data will then be used for all va.gov-cms and content-build PR Preview envs until the next time this Base Preview is refreshed.
-
+ 
 **Refresh**:
 *  .tugboat/config.ymlPHP and MySQL update commands
 * loads the latest Database and Asset file snapshot from AWS S3.
@@ -31,37 +31,20 @@ Each Repository's Base Preview image is refreshed on a daily schedule, which dow
 ## Other environments' uses of Tugboat and data
 [Environments & the Content Build Process](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md) (Github)
 
-## Getting started with CMS Pull Request Preview Environments
 
+## Getting started with CMS Pull Request Preview Environments
 1. Log in to the Tugboat dashboard (internal) https://tugboat.vfs.va.gov. When you first log in with GitHub, you need to wait up to 2 minutes for your user account to be granted access to project(s) by a cron script that runs every minute (we are working on making this instant eventually). After you have waited the 2 minutes:
 1. Click the "CMS" project then click "CMS Pull Request Environments"
 1. Make a pull request
-1. A "Deployment in Progress" message will appear on your GitHub Pull Request, and you will see a new environment appear simultaneously in the Tugboat dashboard. With the dashboard you can view the preview environment system logs or launch a "terminal" to modify code and/or run drush commands etc.
+1. A "Deployment in Progress" message will appear on your GitHub Pull Request, and you will see a new environment appear simultaneiously in the Tugboat dashboard. With the dashboard you can view the preview environment system logs or launch a "terminal" to modify code and/or run drush commands etc.
 1. Within 3 minutes a your new preview environment should be created and a GitHub comment will be posted with links to your environment(s) for testing, this includes a WEB (web-\*) link that builds the static site for testing. The WEB environment will take a while to build and will only be stable after all tests pass.
 1. After the GitHub comment is posted with your environment links, tests will start running and the checks in the GitHub status check section will switch from "Expected" to "Pending", this test run step will take closer to 30+ minutes to complete.
-
-### Integration with GitHub Actions (GHA)
-
-The following section describes the technical details of how the automation is implemented which will likely be unnecessary to know by most developers or collaborators in this repository. The automation is implemented using the Tugboat REST API and GHA automation and is only triggered for PRs involving code changes. Documentation only PRs will not trigger the CI and have all checks marked as completed immediately. The three main workflows responsible for the Tugboat preview automation are:
-
-- [tugboat-pr-opened.yml](../.github/workflows/tugboat-pr-opened.yml) for creating new Tugboat previews PRs are opened or reopened.
-- [tugboat-pr-updated.yml](../.github/workflows/tugboat-pr-updated.yml) for rebuilding Tugboat previews PRs are updated.
-- [tugboat-pr-closed.yml](../.github/workflows/tugboat-pr-closed.yml) for deleting new Tugboat previews PRs are merged or closed.
-
-These workflows use the environment variables `TUGBOAT_API_TOKEN` and `TUGBOAT_REPOSITORY` to interact with the Tugboat REST API. These tokens are obtained from https://tugboat.vfs.va.gov/. Since the Tugboat REST API is stateless, to ensure the same preview is rebuilt and deleted upon updating or closing the PR, the Tugboat Preview ID must be maintained for each PR. This is achieved using [GitHub Actions Cache](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows). The Preview ID is written by the `tugboat-pr-opened.yml` workflow and the same Preview ID is used by the subsequent `tugboat-pr-updated.yml` and `tugboat-pr-closed.yml` workflows.
-
-There are several limitations given that GHA Cache evicts entries older than 7 days or the oldest entries if the cache is full. To ensure the Tugboat Preview IDs are not lost by the automated eviction mechanism, the Preview ID entries are refreshed periodically. Due to the GHA limitation that all `cron` triggered workflows are executed from the `main` branch while each GHA Cache entry can only be accessed within the PR branch's scope, a two step mechanism is required. For more details, see [#16561](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/16561). The two workflows responsible for periodically refreshing the cache are:
-
-- [tugboat-refresh-cache-dispatch.yml](../.github/workflows/tugboat-refresh-cache-dispatch.yml) for periodically checking which cache entries need to be refreshed and notifying those PRs to refresh their caches.
-- [tugboat-refresh-cache-responder.yml](../.github/workflows/tugboat-refresh-cache-responder.yml) for refreshing the cached Tugboat Preview ID entry in the GHA Cache.
-
-The notification mechanism between these workflows uses PR labels which can be noisy and requires a separate GITHUB Access Token `LABEL_API_TOKEN` with three permissions listed [here](https://github.com/department-of-veterans-affairs/va.gov-cms/pull/16562#discussion_r1435370089). In the future, alternative designs may be explored to alleviate these issues.
 
 ## Getting started with CMS Demo Preview Environments
 
 ### Maintenance and retention policy
 
-1. Demo Preview Environments that are inactive for 30 days are subject to deletion. Run the "Lock" operation to prevent this from happening.
+1. Demo Preview Environments that are inactive for 30 days are subject to deletion. Run the "Lock" operation to prevent this from happening. 
 1. Demo environments must follow this naming pattern:
    1. For VAMC Systems - `<Geographic location> health care`. E.g. Alexandria health care.
    1. For other CMS products - `<Product name>`. E.g. Resources and support
@@ -84,7 +67,7 @@ The notification mechanism between these workflows uses PR labels which can be n
    1. Enter new environment name .
    1. Do not change any other settings.
    1. Click "Save Configuration", then "Back to Preview".
-
+   
 You have created a new CMS Demo Preview Environment.
 
 ### Human-friendly URLs for CMS Demo Preview Environments
@@ -107,11 +90,11 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 
 
 ## Tips
-1. Refresh, Rebuild and Reset operations.
+1. Refresh, Rebuild and Reset operations.   
     Learn more at https://docs.tugboat.qa/building-a-preview/preview-deep-dive/how-previews-work. Below is a quick summary that might help clarify
     1. Refresh: Starts at "update" stage, then "build" stage, then "online" stage, see .tugboat/config.yml. "Refresh" is what you want to run to just get a fresh database snapshot (think (re)fresh database) and file asset import from recent production backups. ~10 minutes
-    1. Rebuild: Starts at "build" stage, then "online" stage, see .tugboat/config.yml. "Rebuild" does not sync the latests database snapshot and file assets. ~3 minutes
-    1. Reset: Resets your database and code to the state it was when the Preview environment was created. <1 minute
+    1. Rebuild: Starts at "build" stage, then "online" stage, see .tugboat/config.yml. "Rebuild" does not sync the latests database snapshot and file assets. ~3 minutes 
+    1. Reset: Resets your database and code to the state it was when the Preview environment was created. <1 minute 
 1. Clone: Clones the Preview Environment of the database and codebase/filesystem state at the time it was created, and not the current state. <1 minute
 1. Environments are deleted on a PR merge/close by default. "Lock" the environment to prevent deletion.
 1. There should only be one "Base Preview" built on main
@@ -139,7 +122,7 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 | Scroll the logs. | This is not possible in the Tugboat UI, use `tugboat log <service id>` to grep or scroll. |
 | Run more advanced commands with the `tugboat` tool on the proxy | See the "Tugboat's CLI tool for software engineers" section of this document. |
 | Want to get the latest .env file | Run a "Refresh" to run the "Build" stage which re-generates the .env file with latest ENV variables. |
-| Use a branch as a base preview for further PRs that will be merged into that branch | Push the base preview branch upstream, then go to branches and click "Build Preview".  From that preview, click "Preview Settings", select "Use this preview as a Base Preview", then select "Branch Base Preview".  PRs representing branches based on the base preview branch will then create previews that use that base preview.|
+| Use a branch as a base preview for further PRs that will be merged into that branch | Push the base preview branch upstream, then go to branches and click "Build Preview".  From that preview, click "Preview Settings", select "Use this preview as a Base Preview", then select "Branch Base Preview".  PRs representing branches based on the base preview branch will then create previews that use that base preview.| 
 | Send an email and capture it in the Tugboat interface | Manually update the email address of the user in question.|
 | Make changes in the `init` section of `.tugboat/config.yml` | This will require a manual explicit **rebuild** of the base preview image.|
 
@@ -160,9 +143,8 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 
 ## Known issues
 1. The generated URLs have only been observed to change when the file .tugboat/config.yml is modified by changing the name of a defined service, or changes the default service.
-1. You cannot search logs with a browser right now, it is a known issue. The alternative is to use the `tugboat` CLI tool to view logs. e.g. `tugboat log 6148dc56690c680da87db5f2 | grep -i 'error'`. You can get the service ID from the URL bar in the UI.
-1. You cannot scroll the logs while they are outputting, you can only scroll once they are done. If you want to see previous output then use the Tugboat CLI tool with `tugboat log <service id>` and scroll that way. You can get the service ID from the URL bar in the UI.
+1. You cannot search logs with a browser right now, it is a known issue. The alternative is to use the `tugboat` CLI tool to view logs. e.g. `tugboat log 6148dc56690c680da87db5f2 | grep -i 'error'`. You can get the service ID from the URL bar in the UI. 
+1. You cannot scroll the logs while they are outputting, you can only scroll once they are done. If you want to see previous output then use the Tugboat CLI tool with `tugboat log <service id>` and scroll that way. You can get the service ID from the URL bar in the UI. 
 1. Email won't be sent to existing users as their email addresses are blanked during the database sanitization process for the developer database snapshot (see [#6100](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6100)).  Email to new users, or users whose email addresses have been updated, can be sent and will be captured in the Tugboat interface. If you need to test email in Tugboat then edit a user and add an @example.com email address.
 1. Base preview images are **refreshed** automatically, not **rebuilt**.  This means that certain changes to Tugboat config, e.g. in the `init` phase, must be followed by a manual rebuild operation.  The nightly refresh will not incorporate the new changes.
-1. Pull requests with code in the body may cause a false alarm on the TIC and be rejected silently, and thus the Tugboat environment will not build automatically.  This is not an issue we or Tugboat can solve.  The only workaround is to build the PR branch manually. See this example of the string `filter_var()` in the webhook POST body causing a firewall block > https://dsva.slack.com/archives/C01A35JDH88/p1675984628181769?thread_ts=1675868445.789729&cid=C01A35JDH88.
-
+1. Pull requests with code in the body may cause a false alarm on the TIC and be rejected silently, and thus the Tugboat environment will not build automatically.  This is not an issue we or Tugboat can solve.  The only workaround is to build the PR branch manually. See this example of the string `filter_var()` in the webhook POST body causing a firewall block > https://dsva.slack.com/archives/C01A35JDH88/p1675984628181769?thread_ts=1675868445.789729&cid=C01A35JDH88. 
