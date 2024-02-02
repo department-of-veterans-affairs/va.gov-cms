@@ -1,8 +1,5 @@
 name: Continuous Integration
-on:
-  pull_request:
-    paths-ignore:
-      - '**.md'
+on: [pull_request]
 permissions:
   pull-requests: write
   issues: write
