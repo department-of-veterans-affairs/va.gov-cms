@@ -62,14 +62,18 @@ class ServiceLocationMigration {
       $message = 'Automated move of Facility Health Service data into Service Locations.';
       // Must grab this before save, because after save it will always be true.
       $is_latest_revision = $this->facilityService->isLatestRevision();
+      if (!$is_latest_revision) {
+        // The Facility service we have is the default revision, but if it is
+        // not the latest, there is a forward draft revision we need to update
+        // too. Grab it now before saving, or we'll grab the one we just saved.
+        $forward_revision = get_node_at_latest_revision($nid);
+      }
       save_node_revision($this->facilityService, $message, TRUE);
 
       if (!$is_latest_revision) {
-        // The Facility service we have is the default revision, but if it is
-        // not the latest, there is a forward revision we need to update too.
-        $forward_revision = get_node_at_latest_revision($nid);
         $this->facilityService = $forward_revision;
         $this->migrateServicesLocationsFromFacility($service_locations);
+        $message .= "- Draft revision carried forward.";
         save_node_revision($this->facilityService, $message, TRUE);
         $sandbox['forward_revisions_count'] = (isset($sandbox['forward_revisions_count'])) ? ++$sandbox['forward_revisions_count'] : 1;
       }
