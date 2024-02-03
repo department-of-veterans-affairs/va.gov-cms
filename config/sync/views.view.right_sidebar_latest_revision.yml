@@ -312,22 +312,21 @@ display:
         options: {  }
       empty: {  }
       sorts:
-        revision_timestamp:
-          id: revision_timestamp
-          table: node_revision
-          field: revision_timestamp
+        vid:
+          id: vid
+          table: node_field_revision
+          field: vid
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          entity_field: revision_timestamp
-          plugin_id: date
+          entity_field: vid
+          plugin_id: standard
           order: DESC
           expose:
             label: ''
-            field_identifier: revision_timestamp
+            field_identifier: ''
           exposed: false
-          granularity: second
       arguments:
         nid:
           id: nid
@@ -348,7 +347,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
