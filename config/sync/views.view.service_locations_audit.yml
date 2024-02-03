@@ -6,6 +6,7 @@ dependencies:
     - field.storage.node.field_administration
     - field.storage.node.field_hservice_appt_intro_select
     - field.storage.node.field_hservice_appt_leadin
+    - field.storage.node.field_last_saved_by_an_editor
     - field.storage.node.field_online_scheduling_availabl
     - field.storage.node.field_phone_numbers_paragraph
     - field.storage.node.field_walk_ins_accepted
@@ -1182,16 +1183,93 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_last_saved_by_an_editor:
+          id: field_last_saved_by_an_editor
+          table: node__field_last_saved_by_an_editor
+          field: field_last_saved_by_an_editor
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Last Saved by an Editor'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: timestamp
+          settings:
+            date_format: medium
+            custom_date_format: ''
+            timezone: ''
+            tooltip:
+              date_format: long
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
+              description: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
-        type: mini
+        type: full
         options:
           offset: 0
-          items_per_page: 10
+          items_per_page: 100
           total_pages: null
           id: 0
           tags:
             next: ››
             previous: ‹‹
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -1200,6 +1278,8 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          quantity: 9
+          pagination_heading_level: h4
       exposed_form:
         type: basic
         options:
@@ -1221,15 +1301,15 @@ display:
         options: {  }
       empty: {  }
       sorts:
-        created:
-          id: created
+        changed:
+          id: changed
           table: node_field_data
-          field: created
+          field: changed
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          entity_field: created
+          entity_field: changed
           plugin_id: date
           order: DESC
           expose:
@@ -1514,6 +1594,7 @@ display:
             field_other_phone_numbers: field_other_phone_numbers
             field_use_facility_phone_number: field_use_facility_phone_number
             nid: nid
+            field_last_saved_by_an_editor: field_last_saved_by_an_editor
           default: '-1'
           info:
             title:
@@ -1524,14 +1605,14 @@ display:
               empty_column: false
               responsive: ''
             type:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             moderation_state_1:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1545,7 +1626,7 @@ display:
               empty_column: false
               responsive: ''
             field_administration:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1559,56 +1640,56 @@ display:
               empty_column: false
               responsive: ''
             field_hservice_appt_intro_select:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_appt_intro_text_type:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_hservice_appt_leadin:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_appt_intro_text_custom:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_walk_ins_accepted:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_office_visits:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_online_scheduling_availabl:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_online_scheduling_avail:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1625,21 +1706,28 @@ display:
               empty_column: false
               responsive: ''
             field_use_facility_phone_number:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             nid:
-              sortable: false
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_last_saved_by_an_editor:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
           override: true
-          sticky: false
+          sticky: true
           summary: ''
           empty_table: false
           caption: 'Service location results'
@@ -1690,6 +1778,7 @@ display:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_hservice_appt_intro_select'
         - 'config:field.storage.node.field_hservice_appt_leadin'
+        - 'config:field.storage.node.field_last_saved_by_an_editor'
         - 'config:field.storage.node.field_online_scheduling_availabl'
         - 'config:field.storage.node.field_phone_numbers_paragraph'
         - 'config:field.storage.node.field_walk_ins_accepted'
@@ -1737,6 +1826,7 @@ display:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_hservice_appt_intro_select'
         - 'config:field.storage.node.field_hservice_appt_leadin'
+        - 'config:field.storage.node.field_last_saved_by_an_editor'
         - 'config:field.storage.node.field_online_scheduling_availabl'
         - 'config:field.storage.node.field_phone_numbers_paragraph'
         - 'config:field.storage.node.field_walk_ins_accepted'
