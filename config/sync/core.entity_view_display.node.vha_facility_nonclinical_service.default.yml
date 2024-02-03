@@ -9,14 +9,23 @@ dependencies:
     - field.field.node.vha_facility_nonclinical_service.field_last_saved_by_an_editor
     - field.field.node.vha_facility_nonclinical_service.field_service_location
     - field.field.node.vha_facility_nonclinical_service.field_service_name_and_descripti
+    - field.field.node.vha_facility_nonclinical_service.field_vamc_nonclin_appt_default
     - node.type.vha_facility_nonclinical_service
   module:
+    - markup
     - user
 id: node.vha_facility_nonclinical_service.default
 targetEntityType: node
 bundle: vha_facility_nonclinical_service
 mode: default
-content: {  }
+content:
+  field_vamc_nonclin_appt_default:
+    type: markup
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
   breadcrumbs: true
   content_moderation_control: true
