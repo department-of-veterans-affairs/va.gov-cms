@@ -1,0 +1,28 @@
+uuid: 6a047608-0392-4784-987f-ebe107cddf8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vba_fac_serv_appt_default
+    - node.type.vba_facility_service
+  module:
+    - markup
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility_service.field_vba_fac_serv_appt_default
+field_name: field_vba_fac_serv_appt_default
+entity_type: node
+bundle: vba_facility_service
+label: 'Appointment lead-in default'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: '<p>Contact us to schedule, reschedule, or cancel your appointment.</p>'
+    format: rich_text
+field_type: markup

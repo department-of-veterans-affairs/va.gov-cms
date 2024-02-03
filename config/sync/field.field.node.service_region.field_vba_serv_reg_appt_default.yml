@@ -1,0 +1,28 @@
+uuid: 58ae6795-1dcb-4ff9-9dee-389f59676ba4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vba_serv_reg_appt_default
+    - node.type.service_region
+  module:
+    - markup
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.service_region.field_vba_serv_reg_appt_default
+field_name: field_vba_serv_reg_appt_default
+entity_type: node
+bundle: service_region
+label: 'Appointment lead-in default'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: '<p>Contact us to schedule, reschedule, or cancel your appointment at our service region.</p>'
+    format: rich_text
+field_type: markup
