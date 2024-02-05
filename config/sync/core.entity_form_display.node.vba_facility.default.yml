@@ -20,7 +20,6 @@ dependencies:
     - field.field.node.vba_facility.field_facility_locator_api_id
     - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
-    - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
     - field.field.node.vba_facility.field_local_spotlight
     - field.field.node.vba_facility.field_media
@@ -92,7 +91,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: content
@@ -107,20 +105,20 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_operating_status
-        - field_media
+        - group_facility_image
         - group_facility_data
       label: 'Location and contact information'
       region: content
       parent_name: ''
       weight: 3
-      format_type: fieldset
+      format_type: details
       format_settings:
         classes: ''
         show_empty_fields: false
         id: locations-and-contact-information
+        open: true
         description: ''
         required_fields: true
-        description_display: after
     group_facility_data:
       children:
         - field_phone_number
@@ -133,7 +131,7 @@ third_party_settings:
       label: 'Facility data'
       region: content
       parent_name: group_locations_and_contact_info
-      weight: 6
+      weight: 7
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -146,21 +144,6 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-    group_vba_editable_fields:
-      children:
-        - field_intro_text
-      label: 'Top of page information'
-      region: hidden
-      parent_name: ''
-      weight: 23
-      format_type: fieldset
-      format_settings:
-        classes: ''
-        show_empty_fields: true
-        id: top-of-page-information
-        description: ''
-        required_fields: true
-        description_display: after
     group_prepare_for_your_visit:
       children:
         - field_prepare_for_visit
@@ -409,6 +392,21 @@ third_party_settings:
         label_element: h3
         required_fields: 0
         attributes: ''
+    group_facility_image:
+      children:
+        - field_media
+      label: 'Facility image'
+      region: content
+      parent_name: group_locations_and_contact_info
+      weight: 5
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: '<p>Add an image that helps people recognize the facility. For best results, add an image cropped to a 3:2 aspect ratio. For accessibility, also remember to add alternative text following the <a href="https://design.va.gov/content-style-guide/alternative-text-for-images" target="_blank">VA content style guidelines (opens in a new window)</a>.</p>'
+        required_fields: true
+        description_display: before
 id: node.vba_facility.default
 targetEntityType: node
 bundle: vba_facility
@@ -603,7 +601,7 @@ content:
         add_another: ''
   field_media:
     type: media_library_widget
-    weight: 5
+    weight: 6
     region: content
     settings:
       media_types: {  }
@@ -734,7 +732,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_intro_text: true
   langcode: true
   path: true
   promote: true
