@@ -37,7 +37,7 @@ touch ${reporoot}/.next-buildlock
 trap "rm -f ${reporoot}/.next-buildlock" INT TERM EXIT
 
 # Just because the path is really long:
-logfile="${reporoot}/docroot/sites/default/files/build.txt"
+logfile="${reporoot}/docroot/sites/default/files/next-build.txt"
 
 # The currently selected version of content-build (may be "__default", a PR#, or a git ref)
 next_build_version=$(drush va-gov-content-release:frontend-version:get next_build | tail -1)
@@ -53,6 +53,8 @@ date >> ${logfile}
 
 echo "next-build version: ${next_build_version}" >> ${logfile}
 echo "vets-website version: ${vets_website_version}" >> ${logfile}
+
+exit 1
 
 # Tell the frontend (and the user) that we're starting.
 drush va-gov:content-release:advance-state starting

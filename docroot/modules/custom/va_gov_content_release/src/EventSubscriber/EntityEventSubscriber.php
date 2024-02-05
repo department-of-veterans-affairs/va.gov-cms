@@ -104,7 +104,7 @@ class EntityEventSubscriber implements EntityEventSubscriberInterface {
     $strategy = $this->strategyPluginManager->getStrategy($strategyId);
     if ($strategy->shouldTriggerContentRelease($node)) {
       $reason = $strategy->getReasonMessage($node);
-      $this->request->submitRequest($reason);
+      $this->request->submitRequest($reason, ['frontend' => 'content_build']);
     }
   }
 

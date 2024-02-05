@@ -40,7 +40,7 @@ class RequestCommands extends DrushCommands {
    *   va-gov-content-release-request-submit
    */
   public function submitRequest(string $reason = 'Build requested via Drush.') {
-    $this->requestService->submitRequest($reason);
+    $this->requestService->submitRequest($reason, ['frontend' => 'content_build']);
     $this->io()->success('Content Release requested; check the queue for status.');
   }
 

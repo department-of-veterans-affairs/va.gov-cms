@@ -54,6 +54,8 @@ date >> ${logfile}
 echo "content-build version: ${content_build_version}" >> ${logfile}
 echo "vets-website version: ${vets_website_version}" >> ${logfile}
 
+exit 1
+
 # Tell the frontend (and the user) that we're starting.
 drush va-gov:content-release:advance-state starting
 echo "==> Starting a frontend build. This file will be updated as the build progresses." >> ${logfile}

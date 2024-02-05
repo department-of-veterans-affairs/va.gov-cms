@@ -163,11 +163,9 @@ class BaseForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->reporter->reportInfo($this->t('Content release requested successfully.'));
     if (!$this->isUnderTest($form_state)) {
-      // Determine which frontend submitted the request.
-      $options = [
-        'frontend' => $form_state->getValue('next_build_git_ref') ? 'next_build' : 'content_build',
-      ];
-      $this->request->submitRequest('Build requested via form.', $options);
+      // Determine which frontend submitted the request based on field presence.
+      $frontend = isset($form["build_request"]["next_build_selection"]) ? 'next_build' : 'content_build';
+      $this->request->submitRequest('Build requested via form.', ['frontend' => $frontend]);
     }
     else {
       $this->reporter->reportInfo($this->t('Build request skipped; form is under test.'));

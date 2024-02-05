@@ -64,7 +64,7 @@ class NextGitForm extends BaseForm {
     return new static(
       $container->get('va_gov_content_release.request'),
       $container->get('va_gov_content_release.reporter'),
-      $container->get('va_gov_build_trigger.release_state_manager'),
+      $container->get('va_gov_build_trigger.next_release_state_manager'),
       $container->get('va_gov_content_release.frontend_version'),
       $container->get('plugin.manager.block')
     );
