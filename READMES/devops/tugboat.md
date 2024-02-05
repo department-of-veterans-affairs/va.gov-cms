@@ -53,3 +53,7 @@ Can only update CPU and memory at a project level, not repository level.
 1. Close unused previews in the CMS/Pull Requests project. Target older previews and those corresponding to closed/merged PRs; these should be closed automatically, but there may be issues somewhere in the system that impair communication and cause these to remain open.
 2. Suspend older previews. This normally happens automatically (for Pull Request-based previews that haven't been touched in some period of time), but a flurry of previews might have been created inadvertently.
 3. Consider upscaling the Tugboat server or migrating to an alternative architecture.
+
+## 🚨 Warning 🚨
+
+Note that the "training" environment (https://training.cms.va.gov/) is the source of truth for who has and who has not completed the editorial training; it should not be rebuilt or otherwise tampered with without previously discussing with Helpdesk.
