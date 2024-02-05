@@ -20,4 +20,4 @@ services:
   va_gov_github.api_client.next_build:
     class: Drupal\va_gov_github\Api\Client\ApiClientInterface
     factory: [ '@va_gov_github.api_client_factory', 'getNextBuild' ]
-    arguments: [ ]
+    arguments: []

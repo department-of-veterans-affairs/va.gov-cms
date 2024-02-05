@@ -14,13 +14,3 @@ services:
       - '@logger.factory'
     tags:
       - { name: drush.command }
-  va_gov_build_trigger.next_content_release_commands:
-    class: \Drupal\va_gov_build_trigger\Commands\NextContentReleaseCommands
-    arguments:
-      - '@va_gov_build_trigger.next_release_state_manager'
-      - '@va_gov_build_trigger.build_scheduler'
-      - '@va_gov_content_release.request'
-      - '@state'
-      - '@logger.factory'
-    tags:
-      - { name: drush.command }

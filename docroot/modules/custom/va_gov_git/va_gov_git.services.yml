@@ -35,5 +35,5 @@ services:
   va_gov_git.branch_search.next_build:
     class: Drupal\va_gov_git\BranchSearch\BranchSearch
     factory: [ '@va_gov_git.branch_search_factory', 'getNextBuild' ]
-    arguments: [ ]
+    arguments: []
 

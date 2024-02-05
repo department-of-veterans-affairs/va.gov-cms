@@ -31,9 +31,6 @@ services:
   va_gov_build_trigger.release_state_manager:
     class: Drupal\va_gov_build_trigger\Service\ReleaseStateManager
     arguments: ['@state', '@event_dispatcher', '@datetime.time']
-  va_gov_build_trigger.next_release_state_manager:
-    class: Drupal\va_gov_build_trigger\Service\NextReleaseStateManager
-    arguments: ['@state', '@event_dispatcher', '@datetime.time']
   va_gov.site_status:
     class: Drupal\va_gov_build_trigger\SiteStatus\SiteStatus
     arguments: ['@state']
