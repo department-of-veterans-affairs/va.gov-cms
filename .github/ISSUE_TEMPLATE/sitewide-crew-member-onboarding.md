@@ -1,5 +1,5 @@
 ---
-name: CMS team and Sitewide Crew member onboarding
+name: Sitewide Crew member onboarding
 about: Create an issue for each new team member
 title: 'Onboarding: <insert_name>'
 labels: Onboarding
@@ -7,10 +7,10 @@ assignees: ''
 
 ---
 
-# Welcome to the VFS-CMS / Sitewide Team! 👋
+# Welcome to the Sitewide Team! 👋
 We're thrilled to have you join us on this journey! 🎆🎉🙌
 
-This team consists of three product teams: CMS team (VFS-CMS contract), and the Facilities and Public Websites teams (Sitewide contract). Our teams are cross-functional and consist of Product, Delivery/Scrummaster, UX (Research, Design, Content strategy), Backend engineering (full-stack/Drupal), and Front-end engineering.
+This team consists of 2 product teams: the Facilities and Public Websites teams (Sitewide contract). Our teams are cross-functional and consist of Product, Delivery/Scrummaster, UX (Research, Design, Content strategy), Backend engineering (full-stack/Drupal), and Front-end engineering. We also closely collaborate with the CMS team and Platform teams who own the platforms we build on.
 
 The VA's north star is to "continuously deliver high-quality digital experiences for the benefit of all Veterans and their families." From a CMS-perspective, our [vision](https://docs.google.com/presentation/d/14mK-4OMeEnR_-fgj62U4lUHBHg6htj4i4ucTA5DJFzg/edit#slide=id.g11ae1dc437e_0_1) is to craft a seamless editorial experience that empowers editors to create Veteran-centered content.
 
@@ -37,7 +37,7 @@ Your top priority is any onboarding paperwork provided by Contract Onboarding fo
 
 ### Process & Principles
 - [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
-- [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
+- [ ] Watch the 1/31/2024 [State of OCTO recording](https://dvagov.sharepoint.com/:v:/r/sites/oitdigitaltransformation/Tech%20Tuesday%20Files/20240131%20-%202024%20State%20of%20OCTO.mp4?csf=1&web=1&e=4jqObK) and review the [related slides](https://dvagov.sharepoint.com/:b:/s/oitdigitaltransformation/ERxPpNTQ6RxFlLpEjXbkg4ABaiBTOdXohIZ1OkksPwlnvw?e=ayadXo), to understand OCTO's vision and north star goals for this year.
 - [ ] Read the [VA's Office of the CTO (OCTO) engineering excellence guiding principles](https://dsva.slack.com/archives/C04KXPXL4/p1674065912579799) [post in DSVA slack]
 
 ### People
@@ -94,16 +94,16 @@ Github + Zenhub are the tools required for sprint boards, epics, estimates, and 
 
 **Sprint boards:**
 You can view team sprint boards using either the Github view with Zenhub browser extension enabled, or the Zenhub webapp view.
-* CMS team: [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/#workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board), [Zenhub webapp view](https://app.zenhub.com/workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board)
 * Facilities: [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/#workspaces/sitewide-facilities-639f5253e4b702a32376339e/board), [Zenhub webapp view](https://app.zenhub.com/workspaces/sitewide-facilities-639f5253e4b702a32376339e/board
 )
 * Public Websites: [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/#workspaces/public-websites-6171bf4bf43742001af18cc5/board), [Zenhub webapp view](https://app.zenhub.com/workspaces/public-websites-6171bf4bf43742001af18cc5/board)
+* CMS team: also runs their sprints from the same repository, and any repo / workspace changes should be mindful of not impacting their [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/#workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board), or [Zenhub webapp view](https://app.zenhub.com/workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board)
+
 
 ### Process & Principles
 - [ ] Read about our teams' [Agile / sprint best practices](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
 - [ ] How do Agile 6 and our partners work together on this project? Discuss with your Delivery Manager.
 - [ ] Read your team's Charter:
-    * [CMS]()
     * [Facilities](https://docs.google.com/document/u/1/d/1eI1w9Bcj2rlmFtxkM6Dkn_c-Srszd88UxAQimSZkVqo/edit)
     * [Public Websites](https://docs.google.com/document/d/1jiq90ffon5UxAqybiEncl8feqmXhEOChlijiDBOWUtc/edit)
 - [ ] Check your calendar for invitations to team ceremonies.
@@ -114,7 +114,7 @@ You can view team sprint boards using either the Github view with Zenhub browser
   - [ ] Retro
 
 ### People
-- [ ] Familiarize yourself with our team's shared calendars: [Sitewide Team calendar](https://calendar.google.com/calendar/u/1?cid=c2l0ZXdpZGUtdGVhbUBhZ2lsZTYuY29t) and [VFS-CMS team calendar] (https://calendar.google.com/calendar/u/1?cid=vfs-cms-team@agile6.com)
+- [ ] Familiarize yourself with our team's shared [Sitewide Team calendar](https://calendar.google.com/calendar/u/1?cid=c2l0ZXdpZGUtdGVhbUBhZ2lsZTYuY29t) 
     * Ask your DM to give you write access to your team calendar, if you have not already been invited
     * If you have time off planned, add to calendar as OOO
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
@@ -151,7 +151,7 @@ The goal for this week is to get you set up with the tools you need to be succes
 - [ ] Opt out of analytics for Platform's website by clicking https://depo-platform-documentation.scrollhelp.site/?internal-user-opt-out=true. **You will not get a confirmation message** and will have to do this for every browser and every time you clear cookies. 
 
 #### Github for issue tracking and document sharing
-- [ ] [Intro to CMS Team Github](https://github.com/department-of-veterans-affairs/va.gov-cms#readme) - describes an overview of our project in terms of repositories and architecture
+- [ ] [Intro to CMS Team Github](https://github.com/department-of-veterans-affairs/va.gov-cms#readme) - describes an overview of the CMS product in terms of repositories and architecture
     - [ ] New to Github and markdown? [Learn about writing on Github](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github) or [watch a tutorial video](https://youtu.be/TBbtbKplUoc)
 
 #### Slack for instant messaging
@@ -160,8 +160,8 @@ The goal for this week is to get you set up with the tools you need to be succes
     - [ ] Your Delivery Manager should add you to appropriate Slack user groups for the DSVA workspace (e.g. `@cms-team`, `@cms-helpdesk`, `@public-websites-team`, `@facilities-team`. Also `@cms-engineers-group` for eng.)
 
 **Channels**
-- [ ] A6/agency workspace = `#proj-sitewide-vfs-cms-team`
- - [ ] DSVA workspace = `#sitewide-program`, and your team channel e.g. `#cms-team`, `#cms-platform`, `#sitewide-public-websites`, `#sitewide-facilities`
+- [ ] A6/agency workspace = `#proj-sitewide`
+ - [ ] DSVA workspace = `#sitewide-program`, and your team channel e.g. `#sitewide-public-websites`, `#sitewide-facilities`
  - [ ] [VA Slack Channel Overview](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) describes useful channels to be aware of / join. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work.
 
 #### SOCKS - VA network proxy (after your Platform Orientation)
@@ -274,45 +274,6 @@ Each repository includes READMEs to help with setup.
 
 </details>
 
-
-<details><summary>Onboarding for DevOps members</summary>
-
-## Onboarding for DevOps members
-- [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
-- [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
-- [ ] [Jenkins](http://jenkins.vfs.va.gov/) (SOCKS required)
-- [ ] [Grafana](http://grafana.vfs.va.gov/login) (SOCKS required)
-- [ ] [Sentry](http://sentry.vfs.va.gov.) (SOCKS required)
-- [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
-  - [ ] And request to be added to the `adhoc-vetsgov-devops` group.
-- [ ] sshuttle
-- [ ] [Venafi access](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14350)
-- [ ] [SSH access to CMS servers](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14357)
-- [ ] [Okta access for Datadog](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14396)
-- [ ] [Secure Access to GitHub Bot Account](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14345)
-- [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14346) (SOCKS or VA access required)
-- [ ] [PagerDuty access](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14393)
-- [ ] Browse the [CMS topic dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
-</details>
-
-<details><summary>Onboarding for User Support members</summary>
-
-## Onboarding for User Support members
- - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
- - [ ] [Review the helpdesk Google Drive](https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
- - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP) - request access from your DM
- - [ ] Ask your DM for access to [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx) - must access on VA network (requires PIV card + CAG access)
- - [ ] Discuss Drupal CMS account administration process with helpdesk folks, Delivery Manager or Product Manager
- - [ ] Get access to training, staging, and prod environments with instructional designer
- - [ ] Discuss broken links process with instructional designer
- - [ ] Discuss Jira reporting with instructional designer
- - [ ] Discuss Knowledge Base with instructional designer
- - [ ] The following trainings and additional videos can be found on the Knowledge Base on the Drupal CMS prod and lesser environments that require VA network or SOCKS proxy access. They can be watched without VA network or SOCKS access at the links below.
-   - [ ] [Watch the Drupal CMS editorial experience video for all users](https://youtu.be/ju7EH0F5S4I).
-   - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
-   - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
-</details>
-
 <details><summary>Onboarding for Product Managers</summary>
 
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
@@ -385,26 +346,16 @@ Your discipline lead will assist with onboarding tasks / calls.
 
 ## Onboarding for Delivery Managers
 - [ ] Request your onboarding buddy provide access to [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx) - must access on VA network (requires PIV card + CAG access)
-- [ ] Review Contract responsibilities doc for your contract:
-    * [Sitewide](https://docs.google.com/document/d/1IXyXzenfdVoSM7O5KklLsI1aBIdLM6PVQJbuIevdgiw/edit)
-    * [VFS-CMS](https://docs.google.com/document/d/1rFEZapZUxRfTAxogad7jSyOdx1YIL_w5Rqh8KLps0aY/edit)
-- [ ] Review Sprint reporting runbook for your contract:
-    * [Sitewide](https://docs.google.com/document/d/1aI1QMXZMYRaqVj7QbqYF9FIQ7ittD4VXyYQWWMLJ5Ow/edit)
-    * [VFS-CMS](https://docs.google.com/document/d/1YUWAVU6741qgVcE-07ZN14LdXyWCqVZX67fYCsgGL9c/edit)
-
+- [ ] Review Contract responsibilities doc for [Sitewide](https://docs.google.com/document/d/1IXyXzenfdVoSM7O5KklLsI1aBIdLM6PVQJbuIevdgiw/edit)
+- [ ] Review Sprint reporting runbook for [Sitewide](https://docs.google.com/document/d/1aI1QMXZMYRaqVj7QbqYF9FIQ7ittD4VXyYQWWMLJ5Ow/edit)
 - [ ] Review other Delivery documents in [Google Drive](https://drive.google.com/drive/u/1/folders/1mFC5NCUkeQlGX2S8TIpD1om2V-5B0ikc)
 
 </details>
 
 
-### Team-specific onboarding (CMS, Facilities, Public Websites)
+### Team-specific onboarding (Facilities, Public Websites)
 Remove the sections that don't apply
 
-<details><summary>CMS Team Onboarding</summary>
-
-   ## Onboarding for CMS
-
-</details>
 
 <details><summary>Facilities Team Onboarding</summary>
 
@@ -421,13 +372,3 @@ Remove the sections that don't apply
    - [ ] [Public Websites product portfolio documentation ](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/public-websites)
 
 </details>
-
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`
-- [ ] `Accelerated Publishing`
