@@ -161,6 +161,8 @@ content:
         max: 22
       click_to_find_marker: true
       click_to_place_marker: false
+      click_to_remove_marker: false
+      hide_geocode_address: false
       hide_coordinates: false
       geoaddress_field:
         field: '0'
@@ -200,10 +202,11 @@ content:
     type: office_hours_default
     weight: 6
     region: content
-    settings: {  }
+    settings:
+      collapsed: false
     third_party_settings: {  }
   field_operating_status_facility:
-    type: options_select
+    type: options_buttons
     weight: 7
     region: content
     settings: {  }
@@ -218,6 +221,7 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }

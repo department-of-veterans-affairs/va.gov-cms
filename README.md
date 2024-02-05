@@ -144,7 +144,7 @@ This section outlines only the systems utilized by the CMS. See the READMEs in t
 - A single "mirror" environment is regularly populated with a sanitized production database copy.
 - Open Pull Requests get environments created automatically, cloned from the "mirror" environment, with URLs like:
    - [pr123-{hash}.ci.cms.va.gov](https://pr123-{hash}.ci.cms.va.gov) for the CMS
-      - Cypress test logs and artifacts, see [Testing](READMES/testing.md) for details.
+      - To access Cypress test logs and artifacts, see [Testing](READMES/testing.md) for details.
    - [web-{hash}.ci.cms.va.gov](http://web-{hash}.ci.cms.va.gov) for the frontend web build
    - [storybook-{hash}.ci.cms.va.gov](http://storybook-{hash}.ci.cms.va.gov) for design system documentation
 - Ad-hoc environments can be created and deleted at any time by any logged in user on [tugboat.vfs.va.gov/](https://tugboat.vfs.va.gov/):
