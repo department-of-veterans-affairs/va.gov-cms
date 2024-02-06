@@ -10,7 +10,6 @@ namespace Drupal\va_gov_content_release\Request;
 interface RequestInterface {
 
   const QUEUE_NAME = 'content_release';
-  const JOB_TYPE = 'va_gov_content_release_request';
 
   /**
    * Trigger the content release.

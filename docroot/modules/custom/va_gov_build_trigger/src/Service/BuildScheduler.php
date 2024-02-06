@@ -60,7 +60,7 @@ class BuildScheduler implements BuildSchedulerInterface {
 
     $this->runDuringBusinessHours(function () use ($currentTime, $time_since_last_build) {
       if ($time_since_last_build >= 3600) {
-        $this->requestService->submitRequest('Scheduled hourly build');
+        $this->requestService->submitRequest('Scheduled hourly build', ['frontend' => 'content_build']);
         $this->state->set(self::VA_GOV_LAST_SCHEDULED_BUILD_REQUEST, $currentTime);
       }
     }, $this->requestService, $this->state, $time_since_last_build);

@@ -33,10 +33,15 @@ class Request implements RequestInterface {
    * {@inheritDoc}
    */
   public function submitRequest(string $reason, array $options) : void {
+    $frontend = $options['frontend'] ?? 'content_build';
+    $job_type = $frontend === 'next_build'
+      ? 'va_gov_content_release_next_request'
+      : 'va_gov_content_release_request';
+
     try {
-      $job = Job::create(static::JOB_TYPE, [
+      $job = Job::create($job_type, [
         'reason' => $reason,
-        'frontend' => $options['frontend'] ?? 'content_build',
+        'frontend' => $frontend,
       ]);
       $this->queue->enqueueJob($job);
     }
