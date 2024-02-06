@@ -19,25 +19,21 @@ fi
 # For convenience.
 cd $reporoot
 
-# Make sure that we're ready to start a build.
-releasestate=$(drush va-gov:content-release:get-state | grep -c 'dispatched')
-if [ "$releasestate" -ne 1 ]; then
-  echo "[!] Build hasn't been requested by the site. Aborting!"
-  exit 1
-fi
+# Store path to site default files directory.
+filesdir="${reporoot}/docroot/sites/default/files"
 
 # We really only want one build running at a time on any given environment.
-if [ -f "${reporoot}/.next-buildlock" ]; then
+if [ -f "${filesdir}/.next-buildlock" ]; then
   echo "[!] There is already a build in progress. Aborting!"
   exit 1
 fi
-touch ${reporoot}/.next-buildlock
+touch ${filesdir}/.next-buildlock
 
 # Make sure we clean up the build lock file if an error occurs or the build is killed.
-trap "rm -f ${reporoot}/.next-buildlock" INT TERM EXIT
+trap "rm -f ${filesdir}/.next-buildlock && rm -f ${filesdir}/.next-buildrequest" INT TERM EXIT
 
 # Just because the path is really long:
-logfile="${reporoot}/docroot/sites/default/files/next-build.txt"
+logfile="${filesdir}/next-build.txt"
 
 # The currently selected version of content-build (may be "__default", a PR#, or a git ref)
 next_build_version=$(drush va-gov-content-release:frontend-version:get next_build | tail -1)
@@ -54,16 +50,14 @@ date >> ${logfile}
 echo "next-build version: ${next_build_version}" >> ${logfile}
 echo "vets-website version: ${vets_website_version}" >> ${logfile}
 
-exit 1
-
 # Tell the frontend (and the user) that we're starting.
-drush va-gov:content-release:advance-state starting
+#drush va-gov:content-release:advance-state starting
 echo "==> Starting a frontend build. This file will be updated as the build progresses." >> ${logfile}
 
 # Reset the repos to defaults.
-echo "==> Resetting VA repos to default versions" >> ${logfile}
-rm -rf ${reporoot}/docroot/vendor/va-gov
-composer install --no-scripts &>> ${logfile}
+#echo "==> Resetting VA repos to default versions" >> ${logfile}
+#rm -rf ${reporoot}/docroot/vendor/va-gov
+#composer install --no-scripts &>> ${logfile}
 
 # Get the requested content-build version
 if [ "${next_build_version}" != "__default" ]; then
@@ -105,13 +99,13 @@ fi
 
 # Run the build.
 echo "==> Starting build" >> ${logfile}
-drush va-gov:content-release:advance-state inprogress
+#drush va-gov:content-release:advance-state inprogress
 composer va:next:build &>> ${logfile}
 
 # Advance the state in the frontend so another build can start.
 echo "==> Build complete" >> ${logfile}
-drush va-gov:content-release:advance-state complete
-drush va-gov:content-release:advance-state ready
+#drush va-gov:content-release:advance-state complete
+#drush va-gov:content-release:advance-state ready
 
 # After this point, we are less concerned with errors; the build has completed.
 set +e

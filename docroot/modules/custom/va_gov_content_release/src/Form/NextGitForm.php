@@ -64,7 +64,7 @@ class NextGitForm extends BaseForm {
     return new static(
       $container->get('va_gov_content_release.request'),
       $container->get('va_gov_content_release.reporter'),
-      $container->get('va_gov_build_trigger.next_release_state_manager'),
+      $container->get('va_gov_build_trigger.release_state_manager'),
       $container->get('va_gov_content_release.frontend_version'),
       $container->get('plugin.manager.block')
     );
@@ -98,7 +98,7 @@ class NextGitForm extends BaseForm {
     $form['build_request']['title'] = [
       '#type' => 'item',
       '#prefix' => '<h2>',
-      '#markup' => $this->t('Request a content release'),
+      '#markup' => $this->t('Request a next-build content release'),
       '#suffix' => '</h2>',
     ];
 
@@ -156,7 +156,51 @@ class NextGitForm extends BaseForm {
       ],
     ];
 
-    $form['content_release_status_block'] = $this->getContentReleaseStatusBlock();
+    // Add container for the next build link form field.
+    $form['next_build_link'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'style' => 'background-color: #f2f2f2; padding: 20px; border: 1px solid #ccc;',
+      ],
+    ];
+
+    // Add title for the next build link container.
+    $form['next_build_link']['title'] = [
+      '#type' => 'item',
+      '#prefix' => '<strong>',
+      '#markup' => $this->t('Next Build Status:'),
+      '#suffix' => '</strong>',
+    ];
+
+    // Check for the existence of the .next-build.txt.
+    $file = 'public://.next-buildlock';
+    $file_path = \Drupal::service('file_system')->realpath($file);
+    if (file_exists($file_path)) {
+      $form['build_request']['next_build_selection']['#disabled'] = TRUE;
+      $form['build_request']['next_build_git_ref']['#disabled'] = TRUE;
+
+      // Also disable the vets-website selection and git ref fields.
+      $form['build_request']['vets_website_selection']['#disabled'] = TRUE;
+      $form['build_request']['vets_website_git_ref']['#disabled'] = TRUE;
+
+      // Add a link to the .next-build.txt file.
+      $form['next_build_link']['link'] = [
+        '#markup' => $this->t(
+          'Build is in progress and the running log file can be viewed at: <a href=":file_path">:file_path</a>.',
+          [
+            ':file_path' => '/sites/default/files/next-build.txt',
+          ]),
+      ];
+
+      // Display the content release submit button.
+      $form['build_request']['actions']['submit']['#disabled'] = TRUE;
+    }
+    else {
+      // Add message that the build is not in progress.
+      $form['next_build_link']['link'] = [
+        '#markup' => $this->t('Build is not in progress.'),
+      ];
+    }
 
     return $form;
   }
@@ -184,7 +228,21 @@ class NextGitForm extends BaseForm {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->submitFormForFrontend(Frontend::NextBuild, $form_state);
     $this->submitFormForFrontend(Frontend::VetsWebsite, $form_state);
-    parent::submitForm($form, $form_state);
+
+    // Check if "public://.next-buildlock" file exists.
+    $file = 'public://.next-buildlock';
+    $file_path = \Drupal::service('file_system')->realpath($file);
+    if (file_exists($file_path)) {
+      // Set message to inform user that the build is in progress.
+      $this->messenger()
+        ->addMessage($this->t('The build is in progress. Please wait for the build to complete.'));
+    }
+    else {
+      // Write the file to trigger the build.
+      $file = 'public://.next-buildrequest';
+      file_put_contents($file, 'build me Seymour!');
+      $this->messenger()->addMessage($this->t('Build lock file set.'));
+    }
   }
 
   /**
