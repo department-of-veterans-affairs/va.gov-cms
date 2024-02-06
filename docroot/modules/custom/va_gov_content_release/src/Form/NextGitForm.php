@@ -168,7 +168,7 @@ class NextGitForm extends BaseForm {
     $form['next_build_link']['title'] = [
       '#type' => 'item',
       '#prefix' => '<strong>',
-      '#markup' => $this->t('Next Build Status:'),
+      '#markup' => $this->t('Next Build Information:'),
       '#suffix' => '</strong>',
     ];
 
@@ -183,24 +183,71 @@ class NextGitForm extends BaseForm {
       $form['build_request']['vets_website_selection']['#disabled'] = TRUE;
       $form['build_request']['vets_website_git_ref']['#disabled'] = TRUE;
 
+      // Disable the content release submit button.
+      $form['build_request']['actions']['submit']['#disabled'] = TRUE;
+
       // Add a link to the .next-build.txt file.
       $form['next_build_link']['link'] = [
         '#markup' => $this->t(
-          'Build is in progress and the running log file can be viewed at: <a href=":file_path">:file_path</a>.',
+          'Status: Build is in progress and the running log file can be viewed at: <a href=":file_path">:file_path</a>.',
           [
             ':file_path' => '/sites/default/files/next-build.txt',
           ]),
       ];
 
-      // Display the content release submit button.
-      $form['build_request']['actions']['submit']['#disabled'] = TRUE;
     }
     else {
       // Add message that the build is not in progress.
       $form['next_build_link']['link'] = [
-        '#markup' => $this->t('Build is not in progress.'),
+        '#markup' => $this->t('Status: Build is not in progress.'),
       ];
     }
+
+    // Check if /sites/default/files/next-buildlock.txt file exists.
+    $lock_file_path = \Drupal::service('file_system')->realpath('public://next-buildlock.txt');
+    $lock_file_text = file_exists($lock_file_path)
+      ? '/sites/default/files/next-buildlock.txt'
+      : 'does not exist';
+
+    // Check if /sites/default/files/next-buildrequest.txt file exists.
+    $request_file_path = \Drupal::service('file_system')->realpath('public://next-buildrequest.txt');
+    $request_file_text = file_exists($request_file_path)
+      ? '/sites/default/files/next-buildrequest.txt'
+      : 'does not exist';
+
+    // Add a link to the .next-buildlock file.
+    $form['next_build_link']['lock'] = [
+      '#markup' => $this->t(
+        '<br>Lock file: <a href=":file_path">:file_path</a>.<br>',
+        [':file_path' => $lock_file_text]),
+    ];
+
+    // Add a link to the .next-buildrequest file.
+    $form['next_build_link']['request'] = [
+      '#markup' => $this->t(
+        'Request file: <a href=":file_path">:file_path</a>.',
+        [':file_path' => $request_file_text]),
+    ];
+
+    // Get frontend versions.
+    $nextBuildVersion = $this->frontendVersion->getVersion(Frontend::NextBuild);
+    $vetsWebsiteVersion = $this->frontendVersion->getVersion(Frontend::VetsWebsite);
+
+    // Add a note about the current next-build version.
+    $form['next_build_link']['frontend_version'] = [
+      '#markup' => $this->t('<br>Current next-build version: @version',
+        [
+          '@version' => $nextBuildVersion,
+        ]),
+    ];
+
+    // Add a note about the current vets-website version.
+    $form['next_build_link']['backend_version'] = [
+      '#markup' => $this->t('<br>Current vets-website version: @version',
+        [
+          '@version' => $vetsWebsiteVersion,
+        ]),
+    ];
 
     return $form;
   }
@@ -230,7 +277,7 @@ class NextGitForm extends BaseForm {
     $this->submitFormForFrontend(Frontend::VetsWebsite, $form_state);
 
     // Check if "public://.next-buildlock" file exists.
-    $file = 'public://.next-buildlock';
+    $file = 'public://next-buildlock.txt';
     $file_path = \Drupal::service('file_system')->realpath($file);
     if (file_exists($file_path)) {
       // Set message to inform user that the build is in progress.
@@ -238,8 +285,7 @@ class NextGitForm extends BaseForm {
         ->addMessage($this->t('The build is in progress. Please wait for the build to complete.'));
     }
     else {
-      // Write the file to trigger the build.
-      $file = 'public://.next-buildrequest';
+      $file = 'public://next-buildrequest.txt';
       file_put_contents($file, 'build me Seymour!');
       $this->messenger()->addMessage($this->t('Build lock file set.'));
     }

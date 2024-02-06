@@ -23,14 +23,14 @@ cd $reporoot
 filesdir="${reporoot}/docroot/sites/default/files"
 
 # We really only want one build running at a time on any given environment.
-if [ -f "${filesdir}/.next-buildlock" ]; then
+if [ -f "${filesdir}/next-buildlock.txt" ]; then
   echo "[!] There is already a build in progress. Aborting!"
   exit 1
 fi
-touch ${filesdir}/.next-buildlock
+touch ${filesdir}/next-buildlock.txt
 
 # Make sure we clean up the build lock file if an error occurs or the build is killed.
-trap "rm -f ${filesdir}/.next-buildlock && rm -f ${filesdir}/.next-buildrequest" INT TERM EXIT
+trap "rm -f ${filesdir}/next-buildlock.txt && rm -f ${filesdir}/next-buildrequest.txt" INT TERM EXIT
 
 # Just because the path is really long:
 logfile="${filesdir}/next-build.txt"
