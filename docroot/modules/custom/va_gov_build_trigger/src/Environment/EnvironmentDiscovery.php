@@ -136,8 +136,8 @@ class EnvironmentDiscovery {
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function triggerFrontendBuild(array $payload) : void {
-    $this->getEnvironment()->triggerFrontendBuild($payload);
+  public function triggerFrontendBuild() : void {
+    $this->getEnvironment()->triggerFrontendBuild();
   }
 
   /**

@@ -20,7 +20,7 @@ interface EnvironmentInterface extends PluginInspectionInterface {
   /**
    * Trigger the frontend web build.
    */
-  public function triggerFrontendBuild(array $payload) : void;
+  public function triggerFrontendBuild() : void;
 
   /**
    * Should this environment trigger a frontend content deploy?

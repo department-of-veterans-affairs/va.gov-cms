@@ -18,14 +18,10 @@ interface RequestInterface {
    * @param string $reason
    *   The reason for the content release. This is logged, so it should be
    *   human-readable but can be fairly detailed.
-   * @param array $options
-   *   An array of options to pass to the job.
-   *   - 'frontend' (string): The frontend to release content for, either
-   *   'content_build' or 'next_build'.
    *
    * @throws \Drupal\va_gov_content_release\Exception\RequestException
    *   If the request could not be submitted.
    */
-  public function submitRequest(string $reason, array $options) : void;
+  public function submitRequest(string $reason) : void;
 
 }
