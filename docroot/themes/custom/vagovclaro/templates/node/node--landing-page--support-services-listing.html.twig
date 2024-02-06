@@ -92,7 +92,12 @@
   {{ title_suffix }}
 
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
+    <ul>
+      {% for i in content.field_support_services['#items']|keys %}
+        <li>{{ content.field_support_services[i]['#node'].label }} {{ content.field_support_services[i]['#node'].field_phone_number.value }}</li>
+      {% endfor %}
+    </ul>
+    {{ content|without('field_support_services') }}
   </div>
 
 </article>
