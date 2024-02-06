@@ -91,7 +91,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: content
@@ -114,7 +113,7 @@ third_party_settings:
       weight: 3
       format_type: details
       format_settings:
-        classes: ''
+        classes: external-content
         show_empty_fields: false
         id: locations-and-contact-information
         open: true
@@ -128,7 +127,13 @@ third_party_settings:
         - field_timezone
         - group_benefit_office_hours_vary
         - group_benefits_hotline
-        - group_other_migrated_data
+        - field_facility_locator_api_id
+        - field_facility_vba_classificatio
+        - field_geolocation
+        - field_non_va_official_name
+        - field_non_va_location_url
+        - field_office
+        - field_shared_vha_location
       label: 'Facility data'
       region: content
       parent_name: group_locations_and_contact_info
@@ -329,32 +334,6 @@ third_party_settings:
         description: ''
         required_fields: false
         description_display: after
-    group_other_migrated_data:
-      children:
-        - field_facility_locator_api_id
-        - field_facility_vba_classificatio
-        - field_geolocation
-        - field_non_va_official_name
-        - field_non_va_location_url
-        - field_office
-        - field_shared_vha_location
-      label: 'Other migrated data'
-      region: content
-      parent_name: group_facility_data
-      weight: 16
-      format_type: tooltip
-      format_settings:
-        show_empty_fields: 0
-        id: ''
-        classes: ''
-        element: div
-        show_label: '0'
-        label_element: h3
-        required_fields: 1
-        attributes: ''
-        description: ''
-        tooltip_description: ''
-        open: false
     group_facility_services:
       children: {  }
       label: 'Facility services'
@@ -531,7 +510,7 @@ content:
     third_party_settings: {  }
   field_facility_locator_api_id:
     type: string_textfield
-    weight: 17
+    weight: 16
     region: content
     settings:
       size: 60
@@ -539,13 +518,13 @@ content:
     third_party_settings: {  }
   field_facility_vba_classificatio:
     type: options_select
-    weight: 18
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
   field_geolocation:
     type: geofield_latlon
-    weight: 19
+    weight: 18
     region: content
     settings:
       html5_geolocation: false
@@ -607,7 +586,7 @@ content:
     third_party_settings: {  }
   field_non_va_location_url:
     type: link_default
-    weight: 21
+    weight: 20
     region: content
     settings:
       placeholder_url: ''
@@ -615,7 +594,7 @@ content:
     third_party_settings: {  }
   field_non_va_official_name:
     type: string_textfield
-    weight: 20
+    weight: 19
     region: content
     settings:
       size: 60
@@ -623,7 +602,7 @@ content:
     third_party_settings: {  }
   field_office:
     type: options_select
-    weight: 22
+    weight: 21
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -691,7 +670,7 @@ content:
         add_another: ''
   field_shared_vha_location:
     type: entity_reference_autocomplete
-    weight: 23
+    weight: 22
     region: content
     settings:
       match_operator: CONTAINS
