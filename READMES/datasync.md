@@ -117,13 +117,17 @@ control the script must be packaged in a zip archive and uploaded to the lambda 
 into a zip archive [here](https://github.com/department-of-veterans-affairs/devops)
 
 **Abide by these conventions:**
+
 The python script filename should always be:
+
 `cms-efs-to-s3-datasync.py`
 
 The zip archive filename should always be:
+
 `efs-to-s3-datasync-lambda.zip`
 
 Depending on application, CMS or CMS-Tes,t the Lambda Deployment archive should be uploaded to:
+
 * `dsva-vagov-cms-test-lambda`
 * `dsva-vagov-cms-lambda`
 
