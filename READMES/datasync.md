@@ -115,6 +115,20 @@ will make the resource available to apply to the terraform state of each environ
 While the Python script for the lambda function is tracked in the CMS Terraform Infrastructure repository there exists NO automated deployment of this code to lambda. Rather updates and changes should stay tracked in version
 control the script must be packaged in a zip archive and uploaded to the lambda deployment S3 bucket defined in the TF Lambda resource. AWS Provides documenation on how to package Python scripts and their dependencies (boto3)
 into a zip archive [here](https://github.com/department-of-veterans-affairs/devops)
+
+**Abide by these conventions:**
+The python script filename should always be:
+`cms-efs-to-s3-datasync.py`
+
+The zip archive filename should always be:
+`efs-to-s3-datasync-lambda.zip`
+
+Depending on application, CMS or CMS-Tes,t the Lambda Deployment archive should be uploaded to:
+* `dsva-vagov-cms-test-lambda`
+* `dsva-vagov-cms-lambda`
+
+Otherwise, update the Terrafrom Lambda resource to reflect any file, archive, or bucket name changes.
+
 # Pitfalls
 
 # References
