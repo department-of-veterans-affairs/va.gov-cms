@@ -116,7 +116,7 @@ third_party_settings:
       format_settings:
         classes: external-content
         show_empty_fields: false
-        id: locations-and-contact-information
+        id: locations-and-contact-info
         open: true
         description: ''
         required_fields: true
@@ -176,7 +176,7 @@ third_party_settings:
       format_type: tooltip
       format_settings:
         show_empty_fields: '1'
-        show_label: '0'
+        show_label: '1'
         tooltip_description: "Why can’t I edit this?\r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
         description: ''
         required_fields: '1'
@@ -194,17 +194,16 @@ third_party_settings:
       weight: 15
       format_type: tooltip
       format_settings:
-        show_empty_fields: 0
+        show_label: '1'
+        tooltip_description: "Why can’t I edit this?\r\nInternational editors keep this content standardized to provide consistent messaging for facilities nationwide."
+        description: ''
+        required_fields: '1'
         id: ''
         classes: centralized
+        show_empty_fields: 0
         element: div
-        show_label: '0'
         label_element: h3
-        required_fields: 1
         attributes: ''
-        description: ''
-        tooltip_description: "Why can’t I edit this?\r\nInternational editors keep this content standardized to provide consistent messaging for facilities nationwide."
-        open: false
     group_benefit_office_hours_vary:
       children:
         - field_cc_benefit_office_hours_va
@@ -214,17 +213,16 @@ third_party_settings:
       weight: 14
       format_type: tooltip
       format_settings:
-        show_empty_fields: 0
+        show_label: '1'
+        tooltip_description: "Why can’t I edit this? \r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
+        description: ''
+        required_fields: '1'
         id: ''
         classes: centralized
+        show_empty_fields: 0
         element: div
-        show_label: '0'
         label_element: h3
-        required_fields: 1
         attributes: ''
-        description: ''
-        tooltip_description: "Why can’t I edit this? \r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
-        open: false
     group_national_spotlight:
       children:
         - field_cc_national_spotlight_1
@@ -234,7 +232,7 @@ third_party_settings:
       weight: 9
       format_type: tooltip
       format_settings:
-        show_label: '0'
+        show_label: '1'
         tooltip_description: "Why can’t I edit this? \r\nThis content is standardized to provide consistent messaging for facilities nationwide."
         description: ''
         required_fields: '1'
@@ -272,7 +270,7 @@ third_party_settings:
       weight: 8
       format_type: tooltip
       format_settings:
-        show_label: '0'
+        show_label: '1'
         tooltip_description: "Why can’t I edit this? \r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
         description: ''
         required_fields: '1'
@@ -346,7 +344,7 @@ third_party_settings:
         show_empty_fields: '1'
         show_label: '1'
         tooltip_description: ''
-        description: '<p>Facility services are created on a different page. Learn how to <a href="https://prod.cms.va.gov/help/vamc/how-to-add-or-edit-a-vamc-facility-health-service" target="_blank">add or edit a VBA facility service (opens in new window)</a>. </p>'
+        description: 'Facility services are created on a different page.'
         required_fields: '1'
         id: facility-services
         classes: 'not-editable centralized'
@@ -383,7 +381,7 @@ third_party_settings:
         classes: ''
         show_empty_fields: false
         id: ''
-        description: '<p>Add an image that helps people recognize the facility. For best results, add an image cropped to a 3:2 aspect ratio. For accessibility, also remember to add alternative text following the <a href="https://design.va.gov/content-style-guide/alternative-text-for-images" target="_blank">VA content style guidelines (opens in a new window)</a>.</p>'
+        description: '<p>Add an image that helps people recognize the facility. For best results, add an image cropped to a 3:2 aspect ratio. For accessibility, alternative text must also be added. Please refer to the <a href="https://prod.cms.va.gov/help/cms-basics/alternative-text-for-images" target="_blank">alt text Knowledge Base article (opens in a new window)</a> for more information.</p>'
         required_fields: true
         description_display: before
 id: node.vba_facility.default
@@ -427,12 +425,19 @@ content:
         hide_help: '1'
         hide_guidelines: '1'
   field_banner_title:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 31
     region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
+      maxlength: 100
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
   field_banner_types_description:
     type: markup
@@ -445,18 +450,18 @@ content:
     weight: 13
     region: content
     settings:
-      show_field_label: '1'
       show_link_to_source: '1'
       show_source_updated_date: '1'
+      show_field_label: 0
     third_party_settings: {  }
   field_cc_benefits_hotline:
     type: entity_field_fetch_widget
     weight: 26
     region: content
     settings:
-      show_field_label: '1'
       show_link_to_source: '1'
       show_source_updated_date: '1'
+      show_field_label: 0
     third_party_settings: {  }
   field_cc_cant_find_benefits:
     type: entity_field_fetch_widget
@@ -472,9 +477,9 @@ content:
     weight: 11
     region: content
     settings:
-      show_field_label: '1'
       show_link_to_source: '1'
       show_source_updated_date: '1'
+      show_field_label: 0
     third_party_settings: {  }
   field_cc_meta_tags:
     type: entity_field_fetch_widget
@@ -490,18 +495,18 @@ content:
     weight: 1
     region: content
     settings:
-      show_field_label: '1'
       show_link_to_source: '1'
       show_source_updated_date: '1'
+      show_field_label: 0
     third_party_settings: {  }
   field_cc_vba_facility_overview:
     type: entity_field_fetch_widget
     weight: 2
     region: content
     settings:
-      show_field_label: '1'
       show_link_to_source: '1'
       show_source_updated_date: '1'
+      show_field_label: 0
     third_party_settings: {  }
   field_dismissible_option:
     type: options_buttons
