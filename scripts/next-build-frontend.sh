@@ -62,7 +62,7 @@ echo "==> Starting a frontend build. This file will be updated as the build prog
 # Get the requested content-build version
 if [ "${next_build_version}" != "__default" ]; then
   echo "==> Checking out the requested frontend version" >> ${logfile}
-  pushd ${reporoot}/docroot/vendor/va-gov/content-build
+  pushd ${reporoot}/next
   if echo "${next_build_version}" | grep -qE '^[0-9]+$' > /dev/null; then
     echo "==> Checking out PR #${next_build_version}"
     git fetch origin pull/${next_build_version}/head &>> ${logfile}

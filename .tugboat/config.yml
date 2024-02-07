@@ -227,9 +227,9 @@ services:
         - chmod +x /etc/service/drupal_events/run
 
         # Separate process for next-build preview.
-#        - mkdir -p /etc/service/next-build
-#        - mv "${TUGBOAT_ROOT}/scripts/queue_runner/next_queue_runner.sh" /etc/service/next-build/run
-#        - chmod +x /etc/service/next-build/run
+        - mkdir -p /etc/service/next-build
+        - mv "${TUGBOAT_ROOT}/scripts/queue_runner/next_queue_runner.sh" /etc/service/next-build/run
+        - chmod +x /etc/service/next-build/run
 
       clone:
         # This j2 command is shared in both the build & clone stages. If modifying, change the other too.

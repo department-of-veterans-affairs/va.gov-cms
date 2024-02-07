@@ -9,12 +9,9 @@
  * Implements hook_cron().
  */
 function va_gov_content_release_cron(): void {
-  // Log cron run starting.
   \Drupal::logger('va_gov_content_release')->info('Cron run starting.');
 
-  // Run script in dirname(DRUPAL_ROOT) directory.
   $script = dirname(DRUPAL_ROOT) . '/scripts/queue_runner/next_queue_runner.sh';
-  // Run script in background if it exists.
   if (file_exists($script)) {
     exec("nohup $script > /dev/null 2>&1 &");
   }
