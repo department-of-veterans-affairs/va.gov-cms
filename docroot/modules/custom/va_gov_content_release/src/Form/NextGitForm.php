@@ -287,7 +287,7 @@ class NextGitForm extends BaseForm {
     else {
       $file = 'public://next-buildrequest.txt';
       file_put_contents($file, 'build me Seymour!');
-      $this->messenger()->addMessage($this->t('Build lock file set.'));
+      $this->messenger()->addMessage($this->t('Build request file set.'));
     }
   }
 
