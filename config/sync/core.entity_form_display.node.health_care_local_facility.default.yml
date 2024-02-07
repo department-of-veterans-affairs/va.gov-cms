@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
     - field.field.node.health_care_local_facility.field_media
-    - field.field.node.health_care_local_facility.field_mental_health_contact_phon
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_mobile
@@ -158,7 +157,6 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_facility_data_from_vast
-        - field_mental_health_contact_phon
       label: 'Locations and contact information'
       region: content
       parent_name: ''
@@ -317,13 +315,6 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
-  field_mental_health_contact_phon:
-    type: telephone_default
-    weight: 21
-    region: content
-    settings:
-      placeholder: ''
     third_party_settings: {  }
   field_mental_health_phone:
     type: telephone_default
