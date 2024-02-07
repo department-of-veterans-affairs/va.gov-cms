@@ -173,7 +173,7 @@ class NextGitForm extends BaseForm {
     ];
 
     // Check for the existence of the .next-build.txt.
-    $file = 'public://.next-buildlock';
+    $file = 'public://next-buildlock.txt';
     $file_path = \Drupal::service('file_system')->realpath($file);
     if (file_exists($file_path)) {
       $form['build_request']['next_build_selection']['#disabled'] = TRUE;
