@@ -17,7 +17,7 @@ EFS to S3 on an automated schedule. This document will describe the architecture
   * [S3](#s3)
     * Asset files bucket 
     * Lambda code bucket 
-  * [Identity and Access Management (IAM)](#identity-and-access-management-iam)
+  * [Identity and Access Management (IAM)](#identity-and-access-management-(iam))
     * Datasync S3 bucket access role
       * Permission Policy
     * Lambda function execution role
@@ -29,10 +29,10 @@ EFS to S3 on an automated schedule. This document will describe the architecture
     * Eventbridge
       * Event rule
       * Event target
-*  [Deployment](#deployment)
+* [Deployment](#deployment)
   *  Terraform
   *  Lambda
-*  [Pitfalls](#pitfalls)
+* [Pitfalls](#pitfalls)
 
 # Architecture
 
