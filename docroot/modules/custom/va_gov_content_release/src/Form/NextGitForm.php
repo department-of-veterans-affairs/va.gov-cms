@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\State\State;
+use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Drupal\va_gov_content_release\Frontend\Frontend;
 use Drupal\va_gov_content_release\Frontend\FrontendInterface;
 use Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface;
@@ -148,7 +149,7 @@ class NextGitForm extends FormBase {
     $form['build_request']['actions']['#type'] = 'actions';
     $form['build_request']['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Release content'),
+      '#value' => $this->t('Release Content'),
       '#button_type' => 'primary',
     ];
 
@@ -165,6 +166,13 @@ class NextGitForm extends FormBase {
       '#markup' => $this->t('Next Build Information:'),
       '#suffix' => '</strong>',
     ];
+
+    // Lock the vets-website form fields if a content-build is in progress.
+    $build_status = $this->state->get('va_gov_build_trigger.release_state');
+    if ($build_status !== ReleaseStateManager::STATE_READY) {
+      $form['build_request']['vets_website_selection']['#disabled'] = TRUE;
+      $form['build_request']['vets_website_git_ref']['#disabled'] = TRUE;
+    }
 
     // Disable form changes and submission if a build is in progress.
     if (file_exists($this->fileSystem->realpath('public://' . self::LOCK_FILE_NAME))) {
@@ -190,12 +198,12 @@ class NextGitForm extends FormBase {
     $last_build_time = $this->state->get('next_build.status.last_build_date', 'N/A');
     $information = <<<HTML
       <p><strong>Status:</strong> $build_log_text</p>
-      <p><strong>Lock file:</strong> $lock_file_text</p>
-      <p><strong>Request file:</strong> $request_file_text</p>
-      <p><strong>Next-build version:</strong> $next_build_version</p>
-      <p><strong>Vets-website version:</strong> $vets_website_version</p>
-      <p><strong>View preview:</strong> $view_preview</p>
-      <p><strong>Last build time:</strong> $last_build_time</p>
+      <p><strong>Lock File:</strong> $lock_file_text</p>
+      <p><strong>Request File:</strong> $request_file_text</p>
+      <p><strong>Next-build Version:</strong> $next_build_version</p>
+      <p><strong>Vets-website Version:</strong> $vets_website_version</p>
+      <p><strong>View Preview:</strong> $view_preview</p>
+      <p><strong>Last Build Time:</strong> $last_build_time</p>
 HTML;
 
     $form['next_build_status']['information'] = [
