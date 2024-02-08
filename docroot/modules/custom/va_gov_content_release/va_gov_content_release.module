@@ -4,18 +4,3 @@
  * @file
  * Contains va_gov_content_release.module.
  */
-
-/**
- * Implements hook_cron().
- */
-function va_gov_content_release_cron(): void {
-  \Drupal::logger('va_gov_content_release')->info('Cron run starting.');
-
-  $script = dirname(DRUPAL_ROOT) . '/scripts/queue_runner/next_queue_runner.sh';
-  if (file_exists($script)) {
-    exec("nohup $script > /dev/null 2>&1 &");
-  }
-  else {
-    \Drupal::logger('va_gov_content_release')->error('Queue runner script not found at %script', ['%script' => $script]);
-  }
-}

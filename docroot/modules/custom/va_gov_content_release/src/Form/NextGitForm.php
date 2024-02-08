@@ -2,59 +2,66 @@
 
 namespace Drupal\va_gov_content_release\Form;
 
-use Drupal\Core\Block\BlockManagerInterface;
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
+use Drupal\Core\Site\Settings;
+use Drupal\Core\State\State;
 use Drupal\va_gov_content_release\Frontend\Frontend;
 use Drupal\va_gov_content_release\Frontend\FrontendInterface;
 use Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface;
-use Drupal\va_gov_content_release\Reporter\ReporterInterface;
-use Drupal\va_gov_content_release\Request\RequestInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * A version of the form allowing selection of a Git branch, tag, or commit.
  */
-class NextGitForm extends BaseForm {
+class NextGitForm extends FormBase {
+
+  const LOCK_FILE_NAME = 'next-buildlock.txt';
+  const REQUEST_FILE_NAME = 'next-buildrequest.txt';
 
   /**
    * The frontend version service.
-   *
-   * @var \Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface
    */
-  protected $frontendVersion;
+  protected FrontendVersionInterface $frontendVersion;
 
   /**
-   * Block Manager Service.
-   *
-   * @var \Drupal\Core\Block\BlockManagerInterface
+   * File System Service.
    */
-  protected $blockManager;
+  protected FileSystemInterface $fileSystem;
+
+  /**
+   * The settings service.
+   */
+  protected Settings $settings;
+
+  /**
+   * The state service.
+   */
+  protected State $state;
 
   /**
    * Constructor.
    *
-   * @param \Drupal\va_gov_content_release\Request\RequestInterface $request
-   *   Request service.
-   * @param \Drupal\va_gov_content_release\Reporter\ReporterInterface $reporter
-   *   Reporter service.
-   * @param \Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface $releaseStateManager
-   *   Release state manager service.
    * @param \Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface $frontendVersion
    *   The frontend version service.
-   * @param \Drupal\Core\Block\BlockManager $blockManager
-   *   The block manager service.
+   * @param \Drupal\Core\File\FileSystemInterface $fileSystem
+   *   The file system service.
+   * @param \Drupal\Core\Site\Settings $settings
+   *   The settings service.
+   * @param \Drupal\Core\State\State $state
+   *   The state service.
    */
   public function __construct(
-    RequestInterface $request,
-    ReporterInterface $reporter,
-    ReleaseStateManagerInterface $releaseStateManager,
     FrontendVersionInterface $frontendVersion,
-    BlockManagerInterface $blockManager
+    FileSystemInterface $fileSystem,
+    Settings $settings,
+    State $state
   ) {
-    parent::__construct($request, $reporter, $releaseStateManager);
     $this->frontendVersion = $frontendVersion;
-    $this->blockManager = $blockManager;
+    $this->fileSystem = $fileSystem;
+    $this->settings = $settings;
+    $this->state = $state;
   }
 
   /**
@@ -62,11 +69,10 @@ class NextGitForm extends BaseForm {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov_content_release.request'),
-      $container->get('va_gov_content_release.reporter'),
-      $container->get('va_gov_build_trigger.release_state_manager'),
       $container->get('va_gov_content_release.frontend_version'),
-      $container->get('plugin.manager.block')
+      $container->get('file_system'),
+      $container->get('settings'),
+      $container->get('state')
     );
   }
 
@@ -79,27 +85,10 @@ class NextGitForm extends BaseForm {
    *   Object containing current form state.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form = parent::buildForm($form, $form_state);
-
-    $form['build_request']['actions']['#type'] = 'actions';
-    $form['build_request']['actions']['submit'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Release content'),
-      '#button_type' => 'primary',
-    ];
-
-    $form['description'] = [
-      '#prefix' => '<p>',
+    $form['build_request']['description'] = [
+      '#prefix' => '<br><p>',
       '#markup' => $this->t('Release content to update the front end of this environment with the latest published content changes.'),
       '#suffix' => '</p>',
-      '#weight' => -10,
-    ];
-
-    $form['build_request']['title'] = [
-      '#type' => 'item',
-      '#prefix' => '<h2>',
-      '#markup' => $this->t('Request a next-build content release'),
-      '#suffix' => '</h2>',
     ];
 
     $form['build_request']['next_build_selection'] = [
@@ -156,112 +145,94 @@ class NextGitForm extends BaseForm {
       ],
     ];
 
-    // Add container for the next build link form field.
-    $form['next_build_link'] = [
+    $form['build_request']['actions']['#type'] = 'actions';
+    $form['build_request']['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Release content'),
+      '#button_type' => 'primary',
+    ];
+
+    $form['next_build_status'] = [
       '#type' => 'container',
       '#attributes' => [
         'style' => 'background-color: #f2f2f2; padding: 20px; border: 1px solid #ccc;',
       ],
     ];
 
-    // Add title for the next build link container.
-    $form['next_build_link']['title'] = [
+    $form['next_build_status']['title'] = [
       '#type' => 'item',
       '#prefix' => '<strong>',
       '#markup' => $this->t('Next Build Information:'),
       '#suffix' => '</strong>',
     ];
 
-    // Check for the existence of the .next-build.txt.
-    $file = 'public://next-buildlock.txt';
-    $file_path = \Drupal::service('file_system')->realpath($file);
-    if (file_exists($file_path)) {
+    // Disable form changes and submission if a build is in progress.
+    if (file_exists($this->fileSystem->realpath('public://' . self::LOCK_FILE_NAME))) {
       $form['build_request']['next_build_selection']['#disabled'] = TRUE;
       $form['build_request']['next_build_git_ref']['#disabled'] = TRUE;
-
-      // Also disable the vets-website selection and git ref fields.
       $form['build_request']['vets_website_selection']['#disabled'] = TRUE;
       $form['build_request']['vets_website_git_ref']['#disabled'] = TRUE;
-
-      // Disable the content release submit button.
       $form['build_request']['actions']['submit']['#disabled'] = TRUE;
 
-      // Add a link to the .next-build.txt file.
-      $form['next_build_link']['link'] = [
-        '#markup' => $this->t(
-          'Status: Build is in progress and the running log file can be viewed at: <a href=":file_path">:file_path</a>.',
-          [
-            ':file_path' => '/sites/default/files/next-build.txt',
-          ]),
-      ];
-
+      $build_log_text = 'Build is in progress. View log file: ' .
+        '<a target="_blank" href="/sites/default/files/next-build.txt">Next Build Log</a>.';
     }
     else {
-      // Add message that the build is not in progress.
-      $form['next_build_link']['link'] = [
-        '#markup' => $this->t('Status: Build is not in progress.'),
-      ];
+      $build_log_text = 'Build is not in progress.';
     }
 
-    // Check if /sites/default/files/next-buildlock.txt file exists.
-    $lock_file_path = \Drupal::service('file_system')->realpath('public://next-buildlock.txt');
-    $lock_file_text = file_exists($lock_file_path)
-      ? '/sites/default/files/next-buildlock.txt'
-      : 'does not exist';
+    // Set variables needed for build status information.
+    $lock_file_text = $this->getFileText(self::LOCK_FILE_NAME);
+    $request_file_text = $this->getFileText(self::REQUEST_FILE_NAME);
+    $next_build_version = $this->frontendVersion->getVersion(Frontend::NextBuild);
+    $vets_website_version = $this->frontendVersion->getVersion(Frontend::VetsWebsite);
+    $view_preview = $this->getPreviewLink();
+    $last_build_time = $this->state->get('next_build.status.last_build_date', 'N/A');
+    $information = <<<HTML
+      <p><strong>Status:</strong> $build_log_text</p>
+      <p><strong>Lock file:</strong> $lock_file_text</p>
+      <p><strong>Request file:</strong> $request_file_text</p>
+      <p><strong>Next-build version:</strong> $next_build_version</p>
+      <p><strong>Vets-website version:</strong> $vets_website_version</p>
+      <p><strong>View preview:</strong> $view_preview</p>
+      <p><strong>Last build time:</strong> $last_build_time</p>
+HTML;
 
-    // Check if /sites/default/files/next-buildrequest.txt file exists.
-    $request_file_path = \Drupal::service('file_system')->realpath('public://next-buildrequest.txt');
-    $request_file_text = file_exists($request_file_path)
-      ? '/sites/default/files/next-buildrequest.txt'
-      : 'does not exist';
-
-    // Add a link to the .next-buildlock file.
-    $form['next_build_link']['lock'] = [
-      '#markup' => $this->t(
-        '<br>Lock file: <a href=":file_path">:file_path</a>.<br>',
-        [':file_path' => $lock_file_text]),
-    ];
-
-    // Add a link to the .next-buildrequest file.
-    $form['next_build_link']['request'] = [
-      '#markup' => $this->t(
-        'Request file: <a href=":file_path">:file_path</a>.',
-        [':file_path' => $request_file_text]),
-    ];
-
-    // Get frontend versions.
-    $nextBuildVersion = $this->frontendVersion->getVersion(Frontend::NextBuild);
-    $vetsWebsiteVersion = $this->frontendVersion->getVersion(Frontend::VetsWebsite);
-
-    // Add a note about the current next-build version.
-    $form['next_build_link']['frontend_version'] = [
-      '#markup' => $this->t('<br>Current next-build version: @version',
-        [
-          '@version' => $nextBuildVersion,
-        ]),
-    ];
-
-    // Add a note about the current vets-website version.
-    $form['next_build_link']['backend_version'] = [
-      '#markup' => $this->t('<br>Current vets-website version: @version',
-        [
-          '@version' => $vetsWebsiteVersion,
-        ]),
+    $form['next_build_status']['information'] = [
+      '#markup' => $information,
     ];
 
     return $form;
   }
 
   /**
-   * Get the rendered content release status block.
+   * Get the text for a file.
    *
-   * @return array
-   *   Block render array.
+   * @param string $file_name
+   *   The name of the file.
+   *
+   * @return string
+   *   The text for the file.
    */
-  protected function getContentReleaseStatusBlock() {
-    return $this->blockManager
-      ->createInstance('content_release_status_block', [])
-      ->build();
+  private function getFileText(string $file_name): string {
+    $file_path = $this->fileSystem->realpath("public://$file_name");
+    if (file_exists($file_path)) {
+      return "<a target='_blank' href=\"/sites/default/files/$file_name\">$file_name</a>";
+    }
+    else {
+      return 'does not exist';
+    }
+  }
+
+  /**
+   * Get the preview link.
+   *
+   * @return string
+   *   The preview link.
+   */
+  private function getPreviewLink(): string {
+    $frontendBaseUrl = $this->settings->get('va_gov_frontend_url') ?? 'https://www.va.gov';
+    return "<a target='_blank' href=\"$frontendBaseUrl\">$frontendBaseUrl</a>";
   }
 
   /**
@@ -276,17 +247,16 @@ class NextGitForm extends BaseForm {
     $this->submitFormForFrontend(Frontend::NextBuild, $form_state);
     $this->submitFormForFrontend(Frontend::VetsWebsite, $form_state);
 
-    // Check if "public://.next-buildlock" file exists.
-    $file = 'public://next-buildlock.txt';
-    $file_path = \Drupal::service('file_system')->realpath($file);
-    if (file_exists($file_path)) {
-      // Set message to inform user that the build is in progress.
+    $lock_file = $this->fileSystem->realpath('public://' . self::LOCK_FILE_NAME);
+    if (file_exists($lock_file)) {
       $this->messenger()
         ->addMessage($this->t('The build is in progress. Please wait for the build to complete.'));
     }
     else {
-      $file = 'public://next-buildrequest.txt';
-      file_put_contents($file, 'build me Seymour!');
+      $this->fileSystem->saveData(
+        'Build me, Seymour!',
+        'public://' . self::REQUEST_FILE_NAME,
+        1);
       $this->messenger()->addMessage($this->t('Build request file set.'));
     }
   }
@@ -347,22 +317,9 @@ class NextGitForm extends BaseForm {
    *
    * @param \Drupal\va_gov_content_release\Frontend\FrontendInterface $frontend
    *   The frontend whose version we are resetting.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   Object containing current form state.
    */
-  public function resetFrontendVersion(
-    FrontendInterface $frontend,
-    FormStateInterface $form_state
-  ) {
-    if (!$this->isUnderTest($form_state)) {
-      $this->frontendVersion->resetVersion($frontend);
-    }
-    else {
-      $this->reporter->reportInfo($this->t('Reset :frontend version skipped; form is under test.',
-        [
-          ':frontend' => $frontend->getRawValue(),
-        ]));
-    }
+  public function resetFrontendVersion(FrontendInterface $frontend) {
+    $this->frontendVersion->resetVersion($frontend);
   }
 
   /**
@@ -377,16 +334,8 @@ class NextGitForm extends BaseForm {
     FrontendInterface $frontend,
     FormStateInterface $form_state
   ) {
-    if (!$this->isUnderTest($form_state)) {
-      $this->frontendVersion->setVersion($frontend,
-        $this->getGitRef($frontend, $form_state));
-    }
-    else {
-      $this->reporter->reportInfo($this->t('Set :frontend version skipped; form is under test.',
-        [
-          ':frontend' => $frontend->getRawValue(),
-        ]));
-    }
+    $this->frontendVersion->setVersion($frontend,
+      $this->getGitRef($frontend, $form_state));
   }
 
   /**
@@ -412,6 +361,13 @@ class NextGitForm extends BaseForm {
       $result = $matches[1];
     }
     return $result;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId(): string {
+    return 'va_gov_content_release_next_git_form';
   }
 
 }
