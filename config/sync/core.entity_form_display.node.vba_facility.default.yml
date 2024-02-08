@@ -106,7 +106,7 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_operating_status
-        - group_facility_image
+        - field_media
         - group_facility_data
       label: 'Location and contact information'
       region: content
@@ -370,12 +370,11 @@ third_party_settings:
         required_fields: 0
         attributes: ''
     group_facility_image:
-      children:
-        - field_media
+      children: {  }
       label: 'Facility image'
-      region: content
-      parent_name: group_locations_and_contact_info
-      weight: 5
+      region: hidden
+      parent_name: ''
+      weight: 14
       format_type: fieldset
       format_settings:
         classes: ''
