@@ -13,7 +13,7 @@ Feature: CMS User may effectively interact with the VBA Facility form
     Then the primary tab "View" should exist
     Then the primary tab "Edit" should not exist
 
-  Scenario: Log in and try to archive a VBA Facility as a VBA editor
+  Scenario: Test restricted_archive workflow prevents archiving a VBA Facility as a VBA editor.
     When I am logged in as a user with the roles "content_creator_vba, content_publisher"
     And my workbench access sections are set to "1065"
     When I am at "/node/4063/edit"
@@ -23,7 +23,7 @@ Feature: CMS User may effectively interact with the VBA Facility form
     And I click the "Unlock" link
     And I click the "Confirm break lock" button
 
-  Scenario: Log in and archive a VBA Facility as an admin
+  Scenario: Test restricted_archive workflow allows archiving a VBA Facility as a content_admin.
     Given I am logged in as a user with the "content_admin" role
     # Columbia VA Regional Benefit Office
     When I am at "/node/4063/edit"
