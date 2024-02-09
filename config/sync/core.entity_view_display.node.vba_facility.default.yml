@@ -20,7 +20,6 @@ dependencies:
     - field.field.node.vba_facility.field_facility_locator_api_id
     - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
-    - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
     - field.field.node.vba_facility.field_local_spotlight
     - field.field.node.vba_facility.field_media
@@ -104,7 +103,6 @@ third_party_settings:
         attributes: ''
     group_editable_fields:
       children:
-        - field_intro_text
         - field_media
       label: 'Facility Intro and Photo'
       parent_name: ''
@@ -123,7 +121,7 @@ third_party_settings:
         - field_non_va_location_url
         - field_office
         - field_shared_vha_location
-      label: 'DB data'
+      label: 'Facility CMS data'
       parent_name: group_facility_data
       region: content
       weight: 11
@@ -374,13 +372,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 3
-    region: content
-  field_intro_text:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 14
     region: content
   field_local_spotlight:
     type: entity_reference_revisions_entity_view

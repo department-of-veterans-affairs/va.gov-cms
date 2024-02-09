@@ -5,12 +5,17 @@ dependencies:
   config:
     - field.storage.paragraph.field_header
     - paragraphs.paragraphs_type.basic_accordion
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: paragraph.basic_accordion.field_header
 field_name: field_header
 entity_type: paragraph
 bundle: basic_accordion
 label: Header
-description: ''
+description: 'This is shown when the accordion is open or closed.'
 required: true
 translatable: false
 default_value: {  }
