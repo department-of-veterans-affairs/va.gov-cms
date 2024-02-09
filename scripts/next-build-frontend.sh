@@ -35,7 +35,7 @@ trap "rm -f ${filesdir}/next-buildlock.txt && rm -f ${filesdir}/next-buildreques
 # Just because the path is really long:
 logfile="${filesdir}/next-build.txt"
 
-# The currently selected version of content-build (may be "__default", a PR#, or a git ref)
+# The currently selected version of next-build (may be "__default", a PR#, or a git ref)
 next_build_version=$(drush va-gov-content-release:frontend-version:get next_build | tail -1)
 
 # The currently selected version of vets-website (may be "__default", a PR#, or a git ref)
