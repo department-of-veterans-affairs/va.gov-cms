@@ -14,7 +14,8 @@ developed an on-demand content release workflow that is primarily used on the Tu
 
 ## Content Build Releases
 
-The current static frontend "content-build" can be rebuilt using different versions of content-build and vets-website.
+The current static frontend "content-build" can be rebuilt using different versions of content-build and
+vets-website.
 
 1. Go to "/admin/content/deploy/git".
 2. Check if the "Release State" in the "Status Details" block is set to "Ready". If it isn't then submitting the
@@ -24,7 +25,8 @@ The current static frontend "content-build" can be rebuilt using different versi
 4. Click "Release content" to set the versions of content-build and vets-website as well as queue a
    "va_gov_content_release_request" job.
 5. The "va_gov_content_release_request" job will be triggered in the background from a service running
-   `scripts/queue_runner/queue_runner.sh` continuously.
+   `scripts/queue_runner/queue_runner.sh` continuously. Locally, the script has to be triggered manually. See the
+   [caveats](#caveats) section for more information.
 6. The "va_gov_content_release_request" job will create a "va_gov_content_release_dispatch" job that ends up writing
    a "buildrequest" file.
 7. The continuously running `scripts/queue_runner/queue_runner.sh` script will look for the "buildrequest" file and
@@ -53,8 +55,18 @@ is a simpler process than the current content-build workflow.
    be disabled. We can't change the vets-website version while another frontend build is running.
 4. Click "Release Content" to set the versions of next-build and vets-website as well as write a "buildrequest" file.
 5. A `scripts/queue_runner/next_queue_runner.sh` script continuously runs in the background looking for the
-   "buildrequest" file and then start a build if found.
+   "buildrequest" file and then start a build if found. Locally, the script has to be triggered manually. See the
+   [caveats](#caveats) section for more information.
 6. Back on "/admin/content/deploy/git" you can view the build log via a link in the "Status" section of the
    "Next Build Information" block.
 7. Once the build completes no new build will be triggered until you click to release content again.
 8. View the frontend at the provided "View Preview" link in the "Next Build Information" block.
+
+## Caveats
+
+There are some caveats to the process outlined above.
+
+- **Manually runnning the background script** - On `ddev` the `queue_runner` scripts aren't runnning continuously in
+  background jobs. So you must `ddev ssh && ./scripts/queue_runner/` to kick off the content build or next build
+  release locally. In the future, it might be a good idea to use `system.d` or `supervisor` or something else to
+  keep the background jobs going locally just like on Tugoboat.
