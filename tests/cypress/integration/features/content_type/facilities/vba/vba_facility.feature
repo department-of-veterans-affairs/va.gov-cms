@@ -13,6 +13,37 @@ Feature: CMS User may effectively interact with the VBA Facility form
     Then the primary tab "View" should exist
     Then the primary tab "Edit" should not exist
 
+  Scenario: Test restricted_archive workflow prevents archiving a VBA Facility as a VBA editor.
+    When I am logged in as a user with the roles "content_creator_vba, content_publisher"
+    And my workbench access sections are set to "1065"
+    When I am at "/node/4063/edit"
+    And I scroll to element "select#edit-moderation-state-0-state"
+    Then an option with the text "Archived" from dropdown with selector "select#edit-moderation-state-0-state" should not be visible
+    And I scroll to position "bottom"
+    And I click the "Unlock" link
+    And I click the "Confirm break lock" button
+
+  Scenario: Test restricted_archive workflow allows archiving a VBA Facility as a content_admin.
+    Given I am logged in as a user with the "content_admin" role
+    # Columbia VA Regional Benefit Office
+    When I am at "/node/4063/edit"
+    And I scroll to element "select#edit-moderation-state-0-state"
+    Then an option with the text "Archived" from dropdown with selector "select#edit-moderation-state-0-state" should be visible
+
+    When I select option "Archived" from dropdown with selector "select#edit-moderation-state-0-state"
+    And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
+    And I save the node
+    Then I should see "has been updated."
+
+    When I click the edit tab
+    And I scroll to element "select#edit-moderation-state-0-state"
+    Then an option with the text "Published" from dropdown with selector "select#edit-moderation-state-0-state" should be visible
+
+    When I select option "Published" from dropdown with selector "select#edit-moderation-state-0-state"
+    And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
+    And I save the node
+    Then I should see "has been updated."
+
   Scenario: Enable banner segment and ensure expected fields are present
     Given I am logged in as a user with the "content_admin" role
     And my workbench access sections are set to "1065"
