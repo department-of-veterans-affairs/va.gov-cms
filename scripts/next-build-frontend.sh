@@ -59,7 +59,7 @@ echo "==> Starting a frontend build. This file will be updated as the build prog
 #rm -rf ${reporoot}/docroot/vendor/va-gov
 #composer install --no-scripts &>> ${logfile}
 
-# Get the requested content-build version
+# Get the requested next-build version
 if [ "${next_build_version}" != "__default" ]; then
   echo "==> Checking out the requested frontend version" >> ${logfile}
   pushd ${reporoot}/next
