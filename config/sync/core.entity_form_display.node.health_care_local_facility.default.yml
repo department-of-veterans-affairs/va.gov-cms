@@ -59,7 +59,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: content
@@ -92,7 +91,7 @@ third_party_settings:
       label: 'VAMC system'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -106,7 +105,7 @@ third_party_settings:
       label: 'Title and summary'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -132,7 +131,7 @@ third_party_settings:
       label: 'Operating status'
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -147,7 +146,7 @@ third_party_settings:
       label: 'Meta Tags'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -177,7 +176,6 @@ third_party_settings:
         - field_geolocation
         - field_mobile
         - field_phone_number
-        - field_mental_health_phone
         - field_office_hours
         - field_timezone
       label: 'Facility data'
@@ -318,7 +316,7 @@ content:
     third_party_settings: {  }
   field_mental_health_phone:
     type: telephone_default
-    weight: 28
+    weight: 1
     region: content
     settings:
       placeholder: ''
