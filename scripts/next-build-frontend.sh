@@ -73,7 +73,7 @@ if [ "${next_build_version}" != "__default" ]; then
   git checkout FETCH_HEAD &>> ${logfile}
   popd
 else
-  echo "==> Using default content-build version" >> ${logfile}
+  echo "==> Using default next-build version" >> ${logfile}
 fi
 
 # Install 3rd party deps.
