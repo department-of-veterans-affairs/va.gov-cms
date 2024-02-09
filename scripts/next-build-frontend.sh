@@ -110,5 +110,11 @@ echo "==> Build complete" >> ${logfile}
 # After this point, we are less concerned with errors; the build has completed.
 set +e
 
+# Switch to the docroot to run drush commands.
+cd "${reporoot}/docroot"
+
+# Log the timestamp of the build for reporting purposes.
+drush state:set next_build.status.last_build_date "$(date)"
+
 # Just in case it wasn't clear :)
 echo "==> Done" >> ${logfile}

@@ -5,8 +5,10 @@ namespace Drupal\va_gov_content_release\Form;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\State\State;
+use Drupal\Core\Url;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Drupal\va_gov_content_release\Frontend\Frontend;
 use Drupal\va_gov_content_release\Frontend\FrontendInterface;
@@ -153,20 +155,6 @@ class NextGitForm extends FormBase {
       '#button_type' => 'primary',
     ];
 
-    $form['next_build_status'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'style' => 'background-color: #f2f2f2; padding: 20px; border: 1px solid #ccc;',
-      ],
-    ];
-
-    $form['next_build_status']['title'] = [
-      '#type' => 'item',
-      '#prefix' => '<strong>',
-      '#markup' => $this->t('Next Build Information:'),
-      '#suffix' => '</strong>',
-    ];
-
     // Lock the vets-website form fields if a content-build is in progress.
     $build_status = $this->state->get('va_gov_build_trigger.release_state');
     if ($build_status !== ReleaseStateManager::STATE_READY) {
@@ -190,24 +178,50 @@ class NextGitForm extends FormBase {
     }
 
     // Set variables needed for build status information.
-    $lock_file_text = $this->getFileText(self::LOCK_FILE_NAME);
-    $request_file_text = $this->getFileText(self::REQUEST_FILE_NAME);
+    $lock_file_text = $this->getFileLink(self::LOCK_FILE_NAME);
+    $request_file_text = $this->getFileLink(self::REQUEST_FILE_NAME);
     $next_build_version = $this->frontendVersion->getVersion(Frontend::NextBuild);
     $vets_website_version = $this->frontendVersion->getVersion(Frontend::VetsWebsite);
     $view_preview = $this->getPreviewLink();
     $last_build_time = $this->state->get('next_build.status.last_build_date', 'N/A');
-    $information = <<<HTML
-      <p><strong>Status:</strong> $build_log_text</p>
-      <p><strong>Lock File:</strong> $lock_file_text</p>
-      <p><strong>Request File:</strong> $request_file_text</p>
-      <p><strong>Next-build Version:</strong> $next_build_version</p>
-      <p><strong>Vets-website Version:</strong> $vets_website_version</p>
-      <p><strong>View Preview:</strong> $view_preview</p>
-      <p><strong>Last Build Time:</strong> $last_build_time</p>
-HTML;
-
-    $form['next_build_status']['information'] = [
-      '#markup' => $information,
+    $form['content_release_status_block'] = [
+      '#theme' => 'status_report_grouped',
+      '#grouped_requirements' => [
+        [
+          'title' => $this->t('Next Build Information'),
+          'type' => 'content-release-status',
+          'items' => [
+            'status' => [
+              'title' => $this->t('Status'),
+              'value' => $build_log_text,
+            ],
+            'lock_file' => [
+              'title' => $this->t('Lock File'),
+              'value' => $lock_file_text,
+            ],
+            'request_file' => [
+              'title' => $this->t('Request File'),
+              'value' => $request_file_text,
+            ],
+            'next_build_version' => [
+              'title' => $this->t('Next-build Version'),
+              'value' => $next_build_version,
+            ],
+            'vets_website_version' => [
+              'title' => $this->t('Vets-website Version'),
+              'value' => $vets_website_version,
+            ],
+            'view_preview' => [
+              'title' => $this->t('View Preview'),
+              'value' => $view_preview,
+            ],
+            'last_build_time' => [
+              'title' => $this->t('Last Build Time'),
+              'value' => $last_build_time,
+            ],
+          ],
+        ],
+      ],
     ];
 
     return $form;
@@ -219,13 +233,14 @@ HTML;
    * @param string $file_name
    *   The name of the file.
    *
-   * @return string
-   *   The text for the file.
+   * @return \Drupal\Core\Link|string
+   *   The file link.
    */
-  private function getFileText(string $file_name): string {
+  private function getFileLink(string $file_name): Link|string {
     $file_path = $this->fileSystem->realpath("public://$file_name");
     if (file_exists($file_path)) {
-      return "<a target='_blank' href=\"/sites/default/files/$file_name\">$file_name</a>";
+      $targetUrl = Url::fromUserInput("/sites/default/files/$file_name");
+      return Link::fromTextAndUrl($file_name, $targetUrl);
     }
     else {
       return 'does not exist';
@@ -235,12 +250,13 @@ HTML;
   /**
    * Get the preview link.
    *
-   * @return string
+   * @return \Drupal\Core\Link
    *   The preview link.
    */
-  private function getPreviewLink(): string {
-    $frontendBaseUrl = $this->settings->get('va_gov_frontend_url') ?? 'https://www.va.gov';
-    return "<a target='_blank' href=\"$frontendBaseUrl\">$frontendBaseUrl</a>";
+  private function getPreviewLink(): Link {
+    $frontendBaseUrl = $this->settings->get('next.next_site.next_build_preview_server')['base_url'] ?? 'https://www.va.gov';
+    $targetUrl = Url::fromUri($frontendBaseUrl, ['attributes' => ['target' => '_blank']]);
+    return Link::fromTextAndUrl($this->t('View front end'), $targetUrl);
   }
 
   /**

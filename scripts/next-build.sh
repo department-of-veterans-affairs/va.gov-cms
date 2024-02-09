@@ -18,9 +18,3 @@ source ~/.bashrc
 cd "${ROOT}/next"
 
 APP_ENV=${APP_ENV} yarn build:preview
-
-# Switch to the docroot to run drush commands.
-cd "${ROOT}/docroot"
-
-# Log the timestamp of the build for reporting purposes.
-drush state:set next_build.status last_build_date "$(date)"
