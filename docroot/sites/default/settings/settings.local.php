@@ -48,11 +48,6 @@ $settings['va_gov_app_root'] = getenv('DDEV_APPROOT');
 $settings['va_gov_web_root'] = getenv('DDEV_APPROOT') . '/web';
 $settings['va_gov_vets_website_root'] = getenv('DDEV_APPROOT') . '/docroot/vendor/va-gov/vets-website';
 
-// Match next frontend variables with Tugboat.
-$settings['next.next_site.next_build_preview_server']['base_url'] = 'https://localhost:3000';
-$settings['next.next_site.next_build_preview_server']['preview_url'] = 'https://localhost:3000/api/preview';
-
-
 $settings['memcache']['servers'] = [
   'memcached:11211' => 'default',
 ];

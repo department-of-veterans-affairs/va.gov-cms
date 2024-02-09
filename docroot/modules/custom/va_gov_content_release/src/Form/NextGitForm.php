@@ -2,11 +2,11 @@
 
 namespace Drupal\va_gov_content_release\Form;
 
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
-use Drupal\Core\Site\Settings;
 use Drupal\Core\State\State;
 use Drupal\Core\Url;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
@@ -29,14 +29,14 @@ class NextGitForm extends FormBase {
   protected FrontendVersionInterface $frontendVersion;
 
   /**
-   * File System Service.
+   * File system service.
    */
   protected FileSystemInterface $fileSystem;
 
   /**
-   * The settings service.
+   * The config service.
    */
-  protected Settings $settings;
+  protected ConfigFactory $config;
 
   /**
    * The state service.
@@ -50,7 +50,7 @@ class NextGitForm extends FormBase {
    *   The frontend version service.
    * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   The file system service.
-   * @param \Drupal\Core\Site\Settings $settings
+   * @param \Drupal\Core\Config\ConfigFactory $config
    *   The settings service.
    * @param \Drupal\Core\State\State $state
    *   The state service.
@@ -58,12 +58,12 @@ class NextGitForm extends FormBase {
   public function __construct(
     FrontendVersionInterface $frontendVersion,
     FileSystemInterface $fileSystem,
-    Settings $settings,
+    ConfigFactory $config,
     State $state
   ) {
     $this->frontendVersion = $frontendVersion;
     $this->fileSystem = $fileSystem;
-    $this->settings = $settings;
+    $this->config = $config;
     $this->state = $state;
   }
 
@@ -74,7 +74,7 @@ class NextGitForm extends FormBase {
     return new static(
       $container->get('va_gov_content_release.frontend_version'),
       $container->get('file_system'),
-      $container->get('settings'),
+      $container->get('config.factory'),
       $container->get('state')
     );
   }
@@ -254,7 +254,9 @@ class NextGitForm extends FormBase {
    *   The preview link.
    */
   private function getPreviewLink(): Link {
-    $frontend_base_url = $this->settings->get('next.next_site.next_build_preview_server')['base_url'] ?? 'https://www.va.gov';
+    $frontend_base_url = $this->config
+      ->get('next.next_site.next_build_preview_server')
+      ->get('base_url');
     $target_url = Url::fromUri($frontend_base_url, ['attributes' => ['target' => '_blank']]);
     return Link::fromTextAndUrl($this->t('View front end'), $target_url);
   }
