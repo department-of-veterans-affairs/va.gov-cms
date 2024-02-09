@@ -170,8 +170,8 @@ class NextGitForm extends FormBase {
       $form['build_request']['vets_website_git_ref']['#disabled'] = TRUE;
       $form['build_request']['actions']['submit']['#disabled'] = TRUE;
 
-      $build_log_text = 'Build is in progress. View log file: ' .
-        '<a target="_blank" href="/sites/default/files/next-build.txt">Next Build Log</a>.';
+      $target_url = Url::fromUserInput("/sites/default/files/next-build.txt");
+      $build_log_text = Link::fromTextAndUrl('Build is in progress. View log file', $target_url);
     }
     else {
       $build_log_text = 'Build is not in progress.';
@@ -239,8 +239,8 @@ class NextGitForm extends FormBase {
   private function getFileLink(string $file_name): Link|string {
     $file_path = $this->fileSystem->realpath("public://$file_name");
     if (file_exists($file_path)) {
-      $targetUrl = Url::fromUserInput("/sites/default/files/$file_name");
-      return Link::fromTextAndUrl($file_name, $targetUrl);
+      $target_url = Url::fromUserInput("/sites/default/files/$file_name");
+      return Link::fromTextAndUrl($file_name, $target_url);
     }
     else {
       return 'does not exist';
@@ -254,9 +254,9 @@ class NextGitForm extends FormBase {
    *   The preview link.
    */
   private function getPreviewLink(): Link {
-    $frontendBaseUrl = $this->settings->get('next.next_site.next_build_preview_server')['base_url'] ?? 'https://www.va.gov';
-    $targetUrl = Url::fromUri($frontendBaseUrl, ['attributes' => ['target' => '_blank']]);
-    return Link::fromTextAndUrl($this->t('View front end'), $targetUrl);
+    $frontend_base_url = $this->settings->get('next.next_site.next_build_preview_server')['base_url'] ?? 'https://www.va.gov';
+    $target_url = Url::fromUri($frontend_base_url, ['attributes' => ['target' => '_blank']]);
+    return Link::fromTextAndUrl($this->t('View front end'), $target_url);
   }
 
   /**

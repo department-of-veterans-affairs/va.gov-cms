@@ -18,7 +18,6 @@ class ApiClientFactory implements ApiClientFactoryInterface {
   const VA_GOV_CMS = 'va.gov-cms';
   const CONTENT_BUILD = 'content-build';
   const VETS_WEBSITE = 'vets-website';
-
   const NEXT_BUILD = 'next-build';
 
   /**
