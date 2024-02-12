@@ -347,8 +347,8 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
         // They will eventually be part of the CMS service location, but are
         // currently sourced from the facility service node.
         $service_location->referral_required = $this->getReferralRequired();
-        $service_location->walk_ins_accepted = $this->getWalkInsAccepted();
-        $service_location->online_scheduling_available = $this->getOnlineSchedulingAvailable();
+        $service_location->walk_ins_accepted = $location->get('field_office_visits')->value;
+        $service_location->online_scheduling_available = $location->get('field_online_scheduling_avail')->value;
 
         $service_locations[] = $service_location;
       }
