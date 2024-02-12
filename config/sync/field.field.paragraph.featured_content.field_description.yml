@@ -8,19 +8,23 @@ dependencies:
   module:
     - allowed_formats
     - text
+    - tmgmt_content
 third_party_settings:
   allowed_formats:
     allowed_formats:
       - rich_text_limited
+  tmgmt_content:
+    excluded: false
 id: paragraph.featured_content.field_description
 field_name: field_description
 entity_type: paragraph
 bundle: featured_content
 label: Description
-description: ''
+description: 'Briefly describe the service, event, or news.'
 required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats: {  }
 field_type: text_long
