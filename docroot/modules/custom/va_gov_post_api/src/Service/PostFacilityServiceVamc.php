@@ -11,6 +11,22 @@ use Drupal\paragraphs\Entity\Paragraph;
 class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
   /**
+   * The type of appointment help text.
+   *
+   * Options: use_default_text, customize_text, or remove_text.
+   *
+   * @var string
+   */
+  protected $apptIntroType = "";
+
+  /**
+   * The visitor help text for making appointments.
+   *
+   * @var string
+   */
+  protected $apptIntroText = "";
+
+  /**
    * Adds facility service data to Post API queue.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -173,6 +189,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
     if (empty($this->errors) && $this->shouldPush($this->facilityService, $forcePush)) {
       $service = new \stdClass();
+      $service->service_locations = $this->getServiceLocations();
       $service->name = $this->serviceTerm->getName();
       $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
       $service->description_national = $this->serviceTerm->getDescription();
@@ -186,8 +203,6 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       $service->referral_required = $this->getReferralRequired();
       $service->walk_ins_accepted = $this->getWalkInsAccepted();
       $service->online_scheduling_available = $this->getOnlineSchedulingAvailable();
-
-      $service->service_locations = $this->getServiceLocations();
 
       $payload = [
         'detailed_services' => [$service],
@@ -238,21 +253,21 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
    * Gets the appropriate appointment intro text.
    *
    * @return string
-   *   The mapped values of the field.  True, False, not applicable, NULL.
+   *   The mapped values of the field.
    */
   protected function getAppointmentLeadin() {
-    $selection = $this->facilityService->get('field_hservice_appt_intro_select')->value;
+    $selection = $this->apptIntroType;
 
     switch ($selection) {
-      case 'custom_intro_text':
-        $text = $this->facilityService->get('field_hservice_appt_leadin')->value;
+      case 'customize_text':
+        $text = $this->apptIntroText;
         break;
 
-      case 'no_intro_text':
+      case 'remove_text':
         $text = NULL;
         break;
 
-      case 'default_intro_text':
+      case 'use_default_text':
       default:
         $markupField = $this->facilityService->get('field_hservices_lead_in_default');
         $text = $markupField->getSetting('markup')['value'] ?? NULL;
@@ -261,6 +276,20 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
     }
 
     return $this->stringNullify($text);
+  }
+
+  /**
+   * Sets the appropriate appointment intro text.
+   *
+   * @return string
+   *   The mapped values of the field.  True, False, not applicable, NULL.
+   */
+  protected function populateCustomAppointmentLeadIn(string $appt_intro_text, $service_location) {
+    $field_appt_intro_text_custom = $service_location->get('field_appt_intro_text_custom')->value;
+    if (!empty($appt_intro_text)) {
+      return $appt_intro_text;
+    }
+    return $this->stringNullify($field_appt_intro_text_custom);
   }
 
   /**
@@ -287,6 +316,10 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       // We have some locations.
       foreach ($field_service_locations as $location) {
         $service_location = new \stdClass();
+        $field_appt_intro_text_type = $location->get('field_appt_intro_text_type')->value;
+        // Set the appointment text values to the non-default.
+        $this->apptIntroType = $this->getAppointmentIntroType($this->apptIntroType, $field_appt_intro_text_type);
+        $this->apptIntroText = $this->populateCustomAppointmentLeadIn($this->apptIntroText, $location);
         $field_service_location_address = $location->get('field_service_location_address')->referencedEntities();
         $address_paragraph = reset($field_service_location_address);
         $service_location->office_name = $this->stringNullify($address_paragraph->get('field_clinic_name')->value);
@@ -479,6 +512,25 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
     else {
       $this->errors[] = "Unable to load health service term. Field 'field_service_name_and_descripti' not set.";
     }
+  }
+
+  /**
+   * Get the non-default service location appointment introduction type.
+   *
+   * @param string $appt_intro_type
+   *   Type of appointment intro text for a service location.
+   * @param string $field_appt_intro_text_type
+   *   The value of a single service location's appointment type.
+   *
+   * @return string
+   *   The type of service location text that the user chose.
+   */
+  protected function getAppointmentIntroType(string $appt_intro_type, string $field_appt_intro_text_type) {
+    if ($appt_intro_type === "customize_text") {
+      return $appt_intro_type;
+    }
+    return $field_appt_intro_text_type;
+
   }
 
 }
