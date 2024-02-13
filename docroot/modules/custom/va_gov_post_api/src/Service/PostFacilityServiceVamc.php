@@ -27,6 +27,13 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   protected $apptIntroText = "";
 
   /**
+   * The type of phone for appointments.
+   *
+   * @var string
+   */
+  protected $apptPhoneType = "";
+
+  /**
    * Adds facility service data to Post API queue.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -281,15 +288,35 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   /**
    * Sets the appropriate appointment intro text.
    *
+   * @param mixed $service_location
+   *   The service location object.
+   *
    * @return string
    *   The mapped values of the field.  True, False, not applicable, NULL.
    */
-  protected function populateCustomAppointmentLeadIn(string $appt_intro_text, $service_location) {
-    $field_appt_intro_text_custom = $service_location->get('field_appt_intro_text_custom')->value;
-    if (!empty($appt_intro_text)) {
-      return $appt_intro_text;
+  protected function populateCustomAppointmentLeadIn(array $service_location) {
+    // If the class property's already set to the actionable non-default, bail out.
+    if (!empty($this->apptIntroText)) {
+      return $this->apptIntroText;
     }
+    $field_appt_intro_text_custom = $service_location->get('field_appt_intro_text_custom')->value;
     return $this->stringNullify($field_appt_intro_text_custom);
+  }
+
+  /**
+   * Get the non-default service location appointment phone type.
+   *
+   * @param string $from_facility
+   *   The value of a single service location's appointment phone type.
+   * @param array $phone_paragraphs
+   *   Optional array of phone paragraphs.
+   *
+   * @return string
+   *   The type of service location text that the user chose.
+   */
+  protected function getAppointmentPhoneType($from_facility = FALSE, array $phone_paragraphs = []) {
+    $this->apptPhoneType;
+    return TRUE;
   }
 
   /**
@@ -316,10 +343,12 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       // We have some locations.
       foreach ($field_service_locations as $location) {
         $service_location = new \stdClass();
-        $field_appt_intro_text_type = $location->get('field_appt_intro_text_type')->value;
         // Set the appointment text values to the non-default.
-        $this->apptIntroType = $this->getAppointmentIntroType($this->apptIntroType, $field_appt_intro_text_type);
-        $this->apptIntroText = $this->populateCustomAppointmentLeadIn($this->apptIntroText, $location);
+        $field_appt_intro_text_type = $location->get('field_appt_intro_text_type')->value;
+        $this->apptIntroType = $this->getAppointmentIntroType($field_appt_intro_text_type);
+        $this->apptIntroText = $this->populateCustomAppointmentLeadIn($location);
+        $field_appt_phone_type = $location->get('field_use_facility_phone_number')->value;
+        $this->apptPhoneType = $this->getAppointmentPhoneType($field_appt_phone_type, $location->get('field_other_phone_numbers')->referencedEntities()));
         $field_service_location_address = $location->get('field_service_location_address')->referencedEntities();
         $address_paragraph = reset($field_service_location_address);
         $service_location->office_name = $this->stringNullify($address_paragraph->get('field_clinic_name')->value);
@@ -517,17 +546,16 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   /**
    * Get the non-default service location appointment introduction type.
    *
-   * @param string $appt_intro_type
-   *   Type of appointment intro text for a service location.
    * @param string $field_appt_intro_text_type
    *   The value of a single service location's appointment type.
    *
    * @return string
    *   The type of service location text that the user chose.
    */
-  protected function getAppointmentIntroType(string $appt_intro_type, string $field_appt_intro_text_type) {
-    if ($appt_intro_type === "customize_text") {
-      return $appt_intro_type;
+  protected function getAppointmentIntroType(string $field_appt_intro_text_type) {
+    // If the class property's already set to the actionable non-default, bail out.
+    if ( $this->apptIntroType === "customize_text") {
+      return $this->apptIntroType;
     }
     return $field_appt_intro_text_type;
 
