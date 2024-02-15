@@ -380,9 +380,10 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
         // Set the office visits policy to non-default for the service.
         $office_visits = $location->get('field_office_visits')->value;
-        $this->officeVisits = ($this->officeVisits === "yes_with_or_without_appointment")
-          ? $this->officeVisits :
-          $this->stringNullify($office_visits);
+        $this->officeVisits = (($this->officeVisits !== "yes_with_or_without_appointment")
+          ||  !isset($this->officeVisits))
+          ? $this->stringNullify($office_visits)
+          : $this->officeVisits;
 
         // Set the appointment text values to the non-default for the service.
         $field_appt_intro_text_type = $location->get('field_appt_intro_text_type')->value;
@@ -435,7 +436,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
         // currently sourced from the facility service node.
         $service_location->referral_required = $this->getReferralRequired();
         $service_location->walk_ins_accepted = $location->get('field_office_visits')->value;
-        $service_location->online_scheduling_available = $location->get('field_online_scheduling_avail')->value;
+        $service_location->online_scheduling_available = $this->getOnlineScheduling($location->get('field_online_scheduling_avail')->value);
 
         $service_locations[] = $service_location;
       }
