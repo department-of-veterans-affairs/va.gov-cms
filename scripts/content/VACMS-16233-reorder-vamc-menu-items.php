@@ -12,7 +12,10 @@
  * If for some reason the run crashes before it is complete:
  * - Check CMS recent log messages for cause
  * /admin/reports/dblog?type%5B%5D=codit_menu_tools
- * - Simply re-run the script.
+ * - Simply re-run the script, it will pick up where it left off.
+ * - If for some reason you need to start it at a different number, you can use
+ *   `drush php:eval '\Drupal::state()->set("script_library__va_gov_vamc_get_system_menus", DESIRED_NUMBER);'`
+ *   to set the last number that ran successfully.
  */
 
 use Drupal\codit_menu_tools\MenuManipulator;
@@ -47,8 +50,8 @@ function run(): string {
  */
 function va_gov_vamc_deploy_resort_vamc_menus(&$sandbox) {
   script_library_sandbox_init($sandbox, '_va_gov_vamc_get_system_menus', []);
-  _va_gov_vamc_arrange_menus($sandbox);
-  return script_library_sandbox_complete($sandbox, "Re-arranged @total VAMC System Menus.");
+  $message = _va_gov_vamc_arrange_menus($sandbox);
+  return $message . script_library_sandbox_complete($sandbox, "Re-arranged @total VAMC System Menus.");
 }
 
 /**
@@ -91,9 +94,9 @@ function _va_gov_vamc_arrange_menus(&$sandbox) {
   ];
   $menu_arranger = new MenuManipulator($menu_name);
   $menu_arranger->matchPattern($pattern);
-  $message = "The menu {$sandbox['items_to_process'][$menu_name]} had been rearranged.";
+  $message = "The menu {$sandbox['items_to_process'][$menu_name]} had been rearranged. ";
+  // It has been run successfully, so remove it.
   unset($sandbox['items_to_process'][$menu_name]);
-  $sandbox['current']++;
 
   return $message;
 }
