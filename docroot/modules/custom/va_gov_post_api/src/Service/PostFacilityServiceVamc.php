@@ -11,6 +11,15 @@ use Drupal\paragraphs\Entity\Paragraph;
 class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
   /**
+   * The whether and how to make an office visit.
+   *
+   * Options: no, yes_appointment_only, yes_first_come_first_served_basis, yes_with_or_without_appointment.
+   *
+   * @var string
+   */
+  protected $officeVisits = "";
+
+  /**
    * The type of appointment help text.
    *
    * Options: use_default_text, customize_text, or remove_text.
@@ -216,13 +225,13 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       $service->description_national = $this->serviceTerm->getDescription();
       $service->description_system = $this->getProcessedHtmlFromField('systemService', 'field_body');
       $service->service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
-      $service->appointment_leadin = $this->apptIntroText;
+      $service->appointment_leadin = $this->getAppointmentLeadin();
       $service->appointment_phones = $this->apptPhones;
       // These three fields are repeated here to support Facilty API V0
       // for Covid-19 Vaccines.
       $service->referral_required = $this->getReferralRequired();
-      $service->walk_ins_accepted = $this->getWalkInsAccepted();
-      $service->online_scheduling_available = $this->getOnlineSchedulingAvailable();
+      $service->walk_ins_accepted = $this->officeVisits;
+      $service->online_scheduling_available = $this->isOnlineSchedulingAvail;
 
       $payload = [
         'detailed_services' => [$service],
@@ -301,13 +310,13 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   /**
    * Sets the appropriate appointment intro text.
    *
-   * @param mixed $service_location
+   * @param \Drupal\paragraphs\Entity\Paragraph|bool $service_location
    *   The service location object.
    *
    * @return string
    *   The mapped values of the field.  True, False, not applicable, NULL.
    */
-  protected function populateCustomAppointmentLeadIn(array $service_location) {
+  protected function populateCustomAppointmentLeadIn(Paragraph | bool $service_location) {
     // If the class property's already set to the actionable non-default,
     // bail out.
     if (!empty($this->apptIntroText)) {
@@ -361,11 +370,26 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
     $map = [
       // Value => Return.
       // Lighthouse decided to receive these as strings since non-bool options.
-      '0' => 'false',
-      '1' => 'true',
-      'not_applicable' => 'not applicable',
+      'no' => 'false',
+      'yes' => 'true',
     ];
     return $map[$online_scheduling_avail];
+  }
+
+  /**
+   * Gets the office visits policy, with bias toward most lenient.
+   *
+   *
+   * @return string
+   *   The mapped values of the field.  True, False, not applicable, NULL.
+   */
+  protected function getOfficeVisits(string $office_visits) {
+    // If the class property's already set to the actionable non-default,
+    // bail out.
+    if ($this->officeVisits === "yes_with_or_without_appointment") {
+      return $this->officeVisits;
+    }
+    return $this->stringNullify($office_visits);
   }
 
   /**
@@ -392,6 +416,11 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       // We have some locations.
       foreach ($field_service_locations as $location) {
         $service_location = new \stdClass();
+
+        // Set the office visits policy.
+        $office_visits = $location->get('field_office_visits')->value;
+        $this->officeVisits = $this->getOfficeVisits($office_visits);
+
         // Set the appointment text values to the non-default.
         $field_appt_intro_text_type = $location->get('field_appt_intro_text_type')->value;
         $this->apptIntroType = $this->getAppointmentIntroType($field_appt_intro_text_type);
