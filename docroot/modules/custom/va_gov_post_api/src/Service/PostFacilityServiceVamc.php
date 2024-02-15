@@ -34,6 +34,20 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   protected $apptPhoneType = "";
 
   /**
+   * The phone data for appointments.
+   *
+   * @var array
+   */
+  protected $apptPhones = [];
+
+  /**
+   * Whether online scheduling is available.
+   *
+   * @var bool
+   */
+  protected $isOnlineSchedulingAvail = FALSE;
+
+  /**
    * Adds facility service data to Post API queue.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -202,9 +216,8 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       $service->description_national = $this->serviceTerm->getDescription();
       $service->description_system = $this->getProcessedHtmlFromField('systemService', 'field_body');
       $service->service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
-      $service->appointment_leadin = $this->getAppointmentLeadin();
-      $field_phone_numbers_paragraphs = $this->facilityService->get('field_phone_numbers_paragraph')->referencedEntities();
-      $service->appointment_phones = $this->getPhones(FALSE, $field_phone_numbers_paragraphs);
+      $service->appointment_leadin = $this->apptIntroText;
+      $service->appointment_phones = $this->apptPhones;
       // These three fields are repeated here to support Facilty API V0
       // for Covid-19 Vaccines.
       $service->referral_required = $this->getReferralRequired();
@@ -295,7 +308,8 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
    *   The mapped values of the field.  True, False, not applicable, NULL.
    */
   protected function populateCustomAppointmentLeadIn(array $service_location) {
-    // If the class property's already set to the actionable non-default, bail out.
+    // If the class property's already set to the actionable non-default,
+    // bail out.
     if (!empty($this->apptIntroText)) {
       return $this->apptIntroText;
     }
@@ -308,15 +322,50 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
    *
    * @param string $from_facility
    *   The value of a single service location's appointment phone type.
-   * @param array $phone_paragraphs
-   *   Optional array of phone paragraphs.
    *
    * @return string
    *   The type of service location text that the user chose.
    */
-  protected function getAppointmentPhoneType($from_facility = FALSE, array $phone_paragraphs = []) {
-    $this->apptPhoneType;
-    return TRUE;
+  protected function getAppointmentPhoneType($from_facility = FALSE) {
+    // If the class property's already set to the actionable non-default,
+    // bail out.
+    if (!empty($this->apptPhoneType)) {
+      return $this->apptPhoneType;
+    }
+    $map = [
+      // Value => Return.
+      // Lighthouse decided to receive these as strings since non-bool options.
+      '0' => 'false',
+      '1' => 'true',
+    ];
+    return $map[$from_facility];
+  }
+
+  protected function getAppointmentPhones(array $phone_paragraphs = []) {
+     // If the class property's already set to the actionable non-default,
+     // bail out.
+    if (!empty($this->apptPhones)) {
+      return $this->apptPhones;
+    }
+    return $this->getPhones($this->apptPhoneType, $phone_paragraphs);
+  }
+
+  /**
+   * Gets the online scheduling value.
+   *
+   */
+  protected function getOnlineScheduling(string $online_scheduling_avail) {
+    if ($this->isOnlineSchedulingAvail) {
+      return $this->isOnlineSchedulingAvail;
+    }
+    $map = [
+      // Value => Return.
+      // Lighthouse decided to receive these as strings since non-bool options.
+      '0' => 'false',
+      '1' => 'true',
+      'not_applicable' => 'not applicable',
+    ];
+    return $map[$online_scheduling_avail];
   }
 
   /**
@@ -347,8 +396,15 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
         $field_appt_intro_text_type = $location->get('field_appt_intro_text_type')->value;
         $this->apptIntroType = $this->getAppointmentIntroType($field_appt_intro_text_type);
         $this->apptIntroText = $this->populateCustomAppointmentLeadIn($location);
+
+        // Set the appointment phone values to the non-default.
         $field_appt_phone_type = $location->get('field_use_facility_phone_number')->value;
-        $this->apptPhoneType = $this->getAppointmentPhoneType($field_appt_phone_type, $location->get('field_other_phone_numbers')->referencedEntities()));
+        $this->apptPhoneType = $this->getAppointmentPhoneType($field_appt_phone_type);
+        $this->apptPhones = $this->getAppointmentPhones($location->get('field_other_phone_numbers')->referencedEntities());
+
+        // Set the online scheduling value to the yes if true for any.
+        $this->isOnlineSchedulingAvail = $this->getOnlineScheduling($location->get('field_online_scheduling_avail')->value);
+
         $field_service_location_address = $location->get('field_service_location_address')->referencedEntities();
         $address_paragraph = reset($field_service_location_address);
         $service_location->office_name = $this->stringNullify($address_paragraph->get('field_clinic_name')->value);
@@ -553,7 +609,8 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
    *   The type of service location text that the user chose.
    */
   protected function getAppointmentIntroType(string $field_appt_intro_text_type) {
-    // If the class property's already set to the actionable non-default, bail out.
+    // If the class property's already set to the actionable non-default,
+    // bail out.
     if ( $this->apptIntroType === "customize_text") {
       return $this->apptIntroType;
     }
