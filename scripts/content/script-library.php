@@ -365,7 +365,7 @@ function script_library_sandbox_complete(array &$sandbox, $completed_message) {
   $message = t('Processed @element. @completed/@total.', $vars) . PHP_EOL;
   // Log the all finished notice.
   if ($sandbox['#finished'] === 1) {
-    Drupal::logger('va_gov_vamc')->log(LogLevel::INFO, $completed_message, $vars);
+    Drupal::logger('script_library')->log(LogLevel::INFO, $completed_message, $vars);
     $logged_message = new FormattableMarkup($completed_message, $vars);
     $message = t('Process completed:') . " {$logged_message}" . PHP_EOL;
     // Delete the state as it is no longer needed.
