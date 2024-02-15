@@ -13,7 +13,8 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   /**
    * The whether and how to make an office visit.
    *
-   * Options: no, yes_appointment_only, yes_first_come_first_served_basis, yes_with_or_without_appointment.
+   * Options: no, yes_appointment_only, yes_first_come_first_served_basis,
+   * yes_with_or_without_appointment.
    *
    * @var string
    */
@@ -308,25 +309,6 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   }
 
   /**
-   * Sets the appropriate appointment intro text.
-   *
-   * @param \Drupal\paragraphs\Entity\Paragraph|bool $service_location
-   *   The service location object.
-   *
-   * @return string
-   *   The mapped values of the field.  True, False, not applicable, NULL.
-   */
-  protected function populateCustomAppointmentLeadIn(Paragraph | bool $service_location) {
-    // If the class property's already set to the actionable non-default,
-    // bail out.
-    if (!empty($this->apptIntroText)) {
-      return $this->apptIntroText;
-    }
-    $field_appt_intro_text_custom = $service_location->get('field_appt_intro_text_custom')->value;
-    return $this->stringNullify($field_appt_intro_text_custom);
-  }
-
-  /**
    * Get the non-default service location appointment phone type.
    *
    * @param string $from_facility
@@ -336,60 +318,32 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
    *   The type of service location text that the user chose.
    */
   protected function getAppointmentPhoneType($from_facility = FALSE) {
-    // If the class property's already set to the actionable non-default,
-    // bail out.
-    if (!empty($this->apptPhoneType)) {
-      return $this->apptPhoneType;
-    }
     $map = [
       // Value => Return.
       // Lighthouse decided to receive these as strings since non-bool options.
       '0' => 'false',
       '1' => 'true',
     ];
-    return $map[$from_facility];
-  }
 
-  protected function getAppointmentPhones(array $phone_paragraphs = []) {
-     // If the class property's already set to the actionable non-default,
-     // bail out.
-    if (!empty($this->apptPhones)) {
-      return $this->apptPhones;
-    }
-    return $this->getPhones($this->apptPhoneType, $phone_paragraphs);
+    return $map[$from_facility];
   }
 
   /**
    * Gets the online scheduling value.
    *
+   * @param string $online_scheduling_avail
+   *   The value set by the user about online scheduling availability.
+   *   Options: yes, no.
    */
   protected function getOnlineScheduling(string $online_scheduling_avail) {
-    if ($this->isOnlineSchedulingAvail) {
-      return $this->isOnlineSchedulingAvail;
-    }
     $map = [
       // Value => Return.
       // Lighthouse decided to receive these as strings since non-bool options.
       'no' => 'false',
       'yes' => 'true',
     ];
-    return $map[$online_scheduling_avail];
-  }
 
-  /**
-   * Gets the office visits policy, with bias toward most lenient.
-   *
-   *
-   * @return string
-   *   The mapped values of the field.  True, False, not applicable, NULL.
-   */
-  protected function getOfficeVisits(string $office_visits) {
-    // If the class property's already set to the actionable non-default,
-    // bail out.
-    if ($this->officeVisits === "yes_with_or_without_appointment") {
-      return $this->officeVisits;
-    }
-    return $this->stringNullify($office_visits);
+    return $map[$online_scheduling_avail];
   }
 
   /**
@@ -417,22 +371,41 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       foreach ($field_service_locations as $location) {
         $service_location = new \stdClass();
 
-        // Set the office visits policy.
+        /*
+         * The purpose of setting the class properties from the Service
+         * location is to ensure that the non-default, most specific or most
+         * Veteran-friendly value of any of these fields is set at the Service
+         * level for the payload.
+         */
+
+        // Set the office visits policy to non-default for the service.
         $office_visits = $location->get('field_office_visits')->value;
-        $this->officeVisits = $this->getOfficeVisits($office_visits);
+        $this->officeVisits = ($this->officeVisits === "yes_with_or_without_appointment")
+          ? $this->officeVisits :
+          $this->stringNullify($office_visits);
 
-        // Set the appointment text values to the non-default.
+        // Set the appointment text values to the non-default for the service.
         $field_appt_intro_text_type = $location->get('field_appt_intro_text_type')->value;
-        $this->apptIntroType = $this->getAppointmentIntroType($field_appt_intro_text_type);
-        $this->apptIntroText = $this->populateCustomAppointmentLeadIn($location);
+        $this->apptIntroType = ($this->apptIntroType === "customize_text")
+          ? $this->apptIntroType
+          : $field_appt_intro_text_type;
+        $this->apptIntroText = (!empty($this->apptIntroText))
+          ? $this->apptIntroText
+          : $this->stringNullify($location->get('field_appt_intro_text_custom')->value);
 
-        // Set the appointment phone values to the non-default.
+        // Set the appointment phone values to the non-default for the service.
         $field_appt_phone_type = $location->get('field_use_facility_phone_number')->value;
-        $this->apptPhoneType = $this->getAppointmentPhoneType($field_appt_phone_type);
-        $this->apptPhones = $this->getAppointmentPhones($location->get('field_other_phone_numbers')->referencedEntities());
+        $this->apptPhoneType = (!empty($this->apptPhoneType) && ((bool) $this->apptPhoneType === FALSE))
+          ? $this->apptPhoneType
+          : $this->getAppointmentPhoneType($field_appt_phone_type);
+        $this->apptPhones = (!empty($this->apptPhones))
+          ? $this->apptPhones
+          : $this->getPhones($this->apptPhoneType, $location->get('field_other_phone_numbers')->referencedEntities());
 
-        // Set the online scheduling value to the yes if true for any.
-        $this->isOnlineSchedulingAvail = $this->getOnlineScheduling($location->get('field_online_scheduling_avail')->value);
+        // Set the online scheduling value to the yes for the service.
+        $this->isOnlineSchedulingAvail = ($this->isOnlineSchedulingAvail)
+          ? $this->isOnlineSchedulingAvail
+          : $this->getOnlineScheduling($location->get('field_online_scheduling_avail')->value);
 
         $field_service_location_address = $location->get('field_service_location_address')->referencedEntities();
         $address_paragraph = reset($field_service_location_address);
@@ -548,44 +521,6 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   }
 
   /**
-   * Maps and returns the value of walk ins accepted.
-   *
-   * @return string
-   *   The mapped values of the field.  True, False, not applicable, NULL.
-   */
-  protected function getWalkInsAccepted() {
-    $raw = $this->facilityService->get('field_walk_ins_accepted')->value;
-    $map = [
-      // Value => Return.
-      // Lighthouse decided to receive these as strings since non-bool options.
-      '0' => 'false',
-      '1' => 'true',
-      'not_applicable' => 'not applicable',
-    ];
-
-    return $map[$raw] ?? NULL;
-  }
-
-  /**
-   * Maps and returns the value of online scheduling.
-   *
-   * @return string
-   *   The mapped values of the field.  True, False, not applicable, NULL.
-   */
-  protected function getOnlineSchedulingAvailable() {
-    $raw = $this->facilityService->get('field_online_scheduling_availabl')->value;
-    $map = [
-      // Value => Return.
-      // Lighthouse decided to receive these as strings since non-bool options.
-      '0' => 'false',
-      '1' => 'true',
-      'not_applicable' => 'not applicable',
-    ];
-
-    return $map[$raw] ?? NULL;
-  }
-
-  /**
    * Load and set the facility node that this service belongs to.
    */
   protected function setFacility() {
@@ -626,25 +561,6 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
     else {
       $this->errors[] = "Unable to load health service term. Field 'field_service_name_and_descripti' not set.";
     }
-  }
-
-  /**
-   * Get the non-default service location appointment introduction type.
-   *
-   * @param string $field_appt_intro_text_type
-   *   The value of a single service location's appointment type.
-   *
-   * @return string
-   *   The type of service location text that the user chose.
-   */
-  protected function getAppointmentIntroType(string $field_appt_intro_text_type) {
-    // If the class property's already set to the actionable non-default,
-    // bail out.
-    if ( $this->apptIntroType === "customize_text") {
-      return $this->apptIntroType;
-    }
-    return $field_appt_intro_text_type;
-
   }
 
 }
