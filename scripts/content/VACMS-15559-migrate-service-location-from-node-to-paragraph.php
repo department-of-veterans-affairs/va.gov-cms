@@ -10,6 +10,7 @@
  * It should only be run 1 time or it will duplicate phone data.
  *
  * If for some reason the run crashes before it is complete:
+ * - It is safe to re-run the script as it should pick up where it left off.
  * - Go to /admin/config/va-gov-post-api/config
  * - Uncheck the box for 'Bypass data comparison'
  * - Click the 'Save' button.
@@ -44,9 +45,10 @@ function run(): string {
 function va_gov_vamc_deploy_migrate_service_data_to_service_location(&$sandbox) {
   $source_bundle = 'health_care_local_health_service';
   script_library_sandbox_init($sandbox, 'get_nids_of_type', [$source_bundle, FALSE]);
-  new ServiceLocationMigration($sandbox);
+  $migrator = new ServiceLocationMigration();
+  $msg = $migrator->run($sandbox);
   $new_service_locations = $sandbox['service_locations_created_count'] ?? 0;
   $updated_service_locations = $sandbox['service_locations_updated_count'] ?? 0;
   $forward_revisions = $sandbox['forward_revisions_count'] ?? 0;
-  return script_library_sandbox_complete($sandbox, "migrated @total {$source_bundle} nodes into {$new_service_locations} new service_location paragraphs, and {$updated_service_locations} updated. Also updated {$forward_revisions} forward revisions.");
+  return $msg . script_library_sandbox_complete($sandbox, "migrated @total {$source_bundle} nodes into {$new_service_locations} new service_location paragraphs, and {$updated_service_locations} updated. Also updated {$forward_revisions} forward revisions.");
 }
