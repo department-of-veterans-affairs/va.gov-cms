@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_vamc;
 
 use Drupal\paragraphs\Entity\Paragraph;
-use Psr\Log\LogLevel;
 
 /**
  * Single use class to migrate from facility service node to service location.
@@ -29,69 +28,68 @@ class ServiceLocationMigration {
 
   /**
    * Constructor for ServiceLocationMigration.
+   */
+  public function __construct() {
+    require_once __DIR__ . '/../../../../../scripts/content/script-library.php';
+  }
+
+  /**
+   * Runs a single iteration of the migration.
    *
    * @param array $sandbox
    *   Sandbox variable for keeping state during batches.
    */
-  public function __construct(array &$sandbox) {
-    require_once __DIR__ . '/../../../../../scripts/content/script-library.php';
-    $processed_nids = '';
-    $batch_size = 25;
+  public function run(array &$sandbox) {
     $node_storage = get_node_storage();
-    $nids = array_slice($sandbox['items_to_process'], 0, $batch_size, TRUE);
-    $facility_services = (empty($nids)) ? [] : $node_storage->loadMultiple(array_values($nids));
-    foreach ($facility_services as $nid => $facility_service_node) {
-      /** @var \Drupal\node\NodeInterface $facility_service_node */
-      $this->facilityService = $facility_service_node;
-      // Gather existing service locations.
-      $service_locations = $facility_service_node->get('field_service_location')->referencedEntities();
-      if (empty($service_locations)) {
-        // There are no service locations, but we still need to put the old node
-        // data some place, so we need a new service location.
-        $new_service_location = Paragraph::create(['type' => 'field_service_location']);
-        $facility_service_node->field_service_location->appendItem($new_service_location);
-        $service_locations = [$new_service_location];
-        $this->facilityService->field_service_location[] = $new_service_location;
-        $sandbox['service_locations_created_count'] = (isset($sandbox['service_locations_created_count'])) ? ++$sandbox['service_locations_created_count'] : 1;
-      }
-      else {
-        $sandbox['service_locations_updated_count'] = (isset($sandbox['service_locations_updated_count'])) ? ++$sandbox['service_locations_updated_count'] : 1;
-      }
-
-      $this->migrateServicesLocationsFromFacility($service_locations);
-      $message = 'Automated move of Facility Health Service data into Service Locations.';
-      // Must grab this before save, because after save it will always be true.
-      $is_latest_revision = $this->facilityService->isLatestRevision();
-      if (!$is_latest_revision) {
-        // The Facility service we have is the default revision, but if it is
-        // not the latest, there is a forward draft revision we need to update
-        // too. Grab it now before saving, or we'll grab the one we just saved.
-        $forward_revision = get_node_at_latest_revision($nid);
-      }
-      save_node_revision($this->facilityService, $message, TRUE);
-
-      if (!$is_latest_revision) {
-        $this->facilityService = $forward_revision;
-        $this->migrateServicesLocationsFromFacility($service_locations);
-        // Append new log message to previous log message.
-        $original_message = $this->facilityService->getRevisionLogMessage();
-        $message .= "- Draft revision carried forward.";
-        $message = "$original_message - $message";
-        save_node_revision($this->facilityService, $message, TRUE);
-        $sandbox['forward_revisions_count'] = (isset($sandbox['forward_revisions_count'])) ? ++$sandbox['forward_revisions_count'] : 1;
-      }
-
-      unset($sandbox['items_to_process'][_va_gov_stringifynid($nid)]);
-      $processed_nids .= $nid . ', ';
-      $sandbox['current']++;
+    $nid_to_load = reset($sandbox['items_to_process']);
+    $facility_service = (empty($nid_to_load)) ? [] : $node_storage->loadMultiple([$nid_to_load]);
+    $nid = array_key_first($facility_service);
+    /** @var \Drupal\node\NodeInterface $facility_service_node */
+    $facility_service_node = reset($facility_service);
+    $this->facilityService = $facility_service_node;
+    // Gather existing service locations.
+    $service_locations = $this->facilityService->get('field_service_location')->referencedEntities();
+    if (empty($service_locations)) {
+      // There are no service locations, but we still need to put the old node
+      // data some place, so we need a new service location.
+      $new_service_location = Paragraph::create(['type' => 'field_service_location']);
+      $this->facilityService->field_service_location->appendItem($new_service_location);
+      $service_locations = [$new_service_location];
+      $this->facilityService->field_service_location[] = $new_service_location;
+      $sandbox['service_locations_created_count'] = (isset($sandbox['service_locations_created_count'])) ? ++$sandbox['service_locations_created_count'] : 1;
     }
-    // Log the processed nodes.
-    \Drupal::logger('va_gov_vamc')
-      ->log(LogLevel::INFO, 'Facility Health Service nodes %current nodes saved to migrate some data into paragraphs. %forward_revisions were also updated. Nodes processed: %nids', [
-        '%current' => $sandbox['current'],
-        '%nids' => $processed_nids,
-        '%forward_revisions' => $sandbox['forward_revisions_count'] ?? 0,
-      ]);
+    else {
+      $sandbox['service_locations_updated_count'] = (isset($sandbox['service_locations_updated_count'])) ? ++$sandbox['service_locations_updated_count'] : 1;
+    }
+
+    $this->migrateServicesLocationsFromFacility($service_locations);
+    $message = 'Automated move of Facility Health Service data into Service Locations.';
+    // Must grab this before save, because after save it will always be true.
+    $is_latest_revision = $this->facilityService->isLatestRevision();
+    if (!$is_latest_revision) {
+      // The Facility service we have is the default revision, but if it is
+      // not the latest, there is a forward draft revision we need to update
+      // too. Grab it now before saving, or we'll grab the one we just saved.
+      $forward_revision = get_node_at_latest_revision($nid);
+    }
+    save_node_revision($this->facilityService, $message, TRUE);
+    $status_msg = "Updated {$facility_service_node->getTitle()}. ";
+
+    if (!$is_latest_revision) {
+      $this->facilityService = $forward_revision;
+      $this->migrateServicesLocationsFromFacility($service_locations);
+      // Append new log message to previous log message.
+      $original_message = $this->facilityService->getRevisionLogMessage();
+      $message .= "- Draft revision carried forward.";
+      $message = "$original_message - $message";
+      save_node_revision($this->facilityService, $message, TRUE);
+      $sandbox['forward_revisions_count'] = (isset($sandbox['forward_revisions_count'])) ? ++$sandbox['forward_revisions_count'] : 1;
+      $status_msg .= "And a forward revision. ";
+    }
+
+    unset($sandbox['items_to_process'][_va_gov_stringifynid($nid)]);
+
+    return $status_msg;
   }
 
   /**
