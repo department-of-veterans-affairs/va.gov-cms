@@ -33,7 +33,7 @@ third_party_settings:
       label: Hours
       parent_name: group_service_location
       region: content
-      weight: 8
+      weight: 23
       format_type: fieldset
       format_settings:
         classes: ''
@@ -48,7 +48,7 @@ third_party_settings:
       label: 'Contact info'
       parent_name: group_service_location
       region: content
-      weight: 9
+      weight: 24
       format_type: fieldset
       format_settings:
         classes: ''
@@ -61,7 +61,7 @@ third_party_settings:
       label: Address
       parent_name: group_service_location
       region: content
-      weight: 7
+      weight: 22
       format_type: fieldset
       format_settings:
         classes: ''
@@ -70,9 +70,8 @@ third_party_settings:
         open: true
     group_service_location:
       children:
-        - field_task_oriented_header
-        - field_service_location_descripti
-        - field_service_delivery_options
+        - group_service_options
+        - group_appointments
         - group_address
         - group_hours
         - group_contact_info
@@ -85,6 +84,39 @@ third_party_settings:
         classes: ''
         id: ''
         description: ''
+    group_appointments:
+      children:
+        - field_appt_intro_text_type
+        - field_appt_intro_text_custom
+        - field_use_facility_phone_number
+        - field_other_phone_numbers
+        - field_online_scheduling_avail
+      label: Appointments
+      parent_name: group_service_location
+      region: content
+      weight: 21
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
+    group_service_options:
+      children:
+        - field_office_visits
+        - field_virtual_support
+      label: 'Service Options'
+      parent_name: group_service_location
+      region: content
+      weight: 20
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
 id: paragraph.service_location.default
 targetEntityType: paragraph
 bundle: service_location
@@ -103,7 +135,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 13
     region: content
   field_appt_intro_text_type:
     type: list_default
@@ -184,7 +216,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 14
+    weight: 15
     region: content
   field_phone:
     type: entity_reference_revisions_entity_view
@@ -212,7 +244,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 13
+    weight: 14
     region: content
   field_use_main_facility_phone:
     type: boolean
