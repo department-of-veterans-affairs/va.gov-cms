@@ -427,7 +427,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
         // Set the appointment phone values to the non-default for the service.
         $field_appt_phone_type = $location->get('field_use_facility_phone_number')->value;
-        $this->apptPhoneType = (!empty($this->apptPhoneType) && ((bool) $this->apptPhoneType === FALSE))
+        $this->apptPhoneType = (!empty($this->apptPhoneType) && ($this->apptPhoneType === "false"))
           ? $this->apptPhoneType
           : $this->getAppointmentPhoneType($field_appt_phone_type);
         $this->apptPhones = (!empty($this->apptPhones))
