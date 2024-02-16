@@ -36,6 +36,8 @@ Can only update CPU and memory at a project level, not repository level.
 
 ## Tugboat Crisis Intervention
 
+Shelling into the Tugboat server can be accomplished with `ssm-session tugboat utility`.
+
 ### Overload
 
 **Symptoms**: Tugboat is slow, requests to Tugboat dashboard return 502/504 status codes, previews disappear and reappear, etc.
