@@ -1,0 +1,36 @@
+diff --git a/src/Normalizer/FieldItemNormalizer.php b/src/Normalizer/FieldItemNormalizer.php
+index 8882870..9f8abc8 100644
+--- a/src/Normalizer/FieldItemNormalizer.php
++++ b/src/Normalizer/FieldItemNormalizer.php
+@@ -51,12 +51,30 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
+   public function normalize($object, $format = NULL, array $context = []) {
+     // First get the regular output.
+     $normalized_output = parent::normalize($object, $format, $context);
++
+     // Then detect if there is any enhancer to be applied here.
+     /** @var \Drupal\jsonapi_extras\ResourceType\ConfigurableResourceType $resource_type */
+     $resource_type = $context['resource_object']->getResourceType();
+     $enhancer = $resource_type->getFieldEnhancer($object->getParent()->getName());
++
+     if (!$enhancer) {
+-      return $normalized_output;
++      // Look for default field type enhancer.
++      $config = \Drupal::config('jsonapi_extras.jsonapi_field_type_config');
++      $field_type = $object->getFieldDefinition()->getType();
++      $field_type_config = $config->get('mapping.resourceFieldTypes')[$field_type];
++
++      if (!empty($field_type_config['enhancer']['id'])) {
++        // Get the enhancer instance.
++        /** @var \Drupal\jsonapi_extras\Plugin\ResourceFieldEnhancerInterface $enhancer */
++        $enhancer = $this->enhancerManager->createInstance(
++          $field_type_config['enhancer']['id'],
++          (array) $field_type_config['enhancer']['settings']
++        );
++      }
++
++      if (!$enhancer) {
++        return $normalized_output;
++      }
+     }
+     $cacheability = CacheableMetadata::createFromObject($normalized_output)
+       ->addCacheTags(['config:jsonapi_resource_config_list']);
