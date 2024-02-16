@@ -67,15 +67,4 @@ interface ApiClientFactoryInterface {
    */
   public function getVetsWebsite(): ApiClientInterface;
 
-  /**
-   * Retrieve an API client for the Next Build repository.
-   *
-   * @return \Drupal\va_gov_github\Api\Client\ApiClientInterface
-   *   The GitHub Api Client instance.
-   *
-   * @throws \Drupal\va_gov_github\Exception\InvalidApiTokenException
-   *   If the GitHub API token is provided, but is invalid.
-   */
-  public function getNextBuild(): ApiClientInterface;
-
 }

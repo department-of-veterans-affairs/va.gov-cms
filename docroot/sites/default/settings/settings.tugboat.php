@@ -64,7 +64,6 @@ $settings['va_gov_frontend_build_type'] = 'tugboat';
 $settings['va_gov_app_root'] = getenv('TUGBOAT_ROOT');
 $settings['va_gov_web_root'] = getenv('TUGBOAT_ROOT') . '/web';
 $settings['va_gov_vets_website_root'] = getenv('TUGBOAT_ROOT') . '/docroot/vendor/va-gov/vets-website';
-$settings['va_gov_next_build_root'] = getenv('TUGBOAT_ROOT')  . '/next';
 
 $settings['memcache']['servers'] = [
   'memcache:11211' => 'default',
