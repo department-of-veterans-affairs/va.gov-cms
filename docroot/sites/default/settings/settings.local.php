@@ -55,3 +55,6 @@ $settings['memcache']['servers'] = [
 $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
 
 $settings['va_cms_bot_github_auth_token'] = getenv('GITHUB_TOKEN') ?: 'fake-token';
+
+// Add development services at 'sites/development.services.yml'.
+$settings['container_yamls'][] = getenv('DDEV_APPROOT') . '/docroot/sites/development.services.yml';

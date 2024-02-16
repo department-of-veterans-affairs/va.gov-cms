@@ -11,6 +11,7 @@ use Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface;
 use Drupal\va_gov_content_release\Reporter\ReporterInterface;
 use Drupal\va_gov_content_release\Request\RequestInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * A version of the form allowing selection of a Git branch, tag, or commit.
@@ -79,6 +80,43 @@ class GitForm extends BaseForm {
    *   Object containing current form state.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $field_types = \Drupal::service('entity_field.manager')->getFieldMap();
+    $unique_field_types = []; // To store unique field types
+
+    // Collect unique field types
+    foreach ($field_types as $entity_type => $fields) {
+      foreach ($fields as $field_name => $field_info) {
+        $unique_field_types[$field_info['type']] = [
+          'fieldType' => $field_info['type'],
+          'enhancer' => [
+            'id' => '',
+            'settings' => null,
+          ],
+        ];
+      }
+    }
+
+    // Sort field types alphabetically by key
+    ksort($unique_field_types);
+
+    $config_data = [
+      'type' => 'config_entity',
+      'label' => 'JSON:API Field Type Config',
+      'mapping' => [
+        'disabled' => false,
+        'resourceFieldTypes' => $unique_field_types,
+      ],
+    ];
+
+
+    $yaml = Yaml::dump($config_data, 10, 2);
+    $config_dir = \Drupal::service('module_handler')
+        ->getModule('va_gov_api')
+        ->getPath() . '/config/install';
+    $filename = "$config_dir/jsonapi_extras.jsonapi_field_type_config.yml";
+    file_put_contents($filename, $yaml);
+
+
     $form = parent::buildForm($form, $form_state);
 
     $form['build_request']['actions']['#type'] = 'actions';
