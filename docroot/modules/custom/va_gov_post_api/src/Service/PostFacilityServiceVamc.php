@@ -347,6 +347,40 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   }
 
   /**
+   * Finds the best way to visit, among options chosen.
+   *
+   * @param string $office_visits
+   *   The machine value of the Office visits option.
+   */
+  protected function chooseBestOfficeVisitOption(string $office_visits) {
+    switch ($office_visits) {
+
+      case 'yes_with_or_without_appointment':
+        $text = $office_visits;
+        break;
+
+      case 'yes_first_come_first_served_basis':
+      case 'yes_appointment_only':
+        $text = ($this->officeVisits === 'yes_with_or_without_appointment')
+          ? $this->officeVisits
+          : $office_visits;
+        break;
+
+      case 'no':
+        $text = ($this->officeVisits === 'yes_with_or_without_appointment'
+        || $this->officeVisits === 'yes_first_come_first_served_basis'
+        || $this->officeVisits === 'yes_appointment_only')
+        ? $this->officeVisits
+        : $office_visits;
+        break;
+
+      default:
+        $text = $office_visits;
+    }
+    return $this->stringNullify($text);
+  }
+
+  /**
    * Builds the array of service locations.
    *
    * @return array
@@ -380,10 +414,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
         // Set the office visits policy to non-default for the service.
         $office_visits = $location->get('field_office_visits')->value;
-        $this->officeVisits = (($this->officeVisits !== "yes_with_or_without_appointment")
-          ||  !isset($this->officeVisits))
-          ? $this->stringNullify($office_visits)
-          : $this->officeVisits;
+        $this->officeVisits = $this->chooseBestOfficeVisitOption($office_visits);
 
         // Set the appointment text values to the non-default for the service.
         $field_appt_intro_text_type = $location->get('field_appt_intro_text_type')->value;
