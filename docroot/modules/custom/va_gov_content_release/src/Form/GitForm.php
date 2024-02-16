@@ -81,41 +81,39 @@ class GitForm extends BaseForm {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $field_types = \Drupal::service('entity_field.manager')->getFieldMap();
-    $unique_field_types = []; // To store unique field types
+    $unique_field_types = [];
 
-    // Collect unique field types
-    foreach ($field_types as $entity_type => $fields) {
-      foreach ($fields as $field_name => $field_info) {
+    // Collect unique field types.
+    foreach ($field_types as $fields) {
+      foreach ($fields as $field_info) {
         $unique_field_types[$field_info['type']] = [
           'fieldType' => $field_info['type'],
           'enhancer' => [
             'id' => '',
-            'settings' => null,
+            'settings' => NULL,
           ],
         ];
       }
     }
 
-    // Sort field types alphabetically by key
+    // Sort field types alphabetically by key.
     ksort($unique_field_types);
 
     $config_data = [
       'type' => 'config_entity',
       'label' => 'JSON:API Field Type Config',
       'mapping' => [
-        'disabled' => false,
+        'disabled' => FALSE,
         'resourceFieldTypes' => $unique_field_types,
       ],
     ];
 
-
     $yaml = Yaml::dump($config_data, 10, 2);
     $config_dir = \Drupal::service('module_handler')
-        ->getModule('va_gov_api')
-        ->getPath() . '/config/install';
+      ->getModule('va_gov_api')
+      ->getPath() . '/config/install';
     $filename = "$config_dir/jsonapi_extras.jsonapi_field_type_config.yml";
     file_put_contents($filename, $yaml);
-
 
     $form = parent::buildForm($form, $form_state);
 
