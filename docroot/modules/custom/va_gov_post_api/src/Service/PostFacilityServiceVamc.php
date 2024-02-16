@@ -53,9 +53,9 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   /**
    * Whether online scheduling is available.
    *
-   * @var bool
+   * @var string
    */
-  protected $isOnlineSchedulingAvail = FALSE;
+  protected $isOnlineSchedulingAvail = "";
 
   /**
    * Adds facility service data to Post API queue.
