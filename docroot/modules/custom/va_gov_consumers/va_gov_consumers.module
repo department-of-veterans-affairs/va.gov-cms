@@ -313,8 +313,10 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
     }
     elseif (isset($form['external_content'])) {
       // We want the external content to appear in the fieldgroup
-      // group_locations_and_contact_info on other node types.
+      // group_locations_and_contact_info on other node types
+      // and at the bottom when other elements are present.
       $form['group_locations_and_contact_info']['external_content'] = $form['external_content'];
+      $form['group_locations_and_contact_info']['external_content']['#weight'] = 10;
       unset($form['external_content']);
     }
   }
