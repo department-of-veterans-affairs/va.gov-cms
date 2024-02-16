@@ -435,7 +435,8 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
           : $this->getPhones($this->apptPhoneType, $location->get('field_other_phone_numbers')->referencedEntities());
 
         // Set the online scheduling value to yes for the service if so chosen.
-        $this->isOnlineSchedulingAvail = ($this->isOnlineSchedulingAvail !== 'false')
+        $this->isOnlineSchedulingAvail = ($this->isOnlineSchedulingAvail !== 'false'
+          && !empty($this->isOnlineSchedulingAvail))
           ? $this->isOnlineSchedulingAvail
           : $this->getOnlineScheduling($location->get('field_online_scheduling_avail')->value);
 
