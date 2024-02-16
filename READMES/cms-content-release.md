@@ -116,6 +116,7 @@ sequenceDiagram
     Complete->>+Ready: Content release workflow has completed
 ```
 
+
 # Environment specific details
 
 ## BRD Production
@@ -142,35 +143,6 @@ Currently, content releases cannot be requested nor dispatched from the staging 
 The Tugboat and local development versions of the release content page do not trigger a Github Actions workflow. Instead, they check out the latest version (or a specified branch or release) of the [frontend](https://github.com/department-of-veterans-affairs/content-build/), build it, and then perform a content release to the same environment that it was requested from (local environments will release content to the local environment, Tugboat environments will release content to that same Tugboat environment, etc).
 
 For more information on creating or releasing content from a preview environment, see [Environments](./environments.md).
-
-### Next Build Releases
-
-The upcoming static frontend "next-build" can be rebuilt using different versions of next-build and vets-website. It
-is a simpler process than the current content-build workflow.
-
-1. Go to "/admin/content/deploy/next".
-2. If the form elements are disabled, then a lock file exists preventing another build from being triggered. You
-   can skip to step #6.
-2. Choose a version for next-build or leave at default.
-3. Choose a version for vets-website or leave at default. When content-build is releasing, these form fields might
-   be disabled. We can't change the vets-website version while another frontend build is running.
-4. Click "Release Content" to set the versions of next-build and vets-website as well as write a "buildrequest" file.
-5. A `scripts/queue_runner/next_queue_runner.sh` script continuously runs in the background looking for the
-   "buildrequest" file and then start a build if found. Locally, the script has to be triggered manually. See the
-   [caveats](#caveats) section for more information.
-6. Back on "/admin/content/deploy/next" you can view the build log via a link in the "Status" section of the
-   "Next Build Information" block.
-7. Once the build completes no new build will be triggered until you click to release content again.
-8. View the frontend at the provided "View Preview" link in the "Next Build Information" block.
-
-#### Caveats
-
-There are some caveats to the process outlined above.
-
-- **Manually running the background script** - On `ddev` the `queue_runner` scripts aren't running continuously in
-  background jobs. So you must `ddev ssh && ./scripts/queue_runner/` to kick off the content build or next build
-  release locally. In the future, it might be a good idea to use `system.d` or `supervisor` or something else to
-  keep the background jobs going locally just like on Tugoboat.
 
 ## Troubleshooting
 

@@ -59,7 +59,7 @@ class RepositorySettings implements RepositorySettingsInterface {
     }
     $path = $this->settings->get($pathKey);
     if (empty($path)) {
-      throw new RepositoryPathNotSetException('Path not set for repository: ' . $name . ' (' . $pathKey . ')');
+      throw new RepositoryPathNotSetException('Path not set for repository: ' . $name);
     }
     return $path;
   }
