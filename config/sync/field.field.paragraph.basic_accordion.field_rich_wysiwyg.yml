@@ -8,19 +8,23 @@ dependencies:
   module:
     - allowed_formats
     - text
+    - tmgmt_content
 third_party_settings:
   allowed_formats:
     allowed_formats:
       - rich_text_limited
+  tmgmt_content:
+    excluded: false
 id: paragraph.basic_accordion.field_rich_wysiwyg
 field_name: field_rich_wysiwyg
 entity_type: paragraph
 bundle: basic_accordion
-label: 'Rich text'
-description: ''
+label: Content
+description: 'Accordion content should be kept succinct and follow <a href="https://design.va.gov/content-style-guide/" target="_blank">VA content guidance (opens in a new window)</a>.'
 required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats: {  }
 field_type: text_long

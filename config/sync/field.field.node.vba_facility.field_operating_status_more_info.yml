@@ -5,12 +5,17 @@ dependencies:
   config:
     - field.storage.node.field_operating_status_more_info
     - node.type.vba_facility
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: node.vba_facility.field_operating_status_more_info
 field_name: field_operating_status_more_info
 entity_type: node
 bundle: vba_facility
-label: 'Operating status - more info'
-description: "Up to 300 characters to provide additional information about the facility's operating status. "
+label: Details
+description: 'Add relevant details about how this status will impact Veterans and visitors.'
 required: false
 translatable: false
 default_value: {  }
