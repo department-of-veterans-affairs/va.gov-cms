@@ -280,6 +280,45 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   }
 
   /**
+   * Get the type of lead-in text, favoring the most specific.
+   *
+   * @param string $lead_in_type
+   *   The lead-in text type selected.
+   *
+   * @return string
+   *   The most specific lead-in text.
+   */
+  protected function getAppointmentLeadInType(string $lead_in_type) {
+
+    switch ($lead_in_type) {
+
+      case 'customize_text':
+        $text = $lead_in_type;
+        break;
+
+      case 'use_default_text':
+        $text = ($this->apptIntroType === 'customize_text')
+          ? $this->apptIntroType
+          : $lead_in_type;
+        break;
+
+      case 'remove_text':
+        $text = ($this->apptIntroType === 'customize_text'
+          || $this->apptIntroType === 'use_default_text')
+          ? $this->apptIntroType
+          : $lead_in_type;
+        break;
+
+      default:
+        $text = $lead_in_type;
+
+        break;
+    }
+
+    return $this->stringNullify($text);
+  }
+
+  /**
    * Gets the appropriate appointment intro text.
    *
    * @return string
@@ -418,9 +457,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
         // Set the appointment text values to the non-default for the service.
         $field_appt_intro_text_type = $location->get('field_appt_intro_text_type')->value;
-        $this->apptIntroType = ($this->apptIntroType === "customize_text")
-          ? $this->apptIntroType
-          : $field_appt_intro_text_type;
+        $this->apptIntroType = $this->getAppointmentLeadInType($field_appt_intro_text_type);
         $this->apptIntroText = (!empty($this->apptIntroText))
           ? $this->apptIntroText
           : $this->stringNullify($location->get('field_appt_intro_text_custom')->value);
