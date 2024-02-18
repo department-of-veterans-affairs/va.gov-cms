@@ -37,11 +37,13 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   protected $apptIntroText = "";
 
   /**
-   * The type of phone for appointments.
+   * If the "Use facility phone" was ever selected for appts.
    *
-   * @var string
+   * Options: Yes, No (which we convert to bools below).
+   *
+   * @var bool
    */
-  protected $apptPhoneType = "";
+  protected $facilityPhoneWasSelectedAppt = FALSE;
 
   /**
    * The phone data for appointments.
@@ -240,6 +242,41 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
     }
 
     return $payload;
+  }
+
+  /**
+   * Get appointment phones.
+   *
+   * @param string $phone_type
+   *   The type of phone for appointments.
+   *   Options: 0 (use other phone numbers), 1 (use facility number)
+   * @param array $appt_phone_numbers
+   *   The phone numbers from the appointment phone reference field.
+   *
+   * @return array
+   *   Array of appointment phone numbers.
+   */
+  protected function getApptPhones(string $phone_type, array $appt_phone_numbers = []) {
+    $appt_numbers_retrieved = [];
+    $map = [
+      // Let's map these numbers to their appropriate bools.
+      '0' => FALSE,
+      '1' => TRUE,
+    ];
+    $from_facility = $map[$phone_type];
+    // We only want to get the Facility phone once,
+    // so get the phones if $this->facilityPhoneWasSelectedAppt
+    // hasn't been set to true.
+    if ($from_facility && !$this->facilityPhoneWasSelectedAppt) {
+      $appt_numbers_retrieved = $this->getPhones($from_facility, $appt_phone_numbers);
+      $this->facilityPhoneWasSelectedAppt = TRUE;
+    }
+    // If the number is not from the facility, always get it.
+    if (!$from_facility) {
+      $appt_numbers_retrieved = $this->getPhones($from_facility, $appt_phone_numbers);
+    }
+
+    return $appt_numbers_retrieved;
   }
 
   /**
@@ -444,7 +481,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
         // Set the appointment phone values to the non-default for the service.
         $field_appt_phone_type = $location->get('field_use_facility_phone_number')->value;
-        $this->apptPhones[] = $this->getPhones($field_appt_phone_type, $location->get('field_other_phone_numbers')->referencedEntities());
+        $this->apptPhones[] = $this->getApptPhones($field_appt_phone_type, $location->get('field_other_phone_numbers')->referencedEntities());
 
         // Set the online scheduling value to yes for the service if so chosen.
         $this->isOnlineSchedulingAvail = ($this->isOnlineSchedulingAvail !== 'false'
