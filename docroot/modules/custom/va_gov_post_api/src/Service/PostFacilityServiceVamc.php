@@ -356,15 +356,28 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
    * @return string
    *   The type of service location text that the user chose.
    */
-  protected function getAppointmentPhoneType($from_facility = FALSE) {
+  protected function getAppointmentPhoneType($from_facility) {
+    // If the class property's already set to the actionable non-default,
+    // bail out.
+    if (!empty($this->apptPhoneType)) {
+      return $this->apptPhoneType;
+    }
     $map = [
       // Value => Return.
       // Lighthouse decided to receive these as strings since non-bool options.
       '0' => 'false',
       '1' => 'true',
     ];
-
     return $map[$from_facility];
+  }
+
+  protected function getAppointmentPhones(array $phone_paragraphs = []) {
+     // If the class property's already set to the actionable non-default,
+     // bail out.
+    if (!empty($this->apptPhones)) {
+      return $this->apptPhones;
+    }
+    return $this->getPhones($this->apptPhoneType, $phone_paragraphs);
   }
 
   /**
@@ -464,12 +477,9 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
         // Set the appointment phone values to the non-default for the service.
         $field_appt_phone_type = $location->get('field_use_facility_phone_number')->value;
-        $this->apptPhoneType = (!empty($this->apptPhoneType) && ($this->apptPhoneType === "false"))
-          ? $this->apptPhoneType
-          : $this->getAppointmentPhoneType($field_appt_phone_type);
-        $this->apptPhones = (!empty($this->apptPhones))
-          ? $this->apptPhones
-          : $this->getPhones($this->apptPhoneType, $location->get('field_other_phone_numbers')->referencedEntities());
+        $this->apptPhoneType = $this->getAppointmentPhoneType($field_appt_phone_type);
+        $this->apptPhones = $this->getAppointmentPhones($location->get('field_other_phone_numbers')->referencedEntities());
+
 
         // Set the online scheduling value to yes for the service if so chosen.
         $this->isOnlineSchedulingAvail = ($this->isOnlineSchedulingAvail !== 'false'
