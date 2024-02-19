@@ -65,4 +65,11 @@ class RepositoryFactory implements RepositoryFactoryInterface {
     return $this->get(RepositorySettingsInterface::VETS_WEBSITE);
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getNextBuild(): RepositoryInterface {
+    return $this->get(RepositorySettingsInterface::NEXT_BUILD);
+  }
+
 }

@@ -16,6 +16,14 @@ va_gov_content_release.form.git:
   requirements:
     _permission: "va gov deploy content build"
 
+va_gov_content_release.form.next_git:
+  path: "/admin/content/deploy/next"
+  defaults:
+    _title: 'Next Build manual content release'
+    _form: '\Drupal\va_gov_content_release\Form\NextGitForm'
+  requirements:
+    _permission: "va gov deploy content build"
+
 va_gov_content_release.form.simple:
   path: "/admin/content/deploy/simple"
   defaults:
