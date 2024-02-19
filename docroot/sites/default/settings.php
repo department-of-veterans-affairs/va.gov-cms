@@ -126,6 +126,7 @@ $settings['va_gov_path_to_composer'] = '/usr/local/bin/composer';
 $settings['va_gov_web_root'] = '/var/www/cms/web';
 $settings['va_gov_app_root'] = '/var/www/cms';
 $settings['va_gov_vets_website_root'] = '/var/www/cms/docroot/vendor/va-gov/vets-website';
+$settings['va_gov_next_build_root'] = '../next';
 
 // Defaults (should only be local that doesn't set these), default to dev for config_split
 $config['config_split.config_split.dev']['status'] = TRUE;

@@ -10,10 +10,11 @@ use Drupal\va_gov_git\Repository\RepositoryInterface;
  * This service provides a way to create services corresponding to specific Git
  * repositories.
  *
- * At this time, we're primarily interested in three repositories:
+ * At this time, we're primarily interested in four repositories:
  * - The `va.gov-cms` repository.
  * - The `content-build` repository.
  * - The `vets-website` repository.
+ * - The `next-build` repository.
  */
 interface RepositoryFactoryInterface {
 
@@ -54,5 +55,13 @@ interface RepositoryFactoryInterface {
    *   The vets-website repository.
    */
   public function getVetsWebsite(): RepositoryInterface;
+
+  /**
+   * Get the next-build repository.
+   *
+   * @return \Drupal\va_gov_git\Repository\RepositoryInterface
+   *   The next-build repository.
+   */
+  public function getNextBuild(): RepositoryInterface;
 
 }
