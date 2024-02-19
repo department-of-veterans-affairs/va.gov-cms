@@ -45,8 +45,6 @@ services:
       - '@va_gov_git.branch_search.vets_website'
       - '@va_gov_github.api_client.vets_website'
       - '@logger.factory'
-      - '@va_gov_git.branch_search.next_build'
-      - '@va_gov_github.api_client.next_build'
   va_gov_content_release.entity_event_subscriber:
     class: Drupal\va_gov_content_release\EventSubscriber\EntityEventSubscriber
     arguments:

@@ -16,3 +16,7 @@ if (!empty($memcache_nodes)) {
 }
 
 $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
+
+// Update next-build site endpoint to the appropriate preview alias
+$config['next.next_site.next_build_preview_server']['base_url'] = getenv('NEXT_BUILD_PREVIEW_HOSTNAME');
+$config['next.next_site.next_build_preview_server']['preview_url'] = getenv('NEXT_BUILD_PREVIEW_HOSTNAME') . 'api/preview';
