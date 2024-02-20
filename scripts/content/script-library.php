@@ -317,6 +317,17 @@ function script_library_sandbox_init(array &$sandbox, $counter_callback, array $
       $sandbox['items_to_process'] = call_user_func_array($counter_callback, $callback_args);
       $sandbox['total'] = count($sandbox['items_to_process']);
       $sandbox['current'] = 0;
+      $sandbox['multi_run_state_key'] = "script_library_$counter_callback";
+
+      // This seems like the first run, see if there is already a state saved
+      // from a previous attempt.
+      $last_run_completed = \Drupal::state()->get($sandbox['multi_run_state_key']);
+      if (!is_null($last_run_completed)) {
+        // A state exists, so alter the 'current' and 'items_to_process'.
+        $sandbox['current'] = $last_run_completed + 1;
+        // Remove the last successful run, and all that came before it.
+        $sandbox['items_to_process'] = array_slice($sandbox['items_to_process'], $last_run_completed);
+      }
     }
     else {
       // Something went wrong could not use callback. Throw exception.
@@ -325,6 +336,7 @@ function script_library_sandbox_init(array &$sandbox, $counter_callback, array $
       );
     }
   }
+  $sandbox['element'] = array_key_first($sandbox['items_to_process']);
 }
 
 /**
@@ -341,17 +353,23 @@ function script_library_sandbox_init(array &$sandbox, $counter_callback, array $
 function script_library_sandbox_complete(array &$sandbox, $completed_message) {
   // Determine when to stop batching.
   $sandbox['current'] = ($sandbox['total'] - count($sandbox['items_to_process']));
+  // Save the 'current' value to state, to record a successful run.
+  \Drupal::state()->set($sandbox['multi_run_state_key'], $sandbox['current']);
   $sandbox['#finished'] = (empty($sandbox['total'])) ? 1 : ($sandbox['current'] / $sandbox['total']);
   $vars = [
     '@completed' => $sandbox['current'],
+    '@element' => $sandbox['element'],
     '@total' => $sandbox['total'],
   ];
-  $message = t('Processing... @completed/@total.', $vars) . PHP_EOL;
+
+  $message = t('Processed @element. @completed/@total.', $vars) . PHP_EOL;
   // Log the all finished notice.
   if ($sandbox['#finished'] === 1) {
-    Drupal::logger('va_gov_vamc')->log(LogLevel::INFO, $completed_message, $vars);
+    Drupal::logger('script_library')->log(LogLevel::INFO, $completed_message, $vars);
     $logged_message = new FormattableMarkup($completed_message, $vars);
     $message = t('Process completed:') . " {$logged_message}" . PHP_EOL;
+    // Delete the state as it is no longer needed.
+    \Drupal::state()->delete($sandbox['multi_run_state_key']);
   }
   return $message;
 }
