@@ -154,7 +154,7 @@ is a simpler process than the current content-build workflow.
 2. Choose a version for next-build or leave at default.
 3. Choose a version for vets-website or leave at default. When content-build is releasing, these form fields might
    be disabled. We can't change the vets-website version while another frontend build is running.
-4. Click "Release Content" to set the versions of next-build and vets-website as well as write a "buildrequest" file.
+4. Click "Restart Next Build Server" to set the versions of next-build and vets-website as well as write a "buildrequest" file.
 5. A `scripts/queue_runner/next_queue_runner.sh` script continuously runs in the background looking for the
    "buildrequest" file and then start a build if found. Locally, the script has to be triggered manually. See the
    [caveats](#caveats) section for more information.
