@@ -15,7 +15,7 @@ interface RepositorySettingsInterface {
   const CONTENT_BUILD = 'content-build';
   const VETS_WEBSITE = 'vets-website';
   const NEXT_BUILD = 'next-build';
-  const NEXT_VETS_WEBSITE = 'next-vets-website';
+  const NEXT_VETS_WEBSITE = 'vets-website';
 
   const REPOSITORY_NAMES = [
     self::VA_GOV_CMS,
@@ -39,7 +39,7 @@ interface RepositorySettingsInterface {
     self::CONTENT_BUILD => self::CONTENT_BUILD_PATH_KEY,
     self::VETS_WEBSITE => self::VETS_WEBSITE_PATH_KEY,
     self::NEXT_BUILD => self::NEXT_BUILD_PATH_KEY,
-    self::NEXT_VETS_WEBSITE => self::NEXT_VETS_WEBSITE_PATH_KEY,
+    'next-vets-website' => self::NEXT_VETS_WEBSITE_PATH_KEY,
   ];
 
   /**
