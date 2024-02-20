@@ -15,6 +15,7 @@ find . \
     -path './docroot/vendor/va-gov/content-build/.git' \
     -or -path './docroot/vendor/va-gov/vets-website/.git' \
     -or -path './next/.git' \
+    -or -path './vets-website/.git' \
   \) \
   -print \
   -exec rm -rf {} +

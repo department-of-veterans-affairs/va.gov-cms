@@ -39,7 +39,7 @@ logfile="${filesdir}/next-build.txt"
 next_build_version=$(drush va-gov-content-release:frontend-version:get next_build | tail -1)
 
 # The currently selected version of vets-website (may be "__default", a PR#, or a git ref)
-vets_website_version=$(drush va-gov-content-release:frontend-version:get vets_website | tail -1)
+vets_website_version=$(drush va-gov-content-release:frontend-version:get next_vets_website | tail -1)
 
 # Create a fresh log file.
 [ -f "${logfile}" ] && rm ${logfile}
@@ -83,7 +83,7 @@ composer va:next:install &>> ${logfile}
 # Get the requested vets-website version
 if [ "${vets_website_version}" != "__default" ]; then
   echo "==> Checking out the requested vets-website version" >> ${logfile}
-  pushd ${reporoot}/docroot/vendor/va-gov/vets-website
+  pushd ${reporoot}/vets-website
   if echo "$vets_website_version" | grep -qE '^[0-9]+$' > /dev/null; then
     echo "==> Checking out PR #${vets_website_version}"
     git fetch origin pull/${vets_website_version}/head &>> ${logfile}
