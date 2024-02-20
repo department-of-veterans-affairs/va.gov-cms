@@ -36,4 +36,8 @@ services:
     class: Drupal\va_gov_git\BranchSearch\BranchSearch
     factory: [ '@va_gov_git.branch_search_factory', 'getNextBuild' ]
     arguments: []
+  va_gov_git.branch_search.next_vets_website:
+    class: Drupal\va_gov_git\BranchSearch\BranchSearch
+    factory: [ '@va_gov_git.branch_search_factory', 'getNextVetsWebsite' ]
+
 

@@ -48,6 +48,7 @@ class RepositorySettingsTest extends VaGovExistingSiteBase {
     $this->assertEquals(RepositorySettingsInterface::PATH_KEYS['content-build'], $repositorySettings->getPathKey('content-build'));
     $this->assertEquals(RepositorySettingsInterface::PATH_KEYS['vets-website'], $repositorySettings->getPathKey('vets-website'));
     $this->assertEquals(RepositorySettingsInterface::PATH_KEYS['next-build'], $repositorySettings->getPathKey('next-build'));
+    $this->assertEquals(RepositorySettingsInterface::PATH_KEYS['next-vets-website'], $repositorySettings->getPathKey('next-vets-website'));
   }
 
   /**
@@ -73,6 +74,10 @@ class RepositorySettingsTest extends VaGovExistingSiteBase {
       [
         'name' => RepositorySettingsInterface::NEXT_BUILD,
         'path' => Settings::get('va_gov_next_build_root'),
+      ],
+      [
+        'name' => RepositorySettingsInterface::NEXT_VETS_WEBSITE,
+        'path' => Settings::get('va_gov_next_vets_website_root'),
       ],
     ], $repositorySettings->list());
   }
