@@ -15,11 +15,14 @@ interface RepositorySettingsInterface {
   const CONTENT_BUILD = 'content-build';
   const VETS_WEBSITE = 'vets-website';
   const NEXT_BUILD = 'next-build';
+  const NEXT_VETS_WEBSITE = 'next-vets-website';
+
   const REPOSITORY_NAMES = [
     self::VA_GOV_CMS,
     self::CONTENT_BUILD,
     self::VETS_WEBSITE,
     self::NEXT_BUILD,
+    self::NEXT_VETS_WEBSITE,
   ];
 
   // Settings keys for the repositories' filesystem paths.
@@ -29,12 +32,14 @@ interface RepositorySettingsInterface {
   const CONTENT_BUILD_PATH_KEY = 'va_gov_web_root';
   const VETS_WEBSITE_PATH_KEY = 'va_gov_vets_website_root';
   const NEXT_BUILD_PATH_KEY = 'va_gov_next_build_root';
+  const NEXT_VETS_WEBSITE_PATH_KEY = 'va_gov_next_vets_website_root';
 
   const PATH_KEYS = [
     self::VA_GOV_CMS => self::VA_GOV_CMS_PATH_KEY,
     self::CONTENT_BUILD => self::CONTENT_BUILD_PATH_KEY,
     self::VETS_WEBSITE => self::VETS_WEBSITE_PATH_KEY,
     self::NEXT_BUILD => self::NEXT_BUILD_PATH_KEY,
+    self::NEXT_VETS_WEBSITE => self::NEXT_VETS_WEBSITE_PATH_KEY,
   ];
 
   /**

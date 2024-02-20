@@ -9,7 +9,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\State\State;
 use Drupal\Core\Url;
-use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Drupal\va_gov_content_release\Frontend\Frontend;
 use Drupal\va_gov_content_release\Frontend\FrontendInterface;
 use Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface;
@@ -121,7 +120,7 @@ class NextGitForm extends FormBase {
       ],
     ];
 
-    $form['build_request']['vets_website_selection'] = [
+    $form['build_request']['next_vets_website_selection'] = [
       '#title' => $this->t('Which version of vets-website would you like to use?'),
       '#type' => 'radios',
       '#options' => [
@@ -131,20 +130,20 @@ class NextGitForm extends FormBase {
       '#default_value' => 'default',
     ];
 
-    $form['build_request']['vets_website_git_ref'] = [
+    $form['build_request']['next_vets_website_git_ref'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Select branch/pull request'),
       '#description' => $this->t('Start typing to select a branch for the vets-website version you want to use. Note: this vets-website branch is not connected to the vets-website branch used by content-build on this Tugboat instance. If you are testing vets-website changes with both next-build and content-build, both will need the branch updated.'),
       '#autocomplete_route_name' => 'va_gov_content_release.frontend_version_autocomplete',
       '#autocomplete_route_parameters' => [
-        'frontend' => 'vets_website',
+        'frontend' => 'next_vets_website',
         'count' => 10,
       ],
       '#size' => 72,
       '#maxlength' => 1024,
       '#hidden' => TRUE,
       '#states' => [
-        'visible' => [':input[name="vets_website_selection"]' => ['value' => 'choose']],
+        'visible' => [':input[name="next_vets_website_selection"]' => ['value' => 'choose']],
       ],
     ];
 
@@ -155,19 +154,12 @@ class NextGitForm extends FormBase {
       '#button_type' => 'primary',
     ];
 
-    // Lock the vets-website form fields if a content-build is in progress.
-    $build_status = $this->state->get('va_gov_build_trigger.release_state');
-    if ($build_status !== ReleaseStateManager::STATE_READY) {
-      $form['build_request']['vets_website_selection']['#disabled'] = TRUE;
-      $form['build_request']['vets_website_git_ref']['#disabled'] = TRUE;
-    }
-
     // Disable form changes and submission if a build is in progress.
     if (file_exists($this->fileSystem->realpath('public://' . self::LOCK_FILE_NAME))) {
       $form['build_request']['next_build_selection']['#disabled'] = TRUE;
       $form['build_request']['next_build_git_ref']['#disabled'] = TRUE;
-      $form['build_request']['vets_website_selection']['#disabled'] = TRUE;
-      $form['build_request']['vets_website_git_ref']['#disabled'] = TRUE;
+      $form['build_request']['next_vets_website_selection']['#disabled'] = TRUE;
+      $form['build_request']['next_vets_website_git_ref']['#disabled'] = TRUE;
       $form['build_request']['actions']['submit']['#disabled'] = TRUE;
 
       $target_url = Url::fromUserInput("/sites/default/files/next-build.txt");
@@ -181,7 +173,7 @@ class NextGitForm extends FormBase {
     $lock_file_text = $this->getFileLink(self::LOCK_FILE_NAME);
     $request_file_text = $this->getFileLink(self::REQUEST_FILE_NAME);
     $next_build_version = $this->frontendVersion->getVersion(Frontend::NextBuild);
-    $vets_website_version = $this->frontendVersion->getVersion(Frontend::VetsWebsite);
+    $vets_website_version = $this->frontendVersion->getVersion(Frontend::NextVetsWebsite);
     $view_preview = $this->getPreviewLink();
     $last_build_time = $this->state->get('next_build.status.last_build_date', 'N/A');
     $form['content_release_status_block'] = [
@@ -271,7 +263,7 @@ class NextGitForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->submitFormForFrontend(Frontend::NextBuild, $form_state);
-    $this->submitFormForFrontend(Frontend::VetsWebsite, $form_state);
+    $this->submitFormForFrontend(Frontend::NextVetsWebsite, $form_state);
 
     $lock_file = $this->fileSystem->realpath('public://' . self::LOCK_FILE_NAME);
     if (file_exists($lock_file)) {
@@ -313,7 +305,7 @@ class NextGitForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $this->validateFormForFrontend(Frontend::NextBuild, $form_state);
-    $this->validateFormForFrontend(Frontend::VetsWebsite, $form_state);
+    $this->validateFormForFrontend(Frontend::NextVetsWebsite, $form_state);
   }
 
   /**
