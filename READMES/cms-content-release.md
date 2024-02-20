@@ -160,7 +160,7 @@ is a simpler process than the current content-build workflow.
    [caveats](#caveats) section for more information.
 6. Back on "/admin/content/deploy/next" you can view the server restart log via a link in the "Status" section of the
    "Next Build Information" block.
-7. Once the build completes no new build will be triggered until you click to release content again.
+7. Once the restart completes no new restart will be triggered unless you request another restart.
 8. View the frontend at the provided "View Preview" link in the "Next Build Information" block.
 
 #### Caveats
