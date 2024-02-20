@@ -158,7 +158,7 @@ is a simpler process than the current content-build workflow.
 5. A `scripts/queue_runner/next_queue_runner.sh` script continuously runs in the background looking for the
    "buildrequest" file and then start a build if found. Locally, the script has to be triggered manually. See the
    [caveats](#caveats) section for more information.
-6. Back on "/admin/content/deploy/next" you can view the build log via a link in the "Status" section of the
+6. Back on "/admin/content/deploy/next" you can view the server restart log via a link in the "Status" section of the
    "Next Build Information" block.
 7. Once the build completes no new build will be triggered until you click to release content again.
 8. View the frontend at the provided "View Preview" link in the "Next Build Information" block.
