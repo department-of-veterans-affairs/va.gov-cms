@@ -90,7 +90,7 @@ class NextGitForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['build_request']['description'] = [
       '#prefix' => '<br><p>',
-      '#markup' => $this->t('Release content to update the front end of this environment with the latest published content changes.'),
+      '#markup' => $this->t('Choose specific branches for the next-build preview server and restart the server. Note: this does not perform any content-build actions.'),
       '#suffix' => '</p>',
     ];
 
@@ -134,7 +134,7 @@ class NextGitForm extends FormBase {
     $form['build_request']['vets_website_git_ref'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Select branch/pull request'),
-      '#description' => $this->t('Start typing to select a branch for the vets-website version you want to use.'),
+      '#description' => $this->t('Start typing to select a branch for the vets-website version you want to use. Note: this vets-website branch is not connected to the vets-website branch used by content-build on this Tugboat instance. If you are testing vets-website changes with both next-build and content-build, both will need the branch updated.'),
       '#autocomplete_route_name' => 'va_gov_content_release.frontend_version_autocomplete',
       '#autocomplete_route_parameters' => [
         'frontend' => 'vets_website',
@@ -151,7 +151,7 @@ class NextGitForm extends FormBase {
     $form['build_request']['actions']['#type'] = 'actions';
     $form['build_request']['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Release Content'),
+      '#value' => $this->t('Restart Next Build Server'),
       '#button_type' => 'primary',
     ];
 
