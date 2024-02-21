@@ -48,6 +48,7 @@ class RepositorySettingsTest extends VaGovExistingSiteBase {
     $this->assertEquals(RepositorySettingsInterface::PATH_KEYS['content-build'], $repositorySettings->getPathKey('content-build'));
     $this->assertEquals(RepositorySettingsInterface::PATH_KEYS['vets-website'], $repositorySettings->getPathKey('vets-website'));
     $this->assertEquals(RepositorySettingsInterface::PATH_KEYS['next-build'], $repositorySettings->getPathKey('next-build'));
+    $this->assertEquals(RepositorySettingsInterface::PATH_KEYS['next-vets-website'], $repositorySettings->getPathKey('next-vets-website'));
   }
 
   /**
