@@ -51,15 +51,9 @@ echo "next-build version: ${next_build_version}" >> ${logfile}
 echo "vets-website version: ${vets_website_version}" >> ${logfile}
 
 # Tell the frontend (and the user) that we're starting.
-#drush va-gov:content-release:advance-state starting
 echo "==> Starting a frontend build. This file will be updated as the build progresses." >> ${logfile}
 
-# Reset the repos to defaults.
-#echo "==> Resetting VA repos to default versions" >> ${logfile}
-#rm -rf ${reporoot}/docroot/vendor/va-gov
-#composer install --no-scripts &>> ${logfile}
-
-# Get the requested next-build version
+# Get the requested next-build version.
 if [ "${next_build_version}" != "__default" ]; then
   echo "==> Checking out the requested frontend version" >> ${logfile}
   pushd ${reporoot}/next
@@ -99,13 +93,7 @@ fi
 
 # Run the build.
 echo "==> Starting build" >> ${logfile}
-#drush va-gov:content-release:advance-state inprogress
 composer va:next:build &>> ${logfile}
-
-# Advance the state in the frontend so another build can start.
-echo "==> Build complete" >> ${logfile}
-#drush va-gov:content-release:advance-state complete
-#drush va-gov:content-release:advance-state ready
 
 # After this point, we are less concerned with errors; the build has completed.
 set +e
