@@ -8,7 +8,10 @@ source ~/.bashrc
 # Installs & builds vets-website dependencies for next-build preview.
 #if [ ! -d docroot/vendor/va-gov/vets-website ]; then
 if [ ! -d vets-website ]; then
-  git clone --single-branch --depth 1 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
+  # Clone full so git information is available for content release form.
+  # I don't think this should be necessary, but branch information was not
+  # available in the content release form until I pulled down all information.
+  git clone https://github.com/department-of-veterans-affairs/vets-website.git vets-website
 else
   echo "Repo vets-website already cloned."
 fi
