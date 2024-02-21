@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_backend\Logger\Processor;
 
 use Drupal\va_gov_backend\Service\DatadogContextProviderInterface;
+use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
 
 /**
@@ -100,7 +101,7 @@ class DatadogApmProcessor implements ProcessorInterface {
   /**
    * {@inheritdoc}
    */
-  public function __invoke(array $record): array {
+  public function __invoke(LogRecord $record): array {
     if (!$this->shouldAlterRecord($record)) {
       return $record;
     }
