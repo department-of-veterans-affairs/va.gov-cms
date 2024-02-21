@@ -22,6 +22,7 @@ interface RepositorySettingsInterface {
     self::CONTENT_BUILD,
     self::VETS_WEBSITE,
     self::NEXT_BUILD,
+    self::NEXT_VETS_WEBSITE,
   ];
 
   // Settings keys for the repositories' filesystem paths.
