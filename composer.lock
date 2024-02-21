@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f007998a29adf11a319f62126b2dd24",
+    "content-hash": "c0265aabcf4e876c01f286498a53d195",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2189,6 +2189,67 @@
                 }
             ],
             "time": "2023-05-17T18:32:04+00:00"
+        },
+        {
+            "name": "dragonmantank/cron-expression",
+            "version": "v3.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dragonmantank/cron-expression.git",
+                "reference": "adfb1f505deb6384dc8b39804c5065dd3c8c8c0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/adfb1f505deb6384dc8b39804c5065dd3c8c8c0a",
+                "reference": "adfb1f505deb6384dc8b39804c5065dd3c8c8c0a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0",
+                "webmozart/assert": "^1.0"
+            },
+            "replace": {
+                "mtdowling/cron-expression": "^1.0"
+            },
+            "require-dev": {
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^1.0",
+                "phpstan/phpstan-webmozart-assert": "^1.0",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cron\\": "src/Cron/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Tankersley",
+                    "email": "chris@ctankersley.com",
+                    "homepage": "https://github.com/dragonmantank"
+                }
+            ],
+            "description": "CRON for PHP: Calculate the next or previous run date and determine if a CRON expression is due",
+            "keywords": [
+                "cron",
+                "schedule"
+            ],
+            "support": {
+                "issues": "https://github.com/dragonmantank/cron-expression/issues",
+                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.3.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/dragonmantank",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-08-10T19:36:49+00:00"
         },
         {
             "name": "drupal/address",
@@ -5023,6 +5084,174 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/easy_breadcrumb",
                 "issues": "https://www.drupal.org/project/issues/easy_breadcrumb"
+            }
+        },
+        {
+            "name": "drupal/eca",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/eca.git",
+                "reference": "1.1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/eca-1.1.4.zip",
+                "reference": "1.1.4",
+                "shasum": "fce478b8c6224997dc858bff1f8f57523c870de7"
+            },
+            "require": {
+                "dragonmantank/cron-expression": "^3.1",
+                "drupal/core": "^9.4 || ^10",
+                "ext-dom": "*",
+                "ext-json": "*",
+                "mtownsend/xml-to-array": "^2.0",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "drupal/eca_ui": "*",
+                "drupal/token": "^1.10"
+            },
+            "suggest": {
+                "drupal/context_stack": "Integrates ECA with Context Stacks for more fine-grained control",
+                "drupal/eca_state_machine": "Integrates ECA with State Machine functionality",
+                "drupal/eca_tamper": "Integrates ECA with the Tamper API",
+                "drupal/entity_share": "Integrates ECA with Entity Share functionality",
+                "drupal/group_action": "Integrates ECA with Group Actions if you're using groups",
+                "drupal/token": "Provides the token browser in the UI and offers more token values"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.4",
+                    "datestamp": "1689338278",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10 || ^11"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "boromino",
+                    "homepage": "https://www.drupal.org/user/859722"
+                },
+                {
+                    "name": "danielspeicher",
+                    "homepage": "https://www.drupal.org/user/3621778"
+                },
+                {
+                    "name": "jurgenhaas",
+                    "homepage": "https://www.drupal.org/user/168924"
+                }
+            ],
+            "description": "Event, Conditions, Actions - powerful, versatile, and user-friendly rules engine for Drupal",
+            "homepage": "https://www.drupal.org/project/eca",
+            "support": {
+                "source": "https://drupal.org/project/eca",
+                "issues": "https://drupal.org/project/issues/eca"
+            }
+        },
+        {
+            "name": "drupal/eca_cm",
+            "version": "1.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/eca_cm.git",
+                "reference": "1.0.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/eca_cm-1.0.7.zip",
+                "reference": "1.0.7",
+                "shasum": "86d9866232c41fbd71573b88f42bcb270bfcd3dc"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10",
+                "drupal/eca": "^1",
+                "drupal/eca_ui": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.7",
+                    "datestamp": "1692266259",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "mxh",
+                    "homepage": "https://www.drupal.org/user/1124384"
+                },
+                {
+                    "name": "qichanghai",
+                    "homepage": "https://www.drupal.org/user/3092355"
+                }
+            ],
+            "description": "A Drupal module that provides a modeller for ECA solely built on top of Drupal core and ECA core.",
+            "homepage": "https://www.drupal.org/project/eca_cm",
+            "support": {
+                "source": "https://drupal.org/project/eca_cm",
+                "issues": "https://drupal.org/project/issues/eca_cm"
+            }
+        },
+        {
+            "name": "drupal/eca_ui",
+            "version": "1.1.4",
+            "require": {
+                "drupal/core": "^9 || ^10",
+                "drupal/eca": "*"
+            },
+            "type": "metapackage",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.4",
+                    "datestamp": "1689338278",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "boromino",
+                    "homepage": "https://www.drupal.org/user/859722"
+                },
+                {
+                    "name": "danielspeicher",
+                    "homepage": "https://www.drupal.org/user/3621778"
+                },
+                {
+                    "name": "jurgenhaas",
+                    "homepage": "https://www.drupal.org/user/168924"
+                }
+            ],
+            "description": "Provides a user interface for managing ECA models.",
+            "homepage": "https://www.drupal.org/project/eca",
+            "support": {
+                "source": "https://git.drupalcode.org/project/eca"
             }
         },
         {
@@ -10021,6 +10250,10 @@
                 {
                     "name": "shadcn",
                     "homepage": "https://shadcn.com"
+                },
+                {
+                    "name": "minnur",
+                    "homepage": "https://www.drupal.org/user/702026"
                 },
                 {
                     "name": "roaguicr",
@@ -16957,6 +17190,59 @@
                 }
             ],
             "time": "2023-10-27T15:25:26+00:00"
+        },
+        {
+            "name": "mtownsend/xml-to-array",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mtownsend5512/xml-to-array.git",
+                "reference": "0734720a8462dba36d90fb8b2723bf46af0091f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mtownsend5512/xml-to-array/zipball/0734720a8462dba36d90fb8b2723bf46af0091f4",
+                "reference": "0734720a8462dba36d90fb8b2723bf46af0091f4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~7.0|~8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Mtownsend\\XmlToArray\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Townsend",
+                    "email": "mtownsend5512@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily convert valid xml to a php array.",
+            "keywords": [
+                "array",
+                "convert",
+                "laravel",
+                "xml"
+            ],
+            "support": {
+                "issues": "https://github.com/mtownsend5512/xml-to-array/issues",
+                "source": "https://github.com/mtownsend5512/xml-to-array/tree/2.0.0"
+            },
+            "time": "2021-02-27T22:39:18+00:00"
         },
         {
             "name": "myclabs/deep-copy",
