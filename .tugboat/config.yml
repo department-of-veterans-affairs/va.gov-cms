@@ -226,13 +226,6 @@ services:
         - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
         - chmod +x /etc/service/drupal_events/run
 
-        # Separate process for next-build preview.
-        - mkdir -p /etc/service/next_build
-        - mv "${TUGBOAT_ROOT}/scripts/queue_runner/next_queue_runner.sh" /etc/service/next_build/run
-        - chmod +x /etc/service/next_build/run
-        # Need to make build script executable so the runner can run it.
-        - chmod +x "${TUGBOAT_ROOT}/scripts/next-build-frontend.sh"
-
       clone:
         # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
         - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
