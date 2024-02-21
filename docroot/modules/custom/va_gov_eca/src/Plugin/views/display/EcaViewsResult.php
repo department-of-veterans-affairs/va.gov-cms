@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_notifications\Plugin\views\display;
+namespace Drupal\va_gov_eca\Plugin\views\display;
 
 use Drupal\views\Plugin\views\display\DefaultDisplay;
 
@@ -15,12 +15,12 @@ use Drupal\views\Plugin\views\display\DefaultDisplay;
  *
  * @ViewsDisplay(
  *   id = "va_gov_notifications_eca_view",
- *   title = @Translation("ECA View"),
+ *   title = @Translation("ECA Result"),
  *   help = @Translation("Views diplay plugin for ECA."),
  *   theme = "views_view",
  *   register_theme = FALSE,
  *   uses_menu_links = FALSE,
- *   eca_view_display = TRUE
+ *   eca_views_display = TRUE
  * )
  */
 class EcaViewsResult extends DefaultDisplay {
