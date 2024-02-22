@@ -57,6 +57,10 @@ echo "==> Starting a frontend build. This file will be updated as the build prog
 if [ "${next_build_version}" != "__default" ]; then
   echo "==> Checking out the requested frontend version" >> ${logfile}
   pushd ${reporoot}/next
+
+  # Stash any local changes.
+  git stash &>> ${logfile}
+
   if echo "${next_build_version}" | grep -qE '^[0-9]+$' > /dev/null; then
     echo "==> Checking out PR #${next_build_version}"
     git fetch origin pull/${next_build_version}/head &>> ${logfile}
@@ -65,6 +69,10 @@ if [ "${next_build_version}" != "__default" ]; then
     git fetch origin ${next_build_version} &>> ${logfile}
   fi
   git checkout FETCH_HEAD &>> ${logfile}
+
+  # Pop the stash if we stashed anything.
+  git stash pop &>> ${logfile}
+
   popd
 else
   echo "==> Using default next-build version" >> ${logfile}
