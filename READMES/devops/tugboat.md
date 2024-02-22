@@ -56,6 +56,20 @@ Shelling into the Tugboat server can be accomplished with `ssm-session tugboat u
 2. Suspend older previews. This normally happens automatically (for Pull Request-based previews that haven't been touched in some period of time), but a flurry of previews might have been created inadvertently.
 3. Consider upscaling the Tugboat server or migrating to an alternative architecture.
 
+### Previews inaccessible
+**Symptoms**: Requests to Tugboat previews, i.e. cms- pr pr- return 502/504 status codes or time out.
+
+**Verification**: 
+
+1. Log into the Tugboat server (`ssm-session utility tugboat auto`).
+2. Check system load and free memory (e.g. `top`).
+3. If load is NOT incredibly high, and available memory is NOT very low, then the Tugboat server might be dealing with a proxy issue.
+
+**Remediation**:
+
+1. Run `tbctl restart proxy` and `tbctl restart traefik`
+
+
 ## 🚨 Warning 🚨
 
 Note that the "training" environment (https://training.cms.va.gov/) is the source of truth for who has and who has not completed the editorial training; it should not be rebuilt or otherwise tampered with without previously discussing with Helpdesk.
