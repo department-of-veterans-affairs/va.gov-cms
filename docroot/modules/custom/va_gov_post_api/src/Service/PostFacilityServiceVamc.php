@@ -427,6 +427,45 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   }
 
   /**
+   * Sets all the service-level class properties.
+   *
+   * The purpose of setting the class properties from the Service
+   * location is to ensure that the non-default, most specific or most
+   * Veteran-friendly value of any of these fields is set at the Service
+   * level for the payload.
+   *
+   * @param \Drupal\paragraphs\Entity\Paragraph $service_location
+   *   The service location.
+   */
+  protected function setServiceLevelProperties(Paragraph $service_location) {
+    // Set the office visits policy to non-default for the service.
+    $field_office_visits = $service_location->get('field_office_visits')->value;
+    $this->officeVisits = $this->chooseBestOfficeVisitOption($field_office_visits);
+
+    // Set the appointment text values to the non-default for the service.
+    $field_appt_intro_text_type = $service_location->get('field_appt_intro_text_type')->value;
+    $this->apptIntroType = $this->getAppointmentLeadInType($field_appt_intro_text_type);
+    $this->apptIntroText = (!empty($this->apptIntroText))
+      ? $this->apptIntroText
+      : $this->stringNullify($service_location->get('field_appt_intro_text_custom')->value);
+
+    // Get all the phones for appointments,
+    // but no duplicate facility numbers.
+    $field_appt_phone_type = $service_location->get('field_use_facility_phone_number')->value;
+    if (($field_appt_phone_type === '1' && !$this->facilityPhoneWasSelectedAppt)
+      || ($field_appt_phone_type === '0')) {
+      $this->apptPhones[] = $this->getApptPhones($field_appt_phone_type, $service_location->get('field_other_phone_numbers')->referencedEntities());
+    }
+
+    // Set the online scheduling value to yes for the service if so chosen.
+    $this->isOnlineSchedulingAvail = ($this->isOnlineSchedulingAvail !== 'false'
+      && !empty($this->isOnlineSchedulingAvail))
+      ? $this->isOnlineSchedulingAvail
+      : $this->getOnlineScheduling($service_location->get('field_online_scheduling_avail')->value);
+
+  }
+
+  /**
    * Builds the array of service locations.
    *
    * @return array
@@ -450,38 +489,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       // We have some locations.
       foreach ($field_service_locations as $location) {
         $service_location = new \stdClass();
-
-        /*
-         * The purpose of setting the class properties from the Service
-         * location is to ensure that the non-default, most specific or most
-         * Veteran-friendly value of any of these fields is set at the Service
-         * level for the payload.
-         */
-
-        // Set the office visits policy to non-default for the service.
-        $office_visits = $location->get('field_office_visits')->value;
-        $this->officeVisits = $this->chooseBestOfficeVisitOption($office_visits);
-
-        // Set the appointment text values to the non-default for the service.
-        $field_appt_intro_text_type = $location->get('field_appt_intro_text_type')->value;
-        $this->apptIntroType = $this->getAppointmentLeadInType($field_appt_intro_text_type);
-        $this->apptIntroText = (!empty($this->apptIntroText))
-          ? $this->apptIntroText
-          : $this->stringNullify($location->get('field_appt_intro_text_custom')->value);
-
-        // Get all the phones for appointments,
-        // but no duplicate facility numbers.
-        $field_appt_phone_type = $location->get('field_use_facility_phone_number')->value;
-        if (($field_appt_phone_type === '1' && !$this->facilityPhoneWasSelectedAppt)
-          || ($field_appt_phone_type === '0')) {
-          $this->apptPhones[] = $this->getApptPhones($field_appt_phone_type, $location->get('field_other_phone_numbers')->referencedEntities());
-        }
-
-        // Set the online scheduling value to yes for the service if so chosen.
-        $this->isOnlineSchedulingAvail = ($this->isOnlineSchedulingAvail !== 'false'
-          && !empty($this->isOnlineSchedulingAvail))
-          ? $this->isOnlineSchedulingAvail
-          : $this->getOnlineScheduling($location->get('field_online_scheduling_avail')->value);
+        $this->setServiceLevelProperties($location);
 
         $field_service_location_address = $location->get('field_service_location_address')->referencedEntities();
         $address_paragraph = reset($field_service_location_address);
