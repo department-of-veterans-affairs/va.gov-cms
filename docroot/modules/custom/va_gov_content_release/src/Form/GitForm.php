@@ -79,6 +79,8 @@ class GitForm extends BaseForm {
    *   Object containing current form state.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildForm($form, $form_state);
+
     $form['build_request']['actions']['#type'] = 'actions';
     $form['build_request']['actions']['submit'] = [
       '#type' => 'submit',
