@@ -1,3 +1,74 @@
+diff --git a/config/schema/jsonapi_extras.schema.yml b/config/schema/jsonapi_extras.schema.yml
+index 5e7e499..2be376a 100644
+--- a/config/schema/jsonapi_extras.schema.yml
++++ b/config/schema/jsonapi_extras.schema.yml
+@@ -75,3 +75,38 @@ jsonapi_extras.settings:
+       type: boolean
+       label: 'Disabled by default'
+       description: "If activated, all resource types that don't have a matching enabled resource config will be disabled."
++
++jsonapi_extras.jsonapi_field_type_config:
++  type: config_entity
++  label: 'JSON:API Field Type Config'
++  mapping:
++    disabled:
++      type: boolean
++      label: 'Disabled'
++      description: 'Globally disable field type enhancers.'
++    resourceFields:
++      type: sequence
++      label: 'Field Types'
++      sequence:
++        type: jsonapi_extras.resource_field_type
++
++jsonapi_extras.resource_field_type:
++  type: mapping
++  mapping:
++    disabled:
++      type: boolean
++      label: 'Disabled'
++      description: 'Is the field type disabled?'
++    fieldName:
++      type: string
++      label: 'Entity field name'
++    enhancer:
++      type: mapping
++      label: 'Enhancer plugin'
++      description: 'A plugin that carries additional (de)normalization tasks.'
++      mapping:
++        id:
++          type: string
++          description: 'The enhancer plugin ID'
++        settings:
++          type: jsonapi_extras.enhancer_plugin.[%parent.id]
+diff --git a/jsonapi_extras.links.task.yml b/jsonapi_extras.links.task.yml
+index 6f5567e..63bfbbc 100755
+--- a/jsonapi_extras.links.task.yml
++++ b/jsonapi_extras.links.task.yml
+@@ -22,3 +22,8 @@ jsonapi.settings.extras.resources:
+   base_route: entity.jsonapi_resource_config.collection
+   title: 'Resource overrides'
+   parent_id: jsonapi.settings.extras
++jsonapi.settings.extras.field_types:
++  route_name: jsonapi_extras.field_types
++  base_route: jsonapi_extras.field_types
++  title: 'Field Types'
++  parent_id: jsonapi.settings.extras
+diff --git a/jsonapi_extras.routing.yml b/jsonapi_extras.routing.yml
+index bd4b24c..b207415 100644
+--- a/jsonapi_extras.routing.yml
++++ b/jsonapi_extras.routing.yml
+@@ -5,3 +5,10 @@ jsonapi_extras.settings:
+     _title: 'JSON:API Extras'
+   requirements:
+     _permission: 'administer site configuration'
++jsonapi_extras.field_types:
++  path: '/admin/config/services/jsonapi/field_types'
++  defaults:
++    _form: '\Drupal\jsonapi_extras\Form\JsonapiExtrasFieldTypesForm'
++    _title: 'Field Types'
++  requirements:
++    _permission: 'administer site configuration'
 diff --git a/src/Form/JsonapiExtrasFieldTypesForm.php b/src/Form/JsonapiExtrasFieldTypesForm.php
 new file mode 100644
 index 0000000..6b9dee2
