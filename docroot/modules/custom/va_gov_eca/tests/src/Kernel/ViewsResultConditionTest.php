@@ -26,7 +26,7 @@ final class ViewsResultConditionTest extends KernelTestBase {
    *
    * @var string[]
    */
-  public static $testViews = ['test_default'];
+  public static $testViews = ['va_gov_eca_default_content'];
 
   /**
    * {@inheritdoc}
@@ -42,7 +42,7 @@ final class ViewsResultConditionTest extends KernelTestBase {
     'eca',
     'eca_base',
     'va_gov_eca',
-    'va_gov_eca_views_tests',
+    'va_gov_eca_test_views',
   ];
 
   /**
@@ -66,8 +66,8 @@ final class ViewsResultConditionTest extends KernelTestBase {
     $this->createContentType(['type' => 'default']);
 
     // Create View from config.
-    ViewTestData::createTestViews(ViewsResultConditionTest::class, ['va_gov_eca_views_tests']);
-    $view = View::load('test_default');
+    ViewTestData::createTestViews(ViewsResultConditionTest::class, ['va_gov_eca_test_views']);
+    $view = View::load('va_gov_eca_default_content');
 
     // Create our Condition plugin instance.
     $config = [
