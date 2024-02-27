@@ -48,3 +48,18 @@ You can find JSON:API tests in the following places:
 
 - 'tests/phpunit/API/JsonApiRequestTest' - Tests GET requests and associated configuration.
 - 'tests/phpunit/API/JsonApiExplorerUITest' - Tests Swagger UI for OpenAPI documentation.
+
+## Field Type Enhancers
+
+JSON:API Extras allows "field enhancers" to change the normalized output sent back in a response. These are set in
+configuration on "/admin/config/services/jsonapi/resource_types", but there is no way to use current configuration
+and code to set a default field enhancer for all field instances of the same field type. We are calling this feature
+"field type enhancers" to contrast with the current field instance enhancers tied to resources.
+
+On "/admin/config/services/jsonapi/field_types", we added a configuration form where you can add a field type
+enhancer that will apply to all fields of that type. However, if you set a field instance enhancer, that will
+override the field type enhancer. So, users can set an enhancer for most of the field instances of one field type
+but then customize each field instance as needed.
+
+This custom code is in a patch, but we are trying to incorporate it into the main `jsonapi_extras` module in this issue:
+https://www.drupal.org/project/jsonapi_extras/issues/3025283
