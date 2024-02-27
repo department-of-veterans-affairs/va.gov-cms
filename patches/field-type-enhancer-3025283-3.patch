@@ -1,3 +1,11 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..a305726
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++# IntelliJ IDEA
++.idea
 diff --git a/config/schema/jsonapi_extras.schema.yml b/config/schema/jsonapi_extras.schema.yml
 index 5e7e499..2be376a 100644
 --- a/config/schema/jsonapi_extras.schema.yml
@@ -41,6 +49,19 @@ index 5e7e499..2be376a 100644
 +          description: 'The enhancer plugin ID'
 +        settings:
 +          type: jsonapi_extras.enhancer_plugin.[%parent.id]
+diff --git a/jsonapi_extras.info.yml b/jsonapi_extras.info.yml
+index 912c8bd..652ebe9 100644
+--- a/jsonapi_extras.info.yml
++++ b/jsonapi_extras.info.yml
+@@ -6,3 +6,8 @@ package: Web services
+ configure: jsonapi_extras.settings
+ dependencies:
+   - drupal:jsonapi
++
++# Information added by Drupal.org packaging script on 2023-09-11
++version: '8.x-3.24'
++project: 'jsonapi_extras'
++datestamp: 1694442799
 diff --git a/jsonapi_extras.links.task.yml b/jsonapi_extras.links.task.yml
 index 6f5567e..63bfbbc 100755
 --- a/jsonapi_extras.links.task.yml
@@ -69,6 +90,31 @@ index bd4b24c..b207415 100644
 +    _title: 'Field Types'
 +  requirements:
 +    _permission: 'administer site configuration'
+diff --git a/jsonapi_extras.services.yml b/jsonapi_extras.services.yml
+index 0447bb1..135b416 100644
+--- a/jsonapi_extras.services.yml
++++ b/jsonapi_extras.services.yml
+@@ -16,6 +16,7 @@ services:
+       - '@serializer.normalizer.field_item.jsonapi_extras.inner'
+       - '@entity_type.manager'
+       - '@plugin.manager.resource_field_enhancer'
++      - '@config.factory'
+ 
+   serializer.normalizer.resource_identifier.jsonapi_extras:
+     class: Drupal\jsonapi\Normalizer\ImpostorFrom\jsonapi_extras\ResourceIdentifierNormalizerImpostor
+diff --git a/modules/jsonapi_defaults/jsonapi_defaults.info.yml b/modules/jsonapi_defaults/jsonapi_defaults.info.yml
+index ddeefdc..20380ed 100644
+--- a/modules/jsonapi_defaults/jsonapi_defaults.info.yml
++++ b/modules/jsonapi_defaults/jsonapi_defaults.info.yml
+@@ -5,3 +5,8 @@ core_version_requirement: '^9.2 || ^10'
+ package: Web services
+ dependencies:
+   - jsonapi_extras:jsonapi_extras
++
++# Information added by Drupal.org packaging script on 2023-09-11
++version: '8.x-3.24'
++project: 'jsonapi_extras'
++datestamp: 1694442799
 diff --git a/src/Form/JsonapiExtrasFieldTypesForm.php b/src/Form/JsonapiExtrasFieldTypesForm.php
 new file mode 100644
 index 0000000..6b9dee2
@@ -270,10 +316,48 @@ index 0000000..6b9dee2
 +
 +}
 diff --git a/src/Normalizer/FieldItemNormalizer.php b/src/Normalizer/FieldItemNormalizer.php
-index 8882870..b496b8c 100644
+index 8882870..ed082cf 100644
 --- a/src/Normalizer/FieldItemNormalizer.php
 +++ b/src/Normalizer/FieldItemNormalizer.php
-@@ -51,12 +51,30 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
+@@ -3,6 +3,7 @@
+ namespace Drupal\jsonapi_extras\Normalizer;
+ 
+ use Drupal\Core\Cache\CacheableMetadata;
++use Drupal\Core\Config\ConfigFactoryInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\jsonapi\Normalizer\FieldItemNormalizer as JsonapiFieldItemNormalizer;
+ use Drupal\jsonapi\Normalizer\Value\CacheableNormalization;
+@@ -29,6 +30,13 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
+    */
+   protected $enhancerManager;
+ 
++  /**
++   * The config manager.
++   *
++   * @var \Drupal\Core\Config\ConfigFactoryInterface
++   */
++  protected $configManager;
++
+   /**
+    * Constructs a new FieldItemNormalizer.
+    *
+@@ -38,11 +46,14 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
+    *   The entity type manager.
+    * @param \Drupal\jsonapi_extras\Plugin\ResourceFieldEnhancerManager $enhancer_manager
+    *   The field enhancer manager.
++   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_manager
++   *   The config manager.
+    */
+-  public function __construct(JsonapiFieldItemNormalizer $inner, EntityTypeManagerInterface $entity_type_manager, ResourceFieldEnhancerManager $enhancer_manager) {
++  public function __construct(JsonapiFieldItemNormalizer $inner, EntityTypeManagerInterface $entity_type_manager, ResourceFieldEnhancerManager $enhancer_manager, ConfigFactoryInterface $config_manager) {
+     parent::__construct($inner);
+     $this->entityTypeManager = $entity_type_manager;
+     $this->enhancerManager = $enhancer_manager;
++    $this->configManager = $config_manager;
+   }
+ 
+   /**
+@@ -51,15 +62,39 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
    public function normalize($object, $format = NULL, array $context = []) {
      // First get the regular output.
      $normalized_output = parent::normalize($object, $format, $context);
@@ -282,11 +366,17 @@ index 8882870..b496b8c 100644
      /** @var \Drupal\jsonapi_extras\ResourceType\ConfigurableResourceType $resource_type */
      $resource_type = $context['resource_object']->getResourceType();
      $enhancer = $resource_type->getFieldEnhancer($object->getParent()->getName());
-+
-     if (!$enhancer) {
+-    if (!$enhancer) {
 -      return $normalized_output;
+-    }
++
++    // Begin building the cacheability metadata.
+     $cacheability = CacheableMetadata::createFromObject($normalized_output)
+       ->addCacheTags(['config:jsonapi_resource_config_list']);
++
++    if (!$enhancer) {
 +      // Look for default field type enhancer.
-+      $config = \Drupal::config('jsonapi_extras.jsonapi_field_type_config');
++      $config = $this->configManager->get('jsonapi_extras.jsonapi_field_type_config');
 +      $field_type = $object->getFieldDefinition()->getType();
 +      $field_type_config = $config->get('resourceFields')[$field_type];
 +
@@ -297,14 +387,19 @@ index 8882870..b496b8c 100644
 +          $field_type_config['enhancer']['id'],
 +          (array) $field_type_config['enhancer']['settings']
 +        );
++
++        // Add the cache tags for the field type config.
++        $cacheability->addCacheTags(['config:jsonapi_extras.jsonapi_field_type_config']);
 +      }
 +
 +      if (!$enhancer) {
 +        return $normalized_output;
 +      }
-     }
-     $cacheability = CacheableMetadata::createFromObject($normalized_output)
-       ->addCacheTags(['config:jsonapi_resource_config_list']);
++    }
++
+     // Apply any enhancements necessary.
+     $context = new Context($context);
+     $context->offsetSet('field_item_object', $object);
 diff --git a/src/Plugin/DateTimeEnhancerBase.php b/src/Plugin/DateTimeEnhancerBase.php
 index 770efe3..df02bdf 100644
 --- a/src/Plugin/DateTimeEnhancerBase.php
