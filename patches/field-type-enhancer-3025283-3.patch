@@ -49,19 +49,6 @@ index 5e7e499..2be376a 100644
 +          description: 'The enhancer plugin ID'
 +        settings:
 +          type: jsonapi_extras.enhancer_plugin.[%parent.id]
-diff --git a/jsonapi_extras.info.yml b/jsonapi_extras.info.yml
-index 912c8bd..652ebe9 100644
---- a/jsonapi_extras.info.yml
-+++ b/jsonapi_extras.info.yml
-@@ -6,3 +6,8 @@ package: Web services
- configure: jsonapi_extras.settings
- dependencies:
-   - drupal:jsonapi
-+
-+# Information added by Drupal.org packaging script on 2023-09-11
-+version: '8.x-3.24'
-+project: 'jsonapi_extras'
-+datestamp: 1694442799
 diff --git a/jsonapi_extras.links.task.yml b/jsonapi_extras.links.task.yml
 index 6f5567e..63bfbbc 100755
 --- a/jsonapi_extras.links.task.yml
@@ -102,19 +89,6 @@ index 0447bb1..135b416 100644
  
    serializer.normalizer.resource_identifier.jsonapi_extras:
      class: Drupal\jsonapi\Normalizer\ImpostorFrom\jsonapi_extras\ResourceIdentifierNormalizerImpostor
-diff --git a/modules/jsonapi_defaults/jsonapi_defaults.info.yml b/modules/jsonapi_defaults/jsonapi_defaults.info.yml
-index ddeefdc..20380ed 100644
---- a/modules/jsonapi_defaults/jsonapi_defaults.info.yml
-+++ b/modules/jsonapi_defaults/jsonapi_defaults.info.yml
-@@ -5,3 +5,8 @@ core_version_requirement: '^9.2 || ^10'
- package: Web services
- dependencies:
-   - jsonapi_extras:jsonapi_extras
-+
-+# Information added by Drupal.org packaging script on 2023-09-11
-+version: '8.x-3.24'
-+project: 'jsonapi_extras'
-+datestamp: 1694442799
 diff --git a/src/Form/JsonapiExtrasFieldTypesForm.php b/src/Form/JsonapiExtrasFieldTypesForm.php
 new file mode 100644
 index 0000000..6b9dee2
