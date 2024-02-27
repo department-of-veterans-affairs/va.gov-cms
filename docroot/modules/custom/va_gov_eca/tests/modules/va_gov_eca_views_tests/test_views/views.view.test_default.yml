@@ -89,7 +89,6 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          pagination_heading_level: h2
       exposed_form:
         type: basic
         options:
@@ -171,9 +170,7 @@ display:
     display_plugin: eca_result
     position: 2
     display_options:
-      display_extenders:
-        jsonapi_views:
-          enabled: true
+      display_extenders: {  }
       row:
         type: 'entity:node'
         options:
