@@ -146,7 +146,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Appends Vet Center facility service description to it's title on node:view.
+   * Appends Vet Center facility service description to its title on node:view.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
    *   The entity view alter service.
