@@ -36,6 +36,8 @@ Can only update CPU and memory at a project level, not repository level.
 
 ## Tugboat Crisis Intervention
 
+Shelling into the Tugboat server can be accomplished with `ssm-session tugboat utility`.
+
 ### Overload
 
 **Symptoms**: Tugboat is slow, requests to Tugboat dashboard return 502/504 status codes, previews disappear and reappear, etc.
@@ -53,6 +55,20 @@ Can only update CPU and memory at a project level, not repository level.
 1. Close unused previews in the CMS/Pull Requests project. Target older previews and those corresponding to closed/merged PRs; these should be closed automatically, but there may be issues somewhere in the system that impair communication and cause these to remain open.
 2. Suspend older previews. This normally happens automatically (for Pull Request-based previews that haven't been touched in some period of time), but a flurry of previews might have been created inadvertently.
 3. Consider upscaling the Tugboat server or migrating to an alternative architecture.
+
+### Previews inaccessible
+**Symptoms**: Requests to Tugboat previews, i.e. cms- pr pr- return 502/504 status codes or time out.
+
+**Verification**: 
+
+1. Log into the Tugboat server (`ssm-session utility tugboat auto`).
+2. Check system load and free memory (e.g. `top`).
+3. If load is NOT incredibly high, and available memory is NOT very low, then the Tugboat server might be dealing with a proxy issue.
+
+**Remediation**:
+
+1. Run `tbctl restart proxy` and `tbctl restart traefik`
+
 
 ## 🚨 Warning 🚨
 

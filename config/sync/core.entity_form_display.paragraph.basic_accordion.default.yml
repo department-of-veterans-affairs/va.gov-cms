@@ -7,19 +7,28 @@ dependencies:
     - field.field.paragraph.basic_accordion.field_rich_wysiwyg
     - paragraphs.paragraphs_type.basic_accordion
   module:
+    - allowed_formats
     - text
+    - textfield_counter
 id: paragraph.basic_accordion.default
 targetEntityType: paragraph
 bundle: basic_accordion
 mode: default
 content:
   field_header:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 0
     region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
   field_rich_wysiwyg:
     type: text_textarea
@@ -28,7 +37,10 @@ content:
     settings:
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '0'
 hidden:
   created: true
   status: true
