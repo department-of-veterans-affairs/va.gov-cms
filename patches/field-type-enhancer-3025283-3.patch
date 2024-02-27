@@ -290,7 +290,7 @@ index 0000000..6b9dee2
 +
 +}
 diff --git a/src/Normalizer/FieldItemNormalizer.php b/src/Normalizer/FieldItemNormalizer.php
-index 8882870..bddb5b7 100644
+index 8882870..ed082cf 100644
 --- a/src/Normalizer/FieldItemNormalizer.php
 +++ b/src/Normalizer/FieldItemNormalizer.php
 @@ -3,6 +3,7 @@
@@ -331,7 +331,7 @@ index 8882870..bddb5b7 100644
    }
  
    /**
-@@ -51,15 +62,40 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
+@@ -51,15 +62,39 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
    public function normalize($object, $format = NULL, array $context = []) {
      // First get the regular output.
      $normalized_output = parent::normalize($object, $format, $context);
@@ -363,8 +363,7 @@ index 8882870..bddb5b7 100644
 +        );
 +
 +        // Add the cache tags for the field type config.
-+        // @todo Fix the cache tags for the field type config.
-+        // $cacheability->addCacheTags(['config:jsonapi_extras.jsonapi_field_type_config']);
++        $cacheability->addCacheTags(['config:jsonapi_extras.jsonapi_field_type_config']);
 +      }
 +
 +      if (!$enhancer) {
