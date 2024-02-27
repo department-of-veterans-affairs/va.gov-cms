@@ -89,7 +89,7 @@ class ViewsResultCondition extends ConditionBase {
    * {@inheritDoc}
    */
   public function evaluate(): bool {
-    $result = views_get_view_result($this->configuration['view_name'], $this->configuration['view_display'], $this->configuration['view_arguments']);
+    $result = views_get_view_result($this->configuration['view_name'], $this->configuration['display_name'], $this->configuration['arguments']);
     return count($result) > 0;
   }
 
