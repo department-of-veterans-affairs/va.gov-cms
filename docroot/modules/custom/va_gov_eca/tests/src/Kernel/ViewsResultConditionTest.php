@@ -7,6 +7,7 @@ namespace Drupal\Tests\va_gov_eca\Kernel;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
+use Drupal\va_gov_eca\Plugin\ECA\Condition\ViewsResultCondition;
 use Drupal\views\Entity\View;
 use Drupal\views\Tests\ViewTestData;
 
@@ -45,11 +46,11 @@ final class ViewsResultConditionTest extends KernelTestBase {
   ];
 
   /**
-   * The View using an ECA Results display.
+   * The active Views Result Condition plugin.
    *
-   * @var \Drupal\views\Entity\View
+   * @var \Drupal\va_gov_eca\Plugin\ECA\Condition\ViewsResultCondition
    */
-  private View $view;
+  private ViewsResultCondition $condition;
 
   /**
    * {@inheritdoc}
@@ -66,22 +67,23 @@ final class ViewsResultConditionTest extends KernelTestBase {
 
     // Create View from config.
     ViewTestData::createTestViews(ViewsResultConditionTest::class, ['va_gov_eca_views_tests']);
-    $this->view = View::load('test_default');
+    $view = View::load('test_default');
+
+    // Create our Condition plugin instance.
+    $config = [
+      'view_name' => $view->id(),
+      'display_name' => 'eca_result_1',
+      'arguments' => [],
+    ];
+    /** @var \Drupal\va_gov_eca\Plugin\ECA\Condition\ViewsResultCondition $condition */
+    $this->condition = $this->conditionManager->createInstance('views_result', $config);
   }
 
   /**
    * Test the condition when a View contains no results.
    */
   public function testViewsResultConditionWithNoResult(): void {
-    // Create our Condition plugin instance.
-    $config = [
-      'view_name' => $this->view->id(),
-      'display_name' => 'eca_result_1',
-      'arguments' => [],
-    ];
-    /** @var \Drupal\va_gov_eca\Plugin\ECA\Condition\ViewsResultCondition $condition */
-    $condition = $this->conditionManager->createInstance('views_result', $config);
-    $this->assertFalse($condition->evaluate());
+    $this->assertFalse($this->condition->evaluate());
   }
 
   /**
@@ -90,15 +92,7 @@ final class ViewsResultConditionTest extends KernelTestBase {
   public function testViewsResultConditionWithResult(): void {
     // Create a Default node.
     $this->createNode(['type' => 'default']);
-    // Create our Condition plugin instance.
-    $config = [
-      'view_name' => $this->view->id(),
-      'display_name' => 'eca_result_1',
-      'arguments' => [],
-    ];
-    /** @var \Drupal\va_gov_eca\Plugin\ECA\Condition\ViewsResultCondition $condition */
-    $condition = $this->conditionManager->createInstance('views_result', $config);
-    $this->assertTrue($condition->evaluate());
+    $this->assertTrue($this->condition->evaluate());
   }
 
 }
