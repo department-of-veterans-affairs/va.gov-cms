@@ -124,7 +124,7 @@ class JsonApiRequestTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test JSON:API responses include certain fields.
+   * Test JSON:API responses respect field type enhancers.
    *
    * @group services
    * @group all
