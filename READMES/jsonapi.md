@@ -63,3 +63,19 @@ but then customize each field instance as needed.
 
 This custom code is in a patch, but we are trying to incorporate it into the main `jsonapi_extras` module in this issue:
 https://www.drupal.org/project/jsonapi_extras/issues/3025283
+
+To use the field instance enhancers:
+
+1. Go to "/admin/config/services/jsonapi/resource_types" and click to edit the resource type you are working with.
+2. Check the fields you want alter output for to see if they already have an enhancer applied.
+3. If there is an enhancer configured for that field instance, then that is what will be used for JSON:API responses.
+4. If you want to use a field type enhancer, remove the configured field instance enhancer.
+
+To use the field type enhancers:
+
+1. Go to "/admin/config/services/jsonapi/field_types" and check the "Included Field Types" text area.
+2. If you see your field added and have an enhancer configuration form visible, then skip to step #4.
+3. If the field isn't included, then add it to the textarea and save the form.
+4. Adjust the enhancer type and settings to achieve the output you want for that field type and save the form.
+5. All field types should now be transformed by the selected enhancer for JSON:API responses, unless a field
+   instance enhancer is overriding the field type enhancer.
