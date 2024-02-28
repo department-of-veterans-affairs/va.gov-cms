@@ -412,12 +412,8 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
    *   The mental health phone number.
    */
   protected function getFacilityMentalHealthPhone(): string {
-    // This is the original and life-long field.
     $mental_health_phone = $this->getFieldSafe('field_mental_health_phone');
-    // This is the temporary shuffle field that will be removed once conversion
-    // to fully edited is complete.
-    $mental_health_contact = $this->getFieldSafe('field_mental_health_contact_phon');
-    return (!empty($mental_health_contact)) ? $mental_health_contact : $mental_health_phone;
+    return $mental_health_phone;
   }
 
   /**
