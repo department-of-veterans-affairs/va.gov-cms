@@ -30,7 +30,6 @@ class RepositorySettingsTest extends VaGovUnitTestBase {
       'va_gov_app_root' => '/srv/cms',
       'va_gov_web_root' => '/srv/web',
       'va_gov_vets_website_root' => '/srv/vets-website',
-      'va_gov_next_build_root' => '/srv/next',
     ]);
     return new RepositorySettings($settings);
   }
@@ -69,7 +68,6 @@ class RepositorySettingsTest extends VaGovUnitTestBase {
       ['va.gov-cms', RepositorySettings::VA_GOV_CMS_PATH_KEY],
       ['content-build', RepositorySettings::CONTENT_BUILD_PATH_KEY],
       ['vets-website', RepositorySettings::VETS_WEBSITE_PATH_KEY],
-      ['next-build', RepositorySettings::NEXT_BUILD_PATH_KEY],
     ];
   }
 
@@ -99,7 +97,6 @@ class RepositorySettingsTest extends VaGovUnitTestBase {
       ['va.gov-cms', '/srv/cms'],
       ['content-build', '/srv/web'],
       ['vets-website', '/srv/vets-website'],
-      ['next-build', '/srv/next'],
     ];
   }
 
@@ -148,10 +145,6 @@ class RepositorySettingsTest extends VaGovUnitTestBase {
       [
         'name' => RepositorySettingsInterface::VETS_WEBSITE,
         'path' => '/srv/vets-website',
-      ],
-      [
-        'name' => RepositorySettingsInterface::NEXT_BUILD,
-        'path' => '/srv/next',
       ],
     ], $repositorySettings->list());
   }
