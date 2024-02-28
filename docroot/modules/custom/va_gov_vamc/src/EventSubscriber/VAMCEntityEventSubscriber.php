@@ -52,6 +52,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vamc_system_register_for_care_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_va_police_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_va_police_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_health_care_local_health_service_edit_form.alter' => 'alterFacilityServiceNodeForm',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
@@ -333,6 +334,40 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
     $form['#attached']['library'][] = 'va_gov_vamc/limit_vamcs_to_workbench';
+  }
+
+  /**
+   * Alter the VAMC Facility Service node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterFacilityServiceNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    $is_admin = $this->userPermsService->hasAdminRole(TRUE);
+    if (!$is_admin) {
+      $this->disableFacilityServiceChange($form, $form_state);
+    }
+  }
+
+  /**
+   * Disables basic info fields on existing nodes for editors.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The state of the form.
+   */
+  public function disableFacilityServiceChange(array &$form, FormStateInterface $form_state): void {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $form_object->getEntity();
+    if (!$node->isNew()) {
+      $form['field_facility_location']['#disabled'] = TRUE;
+      $form['field_regional_health_service']['#disabled'] = TRUE;
+    }
   }
 
   /**
