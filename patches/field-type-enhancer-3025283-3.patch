@@ -7,10 +7,10 @@ index 0000000..a305726
 +# IntelliJ IDEA
 +.idea
 diff --git a/config/schema/jsonapi_extras.schema.yml b/config/schema/jsonapi_extras.schema.yml
-index 5e7e499..2be376a 100644
+index 5e7e499..21c0d77 100644
 --- a/config/schema/jsonapi_extras.schema.yml
 +++ b/config/schema/jsonapi_extras.schema.yml
-@@ -75,3 +75,38 @@ jsonapi_extras.settings:
+@@ -75,3 +75,43 @@ jsonapi_extras.settings:
        type: boolean
        label: 'Disabled by default'
        description: "If activated, all resource types that don't have a matching enabled resource config will be disabled."
@@ -39,6 +39,11 @@ index 5e7e499..2be376a 100644
 +    fieldName:
 +      type: string
 +      label: 'Entity field name'
++    includedFieldTypes:
++      type: sequence
++      label: 'Included field types'
++      sequence:
++        type: string
 +    enhancer:
 +      type: mapping
 +      label: 'Enhancer plugin'
@@ -91,10 +96,10 @@ index 0447bb1..135b416 100644
      class: Drupal\jsonapi\Normalizer\ImpostorFrom\jsonapi_extras\ResourceIdentifierNormalizerImpostor
 diff --git a/src/Form/JsonapiExtrasFieldTypesForm.php b/src/Form/JsonapiExtrasFieldTypesForm.php
 new file mode 100644
-index 0000000..6b9dee2
+index 0000000..da5cce5
 --- /dev/null
 +++ b/src/Form/JsonapiExtrasFieldTypesForm.php
-@@ -0,0 +1,194 @@
+@@ -0,0 +1,235 @@
 +<?php
 +
 +namespace Drupal\jsonapi_extras\Form;
@@ -163,16 +168,17 @@ index 0000000..6b9dee2
 +    $config = $this->configManager->get('jsonapi_extras.jsonapi_field_type_config');
 +
 +    // Collect unique field types.
-+    $field_types = $this->fieldManager->getFieldMap();
-+    $unique_field_types = [];
-+    foreach ($field_types as $fields) {
-+      foreach ($fields as $field_info) {
-+        $unique_field_types[$field_info['type']] = $field_info['type'];
-+      }
-+    }
++    $unique_field_types = $this->getUniqueFieldTypes();
 +
-+    // Sort field types alphabetically by key.
-+    ksort($unique_field_types);
++    // Add textarea field so users can add comma-separated list of field types
++    // they want to include in the form.
++    $form['included_field_types'] = [
++      '#type' => 'textarea',
++      '#title' => $this->t('Included Field Types'),
++      // List the field types in the help text.
++      '#description' => $this->t('Enter a comma-separated list of field types to include in the form. Available field types are: @field_types', ['@field_types' => implode(', ', $unique_field_types)]),
++      '#default_value' => implode(', ', $config->get('includedFieldTypes')),
++    ];
 +
 +    // Get all the enhancers.
 +    $options = $this->enhancerManager->getDefinitions();
@@ -186,10 +192,15 @@ index 0000000..6b9dee2
 +
 +    // Add a form element for each field type.
 +    foreach ($unique_field_types as $field_type) {
++      // If not in the included field types, skip.
++      if (!str_contains(implode($config->get('includedFieldTypes')), $field_type)) {
++        continue;
++      }
++
 +      $form['field_types'][$field_type] = [
 +        '#type' => 'container',
 +        '#title' => $field_type,
-+        '#suffix' => '<hr>',
++        '#prefix' => '<hr>',
 +        '#attributes' => ['style' =>
 +          'display: flex; gap: 1rem; flex-direction: column;'],
 +      ];
@@ -253,6 +264,20 @@ index 0000000..6b9dee2
 +    return $form;
 +  }
 +
++  public function validateForm(array &$form, FormStateInterface $form_state) {
++    parent::validateForm($form, $form_state);
++
++    $values = $form_state->getValues();
++    // Check if the included field types are valid.
++    $included_field_types = explode(',', $values['included_field_types']);
++    $unique_field_types = $this->getUniqueFieldTypes();
++    foreach ($included_field_types as $field_type) {
++      if (!in_array(trim($field_type), $unique_field_types)) {
++        $form_state->setErrorByName('included_field_types', $this->t('The field type @field_type is not valid.', ['@field_type' => $field_type]));
++      }
++    }
++  }
++
 +  public function submitForm(array &$form, FormStateInterface $form_state): void {
 +    $values = $form_state->getValues();
 +
@@ -283,14 +308,35 @@ index 0000000..6b9dee2
 +      }
 +    }
 +
++    // Convert the comma-separated string to an array and trim whitespace.
++    $includedFieldTypes = array_map('trim', explode(',', $values['included_field_types']));
++
 +    $config = $this->configManager->getEditable('jsonapi_extras.jsonapi_field_type_config');
 +    $config->set('resourceFields', $field_types);
++    $config->set('includedFieldTypes', $includedFieldTypes);
 +    $config->save();
++  }
++
++  /**
++   * @return array
++   */
++  public function getUniqueFieldTypes(): array {
++    $field_types = $this->fieldManager->getFieldMap();
++    $unique_field_types = [];
++    foreach ($field_types as $fields) {
++      foreach ($fields as $field_info) {
++        $unique_field_types[$field_info['type']] = $field_info['type'];
++      }
++    }
++
++    // Sort field types alphabetically by key.
++    ksort($unique_field_types);
++    return $unique_field_types;
 +  }
 +
 +}
 diff --git a/src/Normalizer/FieldItemNormalizer.php b/src/Normalizer/FieldItemNormalizer.php
-index 8882870..ed082cf 100644
+index 8882870..8b4c467 100644
 --- a/src/Normalizer/FieldItemNormalizer.php
 +++ b/src/Normalizer/FieldItemNormalizer.php
 @@ -3,6 +3,7 @@
@@ -331,7 +377,7 @@ index 8882870..ed082cf 100644
    }
  
    /**
-@@ -51,15 +62,39 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
+@@ -51,15 +62,42 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
    public function normalize($object, $format = NULL, array $context = []) {
      // First get the regular output.
      $normalized_output = parent::normalize($object, $format, $context);
@@ -352,8 +398,15 @@ index 8882870..ed082cf 100644
 +      // Look for default field type enhancer.
 +      $config = $this->configManager->get('jsonapi_extras.jsonapi_field_type_config');
 +      $field_type = $object->getFieldDefinition()->getType();
-+      $field_type_config = $config->get('resourceFields')[$field_type];
 +
++      // Check to see if the field type is included in the includedFieldTypes list.
++      $included_field_types = $config->get('includedFieldTypes');
++      if (!in_array($field_type, $included_field_types)) {
++        return $normalized_output;
++      }
++
++      // Look for default field type enhancer.
++      $field_type_config = $config->get('resourceFields')[$field_type];
 +      if (!empty($field_type_config['enhancer']['id'])) {
 +        // Get the enhancer instance.
 +        /** @var \Drupal\jsonapi_extras\Plugin\ResourceFieldEnhancerInterface $enhancer */
@@ -364,10 +417,6 @@ index 8882870..ed082cf 100644
 +
 +        // Add the cache tags for the field type config.
 +        $cacheability->addCacheTags(['config:jsonapi_extras.jsonapi_field_type_config']);
-+      }
-+
-+      if (!$enhancer) {
-+        return $normalized_output;
 +      }
 +    }
 +
