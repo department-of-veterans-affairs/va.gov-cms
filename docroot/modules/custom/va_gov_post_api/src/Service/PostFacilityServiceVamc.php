@@ -256,17 +256,17 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
    * @return array
    *   Array of appointment phone numbers.
    */
-  protected function getApptPhones(string $phone_type, array $appt_phone_numbers = []) {
-    $appt_numbers_retrieved = [];
-    // We only want to get the Facility phone once,
-    // so if "1", then we're using the facility number
-    // and want to track that we did.
-    if ($phone_type === '1') {
-      $this->facilityPhoneWasSelectedAppt = TRUE;
+  protected function getApptPhones(string $phone_type, array $appt_phone_numbers = []) : ?array {
+    // If the property's been set, it's the first service location,
+    // so we'll give that the priority.
+    if (!empty($this->apptPhones)) {
+      return $this->apptPhones;
     }
-    $appt_numbers_retrieved = $this->getPhones((bool) $phone_type, $appt_phone_numbers);
+    if (!isset($phone_type)) {
+      return NULL;
+    }
+    return $this->getPhones((bool) $phone_type, $appt_phone_numbers);
 
-    return $appt_numbers_retrieved;
   }
 
   /**
@@ -449,13 +449,9 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       ? $this->apptIntroText
       : $this->stringNullify($service_location->get('field_appt_intro_text_custom')->value);
 
-    // Get all the phones for appointments,
-    // but no duplicate facility numbers.
+    // Get the phones from the first service location for appointments.
     $field_appt_phone_type = $service_location->get('field_use_facility_phone_number')->value;
-    if (($field_appt_phone_type === '1' && !$this->facilityPhoneWasSelectedAppt)
-      || ($field_appt_phone_type === '0')) {
-      $this->apptPhones[] = $this->getApptPhones($field_appt_phone_type, $service_location->get('field_other_phone_numbers')->referencedEntities());
-    }
+    $this->apptPhones = $this->getApptPhones($field_appt_phone_type, $service_location->get('field_other_phone_numbers')->referencedEntities());
 
     // Set the online scheduling value to yes for the service if so chosen.
     $this->isOnlineSchedulingAvail = ($this->isOnlineSchedulingAvail !== 'false'
