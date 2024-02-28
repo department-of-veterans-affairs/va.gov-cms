@@ -245,31 +245,6 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   }
 
   /**
-   * Get appointment phones.
-   *
-   * @param string $phone_type
-   *   The type of phone for appointments.
-   *   Options: 0 (use other phone numbers), 1 (use facility number)
-   * @param array $appt_phone_numbers
-   *   The phone numbers from the appointment phone reference field.
-   *
-   * @return array
-   *   Array of appointment phone numbers.
-   */
-  protected function getApptPhones(string $phone_type, array $appt_phone_numbers = []) : ?array {
-    // If the property's been set, it's the first service location,
-    // so we'll give that the priority.
-    if (!empty($this->apptPhones)) {
-      return $this->apptPhones;
-    }
-    if (!isset($phone_type)) {
-      return NULL;
-    }
-    return $this->getPhones((bool) $phone_type, $appt_phone_numbers);
-
-  }
-
-  /**
    * Assembles the phone data and returns an array of phone objects.
    *
    * @param bool $from_facility
@@ -451,7 +426,9 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
     // Get the phones from the first service location for appointments.
     $field_appt_phone_type = $service_location->get('field_use_facility_phone_number')->value;
-    $this->apptPhones = $this->getApptPhones($field_appt_phone_type, $service_location->get('field_other_phone_numbers')->referencedEntities());
+    $this->apptPhones = (!empty($this->apptPhones))
+      ? $this->apptPhones
+      : $this->getPhones((bool) $field_appt_phone_type, $service_location->get('field_other_phone_numbers')->referencedEntities());
 
     // Set the online scheduling value to yes for the service if so chosen.
     $this->isOnlineSchedulingAvail = ($this->isOnlineSchedulingAvail !== 'false'
