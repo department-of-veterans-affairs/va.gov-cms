@@ -161,21 +161,12 @@ class NextGitForm extends FormBase {
       $form['build_request']['next_vets_website_selection']['#disabled'] = TRUE;
       $form['build_request']['next_vets_website_git_ref']['#disabled'] = TRUE;
       $form['build_request']['actions']['submit']['#disabled'] = TRUE;
-
-      $target_url = Url::fromUserInput("/sites/default/files/next-build.txt");
-      $build_log_text = Link::fromTextAndUrl('Build is in progress. View log file', $target_url);
+      $build_log_text = 'Build is in progress. View log file below';
     }
     else {
       $build_log_text = 'Build is not in progress.';
     }
 
-    // Set variables needed for build status information.
-    $lock_file_text = $this->getFileLink(self::LOCK_FILE_NAME);
-    $request_file_text = $this->getFileLink(self::REQUEST_FILE_NAME);
-    $next_build_version = $this->frontendVersion->getVersion(Frontend::NextBuild);
-    $vets_website_version = $this->frontendVersion->getVersion(Frontend::NextVetsWebsite);
-    $view_preview = $this->getPreviewLink();
-    $last_build_time = $this->state->get('next_build.status.last_build_date', 'N/A');
     $form['content_release_status_block'] = [
       '#theme' => 'status_report_grouped',
       '#grouped_requirements' => [
@@ -187,29 +178,33 @@ class NextGitForm extends FormBase {
               'title' => $this->t('Status'),
               'value' => $build_log_text,
             ],
+            'log_file' => [
+              'title' => $this->t('Log File'),
+              'value' => $this->getFileLink('next-build.txt'),
+            ],
             'lock_file' => [
               'title' => $this->t('Lock File'),
-              'value' => $lock_file_text,
+              'value' => $this->getFileLink(self::LOCK_FILE_NAME),
             ],
             'request_file' => [
               'title' => $this->t('Request File'),
-              'value' => $request_file_text,
+              'value' => $this->getFileLink(self::REQUEST_FILE_NAME),
             ],
             'next_build_version' => [
               'title' => $this->t('Next-build Version'),
-              'value' => $next_build_version,
+              'value' => $this->frontendVersion->getVersion(Frontend::NextBuild),
             ],
             'vets_website_version' => [
               'title' => $this->t('Vets-website Version'),
-              'value' => $vets_website_version,
+              'value' => $this->frontendVersion->getVersion(Frontend::NextVetsWebsite),
             ],
             'view_preview' => [
               'title' => $this->t('View Preview'),
-              'value' => $view_preview,
+              'value' => $this->getPreviewLink(),
             ],
             'last_build_time' => [
               'title' => $this->t('Last Build Time'),
-              'value' => $last_build_time,
+              'value' => $this->state->get('next_build.status.last_build_date', 'N/A'),
             ],
           ],
         ],
@@ -231,7 +226,7 @@ class NextGitForm extends FormBase {
   private function getFileLink(string $file_name): Link|string {
     $file_path = $this->fileSystem->realpath("public://$file_name");
     if (file_exists($file_path)) {
-      $target_url = Url::fromUserInput("/sites/default/files/$file_name");
+      $target_url = Url::fromUserInput("/sites/default/files/$file_name", ['attributes' => ['target' => '_blank']]);
       return Link::fromTextAndUrl($file_name, $target_url);
     }
     else {
