@@ -10139,36 +10139,28 @@
         },
         {
             "name": "drupal/monolog",
-            "version": "3.0.2",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/monolog.git",
-                "reference": "3.0.2"
+                "reference": "2.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/monolog-3.0.2.zip",
-                "reference": "3.0.2",
-                "shasum": "a88e8249028e56a21c4472891381412b9733f768"
+                "url": "https://ftp.drupal.org/files/projects/monolog-2.2.0.zip",
+                "reference": "2.2.0",
+                "shasum": "3f243ccfb19cb30c75637882e24b1d8acfdb2f9a"
             },
             "require": {
-                "drupal/core": "^10",
-                "monolog/monolog": "^3.2.0",
-                "php": "^8.1.0"
-            },
-            "require-dev": {
-                "mglaman/phpstan-drupal": "^1.1",
-                "phpstan/extension-installer": "^1.3",
-                "phpstan/phpstan": "^1.11",
-                "phpstan/phpstan-deprecation-rules": "*",
-                "phpstan/phpstan-strict-rules": "^1.5",
-                "previousnext/coding-standard": "^1.0"
+                "drupal/core": "^8.8 || ^9 || ^10",
+                "monolog/monolog": "^2.8.0",
+                "php": "^7.4|^8"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.2",
-                    "datestamp": "1707845433",
+                    "version": "2.2.0",
+                    "datestamp": "1662121628",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10186,14 +10178,14 @@
             ],
             "authors": [
                 {
-                    "name": "Luca Lusso",
+                    "name": "Chris Pliakas",
                     "homepage": "https://www.drupal.org/user/266779",
-                    "email": "lussoluca@gmail.com",
+                    "email": "opensource@chrispliakas.com",
                     "role": "Project Lead"
                 },
                 {
                     "name": "See contributors",
-                    "homepage": "https://drupal.org/node/1937716/committers",
+                    "homepage": "http://drupal.org/node/1937716/committers",
                     "role": "Developer"
                 },
                 {
@@ -10202,10 +10194,10 @@
                 }
             ],
             "description": "A Framework for integrating with the Monolog library.",
-            "homepage": "https://drupal.org/project/monolog",
+            "homepage": "http://drupal.org/project/monolog",
             "support": {
                 "source": "https://git.drupalcode.org/project/monolog",
-                "issues": "https://drupal.org/project/issues/monolog"
+                "issues": "http://drupal.org/project/issues/monolog"
             }
         },
         {
@@ -17099,41 +17091,42 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "3.5.0",
+            "version": "2.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "c915e2634718dbc8a4a15c61b0e62e7a44e14448"
+                "reference": "437cb3628f4cf6042cc10ae97fc2b8472e48ca1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c915e2634718dbc8a4a15c61b0e62e7a44e14448",
-                "reference": "c915e2634718dbc8a4a15c61b0e62e7a44e14448",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/437cb3628f4cf6042cc10ae97fc2b8472e48ca1f",
+                "reference": "437cb3628f4cf6042cc10ae97fc2b8472e48ca1f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1",
-                "psr/log": "^2.0 || ^3.0"
+                "php": ">=7.2",
+                "psr/log": "^1.0.1 || ^2.0 || ^3.0"
             },
             "provide": {
-                "psr/log-implementation": "3.0.0"
+                "psr/log-implementation": "1.0.0 || 2.0.0 || 3.0.0"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "^3.0",
+                "aws/aws-sdk-php": "^2.4.9 || ^3.0",
                 "doctrine/couchdb": "~1.0@dev",
                 "elasticsearch/elasticsearch": "^7 || ^8",
                 "ext-json": "*",
-                "graylog2/gelf-php": "^1.4.2 || ^2.0",
-                "guzzlehttp/guzzle": "^7.4.5",
+                "graylog2/gelf-php": "^1.4.2 || ^2@dev",
+                "guzzlehttp/guzzle": "^7.4",
                 "guzzlehttp/psr7": "^2.2",
                 "mongodb/mongodb": "^1.8",
                 "php-amqplib/php-amqplib": "~2.4 || ^3",
-                "phpstan/phpstan": "^1.9",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-strict-rules": "^1.4",
-                "phpunit/phpunit": "^10.1",
-                "predis/predis": "^1.1 || ^2",
+                "phpspec/prophecy": "^1.15",
+                "phpstan/phpstan": "^0.12.91",
+                "phpunit/phpunit": "^8.5.14",
+                "predis/predis": "^1.1 || ^2.0",
+                "rollbar/rollbar": "^1.3 || ^2 || ^3",
                 "ruflin/elastica": "^7",
+                "swiftmailer/swiftmailer": "^5.3|^6.0",
                 "symfony/mailer": "^5.4 || ^6",
                 "symfony/mime": "^5.4 || ^6"
             },
@@ -17156,7 +17149,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.x-dev"
+                    "dev-main": "2.x-dev"
                 }
             },
             "autoload": {
@@ -17184,7 +17177,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/3.5.0"
+                "source": "https://github.com/Seldaek/monolog/tree/2.9.2"
             },
             "funding": [
                 {
@@ -17196,7 +17189,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-27T15:32:31+00:00"
+            "time": "2023-10-27T15:25:26+00:00"
         },
         {
             "name": "mtownsend/xml-to-array",
@@ -18726,16 +18719,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.8.1",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "bc3dc91a5e9b14aa06d1d9e90647c5c5a2cc5353"
+                "reference": "fad452781b3d774e3337b0c0b245dd8e5a4455fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/bc3dc91a5e9b14aa06d1d9e90647c5c5a2cc5353",
-                "reference": "bc3dc91a5e9b14aa06d1d9e90647c5c5a2cc5353",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/fad452781b3d774e3337b0c0b245dd8e5a4455fc",
+                "reference": "fad452781b3d774e3337b0c0b245dd8e5a4455fc",
                 "shasum": ""
             },
             "require": {
@@ -18778,9 +18771,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.8.1"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.8.0"
             },
-            "time": "2024-01-18T19:15:27+00:00"
+            "time": "2024-01-11T11:49:22+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
