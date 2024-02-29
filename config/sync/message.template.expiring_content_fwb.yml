@@ -1,0 +1,19 @@
+uuid: 16fd7781-463c-4ca6-adc2-5e90c8a06091
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: expiring_content_fwb
+label: 'Expiring Content: FWB'
+description: 'Full Width Banner (Alert) 7 day expiration warning'
+text:
+  -
+    value: '<p>Dear [username?],</p><p>&nbsp;</p><p>It has come to our attention that your FWB is expiring. Please resolve posthaste.</p>'
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }
