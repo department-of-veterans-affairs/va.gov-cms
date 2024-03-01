@@ -188,14 +188,7 @@ display:
     display_plugin: eca_result
     position: 1
     display_options:
-      display_extenders:
-        jsonapi_views:
-          enabled: true
-      row:
-        type: 'entity:node'
-        options:
-          relationship: none
-          view_mode: teaser
+      title: 'Expiring Alerts'
       filters:
         type:
           id: type
@@ -204,13 +197,16 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
           operator: in
           value:
             banner: banner
-          group: '1'
+          group: 1
           exposed: false
           expose:
-            operator_id: false
+            operator_id: ''
             label: ''
             description: ''
             use_operator: false
@@ -232,13 +228,10 @@ display:
             optional: true
             widget: select
             multiple: false
-            remember: 0
+            remember: false
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
         status:
           id: status
           table: node_field_data
@@ -246,12 +239,15 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
           operator: '='
           value: '1'
-          group: '1'
+          group: 1
           exposed: false
           expose:
-            operator_id: false
+            operator_id: ''
             label: ''
             description: ''
             use_operator: false
@@ -272,14 +268,18 @@ display:
             optional: true
             widget: select
             multiple: false
-            remember: 0
+            remember: false
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: status
-          plugin_id: boolean
-      title: 'Expiring Alerts'
+      row:
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: teaser
+      display_extenders:
+        jsonapi_views:
+          enabled: true
     cache_metadata:
       max-age: -1
       contexts:
