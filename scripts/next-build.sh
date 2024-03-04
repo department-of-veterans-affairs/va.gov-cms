@@ -17,4 +17,4 @@ source ~/.bashrc
 
 cd "${ROOT}/next"
 
-APP_ENV=${APP_ENV} yarn build:preview
+yarn build:preview

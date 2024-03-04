@@ -37,6 +37,7 @@ services:
         # General useful development tools
         - apt-get install jq nano
 
+#       @todo Can cypress/included image be used instead?
         # cypress-axe dependencies - https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements
         - apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
@@ -73,6 +74,7 @@ services:
         # The internal tools ALB idle timeout is set to longer than a typical GQL query takes.
         - sed -e 's/KeepAliveTimeout 5/KeepAliveTimeout 185/' -i /etc/apache2/apache2.conf
 
+#       @todo These should be aligned with other environments...
         # BRD Environments are set to 1G, Tugboat and Lando are -1 (unlimited).
         - echo "memory_limit = 4G" >> /usr/local/etc/php/conf.d/my-php.ini
         # Set unlimited memory limit for PHP CLI to allow Composer to run.
@@ -141,6 +143,7 @@ services:
         - ./scripts/install-nvm.sh
 
         # Ensure that we're using version 2 of composer.
+#       @todo I'm guessing it is always version two now...
         - composer self-update --2
 
         # Install the Task task runner/build tool.
@@ -163,6 +166,7 @@ services:
       update:
         # Install/update packages managed by composer, including drush.
         # Composer options are in composer.json, 'config' key.
+#        @todo Isn't this already done in the build step?
         - composer install
         - bash -lc 'nvm install'
         - bash -lc 'npm install'
@@ -192,6 +196,7 @@ services:
 
         # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
         - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
+#        @todo If this is shared, why not abstract it to a script?
         # This command is shared by the clone and build stages, make sure to update both stages.
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
@@ -208,7 +213,6 @@ services:
 #        - ln -snf "${DOCROOT}/vendor/va-gov/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
         - mkdir -p "${TUGBOAT_ROOT}/next/public"
         - ln -snf "${TUGBOAT_ROOT}/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
-
 
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - bash -lc 'drush deploy'
@@ -256,6 +260,8 @@ services:
 
         # Put necessary env variables in place for next's Drupal Preview before building server
         # Need to construct this way instead of TUGBOAT_DEFAULT_SERVICE_URL in order to drop the trailing /
+#        @todo Can the config file use set env vars and these commands set them?
+#        @todo e.g. TUGBOAT_DEFAULT_SERVICE_URL=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}
         - echo "NEXT_PUBLIC_DRUPAL_BASE_URL=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "NEXT_IMAGE_DOMAIN=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
         - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
