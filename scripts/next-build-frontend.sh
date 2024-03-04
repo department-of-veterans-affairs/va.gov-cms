@@ -78,6 +78,8 @@ else
   echo "==> Using default next-build version" >> ${logfile}
 fi
 
+# Stop the next server.
+
 # Install 3rd party deps.
 echo "==> Installing yarn dependencies" >> ${logfile}
 composer va:next:install &>> ${logfile}
@@ -99,9 +101,16 @@ else
   echo "==> Using default vets-website version" >> ${logfile}
 fi
 
+# Build vets-website again.
+${reporoot}/scripts/vets-web-setup.sh
+
 # Run the build.
 echo "==> Starting build" >> ${logfile}
 composer va:next:build &>> ${logfile}
+
+# Start next server.
+echo "==> Starting next server" >> ${logfile}
+composer va:next:start &>> ${logfile}
 
 # After this point, we are less concerned with errors; the build has completed.
 set +e
