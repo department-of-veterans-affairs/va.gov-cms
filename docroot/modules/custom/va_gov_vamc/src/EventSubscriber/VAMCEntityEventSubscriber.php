@@ -146,6 +146,44 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
+    $this->appendHealthServiceToVamcSystem($event);
+  }
+
+  /**
+   * Appends health service title on entity view page.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function appendHealthServiceToVamcSystem(EntityViewAlterEvent $event):void {
+    $display = $event->getDisplay();
+    if (($display->getTargetBundle() === 'health_care_region_page') && ($display->getOriginalMode() === 'full')) {
+      $build = &$event->getBuild();
+      $services = $build['field_clinical_health_services'] ?? [];
+
+      // usort($services, '$this->querySort');
+      $temp_array = [];
+      foreach ($services as $key => $service) {
+        // If there are services (because their keys are numeric.)
+        if (is_numeric($key) && !empty($service['#options']['entity'])) {
+          $temp_array[] = $build['field_clinical_health_services'][$key];
+          unset($build['field_clinical_health_services'][$key]);
+          $service_node = $temp_array[$key]['#options']['entity'];
+          $moderationState = $service_node->get('moderation_state')->value;
+          if ($moderationState === 'archived') {
+            unset($temp_array[$key]);
+          }
+        }
+
+        }
+        usort($temp_array, function($x, $y) {
+          return strcasecmp($x['#title'] , $y['#title']);
+        });
+        foreach ($temp_array as $key => $temp) {
+          $build['field_clinical_health_services'][$key] = $temp_array[$key];
+
+      }
+    }
   }
 
   /**
