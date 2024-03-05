@@ -146,44 +146,56 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
-    $this->appendHealthServiceToVamcSystem($event);
+    $this->alterAppendedSystemHealthServices($event);
+
   }
 
   /**
-   * Appends health service title on entity view page.
+   * Alters health service titles appended to VAMC system view page.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
    *   The entity view alter service.
    */
-  public function appendHealthServiceToVamcSystem(EntityViewAlterEvent $event):void {
+  public function alterAppendedSystemHealthServices(EntityViewAlterEvent $event):void {
     $display = $event->getDisplay();
     if (($display->getTargetBundle() === 'health_care_region_page') && ($display->getOriginalMode() === 'full')) {
       $build = &$event->getBuild();
       $services = $build['field_clinical_health_services'] ?? [];
 
-      // usort($services, '$this->querySort');
-      $temp_array = [];
+      $services_copy = [];
       foreach ($services as $key => $service) {
-        // If there are services (because their keys are numeric.)
+        // If there are services (because their keys are numeric).
         if (is_numeric($key) && !empty($service['#options']['entity'])) {
-          $temp_array[] = $build['field_clinical_health_services'][$key];
+          // Copy build array.
+          $services_copy[] = $build['field_clinical_health_services'][$key];
           unset($build['field_clinical_health_services'][$key]);
-          $service_node = $temp_array[$key]['#options']['entity'];
+          $service_node = $services_copy[$key]['#options']['entity'];
           $moderationState = $service_node->get('moderation_state')->value;
+          // Remove archived from temp array.
           if ($moderationState === 'archived') {
-            unset($temp_array[$key]);
+            unset($services_copy[$key]);
+          }
+          // If draft, show as such on view.
+          $thisRevisionIsPublished = $service_node->isPublished();
+          $defaultRevisionIsPublished = (isset($service_node->original) && ($service_node->original instanceof EntityInterface))
+            ? (bool) $service_node->original->status->value
+            : (bool) $service_node->status->value;
+          if (!$defaultRevisionIsPublished && !$thisRevisionIsPublished) {
+            $services_copy[$key]['#attributes'] = ['class' => 'node--unpublished'];
           }
         }
-
-        }
-        usort($temp_array, function($x, $y) {
-          return strcasecmp($x['#title'] , $y['#title']);
-        });
-        foreach ($temp_array as $key => $temp) {
-          $build['field_clinical_health_services'][$key] = $temp_array[$key];
-
       }
+      // Sort temp array.
+      usort($services_copy, function ($x, $y) {
+        return strcasecmp($x['#title'], $y['#title']);
+      });
+      // Copy temporary array back to build array.
+      foreach ($services_copy as $key => $temp) {
+        $build['field_clinical_health_services'][$key] = $services_copy[$key];
+      }
+      $build['field_clinical_health_services']['#attached']['library'][] = 'va_gov_vamc/set_vamc_system_health_service';
     }
+
   }
 
   /**
