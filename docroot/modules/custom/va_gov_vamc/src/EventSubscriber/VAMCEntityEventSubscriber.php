@@ -171,17 +171,10 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
           unset($build['field_clinical_health_services'][$key]);
           $service_node = $services_copy[$key]['#options']['entity'];
           $moderationState = $service_node->get('moderation_state')->value;
-          // Remove archived from temp array.
-          if ($moderationState === 'archived') {
-            unset($services_copy[$key]);
-          }
-          // If draft, show as such on view.
-          $thisRevisionIsPublished = $service_node->isPublished();
-          $defaultRevisionIsPublished = (isset($service_node->original) && ($service_node->original instanceof EntityInterface))
-            ? (bool) $service_node->original->status->value
-            : (bool) $service_node->status->value;
-          if (!$defaultRevisionIsPublished && !$thisRevisionIsPublished) {
+          // Identify archive and draft in temp array.
+          if ($moderationState === 'archived' || $moderationState === 'draft') {
             $services_copy[$key]['#attributes'] = ['class' => 'node--unpublished'];
+            $services_copy[$key]['#title'] .= ' (' . ucfirst($moderationState) . ')';
           }
         }
       }
