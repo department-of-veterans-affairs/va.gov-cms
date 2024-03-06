@@ -22,11 +22,23 @@ NEXT_SERVER_PIDS=$(ps aux | grep '[.]/scripts/yarn/start.js' | awk '{print $2}')
 
 # In case we have multiple processes, loop through them.
 for pid in ${NEXT_SERVER_PIDS}; do
+    echo "Killing process ${pid}..."
     kill $pid
 done
 
 # Install the correct node version if necessary and use it.
 nvm install && nvm use
+# Set environment variables if on Tugboat.
+if [ "${APP_ENV}" == "tugboat" ]; then
+    echo "Setting up Tugboat environment variables for Next.js..."
+
+    # Put necessary env variables in place for next's Drupal Preview before building server
+    # Need to construct this way instead of TUGBOAT_DEFAULT_SERVICE_URL in order to drop the trailing /
+    echo "NEXT_PUBLIC_DRUPAL_BASE_URL=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${ROOT}/next/envs/.env.tugboat
+    echo "NEXT_IMAGE_DOMAIN=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${ROOT}/next/envs/.env.tugboat
+    echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${ROOT}/next/envs/.env.tugboat
+    echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${ROOT}/next/envs/.env.tugboat
+fi
 
 # Start the dev server. Vets-website assets need to be in place prior to this build.
 yarn start
