@@ -38,4 +38,6 @@ echo "Node $(node -v)"
 echo "NPM $(npm -v)"
 echo "Yarn $(yarn -v)"
 
+# @todo Should the manual steps go here like copying the .env file? or maybe in next-start.sh?
+
 yarn install
