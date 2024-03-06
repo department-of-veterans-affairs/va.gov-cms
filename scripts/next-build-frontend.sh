@@ -58,8 +58,10 @@ if [ "${next_build_version}" != "__default" ]; then
   echo "==> Checking out the requested frontend version" >> ${logfile}
   pushd ${reporoot}/next
 
-  # Stash any local changes.
-  git stash &>> ${logfile}
+  # Reset the working directory to the last commit.
+  # This is necessary because we set some env vars in "next-start.sh" for Tugboat
+  # which prevents the checkout from working if the working directory is dirty.
+  git reset --hard &>> ${logfile}
 
   if echo "${next_build_version}" | grep -qE '^[0-9]+$' > /dev/null; then
     echo "==> Checking out PR #${next_build_version}"
@@ -70,15 +72,10 @@ if [ "${next_build_version}" != "__default" ]; then
   fi
   git checkout FETCH_HEAD &>> ${logfile}
 
-  # Pop the stash if we stashed anything.
-  git stash pop &>> ${logfile}
-
   popd
 else
   echo "==> Using default next-build version" >> ${logfile}
 fi
-
-# Stop the next server.
 
 # Install 3rd party deps.
 echo "==> Installing yarn dependencies" >> ${logfile}
@@ -102,7 +99,9 @@ else
 fi
 
 # Build vets-website again.
-${reporoot}/scripts/vets-web-setup.sh
+# @todo Do the symlinks need to be re-created?
+echo "==> Re-building Vets Website" >> ${logfile}
+${reporoot}/scripts/vets-web-setup.sh &>> ${logfile}
 
 # Run the build.
 echo "==> Starting build" >> ${logfile}
