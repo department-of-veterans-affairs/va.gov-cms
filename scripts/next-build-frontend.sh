@@ -3,24 +3,18 @@
 # Exit if a command fails with a non-zero status code.
 set -ex
 
-# Find repo root -> $reporoot
-reporoot="unknown"
-if [ ! -z "$IS_DDEV_PROJECT" ]; then
-  reporoot="/var/www/html"
-fi
-if [ ! -z "$TUGBOAT_ROOT" ]; then
-  reporoot="$TUGBOAT_ROOT"
-fi
-if [ "$reporoot" == "unknown" ]; then
+# Find repo root -> $ROOT
+ROOT=${TUGBOAT_ROOT:-${DDEV_APPROOT:-unknown}}
+if [ "$ROOT" == "unknown" ]; then
   echo "[!] Could not determine the environment type. Aborting!"
   exit 1
 fi
 
 # For convenience.
-cd $reporoot
+cd $ROOT
 
 # Store path to site default files directory.
-filesdir="${reporoot}/docroot/sites/default/files"
+filesdir="${ROOT}/docroot/sites/default/files"
 
 # We really only want one build running at a time on any given environment.
 if [ -f "${filesdir}/next-buildlock.txt" ]; then
@@ -56,7 +50,7 @@ echo "==> Starting a frontend build. This file will be updated as the build prog
 # Get the requested next-build version.
 if [ "${next_build_version}" != "__default" ]; then
   echo "==> Checking out the requested frontend version" >> ${logfile}
-  pushd ${reporoot}/next
+  pushd ${ROOT}/next
 
   # Reset the working directory to the last commit.
   # This is necessary because we set some env vars in "next-start.sh" for Tugboat
@@ -84,7 +78,7 @@ composer va:next:install &>> ${logfile}
 # Get the requested vets-website version
 if [ "${vets_website_version}" != "__default" ]; then
   echo "==> Checking out the requested vets-website version" >> ${logfile}
-  pushd ${reporoot}/vets-website
+  pushd ${ROOT}/vets-website
   if echo "$vets_website_version" | grep -qE '^[0-9]+$' > /dev/null; then
     echo "==> Checking out PR #${vets_website_version}"
     git fetch origin pull/${vets_website_version}/head &>> ${logfile}
@@ -98,10 +92,14 @@ else
   echo "==> Using default vets-website version" >> ${logfile}
 fi
 
+# Create symlink between vets-website assets and next-build.
+mkdir -p "${ROOT}/next/public"
+ln -snf "${ROOT}/vets-website/build/localhost/generated" "${ROOT}/next/public/generated"
+
 # Build vets-website again.
 # @todo Do the symlinks need to be re-created?
 echo "==> Re-building Vets Website" >> ${logfile}
-${reporoot}/scripts/vets-web-setup.sh &>> ${logfile}
+${ROOT}/scripts/vets-web-setup.sh &>> ${logfile}
 
 # Run the build.
 echo "==> Starting build" >> ${logfile}
@@ -115,7 +113,7 @@ composer va:next:start &>> ${logfile}
 set +e
 
 # Switch to the docroot to run drush commands.
-cd "${reporoot}/docroot"
+cd "${ROOT}/docroot"
 
 # Log the timestamp of the build for reporting purposes.
 drush state:set next_build.status.last_build_date "$(date)"
