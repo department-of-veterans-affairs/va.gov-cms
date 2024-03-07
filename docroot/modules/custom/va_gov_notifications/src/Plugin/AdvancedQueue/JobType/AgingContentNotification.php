@@ -9,7 +9,7 @@ use Drupal\va_gov_notifications\JobTypeMessageNotifyBase;
  *
  * @AdvancedQueueJobType(
  *  id = "va_gov_aging_content_notification",
- *  label = @Translation("Sends email notifications aging content for VA.gov"),
+ *  label = @Translation("Sends email notifications about aging content for VA.gov"),
  *  max_retries = 3,
  *  retry_delay = 10
  * )
