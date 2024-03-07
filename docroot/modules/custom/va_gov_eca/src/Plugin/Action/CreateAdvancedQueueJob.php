@@ -72,8 +72,7 @@ class CreateAdvancedQueueJob extends ConfigurableActionBase {
     $job = Job::create($this->configuration['job_type']);
     $this->setPayload($job);
     if ($this->configuration['queue']) {
-      $queue = Queue::load($this->configuration['queue']);
-      $queue->enqueueJob($job);
+      Queue::load($this->configuration['queue'])?->enqueueJob($job);
     }
     $this->tokenServices->addTokenData($this->configuration['token_name'], $job);
   }
