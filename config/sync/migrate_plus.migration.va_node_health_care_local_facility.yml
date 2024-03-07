@@ -81,10 +81,6 @@ source:
       label: phone-main
       selector: properties/phone/main
     -
-      name: phone-mental-health
-      label: phone-mental-health
-      selector: properties/phone/mental_health_clinic
-    -
       name: state
       label: state
       selector: properties/address/physical/state
@@ -179,29 +175,6 @@ process:
         'Other Outpatient Services (OOS)': 6
         'Extended Care Site (Community Living Center) (Stand-Alone)': 7
         'Residential Care Site (MH RRTP/DRRTP) (Stand-Alone)': 8
-  field_mental_health_phone:
-    plugin: str_replace
-    search:
-      - (
-      - )
-      - X
-      - ' '
-      - ext
-      - Ext
-      - .
-      - ','
-      - x
-    replace:
-      - ''
-      - '-'
-      - x
-      - ''
-      - x
-      - x
-      - ''
-      - ''
-      - ', ext. '
-    source: phone-mental-health
   field_phone_number:
     plugin: str_replace
     search:
@@ -284,7 +257,6 @@ destination:
     - field_timezone
     - changed
     - field_facility_classification
-    - field_mental_health_phone
     - field_phone_number
     - field_mobile
     - new_revision
