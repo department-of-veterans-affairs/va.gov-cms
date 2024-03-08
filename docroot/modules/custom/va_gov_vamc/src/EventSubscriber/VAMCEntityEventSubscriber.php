@@ -146,6 +146,49 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
+    $this->alterAppendedSystemHealthServices($event);
+
+  }
+
+  /**
+   * Alters health service titles appended to VAMC system view page.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function alterAppendedSystemHealthServices(EntityViewAlterEvent $event):void {
+    $display = $event->getDisplay();
+    if (($display->getTargetBundle() === 'health_care_region_page') && ($display->getOriginalMode() === 'full')) {
+      $build = &$event->getBuild();
+      $services = $build['field_clinical_health_services'] ?? [];
+
+      $services_copy = [];
+      foreach ($services as $key => $service) {
+        // If there are services (because their keys are numeric).
+        if (is_numeric($key) && !empty($service['#options']['entity'])) {
+          // Copy build array.
+          $services_copy[] = $build['field_clinical_health_services'][$key];
+          unset($build['field_clinical_health_services'][$key]);
+          $service_node = $services_copy[$key]['#options']['entity'];
+          $moderationState = $service_node->get('moderation_state')->value;
+          // Identify archive and draft in temp array.
+          if ($moderationState === 'archived' || $moderationState === 'draft') {
+            $services_copy[$key]['#attributes'] = ['class' => 'node--unpublished'];
+            $services_copy[$key]['#title'] .= ' (' . ucfirst($moderationState) . ')';
+          }
+        }
+      }
+      // Sort temp array.
+      usort($services_copy, function ($x, $y) {
+        return strcasecmp($x['#title'], $y['#title']);
+      });
+      // Copy temporary array back to build array.
+      foreach ($services_copy as $key => $temp) {
+        $build['field_clinical_health_services'][$key] = $services_copy[$key];
+      }
+      $build['field_clinical_health_services']['#attached']['library'][] = 'va_gov_vamc/set_vamc_system_health_service';
+    }
+
   }
 
   /**
