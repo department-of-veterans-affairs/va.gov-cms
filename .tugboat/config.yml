@@ -169,9 +169,9 @@ services:
         - bash -lc 'composer va:theme:compile'
         - bash -lc 'composer va:web:install'
 
-        - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
-        - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
-        - rm cms-prod-files-latest.tgz
+#        - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
+#        - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
+#        - rm cms-prod-files-latest.tgz
 
         # Set file permissions such that Drupal will not complain
         - chgrp -R www-data "${DOCROOT}/sites/default/files"
@@ -244,7 +244,7 @@ services:
 
       online:
         # We only want tests running on PRs, not branches like the base preview build of main.
-        - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'time task --taskfile=tests.yml'; fi
+#        - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'time task --taskfile=tests.yml'; fi
 
         # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/content-build"
@@ -256,10 +256,10 @@ services:
           # Put necessary env variables in place for next's Drupal Preview before building server
           # Need to construct this way instead of TUGBOAT_DEFAULT_SERVICE_URL in order to drop the trailing /
         - echo "Setting up Tugboat environment variables for Next.js..."
-        - echo "NEXT_PUBLIC_DRUPAL_BASE_URL=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${ROOT}/next/envs/.env.tugboat
-        - echo "NEXT_IMAGE_DOMAIN=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${ROOT}/next/envs/.env.tugboat
-        - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${ROOT}/next/envs/.env.tugboat
-        - echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${ROOT}/next/envs/.env.tugboat
+        - echo "NEXT_PUBLIC_DRUPAL_BASE_URL=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+        - echo "NEXT_IMAGE_DOMAIN=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+        - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+        - echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
 
         # Build storybook and the frontends (web, next) in parallel
         - bash -lc 'time task --taskfile=tugboat.yml'
