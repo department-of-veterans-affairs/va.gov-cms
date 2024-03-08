@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.vba_facility.field_facility_locator_api_id
     - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
+    - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
     - field.field.node.vba_facility.field_local_spotlight
     - field.field.node.vba_facility.field_media
@@ -436,6 +437,7 @@ content:
       time_format: g
       compress: false
       grouped: false
+      show_empty: false
       show_closed: all
       closed_format: Closed
       all_day_format: 'All day open'
@@ -525,6 +527,7 @@ hidden:
   field_cc_meta_tags: true
   field_facility_vba_classificatio: true
   field_geolocation: true
+  field_intro_text: true
   field_last_saved_by_an_editor: true
   field_table_of_contents: true
   flag_awaiting_csv: true
