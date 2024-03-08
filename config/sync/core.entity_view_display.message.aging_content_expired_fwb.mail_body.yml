@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.message.mail_body
     - field.field.message.aging_content_expired_fwb.field_expired_date
     - field.field.message.aging_content_expired_fwb.field_target_entity
+    - field.field.message.aging_content_expired_fwb.field_target_node_title
     - message.template.aging_content_expired_fwb
   module:
     - layout_builder
@@ -25,5 +26,6 @@ content:
 hidden:
   field_expired_date: true
   field_target_entity: true
+  field_target_node_title: true
   partial_0: true
   search_api_excerpt: true
