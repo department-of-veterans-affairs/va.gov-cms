@@ -28,6 +28,6 @@ done
 
 # Start the dev server. Vets-website assets need to be in place prior to this build.
 # Need to start in the background so the script can exit.
-yarn start &> /dev/null &
+APP_ENV=${APP_ENV} yarn start &> /dev/null &
 PID=$!
 echo "Started next server with PID: $PID"

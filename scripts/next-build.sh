@@ -29,4 +29,4 @@ if [ "${APP_ENV}" == "tugboat" ]; then
     echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${ROOT}/next/envs/.env.tugboat
 fi
 
-yarn build:preview
+APP_ENV=${APP_ENV} yarn build:preview
