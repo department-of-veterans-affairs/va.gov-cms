@@ -17,10 +17,7 @@ source ~/.bashrc
 cd ${ROOT}/next
 
 # Kill any current running server.
-# We can look for "/scripts/yarn/start.js" since that is what "yarn start" runs.
-NEXT_SERVER_PIDS=$(ps aux | grep '[.]/scripts/yarn/start.js' | awk '{print $2}')
-
-# In case we have multiple processes, loop through them.
+NEXT_SERVER_PIDS=$(ps aux | grep -E '(\.\/scripts\/yarn\/start\.js|next start|next-router-worker)' | awk '{print $2}')
 for pid in ${NEXT_SERVER_PIDS}; do
     echo "Killing process ${pid}..."
     kill $pid
@@ -28,6 +25,7 @@ done
 
 # Start the dev server. Vets-website assets need to be in place prior to this build.
 # Need to start in the background so the script can exit.
+# @todo Will this work as a general script with this line?
 APP_ENV=${APP_ENV} yarn start &> /dev/null &
 PID=$!
 echo "Started next server with PID: $PID"
