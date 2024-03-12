@@ -37,6 +37,19 @@ interface JobTypeMessageNotifyBaseInterface {
   public function getSuccessMessage(Job $job, Message $message): string;
 
   /**
+   * Return the message for Message send success.
+   *
+   * @param \Drupal\advancedqueue\Job $job
+   *   An advancedqueue job entity.
+   * @param \Drupal\message\Entity\Message $message
+   *   A Message entity.
+   *
+   * @return string
+   *   The success message text.
+   */
+  public function getRestrictedRecipientMessage(Job $job, Message $message): string;
+
+  /**
    * Creates a notification Message entity from a Job's payload.
    *
    * @param array $payload
@@ -63,5 +76,18 @@ interface JobTypeMessageNotifyBaseInterface {
    *   The current payload values.
    */
   public function populateMessage(Message $message, array $payload): void;
+
+  /**
+   * Determines if the message should be sent.
+   *
+   * @param \Drupal\message\Entity\Message $message
+   *   The current message entity.
+   * @param array $payload
+   *   The current payload values.
+   *
+   * @return bool
+   *   TRUE is the message is allowed to send.
+   */
+  public function allowedToSend(Message $message, array $payload): bool;
 
 }

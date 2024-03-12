@@ -83,6 +83,9 @@ class JobTypeMessageNotifyBase extends JobTypeBase implements ContainerFactoryPl
   public function process(Job $job): JobResult {
     $this->job = $job;
     $message = $this->createMessage($this->job->getPayload());
+    if (!$this->allowedToSend($message, $this->job->getPayload())) {
+      return JobResult::failure($this->getRestrictedRecipientMessage(), 0);
+    }
     $status = $this->messageNotifier->send($message);
     if (!$status) {
       $error_message = $this->getErrorMessage($job, $message);
@@ -148,6 +151,24 @@ class JobTypeMessageNotifyBase extends JobTypeBase implements ContainerFactoryPl
    */
   public function getSuccessMessage(Job $job, Message $message): string {
     return "Message {$message->id()} sent successfully.";
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getRestrictedRecipientMessage(Job $job, Message $message): string {
+    return "Recipient is not on the allow list for message {$message->id()}.";
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function allowedToSend(Message $message, array $payload): bool {
+    if (!isset($payload['restrict_delivery_to'])) {
+      return FALSE;
+    }
+    $allowed_recipients = (array) $payload['restrict_delivery_to'];
+    return in_array($message->getOwnerId(), $allowed_recipients);
   }
 
 }
