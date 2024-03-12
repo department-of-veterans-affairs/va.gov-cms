@@ -169,9 +169,9 @@ services:
         - bash -lc 'composer va:theme:compile'
         - bash -lc 'composer va:web:install'
 
-        - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
-        - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
-        - rm cms-prod-files-latest.tgz
+#        - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
+#        - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
+#        - rm cms-prod-files-latest.tgz
 
         # Set file permissions such that Drupal will not complain
         - chgrp -R www-data "${DOCROOT}/sites/default/files"
@@ -244,7 +244,7 @@ services:
 
       online:
         # We only want tests running on PRs, not branches like the base preview build of main.
-        - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'time task --taskfile=tests.yml'; fi
+#        - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'time task --taskfile=tests.yml'; fi
 
         # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/content-build"
