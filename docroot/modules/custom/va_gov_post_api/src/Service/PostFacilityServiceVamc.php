@@ -414,18 +414,18 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
    */
   protected function setServiceLevelProperties(Paragraph $service_location) {
     // Set the office visits policy to non-default for the service.
-    $field_office_visits = $service_location->get('field_office_visits')->value;
+    $field_office_visits = $service_location->get('field_office_visits')->value ?? '';
     $this->officeVisits = $this->chooseBestOfficeVisitOption($field_office_visits);
 
     // Set the appointment text values to the non-default for the service.
-    $field_appt_intro_text_type = $service_location->get('field_appt_intro_text_type')->value;
+    $field_appt_intro_text_type = $service_location->get('field_appt_intro_text_type')->value ?? '';
     $this->apptIntroType = $this->getAppointmentLeadInType($field_appt_intro_text_type);
     $this->apptIntroText = (!empty($this->apptIntroText))
       ? $this->apptIntroText
       : $this->stringNullify($service_location->get('field_appt_intro_text_custom')->value);
 
     // Get the phones from the first service location for appointments.
-    $field_appt_phone_type = $service_location->get('field_use_facility_phone_number')->value;
+    $field_appt_phone_type = $service_location->get('field_use_facility_phone_number')->value ?? '';
     $this->apptPhones = (!empty($this->apptPhones))
       ? $this->apptPhones
       : $this->getPhones((bool) $field_appt_phone_type, $service_location->get('field_other_phone_numbers')->referencedEntities());
@@ -434,7 +434,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
     $this->isOnlineSchedulingAvail = ($this->isOnlineSchedulingAvail !== 'false'
       && !empty($this->isOnlineSchedulingAvail))
       ? $this->isOnlineSchedulingAvail
-      : $this->getOnlineScheduling($service_location->get('field_online_scheduling_avail')->value);
+      : $this->getOnlineScheduling($service_location->get('field_online_scheduling_avail')->value ?? '');
 
   }
 
@@ -492,7 +492,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
         // currently sourced from the facility service node.
         $service_location->referral_required = $this->getReferralRequired();
         $service_location->walk_ins_accepted = $location->get('field_office_visits')->value;
-        $service_location->online_scheduling_available = $this->getOnlineScheduling($location->get('field_online_scheduling_avail')->value);
+        $service_location->online_scheduling_available = $this->getOnlineScheduling($location->get('field_online_scheduling_avail')->value ?? '');
 
         $service_locations[] = $service_location;
       }
