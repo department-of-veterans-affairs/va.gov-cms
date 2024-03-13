@@ -3,6 +3,14 @@
 # Exit if a command fails with a non-zero status code.
 set -ex
 
+if [ -n "${IS_DDEV_PROJECT}" ]; then
+    APP_ENV="local"
+elif [ -n "${TUGBOAT_ROOT}" ]; then
+    APP_ENV="tugboat"
+else
+    APP_ENV="tugboat"
+fi
+
 # Find repo root -> $ROOT
 ROOT=${TUGBOAT_ROOT:-${DDEV_APPROOT:-unknown}}
 if [ "$ROOT" == "unknown" ]; then
@@ -53,8 +61,8 @@ if [ "${next_build_version}" != "__default" ]; then
   pushd ${ROOT}/next
 
   # Reset the working directory to the last commit.
-  # This is necessary because we set some env vars in "next-start.sh" for Tugboat
-  # which prevents the checkout from working if the working directory is dirty.
+  # This is necessary because we set some env vars for Tugboat which prevents
+  # the checkout from working if the working directory is dirty.
   git reset --hard &>> ${logfile}
 
   if echo "${next_build_version}" | grep -qE '^[0-9]+$' > /dev/null; then
@@ -65,6 +73,11 @@ if [ "${next_build_version}" != "__default" ]; then
     git fetch origin ${next_build_version} &>> ${logfile}
   fi
   git checkout FETCH_HEAD &>> ${logfile}
+
+  if [ "${APP_ENV}" == "tugboat" ]; then
+      echo "Setting up Tugboat environment variables for Next.js..."
+      ${ROOT}/scripts/next-set-tugboat-env-vars.sh
+  fi
 
   popd
 else
