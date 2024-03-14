@@ -1,0 +1,24 @@
+uuid: c1b08c34-8fa8-4a67-91c9-29523f779d42
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_target_node_title
+    - message.template.aging_content_expired_fwb
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: message.aging_content_expired_fwb.field_target_node_title
+field_name: field_target_node_title
+entity_type: message
+bundle: aging_content_expired_fwb
+label: 'Target Node Title'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

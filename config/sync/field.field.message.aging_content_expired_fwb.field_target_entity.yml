@@ -1,0 +1,39 @@
+uuid: 8b933a0e-6eee-4967-b6f7-421c0e2d9827
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_target_entity
+    - message.template.aging_content_expired_fwb
+    - node.type.banner
+  module:
+    - entity_reference_validators
+    - tmgmt_content
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  tmgmt_content:
+    excluded: false
+id: message.aging_content_expired_fwb.field_target_entity
+field_name: field_target_entity
+entity_type: message
+bundle: aging_content_expired_fwb
+label: target_entity
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      banner: banner
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: nca_facility
+field_type: entity_reference
