@@ -15,8 +15,9 @@ body.vagovclaro .form-item.textcount_over {
     border-width: 1px;
   }
 
-  .textfield-counter-element.error {
+  label.has-error ~ .textfield-counter-element {
     border-color: var(--va-red-dark);
+    border-width: 2px;
   }
 
   .textfield_counter_counter, .remaining_count {
@@ -41,23 +42,27 @@ body.vagovclaro .form-textarea-wrapper.textcount_warning {
   }
 }
 
-body.vagovclaro .form-textarea-wrapper.textcount_over {
-  .textfield-counter-element {
-    border-color: unset;
-    border-width: 1px;
+body.vagovclaro {
+  .form-textarea-wrapper.textcount_over {
+    .textfield-counter-element {
+      border-color: unset;
+      border-width: 1px;
+    }
+
+    .cke {
+      border-color: unset;
+      border-width: 1px;
+    }
+
+    .textfield_counter_counter, .remaining_count {
+      color: var(--va-red-dark);
+      font-weight: 600;
+    }
   }
 
-  .textfield-counter-element.error {
+  label.has-error ~ .form-textarea-wrapper.textcount_over .textfield-counter-element{
     border-color: var(--va-red-dark);
-  }
-
-  .cke {
-    border-color: unset;
-    border-width: 1px;
-  }
-
-  .textfield_counter_counter, .remaining_count {
-    color: var(--va-red-dark);
-    font-weight: 600;
+    border-width: 2px;
   }
 }
+
