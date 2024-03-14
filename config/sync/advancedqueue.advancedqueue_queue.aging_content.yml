@@ -1,0 +1,16 @@
+uuid: e68f801a-2c54-48af-9d65-c87e9fa42d7d
+langcode: en
+status: true
+dependencies: {  }
+id: aging_content
+label: 'Aging Content'
+backend: database
+backend_configuration:
+  lease_time: 30
+processor: cron
+processing_time: 10
+locked: false
+threshold:
+  type: 2
+  limit: 30
+  state: all
