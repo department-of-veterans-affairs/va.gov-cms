@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
     - field.field.node.health_care_local_facility.field_media
-    - field.field.node.health_care_local_facility.field_mental_health_contact_phon
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_mobile
@@ -95,7 +94,6 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_facility_data_from_vast
-        - field_mental_health_contact_phon
       label: 'Locations and contact information'
       parent_name: ''
       region: content
@@ -202,14 +200,6 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_mental_health_contact_phon:
-    type: telephone_link
-    label: inline
-    settings:
-      title: ''
-    third_party_settings: {  }
-    weight: 20
-    region: content
   field_mental_health_phone:
     type: telephone_link
     label: inline
@@ -236,6 +226,7 @@ content:
       time_format: g
       compress: false
       grouped: false
+      show_empty: true
       show_closed: all
       closed_format: Closed
       all_day_format: 'All day open'
@@ -251,6 +242,7 @@ content:
         closed_text: 'Currently closed'
       exceptions:
         title: 'Exception hours'
+        replace_exceptions: false
         restrict_exceptions_to_num_days: 7
         date_format: long
         all_day_format: 'All day open'

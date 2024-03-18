@@ -16,7 +16,6 @@ dependencies:
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
     - field.field.node.health_care_local_facility.field_media
-    - field.field.node.health_care_local_facility.field_mental_health_contact_phon
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_mobile
@@ -43,7 +42,7 @@ third_party_settings:
       label: Meta
       parent_name: ''
       region: hidden
-      weight: 13
+      weight: 22
       format_type: fieldset
       format_settings:
         classes: ''
@@ -56,7 +55,7 @@ third_party_settings:
       label: 'Operating status'
       parent_name: ''
       region: hidden
-      weight: 11
+      weight: 20
       format_type: fieldset
       format_settings:
         classes: ''
@@ -67,7 +66,7 @@ third_party_settings:
       label: 'Social media'
       parent_name: ''
       region: hidden
-      weight: 17
+      weight: 26
       format_type: details
       format_settings:
         classes: ''
@@ -81,7 +80,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       parent_name: ''
       region: hidden
-      weight: 14
+      weight: 23
       format_type: details
       format_settings:
         classes: ''
@@ -94,7 +93,6 @@ third_party_settings:
         - field_address
         - field_mobile
         - field_phone_number
-        - field_mental_health_phone
         - field_office_hours
       label: 'Location Information'
       parent_name: ''
@@ -133,7 +131,7 @@ third_party_settings:
       label: 'Title and summary'
       parent_name: ''
       region: hidden
-      weight: 12
+      weight: 21
       format_type: fieldset
       format_settings:
         classes: ''
@@ -146,7 +144,7 @@ third_party_settings:
       label: 'Section settings'
       parent_name: ''
       region: hidden
-      weight: 15
+      weight: 24
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -162,7 +160,7 @@ third_party_settings:
       label: 'Editorial workflow'
       parent_name: ''
       region: hidden
-      weight: 16
+      weight: 25
       format_type: fieldset
       format_settings:
         classes: ''
@@ -192,14 +190,6 @@ content:
     third_party_settings: {  }
     weight: 17
     region: content
-  field_mental_health_phone:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 21
-    region: content
   field_mobile:
     type: boolean
     label: above
@@ -218,8 +208,10 @@ content:
       time_format: G
       compress: false
       grouped: false
+      show_empty: true
       show_closed: all
       closed_format: Closed
+      all_day_format: 'All day open'
       separator:
         days: '<br />'
         grouped_days: ' - '
@@ -230,6 +222,12 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
+      exceptions:
+        title: 'Exception hours'
+        replace_exceptions: false
+        restrict_exceptions_to_num_days: 7
+        date_format: long
+        all_day_format: 'All day open'
       timezone_field: ''
       office_hours_first_day: ''
       schema:
@@ -268,7 +266,7 @@ hidden:
   field_location_services: true
   field_main_location: true
   field_media: true
-  field_mental_health_contact_phon: true
+  field_mental_health_phone: true
   field_meta_tags: true
   field_meta_title: true
   field_operating_status_facility: true

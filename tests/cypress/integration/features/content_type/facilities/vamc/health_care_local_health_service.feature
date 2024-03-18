@@ -42,3 +42,16 @@ Scenario: Log in and create VAMC Facility Health Service as a non-Lovell editor
   Then I click the button with selector "#edit-group-health-service-and-facilit"
   Then I select option "Brockton VA Medical Center | VA Boston health care" from dropdown with selector "#edit-field-facility-location"
   Then I select option "Audiology and speech at VA Boston health care" from dropdown with selector "#edit-field-regional-health-service"
+
+Scenario: Editors should not be able to rename a VAMC Facility Health Service
+  Given I am logged in as a user with the roles "vamc_content_creator, content_publisher, content_editor, content_admin"
+  # VA Iron Mountain health care
+  And my workbench access sections are set to "350"
+  # Primary care - Marquette VA Clinic
+  When I am at "node/30733/edit"
+  And I click to expand "Health service and facility basic info"
+  Then an element with the selector 'select[data-drupal-selector^="edit-field-facility-location"]' should be disabled
+  And an element with the selector 'select[data-drupal-selector^="edit-field-regional-health-service"]' should be disabled
+  Then I scroll to position "bottom"
+  And I click the "Unlock" link
+  And I click the "Confirm break lock" button
