@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d23255fce7700e252fe4de4b9bc9ced4",
+    "content-hash": "767afa791c05fdd527b8abefea84ec27",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2641,26 +2641,29 @@
         },
         {
             "name": "drupal/allowed_formats",
-            "version": "2.0.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/allowed_formats.git",
-                "reference": "2.0.0"
+                "reference": "3.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/allowed_formats-2.0.0.zip",
-                "reference": "2.0.0",
-                "shasum": "ac6c6d398f303608ced7e9cd9d4556a728dc41f0"
+                "url": "https://ftp.drupal.org/files/projects/allowed_formats-3.0.0.zip",
+                "reference": "3.0.0",
+                "shasum": "1dad855db0e12fa3cdef8ca4e3bfc98f89090490"
             },
             "require": {
-                "drupal/core": "^9.2 || ^10"
+                "drupal/core": "^10.1"
+            },
+            "conflict": {
+                "drupal/core": "<10.1.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0",
-                    "datestamp": "1669170410",
+                    "version": "3.0.0",
+                    "datestamp": "1693983469",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2693,7 +2696,7 @@
                     "role": "Maintainer"
                 }
             ],
-            "description": "Limit which text formats are available for each field instance.",
+            "description": "Hides info about the selected text format. The 'allowed formats' functionality has been moved to core since Drupal 10.1.0.",
             "homepage": "https://www.drupal.org/project/allowed_formats",
             "support": {
                 "source": "http://cgit.drupalcode.org/allowed_formats",
@@ -25907,16 +25910,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3455",
+            "version": "v0.0.3456",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "fa89b000b2452741771eb4ef6b993c45770a5dd8"
+                "reference": "da014b805f663e5b340af0718cdd8706f12a584a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/fa89b000b2452741771eb4ef6b993c45770a5dd8",
-                "reference": "fa89b000b2452741771eb4ef6b993c45770a5dd8",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/da014b805f663e5b340af0718cdd8706f12a584a",
+                "reference": "da014b805f663e5b340af0718cdd8706f12a584a",
                 "shasum": ""
             },
             "type": "node-project",
@@ -25943,9 +25946,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3455"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3456"
             },
-            "time": "2024-03-14T15:36:26+00:00"
+            "time": "2024-03-18T18:38:02+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -26704,20 +26707,20 @@
         },
         {
             "name": "palantirnet/drupal-rector",
-            "version": "0.18.6",
+            "version": "0.20.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/palantirnet/drupal-rector.git",
-                "reference": "94650bc58a9b99b9616115fa3a9e89dfc1135928"
+                "reference": "dc2e858a5f5cea2ef3e2b770350169f0d0af926b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/palantirnet/drupal-rector/zipball/94650bc58a9b99b9616115fa3a9e89dfc1135928",
-                "reference": "94650bc58a9b99b9616115fa3a9e89dfc1135928",
+                "url": "https://api.github.com/repos/palantirnet/drupal-rector/zipball/dc2e858a5f5cea2ef3e2b770350169f0d0af926b",
+                "reference": "dc2e858a5f5cea2ef3e2b770350169f0d0af926b",
                 "shasum": ""
             },
             "require": {
-                "rector/rector": "~0.18.0",
+                "rector/rector": "^1.0",
                 "webflo/drupal-finder": "^1.2"
             },
             "replace": {
@@ -26765,6 +26768,14 @@
                 {
                     "name": "Matt Glaman",
                     "email": "nmd.matt@gmail.com"
+                },
+                {
+                    "name": "Björn Brala",
+                    "email": "drupal@bjorn.dev"
+                },
+                {
+                    "name": "Ken Rickard",
+                    "email": "agentrickard@gmail.com"
                 }
             ],
             "description": "Instant fixes for your Drupal code by using Rector.",
@@ -26776,27 +26787,27 @@
                 "rector"
             ],
             "support": {
-                "source": "https://github.com/palantirnet/drupal-rector/tree/0.18.6"
+                "source": "https://github.com/palantirnet/drupal-rector/tree/0.20.1"
             },
-            "time": "2023-12-28T16:38:54+00:00"
+            "time": "2024-03-09T19:12:48+00:00"
         },
         {
             "name": "rector/rector",
-            "version": "0.18.13",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "f8011a76d36aa4f839f60f3b4f97707d97176618"
+                "reference": "c59507a9090b465d65e1aceed91e5b81986e375b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/f8011a76d36aa4f839f60f3b4f97707d97176618",
-                "reference": "f8011a76d36aa4f839f60f3b4f97707d97176618",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/c59507a9090b465d65e1aceed91e5b81986e375b",
+                "reference": "c59507a9090b465d65e1aceed91e5b81986e375b",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.10.35"
+                "phpstan/phpstan": "^1.10.57"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -26826,7 +26837,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.18.13"
+                "source": "https://github.com/rectorphp/rector/tree/1.0.3"
             },
             "funding": [
                 {
@@ -26834,7 +26845,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-12-20T16:08:01+00:00"
+            "time": "2024-03-14T15:04:18+00:00"
         },
         {
             "name": "symfony/css-selector",
