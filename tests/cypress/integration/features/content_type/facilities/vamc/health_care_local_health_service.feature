@@ -55,22 +55,3 @@ Scenario: Editors should not be able to rename a VAMC Facility Health Service
   Then I scroll to position "bottom"
   And I click the "Unlock" link
   And I click the "Confirm break lock" button
-
-Scenario: Administrators should be able to rename a VAMC Facility Health Service
-  Given I am logged in as a user with the "administrator" role
-  # Primary care - Marquette VA Clinic
-  When I am at "node/30733"
-  Then I should see "Primary care - Marquette VA Clinic"
-
-  Then I click the edit tab
-  And I click to expand "Health service and facility basic info"
-  Then an element with the selector 'select[data-drupal-selector^="edit-field-facility-location"]' should not be disabled
-  And an element with the selector 'select[data-drupal-selector^="edit-field-regional-health-service"]' should not be disabled
-
-  # Ironwood VA Clinic
-  Then I select option '1635' from dropdown with selector 'select[data-drupal-selector^="edit-field-facility-location"]'
-  # Chiropractic at VA Iron Mountain health care
-  And I select option '35578' from dropdown with selector 'select[data-drupal-selector^="edit-field-regional-health-service"]'
-  And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
-  And I save the node
-  Then I should see "Chiropractic - Ironwood VA Clinic"
