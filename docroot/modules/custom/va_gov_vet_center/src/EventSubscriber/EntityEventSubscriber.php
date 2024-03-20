@@ -237,7 +237,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterVetCenterServiceNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
-    $this->disableFacilityServiceChange($form, $form_state);
+    $is_admin = $this->userPermsService->hasAdminRole(TRUE);
+    if (!$is_admin) {
+      $this->disableFacilityServiceChange($form, $form_state);
+    }
   }
 
   /**
