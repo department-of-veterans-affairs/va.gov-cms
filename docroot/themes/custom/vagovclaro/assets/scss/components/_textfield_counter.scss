@@ -1,6 +1,7 @@
-.form-item.textcount_warning {
+body.vagovclaro .form-item.textcount_warning {
   .textfield-counter-element {
-    border-color: var(--color-textfield-counter-warning);
+    border-color: unset;
+    border-width: 1px;
   }
 
   .textfield_counter_counter .remaining_count {
@@ -8,42 +9,60 @@
   }
 }
 
-.form-item.textcount_over {
+body.vagovclaro .form-item.textcount_over {
   .textfield-counter-element {
-    border-color: var(--color-textfield-counter-over);
+    border-color: unset;
+    border-width: 1px;
   }
 
-  .textfield_counter_counter .remaining_count {
-    color: var(--va-gray-darkest);
-  }
-}
-
-.form-textarea-wrapper.textcount_warning {
-  .textfield-counter-element {
-    border-color: var(--color-textfield-counter-warning);
-  }
-
-  .cke {
-    border-color: var(--color-textfield-counter-warning);
+  label.has-error ~ .textfield-counter-element {
+    border-color: var(--va-red-dark);
     border-width: 2px;
   }
 
-  .textfield_counter_counter .remaining_count {
-    color: var(--va-gray-darkest);
+  .textfield_counter_counter, .remaining_count {
+    color: var(--va-red-dark);
+    font-weight: 600;
   }
 }
 
-.form-textarea-wrapper.textcount_over {
+body.vagovclaro .form-textarea-wrapper.textcount_warning {
   .textfield-counter-element {
-    border-color: var(--color-textfield-counter-over);
+    border-color: unset;
+    border-width: 1px;
   }
 
   .cke {
-    border-color: var(--color-textfield-counter-over);
-    border-width: 2px;
+    border-color: unset;
+    border-width: 1px;
   }
 
   .textfield_counter_counter .remaining_count {
     color: var(--va-gray-darkest);
   }
 }
+
+body.vagovclaro {
+  .form-textarea-wrapper.textcount_over {
+    .textfield-counter-element {
+      border-color: unset;
+      border-width: 1px;
+    }
+
+    .cke {
+      border-color: unset;
+      border-width: 1px;
+    }
+
+    .textfield_counter_counter, .remaining_count {
+      color: var(--va-red-dark);
+      font-weight: 600;
+    }
+  }
+
+  label.has-error ~ .form-textarea-wrapper.textcount_over .textfield-counter-element{
+    border-color: var(--va-red-dark);
+    border-width: 2px;
+  }
+}
+
