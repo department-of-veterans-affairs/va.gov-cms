@@ -24,12 +24,3 @@ When does this request need to be live:
 | Current URL  |  Redirect Destination or New URL |
 | ---  |  --- |
 | current URL | new URL |
-
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

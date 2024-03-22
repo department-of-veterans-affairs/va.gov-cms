@@ -421,13 +421,3 @@ Remove the sections that don't apply
    - [ ] [Public Websites product portfolio documentation ](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/public-websites)
 
 </details>
-
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`
-- [ ] `Accelerated Publishing`
