@@ -1,19 +1,31 @@
 #!/usr/bin/env bash
 
+ROOT=${TUGBOAT_ROOT:-${DDEV_APPROOT:-/var/www/html}}
+if [ -n "${IS_DDEV_PROJECT}" ]; then
+    APP_ENV="local"
+elif [ -n "${TUGBOAT_ROOT}" ]; then
+    APP_ENV="tugboat"
+else
+    APP_ENV="tugboat"
+fi
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 source ~/.bashrc
 
+cd ${ROOT}
+
 # Installs & builds vets-website dependencies for next-build preview.
-#if [ ! -d docroot/vendor/va-gov/vets-website ]; then
 if [ ! -d vets-website ]; then
-  git clone --single-branch --depth 1 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
+  # Clone full so git information is available for content release form.
+  # I don't think this should be necessary, but branch information was not
+  # available in the content release form until I pulled down all information.
+  git clone https://github.com/department-of-veterans-affairs/vets-website.git vets-website
 else
   echo "Repo vets-website already cloned."
 fi
 
-#cd docroot/vendor/va-gov/vets-website
 cd vets-website
 
 nvm install 14.15.1

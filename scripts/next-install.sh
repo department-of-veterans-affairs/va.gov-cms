@@ -1,33 +1,43 @@
 #!/usr/bin/env bash
 
+ROOT=${TUGBOAT_ROOT:-${DDEV_APPROOT:-/var/www/html}}
+if [ -n "${IS_DDEV_PROJECT}" ]; then
+    APP_ENV="local"
+elif [ -n "${TUGBOAT_ROOT}" ]; then
+    APP_ENV="tugboat"
+else
+    APP_ENV="tugboat"
+fi
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 source ~/.bashrc
 
-# Installs the content-build dependencies.
+cd ${ROOT}
 
 if [ ! -d next ]; then
-  git clone --single-branch --depth 1 https://github.com/department-of-veterans-affairs/next-build.git next
+  # Clone full so git information is available for content release form.
+  # I don't think this should be necessary, but branch information was not
+  # available in the content release form until I pulled down all information.
+  git clone https://github.com/department-of-veterans-affairs/next-build.git next
 else
   echo "Repo next-build already cloned."
 fi
 
 cd next
-#repo_root="$(git rev-parse --show-toplevel)"
-#pushd "${repo_root}" > /dev/null
 
-nvm install 18.17.0 
+nvm install 18.17.0
 nvm use 18.17.0
-corepack enable
-corepack prepare yarn@stable --activate
+
+# These steps caused the build to fail for me so I disabled temporarily.
+#corepack enable
+#corepack prepare yarn@stable --activate
+
 echo "Node $(node -v)"
 echo "NPM $(npm -v)"
 echo "Yarn $(yarn -v)"
 
-#not sure how popd works
-#pushd "./next"
-yarn install
-#popd
+# @todo Should the manual steps go here like copying the .env file? or maybe in next-start.sh?
 
-#popd > /dev/null
+yarn install
