@@ -29,6 +29,13 @@ class Flagger {
   protected $flagService;
 
   /**
+   * Whether a migration is currently running.
+   *
+   * @var bool
+   */
+  protected $isMigrating = FALSE;
+
+  /**
    * Constructs the flagger object.
    *
    * @param \Drupal\flag\FlagService $flag_service
@@ -215,6 +222,26 @@ class Flagger {
         $this->updateRevisonLog($nid, $flag_message, [], TRUE);
       }
     }
+  }
+
+  /**
+   * Gets the status of the isMigrating flag.
+   *
+   * @return bool
+   *   The isMigrating status.
+   */
+  public function isMigrating(): bool {
+    return $this->isMigrating;
+  }
+
+  /**
+   * Sets the status of the isMigrating flag.
+   *
+   * @param bool $migrating
+   *   The value to set the flag to.
+   */
+  public function setMigrating(bool $migrating): void {
+    $this->isMigrating = $migrating;
   }
 
   /**
