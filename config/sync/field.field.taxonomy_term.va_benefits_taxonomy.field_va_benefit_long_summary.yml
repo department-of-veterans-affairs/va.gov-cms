@@ -10,9 +10,6 @@ dependencies:
     - text
     - tmgmt_content
 third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - rich_text_limited
   tmgmt_content:
     excluded: false
 id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_long_summary
@@ -25,5 +22,7 @@ required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats:
+    - rich_text_limited
 field_type: text_long
