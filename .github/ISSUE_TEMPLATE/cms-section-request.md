@@ -2,7 +2,7 @@
 name: CMS section request
 about: Requests a change to the Sections hierarchy
 title: ''
-labels: Content governance
+labels: Content governance, CMS Team
 assignees: ''
 
 ---
@@ -74,14 +74,3 @@ Examples:
 - [ ] New "Resources and support" sections are added under each of the three main Administrations (NCA, VHA, VBA)
 - [ ] All existing Resources and support content is moved to ...
 - [ ] Update X, Y, and Z editors about a change in content access
-
-
-
-
-### Team
-Please check the team(s) that will do this work.
-
-- [X] `CMS Team`
-- [ ] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`
