@@ -42,7 +42,7 @@ are found, the content release is considered a failure and does not occur.
 
 CMS team is to respond and remedy if this happens.  
 
-The broken links are reported to both the [#vfs-platform-builds](https://dsva.slack.com/archives/C0MQ281DJ) and [#content-broken-links](https://dsva.slack.com/archives/C030F5WV2TF) channels in Slack.
+The broken links are reported to [#content-broken-links](https://dsva.slack.com/archives/C030F5WV2TF) channels in Slack.
 
 CMS Team support triages reported broken links following a [defined process](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/helpdesk/broken-link-process.md).
 
