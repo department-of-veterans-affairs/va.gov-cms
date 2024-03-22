@@ -8,10 +8,6 @@ dependencies:
   module:
     - allowed_formats
     - text
-third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - rich_text
 id: node.vamc_operating_status_and_alerts.field_operating_status_emerg_inf
 field_name: field_operating_status_emerg_inf
 entity_type: node
@@ -25,5 +21,7 @@ default_value:
     value: "<h3>Patient resources</h3>\r\n\r\n<p><strong>Emergency:</strong> <a href=\"tel:911\">911</a></p>\r\n\r\n<p><strong>Veterans Crisis Line: </strong><a href=\"tel:+1800-507-4571\">800-273-8255</a> (Press 1)</p>\r\n\r\n<p><strong>24 hour Nurse:</strong> <a href=\"tel:+18009358387\">800-935-8387</a></p>\r\n\r\n<p><strong>Change Your Appointment:</strong> <a href=\"tel:+18009358387\">800-935-8387</a></p>\r\n\r\n<p><strong>National Veterans Helpline: </strong><a href=\"tel:+1800-507-4571\">800-507-4571</a></p>\r\n\r\n<p><strong>Patient Locator: </strong><a href=\"tel:+18009358387\">800-935-8387</a></p>\r\n\r\n<p><strong>Pharmacy Refill:</strong> <a href=\"tel:+18009358387\">800-935-8387</a></p>\r\n\r\n<p><strong>Staff Locator:</strong> <a href=\"tel:+18009358387\">800-935-8387</a></p>\r\n\r\n<p><strong>Telephone Care: </strong><a href=\"tel:+18009358387\">800-935-8387</a></p>\r\n"
     format: rich_text
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats:
+    - rich_text
 field_type: text_long
