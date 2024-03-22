@@ -436,6 +436,7 @@ content:
       time_format: g
       compress: false
       grouped: false
+      show_empty: true
       show_closed: all
       closed_format: Closed
       all_day_format: 'All day open'
@@ -451,6 +452,7 @@ content:
         closed_text: 'Currently closed'
       exceptions:
         title: 'Exception hours'
+        replace_exceptions: false
         restrict_exceptions_to_num_days: 7
         date_format: long
         all_day_format: 'All day open'
@@ -525,6 +527,7 @@ hidden:
   field_cc_meta_tags: true
   field_facility_vba_classificatio: true
   field_geolocation: true
+  field_intro_text: true
   field_last_saved_by_an_editor: true
   field_table_of_contents: true
   flag_awaiting_csv: true
