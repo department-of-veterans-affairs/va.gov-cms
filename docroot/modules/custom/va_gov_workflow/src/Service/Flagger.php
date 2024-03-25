@@ -64,7 +64,7 @@ class Flagger {
   public function setFlag($flag_id, NodeInterface $node, $log_message = '', array $vars = []) {
     // Don't set flags on a syncing operation, like updating a revision log
     // after the fact, or we end up with recursion.
-    if (!$node->isSyncing()) {
+    if (!$node->isSyncing() || $this->isMigrating) {
       $flag = $this->flagService->getFlagById($flag_id);
       if ($flag && !$this->isTestData()) {
         // NOTE:  This setting of the flag only works in non-form based node
@@ -175,7 +175,7 @@ class Flagger {
    */
   public function flagFieldChanged($fieldname, $flag_id, NodeInterface $node, $log_message) {
     $original = $this->getPreviousRevision($node);
-    if (!$original || $node->isSyncing()) {
+    if (!$original || ($node->isSyncing() && !$this->isMigrating)) {
       // There is nothing to compare, so bail out.
       return FALSE;
     }
