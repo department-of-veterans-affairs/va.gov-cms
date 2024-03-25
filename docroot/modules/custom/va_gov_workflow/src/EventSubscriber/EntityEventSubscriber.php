@@ -124,7 +124,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     if ($entity instanceof NodeInterface) {
-      $this->setMigrateRevisionFor($entity);
+      $this->setNewRevisionDuringMigrate($entity);
     }
   }
 
@@ -401,7 +401,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\node\NodeInterface $entity
    *   The entity to set a revision for.
    */
-  protected function setMigrateRevisionFor($entity) :void {
+  protected function setNewRevisionDuringMigrate($entity) :void {
     if ($entity->isSyncing() && !$entity->isNew()) {
       $entity->setNewRevision(TRUE);
       $entity->isDefaultRevision(TRUE);
