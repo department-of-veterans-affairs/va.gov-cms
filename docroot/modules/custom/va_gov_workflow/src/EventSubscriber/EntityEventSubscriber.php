@@ -402,7 +402,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The entity to set a revision for.
    */
   protected function setNewRevisionDuringMigrate($entity) :void {
-    if ($entity->isSyncing() && !$entity->isNew()) {
+    if ($entity->isSyncing() && !$entity->isNew() && $this->flagger->isMigrating()) {
       $entity->setNewRevision(TRUE);
       $entity->isDefaultRevision(TRUE);
     }

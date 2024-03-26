@@ -3,7 +3,8 @@
 namespace Drupal\va_gov_workflow\EventSubscriber;
 
 use Drupal\migrate\Event\MigrateEvents;
-use Drupal\migrate\Event\MigrateImportEvent;
+use Drupal\migrate\Event\MigratePostRowSaveEvent;
+use Drupal\migrate\Event\MigratePreRowSaveEvent;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -30,18 +31,18 @@ class MigrateEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[MigrateEvents::PRE_IMPORT] = 'preMigrateImport';
-    $events[MigrateEvents::POST_IMPORT] = 'postMigrateImport';
+    $events[MigrateEvents::PRE_ROW_SAVE] = 'preRowSave';
+    $events[MigrateEvents::POST_ROW_SAVE] = 'postRowSave';
     return $events;
   }
 
   /**
    * Pre Migrate Import event call.
    *
-   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   * @param \Drupal\migrate\Event\MigratePreRowSaveEvent $event
    *   The migrate import event.
    */
-  public function preMigrateImport(MigrateImportEvent $event) {
+  public function preRowSave(MigratePreRowSaveEvent $event) {
     // Flag is already set.
     if ($this->flagger->isMigrating()) {
       return;
@@ -52,10 +53,10 @@ class MigrateEventSubscriber implements EventSubscriberInterface {
   /**
    * Post Migrate Import event call.
    *
-   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   * @param \Drupal\migrate\Event\MigratePostRowSaveEvent $event
    *   The migrate import event.
    */
-  public function postMigrateImport(MigrateImportEvent $event) {
+  public function postRowSave(MigratePostRowSaveEvent $event) {
     $this->flagger->setMigrating(FALSE);
   }
 

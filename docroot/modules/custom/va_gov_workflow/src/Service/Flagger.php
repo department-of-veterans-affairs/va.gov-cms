@@ -95,6 +95,11 @@ class Flagger {
    */
   public function updateRevisonLog(int $nid, $message, array $msg_vars = [], $prepend = FALSE) {
     if (!empty($message) && !$this->isTestData()) {
+      // Toggle migrating flag off to prevent new revisions. (It will
+      // be turned back on with the next row).
+      if ($this->isMigrating()) {
+        $this->setMigrating(FALSE);
+      }
       $revision = $this->getLatestRevision($nid);
       if ($revision) {
         $existing_message = $revision->getRevisionLogMessage() ?? '';
