@@ -25,6 +25,7 @@ dependencies:
     - field.field.node.vet_center.field_table_of_contents
     - field.field.node.vet_center.field_timezone
     - field.field.node.vet_center.field_vet_center_feature_content
+    - field.field.node.vet_center.field_viewfield_20240326
     - node.type.vet_center
     - workflows.workflow.editorial
   module:
@@ -44,6 +45,7 @@ dependencies:
     - textfield_counter
     - tzfield
     - va_gov_backend
+    - viewfield
 third_party_settings:
   field_group:
     group_operating_status:
@@ -78,7 +80,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: content
@@ -95,7 +96,7 @@ third_party_settings:
       label: 'Direct line'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -160,7 +161,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -174,7 +175,7 @@ third_party_settings:
       label: 'Spotlight content'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -187,7 +188,7 @@ third_party_settings:
       label: "How we're different than a clinic (FAQs)"
       region: content
       parent_name: ''
-      weight: 9
+      weight: 8
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -253,7 +254,8 @@ content:
     type: address_default
     weight: 8
     region: content
-    settings: {  }
+    settings:
+      wrapper_type: fieldset
     third_party_settings: {  }
   field_administration:
     type: options_select
@@ -314,7 +316,7 @@ content:
     third_party_settings: {  }
   field_health_services:
     type: inline_entity_form_complex_table_view_mode
-    weight: 8
+    weight: 7
     region: content
     settings:
       form_mode: inline_entity_form
@@ -345,7 +347,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 26
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -452,6 +454,12 @@ content:
         add_above: '0'
         collapse_edit_all: '0'
         duplicate: '0'
+    third_party_settings: {  }
+  field_viewfield_20240326:
+    type: viewfield_select
+    weight: 9
+    region: content
+    settings: {  }
     third_party_settings: {  }
   flag:
     weight: 6
