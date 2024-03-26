@@ -1,16 +1,14 @@
-<?php
-
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\expirable_content\Entity;
 
-use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\expirable_content\ExpirableContentInterface;
 
 /**
- * Defines the expirable content entity type.
+ * Defines the expirable content entity class.
  *
- * @ConfigEntityType(
+ * @ContentEntityType(
  *   id = "expirable_content",
  *   label = @Translation("Expirable Content"),
  *   label_collection = @Translation("Expirable Content"),
@@ -20,131 +18,41 @@ use Drupal\expirable_content\ExpirableContentInterface;
  *     singular = "@count expirable content",
  *     plural = "@count expirable content",
  *   ),
+ *   bundle_label = @Translation("Expirable Content type"),
  *   handlers = {
  *     "list_builder" = "Drupal\expirable_content\ExpirableContentListBuilder",
+ *     "views_data" = "Drupal\views\EntityViewsData",
  *     "form" = {
  *       "add" = "Drupal\expirable_content\Form\ExpirableContentForm",
  *       "edit" = "Drupal\expirable_content\Form\ExpirableContentForm",
- *       "delete" = "Drupal\Core\Entity\EntityDeleteForm",
+ *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
+ *       "delete-multiple-confirm" = "Drupal\Core\Entity\Form\DeleteMultipleForm",
+ *     },
+ *     "route_provider" = {
+ *       "html" = "Drupal\expirable_content\Routing\ExpirableContentHtmlRouteProvider",
  *     },
  *   },
- *   config_prefix = "expirable_content",
- *   admin_permission = "administer expirable_content",
- *   links = {
- *     "collection" = "/admin/structure/expirable-content",
- *     "add-form" = "/admin/structure/expirable-content/add",
- *     "edit-form" = "/admin/structure/expirable-content/{expirable_content}",
- *     "delete-form" = "/admin/structure/expirable-content/{expirable_content}/delete",
- *   },
+ *   base_table = "expirable_content",
+ *   admin_permission = "administer expirable_content types",
  *   entity_keys = {
  *     "id" = "id",
+ *     "bundle" = "bundle",
+ *     "label" = "id",
  *     "uuid" = "uuid",
  *   },
- *   config_export = {
- *     "id",
- *     "status",
- *     "field",
- *     "days",
- *     "warn",
- *     "entity_type",
- *     "entity_bundle",
+ *   links = {
+ *     "collection" = "/admin/content/expirable-content",
+ *     "add-form" = "/expirable-content/add/{expirable_content_type}",
+ *     "add-page" = "/expirable-content/add",
+ *     "canonical" = "/expirable-content/{expirable_content}",
+ *     "edit-form" = "/expirable-content/{expirable_content}",
+ *     "delete-form" = "/expirable-content/{expirable_content}/delete",
+ *     "delete-multiple-form" = "/admin/content/expirable-content/delete-multiple",
  *   },
+ *   bundle_entity_type = "expirable_content_type",
+ *   field_ui_base_route = "entity.expirable_content_type.edit_form",
  * )
  */
-final class ExpirableContent extends ConfigEntityBase implements ExpirableContentInterface {
-
-  /**
-   * The entity ID.
-   */
-  protected string $id;
-
-  /**
-   * The Field to use as base for expiration calculation.
-   *
-   * This needs to be a date field.
-   *
-   * @var string
-   */
-  protected string $field = '';
-
-  /**
-   * Expire the entity this number of days since the last change to an entity.
-   *
-   * Uses the date from the base field to calculate the expiration.
-   *
-   * @var int
-   */
-  protected int $days = 0;
-
-  /**
-   * A number of days before an entity expires.
-   *
-   * @var int
-   */
-  protected int $warn = 0;
-
-  /**
-   * An entity type with content to have expiration enabled.
-   *
-   * @var string
-   */
-  protected string $entity_type = '';
-
-  /**
-   * An entity bundle with content to have expiration enabled.
-   *
-   * @var string
-   */
-  protected string $entity_bundle = '';
-
-  /**
-   * Getter for field.
-   *
-   * @return string
-   *   The field to calculate expiration from.
-   */
-  public function field(): string {
-    return $this->field;
-  }
-
-  /**
-   * Getter for days.
-   *
-   * @return int
-   *   The number of days to expire the content.
-   */
-  public function days(): int {
-    return $this->days;
-  }
-
-  /**
-   * Getter for warn.
-   *
-   * @return int
-   *   The number of days before warning content.
-   */
-  public function warn(): int {
-    return $this->warn;
-  }
-
-  /**
-   * Getter for entityType.
-   *
-   * @return string
-   *   The entity type id.
-   */
-  public function entityType(): string {
-    return $this->entity_type;
-  }
-
-  /**
-   * Getter for entityBundle.
-   *
-   * @return string
-   *   The entity bundle.
-   */
-  public function entityBundle(): string {
-    return $this->entity_bundle;
-  }
+final class ExpirableContent extends ContentEntityBase implements ExpirableContentInterface {
 
 }

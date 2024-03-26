@@ -1,5 +1,11 @@
-entity.expirable_content.overview:
-  title: Expirable Content
+entity.expirable_content_type.collection:
+  title: 'Expirable Content types'
+  description: 'Manage and CRUD actions on Expirable Content type.'
   parent: system.admin_structure
-  description: 'List of expirable content to extend site functionality.'
+  route_name: entity.expirable_content_type.collection
+
+entity.expirable_content.collection:
+  title: 'Expirable Contents'
+  description: 'List of expirable contents.'
   route_name: entity.expirable_content.collection
+  parent: system.admin_content
