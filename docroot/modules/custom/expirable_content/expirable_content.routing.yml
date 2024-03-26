@@ -1,0 +1,31 @@
+entity.expirable_content.collection:
+  path: '/admin/structure/expirable-content'
+  defaults:
+    _entity_list: 'expirable_content'
+    _title: 'Expirable Content configuration'
+  requirements:
+    _permission: 'administer expirable_content'
+
+entity.expirable_content.add_form:
+  path: '/admin/structure/expirable_content/add'
+  defaults:
+    _entity_form: 'expirable_content.add'
+    _title: 'Add an expirable content'
+  requirements:
+    _permission: 'administer expirable_content'
+
+entity.expirable_content.edit_form:
+  path: '/admin/structure/expirable-content/{expirable_content}'
+  defaults:
+    _entity_form: 'expirable_content.edit'
+    _title: 'Edit an expirable content'
+  requirements:
+    _permission: 'administer expirable_content'
+
+entity.expirable_content.delete_form:
+  path: '/admin/structure/expirable-content/{expirable_content}/delete'
+  defaults:
+    _entity_form: 'expirable_content.delete'
+    _title: 'Delete an expirable content'
+  requirements:
+    _permission: 'administer expirable_content'
