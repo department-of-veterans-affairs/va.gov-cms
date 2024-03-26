@@ -37,7 +37,7 @@ class MigrateEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Pre Migrate Import event call.
+   * Pre row save event call.
    *
    * @param \Drupal\migrate\Event\MigratePreRowSaveEvent $event
    *   The migrate import event.
@@ -51,7 +51,7 @@ class MigrateEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Post Migrate Import event call.
+   * Post row save event call.
    *
    * @param \Drupal\migrate\Event\MigratePostRowSaveEvent $event
    *   The migrate import event.
