@@ -7,9 +7,13 @@ dependencies:
     - node.type.vet_center
     - views.view.vet_center_services
   module:
+    - epp
     - tmgmt_content
     - viewfield
 third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
   tmgmt_content:
     excluded: false
 id: node.vet_center.field_viewfield_20240326
@@ -24,7 +28,7 @@ default_value:
   -
     target_uuid: 081ba636-f674-4195-b01f-0f9d89a7de99
     display_id: block_1
-    arguments: ''
+    arguments: '[node:nid]/[node:field_administration:target_id]'
     items_to_display: ''
     token_help: ''
 default_value_callback: ''
