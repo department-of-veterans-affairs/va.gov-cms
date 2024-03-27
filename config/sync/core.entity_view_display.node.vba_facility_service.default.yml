@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.vba_facility_service.field_office
     - field.field.node.vba_facility_service.field_service_location
     - field.field.node.vba_facility_service.field_service_name_and_descripti
+    - field.field.node.vba_facility_service.field_vba_fac_serv_appt_default
     - node.type.vba_facility_service
   module:
     - allow_only_one
@@ -32,7 +33,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   field_service_location:
     type: entity_reference_revisions_entity_view
@@ -49,13 +50,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
 hidden:
   breadcrumbs: true
   content_moderation_control: true
   field_administration: true
   field_last_saved_by_an_editor: true
+  field_vba_fac_serv_appt_default: true
   langcode: true
   links: true
   search_api_excerpt: true
