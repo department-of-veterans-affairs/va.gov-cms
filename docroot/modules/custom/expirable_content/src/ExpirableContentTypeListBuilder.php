@@ -1,10 +1,11 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 namespace Drupal\expirable_content;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Url;
 
 /**
  * Defines a class to build a listing of expirable content type entities.
@@ -12,12 +13,14 @@ use Drupal\Core\Url;
  * @see \Drupal\expirable_content\Entity\ExpirableContentType
  */
 final class ExpirableContentTypeListBuilder extends ConfigEntityListBuilder {
-
   /**
    * {@inheritdoc}
    */
   public function buildHeader(): array {
-    $header['label'] = $this->t('Label');
+    $header['entity_type'] = $this->t('Entity type');
+    $header['entity_bundle'] = $this->t('Entity bundle');
+    $header['id'] = $this->t('id');
+    $header['status'] = $this->t('Status');
     return $header + parent::buildHeader();
   }
 
@@ -25,22 +28,11 @@ final class ExpirableContentTypeListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity): array {
-    $row['label'] = $entity->label();
+    /** @var \Drupal\expirable_content\Entity\ExpirableContentType $entity */
+    $row['entity_type'] = $entity->entityType();
+    $row['entity_bundle'] = $entity->entityBundle();
+    $row['id'] = $entity->id();
+    $row['status'] = $entity->status() ? $this->t('Enabled') : $this->t('Disabled');
     return $row + parent::buildRow($entity);
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function render(): array {
-    $build = parent::render();
-
-    $build['table']['#empty'] = $this->t(
-      'No expirable content types available. <a href=":link">Add expirable content type</a>.',
-      [':link' => Url::fromRoute('entity.expirable_content_type.add_form')->toString()],
-    );
-
-    return $build;
-  }
-
 }

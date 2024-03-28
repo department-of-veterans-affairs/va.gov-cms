@@ -1,12 +1,30 @@
-expirable_content.expirable_content_type.*:
+expirable_content.type.*:
   type: config_entity
   label: 'Expirable Content type config'
   mapping:
     id:
       type: string
       label: 'ID'
-    label:
-      type: label
-      label: 'Label'
     uuid:
       type: string
+    status:
+      type: boolean
+      label: 'Status'
+    field:
+      type: string
+      label: 'Expiration Field'
+    days:
+      type: int
+      label: 'Number of Days to Expire'
+    warn:
+      type: int
+      label: 'Number of Days to Warn'
+    entity_type:
+      type: string
+      label: 'Entity type'
+    entity_bundle:
+      type: string
+      label: 'Entity bundle'
+    dependencies:
+      type: config_dependencies
+      label: 'Dependencies'
