@@ -68,7 +68,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -80,12 +80,11 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         classes: ''
@@ -189,7 +188,7 @@ third_party_settings:
       label: "How we're different than a clinic (FAQs)"
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -246,6 +245,20 @@ third_party_settings:
         label_element: h3
         attributes: ''
         open: false
+    group_vc_services:
+      children: {  }
+      label: 'Vet Center services CBU04905'
+      region: content
+      parent_name: ''
+      weight: 8
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
 id: node.vet_center.default
 targetEntityType: node
 bundle: vet_center
@@ -348,7 +361,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 12
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -458,7 +471,7 @@ content:
     third_party_settings: {  }
   field_viewfield_20240326:
     type: viewfield_select
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }

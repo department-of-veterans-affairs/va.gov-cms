@@ -187,6 +187,28 @@ function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface
   if ($form_state->getformObject()->getEntity()->bundle() === 'vet_center') {
     $form['#attached']['library'][] = 'va_gov_vet_center/set_ief_service_selects';
   }
+
+  // $form['header'] = [
+  //   '#type' => 'fieldset',
+  //   '#weight' => 0,
+  //   '#collapsible' => TRUE,
+  //   'title' => [
+  //     '#markup' => '<div class="description">CBU04905 view</div>',
+  //   ],
+
+  // ];
+  $form['group_vc_services'] = [
+    '#collapsible' => FALSE,
+  ];
+
+  $form['group_vc_services']['vet_center_services'] = [
+    '#type' => 'view',
+    '#name' => 'vet_center_services',
+    '#display_id' => 'vet_center_services',
+    '#embed' => TRUE,
+    '#arguments' => [$form_state->getformObject()->getEntity()->id()],
+
+  ];
 }
 
 /**
