@@ -29,6 +29,13 @@ class Flagger {
   protected $flagService;
 
   /**
+   * Whether a migration is currently running.
+   *
+   * @var bool
+   */
+  protected $isMigrating = FALSE;
+
+  /**
    * Constructs the flagger object.
    *
    * @param \Drupal\flag\FlagService $flag_service
@@ -57,7 +64,7 @@ class Flagger {
   public function setFlag($flag_id, NodeInterface $node, $log_message = '', array $vars = []) {
     // Don't set flags on a syncing operation, like updating a revision log
     // after the fact, or we end up with recursion.
-    if (!$node->isSyncing()) {
+    if (!$node->isSyncing() || $this->isMigrating) {
       $flag = $this->flagService->getFlagById($flag_id);
       if ($flag && !$this->isTestData()) {
         // NOTE:  This setting of the flag only works in non-form based node
@@ -88,6 +95,11 @@ class Flagger {
    */
   public function updateRevisonLog(int $nid, $message, array $msg_vars = [], $prepend = FALSE) {
     if (!empty($message) && !$this->isTestData()) {
+      // Toggle migrating flag off to prevent new revisions. (It will
+      // be turned back on with the next row).
+      if ($this->isMigrating()) {
+        $this->setMigrating(FALSE);
+      }
       $revision = $this->getLatestRevision($nid);
       if ($revision) {
         $existing_message = $revision->getRevisionLogMessage() ?? '';
@@ -168,7 +180,7 @@ class Flagger {
    */
   public function flagFieldChanged($fieldname, $flag_id, NodeInterface $node, $log_message) {
     $original = $this->getPreviousRevision($node);
-    if (!$original || $node->isSyncing()) {
+    if (!$original || ($node->isSyncing() && !$this->isMigrating)) {
       // There is nothing to compare, so bail out.
       return FALSE;
     }
@@ -215,6 +227,26 @@ class Flagger {
         $this->updateRevisonLog($nid, $flag_message, [], TRUE);
       }
     }
+  }
+
+  /**
+   * Gets the status of the isMigrating flag.
+   *
+   * @return bool
+   *   The isMigrating status.
+   */
+  public function isMigrating(): bool {
+    return $this->isMigrating;
+  }
+
+  /**
+   * Sets the status of the isMigrating flag.
+   *
+   * @param bool $migrating
+   *   The value to set the flag to.
+   */
+  public function setMigrating(bool $migrating): void {
+    $this->isMigrating = $migrating;
   }
 
   /**
