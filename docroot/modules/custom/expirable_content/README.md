@@ -1,6 +1,6 @@
 ## INTRODUCTION
 
-Configure any content entity to have an expiration date.
+Configure any content entity to have an expiration and warning date.
 
 ## REQUIREMENTS
 

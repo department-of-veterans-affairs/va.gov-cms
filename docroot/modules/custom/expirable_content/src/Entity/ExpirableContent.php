@@ -13,7 +13,7 @@ use Drupal\user\EntityOwnerInterface;
 use Drupal\user\EntityOwnerTrait;
 
 /**
- * Defines the expirable content entity class.
+ * Defines the expirable content entity.
  *
  * @ContentEntityType(
  *   id = "expirable_content",
@@ -27,17 +27,7 @@ use Drupal\user\EntityOwnerTrait;
  *   ),
  *   bundle_label = @Translation("Expirable Content type"),
  *   handlers = {
- *     "list_builder" = "Drupal\expirable_content\ExpirableContentListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
- *     "form" = {
- *       "add" = "Drupal\expirable_content\Form\ExpirableContentForm",
- *       "edit" = "Drupal\expirable_content\Form\ExpirableContentForm",
- *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
- *       "delete-multiple-confirm" = "Drupal\Core\Entity\Form\DeleteMultipleForm",
- *     },
- *     "route_provider" = {
- *       "html" = "Drupal\expirable_content\Routing\ExpirableContentHtmlRouteProvider",
- *     },
  *   },
  *   base_table = "expirable_content",
  *   revision_table = "expirable_content_revision",
@@ -45,67 +35,60 @@ use Drupal\user\EntityOwnerTrait;
  *   revision_data_table = "expirable_content_field_revision",
  *   translatable = TRUE,
  *   admin_permission = "administer expirable_content types",
+ *   internal = TRUE,
  *   entity_keys = {
  *     "id" = "id",
- *     "uid" = "uid",
- *     "owner" = "uid",
  *     "revision" = "revision_id",
  *     "bundle" = "bundle",
  *     "uuid" = "uuid",
  *     "langcode" = "langcode",
  *   },
- *   links = {
- *     "collection" = "/admin/content/expirable-content",
- *     "add-form" = "/expirable-content/add/{expirable_content_type}",
- *     "add-page" = "/expirable-content/add",
- *     "canonical" = "/expirable-content/{expirable_content}",
- *     "edit-form" = "/expirable-content/{expirable_content}",
- *     "delete-form" = "/expirable-content/{expirable_content}/delete",
- *     "delete-multiple-form" = "/admin/content/expirable-content/delete-multiple",
- *   },
  *   bundle_entity_type = "expirable_content_type",
- *   field_ui_base_route = "entity.expirable_content_type.edit_form",
  * )
+ *
+ * @internal
+ *   This entity is marked internal because it should not be used directly.
+ *   Instead, the computed expiration and warning fields should be set on the
+ *   entity directly.
  */
-final class ExpirableContent extends ContentEntityBase implements ExpirableContentInterface, EntityOwnerInterface {
-
-  use EntityOwnerTrait;
+final class ExpirableContent extends ContentEntityBase implements ExpirableContentInterface {
 
   /**
    * {@inheritDoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
-    $fields += ExpirableContent::ownerBaseFieldDefinitions($entity_type);
 
-    $fields['uid']
-      ->setLabel(t('User'))
-      ->setDescription(t('The username of the entity creator.'))
-      ->setRevisionable(TRUE);
+    $fields['expiration'] = BaseFieldDefinition::create('timestamp')
+      ->setLabel(t('Expiration date'))
+      ->setDescription(t('The date the content entity expires.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(FALSE)
+      ->setRequired(TRUE);
 
-    $fields['expirable_content_type_id'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Expirable content type id.'))
-      ->setDescription(t('The id of the expirable content type.'))
-      ->setRequired(TRUE)
-      ->setTranslatable(TRUE)
-      ->setRevisionable(TRUE);
+    $fields['warning'] = BaseFieldDefinition::create('timestamp')
+      ->setLabel(t('Warning date'))
+      ->setDescription(t('The date a warning is established for the content entity.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(FALSE)
+      ->setRequired(TRUE);
 
     $fields['content_entity_type_id'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Content entity type ID'))
-      ->setDescription(t('The ID of the content entity type this moderation state is for.'))
+      ->setDescription(t('The ID of the content entity type this record is for.'))
       ->setRequired(TRUE)
       ->setSetting('max_length', EntityTypeInterface::ID_MAX_LENGTH)
       ->setRevisionable(TRUE);
 
     $fields['content_entity_id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Content entity ID'))
-      ->setDescription(t('The ID of the content entity this moderation state is for.'))
+      ->setDescription(t('The ID of the content entity this record is for.'))
       ->setRequired(TRUE)
       ->setRevisionable(TRUE);
 
     $fields['content_entity_revision_id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Content entity revision ID'))
-      ->setDescription(t('The revision ID of the content entity this moderation state is for.'))
+      ->setDescription(t('The revision ID of the content entity this record is for.'))
       ->setRequired(TRUE)
       ->setRevisionable(TRUE);
 
