@@ -1,8 +1,11 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 namespace Drupal\expirable_content\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
 
 /**
  * Defines the Expirable Content type configuration entity.
@@ -29,6 +32,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     },
  *   },
  *   admin_permission = "administer expirable_content types",
+ *   bundle_of = "expirable_content",
  *   config_prefix = "type",
  *   entity_keys = {
  *     "id" = "id",
@@ -51,7 +55,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   },
  * )
  */
-final class ExpirableContentType extends ConfigEntityBase {
+final class ExpirableContentType extends ConfigEntityBundleBase {
 
   /**
    * The entity ID.
