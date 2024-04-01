@@ -42,11 +42,3 @@ After PW updates allowlists, the requesting team will need to test on Staging by
 ## Acceptance Criteria
 - [ ] On the requested domains, when setting cookie in the console the global header is injected
 - [ ] Let DM know when your changes have deployed to production, so they can notify the requesting team
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [X] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`

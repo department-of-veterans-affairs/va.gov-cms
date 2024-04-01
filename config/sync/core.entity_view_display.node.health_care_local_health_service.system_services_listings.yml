@@ -1,0 +1,159 @@
+uuid: d5b7a358-c460-4ab7-b84e-399a37336059
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.system_services_listings
+    - field.field.node.health_care_local_health_service.field_administration
+    - field.field.node.health_care_local_health_service.field_appointments_help_text
+    - field.field.node.health_care_local_health_service.field_enforce_unique_combo
+    - field.field.node.health_care_local_health_service.field_facility_location
+    - field.field.node.health_care_local_health_service.field_facility_service_loc_help
+    - field.field.node.health_care_local_health_service.field_hservice_appt_intro_select
+    - field.field.node.health_care_local_health_service.field_hservice_appt_leadin
+    - field.field.node.health_care_local_health_service.field_hservices_lead_in_default
+    - field.field.node.health_care_local_health_service.field_last_saved_by_an_editor
+    - field.field.node.health_care_local_health_service.field_online_scheduling_availabl
+    - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
+    - field.field.node.health_care_local_health_service.field_referral_required
+    - field.field.node.health_care_local_health_service.field_regional_health_service
+    - field.field.node.health_care_local_health_service.field_service_location
+    - field.field.node.health_care_local_health_service.field_walk_ins_accepted
+    - node.type.health_care_local_health_service
+  module:
+    - allow_only_one
+    - entity_reference_revisions
+    - field_group
+    - layout_builder
+    - markup
+    - options
+    - user
+third_party_settings:
+  field_group:
+    group_vha_health_service_name_an:
+      children: {  }
+      label: 'VHA and VAMC health service description'
+      parent_name: ''
+      region: hidden
+      weight: 15
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+    group_facility_description_of_se:
+      children: {  }
+      label: 'Facility description of service (this field will be no longer be used in 2021)'
+      parent_name: ''
+      region: hidden
+      weight: 14
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+    group_appointments:
+      children:
+        - field_hservice_appt_intro_select
+        - field_hservice_appt_leadin
+        - field_hservices_lead_in_default
+        - field_referral_required
+        - field_walk_ins_accepted
+        - field_online_scheduling_availabl
+        - field_phone_numbers_paragraph
+      label: Appointments
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.health_care_local_health_service.system_services_listings
+targetEntityType: node
+bundle: health_care_local_health_service
+mode: system_services_listings
+content:
+  field_enforce_unique_combo:
+    type: allow_only_one
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_hservice_appt_intro_select:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_hservice_appt_leadin:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_hservices_lead_in_default:
+    type: markup
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_online_scheduling_availabl:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_phone_numbers_paragraph:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_referral_required:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_service_location:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_walk_ins_accepted:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+hidden:
+  breadcrumbs: true
+  content_moderation_control: true
+  field_administration: true
+  field_appointments_help_text: true
+  field_facility_location: true
+  field_facility_service_loc_help: true
+  field_last_saved_by_an_editor: true
+  field_regional_health_service: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
