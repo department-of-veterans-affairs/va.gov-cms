@@ -309,7 +309,8 @@ Your discipline lead will assist with onboarding tasks / calls.
    - [VA Design System](https://design.va.gov/)
 - [ ] Install tools and request access from your DM, if not already provided
    - [ ] Sketch (for designers on Public Websites or Facilities)
-   - [ ] [Mural](https://app.mural.co/t/departmentofveteransaffairs9999) - when you have been assigned your VA email address, ask your DM to add you to Team folders in Mural. Without a VA email, other users can share the Visitor link to Murals so you can view them meantime.
+   - [ ] [Mural](https://app.mural.co/t/departmentofveteransaffairs9999) - when you have been assigned your VA email address, create a Mural access request, following steps listed here: https://yourit.va.gov/va?sys_kb_id=8d7faa191be83d14018220a5624bcbd5&id=kb_article_view&sysparm_rank=1&sysparm_tsqueryId=f4c33931478d869cc38978e8c26d4324. Without a VA email, other users can share the Visitor link to Murals so you can view them meantime.
+       - [ ] ask your DM to add you to Team folders in Mural. 
    - [ ] Figma (for designers on Sitewide CMS)
    - [ ] Airtable (for Research / Content strategists)
    - [ ] Review and start getting acquainted with existing design systems.
