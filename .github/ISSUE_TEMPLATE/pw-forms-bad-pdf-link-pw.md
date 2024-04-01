@@ -40,11 +40,3 @@ Steps to reproduce the behavior:
   
 ## Acceptance Criteria
 - [ ] Form page loads & form can be downloaded
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [X] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`
