@@ -189,10 +189,11 @@ class ServiceLocationMigration {
       '1' => 'yes',
       // 'No' => 'No'.
       '0' => 'no',
-      // This is the do no harm, option defaulting to most restrictive.
-      // 'unspecified' => 'No'.
-      'not_applicable' => 'no',
-      'default' => 'no',
+      // This is the do no harm, option defaulting to no choice.
+      // 'unspecified' => NULL.
+      '2' => NULL,
+      'not_applicable' => NULL,
+      'default' => NULL,
     ];
     $lookup = $this->facilityService->get('field_online_scheduling_availabl')->value;
     $new_value = script_libary_map_to_value($lookup, $schedule_online_map);
