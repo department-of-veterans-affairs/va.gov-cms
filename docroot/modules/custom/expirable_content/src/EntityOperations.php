@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\expirable_content;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -15,24 +14,28 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class EntityOperations implements ContainerInjectionInterface {
 
-  protected $entityTypeManager;
+  /**
+   * The entity type manager service.
+   *=
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected EntityTypeManagerInterface $entityTypeManager;
 
+  /**
+   * Constructs a new EntityOperations object.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager service.
+   */
   public function __construct(EntityTypeManagerInterface $entityTypeManager) {
     $this->entityTypeManager = $entityTypeManager;
   }
 
-  public static function create(ContainerInterface $container) {
-    // TODO: Implement create() method.
-    return new static($container->get('entity_type.manager'));
-  }
-
   /**
-   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
-   *   The entity that was just saved.
-   *
-   * @see hook_entity_insert()
+   * {@inheritDoc}
    */
-  public static function insert(ContentEntityInterface $entity) {
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('entity_type.manager'));
   }
 
   /**
@@ -49,7 +52,7 @@ class EntityOperations implements ContainerInjectionInterface {
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity that was just saved.
    *
-   * @see hook_entity_insert()
+   * @see hook_entity_update()
    */
   public function entityUpdate(EntityInterface $entity) {
     // Do things when entity is updated.
@@ -59,45 +62,10 @@ class EntityOperations implements ContainerInjectionInterface {
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity that was just saved.
    *
-   * @see hook_entity_insert()
+   * @see hook_entity_delete()
    */
   public function entityDelete(EntityInterface $entity) {
     // Do things when an entity is deleted.
   }
-
-  /**
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity revision being deleted.
-   *
-   * @see hook_entity_revision_delete()
-   */
-  public function entityRevisionDelete(EntityInterface $entity) {
-  }
-
-  /**
-   * @param \Drupal\Core\Entity\EntityInterface $translation
-   *   The entity translation being deleted.
-   *
-   * @see hook_entity_translation_delete()
-   */
-  public function entityTranslationDelete(EntityInterface $translation) {
-    /** @var \Drupal\Core\Entity\ContentEntityInterface $translation */
-    if (!$translation->isDefaultTranslation()) {
-      $langcode = $translation->language()->getId();
-//      $content_moderation_state = ContentModerationStateEntity::loadFromModeratedEntity($translation);
-//      if ($content_moderation_state && $content_moderation_state->hasTranslation($langcode)) {
-//        $content_moderation_state->removeTranslation($langcode);
-//        ContentModerationStateEntity::updateOrCreateFromEntity($content_moderation_state);
-//      }
-    }
-  }
-
-  /**
-   * Creates or updates the moderation state of an entity.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity to update or create a moderation state for.
-   */
-  protected function createOrUpdateFromEntity() {}
 
 }

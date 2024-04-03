@@ -1,0 +1,4 @@
+services:
+  expirable_content.information:
+    class: Drupal\expirable_content\ExpirableContentInformation
+    arguments: ['@entity_type.manager']

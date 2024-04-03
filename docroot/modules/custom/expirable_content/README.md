@@ -2,6 +2,8 @@
 
 Configure any content entity to have an expiration and warning date.
 
+The architecture is similar to that of the Content Moderation module.
+
 ## REQUIREMENTS
 
 Field module.

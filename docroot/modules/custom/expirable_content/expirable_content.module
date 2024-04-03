@@ -6,44 +6,17 @@
  */
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\expirable_content\EntityOperations;
+use Drupal\expirable_content\EntityTypeInfo;
 
 /**
- * Implements hook_entity_create().
- *
- * @throws \Exception
+ * Implements hook_entity_base_field_info().
  */
-function expirable_content_entity_create(\Drupal\Core\Entity\EntityInterface $entity) {
-//  if (!$entity instanceof \Drupal\Core\Entity\ContentEntityInterface) {
-//    return;
-//  }
-//  // Figure out if this entity is expirable, and if so, write expiration dates.
-//  $expirable_content_type_id = $entity->getEntityTypeId() . "." . $entity->bundle();
-//  /** @var \Drupal\expirable_content\Entity\ExpirableContentType $expirable_content_type */
-//  if ($expirable_content_type = Drupal::entityTypeManager()->getStorage('expirable_content_type')->load($expirable_content_type_id)) {
-//    $field_name = $expirable_content_type->field();
-//    // Determine when this entity expires.
-//    if ($entity->hasField($field_name)) {
-//      $value = $entity->$field_name->value;
-//      if ($value) {
-//
-//        // Check if the entity has the "expiration" field, and if so, get it's field name. If not, we bail (or throw an exception, or message, or something).
-//        \Drupal::entityDefinitionUpdateManager()->getFieldStorageDefinition('expirable_item', $entity->getEntityTypeId());
-//
-//        $exp_date = $warn_date = \Drupal\Core\Datetime\DrupalDateTime::createFromTimestamp($value);
-//        $exp_interval = new \DateInterval('P' . $expirable_content_type->days() . 'D');
-//        $warn_interval = new \DateInterval('P' . $expirable_content_type->warn() . 'D');
-//        $exp_date->add($exp_interval);
-//        $warn_date->sub($warn_interval);
-//        // this is wrong. we need to set the custom field value here.
-//        $entity->set($field_name, [
-//          'expire' => $exp_date->getTimestamp(),
-//          'warn' => $warn_date->getTimestamp(),
-//        ]);
-//      }
-//    }
-//  }
-
+function expirable_content_entity_base_field_info(EntityTypeInterface $entity_type) {
+  return \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(EntityTypeInfo::class)
+    ->entityBaseFieldInfo($entity_type);
 }
 
 /**
@@ -73,20 +46,3 @@ function expirable_content_entity_delete(EntityInterface $entity) {
     ->entityDelete($entity);
 }
 
-/**
- * Implements hook_entity_revision_delete().
- */
-function expirable_content_entity_revision_delete(EntityInterface $entity) {
-  return \Drupal::service('class_resolver')
-    ->getInstanceFromDefinition(EntityOperations::class)
-    ->entityRevisionDelete($entity);
-}
-
-/**
- * Implements hook_entity_translation_delete().
- */
-function expirable_content_entity_translation_delete(EntityInterface $translation) {
-  return \Drupal::service('class_resolver')
-    ->getInstanceFromDefinition(EntityOperations::class)
-    ->entityTranslationDelete($translation);
-}

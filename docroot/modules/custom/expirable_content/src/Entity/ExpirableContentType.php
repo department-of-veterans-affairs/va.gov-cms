@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\expirable_content\Entity;
 
-use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
 
 /**
