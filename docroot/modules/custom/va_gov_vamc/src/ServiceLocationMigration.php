@@ -189,10 +189,11 @@ class ServiceLocationMigration {
       '1' => 'yes',
       // 'No' => 'No'.
       '0' => 'no',
-      // This is the do no harm, option defaulting to most restrictive.
-      // 'unspecified' => 'No'.
-      'not_applicable' => 'no',
-      'default' => 'no',
+      // This is the do no harm, option defaulting to no choice.
+      // 'unspecified' => NULL.
+      '2' => NULL,
+      'not_applicable' => NULL,
+      'default' => NULL,
     ];
     $lookup = $this->facilityService->get('field_online_scheduling_availabl')->value;
     $new_value = script_libary_map_to_value($lookup, $schedule_online_map);
@@ -211,10 +212,11 @@ class ServiceLocationMigration {
       '0' => 'yes_appointment_only',
       // 'Yes' => 'Yes, with or without an appointment'.
       '1' => 'yes_with_or_without_appointment',
-      // This is the do no harm, option defaulting to most restrictive.
-      // 'unspecified' => 'yes by appointment only'.
-      'not_applicable' => 'yes_appointment_only',
-      'default' => 'yes_appointment_only',
+      // This is the do no harm, option defaulting to no choice.
+      // 'unspecified' => NULL.
+      '2' => NULL,
+      'not_applicable' => NULL,
+      'default' => NULL,
     ];
     $lookup = $this->facilityService->get('field_walk_ins_accepted')->value;
     $new_value = script_libary_map_to_value($lookup, $walkins_accepted_map);
