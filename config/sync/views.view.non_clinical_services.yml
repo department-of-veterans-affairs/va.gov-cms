@@ -1807,9 +1807,9 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ field_clinic_name }}\r\n{{ field_address }}\r\n<div class=\"location-details\">{{ field_building_name_number }}\r\n{{ field_wing_floor_or_room_number }}</div>"
+          then: "{{ field_address }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
           then_translate: true
-          or: "{{ field_clinic_name }}\r\n{{ field_address_1 }}\r\n<div class=\"location-details\">{{ field_building_name_number }}\r\n{{ field_wing_floor_or_room_number }}</div>"
+          or: "{{ field_address_1 }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
           or_translate: true
           strip_tags: false
         field_office_hours:
@@ -3081,9 +3081,9 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ field_clinic_name }}\r\n{{ field_address }}\r\n<div class=\"location-details\">{{ field_building_name_number }}\r\n{{ field_wing_floor_or_room_number }}</div>"
+          then: "{{ field_address }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
           then_translate: true
-          or: "{{ field_clinic_name }}\r\n{{ field_address_1 }}\r\n<div class=\"location-details\">{{ field_building_name_number }}\r\n{{ field_wing_floor_or_room_number }}</div>"
+          or: "{{ field_address_1 }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
           or_translate: true
           strip_tags: false
         field_office_hours:
@@ -4420,9 +4420,9 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ field_clinic_name }}\r\n{{ field_address }}\r\n<div class=\"location-details\">{{ field_building_name_number }}\r\n{{ field_wing_floor_or_room_number }}</div>\r\n"
+          then: "{{ field_address }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n"
           then_translate: true
-          or: "{{ field_clinic_name }}\r\n{{ field_address_1 }}\r\n<div class=\"location-details\">{{ field_building_name_number }}\r\n{{ field_wing_floor_or_room_number }}</div>\r\n"
+          or: "{{ field_address_1 }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n"
           or_translate: true
           strip_tags: false
         field_office_hours:
