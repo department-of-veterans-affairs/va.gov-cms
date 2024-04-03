@@ -1,10 +1,75 @@
-site_name: 'VA.gov CMS Developer Documentation'
+site_name: 'VA.gov Content Management System (CMS) Developer Documentation'
 site_description: 'How to build applications using the VA.gov Content Management System.'
 repo_url: 'https://github.com/department-of-veterans-affairs/va.gov-cms'
-edit_uri: edit/main/READMES/
+edit_uri: 'https://github.com/department-of-veterans-affairs/va.gov-cms/tree/main'
 
 nav:
   - Home: README.md
+  - Developer Info:
+     - Getting Started: READMES/getting-started.md
+     - WEB & CMS Integration: READMES/unity.md
+     - Workflow: READMES/workflow.md
+     - Project Conventions: READMES/project-conventions.md
+     - Code Ownership: READMES/codeowners.md
+     - Environments: READMES/environments.md
+        - CI Environments: READMES/tugboat.md
+        - Local - DDEV: READMES/local.md
+        - BRD Environments: READMES/brd.md
+        - HTTPS: READMES/https.md
+        - Environment Variables: READMES/environment-variables.md
+        - Kubernetes: READMES/historical/kubernetes.md
+     - Alerts: READMES/alerts.md
+     - GitHub Workflows: READMES/github-workflows.md
+     - Logging into BRD (e.g. production, staging) instances: READMES/brd-login.md
+  - Quality and Testing:
+     - Quality Assurance (QA): READMES/qa.md
+     - Development Best Practices: READMES/development-best-practices.md
+     - Code Review: READMES/code-review.md
+     - Testing: READMES/testing.md
+     - Debugging: READMES/debugging.md
+     - Comparing GraphQL Output: READMES/comparing-graphql-output.md
+     - Dependabot Alerts: READMES/dependabot-alerts.md
+     - Dependabot Updates: READMES/dependabot-updates.md
+     - Sentry: READMES/sentry.md
+     - Profiling with Blackfire: READMES/blackfire.md
+     - Scalability Testing: READMES/scalability-testing.md
+  - Release & Deployment:
+     - The BRD System: Build, Release, Deploy: READMES/brd.md
+     - CMS Release Process: READMES/brd.md#cms-release-process
+     - CMS-CI Release Process (TODO): READMES/brd.md#cmsci-release-process
+  - Architecture:
+     - Drupal:
+        - Memcache: READMES/drupal-memcache.md
+     - Content Models and Documentation: READMES/content-models.md
+        - Centralized Content: READMES/content-model-centralized-content.md
+     - MetalSmith (TODO): # 
+     - GraphQL: READMES/graph_ql.md
+     - Interfaces (APIs & Feature Flags): READMES/interfaces.md
+     - Migrations (data imports):
+        - Facility: READMES/migrations-facility.md
+        - Form: READMES/migrations-forms.md
+     - Removing deprecated fields: READMES/remove-deprecated-fields.md
+     - Security: READMES/security.md
+     - Upstream Dependencies: READMES/upstream-dependencies.md
+     - Downstream Dependencies: READMES/downstream_dependencies.md
+  - CMS Users:
+     - Login / SSOi: READMES/cms-login.md
+     - CMS User Notification Systems: READMES/cms-editor-notifications.md
+     - Drupal API Users: READMES/drupal_api_users.md
+  - CMS Content:
+     - Workflow: READMES/cms-content-workflow.md
+        - Alias Lockdown: READMES/cms-content-workflow.md#alias-lockdown
+        - Broken Links: READMES/broken-links.md
+        - Content Preview: READMES/cms-content-workflow.md#content-preview
+     - Content Release: READMES/cms-content-release.md
+     - Section Dashboards: docroot/modules/custom/va_gov_dashboards/README.md
+     - Facilities:
+        - VAMC Facilities: READMES/vamc-facilities.md
+           - VA Lovell / TRICARE: READMES/vamc-facilities-lovell.md
+  - Historical:
+     - Main branch name change: READMES/historical/cms-branch-name-change.md
+     - Elasticache Investigation: READMES/historical/elasticache.md
+     - EWA Rules of Engagement: READMES/historical/ewa-rules-of-engagement.md
 
 plugins:
   - techdocs-core
