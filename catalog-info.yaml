@@ -1,7 +1,26 @@
 apiVersion: backstage.io/v1alpha1
-kind: System
+kind: Component
 metadata:
   name: va.gov-cms
-  description: Content Management System for VA.gov
+  description: VA.gov Content Management System (CMS)
+  title: VA.gov Content Management System (CMS) Documentation
+  tags:
+    - content management
+    - documentation
+    - internal
+  links:
+    - url: https://github.com/department-of-veterans-affairs/va.gov-cms
+      title: VA.gov Content Management System (CMS) Docs
+      icon: web
+    - url: https://github.com/department-of-veterans-affairs/va.gov-cms/issues
+      title: Issues
+      icon: help
+  annotations:
+    github.com/project-slug: department-of-veterans-affairs/va.gov-cms
+    backstage.io/techdocs-ref: url:https://github.com/department-of-veterans-affairs/va.gov-cms
 spec:
+  domain: va.gov-cms
+  system: va.gov-cms
+  type: website
+  lifecycle: production
   owner: cms-infrastructure
