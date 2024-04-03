@@ -364,7 +364,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       'yes' => 'true',
     ];
 
-    return $map[$online_scheduling_avail];
+    return $map[$online_scheduling_avail] ?? NULL;
   }
 
   /**
