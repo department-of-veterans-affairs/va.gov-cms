@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d81a3d639e32bf735e59669260083e8",
+    "content-hash": "bf9bc879252120fadd73871871357dfd",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1175,16 +1175,16 @@
         },
         {
             "name": "datadog/dd-trace",
-            "version": "0.98.1",
+            "version": "0.99.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DataDog/dd-trace-php.git",
-                "reference": "c9c873dabdfd499d22fc47e0e6f3150ff16ce41d"
+                "reference": "ac0f416212f76259ea359ecd2ce0c4e0521b5b9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/c9c873dabdfd499d22fc47e0e6f3150ff16ce41d",
-                "reference": "c9c873dabdfd499d22fc47e0e6f3150ff16ce41d",
+                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/ac0f416212f76259ea359ecd2ce0c4e0521b5b9c",
+                "reference": "ac0f416212f76259ea359ecd2ce0c4e0521b5b9c",
                 "shasum": ""
             },
             "require": {
@@ -1273,9 +1273,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DataDog/dd-trace-php/issues",
-                "source": "https://github.com/DataDog/dd-trace-php/tree/0.98.1"
+                "source": "https://github.com/DataDog/dd-trace-php/tree/0.99.0"
             },
-            "time": "2024-03-04T11:08:12+00:00"
+            "time": "2024-04-02T13:15:31+00:00"
         },
         {
             "name": "davedevelopment/stiphle",
@@ -6143,6 +6143,55 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/entity_usage",
                 "issues": "http://drupal.org/project/issues/entity_usage"
+            }
+        },
+        {
+            "name": "drupal/entity_usage_addons",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_usage_addons.git",
+                "reference": "2.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_usage_addons-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "b69ef031b1b794670194ca98d13a1f00168a0b6d"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10",
+                "drupal/entity_usage": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.1",
+                    "datestamp": "1709105505",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "dakku",
+                    "homepage": "https://www.drupal.org/user/97634"
+                },
+                {
+                    "name": "malcomio",
+                    "homepage": "https://www.drupal.org/user/418511"
+                }
+            ],
+            "description": "Addon module for tracking usage of entities referenced by other entities.",
+            "homepage": "https://www.drupal.org/project/entity_usage_addons",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_usage_addons"
             }
         },
         {
