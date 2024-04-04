@@ -1,13 +1,13 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 namespace Drupal\expirable_content\Form;
 
 use Drupal\Core\Entity\BundleEntityFormBase;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\expirable_content\Entity\ExpirableContent;
 use Drupal\expirable_content\Entity\ExpirableContentType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

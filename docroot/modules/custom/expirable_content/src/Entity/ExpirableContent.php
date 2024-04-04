@@ -5,13 +5,10 @@ declare(strict_types = 1);
 namespace Drupal\expirable_content\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\expirable_content\ExpirableContentInterface;
-use Drupal\user\EntityOwnerInterface;
-use Drupal\user\EntityOwnerTrait;
 
 /**
  * Defines the expirable content entity.
@@ -102,7 +99,7 @@ final class ExpirableContent extends ContentEntityBase implements ExpirableConte
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The content entity.
    *
-   * @return ExpirableContentInterface|null
+   * @return \Drupal\expirable_content\ExpirableContentInterface|null
    *   The expirable content for this entity or null if one cannot be found.
    *
    * @internal
@@ -135,7 +132,7 @@ final class ExpirableContent extends ContentEntityBase implements ExpirableConte
         ->execute();
 
       if ($ids) {
-        /** @var ExpirableContentInterface $expirable_content */
+        /** @var \Drupal\expirable_content\Entity\ExpirableContent $expirable_content */
         $expirable_content = $storage->loadRevision(key($ids));
       }
     }

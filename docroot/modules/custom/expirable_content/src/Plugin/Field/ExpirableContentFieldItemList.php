@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\expirable_content\Plugin\Field;
 
-use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
-use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemList;
 use Drupal\Core\TypedData\ComputedItemListTrait;
-use Drupal\Core\TypedData\Exception\MissingDataException;
 use Drupal\expirable_content\Entity\ExpirableContentType;
 use Drupal\expirable_content\ExpirableContentInformationInterface;
 
@@ -112,10 +109,11 @@ class ExpirableContentFieldItemList extends FieldItemList {
           return $expiration_date->getTimestamp();
         }
       }
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       \Drupal::logger('expirable_content')->error($this->t('Unable to create expiration for entity id %entity with exception: <pre>%exception</pre>', [
         '%entity' => $entity->id(),
-        '%exception' => $e->getMessage()
+        '%exception' => $e->getMessage(),
       ]));
     }
     return 0;
@@ -141,10 +139,11 @@ class ExpirableContentFieldItemList extends FieldItemList {
           return $warning_date->getTimestamp();
         }
       }
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       \Drupal::logger('expirable_content')->error($this->t('Unable to create warning for entity id %entity with exception: <pre>%exception</pre>', [
         '%entity' => $entity->id(),
-        '%exception' => $e->getMessage()
+        '%exception' => $e->getMessage(),
       ]));
     }
     return 0;
@@ -158,7 +157,7 @@ class ExpirableContentFieldItemList extends FieldItemList {
    * @param bool $status
    *   TRUE to include only enabled types.
    *
-   * @return \Drupal\expirable_content\Entity\ExpirableContentType|NULL
+   * @return \Drupal\expirable_content\Entity\ExpirableContentType|null
    *   The Expirable Content Type if it exists, or NULL otherwise.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
@@ -173,7 +172,7 @@ class ExpirableContentFieldItemList extends FieldItemList {
     if (!empty($expirable_content_types)) {
       return current($expirable_content_types);
     }
-    return  NULL;
+    return NULL;
   }
 
 }

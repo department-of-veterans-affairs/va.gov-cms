@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\expirable_content\Plugin\views\filter;
 
-use Drupal\expirable_content\Plugin\views\ExpirableContentJoinViewsHandlerTrait;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\expirable_content\Plugin\views\ExpirableContentJoinViewsHandlerTrait;
 use Drupal\views\Plugin\views\filter\Date;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

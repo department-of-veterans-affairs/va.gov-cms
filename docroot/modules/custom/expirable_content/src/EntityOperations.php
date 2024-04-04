@@ -17,7 +17,7 @@ class EntityOperations implements ContainerInjectionInterface {
 
   /**
    * The entity type manager service.
-   *=
+   *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected EntityTypeManagerInterface $entityTypeManager;

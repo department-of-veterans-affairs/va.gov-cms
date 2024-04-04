@@ -2,8 +2,8 @@
 
 namespace Drupal\expirable_content\Plugin\views\sort;
 
-use Drupal\expirable_content\Plugin\views\ExpirableContentJoinViewsHandlerTrait;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\expirable_content\Plugin\views\ExpirableContentJoinViewsHandlerTrait;
 use Drupal\views\Plugin\views\sort\SortPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

@@ -19,4 +19,3 @@ function expirable_content_views_data(): array {
   );
   return $data->getViewsData();
 }
-

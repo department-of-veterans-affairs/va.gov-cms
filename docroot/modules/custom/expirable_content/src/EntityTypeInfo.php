@@ -7,6 +7,7 @@ namespace Drupal\expirable_content;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\expirable_content\Plugin\Field\ExpirableContentFieldItemList;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -58,15 +59,15 @@ class EntityTypeInfo implements ContainerInjectionInterface {
     }
     $fields = [];
     $fields['expiration_date'] = BaseFieldDefinition::create('timestamp')
-      ->setLabel('Expiration date')
-      ->setDescription(t('The date this entity will expire or has expired.'))
+      ->setLabel(new TranslatableMarkup('Expiration date'))
+      ->setDescription(new TranslatableMarkup('The date this entity will expire or has expired.'))
       ->setComputed(TRUE)
       ->setClass(ExpirableContentFieldItemList::class)
       ->setReadOnly(FALSE);
 
     $fields['warning_date'] = BaseFieldDefinition::create('timestamp')
-      ->setLabel('Warning date')
-      ->setDescription(t('The date the entity warning is established.'))
+      ->setLabel(new TranslatableMarkup('Warning date'))
+      ->setDescription(new TranslatableMarkup('The date the entity warning is established.'))
       ->setComputed(TRUE)
       ->setClass(ExpirableContentFieldItemList::class)
       ->setReadOnly(FALSE);

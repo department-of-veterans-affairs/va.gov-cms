@@ -63,7 +63,7 @@ class ViewsData {
 
       // Add 'Expiration date' computed field to base tables.
       $data[$table]['expiration_date'] = [
-        'title' => t('Expiration date'),
+        'title' => $this->t('Expiration date'),
         'field' => [
           'id' => 'expirable_content_field',
           'default_formatter' => 'date',
@@ -75,7 +75,7 @@ class ViewsData {
 
       // Add 'Warning date' computed field to base tables.
       $data[$table]['warning_date'] = [
-        'title' => t('Warning date'),
+        'title' => $this->t('Warning date'),
         'field' => [
           'id' => 'expirable_content_field',
           'default_formatter' => 'date',
@@ -89,7 +89,7 @@ class ViewsData {
 
       // Add 'Expiration date' computed field to revision base tables.
       $data[$revision_table]['expiration_date'] = [
-        'title' => t('Expiration date'),
+        'title' => $this->t('Expiration date'),
         'field' => [
           'id' => 'expirable_content_field',
           'default_formatter' => 'date',
@@ -100,7 +100,7 @@ class ViewsData {
       ];
       // Add 'Warning date' computed field to revision base tables.
       $data[$revision_table]['moderation_state'] = [
-        'title' => t('Warning date'),
+        'title' => $this->t('Warning date'),
         'field' => [
           'id' => 'expirable_content_field',
           'default_formatter' => 'date',

@@ -13,6 +13,7 @@ use Drupal\Core\Entity\EntityInterface;
  * @see \Drupal\expirable_content\Entity\ExpirableContentType
  */
 final class ExpirableContentTypeListBuilder extends ConfigEntityListBuilder {
+
   /**
    * {@inheritdoc}
    */
@@ -35,4 +36,5 @@ final class ExpirableContentTypeListBuilder extends ConfigEntityListBuilder {
     $row['status'] = $entity->status() ? $this->t('Enabled') : $this->t('Disabled');
     return $row + parent::buildRow($entity);
   }
+
 }
