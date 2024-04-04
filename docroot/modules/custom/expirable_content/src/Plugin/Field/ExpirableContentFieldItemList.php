@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\expirable_content\Plugin\Field;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemList;
 use Drupal\Core\TypedData\ComputedItemListTrait;
+use Drupal\Core\TypedData\Exception\MissingDataException;
 use Drupal\expirable_content\Entity\ExpirableContentType;
 use Drupal\expirable_content\ExpirableContentInformationInterface;
 
@@ -68,7 +71,7 @@ class ExpirableContentFieldItemList extends FieldItemList {
   protected function computeExpireDate(): void {
     $entity = $this->getEntity();
     if ($this->expirableContentInfo->isExpirableEntity($entity)) {
-      if ($value = $this->expirableContentInfo->getExpirationForEntity($entity)) {
+      if ($value = $this->getExpirationForEntity($entity)) {
         $this->list[0] = $this->createItem(0, $value);
       }
     }
@@ -80,7 +83,7 @@ class ExpirableContentFieldItemList extends FieldItemList {
   protected function computeWarnDate() {
     $entity = $this->getEntity();
     if ($this->expirableContentInfo->isExpirableEntity($entity)) {
-      if ($value = $this->expirableContentInfo->getWarningForEntity($entity)) {
+      if ($value = $this->getWarningForEntity($entity)) {
         $this->list[0] = $this->createItem(0, $value);
       }
     }
@@ -95,22 +98,25 @@ class ExpirableContentFieldItemList extends FieldItemList {
    * @return int
    *   The expiration date if it could be calculated for this entity, 0
    *   otherwise.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   public function getExpirationForEntity(ContentEntityInterface $entity): int {
-    if ($type = $this->getExpirableContentTypeForEntity($entity)) {
-      if ($entity->hasField($type->field())) {
-        $value = $entity->get($type->field())->first()->getValue();
-        assert(isset($value['value']));
-        $base_date = DrupalDateTime::createFromTimestamp($value['value']);
-        $expiration_date = clone $base_date;
-        $expiration_interval = 'P' . $type->days() . 'D';
-        $expiration_date->add(new \DateInterval($expiration_interval));
-        return $expiration_date->getTimestamp();
+    try {
+      if ($type = $this->getExpirableContentTypeForEntity($entity)) {
+        if ($entity->hasField($type->field())) {
+          $value = $entity->get($type->field())->first()->getValue();
+          assert(isset($value['value']));
+          $base_date = DrupalDateTime::createFromTimestamp($value['value']);
+          $expiration_date = clone $base_date;
+          $expiration_interval = 'P' . $type->days() . 'D';
+          $expiration_date->add(new \DateInterval($expiration_interval));
+          return $expiration_date->getTimestamp();
+        }
       }
+    } catch (\Exception $e) {
+      \Drupal::logger('expirable_content')->error($this->t('Unable to create expiration for entity id %entity with exception: <pre>%exception</pre>', [
+        '%entity' => $entity->id(),
+        '%exception' => $e->getMessage()
+      ]));
     }
     return 0;
   }
@@ -123,20 +129,23 @@ class ExpirableContentFieldItemList extends FieldItemList {
    *
    * @return int
    *   The warning date if it could be calculated for this entity, 0 otherwise.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Exception
    */
   public function getWarningForEntity(ContentEntityInterface $entity): int {
-    if ($type = $this->getExpirableContentTypeForEntity($entity)) {
-      if ($expiration_timestamp = $this->getExpirationForEntity($entity)) {
-        $base_date = DrupalDateTime::createFromTimestamp($expiration_timestamp);
-        $warning_date = clone $base_date;
-        $expiration_interval = 'P' . $type->warn() . 'D';
-        $warning_date->sub(new \DateInterval($expiration_interval));
-        return $warning_date->getTimestamp();
+    try {
+      if ($type = $this->getExpirableContentTypeForEntity($entity)) {
+        if ($expiration_timestamp = $this->getExpirationForEntity($entity)) {
+          $base_date = DrupalDateTime::createFromTimestamp($expiration_timestamp);
+          $warning_date = clone $base_date;
+          $expiration_interval = 'P' . $type->warn() . 'D';
+          $warning_date->sub(new \DateInterval($expiration_interval));
+          return $warning_date->getTimestamp();
+        }
       }
+    } catch (\Exception $e) {
+      \Drupal::logger('expirable_content')->error($this->t('Unable to create warning for entity id %entity with exception: <pre>%exception</pre>', [
+        '%entity' => $entity->id(),
+        '%exception' => $e->getMessage()
+      ]));
     }
     return 0;
   }

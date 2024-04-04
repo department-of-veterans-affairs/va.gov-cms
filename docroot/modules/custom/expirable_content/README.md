@@ -2,7 +2,7 @@
 
 Configure any content entity to have an expiration and warning date.
 
-The architecture is similar to that of the Content Moderation module.
+The architecture of Expirable Content borrows heavily from the Content Moderation module.
 
 ## REQUIREMENTS
 

@@ -6,6 +6,7 @@ namespace Drupal\expirable_content\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\expirable_content\ExpirableContentInterface;
@@ -93,6 +94,53 @@ final class ExpirableContent extends ContentEntityBase implements ExpirableConte
       ->setRevisionable(TRUE);
 
     return $fields;
+  }
+
+  /**
+   * Load an Expirable Content entity from a given content entity.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The content entity.
+   *
+   * @return ExpirableContentInterface|null
+   *   The expirable content for this entity or null if one cannot be found.
+   *
+   * @internal
+   *   This method should only be called by code directly handling the
+   *   ExpirableContent entity objects.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public static function loadFromEntity(EntityInterface $entity): ?ExpirableContentInterface {
+    $expirable_content = NULL;
+    /** @var \Drupal\expirable_content\ExpirableContentInformationInterface $info */
+    $info = \Drupal::service('expirable_content.information');
+
+    if ($info->isExpirableEntity($entity)) {
+      /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
+      $storage = \Drupal::entityTypeManager()->getStorage('expirable_content');
+
+      // New entities may not have a loaded revision ID at this point, but the
+      // creation of an expirable content entity may have already been
+      // triggered elsewhere. In this case we have to match on the revision ID
+      // (instead of the loaded revision ID).
+      $revision_id = $entity->getLoadedRevisionId() ?: $entity->getRevisionId();
+      $ids = $storage->getQuery()
+        ->accessCheck(FALSE)
+        ->condition('content_entity_type_id', $entity->getEntityTypeId())
+        ->condition('content_entity_id', $entity->id())
+        ->condition('content_entity_revision_id', $revision_id)
+        ->allRevisions()
+        ->execute();
+
+      if ($ids) {
+        /** @var ExpirableContentInterface $expirable_content */
+        $expirable_content = $storage->loadRevision(key($ids));
+      }
+    }
+
+    return $expirable_content;
   }
 
 }

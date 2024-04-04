@@ -46,3 +46,11 @@ function expirable_content_entity_delete(EntityInterface $entity) {
     ->entityDelete($entity);
 }
 
+/**
+ * Implements hook_entity_revision_delete().
+ */
+function expirable_content_entity_revision_delete(EntityInterface $entity) {
+  return \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(EntityOperations::class)
+    ->entityRevisionDelte($entity);
+}
