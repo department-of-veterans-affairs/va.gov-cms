@@ -28,7 +28,7 @@ class ExpirableContentFilter extends Date {
   protected $entityTypeManager;
 
   /**
-   * Creates an instance of ModerationStateFilter.
+   * Creates an instance of ExpirableContentFilter.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.

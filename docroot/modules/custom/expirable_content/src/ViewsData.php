@@ -99,7 +99,7 @@ class ViewsData {
         'sort' => ['id' => 'expirable_content_sort'],
       ];
       // Add 'Warning date' computed field to revision base tables.
-      $data[$revision_table]['moderation_state'] = [
+      $data[$revision_table]['warning_date'] = [
         'title' => $this->t('Warning date'),
         'field' => [
           'id' => 'expirable_content_field',

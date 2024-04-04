@@ -26,7 +26,7 @@ class ExpirableContentSort extends SortPluginBase {
   protected $entityTypeManager;
 
   /**
-   * Creates an instance of ModerationStateFilter.
+   * Creates an instance of ExpirableContentSort.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Provide views data for content_moderation.module.
+ * Provide views data for expirable_content.module.
  *
  * @ingroup views_module_handlers
  */
