@@ -48,12 +48,16 @@
     .views-row {
       margin: 2em 0;
 
+      .views-field-views-conditional-field-1 {
+        margin-bottom: var(--spacing-s);
+      }
+
       .location-details span:not(:first-child)::before {
         content: ', ';
       }
 
       .address {
-        margin-top: 0;
+        margin-bottom: 0;
 
         br,
         span {
