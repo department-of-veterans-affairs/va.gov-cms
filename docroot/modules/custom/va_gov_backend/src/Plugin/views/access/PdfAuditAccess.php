@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Route;
  * @ViewsAccess(
  *   id = "php_audit_access",
  *   title = @Translation("PHP Audit Access"),
- *   help = @Translation("Access will be granted to only to super admins and VHA DM users.")
+ *   help = @Translation("Access will be granted.")
  * )
  */
 class PdfAuditAccess extends AccessPluginBase {
