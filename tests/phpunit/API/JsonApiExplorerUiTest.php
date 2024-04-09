@@ -22,14 +22,15 @@ class JsonApiExplorerUiTest extends VaGovExistingSiteBase {
     $user = $this->createUser();
     $user->addRole('content_api_consumer');
     $user->save();
-
     $this->drupalLogin($user);
-    $this->drupalGet('/admin/config/services/openapi/swagger/jsonapi');
 
-    // Confirm that the page is accessible.
+    // Go to the OpenAPI overview page and check for the link to the Swagger UI.
+    $this->drupalGet('admin/config/services/openapi');
+    $this->assertSession()->linkExists('Explore with Swagger UI');
+
+    // Go to VA's JSON:API Explorer and check page loads.
+    $this->drupalGet('/admin/config/services/openapi/swagger/va_gov_json_api');
     $this->assertSession()->statusCodeEquals(200);
-
-    // Assert that ".page-title" is "OpenAPI Documentation".
     $this->assertSession()->elementTextContains(
       'css',
       '.page-title',
