@@ -188,6 +188,10 @@ $config = [
      *
      * A possible way to generate a random salt is by running the following command from a unix shell:
      * LC_ALL=C tr -c -d '0123456789abcdefghijklmnopqrstuvwxyz' </dev/urandom | dd bs=32 count=1 2>/dev/null;echo
+     *
+     * We pull the SimpleSAMLphp's salt and admin password from environment variables,
+     * which in turn are pulled from AWS Parameter Store during deployment.
+     * This prevents exposing the salt and password to the public.
      */
   'secretsalt' => getenv('SIMPLESAMLPHP_SECRETSALT'),
 
@@ -196,6 +200,8 @@ $config = [
      * This password will give access to the installation page of SimpleSAMLphp with
      * metadata listing and diagnostics pages.
      * You can also put a hash here; run "bin/pwgen.php" to generate one.
+     *
+     * Pulled from environment variables for secrecy. See the comment on secretsalt above.
      */
   'auth.adminpassword' => getenv('SIMPLESAMLPHP_ADMIN_PASSWORD'),
 
