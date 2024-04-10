@@ -300,9 +300,14 @@ Each repository includes READMEs to help with setup.
 - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md) - explains the CMS > content build process and data source / snapshot timing for all lower environments
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
 
-### Design system
+### VA Design system (DS)
+The VA Design System and our products are always iterating, so you'll find our products in various states of compliance with current Design System guidance. We expect that any new development in the front-end uses VA Design System components wherever possible, and that we identify opportunities to bring older products up to modern usage of the DS. It's important to get familiar with the DS to inform your work.
+
  - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback]([https://design.va.gov/about/feedback](https://design.va.gov/about/feedback))
+ - [ ] Review the VA DS [Storybook](https://design.va.gov/storybook/?path=/story/about-introduction--page)
  - [ ] CMS Design System: documentation TBD
+
+If you ever see places we should be using the DS and aren't, surface those to your Product Manager!
 
 
 ### Tools & Resources
