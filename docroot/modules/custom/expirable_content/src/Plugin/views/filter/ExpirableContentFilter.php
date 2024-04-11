@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup views_filter_handlers
  *
- * @ViewsFilter("date")
+ * @ViewsFilter("expirable_content_filter")
  */
 class ExpirableContentFilter extends Date {
 
