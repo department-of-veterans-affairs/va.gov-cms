@@ -62,24 +62,24 @@ class ViewsData {
       $table = $entity_type->getDataTable() ?: $entity_type->getBaseTable();
 
       // Add 'Expiration date' computed field to base tables.
-      $data[$table]['expiration_date'] = [
+      $data[$table]['expiration'] = [
         'title' => $this->t('Expiration date'),
         'field' => [
           'id' => 'expirable_content_field',
           'default_formatter' => 'date',
-          'field_name' => 'expiration_date',
+          'field_name' => 'expiration',
         ],
         'filter' => ['id' => 'expirable_content_filter', 'allow empty' => TRUE],
         'sort' => ['id' => 'expirable_content_sort'],
       ];
 
-      // Add 'Warning date' computed field to base tables.
-      $data[$table]['warning_date'] = [
+      // Add 'Warning date' computed field to base tables.w
+      $data[$table]['warning'] = [
         'title' => $this->t('Warning date'),
         'field' => [
           'id' => 'expirable_content_field',
           'default_formatter' => 'date',
-          'field_name' => 'warning_date',
+          'field_name' => 'warning',
         ],
         'filter' => ['id' => 'expirable_content_filter', 'allow empty' => TRUE],
         'sort' => ['id' => 'expirable_content_sort'],
@@ -88,23 +88,23 @@ class ViewsData {
       $revision_table = $entity_type->getRevisionDataTable() ?: $entity_type->getRevisionTable();
 
       // Add 'Expiration date' computed field to revision base tables.
-      $data[$revision_table]['expiration_date'] = [
+      $data[$revision_table]['expiration'] = [
         'title' => $this->t('Expiration date'),
         'field' => [
           'id' => 'expirable_content_field',
           'default_formatter' => 'date',
-          'field_name' => 'expiration_date',
+          'field_name' => 'expiration',
         ],
         'filter' => ['id' => 'expirable_content_filter', 'allow empty' => TRUE],
         'sort' => ['id' => 'expirable_content_sort'],
       ];
       // Add 'Warning date' computed field to revision base tables.
-      $data[$revision_table]['warning_date'] = [
+      $data[$revision_table]['warning'] = [
         'title' => $this->t('Warning date'),
         'field' => [
           'id' => 'expirable_content_field',
           'default_formatter' => 'date',
-          'field_name' => 'warning_date',
+          'field_name' => 'warning',
         ],
         'filter' => ['id' => 'expirable_content_filter', 'allow empty' => TRUE],
         'sort' => ['id' => 'expirable_content_sort'],
