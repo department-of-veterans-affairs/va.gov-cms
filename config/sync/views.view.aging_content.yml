@@ -5,8 +5,8 @@ dependencies:
   config:
     - node.type.banner
   module:
+    - expirable_content
     - node
-    - smart_date
     - user
 id: aging_content
 label: 'Aging Content'
@@ -70,6 +70,18 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        expiration:
+          id: expiration
+          table: node_field_data
+          field: expiration
+          entity_type: node
+          plugin_id: expirable_content_field
+        warning:
+          id: warning
+          table: node_field_data
+          field: warning
+          entity_type: node
+          plugin_id: expirable_content_field
       pager:
         type: none
         options:
@@ -165,21 +177,21 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_last_saved_by_an_editor_value:
-          id: field_last_saved_by_an_editor_value
-          table: node__field_last_saved_by_an_editor
-          field: field_last_saved_by_an_editor_value
+        expiration:
+          id: expiration
+          table: node_field_data
+          field: expiration
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: date
-          operator: '<'
+          entity_type: node
+          plugin_id: expirable_content_filter
+          operator: '>='
           value:
             min: ''
             max: ''
-            value: '-7 day'
+            value: today
             type: offset
-            granularity: day
           group: 1
           exposed: false
           expose:
@@ -196,9 +208,9 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
+            placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
-            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -282,6 +294,177 @@ display:
         jsonapi_views:
           enabled: true
       block_description: 'FWB - Expired'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  fwb_warn:
+    id: fwb_warn
+    display_title: 'FWB - Warn'
+    display_plugin: block
+    position: 2
+    display_options:
+      filters:
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            banner: banner
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        warning:
+          id: warning
+          table: node_field_data
+          field: warning
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: expirable_content_filter
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: today
+            type: offset
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        expiration:
+          id: expiration
+          table: node_field_data
+          field: expiration
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: expirable_content_filter
+          operator: '<'
+          value:
+            min: ''
+            max: ''
+            value: today
+            type: offset
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      defaults:
+        filters: false
+        filter_groups: false
+      display_description: ''
+      display_extenders:
+        jsonapi_views:
+          enabled: true
     cache_metadata:
       max-age: -1
       contexts:
