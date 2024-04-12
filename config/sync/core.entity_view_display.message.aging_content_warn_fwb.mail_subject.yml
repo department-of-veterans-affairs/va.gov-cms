@@ -1,0 +1,23 @@
+uuid: d66cf1cb-f7cc-4827-88f6-ec2909a1ff3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_subject
+    - message.template.aging_content_warn_fwb
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.aging_content_warn_fwb.mail_subject
+targetEntityType: message
+bundle: aging_content_warn_fwb
+mode: mail_subject
+content:
+  partial_0:
+    weight: 0
+    region: content
+hidden:
+  partial_1: true
