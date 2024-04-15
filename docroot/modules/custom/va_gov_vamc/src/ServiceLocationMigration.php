@@ -36,12 +36,13 @@ class ServiceLocationMigration {
   /**
    * Runs a single iteration of the migration.
    *
+   * @param int $nid_to_load
+   *   Node id to load.
    * @param array $sandbox
    *   Sandbox variable for keeping state during batches.
    */
-  public function run(array &$sandbox) {
+  public function run(int $nid_to_load, array &$sandbox) {
     $node_storage = get_node_storage();
-    $nid_to_load = reset($sandbox['items_to_process']);
     $facility_service = (empty($nid_to_load)) ? [] : $node_storage->loadMultiple([$nid_to_load]);
     $nid = array_key_first($facility_service);
     /** @var \Drupal\node\NodeInterface $facility_service_node */
@@ -86,8 +87,6 @@ class ServiceLocationMigration {
       $sandbox['forward_revisions_count'] = (isset($sandbox['forward_revisions_count'])) ? ++$sandbox['forward_revisions_count'] : 1;
       $status_msg .= "And a forward revision. ";
     }
-
-    unset($sandbox['items_to_process'][_va_gov_stringifynid($nid)]);
 
     return $status_msg;
   }

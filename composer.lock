@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4cdcb2d11fbee16f091fb2bdda64a6e8",
+    "content-hash": "9d1de06dc3f91d596d2aab77bb708c13",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2891,6 +2891,10 @@
                 {
                     "name": "rlhawk",
                     "homepage": "https://www.drupal.org/user/352283"
+                },
+                {
+                    "name": "smustgrave",
+                    "homepage": "https://www.drupal.org/user/3252890"
                 }
             ],
             "description": "Replaces the Views default single- or multi-select boxes with more advanced options.",
@@ -3172,6 +3176,66 @@
                 "source": "https://www.drupal.org/project/coder"
             },
             "time": "2023-10-15T09:55:50+00:00"
+        },
+        {
+            "name": "drupal/codit_batch_operations",
+            "version": "1.0.1-beta5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/codit_batch_operations.git",
+                "reference": "1.0.1-beta5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/codit_batch_operations-1.0.1-beta5.zip",
+                "reference": "1.0.1-beta5",
+                "shasum": "32feea87440285ae279b7e9dcea278f31b3220fc"
+            },
+            "require": {
+                "drupal/core": "^10 || ^11"
+            },
+            "conflict": {
+                "drush/drush": "<9.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.1-beta5",
+                    "datestamp": "1713199797",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "<11.0"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "skyriter",
+                    "homepage": "https://www.drupal.org/user/1703682"
+                },
+                {
+                    "name": "swirt",
+                    "homepage": "https://www.drupal.org/user/138230"
+                }
+            ],
+            "description": "Provides methods and framework for running batch operations.",
+            "homepage": "https://www.drupal.org/project/codit_batch_operations",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/codit_batch_operations",
+                "issues": "http://drupal.org/project/issues/codit_batch_operations"
+            }
         },
         {
             "name": "drupal/codit_menu_tools",
@@ -4742,10 +4806,6 @@
             ],
             "authors": [
                 {
-                    "name": "drupalspoons",
-                    "homepage": "https://www.drupal.org/user/3647684"
-                },
-                {
                     "name": "moshe weitzman",
                     "homepage": "https://www.drupal.org/user/23"
                 }
@@ -4877,6 +4937,10 @@
                     "name": "Brian Gilbert (realityloop).",
                     "homepage": "https://www.drupal.org/u/realityloop",
                     "role": "Maintainer"
+                },
+                {
+                    "name": "Junyor",
+                    "homepage": "https://www.drupal.org/user/7006"
                 },
                 {
                     "name": "lhangea",
@@ -11030,6 +11094,14 @@
                     "homepage": "https://www.drupal.org/user/103796"
                 },
                 {
+                    "name": "greggles",
+                    "homepage": "https://www.drupal.org/user/36762"
+                },
+                {
+                    "name": "kgatzby",
+                    "homepage": "https://www.drupal.org/user/3601554"
+                },
+                {
                     "name": "michaellander",
                     "homepage": "https://www.drupal.org/user/636494"
                 },
@@ -11393,7 +11465,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-1.12",
-                    "datestamp": "1696776683",
+                    "datestamp": "1712319355",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -26210,14 +26282,8 @@
             "version": "2.2.0",
             "source": {
                 "type": "git",
-                "url": "git@gitlab.com:weitzman/drupal-test-traits.git",
+                "url": "https://git.drupalcode.org/project/dtt/",
                 "reference": "9ef44f5cd5eef942c84f2d2ffd21734944d566f8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/weitzman%2Fdrupal-test-traits/repository/archive.zip?sha=9ef44f5cd5eef942c84f2d2ffd21734944d566f8",
-                "reference": "9ef44f5cd5eef942c84f2d2ffd21734944d566f8",
-                "shasum": ""
             },
             "require": {
                 "php": ">=8.1"
