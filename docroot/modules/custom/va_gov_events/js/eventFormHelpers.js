@@ -25,6 +25,7 @@
   var targetLocationElements = document.querySelectorAll("#edit-field-facility-location-wrapper, #edit-field-url-of-an-online-event-wrapper, #edit-field-location-humanreadable-wrapper, #edit-field-address-wrapper");
   var fieldFacilityLocationWrapper = document.getElementById("edit-field-facility-location-wrapper");
   var fieldFacilityLocation = document.getElementById("edit-field-facility-location-0-target-id");
+  var fieldFacilityLocationLabel = document.querySelector("label[for='edit-field-facility-location-0-target-id']");
   var fieldLocationTypeOnline = document.getElementById("edit-field-location-type-online");
   var fieldAddressWrapper = document.getElementById("edit-field-address-wrapper");
   var fieldUrlOfOnlineEvent = document.getElementById("edit-field-url-of-an-online-event-0-uri");
@@ -135,11 +136,20 @@
       fieldAddressAdminAreaLabel.classList[addRemove]("form-required");
     }
   };
+  var toggleFacilityLocationRequiredFields = function toggleFacilityLocationRequiredFields(enableDisable, addRemove) {
+    if (fieldFacilityLocation) {
+      fieldFacilityLocation.setAttribute("required", "required");
+    }
+    if (fieldFacilityLocationLabel) {
+      fieldFacilityLocationLabel.classList[addRemove]("form-required");
+    }
+  };
   var toggleLocationElements = function toggleLocationElements() {
     targetLocationElements.forEach(function (element) {
       element.style.display = "none";
     });
     toggleAddressRequiredFields(false, "remove");
+    toggleFacilityLocationRequiredFields(false, "remove");
     if (fieldLocationTypeFacility.checked) {
       fieldFacilityLocationWrapper.style.display = "block";
       fieldLocationHumanreadableWrapper.style.display = "block";
@@ -148,6 +158,7 @@
       fieldAddressLine2.value = "";
       fieldAddressLocality.value = "";
       fieldAddressAdminArea.value = "";
+      toggleFacilityLocationRequiredFields(true, "add");
     }
     if (fieldLocationTypeNonFacility.checked) {
       fieldLocationHumanreadableWrapper.style.display = "block";
