@@ -11657,17 +11657,17 @@
         },
         {
             "name": "drupal/raven",
-            "version": "5.0.10",
+            "version": "5.0.11",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/raven.git",
-                "reference": "5.0.10"
+                "reference": "5.0.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/raven-5.0.10.zip",
-                "reference": "5.0.10",
-                "shasum": "218f13c726395ff67de5f4e9d67d5c772071a0cf"
+                "url": "https://ftp.drupal.org/files/projects/raven-5.0.11.zip",
+                "reference": "5.0.11",
+                "shasum": "ef441bbeb2f58e2efe57cc0fc3343e14c4944b4b"
             },
             "require": {
                 "drupal/core": "^10.1",
@@ -11682,8 +11682,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "5.0.10",
-                    "datestamp": "1712692567",
+                    "version": "5.0.11",
+                    "datestamp": "1713227351",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -18424,28 +18424,35 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "5.3.0",
+            "version": "5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "622548b623e81ca6d78b721c5e029f4ce664f170"
+                "reference": "298d2febfe79d03fe714eb871d5538da55205b1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/622548b623e81ca6d78b721c5e029f4ce664f170",
-                "reference": "622548b623e81ca6d78b721c5e029f4ce664f170",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/298d2febfe79d03fe714eb871d5538da55205b1a",
+                "reference": "298d2febfe79d03fe714eb871d5538da55205b1a",
                 "shasum": ""
             },
             "require": {
+                "doctrine/deprecations": "^1.1",
                 "ext-filter": "*",
-                "php": "^7.2 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "phpdocumentor/reflection-common": "^2.2",
-                "phpdocumentor/type-resolver": "^1.3",
+                "phpdocumentor/type-resolver": "^1.7",
+                "phpstan/phpdoc-parser": "^1.7",
                 "webmozart/assert": "^1.9.1"
             },
             "require-dev": {
-                "mockery/mockery": "~1.3.2",
-                "psalm/phar": "^4.8"
+                "mockery/mockery": "~1.3.5",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan": "^1.8",
+                "phpstan/phpstan-mockery": "^1.1",
+                "phpstan/phpstan-webmozart-assert": "^1.2",
+                "phpunit/phpunit": "^9.5",
+                "vimeo/psalm": "^5.13"
             },
             "type": "library",
             "extra": {
@@ -18469,15 +18476,15 @@
                 },
                 {
                     "name": "Jaap van Otterdijk",
-                    "email": "account@ijaap.nl"
+                    "email": "opensource@ijaap.nl"
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
             "support": {
                 "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
-                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/5.3.0"
+                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/5.4.0"
             },
-            "time": "2021-10-19T17:43:47+00:00"
+            "time": "2024-04-09T21:13:58+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -21117,16 +21124,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "4.6.1",
+            "version": "4.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "5a94184175e5830b589bf923da8c9c3af2c0f409"
+                "reference": "d6769b2a5e6bf19ed3bbfbf52328ceaf8e6fcb1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/5a94184175e5830b589bf923da8c9c3af2c0f409",
-                "reference": "5a94184175e5830b589bf923da8c9c3af2c0f409",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/d6769b2a5e6bf19ed3bbfbf52328ceaf8e6fcb1f",
+                "reference": "d6769b2a5e6bf19ed3bbfbf52328ceaf8e6fcb1f",
                 "shasum": ""
             },
             "require": {
@@ -21190,7 +21197,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/4.6.1"
+                "source": "https://github.com/getsentry/sentry-php/tree/4.7.0"
             },
             "funding": [
                 {
@@ -21202,7 +21209,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2024-03-08T08:18:09+00:00"
+            "time": "2024-04-10T13:22:13+00:00"
         },
         {
             "name": "simplesamlphp/assert",
