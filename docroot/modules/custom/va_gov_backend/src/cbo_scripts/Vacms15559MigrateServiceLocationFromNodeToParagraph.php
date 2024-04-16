@@ -48,8 +48,10 @@ class Vacms15559MigrateServiceLocationFromNodeToParagraph extends BatchOperation
     // Using ServiceLocationMigration, as it was already written prior
     // to adopting codit_batch_operations, but to prevent rework
     // while also providing persistent logging across script runs.
-    $migrator = new ServiceLocationMigration();
-    $msg = $migrator->run($item, $sandbox);
+   if (empty($sandbox['migrator'])) {
+     $sandbox['migrator'] = new ServiceLocationMigration();
+   }
+    $msg = $sandbox['migrator']->run($item, $sandbox);
 
     return $msg;
   }
