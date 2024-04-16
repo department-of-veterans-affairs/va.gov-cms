@@ -144,7 +144,7 @@
         "drupal/openapi": "^2.0@RC",
         "drupal/openapi_jsonapi": "^3.0",
         "drupal/openapi_ui": "^1.0@RC",
-        "drupal/openapi_ui_swagger": "^1.0",
+        "drupal/openapi_ui_swagger": "dev-3409145-update-swagger-ui#bd0b5aa612c5c49763e28f8d19dfef9940166f49",
         "drupal/override_node_options": "^2.4",
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.1",
@@ -247,7 +247,8 @@
             "type": "composer",
             "url": "https://packages.drupal.org/8",
             "exclude": [
-                "drupal/change_labels"
+                "drupal/change_labels",
+                "drupal/openapi_ui_swagger"
             ]
         },
         "assets": {
@@ -279,6 +280,10 @@
         "drupal/change_labels": {
             "type": "git",
             "url": "https://git.drupalcode.org/issue/change_labels-3326097.git"
+        },
+        "drupal/openapi_ui_swagger": {
+            "type": "git",
+            "url": "https://git.drupal.org/issue/openapi_ui_swagger-3409145.git"
         }
     },
     "config": {
