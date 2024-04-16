@@ -1,6 +1,6 @@
 uuid: bbc82ad3-6ffd-4c88-8f06-b4a59c855f44
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - views.view.aging_content
@@ -13,7 +13,7 @@ id: aging_content_expired_fwb
 modeller: core
 label: 'Aging Content: Expired FWB'
 version: ''
-weight: null
+weight: -10
 events:
   eca_base_eca_cron:
     plugin: 'eca_base:eca_cron'
@@ -54,7 +54,7 @@ actions:
     configuration:
       token_name: job
       type: va_gov_aging_content_notification
-      payload: "template_values:\r\n    uid: \"[node:author:uid]\"\r\n    template: aging_content_expired_fwb\r\nrestrict_delivery_to:\r\nvalues:\r\n    field_expired_date: \"[current-date:short_date_no_time]\"\r\n    field_target_entity:\r\n         target_id: \"[node:nid]\"\r\n    field_target_node_title: \"{node:title}\""
+      payload: "template_values:\r\n    uid: \"[node:author:uid]\"\r\n    template: aging_content_expired_fwb\r\nrestrict_delivery_to:\r\nvalues:\r\n    field_expired_date: \"[node:expiration_date:date:html_date]\"\r\n    field_target_entity:\r\n         target_id: \"[node:nid]\"\r\n    field_target_node_title: \"[node:title]\""
       queue: aging_content
     successors: {  }
   eca_trigger_content_entity_cus_1:
