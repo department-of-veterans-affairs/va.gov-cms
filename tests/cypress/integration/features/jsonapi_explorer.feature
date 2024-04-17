@@ -1,7 +1,7 @@
 @jsonapi_explorer
 Feature: JSON:API Explorer Tests
 
-  Scenario: est JSON:API Explorer navigation and filtering
+  Scenario: Test JSON:API Explorer navigation and filtering
     Given I am logged in as a user with the "content_api_consumer" role
     And I am at "/admin/config/services/openapi"
     Then only one JSON:API Explorer link should be visible
