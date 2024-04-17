@@ -31,3 +31,7 @@ Then(`the live response status code for the {string} endpoint of the {string} ta
 
   cy.get(`#operations-${tag}-${endpoint} .live-responses-table .response-col_status`).should('contain', status);
 });
+
+Then("I run the drush command {string}", (command) => {
+  cy.drupalDrushCommand(command);
+});

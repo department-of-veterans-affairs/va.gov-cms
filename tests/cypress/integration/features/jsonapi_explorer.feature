@@ -4,6 +4,7 @@ Feature: JSON:API Explorer Tests
   Scenario: Test JSON:API Explorer navigation and filtering
     Given I am logged in as a user with the "content_api_consumer" role
     And I am at "/admin/config/services/openapi"
+    And I run the drush command "cr"
     Then only one JSON:API Explorer link should be visible
     When I click "Explore with Swagger UI"
     Then the element with selector "h2.title" should contain "VA.gov CMS - JSON API"
