@@ -151,13 +151,11 @@ You can view team sprint boards using either the Github view with Zenhub browser
 * **CMS team**: also runs their sprints from the same repository, and any repo / workspace changes should be mindful of not impacting their [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/#workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board), or [Zenhub webapp view](https://app.zenhub.com/workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board)
 
 ### General VA Access
-- [ ] Open a VA.gov [Platform orientation ticket](https://depo-platform-documentation.scrollhelp.site/getting-started/guidance-for-new-teams-and-team-members#Guidancefornewteamsandteammembers-NewVFSteammembers). 
-    * The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to many tools you'll need day to day, you must access the SOCKS network proxy (described later). For SOCKS access, you must
-        1. complete the steps described in the link above
-        2. complete your eQip paperwork and receive/provide a screenshot of the email with your E-QIP transmittal date,
-        3. Complete a virtual Platform orientation. 
-    * When those steps are complete, the VA Platform team will add you to the VFS Team Roster located in [Atlas](https://www.va.gov/atlas/). This will allow you to get SOCKS access.
+The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to many tools you'll need day to day, you must file a Platform orientation ticket and complete the required steps in that ticket. (There may be some overlap with steps in this ticket -- if you have feedback on how we could reduce overlap, send notes to your Delivery Manager!)
 
+- [ ] Open a VA.gov [Platform orientation ticket](https://depo-platform-documentation.scrollhelp.site/getting-started/guidance-for-new-teams-and-team-members#Guidancefornewteamsandteammembers-NewVFSteammembers).
+
+**SOCKS proxy**: SOCKS is a VA Network proxy that will allow you to access some VA systems from your local machine, without being on the VA network or a virtual machine. To gain SOCKS access, you must complete your Platform orientation ticket. More details on SOCKS in the "After eQip Transmittal notice received" section.
 </details>
 
 
@@ -182,9 +180,29 @@ The goal for this week is to get you set up with the tools you need to be succes
 ## After eQip Transmittal notice received
 
 ### VA Network access
-After you receive eQip Transmittal notice, you should receive an email confirming that you have been approved for remote access. 
- 
-If you need access prior to receiving your PIV card, You can contact Enterprise Service desk via provided instructions to set up your remote desktop access manually.
+After you receive eQip Transmittal notice, you should receive an email confirming that you have been approved for remote access. The VA network is required in order to access Drupal CMS and other VA tools. VA Network access typically requires a VA Personal Identity Verification (PIV) card with a chip reader. 
+
+### VA network: SOCKS proxy (after your Platform Orientation)
+SOCKS is a VA Network proxy that will allow you to access some VA systems from your local machine, without being on the VA network or a virtual machine. Until your paperwork is approved and you receive a PIV card, using the SOCKS proxy can provide earlier access to some VA Network tools. Configuring SOCKS is the first priority when your eQip transmittal is received, for anyone who will require access to Drupal (UX, engineers, Product Management, etc.). If your role doesn't demand immediate access to the CMS, you may be able to wait until you receive a PIV.
+
+To gain SOCKS access, you must: 
+
+1. Complete your Platform orientation ticket. When complete, the VA Platform team will add you to the VFS Team Roster located in [Atlas](https://www.va.gov/atlas/product_directory/team_members). This will allow you to get SOCKS access.
+2. Complete your eQip paperwork
+3. Receive an eQip transmittal confirmation via email
+
+When those are in place: 
+- [ ] Follow instructions in: https://depo-platform-documentation.scrollhelp.site/getting-started/accessing-internal-tools-via-socks-proxy to configure SOCKS. Read instructions closely: you'll need to file another ticket during the process, and include a screenshot of your eQip transmittal notice. 
+- [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
+
+Setting up SOCKS can be a complex process. Post in #sitewide-program Slack channel if you need help from a current member - we're happy to help.
+
+
+
+### VA Network: Virtual Machines
+The VA Network can also be accessed on Virtual Machines (VMs), using either the Citrix Access Gateway (CAG) or Azure. 
+
+If you need virtual machine access prior to receiving your PIV card, You can contact Enterprise Service desk via provided instructions to set up your remote desktop access manually.
 
 Once you have a temporary password, you can get on the VA network to access the links below. See [VA network remote access options](https://www.oit.va.gov/resources/remote-access/index.cfm?).
 
@@ -199,20 +217,6 @@ Mac users will also use Azure Virtual Desktop (AVD) _eventually._ As of Aug 2023
 - [ ] 1. Azure web client: https://client.wvd.microsoft.com/arm/webclient/, IF you have a PIV card. There is an Azure desktop client but it won’t work on a mac because the mac application doesn’t support PIV authentication. . (Try using Firefox and make sure pop-ups are allowed, at least for the MS domain if not globally (they are not allowed by default). Enter your VA email address. Connect your PIV card reader to your computer, and insert the card in the reader. Select ‘Sign in using an X.509 certificate’.
 - [ ] 2. Citrix Access Gateway (CAG): use your Enterprise Service desk credentials or PIV card to log onto CAG and request an exemption [here](https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fapps.gov.powerapps.us%2Fplay%2Fe%2Fdefault-e95f1b23-abaf-45ee-821d-b7ab251ab3bf%2Fa%2F5823591d-4113-4f49-ba75-ea95a5081b41%3FtenantId%3De95f1b23-abaf-45ee-821d-b7ab251ab3bf%26source%3Dportal&data=05%7C01%7C%7Cdec2e51d4f3b472b1dec08db921d522a%7Ce95f1b23abaf45ee821db7ab251ab3bf%7C0%7C0%7C638264426849490249%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=36fW8GZiUuh1AhaokCn47xqF41PolOoaT40f%2BfGsDBs%3D&reserved=0)
 
-### SOCKS - VA network proxy (after your Platform Orientation)
-The VA network is required in order to access Drupal CMS and other VA tools. VA Network access typically requires a VA Personal Identity Verification (PIV) card with a chip reader. Until your paperwork is approved and you receive a PIV card, using the SOCKS proxy can provide earlier access to some of these tools. 
-
-**You cannot be approved for SOCKS access until your eQip is sent and you receive a "transmittal notice" confirming receipt.**  If you have received an eQip transmittal notice, but not a PIV, please complete the steps for SOCKS access. This is the first priority for week two, especially for anyone who will require access to Drupal (UX, engineers, Product Management, etc.). If your role doesn't demand immediate access to the CMS, you may be able to wait until you receive a PIV.
-
-This can be a complex process. Post in #sitewide-program Slack channel if you need help from a current member - we're happy to help.
-  - [ ] Take a screenshot of your eQip transmittal notice.
-  - [ ] [Request a Github personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). You only need to do the "repo" panel in that form and leave the other panels as is. You'll need the output of this for your SOCKS request.
-  - [ ] File a [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) and select the label for your team.  It may take a day or two for the SOCKS proxy request to be fulfilled before you can complete the rest of the SOCKS process.
-    - [ ] Attach your eQip transmittal notice screenshot. This is an acknowledgement that your paperwork is being processed from a security standpoint. You cannot receive SOCKS access prior to this point in your onboarding.
-    - [ ] Add a comment to note the status of your Platform orientation / link to your Platform orientation ticket. (This should have been requested on day one but is here as a reminder that this is a blocker for SOCKS access.)
-- [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
-
-You can file the SOCKS request before completing your Platform Orientation, but it may not be approved/fulfilled until after orientation is completed.
 
 ### Drupal
 Drupal is the VA's content management system (CMS) of choice. For anyone on our team, it's beneficial to have a CMS user account so you can login, look at settings, and understand how Drupal works at a high level. If you need help completing the technical steps here, schedule 30 mins with your Delivery Manager.
@@ -296,9 +300,14 @@ Each repository includes READMEs to help with setup.
 - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md) - explains the CMS > content build process and data source / snapshot timing for all lower environments
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
 
-### Design system
+### VA Design system (DS)
+The VA Design System and our products are always iterating, so you'll find our products in various states of compliance with current Design System guidance. We expect that any new development in the front-end uses VA Design System components wherever possible, and that we identify opportunities to bring older products up to modern usage of the DS. It's important to get familiar with the DS to inform your work.
+
  - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback]([https://design.va.gov/about/feedback](https://design.va.gov/about/feedback))
+ - [ ] Review the VA DS [Storybook](https://design.va.gov/storybook/?path=/story/about-introduction--page)
  - [ ] CMS Design System: documentation TBD
+
+If you ever see places we should be using the DS and aren't, surface those to your Product Manager!
 
 
 ### Tools & Resources
@@ -354,11 +363,11 @@ Your discipline lead will assist with onboarding tasks / calls.
 
 
 
-### Platform governance
-The VA's Platform team provides guidance and oversight on quality for things like Research studies & recruitment, Design system implementation, Accessibility requirements, and requirements for launches. UX folks will actively participate in several steps of this cycle, so it's beneficial to get familiar with guidance documentation:
-   - [Collaboration Cycle](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/collaboration-cycle-kickoff)
-   - [Research Overview](https://depo-platform-documentation.scrollhelp.site/research-design/research-overview)
-   - [VA Design System](https://design.va.gov/)
+### Platform governance Collaboration Cycle
+The VA's Platform team uses a mechanism called the Collaboration Cycle (or Collab Cycle) to provide guidance and oversight on quality for things like Research studies & recruitment, Design system implementation, Accessibility requirements, and requirements for launches. UX folks will actively participate in several steps of this cycle, so it's beneficial to get familiar with guidance documentation. Read & bookmark these links: 
+   - [ ] [Collaboration Cycle](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/collaboration-cycle-kickoff)
+   - [ ] [Research Overview](https://depo-platform-documentation.scrollhelp.site/research-design/research-overview)
+   - [ ] [VA Design System](https://design.va.gov/)
 
 ### Tools
 Install tools and request access from your DM, if not already provided
@@ -377,6 +386,7 @@ Install tools and request access from your DM, if not already provided
   - [ ] Ask in #proj-sitewide team who could Github geek out with you to answer your burning questions -- guarantee someone will volunteer.
 
 ### Research specifics
+- [ ] Review & bookmark the [VA OCTO Sitewide Public Websites & Facilities Research & Design Workflow (Mural)](https://app.mural.co/t/departmentofveteransaffairs9999/m/departmentofveteransaffairs9999/1696446576570/526d68b8fe6aa6c482cee4bd2bade5ae9e020889?sender=u0b235d03cbd64f7f93673243). This document explains the UX flow and expectations around research timelines for our teams at a high level.
 - [ ] Review https://depo-platform-documentation.scrollhelp.site/research-design/
    - [ ] [Sign up for the next research and design orientation session](https://calendly.com/collaboration-cycle/design-orientation-for-va-gov-platform)
    - [ ] After orientation, you should be added to the [va.gov-research-repository](https://github.com/department-of-veterans-affairs/va.gov-research-repository). Verify your access.
