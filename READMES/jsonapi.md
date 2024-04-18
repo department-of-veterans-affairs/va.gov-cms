@@ -28,7 +28,7 @@ See in [CMS Breadcrumb documentation](https://prod.cms.va.gov/admin/structure/cm
 You can explore the JSON:API endpoints via a Swagger UI to see what's available and to test out requests and responses.
 
 1. Login to the site as a user with an "administrator" or "content_api_consumer" role.
-2. Go to "/admin/config/services/openapi/swagger/jsonapi".
+2. Go to "/admin/config/services/openapi".
 3. You should only see one UI option "VA.gov JSON:API". Click on the link to explore.
 3. Read a [Swagger UI tutorial](https://idratherbewriting.com/learnapidoc/pubapis_swagger.html) to familiarize
    yourself with the UI features, if you aren't already.
@@ -42,12 +42,19 @@ Via this UI, you can:
 4. Deep Link - As you click to gather information about the API, the URL automatically updates so you can share that
    specific documentation with others.
 
+### Swagger UI Library Version
+
+The `openapi_swagger_ui` module controls the version used for the Swagger UI library. Currently, `composer.json` is
+looking for the `openapi_swagger_ui` code on a branch in GitLab so we can use the latest version of Swagger UI.
+However, you should check to see if there is any movement on this issue so the module can be pulled in normally via
+Composer: https://www.drupal.org/project/openapi_ui_swagger/issues/3409145
+
 ## Tests
 
 You can find JSON:API tests in the following places:
 
 - 'tests/phpunit/API/JsonApiRequestTest' - Tests GET requests and associated configuration.
-- 'tests/phpunit/API/JsonApiExplorerUITest' - Tests Swagger UI for OpenAPI documentation.
+- 'tests/cypress/integration/features/jsonapi_explorer.feature' - Tests Swagger UI for OpenAPI documentation.
 
 ## Field Type Enhancers
 
