@@ -42,12 +42,15 @@ Via this UI, you can:
 4. Deep Link - As you click to gather information about the API, the URL automatically updates so you can share that
    specific documentation with others.
 
-### Swagger UI Library Version
+### Swagger UI Library Version and Configuration
 
-The `openapi_swagger_ui` module controls the version used for the Swagger UI library. Currently, `composer.json` is
-looking for the `openapi_swagger_ui` code on a branch in GitLab so we can use the latest version of Swagger UI.
-However, you should check to see if there is any movement on this issue so the module can be pulled in normally via
-Composer: https://www.drupal.org/project/openapi_ui_swagger/issues/3409145
+The `openapi_swagger_ui` module controls the version used for the Swagger UI library. Currently, there is an issue
+on d.o for updating the version normally via Composer and another issue for setting configuration options. You
+should check and see if these issues get merged and any testing/changes related to the final code updates.
+
+Issues:
+- Library version - https://www.drupal.org/project/openapi_ui_swagger/issues/3409145
+- Configuration options - https://www.drupal.org/project/openapi_ui_swagger/issues/3259746
 
 ## Tests
 
