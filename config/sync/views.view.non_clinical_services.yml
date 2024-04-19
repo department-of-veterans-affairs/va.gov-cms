@@ -1130,7 +1130,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -1293,7 +1292,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_address'
@@ -1454,7 +1452,7 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: true
+            alter_text: false
             text: '<strong>{{ field_clinic_name }}</strong>'
             make_link: false
             path: ''
@@ -1557,7 +1555,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: building-name
           group_column: value
           group_columns: {  }
@@ -1621,7 +1619,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: wing-floor-room
           group_column: value
           group_columns: {  }
@@ -1809,9 +1807,9 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
+          then: "{{ field_address }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
           then_translate: true
-          or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
+          or: "{{ field_address_1 }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
           or_translate: true
           strip_tags: false
         field_office_hours:
@@ -2448,7 +2446,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -2483,7 +2480,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -2570,7 +2566,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_address'
@@ -2731,7 +2726,7 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: true
+            alter_text: false
             text: '<strong>{{ field_clinic_name }}</strong>'
             make_link: false
             path: ''
@@ -2834,7 +2829,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: building-name
           group_column: value
           group_columns: {  }
@@ -2898,7 +2893,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: wing-floor-room
           group_column: value
           group_columns: {  }
@@ -3086,9 +3081,9 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
+          then: "{{ field_address }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
           then_translate: true
-          or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
+          or: "{{ field_address_1 }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
           or_translate: true
           strip_tags: false
         field_office_hours:
@@ -3725,7 +3720,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -3760,7 +3754,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -3912,7 +3905,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_address'
@@ -4073,7 +4065,7 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: true
+            alter_text: false
             text: '<strong>{{ field_clinic_name }}</strong>'
             make_link: false
             path: ''
@@ -4176,7 +4168,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: building-name
           group_column: value
           group_columns: {  }
@@ -4240,7 +4232,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: wing-floor-room
           group_column: value
           group_columns: {  }
@@ -4428,9 +4420,9 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
+          then: "{{ field_address }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n"
           then_translate: true
-          or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
+          or: "{{ field_address_1 }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n"
           or_translate: true
           strip_tags: false
         field_office_hours:
@@ -5067,7 +5059,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -5102,7 +5093,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -5227,7 +5217,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_address'
