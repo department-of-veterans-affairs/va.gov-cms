@@ -98,6 +98,7 @@ You'll receive an email from A6 COS directing you to the paperwork you should fi
 - [ ] For history of the VA's Drupal CMS itself, [watch the Drupal GovCon presentation about the project](https://www.youtube.com/watch?v=WN4bGjEuQdM).
 - [ ] For history of the modernized VA.gov initiative and why the VA Medical Centers changed their websites, watch the [2-minute YouTube video](https://youtu.be/Xrv5wCv6cKY).
 - [ ] Why are Vet Centers important to Veterans? Watch the [2-minute YouTube video](https://www.youtube.com/watch?v=VMzkZNbKk1I).
+- [ ] Overwhelmed by the number of acronyms you're coming across? Bookmark the **[VA's Acronym lookup](https://github.com/department-of-veterans-affairs/acronyms/blob/master/acronyms.csv)**. You can also look up acronyms in OCTO Slack, using `/wtf` followed by the acronym.
 </details>
 
 <details><summary>After Fingerprinting / SAC Adjudication</summary>
