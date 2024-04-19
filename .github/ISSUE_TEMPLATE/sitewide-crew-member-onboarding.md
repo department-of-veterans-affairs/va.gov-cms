@@ -325,6 +325,7 @@ If you ever see places we should be using the DS and aren't, surface those to yo
 ### PM Role expectations & access
  - [ ] [VA doc: Expectations for how VA internal Product Lead / Product Owners work with contractor PMs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/octo/product/Product%20Expectations.md)
  - [ ] [Request access to Google Analytics and Domo](https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/New-Users-to-Google-Analytics.1877704964.html)
+ - [ ] In your role you will coordinate with members of other teams. Bookmark the [Veteran Facing Service (VFS) Product Directory](https://depo-platform-documentation.scrollhelp.site/getting-started/vfs-product-directory), as a reference for who the primary points of contact are for other products. 
 
 ### Platform governance
 The VA's Platform team provides guidance and oversight on quality for things like Research studies & recruitment, Design system implementation, Accessibility requirements, test coverage expectations, and requirements for launches. Product Managers guide teams through this process, so it's beneficial to get familiar with their guidance documentation:
@@ -333,6 +334,7 @@ The VA's Platform team provides guidance and oversight on quality for things lik
     - [ ] [Platform Collab Cycle calendar](https://calendar.google.com/calendar/u/0/embed?src=c_7iurst2mk3hdhfuto5u7lemgbk@group.calendar.google.com&ctz=America/New_York) -- bookmark this for use when scheduling Collab Cycle touchpoints
 - [ ] [Research Overview](https://depo-platform-documentation.scrollhelp.site/research-design/research-overview)
 - [ ] [VA Design System](https://design.va.gov/)
+- [ ] The [Sitewide Collab Cycle progress tracker](https://docs.google.com/spreadsheets/d/1oFbFG3UYslhNdxulvFu4bytlx661zBADRhbkTNCqc7o/edit#gid=0) is a team artifact for keeping track of where our initiatives are in the process. Please bookmark. You'll collaborate with your Delivery Manager to keep this up to date.
 
 **CMS Collab Cycle**
 As of April 2024, the CMS Collab Cycle will be integrated into the Platform Collab Cycle. New documentation is TBD.
