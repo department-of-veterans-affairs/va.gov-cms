@@ -152,6 +152,7 @@ HTML;
       '#type' => 'checkbox',
       '#title' => $this->t('I understand that all VA content set to Published will go live once the release is finished.'),
       '#required' => TRUE,
+      '#disabled' => $this->isCurrentlyDuringBusinessHours(),
     ];
 
     $form['request_release']['actions'] = [
