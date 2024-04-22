@@ -10,6 +10,13 @@ Tugboat contains **Projects**. Each Project can contain **Repositories** (not re
 * **Base Preview** 
 Take the term Base to mean bottom or foundation: Base Preview is a container, built from a versioned state of the CMS code, with a production database snapshot baked in. Tugboat uses Base Previews to make PR Preview creation quick and disk storage efficient. After a 30-40min build, Base Previews are ready to layer va.gov-cms code changes on top and run post-deploy operations (updatedb, config:import). 
 
+## Access
+In order to access the Tugboat UI, you must have SOCKS running on your machine, or be on the VA network (via CAG/Azure, on GFE, etc). 
+
+Any Github user in the department-of-veterans-affairs organization can log into Tugboat using Github credentials. Access is provided automatically, no manual steps.
+
+Tugboat management has been limited to [@platform-cms-devops-engineers](https://github.com/orgs/department-of-veterans-affairs/teams/platform-cms-devops-engineers) historically.
+
 ## VA Usage
 At VA, our lower environments are each built from a Tugboat Base Preview, in some fashion. Our Tugboat configuration is relevant to the discussion:  
 
