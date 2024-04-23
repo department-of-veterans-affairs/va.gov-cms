@@ -13,7 +13,7 @@ id: aging_content_expired_fwb
 modeller: core
 label: 'Aging Content: Expired FWB'
 version: ''
-weight: -10
+weight: -9
 events:
   eca_base_eca_cron:
     plugin: 'eca_base:eca_cron'
@@ -28,10 +28,10 @@ events:
     plugin: 'content_entity:custom'
     label: 'Content  Aware Event: Queue Email'
     configuration:
-      event_id: aging_content_fwb_queue_email
+      event_id: aging_content_fwb_queue_expired_email
     successors:
       -
-        id: eca_trigger_content_entity_cus_1
+        id: create_advancedqueue_job
         condition: null
 conditions: {  }
 gateways: {  }
@@ -61,10 +61,7 @@ actions:
     plugin: eca_trigger_content_entity_custom_event
     label: 'Trigger Custom Event: Queue Notification'
     configuration:
-      event_id: aging_content_fwb_queue_email
+      event_id: aging_content_fwb_queue_expired_email
       tokens: ''
       object: results
-    successors:
-      -
-        id: create_advancedqueue_job
-        condition: null
+    successors: {  }
