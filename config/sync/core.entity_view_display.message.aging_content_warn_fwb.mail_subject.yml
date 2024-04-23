@@ -4,9 +4,12 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.message.mail_subject
+    - field.field.message.aging_content_warn_fwb.field_target_node_title
+    - field.field.message.aging_content_warn_fwb.field_warning_date
     - message.template.aging_content_warn_fwb
   module:
     - layout_builder
+    - user
 third_party_settings:
   layout_builder:
     enabled: false
@@ -20,5 +23,7 @@ content:
     weight: 0
     region: content
 hidden:
+  field_target_node_title: true
+  field_warning_date: true
   partial_1: true
   search_api_excerpt: true
