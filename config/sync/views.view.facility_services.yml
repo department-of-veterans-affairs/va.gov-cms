@@ -6283,7 +6283,77 @@ display:
           group_type: count_distinct
           admin_label: ''
           plugin_id: field
-          label: 'Number of facility services'
+          label: 'VAMC services count'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          set_precision: false
+          precision: 0
+          decimal: .
+          format_plural: 0
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
+        field_health_services:
+          id: field_health_services
+          table: node__field_health_services
+          field: field_health_services
+          relationship: none
+          group_type: count_distinct
+          admin_label: ''
+          plugin_id: field
+          label: 'Vet Center services count'
           exclude: false
           alter:
             alter_text: false
@@ -6619,7 +6689,7 @@ display:
             placeholder: ''
           is_grouped: true
           group_info:
-            label: 'Does facility have services?'
+            label: 'VAMC services'
             description: ''
             identifier: field_local_health_care_service__target_id
             optional: true
@@ -6628,6 +6698,7 @@ display:
             remember: false
             default_group: All
             default_group_multiple:
+              All: 0
               1: 1
               2: 2
             group_items:
@@ -6640,6 +6711,64 @@ display:
                 title: 'No'
                 operator: empty
                 value:
+                  value: ''
+        field_health_services_target_id:
+          id: field_health_services_target_id
+          table: node__field_health_services
+          field: field_health_services_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_health_services_target_id_op
+            label: 'Services (field_health_services)'
+            description: null
+            use_operator: false
+            operator: field_health_services_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_health_services_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: null
+            max_placeholder: null
+            placeholder: null
+          is_grouped: true
+          group_info:
+            label: 'Vet Center services'
+            description: ''
+            identifier: field_health_services_target_id
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: 'Yes'
+                operator: 'not empty'
+                value:
+                  min: ''
+                  max: ''
+                  value: ''
+              2:
+                title: 'No'
+                operator: empty
+                value:
+                  min: ''
+                  max: ''
                   value: ''
       filter_groups:
         operator: AND
@@ -6665,7 +6794,8 @@ display:
             field_office: field_office
             field_region_page: field_region_page
             name: name
-            field_local_health_care_service_: field_local_health_care_service_
+            field_local_health_care_service_: field_health_services
+            field_health_services: field_local_health_care_service_
           default: changed
           info:
             views_bulk_operations_bulk_form_1:
@@ -6760,6 +6890,13 @@ display:
             field_local_health_care_service_:
               sortable: true
               default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_health_services:
+              sortable: false
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -7404,7 +7541,7 @@ display:
           group_type: count_distinct
           admin_label: ''
           plugin_id: field
-          label: 'Number of facility services'
+          label: 'VAMC services count'
           exclude: false
           alter:
             alter_text: false
@@ -7466,6 +7603,69 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
+        field_health_services:
+          id: field_health_services
+          table: node__field_health_services
+          field: field_health_services
+          relationship: none
+          group_type: count_distinct
+          admin_label: ''
+          plugin_id: field
+          label: 'Vet Center services count'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
         type: some
         options:
@@ -7758,7 +7958,7 @@ display:
             placeholder: ''
           is_grouped: true
           group_info:
-            label: 'Does facility have services?'
+            label: 'VAMC services count'
             description: ''
             identifier: field_local_health_care_service__target_id
             optional: true
@@ -7777,6 +7977,64 @@ display:
                 title: 'No'
                 operator: empty
                 value:
+                  value: ''
+        field_health_services_target_id:
+          id: field_health_services_target_id
+          table: node__field_health_services
+          field: field_health_services_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_health_services_target_id_op
+            label: 'Services (field_health_services)'
+            description: null
+            use_operator: false
+            operator: field_health_services_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_health_services_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: null
+            max_placeholder: null
+            placeholder: null
+          is_grouped: true
+          group_info:
+            label: 'Vet Center services'
+            description: ''
+            identifier: field_health_services_target_id
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: 'Yes'
+                operator: 'not empty'
+                value:
+                  min: ''
+                  max: ''
+                  value: ''
+              2:
+                title: 'No'
+                operator: empty
+                value:
+                  min: ''
+                  max: ''
                   value: ''
       filter_groups:
         operator: AND
