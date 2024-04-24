@@ -33,7 +33,6 @@ class PdfAuditAccess extends AccessPluginBase {
     $roles = [
       'administrator',
       'content_admin',
-      'vamc_content_creator',
       'content_editor',
       'content_publisher',
       'content_reviewer',
