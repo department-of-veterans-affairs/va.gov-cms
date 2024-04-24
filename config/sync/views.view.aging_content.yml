@@ -182,22 +182,19 @@ display:
         options: {  }
       empty: {  }
       sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
+        field_last_saved_by_an_editor_value:
+          id: field_last_saved_by_an_editor_value
+          table: node__field_last_saved_by_an_editor
+          field: field_last_saved_by_an_editor_value
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: created
-          plugin_id: date
+          plugin_id: standard
           order: DESC
           expose:
             label: ''
             field_identifier: ''
           exposed: false
-          granularity: second
       arguments: {  }
       filters:
         status:
@@ -366,6 +363,9 @@ display:
     display_plugin: block
     position: 1
     display_options:
+      title: 'Expired: Full Width Banners'
+      defaults:
+        title: false
       display_description: ''
       display_extenders:
         jsonapi_views:
@@ -386,6 +386,7 @@ display:
     display_plugin: block
     position: 2
     display_options:
+      title: 'Warning: Full Width Banners'
       filters:
         status:
           id: status
@@ -537,6 +538,7 @@ display:
         groups:
           1: AND
       defaults:
+        title: false
         filters: false
         filter_groups: false
       display_description: ''
