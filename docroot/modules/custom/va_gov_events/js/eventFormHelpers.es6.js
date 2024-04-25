@@ -298,7 +298,7 @@
   const toggleFacilityLocationRequiredFields = (enableDisable, addRemove) => {
     // Facility location field.
     if (fieldFacilityLocation) {
-      fieldFacilityLocation.setAttribute("required", "required");
+      fieldFacilityLocation.required = enableDisable;
     }
     if (fieldFacilityLocationLabel) {
       fieldFacilityLocationLabel.classList[addRemove]("form-required");

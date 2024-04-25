@@ -138,7 +138,7 @@
   };
   var toggleFacilityLocationRequiredFields = function toggleFacilityLocationRequiredFields(enableDisable, addRemove) {
     if (fieldFacilityLocation) {
-      fieldFacilityLocation.setAttribute("required", "required");
+      fieldFacilityLocation.required = enableDisable;
     }
     if (fieldFacilityLocationLabel) {
       fieldFacilityLocationLabel.classList[addRemove]("form-required");
