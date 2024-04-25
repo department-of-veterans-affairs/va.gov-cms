@@ -16,7 +16,7 @@ When does this request need to be live:
 - [ ] Link the related facility closure / rename issue.
 - [ ] Create a URL redirect in the [devops](https://github.com/department-of-veterans-affairs/devops) repo in `ansible/deployment/config/revproxy-vagov/vars/redirects.yml`
 - [ ] Add the "Awaiting redirect" flag to the facility node with a revision log message that includes a link to this ticket, preserving the node's current moderation state.
-- [ ] Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. After deploy, validate that the URL redirect is deployed. (Note: In the event of a facility closure or a name change,  validate that this occurs before making the Lighthouse csv changes.)
+- [ ] Redirects deploy daily except Friday at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. After deploy, validate that the URL redirect is deployed. (Note: In the event of a facility closure or a name change,  validate that this occurs before making the Lighthouse csv changes.)
 - [ ] Update this ticket with a comment that the redirect has been deployed.
 - [ ] Remove the "Awaiting redirect" flag on the facility node with a revision log message that includes a link to this ticket, preserving the node's current moderation state.
 - [ ]  Notify helpdesk via comment on ticket or Slack message in #cms-support that changes are ready for review.

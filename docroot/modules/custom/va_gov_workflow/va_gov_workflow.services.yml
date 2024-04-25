@@ -15,3 +15,8 @@ services:
   va_gov_workflow.workflow_content_control:
     class: Drupal\va_gov_workflow\Service\WorkflowContentControl
     arguments: ['@va_gov_user.user_perms']
+  va_gov_workflow.migrate_event_subscriber:
+    class: Drupal\va_gov_workflow\EventSubscriber\MigrateEventSubscriber
+    arguments: ['@va_gov_workflow.flagger']
+    tags:
+      - { name: event_subscriber }
