@@ -15,8 +15,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides a VA.gov Content Release form.
  */
 class ContentReleaseStatusForm extends FormBase {
-
   use RunsDuringBusinessHours;
+
+  const OWNER = 'department-of-veterans-affairs';
+  const REPO = 'next-build';
+  const WORKFLOW_ID = 'content-release.yml';
 
   /**
    * The http client service.
@@ -79,13 +82,10 @@ class ContentReleaseStatusForm extends FormBase {
     array $form,
     FormStateInterface $form_state
   ): array {
-    // Check if it is in business hours to release content.
-    RunsDuringBusinessHours:
 
     // Make a call to GitHub using http_client service to check workflow runs.
-    // $response = $this->httpClient->request('GET', 'https://api.github.com/repos/department-of-veterans-affairs/content-build/actions/workflows');
     $response = $this->httpClient->request('GET',
-      'https://api.github.com/repos/department-of-veterans-affairs/content-build/actions/workflows/11158212/runs');
+      'https://api.github.com/repos/'. self::OWNER .'/'. self::REPO .'/actions/workflows/'. self::WORKFLOW_ID .'/runs');
     $data = json_decode($response->getBody()->getContents());
 
     // Get the latest run.
@@ -169,32 +169,34 @@ HTML;
 
   /**
    * {@inheritdoc}
-   */
-  public function validateForm(
-    array &$form,
-    FormStateInterface $form_state
-  ): void {
-    // @todo Validate the form here.
-    // Example:
-    // @code
-    //   if (mb_strlen($form_state->getValue('message')) < 10) {
-    //     $form_state->setErrorByName(
-    //       'message',
-    //       $this->t('Message should be at least 10 characters.'),
-    //     );
-    //   }
-    // @endcode
-  }
-
-  /**
-   * {@inheritdoc}
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function submitForm(
     array &$form,
     FormStateInterface $form_state
   ): void {
-    $this->messenger()->addStatus($this->t('The message has been sent.'));
-    $form_state->setRedirect('<front>');
+
+    try {
+      // Trigger the content release.
+      $this->httpClient->request('POST',
+        'https://api.github.com/repos/'. self::OWNER .'/'. self::REPO .'/actions/workflows/'. self::WORKFLOW_ID .'/dispatches',
+        [
+          'headers' => [
+            'Accept' => 'application/vnd.github.v3+json',
+            'Authorization' => 'token ' . $this->settings->get('va_gov_content_release.github_token'),
+          ],
+          'json' => [
+            'ref' => 'main',
+            // Can add inputs to the workflow, if needed.
+            // 'inputs' => [
+            //   'release' => 'true',
+            // ],
+          ],
+        ]);
+    } catch (Exception $exception) {
+      $this->messenger()->addError($this->t('There was an error triggering the content release.'));
+      $this->logger->error('Error triggering content release: @error', ['@error' => $exception->getMessage()]);
+    }
   }
 
 }
