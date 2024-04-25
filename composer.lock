@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c8d348a912b009a4d67916dd204d5632",
+    "content-hash": "9720182b7aef6dd9af996d16443983c7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -11103,17 +11103,17 @@
         },
         {
             "name": "drupal/paragraphs_features",
-            "version": "2.0.0-beta4",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/paragraphs_features.git",
-                "reference": "2.0.0-beta4"
+                "reference": "2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/paragraphs_features-2.0.0-beta4.zip",
-                "reference": "2.0.0-beta4",
-                "shasum": "c3137491ba5f73e8395d9c2178beac3a10e33f7d"
+                "url": "https://ftp.drupal.org/files/projects/paragraphs_features-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "3f4856f2c6ade242855f5311ff26e8951b8a53a7"
             },
             "require": {
                 "drupal/core": "^9.2 || ^10",
@@ -11125,11 +11125,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0-beta4",
-                    "datestamp": "1705329204",
+                    "version": "2.0.0",
+                    "datestamp": "1713956979",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -13499,17 +13499,17 @@
         },
         {
             "name": "drupal/tzfield",
-            "version": "1.9.0",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/tzfield.git",
-                "reference": "8.x-1.9"
+                "reference": "8.x-1.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/tzfield-8.x-1.9.zip",
-                "reference": "8.x-1.9",
-                "shasum": "c27c0015ba266b16136b3f6fd4fd1fa188ef9a0b"
+                "url": "https://ftp.drupal.org/files/projects/tzfield-8.x-1.10.zip",
+                "reference": "8.x-1.10",
+                "shasum": "a5626997acaedcb31162f60188c0483fc0e92ed8"
             },
             "require": {
                 "drupal/core": "^8 || ^9 || ^10"
@@ -13517,8 +13517,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.9",
-                    "datestamp": "1699555172",
+                    "version": "8.x-1.10",
+                    "datestamp": "1713942086",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -13531,8 +13531,8 @@
             ],
             "authors": [
                 {
-                    "name": "k_zoltan",
-                    "homepage": "https://www.drupal.org/user/834136"
+                    "name": "mark burdett",
+                    "homepage": "https://www.drupal.org/u/mfb"
                 },
                 {
                     "name": "mfb",
@@ -13542,8 +13542,19 @@
             "description": "Defines a time zone field type.",
             "homepage": "https://www.drupal.org/project/tzfield",
             "support": {
-                "source": "https://git.drupalcode.org/project/tzfield"
-            }
+                "source": "https://git.drupalcode.org/project/tzfield",
+                "issues": "https://www.drupal.org/project/issues/tzfield"
+            },
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/sponsors/mfb"
+                },
+                {
+                    "type": "patreon",
+                    "url": "https://www.patreon.com/mfb"
+                }
+            ]
         },
         {
             "name": "drupal/upgrade_status",
@@ -25924,16 +25935,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3489",
+            "version": "v0.0.3490",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "eee9d09cbff64fd698da583fc5f41daa8ca293c1"
+                "reference": "8e9a6419b4c2eaf729e3cdeb422435f044e2becf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/eee9d09cbff64fd698da583fc5f41daa8ca293c1",
-                "reference": "eee9d09cbff64fd698da583fc5f41daa8ca293c1",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/8e9a6419b4c2eaf729e3cdeb422435f044e2becf",
+                "reference": "8e9a6419b4c2eaf729e3cdeb422435f044e2becf",
                 "shasum": ""
             },
             "type": "node-project",
@@ -25960,9 +25971,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3489"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3490"
             },
-            "time": "2024-04-23T13:32:27+00:00"
+            "time": "2024-04-24T15:50:19+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -26960,7 +26971,6 @@
         "drupal/no_table_drag": 15,
         "drupal/openapi": 5,
         "drupal/openapi_ui": 5,
-        "drupal/paragraphs_features": 10,
         "drupal/password_strength": 20,
         "drupal/pathologic": 15,
         "drupal/prometheus_exporter": 10,
