@@ -9,7 +9,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\node\Entity\Node;
 
 $node_base = [
-  'title' => 'Expirable Content Tst Node',
+  'title' => 'Expirable Content Test Node',
   'status' => 1,
   'moderation_state' => 'published',
   'type' => 'banner',
