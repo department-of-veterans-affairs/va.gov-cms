@@ -380,7 +380,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
         $text = $office_visits;
         break;
 
-      case 'yes_first_come_first_served_basis':
+      case 'yes_walk_in_visits_only':
       case 'yes_appointment_only':
         $text = ($this->officeVisits === 'yes_with_or_without_appointment')
           ? $this->officeVisits
@@ -389,7 +389,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
       case 'no':
         $text = ($this->officeVisits === 'yes_with_or_without_appointment'
-        || $this->officeVisits === 'yes_first_come_first_served_basis'
+        || $this->officeVisits === 'yes_walk_in_visits_only'
         || $this->officeVisits === 'yes_appointment_only')
         ? $this->officeVisits
         : $office_visits;
