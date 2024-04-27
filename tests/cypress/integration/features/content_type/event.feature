@@ -20,6 +20,7 @@ Feature: Content Type: Event
     And I fill in autocomplete field with selector "#edit-field-url-of-an-online-event-0-uri" with value "https://va.gov"
     And I select the "At a VA facility" radio button
     Then an element with the selector "#edit-field-facility-location-0-target-id" should be empty
+    And the element with selector "#edit-field-facility-location-0-target-id" should have attribute "required"
     When I select the "At a non-VA location" radio button
     Then an element with the selector "#edit-field-address-0-address-address-line1" should be empty
     And an element with the selector "#edit-field-address-0-address-locality" should be empty
