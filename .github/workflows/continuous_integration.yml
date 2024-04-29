@@ -43,7 +43,7 @@ jobs:
         uses: ./.github/actions/post-checkout
       - name: ReviewDog
         # See also `composer va:test:eslint` in composer.json
-        uses: reviewdog/action-eslint@b3c5aa2589ed06195b52faffd3afb108c02faaf5 # v1.23.0
+        uses: reviewdog/action-eslint@423672b7acbb75ee34d3e37aff30949ddc8350e3 # v1.24.0
         with:
           reporter: github-pr-review
           eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js tests/cypress/**/*.js'
@@ -139,7 +139,7 @@ jobs:
         uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
       - name: Stylelint modules
         # See also `composer va:test:stylelint-modules` in composer.json
-        uses: reviewdog/action-stylelint@eadef3f639793f2b361a4719ee8720bf5055a0ff # v1.22.1
+        uses: reviewdog/action-stylelint@24fcb957ec2ca41649b8e060a6630feb0d8e4201 # v1.23.0
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -149,7 +149,7 @@ jobs:
           stylelint_input: 'docroot/modules/custom/**/*.css'
       - name: Stylelint themes
         # See also `composer va:test:stylelint-themes` in composer.json
-        uses: reviewdog/action-stylelint@eadef3f639793f2b361a4719ee8720bf5055a0ff # v1.22.1
+        uses: reviewdog/action-stylelint@24fcb957ec2ca41649b8e060a6630feb0d8e4201 # v1.23.0
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}

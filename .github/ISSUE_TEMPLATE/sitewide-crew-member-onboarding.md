@@ -73,6 +73,7 @@ You'll receive an email from A6 COS directing you to the paperwork you should fi
 
 ### Process & Principles
 - [ ] Read about our teams' [Agile / sprint best practices](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/teams/sitewide/sitewide-sprint-practices.md)
+- [ ] Read about [AgileSix's perspective on self-management](https://agile6.com/unveiling-self-management-at-agile-six/). This will be relevant in the way our team interacts and manages our work.
 - [ ] How do Agile 6 and our partners work together on this project? Discuss with your Delivery Manager.
 - [ ] Read your team's Charter:
     * [Facilities](https://docs.google.com/document/u/1/d/1eI1w9Bcj2rlmFtxkM6Dkn_c-Srszd88UxAQimSZkVqo/edit)
