@@ -51,6 +51,34 @@ class FrontendVersionSearch implements FrontendVersionSearchInterface {
   protected $logger;
 
   /**
+   * The branch search service for `vets-website`.
+   *
+   * @var \Drupal\va_gov_git\BranchSearch\BranchSearchInterface
+   */
+  protected $nbBranchSearch;
+
+  /**
+   * The API client for `vets-website`.
+   *
+   * @var \Drupal\va_gov_github\Api\Client\ApiClientInterface
+   */
+  protected $nbApiClient;
+
+  /**
+   * The branch search service for `next-vets-website`.
+   *
+   * @var \Drupal\va_gov_git\BranchSearch\BranchSearchInterface
+   */
+  protected $nvwBranchSearch;
+
+  /**
+   * The API client for `next-vets-website`.
+   *
+   * @var \Drupal\va_gov_github\Api\Client\ApiClientInterface
+   */
+  protected $nvwApiClient;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\va_gov_git\BranchSearch\BranchSearchInterface $cbBranchSearch
@@ -63,19 +91,35 @@ class FrontendVersionSearch implements FrontendVersionSearchInterface {
    *   The API client for `vets-website`.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
    *   The logger factory service.
+   * @param \Drupal\va_gov_git\BranchSearch\BranchSearchInterface $nbBranchSearch
+   *   The branch search service for `next-build`.
+   * @param \Drupal\va_gov_github\Api\Client\ApiClientInterface $nbApiClient
+   *   The API client for `next-build`.
+   * @param \Drupal\va_gov_git\BranchSearch\BranchSearchInterface $nvwBranchSearch
+   *   The branch search service for `next-vets-website`.
+   * @param \Drupal\va_gov_github\Api\Client\ApiClientInterface $nvwApiClient
+   *   The API client for `next-vets-website`.
    */
   public function __construct(
     BranchSearchInterface $cbBranchSearch,
     ApiClientInterface $cbApiClient,
     BranchSearchInterface $vwBranchSearch,
     ApiClientInterface $vwApiClient,
-    LoggerChannelFactoryInterface $loggerFactory
+    LoggerChannelFactoryInterface $loggerFactory,
+    BranchSearchInterface $nbBranchSearch,
+    ApiClientInterface $nbApiClient,
+    BranchSearchInterface $nvwBranchSearch,
+    ApiClientInterface $nvwApiClient,
   ) {
     $this->cbBranchSearch = $cbBranchSearch;
     $this->cbApiClient = $cbApiClient;
     $this->vwBranchSearch = $vwBranchSearch;
     $this->vwApiClient = $vwApiClient;
     $this->logger = $loggerFactory->get('va_gov_content_release');
+    $this->nbBranchSearch = $nbBranchSearch;
+    $this->nbApiClient = $nbApiClient;
+    $this->nvwBranchSearch = $nvwBranchSearch;
+    $this->nvwApiClient = $nvwApiClient;
   }
 
   /**
@@ -94,6 +138,12 @@ class FrontendVersionSearch implements FrontendVersionSearchInterface {
 
       case $frontend->isVetsWebsite():
         return $this->vwBranchSearch;
+
+      case $frontend->isNextBuild():
+        return $this->nbBranchSearch;
+
+      case $frontend->isNextVetsWebsite():
+        return $this->nvwBranchSearch;
 
       default:
         throw new \InvalidArgumentException('Invalid frontend: ' . $frontend->getRawValue());
@@ -116,6 +166,12 @@ class FrontendVersionSearch implements FrontendVersionSearchInterface {
 
       case $frontend->isVetsWebsite():
         return $this->vwApiClient;
+
+      case $frontend->isNextBuild():
+        return $this->nbApiClient;
+
+      case $frontend->isNextVetsWebsite():
+        return $this->nvwApiClient;
 
       default:
         throw new \InvalidArgumentException('Invalid frontend: ' . $frontend->getRawValue());
