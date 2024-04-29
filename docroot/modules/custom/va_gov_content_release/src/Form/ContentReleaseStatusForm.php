@@ -17,9 +17,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ContentReleaseStatusForm extends FormBase {
   use RunsDuringBusinessHours;
 
+  // @todo Need proper permissions and token sorted out.
+  // I tested on my personal repo with a personal token.
   const OWNER = 'department-of-veterans-affairs';
   const REPO = 'next-build';
-  const WORKFLOW_ID = 'content-release.yml';
+  const WORKFLOW_ID = 'content_release.yml';
 
   /**
    * The http client service.
@@ -85,7 +87,7 @@ class ContentReleaseStatusForm extends FormBase {
 
     // Make a call to GitHub using http_client service to check workflow runs.
     $response = $this->httpClient->request('GET',
-      'https://api.github.com/repos/'. self::OWNER .'/'. self::REPO .'/actions/workflows/'. self::WORKFLOW_ID .'/runs');
+      'https://api.github.com/repos/' . self::OWNER . '/' . self::REPO . '/actions/workflows/' . self::WORKFLOW_ID . '/runs');
     $data = json_decode($response->getBody()->getContents());
 
     // Get the latest run.
@@ -169,6 +171,7 @@ HTML;
 
   /**
    * {@inheritdoc}
+   *
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function submitForm(
@@ -179,23 +182,22 @@ HTML;
     try {
       // Trigger the content release.
       $this->httpClient->request('POST',
-        'https://api.github.com/repos/'. self::OWNER .'/'. self::REPO .'/actions/workflows/'. self::WORKFLOW_ID .'/dispatches',
+        'https://api.github.com/repos/' . self::OWNER . '/' . self::REPO . '/actions/workflows/' . self::WORKFLOW_ID . '/dispatches',
         [
           'headers' => [
             'Accept' => 'application/vnd.github.v3+json',
-            'Authorization' => 'token ' . $this->settings->get('va_gov_content_release.github_token'),
+            // @todo Replace with proper token.
+            'Authorization' => 'token ' . $this->settings->get('va_cms_bot_github_auth_token'),
           ],
           'json' => [
             'ref' => 'main',
-            // Can add inputs to the workflow, if needed.
-            // 'inputs' => [
-            //   'release' => 'true',
-            // ],
+            // Can add 'inputs' => [] to the workflow, if needed.
           ],
         ]);
-    } catch (Exception $exception) {
+    }
+    catch (Exception $exception) {
       $this->messenger()->addError($this->t('There was an error triggering the content release.'));
-      $this->logger->error('Error triggering content release: @error', ['@error' => $exception->getMessage()]);
+      // @todo Add more logging?
     }
   }
 
