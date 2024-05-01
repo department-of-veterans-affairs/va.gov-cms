@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "423fb6954fb070944b51f510c990f56a",
+    "content-hash": "22ee30b9e3a6ef34bc8fbc0daacd3d92",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4746,10 +4746,6 @@
             ],
             "authors": [
                 {
-                    "name": "drupalspoons",
-                    "homepage": "https://www.drupal.org/user/3647684"
-                },
-                {
                     "name": "moshe weitzman",
                     "homepage": "https://www.drupal.org/user/23"
                 }
@@ -4881,6 +4877,10 @@
                     "name": "Brian Gilbert (realityloop).",
                     "homepage": "https://www.drupal.org/u/realityloop",
                     "role": "Maintainer"
+                },
+                {
+                    "name": "Junyor",
+                    "homepage": "https://www.drupal.org/user/7006"
                 },
                 {
                     "name": "lhangea",
@@ -6308,6 +6308,47 @@
             "homepage": "https://www.drupal.org/project/epp",
             "support": {
                 "source": "https://git.drupalcode.org/project/epp"
+            }
+        },
+        {
+            "name": "drupal/expirable_content",
+            "version": "dev-1.0.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/expirable_content.git",
+                "reference": "ecf4bd5662851f58c531fc1c71a03f7687905fad"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.0.x": "1.0.x-dev"
+                },
+                "drupal": {
+                    "version": "1.0.0-alpha2+3-dev",
+                    "datestamp": "1714075716",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "coderdan",
+                    "homepage": "https://www.drupal.org/user/490684"
+                }
+            ],
+            "description": "Configure any content entity type for expiration.",
+            "homepage": "https://www.drupal.org/project/expirable_content",
+            "support": {
+                "source": "https://git.drupalcode.org/project/expirable_content"
             }
         },
         {
@@ -11034,6 +11075,14 @@
                     "homepage": "https://www.drupal.org/user/103796"
                 },
                 {
+                    "name": "greggles",
+                    "homepage": "https://www.drupal.org/user/36762"
+                },
+                {
+                    "name": "kgatzby",
+                    "homepage": "https://www.drupal.org/user/3601554"
+                },
+                {
                     "name": "michaellander",
                     "homepage": "https://www.drupal.org/user/636494"
                 },
@@ -11397,7 +11446,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-1.12",
-                    "datestamp": "1696776683",
+                    "datestamp": "1712319355",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -26910,6 +26959,7 @@
         "drupal/entity_reference_validators": 15,
         "drupal/entity_route_context": 5,
         "drupal/entity_usage": 10,
+        "drupal/expirable_content": 20,
         "drupal/fieldhelptext": 10,
         "drupal/flag": 10,
         "drupal/graphql_menu": 15,
