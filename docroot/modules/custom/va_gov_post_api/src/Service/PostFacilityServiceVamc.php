@@ -493,6 +493,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
         $service_location->referral_required = $this->getReferralRequired();
         $service_location->walk_ins_accepted = $location->get('field_office_visits')->value;
         $service_location->online_scheduling_available = $this->getOnlineScheduling($location->get('field_online_scheduling_avail')->value ?? '');
+        $service_location->virtual_support = $location->get('field_virtual_support')->value ?? '';
 
         $service_locations[] = $service_location;
       }

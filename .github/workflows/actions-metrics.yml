@@ -11,7 +11,11 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Send GitHub Actions metrics to DataDog
+<<<<<<< HEAD
         uses: int128/datadog-actions-metrics@519686d5aeec89083d24b723724656e65fc0b7e4 # v1.87.0
+=======
+        uses: int128/datadog-actions-metrics@8a70221aaf8d488c817ae230ac6354ee59279080 # v1.81.0
+>>>>>>> 7e44cfb46 (VACMS-17956: Add virtual support to VAMC health services push to Lighthouse (#17978))
         with:
           datadog-api-key: ${{ secrets.DATADOG_API_KEY }}
           collect-job-metrics: true
