@@ -21,7 +21,11 @@ jobs:
 
       # Checkout repo to make package allow list available
       - name: Checkout
+<<<<<<< HEAD
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+=======
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
+>>>>>>> 7e44cfb46 (VACMS-17956: Add virtual support to VAMC health services push to Lighthouse (#17978))
 
       # Use a YAML formatted config file to list which dependencies can be auto-merged
       - name: Read list of Allowed Auto-merge Dependencies
