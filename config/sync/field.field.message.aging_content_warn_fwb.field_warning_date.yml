@@ -1,0 +1,24 @@
+uuid: 59fb9b56-95ef-424f-a86f-95610e311d9b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_warning_date
+    - message.template.aging_content_warn_fwb
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: message.aging_content_warn_fwb.field_warning_date
+field_name: field_warning_date
+entity_type: message
+bundle: aging_content_warn_fwb
+label: 'Warning Date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
