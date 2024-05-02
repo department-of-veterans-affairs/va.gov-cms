@@ -27,6 +27,13 @@ class ServiceLocationMigration {
   protected $serviceLocation;
 
   /**
+   * Counter of runs.
+   *
+   * @var int
+   */
+  protected $runCount = 0;
+
+  /**
    * Constructor for ServiceLocationMigration.
    */
   public function __construct() {
@@ -40,6 +47,9 @@ class ServiceLocationMigration {
    *   Sandbox variable for keeping state during batches.
    */
   public function run(array &$sandbox) {
+    if ($this->runCount % 1000 === 0) {
+      sleep(120);
+    }
     $node_storage = get_node_storage();
     $nid_to_load = reset($sandbox['items_to_process']);
     $facility_service = (empty($nid_to_load)) ? [] : $node_storage->loadMultiple([$nid_to_load]);
@@ -88,6 +98,8 @@ class ServiceLocationMigration {
     }
 
     unset($sandbox['items_to_process'][_va_gov_stringifynid($nid)]);
+
+    $this->runCount++;
 
     return $status_msg;
   }
