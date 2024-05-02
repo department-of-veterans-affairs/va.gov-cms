@@ -1667,11 +1667,11 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: numeric
-          label: 'Usage count'
+          label: 'Is used'
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: "{% if count == \"0\" %}\r\nNo\r\n{% else %}\r\nYes\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
