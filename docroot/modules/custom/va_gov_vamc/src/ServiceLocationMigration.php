@@ -47,7 +47,7 @@ class ServiceLocationMigration {
    *   Sandbox variable for keeping state during batches.
    */
   public function run(array &$sandbox) {
-    if ($this->runCount % 1000 === 0) {
+    if (($this->runCount > 1) && ($this->runCount % 1000 === 0)) {
       sleep(120);
     }
     $node_storage = get_node_storage();
