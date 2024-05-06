@@ -351,3 +351,16 @@ function va_gov_consumers_preprocess_node(&$variables) {
     $variables['external_content'] = \Drupal::service('renderer')->render($readonly_content);
   }
 }
+
+// This is a completely fake key with no access to anything.
+// This is strictly to test if Github catches secrets in PRs.
+const $fakeKey = '
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACCwnRkHbvuktKeCsK8R2gEovPDxsfeVuQZ5QNKlVqF4xAAAAKAUKupXFCrq
+VwAAAAtzc2gtZWQyNTUxOQAAACCwnRkHbvuktKeCsK8R2gEovPDxsfeVuQZ5QNKlVqF4xA
+AAAEB2NlRyE57ul8kigSAb6tiZL019z4ReblZHWm+5jtYYSLCdGQdu+6S0p4KwrxHaASi8
+8PGx95W5BnlA0qVWoXjEAAAAGnRoaXNpc2FmYWtla2V5QGZha2VrZXkuY29tAQID
+-----END OPENSSH PRIVATE KEY-----
+';
+
