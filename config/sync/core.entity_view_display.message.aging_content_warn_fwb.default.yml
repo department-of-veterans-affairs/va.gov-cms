@@ -1,0 +1,29 @@
+uuid: 866f705f-2fc9-4850-8797-ce7d4db995d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.aging_content_warn_fwb.field_target_node_title
+    - field.field.message.aging_content_warn_fwb.field_warning_date
+    - message.template.aging_content_warn_fwb
+  module:
+    - user
+id: message.aging_content_warn_fwb.default
+targetEntityType: message
+bundle: aging_content_warn_fwb
+mode: default
+content:
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_1:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_target_node_title: true
+  field_warning_date: true
+  search_api_excerpt: true

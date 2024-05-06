@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "423fb6954fb070944b51f510c990f56a",
+    "content-hash": "16e4803dc347d4eb83b1d3eb69bbf248",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6308,6 +6308,47 @@
             "homepage": "https://www.drupal.org/project/epp",
             "support": {
                 "source": "https://git.drupalcode.org/project/epp"
+            }
+        },
+        {
+            "name": "drupal/expirable_content",
+            "version": "dev-1.0.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/expirable_content.git",
+                "reference": "ecf4bd5662851f58c531fc1c71a03f7687905fad"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.0.x": "1.0.x-dev"
+                },
+                "drupal": {
+                    "version": "1.0.0-alpha2+3-dev",
+                    "datestamp": "1714075716",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "coderdan",
+                    "homepage": "https://www.drupal.org/user/490684"
+                }
+            ],
+            "description": "Configure any content entity type for expiration.",
+            "homepage": "https://www.drupal.org/project/expirable_content",
+            "support": {
+                "source": "https://git.drupalcode.org/project/expirable_content"
             }
         },
         {
@@ -13517,17 +13558,17 @@
         },
         {
             "name": "drupal/upgrade_status",
-            "version": "4.3.0",
+            "version": "4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/upgrade_status.git",
-                "reference": "4.3.0"
+                "reference": "4.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/upgrade_status-4.3.0.zip",
-                "reference": "4.3.0",
-                "shasum": "d6eaf37d4d543b130595410be3d64a60ca280eab"
+                "url": "https://ftp.drupal.org/files/projects/upgrade_status-4.3.1.zip",
+                "reference": "4.3.1",
+                "shasum": "18390306878f8abe2c2c68d471217655e5b7b31c"
             },
             "require": {
                 "dekor/php-array-table": "^2.0",
@@ -13544,8 +13585,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.3.0",
-                    "datestamp": "1714308227",
+                    "version": "4.3.1",
+                    "datestamp": "1714463117",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -25896,16 +25937,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3494",
+            "version": "v0.0.3497",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "2d652e59e45ccbd3fd4f425c34b2099736faa728"
+                "reference": "dfddf6215dbe20434b29d223b89343a9b5c32441"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/2d652e59e45ccbd3fd4f425c34b2099736faa728",
-                "reference": "2d652e59e45ccbd3fd4f425c34b2099736faa728",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/dfddf6215dbe20434b29d223b89343a9b5c32441",
+                "reference": "dfddf6215dbe20434b29d223b89343a9b5c32441",
                 "shasum": ""
             },
             "type": "node-project",
@@ -25932,9 +25973,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3494"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3497"
             },
-            "time": "2024-04-30T12:51:59+00:00"
+            "time": "2024-05-02T18:02:31+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -26918,6 +26959,7 @@
         "drupal/entity_reference_validators": 15,
         "drupal/entity_route_context": 5,
         "drupal/entity_usage": 10,
+        "drupal/expirable_content": 20,
         "drupal/fieldhelptext": 10,
         "drupal/flag": 10,
         "drupal/graphql_menu": 15,

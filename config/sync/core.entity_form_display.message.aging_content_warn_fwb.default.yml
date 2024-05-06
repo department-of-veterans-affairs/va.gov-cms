@@ -1,0 +1,47 @@
+uuid: 52b31e3b-c1bf-44ab-94bc-3a12f7bdce70
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.aging_content_warn_fwb.field_target_node_title
+    - field.field.message.aging_content_warn_fwb.field_warning_date
+    - message.template.aging_content_warn_fwb
+id: message.aging_content_warn_fwb.default
+targetEntityType: message
+bundle: aging_content_warn_fwb
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_target_node_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_warning_date:
+    type: string_textfield
+    weight: 11
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    '#group': advanced
+hidden: {  }

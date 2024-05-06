@@ -1,0 +1,29 @@
+uuid: ca00e7f9-a0e9-433e-b446-3996342c773e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_body
+    - field.field.message.aging_content_warn_fwb.field_target_node_title
+    - field.field.message.aging_content_warn_fwb.field_warning_date
+    - message.template.aging_content_warn_fwb
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.aging_content_warn_fwb.mail_body
+targetEntityType: message
+bundle: aging_content_warn_fwb
+mode: mail_body
+content:
+  partial_1:
+    weight: 0
+    region: content
+hidden:
+  field_target_node_title: true
+  field_warning_date: true
+  partial_0: true
+  search_api_excerpt: true

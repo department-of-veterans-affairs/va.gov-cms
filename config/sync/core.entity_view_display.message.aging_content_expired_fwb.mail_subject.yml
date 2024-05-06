@@ -10,7 +10,6 @@ dependencies:
     - message.template.aging_content_expired_fwb
   module:
     - layout_builder
-    - string_field_formatter
     - user
 third_party_settings:
   layout_builder:
@@ -21,21 +20,14 @@ targetEntityType: message
 bundle: aging_content_expired_fwb
 mode: mail_subject
 content:
-  field_target_node_title:
-    type: plain_string_formatter
-    label: hidden
-    settings:
-      link_to_entity: false
-      wrap_tag: _none
-      wrap_class: ''
-    third_party_settings: {  }
-    weight: 0
-    region: content
   partial_0:
+    settings: {  }
+    third_party_settings: {  }
     weight: 0
     region: content
 hidden:
   field_expired_date: true
   field_target_entity: true
+  field_target_node_title: true
   partial_1: true
   search_api_excerpt: true
