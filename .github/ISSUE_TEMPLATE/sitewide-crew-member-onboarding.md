@@ -353,7 +353,7 @@ Product Managers are often involved in launch day activity and change management
 
 ## Onboarding for UX members
 Your discipline lead will assist with onboarding tasks / calls.
-
+- [ ] Watch this Jan 2024 [Human Centered Design "How we work" presentation] (https://us06web.zoom.us/rec/share/_yL7CHedjvYzBT_T5Y5ApUAOiNb6zigFuRcHI_7IuogwD6xvBTB9e_pCipsnR_id.ub8yoJGJhI5rteH5?startTime=1714759743000), Passcode: rOKHJ9@4. AgileSix, our UX team, and our VA UX lead discuss our shared UX practice and how we think about the work we're doing.
 - [ ] Watch this Jan 2023 [UX team presentation](https://us06web.zoom.us/rec/share/4KOJ0HC3aRvggbXXXBNzVS83OEjqLfzdqwZuNhX-mpCg8ncrGwbJeqIIBaBIvWBx.rfe9-oe9zDmb4VcX)
 (Passcode: QPg1Pn9#) for context on our UX work.
 - [ ] Review the correlated [UX Workflow Presentation for Onsite (Mural)](https://app.mural.co/t/departmentofveteransaffairs9999/m/vagov6717/1672866433309/4685dabc03895968380c82a6138bf1cc3090384b?sender=u9c899abc4fe36c9a698b1647)
