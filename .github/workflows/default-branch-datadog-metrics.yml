@@ -11,11 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-<<<<<<< HEAD
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
-=======
-        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
->>>>>>> 7e44cfb46 (VACMS-17956: Add virtual support to VAMC health services push to Lighthouse (#17978))
       - uses: ./.github/actions/post-checkout
       - name: Find occurrences of "Implements hook" in *.module files.
         id: hook_implementations
@@ -79,11 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-<<<<<<< HEAD
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
-=======
-        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
->>>>>>> 7e44cfb46 (VACMS-17956: Add virtual support to VAMC health services push to Lighthouse (#17978))
       - uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
         run: bin/phpunit \
@@ -205,11 +197,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-<<<<<<< HEAD
         uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
-=======
-        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
->>>>>>> 7e44cfb46 (VACMS-17956: Add virtual support to VAMC health services push to Lighthouse (#17978))
       - uses: ./.github/actions/post-checkout
       - name: Run PHPLOC and parse output for metrics.
         id: phploc_code_quality
