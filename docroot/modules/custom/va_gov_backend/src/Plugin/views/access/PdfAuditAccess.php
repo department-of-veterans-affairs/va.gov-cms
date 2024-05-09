@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Route;
  * @ViewsAccess(
  *   id = "php_audit_access",
  *   title = @Translation("PHP Audit Access"),
- *   help = @Translation("Access will be granted to only to super admins and VHA DM users.")
+ *   help = @Translation("Access will be granted.")
  * )
  */
 class PdfAuditAccess extends AccessPluginBase {
@@ -30,24 +30,18 @@ class PdfAuditAccess extends AccessPluginBase {
    * {@inheritdoc}
    */
   public function access(AccountInterface $account) {
-    $vha_ids = [
-      '29',
-      '80',
-      '2046',
-      // Erika washburn.
-      '4433',
-      // Dave conlon.
-      '1203',
-      // Michelle middaugh.
-      '1342',
-      // Danielle Thierry.
-      '1341',
+    $roles = [
+      'administrator',
+      'content_admin',
+      'content_editor',
+      'content_publisher',
+      'content_reviewer',
     ];
     $account_roles = $account->getRoles();
-    $account_id = $account->id();
-    $is_super_admin = in_array('administrator', $account_roles);
-    if ($is_super_admin || in_array($account_id, $vha_ids)) {
-      return TRUE;
+    foreach ($roles as $role) {
+      if (in_array($role, $account_roles)) {
+        return TRUE;
+      }
     }
     return FALSE;
   }
