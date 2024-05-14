@@ -1,0 +1,28 @@
+uuid: 98e2d610-9d03-4475-80e8-483570ed84ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_use_facility_phone_number
+    - paragraphs.paragraphs_type.service_location
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.service_location.field_use_facility_phone_number
+field_name: field_use_facility_phone_number
+entity_type: paragraph
+bundle: service_location
+label: 'Use the facility phone number'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

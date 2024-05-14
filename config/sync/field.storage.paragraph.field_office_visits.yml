@@ -1,0 +1,33 @@
+uuid: be4da6fb-7785-484c-b130-c2127c2a47aa
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_office_visits
+field_name: field_office_visits
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'no'
+      label: 'No'
+    -
+      value: yes_appointment_only
+      label: 'Yes, by appointment only'
+    -
+      value: yes_walk_in_visits_only
+      label: 'Yes, walk-in visits only'
+    -
+      value: yes_with_or_without_appointment
+      label: 'Yes, with or without an appointment'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

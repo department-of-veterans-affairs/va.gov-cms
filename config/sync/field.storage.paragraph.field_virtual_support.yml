@@ -1,0 +1,33 @@
+uuid: 1a3585fe-48dd-44b5-9dee-186b1a7478a2
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_virtual_support
+field_name: field_virtual_support
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'no'
+      label: 'No'
+    -
+      value: yes_appointment_only
+      label: 'Yes, by appointment only'
+    -
+      value: yes_veterans_can_call
+      label: 'Yes, Veterans can call at their convenience'
+    -
+      value: virtual_visits_may_be_available
+      label: 'Virtual visits may be available'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
