@@ -334,7 +334,7 @@ The VA's Platform team provides guidance and oversight on quality for things lik
 
 - [ ] [Platform Collab Cycle documentation](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/)
     - [ ] [Platform Collab Cycle calendar](https://calendar.google.com/calendar/u/0/embed?src=c_7iurst2mk3hdhfuto5u7lemgbk@group.calendar.google.com&ctz=America/New_York) -- bookmark this for use when scheduling Collab Cycle touchpoints
-- [ ] [Research Overview](https://depo-platform-documentation.scrollhelp.site/research-design/research-overview)
+- [ ] [Design & Research Overview](https://depo-platform-documentation.scrollhelp.site/research-design)
 - [ ] [VA Design System](https://design.va.gov/)
 - [ ] The [Sitewide Collab Cycle progress tracker](https://docs.google.com/spreadsheets/d/1oFbFG3UYslhNdxulvFu4bytlx661zBADRhbkTNCqc7o/edit#gid=0) is a team artifact for keeping track of where our initiatives are in the process. Please bookmark. You'll collaborate with your Delivery Manager to keep this up to date.
 
@@ -370,7 +370,7 @@ Your discipline lead will assist with onboarding tasks / calls.
 ### Platform governance Collaboration Cycle
 The VA's Platform team uses a mechanism called the Collaboration Cycle (or Collab Cycle) to provide guidance and oversight on quality for things like Research studies & recruitment, Design system implementation, Accessibility requirements, and requirements for launches. UX folks will actively participate in several steps of this cycle, so it's beneficial to get familiar with guidance documentation. Read & bookmark these links: 
    - [ ] [Collaboration Cycle](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/collaboration-cycle-kickoff)
-   - [ ] [Research Overview](https://depo-platform-documentation.scrollhelp.site/research-design/research-overview)
+   - [ ] [Design & Research Overview](https://depo-platform-documentation.scrollhelp.site/research-design)
    - [ ] [VA Design System](https://design.va.gov/)
 
 ### Tools
@@ -391,7 +391,7 @@ Install tools and request access from your DM, if not already provided
 
 ### Research specifics
 - [ ] Review & bookmark the [VA OCTO Sitewide Public Websites & Facilities Research & Design Workflow (Mural)](https://app.mural.co/t/departmentofveteransaffairs9999/m/departmentofveteransaffairs9999/1696446576570/526d68b8fe6aa6c482cee4bd2bade5ae9e020889?sender=u0b235d03cbd64f7f93673243). This document explains the UX flow and expectations around research timelines for our teams at a high level.
-- [ ] Review https://depo-platform-documentation.scrollhelp.site/research-design/
+- [ ] Review https://depo-platform-documentation.scrollhelp.site/research-design/ 
    - [ ] [Sign up for the next research and design orientation session](https://calendly.com/collaboration-cycle/design-orientation-for-va-gov-platform)
    - [ ] After orientation, you should be added to the [va.gov-research-repository](https://github.com/department-of-veterans-affairs/va.gov-research-repository). Verify your access.
 
