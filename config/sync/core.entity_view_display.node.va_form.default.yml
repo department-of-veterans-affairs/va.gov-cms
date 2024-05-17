@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.va_form.field_va_form_tool_intro
     - field.field.node.va_form.field_va_form_tool_url
     - field.field.node.va_form.field_va_form_type
+    - field.field.node.va_form.field_va_form_upload
     - field.field.node.va_form.field_va_form_url
     - field.field.node.va_form.field_va_form_usage
     - node.type.va_form
@@ -170,6 +171,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 17
+    region: content
+  field_va_form_upload:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 19
     region: content
   field_va_form_usage:
     type: text_default
