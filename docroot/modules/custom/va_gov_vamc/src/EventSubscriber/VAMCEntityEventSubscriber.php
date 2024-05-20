@@ -51,6 +51,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vamc_system_register_for_care_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_va_police_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_va_police_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vha_facility_nonclinical_service_edit_form.alter' => 'alterNonClinicalServiceNodeForm',
+      'hook_event_dispatcher.form_node_vha_facility_nonclinical_service_form.alter' => 'alterNonClinicalServiceNodeForm',
       'hook_event_dispatcher.form_node_health_care_local_health_service_edit_form.alter' => 'alterFacilityServiceNodeForm',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
@@ -315,6 +317,19 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $this->addCovidStatusData($form, $form_state);
+  }
+
+  /**
+   * Alter VAMC Non Clinical Service node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterNonClinicalServiceNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    // $this->clearUnusedServiceLocationHours($form_state->getFormObject()->getEntity());
+    unset($form['title']['#size']);
   }
 
   /**

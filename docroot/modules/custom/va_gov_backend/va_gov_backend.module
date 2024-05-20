@@ -32,6 +32,24 @@ use Drupal\user\RoleInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
+
+/**
+  * Implements hook_module_implements_alter().
+  */
+  function va_gov_backend_module_implements_alter(&$implementations, $hook) {
+    switch ($hook) {
+      // Move our hook_form_alter() implementation to the end of the list.
+      // This was added to compensate for a similar call ignoring weights.
+      // See: docroot/modules/contrib/field_group/field_group.module.
+      case 'form_alter':
+        $va_gov_backend = $implementations['va_gov_backend'];
+        unset($implementations['va_gov_backend']);
+        $implementations['va_gov_backend'] = $va_gov_backend;
+        break;
+    }
+  }
+
+
 /**
  * Implements hook_help().
  */
@@ -986,6 +1004,28 @@ function va_gov_backend_form_node_form_alter(array &$form, FormStateInterface &$
     $node = $form_object->getEntity();
     if ($node->bundle() === 'health_care_local_health_service' || $node->bundle() === 'vha_facility_nonclinical_service') {
       $form['#attached']['library'][] = 'va_gov_backend/limit_services_to_user_sections';
+    }
+    if ($node->bundle() !== 'vha_facility_nonclinical_service') {
+      return;
+    }
+    if (!isset($form['field_service_location'])) {
+      return;
+    }
+    $service_location_widget = $form['field_service_location']['widget'];
+    foreach ($service_location_widget as $key => $widget) {
+      if (is_numeric($key)) {
+        if (!isset($widget['subform']['#fieldgroups']['group_service_options'])) {
+          continue;
+        } else {
+          foreach ($form['field_service_location']['widget'][$key]['subform']['#fieldgroups']['group_service_options']->children as $form_element_id) {
+            // $form[$form_element_id]['#access'] = FALSE;
+            // $form[$form_element_id]['#access'] = FALSE;
+            $form["field_service_location"]["widget"][$key]["subform"][$form_element_id]["#access"] = false;
+
+          }
+        }
+        // $form['field_service_location']['widget'][$key] = $widget;
+      }
     }
   }
 }
@@ -2003,3 +2043,4 @@ function va_gov_backend_field_views_data_alter(array &$data, FieldStorageConfigI
     }
   }
 }
+
