@@ -32,24 +32,6 @@ use Drupal\user\RoleInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
-
-/**
-  * Implements hook_module_implements_alter().
-  */
-  function va_gov_backend_module_implements_alter(&$implementations, $hook) {
-    switch ($hook) {
-      // Move our hook_form_alter() implementation to the end of the list.
-      // This was added to compensate for a similar call ignoring weights.
-      // See: docroot/modules/contrib/field_group/field_group.module.
-      case 'form_alter':
-        $va_gov_backend = $implementations['va_gov_backend'];
-        unset($implementations['va_gov_backend']);
-        $implementations['va_gov_backend'] = $va_gov_backend;
-        break;
-    }
-  }
-
-
 /**
  * Implements hook_help().
  */
@@ -1005,30 +987,47 @@ function va_gov_backend_form_node_form_alter(array &$form, FormStateInterface &$
     if ($node->bundle() === 'health_care_local_health_service' || $node->bundle() === 'vha_facility_nonclinical_service') {
       $form['#attached']['library'][] = 'va_gov_backend/limit_services_to_user_sections';
     }
-    if ($node->bundle() !== 'vha_facility_nonclinical_service') {
-      return;
-    }
-    if (!isset($form['field_service_location'])) {
-      return;
-    }
-    $service_location_widget = $form['field_service_location']['widget'];
-    foreach ($service_location_widget as $key => $widget) {
-      if (is_numeric($key)) {
-        if (!isset($widget['subform']['#fieldgroups']['group_service_options'])) {
-          continue;
-        } else {
-          foreach ($form['field_service_location']['widget'][$key]['subform']['#fieldgroups']['group_service_options']->children as $form_element_id) {
-            // $form[$form_element_id]['#access'] = FALSE;
-            // $form[$form_element_id]['#access'] = FALSE;
-            $form["field_service_location"]["widget"][$key]["subform"][$form_element_id]["#access"] = false;
+    _va_gov_backend_remove_service_location_fields_from_non_clinical_services($form, $node->bundle());
+  }
+}
 
+/**
+ * Removes unnecessary Service location fields from non-clinical services.
+ *
+ * @param array $form
+ *   The node form.
+ * @param string $bundle_type
+ *   The node bundle type.
+ */
+function _va_gov_backend_remove_service_location_fields_from_non_clinical_services(&$form, $bundle_type = '') {
+  if ($bundle_type !== 'vha_facility_nonclinical_service') {
+    return;
+  }
+  // If the field_service_location is not set, return.
+  if (!array_key_exists('field_service_location', $form)) {
+    return;
+  }
+  $service_location_widget = $form['field_service_location']['widget'];
+  foreach ($service_location_widget as $key => $widget) {
+    if (is_numeric($key)) {
+      // Service options and Appointments are not relevant to non-clinical services.
+      $groups_to_clear = [
+        'group_service_options',
+        'group_appointments',
+      ];
+      foreach ($groups_to_clear as $group) {
+        if (isset($widget['subform']['#fieldgroups'][$group])) {
+          // In each group, set the access to false for all child fields, so they are not rendered.
+          foreach ($form['field_service_location']['widget'][$key]['subform']['#fieldgroups'][$group]->children as $form_element_id) {
+            $form["field_service_location"]["widget"][$key]["subform"][$form_element_id]["#access"] = false;
           }
         }
-        // $form['field_service_location']['widget'][$key] = $widget;
       }
     }
   }
 }
+
+
 
 /**
  * For setting the default owner section in dropdown.
