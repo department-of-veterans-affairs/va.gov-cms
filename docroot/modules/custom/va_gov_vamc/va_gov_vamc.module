@@ -249,7 +249,7 @@ function va_gov_vamc_entity_bundle_field_info_alter(&$fields, EntityTypeInterfac
  *   The node form.
  */
 function _va_gov_vamc_remove_service_location_fields_from_non_clinical_services(&$form) {
-  // If the field_service_location is not set, return.
+  // If the field_service_location is not found, return.
   if (!array_key_exists('field_service_location', $form)) {
     return;
   }
