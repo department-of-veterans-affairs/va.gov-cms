@@ -28,6 +28,9 @@ services:
       # base previews are refreshed through the scheduled process! A manual
       # rebuild of the base preview is necessary.
       init:
+        # Increase file open limit to prevent issues with content-build.
+        - ulimit -n 32768
+
         - apt-get update
 
         # TODO: Add "Why" comment for Python, was this for the FE dependencies `yarn install`, if so which dependencies
