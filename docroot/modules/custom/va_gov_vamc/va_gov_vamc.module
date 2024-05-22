@@ -253,7 +253,13 @@ function _va_gov_vamc_remove_service_location_fields_from_non_clinical_services(
   if (!array_key_exists('field_service_location', $form)) {
     return;
   }
-  $service_location_widget = $form['field_service_location']['widget'];
+  $service_location_widget = array_key_exists('widget', $form['field_service_location'])
+    ? $form['field_service_location']['widget']
+    : [];
+  // If the service location widget is not iterable or is empty, return.
+  if (!is_iterable($service_location_widget) || empty($service_location_widget)) {
+    return;
+  }
   foreach ($service_location_widget as $key => $widget) {
     if (is_numeric($key)) {
       // Service options and Appointments are not relevant
