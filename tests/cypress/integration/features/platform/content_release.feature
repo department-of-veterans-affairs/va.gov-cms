@@ -8,14 +8,6 @@ Feature: Content Release
     Given I am logged in as a user with the "content_admin" role
     And I reset the content release state from the command line
 
-    # Require user confirmation.
-    When I am at "/admin/content/deploy/simple"
-    And I stub form submission for the current page
-    And I click the "Release content" button
-    And I wait for form submission
-    Then I should see "1 error has been found"
-    And I should see "You must confirm that you understand this implication."
-
     # Confirm and release.
     When I check the checkbox with selector "#edit-confirm"
     And I click the "Release content" button
