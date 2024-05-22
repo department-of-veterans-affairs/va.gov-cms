@@ -9,7 +9,9 @@ Feature: Content Release
     And I reset the content release state from the command line
 
     # Confirm and release.
-    When I check the checkbox with selector "#edit-confirm"
+    When I am at "/admin/content/deploy/simple"
+    And I stub form submission for the current page
+    And I check the checkbox with selector "#edit-confirm"
     And I click the "Release content" button
     And I wait for form submission
     Then I should see "Content release requested successfully"
