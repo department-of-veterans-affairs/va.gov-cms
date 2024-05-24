@@ -2,7 +2,7 @@
 name: Runbook - Vet Center, Outstation, Mobile Vet Center Facility closed
 about: Steps for archiving a Vet Center facility in VA.gov CMS.
 title: 'Vet Center Facility closed: <insert_name>'
-labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, Vet Center
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, Vet Center
 assignees: ''
 
 ---
