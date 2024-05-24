@@ -41,79 +41,79 @@ source:
     -
       name: facility_type
       label: facility_type
-      selector: properties/facility_type
+      selector: attributes/facilityType
     -
       name: id
       label: id
-      selector: properties/id
+      selector: id
     -
       name: name
       label: name
-      selector: properties/name
+      selector: attributes/name
     -
       name: classification
       label: classification
-      selector: properties/classification
+      selector: attributes/classification
     -
       name: website
       label: website
-      selector: properties/website
+      selector: attributes/website
     -
       name: time_zone
       label: time_zone
-      selector: properties/time_zone
+      selector: attributes/timeZone
     -
       name: mailing_city
       label: mailing_city
-      selector: properties/address/mailing/city
+      selector: attributes/address/mailing/city
     -
       name: mailing_state
       label: mailing_state
-      selector: properties/address/mailing/state
+      selector: attributes/address/mailing/state
     -
       name: mailing_zip
       label: mailing_zip
-      selector: properties/address/mailing/zip
+      selector: attributes/address/mailing/zip
     -
       name: mailing_address1
       label: mailing_address1
-      selector: properties/address/mailing/address_1
+      selector: attributes/address/mailing/address1
     -
       name: mailing_address2
       label: mailing_address2
-      selector: properties/address/mailing/address_2
+      selector: attributes/address/mailing/address2
     -
       name: mailing_address3
       label: mailing_address3
-      selector: properties/address/mailing/address_3
+      selector: attributes/address/mailing/address3
     -
       name: physical_city
       label: physical_city
-      selector: properties/address/physical/city
+      selector: attributes/address/physical/city
     -
       name: physical_state
       label: physical_state
-      selector: properties/address/physical/state
+      selector: attributes/address/physical/state
     -
       name: physical_zip
       label: physical_zip
-      selector: properties/address/physical/zip
+      selector: attributes/address/physical/zip
     -
       name: physical_address1
       label: physical_address1
-      selector: properties/address/physical/address_1
+      selector: attributes/address/physical/address1
     -
       name: physical_address2
       label: physical_address2
-      selector: properties/address/physical/address_2
+      selector: attributes/address/physical/address2
     -
       name: physical_address3
       label: physical_address3
-      selector: properties/address/physical/address_3
+      selector: attributes/address/physical/address3
     -
       name: fax
       label: fax
-      selector: properties/phone/fax
+      selector: attributes/phone/fax
     -
       name: phone
       label: phone
@@ -121,7 +121,15 @@ source:
     -
       name: hours
       label: hours
-      selector: properties/hours
+      selector: attributes/hours
+    -
+      name: latitude
+      label: latitude
+      selector: attributes/lat
+    -
+      name: longitude
+      label: longitude
+      selector: attributes/long
     -
       name: coordinates
       label: coordinates
@@ -272,21 +280,13 @@ process:
     plugin: default_value
     # Set the value for "NCA Facilities" which is 192.
     default_value: 192
-  latitude:
-    plugin: extract
-    source: coordinates
-    index:
-      - 1
-  longitude:
-    plugin: extract
-    source: coordinates
-    index:
-      - 0
+  latitude: latitude
+  longitude: longitude
   field_geolocation:
     plugin: geofield_latlon
     source:
-      - '@latitude'
-      - '@longitude'
+      - latitude
+      - longitude
   langcode:
     plugin: default_value
     default_value: en
