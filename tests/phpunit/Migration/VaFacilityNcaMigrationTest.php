@@ -33,7 +33,7 @@ class VaFacilityNcaMigrationTest extends VaGovExistingSiteBase {
     int $count,
     bool $cleanup
   ) : void {
-    $mockClient = MockHttpClient::create('200', ['Content-Type' => 'application/vnd.geo+json;charset=UTF-8'], $json);
+    $mockClient = MockHttpClient::create('200', ['Content-Type' => 'application/json;charset=UTF-8'], $json);
     $this->container->set('http_client', $mockClient);
     Migrator::doImport($migration_id);
     $entityCount = EntityStorage::getMatchingEntityCount('node', $bundle, $conditions);
