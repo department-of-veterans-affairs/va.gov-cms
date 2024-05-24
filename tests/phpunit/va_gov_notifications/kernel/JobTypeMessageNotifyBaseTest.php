@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\va_gov_notifications\kernel;
 
 use Drupal\advancedqueue\Job;
+use Drupal\Core\TypedData\Exception\MissingDataException;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\message\Entity\MessageTemplate;
 use Drupal\Tests\user\Traits\UserCreationTrait;
@@ -95,7 +96,7 @@ class JobTypeMessageNotifyBaseTest extends KernelTestBase {
   /**
    * Tests the process method with an error due to missing template values.
    */
-  public function testProcessFailureMissingTemplateValues() {
+  public function testProcessFailureRecipientAllowList() {
     $payload = [
       'values' => [],
       'template_values' => [
@@ -113,6 +114,25 @@ class JobTypeMessageNotifyBaseTest extends KernelTestBase {
     $result = $this->jobType->process($job);
     $this->assertEquals(Job::STATE_FAILURE, $result->getState());
     $this->assertEquals('Recipient is not on the allow list for message 1.', $result->getMessage());
+  }
+
+  /**
+   * Tests the process method with an error due to missing template values.
+   */
+  public function testProcessFailureMissingTemplateValues() {
+    $payload = [
+      'values' => [],
+    ];
+    $job = new Job([
+      'type' => 'test_job_type',
+      'payload' => $payload,
+      'state' => Job::STATE_QUEUED,
+    ]);
+    $this->expectException(MissingDataException::class);
+    $this->expectExceptionMessage('Missing template_values in payload for job id');
+    $result = $this->jobType->process($job);
+    $this->assertEquals(Job::STATE_FAILURE, $result->getState());
+
   }
 
 }
