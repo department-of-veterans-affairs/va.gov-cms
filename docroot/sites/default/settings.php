@@ -164,7 +164,12 @@ $config['govdelivery_bulletins.settings']['govdelivery_password'] = getenv('CMS_
 $config['geocoder.geocoder_provider.mapbox']['configuration']['accessToken'] = getenv('MAPBOX_TOKEN_CMS');
 
 // Set migration settings from environment variables.
-$facility_api_urls = [getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities'];
+$facility_api_urls = [
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000',
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000&page=2',
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000&page=3',
+];
+
 $facility_api_key = getenv('CMS_VAGOV_API_KEY');
 $facility_migrations = [
   'va_node_health_care_local_facility',

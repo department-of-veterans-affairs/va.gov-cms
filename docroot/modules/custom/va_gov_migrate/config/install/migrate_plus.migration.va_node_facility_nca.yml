@@ -23,7 +23,7 @@ source:
   data_parser_plugin: json
   urls:
     # This gets overridden in settings.php.
-    - 'https://dev-api.va.gov/services/va_facilities/v1/facilities'
+    - 'https://dev-api.va.gov/services/va_facilities/v1/facilities?per_page=1000'
   headers:
     Accept: application/json
     apikey: 'DEFINED IN settings.php'
