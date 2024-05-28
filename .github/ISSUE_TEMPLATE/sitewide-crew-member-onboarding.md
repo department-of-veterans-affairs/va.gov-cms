@@ -122,6 +122,7 @@ Note: Prior to eQip transmittal, the VA may grant network access. However: VA co
     - [ ] Github alias
     - [ ] Working hours
 - [ ] Your Delivery Manager should add you to appropriate Slack user groups for the DSVA workspace (e.g. `@public-websites-team`, `@facilities-team`. Also `@sitewide-engineers` for eng.)
+- [ ] Visit the #cms-support channel, and use the channel Workflow to request a Drupal user. Provide your agency email address, request the same permissions / Section as your Delivery Manager, and tag your DM in the thread for awareness.
 
 **Channels**
 - [ ] A6/agency workspace = `#proj-sitewide`
