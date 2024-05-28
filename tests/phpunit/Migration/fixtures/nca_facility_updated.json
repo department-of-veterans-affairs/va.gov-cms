@@ -1,65 +1,45 @@
 {
-  "type": "FeatureCollection",
-  "features": [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -94.77066050,
-                    37.03205750
-                ]
+    "data": {
+        "id": "nca_000",
+        "type": "va_facilities",
+        "attributes": {
+            "name": "Test Cemetery - Null Phone",
+            "facilityType": "va_cemetery",
+            "classification": "Soldiers Lot",
+            "website": "https://www.cem.va.gov/cems/lots/BaxterSprings.asp",
+            "lat": 37.03205750,
+            "long": -94.77066050,
+            "timeZone": "America/Chicago",
+            "address": {
+                "mailing": {
+                    "zip": "66713",
+                    "city": "Leavenworth",
+                    "state": "KS",
+                    "address1": "150 Muncie Rd"
+                },
+                "physical": {
+                    "zip": "66713",
+                    "city": "Baxter Springs",
+                    "state": "KS",
+                    "address1": "Baxter Springs City Cemetery"
+                }
             },
-            "properties": {
-                "id": "nca_000",
-                "name": "Test Cemetery - Null Phone",
-                "facility_type": "va_cemetery",
-                "classification": "Soldiers Lot",
-                "website": "https://www.cem.va.gov/cems/lots/BaxterSprings.asp",
-                "time_zone": "America/Chicago",
-                "address": {
-                    "mailing": {
-                        "zip": "66713",
-                        "city": "Leavenworth",
-                        "state": "KS",
-                        "address_1": "150 Muncie Rd",
-                        "address_2": null,
-                        "address_3": null
-                    },
-                    "physical": {
-                        "zip": "66713",
-                        "city": "Baxter Springs",
-                        "state": "KS",
-                        "address_1": "Baxter Springs City Cemetery",
-                        "address_2": null,
-                        "address_3": null
-                    }
-                },
-                "phone": {
-                    "fax": "9137584137",
-                    "main": null
-                },
-                "hours": {
-                    "Friday": "Sunrise - Sundown",
-                    "Monday": "Sunrise - Sundown",
-                    "Sunday": "Sunrise - Sundown",
-                    "Tuesday": "Sunrise - Sundown",
-                    "Saturday": "Sunrise - Sundown",
-                    "Thursday": "Sunrise - Sundown",
-                    "Wednesday": "Sunrise - Sundown"
-                },
-                "operational_hours_special_instructions": null,
-                "services": {},
-                "satisfaction": {},
-                "wait_times": {},
-                "mobile": null,
-                "active_status": null,
-                "operating_status": {
-                    "code": "NORMAL"
-                },
-                "detailed_services": null,
-                "visn": null
+            "phone": {
+                "fax": "9137584136",
+                "main": null
+            },
+            "hours": {
+                "monday": "Sunrise - Sundown",
+                "tuesday": "Sunrise - Sundown",
+                "wednesday": "Sunrise - Sundown",
+                "thursday": "Sunrise - Sundown",
+                "friday": "Sunrise - Sundown",
+                "saturday": "Sunrise - Sundown",
+                "sunday": "Sunrise - Sundown"
+            },
+            "operatingStatus": {
+                "code": "NORMAL"
             }
         }
-    ]
+    }
 }
