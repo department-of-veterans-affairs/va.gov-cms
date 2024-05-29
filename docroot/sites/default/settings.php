@@ -165,7 +165,10 @@ $config['geocoder.geocoder_provider.mapbox']['configuration']['accessToken'] = g
 
 // Set migration settings from environment variables.
 $facility_api_urls = [
-  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities'];
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000',
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000&page=2',
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000&page=3',
+];
 
 $facility_api_key = getenv('CMS_VAGOV_API_KEY');
 $facility_migrations = [
