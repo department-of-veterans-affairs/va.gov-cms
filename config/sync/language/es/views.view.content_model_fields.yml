@@ -1,8 +1,9 @@
 display:
   default:
-    display_title: 'Por defecto'
     display_options:
       fields:
+        operation:
+          label: Operaciones
         field_name:
           label: 'Nombre del campo'
         field_type:
@@ -23,8 +24,6 @@ display:
           label: Traducible
         langcode:
           label: 'Código de idioma'
-        operation:
-          label: Operaciones
       exposed_form:
         options:
           submit_button: Filtro
@@ -51,6 +50,7 @@ display:
       header:
         result:
           content: 'Mostrando @start - @end de @total'
+    display_title: 'Por defecto'
   content_model_documentation_fields:
     display_title: Página
     display_options:

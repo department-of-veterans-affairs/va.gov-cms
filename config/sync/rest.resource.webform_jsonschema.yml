@@ -1,0 +1,19 @@
+uuid: fce71d9a-a924-45ac-a186-572f47c83f85
+langcode: en
+status: true
+dependencies:
+  module:
+    - serialization
+    - user
+    - webform_jsonschema
+id: webform_jsonschema
+plugin_id: webform_jsonschema
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+    - webform_jsonschema
+  authentication:
+    - cookie
