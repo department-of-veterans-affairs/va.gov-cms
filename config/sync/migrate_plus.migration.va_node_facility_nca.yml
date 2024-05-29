@@ -125,10 +125,6 @@ source:
       name: longitude
       label: longitude
       selector: attributes/long
-    -
-      name: coordinates
-      label: coordinates
-      selector: geometry/coordinates
 process:
   non_field1:
     plugin: skip_on_value
@@ -300,8 +296,6 @@ process:
   field_administration:
     plugin: default_value
     default_value: 192
-  latitude: latitude
-  longitude: longitude
   field_geolocation:
     plugin: geofield_latlon
     source:

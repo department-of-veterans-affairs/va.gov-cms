@@ -26,6 +26,7 @@ source:
     # This gets overridden in settings.php.
     - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000',
     - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=2'
+    - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=3'
   headers:
     Accept: application/json
     apikey: 'DEFINED IN settings.php'
@@ -160,8 +161,6 @@ process:
   field_address/locality: city
   field_address/administrative_area: state
   field_address/postal_code: zip
-  latitude: latitude
-  longitude: longitude
   field_geolocation:
     plugin: geofield_latlon
     source:
