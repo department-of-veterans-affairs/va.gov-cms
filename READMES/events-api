@@ -1,19 +1,19 @@
 Directions for Events API
 
-This work is located in the Drupal CMS backend and is administered by the CMS team.
+This is a REST API created in Drupal Views using the REST UI Module. It is located in the Drupal CMS backend and is administered by the CMS team.
 
 The current location to view the API is: /all-events-data_format=json
 
 The API is currently set to json format but can also be used for xml or to get a csv download. This is accomplished by changing the data_format in the url above. (I.e. /all-events-data_format=csv or  /all-events-data_format=xml)
 
-To make changes to the Events API in the Drupal Admin you can go to /admin/structure/views/view/events_data. Any changes made to this API require an export of Drupal config so please consult with (an have you changes reviewed by) a Drupal CMS Developer.
+To make changes to the Events API in the Drupal Admin you can go to /admin/structure/views/view/events_data. Any changes made to this API require an export of Drupal config so please consult with (and have your changes reviewed by) a Drupal CMS Developer.
 
-Available Options are below
+Below are the options that can be modified.
 
 Format:
 
-  Fields: set to “Serializer” by default and can be changed to data export.
-  Settings: option will allow you to choose output (json, xml, csv, etc)
+  Format: set to “Serializer” by default and can be changed to data export.
+  Settings: options will allow you to choose output (json, xml, csv, etc)
 
   Show: this is set to fields by default to ensure that all the needed event fields are represented.
   Settings: an alias can be set for each field type and a checkbox is available for RAW output.
