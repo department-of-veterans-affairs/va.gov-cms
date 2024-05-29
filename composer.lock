@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4050070dad5bc8274db08b0c042870d3",
+    "content-hash": "93861cc05ea01a5b13585c723621c231",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -14291,6 +14291,182 @@
                 "issues": "https://www.drupal.org/project/issues/webform?version=8.x",
                 "docs": "https://www.drupal.org/docs/8/modules/webform",
                 "forum": "https://drupal.stackexchange.com/questions/tagged/webform"
+            }
+        },
+        {
+            "name": "drupal/webform_jsonschema",
+            "version": "2.0.10",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/webform_jsonschema.git",
+                "reference": "2.0.10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/webform_jsonschema-2.0.10.zip",
+                "reference": "2.0.10",
+                "shasum": "5646c2524493d81f0a8ae0a47e0385d2da061f61"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10",
+                "drupal/webform": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.10",
+                    "datestamp": "1700567216",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "blazey",
+                    "homepage": "https://www.drupal.org/user/353861"
+                },
+                {
+                    "name": "colorfield",
+                    "homepage": "https://www.drupal.org/user/2295486"
+                },
+                {
+                    "name": "dan2k3k4",
+                    "homepage": "https://www.drupal.org/user/2437398"
+                },
+                {
+                    "name": "Leksat",
+                    "homepage": "https://www.drupal.org/user/390336"
+                },
+                {
+                    "name": "monya",
+                    "homepage": "https://www.drupal.org/user/2394756"
+                },
+                {
+                    "name": "pmelab",
+                    "homepage": "https://www.drupal.org/user/555322"
+                },
+                {
+                    "name": "rodrigoaguilera",
+                    "homepage": "https://www.drupal.org/user/408170"
+                }
+            ],
+            "description": "Expose webforms as JSON Schema, UI Schema, and Form Data. Make webforms work with react-jsonschema-form.",
+            "homepage": "https://www.drupal.org/project/webform_jsonschema",
+            "support": {
+                "source": "https://git.drupalcode.org/project/webform_jsonschema"
+            }
+        },
+        {
+            "name": "drupal/webform_rest",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/webform_rest.git",
+                "reference": "4.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/webform_rest-4.1.0.zip",
+                "reference": "4.1.0",
+                "shasum": "ccdb351c28631b0edd284edfd5c4f58408645520"
+            },
+            "require": {
+                "drupal/core": "^8.7.7 || ^9 || ^10",
+                "drupal/webform": "^6.1"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "4.1.0",
+                    "datestamp": "1702831078",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "DÃ©bora Antunes (dgaspara)",
+                    "homepage": "https://www.drupal.org/u/dgaspara"
+                },
+                {
+                    "name": "Ian McLean (imclean),",
+                    "homepage": "https://www.drupal.org/u/imclean"
+                },
+                {
+                    "name": "JoÃ£o Marques (joaomarques736)",
+                    "homepage": "https://www.drupal.org/u/joaomarques736"
+                },
+                {
+                    "name": "Nelson Alves (nsalves)",
+                    "homepage": "https://www.drupal.org/u/nsalves"
+                },
+                {
+                    "name": "pmaiacar",
+                    "homepage": "https://www.drupal.org/user/3575425"
+                }
+            ],
+            "description": "Retrieve and submit webforms via REST.",
+            "homepage": "https://www.drupal.org/project/webform_rest",
+            "support": {
+                "source": "https://git.drupalcode.org/project/webform_rest",
+                "issues": "https://www.drupal.org/project/issues/webform_rest"
+            }
+        },
+        {
+            "name": "drupal/webform_simplify",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/webform_simplify.git",
+                "reference": "1.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/webform_simplify-1.1.1.zip",
+                "reference": "1.1.1",
+                "shasum": "633ba75fb06fd014654e8899dad66127a1032c39"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10",
+                "drupal/webform": "^6.1"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.1",
+                    "datestamp": "1696593291",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "DieterHolvoet",
+                    "homepage": "https://www.drupal.org/user/3567222"
+                }
+            ],
+            "description": "Simplifies the Webform user interface by hiding certain parts.",
+            "homepage": "https://www.drupal.org/project/webform_simplify",
+            "support": {
+                "source": "https://git.drupalcode.org/project/webform_simplify"
             }
         },
         {
