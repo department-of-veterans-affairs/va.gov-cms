@@ -73,7 +73,7 @@ if (!empty($webhost_on_cli)) {
 
   // Setting the custom header to switch the file base URL in next-build
   // Uncomment this next line to test that the header is being set
-  header('File-Public-Base-Url-Check: true');
+  // header('File-Public-Base-Url-Check: true');
 
   // Get all headers
   $headersArray = headers_list();
