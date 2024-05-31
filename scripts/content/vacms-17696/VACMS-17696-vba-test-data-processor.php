@@ -15,7 +15,7 @@ function create_vba_facility_service_node($data) {
   $facility_section = $data[1];
   $service_id = $data[2];
 
-  // Create the node.
+  // Create the VBA service node.
   $service_node = Node::create([
     'type' => 'vba_facility_service',
     'field_administration' => [
@@ -27,7 +27,7 @@ function create_vba_facility_service_node($data) {
     'field_service_name_and_descripti' => [
       'target_id' => $service_id,
     ],
-    // Add any other fields you need for your node.
+    'moderation_state' => 'published',
   ]);
 
   // $service_location_paragraphs = createServiceLocationParagraphs($data);
@@ -36,6 +36,22 @@ function create_vba_facility_service_node($data) {
 }
 
 function create_service_location_paragraphs($data) {
+
+}
+
+function create_service_location_appointment_phones($data) {
+
+}
+
+function create_service_location_address($data) {
+
+}
+
+function create_service_location_hours($data) {
+
+}
+
+function create_service_location_email($data) {
 
 }
 
