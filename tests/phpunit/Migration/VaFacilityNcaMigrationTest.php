@@ -3,17 +3,18 @@
 namespace tests\phpunit\Migration;
 
 use Tests\Support\Classes\VaGovExistingSiteBase;
-use Tests\Support\Entity\Storage as EntityStorage;
-use Tests\Support\Migration\Migrator;
-use Tests\Support\Mock\HttpClient as MockHttpClient;
+use Tests\Support\Traits\MigrationTestTrait;
 
 /**
  * A test to confirm that the VA HC Facility Migration works correctly.
  *
  * @group functional
  * @group all
+ * @group facility_migration
  */
 class VaFacilityNcaMigrationTest extends VaGovExistingSiteBase {
+
+  use MigrationTestTrait;
 
   /**
    * Test the VA National Cemetery Administration Facility Migration.
@@ -33,15 +34,7 @@ class VaFacilityNcaMigrationTest extends VaGovExistingSiteBase {
     int $count,
     bool $cleanup
   ) : void {
-    $mockClient = MockHttpClient::create('200', ['Content-Type' => 'application/json;charset=UTF-8'], $json);
-    $this->container->set('http_client', $mockClient);
-    Migrator::doImport($migration_id);
-    $entityCount = EntityStorage::getMatchingEntityCount('node', $bundle, $conditions);
-    $this->assertSame($count, $entityCount);
-
-    if ($cleanup) {
-      EntityStorage::deleteMatchingEntities('node', $bundle, $conditions);
-    }
+    $this->testMockedJsonDataFetchMigration($migration_id, $bundle, $json, $conditions, $count, $cleanup);
   }
 
   /**
@@ -57,7 +50,7 @@ class VaFacilityNcaMigrationTest extends VaGovExistingSiteBase {
       file_get_contents(__DIR__ . '/fixtures/nca_facility.json'),
       [
         'field_facility_locator_api_id' => 'nca_000',
-        'field_phone_number' => '9137584106',
+        'field_phone_number' => '9137584105',
       ],
       1,
       FALSE,
@@ -72,7 +65,7 @@ class VaFacilityNcaMigrationTest extends VaGovExistingSiteBase {
         // but we can't test a null field (no data)
         // so we test that the migration itself was successful
         // by also changing the fax number and checking it.
-        'field_fax_number' => '9137584137',
+        'field_fax_number' => '9137584136',
       ],
       1,
       TRUE,
