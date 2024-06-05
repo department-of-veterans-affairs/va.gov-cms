@@ -2,7 +2,9 @@
 
 /**
  * @file
- * Creates VBA test data.
+ * Creates VBA test data for local or Tugboat environments only.
+ *
+ * This script should NOT be run on production.
  */
 
 use Drupal\node\Entity\Node;
