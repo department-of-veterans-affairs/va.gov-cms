@@ -35,7 +35,16 @@ class VaHealthCareLocalFacilityMigrationTest extends VaGovExistingSiteBase {
   ) : void {
     $mockClient = MockHttpClient::create('200', ['Content-Type' => 'application/json;charset=UTF-8'], $json);
     $this->container->set('http_client', $mockClient);
-    Migrator::doImport($migration_id);
+    // Each url defined in the migration source configuration will make a fresh
+    // call to the mockClient. Guzzle pops each new request off the request
+    // queue, so if there is no parity between the number of urls in the source
+    // config, and the number of requests expected (queued), an
+    // OutOfBoundsException exception with the message 'Mock queue is empty' is
+    // empty will be thrown. We avoid this by ensuring there is only one url in
+    // the source config. Since there will be no actual http request made,
+    // we can set the url to anything.
+    $source_config_overrides = ['urls' => 'https://example.com/any/url/will/do'];
+    Migrator::doImport($migration_id, $source_config_overrides);
     $entityCount = EntityStorage::getMatchingEntityCount('node', $bundle, $conditions);
     $this->assertSame($count, $entityCount);
 
