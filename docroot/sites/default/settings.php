@@ -243,24 +243,6 @@ if (!empty($GLOBALS['request']) &&
   $deploy_service->run($GLOBALS['request'], $app_root, $site_path);
 }
 
-// Because Jenkins can't resolve e.g. prod.cms.va.gov DNS, and only the
-// internal*elb addresses. And sometimes the host would return data with
-// "http://default/..." hostnames for files so we set the host here and pass it
-// to the `file_public_base_url` setting to fix that.
-if (!empty($webhost_on_cli)) {
-  if (PHP_SAPI === 'cli') {
-    // This is running from drush so set the webhost.
-    // Var $webhost_on_cli is set in <settings.<environment>.php.
-    $webhost = $webhost_on_cli;
-  }
-  else {
-    // This is running from an HTTP request.
-    $webhost = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
-  }
-
-  $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
-}
-
 // Monolog
 $settings['container_yamls'][] = __DIR__ . '/services/services.monolog.yml';
 
