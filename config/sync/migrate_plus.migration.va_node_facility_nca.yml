@@ -23,6 +23,8 @@ source:
   data_parser_plugin: json
   urls:
     - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000'
+    - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=2'
+    - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=3'
   headers:
     Accept: application/json
     apikey: 'DEFINED IN settings.php'
