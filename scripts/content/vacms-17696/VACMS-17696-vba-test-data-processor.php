@@ -9,6 +9,7 @@
 
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\media\Entity\Media;
 
 require_once __DIR__ . '../../script-library.php';
 
@@ -18,9 +19,30 @@ run();
  * Executes the script.
  */
 function run() {
-  // Specify the path to the CSV file.
-  $csv_file_path = __DIR__ . '/VACMS-17696-vba-test-data-source.csv';
-  // Open the CSV file.
+  // create_vba_services();
+  update_vba_facilities();
+
+}
+
+function create_vba_services() {
+   $csv_file_path = __DIR__ . '/VACMS-17696-vba-test-data-source-services.csv';
+   if (($handle = fopen($csv_file_path, 'r')) !== FALSE) {
+     // Read and discard the header row.
+     fgetcsv($handle);
+     // Read the rest of the CSV file.
+     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+       // Each row in the CSV file becomes an array in $data.
+       // The array and CSV are in the same order.
+       // Create a VBA facility service node.
+       create_vba_facility_service_node($data);
+     }
+     // Close the CSV file.
+     fclose($handle);
+   }
+}
+
+function update_vba_facilities() {
+  $csv_file_path = __DIR__ . '/VACMS-17696-vba-test-data-source-facilities.csv';
   if (($handle = fopen($csv_file_path, 'r')) !== FALSE) {
     // Read and discard the header row.
     fgetcsv($handle);
@@ -29,13 +51,12 @@ function run() {
       // Each row in the CSV file becomes an array in $data.
       // The array and CSV are in the same order.
       // Create a VBA facility service node.
-      create_vba_facility_service_node($data);
+      update_vba_facility_node($data);
     }
     // Close the CSV file.
     fclose($handle);
   }
 }
-
 /**
  * Create a VBA facility service node.
  *
@@ -520,10 +541,28 @@ function create_email_paragraph($email_index) {
 }
 
 /**
+ * Updates a VBA facility node.
+ */
+function update_vba_facility_node($data) {
+  $node = \Drupal::entityTypeManager()->getStorage('node')->load($data[1]);
+  $node->field_show_banner->value = $data[2];
+  $node->field_alert_type->value = $data[3];
+  $node->field_dismissible_option->value = $data[4];
+  $node->field_banner_title->value = $data[5];
+  $node->field_banner_content->value = $data[6];
+  $node->field_operating_status_facility->value = $data[7];
+  $node->field_operating_status_more_info->value = $data[8];
+  add_prepare_for_your_visit_to_facility($node, $data[9]);
+  // add_media_to_facility($node, $data[12]);
+  // add_spotlights_to_facility($node, $data[13], $data[16]);
+  $node->save();
+}
+
+/**
  * Randomly choose a true, false, or null value.
  *
  * @return string
- *   The true, false, or null value. *
+ *   The true, false, or null value.
  */
 function choose_random_true_false_null() {
   $true_false_null = [
@@ -636,3 +675,76 @@ function generate_random_phone_number() {
   $phone_number = sprintf("%03d-%03d-%04d", $area_code, $prefix, $line_number);
   return $phone_number;
 }
+
+/**
+ * Add prepare for your visit to facility.
+ *
+ * @param \Drupal\node\Entity\Node $node
+ *   The facility node.
+ * @param int
+ *   The number of accordions to add.
+ */
+function add_prepare_for_your_visit_to_facility($node, $number_of_accordions) {
+  for ($i = 0; $i < $number_of_accordions; $i++) {
+    $paragraph = Paragraph::create([
+      'type' => 'accordion',
+      'field_header' => 'Prepare for your visit ' . $i + 1,
+      'field_rich_wysiwyg' => 'Prepare for your visit body ' . $i + 1,
+    ]);
+    $prepare_for_your_visit = $node->get('field_prepare_for_visit')->getValue();
+    $prepare_for_your_visit[] = ['target_id' => $paragraph->id()];
+    $prepare_for_your_visit[] = ['target_revision_id' => $paragraph->getRevisionId()];
+    $paragraph->save();
+
+    // $node->field_prepare_for_visit->appendItem($paragraph);
+    $node->save();
+  }
+}
+
+/**
+ * Add media to facility.
+ *
+ * @param \Drupal\node\Entity\Node $node
+ *   The facility node.
+ * @param int
+ *   The media node to add.
+ */
+function add_media_to_facility($node, $media_id) {
+  // Load the media entity.
+  $media = Media::load($media_id);
+
+  // Check if the media entity exists and is an image.
+  if ($media && $media->bundle() == 'image') {
+    // Append the media entity to the field.
+
+  $media = \Drupal::entityTypeManager()->getStorage('media')->load($media_id);
+  $node->field_media->appendItem($media);
+  $node->save();
+  }
+}
+
+function add_spotlights_to_facility($node, $number_of_spotlights, $use_cta) {
+  for ($i = 0; $i < $number_of_spotlights; $i++) {
+    if ($use_cta) {
+      $cta = Paragraph::create([
+        'type' => 'button',
+        'field_button_link' => 'https://www.google.com',
+        'field_button_label' => 'Spotlight CTA ' . $i + 1,
+      ]);
+      $cta->save();
+    }
+    else {
+      $cta = NULL;
+    }
+    $spotlight = Paragraph::create([
+      'type' => 'featured_content',
+      'field_section_header' => 'Spotlight title ' . $i + 1,
+      'field_description' => 'Spotlight body ' . $i + 1,
+    ]);
+
+    $spotlight->field_cta->appendItem($cta);
+    $spotlight->save();
+    $node->field_local_spotlight->appendItem($spotlight);
+  }
+}
+
