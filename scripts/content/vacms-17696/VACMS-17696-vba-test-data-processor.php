@@ -4,7 +4,7 @@
  * @file
  * Creates VBA test data for local or Tugboat environments only.
  *
- * This script should NOT be run on production.
+ * !!!!! DO NOT RUN ON PROD. !!!!!
  */
 
 use Drupal\media\Entity\Media;
@@ -16,19 +16,26 @@ require_once __DIR__ . '../../script-library.php';
 run();
 
 /**
- * Executes the script.
+ * Executes the script using the CSV files and callback functions.
  */
 function run() {
-  create_vba_services();
-  update_vba_facilities();
-  create_vba_service_regions();
+  process_csv_file(__DIR__ . '/VACMS-17696-vba-test-data-source-services.csv',
+    'create_vba_facility_service_node');
+  process_csv_file(__DIR__ . '/VACMS-17696-vba-test-data-source-facilities.csv',
+    'update_vba_facility_node');
+  process_csv_file(__DIR__ . '/VACMS-17696-vba-test-data-source-service-regions.csv',
+    'create_vba_service_region_node');
 }
 
 /**
- * Create VBA services.
+ * Process a CSV file.
+ *
+ * @param string $csv_file_path
+ *   The path to the CSV file.
+ * @param string $process_row_function
+ *   The function to process each row in the CSV file.
  */
-function create_vba_services() {
-  $csv_file_path = __DIR__ . '/VACMS-17696-vba-test-data-source-services.csv';
+function process_csv_file($csv_file_path, $process_row_function) {
   if (($handle = fopen($csv_file_path, 'r')) !== FALSE) {
     // Read and discard the header row.
     fgetcsv($handle);
@@ -36,8 +43,8 @@ function create_vba_services() {
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
       // Each row in the CSV file becomes an array in $data.
       // The array and CSV are in the same order.
-      // Create a VBA facility service node.
-      create_vba_facility_service_node($data);
+      // Process a row.
+      $process_row_function($data);
     }
     // Close the CSV file.
     fclose($handle);
@@ -45,43 +52,24 @@ function create_vba_services() {
 }
 
 /**
- * Update VBA facilities.
+ * Update a VBA facility node.
+ *
+ * @param array $data
+ *   The data from the CSV file.
  */
-function update_vba_facilities() {
-  $csv_file_path = __DIR__ . '/VACMS-17696-vba-test-data-source-facilities.csv';
-  if (($handle = fopen($csv_file_path, 'r')) !== FALSE) {
-    // Read and discard the header row.
-    fgetcsv($handle);
-    // Read the rest of the CSV file.
-    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-      // Each row in the CSV file becomes an array in $data.
-      // The array and CSV are in the same order.
-      // Create a VBA facility service node.
-      update_vba_facility_node($data);
-    }
-    // Close the CSV file.
-    fclose($handle);
-  }
-}
-
-/**
- * Create VBA service regions.
- */
-function create_vba_service_regions() {
-  $csv_file_path = __DIR__ . '/VACMS-17696-vba-test-data-source-service-regions.csv';
-  if (($handle = fopen($csv_file_path, 'r')) !== FALSE) {
-    // Read and discard the header row.
-    fgetcsv($handle);
-    // Read the rest of the CSV file.
-    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-      // Each row in the CSV file becomes an array in $data.
-      // The array and CSV are in the same order.
-      // Create a VBA facility service region node.
-      create_vba_service_region_node($data);
-    }
-    // Close the CSV file.
-    fclose($handle);
-  }
+function update_vba_facility_node($data) {
+  $node = \Drupal::entityTypeManager()->getStorage('node')->load($data[1]);
+  $node->field_show_banner->value = $data[2];
+  $node->field_alert_type->value = $data[3];
+  $node->field_dismissible_option->value = $data[4];
+  $node->field_banner_title->value = $data[5];
+  $node->field_banner_content->value = $data[6];
+  $node->field_operating_status_facility->value = $data[7];
+  $node->field_operating_status_more_info->value = $data[8];
+  add_prepare_for_your_visit_to_facility($node, $data[9]);
+  add_media_to_facility($node, $data[12]);
+  add_spotlights_to_facility($node, $data[13], $data[16]);
+  save_node_revision($node, "Updated for VBA test data", TRUE);
 }
 
 /**
@@ -148,7 +136,7 @@ function create_vba_facility_service_node($data) {
     $service_location = create_service_location_paragraph($data, $i);
     $service_node->field_service_location->appendItem($service_location);
   }
-  $service_node->save();
+  save_node_revision($service_node, "Created for VBA test data", TRUE);
 }
 
 /**
@@ -576,27 +564,6 @@ function create_email_paragraph($email_index) {
     'field_email_label' => 'Email ' . $email_index + 1,
   ]);
   return $email;
-}
-
-/**
- * Updates a VBA facility node.
- *
- * @param array $data
- *   The data from the CSV file.
- */
-function update_vba_facility_node($data) {
-  $node = \Drupal::entityTypeManager()->getStorage('node')->load($data[1]);
-  $node->field_show_banner->value = $data[2];
-  $node->field_alert_type->value = $data[3];
-  $node->field_dismissible_option->value = $data[4];
-  $node->field_banner_title->value = $data[5];
-  $node->field_banner_content->value = $data[6];
-  $node->field_operating_status_facility->value = $data[7];
-  $node->field_operating_status_more_info->value = $data[8];
-  add_prepare_for_your_visit_to_facility($node, $data[9]);
-  add_media_to_facility($node, $data[12]);
-  add_spotlights_to_facility($node, $data[13], $data[16]);
-  save_node_revision($node, "Updated for VBA test data", TRUE);
 }
 
 /**
