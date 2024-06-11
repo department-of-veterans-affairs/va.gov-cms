@@ -687,7 +687,7 @@ function generate_random_phone_number() {
 function add_prepare_for_your_visit_to_facility($node, $number_of_accordions) {
   for ($i = 0; $i < $number_of_accordions; $i++) {
     $paragraph = Paragraph::create([
-      'type' => 'accordion',
+      'type' => 'basic_ accordion',
       'field_header' => 'Prepare for your visit ' . $i + 1,
       'field_rich_wysiwyg' => 'Prepare for your visit body ' . $i + 1,
     ]);
@@ -696,7 +696,7 @@ function add_prepare_for_your_visit_to_facility($node, $number_of_accordions) {
     $prepare_for_your_visit[] = ['target_revision_id' => $paragraph->getRevisionId()];
     $paragraph->save();
 
-    // $node->field_prepare_for_visit->appendItem($paragraph);
+    $node->field_prepare_for_visit->appendItem($paragraph);
     $node->save();
   }
 }
