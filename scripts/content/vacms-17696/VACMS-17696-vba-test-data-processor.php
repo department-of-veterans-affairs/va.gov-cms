@@ -553,8 +553,8 @@ function update_vba_facility_node($data) {
   $node->field_operating_status_facility->value = $data[7];
   $node->field_operating_status_more_info->value = $data[8];
   add_prepare_for_your_visit_to_facility($node, $data[9]);
-  // add_media_to_facility($node, $data[12]);
-  // add_spotlights_to_facility($node, $data[13], $data[16]);
+  add_media_to_facility($node, $data[12]);
+  add_spotlights_to_facility($node, $data[13], $data[16]);
   save_node_revision($node, "Updated for VBA test data", TRUE);
 }
 
@@ -747,6 +747,7 @@ function add_spotlights_to_facility($node, $number_of_spotlights, $use_cta) {
     $spotlight->field_cta->appendItem($cta);
     $spotlight->save();
     $node->field_local_spotlight->appendItem($spotlight);
+    $node->save();
   }
 }
 
