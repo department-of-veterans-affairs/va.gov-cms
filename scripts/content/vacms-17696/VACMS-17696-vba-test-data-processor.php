@@ -20,7 +20,8 @@ run();
  */
 function run() {
   // create_vba_services();
-  update_vba_facilities();
+  // update_vba_facilities();
+  create_vba_service_regions();
 
 }
 
@@ -57,6 +58,48 @@ function update_vba_facilities() {
     fclose($handle);
   }
 }
+
+function create_vba_service_regions() {
+  $csv_file_path = __DIR__ . '/VACMS-17696-vba-test-data-source-service-regions.csv';
+  if (($handle = fopen($csv_file_path, 'r')) !== FALSE) {
+    // Read and discard the header row.
+    fgetcsv($handle);
+    // Read the rest of the CSV file.
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+      // Each row in the CSV file becomes an array in $data.
+      // The array and CSV are in the same order.
+      // Create a VBA facility service region node.
+      create_vba_service_region_node($data);
+    }
+    // Close the CSV file.
+    fclose($handle);
+  }
+}
+
+function create_vba_service_region_node($data) {
+  $service_region = Node::create([
+    'type' => 'service_region',
+    'title' => $data[28],
+    'field_service_name_and_descripti' => [
+      'target_id' => $data[1],
+    ],
+    'field_administration' => [
+      'target_id' => $data[3],
+    ],
+    'field_facility_location' => [
+      'target_id' => $data[30],
+    ],
+    'moderation_state' => 'published',
+  ]);
+  // Create the service location paragraph(s).
+  $number_of_service_locations = $data[6];
+  for ($i = 0; $i < $number_of_service_locations; $i++) {
+    $service_location = create_service_location_paragraph($data, $i);
+    $service_region->field_service_location->appendItem($service_location);
+  }
+  save_node_revision($service_region, "Created for VBA test data", TRUE);
+}
+
 /**
  * Create a VBA facility service node.
  *
