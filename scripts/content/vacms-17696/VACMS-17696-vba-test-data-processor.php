@@ -555,7 +555,7 @@ function update_vba_facility_node($data) {
   add_prepare_for_your_visit_to_facility($node, $data[9]);
   // add_media_to_facility($node, $data[12]);
   // add_spotlights_to_facility($node, $data[13], $data[16]);
-  $node->save();
+  save_node_revision($node, "Updated for VBA test data", TRUE);
 }
 
 /**
@@ -686,19 +686,21 @@ function generate_random_phone_number() {
  */
 function add_prepare_for_your_visit_to_facility($node, $number_of_accordions) {
   for ($i = 0; $i < $number_of_accordions; $i++) {
-    $paragraph = Paragraph::create([
-      'type' => 'basic_ accordion',
-      'field_header' => 'Prepare for your visit ' . $i + 1,
-      'field_rich_wysiwyg' => 'Prepare for your visit body ' . $i + 1,
-    ]);
-    $prepare_for_your_visit = $node->get('field_prepare_for_visit')->getValue();
-    $prepare_for_your_visit[] = ['target_id' => $paragraph->id()];
-    $prepare_for_your_visit[] = ['target_revision_id' => $paragraph->getRevisionId()];
-    $paragraph->save();
 
-    $node->field_prepare_for_visit->appendItem($paragraph);
-    $node->save();
+    // $prepare_for_your_visit = $node->get('field_prepare_for_visit')->referencedEntities();
+    $prepare_for_your_visit_new = Paragraph::create([
+      'type' => 'basic_accordion',
+      'field_header' => 'Prepare for your visit ' . $i + 1,
+
+      'field_rich_wysiwyg' => [
+        'value' => 'Prepare for your visit body ' . $i + 1,
+        'format' => 'rich_text_limited',
+      ],
+    ]);
+    $prepare_for_your_visit_new->save();
+    $node->field_prepare_for_visit->appendItem($prepare_for_your_visit_new);
   }
+  $node->save();
 }
 
 /**
