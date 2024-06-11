@@ -69,6 +69,7 @@ function update_vba_facility_node($data) {
   add_prepare_for_your_visit_to_facility($node, $data[9]);
   add_media_to_facility($node, $data[12]);
   add_spotlights_to_facility($node, $data[13], $data[16]);
+  $node->moderating_state = 'published';
   save_node_revision($node, "Updated for VBA test data", TRUE);
 }
 
