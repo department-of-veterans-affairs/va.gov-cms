@@ -7,9 +7,9 @@
  * This script should NOT be run on production.
  */
 
+use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\media\Entity\Media;
 
 require_once __DIR__ . '../../script-library.php';
 
@@ -19,29 +19,34 @@ run();
  * Executes the script.
  */
 function run() {
-  // create_vba_services();
-  // update_vba_facilities();
+  create_vba_services();
+  update_vba_facilities();
   create_vba_service_regions();
-
 }
 
+/**
+ * Create VBA services.
+ */
 function create_vba_services() {
-   $csv_file_path = __DIR__ . '/VACMS-17696-vba-test-data-source-services.csv';
-   if (($handle = fopen($csv_file_path, 'r')) !== FALSE) {
-     // Read and discard the header row.
-     fgetcsv($handle);
-     // Read the rest of the CSV file.
-     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-       // Each row in the CSV file becomes an array in $data.
-       // The array and CSV are in the same order.
-       // Create a VBA facility service node.
-       create_vba_facility_service_node($data);
-     }
-     // Close the CSV file.
-     fclose($handle);
-   }
+  $csv_file_path = __DIR__ . '/VACMS-17696-vba-test-data-source-services.csv';
+  if (($handle = fopen($csv_file_path, 'r')) !== FALSE) {
+    // Read and discard the header row.
+    fgetcsv($handle);
+    // Read the rest of the CSV file.
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+      // Each row in the CSV file becomes an array in $data.
+      // The array and CSV are in the same order.
+      // Create a VBA facility service node.
+      create_vba_facility_service_node($data);
+    }
+    // Close the CSV file.
+    fclose($handle);
+  }
 }
 
+/**
+ * Update VBA facilities.
+ */
 function update_vba_facilities() {
   $csv_file_path = __DIR__ . '/VACMS-17696-vba-test-data-source-facilities.csv';
   if (($handle = fopen($csv_file_path, 'r')) !== FALSE) {
@@ -59,6 +64,9 @@ function update_vba_facilities() {
   }
 }
 
+/**
+ * Create VBA service regions.
+ */
 function create_vba_service_regions() {
   $csv_file_path = __DIR__ . '/VACMS-17696-vba-test-data-source-service-regions.csv';
   if (($handle = fopen($csv_file_path, 'r')) !== FALSE) {
@@ -76,6 +84,12 @@ function create_vba_service_regions() {
   }
 }
 
+/**
+ * Create a VBA service region node.
+ *
+ * @param array $data
+ *   The data from the CSV file.
+ */
 function create_vba_service_region_node($data) {
   $service_region = Node::create([
     'type' => 'service_region',
@@ -166,7 +180,7 @@ function create_service_location_paragraph($data, $service_location_index) {
     $number_of_contact_emails = $data[27];
   }
   else {
-    // If this is , generate random data.
+    // If not, generate random data.
     $field_appt_intro_text_type = choose_random_appt_intro_text_type();
     if ($field_appt_intro_text_type === 'customize_text') {
       $field_appt_intro_text_custom = 'Random text for service location ' . $service_location_index + 1;
@@ -174,7 +188,6 @@ function create_service_location_paragraph($data, $service_location_index) {
     else {
       $field_appt_intro_text_custom = NULL;
     }
-
     $service_location = Paragraph::create([
       'type' => 'service_location',
       'field_office_visits' => choose_random_office_visit(),
@@ -196,8 +209,9 @@ function create_service_location_paragraph($data, $service_location_index) {
   $service_location->field_service_location_address->appendItem(create_service_location_address_paragraph($data));
   $service_location->field_hours = $data[20];
   $service_location->field_additional_hours_info = $data[22];
+  // If "specify hours" is selected, create office hours.
   if ($data[20] === '2') {
-    $service_location->field_office_hours = create_service_location_hours($data[20], $data[21], $data[22]);
+    $service_location->field_office_hours = create_service_location_hours($data[21]);
   }
   create_service_location_phone_numbers($service_location, 'field_phone', $number_of_contact_phones, $data[25], $data[26]);
   create_email_contacts($service_location, 'field_email_contacts', $number_of_contact_emails);
@@ -268,7 +282,7 @@ function create_phone_paragraph($phone_index, $phone_type, $add_extension = NULL
     'field_phone_number' => $phone_number,
     'field_phone_number_type' => $phone_type,
     'field_phone_extension' => $extension,
-    'field_phone_label' => 'Appointment Phone ' . $phone_index + 1,
+    'field_phone_label' => 'Service Location Phone ' . $phone_index + 1,
   ]);
   $phone->save();
   return $phone;
@@ -309,233 +323,214 @@ function create_service_location_address_paragraph(array $data) {
 
 /**
  * Create service location hours.
+ *
+ * @param string $hours
+ *   The type of hours for a facility.
  */
-function create_service_location_hours($use_facility_hours, $hours, $additional_hours_info) {
+function create_service_location_hours($hours) {
   $office_hours_sets = [
+    // Open 8:00 AM - 4:00 PM Monday - Friday, closed on weekends.
     'hours_mf8_4' => [
       [
-  // Sunday.
+        // Sunday.
         'day' => 0,
-  // 9:00 AM
         'starthours' => NULL,
-  // 5:00 PM
         'endhours' => NULL,
         'comment' => 'Closed',
       ],
       [
-      // Monday.
+        // Monday.
         'day' => 1,
-      // 8:00 AM
         'starthours' => 800,
-      // 4:00 PM
         'endhours' => 1600,
         'comment' => '',
       ],
       [
-      // Tuesday.
+        // Tuesday.
         'day' => 2,
-      // 8:00 AM
         'starthours' => 800,
-      // 4:00 PM
         'endhours' => 1600,
         'comment' => '',
       ],
       [
-      // Wednesday.
+         // Wednesday.
         'day' => 3,
-      // 8:00 AM
         'starthours' => 800,
-      // 4:00 PM
         'endhours' => 1600,
         'comment' => '',
       ],
       [
-      // Thursday.
+         // Thursday.
         'day' => 4,
-      // 8:00 AM
         'starthours' => 800,
-      // 4:00 PM
         'endhours' => 1600,
         'comment' => '',
       ],
       [
-      // Friday.
+        // Friday.
         'day' => 5,
-      // 8:00 AM
         'starthours' => 800,
-      // 4:00 PM
         'endhours' => 1600,
         'comment' => '',
       ],
       [
-      // Saturday.
+        // Saturday.
         'day' => 6,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => 'Closed',
       ],
     ],
+    // Open 24/7, per the comments.
     'hours_24_7' => [
       [
-    // Sunday.
+        // Sunday.
         'day' => 0,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => '24/7',
       ],
       [
-      // Monday.
+        // Monday.
         'day' => 1,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => '24/7',
       ],
       [
-      // Tuesday.
+        // Tuesday.
         'day' => 2,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => '24/7',
       ],
       [
-      // Wednesday.
+        // Wednesday.
         'day' => 3,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => '24/7',
       ],
       [
-      // Thursday.
+        // Thursday.
         'day' => 4,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => '24/7',
       ],
       [
-      // Friday.
+        // Friday.
         'day' => 5,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => '24/7',
       ],
       [
-      // Saturday.
+        // Saturday.
         'day' => 6,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => '24/7',
       ],
     ],
+    // Open 12:00 AM - 12:00 AM every day.
     'hours_12a_12a' => [
       [
-    // Sunday.
+        // Sunday.
         'day' => 0,
-    // 12:00 AM
         'starthours' => 0,
-    // 12:00 AM
         'endhours' => 2400,
         'comment' => '',
       ],
       [
-      // Monday.
+        // Monday.
         'day' => 1,
-      // 12:00 AM
         'starthours' => 0,
-      // 12:00 AM
         'endhours' => 2400,
         'comment' => '',
       ],
       [
-      // Tuesday.
+        // Tuesday.
         'day' => 2,
-      // 12:00 AM
         'starthours' => 0,
-      // 12:00 AM
         'endhours' => 2400,
         'comment' => '',
       ],
       [
-      // Wednesday.
+        // Wednesday.
         'day' => 3,
-      // 12:00 AM
         'starthours' => 0,
-      // 12:00 AM
         'endhours' => 2400,
         'comment' => '',
       ],
       [
-      // Thursday.
+        // Thursday.
         'day' => 4,
-      // 12:00 AM
         'starthours' => 0,
-      // 12:00 AM
         'endhours' => 2400,
         'comment' => '',
       ],
       [
-      // Friday.
+        // Friday.
         'day' => 5,
-      // 12:00 AM
         'starthours' => 0,
-      // 12:00 AM
         'endhours' => 2400,
         'comment' => '',
       ],
       [
-      // Saturday.
+        // Saturday.
         'day' => 6,
-      // 12:00 AM
         'starthours' => 0,
-      // 12:00 AM
         'endhours' => 2400,
         'comment' => '',
       ],
     ],
+    // Closed every day.
     'hours_closed' => [
       [
-    // Sunday.
+        // Sunday.
         'day' => 0,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => 'Closed',
       ],
       [
-      // Monday.
+         // Monday.
         'day' => 1,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => 'Closed',
       ],
       [
-      // Tuesday.
+        // Tuesday.
         'day' => 2,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => 'Closed',
       ],
       [
-      // Wednesday.
+        // Wednesday.
         'day' => 3,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => 'Closed',
       ],
       [
-      // Thursday.
+        // Thursday.
         'day' => 4,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => 'Closed',
       ],
       [
-      // Friday.
+        // Friday.
         'day' => 5,
         'starthours' => NULL,
         'endhours' => NULL,
         'comment' => 'Closed',
       ],
       [
-      // Saturday.
+        // Saturday.
         'day' => 6,
         'starthours' => NULL,
         'endhours' => NULL,
@@ -585,6 +580,9 @@ function create_email_paragraph($email_index) {
 
 /**
  * Updates a VBA facility node.
+ *
+ * @param array $data
+ *   The data from the CSV file.
  */
 function update_vba_facility_node($data) {
   $node = \Drupal::entityTypeManager()->getStorage('node')->load($data[1]);
@@ -724,13 +722,11 @@ function generate_random_phone_number() {
  *
  * @param \Drupal\node\Entity\Node $node
  *   The facility node.
- * @param int
+ * @param int $number_of_accordions
  *   The number of accordions to add.
  */
 function add_prepare_for_your_visit_to_facility($node, $number_of_accordions) {
   for ($i = 0; $i < $number_of_accordions; $i++) {
-
-    // $prepare_for_your_visit = $node->get('field_prepare_for_visit')->referencedEntities();
     $prepare_for_your_visit_new = Paragraph::create([
       'type' => 'basic_accordion',
       'field_header' => 'Prepare for your visit ' . $i + 1,
@@ -751,23 +747,31 @@ function add_prepare_for_your_visit_to_facility($node, $number_of_accordions) {
  *
  * @param \Drupal\node\Entity\Node $node
  *   The facility node.
- * @param int
+ * @param int $media_id
  *   The media node to add.
  */
 function add_media_to_facility($node, $media_id) {
   // Load the media entity.
   $media = Media::load($media_id);
-
   // Check if the media entity exists and is an image.
   if ($media && $media->bundle() == 'image') {
     // Append the media entity to the field.
-
-  $media = \Drupal::entityTypeManager()->getStorage('media')->load($media_id);
-  $node->field_media->appendItem($media);
-  $node->save();
+    $media = \Drupal::entityTypeManager()->getStorage('media')->load($media_id);
+    $node->field_media->appendItem($media);
+    $node->save();
   }
 }
 
+/**
+ * Add spotlights to facility.
+ *
+ * @param \Drupal\node\Entity\Node $node
+ *   The facility node.
+ * @param int $number_of_spotlights
+ *   The number of spotlights to add.
+ * @param bool $use_cta
+ *   Whether to add a CTA to the spotlight.
+ */
 function add_spotlights_to_facility($node, $number_of_spotlights, $use_cta) {
   for ($i = 0; $i < $number_of_spotlights; $i++) {
     if ($use_cta) {
@@ -793,4 +797,3 @@ function add_spotlights_to_facility($node, $number_of_spotlights, $use_cta) {
     $node->save();
   }
 }
-
