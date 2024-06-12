@@ -87,4 +87,20 @@ class BranchSearchFactory implements BranchSearchFactoryInterface {
     return new BranchSearch($this->repositoryFactory->getVetsWebsite(), $this->loggerFactory);
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getNextBuild(): BranchSearchInterface {
+    return new BranchSearch($this->repositoryFactory->getNextBuild(),
+      $this->loggerFactory);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getNextVetsWebsite(): BranchSearchInterface {
+    return new BranchSearch($this->repositoryFactory->getNextVetsWebsite(),
+      $this->loggerFactory);
+  }
+
 }
