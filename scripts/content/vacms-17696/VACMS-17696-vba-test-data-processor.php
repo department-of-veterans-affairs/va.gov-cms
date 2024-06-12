@@ -19,6 +19,11 @@ run();
  * Executes the script using the CSV files and callback functions.
  */
 function run() {
+  $env = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
+  if ($env !== 'local' && $env !== 'tugboat') {
+    echo "This script can only be run on local or Tugboat environments.\n";
+    exit();
+  }
   process_csv_file(__DIR__ . '/VACMS-17696-vba-test-data-source-services.csv',
     'create_vba_facility_service_node');
   process_csv_file(__DIR__ . '/VACMS-17696-vba-test-data-source-facilities.csv',
