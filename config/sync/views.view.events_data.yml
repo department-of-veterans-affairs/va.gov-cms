@@ -14,7 +14,7 @@ dependencies:
     - field.storage.node.field_location_type
     - field.storage.node.field_url_of_an_online_event
     - node.type.event
-    - user.role.administrator
+    - user.role.authenticated
   module:
     - address
     - csv_serialization
@@ -766,7 +766,7 @@ display:
         type: role
         options:
           role:
-            administrator: administrator
+            authenticated: authenticated
       cache:
         type: tag
         options: {  }
@@ -895,7 +895,8 @@ display:
         jsonapi_views:
           enabled: true
       path: all-events-data
-      auth: {  }
+      auth:
+        - basic_auth
     cache_metadata:
       max-age: -1
       contexts:
