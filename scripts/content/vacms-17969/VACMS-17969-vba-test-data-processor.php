@@ -24,11 +24,11 @@ function run() {
     echo "This script can only be run on local or Tugboat environments.\n";
     exit();
   }
-  process_csv_file(__DIR__ . '/VACMS-17696-vba-test-data-source-services.csv',
+  process_csv_file(__DIR__ . '/VACMS-17969-vba-test-data-source-services.csv',
     'create_vba_facility_service_node');
-  process_csv_file(__DIR__ . '/VACMS-17696-vba-test-data-source-facilities.csv',
+  process_csv_file(__DIR__ . '/VACMS-17969-vba-test-data-source-facilities.csv',
     'update_vba_facility_node');
-  process_csv_file(__DIR__ . '/VACMS-17696-vba-test-data-source-service-regions.csv',
+  process_csv_file(__DIR__ . '/VACMS-17969-vba-test-data-source-service-regions.csv',
     'create_vba_service_region_node');
 }
 
@@ -276,7 +276,7 @@ function create_phone_paragraph($phone_index, $phone_type, $add_extension = NULL
     'field_phone_number' => $phone_number,
     'field_phone_number_type' => $phone_type,
     'field_phone_extension' => $extension,
-    'field_phone_label' => 'Service Location Phone ' . $phone_index + 1,
+    'field_phone_label' => sprintf("Service location phone %d, (%s)", $phone_index + 1, $phone_type),
   ]);
   $phone->save();
   return $phone;
