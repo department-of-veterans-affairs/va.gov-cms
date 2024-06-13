@@ -41,8 +41,8 @@ Scenario: Editors should be not able to archive a required Vet Center - Facility
 
 Scenario: Admins should be able to archive a required Vet Center - Facility Service
   Given I am logged in as a user with the "administrator" role
-  # Escanaba Vet Center - Addiction
-  When I am at "node/17597/edit"
+  # Escanaba Vet Center - Suicide prevention
+  When I am at "node/17926/edit"
   And I scroll to element "select#edit-moderation-state-0-state"
   Then an option with the text "Archived" from dropdown with selector "select#edit-moderation-state-0-state" should be visible
   Then I scroll to position "bottom"
