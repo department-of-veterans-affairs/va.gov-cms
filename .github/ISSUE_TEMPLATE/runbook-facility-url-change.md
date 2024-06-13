@@ -6,6 +6,8 @@ labels: Facilities, Drupal engineering, Flagged Facilities, Redirect request, UR
 assignees: ''
 
 ---
+Parent ticket: #number-of-GH-ticket
+
 ### Implementation date
 When does this request need to be live:
 [MM/DD/YYYY]
