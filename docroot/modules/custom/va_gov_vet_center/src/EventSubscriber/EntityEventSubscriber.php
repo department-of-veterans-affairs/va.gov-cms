@@ -240,22 +240,32 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $is_admin = $this->userPermsService->hasAdminRole(TRUE);
     if (!$is_admin) {
       $this->disableFacilityServiceChange($form, $form_state);
-      // $this->disableArchivingRequiredServicesNonAdmins($form, $form_state);
+      $this->disableArchivingRequiredServicesNonAdmins($form, $form_state);
     }
     $this->showServiceAsRequiredOrOptional($form, $form_state);
 
   }
 
   /**
-   * Disable archiving required services for non-admins.
+   * Disable the Archived moderation state on required services for non-admins.
+   *
+   * @param array $form
+   *   The node form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    */
   public function disableArchivingRequiredServicesNonAdmins(array &$form, FormStateInterface $form_state) {
     $required_services = $this->requiredServices->getRequiredServices();
     $form_object = $form_state->getFormObject();
     $node = $form_object->getEntity();
     $service_id = $node->field_service_name_and_descripti->target_id;
-    if (in_array($service_id, $required_services)) {
-      $form['field_archived']['#disabled'] = TRUE;
+    foreach ($required_services as $required_service) {
+      $required_service_id = $required_service->id();
+      if ($service_id == $required_service_id) {
+        if ($form['moderation_state']['widget'][0]['state']['#options']['archived']) {
+          unset($form['moderation_state']['widget'][0]['state']['#options']['archived']);
+        }
+      }
     }
   }
 
@@ -273,22 +283,27 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $node = $form_object->getEntity();
     $service_id = $node->field_service_name_and_descripti->target_id;
     $service_name = $node->field_service_name_and_descripti->entity->getName();
-    if (in_array($service_id, $required_services)) {
-      // This is a required service.
-      $service_required_or_optional = $this->t('required');
-      $can_or_cannot = $this->t('cannot');
-      $service_required_or_optional_capitalized = $this->t('Required');
+    foreach ($required_services as $required_service) {
+      $required_service_id = $required_service->id();
+      if ($service_id == $required_service_id) {
+        // This is a required service.
+        $service_required_or_optional = $this->t('a required');
+        $can_or_cannot = $this->t('cannot');
+        $service_required_or_optional_capitalized = $this->t('Required');
+        break;
+      }
+      else {
+        // This is an optional service.
+        $service_required_or_optional = $this->t('an optional');
+        $can_or_cannot = $this->t('can');
+        $service_required_or_optional_capitalized = $this->t('Optional');
+      }
     }
-    else {
-      // This is an optional service.
-      $service_required_or_optional = $this->t('optional');
-      $can_or_cannot = $this->t('can');
-      $service_required_or_optional_capitalized = $this->t('Optional');
-    }
+
     $required_or_optional_markup = new FormattableMarkup(
       '<div class="field-group-tooltip not-editable centralized field-group-html-element tooltip-layout">
-      <p class="vc-help-text"><strong>:service_required_or_optional_capitalized Service</strong>
-      <br />:service_name is a :required_or_optional service. :service_required_or_optional_capitalized services :can_or_cannot be archived. Learn more in the <a href="https://prod.cms.va.gov/help/vet-centers/how-to-edit-a-vet-center-service" target="_blank">Knowledge Base article about Vet Center Services (opens in a new window).</a></p>
+      <p><strong>:service_required_or_optional_capitalized Service</strong>
+      <br />:service_name is :required_or_optional service. :service_required_or_optional_capitalized services :can_or_cannot be archived. Learn more in the <a href="https://prod.cms.va.gov/help/vet-centers/how-to-edit-a-vet-center-service" target="_blank">Knowledge Base article about Vet Center Services (opens in a new window).</a></p>
       </div>',
       [
         ':service_required_or_optional_capitalized' => $service_required_or_optional_capitalized,
