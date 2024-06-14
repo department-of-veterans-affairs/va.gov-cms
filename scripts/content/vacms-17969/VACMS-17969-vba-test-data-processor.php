@@ -433,49 +433,49 @@ function create_service_location_hours($hours) {
         // Sunday.
         'day' => 0,
         'starthours' => 0000,
-        'endhours' => 2400,
+        'endhours' => 0000,
         'comment' => '',
       ],
       [
         // Monday.
         'day' => 1,
         'starthours' => 0000,
-        'endhours' => 2400,
+        'endhours' => 0000,
         'comment' => '',
       ],
       [
         // Tuesday.
         'day' => 2,
         'starthours' => 0000,
-        'endhours' => 2400,
+        'endhours' => 0000,
         'comment' => '',
       ],
       [
         // Wednesday.
         'day' => 3,
         'starthours' => 0000,
-        'endhours' => 2400,
+        'endhours' => 0000,
         'comment' => '',
       ],
       [
         // Thursday.
         'day' => 4,
         'starthours' => 0000,
-        'endhours' => 2400,
+        'endhours' => 0000,
         'comment' => '',
       ],
       [
         // Friday.
         'day' => 5,
         'starthours' => 0000,
-        'endhours' => 2400,
+        'endhours' => 0000,
         'comment' => '',
       ],
       [
         // Saturday.
         'day' => 6,
         'starthours' => 0000,
-        'endhours' => 2400,
+        'endhours' => 0000,
         'comment' => '',
       ],
     ],
