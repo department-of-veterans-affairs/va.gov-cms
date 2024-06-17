@@ -555,7 +555,6 @@
         "va:npm": "Run NPM transparently (all arguments will be passed).",
         "va:nuke": "Remove all Composer package and cache directories.",
         "va:phpcbf": "Run PHP Code Beautifier and Fixer transparently (all arguments will be passed).",
-        "va:remove-git-dirs": "Remove .git directories within this directory, e.g. those created by Composer.",
         "va:set-path": "Display a command for updating the path to include `./bin`.",
         "va:ds:drupal": "Build the Drupal theme.",
         "va:ds:storybook": "Build the Storybook.",
@@ -656,11 +655,6 @@
         "va:proxy:socks:test": [
             "# Test the SOCKS proxy.",
             "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
-        ],
-        "va:remove-git-dirs": [
-            "# Remove .git directories within this directory, e.g. those created by Composer.",
-            "! ./scripts/should-run-directly.sh || ./scripts/remove-git-dirs.sh",
-            "./scripts/should-run-directly.sh || ddev composer va:remove-git-dirs --"
         ],
         "va:set-path": [
             "# Run the command output below to set your current terminal PATH variable.",
