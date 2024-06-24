@@ -146,7 +146,10 @@ class Commands extends DrushCommands {
    */
   public function flagMissingFacilities() {
     $facilities_in_fapi = $this->getFapiList();
-    $count_fapi = count($facilities_in_fapi);
+    $facilities_flat = array_reduce($facilities_in_fapi, function ($carry, $item) {
+      return array_merge($carry, $item);
+    }, []);
+    $count_fapi = count($facilities_flat);
     // Make sure facilities in fapi makes sense or we will flag all facilities.
     if ($this->facilityCountSeemsFaulty($count_fapi)) {
       $vars = [
@@ -156,7 +159,7 @@ class Commands extends DrushCommands {
       $this->migrateChannelLogger->log(LogLevel::WARNING, 'The facility API returned %count facilities, which seems suspicious. Flagging aborted.', $vars);
       return;
     }
-    $facilities_to_flag = $this->getFacilitiesToFlag($facilities_in_fapi);
+    $facilities_to_flag = $this->getFacilitiesToFlag($facilities_flat);
     $count_flagged = count($facilities_to_flag);
     $count_archived = 0;
     if ($count_flagged) {
@@ -289,14 +292,15 @@ class Commands extends DrushCommands {
     $facility_migration = Migration::load('va_node_health_care_local_facility');
     if ($facility_migration) {
       $source = $facility_migration->get('source');
-      $url = $source['urls'][0];
-      $headers = $source['headers'];
-      $fetcher = $this->dataFetcherPluginManager->createInstance('http', ['headers' => $headers]);
-      $data = $fetcher->getResponseContent($url);
-      // Convert objects to associative arrays.
-      $source_data = json_decode($data, TRUE);
-      $ids = array_map([__CLASS__, 'extractId'], $source_data['data']);
-      $facilities = array_flip($ids);
+      foreach ($source['urls'] as $url) {
+        $headers = $source['headers'];
+        $fetcher = $this->dataFetcherPluginManager->createInstance('http', ['headers' => $headers]);
+        $data = $fetcher->getResponseContent($url);
+        // Convert objects to associative arrays.
+        $source_data = json_decode($data, TRUE);
+        $ids = array_map([__CLASS__, 'extractId'], $source_data['data']);
+        $facilities[] = array_flip($ids);
+      }
     }
 
     return $facilities;
