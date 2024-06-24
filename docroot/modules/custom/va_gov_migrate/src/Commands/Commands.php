@@ -295,7 +295,7 @@ class Commands extends DrushCommands {
       $data = $fetcher->getResponseContent($url);
       // Convert objects to associative arrays.
       $source_data = json_decode($data, TRUE);
-      $ids = array_map([__CLASS__, 'extractId'], $source_data['features']);
+      $ids = array_map([__CLASS__, 'extractId'], $source_data['data']);
       $facilities = array_flip($ids);
     }
 
@@ -312,7 +312,7 @@ class Commands extends DrushCommands {
    *   The facility api id.
    */
   protected static function extractId(array $facility) {
-    return $facility['properties']['id'];
+    return $facility['id'];
   }
 
   /**
