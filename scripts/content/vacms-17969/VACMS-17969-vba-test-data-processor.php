@@ -323,8 +323,8 @@ function create_service_location_address_paragraph(array $data) {
  */
 function create_service_location_hours($hours) {
   $office_hours_sets = [
-    // Open 8:00 AM - 4:00 PM Monday - Friday, closed on weekends.
-    'hours_mf8_4' => [
+    // Open 8:00 AM - 6:31 PM Monday - Friday, closed on weekends.
+    'hours_mf8_631' => [
       [
         // Sunday.
         'day' => 0,
@@ -336,35 +336,35 @@ function create_service_location_hours($hours) {
         // Monday.
         'day' => 1,
         'starthours' => 800,
-        'endhours' => 1600,
+        'endhours' => 1831,
         'comment' => '',
       ],
       [
         // Tuesday.
         'day' => 2,
         'starthours' => 800,
-        'endhours' => 1600,
+        'endhours' => 1831,
         'comment' => '',
       ],
       [
          // Wednesday.
         'day' => 3,
         'starthours' => 800,
-        'endhours' => 1600,
+        'endhours' => 1831,
         'comment' => '',
       ],
       [
          // Thursday.
         'day' => 4,
         'starthours' => 800,
-        'endhours' => 1600,
+        'endhours' => 1831,
         'comment' => '',
       ],
       [
         // Friday.
         'day' => 5,
         'starthours' => 800,
-        'endhours' => 1600,
+        'endhours' => 1831,
         'comment' => '',
       ],
       [
