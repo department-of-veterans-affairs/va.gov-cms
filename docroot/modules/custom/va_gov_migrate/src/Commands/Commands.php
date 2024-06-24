@@ -388,6 +388,7 @@ class Commands extends DrushCommands {
    *   TRUE if suspicious, FALSE otherwise.
    */
   protected function facilityCountSeemsFaulty($count_fapi): bool {
+    // We are always calling at least 1000 facilities, but have less than 5000.
     if ($count_fapi < 1000 || $count_fapi > 5000) {
       // Something is suspicious.
       return TRUE;
