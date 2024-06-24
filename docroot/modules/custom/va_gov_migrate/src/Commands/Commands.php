@@ -146,6 +146,7 @@ class Commands extends DrushCommands {
    */
   public function flagMissingFacilities() {
     $facilities_in_fapi = $this->getFapiList();
+    // Make the two-dimensional array one dimension.
     $facilities_flat = array_reduce($facilities_in_fapi, function ($carry, $item) {
       return array_merge($carry, $item);
     }, []);
@@ -292,6 +293,7 @@ class Commands extends DrushCommands {
     $facility_migration = Migration::load('va_node_health_care_local_facility');
     if ($facility_migration) {
       $source = $facility_migration->get('source');
+      // We can only get a 1000 facilities at a time, so need to loop through.
       foreach ($source['urls'] as $url) {
         $headers = $source['headers'];
         $fetcher = $this->dataFetcherPluginManager->createInstance('http', ['headers' => $headers]);
