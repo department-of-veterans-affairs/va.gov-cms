@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.lists_of_links.field_list_of_links_description
     - field.field.paragraph.lists_of_links.field_section_header
     - field.field.paragraph.lists_of_links.field_va_paragraphs
     - paragraphs.paragraphs_type.lists_of_links
@@ -14,6 +15,13 @@ targetEntityType: paragraph
 bundle: lists_of_links
 mode: user_guides
 content:
+  field_list_of_links_description:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_section_header:
     type: string
     label: hidden
@@ -29,7 +37,7 @@ content:
       view_mode: user_guides
       link: ''
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
 hidden:
   search_api_excerpt: true
