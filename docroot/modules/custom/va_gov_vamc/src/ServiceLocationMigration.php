@@ -39,9 +39,9 @@ class ServiceLocationMigration {
    * @param array $sandbox
    *   Sandbox variable for keeping state during batches.
    */
-  public function run(array &$sandbox) {
+  public function run(array &$sandbox, $item) {
     $node_storage = get_node_storage();
-    $nid_to_load = reset($sandbox['items_to_process']);
+    $nid_to_load = $item;
     $facility_service = (empty($nid_to_load)) ? [] : $node_storage->loadMultiple([$nid_to_load]);
     $nid = array_key_first($facility_service);
     /** @var \Drupal\node\NodeInterface $facility_service_node */

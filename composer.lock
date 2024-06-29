@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4a8e6fee6064073a5f736e456c263c9",
+    "content-hash": "c66b02628c4d63ea5812d57016ac89c3",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3176,6 +3176,63 @@
                 "source": "https://www.drupal.org/project/coder"
             },
             "time": "2023-10-15T09:55:50+00:00"
+        },
+        {
+            "name": "drupal/codit_batch_operations",
+            "version": "dev-1.0.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/codit_batch_operations.git",
+                "reference": "18136367b0bc2a94d88cce57756d716f59b4aa64"
+            },
+            "require": {
+                "drupal/core": "^10 || ^11"
+            },
+            "conflict": {
+                "drush/drush": "<9.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.0.x": "1.0.x-dev"
+                },
+                "drupal": {
+                    "version": "1.0.1-beta10+2-dev",
+                    "datestamp": "1719257692",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "<11.0"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "skyriter",
+                    "homepage": "https://www.drupal.org/user/1703682"
+                },
+                {
+                    "name": "swirt",
+                    "homepage": "https://www.drupal.org/user/138230"
+                }
+            ],
+            "description": "Provides methods and framework for running batch operations.",
+            "homepage": "https://www.drupal.org/project/codit_batch_operations",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/codit_batch_operations",
+                "issues": "http://drupal.org/project/issues/codit_batch_operations"
+            }
         },
         {
             "name": "drupal/codit_menu_tools",
@@ -26991,6 +27048,7 @@
         "drupal/cer": 10,
         "drupal/change_labels": 20,
         "drupal/ckeditor_abbreviation": 15,
+        "drupal/codit_batch_operations": 20,
         "drupal/codit_menu_tools": 15,
         "drupal/components": 10,
         "drupal/danse_content_moderation": 10,
