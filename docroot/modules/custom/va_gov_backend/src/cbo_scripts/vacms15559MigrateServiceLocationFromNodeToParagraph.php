@@ -6,7 +6,7 @@ use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;
 use Drupal\va_gov_vamc\ServiceLocationMigration;
 
-require_once __DIR__ . '/../../../../../scripts/content/script-library.php';
+require_once __DIR__ . '/../../../../../../scripts/content/script-library.php';
 
 
 /**
