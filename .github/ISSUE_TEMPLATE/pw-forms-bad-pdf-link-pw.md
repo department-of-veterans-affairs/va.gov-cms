@@ -2,7 +2,7 @@
 name: "(PW) Forms/Bad PDF link defect"
 about: Forms outages / Bad PDF links, owned by Public Websites team
 title: 'Forms defect: <form name>'
-labels: Defect, Find a form, Needs refining, Public Websites
+labels: Defect, Find a form, Needs refining, Public Websites, sitewide
 assignees: jilladams, FranECross
 
 ---
