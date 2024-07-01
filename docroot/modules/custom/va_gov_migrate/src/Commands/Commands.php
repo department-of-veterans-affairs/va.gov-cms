@@ -146,7 +146,11 @@ class Commands extends DrushCommands {
    */
   public function flagMissingFacilities() {
     $facilities_in_fapi = $this->getFapiList();
-    $count_fapi = count($facilities_in_fapi);
+    // Make the two-dimensional array one dimension.
+    $facilities_flat = array_reduce($facilities_in_fapi, function ($carry, $item) {
+      return array_merge($carry, $item);
+    }, []);
+    $count_fapi = count($facilities_flat);
     // Make sure facilities in fapi makes sense or we will flag all facilities.
     if ($this->facilityCountSeemsFaulty($count_fapi)) {
       $vars = [
@@ -156,7 +160,7 @@ class Commands extends DrushCommands {
       $this->migrateChannelLogger->log(LogLevel::WARNING, 'The facility API returned %count facilities, which seems suspicious. Flagging aborted.', $vars);
       return;
     }
-    $facilities_to_flag = $this->getFacilitiesToFlag($facilities_in_fapi);
+    $facilities_to_flag = $this->getFacilitiesToFlag($facilities_flat);
     $count_flagged = count($facilities_to_flag);
     $count_archived = 0;
     if ($count_flagged) {
@@ -289,14 +293,16 @@ class Commands extends DrushCommands {
     $facility_migration = Migration::load('va_node_health_care_local_facility');
     if ($facility_migration) {
       $source = $facility_migration->get('source');
-      $url = $source['urls'][0];
-      $headers = $source['headers'];
-      $fetcher = $this->dataFetcherPluginManager->createInstance('http', ['headers' => $headers]);
-      $data = $fetcher->getResponseContent($url);
-      // Convert objects to associative arrays.
-      $source_data = json_decode($data, TRUE);
-      $ids = array_map([__CLASS__, 'extractId'], $source_data['features']);
-      $facilities = array_flip($ids);
+      // We can only get a 1000 facilities at a time, so need to loop through.
+      foreach ($source['urls'] as $url) {
+        $headers = $source['headers'];
+        $fetcher = $this->dataFetcherPluginManager->createInstance('http', ['headers' => $headers]);
+        $data = $fetcher->getResponseContent($url);
+        // Convert objects to associative arrays.
+        $source_data = json_decode($data, TRUE);
+        $ids = array_map([__CLASS__, 'extractId'], $source_data['data']);
+        $facilities[] = array_flip($ids);
+      }
     }
 
     return $facilities;
@@ -312,7 +318,7 @@ class Commands extends DrushCommands {
    *   The facility api id.
    */
   protected static function extractId(array $facility) {
-    return $facility['properties']['id'];
+    return $facility['id'];
   }
 
   /**
@@ -388,7 +394,8 @@ class Commands extends DrushCommands {
    *   TRUE if suspicious, FALSE otherwise.
    */
   protected function facilityCountSeemsFaulty($count_fapi): bool {
-    if ($count_fapi < 2000 || $count_fapi > 5000) {
+    // We are always calling at least 1000 facilities, but have less than 5000.
+    if ($count_fapi < 1000 || $count_fapi > 5000) {
       // Something is suspicious.
       return TRUE;
     }

@@ -189,7 +189,6 @@ class FacilityOps {
   public static function isFacilityLaunched(NodeInterface $node) : bool {
     $facilities_not_launched = [
       'nca_facility',
-      'vba_facility',
     ];
     return !in_array($node->bundle(), $facilities_not_launched);
   }
