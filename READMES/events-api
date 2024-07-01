@@ -1,0 +1,58 @@
+Directions for Events API
+
+This is a REST API created in Drupal Views using the REST UI Module. It is located in the Drupal CMS backend and is administered by the CMS team.
+
+The current location to view the API is: /all-events-data?_format=json
+You can view it using an API platform (like Postman). 
+You will need a Drupal login (username and password). Under Basic Auth you will enter the full url - https://prod.cms.va.gov/all-events-data?_format=json and the username/password combo.
+This will allow you to view the full events API data.
+
+The API is currently set to json format but can also be used for xml or to get a csv download. This is accomplished by changing the data?_format in the url above. (I.e. /all-events-data?_format=csv or  /all-events-data?_format=xml)
+
+To make changes to the Events API in the Drupal Admin you can go to /admin/structure/views/view/events_data. Any changes made to this API require an export of Drupal config so please consult with (and have your changes reviewed by) a Drupal CMS Developer.
+
+Below are the options that can be modified.
+
+Format:
+
+  Format: set to “Serializer” by default and can be changed to data export.
+  Settings: options will allow you to choose output (json, xml, csv, etc)
+
+  Show: this is set to fields by default to ensure that all the needed event fields are represented.
+  Settings: an alias can be set for each field type and a checkbox is available for RAW output.
+
+Fields:
+
+  These are the individual fields displayed.
+  Under the “Add” dropdown there is an option to rearrange the fields. 
+  These fields should be set by a Drupal CMS Developer.
+  
+Filter criteria:
+
+  This is currently set to published events only.
+  For changes please contact to a Drupal CMS Developer.
+  
+Sort criteria:
+
+  This can be used to change the order that events are sorted by. Currently, this is by date. This can be changed by a Drupal CMS Devloper.
+  
+Path Settings:
+
+  The current path for the feed is /all-events-data
+  Authentication is not currently set but can be changed to basic_auth, oauth2 or cookie.
+
+Access:
+
+  This can be set but a CMS Drupal Admin.
+  
+Language: 
+
+  This is set to the basic setting and does not need to changed since we are not using multilingual site capabilities.
+
+JSON API: 
+  
+  There is only one setting for this and it is currently set to expose the JSON API.
+
+Advanced Settings:
+
+  Please consult with a Drupal CMS Developer if you feel that you need one of these settings changed.

@@ -13,7 +13,7 @@ id: aging_content_expired_fwb
 modeller: core
 label: 'Aging Content: Expired FWB'
 version: ''
-weight: null
+weight: -9
 events:
   eca_base_eca_cron:
     plugin: 'eca_base:eca_cron'
@@ -28,10 +28,10 @@ events:
     plugin: 'content_entity:custom'
     label: 'Content  Aware Event: Queue Email'
     configuration:
-      event_id: aging_content_fwb_queue_email
+      event_id: aging_content_fwb_queue_expired_email
     successors:
       -
-        id: eca_trigger_content_entity_cus_1
+        id: create_advancedqueue_job
         condition: null
 conditions: {  }
 gateways: {  }
@@ -54,17 +54,14 @@ actions:
     configuration:
       token_name: job
       type: va_gov_aging_content_notification
-      payload: "template_values:\r\n    uid: \"[node:author:uid]\"\r\n    template: aging_content_expired_fwb\r\nrestrict_delivery_to:\r\nvalues:\r\n    field_expired_date: \"[current-date:short_date_no_time]\"\r\n    field_target_entity:\r\n         target_id: \"[node:nid]\"\r\n    field_target_node_title: \"{node:title}\""
+      payload: "template_values:\r\n    uid: \"[node:author:uid]\"\r\n    template: aging_content_expired_fwb\r\nrestrict_delivery_to:\r\nvalues:\r\n    field_expired_date: \"[node:expiration_date:date:html_date]\"\r\n    field_target_entity:\r\n         target_id: \"[node:nid]\"\r\n    field_target_node_title: \"[node:title]\""
       queue: aging_content
     successors: {  }
   eca_trigger_content_entity_cus_1:
     plugin: eca_trigger_content_entity_custom_event
     label: 'Trigger Custom Event: Queue Notification'
     configuration:
-      event_id: aging_content_fwb_queue_email
+      event_id: aging_content_fwb_queue_expired_email
       tokens: ''
       object: results
-    successors:
-      -
-        id: create_advancedqueue_job
-        condition: null
+    successors: {  }

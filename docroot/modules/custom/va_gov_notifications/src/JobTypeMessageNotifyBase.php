@@ -84,7 +84,7 @@ class JobTypeMessageNotifyBase extends JobTypeBase implements ContainerFactoryPl
     $this->job = $job;
     $message = $this->createMessage($this->job->getPayload());
     if (!$this->allowedToSend($message, $this->job->getPayload())) {
-      return JobResult::failure($this->getRestrictedRecipientMessage(), 0);
+      return JobResult::failure($this->getRestrictedRecipientMessage($job, $message), 0);
     }
     $status = $this->messageNotifier->send($message);
     if (!$status) {
@@ -164,10 +164,13 @@ class JobTypeMessageNotifyBase extends JobTypeBase implements ContainerFactoryPl
    * {@inheritDoc}
    */
   public function allowedToSend(Message $message, array $payload): bool {
-    if (!isset($payload['restrict_delivery_to'])) {
-      return FALSE;
+    // If the 'restrict_delivery_to' payload value is set, restrict delivery to
+    // only the users in that list.
+    $restrict_to = $payload['restrict_delivery_to'];
+    if (!isset($restrict_to)) {
+      return TRUE;
     }
-    $allowed_recipients = (array) $payload['restrict_delivery_to'];
+    $allowed_recipients = (array) $restrict_to;
     return in_array($message->getOwnerId(), $allowed_recipients);
   }
 

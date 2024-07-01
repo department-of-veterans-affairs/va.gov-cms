@@ -1,0 +1,27 @@
+uuid: 16342b68-830c-4d90-956e-20f5a52d2a10
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_appt_intro_text_type
+    - paragraphs.paragraphs_type.service_location
+  module:
+    - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.service_location.field_appt_intro_text_type
+field_name: field_appt_intro_text_type
+entity_type: paragraph
+bundle: service_location
+label: 'Appointment introduction text'
+description: 'Add additional details about how to make appointments at this location.'
+required: true
+translatable: false
+default_value:
+  -
+    value: use_default_text
+default_value_callback: ''
+settings: {  }
+field_type: list_string
