@@ -80,7 +80,7 @@
         "drupal/entityqueue": "^1.2",
         "drupal/environment_indicator": "^4.0",
         "drupal/epp": "^1.1",
-        "drupal/expirable_content": "1.0.x-dev@dev",
+        "drupal/expirable_content": "^1.0@alpha",
         "drupal/fast_404": "^3.0",
         "drupal/feature_toggle": "^2.0",
         "drupal/field_group": "^3.4",
@@ -225,7 +225,7 @@
         "symfony/phpunit-bridge": "^5.1",
         "symfony/process": "^6.3",
         "symfony/routing": "^6.3",
-        "va-gov/content-build": "^0.0.3497",
+        "va-gov/content-build": "^0.0.3536",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -517,8 +517,7 @@
             },
             "drupal/smart_date": {
                 "3260965 - Undefined index: #value": "https://www.drupal.org/files/issues/2022-01-27/smart_date_undefined_value_in_validation.patch",
-                "3385720 - Implement errorElement() in Widgets": "https://www.drupal.org/files/issues/2023-09-08/smart_date-implement-errorelement-3385720-3.patch",
-                "3413612 - The repeat end date should not be allowed to come before the start time": "https://www.drupal.org/files/issues/2024-01-11/smart_date-repeat-end-date-3413612-0.patch"
+                "3385720 - Implement errorElement() in Widgets": "https://www.drupal.org/files/issues/2023-09-08/smart_date-implement-errorelement-3385720-3.patch"
             },
             "drupal/tablefield": {
                 "3100109 - 0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
@@ -556,7 +555,6 @@
         "va:npm": "Run NPM transparently (all arguments will be passed).",
         "va:nuke": "Remove all Composer package and cache directories.",
         "va:phpcbf": "Run PHP Code Beautifier and Fixer transparently (all arguments will be passed).",
-        "va:remove-git-dirs": "Remove .git directories within this directory, e.g. those created by Composer.",
         "va:set-path": "Display a command for updating the path to include `./bin`.",
         "va:ds:drupal": "Build the Drupal theme.",
         "va:ds:storybook": "Build the Storybook.",
@@ -657,11 +655,6 @@
         "va:proxy:socks:test": [
             "# Test the SOCKS proxy.",
             "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
-        ],
-        "va:remove-git-dirs": [
-            "# Remove .git directories within this directory, e.g. those created by Composer.",
-            "! ./scripts/should-run-directly.sh || ./scripts/remove-git-dirs.sh",
-            "./scripts/should-run-directly.sh || ddev composer va:remove-git-dirs --"
         ],
         "va:set-path": [
             "# Run the command output below to set your current terminal PATH variable.",

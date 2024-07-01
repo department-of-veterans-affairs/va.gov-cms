@@ -75,5 +75,3 @@ The following services can affect the deployment process' ability to fully build
 
 ## Composer
 There are a number of services that Composer uses to download and install dependencies. These services are used during the build process and are not required for runtime.
-
-We are currently aliasing several packages because of lingering dependencies on Drupal 9. We are working to remove these aliases.

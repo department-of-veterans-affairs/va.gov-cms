@@ -38,7 +38,7 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
         // Queue item's Unique ID.
         $data['uid'] = "facility_service_{$this->facility->id()}_{$this->facilityService->id()}";
         $facilityApiId = $this->facility->hasField('field_facility_locator_api_id') ? $this->facility->get('field_facility_locator_api_id')->value : NULL;
-        $data['endpoint_path'] = ($facilityApiId) ? "/services/va_facilities/v0/facilities/{$facilityApiId}/cms-overlay" : NULL;
+        $data['endpoint_path'] = ($facilityApiId) ? "/services/va_facilities/v1/facilities/{$facilityApiId}/cms-overlay" : NULL;
         $data['payload'] = $this->getPayload($forcePush);
 
         // Only add to queue if payload is not empty.
