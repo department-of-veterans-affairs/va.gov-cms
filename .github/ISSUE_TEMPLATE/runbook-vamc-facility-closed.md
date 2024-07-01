@@ -2,7 +2,7 @@
 name: Runbook - VAMC Facility closed
 about: Steps for archiving a VAMC facility in VA.gov CMS.
 title: 'VAMC Facility closed: <insert_name>'
-labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VAMC
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, VAMC
 assignees: ''
 
 ---
@@ -58,7 +58,7 @@ If this facility has been removed from VAST in error, please notify the VA Drupa
 [outro]
 
 [CMS helpdesk signature]
-   
+
 Alternative, for "Removed From Source" flag follow-up:
 -----------------------
 During a site-wide review, our team found a location within the [INSERT SYSTEM NAME] health care system that is no longer listed within the Facilities API, but still exists within Drupal.
@@ -69,33 +69,33 @@ Here is a link to the clinic homepage, which is still published on the live site
 
 Here is a link to this page on the production site:  [INSERT CLINIC HOMEPAGE LINK FROM PRODUCTION SITE]
 
-IF THIS FACILITY IS CLOSED: 
+IF THIS FACILITY IS CLOSED:
 Please follow the steps listed in the following Knowledge Base article in order to fully archive it from VA.gov: https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-to-archive-a-closed-facility
 
-Important: Once these steps have been followed, please reach back out to the VA Drupal CMS Help Desk by replying to this email or by writing to support@va-gov.atlassian.net. 
+Important: Once these steps have been followed, please reach back out to the VA Drupal CMS Help Desk by replying to this email or by writing to support@va-gov.atlassian.net.
 
 From there, our engineering team will proceed with next steps for archiving this facility.
 
 If the clinic has not been closed, please also let our team know as soon as possible.
 
 Thank you for your help!
-   
+
 [Signature]
-   
+
 ```
 </details>
 
 - [ ] 4. Are any of the services or upcoming events for the facility to be closed moving to a different facility?
   - [ ] 4a. If so, note the facility picking up the services and events here: <insert_target_facility>
   - [ ] 4b. If so, note the services and events here: <insert_services_to_be_moved>
-- [ ] 5. Create a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) from the URL of the facility to be closed to the URL of its parent system.
+- [ ] 5. Create a [URL change](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E) to redirect the from the URL of the facility to be closed to the URL of its parent system and to remove the old canonical link.
 
 <insert_redirect_request_link>
 
 #### CMS Engineer steps
 - [ ] 6. Execute the steps of the URL change request ticket from step 5 above.
 
-(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+(Redirects deploy daily except Friday at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
 
 #### Drupal Admin steps (CMS Engineer or Helpdesk)
 _Help desk will complete these steps or escalate to request help from CMS engineering._

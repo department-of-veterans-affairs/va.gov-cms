@@ -1,0 +1,116 @@
+Subject: [PATCH] resolve the paragraph URL to parent entity
+---
+Index: src/Service/Usage.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Service/Usage.php b/src/Service/Usage.php
+--- a/src/Service/Usage.php	(revision 9f577f285c1ae248b86d78dd049cb0d33ecb9b1e)
++++ b/src/Service/Usage.php	(date 1712168300033)
+@@ -2,6 +2,8 @@
+ 
+ namespace Drupal\entity_usage_addons\Service;
+ 
++use Drupal\block_content\BlockContentInterface;
++use Drupal\Core\Entity\EntityInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+ use Drupal\entity_usage\EntityUsage;
+@@ -128,15 +130,7 @@
+ 
+         // Show Entity field.
+         if (in_array('entity', $showFields)) {
+-          if (!empty($sourceEntity->hasLinkTemplate('canonical'))) {
+-            $link = $sourceEntity->toLink();
+-          }
+-          else {
+-            // TODO If we have a paragraph, resolve the url to the parent entity
+-            // For now we will simply display a link.
+-            // See Issue #3000184.
+-            $link = $sourceEntity->label();
+-          }
++          $link = $this->getSourceEntityLink($sourceEntity);
+ 
+           $row[] = $link;
+ 
+@@ -215,5 +209,79 @@
+ 
+     return $itemCount;
+   }
++  /**
++   * Retrieve a link to the source entity.
++   *
++   * Note that some entities are special-cased, since they don't have canonical
++   * template and aren't expected to be re-usable. For example, if the entity
++   * passed in is a paragraph or a block content, the link we produce will point
++   * to this entity's parent (host) entity instead.
++   *
++   * @param \Drupal\Core\Entity\EntityInterface $source_entity
++   *   The source entity.
++   * @param string|null $text
++   *   (optional) The link text for the anchor tag as a translated string.
++   *   If NULL, it will use the entity's label. Defaults to NULL.
++   *
++   * @return \Drupal\Core\Link|string|false
++   *   A link to the entity, or its non-linked label, in case it was impossible
++   *   to correctly build a link. Will return FALSE if this item should not be
++   *   shown on the UI (for example when dealing with an orphan paragraph).
++   */
++  protected function getSourceEntityLink(EntityInterface $source_entity, $text = NULL) {
++    // Note that $paragraph_entity->label() will return a string of type:
++    // "{parent label} > {parent field}", which is actually OK for us.
++    $entity_label = $source_entity->access('view label') ? $source_entity->label() : $this->t('- Restricted access -');
++
++    $rel = NULL;
++    if ($source_entity->hasLinkTemplate('revision')) {
++      $rel = 'revision';
++    }
++    elseif ($source_entity->hasLinkTemplate('canonical')) {
++      $rel = 'canonical';
++    }
++
++    // Block content likely used in Layout Builder inline blocks.
++    if ($source_entity instanceof BlockContentInterface && !$source_entity->isReusable()) {
++      $rel = NULL;
++    }
++
++    $link_text = $text ?: $entity_label;
++    if ($rel) {
++      // Prevent 404s by exposing the text unlinked if the user has no access
++      // to view the entity.
++      return $source_entity->access('view') ? $source_entity->toLink($link_text, $rel) : $link_text;
++    }
+ 
++    // Treat paragraph entities in a special manner. Normal paragraph entities
++    // only exist in the context of their host (parent) entity. For this reason
++    // we will use the link to the parent's entity label instead.
++    /** @var \Drupal\paragraphs\ParagraphInterface $source_entity */
++    if ($source_entity->getEntityTypeId() == 'paragraph') {
++      $parent = $source_entity->getParentEntity();
++      if ($parent) {
++        return $this->getSourceEntityLink($parent, $link_text);
++      }
++    }
++    // Treat block_content entities in a special manner. Block content
++    // relationships are stored as serialized data on the host entity. This
++    // makes it difficult to query parent data. Instead we look up relationship
++    // data which may exist in entity_usage tables. This requires site builders
++    // to set up entity usage on host-entity-type -> block_content manually.
++    // @todo this could be made more generic to support other entity types with
++    // difficult to handle parent -> child relationships.
++    elseif ($source_entity->getEntityTypeId() === 'block_content') {
++      $sources = $this->entityUsage->listSources($source_entity, FALSE);
++      $source = reset($sources);
++      if ($source !== FALSE) {
++        $parent = $this->entityTypeManager()->getStorage($source['source_type'])->load($source['source_id']);
++        if ($parent) {
++          return $this->getSourceEntityLink($parent);
++        }
++      }
++    }
++
++    // As a fallback just return a non-linked label.
++    return $link_text;
++  }
+ }

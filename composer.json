@@ -20,7 +20,7 @@
         "composer/installers": "^2.2",
         "consolidation/site-process": "^5.2",
         "cweagans/composer-patches": "^1.7",
-        "datadog/dd-trace": "^0.98.0",
+        "datadog/dd-trace": "^0.99.0",
         "dealerdirect/phpcodesniffer-composer-installer": "0.7.2",
         "drupal/address": "^2.0",
         "drupal/admin_feedback": "^2.2",
@@ -76,9 +76,11 @@
         "drupal/entity_route_context": "^4.0@RC",
         "drupal/entity_update": "^3.0",
         "drupal/entity_usage": "^2.0@beta",
+        "drupal/entity_usage_addons": "^2.0",
         "drupal/entityqueue": "^1.2",
         "drupal/environment_indicator": "^4.0",
         "drupal/epp": "^1.1",
+        "drupal/expirable_content": "^1.0@alpha",
         "drupal/fast_404": "^3.0",
         "drupal/feature_toggle": "^2.0",
         "drupal/field_group": "^3.4",
@@ -223,7 +225,7 @@
         "symfony/phpunit-bridge": "^5.1",
         "symfony/process": "^6.3",
         "symfony/routing": "^6.3",
-        "va-gov/content-build": "^0.0.3469",
+        "va-gov/content-build": "^0.0.3536",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -427,6 +429,10 @@
             "drupal/entity_reference_revisions": {
                 "2984027 - Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
             },
+            "drupal/entity_usage_addons": {
+                "3000184 - In detailed usage, resolve the paragraph URL to parent entity": "https://www.drupal.org/files/issues/2024-04-03/3000184-resolve_the_paragraph_URL_to_parent_entity.patch",
+                "3443270 - Check Access entity usage statistics perms in linkedUsage() method": "https://www.drupal.org/files/issues/2024-04-24/3443270-Check-Access-entity-usage-statistics-perms-in-linkedUsage-method.patch"
+            },
             "drupal/field_group": {
                 "2787179 - Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
                 "3053242 - Undefined index #description_display when adding a description to fieldset group type": "https://www.drupal.org/files/issues/2022-07-04/field_group-undefined-index-description-display-3053242-11.patch"
@@ -456,6 +462,9 @@
             },
             "drupal/jsonapi_menu_items": {
                 "3276561 - Add support for the Menu Item Extras module": "https://www.drupal.org/files/issues/2022-08-01/3276561-05-menu_item_extras_support.patch"
+            },
+            "drupal/linkit": {
+                "3049946 - Linkit unpublished nodes not included": "https://www.drupal.org/files/issues/2023-11-09/linkit-unpublished-nodes-not-included-3049946-34.patch"
             },
             "drupal/memcache": {
                 "3058121 - Use persistent connections": "https://www.drupal.org/files/issues/2020-09-10/3058121-16.patch"
@@ -508,18 +517,20 @@
             },
             "drupal/smart_date": {
                 "3260965 - Undefined index: #value": "https://www.drupal.org/files/issues/2022-01-27/smart_date_undefined_value_in_validation.patch",
-                "3385720 - Implement errorElement() in Widgets": "https://www.drupal.org/files/issues/2023-09-08/smart_date-implement-errorelement-3385720-3.patch",
-                "3413612 - The repeat end date should not be allowed to come before the start time": "https://www.drupal.org/files/issues/2024-01-11/smart_date-repeat-end-date-3413612-0.patch"
+                "3385720 - Implement errorElement() in Widgets": "https://www.drupal.org/files/issues/2023-09-08/smart_date-implement-errorelement-3385720-3.patch"
             },
             "drupal/tablefield": {
                 "3100109 - 0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
                 "3163841 - Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
                 "3176982 - Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch",
                 "3195203 - Copying caption to value breaks some data exports 3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch",
-		"3341971 - Drag & drop addition adds meaningless numbers to table data, could break integrating code": "https://www.drupal.org/files/issues/2023-03-23/tablefield-disable-drag-drop-controls.patch"
+                "3341971 - Drag & drop addition adds meaningless numbers to table data, could break integrating code": "https://www.drupal.org/files/issues/2023-03-23/tablefield-disable-drag-drop-controls.patch"
             },
             "drupal/textfield_counter": {
                 "3380997 - Textarea with summary and counter doesn't respect count only setting": "patches/3380997-fix-textfield_counter-respect-count-only-mode.patch"
+            },
+            "drupal/token": {
+                "3047568 - Consistent tokens support across all entities and fields": "https://www.drupal.org/files/issues/2022-08-04/token-consistent-entity-and-field-support-3047568-17.patch"
             },
             "drupal/viewfield": {
                 "3252356 - Add option to display default view on node edit when always use default value selected": "https://www.drupal.org/files/issues/2023-02-07/viewfield-option-display-default-view-on-node-edit-3252356-5.patch"
@@ -544,7 +555,6 @@
         "va:npm": "Run NPM transparently (all arguments will be passed).",
         "va:nuke": "Remove all Composer package and cache directories.",
         "va:phpcbf": "Run PHP Code Beautifier and Fixer transparently (all arguments will be passed).",
-        "va:remove-git-dirs": "Remove .git directories within this directory, e.g. those created by Composer.",
         "va:set-path": "Display a command for updating the path to include `./bin`.",
         "va:ds:drupal": "Build the Drupal theme.",
         "va:ds:storybook": "Build the Storybook.",
@@ -645,11 +655,6 @@
         "va:proxy:socks:test": [
             "# Test the SOCKS proxy.",
             "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
-        ],
-        "va:remove-git-dirs": [
-            "# Remove .git directories within this directory, e.g. those created by Composer.",
-            "! ./scripts/should-run-directly.sh || ./scripts/remove-git-dirs.sh",
-            "./scripts/should-run-directly.sh || ddev composer va:remove-git-dirs --"
         ],
         "va:set-path": [
             "# Run the command output below to set your current terminal PATH variable.",

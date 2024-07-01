@@ -6,3 +6,8 @@ services:
       class: Drupal\va_gov_media\EventSubscriber\MediaEventSubscriber
       tags:
         - { name: event_subscriber }
+
+  va_gov_media.route_subscriber:
+    class: Drupal\va_gov_media\EventSubscriber\VaGovMediaAddRouteSubscriber
+    tags:
+      - { name: event_subscriber }

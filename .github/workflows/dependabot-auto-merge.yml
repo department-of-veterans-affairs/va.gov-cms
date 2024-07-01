@@ -15,13 +15,13 @@ jobs:
       # will not occur.
       - name: Dependabot metadata
         id: dependabot-metadata
-        uses: dependabot/fetch-metadata@c9c4182bf1b97f5224aee3906fd373f6b61b4526 # v1.6.0
+        uses: dependabot/fetch-metadata@5e5f99653a5b510e8555840e80cbf1514ad4af38 # v2.1.0
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
       # Checkout repo to make package allow list available
       - name: Checkout
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
 
       # Use a YAML formatted config file to list which dependencies can be auto-merged
       - name: Read list of Allowed Auto-merge Dependencies
