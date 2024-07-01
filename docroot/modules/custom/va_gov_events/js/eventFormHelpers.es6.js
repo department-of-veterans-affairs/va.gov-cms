@@ -57,6 +57,9 @@
   const fieldFacilityLocation = document.getElementById(
     "edit-field-facility-location-0-target-id"
   );
+  const fieldFacilityLocationLabel = document.querySelector(
+    "label[for='edit-field-facility-location-0-target-id']"
+  );
   const fieldLocationTypeOnline = document.getElementById(
     "edit-field-location-type-online"
   );
@@ -292,11 +295,22 @@
     }
   };
 
+  const toggleFacilityLocationRequiredFields = (enableDisable, addRemove) => {
+    // Facility location field.
+    if (fieldFacilityLocation) {
+      fieldFacilityLocation.required = enableDisable;
+    }
+    if (fieldFacilityLocationLabel) {
+      fieldFacilityLocationLabel.classList[addRemove]("form-required");
+    }
+  };
+
   const toggleLocationElements = () => {
     targetLocationElements.forEach((element) => {
       element.style.display = "none";
     });
     toggleAddressRequiredFields(false, "remove");
+    toggleFacilityLocationRequiredFields(false, "remove");
     if (fieldLocationTypeFacility.checked) {
       fieldFacilityLocationWrapper.style.display = "block";
       fieldLocationHumanreadableWrapper.style.display = "block";
@@ -305,6 +319,7 @@
       fieldAddressLine2.value = "";
       fieldAddressLocality.value = "";
       fieldAddressAdminArea.value = "";
+      toggleFacilityLocationRequiredFields(true, "add");
     }
     if (fieldLocationTypeNonFacility.checked) {
       fieldLocationHumanreadableWrapper.style.display = "block";

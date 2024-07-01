@@ -6,15 +6,18 @@ dependencies:
     - field.storage.node.field_administration
     - node.type.event_listing
     - node.type.health_care_local_facility
+    - node.type.nca_facility
     - node.type.office
     - node.type.person_profile
     - node.type.press_releases_listing
     - node.type.publication_listing
     - node.type.story_listing
+    - node.type.vba_facility
     - node.type.vet_center
     - node.type.vet_center_cap
     - node.type.vet_center_outstation
     - workflows.workflow.editorial
+    - workflows.workflow.restricted_archive
   module:
     - content_moderation
     - node
@@ -1060,7 +1063,9 @@ display:
           plugin_id: bundle
           operator: in
           value:
+            nca_facility: nca_facility
             health_care_local_facility: health_care_local_facility
+            vba_facility: vba_facility
             vet_center: vet_center
             vet_center_cap: vet_center_cap
             vet_center_outstation: vet_center_outstation
@@ -1105,6 +1110,7 @@ display:
           operator: 'not in'
           value:
             editorial-archived: editorial-archived
+            restricted_archive-archived: restricted_archive-archived
           group: 1
           exposed: false
           expose:
@@ -1152,7 +1158,16 @@ display:
             title: title
           separator: '|'
           hide_empty: false
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
       defaults:
+        query: false
         relationships: false
         fields: false
         sorts: false
@@ -1161,7 +1176,9 @@ display:
         filter_groups: false
       relationships: {  }
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
     cache_metadata:
       max-age: -1
       contexts:

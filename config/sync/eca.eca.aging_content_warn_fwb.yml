@@ -1,0 +1,67 @@
+uuid: 8accd7d5-70c2-4e26-93b0-96bbbbf7562a
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.aging_content
+  module:
+    - eca_base
+    - eca_content
+    - eca_views
+    - va_gov_eca
+id: aging_content_warn_fwb
+modeller: core
+label: 'Aging Content: Warn FWB'
+version: ''
+weight: -10
+events:
+  eca_base_eca_cron:
+    plugin: 'eca_base:eca_cron'
+    label: Cron
+    configuration:
+      frequency: '* * * * *'
+    successors:
+      -
+        id: eca_views_query
+        condition: null
+  content_entity_custom:
+    plugin: 'content_entity:custom'
+    label: 'Content  Aware Event: Queue Email'
+    configuration:
+      event_id: aging_content_fwb_queue_warn_email
+    successors:
+      -
+        id: create_advancedqueue_job
+        condition: null
+conditions: {  }
+gateways: {  }
+actions:
+  eca_views_query:
+    plugin: eca_views_query
+    label: 'Views: Query Expired FWB Results'
+    configuration:
+      token_name: results
+      view_id: aging_content
+      display_id: fwb_warn
+      arguments: ''
+    successors:
+      -
+        id: eca_trigger_content_entity_cus_1
+        condition: null
+  create_advancedqueue_job:
+    plugin: create_advancedqueue_job
+    label: 'Queue Notification'
+    configuration:
+      token_name: job
+      type: va_gov_aging_content_notification
+      payload: "template_values:\r\n    uid: \"[node:author:uid]\"\r\n    template: aging_content_warn_fwb\r\nrestrict_delivery_to:\r\nvalues:\r\n    field_warning_date: \"[node:warning_date:date:html_date]\"\r\n    field_target_node_title: \"[node:title]\""
+      queue: aging_content
+    successors: {  }
+  eca_trigger_content_entity_cus_1:
+    plugin: eca_trigger_content_entity_custom_event
+    label: 'Trigger Custom Event: Queue Notification'
+    configuration:
+      event_id: aging_content_fwb_queue_warn_email
+      tokens: ''
+      object: results
+    successors: {  }
