@@ -54,7 +54,38 @@
     {{ page.header.vagovclaro_sitealert }}
   </div>
 </header>
+{# This if statement will be removed once we want all KB templates to adhere to new design #}
+{% if url == '/help' %}
+<div id="kb-landing-page__container" class="layout-container">
+  {{ page.pre_content }}
 
+  <div class="node-columns">
+
+    <main class="page-content clearfix" role="main">
+      <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
+      {{ page.highlighted }}
+      {% if page.help %}
+      <div class="help">
+        {{ page.help }}
+      </div>
+      {% endif %}
+
+      {# Hard coding breadcrumbs to account for "Home" because KB isn't nested in home menues #}
+      <div id="block-vagovclaro-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+        <nav class="breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+          <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+          <ol class="breadcrumb__list">
+            <li class="breadcrumb__item">{{ "Home"|t }}</li>
+            <li class="breadcrumb__item">{{ "Knowledge Base"|t }}</li>
+          </ol>
+        </nav>
+      </div>
+
+      {{ page.content }}
+    </main>
+  </div>
+</div>
+{% else %}
 <div class="layout-container">
   {{ page.pre_content }}
   {{ page.breadcrumb }}
@@ -92,3 +123,4 @@
     {% endif %}
   </div>
 </div>
+{% endif %}

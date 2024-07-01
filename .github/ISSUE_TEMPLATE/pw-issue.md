@@ -2,7 +2,7 @@
 name: "(PW) Issue template"
 about: Issue template for Public Websites team
 title: ''
-labels: Needs refining, Public Websites
+labels: Needs refining, Public Websites, sitewide
 assignees: ''
 
 ---
