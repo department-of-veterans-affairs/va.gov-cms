@@ -8,7 +8,8 @@ assignees: ''
 ---
 
 ## Description
-Use this runbook if: a Vet Centers, Mobile Vet Centers, Vet Center Outstations is flagged as New, OR if an existing facility is flagged as New with a new Facility API ID. (This may happen  if a Vet Center moves districts, or a Mobile Vet Center is reallocated to a different Vet Center.)
+Use this runbook if: a Vet Center, Mobile Vet Center, or Vet Center Outstation is flagged as New, OR if an existing facility is flagged as New with a new Facility API ID.  
+- This may also occur when an Outstation is promoted to main Vet Center or if an existing Mobile Vet Center is reallocated to a different Vet Center 
 
 ## Intake
 - [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
@@ -20,7 +21,7 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] If the submitter is an editor, send them links to any relevate KB articles for the Vet Center product.
+- [ ] If the submitter is an editor, send them links to any relevant KB articles for the Vet Center product.
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
@@ -36,20 +37,22 @@ Facility API ID: <insert_facility_API_ID>
 **Note: If the help desk is waiting on information from the facility staff or editor, add the `Awaiting editor` flag to the facility** with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. **Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 
 **If a Mobile Vet Center:**
-- [ ] Confirm what Vet Center it belongs to, and set the "Main Vet Center location" field. The parent location may be derived by the Facility ID.
+- [ ] Confirm the Vet Center to which it belongs and and set the "Main Vet Center location" field. The parent location may be derived by the Facility ID.
+- [ ] Follow up with Barb Kuhn/RCS Central office to let her know we've identified this new Mobile unit and confirm the District, Vet Center Director, and Outreach Specialist (names/email addresses) who will be responsible for updates
 - [ ] Contact the Vet Center editor to remind them to (1) add a photo of the Mobile Vet Center and then they can publish when ready and (2) remind them that if this Mobile Vet Center is used by any other facilities to communicate with those Vet Center editors
-- [ ] Consider: Following up with Barb/RCS Central office to be sure that she's aware that the mobile Vet Center is in-flight
 
 **If a Outstation:**
-- [ ] Confirm what Vet Center it belongs to, and set the "Main Vet Center location" field. The parent location may be derived by the Facility ID.
-- [ ] Contact the Vet Center editor to remind them to (1) add a photo of the Outstation and then they can publish when ready
-- [ ] Consider: Following up with Barb/RCS Central office to be sure that she's aware that the Outstation is in-flight
+- [ ] Become aware that the new facility is now on the Facility API (typically, via a Flag).
+- [ ] Confirm the Vet Center to which it belongs and set the "Main Vet Center location" field. The parent location may be derived by the Facility ID.
+- [ ] Follow up with Barb Kuhn/RCS Central office to let her know we've identified the new Outstation and confirm the District, Vet Center Director, and Outreach Specialist (names/email addresses) who will be responsible for updates
+- [ ] Contact the Vet Center editor to remind them to (1) add a photo of the Outstation
+- [ ] If the new Outstation replaces a CAP, the editor should consider updating the operating status for the CAP to direct Veterans to the new location with “as of” date and set a reminder on the calendar to archive the CAP 30 days after the new location has opened   
 
 **If a Vet Center:**
-- [ ] 1. Become aware that the new facility is now on the Facility API (typically, via a Flag).
-- [ ] 2. Check with Readjustment Counseling Services to (1) confirm what district the Vet Center belongs and (2) Identify the Vet Center Director and Outreach Specialist (names/email addresses)
-- [ ] 3. In [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), move the Vet Center Section to the appropriate district.
-- [ ] 4. Create accounts (or restrict existing accounts) with editor rights only for Vet Center Director and Outreach Specialist so that they cannot publish on their own.
+- [ ] Become aware that the new facility is now on the Facility API (typically, via a Flag).
+- [ ] Check with Readjustment Counseling Services to (1) confirm what district the Vet Center belongs, (2) identify the Vet Center Director and Outreach Specialist (names/email addresses), (3) confirm the new location isn't a replacement for an existing Outstation
+- [ ] In [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), move the Vet Center Section to the appropriate district.
+- [ ] Create account access as directed by RCS. If editors are new to Drupal, create accounts with editor rights only for Vet Center Director and Outreach Specialist so that they cannot publish on their own.
 - [ ] 5. Contact Vet Center Director and Outreach specialist to onboard for training [@TODO write sample email - SEE runbook-vamc-facility-new] **Note: this should include instructions for adding content and preparing for publishing and RCS Central Office should be included as CC**
 - [ ] 6. Add flag `Awaiting editor` to this facility. Note: This is now blocked until RCS Central office approves.
 - [ ] 7. **Once approved by RCS Central Office as complete, proceed to Drupal Admin publishing steps**
