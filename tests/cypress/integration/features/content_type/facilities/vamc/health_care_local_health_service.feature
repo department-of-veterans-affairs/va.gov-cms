@@ -22,9 +22,10 @@ Scenario: Log in and create VAMC Facility Health Service as a Lovell editor
   Then I select option "Cardiology at Lovell Federal health care - TRICARE" from dropdown with selector "#edit-field-regional-health-service"
 
 # Phone number AJAX test
-  Then I click the "Add new phone number" button
+  Then I click to expand "Appointments"
+  And I click the "Add new phone number" button
   And I wait "20" seconds
-  Then I should see an element with the selector "[data-drupal-selector*='edit-field-phone-numbers-paragraph-form-']"
+  Then I should see an element with the selector "[data-drupal-selector*='edit-field-service-location-0-subform-field-other-phone-numbers-wrapper']"
 
 # Lovell Federal umbrella test
   Then I scroll to position "bottom"
