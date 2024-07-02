@@ -20,7 +20,6 @@ dependencies:
     - field.field.node.vba_facility.field_facility_locator_api_id
     - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
-    - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
     - field.field.node.vba_facility.field_local_spotlight
     - field.field.node.vba_facility.field_media
@@ -92,6 +91,7 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
+        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: content
