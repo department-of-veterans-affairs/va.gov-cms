@@ -165,8 +165,8 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
 
     if (isset($form["#fieldgroups"]["group_facility_services"]->format_settings["description"])) {
       $form["#fieldgroups"]["group_facility_services"]->format_settings["description"] = "
-      <p><a href='$add_new_service_url' target='_blank'>Create a new service for this facility (opens in new window).</a></p>
-      <p><a href='/admin/content?title=$encoded_facility_name&type=vba_facility_service&moderation_state=All&owner=All' target='_blank'>Manage existing services for this facility (opens in new window)</a>.</p>
+      <p><a href='$add_new_service_url' target='_blank'>Create a new service for this facility (opens in new window)</a></p>
+      <p><a href='/admin/content?title=$encoded_facility_name&type=vba_facility_service&moderation_state=All&owner=All' target='_blank'>Manage existing services for this facility (opens in new window)</a></p>
      ";
     }
   }
