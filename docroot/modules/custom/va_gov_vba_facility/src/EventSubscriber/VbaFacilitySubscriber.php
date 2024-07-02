@@ -11,7 +11,6 @@ use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\node\NodeInterface;
@@ -82,24 +81,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vba_facility_form.alter' => 'alterVbaFacilityNodeForm',
       EntityHookEvents::ENTITY_TYPE_ALTER => 'entityTypeAlter',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
-      EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
-
     ];
-  }
-
-    /**
-   * Entity update Event call.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
-   *   The event.
-   */
-  public function entityUpdate(EntityUpdateEvent $event): void {
-    $form = &$event->getForm();
-    if (!isset($form["#fieldgroups"]["group_facility_services"])) {
-      return;
-    }
-
-    $entity = $event->getEntity();
   }
 
   /**
@@ -154,28 +136,29 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     $this->addStateManagementToBannerFields($event);
     $this->changeBannerType($event);
     $this->changeDismissibleOption($event);
+    $this->changeLinkNewService($event);
   }
 
   /**
-   * Change the link to add a service.
+   * Changes the link for adding a new VBA Facility service.
    *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
    */
-  protected function changeLinkToAddService(EntityUpdateEvent $event): void {
+  protected function changeLinkNewService(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     if (!isset($form["#fieldgroups"]["group_facility_services"])) {
       return;
     }
-    $entity = $event->getEntity();
     $form_state = $event->getFormState();
-    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    $entity = $form_object->getEntity();
 
-    $facility_section =
-    $form["#fieldgroups"]["group_facility_services"]->format_settings["description"]->format_settings["description"];
-    if (isset($form['group_facility_services']['widget'])) {
-      $form['field_service_name_and_descripti']['widget']['actions']['add']['#title'] = $this->t('Add a new service');
-    }
+    $section_tid = $entity->field_administration->target_id;
+    $facility_nid = $entity->nid->value;
+    $link_url = '/node/add/vba_facility_service?field_administration=' . $section_tid . '&field_office=' . $facility_nid;
+    $form["#fieldgroups"]["group_facility_services"]->format_settings["description"] = "To create a facility service <a href='$link_url'>Add another service</a>";
   }
 
   /**
