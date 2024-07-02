@@ -156,7 +156,6 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
     $form_object = $form_state->getFormObject();
     $entity = $form_object->getEntity();
-
     $section_tid = $entity->field_administration->target_id;
     $facility_nid = $entity->nid->value;
     $link_url = '/node/add/vba_facility_service?field_administration=' . $section_tid . '&field_office=' . $facility_nid;
