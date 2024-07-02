@@ -149,18 +149,25 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    */
   protected function changeLinkNewService(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
+
     if (!isset($form["#fieldgroups"]["group_facility_services"])) {
       return;
     }
+
     $form_state = $event->getFormState();
     /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
     $form_object = $form_state->getFormObject();
     $entity = $form_object->getEntity();
     $section_tid = $entity->field_administration->target_id;
     $facility_nid = $entity->nid->value;
-    $link_url = '/node/add/vba_facility_service?field_administration=' . $section_tid . '&field_office=' . $facility_nid;
+    $add_new_service_url = "/node/add/vba_facility_service?field_administration=$section_tid&field_office=$facility_nid";
+    $encoded_facility_name = urlencode($entity->title->value);
+
     if (isset($form["#fieldgroups"]["group_facility_services"]->format_settings["description"])) {
-      $form["#fieldgroups"]["group_facility_services"]->format_settings["description"] = "To create a facility service <a href='$link_url'>Add another service</a>";
+      $form["#fieldgroups"]["group_facility_services"]->format_settings["description"] = "
+      <p>To create a facility service, visit the <a href='$add_new_service_url'>add VBA facility service form</a>.</p>
+      <p>To see all services for this facility, visit the <a href='/admin/content?title=$encoded_facility_name&type=vba_facility_service&moderation_state=All&owner=All'>content search page</a> (filtered for services of this facility).</p>
+      ";
     }
   }
 
