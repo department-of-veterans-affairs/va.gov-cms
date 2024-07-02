@@ -142,6 +142,8 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   /**
    * Changes the link for adding a new VBA Facility service.
    *
+   * This prepopulates the section and facility for editorial convenience.
+   *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
    */
