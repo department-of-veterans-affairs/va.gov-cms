@@ -26,8 +26,6 @@ if [ -f "samlsessiondb.sq3" ]; then
   git update-index --skip-worktree samlsessiondb.sq3
 fi
 
-composer va:remove-git-dirs
-
 rm -r vendor
 
 popd > /dev/null

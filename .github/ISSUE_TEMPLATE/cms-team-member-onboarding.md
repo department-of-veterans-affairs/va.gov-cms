@@ -96,10 +96,8 @@ Github + Zenhub are the tools required for sprint boards, epics, estimates, and 
 You can view team sprint boards using either the Github view with Zenhub browser extension enabled, or the Zenhub webapp view.
 * CMS team: [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/#workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board), [Zenhub webapp view](https://app.zenhub.com/workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board)
 )
-* Sitewide Facilities and Public Websites teams also run their sprints from the same repository, and any repo / workspace changes should be mindful of not impacting their workspaces / boards: 
-  * Facilities: [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/#workspaces/sitewide-facilities-639f5253e4b702a32376339e/board), [Zenhub webapp view](https://app.zenhub.com/workspaces/sitewide-facilities-639f5253e4b702a32376339e/board
-)
-  * Public Websites: [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/#workspaces/public-websites-6171bf4bf43742001af18cc5/board), [Zenhub webapp view](https://app.zenhub.com/workspaces/public-websites-6171bf4bf43742001af18cc5/board)
+* Sitewide team also runs their sprints from the same repository, and any repo / workspace changes should be mindful of not impacting their workspace / board: 
+  * VA.gov Sitewide Product team: [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new/choose#workspaces/vagov-sitewide-product-team-6645154188a81a1f7a0a9464/board, [Zenhub webapp view](https://app.zenhub.com/workspaces/vagov-sitewide-product-team-6645154188a81a1f7a0a9464/board)
 
 ### Process & Principles
 - [ ] Read about our teams' [Agile / sprint best practices](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)

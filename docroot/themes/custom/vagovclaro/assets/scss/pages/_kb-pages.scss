@@ -1,5 +1,4 @@
 .documentation-page {
-
   // override of _proofing.scss for kb only
   #block-vagovclaro-content .paragraph {
     /* stylelint-disable */
@@ -28,7 +27,6 @@
         display: none;
       }
 
-
       details {
         border: 3px solid var(--va-gray-lightest);
         /* stylelint-disable */
@@ -53,7 +51,7 @@
         /* stylelint-disable -- Need this naked [open] selector. */
         &[open] {
           summary::after {
-            content: '-';
+            content: "-";
             float: right;
             font-size: 2.5em;
             font-weight: bold;
@@ -88,7 +86,7 @@
           }
 
           &::after {
-            content: '+';
+            content: "+";
             float: right;
             font-size: 2em;
             font-weight: bold;
@@ -173,6 +171,84 @@
     a:hover {
       background: var(--va-blue-light);
       text-decoration: none;
+    }
+  }
+}
+
+// KB Landing page overrides
+#kb-landing-page__container {
+  // Special override from .vagovclaro .layout-container
+  margin: 0 auto !important;
+  max-width: 100%;
+  width: 900px;
+
+  .field--name-field-links {
+    padding-left: 10px;
+  }
+}
+
+.page-content {
+  #vagovclaro-knowledge-base__search-wrapper {
+    background: #f0f0f0;
+    margin: 40px -40px;
+    padding: 25px 40px;
+
+    label {
+      font-family: var(--font-family-serif);
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-item--keyword {
+      display: inline-block;
+      width: 400px;
+
+      input {
+        background-image: url("/themes/custom/vagovclaro/images/icons/magnifying-glass-868686.svg");
+        background-position-x: calc(100% - 10px);
+        background-position-y: center;
+        background-repeat: no-repeat;
+        background-size: 22px;
+        padding-right: 40px;
+        width: 100%;
+      }
+    }
+
+    .form-actions {
+      display: inline-block;
+      margin: 0 0 0 20px;
+
+      input {
+        background-color: var(--color-absolutezero-hover);
+        color: var(--color-white);
+        transition-duration: 0.3s;
+        transition-property: background-color;
+        transition-timing-function: ease-in-out;
+
+        &:hover {
+          background-color: var(--color-absolutezero-active);
+        }
+      }
+    }
+  }
+}
+
+.paragraph--view-mode--user-guides {
+  // Some next level duct-taping via selectors
+  #training ~ p {
+    display: inline-block;
+
+    .usa-button {
+      background: var(--va-gray-light);
+      color: var(--color-black);
+
+      &:hover {
+        background: var(--va-gray-med);
+      }
+    }
+
+    &:first-of-type {
+      display: block;
     }
   }
 }
