@@ -264,7 +264,7 @@ if (!empty($webhost_on_cli)) {
 // Look for an incoming request header to indicate we should use the public
 // asset S3 location for file rather than the Drupal-internal location.
 if (!empty($public_asset_s3_base_url)) {
-  $headersArray = function_exists('apache_request_headers') ? apache_request_headers() : [];
+  $headerArray = function_exists('apache_request_headers') ? apache_request_headers() : [];
   $targetHeader = 'File-Public-Base-Url-Check';
   foreach ($headerArray as $header => $value) {
     if (strtolower($header) == strtolower($targetHeader) && $value === 'true') {
