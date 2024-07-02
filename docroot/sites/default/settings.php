@@ -265,15 +265,14 @@ if (!empty($webhost_on_cli)) {
 // asset S3 location for file rather than the Drupal-internal location.
 if (!empty($public_asset_s3_base_url)) {
   $headersArray = function_exists('apache_request_headers') ? apache_request_headers() : [];
-  if (
-     array_key_exists('File-Public-Base-Url-Check', $headersArray) && 
-     $headersArray['File-Public-Base-Url-Check'] == 'true'
-   ) {
-   // Point the file base url to the public asset S3 bucket.
-   $settings['file_public_base_url'] = $public_asset_s3_base_url;
+  $targetHeader = 'File-Public-Base-Url-Check';
+  foreach ($headerArray as $header => $value) {
+    if (strtolower($header) == strtolower($targetHeader) && $value === 'true') {
+      // Point the file base url to the public asset S3 bucket.
+      $settings['file_public_base_url'] = $public_asset_s3_base_url;
+    }
+  }
  }
-}
-
 
 // Monolog
 $settings['container_yamls'][] = __DIR__ . '/services/services.monolog.yml';
