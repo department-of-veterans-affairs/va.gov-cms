@@ -160,7 +160,9 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     $section_tid = $entity->field_administration->target_id;
     $facility_nid = $entity->nid->value;
     $link_url = '/node/add/vba_facility_service?field_administration=' . $section_tid . '&field_office=' . $facility_nid;
-    $form["#fieldgroups"]["group_facility_services"]->format_settings["description"] = "To create a facility service <a href='$link_url'>Add another service</a>";
+    if (isset($form["#fieldgroups"]["group_facility_services"]->format_settings["description"])) {
+      $form["#fieldgroups"]["group_facility_services"]->format_settings["description"] = "To create a facility service <a href='$link_url'>Add another service</a>";
+    }
   }
 
   /**
