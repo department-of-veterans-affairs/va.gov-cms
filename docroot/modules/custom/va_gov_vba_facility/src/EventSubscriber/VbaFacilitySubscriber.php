@@ -137,18 +137,19 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     $this->addStateManagementToBannerFields($event);
     $this->changeBannerType($event);
     $this->changeDismissibleOption($event);
-    $this->changeLinkNewService($event);
+    $this->createLinksFacilityServices($event);
   }
 
   /**
-   * Changes the link for adding a new VBA Facility service.
+   * Adds links for creating and managing facility services.
    *
-   * This prepopulates the section and facility for editorial convenience.
+   * One link prepopulates the section and facility for editorial convenience.
+   * One link goes to the content search page, passing in the facility name.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
    */
-  protected function changeLinkNewService(FormIdAlterEvent $event): void {
+  protected function createLinksFacilityServices(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
 
     if (!isset($form["#fieldgroups"]["group_facility_services"])) {
