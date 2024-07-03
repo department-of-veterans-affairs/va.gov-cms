@@ -64,7 +64,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     UserPermsService $user_perms_service,
     EntityTypeManagerInterface $entity_type_manager,
     RendererInterface $renderer
-    ) {
+  ) {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
     $this->entityTypeManager = $entity_type_manager;
@@ -90,7 +90,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
    *   The entity view alter service.
    */
-  public function entityViewAlter(EntityViewAlterEvent $event):void {
+  public function entityViewAlter(EntityViewAlterEvent $event): void {
     $this->appendServiceTermDescriptionToVbaFacilityService($event);
   }
 
@@ -100,7 +100,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
    *   The entity view alter service.
    */
-  public function appendServiceTermDescriptionToVbaFacilityService(EntityViewAlterEvent $event):void {
+  public function appendServiceTermDescriptionToVbaFacilityService(EntityViewAlterEvent $event): void {
     $display = $event->getDisplay();
     if (($display->getTargetBundle() === 'vba_facility_service') && ($display->getOriginalMode() === 'full')) {
       $build = &$event->getBuild();
@@ -119,7 +119,8 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
       else {
         $description = new FormattableMarkup(
           '<div><strong>Notice: The national service description was not found.</strong></div>',
-            []);
+          []
+              );
       }
       $formatted_markup = new FormattableMarkup($description, []);
       $build['field_service_name_and_descripti']['#suffix'] = $formatted_markup;
@@ -136,6 +137,43 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     $this->addStateManagementToBannerFields($event);
     $this->changeBannerType($event);
     $this->changeDismissibleOption($event);
+    $this->createLinksFacilityServices($event);
+  }
+
+  /**
+   * Adds links for creating and managing facility services.
+   *
+   * One link prepopulates the section and facility for editorial convenience.
+   * One link goes to the content search page, passing in the facility name.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  protected function createLinksFacilityServices(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+
+    if (!isset($form["#fieldgroups"]["group_facility_services"])) {
+      return;
+    }
+
+    $form_state = $event->getFormState();
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    $entity = $form_object->getEntity();
+    $section_tid = $entity->field_administration->target_id;
+    $facility_nid = $entity->nid->value;
+    $create_service_url = "/node/add/vba_facility_service?field_administration=$section_tid&field_office=$facility_nid";
+    $create_service_text = $this->t('Create a new service for this facility (opens in new window)');
+    $encoded_facility_name = urlencode($entity->title->value);
+    $manage_services_url = "/admin/content?title=$encoded_facility_name&type=vba_facility_service&moderation_state=All&owner=All";
+    $manage_services_text = $this->t('Manage existing services for this facility (opens in new window)');
+
+    if (isset($form["#fieldgroups"]["group_facility_services"]->format_settings["description"])) {
+      $form["#fieldgroups"]["group_facility_services"]->format_settings["description"] = "
+        <p><a href='$create_service_url' target='_blank'>$create_service_text</p>
+        <p><a href='$manage_services_url' target='_blank'>$manage_services_text</p>
+        ";
+    }
   }
 
   /**
@@ -254,8 +292,10 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   protected function clearBannerFields(EntityInterface $entity): void {
     /** @var \Drupal\node\NodeInterface $entity */
     if ($entity->bundle() === "vba_facility") {
-      if ($entity->hasField('field_show_banner')
-      && $entity->field_show_banner->value == FALSE) {
+      if (
+        $entity->hasField('field_show_banner')
+        && $entity->field_show_banner->value == FALSE
+      ) {
         if ($entity->field_alert_type) {
           $entity->field_alert_type->value = NULL;
         }
