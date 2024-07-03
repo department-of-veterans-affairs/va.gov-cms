@@ -33,7 +33,7 @@ Talking with Laura, sitewide teams are only building cypress tests when it's app
 ## Recommendations for Collab cycle changes
 
 1. **Mouse-only and touchscreen checks**
-   - For CMS specifically Instead of `using a mobile device` the bullet point `Using a mobile device, make sure you can use the full functionality of a feature with only one finger to gesture (tapping, swiping, etc.)` should only need to say `change the view in developer tools to be mobile` since Drupal is not accessible via mobile devices unless they have a GFE phone. The test should still be done for those users who want to use tablets or phones to access Drupal. This could also be done through a special rule for Drupal specifically.
+   - For CMS specifically, since Drupal is not accessible via mobile devices unless they have a GFE phone, we need a secondary way of completing the step of `Using a mobile device, make sure you can use the full functionality of a feature with only one finger to gesture (tapping, swiping, etc.)` by being able to `change the view in developer tools to be mobile`. The test should still be done for those users who want to use GFE tablets or phones to access Drupal.
 
 ## Recommendations for future work
 
