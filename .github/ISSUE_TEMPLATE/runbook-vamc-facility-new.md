@@ -61,7 +61,6 @@ Please let us know when your draft content is complete, so that we can wrap up t
 - [ ] Update the facility **Meta description** field, using the following format: "Get address and hours, parking and transportation information, and health services offered at [facility name]."
 - [ ] Move the facility link in the health care system menu to its place in the alphabetized list (medical centers first, then clinics).
 - [ ] Drupal Admin bulk publishes nodes and facility.
-- [ ] Drupal Admin edit facility node and remove `New facility` flag and save node.
 - [ ] Contact Lighthouse via Slack at #cms-lighthouse channel that this facility requires a canonical link in the following format (replacing the placeholder data with the actual API Id and VA.gov URL):
   - `vha_691GM,https://www.va.gov/greater-los-angeles-health-care/locations/oxnard-va-clinic/`
 - [ ] Add the "Awaiting CSV" flag to the facility node with a revision log message that includes a link to this ticket.
@@ -70,7 +69,7 @@ Please let us know when your draft content is complete, so that we can wrap up t
 #### Wait (days or weeks, potentially)
 - [ ] After the canonical link has been added to the websites.csv and you have confirmation from Lighthouse that the CSV has been deployed, validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
 - [ ] Update this ticket with a comment that the CSV change has been deployed.
-- [ ] Remove the "Awaiting CSV" flag to the facility node with a revision log message that includes a link to this ticket.
+- [ ] Edit facility node and remove `New facility` and "Awaiting CSV" flags with a revision log message that includes a link to this ticket.
 
 #### CMS Help desk (wrap up)
 - [ ] Notify editor and any other stakeholders.
