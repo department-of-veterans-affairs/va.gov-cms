@@ -80,6 +80,7 @@ class JobTypeMessageNotifyBaseTest extends KernelTestBase {
         'uid' => 1,
         'template' => 'foo_template',
       ],
+      // @todo update tests to account for allow & restricted changes.
       'restrict_delivery_to' => [1],
     ];
     $job = new Job([
@@ -103,6 +104,7 @@ class JobTypeMessageNotifyBaseTest extends KernelTestBase {
         'uid' => 1,
         'template' => 'foo_template',
       ],
+      // @todo update tests to account for allow & restricted changes.
       'restrict_delivery_to' => [2],
     ];
     $job = new Job([

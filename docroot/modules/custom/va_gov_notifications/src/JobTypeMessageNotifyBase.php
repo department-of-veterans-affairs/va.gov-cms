@@ -164,14 +164,26 @@ class JobTypeMessageNotifyBase extends JobTypeBase implements ContainerFactoryPl
    * {@inheritDoc}
    */
   public function allowedToSend(Message $message, array $payload): bool {
-    // If the 'restrict_delivery_to' payload value is set, restrict delivery to
-    // only the users in that list.
-    $restrict_to = $payload['restrict_delivery_to'];
-    if (!isset($restrict_to)) {
+    // We have two possible delivery access modifiers in the payload:
+    // 1) allow_delivery_only_to => Only deliver mail to provided users.
+    // 2) restrict_delivery_to => Do not deliver mail to provided users.
+    $restrict_to = !empty($payload['restrict_delivery_to']);
+    $allow_only_to = !empty($payload['allow_delivery_only_to']);
+    if (!isset($restrict_to) || !isset($allow_to)) {
       return TRUE;
     }
-    $allowed_recipients = (array) $restrict_to;
-    return in_array($message->getOwnerId(), $allowed_recipients);
+    $current_user = $message->getOwnerId();
+    // The allow list is comprehensive, so users not in the allow list, if
+    // present, are restricted.
+    if ($allow_only_to) {
+      return in_array($current_user, $payload['allow_delivery_only_to']);
+    }
+    // If user is restricted, prevent sending.
+    if ($restrict_to) {
+      return in_array($current_user, $payload['restrict_delivery_to']);
+    }
+    // Default to allow sending.
+    return TRUE;
   }
 
 }
