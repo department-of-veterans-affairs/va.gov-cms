@@ -31,10 +31,12 @@ Please refer to the Knowledge Base article titled "How do I add a facility to my
 
 #### CMS help desk steps
 **Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
-- [ ] 1. Become aware that the new facility is now on the Facility API (typically, via a Flag, but this may come in as a helpdesk ticket).
-- [ ] 2. If the editor has followed the steps from the above Knowledge Base article and included which section and VAMC the facility belongs to (i.e. VA Pittsburgh), great! **Proceed to step 3.** If not, please check with the editor or VHA digital media regarding what section and VAMC it belongs to.
-- [ ] 3. Updates the Section (default is "VAMC facilities", but it should be a VAMC system in a VISN) and VAMC system field accordingly.
-- [ ] 4. Communicate with editor (cc VHA Digital Media) to give them go-ahead to complete the content, with this [KB article](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system). (See sample notification email below)
+- [ ] Become aware that the new facility is now on the Facility API (typically, via a Flag, but this may come in as a helpdesk ticket).
+- [ ] **If the facility is a VA Mobile clinic, the "New facility" flag can be removed and the page archived with no further work needed. (Note, there are required fields that will need to be filled in before doing so.)**
+- [ ] If the editor has followed the steps from the above Knowledge Base article and included which section and VAMC the facility belongs to (i.e. VA Pittsburgh), great!
+  - If not, please check with the editor or VHA digital media regarding what section and VAMC it belongs to.
+    - [ ] Update the Section (default is "VAMC facilities", but it should be a VAMC system in a VISN) and VAMC system field accordingly.
+- [ ] Communicate with editor (cc VHA Digital Media) to give them go-ahead to complete the content, with this [KB article](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system). (See sample notification email below)
 
 <details><summary>Email template </summary>
 
@@ -52,21 +54,22 @@ Please let us know when your draft content is complete, so that we can wrap up t
 
 </details>
 
-- [ ] 5. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] When editor has prepared content and let help desk know, proceed to the remaining steps.
 
-<insert_url_change_request_link>
 
-- [ ] 6. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
+#### Drupal Admin steps (CMS Engineer or Help desk) _Help desk will complete these steps or escalate to request help from CMS engineering._
+- [ ] Update the facility **Meta description** field, using the following format: "Get address and hours, parking and transportation information, and health services offered at [facility name]."
+- [ ] Move the facility link in the health care system menu to its place in the alphabetized list (medical centers first, then clinics).
+- [ ] Drupal Admin bulk publishes nodes and facility.
+- [ ] Contact Lighthouse via Slack at #cms-lighthouse channel that this facility requires a canonical link in the following format (replacing the placeholder data with the actual API Id and VA.gov URL):
+  - `vha_691GM,https://www.va.gov/greater-los-angeles-health-care/locations/oxnard-va-clinic/`
+- [ ] Add the "Awaiting CSV" flag to the facility node with a revision log message that includes a link to this ticket.
+- [ ] Let Help desk know this has been done, if not done by Help desk.
 
-#### CMS engineer steps
-- [ ] 7. CMS engineer executes the steps of the URL change request ticket from step 5 above.
-
-#### Drupal Admin steps (CMS Engineer or Help desk)
-_Help desk will complete these steps or escalate to request help from CMS engineering._
-- [ ] 8. Drupal Admin bulk publishes nodes and facility.
-- [ ] 9. Drupal Admin edit facility node and remove `New facility` flag and save node.
-- [ ] 10. Let Help desk know this has been done, if not done by Help desk.
-
+#### Wait (days or weeks, potentially)
+- [ ] After the canonical link has been added to the websites.csv and you have confirmation from Lighthouse that the CSV has been deployed, validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
+- [ ] Update this ticket with a comment that the CSV change has been deployed.
+- [ ] Edit facility node and remove `New facility` and "Awaiting CSV" flags with a revision log message that includes a link to this ticket.
 
 #### CMS Help desk (wrap up)
-- [ ] 11. Notify editor and any other stakeholders.
+- [ ] Notify editor and any other stakeholders.
