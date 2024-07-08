@@ -169,7 +169,7 @@ class JobTypeMessageNotifyBase extends JobTypeBase implements ContainerFactoryPl
     // 2) restrict_delivery_to => Do not deliver mail to provided users.
     $restrict_to = !empty($payload['restrict_delivery_to']);
     $allow_only_to = !empty($payload['allow_delivery_only_to']);
-    if (!isset($restrict_to) || !isset($allow_to)) {
+    if (!isset($restrict_to) && !isset($allow_to)) {
       return TRUE;
     }
     $current_user = $message->getOwnerId();
@@ -180,7 +180,7 @@ class JobTypeMessageNotifyBase extends JobTypeBase implements ContainerFactoryPl
     }
     // If user is restricted, prevent sending.
     if ($restrict_to) {
-      return in_array($current_user, $payload['restrict_delivery_to']);
+      return !in_array($current_user, $payload['restrict_delivery_to']);
     }
     // Default to allow sending.
     return TRUE;
