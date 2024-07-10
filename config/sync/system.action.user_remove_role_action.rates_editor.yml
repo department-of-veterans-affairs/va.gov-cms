@@ -1,0 +1,14 @@
+uuid: 91fa2d67-6d03-45e7-adf5-02bb6f9ab270
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.rates_editor
+  module:
+    - user
+id: user_remove_role_action.rates_editor
+label: 'Remove the Rates Editor role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: rates_editor

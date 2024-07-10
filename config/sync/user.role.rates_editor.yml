@@ -1,0 +1,23 @@
+uuid: f88ca23c-f796-40df-baa5-5a326e978786
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.page
+  module:
+    - node
+    - override_node_options
+    - va_gov_backend
+third_party_settings:
+  va_gov_backend:
+    vgb_description: 'This is a new role that is limited to editing only Education Benefits Hub. This role should NEVER be allowed to publish.'
+id: rates_editor
+label: 'Rates Editor'
+weight: 8
+is_admin: null
+permissions:
+  - 'edit any page content'
+  - 'edit own page content'
+  - 'enter page revision log entry'
+  - 'override page authored by option'
+  - 'view page revisions'

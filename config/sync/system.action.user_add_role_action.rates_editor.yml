@@ -1,0 +1,14 @@
+uuid: c7a32a3d-2950-4501-b848-2888c7129ca9
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.rates_editor
+  module:
+    - user
+id: user_add_role_action.rates_editor
+label: 'Add the Rates Editor role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: rates_editor
