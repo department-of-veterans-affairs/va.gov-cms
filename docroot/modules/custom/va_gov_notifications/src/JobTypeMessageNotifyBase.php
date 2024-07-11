@@ -176,11 +176,11 @@ class JobTypeMessageNotifyBase extends JobTypeBase implements ContainerFactoryPl
     // The allow list is comprehensive, so users not in the allow list, if
     // present, are restricted.
     if ($allow_only_to) {
-      return in_array($current_user, $payload['allow_delivery_only_to']);
+      return in_array($current_user, (array) $payload['allow_delivery_only_to']);
     }
     // If user is restricted, prevent sending.
     if ($restrict_to) {
-      return !in_array($current_user, $payload['restrict_delivery_to']);
+      return !in_array($current_user, (array) $payload['restrict_delivery_to']);
     }
     // Default to allow sending.
     return TRUE;
