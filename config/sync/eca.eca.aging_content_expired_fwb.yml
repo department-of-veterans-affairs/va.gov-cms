@@ -19,7 +19,7 @@ events:
     plugin: 'eca_base:eca_cron'
     label: Cron
     configuration:
-      frequency: '* * * * *'
+      frequency: '0 0 * * *'
     successors:
       -
         id: eca_views_query
