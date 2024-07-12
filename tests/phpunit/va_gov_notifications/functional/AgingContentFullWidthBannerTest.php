@@ -81,8 +81,13 @@ class AgingContentFullWidthBannerTest extends VaGovExistingSiteBase {
     // Enable the ECA if it is not already.
     /** @var \Drupal\eca\Entity\Eca $eca */
     $eca = \Drupal::entityTypeManager()->getStorage('eca')->load("aging_content_{$type}_fwb");
+
     $status = $eca->status();
     $eca->enable();
+    // Ensure that the ECA model will always fire during cron.
+    $current_events = $events = $eca->get('events');
+    $events['eca_base_eca_cron']['configuration']['frequency'] = '* * * * *';
+    $eca->set('events', $events);
     $eca->save();
 
     // Run cron to queue the job.
@@ -95,6 +100,7 @@ class AgingContentFullWidthBannerTest extends VaGovExistingSiteBase {
 
     // Set ECA to previous state. This is to prevent duplicate queued items.
     $eca->setStatus($status);
+    $eca->set('events', $current_events);
     $eca->save();
 
     // Run cron again to execute the job, which sends the notification.
