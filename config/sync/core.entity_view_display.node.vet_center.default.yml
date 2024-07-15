@@ -24,7 +24,6 @@ dependencies:
     - field.field.node.vet_center.field_table_of_contents
     - field.field.node.vet_center.field_timezone
     - field.field.node.vet_center.field_vet_center_feature_content
-    - field.field.node.vet_center.field_vet_center_services_view
     - image.style.large
     - node.type.vet_center
   module:
@@ -37,7 +36,6 @@ dependencies:
     - options
     - telephone
     - user
-    - viewfield
 third_party_settings:
   field_group:
     group_external_content:
@@ -360,16 +358,6 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 8
-    region: content
-  field_vet_center_services_view:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: above
-      always_build_output: true
-      empty_view_title: above
-    third_party_settings: {  }
-    weight: 19
     region: content
 hidden:
   breadcrumbs: true
