@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vet_center.field_address
     - field.field.node.vet_center.field_administration
     - field.field.node.vet_center.field_cc_non_traditional_hours
@@ -25,16 +24,15 @@ dependencies:
     - field.field.node.vet_center.field_table_of_contents
     - field.field.node.vet_center.field_timezone
     - field.field.node.vet_center.field_vet_center_feature_content
+    - field.field.node.vet_center.field_vet_center_services_view
     - node.type.vet_center
     - workflows.workflow.editorial
   module:
     - address
     - content_moderation
-    - entity_browser_entity_form
     - entity_field_fetch
     - field_group
     - geofield
-    - ief_table_view_mode
     - limited_field_widgets
     - markup
     - media_library
@@ -44,6 +42,7 @@ dependencies:
     - textfield_counter
     - tzfield
     - va_gov_backend
+    - viewfield
 third_party_settings:
   field_group:
     group_operating_status:
@@ -95,7 +94,7 @@ third_party_settings:
       label: 'Direct line'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -160,7 +159,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -174,7 +173,7 @@ third_party_settings:
       label: 'Spotlight content'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -244,6 +243,21 @@ third_party_settings:
         label_element: h3
         attributes: ''
         open: false
+    group_vet_center_services:
+      children:
+        - field_vet_center_services_view
+      label: Services
+      region: content
+      parent_name: ''
+      weight: 7
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: false
+        description_display: after
 id: node.vet_center.default
 targetEntityType: node
 bundle: vet_center
@@ -253,7 +267,8 @@ content:
     type: address_default
     weight: 8
     region: content
-    settings: {  }
+    settings:
+      wrapper_type: fieldset
     third_party_settings: {  }
   field_administration:
     type: options_select
@@ -312,29 +327,6 @@ content:
     settings:
       html5_geolocation: false
     third_party_settings: {  }
-  field_health_services:
-    type: inline_entity_form_complex_table_view_mode
-    weight: 8
-    region: content
-    settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: service
-      label_plural: services
-      allow_new: true
-      allow_existing: false
-      match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: true
-      removed_reference: optional
-      allow_system_delete: false
-    third_party_settings:
-      entity_browser_entity_form:
-        entity_browser_id: _none
-      limited_field_widgets:
-        limit_values: '0'
   field_intro_text:
     type: string_textarea
     weight: 12
@@ -345,7 +337,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 26
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -453,6 +445,12 @@ content:
         collapse_edit_all: '0'
         duplicate: '0'
     third_party_settings: {  }
+  field_vet_center_services_view:
+    type: viewfield_select
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   flag:
     weight: 6
     region: content
@@ -475,6 +473,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_health_services: true
   langcode: true
   path: true
   promote: true
