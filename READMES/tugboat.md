@@ -39,6 +39,13 @@ New users have to be added to the tugboat database. The following steps will gui
 7. Find the user you want to add as an admin by using their email to look them up. `db.users.findOne({ email: “youremail” })`
 8. Once you verify the users email that you need to add as an admin, add them as an admin by doing the following: `db.users.updateOne({ email: “email” }, { $set: { admin: true }})`
 
+The reason we found we needed to be an administrator, we made changes to `/opt/tugboat/.tugboat/config.js` and needed to reload the agent. We made our changes, then we:
+1. Logged in as an admin
+2. found the tugboat agent
+3. scrolled to the bottom of the page
+4. Clicked the restart tugboat-vfs button
+
+It goes without saying, only make changes if you are authorized to do so and have consulted tugboat support.  
 
 ## VA Usage
 At VA, our lower environments are each built from a Tugboat Base Preview, in some fashion. Our Tugboat configuration is relevant to the discussion:  
