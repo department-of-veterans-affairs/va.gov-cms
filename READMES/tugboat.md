@@ -27,14 +27,7 @@ Admins permissions are needed to:
 - Rename the project.
 
 
-There are two major ways that admins can be added to tugboat. First, the system owner/super admin, can use the UI to add other administators to the system. By doing:
-1. Login to tugboat as a super admin
-2. Click the Admin navigation box in the top menu
-3. Click the Users navigation menu
-4. Click the user you want to give admin access to
-5. Edit their permissions to make them admins
-
-This is the preferred way to add an admin. However, if the super admin is not availible to create new admin users, the following actions can be done directly on the tugboat server to add new admins.
+The following actions can be done directly on the tugboat server to add new admins.
 
 New users have to be added to the tugboat database. The following steps will guide how to accomplish this.
 1. Follow the readme in the devops repo to be able to start ssm sessions. Doc found [here](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session)
