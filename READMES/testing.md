@@ -275,6 +275,17 @@ Just append `/cypress/` to the PR preview URL, e.g. `https://pr14763-bk1bdtbdtzg
 
 From there, select `/videos/` or `/screenshots/actual/`, and you should be able to access a directory structure with screenshots (only for failed tests) or videos (for failed _or_ successful tests). The directory structure should mirror that of the Cypress tests themselves, so a failed test for `facilities/facilities_api.feature` should create a video at `cypress/videos/facilities/facilities_api.feature.mp4`.
 
+### Re-run Cypress test suite on Tugboat if the automatic job failed?
+
+Go to your Tugboat Dashboard, open the PHP Terminal and enter the following command:
+
+`set -o allexport
+source .env
+set +o allexport
+./tests/scripts/ci-wrapper.sh cypress 'va:test:cypress-parallel'`
+
+This will rerun the Cypress tests one by one and may resolve any failures that were due to paralellization
+ 
 ----
 
 [Table of Contents](../README.md)
