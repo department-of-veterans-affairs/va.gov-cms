@@ -344,7 +344,7 @@ third_party_settings:
         show_empty_fields: '1'
         show_label: '1'
         tooltip_description: ''
-        description: 'Facility services are created on a different page.'
+        description: 'Adds a link to create a VBA Facility service. The actual content is overridden by createLinksFacilityServices() in va_gov_vba_facility/src/EventSubscriber/VbaFacilitySubscriber.php'
         required_fields: '1'
         id: facility-services
         classes: 'not-editable centralized'
@@ -392,7 +392,8 @@ content:
     type: address_default
     weight: 11
     region: content
-    settings: {  }
+    settings:
+      wrapper_type: fieldset
     third_party_settings: {  }
   field_administration:
     type: options_select
