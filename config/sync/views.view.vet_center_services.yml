@@ -350,7 +350,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<a href="{{ edit_node }}?destination=/node/{{ nid }}/edit" class="button" target="_blank">Edit</a>'
+            text: '<a href="{{ edit_node }}?destination={{ view_node }} " class="button" target="_blank">Edit</a>'
             make_link: false
             path: ''
             absolute: false
@@ -671,7 +671,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'Add services that Veterans can receive at your Vet Center. Some content won''t be editable because it comes from other sources. For full guidance, see <a href="/help/vet-centers/how-to-edit-a-vet-center-service" target="_blank">How to add or edit a Vet Center service (opens in a new tab)</a>.'
+            value: 'Add services that Veterans can receive at your Vet Center. Some content won''t be editable because it comes from other sources. All links will open in a new tab. For full guidance, see <a href="/help/vet-centers/how-to-edit-a-vet-center-service" target="_blank">How to add or edit a Vet Center service (opens in a new tab)</a>.'
             format: rich_text
           tokenize: false
       footer:
