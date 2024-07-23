@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5697ef609cbafcde77fcf52fda145ab3",
+    "content-hash": "0356fdd3590a16bf117dca812c9d8ac5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4707,30 +4707,29 @@
         },
         {
             "name": "drupal/devel",
-            "version": "5.2.1",
+            "version": "5.1.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/devel.git",
-                "reference": "5.2.1"
+                "reference": "5.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/devel-5.2.1.zip",
-                "reference": "5.2.1",
-                "shasum": "793861751e01092fe8bc7c0cd47589ebea2bb8df"
+                "url": "https://ftp.drupal.org/files/projects/devel-5.1.2.zip",
+                "reference": "5.1.2",
+                "shasum": "9b35e38bf2043bf87f88585b3d9100f38da8f07f"
             },
             "require": {
                 "doctrine/common": "^2.7 || ^3.4",
-                "drupal/core": ">=10.0 <12.0.0-stable",
-                "php": ">=8.1",
+                "drupal/core": "^9 || ^10",
+                "php": ">=7.4",
                 "symfony/var-dumper": "^4 || ^5 || ^6"
             },
             "conflict": {
-                "drush/drush": "<12.5.1",
                 "kint-php/kint": "<3"
             },
             "require-dev": {
-                "drush/drush": "^12.5.1"
+                "drush/drush": "^11"
             },
             "suggest": {
                 "kint-php/kint": "Kint provides an informative display of arrays/objects. Useful for debugging and developing."
@@ -4738,11 +4737,16 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "5.2.1",
-                    "datestamp": "1711328410",
+                    "version": "5.1.2",
+                    "datestamp": "1686161028",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10 || ^11"
                     }
                 }
             },
@@ -14330,16 +14334,16 @@
         },
         {
             "name": "drush/drush",
-            "version": "12.5.2",
+            "version": "12.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "4aebed85dc818ff762f2e24a85b023d2a52050df"
+                "reference": "a6585cddae47144413565f3c1cd29debc69f6b41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/4aebed85dc818ff762f2e24a85b023d2a52050df",
-                "reference": "4aebed85dc818ff762f2e24a85b023d2a52050df",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/a6585cddae47144413565f3c1cd29debc69f6b41",
+                "reference": "a6585cddae47144413565f3c1cd29debc69f6b41",
                 "shasum": ""
             },
             "require": {
@@ -14462,7 +14466,7 @@
                 "issues": "https://github.com/drush-ops/drush/issues",
                 "security": "https://github.com/drush-ops/drush/security/advisories",
                 "slack": "https://drupal.slack.com/messages/C62H9CWQM",
-                "source": "https://github.com/drush-ops/drush/tree/12.5.2"
+                "source": "https://github.com/drush-ops/drush/tree/12.4.4"
             },
             "funding": [
                 {
@@ -14470,7 +14474,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-02T17:20:48+00:00"
+            "time": "2024-03-02T12:14:56+00:00"
         },
         {
             "name": "e0ipso/shaper",
