@@ -1,0 +1,33 @@
+uuid: 6ace573b-80bd-4b83-af01-3de996a1423c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_name_and_date_of_bi.field_include_date_of_birth
+    - field.field.paragraph.digital_form_name_and_date_of_bi.field_title
+    - paragraphs.paragraphs_type.digital_form_name_and_date_of_bi
+id: paragraph.digital_form_name_and_date_of_bi.default
+targetEntityType: paragraph
+bundle: digital_form_name_and_date_of_bi
+mode: default
+content:
+  field_include_date_of_birth:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true
