@@ -14,7 +14,7 @@ Feature: Permissions
     And I should receive status code 200 when I request "/admin/config/search/redirect"
 
   Scenario: Administer user role can add/edit users
-    Given I am logged in as a user with the "admnistrator_users" role
+    Given I am logged in as a user with the "administrator_users" role
     And I should receive status code 200 when I request "/admin/people"
     And I should receive status code 200 when I request "/admin/people/create"
 
