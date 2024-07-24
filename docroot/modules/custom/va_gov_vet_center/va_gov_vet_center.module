@@ -190,10 +190,9 @@ function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface
   if ($entity->bundle() !== 'vet_center') {
     return;
   }
-  $form['#attached']['library'][] = 'va_gov_vet_center/set_ief_service_selects';
 
   // Attach the vet center services view to the form.
-  $form['group_vet_center_services']['vet_center_services'] = [
+  $form['group_vet_center_services'][] = [
     '#type' => 'view',
     '#name' => 'vet_center_services',
     '#display_id' => 'vet_center_services',
@@ -212,26 +211,18 @@ function va_gov_vet_center_views_pre_render(ViewExecutable $view) {
   if ($view->id() !== 'vet_center_services') {
     return;
   }
-  $current_path = \Drupal::service('path.current')->getPath();
-  $node_edit_pattern = "@\/node/(\d*)/edit@i";
-  // Only change the view on the facility node page.
-  if (!preg_match($node_edit_pattern, $current_path)) {
+  $routeName = \Drupal::routeMatch()->getRouteName();
+  // Check if this is the node edit form.
+  if ($routeName !== 'entity.node.edit_form') {
     return;
   }
-  // Get the node id from the path.
-  if (preg_match($node_edit_pattern, $current_path, $matches)) {
-    $node_id = $matches[1];
-  }
-  else {
-    return;
-  }
-  $entity = \Drupal::entityTypeManager()->getStorage('node')->load($node_id);
-  $entity_title = $entity->getTitle();
+  $node = \Drupal::routeMatch()->getParameter('node');
+  $entity_title = $node->getTitle();
 
   // Ensure the page title is not null and the desired field exists in the view.
   if ($entity_title && isset($view->field['field_service_name_and_descripti'])) {
-    // Append or prepend the page title to the field label as needed.
-    $new_label = "Services offered at $entity_title";
+    // Append the page title to the field label as needed.
+    $new_label = t('Services offered at') . $entity_title;
     // Set the new label for the field.
     $view->field['field_service_name_and_descripti']->options['label'] = $new_label;
   }
