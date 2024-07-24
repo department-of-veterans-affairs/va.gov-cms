@@ -4,18 +4,29 @@ status: true
 dependencies:
   config:
     - field.field.node.digital_form.field_administration
+    - field.field.node.digital_form.field_chapters
     - field.field.node.digital_form.field_last_saved_by_an_editor
     - field.field.node.digital_form.field_meta_tags
     - field.field.node.digital_form.field_omb_number
     - field.field.node.digital_form.field_va_form_number
     - node.type.digital_form
   module:
+    - entity_reference_revisions
     - user
 id: node.digital_form.default
 targetEntityType: node
 bundle: digital_form
 mode: default
 content:
+  field_chapters:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_omb_number:
     type: string
     label: above
