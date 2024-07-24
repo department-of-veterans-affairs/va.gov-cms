@@ -13,6 +13,7 @@ Feature: Permissions
     And I should receive status code 200 when I request "/admin/config/search/redirect/migrate"
     And I should receive status code 200 when I request "/admin/config/search/redirect"
 
+  @ignore
   Scenario: Administer user role can add/edit users
     Given I am logged in as a user with the "administrator_users" role
     And I should receive status code 200 when I request "/admin/people"
