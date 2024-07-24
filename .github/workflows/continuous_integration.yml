@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Check Corresponding Entity Reference Fields
         # See also `composer va:test:check-cer` in composer.json
         run: ./tests/scripts/check-cer.sh
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Composer Validate
         run: composer validate
 
@@ -38,12 +38,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: ReviewDog
         # See also `composer va:test:eslint` in composer.json
-        uses: reviewdog/action-eslint@423672b7acbb75ee34d3e37aff30949ddc8350e3 # v1.24.0
+        uses: reviewdog/action-eslint@1d4b2566223411c02be19b14ca258fa44a46dc31 # v1.30.0
         with:
           reporter: github-pr-review
           eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js tests/cypress/**/*.js'
@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHP_CodeSniffer and ReviewDog
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPLint
@@ -92,7 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPStan and ReviewDog
@@ -119,7 +119,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
@@ -136,7 +136,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Stylelint modules
         # See also `composer va:test:stylelint-modules` in composer.json
         uses: reviewdog/action-stylelint@2dd87bbb3c82a49bb5b7bf01a454b4e9754c5289 # v1.26.0
@@ -164,7 +164,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           fetch-depth: 0
       - name: Delete any existing comment.

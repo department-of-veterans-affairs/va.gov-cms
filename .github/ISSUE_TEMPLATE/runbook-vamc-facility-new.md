@@ -32,6 +32,7 @@ Please refer to the Knowledge Base article titled "How do I add a facility to my
 #### CMS help desk steps
 **Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 - [ ] Become aware that the new facility is now on the Facility API (typically, via a Flag, but this may come in as a helpdesk ticket).
+- [ ] **If the facility is a VA Mobile clinic, the "New facility" flag can be removed and the page archived with no further work needed. (Note, there are required fields that will need to be filled in before doing so.)**
 - [ ] If the editor has followed the steps from the above Knowledge Base article and included which section and VAMC the facility belongs to (i.e. VA Pittsburgh), great!
   - If not, please check with the editor or VHA digital media regarding what section and VAMC it belongs to.
     - [ ] Update the Section (default is "VAMC facilities", but it should be a VAMC system in a VISN) and VAMC system field accordingly.
@@ -60,7 +61,6 @@ Please let us know when your draft content is complete, so that we can wrap up t
 - [ ] Update the facility **Meta description** field, using the following format: "Get address and hours, parking and transportation information, and health services offered at [facility name]."
 - [ ] Move the facility link in the health care system menu to its place in the alphabetized list (medical centers first, then clinics).
 - [ ] Drupal Admin bulk publishes nodes and facility.
-- [ ] Drupal Admin edit facility node and remove `New facility` flag and save node.
 - [ ] Contact Lighthouse via Slack at #cms-lighthouse channel that this facility requires a canonical link in the following format (replacing the placeholder data with the actual API Id and VA.gov URL):
   - `vha_691GM,https://www.va.gov/greater-los-angeles-health-care/locations/oxnard-va-clinic/`
 - [ ] Add the "Awaiting CSV" flag to the facility node with a revision log message that includes a link to this ticket.
@@ -69,7 +69,7 @@ Please let us know when your draft content is complete, so that we can wrap up t
 #### Wait (days or weeks, potentially)
 - [ ] After the canonical link has been added to the websites.csv and you have confirmation from Lighthouse that the CSV has been deployed, validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
 - [ ] Update this ticket with a comment that the CSV change has been deployed.
-- [ ] Remove the "Awaiting CSV" flag to the facility node with a revision log message that includes a link to this ticket.
+- [ ] Edit facility node and remove `New facility` and "Awaiting CSV" flags with a revision log message that includes a link to this ticket.
 
 #### CMS Help desk (wrap up)
 - [ ] Notify editor and any other stakeholders.
