@@ -9,7 +9,7 @@
         "behat/mink": "^1.10",
         "behat/mink-browserkit-driver": "^2.1",
         "digitalrevolution/php-codesniffer-baseline": "^1.1",
-        "drupal/devel": "^5.0",
+        "drupal/devel": "5.1.2",
         "drupal/html_tag_usage": "^1.0@beta",
         "drupal/media_entity_generic": "^1.0",
         "palantirnet/drupal-rector": "^0.20.1"
@@ -29,7 +29,7 @@
         "drupal/allow_only_one": "1.0.2",
         "drupal/allowed_formats": "^3.0",
         "drupal/animated_gif": "^2.0",
-        "drupal/auto_entitylabel": "^3.0",
+        "drupal/auto_entitylabel": "^3.2",
         "drupal/better_exposed_filters": "^6.0",
         "drupal/cer": "^5.0@beta",
         "drupal/change_labels": "dev-3326097-remove-dependency-on-drupal-autoservices#7f92f90b456ac2f394dd434257e39e1d9b3086eb",
@@ -104,7 +104,7 @@
         "drupal/ief_table_view_mode": "^3.0",
         "drupal/image_style_warmer": "^1.2@RC",
         "drupal/image_widget_crop": "^2.2",
-        "drupal/jsonapi_extras": "^3.19",
+        "drupal/jsonapi_extras": "3.24",
         "drupal/jsonapi_hypermedia": "^1.9",
         "drupal/jsonapi_image_styles": "^3.0",
         "drupal/jsonapi_menu_items": "^1.2",
@@ -117,8 +117,8 @@
         "drupal/linkychecker": "^2.2",
         "drupal/linkyreplacer": "^2.2",
         "drupal/markup": "^2.0",
-        "drupal/memcache": "^2.3",
-        "drupal/memcache_admin": "^2.3",
+        "drupal/memcache": "2.5.0",
+        "drupal/memcache_admin": "2.5.0",
         "drupal/menu_breadcrumb": "^2.0@alpha",
         "drupal/menu_export": "^1.2",
         "drupal/menu_force": "^2.0",
@@ -173,7 +173,7 @@
         "drupal/simplesamlphp_auth": "^4.0@RC",
         "drupal/sitewide_alert": "^2.0",
         "drupal/slack": "^1.3",
-        "drupal/smart_date": "^4.0",
+        "drupal/smart_date": "4.1.2",
         "drupal/social_media_links": "^2.8",
         "drupal/string_field_formatter": "^2.0",
         "drupal/styleguide": "^2.0@beta",
@@ -183,7 +183,7 @@
         "drupal/textfield_counter": "^2.3",
         "drupal/tmgmt": "^1.14",
         "drupal/toolbar_menu": "^3.0",
-        "drupal/twig_tweak": "^3.1",
+        "drupal/twig_tweak": "3.3",
         "drupal/tzfield": "^1.7",
         "drupal/upgrade_status": "^4.0",
         "drupal/user_history": "^1.0@alpha",
@@ -196,7 +196,7 @@
         "drupal/views_local_tasks": "^1.0",
         "drupal/workbench_access": "^2.0",
         "drupal/workbench_menu_access": "^2.0",
-        "drush/drush": "^12",
+        "drush/drush": "12.4.3",
         "easyrdf/easyrdf": "1.1.1 as 0.9.1",
         "geocoder-php/mapbox-provider": "^1.3",
         "gitonomy/gitlib": "^1.2",
@@ -226,8 +226,8 @@
         "symfony/process": "^6.3",
         "symfony/routing": "^6.3",
         "va-gov/content-build": "^0.0.3555",
-        "vlucas/phpdotenv": "^5.3",
-        "webflo/drupal-finder": "^1.0.0",
+        "vlucas/phpdotenv": "^5.6",
+        "webflo/drupal-finder": "1.2.2",
         "webmozart/path-util": "^2.3",
         "webonyx/graphql-php": "^14.11",
         "weitzman/drupal-test-traits": "^2.0.1",
@@ -377,8 +377,7 @@
                 "3301224 - Follow-up: Very slow JSON:API responses when images are stored on AWS bucket": "https://www.drupal.org/files/issues/2023-02-07/3301224-9.patch"
             },
             "drupal/content_lock": {
-                "2951652 - Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch",
-                "3307402 - Content Lock should typehint ModuleHandler interface rather than a specific implementation": "https://www.drupal.org/files/issues/2023-02-03/3307402-typehint-module-handler-interface.patch"
+                "2951652 - Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
             },
             "drupal/core": {
                 "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2023-01-31/3057267-maintenance-forced-logout-experimental.patch",
@@ -433,6 +432,9 @@
                 "3000184 - In detailed usage, resolve the paragraph URL to parent entity": "https://www.drupal.org/files/issues/2024-04-03/3000184-resolve_the_paragraph_URL_to_parent_entity.patch",
                 "3443270 - Check Access entity usage statistics perms in linkedUsage() method": "https://www.drupal.org/files/issues/2024-04-24/3443270-Check-Access-entity-usage-statistics-perms-in-linkedUsage-method.patch"
             },
+            "drupal/environment_indicator": {
+                "3463388 - fgColor not being picked up.": "https://www.drupal.org/files/issues/2024-07-23/3463201-fix-for-change-in-class-for-toolbar_0.patch"
+            },
             "drupal/field_group": {
                 "2787179 - Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
                 "3053242 - Undefined index #description_display when adding a description to fieldset group type": "https://www.drupal.org/files/issues/2022-07-04/field_group-undefined-index-description-display-3053242-11.patch"
@@ -443,9 +445,6 @@
             },
             "drupal/flysystem_s3": {
                 "3297257 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2023-04-27/3297257-drupal-10-compatibility-fixes_0.patch"
-            },
-            "drupal/hms_field": {
-                "3351452 - Argument #1 ($seconds) must be of type string|int, null given": "https://www.drupal.org/files/issues/2023-03-31/hms_field-field_null_value-3351452-1.patch"
             },
             "drupal/html_tag_usage": {
                 "3270450 - Add csv generator and filters": "https://www.drupal.org/files/issues/2022-06-30/add-filters-and-csv-20.patch"
@@ -460,9 +459,6 @@
             "drupal/jsonapi_extras": {
                 "3025283 - Default field enhancer for each field type": "patches/field-type-enhancer-3025283-3.patch"
             },
-            "drupal/jsonapi_menu_items": {
-                "3276561 - Add support for the Menu Item Extras module": "https://www.drupal.org/files/issues/2022-08-01/3276561-05-menu_item_extras_support.patch"
-            },
             "drupal/linkit": {
                 "3049946 - Linkit unpublished nodes not included": "https://www.drupal.org/files/issues/2023-11-09/linkit-unpublished-nodes-not-included-3049946-34.patch"
             },
@@ -472,16 +468,14 @@
             "drupal/menu_item_extras": {
                 "3210468 - The 'bundle' field is not always populated with the menu name": "https://www.drupal.org/files/issues/2021-04-23/3210468.patch"
             },
-            "drupal/migrate_plus": {
-                "3368310 - Fix str_replace for null values, post PHP 8.1": "patches/3368310-str-replace-throws-php-error-11.patch"
-            },
             "drupal/migration_tools": {
                "3366789 - Create convert to boolean process plugin": "https://www.drupal.org/files/issues/2023-06-20/add-convert-boolean-process_0.patch"
             },
             "drupal/openapi_jsonapi": {
                 "3110109 - Support renamed resource types Part 1": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/17070f1ef70ff89f732619a11c29730107a2083e.patch",
                 "3110109 - Support renamed resource types Part 2": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/9b02c70521c499152c915e481aaf4925992bc8f9.patch",
-                "3185778 - Fix TypeError: Cannot read property 'anyOf' of undefined": "https://www.drupal.org/files/issues/2020-12-21/add_required_keyword_8.x_2.x-3185778-5.patch"
+                "3185778 - Fix TypeError: Cannot read property 'anyOf' of undefined": "https://www.drupal.org/files/issues/2020-12-21/add_required_keyword_8.x_2.x-3185778-5.patch",
+                "3462481 - Type of Drupal\\openapi_jsonapi\\Plugin\\openapi\\OpenApiGenerator\\JsonApiGenerator::$DEFINITION_SEPARATOR must be string": "https://www.drupal.org/files/issues/2024-07-20/openapi_jsonapi-3462481-4.patch"
             },
             "drupal/openapi_ui_swagger": {
                 "3259746 - Add more UI config defaults": "https://www.drupal.org/files/issues/2023-12-13/add-more-config-defaults-3259746-3.patch"
@@ -489,9 +483,6 @@
             "drupal/paragraphs": {
                 "3138609 - Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
                 "2919186 - Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
-            },
-            "drupal/paragraphs_browser": {
-                "3340467 - Replace deprecated jquery/once with core/once": "https://www.drupal.org/files/issues/2023-02-09/replace_jquery_once_with_core_once.patch"
             },
             "drupal/pathauto": {
                 "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2022-10-28/pathauto-add_deriver_for_alias_update_action-3204586-28_0.patch",
