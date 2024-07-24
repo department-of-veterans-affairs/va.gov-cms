@@ -1,0 +1,19 @@
+Subject: [PATCH] fix for ckeditor5 height when not in viewport
+---
+Index: js/environment_indicator.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/js/environment_indicator.js b/js/environment_indicator.js
+--- a/js/environment_indicator.js	(revision c5e053daa76ae6fe645273c0c33cfdb6fbe3569c)
++++ b/js/environment_indicator.js	(date 1721681591599)
+@@ -19,7 +19,7 @@
+         // Only apply text and background color if not using gin_toolbar
+         if (!$body.hasClass('gin--vertical-toolbar') && !$body.hasClass('gin--horizontal-toolbar')) {
+           $('#toolbar-bar', context).css('background-color', settings.environmentIndicator.bgColor);
+-          $('#toolbar-bar .toolbar-item a', context).not('.is-active').css('color', settings.environmentIndicator.fgColor);
++          $('#toolbar-bar .toolbar-item', context).not('.is-active').css('color', settings.environmentIndicator.fgColor);
+         }
+
+         // Set environment color for gin_toolbar vertical toolbar.
