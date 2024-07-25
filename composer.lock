@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c16357598edccfbcbd2f97c322bc1578",
+    "content-hash": "d5a37af9b430403e62bd2798d7bf8597",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1176,22 +1176,22 @@
         },
         {
             "name": "datadog/dd-trace",
-            "version": "0.99.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DataDog/dd-trace-php.git",
-                "reference": "8de3b1fb481960857fff1d55d5e1862f7cf39fca"
+                "reference": "dbdd9223ddf251e88d53bf0891c0b7fe241b8e9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/8de3b1fb481960857fff1d55d5e1862f7cf39fca",
-                "reference": "8de3b1fb481960857fff1d55d5e1862f7cf39fca",
+                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/dbdd9223ddf251e88d53bf0891c0b7fe241b8e9d",
+                "reference": "dbdd9223ddf251e88d53bf0891c0b7fe241b8e9d",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
-                "php": "^5.4 || ^7.0 || ^8.0.0"
+                "php": "^7.0 || ^8.0.0"
             },
             "require-dev": {
                 "ext-posix": "*",
@@ -1204,6 +1204,14 @@
             "type": "library",
             "extra": {
                 "scenarios": {
+                    "openai": {
+                        "require": {
+                            "openai-php/client": "@stable"
+                        },
+                        "scenario-options": {
+                            "create-lockfile": false
+                        }
+                    },
                     "opentelemetry1": {
                         "require": {
                             "open-telemetry/sdk": "@stable",
@@ -1244,9 +1252,6 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "./src/api/ComposerBootstrap.php"
-                ],
                 "psr-4": {
                     "DDTrace\\": "./src/api/"
                 }
@@ -1274,9 +1279,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DataDog/dd-trace-php/issues",
-                "source": "https://github.com/DataDog/dd-trace-php/tree/0.99.1"
+                "source": "https://github.com/DataDog/dd-trace-php/tree/1.2.0"
             },
-            "time": "2024-04-04T15:06:49+00:00"
+            "time": "2024-07-22T17:42:03+00:00"
         },
         {
             "name": "davedevelopment/stiphle",
