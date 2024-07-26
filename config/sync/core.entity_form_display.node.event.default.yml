@@ -219,7 +219,8 @@ content:
     type: address_default
     weight: 16
     region: content
-    settings: {  }
+    settings:
+      wrapper_type: fieldset
     third_party_settings: {  }
   field_administration:
     type: options_select
@@ -275,10 +276,10 @@ content:
         custom
       show_extra: true
       hide_date: false
+      allday: true
+      remove_seconds: false
       separator: to
       add_abbreviations: ''
-      allday: '1'
-      remove_seconds: 0
     third_party_settings:
       no_table_drag:
         no_table_drag: true
@@ -392,6 +393,7 @@ content:
     region: content
     settings:
       media_types: {  }
+      form_mode: media_library_event
     third_party_settings: {  }
   field_order:
     type: options_select

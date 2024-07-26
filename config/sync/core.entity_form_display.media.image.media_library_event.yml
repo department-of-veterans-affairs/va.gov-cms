@@ -1,0 +1,91 @@
+uuid: 648db60d-463b-4fca-b8ec-ce3cfe72c666
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library_event
+    - field.field.media.image.field_description
+    - field.field.media.image.field_media_in_library
+    - field.field.media.image.field_media_submission_guideline
+    - field.field.media.image.field_owner
+    - field.field.media.image.image
+    - image.style.full_content_width
+    - media.type.image
+  module:
+    - change_labels
+    - field_group
+    - image_widget_crop
+    - markup
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_owner
+      label: 'Section settings'
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        required_fields: true
+_core:
+  default_config_hash: kyoAHlZTGIuGTaQuBblGBk8EhfnVKOl19_0j5WbpQqM
+id: media.image.media_library_event
+targetEntityType: media
+bundle: image
+mode: media_library_event
+content:
+  field_media_submission_guideline:
+    type: markup
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_owner:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  image:
+    type: image_widget_crop
+    weight: 2
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: full_content_width
+      crop_preview_image_style: crop_7_2
+      crop_list:
+        - '7_2'
+      crop_types_required: {  }
+      warn_multiple_usages: false
+      show_crop_area: true
+      show_default_crop: true
+    third_party_settings:
+      change_labels:
+        remove_label: ''
+  name:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_description: true
+  field_media_in_library: true
+  langcode: true
+  moderation_state: true
+  path: true
+  status: true
+  uid: true
