@@ -1,6 +1,6 @@
 uuid: 8accd7d5-70c2-4e26-93b0-96bbbbf7562a
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - views.view.aging_content
@@ -19,7 +19,7 @@ events:
     plugin: 'eca_base:eca_cron'
     label: Cron
     configuration:
-      frequency: '* * * * *'
+      frequency: '0 0 * * *'
     successors:
       -
         id: eca_views_query

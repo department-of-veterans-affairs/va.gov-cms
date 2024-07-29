@@ -26,7 +26,6 @@ class AgingContentFullWidthBannerTest extends VaGovExistingSiteBase {
     $this->drupalLogin($user);
 
     $node_base = [
-      'title' => 'Expirable Content Test Node',
       'status' => 1,
       'moderation_state' => 'published',
       'type' => 'banner',
@@ -46,10 +45,10 @@ class AgingContentFullWidthBannerTest extends VaGovExistingSiteBase {
     ];
 
     foreach ($dates as $key => $date) {
-      $node = $this->createNode($node_base);
-      $node->set('field_last_saved_by_an_editor', $date);
-      $node->set('title', $node->getTitle() . ':' . $key);
-      $node->save();
+      $this->createNode($node_base + [
+        'field_last_saved_by_an_editor' => $date,
+        'title' => 'Expirable Content Test Node:' . $key,
+      ]);
     }
   }
 
@@ -73,22 +72,21 @@ class AgingContentFullWidthBannerTest extends VaGovExistingSiteBase {
    * @dataProvider dataProvider
    *
    * @throws \Behat\Mink\Exception\ResponseTextException
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function testFullWidthBannerJobQueued(string $type) {
-    // Enable the ECA if it is not already.
-    /** @var \Drupal\eca\Entity\Eca $eca */
-    $eca = \Drupal::entityTypeManager()->getStorage('eca')->load("aging_content_{$type}_fwb");
+    $session = $this->getSession();
 
-    $status = $eca->status();
-    $eca->enable();
-    // Ensure that the ECA model will always fire during cron.
-    $current_events = $events = $eca->get('events');
-    $events['eca_base_eca_cron']['configuration']['frequency'] = '* * * * *';
-    $eca->set('events', $events);
-    $eca->save();
+    // Set cron frequency so that the ECA Cron Event will always fire.
+    $this->drupalGet("/admin/config/workflow/eca/aging_content_{$type}_fwb/event/eca_base_eca_cron/edit");
+    $frequencyElement = $session->getPage()->findById('edit-event-frequency');
+    $currentFrequency = $frequencyElement->getValue();
+    $frequencyElement->setValue('* * * * *');
+    $session->getPage()->findById('edit-actions-submit')->click();
+
+    // Enable the ECA Model if it is not already.
+    $this->drupalGet("/admin/config/workflow/eca/aging_content_{$type}_fwb/edit");
+    $session->getPage()->findById('edit-options-status')->check();
+    $session->getPage()->findById('edit-submit')->click();
 
     // Run cron to queue the job.
     $this->drupalGet('admin/reports/status');
@@ -98,12 +96,18 @@ class AgingContentFullWidthBannerTest extends VaGovExistingSiteBase {
     $this->drupalGet('admin/config/system/queues/jobs/aging_content');
     $this->assertSession()->pageTextContains("Expirable Content Test Node:{$type}");
 
-    // Set ECA to previous state. This is to prevent duplicate queued items.
-    $eca->setStatus($status);
-    $eca->set('events', $current_events);
-    $eca->save();
+    // Disable the ECA Model. This is to prevent duplicate queued items.
+    $this->drupalGet("/admin/config/workflow/eca/aging_content_{$type}_fwb/edit");
+    $session->getPage()->findById('edit-options-status')->uncheck();
+    $session->getPage()->findById('edit-submit')->click();
 
-    // Run cron again to execute the job, which sends the notification.
+    // Set cron frequency back to previous state.
+    $this->drupalGet("/admin/config/workflow/eca/aging_content_{$type}_fwb/event/eca_base_eca_cron/edit");
+    $frequencyElement = $session->getPage()->findById('edit-event-frequency');
+    $frequencyElement->setValue($currentFrequency);
+    $session->getPage()->findById('edit-actions-submit')->click();
+
+    // Run cron again to process queued job, which sends the notification.
     $this->drupalGet('admin/reports/status');
     $this->clickLink($this->t('Run cron'));
 
