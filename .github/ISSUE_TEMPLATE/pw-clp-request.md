@@ -1,5 +1,5 @@
 ---
-name: "(PW) Campaign Landing Page request"
+name: "(Sitewide) Campaign Landing Page request"
 about: Request a new Campaign Landing Page, owned by Public
   Websites team
 title: 'Campaign Landing Page request: <content info>'
@@ -40,8 +40,8 @@ Submitter: <insert_name>
 - Request comes in, via helpdesk request or direct to PO, or potentially in a Github issue.
 - [ ] If not in a helpdesk request, redirect to Helpdesk or create a Helpdesk issue using email support@va-gov.atlassian.net or URL https://prod.cms.va.gov/help
 Helpdesk will use #sitewide-public-websites channel to request approvals
-- [ ] In helpdesk ticket, @ mention Dave Conlon to review/approve the creation / existence / description of the CLP. Example text: 
-> Hi Dave, Helpdesk has received a request for a new Campaign Landing Page. Can you confirm that this CLP is approved?
+- [ ] In helpdesk ticket, @ mention Michelle Middaugh to review/approve the creation / existence / description of the CLP. Example text: 
+> Hi Michelle, Helpdesk has received a request for a new Campaign Landing Page. Can you confirm that this CLP is approved?
 
 ### **If not approved**
 - [ ] Close the Helpdesk ticket and the Github issue.
