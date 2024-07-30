@@ -17,6 +17,36 @@ Any Github user in the department-of-veterans-affairs organization can log into 
 
 Tugboat management has been limited to [@platform-cms-devops-engineers](https://github.com/orgs/department-of-veterans-affairs/teams/platform-cms-devops-engineers) historically.
 
+### Granting Admin Access
+Admins permissions are needed to:
+- Add and remove users from a project, and change user permissions. Admin users can administer other admin users, though they cannot remove themselves from a project.
+- Add repositories to the project.
+- Manage the repository configuration interface. This includes things like changing repository settings, environment variables and SSH keys.
+- Delete repositories.
+- Delete the entire project.
+- Rename the project.
+
+
+The following actions can be done directly on the tugboat server to add new admins.
+
+New users have to be added to the tugboat database. The following steps will guide how to accomplish this.
+1. Follow the readme in the devops repo to be able to start ssm sessions. Doc found [here](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session)
+2. Login to the tugboat utility server by running `ssm-session utility`
+3. Once logged in, perform `sudo su` in order to run docker commands
+4. Next, you need to find the container running the tugboat database. To do this run `docker ps | grep tugboat-mongo`. Note the ID
+5. Exec into the database instance by doing the following `docker exec -it <tugboat id> mongosh tugboat-ui /edit tugboat mongo instance`
+6. You can find the current super admin with the follwoing: `db.users.findOne()`
+7. Find the user you want to add as an admin by using their email to look them up. `db.users.findOne({ email: “youremail” })`
+8. Once you verify the users email that you need to add as an admin, add them as an admin by doing the following: `db.users.updateOne({ email: “email” }, { $set: { admin: true }})`
+
+The reason we found we needed to be an administrator, we made changes to `/opt/tugboat/.tugboat/config.js` and needed to reload the agent. We made our changes, then we:
+1. Logged in as an admin
+2. found the tugboat agent
+3. scrolled to the bottom of the page
+4. Clicked the restart tugboat-vfs button
+
+It goes without saying, only make changes if you are authorized to do so and have consulted tugboat support.  
+
 ## VA Usage
 At VA, our lower environments are each built from a Tugboat Base Preview, in some fashion. Our Tugboat configuration is relevant to the discussion:  
 
