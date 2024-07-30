@@ -39,6 +39,7 @@ dependencies:
     - limited_field_widgets
     - linkit
     - media_library
+    - media_library_edit
     - no_table_drag
     - path
     - smart_date
@@ -99,7 +100,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
@@ -394,7 +394,9 @@ content:
     settings:
       media_types: {  }
       form_mode: media_library_event
-    third_party_settings: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
   field_order:
     type: options_select
     weight: 16
