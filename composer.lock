@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e99732d1635a178c4ade7f7925ab757b",
+    "content-hash": "8ea7a783d27ba60731c587b4b78ebe9b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7664,28 +7664,28 @@
         },
         {
             "name": "drupal/hook_event_dispatcher",
-            "version": "4.0.0-rc1",
+            "version": "4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/hook_event_dispatcher.git",
-                "reference": "4.0.0-rc1"
+                "reference": "4.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/hook_event_dispatcher-4.0.0-rc1.zip",
-                "reference": "4.0.0-rc1",
-                "shasum": "4e643c27f4c083eb30a1e2325163e65be47d7b81"
+                "url": "https://ftp.drupal.org/files/projects/hook_event_dispatcher-4.0.3.zip",
+                "reference": "4.0.3",
+                "shasum": "e97591b7be0f4961b7cdf9db18c65979f352adba"
             },
             "require": {
-                "drupal/core": "^10",
+                "drupal/core": "^10.2",
                 "php": ">=8.1.0"
             },
             "require-dev": {
                 "drupal/core_event_dispatcher": "*",
                 "drupal/paragraphs": "^1.10",
-                "drupal/webform": "*",
+                "drupal/tracer": "^1.0",
+                "drupal/webform": "^6.2",
                 "mglaman/phpstan-drupal": "^1.1",
-                "mockery/mockery": "^1.3",
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan-deprecation-rules": "^1.0"
             },
@@ -7696,11 +7696,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.0-rc1",
-                    "datestamp": "1691676068",
+                    "version": "4.0.3",
+                    "datestamp": "1720437069",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
