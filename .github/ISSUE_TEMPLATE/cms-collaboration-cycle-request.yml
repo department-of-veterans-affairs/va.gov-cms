@@ -45,6 +45,27 @@ body:
       description:
     validations:
       required: true
+  - type: input
+    id: user-flow
+    attributes:
+      label: Please add a link to your user flow diagrams or wireframes.
+      description: If you have not already made one, you can forward once it is ready for review. 
+    validations:
+      required: false
+  - type: input
+    id: content-model-changes
+    attributes:
+      label: Please add a link to your wireframes annotating field changes.
+      description: If you have not already made one, you can forward once it is ready for review. 
+    validations:
+      required: false
+  - type: input
+    id: optional-research
+    attributes:
+      label: Please add a link to your product and user research for this initiative.
+      description: This is optional. If you have your research available, we would like to review it but it is not required. 
+    validations:
+      required: false
   - type: textarea
     id: additional-information
     attributes:
