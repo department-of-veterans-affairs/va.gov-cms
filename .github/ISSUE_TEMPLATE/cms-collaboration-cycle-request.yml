@@ -1,9 +1,7 @@
-
 name: "CMS Collaboration Cycle Request"
 description: Use this template to begin engaging with the CMS Collaboration Cycle.
 title: "CMS Collaboration Cycle for [Team Name, Product Name, Feature Name]"
 labels: CMS Team, Needs Analysis, CMS-Collab-Cycle, Epic
-
 
 body:
   - type: markdown
@@ -13,20 +11,20 @@ body:
   - type: input
     id: product-outline
     attributes:
-      label: Please add a link to your product outline. 
+      label: Please add a link to your product outline.
       description: If you have not already made one, you can use this [product outline template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/product-management/product-outline-template.md).
     validations:
       required: true
   - type: input
     id: problem-outline
     attributes:
-      label: Please describe what problem this product or feature solves 
+      label: Please describe what problem this product or feature solves
     validations:
       required: true
   - type: dropdown
     id: net-new
     attributes:
-      label: Is this a net-new feature? 
+      label: Is this a net-new feature?
       multiple: false
       options:
         - yes
@@ -40,11 +38,11 @@ body:
       description: 
     validations:
       required: true
-    - type: input
+  - type: input
     id: content-types
     attributes:
       label: What are the content types your team will be changing and/or creating for this work?
-      description: 
+      description:
     validations:
       required: true
   - type: textarea
@@ -55,9 +53,7 @@ body:
   - type: checkboxes
     id: terms-agreement
     attributes:
-      label:  I acknowledge that I must submit this form as an Epic and notify the cms-team user group in the cms-support Slack channel with a link to the Epic that is created.
+      label: I acknowledge that I must submit this form as an Epic and notify the cms-team user group in the cms-support Slack channel with a link to the Epic that is created.
       options:
         - label: I agree.
           required: true
-          
-          
