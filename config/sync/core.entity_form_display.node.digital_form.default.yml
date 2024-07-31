@@ -1,0 +1,96 @@
+uuid: 18ba1fa4-f0d9-45f4-9547-0c55f1868ba2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.digital_form.field_administration
+    - field.field.node.digital_form.field_last_saved_by_an_editor
+    - field.field.node.digital_form.field_meta_tags
+    - field.field.node.digital_form.field_omb_number
+    - field.field.node.digital_form.field_va_form_number
+    - node.type.digital_form
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - field_group
+    - path
+third_party_settings:
+  field_group:
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      label: 'Editorial Workflow'
+      region: content
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: true
+        description_display: after
+id: node.digital_form.default
+targetEntityType: node
+bundle: digital_form
+mode: default
+content:
+  field_administration:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_omb_number:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 9
+      placeholder: XXXX-XXXX
+    third_party_settings: {  }
+  field_va_form_number:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_meta_tags: true
+  langcode: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true
