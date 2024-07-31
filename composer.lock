@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aef5ed6e2271506358f04825d6ba0e91",
+    "content-hash": "3d0b40d481e490665dcc77288c9c735c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5186,17 +5186,17 @@
         },
         {
             "name": "drupal/eca",
-            "version": "1.1.7",
+            "version": "1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/eca.git",
-                "reference": "1.1.7"
+                "reference": "1.1.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/eca-1.1.7.zip",
-                "reference": "1.1.7",
-                "shasum": "7cdbb11c147fe0da4747a73be46951ed5b21b371"
+                "url": "https://ftp.drupal.org/files/projects/eca-1.1.8.zip",
+                "reference": "1.1.8",
+                "shasum": "38cbed48899867f32893e4d7517dad09b109c90f"
             },
             "require": {
                 "dragonmantank/cron-expression": "^3.1",
@@ -5221,8 +5221,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.1.7",
-                    "datestamp": "1718958107",
+                    "version": "1.1.8",
+                    "datestamp": "1721913734",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -7664,28 +7664,28 @@
         },
         {
             "name": "drupal/hook_event_dispatcher",
-            "version": "4.0.0-rc1",
+            "version": "4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/hook_event_dispatcher.git",
-                "reference": "4.0.0-rc1"
+                "reference": "4.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/hook_event_dispatcher-4.0.0-rc1.zip",
-                "reference": "4.0.0-rc1",
-                "shasum": "4e643c27f4c083eb30a1e2325163e65be47d7b81"
+                "url": "https://ftp.drupal.org/files/projects/hook_event_dispatcher-4.0.3.zip",
+                "reference": "4.0.3",
+                "shasum": "e97591b7be0f4961b7cdf9db18c65979f352adba"
             },
             "require": {
-                "drupal/core": "^10",
+                "drupal/core": "^10.2",
                 "php": ">=8.1.0"
             },
             "require-dev": {
                 "drupal/core_event_dispatcher": "*",
                 "drupal/paragraphs": "^1.10",
-                "drupal/webform": "*",
+                "drupal/tracer": "^1.0",
+                "drupal/webform": "^6.2",
                 "mglaman/phpstan-drupal": "^1.1",
-                "mockery/mockery": "^1.3",
                 "phpstan/extension-installer": "^1.1",
                 "phpstan/phpstan-deprecation-rules": "^1.0"
             },
@@ -7696,11 +7696,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.0-rc1",
-                    "datestamp": "1691676068",
+                    "version": "4.0.3",
+                    "datestamp": "1720437069",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -12380,6 +12380,10 @@
                     "homepage": "https://www.drupal.org/user/1608382"
                 },
                 {
+                    "name": "japerry",
+                    "homepage": "https://www.drupal.org/user/45640"
+                },
+                {
                     "name": "jhedstrom",
                     "homepage": "https://www.drupal.org/user/208732"
                 },
@@ -12907,26 +12911,26 @@
         },
         {
             "name": "drupal/string_field_formatter",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/string_field_formatter.git",
-                "reference": "2.0.3"
+                "reference": "2.0.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/string_field_formatter-2.0.3.zip",
-                "reference": "2.0.3",
-                "shasum": "1268d1ac2c811130e3524700639ef9c42f83f8c1"
+                "url": "https://ftp.drupal.org/files/projects/string_field_formatter-2.0.4.zip",
+                "reference": "2.0.4",
+                "shasum": "f9132732c3e8902ed66d6dc6238e7998cb040e7c"
             },
             "require": {
-                "drupal/core": "^8 || ^9 || ^10"
+                "drupal/core": "^8 || ^9 || ^10 || ^11"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.3",
-                    "datestamp": "1696786969",
+                    "version": "2.0.4",
+                    "datestamp": "1722264475",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -15867,12 +15871,12 @@
             "version": "v5.2.13",
             "source": {
                 "type": "git",
-                "url": "https://github.com/justinrainbow/json-schema.git",
+                "url": "https://github.com/jsonrainbow/json-schema.git",
                 "reference": "fbbe7e5d79f618997bc3332a6f49246036c45793"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/fbbe7e5d79f618997bc3332a6f49246036c45793",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/fbbe7e5d79f618997bc3332a6f49246036c45793",
                 "reference": "fbbe7e5d79f618997bc3332a6f49246036c45793",
                 "shasum": ""
             },
@@ -21882,16 +21886,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.9.2",
+            "version": "3.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480"
+                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/aac1f6f347a5c5ac6bc98ad395007df00990f480",
-                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/86e5f5dd9a840c46810ebe5ff1885581c42a3017",
+                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017",
                 "shasum": ""
             },
             "require": {
@@ -21958,7 +21962,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-04-23T20:25:34+00:00"
+            "time": "2024-07-21T23:26:44+00:00"
         },
         {
             "name": "steverhoades/oauth2-openid-connect-server",
@@ -26040,16 +26044,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3559",
+            "version": "v0.0.3561",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "66b830fb6c86129957394ef83a6fa720a01562ce"
+                "reference": "c33397272ef873f886bf1646f8b6a8cea614507f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/66b830fb6c86129957394ef83a6fa720a01562ce",
-                "reference": "66b830fb6c86129957394ef83a6fa720a01562ce",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/c33397272ef873f886bf1646f8b6a8cea614507f",
+                "reference": "c33397272ef873f886bf1646f8b6a8cea614507f",
                 "shasum": ""
             },
             "type": "node-project",
@@ -26076,9 +26080,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3559"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3561"
             },
-            "time": "2024-07-24T21:04:38+00:00"
+            "time": "2024-07-29T22:30:37+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
