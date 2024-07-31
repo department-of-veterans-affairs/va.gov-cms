@@ -1,0 +1,170 @@
+uuid: 333163fe-7e54-44b6-b5af-5cff8c8742ec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_chapters
+    - node.type.digital_form
+    - paragraphs.paragraphs_type.digital_form_name_and_date_of_bi
+  module:
+    - entity_reference_revisions
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.digital_form.field_chapters
+field_name: field_chapters
+entity_type: node
+bundle: digital_form
+label: Steps
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      digital_form_name_and_date_of_bi: digital_form_name_and_date_of_bi
+    negate: 0
+    target_bundles_drag_drop:
+      address:
+        weight: -95
+        enabled: false
+      alert:
+        weight: -94
+        enabled: false
+      alert_single:
+        weight: -93
+        enabled: false
+      audience_topics:
+        weight: -92
+        enabled: false
+      basic_accordion:
+        weight: -91
+        enabled: false
+      button:
+        weight: -90
+        enabled: false
+      centralized_content_descriptor:
+        weight: -89
+        enabled: false
+      checklist:
+        weight: -88
+        enabled: false
+      checklist_item:
+        weight: -87
+        enabled: false
+      collapsible_panel:
+        weight: -86
+        enabled: false
+      collapsible_panel_item:
+        weight: -85
+        enabled: false
+      contact_information:
+        weight: -84
+        enabled: false
+      digital_form_name_and_date_of_bi:
+        weight: -82
+        enabled: true
+      downloadable_file:
+        weight: -81
+        enabled: false
+      email_contact:
+        weight: -80
+        enabled: false
+      embedded_video:
+        weight: -79
+        enabled: false
+      expandable_text:
+        weight: -78
+        enabled: false
+      featured_content:
+        weight: -77
+        enabled: false
+      health_care_local_facility_servi:
+        weight: -76
+        enabled: false
+      link_teaser:
+        weight: -75
+        enabled: false
+      link_teaser_with_image:
+        weight: -74
+        enabled: false
+      list_of_link_teasers:
+        weight: -71
+        enabled: false
+      list_of_links:
+        weight: -72
+        enabled: false
+      lists_of_links:
+        weight: -73
+        enabled: false
+      magichead_group:
+        weight: -70
+        enabled: false
+      media:
+        weight: -69
+        enabled: false
+      media_list_images:
+        weight: -68
+        enabled: false
+      media_list_videos:
+        weight: -67
+        enabled: false
+      non_reusable_alert:
+        weight: -66
+        enabled: false
+      number_callout:
+        weight: -65
+        enabled: false
+      phone_number:
+        weight: -64
+        enabled: false
+      process:
+        weight: -63
+        enabled: false
+      q_a:
+        weight: -62
+        enabled: false
+      q_a_group:
+        weight: -61
+        enabled: false
+      q_a_section:
+        weight: -60
+        enabled: false
+      react_widget:
+        weight: -59
+        enabled: false
+      rich_text_char_limit_1000:
+        weight: -58
+        enabled: false
+      service_location:
+        weight: -57
+        enabled: false
+      service_location_address:
+        weight: -56
+        enabled: false
+      situation_update:
+        weight: -55
+        enabled: false
+      spanish_translation_summary:
+        weight: -54
+        enabled: false
+      staff_profile:
+        weight: -53
+        enabled: false
+      step:
+        weight: -52
+        enabled: false
+      step_by_step:
+        weight: -51
+        enabled: false
+      table:
+        weight: -50
+        enabled: false
+      wysiwyg:
+        weight: -49
+        enabled: false
+field_type: entity_reference_revisions

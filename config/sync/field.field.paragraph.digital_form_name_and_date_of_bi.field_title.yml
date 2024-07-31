@@ -1,0 +1,26 @@
+uuid: d2538ca0-918e-4e49-8d45-96bde9aca1b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.digital_form_name_and_date_of_bi
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_name_and_date_of_bi.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: digital_form_name_and_date_of_bi
+label: Title
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'Name and Date of Birth'
+default_value_callback: ''
+settings: {  }
+field_type: string
