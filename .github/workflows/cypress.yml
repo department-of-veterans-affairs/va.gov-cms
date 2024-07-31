@@ -30,7 +30,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           # When Sorry-Cypress support is enabled on `main`, this should be
           # removed so that the `main` version of the workflow is used
@@ -47,7 +47,7 @@ jobs:
           NODE_TLS_REJECT_UNAUTHORIZED: 0
 
       - name: Cypress run
-        uses: cypress-io/github-action@1b70233146622b69e789ccdd4f9452adc638d25a # v6.6.1
+        uses: cypress-io/github-action@8d3918616d8ac34caa2b49afc8b408b6a872a6f5 # v6.7.1
         with:
           wait-on: "${{ inputs.preview_url }}"
           command: 'npm run test:cypress:parallel'
