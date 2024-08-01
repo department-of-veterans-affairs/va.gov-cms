@@ -26,6 +26,7 @@ export NODE_ENV=production
 nvm install
 echo "Node $(node -v)"
 
+NODE_OPTIONS=--max-old-space-size=8192 \
 yarn build \
   --pull-drupal \
   --no-drupal-proxy \
