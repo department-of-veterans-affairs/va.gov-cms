@@ -189,18 +189,18 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
    *   Node.
    */
   protected function generatePreviewButton(NodeInterface $node): string|null {
-    // Needs to come first because listing types are allowed here.
-    if ($this->checkNextEnabledTypes($node->bundle())) {
+    // Check if this node is excluded for reasons besides content type.
+    if (!$this->isThisNodePreviewEnabled($node)) {
+      return NULL;
+    }
+    // Needs to come first because listing types are allowed here, and because
+    // we want Next preview to override legacy preview.
+    if ($this->isNodeNextPreviewEnabled($node)) {
       $url = $this->generateNextBuildPreviewLink($node);
     }
     // Otherwise return default preview experience.
     else {
-      if ($this->checkExcludedTypes($node)) {
-        return NULL;
-      }
-      // Make sure we aren't on /training-guide.
-      $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
-      if ($current_uri === '/training-guide') {
+      if (!$this->isNodeLegacyPreviewEnabled($node)) {
         return NULL;
       }
 
@@ -214,39 +214,73 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Next-build enabled preview requires certain config entities to exist.
+   * Check if a node is generally preview-enabled.
    *
-   * We also check against feature flags so that we can enable from a UI.
-   *
-   * @param string $type
-   *   The node type.
-   *
-   * @return bool
-   *   TRUE if the node type has a corresponding next config entity.
-   */
-  protected function checkNextEnabledTypes(string $type): bool {
-    // Check the content type's Next content flag status.
-    $flag_name = "feature_next_build_content_$type";
-    $next_content_flag_status = $this->featureStatus->getStatus($flag_name);
-
-    // We also need to check that there's actually a config item.
-    // We assume nodes as the only type for the time being.
-    $next_config_exists = $this->nextEntityTypeManager->getConfigForEntityType('node', $type);
-    return $next_content_flag_status && $next_config_exists;
-  }
-
-  /**
-   * Existing preview functionality has some conditions.
+   * Prevent node preview in some cases.
    *
    * @param \Drupal\node\NodeInterface $node
    *   The node type.
    *
    * @return bool
-   *   TRUE if the node type is excluded from preview.
+   *   TRUE if the node type is enabled for preview.
    */
-  protected function checkExcludedTypes(NodeInterface $node): bool {
-    $exclusion_types_from_config = $this->exclusionTypes->getExcludedTypes();
-    $list_types = [
+  protected function isThisNodePreviewEnabled(NodeInterface $node): bool {
+    // There are content types that we will never want to preview.
+    $exclusion_types = $this->exclusionTypes->getExcludedTypes();
+    if (in_array($node->bundle(), $exclusion_types)) {
+      return FALSE;
+    }
+
+    // Make sure we aren't an excluded path.
+    $excluded_uris = [
+      '/training-guide',
+    ];
+    $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
+    if (in_array($current_uri, $excluded_uris)) {
+      return FALSE;
+    }
+
+    // Exclude staff pages without bios.
+    if ($node->bundle() === 'person_profile' && $node->get('field_complete_biography_create')->value === '0') {
+      return FALSE;
+    }
+
+    // Otherwise, allow preview.
+    return TRUE;
+  }
+
+  /**
+   * Check if a node is eligible for Next preview.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node type.
+   *
+   * @return bool
+   *   TRUE if the node type is enabled for Next preview.
+   */
+  protected function isNodeNextPreviewEnabled(NodeInterface $node): bool {
+    $type = $node->bundle();
+    // Check the content type's Next content flag status.
+    $flag_name = "feature_next_build_content_$type";
+    $next_content_flag_status = $this->featureStatus->getStatus($flag_name);
+
+    // We also need to check that there's actually a Next-Drupal config item.
+    $next_config_exists = $this->nextEntityTypeManager->getConfigForEntityType('node', $type);
+
+    return $next_content_flag_status && $next_config_exists;
+  }
+
+  /**
+   * Check if a node is eligible for legacy preview.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node type.
+   *
+   * @return bool
+   *   TRUE if the node type is enabled for legacy preview.
+   */
+  protected function isNodeLegacyPreviewEnabled(NodeInterface $node): bool {
+    $listing_types = [
       // List pages don't play nicely with preview.
       'event_listing',
       'health_services_listing,',
@@ -256,13 +290,7 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
       'publication_listing',
       'story_listing',
     ];
-    $exclusion_types = array_merge(array_values($exclusion_types_from_config), array_values($list_types));
-    // Exclude staff pages without bios.
-    if ($node->bundle() === 'person_profile' && $node->get('field_complete_biography_create')->value === '0') {
-      $exclusion_types[] = 'person_profile';
-    }
-
-    return (in_array($node->bundle(), $exclusion_types));
+    return !(in_array($node->bundle(), $listing_types));
   }
 
   /**
