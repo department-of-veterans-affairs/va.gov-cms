@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_last_saved_by_an_editor
     - field.field.node.vet_center.field_media
+    - field.field.node.vet_center.field_mission_explainer
     - field.field.node.vet_center.field_office_hours
     - field.field.node.vet_center.field_official_name
     - field.field.node.vet_center.field_operating_status_facility
@@ -355,6 +356,15 @@ content:
     region: content
     settings:
       media_types: {  }
+    third_party_settings: {  }
+  field_mission_explainer:
+    type: entity_field_fetch_widget
+    weight: 27
+    region: content
+    settings:
+      show_field_label: true
+      show_link_to_source: false
+      show_source_updated_date: false
     third_party_settings: {  }
   field_office_hours:
     type: office_hours_default

@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_last_saved_by_an_editor
     - field.field.node.vet_center.field_media
+    - field.field.node.vet_center.field_mission_explainer
     - field.field.node.vet_center.field_office_hours
     - field.field.node.vet_center.field_official_name
     - field.field.node.vet_center.field_operating_status_facility
@@ -268,6 +269,13 @@ content:
         attribute: lazy
     third_party_settings: {  }
     weight: 11
+    region: content
+  field_mission_explainer:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 19
     region: content
   field_office_hours:
     type: office_hours
