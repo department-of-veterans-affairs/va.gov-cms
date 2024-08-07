@@ -17,6 +17,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\eca\EcaState;
 use Drupal\eca\Plugin\Action\ActionBase;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
+use Drupal\eca\Plugin\DataType\DataTransferObject;
 use Drupal\eca\Service\YamlParser;
 use Drupal\eca\Token\TokenInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -141,7 +142,7 @@ class CreateAdvancedQueueJob extends ConfigurableActionBase {
     if ($this->configuration['queue']) {
       Queue::load($this->configuration['queue'])?->enqueueJob($job);
     }
-    $this->tokenServices->addTokenData($this->configuration['token_name'], [$job]);
+    $this->tokenServices->addTokenData($this->configuration['token_name'], DataTransferObject::create([$job]));
   }
 
   /**
