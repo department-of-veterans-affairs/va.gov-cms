@@ -75,6 +75,8 @@ class VaGovFacilityForceQueueForm extends FormBase {
       $this->getNidsFromEntityBundleQuery('nca_facility');
     $vba_facility =
       $this->getNidsFromEntityBundleQuery('vba_facility');
+    $vba_facility_service =
+      $this->getNidsFromEntityBundleQuery('vba_facility_service');
     $vet_center =
       $this->getNidsFromEntityBundleQuery('vet_center');
     $vet_center_facility_health_servi =
@@ -100,6 +102,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
         'health_care_local_health_service' => ' - ' . $this->t('VAMC facility services') . ' (' . count($health_care_facility_service) . ')',
         'nca_facility' => $this->t('NCA facilities') . ' (' . count($nca_facility) . ')',
         'vba_facility' => $this->t('VBA facilities') . ' (' . count($vba_facility) . ')',
+        'vba_facility_service' => ' - ' . $this->t('VBA facility services') . ' (' . count($vba_facility_service) . ')',
         'vet_center' => $this->t('Vet Centers') . ' (' . count($vet_center) . ')',
         'vet_center_facility_health_servi' => ' - ' . $this->t('Vet Center facility services') . ' (' . count($vet_center_facility_health_servi) . ')',
         'vet_center_outstation' => $this->t('Vet Center Outstations') . ' (' . count($vet_center_outstation) . ')',
@@ -145,6 +148,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
             $services_to_push = [
               'health_care_local_health_service',
               'vet_center_facility_health_servi',
+              'vba_facility_service',
             ];
             if (in_array($bundle, $services_to_push)) {
               $force_push = TRUE;
@@ -240,6 +244,17 @@ class VaGovFacilityForceQueueForm extends FormBase {
           ->getStorage('node')
           ->getQuery('AND')
           ->condition('type', 'vet_center_facility_health_servi')
+          ->accessCheck(FALSE)
+          ->condition('status', 1, '=')
+          ->execute();
+        break;
+
+      // Only the published VBA facility services.
+      case "vba_facility_service":
+        $nodes = $this->entityTypeManager
+          ->getStorage('node')
+          ->getQuery('AND')
+          ->condition('type', 'vba_facility_service')
           ->accessCheck(FALSE)
           ->condition('status', 1, '=')
           ->execute();
