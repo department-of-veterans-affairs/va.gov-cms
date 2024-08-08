@@ -1,22 +1,14 @@
-name: "CMS Collaboration Cycle Request"
-description: Use this template to begin engaging with the CMS Collaboration Cycle.
-title: "CMS Collaboration Cycle for [Team Name, Product Name, Feature Name]"
-labels: CMS Team, Needs Analysis, CMS-Collab-Cycle, Epic
+name: "CMS Request"
+description: Use this template to begin engaging with the CMS Team.
+title: "CMS Request for [Team Name, Product Name, Feature Name]"
+labels: CMS Team, Needs Analysis, Collabor
 assignees:
   - gracekretschmer-metrostar
 
 body:
   - type: markdown
     attributes:
-      value: |
-        Before engaging with the CMS team on the Collaboration Cycle, please fill out the form below to help the CMS Team determine what level of support and which touchpoints are needed for your work. Have questions about this form? Read our [Kickoff Request documentation](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/collaboration-cycle/kickoff.md) in Github or reach out to the CMS Team in the cms-support Slack channel.
-  - type: input
-    id: product-outline
-    attributes:
-      label: Please add a link to your product outline.
-      description: If you have not already made one, you can use this [product outline template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/product-management/product-outline-template.md).
-    validations:
-      required: true
+      value: Have questions about this form? Read our CMS Request guidance or reach out directly to the CMS Team in the cms-support Slack channel.
   - type: input
     id: problem-outline
     attributes:
@@ -27,6 +19,7 @@ body:
     id: net-new
     attributes:
       label: Is this a net-new feature?
+      description: Net-new in product development refers to the creation of a completely new feature that has not been previously implemented.
       multiple: false
       options:
         - "yes"
@@ -50,15 +43,15 @@ body:
   - type: input
     id: user-flow
     attributes:
-      label: Please add a link to your user flow diagrams or wireframes.
-      description: If you have not already made one, you can forward once it is ready for review. 
+      label: Please add a link to your editor-focused user flow diagrams or wireframes.
+      description: If you haven't created one yet, please forward it once it's ready for review. 
     validations:
       required: false
   - type: input
     id: content-model-changes
     attributes:
-      label: Please add a link to your wireframes annotating field changes.
-      description: If you have not already made one, you can forward once it is ready for review. 
+      label: Please add a link to your CMS Drupal wireframes annotating field changes.
+      description: If you haven't created one yet, please forward it once it's ready for review. 
     validations:
       required: false
   - type: input
@@ -72,11 +65,11 @@ body:
     id: additional-information
     attributes:
       label: Additional Information
-      description: Please include any additional information or context that may be relevant to your request.
+      description: Please provide any extra information or relevant context that may be important for your request.
   - type: checkboxes
     id: terms-agreement
     attributes:
-      label: I acknowledge that I must submit this form as an Epic and notify the cms-team user group in the cms-support Slack channel with a link to the Epic that is created.
+      label:  acknowledge that I must submit this form and notify the cms-team in the cms-support Slack channel with a link to the GitHub ticket created.
       options:
         - label: I agree.
           required: true
