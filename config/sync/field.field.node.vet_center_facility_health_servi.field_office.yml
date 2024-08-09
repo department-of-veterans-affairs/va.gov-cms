@@ -8,11 +8,18 @@ dependencies:
     - node.type.vet_center_facility_health_servi
   module:
     - entity_reference_validators
+    - epp
+    - tmgmt_content
 third_party_settings:
   entity_reference_validators:
     circular_reference: false
     circular_reference_deep: false
     duplicate_reference: false
+  epp:
+    value: '[current-page:query:field_office]'
+    on_update: 0
+  tmgmt_content:
+    excluded: false
 id: node.vet_center_facility_health_servi.field_office
 field_name: field_office
 entity_type: node
