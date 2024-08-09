@@ -131,6 +131,10 @@ class PdfDeleteService implements PdfDeleteInterface {
       /** @var \Drupal\media\MediaInterface $pdf */
       $pdf = $media_storage->load($pdf_id);
       $pdf_name = $pdf->get('name')->value;
+      if (!$pdf->hasField('field_document')) {
+        $logger->warning("PDF {$pdf_id} not deleted because it has no document field.");
+        continue;
+      }
       if ($is_used === 0 && $pdf->hasField('field_document')) {
         $section_id = $pdf->get('field_owner')->getValue()[0]['target_id'];
         if (!$section_id) {
@@ -166,9 +170,6 @@ class PdfDeleteService implements PdfDeleteInterface {
           $section_error = $section ? $section->get('name')->value : $section_id;
           $logger->info("PDF {$pdf_name} not deleted because it is not in a VHA section (Name or ID: {$section_error}).");
         }
-      }
-      else {
-        $logger->info("PDF {$pdf_name} not deleted because it is attached to content.");
       }
     }
     $this->writeCsv($deleted_pdfs, $timestamp);
