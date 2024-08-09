@@ -95,3 +95,12 @@ $settings['broken_link_report_location'] = '/var/lib/tugboat/docroot/vendor/va-g
 
 // Public asset S3 location
 $public_asset_s3_base_url = "https://dsva-vagov-staging-cms-files.s3.us-gov-west-1.amazonaws.com";
+
+//S3FS settings
+  $settings['s3fs.access_key'] = getenv('CMS_PDF_SERVICE_ACCT_KEY');
+  $settings['s3fs.secret_key'] = getenv('CMS_PDF_SERVICE_ACCT_SECRET');
+  $config['s3fs.settings']['bucket'] = 'dsva-vagov-dev-cms-pdf-archive';
+  $config['s3fs.settings']['region'] = 'us-gov-west-1';
+  $settings['s3fs.use_s3_for_public'] = FALSE;
+  $settings['s3fs.use_s3_for_private'] = FALSE;
+  $settings['s3fs.upload_as_private'] = TRUE;
