@@ -1,0 +1,30 @@
+uuid: 6f1de8af-5d0a-4775-9ca1-95a35c6ae032
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_force
+    - menu_ui
+    - node_revision_delete
+    - node_title_help_text
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  node_title_help_text:
+    title_help: ''
+  menu_force:
+    menu_force: false
+    menu_force_parent: false
+  node_revision_delete:
+    minimum_revisions_to_keep: 50
+    minimum_age_to_delete: 0
+    when_to_delete: 0
+name: 'Digital Form'
+type: digital_form
+description: 'Configuration for an online form presented to Veterans.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

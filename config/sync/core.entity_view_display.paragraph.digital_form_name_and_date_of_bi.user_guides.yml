@@ -1,0 +1,25 @@
+uuid: d6ba2e46-9d71-4886-8f0f-f9f644273720
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.digital_form_name_and_date_of_bi.field_include_date_of_birth
+    - field.field.paragraph.digital_form_name_and_date_of_bi.field_title
+    - paragraphs.paragraphs_type.digital_form_name_and_date_of_bi
+id: paragraph.digital_form_name_and_date_of_bi.user_guides
+targetEntityType: paragraph
+bundle: digital_form_name_and_date_of_bi
+mode: user_guides
+content:
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_include_date_of_birth: true
+  search_api_excerpt: true

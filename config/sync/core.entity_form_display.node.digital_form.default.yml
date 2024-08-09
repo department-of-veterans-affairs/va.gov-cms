@@ -1,0 +1,132 @@
+uuid: 18ba1fa4-f0d9-45f4-9547-0c55f1868ba2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.digital_form.field_administration
+    - field.field.node.digital_form.field_chapters
+    - field.field.node.digital_form.field_last_saved_by_an_editor
+    - field.field.node.digital_form.field_meta_tags
+    - field.field.node.digital_form.field_omb_number
+    - field.field.node.digital_form.field_va_form_number
+    - node.type.digital_form
+    - workflows.workflow.editorial
+  module:
+    - change_labels
+    - content_moderation
+    - field_group
+    - limited_field_widgets
+    - no_table_drag
+    - paragraphs_browser
+    - paragraphs_features
+    - path
+third_party_settings:
+  field_group:
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      label: 'Editorial Workflow'
+      region: content
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: true
+        description_display: after
+id: node.digital_form.default
+targetEntityType: node
+bundle: digital_form
+mode: default
+content:
+  field_chapters:
+    type: paragraphs_browser
+    weight: 5
+    region: content
+    settings:
+      title: Step
+      title_plural: Steps
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: '0'
+      add_mode: paragraphs_browser
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
+        add_above: 0
+        convert: 0
+      paragraphs_browser: digital_forms
+      modal_width: 80%
+      modal_height: auto
+    third_party_settings:
+      paragraphs_features:
+        add_in_between: false
+        add_in_between_link_count: 3
+        delete_confirmation: false
+        show_drag_and_drop: true
+        show_collapse_all: true
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: ''
+      no_table_drag:
+        no_table_drag: false
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_omb_number:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 9
+      placeholder: XXXX-XXXX
+    third_party_settings: {  }
+  field_va_form_number:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_administration: true
+  field_meta_tags: true
+  langcode: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

@@ -1,0 +1,59 @@
+uuid: bae3d4cd-0dd9-4a17-972b-ff3ef6bf7ba5
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.external_content
+    - field.field.node.digital_form.field_administration
+    - field.field.node.digital_form.field_chapters
+    - field.field.node.digital_form.field_last_saved_by_an_editor
+    - field.field.node.digital_form.field_meta_tags
+    - field.field.node.digital_form.field_omb_number
+    - field.field.node.digital_form.field_va_form_number
+    - node.type.digital_form
+  module:
+    - link
+    - user
+id: node.digital_form.external_content
+targetEntityType: node
+bundle: digital_form
+mode: external_content
+content:
+  breadcrumbs:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: -5
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  field_va_form_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_administration: true
+  field_chapters: true
+  field_last_saved_by_an_editor: true
+  field_meta_tags: true
+  field_omb_number: true
+  langcode: true
+  search_api_excerpt: true

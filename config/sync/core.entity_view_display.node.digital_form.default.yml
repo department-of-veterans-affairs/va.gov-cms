@@ -1,0 +1,54 @@
+uuid: 73414b44-8d43-4231-9695-b8092f02e821
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.digital_form.field_administration
+    - field.field.node.digital_form.field_chapters
+    - field.field.node.digital_form.field_last_saved_by_an_editor
+    - field.field.node.digital_form.field_meta_tags
+    - field.field.node.digital_form.field_omb_number
+    - field.field.node.digital_form.field_va_form_number
+    - node.type.digital_form
+  module:
+    - entity_reference_revisions
+    - user
+id: node.digital_form.default
+targetEntityType: node
+bundle: digital_form
+mode: default
+content:
+  field_chapters:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_omb_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_va_form_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  breadcrumbs: true
+  content_moderation_control: true
+  field_administration: true
+  field_last_saved_by_an_editor: true
+  field_meta_tags: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

@@ -1,0 +1,25 @@
+uuid: 065acdc6-1465-452e-8a8e-53c6ff7e37ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_tags
+    - node.type.digital_form
+  module:
+    - metatag
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.digital_form.field_meta_tags
+field_name: field_meta_tags
+entity_type: node
+bundle: digital_form
+label: 'Meta tags'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: metatag
