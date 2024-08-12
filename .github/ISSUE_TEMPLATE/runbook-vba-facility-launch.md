@@ -2,7 +2,7 @@
 name: Runbook - Launching an approved VBA Facility
 about: Initial publishing of a VBA Facility
 title: 'Launching VBA Facility: <insert_name_of_facility>'
-labels: Drupal engineering, Facilities, User support, VBA
+labels: Drupal engineering, Facilities, sitewide, User support, VBA, Flagged facilties
 assignees: ''
 
 ---
