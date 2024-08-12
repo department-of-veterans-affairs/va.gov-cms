@@ -1,6 +1,6 @@
 ---
 name: Runbook - Launching an approved VBA Facility
-about: changing facility information in the CMS for VBA facilities
+about: Initial publishing of a VBA Facility
 title: 'Launching VBA Facility: <insert_name_of_facility>'
 labels: Drupal engineering, Facilities, User support, VBA
 assignees: ''
