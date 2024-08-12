@@ -111,6 +111,8 @@ class PdfDeleteService implements PdfDeleteInterface {
    * Find and delete PDFs that are not attached to content.
    */
   public function pdfDelete() {
+    $vha_total = 0;
+    $non_vha_total = 0;
     $logger = $this->loggerFactory->get('va_gov_media');
     $media_storage = $this->entityTypeManager->getStorage('media');
     $pdf_list = [];
@@ -123,6 +125,7 @@ class PdfDeleteService implements PdfDeleteInterface {
       ->condition('bundle', 'document')
       ->execute();
 
+    $total_pdfs = count($pdf_list);
     // Used for name csv and directory.
     $timestamp = date('Y-m-d-H:i:s');
 
@@ -138,7 +141,7 @@ class PdfDeleteService implements PdfDeleteInterface {
       if ($is_used === 0 && $pdf->hasField('field_document')) {
         $section_id = $pdf->get('field_owner')->getValue()[0]['target_id'];
         if (!$section_id) {
-          $logger->warning("PDF {$pdf_id} not deleted because no section id.");
+          $logger->warning("PDF {$pdf_id} has no section id.");
           continue;
         }
         try {
@@ -165,31 +168,35 @@ class PdfDeleteService implements PdfDeleteInterface {
             $username,
           ];
           $this->deletePdf($pdf, $timestamp);
+          $vha_total++;
+
         }
         else {
           $section_error = $section ? $section->get('name')->value : $section_id;
-          $logger->info("PDF {$pdf_name} not deleted because it is not in a VHA section (Name or ID: {$section_error}).");
+          $logger->info("PDF ({$pdf_name}) not deleted because it is not in a VHA section (Name or ID: {$section_error}).");
+          $non_vha_total++;
         }
       }
     }
     $this->writeCsv($deleted_pdfs, $timestamp);
     $logger->info('PDFs deleted and CSV written.');
+    $logger->info("Total PDFs: {$total_pdfs}");
+    $logger->info("VHA unattached PDFs deleted: {$vha_total}");
+    $logger->info("Non-VHA unattached PDFs not deleted: {$non_vha_total}");
   }
 
   /**
    * Delete PDF.
    *
-   * @param \Drupal\media\MediaInterface $pdf
-   *   The PDF to delete.
+   * @param \Drupal\media\MediaInterface $pdf_entity
+   *   The PDF entity to delete.
    * @param string $timestamp
    *   The timestamp to use for the directory.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function deletePdf(MediaInterface $pdf, string $timestamp) {
-    $file = $pdf->field_document->entity;
+  protected function deletePdf(MediaInterface $pdf_entity, string $timestamp) {
+    $file = $pdf_entity->field_document->entity;
     if (empty($file)) {
-      $pdf->delete();
+      $pdf_entity->delete();
       return;
     }
     $uri = $file->getFileUri();
@@ -205,7 +212,7 @@ class PdfDeleteService implements PdfDeleteInterface {
       return;
     }
     $file->delete();
-    $pdf->delete();
+    $pdf_entity->delete();
   }
 
   /**
@@ -230,7 +237,7 @@ class PdfDeleteService implements PdfDeleteInterface {
     $destination = 's3://' . $timestamp . '/' . $filename;
     $this->s3fs->copy($filename, $destination);
     unlink($filename);
-    $this->loggerFactory->get('va_gov_media')->info('CSV written to @destination', ['@destination' => $destination]);
+    $this->loggerFactory->get('va_gov_media')->info("CSV written to {$destination}");
   }
 
 }
