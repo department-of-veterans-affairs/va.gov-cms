@@ -1,0 +1,218 @@
+diff --git a/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceholderTestCases.php b/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceholderTestCases.php
+index fc33e67c0e..82f28da02d 100644
+--- a/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceholderTestCases.php
++++ b/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceholderTestCases.php
+@@ -106,11 +106,11 @@ public static function cases(ContainerInterface $container = NULL, AccountInterf
+           'method' => 'replaceWith',
+           // cspell:disable-next-line
+           'selector' => '[data-big-pipe-placeholder-id="callback=Drupal%5CCore%5CRender%5CElement%5CStatusMessages%3A%3ArenderMessages&args%5B0%5D&token=_HAdUpwWmet0TOTe2PSiJuMntExoshbm1kh2wQzzzAA"]',
+-          'data' => '<div data-drupal-messages>' . "\n" . ' <div role="contentinfo" aria-label="Status message">' . "\n" . ' <h2 class="visually-hidden">Status message</h2>' . "\n" . ' Hello from BigPipe!' . "\n" . ' </div>' . "\n" . '</div>' . "\n",
++          'data' => '<div data-drupal-messages>' . "\n" . ' <div role="region" aria-label="Status message">' . "\n" . ' <h2 class="visually-hidden">Status message</h2>' . "\n" . ' Hello from BigPipe!' . "\n" . ' </div>' . "\n" . '</div>' . "\n",
+           'settings' => NULL,
+         ],
+       ];
+-      $status_messages->embeddedHtmlResponse = '<div data-drupal-messages-fallback class="hidden"></div><div data-drupal-messages>' . "\n" . '  <div role="contentinfo" aria-label="Status message">' . "\n" . '              <h2 class="visually-hidden">Status message</h2>' . "\n" . '              Hello from BigPipe!' . "\n" . '          </div>' . "\n" . '</div>' . "\n";
++      $status_messages->embeddedHtmlResponse = '<div data-drupal-messages-fallback class="hidden"></div><div data-drupal-messages>' . "\n" . '  <div role="region" aria-label="Status message">' . "\n" . '              <h2 class="visually-hidden">Status message</h2>' . "\n" . '              Hello from BigPipe!' . "\n" . '          </div>' . "\n" . '</div>' . "\n";
+     }
+ 
+     // 2. Real-world example of HTML attribute value placeholder: form action.
+diff --git a/core/modules/big_pipe/tests/src/FunctionalJavascript/BigPipeRegressionTest.php b/core/modules/big_pipe/tests/src/FunctionalJavascript/BigPipeRegressionTest.php
+index a20fe48253..74d4f35e4c 100644
+--- a/core/modules/big_pipe/tests/src/FunctionalJavascript/BigPipeRegressionTest.php
++++ b/core/modules/big_pipe/tests/src/FunctionalJavascript/BigPipeRegressionTest.php
+@@ -83,7 +83,7 @@ public function testMessages_2712935() {
+     $this->assertTrue($this->container->get('module_installer')->install(['render_placeholder_message_test'], TRUE), 'Installed modules.');
+ 
+     $this->drupalLogin($this->drupalCreateUser());
+-    $messages_markup = '<div class="messages messages--status" role="status"';
++    $messages_markup = '<div role="region" aria-label="Status message"';
+     $test_routes = [
+       // Messages placeholder rendered first.
+       'render_placeholder_message_test.first',
+diff --git a/core/modules/system/templates/status-messages.html.twig b/core/modules/system/templates/status-messages.html.twig
+index 1385bbb734..2b855331f8 100644
+--- a/core/modules/system/templates/status-messages.html.twig
++++ b/core/modules/system/templates/status-messages.html.twig
+@@ -23,9 +23,11 @@
+ #}
+ <div data-drupal-messages>
+ {% for type, messages in message_list %}
+-  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes|without('role', 'aria-label') }}>
++  <div role="region" aria-label="{{ status_headings[type] }}"{{ attributes|without('role', 'aria-label') }}>
+     {% if type == 'error' %}
+       <div role="alert">
++    {% elseif type == 'status' or type == 'warning' %}
++      <div role="status">
+     {% endif %}
+     {% if status_headings[type] %}
+       <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
+@@ -39,7 +41,7 @@
+     {% else %}
+       {{ messages|first }}
+     {% endif %}
+-    {% if type == 'error' %}
++    {% if type in ['error', 'status', 'warning'] %}
+       </div>
+     {% endif %}
+   </div>
+diff --git a/core/modules/system/tests/src/Functional/Render/PlaceholderMessageTest.php b/core/modules/system/tests/src/Functional/Render/PlaceholderMessageTest.php
+index 68fd9543b0..a0e50af73c 100644
+--- a/core/modules/system/tests/src/Functional/Render/PlaceholderMessageTest.php
++++ b/core/modules/system/tests/src/Functional/Render/PlaceholderMessageTest.php
+@@ -30,7 +30,7 @@ class PlaceholderMessageTest extends BrowserTestBase {
+    * Tests rendering of message placeholder.
+    */
+   public function testMessagePlaceholder(): void {
+-    $messages_markup = '<div role="contentinfo" aria-label="Status message"';
++    $messages_markup = '<div role="region" aria-label="Status message"';
+ 
+     $test_routes = [
+       // Messages placeholder rendered first.
+diff --git a/core/modules/system/tests/themes/test_messages/templates/status-messages.html.twig b/core/modules/system/tests/themes/test_messages/templates/status-messages.html.twig
+index 42f105d3df..7ef19eb5d1 100644
+--- a/core/modules/system/tests/themes/test_messages/templates/status-messages.html.twig
++++ b/core/modules/system/tests/themes/test_messages/templates/status-messages.html.twig
+@@ -13,9 +13,11 @@
+       'messages--' ~ type,
+     ]
+   %}
+-  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
++  <div role="region" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+     {% if type == 'error' %}
+       <div role="alert">
++    {% elseif type == 'status' or type == 'warning' %}
++      <div role="status">
+     {% endif %}
+       {% if status_headings[type] %}
+         <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
+@@ -29,7 +31,7 @@
+       {% else %}
+         {{ messages|first }}
+       {% endif %}
+-    {% if type == 'error' %}
++    {% if type in ['error', 'status', 'warning'] %}
+       </div>
+     {% endif %}
+   </div>
+diff --git a/core/profiles/demo_umami/themes/umami/templates/components/messages/status-messages.html.twig b/core/profiles/demo_umami/themes/umami/templates/components/messages/status-messages.html.twig
+index 1a65511a3d..75b2da4533 100644
+--- a/core/profiles/demo_umami/themes/umami/templates/components/messages/status-messages.html.twig
++++ b/core/profiles/demo_umami/themes/umami/templates/components/messages/status-messages.html.twig
+@@ -28,10 +28,12 @@
+       'messages--' ~ type,
+     ]
+   %}
+-  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
++  <div role="region" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+     <div class="messages__content container">
+       {% if type == 'error' %}
+         <div role="alert">
++      {% elseif type == 'status' or type == 'warning' %}
++        <div role="status">
+       {% endif %}
+         {% if status_headings[type] %}
+           <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
+@@ -45,7 +47,7 @@
+         {% else %}
+           <span class="messages__item">{{ messages|first }}</span>
+         {% endif %}
+-      {% if type == 'error' %}
++      {% if type in ['error', 'status', 'warning'] %}
+         </div>
+       {% endif %}
+     </div>
+diff --git a/core/themes/claro/templates/misc/status-messages.html.twig b/core/themes/claro/templates/misc/status-messages.html.twig
+index 7708a745b2..4195e08459 100644
+--- a/core/themes/claro/templates/misc/status-messages.html.twig
++++ b/core/themes/claro/templates/misc/status-messages.html.twig
+@@ -39,9 +39,11 @@
+         set is_message_with_icon = type in ['error', 'status', 'warning']
+       %}
+ 
+-      <div role="contentinfo" aria-labelledby="{{ title_ids[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
++      <div role="region" aria-labelledby="{{ title_ids[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+         {% if type == 'error' %}
+           <div role="alert">
++        {% elseif type == 'status' or type == 'warning' %}
++          <div role="status">
+         {% endif %}
+           {% if is_message_with_title or is_message_with_icon %}
+             <div class="messages__header">
+@@ -63,7 +65,7 @@
+               {{ messages|first }}
+             {% endif %}
+           </div>
+-        {% if type == 'error' %}
++        {% if type in ['error', 'status', 'warning'] %}
+           </div>
+         {% endif %}
+       </div>
+diff --git a/core/themes/olivero/templates/misc/status-messages.html.twig b/core/themes/olivero/templates/misc/status-messages.html.twig
+index 2dfe964a77..412f91cb48 100644
+--- a/core/themes/olivero/templates/misc/status-messages.html.twig
++++ b/core/themes/olivero/templates/misc/status-messages.html.twig
+@@ -35,10 +35,10 @@
+       <div{{ attributes
+         .addClass(classes)
+         .setAttribute('data-drupal-selector', 'messages')
+-        .setAttribute('role', 'contentinfo')
++        .setAttribute('role', 'region')
+         .setAttribute('aria-label', status_headings[type])
+         }}>
+-        <div class="messages__container" data-drupal-selector="messages-container"{% if type == 'error' %} role="alert"{% endif %}>
++        <div class="messages__container" data-drupal-selector="messages-container"{% if type == 'error' %} role="alert" {% elseif type == 'status' or type == 'warning' %} role="status"{% endif %}>
+           {% if status_headings[type] %}
+             <div class="messages__header">
+             <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
+diff --git a/core/themes/stable9/templates/media-library/status-messages.html.twig b/core/themes/stable9/templates/media-library/status-messages.html.twig
+index 9866f27401..8cd70ff656 100644
+--- a/core/themes/stable9/templates/media-library/status-messages.html.twig
++++ b/core/themes/stable9/templates/media-library/status-messages.html.twig
+@@ -21,9 +21,11 @@
+ #}
+ <div data-drupal-messages>
+ {% for type, messages in message_list %}
+-  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes|without('role', 'aria-label') }}>
++  <div role="region" aria-label="{{ status_headings[type] }}"{{ attributes|without('role', 'aria-label') }}>
+     {% if type == 'error' %}
+       <div role="alert">
++    {% elseif type == 'status' or type == 'warning' %}
++      <div role="status">
+     {% endif %}
+     {% if status_headings[type] %}
+       <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
+@@ -37,7 +39,7 @@
+     {% else %}
+       {{ messages|first }}
+     {% endif %}
+-    {% if type == 'error' %}
++    {% if type in ['error', 'status', 'warning'] %}
+       </div>
+     {% endif %}
+   </div>
+diff --git a/core/themes/starterkit_theme/templates/misc/status-messages.html.twig b/core/themes/starterkit_theme/templates/misc/status-messages.html.twig
+index 7dda6c040c..b292b2c63e 100644
+--- a/core/themes/starterkit_theme/templates/misc/status-messages.html.twig
++++ b/core/themes/starterkit_theme/templates/misc/status-messages.html.twig
+@@ -28,9 +28,11 @@
+       'messages--' ~ type,
+     ]
+   %}
+-  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
++  <div role="region" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+     {% if type == 'error' %}
+       <div role="alert">
++    {% elseif type == 'status' or type == 'warning' %}
++      <div role="status">
+     {% endif %}
+       {% if status_headings[type] %}
+         <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
+@@ -44,7 +46,7 @@
+       {% else %}
+         {{ messages|first }}
+       {% endif %}
+-    {% if type == 'error' %}
++    {% if type in ['error', 'status', 'warning'] %}
+       </div>
+     {% endif %}
+   </div>
