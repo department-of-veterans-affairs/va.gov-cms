@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed6bc72fcb7bb74e2b5cb9d9dd9f7860",
+    "content-hash": "c618fb6655b2466b5d6f4751b80823f7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5195,51 +5195,42 @@
         },
         {
             "name": "drupal/eca",
-            "version": "1.1.8",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/eca.git",
-                "reference": "1.1.8"
+                "reference": "2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/eca-1.1.8.zip",
-                "reference": "1.1.8",
-                "shasum": "38cbed48899867f32893e4d7517dad09b109c90f"
+                "url": "https://ftp.drupal.org/files/projects/eca-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "0b283199a9a080a57f20f98d750126af453bc5fb"
             },
             "require": {
                 "dragonmantank/cron-expression": "^3.1",
-                "drupal/core": "^9.5 || ^10",
+                "drupal/core": "^10.3||^11",
                 "ext-dom": "*",
                 "ext-json": "*",
                 "mtownsend/xml-to-array": "^2.0",
-                "php": ">=7.4"
+                "php": ">=8.1"
             },
             "require-dev": {
                 "drupal/eca_ui": "*",
-                "drupal/token": "^1.10"
-            },
-            "suggest": {
-                "drupal/context_stack": "Integrates ECA with Context Stacks for more fine-grained control",
-                "drupal/eca_state_machine": "Integrates ECA with State Machine functionality",
-                "drupal/eca_tamper": "Integrates ECA with the Tamper API",
-                "drupal/entity_share": "Integrates ECA with Entity Share functionality",
-                "drupal/group_action": "Integrates ECA with Group Actions if you're using groups",
-                "drupal/token": "Provides the token browser in the UI and offers more token values"
+                "drupal/entity_reference_revisions": "1.x-dev",
+                "drupal/inline_entity_form": "dev-project-update-bot-only",
+                "drupal/paragraphs": "dev-3433816-manual-drupal-11",
+                "drupal/token": "1.x-dev",
+                "roave/security-advisories": "dev-latest"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.1.8",
-                    "datestamp": "1721913734",
+                    "version": "2.0.1",
+                    "datestamp": "1722254503",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
-                    }
-                },
-                "drush": {
-                    "services": {
-                        "drush.services.yml": "^9 || ^10 || ^11"
                     }
                 }
             },
