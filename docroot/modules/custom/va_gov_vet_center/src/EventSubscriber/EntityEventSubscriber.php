@@ -6,7 +6,6 @@ use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
@@ -564,52 +563,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterVetCenterNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
-    $form_state = $event->getFormState();
-    $form['#attached']['library'][] = 'va_gov_vet_center/set_ief_service_selects';
-    $this->modifyIefServicesFormDisplay($form, $form_state);
     $this->disableNameFieldForNonAdmins($form);
-  }
-
-  /**
-   * Add column to services table.
-   *
-   * Sort alphanumerically.
-   *
-   * Remove delete options for required items.
-   *
-   * Remove drag and drop.
-   *
-   * @param array $form
-   *   The node form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   */
-  public function modifyIefServicesFormDisplay(array &$form, FormStateInterface $form_state) {
-    $form_object = $form_state->getFormObject();
-    if ($form_object instanceof EntityFormInterface) {
-      /** @var \Drupal\node\NodeInterface $node */
-      $node = $form_object->getEntity();
-      $node_title = $node->getTitle();
-      $form['field_health_services']['widget']['entities']['#table_fields']['label']['label'] = $this->t('Services offered at :title', [':title' => $node_title]);
-      $cols = &$form['field_health_services']['widget']['entities']['#table_fields'];
-      $cols['req_optional'] = [
-        'type' => 'markup',
-        'label' => $this->t('Required/optional'),
-        'weight' => 3,
-      ];
-      unset($form['field_health_services']['widget']['entities']['#table_fields'][0]);
-      $keys = Element::children($form['field_health_services']['widget']['entities']);
-      if (!empty($keys)) {
-        foreach ($keys as $key) {
-          $entity = &$form['field_health_services']['widget']['entities'][$key];
-          $entity['#markup'] = $this->t('Optional');
-          if (array_key_exists('#label', $entity) && $this->checkIfServiceRequired($entity['#label'])) {
-            unset($entity['actions']['ief_entity_remove']);
-            $entity['#markup'] = $this->t('Required');
-          }
-        }
-      }
-    }
   }
 
   /**
