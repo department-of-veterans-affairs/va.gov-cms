@@ -189,7 +189,7 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
    *   Node.
    */
   protected function generatePreviewButton(NodeInterface $node): string|null {
-    // Check if this node is excluded for reasons besides content type.
+    // Check if this node is excluded for all preview.
     if (!$this->isThisNodePreviewEnabled($node)) {
       return NULL;
     }
@@ -200,6 +200,7 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
     }
     // Otherwise return default preview experience.
     else {
+      // Check if this is excluded in Content Build preview.
       if (!$this->isNodeLegacyPreviewEnabled($node)) {
         return NULL;
       }
@@ -225,7 +226,9 @@ class PreviewEventSubscriber implements EventSubscriberInterface {
    *   TRUE if the node type is enabled for preview.
    */
   protected function isThisNodePreviewEnabled(NodeInterface $node): bool {
-    // There are content types that we will never want to preview.
+    // There are content types that we will never want to preview
+    // because they are not URLs on the front-end.
+    // This is true for both Content Build and Next Build.
     $exclusion_types = $this->exclusionTypes->getExcludedTypes();
     if (in_array($node->bundle(), $exclusion_types)) {
       return FALSE;
