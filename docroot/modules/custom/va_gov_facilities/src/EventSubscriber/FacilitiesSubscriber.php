@@ -128,6 +128,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vba_facility_service_edit_form.alter' => 'alterVbaFacilityServiceNodeForm',
       'hook_event_dispatcher.form_node_vba_facility_service_form.alter' => 'alterVbaFacilityServiceNodeForm',
       'hook_event_dispatcher.form_node_vet_center_facility_health_servi_edit_form.alter' => 'alterVetCenterServiceNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_facility_health_servi_form.alter' => 'alterVetCenterServiceNodeForm',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',

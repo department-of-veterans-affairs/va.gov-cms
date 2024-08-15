@@ -18,7 +18,9 @@ Facility CMS link: <insert_facility_link>
 
 ### Prerequisites to publish
 - [ ] Verify with [who / how?] that VBA leadership completed content review and approved publishing
-- [ ] Verify that all VBA Facility Health Services for this Facility have been set to Published.
+- [ ] Verify that all VBA Facility Services for this Facility have been set to Published.
+- [ ] Verify that no major changes have been made directly in Drupal to data from migrations, such as Facility name, location, or contact information.
+  - [ ] If any changes of that kind have been made in Drupal, provide the Editor with a link to [VBA location and contact information: How to Edit](https://prod.cms.va.gov/help/veterans-benefits-administration-vba/location-and-contact-information#how-to-edit) for instructions on how to properly make those changes.
 
 ### Publishing
 - [ ] Set the VBA Facility to Published, and note approvals in the revision log
