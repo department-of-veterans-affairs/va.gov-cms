@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_last_saved_by_an_editor
     - field.field.node.vet_center.field_media
+    - field.field.node.vet_center.field_mission_explainer
     - field.field.node.vet_center.field_office_hours
     - field.field.node.vet_center.field_official_name
     - field.field.node.vet_center.field_operating_status_facility
@@ -84,7 +85,7 @@ third_party_settings:
       label: 'Locations and contact information'
       parent_name: ''
       region: content
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -101,7 +102,7 @@ third_party_settings:
       label: 'Facility data'
       parent_name: group_locations_and_contact_info
       region: content
-      weight: 8
+      weight: 5
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -120,7 +121,7 @@ third_party_settings:
       label: 'Hours details and call center information'
       parent_name: group_locations_and_contact_info
       region: content
-      weight: 9
+      weight: 6
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -138,7 +139,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       parent_name: ''
       region: content
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -151,7 +152,7 @@ third_party_settings:
       label: "How we're different than a clinic (FAQs)"
       parent_name: ''
       region: content
-      weight: 7
+      weight: 8
       format_type: tooltip
       format_settings:
         show_label: '1'
@@ -170,7 +171,7 @@ third_party_settings:
       label: 'Featured content'
       parent_name: ''
       region: content
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -183,7 +184,7 @@ third_party_settings:
       label: 'National featured content'
       parent_name: group_featured_content
       region: content
-      weight: 7
+      weight: 10
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -192,6 +193,25 @@ third_party_settings:
         id: ''
         classes: centralized
         show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+    group_mission_explainer:
+      children:
+        - field_mission_explainer
+      label: 'Vet Center services overview'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nVHA keeps this content standardized to provide consistent messaging for Vet Center sites nationwide."
+        description: ''
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        label_as_html: 0
         element: div
         label_element: h3
         attributes: ''
@@ -249,7 +269,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   field_intro_text:
     type: basic_string
@@ -267,7 +287,14 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 11
+    weight: 7
+    region: content
+  field_mission_explainer:
+    type: entity_field_fetch
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_office_hours:
     type: office_hours
@@ -302,7 +329,7 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   field_official_name:
     type: string
@@ -341,14 +368,14 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 7
+    weight: 9
     region: content
   field_timezone:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_vet_center_feature_content:
     type: entity_reference_revisions_entity_view
@@ -357,7 +384,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 11
     region: content
 hidden:
   breadcrumbs: true
