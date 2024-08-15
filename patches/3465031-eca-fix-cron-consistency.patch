@@ -1,0 +1,31 @@
+diff --git a/modules/base/src/Event/CronEvent.php b/modules/base/src/Event/CronEvent.php
+index ae8850c83fd2911d4f8beaf71289cd45b1c01465..ad32fc6cb52c7fbf08f7a49eccd25fccc7d6947b 100644
+--- a/modules/base/src/Event/CronEvent.php
++++ b/modules/base/src/Event/CronEvent.php
+@@ -40,6 +40,13 @@ class CronEvent extends Event {
+    */
+   protected LoggerChannelInterface $logger;
+ 
++  /**
++   * List of timestamps keyed by state ID.
++   *
++   * @var int[]
++   */
++  private static array $lastRun = [];
++
+   /**
+    * Constructs a new CronEvent object.
+    *
+@@ -73,7 +80,11 @@ class CronEvent extends Event {
+    */
+   public function isDue(string $id, string $frequency): bool {
+     $currentTime = $this->state->getCurrentTimestamp();
+-    $lastRun = $this->state->getTimestamp('cron-' . $id);
++    $key = 'cron-' . $id;
++    if (!isset(self::$lastRun[$key])) {
++      self::$lastRun[$key] = $this->state->getTimestamp($key);
++    }
++    $lastRun = self::$lastRun[$key];
+ 
+     // Cron's maximum granularity is on minute level. Therefore we round the
+     // current time to the last passed minute. That way we avoid accidental

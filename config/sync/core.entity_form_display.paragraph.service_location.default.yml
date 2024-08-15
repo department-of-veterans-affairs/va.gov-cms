@@ -158,12 +158,19 @@ bundle: service_location
 mode: default
 content:
   field_additional_hours_info:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 3
     region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
   field_appt_intro_text_custom:
     type: string_textarea_with_counter
