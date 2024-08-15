@@ -44,7 +44,7 @@ third_party_settings:
       label: 'External content'
       parent_name: ''
       region: hidden
-      weight: 25
+      weight: 24
       format_type: fieldset
       format_settings:
         classes: ''
@@ -70,7 +70,7 @@ third_party_settings:
       label: 'Top of page information'
       parent_name: ''
       region: content
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -199,18 +199,19 @@ third_party_settings:
     group_mission_explainer:
       children:
         - field_mission_explainer
-      label: 'Mission Explainer'
+      label: 'Vet Center services overview'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 3
       format_type: tooltip
       format_settings:
-        show_label: '1'
-        tooltip_description: ''
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nVHA keeps this content standardized to provide consistent messaging for Vet Center sites nationwide."
         description: ''
         id: ''
         classes: centralized
         show_empty_fields: 0
+        label_as_html: 0
         element: div
         label_element: h3
         attributes: ''
