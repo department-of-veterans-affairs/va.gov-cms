@@ -24,7 +24,6 @@ dependencies:
     - field.field.node.vet_center.field_prepare_for_visit
     - field.field.node.vet_center.field_table_of_contents
     - field.field.node.vet_center.field_timezone
-    - field.field.node.vet_center.field_vet_center_banner_image
     - field.field.node.vet_center.field_vet_center_feature_content
     - node.type.vet_center
     - workflows.workflow.editorial
@@ -52,7 +51,7 @@ third_party_settings:
       label: 'Operating status'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
@@ -65,7 +64,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -82,7 +81,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 13
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: ''
@@ -94,7 +93,7 @@ third_party_settings:
       label: 'Direct line'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -109,7 +108,7 @@ third_party_settings:
       label: 'Top of page information'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -125,7 +124,7 @@ third_party_settings:
       label: 'Locations and contact information'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -159,7 +158,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -173,7 +172,7 @@ third_party_settings:
       label: 'Spotlight content'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -186,7 +185,7 @@ third_party_settings:
       label: "How we're different than a clinic (FAQs)"
       region: content
       parent_name: ''
-      weight: 11
+      weight: 9
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -248,7 +247,7 @@ third_party_settings:
       label: Services
       region: content
       parent_name: ''
-      weight: 10
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -263,27 +262,7 @@ third_party_settings:
       label: 'Vet Center services overview'
       region: content
       parent_name: ''
-      weight: 5
-      format_type: tooltip
-      format_settings:
-        show_label: '0'
-        tooltip_description: "Why can’t I edit this?\r\nVHA keeps this content standardized to provide consistent messaging for Vet Center sites nationwide."
-        description: ''
-        required_fields: '1'
-        id: ''
-        classes: centralized
-        show_empty_fields: 0
-        label_as_html: 0
-        element: div
-        label_element: h3
-        attributes: ''
-    group_vet_center_banner_image:
-      children:
-        - field_vet_center_banner_image
-      label: 'Vet Center banner image'
-      region: content
-      parent_name: ''
-      weight: 4
+      weight: 3
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -376,7 +355,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 14
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -389,7 +368,7 @@ content:
     third_party_settings: {  }
   field_mission_explainer:
     type: entity_field_fetch_widget
-    weight: 1
+    weight: 14
     region: content
     settings:
       show_field_label: 0
@@ -464,7 +443,7 @@ content:
         limit_values: '0'
   field_table_of_contents:
     type: markup
-    weight: 1
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -473,15 +452,6 @@ content:
     weight: 19
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_vet_center_banner_image:
-    type: entity_field_fetch_widget
-    weight: 0
-    region: content
-    settings:
-      show_field_label: 0
-      show_link_to_source: 0
-      show_source_updated_date: 0
     third_party_settings: {  }
   field_vet_center_feature_content:
     type: paragraphs

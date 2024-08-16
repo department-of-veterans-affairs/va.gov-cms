@@ -7,10 +7,6 @@ dependencies:
     - node.type.vet_center
   module:
     - address
-    - tmgmt_content
-third_party_settings:
-  tmgmt_content:
-    excluded: false
 id: node.vet_center.field_address
 field_name: field_address
 entity_type: node
@@ -21,7 +17,7 @@ required: false
 translatable: false
 default_value:
   -
-    langcode: en
+    langcode: ''
     country_code: US
     administrative_area: ''
     locality: ''
@@ -30,7 +26,7 @@ default_value:
     sorting_code: null
     address_line1: ''
     address_line2: ''
-    address_line3: null
+    address_line3: ''
     organization: null
     given_name: null
     additional_name: null
@@ -48,21 +44,7 @@ settings:
       override: hidden
     organization:
       override: hidden
-    addressLine1:
-      override: optional
-    addressLine2:
-      override: optional
     addressLine3:
       override: hidden
-    postalCode:
-      override: optional
-    sortingCode:
-      override: optional
-    dependentLocality:
-      override: optional
-    locality:
-      override: optional
-    administrativeArea:
-      override: optional
   fields: {  }
 field_type: address
