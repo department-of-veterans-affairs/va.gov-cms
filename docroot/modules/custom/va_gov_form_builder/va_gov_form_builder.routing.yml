@@ -1,0 +1,14 @@
+va_gov_form_builder.step_add_choose_type:
+  path: "/node/add/digital_form/step/add/choose_type"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\StepController::stepAddChooseType'
+    _title: "Choose Step Type"
+  requirements:
+    _permission: "edit any content"
+va_gov_form_builder.step_add:
+  path: "/node/add/digital_form/step/add/{paragraph_type}"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\StepController::stepAdd'
+    _title: "Add New Step"
+  requirements:
+    _permission: "edit any content"

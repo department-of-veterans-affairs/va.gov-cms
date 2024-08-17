@@ -1,0 +1,88 @@
+<?php
+
+use Drupal\paragraphs\Entity\Paragraph;
+
+/**
+ * Implements hook_form_alter
+ */
+function va_gov_form_builder_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_id != 'node_digital_form_edit_form' && $form_id != 'node_digital_form_form') {
+    return;
+  }
+
+  // If coming from add-step page, load the new step (paragraph)
+  $request_stack = \Drupal::service('request_stack');
+  $request = $request_stack->getCurrentRequest();
+  $referrer = $request->headers->get('referer');
+  if (strpos($referrer, '/node/add/digital_form/step/add') !== FALSE) {
+    $temp_store = \Drupal::service('tempstore.private')->get('digital_form_steps');
+    $paragraph_data = $temp_store->get('node_add_paragraph_add');
+
+    $new_paragraph = Paragraph::create([
+      'type' => 'digital_form_name_and_date_of_bi',
+      'field_title' => $paragraph_data['field_title'][0]['value'],
+      'field_include_date_of_birth' =>
+        isset($paragraph_data['field_include_date_of_birth'])
+          ? $paragraph_data['field_include_date_of_birth']['value']
+          : false,
+    ]);
+
+    $paragraph_form = \Drupal::service('entity.form_builder')
+      ->getForm($new_paragraph, 'default');
+
+    // Remove the 'submit' button from the paragraph form.
+    if (isset($paragraph_form['actions']['submit'])) {
+      unset($paragraph_form['actions']['submit']);
+    }
+
+    // Set the collapsible and collapsed state.
+    // $paragraph_form['#type'] = 'details';
+    // $paragraph_form['#open'] = FALSE; // Default to collapsed.
+
+    $form['field_chapters']['widget'][] = $paragraph_form;
+
+    xdebug_var_dump($paragraph_form);
+  }
+
+  $node = $form_state->getFormObject()->getEntity();
+
+  // Change 'Add Step' button to be a link to the add-step-choose-type page
+  $form['field_chapters']['widget']['add_more'] = [
+    '#type' => 'markup',
+    '#markup' => '<div class="step-add-link"><a class="button" href="/node/add/digital_form/step/add/choose_type">' . t('Add Step') . '</a></div>',
+  ];
+}
+
+// /**
+//  * Custom submit handler to save form data to temporary storage and navigate to the paragraph-edit page.
+//  */
+// function _va_gov_form_builder_navigate_to_paragraph_edit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+//   // Save form data to temporary storage.
+//   _va_gov_form_builder_save_form_data_to_temp_storage($form_state);
+
+//   // Redirect to the paragraph-edit page.
+//   $form_state->setRedirect('va_gov_form_builder.step_add', [
+//     'node' => $form_state->get('node')->id(),
+//   ]);
+// }
+
+/**
+ * Saves form data to temporary storage.
+ *
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state from which to extract data.
+ */
+function _va_gov_form_builder_save_form_data_to_temp_storage(FormStateInterface $form_state) {
+  // // Get the TempStore service.
+  // $store = \Drupal::service('tempstore.private')->get('my_module');
+
+  // // Extract form data from the form state.
+  // $form_data = $form_state->getValues();
+
+  // // Store the form data in temporary storage using a predefined key.
+  // $store->set('current_form_data', $form_data);
+
+  // \Drupal::messenger()->addMessage(t('Form data stored in temporary storage.'));
+
+  \Drupal::messenger()->addMessage(t('TEST SAVE'));
+}
