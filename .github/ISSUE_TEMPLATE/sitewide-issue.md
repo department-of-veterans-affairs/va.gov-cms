@@ -1,8 +1,8 @@
 ---
-name: "(PW) Issue template"
-about: Issue template for Public Websites team
+name: "(Sitewide) Issue template"
+about: Issue template for Sitewide team
 title: ''
-labels: Needs refining, Public Websites, sitewide
+labels: Needs refining, sitewide
 assignees: ''
 
 ---
@@ -24,7 +24,9 @@ assignees: ''
 
 
 ### Quality / testing notes
-
+>Consider
+> - Automated test coverage
+> - Manual testing needs
 
 ## Acceptance criteria
 
@@ -33,7 +35,9 @@ assignees: ''
 > - Collab cycle requirements
 > - Device sizes (mobile first)
 > - Documentation updates / Change management
+> - Testing requirements
 < - [Content model documentation](https://prod.cms.va.gov/admin/structure/cm_document)
-> - Testing notes
+
+
 
 - [ ]
