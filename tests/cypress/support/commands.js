@@ -60,6 +60,7 @@ Cypress.Commands.add("drupalLogin", (username, password) => {
 
 Cypress.Commands.add("drupalLogout", () => {
   cy.visit("/user/logout");
+  cy.get("#edit-submit").click();
 });
 
 Cypress.Commands.add("drupalDrushCommand", (command) => {
