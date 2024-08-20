@@ -1,6 +1,9 @@
 <?php
 
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\va_gov_form_builder\Plugin\Field\FieldWidget\MultiStepParagraphWidget;
 
 /**
  * Implements hook_form_alter
@@ -10,6 +13,24 @@ function va_gov_form_builder_form_alter(&$form, \Drupal\Core\Form\FormStateInter
     return;
   }
 
+  $form['#submit'] = ['_va_gov_form_builder_custom_form_submit'];
+
+  $form['field_chapters']['#process'][] = '_va_gov_form_builder_custom_paragraph_process';
+}
+
+/**
+ * Custom submit handler to print $form_state and prevent submission.
+ */
+function _va_gov_form_builder_custom_form_submit(array &$form, FormStateInterface $form_state) {
+  xdebug_var_dump($form_state->getValue('field_omb_number'));
+  xdebug_var_dump($form_state->getValue('field_chapters'));
+  exit;
+}
+
+/**
+ * Custom processing callback for the paragraph field.
+ */
+function _va_gov_form_builder_custom_paragraph_process($element, FormStateInterface $form_state, $form) {
   // If coming from add-step page, load the new step (paragraph)
   $request_stack = \Drupal::service('request_stack');
   $request = $request_stack->getCurrentRequest();
@@ -18,40 +39,17 @@ function va_gov_form_builder_form_alter(&$form, \Drupal\Core\Form\FormStateInter
     $temp_store = \Drupal::service('tempstore.private')->get('digital_form_steps');
     $paragraph_data = $temp_store->get('node_add_paragraph_add');
 
-    $new_paragraph = Paragraph::create([
-      'type' => 'digital_form_name_and_date_of_bi',
-      'field_title' => $paragraph_data['field_title'][0]['value'],
-      'field_include_date_of_birth' =>
-        isset($paragraph_data['field_include_date_of_birth'])
-          ? $paragraph_data['field_include_date_of_birth']['value']
-          : false,
-    ]);
+    $title = $paragraph_data['field_title'][0]['value'];
+    $include_dob = isset($paragraph_data['field_include_date_of_birth'])
+      ? $paragraph_data['field_include_date_of_birth']['value']
+      : false;
 
-    $paragraph_form = \Drupal::service('entity.form_builder')
-      ->getForm($new_paragraph, 'default');
-
-    // Remove the 'submit' button from the paragraph form.
-    if (isset($paragraph_form['actions']['submit'])) {
-      unset($paragraph_form['actions']['submit']);
-    }
-
-    // Set the collapsible and collapsed state.
-    // $paragraph_form['#type'] = 'details';
-    // $paragraph_form['#open'] = FALSE; // Default to collapsed.
-
-    $form['field_chapters']['widget'][] = $paragraph_form;
-
-    xdebug_var_dump($paragraph_form);
+    $element['widget'][] = MultiStepParagraphWidget::renderNameAndDobWidget($title, $include_dob);
   }
 
-  $node = $form_state->getFormObject()->getEntity();
-
-  // Change 'Add Step' button to be a link to the add-step-choose-type page
-  $form['field_chapters']['widget']['add_more'] = [
-    '#type' => 'markup',
-    '#markup' => '<div class="step-add-link"><a class="button" href="/node/add/digital_form/step/add/choose_type">' . t('Add Step') . '</a></div>',
-  ];
+  return $element;
 }
+
 
 // /**
 //  * Custom submit handler to save form data to temporary storage and navigate to the paragraph-edit page.
@@ -65,6 +63,7 @@ function va_gov_form_builder_form_alter(&$form, \Drupal\Core\Form\FormStateInter
 //     'node' => $form_state->get('node')->id(),
 //   ]);
 // }
+
 
 /**
  * Saves form data to temporary storage.
@@ -85,4 +84,18 @@ function _va_gov_form_builder_save_form_data_to_temp_storage(FormStateInterface 
   // \Drupal::messenger()->addMessage(t('Form data stored in temporary storage.'));
 
   \Drupal::messenger()->addMessage(t('TEST SAVE'));
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the manage-form-display page.
+ */
+function va_gov_form_builder_form_entity_form_display_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Only allow multistep_paragraph widget on content type digital_form
+  if ($form['#bundle'] != 'digital_form') {
+    foreach ($form['fields'] as &$form_field) {
+      if (isset($form_field['plugin']['type']['#options']['multistep_paragraph'])) {
+        unset($form_field['plugin']['type']['#options']['multistep_paragraph']);
+      }
+    }
+  }
 }
