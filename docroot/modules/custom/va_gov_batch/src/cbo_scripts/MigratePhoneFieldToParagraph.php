@@ -1,0 +1,219 @@
+<?php
+
+namespace Drupal\va_gov_batch\cbo_scripts;
+
+use Drupal\codit_batch_operations\BatchOperations;
+use Drupal\codit_batch_operations\BatchScriptInterface;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\paragraphs\ParagraphInterface;
+use Drupal\telephone\Plugin\Field\FieldType\TelephoneItem;
+use JetBrains\PhpStorm\ArrayShape;
+
+/**
+ * Migrate Staff profile phone field to phone paragraph.
+ */
+class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScriptInterface {
+
+  /**
+   * The target field name.
+   *
+   * @var string
+   */
+  protected string $targetFieldName = 'field_telephone';
+
+  /**
+   * The source  field name.
+   *
+   * @var string
+   */
+  protected string $sourceFieldName = 'field_phone_number';
+
+  /**
+   * The current range being processed.
+   *
+   * @var int
+   */
+  private static int $currentRange = 0;
+
+  /**
+   * How big each batch should be.
+   *
+   * @var int
+   */
+  protected int $batchOf = 50;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTitle(): string {
+    return <<<TITLE
+    For:
+      - VACMS-17860: https://github.com/department-of-veterans-affairs/va.gov-cms/issues/17860.
+    TITLE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDescription():string {
+    return <<<ENDHERE
+    Migrates (not a formal Drupal migration) telephone field values into a
+    paragraph for the purpose of using the paragraph going forward.
+    ENDHERE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCompletedMessage(): string {
+    // Return a meaningful message to display at the end of the run.
+    // This message can include the tokens '@completed' and '@total'.
+    return 'Phone migration ended processing with a total @total processed and @completed completed.';
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getItemType(): string {
+    return 'node:field_telephone';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function gatherItemsToProcess(): array {
+    $items = \Drupal::entityQuery('node')
+      ->condition('type', 'person_profile')
+      ->accessCheck(FALSE)
+      ->condition($this->sourceFieldName, operator: 'IS NOT NULL')
+      ->condition($this->sourceFieldName, ',', 'CONTAINS')
+      ->range(static::$currentRange, $this->batchOf)
+      ->execute();
+    // Increment current range so the next call to this method gets the next
+    // group of results.
+    static::$currentRange += $this->batchOf;
+    return $items;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function processOne(string $key, mixed $item, array &$sandbox): string {
+    $node = Node::load($item);
+    $paragraphs = [];
+    foreach ($node->get($this->sourceFieldName) as $delta => $field_value) {
+      try {
+        $telephoneParagraph = $this->createParagraph($node, $field_value);
+        $telephoneParagraph->save();
+        $paragraphs[] = $telephoneParagraph;
+      }
+      catch (EntityStorageException $e) {
+        $message = "Unable to create paragraph. Reason provided: " . $e->getMessage();
+        $this->batchOpLog->appendError($message);
+        return $message;
+      }
+    }
+    // Set the new phone value(s) on the node.
+    /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+    $node->set(name: $this->targetFieldName, value: array_map(callback: fn($paragraph) => [
+      'target_id' => $paragraph->id(),
+      'target_revision_id' => $paragraph->getRevisionId(),
+    ], array: $paragraphs));
+
+    $message = 'Telephone migration complete for node ' . $node->id();
+    $this->saveNodeRevision($node, $message);
+    return 'Telephone migration complete for node ' . $node->id();
+  }
+
+  /**
+   * Creates the paragraph.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *  The node.
+   * @param TelephoneItem $value
+   *  The field item.
+   *
+   * @return ParagraphInterface
+   *  The paragraph.
+   */
+  private function createParagraph(NodeInterface $node, TelephoneItem $value): ParagraphInterface {
+    assert(!empty($value->getValue()['value']));
+    // Breakout $value into discrete phone and extension values.
+    $phoneAndExtension = $value->getValue()['value'];
+    list($phone, $extension) = $this->extractPhoneAndExtension($phoneAndExtension);
+    return Paragraph::create([
+      'type' => 'phone_number',
+      'field_phone_number' => $phone,
+      'paragraph_field_phone_extension' => $extension,
+      'status' => 1,
+      'revision_default' => 1,
+      'isDefaultRevision' => 1,
+      'parent_type' => 'node',
+      'parent_field_name' => $this->targetFieldName,
+      'parent_id' => $node->id(),
+      'revision_translation_affected' => 1,
+    ]);
+  }
+
+  /*
+  /**
+   * Extracts phone and extension into distinct values.
+   *
+   * @param string $phoneAndExtension
+   *   The phone and extension as a single concatenated string. eg:
+   *   503-555-1212, x1234
+   *
+   * @return array
+   */
+  #[ArrayShape([
+    'phone' => "mixed|string",
+    'extension' => "mixed|string"
+  ])]
+  public static function extractPhoneAndExtension($input) {
+    $phone = '';
+    $extension = 'No extension found';
+
+    // Split the input into different parts by common delimiters.
+    $parts = preg_split('/[,\s()]+/', $input);
+
+    // Iterate over each part to identify the phone number and extension.
+    for ($i = 0; $i < count($parts); $i++) {
+      $part = $parts[$i];
+
+      if (self::isPhoneNumber($part)) {
+        $phone = $part;
+      }
+      elseif (strtolower($part) === 'ext' || strtolower($part) === 'extension' || strtolower($part) === 'x' || strtolower($part) === 'or') {
+        // If the current part is a common extension keyword, look at the next part for the extension number.
+        if (isset($parts[$i + 1]) && ctype_digit($parts[$i + 1])) {
+          $extension = $parts[$i + 1];
+        }
+      }
+    }
+
+    return [
+      'phone' => $phone,
+      'extension' => $extension
+    ];
+  }
+
+  /**
+   * Determines if the given part is a phone number in nnn-nnn-nnnn format.
+   *
+   * @param string $part
+   *   The string part to check.
+   *
+   * @return bool
+   */
+  private static function isPhoneNumber($part): bool {
+    $segments = explode('-', $part);
+    return count($segments) === 3 &&
+      ctype_digit($segments[0]) && strlen($segments[0]) === 3 &&
+      ctype_digit($segments[1]) && strlen($segments[1]) === 3 &&
+      ctype_digit($segments[2]) && strlen($segments[2]) === 4;
+  }
+
+}
