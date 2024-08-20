@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.vet_center.field_prepare_for_visit
     - field.field.node.vet_center.field_table_of_contents
     - field.field.node.vet_center.field_timezone
+    - field.field.node.vet_center.field_vet_center_banner_image
     - field.field.node.vet_center.field_vet_center_feature_content
     - image.style.large
     - node.type.vet_center
@@ -44,7 +45,7 @@ third_party_settings:
       label: 'External content'
       parent_name: ''
       region: hidden
-      weight: 24
+      weight: 26
       format_type: fieldset
       format_settings:
         classes: ''
@@ -85,7 +86,7 @@ third_party_settings:
       label: 'Locations and contact information'
       parent_name: ''
       region: content
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -139,7 +140,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       parent_name: ''
       region: content
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -152,7 +153,7 @@ third_party_settings:
       label: "How we're different than a clinic (FAQs)"
       parent_name: ''
       region: content
-      weight: 8
+      weight: 9
       format_type: tooltip
       format_settings:
         show_label: '1'
@@ -171,7 +172,7 @@ third_party_settings:
       label: 'Featured content'
       parent_name: ''
       region: content
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -200,6 +201,25 @@ third_party_settings:
       children:
         - field_mission_explainer
       label: 'Vet Center services overview'
+      parent_name: ''
+      region: content
+      weight: 4
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nVHA keeps this content standardized to provide consistent messaging for Vet Center sites nationwide."
+        description: ''
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        label_as_html: 0
+        element: div
+        label_element: h3
+        attributes: ''
+    group_vet_center_banner_image:
+      children:
+        - field_vet_center_banner_image
+      label: 'Vet Center banner image'
       parent_name: ''
       region: content
       weight: 3
@@ -269,7 +289,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: content
   field_intro_text:
     type: basic_string
@@ -376,6 +396,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_vet_center_banner_image:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
     region: content
   field_vet_center_feature_content:
     type: entity_reference_revisions_entity_view
