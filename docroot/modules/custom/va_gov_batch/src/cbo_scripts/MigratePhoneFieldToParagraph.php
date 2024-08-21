@@ -90,12 +90,11 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
       ->condition('type', 'person_profile')
       ->accessCheck(FALSE)
       ->condition($this->sourceFieldName, operator: 'IS NOT NULL')
-      ->condition($this->sourceFieldName, ',', 'CONTAINS')
       ->range(static::$currentRange, $this->batchOf)
       ->execute();
     // Increment current range so the next call to this method gets the next
     // group of results.
-    static::$currentRange += $this->batchOf;
+    self::$currentRange += $this->batchOf;
     return $items;
   }
 
@@ -201,23 +200,6 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
       'phone' => $phone,
       'extension' => $extension,
     ];
-  }
-
-  /**
-   * Determines if the given part is a phone number in nnn-nnn-nnnn format.
-   *
-   * @param string $part
-   *   The string part to check.
-   *
-   * @return bool
-   *   TRUE if the number is a phone number.
-   */
-  private static function isPhoneNumber($part): bool {
-    $segments = explode('-', $part);
-    return count($segments) === 3 &&
-      ctype_digit($segments[0]) && strlen($segments[0]) === 3 &&
-      ctype_digit($segments[1]) && strlen($segments[1]) === 3 &&
-      ctype_digit($segments[2]) && strlen($segments[2]) === 4;
   }
 
 }
