@@ -143,8 +143,10 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
   private function createParagraph(NodeInterface $node, TelephoneItem $value): ParagraphInterface {
     assert(!empty($value->getValue()['value']));
     // Breakout $value into discrete phone and extension values.
-    $phoneAndExtension = $value->getValue()['value'];
-    [$phone, $extension] = $this->extractPhoneAndExtension($phoneAndExtension, $node);
+    $value = $value->getValue()['value'];
+    $data = $this->extractPhoneAndExtension($value);
+    $phone = $data['phone'];
+    $extension = $data['extension'];
     return Paragraph::create([
       'type' => 'phone_number',
       'field_phone_number' => $phone,
