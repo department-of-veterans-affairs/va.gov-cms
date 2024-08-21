@@ -11,6 +11,7 @@ use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\telephone\Plugin\Field\FieldType\TelephoneItem;
 use JetBrains\PhpStorm\ArrayShape;
+use libphonenumber\PhoneNumberUtil;
 
 /**
  * Migrate Staff profile phone field to phone paragraph.
@@ -104,7 +105,7 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
   public function processOne(string $key, mixed $item, array &$sandbox): string {
     $node = Node::load($item);
     $paragraphs = [];
-    foreach ($node->get($this->sourceFieldName) as $delta => $field_value) {
+    foreach ($node->get($this->sourceFieldName) as $field_value) {
       try {
         $telephoneParagraph = $this->createParagraph($node, $field_value);
         $telephoneParagraph->save();
@@ -132,18 +133,18 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
    * Creates the paragraph.
    *
    * @param \Drupal\node\NodeInterface $node
-   *  The node.
-   * @param TelephoneItem $value
-   *  The field item.
+   *   The node.
+   * @param \Drupal\telephone\Plugin\Field\FieldType\TelephoneItem $value
+   *   The field item.
    *
-   * @return ParagraphInterface
-   *  The paragraph.
+   * @return \Drupal\paragraphs\ParagraphInterface
+   *   The paragraph.
    */
   private function createParagraph(NodeInterface $node, TelephoneItem $value): ParagraphInterface {
     assert(!empty($value->getValue()['value']));
     // Breakout $value into discrete phone and extension values.
     $phoneAndExtension = $value->getValue()['value'];
-    list($phone, $extension) = $this->extractPhoneAndExtension($phoneAndExtension);
+    [$phone, $extension] = $this->extractPhoneAndExtension($phoneAndExtension, $node);
     return Paragraph::create([
       'type' => 'phone_number',
       'field_phone_number' => $phone,
@@ -158,45 +159,45 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
     ]);
   }
 
-  /*
   /**
    * Extracts phone and extension into distinct values.
    *
-   * @param string $phoneAndExtension
+   * @param string $input
    *   The phone and extension as a single concatenated string. eg:
-   *   503-555-1212, x1234
+   *   503-555-1212, x1234.
    *
    * @return array
+   *   The extracted and parsed phone and extension.
    */
   #[ArrayShape([
     'phone' => "mixed|string",
-    'extension' => "mixed|string"
+    'extension' => "mixed|string",
   ])]
-  public static function extractPhoneAndExtension($input) {
-    $phone = '';
+  public static function extractPhoneAndExtension(string $input): array {
     $extension = 'No extension found';
+    $phoneNumberUtil = PhoneNumberUtil::getInstance();
+    $phoneNumberMatcher = $phoneNumberUtil->findNumbers($input, 'US');
+    $phoneNumberMatcher->next();
+    $extension = $phoneNumberMatcher->current()->number()->getExtension() ?? $extension;
+    $phone = $phoneNumberMatcher->current()->number()->getNationalNumber();
+    $phoneLength = strlen($phone);
 
-    // Split the input into different parts by common delimiters.
-    $parts = preg_split('/[,\s()]+/', $input);
+    // Destination field allows only 12 digits for phone, and truncating will
+    // result in data loss.
+    if ($phoneLength > 12) {
+      $message = sprintf('Phone number for is too long. Number provided: %s', $phoneLength);
+      \Drupal::logger('va_gov_batch::phone_length_exceeded')->error($message);
+      $phone = $message;
+    }
 
-    // Iterate over each part to identify the phone number and extension.
-    for ($i = 0; $i < count($parts); $i++) {
-      $part = $parts[$i];
-
-      if (self::isPhoneNumber($part)) {
-        $phone = $part;
-      }
-      elseif (strtolower($part) === 'ext' || strtolower($part) === 'extension' || strtolower($part) === 'x' || strtolower($part) === 'or') {
-        // If the current part is a common extension keyword, look at the next part for the extension number.
-        if (isset($parts[$i + 1]) && ctype_digit($parts[$i + 1])) {
-          $extension = $parts[$i + 1];
-        }
-      }
+    // If phone length is 10 digits, format it in the nnn-nnn-nnnn format.
+    if ($phoneLength === 10) {
+      $phone = preg_replace('/(\d{3})(\d{3})(\d{4})/', '$1-$2-$3', $phone);
     }
 
     return [
       'phone' => $phone,
-      'extension' => $extension
+      'extension' => $extension,
     ];
   }
 
@@ -207,6 +208,7 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
    *   The string part to check.
    *
    * @return bool
+   *   TRUE if the number is a phone number.
    */
   private static function isPhoneNumber($part): bool {
     $segments = explode('-', $part);
