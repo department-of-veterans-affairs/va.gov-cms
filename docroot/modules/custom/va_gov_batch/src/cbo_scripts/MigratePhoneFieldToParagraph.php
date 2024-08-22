@@ -33,20 +33,6 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
   protected string $sourceFieldName = 'field_phone_number';
 
   /**
-   * The current range being processed.
-   *
-   * @var int
-   */
-  private static int $currentRange = 0;
-
-  /**
-   * How big each batch should be.
-   *
-   * @var int
-   */
-  protected int $batchOf = 50;
-
-  /**
    * {@inheritdoc}
    */
   public function getTitle(): string {
@@ -90,11 +76,7 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
       ->condition('type', 'person_profile')
       ->accessCheck(FALSE)
       ->condition($this->sourceFieldName, operator: 'IS NOT NULL')
-      ->range(static::$currentRange, $this->batchOf)
       ->execute();
-    // Increment current range so the next call to this method gets the next
-    // group of results.
-    self::$currentRange += $this->batchOf;
     return $items;
   }
 
@@ -179,8 +161,8 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
     $phoneNumberUtil = PhoneNumberUtil::getInstance();
     $phoneNumberMatcher = $phoneNumberUtil->findNumbers($input, 'US');
     $phoneNumberMatcher->next();
-    $extension = $phoneNumberMatcher->current()->number()->getExtension() ?? $extension;
-    $phone = $phoneNumberMatcher->current()->number()->getNationalNumber();
+    $extension = $phoneNumberMatcher->current()?->number()->getExtension() ?? $extension;
+    $phone = $phoneNumberMatcher->current()?->number()->getNationalNumber() ?? '';
     $phoneLength = strlen($phone);
 
     // Destination field allows only 12 digits for phone, and truncating will
