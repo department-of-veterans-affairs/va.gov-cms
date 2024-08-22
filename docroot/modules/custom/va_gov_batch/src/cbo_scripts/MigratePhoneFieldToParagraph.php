@@ -131,7 +131,7 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
     return Paragraph::create([
       'type' => 'phone_number',
       'field_phone_number' => $phone,
-      'paragraph_field_phone_extension' => $extension,
+      'field_phone_extension' => $extension,
       'status' => 1,
       'revision_default' => 1,
       'isDefaultRevision' => 1,
@@ -157,11 +157,10 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
     'extension' => "mixed|string",
   ])]
   public static function extractPhoneAndExtension(string $input): array {
-    $extension = 'No extension found';
     $phoneNumberUtil = PhoneNumberUtil::getInstance();
     $phoneNumberMatcher = $phoneNumberUtil->findNumbers($input, 'US');
     $phoneNumberMatcher->next();
-    $extension = $phoneNumberMatcher->current()?->number()->getExtension() ?? $extension;
+    $extension = $phoneNumberMatcher->current()?->number()->getExtension() ?? '';
     $phone = $phoneNumberMatcher->current()?->number()->getNationalNumber() ?? '';
     $phoneLength = strlen($phone);
 

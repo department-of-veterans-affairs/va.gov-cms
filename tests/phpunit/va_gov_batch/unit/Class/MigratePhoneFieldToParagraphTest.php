@@ -41,12 +41,12 @@ class MigratePhoneFieldToParagraphTest extends TestCase {
       'Test case 3: without extension' => [
         'input' => '+1-918-781-5678',
         'expectedPhone' => '918-781-5678',
-        'expectedExtension' => 'No extension found',
+        'expectedExtension' => '',
       ],
       'Test case 4: with text and phone' => [
         'input' => '888-GIBILL-1 (888-442-4551)',
         'expectedPhone' => '888-442-4551',
-        'expectedExtension' => 'No extension found',
+        'expectedExtension' => '',
       ],
       'Test case 5: multiple phone numbers with extension' => [
         'input' => '602-277-5551, ext. 2173 or 800-554-7174 (toll free)',
