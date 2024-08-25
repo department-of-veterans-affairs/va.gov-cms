@@ -7,6 +7,8 @@
 
 require_once __DIR__ . '/../../../../scripts/content/script-library.php';
 
+use Drupal\va_gov_batch\cbo_scripts\MigrateVamcBillingInsurancePhoneFieldToParagraph;
+
 /**
  * Build top VA Police page and menu items for each system.
  */
@@ -16,4 +18,11 @@ function va_gov_vamc_deploy_build_va_police_9001(&$sandbox) {
   script_library_sandbox_init($sandbox, '_va_gov_vamc_get_systems_to_process', [$build_bundle]);
   _va_gov_vamc_create_system_content_pages($sandbox, $build_bundle, 'draft');
   return script_library_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
+}
+
+/**
+ * Implements hook_deploy_NAME().
+ */
+function va_gov_vamc_deploy_move_phone_to_paragraph(array &$sandbox): void {
+  \Drupal::classResolver(MigrateVamcBillingInsurancePhoneFieldToParagraph::class)->run($sandbox, 'deploy');
 }
