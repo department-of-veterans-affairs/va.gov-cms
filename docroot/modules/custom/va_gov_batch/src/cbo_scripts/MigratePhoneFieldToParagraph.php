@@ -48,7 +48,7 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
   public function getDescription():string {
     return <<<ENDHERE
     Migrates (not a formal Drupal migration) telephone field values into a
-    paragraph for the purpose of using the paragraph going forward.
+    paragraph entity reference field with discrete phone, extension, and labels.
     ENDHERE;
   }
 
@@ -56,8 +56,6 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
    * {@inheritdoc}
    */
   public function getCompletedMessage(): string {
-    // Return a meaningful message to display at the end of the run.
-    // This message can include the tokens '@completed' and '@total'.
     return 'Phone migration ended processing with a total @total processed and @completed completed.';
   }
 
@@ -72,12 +70,11 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
    * {@inheritdoc}
    */
   public function gatherItemsToProcess(): array {
-    $items = \Drupal::entityQuery('node')
+    return \Drupal::entityQuery('node')
       ->condition('type', 'person_profile')
       ->accessCheck(FALSE)
       ->condition($this->sourceFieldName, operator: 'IS NOT NULL')
       ->execute();
-    return $items;
   }
 
   /**
@@ -107,7 +104,7 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
 
     $message = 'Telephone migration complete for node ' . $node->id();
     $this->saveNodeRevision($node, $message);
-    return 'Telephone migration complete for node ' . $node->id();
+    return $message;
   }
 
   /**
@@ -150,7 +147,8 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
    *   503-555-1212, x1234.
    *
    * @return array
-   *   The extracted and parsed phone and extension.
+   *   The extracted and parsed phone and extension. Phone will be in the
+   * nnn-nnn-nnnn format while the extension will contain only integers.
    */
   #[ArrayShape([
     'phone' => "mixed|string",
@@ -167,7 +165,7 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
     // Destination field allows only 12 digits for phone, and truncating will
     // result in data loss.
     if ($phoneLength > 12) {
-      $message = sprintf('Phone number for is too long. Number provided: %s', $phoneLength);
+      $message = sprintf('Phone number is too long. Number provided: %s', $phoneLength);
       \Drupal::logger('va_gov_batch::phone_length_exceeded')->error($message);
       $phone = $message;
     }
