@@ -11,6 +11,7 @@ Scenario: Log in and create a Person Profile with attention to conditional field
   And I fill in "First name" with "James"
   And I fill in "Last name" with "Smith"
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
+  And I fill in "Phone Number" with "800-698-2411"
   And I click the "Save" button
   Then I should see "Staff Profile James Smith has been created."
 
