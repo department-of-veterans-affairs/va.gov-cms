@@ -19,7 +19,7 @@ run();
  */
 function run() {
   $env = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
-  exit_if_wrong_env($env);
+  exit_if_not_local_or_tugboat($env);
 
   create_digital_form();
 }

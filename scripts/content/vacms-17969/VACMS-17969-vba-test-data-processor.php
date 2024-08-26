@@ -20,7 +20,7 @@ run();
  */
 function run() {
   $env = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
-  exit_if_wrong_env($env);
+  exit_if_not_local_or_tugboat($env);
   process_csv_file(__DIR__ . '/VACMS-17969-vba-test-data-source-services.csv',
     'create_vba_facility_service_node');
   process_csv_file(__DIR__ . '/VACMS-17969-vba-test-data-source-facilities.csv',

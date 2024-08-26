@@ -47,12 +47,12 @@ function entity_type_manager(): EntityTypeManagerInterface {
 }
 
 /**
- * Exit if script is run in the wrong environment.
+ * Exit if script is run in an environment other than local or tugboat.
  *
  * @param string $env
  *   The CMS environment.
  */
-function exit_if_wrong_env(string $env) {
+function exit_if_not_local_or_tugboat(string $env) {
   if ($env !== 'local' && $env !== 'tugboat') {
     echo "This script can only be run on local or Tugboat environments.\n";
     exit();
