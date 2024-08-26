@@ -2,13 +2,12 @@
 
 namespace Drupal\va_gov_media\Service;
 
-use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
-use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use Drupal\entity_usage_addons\Service\Usage;
+use Drupal\file\FileInterface;
 use Drupal\media\MediaInterface;
 use Drupal\s3fs\S3fsException;
 use Drupal\s3fs\S3fsFileService;
@@ -109,8 +108,10 @@ class PdfDeleteService implements PdfDeleteInterface {
 
   /**
    * Find and delete PDFs that are not attached to content.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function pdfDelete() {
+  public function pdfDelete(): void {
     $vha_total = 0;
     $non_vha_total = 0;
     $logger = $this->loggerFactory->get('va_gov_media');
@@ -144,14 +145,7 @@ class PdfDeleteService implements PdfDeleteInterface {
           $logger->warning("PDF {$pdf_id} has no section id.");
           continue;
         }
-        try {
-          $section = $this->entityTypeManager->getStorage('taxonomy_term')
-            ->load($section_id);
-        }
-        catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
-          $message = $e->getMessage();
-          $logger->warning("PDF {$pdf_id} not deleted because of an error. {$message}");
-        }
+        $section = $this->entityTypeManager->getStorage('taxonomy_term')->load($section_id);
         $parents = $this->entityTypeManager->getStorage('taxonomy_term')->loadAllParents($section_id);
         $parents = array_keys($parents);
         $section_name = $section ? $section->get('name')->value : 'No Section';
@@ -192,10 +186,17 @@ class PdfDeleteService implements PdfDeleteInterface {
    *   The PDF entity to delete.
    * @param string $timestamp
    *   The timestamp to use for the directory.
+   *
+   * @return void
+   *   Return void.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function deletePdf(MediaInterface $pdf_entity, string $timestamp) {
+  protected function deletePdf(MediaInterface $pdf_entity, string $timestamp): void {
     $file = $pdf_entity->field_document->entity;
-    if (empty($file)) {
+    if (!$file instanceof FileInterface) {
+      $pdf_name = $pdf_entity->get('name')->value;
+      $this->loggerFactory->get('va_gov_media')->warning("PDF {$pdf_name} not deleted because it has no file entity.");
       $pdf_entity->delete();
       return;
     }
@@ -222,8 +223,11 @@ class PdfDeleteService implements PdfDeleteInterface {
    *   The list of deleted PDFs.
    * @param string $timestamp
    *   The timestamp to use for the directory.
+   *
+   * @return void
+   *   Return void.
    */
-  protected function writeCsv(array $deleted_pdfs, string $timestamp) {
+  protected function writeCsv(array $deleted_pdfs, string $timestamp): void {
     $filename = $timestamp . '-deleted_pdf_list.csv';
 
     // Open a file in write mode ('w')
