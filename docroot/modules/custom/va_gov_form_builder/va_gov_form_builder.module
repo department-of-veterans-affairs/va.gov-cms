@@ -9,93 +9,17 @@ use Drupal\va_gov_form_builder\Plugin\Field\FieldWidget\MultiStepParagraphWidget
  * Implements hook_form_alter
  */
 function va_gov_form_builder_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  if ($form_id != 'node_digital_form_edit_form' && $form_id != 'node_digital_form_form') {
-    return;
+  $current_path = \Drupal::service('path.current')->getPath();
+  $add_step_path = '/node/add/digital_form/add-step/';
+
+  if (strncmp($current_path, $add_step_path, strlen($add_step_path)) === 0) {
+    xdebug_var_dump($form_id);
+    xdebug_var_dump($current_path);
+    $form['actions']['submit']['#submit'][] = 'paragrah_custom_submit_handler';
   }
-
-  $form['#submit'] = ['_va_gov_form_builder_custom_form_submit'];
-
-  $form['field_chapters']['#process'][] = '_va_gov_form_builder_custom_paragraph_process';
 }
 
-/**
- * Custom submit handler to print $form_state and prevent submission.
- */
-function _va_gov_form_builder_custom_form_submit(array &$form, FormStateInterface $form_state) {
-  xdebug_var_dump($form_state->getValue('field_omb_number'));
-  xdebug_var_dump($form_state->getValue('field_chapters'));
+function paragrah_custom_submit_handler(array $form, FormStateInterface $form_state) {
+  xdebug_var_dump($form_state->getValues());
   exit;
-}
-
-/**
- * Custom processing callback for the paragraph field.
- */
-function _va_gov_form_builder_custom_paragraph_process($element, FormStateInterface $form_state, $form) {
-  // If coming from add-step page, load the new step (paragraph)
-  $request_stack = \Drupal::service('request_stack');
-  $request = $request_stack->getCurrentRequest();
-  $referrer = $request->headers->get('referer');
-  if (strpos($referrer, '/node/add/digital_form/step/add') !== FALSE) {
-    $temp_store = \Drupal::service('tempstore.private')->get('digital_form_steps');
-    $paragraph_data = $temp_store->get('node_add_paragraph_add');
-
-    $title = $paragraph_data['field_title'][0]['value'];
-    $include_dob = isset($paragraph_data['field_include_date_of_birth'])
-      ? $paragraph_data['field_include_date_of_birth']['value']
-      : false;
-
-    $element['widget'][] = MultiStepParagraphWidget::renderNameAndDobWidget($title, $include_dob);
-  }
-
-  return $element;
-}
-
-
-// /**
-//  * Custom submit handler to save form data to temporary storage and navigate to the paragraph-edit page.
-//  */
-// function _va_gov_form_builder_navigate_to_paragraph_edit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-//   // Save form data to temporary storage.
-//   _va_gov_form_builder_save_form_data_to_temp_storage($form_state);
-
-//   // Redirect to the paragraph-edit page.
-//   $form_state->setRedirect('va_gov_form_builder.step_add', [
-//     'node' => $form_state->get('node')->id(),
-//   ]);
-// }
-
-
-/**
- * Saves form data to temporary storage.
- *
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state from which to extract data.
- */
-function _va_gov_form_builder_save_form_data_to_temp_storage(FormStateInterface $form_state) {
-  // // Get the TempStore service.
-  // $store = \Drupal::service('tempstore.private')->get('my_module');
-
-  // // Extract form data from the form state.
-  // $form_data = $form_state->getValues();
-
-  // // Store the form data in temporary storage using a predefined key.
-  // $store->set('current_form_data', $form_data);
-
-  // \Drupal::messenger()->addMessage(t('Form data stored in temporary storage.'));
-
-  \Drupal::messenger()->addMessage(t('TEST SAVE'));
-}
-
-/**
- * Implements hook_form_FORM_ID_alter() for the manage-form-display page.
- */
-function va_gov_form_builder_form_entity_form_display_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Only allow multistep_paragraph widget on content type digital_form
-  if ($form['#bundle'] != 'digital_form') {
-    foreach ($form['fields'] as &$form_field) {
-      if (isset($form_field['plugin']['type']['#options']['multistep_paragraph'])) {
-        unset($form_field['plugin']['type']['#options']['multistep_paragraph']);
-      }
-    }
-  }
 }
