@@ -148,7 +148,7 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
    *
    * @return array
    *   The extracted and parsed phone and extension. Phone will be in the
-   * nnn-nnn-nnnn format while the extension will contain only integers.
+   *   nnn-nnn-nnnn format while the extension will contain only integers.
    */
   #[ArrayShape([
     'phone' => "mixed|string",
