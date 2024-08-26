@@ -21,7 +21,7 @@ function run() {
   $env = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
   exit_if_not_local_or_tugboat($env);
 
-  create_digital_form();
+  create_digital_forms();
 }
 
 /**
@@ -40,6 +40,14 @@ function create_digital_form() {
     ->field_chapters
     ->appendItem(create_step('Step without Date of Birth', FALSE));
   save_node_revision($digital_form, 'Created by the content script', TRUE);
+}
+
+/**
+ * Creates test Digital Forms.
+ */
+function create_digital_forms() {
+  create_digital_form();
+  create_digital_form();
 }
 
 /**
