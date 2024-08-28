@@ -30,12 +30,13 @@ Admins permissions are needed to:
 The following actions can be done directly on the tugboat server to add new admins.
 
 New users have to be added to the tugboat database. The following steps will guide how to accomplish this.
+### <a id="admin_access_steps"></a> Header
 1. Follow the readme in the devops repo to be able to start ssm sessions. Doc found [here](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session)
 2. Login to the tugboat utility server by running `ssm-session utility`
 3. Once logged in, perform `sudo su` in order to run docker commands
 4. Next, you need to find the container running the tugboat database. To do this run `docker ps | grep tugboat-mongo`. Note the ID
 5. Exec into the database instance by doing the following `docker exec -it <tugboat id> mongosh tugboat-ui /edit tugboat mongo instance`
-6. You can find the current super admin with the follwoing: `db.users.findOne()`
+6. You can find the current super admin with the following: `db.users.findOne()`
 7. Find the user you want to add as an admin by using their email to look them up. `db.users.findOne({ email: “youremail” })`
 8. Once you verify the users email that you need to add as an admin, add them as an admin by doing the following: `db.users.updateOne({ email: “email” }, { $set: { admin: true }})`
 
@@ -46,6 +47,18 @@ The reason we found we needed to be an administrator, we made changes to `/opt/t
 4. Clicked the restart tugboat-vfs button
 
 It goes without saying, only make changes if you are authorized to do so and have consulted tugboat support.  
+
+## Unlock stuck previews
+
+Occasionally, if tugboat runs out of disk space, its host EC2 is restarted, or something bad happens that is unexpected, Tugboat previews may become stuck. 
+In our experience the preview will say "suspending" but never stops and we are unable to start it in the UI. The fix is as follows:
+
+1. Go to the preview in the user interface. For example content-build-branch-builds.
+2. Click on the hyperlink to the preview to view settings for that preview
+3. Look in the address bar, you should notice an ID for the preview. EX: https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5
+4. Login to tugboat over ssh [steps 1-3](#admin_access_steps)
+5. Input the command reset command with the id found in step 3. EX `tugboat reset --force 6189a9af690c68dad4877ea5`
+
 
 ## VA Usage
 At VA, our lower environments are each built from a Tugboat Base Preview, in some fashion. Our Tugboat configuration is relevant to the discussion:  
