@@ -140,7 +140,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   private function removePhoneLabel(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
-    unset($form['field_telephone']['widget'][0]['subform']['field_phone_label']);
+    $form['field_telephone']['widget'][0]['subform']['field_phone_label']['#access'] = FALSE;
   }
 
 }
