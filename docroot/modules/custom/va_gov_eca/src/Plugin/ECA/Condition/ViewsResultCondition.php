@@ -26,7 +26,7 @@ class ViewsResultCondition extends ConditionBase {
    *
    * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
-  protected ModuleHandlerInterface $moduleHandler;
+  protected ModuleHandlerInterface $module_handler;
 
   /**
    * {@inheritdoc}
