@@ -4,13 +4,13 @@ namespace Drupal\va_gov_media\Service;
 
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\File\Exception\FileNotExistsException;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use Drupal\entity_usage_addons\Service\Usage;
 use Drupal\file\FileInterface;
 use Drupal\media\MediaInterface;
-use Drupal\s3fs\S3fsException;
-use Drupal\s3fs\S3fsFileService;
+use Drupal\s3fs\S3fsFileSystemD103;
 use Drupal\user\UserDataInterface;
 
 /**
@@ -52,7 +52,7 @@ class PdfDeleteService implements PdfDeleteInterface {
   /**
    * The S3fs service.
    *
-   * @var \Drupal\s3fs\S3fsFileService
+   * @var \Drupal\s3fs\S3fsFileSystemD103
    */
   protected $s3fs;
 
@@ -81,7 +81,7 @@ class PdfDeleteService implements PdfDeleteInterface {
    *   The stream wrapper manager service.
    * @param \Drupal\Core\Datetime\DateFormatter $date_formatter
    *   The date formatter service.
-   * @param \Drupal\s3fs\S3fsFileService $s3fsfileservice
+   * @param \Drupal\s3fs\S3fsFileSystemD103 $s3fsfileservice
    *   The S3fs service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
    *   The logger factory.
@@ -93,7 +93,7 @@ class PdfDeleteService implements PdfDeleteInterface {
     Usage $usage,
     StreamWrapperManager $stream_wrapper_manager,
     DateFormatter $date_formatter,
-    S3fsFileService $s3fsfileservice,
+    S3fsFileSystemD103 $s3fsfileservice,
     LoggerChannelFactoryInterface $loggerFactory,
     UserDataInterface $user,
   ) {
@@ -108,8 +108,6 @@ class PdfDeleteService implements PdfDeleteInterface {
 
   /**
    * Find and delete PDFs that are not attached to content.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function pdfDelete(): void {
     $vha_total = 0;
@@ -196,7 +194,7 @@ class PdfDeleteService implements PdfDeleteInterface {
     $file = $pdf_entity->field_document->entity;
     if (!$file instanceof FileInterface) {
       $pdf_name = $pdf_entity->get('name')->value;
-      $this->loggerFactory->get('va_gov_media')->warning("PDF {$pdf_name} not deleted because it has no file entity.");
+      $this->loggerFactory->get('va_gov_media')->warning("PDF {$pdf_name} file could not be copied because it has no file entity.");
       $pdf_entity->delete();
       return;
     }
@@ -208,7 +206,7 @@ class PdfDeleteService implements PdfDeleteInterface {
     try {
       $this->s3fs->copy($absolute_path, $destination);
     }
-    catch (S3fsException $e) {
+    catch (FileNotExistsException $e) {
       $this->loggerFactory->get('va_gov_media')->error('Error copying file to S3: @error', ['@error' => $e->getMessage()]);
       return;
     }
