@@ -26,14 +26,14 @@ class ViewsResultCondition extends ConditionBase {
    *
    * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
-  protected ModuleHandlerInterface $module_handler;
+  protected ModuleHandlerInterface $moduleHandler;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $instance->module_handler = $container->get('module_handler');
+    $instance->moduleHandler = $container->get('module_handler');
     return $instance;
   }
 
