@@ -1,0 +1,359 @@
+diff --git a/core/lib/Drupal/Core/Annotation/QueueWorker.php b/core/lib/Drupal/Core/Annotation/QueueWorker.php
+index 4797d5f9bb..4103f096e3 100644
+--- a/core/lib/Drupal/Core/Annotation/QueueWorker.php
++++ b/core/lib/Drupal/Core/Annotation/QueueWorker.php
+@@ -57,11 +57,15 @@ class QueueWorker extends Plugin {
+    * An optional associative array of settings for cron.
+    *
+    * @var array
+-   *   The array has one key, time, which is set to the time Drupal cron should
+-   *   spend on calling this worker in seconds. The default is set in
++   *   The array has two keys:
++   *   - time: how long Drupal cron should spend calling this worker in seconds
++   *   - lease_time: length of the lease for a queue item in seconds
++   *
++   *   The defaults are set in
+    *   \Drupal\Core\Queue\QueueWorkerManager::processDefinition().
+    *
+    * @see \Drupal\Core\Queue\QueueWorkerManager::processDefinition()
++   * @see \Drupal\Core\Queue\QueueInterface::claimItem()
+    */
+   public $cron;
+ 
+diff --git a/core/lib/Drupal/Core/Cron.php b/core/lib/Drupal/Core/Cron.php
+index 1463943415..75bf70a02e 100644
+--- a/core/lib/Drupal/Core/Cron.php
++++ b/core/lib/Drupal/Core/Cron.php
+@@ -261,7 +261,7 @@ protected function processQueues() {
+    *   If the queue was suspended.
+    */
+   protected function processQueue(QueueInterface $queue, QueueWorkerInterface $worker) {
+-    $lease_time = $worker->getPluginDefinition()['cron']['time'];
++    $lease_time = $worker->getPluginDefinition()['cron']['lease_time'];
+     $end = $this->time->getCurrentTime() + $lease_time;
+     while ($this->time->getCurrentTime() < $end && ($item = $queue->claimItem($lease_time))) {
+       try {
+diff --git a/core/lib/Drupal/Core/Queue/DatabaseQueue.php b/core/lib/Drupal/Core/Queue/DatabaseQueue.php
+index 3e2ed4272e..a98607f78b 100644
+--- a/core/lib/Drupal/Core/Queue/DatabaseQueue.php
++++ b/core/lib/Drupal/Core/Queue/DatabaseQueue.php
+@@ -114,13 +114,19 @@ public function numberOfItems() {
+    * {@inheritdoc}
+    */
+   public function claimItem($lease_time = 30) {
++    if ($lease_time <= 0) {
++      throw new \InvalidArgumentException('The lease time should be a positive integer.');
++    }
+     // Claim an item by updating its expire fields. If claim is not successful
+     // another thread may have claimed the item in the meantime. Therefore loop
+     // until an item is successfully claimed or we are reasonably sure there
+     // are no unclaimed items left.
+     while (TRUE) {
+       try {
+-        $item = $this->connection->queryRange('SELECT [data], [created], [item_id] FROM {' . static::TABLE_NAME . '} q WHERE [expire] = 0 AND [name] = :name ORDER BY [created], [item_id] ASC', 0, 1, [':name' => $this->name])->fetchObject();
++        $item = $this->connection->queryRange('SELECT [data], [created], [item_id] FROM {' . static::TABLE_NAME . '} q WHERE (([expire] = 0) OR (:now > [expire])) AND [name] = :name ORDER BY [created], [item_id] ASC', 0, 1, [
++          ':name' => $this->name,
++          ':now' => \Drupal::time()->getCurrentTime(),
++        ])->fetchObject();
+       }
+       catch (\Exception $e) {
+         $this->catchException($e);
+@@ -142,8 +148,7 @@ public function claimItem($lease_time = 30) {
+         ->fields([
+           'expire' => \Drupal::time()->getCurrentTime() + $lease_time,
+         ])
+-        ->condition('item_id', $item->item_id)
+-        ->condition('expire', 0);
++        ->condition('item_id', $item->item_id);
+       // If there are affected rows, this update succeeded.
+       if ($update->execute()) {
+         $item->data = unserialize($item->data);
+@@ -244,16 +249,6 @@ public function garbageCollection() {
+         ->condition('created', \Drupal::time()->getRequestTime() - 864000, '<')
+         ->condition('name', 'drupal_batch:%', 'LIKE')
+         ->execute();
+-
+-      // Reset expired items in the default queue implementation table. If that's
+-      // not used, this will simply be a no-op.
+-      $this->connection->update(static::TABLE_NAME)
+-        ->fields([
+-          'expire' => 0,
+-        ])
+-        ->condition('expire', 0, '<>')
+-        ->condition('expire', \Drupal::time()->getRequestTime(), '<')
+-        ->execute();
+     }
+     catch (\Exception $e) {
+       $this->catchException($e);
+diff --git a/core/lib/Drupal/Core/Queue/Memory.php b/core/lib/Drupal/Core/Queue/Memory.php
+index ba9d2494db..f666c2a3ac 100644
+--- a/core/lib/Drupal/Core/Queue/Memory.php
++++ b/core/lib/Drupal/Core/Queue/Memory.php
+@@ -62,9 +62,13 @@ public function numberOfItems() {
+    * {@inheritdoc}
+    */
+   public function claimItem($lease_time = 30) {
++    if ($lease_time <= 0) {
++      throw new \InvalidArgumentException('The lease time should be a positive integer.');
++    }
+     foreach ($this->queue as $key => $item) {
+-      if ($item->expire == 0) {
+-        $item->expire = \Drupal::time()->getCurrentTime() + $lease_time;
++      $now = \Drupal::time()->getCurrentTime();
++      if ($item->expire == 0 || $now > $item->expire) {
++        $item->expire = $now + $lease_time;
+         $this->queue[$key] = $item;
+         return $item;
+       }
+diff --git a/core/lib/Drupal/Core/Queue/QueueWorkerManager.php b/core/lib/Drupal/Core/Queue/QueueWorkerManager.php
+index 818231d3bf..cbd902e298 100644
+--- a/core/lib/Drupal/Core/Queue/QueueWorkerManager.php
++++ b/core/lib/Drupal/Core/Queue/QueueWorkerManager.php
+@@ -50,6 +50,10 @@ public function processDefinition(&$definition, $plugin_id) {
+       if ($time <= 0) {
+         $definition['cron']['time'] = self::DEFAULT_QUEUE_CRON_TIME;
+       }
++      $lease_time = $definition['cron']['lease_time'] ?? 0;
++      if ($lease_time <= 0) {
++        $definition['cron']['lease_time'] = self::DEFAULT_QUEUE_CRON_LEASE_TIME;
++      }
+     }
+   }
+ 
+diff --git a/core/lib/Drupal/Core/Queue/QueueWorkerManagerInterface.php b/core/lib/Drupal/Core/Queue/QueueWorkerManagerInterface.php
+index 7acf472186..bf59a564f9 100644
+--- a/core/lib/Drupal/Core/Queue/QueueWorkerManagerInterface.php
++++ b/core/lib/Drupal/Core/Queue/QueueWorkerManagerInterface.php
+@@ -16,4 +16,13 @@ interface QueueWorkerManagerInterface extends PluginManagerInterface {
+    */
+   public const DEFAULT_QUEUE_CRON_TIME = 15;
+ 
++  /**
++   * The default lease time duration in seconds a queue item should get.
++   *
++   * @var int
++   *
++   * @see \Drupal\Core\Queue\QueueInterface::claimItem()
++   */
++  public const DEFAULT_QUEUE_CRON_LEASE_TIME = 30;
++
+ }
+diff --git a/core/modules/system/tests/modules/cron_queue_test/src/Plugin/QueueWorker/CronQueueTestDatabaseDelayException.php b/core/modules/system/tests/modules/cron_queue_test/src/Plugin/QueueWorker/CronQueueTestDatabaseDelayException.php
+index 93e4a1e2cb..52c9b0080d 100644
+--- a/core/modules/system/tests/modules/cron_queue_test/src/Plugin/QueueWorker/CronQueueTestDatabaseDelayException.php
++++ b/core/modules/system/tests/modules/cron_queue_test/src/Plugin/QueueWorker/CronQueueTestDatabaseDelayException.php
+@@ -16,7 +16,10 @@
+ #[QueueWorker(
+   id: 'cron_queue_test_database_delay_exception',
+   title: new TranslatableMarkup('Database delay exception test'),
+-  cron: ['time' => 1]
++  cron: [
++    'time' => 1,
++    'lease_time' => 2,
++  ]
+ )]
+ class CronQueueTestDatabaseDelayException extends QueueWorkerBase {
+ 
+diff --git a/core/modules/system/tests/modules/cron_queue_test/src/Plugin/QueueWorker/CronQueueTestLeaseTime.php b/core/modules/system/tests/modules/cron_queue_test/src/Plugin/QueueWorker/CronQueueTestLeaseTime.php
+index 2027bd69a4..38a7d86e99 100644
+--- a/core/modules/system/tests/modules/cron_queue_test/src/Plugin/QueueWorker/CronQueueTestLeaseTime.php
++++ b/core/modules/system/tests/modules/cron_queue_test/src/Plugin/QueueWorker/CronQueueTestLeaseTime.php
+@@ -15,7 +15,10 @@
+ #[QueueWorker(
+   id: 'cron_queue_test_lease_time',
+   title: new TranslatableMarkup('Lease time test'),
+-  cron: ['time' => 100]
++  cron: [
++    'time' => 100,
++    'lease_time' => 2,
++  ]
+ )]
+ class CronQueueTestLeaseTime extends QueueWorkerBase {
+ 
+diff --git a/core/modules/system/tests/src/Kernel/System/CronQueueTest.php b/core/modules/system/tests/src/Kernel/System/CronQueueTest.php
+index 4e2f1e7858..adb9b50693 100644
+--- a/core/modules/system/tests/src/Kernel/System/CronQueueTest.php
++++ b/core/modules/system/tests/src/Kernel/System/CronQueueTest.php
+@@ -107,8 +107,8 @@ public function testDelayException() {
+     // Get the queue worker plugin manager.
+     $manager = $this->container->get('plugin.manager.queue_worker');
+     $definitions = $manager->getDefinitions();
+-    $this->assertNotEmpty($database_lease_time = $definitions['cron_queue_test_database_delay_exception']['cron']['time']);
+-    $this->assertNotEmpty($memory_lease_time = $definitions['cron_queue_test_memory_delay_exception']['cron']['time']);
++    $this->assertNotEmpty($database_lease_time = $definitions['cron_queue_test_database_delay_exception']['cron']['lease_time']);
++    $this->assertNotEmpty($memory_lease_time = $definitions['cron_queue_test_memory_delay_exception']['cron']['lease_time']);
+ 
+     // Create the necessary test data and run cron.
+     $database->createItem('test');
+@@ -320,6 +320,8 @@ public function testQueueWorkerManagerSafeguard(): void {
+     $queue_worker_manager->processDefinition($definition, $plugin_id);
+     $this->assertArrayHasKey('time', $definition['cron']);
+     $this->assertEquals(QueueWorkerManagerInterface::DEFAULT_QUEUE_CRON_TIME, $definition['cron']['time']);
++    $this->assertArrayHasKey('lease_time', $definition['cron']);
++    $this->assertEquals(QueueWorkerManagerInterface::DEFAULT_QUEUE_CRON_LEASE_TIME, $definition['cron']['lease_time']);
+ 
+     // Ensure if an invalid lease time (less-than 1 second) is provided, it is
+     // overridden with the default lease time.
+@@ -329,6 +331,12 @@ public function testQueueWorkerManagerSafeguard(): void {
+     $definition = ['cron' => ['time' => -1]];
+     $queue_worker_manager->processDefinition($definition, $plugin_id);
+     $this->assertEquals(QueueWorkerManagerInterface::DEFAULT_QUEUE_CRON_TIME, $definition['cron']['time']);
++    $definition = ['cron' => ['lease_time' => 0]];
++    $queue_worker_manager->processDefinition($definition, $plugin_id);
++    $this->assertEquals(QueueWorkerManagerInterface::DEFAULT_QUEUE_CRON_LEASE_TIME, $definition['cron']['lease_time']);
++    $definition = ['cron' => ['lease_time' => -1]];
++    $queue_worker_manager->processDefinition($definition, $plugin_id);
++    $this->assertEquals(QueueWorkerManagerInterface::DEFAULT_QUEUE_CRON_LEASE_TIME, $definition['cron']['lease_time']);
+   }
+ 
+   /**
+diff --git a/core/tests/Drupal/KernelTests/Core/Queue/QueueTest.php b/core/tests/Drupal/KernelTests/Core/Queue/QueueTest.php
+index 89ccc4bc3d..3a70a346e1 100644
+--- a/core/tests/Drupal/KernelTests/Core/Queue/QueueTest.php
++++ b/core/tests/Drupal/KernelTests/Core/Queue/QueueTest.php
+@@ -5,6 +5,7 @@
+ use Drupal\Core\Database\Database;
+ use Drupal\Core\Queue\DatabaseQueue;
+ use Drupal\Core\Queue\Memory;
++use Drupal\Core\Queue\QueueWorkerManagerInterface;
+ use Drupal\KernelTests\KernelTestBase;
+ 
+ /**
+@@ -100,6 +101,49 @@ protected function runQueueTest($queue1, $queue2) {
+     // Check that both queues are empty.
+     $this->assertSame(0, $queue1->numberOfItems(), 'Queue 1 is empty');
+     $this->assertSame(0, $queue2->numberOfItems(), 'Queue 2 is empty');
++
++    // Test that we can claim an item that is expired, and we cannot claim an
++    // item that has not expired yet.
++    $queue1->createItem($data[0]);
++    $item = $queue1->claimItem();
++    $this->assertNotFalse($item, 'The item can be claimed.');
++    $item = $queue1->claimItem();
++    $this->assertFalse($item, 'The item cannot be claimed again.');
++    // Set the expiration date to the current time minus the lease time plus 1
++    // second. It should be possible to reclaim the item.
++    $this->setExpiration($queue1, \Drupal::time()->getCurrentTime() - (QueueWorkerManagerInterface::DEFAULT_QUEUE_CRON_LEASE_TIME + 1));
++    $item = $queue1->claimItem();
++    $this->assertNotFalse($item, 'Item can be claimed after expiration.');
++  }
++
++  /**
++   * Set the expiration for different queues.
++   *
++   * @param \Drupal\Core\Queue\QueueInterface $queue
++   *   The queue for which to alter the expiration.
++   * @param int $expire
++   *   The new expiration time.
++   *
++   * @throws \ReflectionException
++   */
++  protected function setExpiration($queue, $expire) {
++    $class = get_class($queue);
++    switch ($class) {
++      case Memory::class:
++        $reflection = new \ReflectionClass($queue);
++        $property = $reflection->getProperty('queue');
++        $property->setAccessible(TRUE);
++        $items = $property->getValue($queue);
++        end($items)->expire = $expire;
++        break;
++
++      case DatabaseQueue::class:
++        \Drupal::database()
++          ->update(DatabaseQueue::TABLE_NAME)
++          ->fields(['expire' => $expire])
++          ->execute();
++        break;
++    }
+   }
+ 
+   /**
+diff --git a/core/tests/Drupal/Tests/Core/Cron/CronSuspendQueueDelayTest.php b/core/tests/Drupal/Tests/Core/Cron/CronSuspendQueueDelayTest.php
+index 6ac8367a99..adc29e0f4d 100644
+--- a/core/tests/Drupal/Tests/Core/Cron/CronSuspendQueueDelayTest.php
++++ b/core/tests/Drupal/Tests/Core/Cron/CronSuspendQueueDelayTest.php
+@@ -91,6 +91,7 @@ protected function setUp(): void {
+       ->willReturn([
+         'cron' => [
+           'time' => 300,
++          'lease_time' => 300,
+         ],
+       ]);
+ 
+@@ -100,6 +101,7 @@ protected function setUp(): void {
+       ->willReturn([
+         'cron' => [
+           'time' => 300,
++          'lease_time' => 300,
+         ],
+       ]);
+   }
+@@ -145,11 +147,17 @@ public function testSuspendQueue(): void {
+       ->willReturn([
+         'test_worker_a' => [
+           'id' => 'test_worker_a',
+-          'cron' => ['time' => 300],
++          'cron' => [
++            'time' => 300,
++            'lease_time' => 300,
++          ],
+         ],
+         'test_worker_b' => [
+           'id' => 'test_worker_b',
+-          'cron' => ['time' => 300],
++          'cron' => [
++            'time' => 300,
++            'lease_time' => 300,
++          ],
+         ],
+       ]);
+ 
+@@ -323,19 +331,31 @@ public function testSuspendQueueOrder(): void {
+       ->willReturn([
+         'test_worker_a' => [
+           'id' => 'test_worker_a',
+-          'cron' => ['time' => 300],
++          'cron' => [
++            'time' => 300,
++            'lease_time' => 300,
++          ],
+         ],
+         'test_worker_b' => [
+           'id' => 'test_worker_b',
+-          'cron' => ['time' => 300],
++          'cron' => [
++            'time' => 300,
++            'lease_time' => 300,
++          ],
+         ],
+         'test_worker_c' => [
+           'id' => 'test_worker_c',
+-          'cron' => ['time' => 300],
++          'cron' => [
++            'time' => 300,
++            'lease_time' => 300,
++          ],
+         ],
+         'test_worker_d' => [
+           'id' => 'test_worker_d',
+-          'cron' => ['time' => 300],
++          'cron' => [
++            'time' => 300,
++            'lease_time' => 300,
++          ],
+         ],
+       ]);
+ 
+diff --git a/core/tests/Drupal/Tests/Core/CronTest.php b/core/tests/Drupal/Tests/Core/CronTest.php
+index bc968777a5..edf9790685 100644
+--- a/core/tests/Drupal/Tests/Core/CronTest.php
++++ b/core/tests/Drupal/Tests/Core/CronTest.php
+@@ -118,6 +118,7 @@ protected function setUp(): void {
+       'id' => $queue_worker,
+       'cron' => [
+         'time' => &$this->claimTime,
++        'lease_time' => $this->claimTime,
+       ],
+     ];
+ 

@@ -297,3 +297,6 @@ if (file_exists($env_services_path)) {
 // This is intended to prevent deadlocks in the course of normal operation.
 // @see https://www.drupal.org/project/drupal/issues/2733675
 $databases['default']['default']['init_commands']['isolation_level'] = 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED';
+
+
+$settings['state_cache'] = TRUE;
