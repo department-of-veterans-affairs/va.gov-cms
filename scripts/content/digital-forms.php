@@ -42,7 +42,7 @@ function create_digital_form(
   ],
   array $steps = [
     [],
-    ['title' => 'Step without Date of Birth', 'includeDob' => FALSE],
+    ['title' => 'Step without Date of Birth', 'include_dob' => FALSE],
   ],
 ) {
   $digital_form = Node::create($values);
@@ -66,7 +66,7 @@ function create_digital_forms() {
     'moderation_state' => 'published',
   ];
   $form_21_4140_steps = [
-    ['title' => "Veteran's personal information", 'includeDob' => TRUE],
+    ['title' => "Veteran's personal information", 'include_dob' => TRUE],
   ];
 
   create_digital_form();
@@ -91,6 +91,6 @@ function create_step(
   return Paragraph::create([
     'type' => 'digital_form_name_and_date_of_bi',
     'field_title' => $values['title'] ?? 'Script Generated Step',
-    'field_include_date_of_birth' => $values['includeDob'] ?? TRUE,
+    'field_include_date_of_birth' => $values['include_dob'] ?? TRUE,
   ]);
 }
