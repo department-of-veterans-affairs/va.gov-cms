@@ -1,41 +1,35 @@
-va_gov_form_builder.digital_form_form.wizard:
+va_gov_form_builder.digital_form.wizard:
   path: "/node/add/digital_form/wizard"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\DigitalFormController::wizard'
   requirements:
     _permission: "edit any content"
-va_gov_form_builder.digital_form_form.form_name:
-  path: "/node/add/digital_form/form-name"
+va_gov_form_builder.digital_form.add.form_basic_info:
+  path: "/node/add/digital_form/form-basic-info"
   defaults:
-    _controller: '\Drupal\va_gov_form_builder\Controller\DigitalFormController::formName'
+    _controller: '\Drupal\va_gov_form_builder\Controller\DigitalFormController::formBasicInfo'
   requirements:
     _permission: "edit any content"
-va_gov_form_builder.digital_form_form.form_number:
-  path: "/node/add/digital_form/form-number"
-  defaults:
-    _controller: '\Drupal\va_gov_form_builder\Controller\DigitalFormController::formNumber'
-  requirements:
-    _permission: "edit any content"
-va_gov_form_builder.digital_form_form.add_step.yes_no:
-  path: "/node/add/digital_form/add-step"
+va_gov_form_builder.digital_form.edit.add_step.yes_no:
+  path: "/node/edit/digital_form/{nid}/add-step"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\DigitalFormController::addStepYesNo'
   requirements:
     _permission: "edit any content"
-va_gov_form_builder.digital_form_form.add_step.choose_type:
-  path: "/node/add/digital_form/add-step/choose-type"
+va_gov_form_builder.digital_form.edit.add_step.choose_type:
+  path: "/node/edit/digital_form/{nid}/add-step/choose-type"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\DigitalFormController::addStepChooseType'
   requirements:
     _permission: "edit any content"
-va_gov_form_builder.digital_form_form.add_step:
-  path: "/node/add/digital_form/add-step/{step_type}"
+va_gov_form_builder.digital_form.edit.add_step:
+  path: "/node/edit/digital_form/{nid}/add-step/{step_type}"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\DigitalFormController::addStep'
   requirements:
     _permission: "edit any content"
-va_gov_form_builder.digital_form_form.review_and_submit:
-  path: "/node/add/digital_form/review-and-submit"
+va_gov_form_builder.digital_form.edit.review_and_submit:
+  path: "/node/edit/digital_form/{nid}/review-and-submit"
   defaults:
     _title: "Form Complete"
     _controller: '\Drupal\va_gov_form_builder\Controller\DigitalFormController::reviewAndSubmit'

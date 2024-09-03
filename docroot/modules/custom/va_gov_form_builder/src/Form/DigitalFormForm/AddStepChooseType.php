@@ -14,11 +14,16 @@ class AddStepChooseType extends FormBase {
     return 'digital_form_form__add_step_choose_type';
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state, $node = NULL) {
     $temp_store = \Drupal::service('tempstore.private')->get('va_gov_form_builder');
     $digital_form_in_progress = $temp_store->get('digital_form_in_progress');
 
     $form['#title'] = $this->t('Digital Form - Add Step - Choose Type');
+
+    $form['nid'] = [
+      '#type' => 'hidden',
+      '#value' => $node->id(),
+    ];
 
     $form['step_type'] = [
       '#title' => $this->t('What type of step would you like to add?'),
@@ -38,7 +43,12 @@ class AddStepChooseType extends FormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $nid = $form_state->getValue('nid');
     $step_type = $form_state->getValue('step_type');
-    $form_state->setRedirect('va_gov_form_builder.digital_form_form.add_step', ['step_type' => $step_type]);
+
+    $form_state->setRedirect('va_gov_form_builder.digital_form.edit.add_step', [
+      'nid' => $nid,
+      'step_type' => $step_type
+    ]);
   }
 }

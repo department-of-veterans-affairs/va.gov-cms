@@ -9,17 +9,17 @@ use Drupal\va_gov_form_builder\Plugin\Field\FieldWidget\MultiStepParagraphWidget
  * Implements hook_form_alter
  */
 function va_gov_form_builder_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  $current_path = \Drupal::service('path.current')->getPath();
-  $add_step_path = '/node/add/digital_form/add-step/';
+  // $current_path = \Drupal::service('path.current')->getPath();
+  // $add_step_path = '/node/add/digital_form/add-step/';
 
-  if (strncmp($current_path, $add_step_path, strlen($add_step_path)) === 0) {
-    xdebug_var_dump($form_id);
-    xdebug_var_dump($current_path);
-    $form['actions']['submit']['#submit'][] = 'paragrah_custom_submit_handler';
-  }
+  // if (strncmp($current_path, $add_step_path, strlen($add_step_path)) === 0) {
+  //   xdebug_var_dump($form_id);
+  //   xdebug_var_dump($current_path);
+  //   $form['actions']['submit']['#submit'][] = 'paragrah_custom_submit_handler';
+  // }
 }
 
 function paragrah_custom_submit_handler(array $form, FormStateInterface $form_state) {
-  xdebug_var_dump($form_state->getValues());
-  exit;
+  // xdebug_var_dump($form_state->getValues());
+  // exit;
 }

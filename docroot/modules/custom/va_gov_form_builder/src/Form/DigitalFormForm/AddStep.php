@@ -8,6 +8,7 @@ use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Core\Entity\EntityFormBuilderInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\node\Entity\Node;
 
 class AddStep extends FormBase {
 
@@ -76,108 +77,65 @@ class AddStep extends FormBase {
     return $this->step_form_id;
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state, $step_type = NULL) {
-    $temp_store = \Drupal::service('tempstore.private')->get('va_gov_form_builder');
-    $digital_form_in_progress = $temp_store->get('digital_form_in_progress');
+  public function buildForm(array $form, FormStateInterface $form_state, $node = NULL, $step_type = NULL) {
+    $this->setStepType($step_type);
 
     $form['#title'] = $this->t('Digital Form - Add Step');
 
-    $this->setStepType($step_type);
+    $form['nid'] = [
+      '#type' => 'hidden',
+      '#value' => $node->id(),
+    ];
 
-    $paragraph = Paragraph::create([
-      'type' => $step_type,
-    ]);
-    $paragraph_form = $this->entityFormBuilder->getForm($paragraph);
-    // if (isset($paragraph_form['actions'])) {
-    //   unset($paragraph_form['actions']);
-    // }
-    // if(isset($paragraph_form['form_build_id'])) {
-    //   unset($paragraph_form['form_build_id']);
-    // }
-    // if(isset($paragraph_form['form_id'])) {
-    //   unset($paragraph_form['form_id']);
-    // }
-    // if(isset($paragraph_form['form_token'])) {
-    //   unset($paragraph_form['form_token']);
-    // }
-    // foreach ($paragraph_form as $key => $value) {
-    //   if (strpos($key, '#') === 0) {
-    //     unset ($paragraph_form[$key]);
-    //   }
-    // }
+    $form['step_type'] = [
+      '#type' => 'hidden',
+      '#value' => $step_type,
+    ];
 
-    if(isset($paragraph_form['#process'])) {
-      unset($paragraph_form['#process'][0]);
+    if ($step_type === 'digital_form_name_and_date_of_bi') {
+      $form['title'] = [
+        '#type' => 'textfield',
+        '#title' => 'Title',
+        '#default_value' => 'Name and Date of Birth',
+      ];
+      $form['include_dob'] = [
+        '#type' => 'checkbox',
+        '#title' => 'Include Date of Birth?',
+      ];
     }
 
-    // foreach($this->step_fields as $step_field) {
-    //   $form['step_fields'][$step_field] = $paragraph_form[$step_field]['widget'];
-    //   //$new_paragraph->set($step_field, $form_state->getValue($step_field));
-    // }
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Next'),
+    ];
 
-    // $form['test_radio'] = [
-    //   '#type' => 'radios',
-    //   '#options' => [
-    //     'a' => 'a',
-    //     'b' => 'b',
-    //   ],
-    //   '#title' => $this->t('Test Field'),
-    //   '#required' => TRUE,
-    // ];
-
-    // $form['step_fields'] = [
-    //   '#type' => 'container',
-    //   'form' => $paragraph_form,
-    // ];
-
-    // $form['field_title2'] = [
-    //   '#tree' => TRUE,
-    // ];
-
-    // $form['field_title2'][0]['value'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => 'Test Title',
-    //   '#required' => FALSE,
-    //   '#tree' => TRUE,
-    // ];
-
-    // $form['actions']['submit'] = [
-    //   '#type' => 'submit',
-    //   '#value' => $this->t('Next'),
-    // ];
-
-    // xdebug_var_dump($form['step_fields']['form']);
-
-    xdebug_var_dump($this->getFormId());
-    return $paragraph_form;
+    return $form;
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Print the call stack
-    // $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-    // xdebug_var_dump($backtrace);
-    xdebug_var_dump($form_state->getValues());
-    xdebug_var_dump($form_state->getUserInput());
+    $nid = $form_state->getValue('nid');
+    $step_type = $form_state->getValue('step_type');
+    $title = $form_state->getValue('title');
+    $include_dob = $form_state->getValue('include_dob');
 
-    $temp_store = \Drupal::service('tempstore.private')->get('va_gov_form_builder');
-    $digital_form_in_progress = $temp_store->get('digital_form_in_progress');
-    $steps = $digital_form_in_progress->get('field_chapters')->getValue();
+    if ($step_type === 'digital_form_name_and_date_of_bi') {
+      $new_paragraph = Paragraph::create([
+        'type' => $this->step_type,
+        'field_title' => $title,
+        'field_include_date_of_birth' => $include_dob,
+      ]);
+      $new_paragraph->save();
 
-    $new_paragraph = Paragraph::create([
-      'type' => $this->step_type,
-    ]);
-
-
-
-    foreach($this->step_fields as $step_field) {
-      $new_paragraph->set($step_field, $form_state->getValue($step_field));
+      $node = Node::load($nid);
+      $paragraphs = $node->get('field_chapters')->referencedEntities();
+      $paragraphs[] = $new_paragraph;
+      $node->set('field_chapters', $paragraphs);
+      $node->save();
+      \Drupal::messenger()->addMessage($this->t('Step added'));
     }
-    exit;
-    $steps[] = $new_paragraph;
-    $digital_form_in_progress->set('field_chapters', $steps);
-    $temp_store->set('digital_form_in_progress', $digital_form_in_progress);
 
-    \Drupal::messenger()->addMessage($this->t('Step added'));
-    $form_state->setRedirect('va_gov_form_builder.digital_form_form.add_step.yes_no');
+    $form_state->setRedirect('va_gov_form_builder.digital_form.edit.add_step.yes_no', [
+      'nid' => $nid,
+    ]);
   }
 }
