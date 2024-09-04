@@ -25,7 +25,7 @@ class FormBasicInfo extends FormBase {
     // $temp_store = \Drupal::service('tempstore.private')->get('va_gov_form_builder');
     // $temp_store->set('digital_form_in_progress', null);
 
-    $form['#title'] = $this->t('Digital Form - Form Name');
+    $form['#title'] = $this->t('Digital Form - Form Basic Info');
 
     $form['form_name'] = [
       '#type' => 'textfield',
@@ -83,7 +83,6 @@ class FormBasicInfo extends FormBase {
       'field_title' => 'Name w/out DOB',
       'field_include_date_of_birth' => false,
     ]);
-    // $default_paragraph_1->save();
 
     $digital_form = Node::create([
       'type' => 'digital_form',
