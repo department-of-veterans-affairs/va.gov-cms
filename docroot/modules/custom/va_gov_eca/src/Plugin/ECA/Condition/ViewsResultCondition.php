@@ -2,20 +2,13 @@
 
 namespace Drupal\va_gov_eca\Plugin\ECA\Condition;
 
-use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
-use Drupal\eca\EcaState;
 use Drupal\eca\Plugin\ECA\Condition\ConditionBase;
-use Drupal\eca\Token\TokenInterface;
 use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides a Views result Condition plugin for ECA.
@@ -36,53 +29,12 @@ class ViewsResultCondition extends ConditionBase {
   protected ModuleHandlerInterface $moduleHandler;
 
   /**
-   * Constructs a new ViewsResultCondition.
-   *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The Entity Type Manager service.
-   * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $entity_type_bundle_info
-   *   The Entity Type Bundle Info service.
-   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
-   *   The Request Stack service.
-   * @param \Drupal\eca\Token\TokenInterface $token_services
-   *   The ECA Token service.
-   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
-   *   The Account Proxy service.
-   * @param \Drupal\Component\Datetime\TimeInterface $time
-   *   The Time service.
-   * @param \Drupal\eca\EcaState $state
-   *   The ECS State service.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   The Drupal Module Handler service.
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info, RequestStack $request_stack, TokenInterface $token_services, AccountProxyInterface $current_user, TimeInterface $time, EcaState $state, ModuleHandlerInterface $module_handler) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $entity_type_bundle_info, $request_stack, $token_services, $current_user, $time, $state);
-    $this->moduleHandler = $module_handler;
-  }
-
-  /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): ConditionBase {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('entity_type.manager'),
-      $container->get('entity_type.bundle.info'),
-      $container->get('request_stack'),
-      $container->get('eca.token_services'),
-      $container->get('current_user'),
-      $container->get('datetime.time'),
-      $container->get('eca.state'),
-      $container->get('module_handler')
-    );
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->module_handler = $container->get('module_handler');
+    return $instance;
   }
 
   /**
