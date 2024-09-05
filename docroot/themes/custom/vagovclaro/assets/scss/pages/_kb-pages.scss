@@ -175,7 +175,7 @@
   }
 }
 
-// KB Landing page overrides
+// KB landing and search results page overrides
 #kb-landing-page__container {
   // Special override from .vagovclaro .layout-container
   margin: 0 auto !important;
@@ -186,8 +186,33 @@
     padding-left: 10px;
   }
 
-  &.search-resuls__wrapper {
+  &.search-results__wrapper {
     padding-bottom: 75px;
+
+    .page-title {
+      margin-top: 12px;
+    }
+  }
+}
+
+.search-results__header {
+  padding-bottom: 36px;
+}
+
+.kb__search-result {
+  .kb__search-result__title {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+
+  .kb__search-result__intro {
+    font-size: 1.1rem;
+    line-height: 1.1;
+  }
+
+  .kb__search-result__excerpt {
+    display: block;
+    padding: 1em;
   }
 }
 
@@ -196,7 +221,7 @@ main {
     background: none;
     border: 0;
     box-shadow: none;
-    margin: 45px 0 60px;
+    margin: 30px 0 50px;
     padding: 0;
 
     label {
