@@ -5,21 +5,15 @@ namespace Drupal\va_gov_eca\Plugin\Action;
 use Drupal\advancedqueue\Entity\Queue;
 use Drupal\advancedqueue\Job;
 use Drupal\advancedqueue\JobTypeManager;
-use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Action\Attribute\Action;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\eca\EcaState;
-use Drupal\eca\Plugin\Action\ActionBase;
 use Drupal\eca\Plugin\Action\ConfigurableActionBase;
 use Drupal\eca\Plugin\DataType\DataTransferObject;
 use Drupal\eca\Service\YamlParser;
-use Drupal\eca\Token\TokenInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 
@@ -54,72 +48,14 @@ class CreateAdvancedQueueJob extends ConfigurableActionBase {
   protected LoggerChannelFactoryInterface $loggerFactory;
 
   /**
-   * Constructs a CreateAdvancedQueueJob object.
-   *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The Entity Type Manager service.
-   * @param \Drupal\eca\Token\TokenInterface $token_services
-   *   The ECA Token Services service.
-   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
-   *   The current user.
-   * @param \Drupal\Component\Datetime\TimeInterface $time
-   *   The Time service.
-   * @param \Drupal\eca\EcaState $state
-   *   The ECA state service.
-   * @param \Drupal\advancedqueue\JobTypeManager $job_type_manager
-   *   The AdvancedQueue Job Type plugin manager.
-   * @param \Drupal\eca\Service\YamlParser $yaml_parser
-   *   The ECA Yaml parser service.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
-   *   The Logger Channel Factory service.
-   */
-  public function __construct(
-    array $configuration,
-    $plugin_id,
-    $plugin_definition,
-    EntityTypeManagerInterface $entity_type_manager,
-    TokenInterface $token_services,
-    AccountProxyInterface $current_user,
-    TimeInterface $time,
-    EcaState $state,
-    JobTypeManager $job_type_manager,
-    YamlParser $yaml_parser,
-    LoggerChannelFactoryInterface $logger_factory
-  ) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $token_services, $current_user, $time, $state);
-    $this->entityTypeManager = $entity_type_manager;
-    $this->tokenServices = $token_services;
-    $this->currentUser = $current_user;
-    $this->time = $time;
-    $this->state = $state;
-    $this->jobTypeManager = $job_type_manager;
-    $this->yamlParser = $yaml_parser;
-    $this->loggerFactory = $logger_factory;
-  }
-
-  /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): ActionBase {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('entity_type.manager'),
-      $container->get('eca.token_services'),
-      $container->get('current_user'),
-      $container->get('datetime.time'),
-      $container->get('eca.state'),
-      $container->get('plugin.manager.advancedqueue_job_type'),
-      $container->get('eca.service.yaml_parser'),
-      $container->get('logger.factory')
-    );
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance->jobTypeManager = $container->get('plugin.manager.advancedqueue_job_type');
+    $instance->yamlParser = $container->get('eca.service.yaml_parser');
+    $instance->loggerFactory = $container->get('logger.factory');
+    return $instance;
   }
 
   /**
@@ -142,7 +78,7 @@ class CreateAdvancedQueueJob extends ConfigurableActionBase {
     if ($this->configuration['queue']) {
       Queue::load($this->configuration['queue'])?->enqueueJob($job);
     }
-    $this->tokenServices->addTokenData($this->configuration['token_name'], DataTransferObject::create([$job]));
+    $this->tokenService->addTokenData($this->configuration['token_name'], DataTransferObject::create([$job]));
   }
 
   /**
