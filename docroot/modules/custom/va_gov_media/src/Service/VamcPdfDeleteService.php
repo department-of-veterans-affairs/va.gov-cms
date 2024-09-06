@@ -109,7 +109,7 @@ class VamcPdfDeleteService implements VamcPdfDeleteInterface {
   /**
    * Find and delete VAMC PDFs that are not attached to content.
    */
-  public function VamcPdfDelete(): void {
+  public function vamcPdfDelete(): void {
     $vha_total = 0;
     $non_vha_total = 0;
     $logger = $this->loggerFactory->get('va_gov_media');

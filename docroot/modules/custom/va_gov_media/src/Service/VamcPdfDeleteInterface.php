@@ -10,6 +10,6 @@ interface VamcPdfDeleteInterface {
   /**
    * Find and delete PDFs that are not attached to content.
    */
-  public function VamcPdfDelete();
+  public function vamcPdfDelete();
 
 }
