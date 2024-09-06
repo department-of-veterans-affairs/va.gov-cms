@@ -148,7 +148,7 @@ class PdfDeleteService implements PdfDeleteInterface {
         $parents = array_keys($parents);
         $section_name = $section ? $section->get('name')->value : 'No Section';
         // 3 is the Term ID for VHA.
-        if (in_array('3', $parents)) {
+        if (in_array('8', $parents)) {
           $user_id = $pdf->get('uid')->getValue()[0]['target_id'];
           $user = $this->entityTypeManager->getStorage('user')->load($user_id);
           $username = $user ? $user->getAccountName() : 'Unknown';
