@@ -149,7 +149,7 @@ third_party_settings:
       children:
         - field_benefit_categories
       label: 'VA Benefits'
-      parent_name: group_connect_with_us
+      parent_name: ''
       region: content
       weight: 10
       format_type: fieldset
@@ -191,6 +191,7 @@ third_party_settings:
     group_q_a:
       children:
         - field_clp_faq_paragraphs
+        - field_clp_reusable_q_a
         - field_clp_faq_cta
       label: 'Q&As'
       parent_name: ''
@@ -204,7 +205,6 @@ third_party_settings:
         description: ''
     group_connect_with_us:
       children:
-        - group_va_benefits
         - field_related_office
       label: 'Connect with us'
       parent_name: ''
@@ -262,7 +262,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 20
+    weight: 21
     region: content
   field_clp_faq_paragraphs:
     type: entity_reference_revisions_entity_view
