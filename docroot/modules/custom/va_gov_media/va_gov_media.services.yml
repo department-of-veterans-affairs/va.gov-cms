@@ -6,8 +6,10 @@ services:
       class: Drupal\va_gov_media\EventSubscriber\MediaEventSubscriber
       tags:
         - { name: event_subscriber }
-
   va_gov_media.route_subscriber:
     class: Drupal\va_gov_media\EventSubscriber\VaGovMediaAddRouteSubscriber
     tags:
       - { name: event_subscriber }
+  va_gov_media.pdf_delete:
+    class: Drupal\va_gov_media\Service\VamcPdfDeleteService
+    arguments: ['@entity_type.manager', '@entity_usage_addons.usage', '@stream_wrapper_manager', '@date.formatter', '@s3fsfileservice', '@logger.factory', '@user.data']

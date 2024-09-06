@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "000b2379c7ec34c23c557f3b7db07b3e",
+    "content-hash": "d5679fec50ebf202a5bca824616fd50c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -118,16 +118,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.321.1",
+            "version": "3.319.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "f4ad64dffc2665dde6275e6dcc3f653f15c6e57f"
+                "reference": "99b75502221af095f0a5a72b0df7ec44e865e699"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f4ad64dffc2665dde6275e6dcc3f653f15c6e57f",
-                "reference": "f4ad64dffc2665dde6275e6dcc3f653f15c6e57f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/99b75502221af095f0a5a72b0df7ec44e865e699",
+                "reference": "99b75502221af095f0a5a72b0df7ec44e865e699",
                 "shasum": ""
             },
             "require": {
@@ -210,9 +210,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.321.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.319.2"
             },
-            "time": "2024-08-29T19:10:23+00:00"
+            "time": "2024-08-09T18:32:29+00:00"
         },
         {
             "name": "bjeavons/zxcvbn-php",
@@ -274,7 +274,7 @@
             "version": "v4.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fengyuanchen/cropper.git",
+                "url": "git@github.com:fengyuanchen/cropper.git",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
             },
             "dist": {
@@ -5494,29 +5494,29 @@
         },
         {
             "name": "drupal/embed",
-            "version": "1.9.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/embed.git",
-                "reference": "8.x-1.9"
+                "reference": "8.x-1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/embed-8.x-1.9.zip",
-                "reference": "8.x-1.9",
-                "shasum": "e6b4875e2b245ddf1a68a8615cbb4c5a378a0e9f"
+                "url": "https://ftp.drupal.org/files/projects/embed-8.x-1.7.zip",
+                "reference": "8.x-1.7",
+                "shasum": "b7ca4264be51038f947d26b6725fc0446b224f60"
             },
             "require": {
-                "drupal/core": "^9.5 | ^10"
+                "drupal/core": "^9.3 | ^10"
             },
             "require-dev": {
-                "drupal/ckeditor": "^1.0"
+                "drupal/ckeditor": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.9",
-                    "datestamp": "1723283819",
+                    "version": "8.x-1.7",
+                    "datestamp": "1697642867",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5533,7 +5533,7 @@
                     "homepage": "https://www.drupal.org/user/2828287"
                 },
                 {
-                    "name": "dave reid",
+                    "name": "Dave Reid",
                     "homepage": "https://www.drupal.org/user/53892"
                 },
                 {
@@ -9298,6 +9298,53 @@
             }
         },
         {
+            "name": "drupal/media_file_delete",
+            "version": "1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/media_file_delete.git",
+                "reference": "1.3.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/media_file_delete-1.3.1.zip",
+                "reference": "1.3.1",
+                "shasum": "5d715425c65e97343665eb23a055ab4aca45fe47"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ~9.0 || ~10.0 || ^11"
+            },
+            "require-dev": {
+                "drupal/entity_usage": "^2@beta"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.3.1",
+                    "datestamp": "1721367494",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "larowlan",
+                    "homepage": "https://www.drupal.org/user/395439"
+                }
+            ],
+            "description": "Provides content editors the ability to delete associated files when deleting media items",
+            "homepage": "https://www.drupal.org/project/media_file_delete",
+            "support": {
+                "source": "https://git.drupalcode.org/project/media_file_delete"
+            }
+        },
+        {
             "name": "drupal/memcache",
             "version": "2.7.0",
             "source": {
@@ -9679,17 +9726,17 @@
         },
         {
             "name": "drupal/menu_link_attributes",
-            "version": "1.5.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/menu_link_attributes.git",
-                "reference": "8.x-1.5"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/menu_link_attributes-8.x-1.5.zip",
-                "reference": "8.x-1.5",
-                "shasum": "ad1db596ad8a76ba95fbf2d0a42d4777056587d5"
+                "url": "https://ftp.drupal.org/files/projects/menu_link_attributes-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "a679a5c53c94e3c992483ce3ea782950f4f7e5b3"
             },
             "require": {
                 "drupal/core": "^8 || ^9 || ^10 || ^11"
@@ -9697,8 +9744,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.5",
-                    "datestamp": "1724848806",
+                    "version": "8.x-1.4",
+                    "datestamp": "1724060900",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9711,7 +9758,7 @@
             ],
             "authors": [
                 {
-                    "name": "anybody",
+                    "name": "Anybody",
                     "homepage": "https://www.drupal.org/user/291091"
                 },
                 {
@@ -10098,45 +10145,42 @@
         },
         {
             "name": "drupal/metatag",
-            "version": "2.0.2",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/metatag.git",
-                "reference": "2.0.2"
+                "reference": "2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/metatag-2.0.2.zip",
-                "reference": "2.0.2",
-                "shasum": "748013c50a0ed5e10359413bb3481392a0bf0d3f"
+                "url": "https://ftp.drupal.org/files/projects/metatag-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "2966c854d982b7069b1c0111519427990ebbad40"
             },
             "require": {
-                "drupal/core": "^9.4 || ^10 || ^11",
+                "drupal/core": "^9.4 || ^10",
                 "drupal/token": "^1.0",
                 "php": ">=8.0"
             },
             "require-dev": {
-                "drupal/hal": "^1 || ^2 || ^9",
+                "drupal/devel": "^4.0 || ^5.0",
+                "drupal/hal": "^9 || ^1 || ^2",
                 "drupal/metatag_dc": "*",
                 "drupal/metatag_open_graph": "*",
                 "drupal/page_manager": "^4.0",
                 "drupal/redirect": "^1.0",
-                "ergebnis/composer-normalize": "*",
+                "drupal/webprofiler": "^9 || ^10",
                 "mpyw/phpunit-patch-serializable-comparison": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.2",
-                    "datestamp": "1722869772",
+                    "version": "2.0.0",
+                    "datestamp": "1692368265",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "composer-normalize": {
-                    "indent-size": 2,
-                    "indent-style": "space"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -19452,16 +19496,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.0",
+            "version": "1.11.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "384af967d35b2162f69526c7276acadce534d0e1"
+                "reference": "707c2aed5d8d0075666e673a5e71440c1d01a5a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/384af967d35b2162f69526c7276acadce534d0e1",
-                "reference": "384af967d35b2162f69526c7276acadce534d0e1",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/707c2aed5d8d0075666e673a5e71440c1d01a5a3",
+                "reference": "707c2aed5d8d0075666e673a5e71440c1d01a5a3",
                 "shasum": ""
             },
             "require": {
@@ -19506,7 +19550,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-08-27T09:18:05+00:00"
+            "time": "2024-08-19T14:37:29+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -26735,7 +26779,7 @@
             "version": "2.3.1",
             "source": {
                 "type": "git",
-                "url": "https://git.drupalcode.org/project/dtt/",
+                "url": "https://git.drupalcode.org/project/dtt.git",
                 "reference": "5e3df23c93f4f3e4f34fd7677df10bc06616f4ce"
             },
             "require": {
