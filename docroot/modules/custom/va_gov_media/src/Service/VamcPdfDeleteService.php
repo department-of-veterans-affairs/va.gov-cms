@@ -16,7 +16,7 @@ use Drupal\user\UserDataInterface;
 /**
  * Service to cycle through and remove PDFs that are not attached to content.
  */
-class PdfDeleteService implements PdfDeleteInterface {
+class VamcPdfDeleteService implements VamcPdfDeleteInterface {
 
   /**
    * The entity manager.
@@ -107,9 +107,9 @@ class PdfDeleteService implements PdfDeleteInterface {
   }
 
   /**
-   * Find and delete PDFs that are not attached to content.
+   * Find and delete VAMC PDFs that are not attached to content.
    */
-  public function pdfDelete(): void {
+  public function VamcPdfDelete(): void {
     $vha_total = 0;
     $non_vha_total = 0;
     $logger = $this->loggerFactory->get('va_gov_media');
@@ -147,7 +147,7 @@ class PdfDeleteService implements PdfDeleteInterface {
         $parents = $this->entityTypeManager->getStorage('taxonomy_term')->loadAllParents($section_id);
         $parents = array_keys($parents);
         $section_name = $section ? $section->get('name')->value : 'No Section';
-        // 3 is the Term ID for VHA.
+        // 8 is the Term ID for VAMC Facilities.
         if (in_array('8', $parents)) {
           $user_id = $pdf->get('uid')->getValue()[0]['target_id'];
           $user = $this->entityTypeManager->getStorage('user')->load($user_id);
@@ -194,7 +194,7 @@ class PdfDeleteService implements PdfDeleteInterface {
     $file = $pdf_entity->field_document->entity;
     if (!$file instanceof FileInterface) {
       $pdf_name = $pdf_entity->get('name')->value;
-      $this->loggerFactory->get('va_gov_media')->warning("PDF {$pdf_name} file could not be copied because it has no file entity.");
+      $this->loggerFactory->get('va_gov_media')->warning("PDF {$pdf_name} does not have a file attached to it. No file was copied. Deleting the media entity.");
       $pdf_entity->delete();
       return;
     }

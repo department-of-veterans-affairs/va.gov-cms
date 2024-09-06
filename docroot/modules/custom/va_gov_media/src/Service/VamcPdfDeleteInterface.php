@@ -5,11 +5,11 @@ namespace Drupal\va_gov_media\Service;
 /**
  * Interface for deleting PDFs that are not attached to content.
  */
-interface PdfDeleteInterface {
+interface VamcPdfDeleteInterface {
 
   /**
    * Find and delete PDFs that are not attached to content.
    */
-  public function pdfDelete();
+  public function VamcPdfDelete();
 
 }

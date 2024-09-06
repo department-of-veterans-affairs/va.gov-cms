@@ -11,5 +11,5 @@ services:
     tags:
       - { name: event_subscriber }
   va_gov_media.pdf_delete:
-    class: Drupal\va_gov_media\Service\PdfDeleteService
+    class: Drupal\va_gov_media\Service\VamcPdfDeleteService
     arguments: ['@entity_type.manager', '@entity_usage_addons.usage', '@stream_wrapper_manager', '@date.formatter', '@s3fsfileservice', '@logger.factory', '@user.data']
