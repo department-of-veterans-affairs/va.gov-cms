@@ -3,7 +3,7 @@
 namespace Tests\Support\Mock;
 
 use Drupal\Component\Datetime\Time;
-use Drupal\Core\Http\RequestStack;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * A simple way to get a predictable timestamp back from the Time service.
