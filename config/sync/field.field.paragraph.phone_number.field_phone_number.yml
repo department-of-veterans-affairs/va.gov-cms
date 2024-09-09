@@ -5,12 +5,17 @@ dependencies:
   config:
     - field.storage.paragraph.field_phone_number
     - paragraphs.paragraphs_type.phone_number
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: paragraph.phone_number.field_phone_number
 field_name: field_phone_number
 entity_type: paragraph
 bundle: phone_number
 label: 'Phone number'
-description: 'Use format: 123-456-7890'
+description: 'Use the format 123-456-7890.'
 required: true
 translatable: true
 default_value: {  }
