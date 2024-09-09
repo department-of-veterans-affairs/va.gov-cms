@@ -56,13 +56,13 @@ class DatadogApmProcessor implements ProcessorInterface {
   /**
    * Alter the log record.
    *
-   * @param array $record
+   * @param array|\Monolog\LogRecord $record
    *   The log message, as a record.
    *
    * @return array
    *   The altered record.
    */
-  public function getAlteredRecord(array $record): array {
+  public function getAlteredRecord(array|LogRecord $record): array {
     $context = $this->getCurrentContext();
     $record['dd'] = [
       'trace_id' => $context['trace_id'],
@@ -75,26 +75,26 @@ class DatadogApmProcessor implements ProcessorInterface {
   /**
    * Has this record already been processed?
    *
-   * @param array $record
+   * @param array|\Monolog\LogRecord $record
    *   The log message, as a record.
    *
    * @return bool
    *   TRUE if the record has already been processed, otherwise FALSE.
    */
-  public function hasAlteredRecord(array $record): bool {
+  public function hasAlteredRecord(array|LogRecord $record): bool {
     return strpos(@$record['message'], '[dd.trace_id=') !== FALSE && isset($record['dd']);
   }
 
   /**
    * Should we alter this record?
    *
-   * @param array $record
+   * @param array|\Monolog\LogRecord $record
    *   The log message, as a record.
    *
    * @return bool
    *   Whether or not this record should be altered.
    */
-  public function shouldAlterRecord(array $record): bool {
+  public function shouldAlterRecord(array|LogRecord $record): bool {
     return !$this->hasAlteredRecord($record);
   }
 
