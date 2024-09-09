@@ -39,6 +39,7 @@ dependencies:
     - media_library
     - office_hours
     - paragraphs
+    - path
     - telephone
     - textfield_counter
     - tzfield
@@ -52,7 +53,7 @@ third_party_settings:
       label: 'Operating status'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
@@ -94,7 +95,7 @@ third_party_settings:
       label: 'Direct line'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 8
       format_type: fieldset
       format_settings:
         classes: ''
@@ -109,7 +110,7 @@ third_party_settings:
       label: 'Top of page information'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -125,7 +126,7 @@ third_party_settings:
       label: 'Locations and contact information'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -159,7 +160,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -173,7 +174,7 @@ third_party_settings:
       label: 'Spotlight content'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -186,7 +187,7 @@ third_party_settings:
       label: "How we're different than a clinic (FAQs)"
       region: content
       parent_name: ''
-      weight: 11
+      weight: 10
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -248,7 +249,7 @@ third_party_settings:
       label: Services
       region: content
       parent_name: ''
-      weight: 10
+      weight: 9
       format_type: details
       format_settings:
         classes: ''
@@ -263,7 +264,7 @@ third_party_settings:
       label: 'Vet Center services overview'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -283,7 +284,7 @@ third_party_settings:
       label: 'Vet Center banner image'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -464,7 +465,7 @@ content:
         limit_values: '0'
   field_table_of_contents:
     type: markup
-    weight: 1
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -513,6 +514,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  path:
+    type: path
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   title:
     type: tooltip_textfield
     weight: 14
@@ -526,7 +533,6 @@ hidden:
   created: true
   field_health_services: true
   langcode: true
-  path: true
   promote: true
   status: true
   sticky: true
