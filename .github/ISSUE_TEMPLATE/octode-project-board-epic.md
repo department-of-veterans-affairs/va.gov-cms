@@ -108,3 +108,5 @@ Editor-centered
 ## Runbook
 <optional>
 
+## Decision log
+* **[yyyy-mm-dd]** Notes
