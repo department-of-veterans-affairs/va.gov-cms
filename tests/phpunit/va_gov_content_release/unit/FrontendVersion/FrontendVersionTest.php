@@ -2,6 +2,7 @@
 
 namespace tests\phpunit\va_gov_content_release\unit\FrontendVersion;
 
+use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\State\State;
 use Drupal\va_gov_content_release\Frontend\Frontend;
@@ -20,6 +21,34 @@ use Tests\Support\Classes\VaGovUnitTestBase;
 class FrontendVersionTest extends VaGovUnitTestBase {
 
   /**
+   * The state service.
+   *
+   * @var \Drupal\Core\State\StateInterface
+   */
+  protected $state;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setUp() : void {
+    parent::setUp();
+
+    \Drupal::unsetContainer();
+    $container = new ContainerBuilder();
+
+    $state = $this->getMockBuilder('Drupal\Core\State\StateInterface')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $container->set('state', $state);
+    $container->set('cache.bootstrap', $this->getMockBuilder('Drupal\Core\Cache\CacheBackendInterface')->getMock());
+    $container->set('lock', $this->getMockBuilder('Drupal\Core\Lock\LockBackendInterface')->getMock());
+
+    \Drupal::setContainer($container);
+
+    $this->state = new State(new KeyValueMemoryFactory());
+  }
+
+  /**
    * Test that the service works as expected.
    *
    * @covers ::__construct
@@ -28,9 +57,8 @@ class FrontendVersionTest extends VaGovUnitTestBase {
    * @covers ::resetVersion
    */
   public function testGetSetReset() : void {
-    $state = new State(new KeyValueMemoryFactory());
     $frontend = Frontend::ContentBuild;
-    $frontendVersion = new FrontendVersion($state);
+    $frontendVersion = new FrontendVersion($this->state);
     $this->assertEquals(FrontendVersionInterface::FRONTEND_VERSION_DEFAULT, $frontendVersion->getVersion($frontend));
     $frontendVersion->setVersion($frontend, '1.2.3');
     $this->assertEquals('1.2.3', $frontendVersion->getVersion($frontend));
