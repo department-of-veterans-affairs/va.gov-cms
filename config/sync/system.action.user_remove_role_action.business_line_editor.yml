@@ -1,0 +1,14 @@
+uuid: 3aff17ab-ffb1-4f33-ad4a-b07d27b95196
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.business_line_editor
+  module:
+    - user
+id: user_remove_role_action.business_line_editor
+label: 'Remove the Business Line Editor role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: business_line_editor

@@ -80,7 +80,7 @@ class JobTypeMessageNotifyBaseTest extends KernelTestBase {
         'uid' => 1,
         'template' => 'foo_template',
       ],
-      'restrict_delivery_to' => [1],
+      'restrict_delivery_to' => [2],
     ];
     $job = new Job([
       'type' => 'test_job_type',
@@ -94,16 +94,62 @@ class JobTypeMessageNotifyBaseTest extends KernelTestBase {
   }
 
   /**
-   * Tests the process method with an error due to missing template values.
+   * Tests the process method with an error due to restricted delivery setting.
    */
-  public function testProcessFailureRecipientAllowList() {
+  public function testProcessFailureRecipientRestrictList() {
     $payload = [
       'values' => [],
       'template_values' => [
         'uid' => 1,
         'template' => 'foo_template',
       ],
-      'restrict_delivery_to' => [2],
+      'restrict_delivery_to' => [1],
+    ];
+    $job = new Job([
+      'type' => 'test_job_type',
+      'payload' => $payload,
+      'state' => Job::STATE_QUEUED,
+    ]);
+
+    $result = $this->jobType->process($job);
+    $this->assertEquals(Job::STATE_FAILURE, $result->getState());
+    $this->assertEquals('Recipient is not on the allow list for message 1.', $result->getMessage());
+  }
+
+  /**
+   * Tests the process method for successful sending using allow list.
+   */
+  public function testProcessSuccessRecipientAllowList() {
+    $payload = [
+      'values' => [],
+      'template_values' => [
+        'uid' => 1,
+        'template' => 'foo_template',
+      ],
+      'allow_delivery_only_to' => [1],
+    ];
+    $job = new Job([
+      'type' => 'test_job_type',
+      'payload' => $payload,
+      'state' => Job::STATE_QUEUED,
+    ]);
+
+    $result = $this->jobType->process($job);
+    $this->assertEquals(Job::STATE_SUCCESS, $result->getState());
+    $this->assertEquals('Message 1 sent successfully.', $result->getMessage());
+  }
+
+  /**
+   * Tests the process method for failure sending using allow list.
+   */
+  public function testProcessFailureRecipientAllowList() {
+    $payload = [
+      'values' => [],
+      'template_values' => [
+        'uid' => 2,
+        'template' => 'foo_template',
+      ],
+      'allow_delivery_only_to' => [1],
     ];
     $job = new Job([
       'type' => 'test_job_type',
@@ -132,7 +178,6 @@ class JobTypeMessageNotifyBaseTest extends KernelTestBase {
     $this->expectExceptionMessage('Missing template_values in payload for job id');
     $result = $this->jobType->process($job);
     $this->assertEquals(Job::STATE_FAILURE, $result->getState());
-
   }
 
 }

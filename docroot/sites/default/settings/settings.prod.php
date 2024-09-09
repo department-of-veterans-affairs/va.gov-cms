@@ -51,34 +51,17 @@ $settings['github_actions_deploy_env'] = 'prod';
 // Settings supporting broken link report import.
 $settings['broken_link_report_import_enabled'] = TRUE;
 
-// Because Jenkins can't resolve e.g. prod.cms.va.gov DNS, and only the
-// internal*elb addresses. And sometimes the host would return data with
-// "http://default/..." hostnames for files so we set the host here and pass it
-// to the `file_public_base_url` setting to fix that.
-if (!empty($webhost_on_cli)) {
-    if (PHP_SAPI === 'cli') {
-      // This is running from drush so set the webhost.
-      // Var $webhost_on_cli is set in <settings.<environment>.php.
-      $webhost = $webhost_on_cli;
-    }
-    else {
-      // This is running from an HTTP request.
-      $webhost = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
-    }
-  
-    // Setting the custom header to switch the file base URL in next-build
-    // Uncomment this next line to test that the header is being set
-    // header('File-Public-Base-Url-Check: true');
-  
-    // Get all headers
-    $headersArray = headers_list();
-  
-    // If the header is set in the response headers
-    if (in_array('File-Public-Base-Url-Check: true', $headersArray, true)) {
-      // Make the file base url point to prod
-      $settings['file_public_base_url'] = "https://dsva-vagov-prod-cms-files.s3.us-gov-west-1.amazonaws.com";
-    } else {
-      // Otherwise use the default webhost
-      $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
-    }
+// Public asset S3 location
+$public_asset_s3_base_url = "https://dsva-vagov-prod-cms-files.s3.us-gov-west-1.amazonaws.com";
+
+//S3FS settings
+  $settings['s3fs.access_key'] = getenv('CMS_PDF_SERVICE_ACCT_KEY');
+  $settings['s3fs.secret_key'] = getenv('CMS_PDF_SERVICE_ACCT_SECRET');
+  $config['s3fs.settings']['bucket'] = 'dsva-vagov-prod-cms-pdf-archive';
+  if (getenv('CMS_DRUPAL_ADDRESS') === 'https://test.prod.cms.va.gov') {
+    $config['s3fs.settings']['bucket'] = 'dsva-vagov-prod-cms-test-pdf-archive';
   }
+  $config['s3fs.settings']['region'] = 'us-gov-west-1';
+  $settings['s3fs.use_s3_for_public'] = FALSE;
+  $settings['s3fs.use_s3_for_private'] = FALSE;
+  $settings['s3fs.upload_as_private'] = TRUE;
