@@ -413,10 +413,13 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
    *   The mental health phone number.
    */
   protected function getFacilityMentalHealthPhone(): string {
-    $telephone_paragraph_id = $this->facilityNode->get('field_telephone_number')->target_id;
+    if (!$this->facilityNode->hasField('field_telephone')) {
+      return '';
+    }
+    $telephone_paragraph_id = $this->facilityNode->get('field_telephone')->target_id;
     $telephone_paragraph = $this->entityTypeManager->getStorage('paragraph')->load($telephone_paragraph_id);
-    $mental_health_phone = $this->getFieldSafe($telephone_paragraph->get('field_phone_number')->value);
-    $mental_health_extension = $this->getFieldSafe($telephone_paragraph->get('field_phone_extension')->value);
+    $mental_health_phone = $telephone_paragraph->get('field_phone_number')->value ?? '';
+    $mental_health_extension = $telephone_paragraph->get('field_phone_extension')->value ?? '';
     if (!empty($mental_health_extension)) {
       $mental_health_phone .= ', ext. ' . $mental_health_extension;
     }
