@@ -10,7 +10,6 @@ parameters:
       - 'drupal.syslog'
       - 'error_log'
   monolog.processors:
-      - 'current_user'
       - 'filter_backtrace'
       - 'ip'
       - 'message_placeholder'
