@@ -103,24 +103,34 @@ Cypress.Commands.add("drupalAddUserWithRoles", (roles, username, password) => {
   return cy;
 });
 
-Cypress.Commands.add("drupalGetWatchdogMessages", (severity = "Warning") => {
-  const fields = ["wid", "date", "type", "severity", "message"];
-  const command = `watchdog:show --format=json --severity=${severity} --fields=${fields.join(
-    ","
-  )}`;
-  return cy.drupalDrushCommand(command).then((output) => {
-    return cy
-      .log(output)
-      .then(() => {
-        return JSON.parse(output.stdout || "{}");
-      })
-      .then((entries) => {
-        return cy.log(entries).then(() => {
-          return entries;
+Cypress.Commands.add(
+  "drupalGetWatchdogMessages",
+  (username, severity = "Warning") => {
+    const fields = ["wid", "date", "type", "severity", "message", "username"];
+    const command = `watchdog:show --format=json --severity=${severity} --fields=${fields.join(
+      ","
+    )}`;
+    return cy.drupalDrushCommand(command).then((output) => {
+      return cy
+        .log(output)
+        .then(() => {
+          return JSON.parse(output.stdout || "{}");
+        })
+        .then((json) => {
+          return cy.log(json).then(() => {
+            return Object.values(json).filter(
+              (entry) => entry.username === username
+            );
+          });
+        })
+        .then((entries) => {
+          return cy.log(entries).then(() => {
+            return entries;
+          });
         });
-      });
-  });
-});
+    });
+  }
+);
 
 Cypress.Commands.add("dumpWatchdogToStdout", (severity = "Warning") => {
   const fields = ["wid", "date", "type", "severity", "message"];
@@ -160,29 +170,32 @@ Cypress.Commands.add("dumpWatchdogToStdout", (severity = "Warning") => {
   });
 });
 
-Cypress.Commands.add("drupalWatchdogHasNoNewMessages", (severity) => {
-  cy.drupalGetWatchdogMessages(severity).then((messages) => {
+Cypress.Commands.add("drupalWatchdogHasNoNewMessages", (username, severity) => {
+  cy.drupalGetWatchdogMessages(username, severity).then((messages) => {
     cy.log(messages);
     expect(messages.length).to.equal(0);
   });
 });
 
-Cypress.Commands.add("drupalWatchdogHasNoNewErrors", () => {
-  cy.drupalGetWatchdogMessages("Error").then((messages) => {
+Cypress.Commands.add("drupalWatchdogHasNoNewErrors", (username) => {
+  cy.drupalGetWatchdogMessages(username, "Error").then((messages) => {
     cy.log(messages);
     expect(messages.length).to.equal(0);
   });
 });
 
-Cypress.Commands.add("drupalWatchdogHasNewMessages", (severity, count) => {
-  cy.drupalGetWatchdogMessages(severity).then((messages) => {
-    cy.log(messages);
-    expect(messages.length).to.equal(count);
-  });
-});
+Cypress.Commands.add(
+  "drupalWatchdogHasNewMessages",
+  (username, severity, count) => {
+    cy.drupalGetWatchdogMessages(username, severity).then((messages) => {
+      cy.log(messages);
+      expect(messages.length).to.equal(count);
+    });
+  }
+);
 
-Cypress.Commands.add("drupalWatchdogHasNewErrors", (count) => {
-  cy.drupalGetWatchdogMessages("Error").then((messages) => {
+Cypress.Commands.add("drupalWatchdogHasNewErrors", (username, count) => {
+  cy.drupalGetWatchdogMessages(username, "Error").then((messages) => {
     cy.log(messages);
     expect(messages.length).to.equal(count);
   });
