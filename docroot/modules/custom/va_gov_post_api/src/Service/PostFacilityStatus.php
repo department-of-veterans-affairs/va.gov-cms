@@ -417,6 +417,9 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
       return '';
     }
     $telephone_paragraph_id = $this->facilityNode->get('field_telephone')->target_id;
+    if (empty($telephone_paragraph_id)) {
+      return '';
+    }
     $telephone_paragraph = $this->entityTypeManager->getStorage('paragraph')->load($telephone_paragraph_id);
     $mental_health_phone = $telephone_paragraph->get('field_phone_number')->value ?? '';
     $mental_health_extension = $telephone_paragraph->get('field_phone_extension')->value ?? '';
