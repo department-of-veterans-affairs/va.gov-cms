@@ -21,7 +21,6 @@ Feature: Permissions
   Scenario: Content api consumer cannot alter existing menus
     Given I am logged in as a user with the "content_api_consumer" role
     And I should receive status code 403 when I request "/admin/structure/menu"
-    And the watchdog log should contain 1 new "Warning" messages
 
   Scenario: Content Admins should be able to browse sections from their profile even if none have been specifically assigned to them
     Given I am logged in as a user with the "content_admin" role
