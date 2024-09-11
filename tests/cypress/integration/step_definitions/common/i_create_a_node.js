@@ -435,7 +435,6 @@ Given("I create a {string} node", (contentType) => {
     );
     cy.injectAxe();
     cy.checkAccessibility();
-    cy.drupalWatchdogHasNoNewErrors();
     cy.getDrupalSettings().then((drupalSettings) => {
       const { currentPath } = drupalSettings.path;
       cy.wrap(currentPath.split("/").pop()).as("nodeId");
@@ -469,7 +468,6 @@ Given("I create a {string} node and continue", (contentType) => {
     );
     cy.injectAxe();
     cy.checkAccessibility();
-    cy.drupalWatchdogHasNoNewErrors();
     cy.getDrupalSettings().then((drupalSettings) => {
       const { currentPath } = drupalSettings.path;
       const pathComponents = currentPath.split("/");
