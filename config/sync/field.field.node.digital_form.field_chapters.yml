@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_chapters
     - node.type.digital_form
+    - paragraphs.paragraphs_type.digital_form_identification_info
     - paragraphs.paragraphs_type.digital_form_name_and_date_of_bi
   module:
     - entity_reference_revisions
@@ -27,46 +28,50 @@ settings:
   handler_settings:
     target_bundles:
       digital_form_name_and_date_of_bi: digital_form_name_and_date_of_bi
+      digital_form_identification_info: digital_form_identification_info
     negate: 0
     target_bundles_drag_drop:
       address:
-        weight: -95
-        enabled: false
-      alert:
-        weight: -94
-        enabled: false
-      alert_single:
         weight: -93
         enabled: false
-      audience_topics:
+      alert:
         weight: -92
         enabled: false
-      basic_accordion:
+      alert_single:
         weight: -91
         enabled: false
-      button:
+      audience_topics:
         weight: -90
         enabled: false
-      centralized_content_descriptor:
+      basic_accordion:
         weight: -89
         enabled: false
-      checklist:
+      button:
         weight: -88
         enabled: false
-      checklist_item:
+      centralized_content_descriptor:
         weight: -87
         enabled: false
-      collapsible_panel:
+      checklist:
         weight: -86
         enabled: false
-      collapsible_panel_item:
+      checklist_item:
         weight: -85
         enabled: false
-      contact_information:
+      collapsible_panel:
         weight: -84
         enabled: false
-      digital_form_name_and_date_of_bi:
+      collapsible_panel_item:
+        weight: -83
+        enabled: false
+      contact_information:
         weight: -82
+        enabled: false
+      digital_form_identification_info:
+        weight: -94
+        enabled: true
+      digital_form_name_and_date_of_bi:
+        weight: -95
         enabled: true
       downloadable_file:
         weight: -81
