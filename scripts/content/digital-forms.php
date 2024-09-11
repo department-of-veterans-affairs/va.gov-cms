@@ -44,7 +44,11 @@ function create_digital_form(
   ],
   array $steps = [
     [],
-    ['title' => 'Step without Date of Birth', 'include_dob' => FALSE],
+    [
+      'type' => 'digital_form_identification_info',
+      'title' => 'Generated Identification Information',
+      'include_sn' => TRUE,
+    ],
   ],
 ) {
   $digital_form = Node::create($values);
@@ -70,7 +74,16 @@ function create_digital_forms() {
     'moderation_state' => 'published',
   ];
   $form_21_4140_steps = [
-    ['title' => "Veteran's personal information", 'include_dob' => TRUE],
+    [
+      'type' => 'digital_form_name_and_date_of_bi',
+      'title' => "Veteran's personal information",
+      'include_dob' => TRUE,
+    ],
+    [
+      'type' => 'digital_form_identification_info',
+      'title' => 'Identification information',
+      'include_sn' => TRUE,
+    ],
   ];
 
   create_digital_form();
@@ -92,9 +105,18 @@ function create_digital_forms() {
 function create_step(
   array $values = [],
 ): Paragraph {
+  $step_type = $values['type'] ?? 'digital_form_name_and_date_of_bi';
+  $additional_fields = match ($step_type) {
+    'digital_form_identification_info' => [
+      'field_include_veteran_s_service' => $values['include_sn'] ?? FALSE,
+    ],
+    'digital_form_name_and_date_of_bi' => [
+      'field_include_date_of_birth' => $values['include_dob'] ?? TRUE,
+    ],
+    default => [],
+  };
   return Paragraph::create([
-    'type' => 'digital_form_name_and_date_of_bi',
+    'type' => $step_type,
     'field_title' => $values['title'] ?? 'Script Generated Step',
-    'field_include_date_of_birth' => $values['include_dob'] ?? TRUE,
-  ]);
+  ] + $additional_fields);
 }
