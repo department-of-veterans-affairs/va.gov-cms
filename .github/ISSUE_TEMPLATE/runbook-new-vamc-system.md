@@ -2,7 +2,7 @@
 name: Runbook - New VAMC system website
 about: Creating a new site for a VA healthcare system
 title: 'New VAMC System: <insert_name_of_system>'
-labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, VAMC
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, VAMC, sitewide
 assignees: ''
 
 ---
