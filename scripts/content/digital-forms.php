@@ -36,8 +36,10 @@ function create_digital_form(
   array $values = [
     'type' => 'digital_form',
     'title' => 'Script Generated Digital Form',
+    'field_expiration_date' => '2024-09-11',
     'field_va_form_number' => '123456789',
     'field_omb_number' => '1234-5678',
+    'field_respondent_burden' => 30,
     'moderation_state' => 'published',
   ],
   array $steps = [
@@ -61,8 +63,10 @@ function create_digital_forms() {
   $form_21_4140 = [
     'type' => 'digital_form',
     'title' => 'Employment Questionnaire',
+    'field_expiration_date' => '2024-07-31',
     'field_va_form_number' => '21-4140',
     'field_omb_number' => '2900-0079',
+    'field_respondent_burden' => 5,
     'moderation_state' => 'published',
   ];
   $form_21_4140_steps = [
