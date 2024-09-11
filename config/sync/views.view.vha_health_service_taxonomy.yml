@@ -1184,7 +1184,6 @@ display:
             name: name
             edit_taxonomy_term: edit_taxonomy_term
             field_health_service_api_id: field_health_service_api_id
-            field_vha_healthservice_stopcode: field_vha_healthservice_stopcode
             field_also_known_as: field_also_known_as
             field_commonly_treated_condition: field_commonly_treated_condition
             description__value: description__value
@@ -1192,14 +1191,15 @@ display:
             field_vet_center_friendly_name: field_vet_center_friendly_name
             field_vet_center_com_conditions: field_vet_center_com_conditions
             field_vet_center_service_descrip: field_vet_center_service_descrip
+            field_vba_service_descrip: field_vba_service_descrip
             field_vet_center_type_of_care: field_vet_center_type_of_care
+            field_vba_type_of_care: field_vba_type_of_care
             nothing_1: nothing_1
             nothing: nothing
             nothing_2: nothing_2
             nothing_3: nothing_3
             field_vet_center_required_servic: field_vet_center_required_servic
             nid_1: nid_1
-            field_vba_service_descrip: field_vba_service_descrip
           default: name
           info:
             name:
@@ -1217,13 +1217,6 @@ display:
               empty_column: false
               responsive: ''
             field_health_service_api_id:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_vha_healthservice_stopcode:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1277,12 +1270,26 @@ display:
               separator: ''
               empty_column: true
               responsive: ''
+            field_vba_service_descrip:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: true
+              responsive: ''
             field_vet_center_type_of_care:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: true
+              responsive: ''
+            field_vba_type_of_care:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
               responsive: ''
             nothing_1:
               align: ''
@@ -1317,13 +1324,6 @@ display:
               align: ''
               separator: ''
               empty_column: false
-              responsive: ''
-            field_vba_service_descrip:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: true
               responsive: ''
           override: true
           sticky: true
@@ -2708,70 +2708,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_vha_healthservice_stopcode:
-          id: field_vha_healthservice_stopcode
-          table: taxonomy_term__field_vha_healthservice_stopcode
-          field: field_vha_healthservice_stopcode
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Stop code'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         field_also_known_as:
           id: field_also_known_as
           table: taxonomy_term__field_also_known_as
@@ -3410,7 +3346,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if field_also_known_as  is not empty %}<p><strong>VAMC Patient-friendly Name:</strong> {{ field_also_known_as }}</p>{% endif %}\r\n{% if field_vet_center_friendly_name is not empty %}<p><strong>Vet Center Patient-friendly Name:</strong> {{ field_vet_center_friendly_name }}</p>{% endif %}"
+            text: "{% if field_also_known_as  is not empty %}<p><strong>VAMC:</strong> {{ field_also_known_as }}</p>{% endif %}\r\n{% if field_vet_center_friendly_name is not empty %}<p><strong>Vet Center:</strong> {{ field_vet_center_friendly_name }}</p>{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -3459,7 +3395,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if description__value is not empty %} <p><strong>VAMC Description:</strong> {{ description__value }}</p>{% endif %}\r\n{% if field_vet_center_service_descrip is not empty %} <p><strong>Vet Center Description:</strong> {{ field_vet_center_service_descrip }}</p>{% endif %}\r\n{% if field_vba_service_descrip is not empty %} <p><strong>VBA Description:</strong> {{ field_vba_service_descrip }}</p>{% endif %}"
+            text: "{% if description__value is not empty %} <p><strong>VAMC:</strong> {{ description__value|striptags }}</p>{% endif %}\r\n{% if field_vet_center_service_descrip is not empty %} <p><strong>Vet Center:</strong> {{ field_vet_center_service_descrip }}</p>{% endif %}\r\n{% if field_vba_service_descrip is not empty %} <p><strong>VBA:</strong> {{ field_vba_service_descrip }}</p>{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -3508,7 +3444,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if field_commonly_treated_condition is not empty %}<p><strong>VAMC Common Conditions:</strong> {{ field_commonly_treated_condition }}</p>{% endif %}\r\n{% if field_vet_center_com_conditions is not empty %}<p><strong>Vet Center Common Conditions:</strong>{{ field_vet_center_com_conditions }}</p>{% endif %}"
+            text: "{% if field_commonly_treated_condition is not empty %}<p><strong>VAMC:</strong> {{ field_commonly_treated_condition }}</p>{% endif %}\r\n{% if field_vet_center_com_conditions is not empty %}<p><strong>Vet Center:</strong>{{ field_vet_center_com_conditions }}</p>{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -3557,7 +3493,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if field_service_type_of_care is not empty %}<p><strong>VAMC Type of Care:</strong> {{ field_service_type_of_care }}</p>{% endif %}\r\n{% if field_vet_center_type_of_care is not empty %}<p><strong>Vet Center Type of Care:</strong> {{ field_vet_center_type_of_care }}</p>{% endif %}\r\n{% if field_vba_type_of_care is not empty %}<p><strong>VBA Service Type:</strong> {{ field_vba_type_of_care }}</p>{% endif %}"
+            text: "{% if field_service_type_of_care is not empty %}<p><strong>VAMC:</strong> {{ field_service_type_of_care }}</p>{% endif %}\r\n{% if field_vet_center_type_of_care is not empty %}<p><strong>Vet Center:</strong> {{ field_vet_center_type_of_care }}</p>{% endif %}\r\n{% if field_vba_type_of_care is not empty %}<p><strong>VBA:</strong> {{ field_vba_type_of_care }}</p>{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -3767,4 +3703,3 @@ display:
         - 'config:field.storage.taxonomy_term.field_vet_center_required_servic'
         - 'config:field.storage.taxonomy_term.field_vet_center_service_descrip'
         - 'config:field.storage.taxonomy_term.field_vet_center_type_of_care'
-        - 'config:field.storage.taxonomy_term.field_vha_healthservice_stopcode'
