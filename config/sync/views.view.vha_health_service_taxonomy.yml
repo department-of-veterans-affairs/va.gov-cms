@@ -3395,7 +3395,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if description__value is not empty %} <p><strong>VAMC:</strong> {{ description__value|striptags }}</p>{% endif %}\r\n{% if field_vet_center_service_descrip is not empty %} <p><strong>Vet Center:</strong> {{ field_vet_center_service_descrip }}</p>{% endif %}\r\n{% if field_vba_service_descrip is not empty %} <p><strong>VBA:</strong> {{ field_vba_service_descrip }}</p>{% endif %}"
+            text: "{% if description__value is not empty %} <p><strong>VAMC:</strong> {{ description__value|striptags|raw }}</p>{% endif %}\r\n{% if field_vet_center_service_descrip is not empty %} <p><strong>Vet Center:</strong> {{ field_vet_center_service_descrip }}</p>{% endif %}\r\n{% if field_vba_service_descrip is not empty %} <p><strong>VBA:</strong> {{ field_vba_service_descrip }}</p>{% endif %}"
             make_link: false
             path: ''
             absolute: false
