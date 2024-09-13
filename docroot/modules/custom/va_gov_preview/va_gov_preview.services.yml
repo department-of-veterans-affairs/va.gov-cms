@@ -16,7 +16,8 @@ services:
         '@va_gov_backend.exclusion_types',
         '@next.entity_type.manager',
         '@next.settings.manager',
-        '@feature_toggle.feature_status'
+        '@feature_toggle.feature_status',
+        '@entity_type.bundle.info'
       ]
     tags:
       - { name: event_subscriber }
