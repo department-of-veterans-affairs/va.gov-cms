@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.message.mail_subject
+    - field.field.message.aging_content_warn_fwb.field_expired_date
     - field.field.message.aging_content_warn_fwb.field_target_node_title
     - field.field.message.aging_content_warn_fwb.field_warning_date
     - message.template.aging_content_warn_fwb
@@ -23,6 +24,8 @@ content:
     weight: 0
     region: content
 hidden:
+  breadcrumbs: true
+  field_expired_date: true
   field_target_node_title: true
   field_warning_date: true
   partial_1: true
