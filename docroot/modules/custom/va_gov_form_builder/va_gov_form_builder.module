@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_form_builder.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function va_gov_form_builder_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Check if this is the digital form's node create or edit form.
+  if ($form['#form_id'] === 'node_digital_form_form' or $form['#form_id'] === 'node_digital_form_edit_form') {
+    $form['#validate'][] = 'va_gov_form_builder_digital_form_validation';
+  }
+}
+
+/**
+ * Custom validation callback for the digital form.
+ */
+function va_gov_form_builder_digital_form_validation(array &$form, FormStateInterface $form_state) {
+  $uniqueness_validator = \Drupal::service('va_gov_form_builder.field_validator.uniqueness');
+
+  $node_type = 'digital_form';
+  $field_name = 'field_va_form_number';
+  $field_value = $form_state->getValue('field_va_form_number');
+  $is_unique = $uniqueness_validator->validate($node_type, $field_name, $field_value);
+
+  if (!$is_unique) {
+    $form_state->setErrorByName($field_name, t('There is already a form in the system with the provided form number'));
+  }
+}
