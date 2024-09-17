@@ -36,13 +36,19 @@ function create_digital_form(
   array $values = [
     'type' => 'digital_form',
     'title' => 'Script Generated Digital Form',
+    'field_expiration_date' => '2024-09-11',
     'field_va_form_number' => '123456789',
     'field_omb_number' => '1234-5678',
+    'field_respondent_burden' => 30,
     'moderation_state' => 'published',
   ],
   array $steps = [
     [],
-    ['title' => 'Step without Date of Birth', 'include_dob' => FALSE],
+    [
+      'type' => 'digital_form_identification_info',
+      'title' => 'Generated Identification Information',
+      'include_sn' => TRUE,
+    ],
   ],
 ) {
   $digital_form = Node::create($values);
@@ -61,12 +67,23 @@ function create_digital_forms() {
   $form_21_4140 = [
     'type' => 'digital_form',
     'title' => 'Employment Questionnaire',
+    'field_expiration_date' => '2024-07-31',
     'field_va_form_number' => '21-4140',
     'field_omb_number' => '2900-0079',
+    'field_respondent_burden' => 5,
     'moderation_state' => 'published',
   ];
   $form_21_4140_steps = [
-    ['title' => "Veteran's personal information", 'include_dob' => TRUE],
+    [
+      'type' => 'digital_form_name_and_date_of_bi',
+      'title' => "Veteran's personal information",
+      'include_dob' => TRUE,
+    ],
+    [
+      'type' => 'digital_form_identification_info',
+      'title' => 'Identification information',
+      'include_sn' => TRUE,
+    ],
   ];
 
   create_digital_form();
@@ -88,9 +105,18 @@ function create_digital_forms() {
 function create_step(
   array $values = [],
 ): Paragraph {
+  $step_type = $values['type'] ?? 'digital_form_name_and_date_of_bi';
+  $additional_fields = match ($step_type) {
+    'digital_form_identification_info' => [
+      'field_include_veteran_s_service' => $values['include_sn'] ?? FALSE,
+    ],
+    'digital_form_name_and_date_of_bi' => [
+      'field_include_date_of_birth' => $values['include_dob'] ?? TRUE,
+    ],
+    default => [],
+  };
   return Paragraph::create([
-    'type' => 'digital_form_name_and_date_of_bi',
+    'type' => $step_type,
     'field_title' => $values['title'] ?? 'Script Generated Step',
-    'field_include_date_of_birth' => $values['include_dob'] ?? TRUE,
-  ]);
+  ] + $additional_fields);
 }
