@@ -1,5 +1,7 @@
 <?php
 
+namespace tests\phpunit\va_gov_form_builder\functional\Service\FieldValidator;
+
 use Drupal\va_gov_form_builder\Service\FieldValidator\UniquenessValidator;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
