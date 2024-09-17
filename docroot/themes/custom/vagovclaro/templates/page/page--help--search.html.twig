@@ -44,48 +44,55 @@
 #}
 {{ attach_library('vagovclaro/userguides') }}
 
-<div class="layout-container">
+<header class="content-header clearfix search-results__header">
+  <div class="layout-container">
+    {{ page.header.vagovclaro_page_title }}
+    {{ page.header.vagovclaro_primary_local_tasks }}
+    {{ page.header.vagovclaro_sitealert }}
+  </div>
+</header>
 
-  <header role="banner">
-    {{ page.header }}
-  </header>
+<div id="kb-landing-page__container" class="layout-container search-results__wrapper">
 
-  {{ page.primary_menu }}
-  {{ page.secondary_menu }}
+  <div class="node-columns">
 
-  {{ page.breadcrumb }}
+    {{ page.breadcrumb }}
 
-  {{ page.highlighted }}
+    {{ page.header.vagovclaro_page_title }}
 
-  {{ page.help }}
+    {{ page.primary_menu }}
+    {{ page.secondary_menu }}
+    {{ page.highlighted }}
+    {{ page.help }}
 
-  <main role="main">
-    <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+    <main role="main">
+      <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
 
-    <div class="layout-content">
-      {{ page.content }}
-    </div>{# /.layout-content #}
+      <div class="layout-content">
+        {{ page.content }}
+      </div>{# /.layout-content #}
 
+  {# Remove sidebars, at least for now.#}
+  {#    {% if page.sidebar_first %}#}
+  {#      <aside class="layout-sidebar-first" role="complementary">#}
+  {#        {{ page.sidebar_first }}#}
+  {#      </aside>#}
+  {#    {% endif %}#}
 
-{# Remove sidebars, at least for now.#}
-{#    {% if page.sidebar_first %}#}
-{#      <aside class="layout-sidebar-first" role="complementary">#}
-{#        {{ page.sidebar_first }}#}
-{#      </aside>#}
-{#    {% endif %}#}
+  {#    {% if page.sidebar_second %}#}
+  {#      <aside class="layout-sidebar-second" role="complementary">#}
+  {#        {{ page.sidebar_second }}#}
+  {#      </aside>#}
+  {#    {% endif %}#}
 
-{#    {% if page.sidebar_second %}#}
-{#      <aside class="layout-sidebar-second" role="complementary">#}
-{#        {{ page.sidebar_second }}#}
-{#      </aside>#}
-{#    {% endif %}#}
+    </main>
+  </div>
 
-  </main>
-
-  {% if page.footer %}
+  {# Removing footer per updated designs #}
+  {# {% if page.footer %}
     <footer role="contentinfo">
       {{ page.footer }}
     </footer>
-  {% endif %}
+  {% endif %} #}
 
 </div>{# /.layout-container #}
