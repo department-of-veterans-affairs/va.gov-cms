@@ -1019,6 +1019,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 100
           total_pages: null
           id: 0
@@ -4237,7 +4238,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_phone_number_1 }} {{ field_phone_extension }}'
+            text: '<a href="tel:{{ field_phone_number_1 }}{{ field_phone_extension }}">{{ field_phone_number_1 }}{{ field_phone_extension }}</a>'
             make_link: false
             path: ''
             absolute: false
