@@ -2,8 +2,7 @@
 
 namespace Drupal\va_gov_batch\cbo_scripts;
 
-require_once __DIR__ . '/script-library.php';
-
+require_once __DIR__ . '/../../../../../../scripts/content/script-library.php';
 
 /**
  * Migrate Staff profile phone field to phone paragraph.
