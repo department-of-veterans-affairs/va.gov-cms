@@ -12,6 +12,7 @@ use Tests\Support\Mock\HttpClient as MockHttpClient;
  *
  * @group functional
  * @group all
+ * @group facility_migration
  */
 class VaFacilityNcaMigrationTest extends VaGovExistingSiteBase {
 
@@ -33,9 +34,18 @@ class VaFacilityNcaMigrationTest extends VaGovExistingSiteBase {
     int $count,
     bool $cleanup
   ) : void {
-    $mockClient = MockHttpClient::create('200', ['Content-Type' => 'application/vnd.geo+json;charset=UTF-8'], $json);
+    $mockClient = MockHttpClient::create('200', ['Content-Type' => 'application/json;charset=UTF-8'], $json);
     $this->container->set('http_client', $mockClient);
-    Migrator::doImport($migration_id);
+    // Each url defined in the migration source configuration will make a fresh
+    // call to the mockClient. Guzzle pops each new request off the request
+    // queue, so if there is no parity between the number of urls in the source
+    // config, and the number of requests expected (queued), an
+    // OutOfBoundsException exception with the message 'Mock queue is empty' is
+    // empty will be thrown. We avoid this by ensuring there is only one url in
+    // the source config. Since there will be no actual http request made,
+    // we can set the url to anything.
+    $source_config_overrides = ['urls' => 'https://example.com/any/url/will/do'];
+    Migrator::doImport($migration_id, $source_config_overrides);
     $entityCount = EntityStorage::getMatchingEntityCount('node', $bundle, $conditions);
     $this->assertSame($count, $entityCount);
 
@@ -57,7 +67,7 @@ class VaFacilityNcaMigrationTest extends VaGovExistingSiteBase {
       file_get_contents(__DIR__ . '/fixtures/nca_facility.json'),
       [
         'field_facility_locator_api_id' => 'nca_000',
-        'field_phone_number' => '9137584106',
+        'field_phone_number' => '9137584105',
       ],
       1,
       FALSE,
@@ -72,7 +82,7 @@ class VaFacilityNcaMigrationTest extends VaGovExistingSiteBase {
         // but we can't test a null field (no data)
         // so we test that the migration itself was successful
         // by also changing the fax number and checking it.
-        'field_fax_number' => '9137584137',
+        'field_fax_number' => '9137584136',
       ],
       1,
       TRUE,

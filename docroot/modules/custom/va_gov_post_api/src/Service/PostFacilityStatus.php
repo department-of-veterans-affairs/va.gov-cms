@@ -66,7 +66,7 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
 
       // Set a key based on which the endpoint will be
       // defined during queue execution.
-      $data['endpoint_path'] = ($facility_id) ? "/services/va_facilities/v0/facilities/{$facility_id}/cms-overlay" : NULL;
+      $data['endpoint_path'] = ($facility_id) ? "/services/va_facilities/v1/facilities/{$facility_id}/cms-overlay" : NULL;
 
       // Set payload. Default payload provided by this module is empty.
       // See README.md

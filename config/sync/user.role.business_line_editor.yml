@@ -1,0 +1,68 @@
+uuid: f8020b82-ac2c-49b2-a949-13815e53474d
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+    - filter.format.rich_text_limited
+    - media.type.document
+    - media.type.document_external
+    - media.type.image
+    - media.type.video
+    - node.type.page
+    - workflows.workflow.editorial
+  module:
+    - content_lock
+    - content_moderation
+    - file
+    - filter
+    - media
+    - node
+    - node_link_report
+    - override_node_options
+    - paragraphs
+    - pathauto
+    - system
+    - va_gov_backend
+    - workbench_access
+third_party_settings:
+  va_gov_backend:
+    vgb_description: 'This role is for editing existing Education Benefits Hub content. The role only edits and does not publish.'
+id: rates_editor
+label: 'Business Line Editor'
+weight: 8
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access content'
+  - 'access files overview'
+  - 'access media overview'
+  - 'break content lock'
+  - 'create document media'
+  - 'create document_external media'
+  - 'create image media'
+  - 'create media'
+  - 'create video media'
+  - 'edit any document media'
+  - 'edit any document_external media'
+  - 'edit any image media'
+  - 'edit any page content'
+  - 'edit any video media'
+  - 'edit own page content'
+  - 'enter page revision log entry'
+  - 'notify of path changes'
+  - 'update any media'
+  - 'update media'
+  - 'use editorial transition create_new_draft'
+  - 'use editorial transition review'
+  - 'use text format rich_text'
+  - 'use text format rich_text_limited'
+  - 'use workbench access'
+  - 'view all media revisions'
+  - 'view any unpublished content'
+  - 'view latest version'
+  - 'view node link report'
+  - 'view own unpublished content'
+  - 'view page revisions'
+  - 'view the administration theme'
+  - 'view unpublished paragraphs'

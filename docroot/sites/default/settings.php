@@ -164,7 +164,12 @@ $config['govdelivery_bulletins.settings']['govdelivery_password'] = getenv('CMS_
 $config['geocoder.geocoder_provider.mapbox']['configuration']['accessToken'] = getenv('MAPBOX_TOKEN_CMS');
 
 // Set migration settings from environment variables.
-$facility_api_urls = [getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v0/facilities/all'];
+$facility_api_urls = [
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000',
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000&page=2',
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000&page=3',
+];
+
 $facility_api_key = getenv('CMS_VAGOV_API_KEY');
 $facility_migrations = [
   'va_node_health_care_local_facility',
@@ -256,6 +261,19 @@ if (!empty($webhost_on_cli)) {
   $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
 }
 
+// Look for an incoming request header to indicate we should use the public
+// asset S3 location for file rather than the Drupal-internal location.
+if (!empty($public_asset_s3_base_url)) {
+  $headerArray = function_exists('apache_request_headers') ? apache_request_headers() : [];
+  $targetHeader = 'File-Public-Base-Url-Check';
+  foreach ($headerArray as $header => $value) {
+    if (strtolower($header) == strtolower($targetHeader) && $value === 'true') {
+      // Point the file base url to the public asset S3 bucket.
+      $settings['file_public_base_url'] = $public_asset_s3_base_url;
+    }
+  }
+ }
+
 // Monolog
 $settings['container_yamls'][] = __DIR__ . '/services/services.monolog.yml';
 
@@ -279,3 +297,6 @@ if (file_exists($env_services_path)) {
 // This is intended to prevent deadlocks in the course of normal operation.
 // @see https://www.drupal.org/project/drupal/issues/2733675
 $databases['default']['default']['init_commands']['isolation_level'] = 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED';
+
+
+$settings['state_cache'] = TRUE;

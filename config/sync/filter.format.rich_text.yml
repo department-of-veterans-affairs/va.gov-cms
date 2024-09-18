@@ -15,29 +15,29 @@ name: 'Rich Text'
 format: rich_text
 weight: 1
 filters:
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
+    status: true
+    weight: -47
+    settings: {  }
   filter_align:
     id: filter_align
     provider: filter
     status: false
     weight: -41
     settings: {  }
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: false
+    weight: -38
+    settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
     status: false
     weight: -40
-    settings: {  }
-  filter_htmlcorrector:
-    id: filter_htmlcorrector
-    provider: filter
-    status: true
-    weight: -48
-    settings: {  }
-  editor_file_reference:
-    id: editor_file_reference
-    provider: editor
-    status: true
-    weight: -47
     settings: {  }
   filter_html:
     id: filter_html
@@ -48,12 +48,6 @@ filters:
       allowed_html: '<br> <p class="va-address-block block-va-gov-text" id> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <a class="vads-c-action-link--green vads-c-action-link--blue button button-action button--primary login-required block-vet-center-facility-button usa-button usa-button-primary usa-button-secondary va-button-primary" hreflang aria-label data-entity-substitution data-entity-type data-entity-uuid target title href> <b> <cite> <drupal-entity data-* title alt> <blockquote cite> <ul type> <ol type start> <strong> <li> <hr> <abbr title>'
       filter_html_help: true
       filter_html_nofollow: false
-  filter_autop:
-    id: filter_autop
-    provider: filter
-    status: false
-    weight: -38
-    settings: {  }
   filter_html_escape:
     id: filter_html_escape
     provider: filter
@@ -66,6 +60,22 @@ filters:
     status: false
     weight: -37
     settings: {  }
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: -48
+    settings: {  }
+  filter_pathologic:
+    id: filter_pathologic
+    provider: pathologic
+    status: true
+    weight: -45
+    settings:
+      settings_source: local
+      local_settings:
+        protocol_style: path
+        local_paths: ''
   filter_url:
     id: filter_url
     provider: filter
@@ -80,16 +90,12 @@ filters:
     weight: -43
     settings:
       title: true
-  filter_pathologic:
-    id: filter_pathologic
-    provider: pathologic
+  linky_direct_link_filter:
+    id: linky_direct_link_filter
+    provider: linky
     status: true
-    weight: -45
-    settings:
-      settings_source: local
-      local_settings:
-        protocol_style: path
-        local_paths: ''
+    weight: 10
+    settings: {  }
   media_embed:
     id: media_embed
     provider: media
@@ -99,13 +105,6 @@ filters:
       default_view_mode: default
       allowed_view_modes: {  }
       allowed_media_types: {  }
-  va_gov_backend_node_link_enforcement:
-    id: va_gov_backend_node_link_enforcement
-    provider: va_gov_backend
-    status: true
-    weight: -44
-    settings:
-      title: '1'
   va_gov_backend_email_link_repair:
     id: va_gov_backend_email_link_repair
     provider: va_gov_backend
@@ -113,9 +112,10 @@ filters:
     weight: -49
     settings:
       title: '1'
-  linky_direct_link_filter:
-    id: linky_direct_link_filter
-    provider: linky
+  va_gov_backend_node_link_enforcement:
+    id: va_gov_backend_node_link_enforcement
+    provider: va_gov_backend
     status: true
-    weight: 10
-    settings: {  }
+    weight: -44
+    settings:
+      title: '1'

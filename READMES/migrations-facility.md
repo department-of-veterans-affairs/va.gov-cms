@@ -12,8 +12,8 @@
 ```mermaid
   graph TD;
     vast[VAST, Access To Care, etc]-- 7:30AM -->fapi;
-    fapi[(Facility API)]-- 8:00AM -->migrations[CMS migrations];
-    fapi-- Vets API -->fl[[Facility Locator App]];
+    fapi[(LH Facility API)]-- 8:00AM -->migrations[CMS migrations];
+    fapi-- facilities-api in vets-api -->fl[[Facility Locator App]];
     migrations-->nodes[Nodes: VAMC, Vet Centers, VBA, NCA];
     nodes-->FE[[FE pages]];
     nodes-->data
@@ -102,7 +102,11 @@ For these migrations to function, you'll need to obtain a Facility API Key from 
 $settings['post_api_endpoint_host'] = 'https://sandbox-api.va.gov';
 $settings['post_api_apikey'] = 'PASTE_KEY_HERE';
 
-$facility_api_urls = ['https://sandbox-api.va.gov/services/va_facilities/v0/facilities/all'];
+$facility_api_urls = [
+  'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000',
+  'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=2',
+  'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=3',
+];
 $facility_api_key = $settings['post_api_apikey'];
 $facility_migrations = [
   'va_node_health_care_local_facility',

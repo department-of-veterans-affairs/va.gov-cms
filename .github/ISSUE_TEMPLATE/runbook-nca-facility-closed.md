@@ -2,7 +2,7 @@
 name: Runbook - NCA Facility closed
 about: Steps for archiving a NCA facility in VA.gov CMS.
 title: 'NCA Facility closed: <insert_name>'
-labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, NCA
+labels: Change request, Drupal engineering, Facilities, User support, Flagged Facilities, NCA
 assignees: ''
 
 ---

@@ -1,0 +1,464 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..a305726
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++# IntelliJ IDEA
++.idea
+diff --git a/config/schema/jsonapi_extras.schema.yml b/config/schema/jsonapi_extras.schema.yml
+index 5e7e499..21c0d77 100644
+--- a/config/schema/jsonapi_extras.schema.yml
++++ b/config/schema/jsonapi_extras.schema.yml
+@@ -75,3 +75,43 @@ jsonapi_extras.settings:
+       type: boolean
+       label: 'Disabled by default'
+       description: "If activated, all resource types that don't have a matching enabled resource config will be disabled."
++
++jsonapi_extras.jsonapi_field_type_config:
++  type: config_entity
++  label: 'JSON:API Field Type Config'
++  mapping:
++    disabled:
++      type: boolean
++      label: 'Disabled'
++      description: 'Globally disable field type enhancers.'
++    resourceFields:
++      type: sequence
++      label: 'Field Types'
++      sequence:
++        type: jsonapi_extras.resource_field_type
++
++jsonapi_extras.resource_field_type:
++  type: mapping
++  mapping:
++    disabled:
++      type: boolean
++      label: 'Disabled'
++      description: 'Is the field type disabled?'
++    fieldName:
++      type: string
++      label: 'Entity field name'
++    includedFieldTypes:
++      type: sequence
++      label: 'Included field types'
++      sequence:
++        type: string
++    enhancer:
++      type: mapping
++      label: 'Enhancer plugin'
++      description: 'A plugin that carries additional (de)normalization tasks.'
++      mapping:
++        id:
++          type: string
++          description: 'The enhancer plugin ID'
++        settings:
++          type: jsonapi_extras.enhancer_plugin.[%parent.id]
+diff --git a/jsonapi_extras.links.task.yml b/jsonapi_extras.links.task.yml
+index 6f5567e..63bfbbc 100755
+--- a/jsonapi_extras.links.task.yml
++++ b/jsonapi_extras.links.task.yml
+@@ -22,3 +22,8 @@ jsonapi.settings.extras.resources:
+   base_route: entity.jsonapi_resource_config.collection
+   title: 'Resource overrides'
+   parent_id: jsonapi.settings.extras
++jsonapi.settings.extras.field_types:
++  route_name: jsonapi_extras.field_types
++  base_route: jsonapi_extras.field_types
++  title: 'Field Types'
++  parent_id: jsonapi.settings.extras
+diff --git a/jsonapi_extras.routing.yml b/jsonapi_extras.routing.yml
+index bd4b24c..b207415 100644
+--- a/jsonapi_extras.routing.yml
++++ b/jsonapi_extras.routing.yml
+@@ -5,3 +5,10 @@ jsonapi_extras.settings:
+     _title: 'JSON:API Extras'
+   requirements:
+     _permission: 'administer site configuration'
++jsonapi_extras.field_types:
++  path: '/admin/config/services/jsonapi/field_types'
++  defaults:
++    _form: '\Drupal\jsonapi_extras\Form\JsonapiExtrasFieldTypesForm'
++    _title: 'Field Types'
++  requirements:
++    _permission: 'administer site configuration'
+diff --git a/jsonapi_extras.services.yml b/jsonapi_extras.services.yml
+index 0447bb1..135b416 100644
+--- a/jsonapi_extras.services.yml
++++ b/jsonapi_extras.services.yml
+@@ -16,6 +16,7 @@ services:
+       - '@serializer.normalizer.field_item.jsonapi_extras.inner'
+       - '@entity_type.manager'
+       - '@plugin.manager.resource_field_enhancer'
++      - '@config.factory'
+ 
+   serializer.normalizer.resource_identifier.jsonapi_extras:
+     class: Drupal\jsonapi\Normalizer\ImpostorFrom\jsonapi_extras\ResourceIdentifierNormalizerImpostor
+diff --git a/src/Form/JsonapiExtrasFieldTypesForm.php b/src/Form/JsonapiExtrasFieldTypesForm.php
+new file mode 100644
+index 0000000..da5cce5
+--- /dev/null
++++ b/src/Form/JsonapiExtrasFieldTypesForm.php
+@@ -0,0 +1,235 @@
++<?php
++
++namespace Drupal\jsonapi_extras\Form;
++
++use Drupal\Core\Config\ConfigFactoryInterface;
++use Drupal\Core\Entity\EntityFieldManager;
++use Drupal\Core\Form\FormBase;
++use Drupal\Core\Form\FormStateInterface;
++use Drupal\jsonapi_extras\Plugin\ResourceFieldEnhancerManager;
++use Symfony\Component\DependencyInjection\ContainerInterface;
++
++/**
++ * Base form for jsonapi_resource_config.
++ */
++class JsonapiExtrasFieldTypesForm extends FormBase {
++
++  /**
++   * The field manager.
++   *
++   * @var \Drupal\Core\Entity\EntityFieldManager
++   */
++  protected $fieldManager;
++
++  /**
++   * The field enhancer manager.
++   *
++   * @var \Drupal\jsonapi_extras\Plugin\ResourceFieldEnhancerManager
++   */
++  protected $enhancerManager;
++
++  /**
++   * @var \Drupal\Core\Config\ConfigFactoryInterface
++   */
++  private ConfigFactoryInterface $configManager;
++
++  /**
++   * JsonapiResourceConfigForm constructor.
++   *
++   * @param \Drupal\Core\Entity\EntityFieldManager $field_manager
++   *   The entity field manager.
++   * @param \Drupal\jsonapi_extras\Plugin\ResourceFieldEnhancerManager $enhancer_manager
++   */
++  public function __construct(EntityFieldManager $field_manager, ResourceFieldEnhancerManager $enhancer_manager, ConfigFactoryInterface $config_manager) {
++    $this->fieldManager = $field_manager;
++    $this->enhancerManager = $enhancer_manager;
++    $this->configManager = $config_manager;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public static function create(ContainerInterface $container) {
++    return new static(
++      $container->get('entity_field.manager'),
++      $container->get('plugin.manager.resource_field_enhancer'),
++      $container->get('config.factory')
++    );
++  }
++
++  public function getFormId() {
++    return 'jsonapi_extras_field_types_form';
++  }
++
++  public function buildForm(array $form, FormStateInterface $form_state): array {
++    // Get current field type configuration.
++    $config = $this->configManager->get('jsonapi_extras.jsonapi_field_type_config');
++
++    // Collect unique field types.
++    $unique_field_types = $this->getUniqueFieldTypes();
++
++    // Add textarea field so users can add comma-separated list of field types
++    // they want to include in the form.
++    $form['included_field_types'] = [
++      '#type' => 'textarea',
++      '#title' => $this->t('Included Field Types'),
++      // List the field types in the help text.
++      '#description' => $this->t('Enter a comma-separated list of field types to include in the form. Available field types are: @field_types', ['@field_types' => implode(', ', $unique_field_types)]),
++      '#default_value' => implode(', ', $config->get('includedFieldTypes')),
++    ];
++
++    // Get all the enhancers.
++    $options = $this->enhancerManager->getDefinitions();
++
++    // Get all option labels.
++    $labels = array_map(fn($option) => $option['label'], $options);
++
++    // Add a none option.
++    $options = array_merge(['- None -' => $this->t('- None -')], $options);
++    $labels = array_merge(['- None -'], $labels);
++
++    // Add a form element for each field type.
++    foreach ($unique_field_types as $field_type) {
++      // If not in the included field types, skip.
++      if (!str_contains(implode($config->get('includedFieldTypes')), $field_type)) {
++        continue;
++      }
++
++      $form['field_types'][$field_type] = [
++        '#type' => 'container',
++        '#title' => $field_type,
++        '#prefix' => '<hr>',
++        '#attributes' => ['style' =>
++          'display: flex; gap: 1rem; flex-direction: column;'],
++      ];
++
++      // Add name of the field type.
++      $form['field_types'][$field_type][$field_type . '_name'] = [
++        '#markup' => "<div><strong>Field Type:</strong> $field_type</div>",
++      ];
++
++      // Get enhancer from configuration.
++      $resource_field = $config->get('resourceFields')[$field_type];
++
++      $form['field_types'][$field_type][$field_type . '_enhancer_id'] = [
++        '#type' => 'select',
++        '#title' => $this->t('Enhancer'),
++        '#options' => array_combine(array_keys($options), $labels),
++        '#default_value' => $resource_field['enhancer']['id'],
++      ];
++
++      $form['field_types'][$field_type][$field_type . '_enhancer_settings'] = [
++        '#type' => 'container',
++      ];
++
++      // Add a container for each option.
++      foreach ($options as $key => $option) {
++        if ($key === '- None -') {
++          continue;
++        }
++
++        $form['field_types'][$field_type][$field_type . '_enhancer_settings'][$key] = [
++          '#type' => 'container',
++          '#states' => [
++            'visible' => [
++              ':input[name="' . $field_type . '_enhancer_id"]' => ['value' => $key],
++            ],
++          ],
++        ];
++
++        /** @var \Drupal\jsonapi_extras\Plugin\ResourceFieldEnhancerInterface $enhancer */
++        $enhancer = $this->enhancerManager->createInstance($key);
++        $stuff = $enhancer->getSettingsForm($resource_field);
++
++        // Add field type and enhancer id prefix to the settings.
++        // e.g. 'link__url_link__absolute_url'
++        $settings = [];
++        foreach ($stuff as $setting_key => $setting) {
++          $settings[$field_type . '__' . $key . '__' . $setting_key] = $setting;
++        }
++
++        $form['field_types'][$field_type][$field_type . '_enhancer_settings'][$key][] = $settings;
++      }
++
++    }
++
++    // Add submit button.
++    $form['submit'] = [
++      '#type' => 'submit',
++      '#value' => $this->t('Save Configuration'),
++    ];
++
++    return $form;
++  }
++
++  public function validateForm(array &$form, FormStateInterface $form_state) {
++    parent::validateForm($form, $form_state);
++
++    $values = $form_state->getValues();
++    // Check if the included field types are valid.
++    $included_field_types = explode(',', $values['included_field_types']);
++    $unique_field_types = $this->getUniqueFieldTypes();
++    foreach ($included_field_types as $field_type) {
++      if (!in_array(trim($field_type), $unique_field_types)) {
++        $form_state->setErrorByName('included_field_types', $this->t('The field type @field_type is not valid.', ['@field_type' => $field_type]));
++      }
++    }
++  }
++
++  public function submitForm(array &$form, FormStateInterface $form_state): void {
++    $values = $form_state->getValues();
++
++    // Filter values to only include enhancer ids.
++    $enhancer_ids = array_filter($values, fn($value, $key) => str_contains($key, '_enhancer_id'), ARRAY_FILTER_USE_BOTH);
++
++    // Loop through enhancer ids and look for settings related to each field type.
++    $field_types = [];
++    foreach ($enhancer_ids as $type => $enhancer_id) {
++      $field_type = str_replace('_enhancer_id', '', $type);
++      $field_types[$field_type] = [
++        'fieldName' => $field_type,
++        'enhancer' => ['id' => $enhancer_id],
++      ];
++      // No need to process the none option.
++      if ($enhancer_id === '- None -') {
++        $field_types[$field_type]['enhancer']['id'] = '';
++        continue;
++      }
++
++      // Filter values to only include settings related to the current field type.
++      $settings = array_filter($values, fn($value, $key) => str_contains($key, $field_type . '__' . $enhancer_id), ARRAY_FILTER_USE_BOTH);
++      if (!empty($settings)) {
++        // Remove the prefix from the settings keys.
++        // Preserve the $key as the index in the array.
++        $settings = array_combine(array_map(fn($key) => str_replace($field_type . '__' . $enhancer_id . '__', '', $key), array_keys($settings)), $settings);
++        $field_types[$field_type]['enhancer']['settings'] = $settings;
++      }
++    }
++
++    // Convert the comma-separated string to an array and trim whitespace.
++    $includedFieldTypes = array_map('trim', explode(',', $values['included_field_types']));
++
++    $config = $this->configManager->getEditable('jsonapi_extras.jsonapi_field_type_config');
++    $config->set('resourceFields', $field_types);
++    $config->set('includedFieldTypes', $includedFieldTypes);
++    $config->save();
++  }
++
++  /**
++   * @return array
++   */
++  public function getUniqueFieldTypes(): array {
++    $field_types = $this->fieldManager->getFieldMap();
++    $unique_field_types = [];
++    foreach ($field_types as $fields) {
++      foreach ($fields as $field_info) {
++        $unique_field_types[$field_info['type']] = $field_info['type'];
++      }
++    }
++
++    // Sort field types alphabetically by key.
++    ksort($unique_field_types);
++    return $unique_field_types;
++  }
++
++}
+diff --git a/src/Normalizer/FieldItemNormalizer.php b/src/Normalizer/FieldItemNormalizer.php
+index 8882870..8b4c467 100644
+--- a/src/Normalizer/FieldItemNormalizer.php
++++ b/src/Normalizer/FieldItemNormalizer.php
+@@ -3,6 +3,7 @@
+ namespace Drupal\jsonapi_extras\Normalizer;
+ 
+ use Drupal\Core\Cache\CacheableMetadata;
++use Drupal\Core\Config\ConfigFactoryInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\jsonapi\Normalizer\FieldItemNormalizer as JsonapiFieldItemNormalizer;
+ use Drupal\jsonapi\Normalizer\Value\CacheableNormalization;
+@@ -29,6 +30,13 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
+    */
+   protected $enhancerManager;
+ 
++  /**
++   * The config manager.
++   *
++   * @var \Drupal\Core\Config\ConfigFactoryInterface
++   */
++  protected $configManager;
++
+   /**
+    * Constructs a new FieldItemNormalizer.
+    *
+@@ -38,11 +46,14 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
+    *   The entity type manager.
+    * @param \Drupal\jsonapi_extras\Plugin\ResourceFieldEnhancerManager $enhancer_manager
+    *   The field enhancer manager.
++   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_manager
++   *   The config manager.
+    */
+-  public function __construct(JsonapiFieldItemNormalizer $inner, EntityTypeManagerInterface $entity_type_manager, ResourceFieldEnhancerManager $enhancer_manager) {
++  public function __construct(JsonapiFieldItemNormalizer $inner, EntityTypeManagerInterface $entity_type_manager, ResourceFieldEnhancerManager $enhancer_manager, ConfigFactoryInterface $config_manager) {
+     parent::__construct($inner);
+     $this->entityTypeManager = $entity_type_manager;
+     $this->enhancerManager = $enhancer_manager;
++    $this->configManager = $config_manager;
+   }
+ 
+   /**
+@@ -51,15 +62,42 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
+   public function normalize($object, $format = NULL, array $context = []) {
+     // First get the regular output.
+     $normalized_output = parent::normalize($object, $format, $context);
++
+     // Then detect if there is any enhancer to be applied here.
+     /** @var \Drupal\jsonapi_extras\ResourceType\ConfigurableResourceType $resource_type */
+     $resource_type = $context['resource_object']->getResourceType();
+     $enhancer = $resource_type->getFieldEnhancer($object->getParent()->getName());
+-    if (!$enhancer) {
+-      return $normalized_output;
+-    }
++
++    // Begin building the cacheability metadata.
+     $cacheability = CacheableMetadata::createFromObject($normalized_output)
+       ->addCacheTags(['config:jsonapi_resource_config_list']);
++
++    if (!$enhancer) {
++      // Look for default field type enhancer.
++      $config = $this->configManager->get('jsonapi_extras.jsonapi_field_type_config');
++      $field_type = $object->getFieldDefinition()->getType();
++
++      // Check to see if the field type is included in the includedFieldTypes list.
++      $included_field_types = $config->get('includedFieldTypes');
++      if (!in_array($field_type, $included_field_types)) {
++        return $normalized_output;
++      }
++
++      // Look for default field type enhancer.
++      $field_type_config = $config->get('resourceFields')[$field_type];
++      if (!empty($field_type_config['enhancer']['id'])) {
++        // Get the enhancer instance.
++        /** @var \Drupal\jsonapi_extras\Plugin\ResourceFieldEnhancerInterface $enhancer */
++        $enhancer = $this->enhancerManager->createInstance(
++          $field_type_config['enhancer']['id'],
++          (array) $field_type_config['enhancer']['settings']
++        );
++
++        // Add the cache tags for the field type config.
++        $cacheability->addCacheTags(['config:jsonapi_extras.jsonapi_field_type_config']);
++      }
++    }
++
+     // Apply any enhancements necessary.
+     $context = new Context($context);
+     $context->offsetSet('field_item_object', $object);
+diff --git a/src/Plugin/DateTimeEnhancerBase.php b/src/Plugin/DateTimeEnhancerBase.php
+index 770efe3..df02bdf 100644
+--- a/src/Plugin/DateTimeEnhancerBase.php
++++ b/src/Plugin/DateTimeEnhancerBase.php
+@@ -38,7 +38,7 @@ abstract class DateTimeEnhancerBase extends ResourceFieldEnhancerBase {
+         '#type' => 'textfield',
+         '#title' => $this->t('Format'),
+         '#description' => $this->t('Use a valid date format.'),
+-        '#default_value' => $settings['dateTimeFormat'],
++        '#default_value' => $settings['dateTimeFormat'] ?? $this->defaultConfiguration()['dateTimeFormat'],
+       ],
+     ];
+   }
+diff --git a/src/Plugin/jsonapi/FieldEnhancer/SingleNestedEnhancer.php b/src/Plugin/jsonapi/FieldEnhancer/SingleNestedEnhancer.php
+index c712bf5..b570fad 100644
+--- a/src/Plugin/jsonapi/FieldEnhancer/SingleNestedEnhancer.php
++++ b/src/Plugin/jsonapi/FieldEnhancer/SingleNestedEnhancer.php
+@@ -82,7 +82,7 @@ class SingleNestedEnhancer extends ResourceFieldEnhancerBase {
+         '#type' => 'textfield',
+         '#title' => $this->t('Path'),
+         '#description' => $this->t('A dot separated path to extract the sub-property.'),
+-        '#default_value' => $settings['path'],
++        '#default_value' => $settings['path'] ?? $this->defaultConfiguration()['path'],
+       ],
+     ];
+   }
+diff --git a/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php b/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php
+index 0cf8ba5..ece4bcb 100644
+--- a/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php
++++ b/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php
+@@ -94,7 +94,7 @@ class UrlLinkEnhancer extends ResourceFieldEnhancerBase implements ContainerFact
+     $form['absolute_url'] = [
+       '#type' => 'checkbox',
+       '#title' => $this->t('Get Absolute Urls'),
+-      '#default_value' => $settings['absolute_url'],
++      '#default_value' => $settings['absolute_url'] ?? $this->defaultConfiguration()['absolute_url'],
+     ];
+ 
+     return $form;

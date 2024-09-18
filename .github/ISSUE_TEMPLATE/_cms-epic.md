@@ -1,6 +1,6 @@
 ---
 name: Epic
-about: A epic for the CMS team.
+about: Epic template
 title: "<Insert summary of epic>"
 labels: Epic, Needs refining
 assignees: ''
@@ -77,20 +77,3 @@ Editor-centered
 
 ## Runbook
 <optional>
-
-## Labels
-(You can delete this section once it's complete)
-- [x] Issue type (red) (defaults to "Epic")
-- [ ] CMS subsystem (green)
-- [ ] CMS practice area (blue)
-- [x] CMS workstream (orange)
-- [ ] CMS-supported product (black)
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`
-- [ ] `Accelerated Publishing`

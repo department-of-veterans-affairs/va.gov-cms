@@ -24,12 +24,14 @@ source:
   data_parser_plugin: json
   urls:
     # This gets overridden in settings.php.
-    - 'https://dev-api.va.gov/services/va_facilities/v0/facilities/all'
+    - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&'
+    - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=2'
+    - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=3'
   headers:
-    Accept: application/vnd.geo+json
+    Accept: application/json
     apikey: 'DEFINED IN settings.php'
   # This is the main data wrapper in the JSON.
-  item_selector: features/
+  item_selector: data/
   # The unique identifiers that are used to map the source to the destination.
   ids:
     id:
@@ -41,63 +43,67 @@ source:
     -
       name: address1
       label: address1
-      selector: properties/address/physical/address_1
+      selector: attributes/address/physical/address1
     -
       name: address2
       label: address2
-      selector: properties/address/physical/address_2
+      selector: attributes/address/physical/address2
     -
       name: address3
       label: address3
-      selector: properties/address/physical/address_3
+      selector: attributes/address/physical/address3
     -
       name: city
       label: city
-      selector: properties/address/physical/city
+      selector: attributes/address/physical/city
     -
       name: classification
       label: classification
-      selector: properties/classification
-    -
-      name: coordinates
-      label: coordinates
-      selector: geometry/coordinates
+      selector: attributes/classification
     -
       name: facility_type
       label: facility_type
-      selector: properties/facility_type
+      selector: attributes/facilityType
     -
       name: hours
       label: hours
-      selector: properties/hours
+      selector: attributes/hours
     -
       name: time_zone
       label: time_zone
-      selector: properties/time_zone
+      selector: attributes/timeZone
     -
       name: id
       label: id
-      selector: properties/id
+      selector: id
+    -
+      name: latitude
+      label: latitude
+      selector: attributes/lat
+    -
+      name: longitude
+      label: longitude
+      selector: attributes/long
     -
       name: name
       label: name
-      selector: properties/name
+      selector: attributes/name
     -
       name: phone-main
       label: phone-main
-      selector: properties/phone/main
+      selector: attributes/phone/main
     -
       name: state
       label: state
-      selector: properties/address/physical/state
+      selector: attributes/address/physical/state
     -
       name: zip
       label: zip
-      selector: properties/address/physical/zip
+      selector: attributes/address/physical/zip
     -
       name: benefits
       label: benefits
-      selector: properties/services/benefits
+      selector: attributes/services/benefits
 # The destination fields mapped and processed from source fields.
 process:
   # We have no destination of facility type, but we need to skip the migration
@@ -155,21 +161,11 @@ process:
   field_address/locality: city
   field_address/administrative_area: state
   field_address/postal_code: zip
-  latitude:
-    plugin: extract
-    source: coordinates
-    index:
-      - 1
-  longitude:
-    plugin: extract
-    source: coordinates
-    index:
-      - 0
   field_geolocation:
     plugin: geofield_latlon
     source:
-      - '@latitude'
-      - '@longitude'
+      - latitude
+      - longitude
   field_office_hours:
     plugin: va_field_office_hours
     source: hours

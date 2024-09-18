@@ -10,10 +10,12 @@ dependencies:
     - field.field.node.service_region.field_service_location
     - field.field.node.service_region.field_service_name_and_descripti
     - field.field.node.service_region.field_vba_region_facility_list
+    - field.field.node.service_region.field_vba_serv_reg_appt_default
     - node.type.service_region
   module:
     - entity_reference_revisions
     - field_group
+    - markup
     - user
 third_party_settings:
   field_group:
@@ -91,6 +93,13 @@ content:
       link: true
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_vba_serv_reg_appt_default:
+    type: markup
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
     region: content
 hidden:
   body: true

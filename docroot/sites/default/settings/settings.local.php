@@ -57,3 +57,6 @@ $settings['memcache']['servers'] = [
 $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
 
 $settings['va_cms_bot_github_auth_token'] = getenv('GITHUB_TOKEN') ?: 'fake-token';
+
+// Public asset S3 location
+$public_asset_s3_base_url = "https://dsva-vagov-staging-cms-files.s3.us-gov-west-1.amazonaws.com";

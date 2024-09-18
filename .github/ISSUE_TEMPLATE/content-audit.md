@@ -2,7 +2,7 @@
 name: Content Audit
 about: Submit a request to perform a content audit across VA.gov.
 title: 'Content Audit: <description>'
-labels: Content audit
+labels: Content audit, CMS Team
 assignees: dawnpruitt, EWashb
 
 ---
@@ -21,12 +21,3 @@ Please provide any context for the audit, any related terms or alternate spellin
   - [ ] No
 
 ## 5. When do you need the audit to be completed
-
-
-### Team
-Please check the team(s) that will do this work.
-
-- [x] `CMS Team`
-- [ ] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`

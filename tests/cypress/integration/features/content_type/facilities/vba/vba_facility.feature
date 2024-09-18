@@ -76,3 +76,6 @@ Feature: CMS User may effectively interact with the VBA Facility form
     And I check the "Display a banner alert on this facility" checkbox
     Then an element with the selector "#edit-field-banner-title-0-value" should be empty
     And the option "- Select a value -" from dropdown with selector "#edit-field-alert-type" should be selected
+    And I scroll to position "bottom"
+    And I click the "Unlock" link
+    And I click the "Confirm break lock" button

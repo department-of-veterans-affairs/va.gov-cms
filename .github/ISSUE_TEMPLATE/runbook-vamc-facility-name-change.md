@@ -2,7 +2,7 @@
 name: Runbook - VAMC Facility name change
 about: Steps for updating names and URLs
 title: 'VAMC Facility name change: <insert_name>'
-labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VAMC
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, VAMC
 assignees: ''
 
 ---
@@ -39,7 +39,7 @@ What happens: The name change is made in VAST, that syncs to Lighthouse which sy
 #### CMS Engineer steps
 - [ ] 3. Execute the steps of the URL change request ticket from step 2 above.
 
-(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the following items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+(Redirects deploy daily except Friday at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the following items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
 
 #### Drupal Admin steps (CMS Engineer or Help desk)
 _Help desk will complete these steps or escalate to request help from CMS engineering._

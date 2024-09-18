@@ -388,7 +388,7 @@ function script_library_sandbox_complete(array &$sandbox, $completed_message) {
  *   Whatever the value associated with the key.
  */
 function script_libary_map_to_value(string|null $lookup, array $map, bool $strict = TRUE) : mixed {
-  if (empty($lookup)) {
+  if (empty($lookup) && strlen($lookup) === 0) {
     if (isset($map['default'])) {
       // There is a default set, so use it.
       return $map['default'];
