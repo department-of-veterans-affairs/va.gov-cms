@@ -13,20 +13,38 @@ assignees: ''
 - [ ] The plain language name for the VAMC system. This should follow [the pattern](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/facilities/naming-schema): VA [region name] health care
 - [ ] Which VISN is this system in?
 
+### Create a new menu through config PR [Drupal Engineer]
+- [ ] [Add a new Menu](https://staging.cms.va.gov/admin/structure/menu/add) in a non-prod environment
+   - [ ] Title = VAMC system plain language name
+   - [ ] Administrative summary = VISN ## | va.gov/plain-language-name
+- [ ] Enable the new menu in the Menu Settings for these Content types
+   - [ ] event
+   - [ ] event_listing
+   - [ ] health service listing
+   - [ ] leadership listing
+   - [ ] locations listing
+   - [ ] news release
+   - [ ] news release listing
+   - [ ] publication listing
+   - [ ] staff profile
+   - [ ] story
+   - [ ] story listing
+   - [ ] VAMC operating status
+   - [ ] VAMC billing and insurance
+   - [ ] VAMC facility
+   - [ ] VAMC system
+   - [ ] VAMC medical records office
+   - [ ] VAMC system policies page
+   - [ ] VAMC register for care
+   - [ ] VAMC VA police
+   - [ ] VAMC detail page
+- [ ] Export the config file and create a PR to merge it into the va.gov-cms repo
+
 ### Create initial VAMC System Drupal entities [CMS helpdesk or Sitewide team]
 - [ ] Add a new Term in the [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview) 
    - [ ] Nest the term under VHA > VAMC Facilities > VISN ##
    - [ ] Name = VAMC system plain language name
    - [ ] As you create all the subsequent Drupal entities, assign them to this Section
-- [ ] [Add a new Menu](https://prod.cms.va.gov/admin/structure/menu/add)
-   - [ ] Title = VAMC system plain language name
-   - [ ] Administrative summary = VISN ## | va.gov/plain-language-name
-   - [ ] Add 3 menu link items
-      - [ ] SERVICES AND LOCATIONS 
-      - [ ] NEWS AND EVENTS 
-      - [ ] ABOUT VA [REGION NAME]
-      - [ ] Link = `<nolink>`
-      - [ ] Parent link = `<VAMC system plain language name>`
 - [ ] [Add a VAMC System](https://prod.cms.va.gov/node/add/health_care_region_page)
    - [ ] Fill out all required fields
       - [ ] Meta description = placeholder?
