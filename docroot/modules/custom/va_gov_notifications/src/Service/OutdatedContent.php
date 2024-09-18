@@ -175,11 +175,11 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
         $exempt_types = $this->getExcludedContentTypes($product_name);
         $outdated_content = $this->getOutdatedContentForSection($section, $exempt_types);
         if (!empty($outdated_content) && $product === $product_id) {
-          $editorName = $editor->getAccountName();
+          $editorId = $editor->id();
           $sectionName = $this->getSectionName($section);
           $this->vaGovNotificationsLogger
             ->info('Outdated content found for @sectionName editor: @editor',
-            ['@editor' => $editorName, '@sectionName' => $sectionName]);
+            ['@editor' => $editorId, '@sectionName' => $sectionName]);
           $this->queueNotification($editor, $product_name, $template_name, $template_name);
           $have_outdated_content[] = [
             'editor' => $editorName,
@@ -251,7 +251,7 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
    *   The template to use.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException|\Drupal\advancedqueue\Exception\DuplicateJobException
    */
   protected function queueNotification(AccountInterface $editor, string $product_name, string $queue, string $template): void {
     // Get the queue.
@@ -265,6 +265,7 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
     $editor_username = $editor->getAccountName();
     $template_values = compact('template', 'uid');
     $values = [
+      'uid' => $uid,
       'field_editor_username' => $editor_username,
       'field_subject' => $this->getSubject($product_name),
       'field_webhost' => Settings::get('webhost', 'https://prod.cms.va.gov'),
