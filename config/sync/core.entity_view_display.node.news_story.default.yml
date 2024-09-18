@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.news_story.field_administration
     - field.field.node.news_story.field_author
+    - field.field.node.news_story.field_enforce_unique_combo
     - field.field.node.news_story.field_featured
     - field.field.node.news_story.field_full_story
     - field.field.node.news_story.field_image_caption
@@ -17,6 +18,7 @@ dependencies:
     - image.style.2_1_medium_thumbnail
     - node.type.news_story
   module:
+    - allow_only_one
     - field_group
     - media
     - text
@@ -51,6 +53,13 @@ content:
       link: true
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_enforce_unique_combo:
+    type: allow_only_one
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_featured:
     type: boolean
