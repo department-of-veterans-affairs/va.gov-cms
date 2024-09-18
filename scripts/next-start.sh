@@ -16,6 +16,9 @@ source ~/.bashrc
 
 cd ${ROOT}/next
 
+nvm install 18.17.0
+nvm use 18.17.0
+
 # Kill any current running server.
 NEXT_SERVER_PIDS=$(ps aux | grep -E '(\.\/scripts\/yarn\/start\.js|next start|next-router-worker)' | awk '{print $2}')
 for pid in ${NEXT_SERVER_PIDS}; do

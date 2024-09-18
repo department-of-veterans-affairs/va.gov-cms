@@ -16,4 +16,8 @@ export NVM_DIR="$HOME/.nvm"
 source ~/.bashrc
 
 cd "${ROOT}/next"
+
+nvm install 18.17.0
+nvm use 18.17.0
+
 APP_ENV=${APP_ENV} yarn build:preview
