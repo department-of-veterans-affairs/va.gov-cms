@@ -23,29 +23,3 @@ function va_gov_clp_help($route_name, RouteMatchInterface $route_match) {
   }
 }
 
-/**
- * Prevent outputting empty fieldgroups on clp.
- *
- * @param array $variables
- *   The entity renderable items array.
- */
-function va_gov_clp_field_group_build_pre_render_alter(array &$variables) {
-  if (empty($variables['field_clip_spotlight_panel'])) {
-    $variables['group_spotlight']['#access'] = FALSE;
-  }
-  if (empty($variables['field_clip_events_panel'])) {
-    $variables['group_events']['#access'] = FALSE;
-  }
-  if (empty($variables['field_clip_faq_panel'])) {
-    $variables['group_faq']['#access'] = FALSE;
-  }
-  if (empty($variables['field_clip_stories_panel'])) {
-    $variables['group_stories']['#access'] = FALSE;
-  }
-  if (empty($variables['field_clip_video_panel'])) {
-    $variables['group_video']['#access'] = FALSE;
-  }
-  if (empty($variables['field_clip_resources_panel'])) {
-    $variables['group_resources']['#access'] = FALSE;
-  }
-}
