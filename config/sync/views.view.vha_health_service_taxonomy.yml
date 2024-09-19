@@ -7,6 +7,8 @@ dependencies:
     - field.storage.taxonomy_term.field_commonly_treated_condition
     - field.storage.taxonomy_term.field_health_service_api_id
     - field.storage.taxonomy_term.field_service_type_of_care
+    - field.storage.taxonomy_term.field_vba_service_descrip
+    - field.storage.taxonomy_term.field_vba_type_of_care
     - field.storage.taxonomy_term.field_vet_center_com_conditions
     - field.storage.taxonomy_term.field_vet_center_friendly_name
     - field.storage.taxonomy_term.field_vet_center_required_servic
@@ -14,6 +16,7 @@ dependencies:
     - field.storage.taxonomy_term.field_vet_center_type_of_care
     - field.storage.taxonomy_term.field_vha_healthservice_stopcode
     - node.type.regional_health_care_service_des
+    - node.type.vba_facility_service
     - node.type.vet_center_facility_health_servi
     - system.menu.admin
     - taxonomy.vocabulary.health_care_service_taxonomy
@@ -1121,6 +1124,7 @@ display:
           operator: in
           value:
             regional_health_care_service_des: regional_health_care_service_des
+            vba_facility_service: vba_facility_service
             vet_center_facility_health_servi: vet_center_facility_health_servi
           group: 1
           exposed: true
@@ -1144,6 +1148,7 @@ display:
               content_creator_resources_and_support: '0'
               office_content_creator: '0'
               vamc_content_creator: '0'
+              content_creator_vba: '0'
               content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
@@ -1152,6 +1157,10 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
+              homepage_manager: '0'
+              next_js: '0'
+              translation_manager: '0'
+              rates_editor: '0'
             reduce: true
           is_grouped: false
           group_info:
@@ -1175,7 +1184,6 @@ display:
             name: name
             edit_taxonomy_term: edit_taxonomy_term
             field_health_service_api_id: field_health_service_api_id
-            field_vha_healthservice_stopcode: field_vha_healthservice_stopcode
             field_also_known_as: field_also_known_as
             field_commonly_treated_condition: field_commonly_treated_condition
             description__value: description__value
@@ -1183,7 +1191,9 @@ display:
             field_vet_center_friendly_name: field_vet_center_friendly_name
             field_vet_center_com_conditions: field_vet_center_com_conditions
             field_vet_center_service_descrip: field_vet_center_service_descrip
+            field_vba_service_descrip: field_vba_service_descrip
             field_vet_center_type_of_care: field_vet_center_type_of_care
+            field_vba_type_of_care: field_vba_type_of_care
             nothing_1: nothing_1
             nothing: nothing
             nothing_2: nothing_2
@@ -1207,13 +1217,6 @@ display:
               empty_column: false
               responsive: ''
             field_health_service_api_id:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_vha_healthservice_stopcode:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1267,12 +1270,26 @@ display:
               separator: ''
               empty_column: true
               responsive: ''
+            field_vba_service_descrip:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: true
+              responsive: ''
             field_vet_center_type_of_care:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: true
+              responsive: ''
+            field_vba_type_of_care:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
               responsive: ''
             nothing_1:
               align: ''
@@ -2691,70 +2708,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_vha_healthservice_stopcode:
-          id: field_vha_healthservice_stopcode
-          table: taxonomy_term__field_vha_healthservice_stopcode
-          field: field_vha_healthservice_stopcode
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Stop code'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         field_also_known_as:
           id: field_also_known_as
           table: taxonomy_term__field_also_known_as
@@ -3195,6 +3148,68 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_vba_service_descrip:
+          id: field_vba_service_descrip
+          table: taxonomy_term__field_vba_service_descrip
+          field: field_vba_service_descrip
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'VBA description'
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_vet_center_type_of_care:
           id: field_vet_center_type_of_care
           table: taxonomy_term__field_vet_center_type_of_care
@@ -3257,6 +3272,68 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_vba_type_of_care:
+          id: field_vba_type_of_care
+          table: taxonomy_term__field_vba_type_of_care
+          field: field_vba_type_of_care
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'VBA Type of care'
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         nothing_1:
           id: nothing_1
           table: views
@@ -3269,7 +3346,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if field_also_known_as  is not empty %}<p><strong>VAMC Patient-friendly Name:</strong> {{ field_also_known_as }}</p>{% endif %}\r\n{% if field_vet_center_friendly_name is not empty %}<p><strong>Vet Center Patient-friendly Name:</strong> {{ field_vet_center_friendly_name }}</p>{% endif %}"
+            text: "{% if field_also_known_as  is not empty %}<p><strong>VAMC:</strong> {{ field_also_known_as }}</p>{% endif %}\r\n{% if field_vet_center_friendly_name is not empty %}<p><strong>Vet Center:</strong> {{ field_vet_center_friendly_name }}</p>{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -3318,7 +3395,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if description__value is not empty %} <p><strong>VAMC Description:</strong> {{ description__value }}</p>{% endif %}\r\n{% if field_vet_center_service_descrip is not empty %} <p><strong>Vet Center Description:</strong> {{ field_vet_center_service_descrip }}</p>{% endif %}"
+            text: "{% if description__value is not empty %} <p><strong>VAMC:</strong> {{ description__value|striptags|raw }}</p>{% endif %}\r\n{% if field_vet_center_service_descrip is not empty %} <p><strong>Vet Center:</strong> {{ field_vet_center_service_descrip }}</p>{% endif %}\r\n{% if field_vba_service_descrip is not empty %} <p><strong>VBA:</strong> {{ field_vba_service_descrip }}</p>{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -3367,7 +3444,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if field_commonly_treated_condition is not empty %}<p><strong>VAMC Common Conditions:</strong> {{ field_commonly_treated_condition }}</p>{% endif %}\r\n{% if field_vet_center_com_conditions is not empty %}<p><strong>Vet Center Common Conditions:</strong>{{ field_vet_center_com_conditions }}</p>{% endif %}"
+            text: "{% if field_commonly_treated_condition is not empty %}<p><strong>VAMC:</strong> {{ field_commonly_treated_condition }}</p>{% endif %}\r\n{% if field_vet_center_com_conditions is not empty %}<p><strong>Vet Center:</strong>{{ field_vet_center_com_conditions }}</p>{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -3416,7 +3493,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if field_service_type_of_care is not empty %}<p><strong>VAMC Type of Care:</strong> {{ field_service_type_of_care }}</p>{% endif %}\r\n{% if field_vet_center_type_of_care is not empty %}<p><strong>Vet Center Type of Care:</strong>{{ field_vet_center_type_of_care }}</p>{% endif %}"
+            text: "{% if field_service_type_of_care is not empty %}<p><strong>VAMC:</strong> {{ field_service_type_of_care }}</p>{% endif %}\r\n{% if field_vet_center_type_of_care is not empty %}<p><strong>Vet Center:</strong> {{ field_vet_center_type_of_care }}</p>{% endif %}\r\n{% if field_vba_type_of_care is not empty %}<p><strong>VBA:</strong> {{ field_vba_type_of_care }}</p>{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -3619,6 +3696,8 @@ display:
         - 'config:field.storage.taxonomy_term.field_commonly_treated_condition'
         - 'config:field.storage.taxonomy_term.field_health_service_api_id'
         - 'config:field.storage.taxonomy_term.field_service_type_of_care'
+        - 'config:field.storage.taxonomy_term.field_vba_service_descrip'
+        - 'config:field.storage.taxonomy_term.field_vba_type_of_care'
         - 'config:field.storage.taxonomy_term.field_vet_center_com_conditions'
         - 'config:field.storage.taxonomy_term.field_vet_center_friendly_name'
         - 'config:field.storage.taxonomy_term.field_vet_center_required_servic'

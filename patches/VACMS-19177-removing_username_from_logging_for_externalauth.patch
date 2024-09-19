@@ -1,0 +1,31 @@
+Subject: [PATCH] removing username from logging for externalauth
+---
+Index: src/ExternalAuth.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/ExternalAuth.php b/src/ExternalAuth.php
+--- a/src/ExternalAuth.php	(revision 48ceae4411968ed2d5e4651262e55caf0d6541fc)
++++ b/src/ExternalAuth.php	(date 1726587932975)
+@@ -151,7 +151,7 @@
+    */
+   public function userLoginFinalize(UserInterface $account, string $authname, string $provider): UserInterface {
+     user_login_finalize($account);
+-    $this->logger->notice('External login of user %name', ['%name' => $account->getAccountName()]);
++    $this->logger->notice('External login of user %id', ['%id' => $account->id()]);
+     $this->eventDispatcher->dispatch(new ExternalAuthLoginEvent($account, $provider, $authname), ExternalAuthEvents::LOGIN);
+     return $account;
+   }
+@@ -169,10 +169,9 @@
+ 
+     // If we update the authmap entry, let's log the change.
+     if (!empty($current_authname)) {
+-      $this->logger->debug('Authmap change (%old => %new) for user %name with uid %uid from provider %provider', [
++      $this->logger->debug('Authmap change (%old => %new) for user with uid %uid from provider %provider', [
+         '%old' => $current_authname,
+         '%new' => $authname,
+-        '%name' => $account->getAccountName(),
+         '%uid' => $account->id(),
+         '%provider' => $provider,
+       ]);
