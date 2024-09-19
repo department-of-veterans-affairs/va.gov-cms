@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.news_story.field_administration
     - field.field.node.news_story.field_author
-    - field.field.node.news_story.field_enforce_unique_combo
     - field.field.node.news_story.field_featured
     - field.field.node.news_story.field_full_story
     - field.field.node.news_story.field_image_caption
@@ -18,7 +17,6 @@ dependencies:
     - node.type.news_story
     - workflows.workflow.editorial
   module:
-    - allow_only_one
     - content_moderation
     - field_group
     - media_library
@@ -131,13 +129,6 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  field_enforce_unique_combo:
-    type: allow_only_one_widget
-    weight: 0
-    region: content
-    settings:
-      size: 1
     third_party_settings: {  }
   field_featured:
     type: boolean_checkbox
