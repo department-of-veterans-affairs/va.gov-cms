@@ -19,7 +19,7 @@ use Drupal\taxonomy\Entity\Term;
 use Drupal\user\UserStorageInterface;
 use Psr\Log\LogLevel;
 
-const CMS_MIGRATOR_ID = 1317;
+const CMS_MIGRATOR_ID = 1317; // phpcs:ignore
 
 /**
  * Log a message to stdout.
@@ -44,6 +44,19 @@ function entity_type_manager(): EntityTypeManagerInterface {
     $entity_type_manager = \Drupal::entityTypeManager();
   }
   return $entity_type_manager;
+}
+
+/**
+ * Exit if script is run in an environment other than local or tugboat.
+ *
+ * @param string $env
+ *   The CMS environment.
+ */
+function exit_if_not_local_or_tugboat(string $env) {
+  if ($env !== 'local' && $env !== 'tugboat') {
+    echo "This script can only be run on local or Tugboat environments.\n";
+    exit();
+  }
 }
 
 /**
