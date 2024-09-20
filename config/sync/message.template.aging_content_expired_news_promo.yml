@@ -1,0 +1,22 @@
+uuid: ad0d560b-fda0-4cce-b606-5279942c28e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: aging_content_expired_news_promo
+label: "Aging Content: Warn V2 News Spotlight\t"
+description: 'Aging Content: Expired V2 News Spotlight'
+text:
+  -
+    value: '<p>Subject</p>'
+    format: rich_text
+  -
+    value: '<p>Body</p>'
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

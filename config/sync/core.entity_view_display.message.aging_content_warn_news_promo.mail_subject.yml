@@ -1,0 +1,23 @@
+uuid: 1a213431-6c36-4598-bc19-fb01fc7917e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_subject
+    - message.template.aging_content_warn_news_promo
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.aging_content_warn_news_promo.mail_subject
+targetEntityType: message
+bundle: aging_content_warn_news_promo
+mode: mail_subject
+content:
+  partial_0:
+    weight: 0
+    region: content
+hidden:
+  partial_1: true
