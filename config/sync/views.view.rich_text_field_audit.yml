@@ -1019,6 +1019,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 100
           total_pages: null
           id: 0
@@ -4045,7 +4046,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Mental Health Phone'
+          label: 'Mental Health Phone (old)'
           exclude: false
           alter:
             alter_text: false
@@ -4174,8 +4175,8 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: ', ext. {{ field_phone_extension }} '
             make_link: false
             path: ''
             absolute: false
@@ -4233,11 +4234,11 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Staff Profile Phone'
+          label: 'Staff profile, Mental health (VAMC facility), or Billing and insurance phone'
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_phone_number_1 }} {{ field_phone_extension }}'
+            text: '<a href="tel:{{ field_phone_number_1 }}{{ field_phone_extension }}">{{ field_phone_number_1 }}{{ field_phone_extension }}</a>'
             make_link: false
             path: ''
             absolute: false

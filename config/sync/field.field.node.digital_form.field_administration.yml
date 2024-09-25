@@ -1,0 +1,43 @@
+uuid: d49d4508-3a4d-4b12-a8d9-51b44eb854ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.digital_form
+    - taxonomy.vocabulary.administration
+  content:
+    - 'taxonomy_term:administration:867e4dcf-2f99-401a-977a-adb441d53350'
+  module:
+    - entity_reference_validators
+    - tmgmt_content
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  tmgmt_content:
+    excluded: false
+id: node.digital_form.field_administration
+field_name: field_administration
+entity_type: node
+bundle: digital_form
+label: Section
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    target_uuid: 867e4dcf-2f99-401a-977a-adb441d53350
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
