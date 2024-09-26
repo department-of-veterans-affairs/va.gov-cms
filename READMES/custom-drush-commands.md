@@ -70,3 +70,10 @@ See [Commands.php](docroot/modules/custom/va_gov_live_field_migration/src/Comman
 - `va-gov-live-field-migration:migrate-field` -- add $entityType and $bundle and $fieldName as params -- Migrate a specific field on a specific content type.
 - `va-gov-live-field-migration:rollback-field` -- add $entityType and $bundle and $fieldName as params -- Rollback a specific field on a specific content type.
 - `va-gov-live-field-migration:verify` -- add $entityType and $bundle and $fieldName as params
+
+
+### Global commands
+
+See [Commands.php](docroot/modules/custom/va_gov_live_field_migration/src/Commands/Commands.php).
+- `va:gov-clean-revs` (vg-cr) -- Clean up bad node revisions.
+- `va_gov_migrate:flag-missing-facilities` -- (alias va-gov-flag-missing-facilities) -- Flag any facilities that no longer exist in Facilty API.
