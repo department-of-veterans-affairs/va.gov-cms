@@ -139,6 +139,7 @@ class UniqueFieldValidator extends ConstraintValidator implements ContainerInjec
       $this->context->buildViolation($constraint->message, [
         ':bundle_label' => $this->getBundleLabel(),
         ':field_label' => $this->getFieldLabel(),
+        ':field_value' => $this->fieldValue,
       ])->addViolation();
     }
   }
