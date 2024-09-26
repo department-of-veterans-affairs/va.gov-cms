@@ -5,11 +5,11 @@ namespace Drupal\va_gov_form_builder\Plugin\Validation\Constraint;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Checks that a node is unique based on a given field.
+ * Checks that an entity is unique among its bundle based on a given field.
  *
  * @Constraint(
  *   id = "FormBuilder_UniqueField",
- *   label = @Translation("Unique Form Number", context = "Validation"),
+ *   label = @Translation("Unique Field", context = "Validation"),
  *   type = "string"
  * )
  */
