@@ -1,6 +1,6 @@
 uuid: e0b9a4d3-1d5d-46ca-8652-2eeeb2ffb21c
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - views.view.aging_content_content_block
@@ -15,7 +15,7 @@ label: 'Aging Content: Warn V2 News Spotlight'
 version: ''
 weight: -9
 events:
-  eca_cron_aging_content_warn_news:
+  eca_base_eca_cron:
     plugin: 'eca_base:eca_cron'
     label: Cron
     configuration:
