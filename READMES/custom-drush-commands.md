@@ -37,36 +37,36 @@ See [FrontendVersionCommands.php](../docroot/modules/custom/va_gov_content_relea
 ### Repository commands
 
 See [RepositorySettingsCommands.php](docroot/modules/custom/va_gov_git/src/Commands/RepositorySettingsCommands.php).
-`va-gov-git:repository-settings:get-names` -- Display the current repositories.
-`va-gov-git:repository-settings:get-path` -- add repository name to end (i.e. va.gov-cms) -- Get the path for the given repository.
-`va-gov-git:repository-settings:get-path-key` -- add repository name to end (i.e. va.gov-cms) -- Get the path key for the given repository.
-`va-gov-git:repository-settings:list` -- List the available repositories and their corresponding paths.
+- `va-gov-git:repository-settings:get-names` -- Display the current repositories.
+- `va-gov-git:repository-settings:get-path` -- add repository name to end (i.e. va.gov-cms) -- Get the path for the given repository.
+- `va-gov-git:repository-settings:get-path-key` -- add repository name to end (i.e. va.gov-cms) -- Get the path key for the given repository.
+- `va-gov-git:repository-settings:list` -- List the available repositories and their corresponding paths.
 
 See [RepositoryCommands.php](docroot/modules/custom/va_gov_git/src/Commands/RepositoryCommands.php).
-`va-gov-git:repository:get-last-commit-hash` -- add repository name to end (i.e. va.gov-cms) -- Display the last commit hash for the current branch.
-`va-gov-git:repository:list-remote-branches` -- add repository name to end (i.e. va.gov-cms) -- List remote branches.
-`va-gov-git:repository:search-remote-branches` -- add repository name to end (i.e. va.gov-cms) and search string/term (i.e. discovery) -- List remote branches containing the specified string.
+- `va-gov-git:repository:get-last-commit-hash` -- add repository name to end (i.e. va.gov-cms) -- Display the last commit hash for the current branch.
+- `va-gov-git:repository:list-remote-branches` -- add repository name to end (i.e. va.gov-cms) -- List remote branches.
+- `va-gov-git:repository:search-remote-branches` -- add repository name to end (i.e. va.gov-cms) and search string/term (i.e. discovery) -- List remote branches containing the specified string.
 
 
 ### API commands
 
 See [ApiClientCommands.php](docroot/modules/custom/va_gov_github/src/Commands/ApiClientCommands.php).
-`va-gov-github:api-client:repository-dispatch` -- Send a repository dispatch event.
-`va-gov-github:api-client:search-issues` -- Search issues for a repository.
-`va-gov-github:api-client:search-pull-requests` (alias va-gov-github-api-client-search-prs) -- Search pull requests for a repository.
-`va-gov-github:api-client:workflow-dispatch` -- Send a workflow dispatch event.
-`va-gov-github:api-client:workflow-runs` -- List workflow runs for a repository and workflow.
+- `va-gov-github:api-client:repository-dispatch` -- Send a repository dispatch event.
+- `va-gov-github:api-client:search-issues` -- Search issues for a repository.
+- `va-gov-github:api-client:search-pull-requests` (alias va-gov-github-api-client-search-prs) -- Search pull requests for a repository.
+- `va-gov-github:api-client:workflow-dispatch` -- Send a workflow dispatch event.
+- `va-gov-github:api-client:workflow-runs` -- List workflow runs for a repository and workflow.
 
 See [RawApiClientCommands.php](docroot/modules/custom/va_gov_github/src/Commands/RawApiClientCommands.php).
-`va-gov-github:raw-api-client:current-user:organizations` -- List organizational memberships of the current user.
-`va-gov-github:raw-api-client:current-user:repositories` -- List repositories accessible by the current user.
-`va-gov-github:raw-api-client:request:get` (alias va-gov-github:raw-api-client:request) -- Request any route.
+- `va-gov-github:raw-api-client:current-user:organizations` -- List organizational memberships of the current user.
+- `va-gov-github:raw-api-client:current-user:repositories` -- List repositories accessible by the current user.
+- `va-gov-github:raw-api-client:request:get` (alias va-gov-github:raw-api-client:request) -- Request any route.
 
 
 ### Migration commands
 
 See [Commands.php](docroot/modules/custom/va_gov_live_field_migration/src/Commands/Commands.php).
-`va-gov-live-field-migration:find` -- add $entityType and $bundle as params -- Find fields that haven't been migrated yet.
-`va-gov-live-field-migration:migrate-field` -- add $entityType and $bundle and $fieldName as params -- Migrate a specific field on a specific content type.
-`va-gov-live-field-migration:rollback-field` -- add $entityType and $bundle and $fieldName as params -- Rollback a specific field on a specific content type.
-`va-gov-live-field-migration:verify` -- add $entityType and $bundle and $fieldName as params
+- `va-gov-live-field-migration:find` -- add $entityType and $bundle as params -- Find fields that haven't been migrated yet.
+- `va-gov-live-field-migration:migrate-field` -- add $entityType and $bundle and $fieldName as params -- Migrate a specific field on a specific content type.
+- `va-gov-live-field-migration:rollback-field` -- add $entityType and $bundle and $fieldName as params -- Rollback a specific field on a specific content type.
+- `va-gov-live-field-migration:verify` -- add $entityType and $bundle and $fieldName as params
