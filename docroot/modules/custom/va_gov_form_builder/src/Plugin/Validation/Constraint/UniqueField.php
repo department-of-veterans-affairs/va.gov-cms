@@ -21,6 +21,6 @@ class UniqueField extends Constraint {
    * @var string
    * @see \Drupal\va_gov_form_builder\Plugin\Validation\Constraint\UniqueFieldValidator
    */
-  public $message = 'There is already a :bundle_label in the system with the provided :field_label.';
+  public $message = 'There is already a :bundle_label in the system with :field_label `:field_value`.';
 
 }
