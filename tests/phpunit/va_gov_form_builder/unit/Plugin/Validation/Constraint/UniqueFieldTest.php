@@ -21,7 +21,7 @@ class UniqueFieldTest extends VaGovUnitTestBase {
   public function testUniqueFieldConstraint() {
     $constraint = new UniqueField();
     $this->assertEquals(
-      'There is already a :bundle_label in the system with the provided :field_label.',
+      'There is already a :bundle_label in the system with :field_label `:field_value`.',
       $constraint->message,
       'The default validation message should be correct.'
     );
