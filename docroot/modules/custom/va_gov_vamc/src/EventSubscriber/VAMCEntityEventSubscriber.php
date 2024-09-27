@@ -360,8 +360,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterVamcSystemBillingAndInsuranceForm(FormIdAlterEvent $event) {
     $this->alterTopTaskNodeForm($event);
-    $form = &$event->getForm();
-    $form['field_telephone']['widget'][0]['subform']['field_phone_label']['#access'] = FALSE;
+    $this->removePhoneLabel($event);
   }
 
   /**
