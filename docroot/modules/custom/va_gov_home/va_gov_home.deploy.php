@@ -132,10 +132,10 @@ function va_gov_home_deploy_seed_news_promo(array &$sandbox): void {
       $entityOperations->entityInsert($block);
     }
     catch (\Exception $e) {
-      \Drupal::logger('va_gov_banner')->error(sprintf('Could not create new Expirable Content entity for block id: %bid. The error was: <pre>%error</pre>', [
-        '%bid' => $block->id(),
-        '%error' => $e,
-      ]));
+      \Drupal::logger('va_gov_banner')->error(sprintf('Could not create new Expirable Content entity for block id: %bid. The error was: <pre> %error</pre>',
+        $block->id(),
+        $e,
+      ));
     }
   }
 }
