@@ -41,7 +41,7 @@ class UniqueFieldValidator extends ConstraintValidator implements ContainerInjec
    *
    * @var mixed
    */
-  private $fieldvalue;
+  private $fieldValue;
 
   /**
    * Constructs a UniqueFieldConstraintValidator.
