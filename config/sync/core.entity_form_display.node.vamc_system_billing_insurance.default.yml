@@ -26,14 +26,12 @@ dependencies:
     - field_group
     - office_hours
     - paragraphs
-    - telephone
     - viewfield
 third_party_settings:
   field_group:
     group_edit:
       children:
         - moderation_state
-        - revision_log
       label: 'Editorial workflow'
       region: content
       parent_name: ''
@@ -105,7 +103,6 @@ third_party_settings:
         attributes: ''
     group_inquiries_about_copay:
       children:
-        - field_phone_number
         - field_telephone
         - field_office_hours
       label: 'For inquiries by phone about copay balance'
@@ -217,7 +214,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 26
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -239,13 +236,6 @@ content:
     region: content
     settings:
       collapsed: false
-    third_party_settings: {  }
-  field_phone_number:
-    type: telephone_default
-    weight: 8
-    region: content
-    settings:
-      placeholder: ''
     third_party_settings: {  }
   field_telephone:
     type: paragraphs
@@ -288,6 +278,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_phone_number: true
   field_service_name_and_descripti: true
   langcode: true
   path: true
