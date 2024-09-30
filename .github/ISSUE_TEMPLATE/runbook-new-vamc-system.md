@@ -38,6 +38,7 @@ assignees: ''
    - [ ] VAMC register for care
    - [ ] VAMC VA police
    - [ ] VAMC detail page
+- [ ] Enable the menu in Menu Breadcrumbs module
 - [ ] Export the config file and create a PR to merge it into the va.gov-cms repo
 
 ### Create initial VAMC System Drupal entities [CMS helpdesk or Sitewide team]
@@ -60,23 +61,25 @@ assignees: ''
     - [ ] VAMC System Medical Records Office
     - [ ] VAMC System Operating Status
     - [ ] VAMC System Register for Care
- - [ ] Parent link = SERVICES AND LOCATIONS
     - [ ] Health Services List
     - [ ] VAMC System Locations List
- - [ ] Parent link = NEWS AND EVENTS 
     - [ ] Events List
     - [ ] News Releases List
     - [ ] Stories List
- - [ ] Parent link = ABOUT VA [REGION NAME]
     - [ ] Leadership List (will need to be moved later)
     - [ ] VAMC System Policies Page
     - [ ] VAMC System VA Police page
 
-### Clone (from where?) these semi-hardened VAMC detail pages [CMS helpdesk or Sitewide team]
+### Clone these semi-hardened VAMC detail pages [CMS helpdesk or Sitewide team]
 - [ ] Parent link = `<VAMC system plain language name>`
   - [ ] Make an appointment
   - [ ] Pharmacy
-- [ ] Parent link = SERVICES AND LOCATIONS / Health Services List
+  - [ ] About us
+  - [ ] Programs
+  - [ ] Research
+  - [ ] Work with us
+  - [ ] Contact us
+- [ ] Parent link = Health Services List
   - [ ] Caregiver support
   - [ ] Homeless Veteran care
   - [ ] LGBT Veteran care
@@ -86,17 +89,11 @@ assignees: ''
   - [ ] Returning service members
   - [ ] Suicide prevention
   - [ ] Women Veteran care
-- [ ] Parent link = ABOUT VA [REGION NAME]
-  - [ ] About us
-  - [ ] Programs
-  - [ ] Research
-  - [ ] Work with us
-  - [ ] Contact us
-- [ ] Parent link = ABOUT VA [REGION NAME] / About us
+- [ ] Parent link = About us
   - [ ] Mission and vision
   - [ ] History
   - [ ] Performance
-- [ ] Parent link = ABOUT VA [REGION NAME] / Work with us
+- [ ] Parent link = Work with us
   - [ ] Jobs and careers
   - [ ] Internships and fellowships
   - [ ] Volunteer or donate
@@ -104,7 +101,7 @@ assignees: ''
 
 ### Find any existing VAMC facilities that belong to this system [CMS helpdesk or Sitewide team]
 - [ ] Set them to the appropriate Section
-- [ ] Set their Parent link settings to SERVICES AND LOCATIONS / Locations
+- [ ] Set their Parent link settings to Locations
 
 ### Menu configuration and clean up [CMS helpdesk or Sitewide team]
 - [ ] Go to [Content / Menus](https://prod.cms.va.gov/admin/structure/menu)
@@ -112,7 +109,6 @@ assignees: ''
 - [ ] Ensure all menu links are nested in the proper place
 - [ ] Set some menu links to disabled 
 - [ ] Consult [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh) for menu settings 
-- [ ] Enable the menu in Menu Breadcrumbs module
 - [ ] Update CONTENT BUILD FILE with the menu
 
 ### User set up [CMS helpdesk]
