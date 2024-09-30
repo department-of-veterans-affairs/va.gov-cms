@@ -15,6 +15,7 @@ $base_entity = [
   'status' => 1,
   'moderation_state' => 'published',
   'reusable' => 1,
+  'uid' => 1,
 ];
 
 $base_date = DrupalDateTime::createFromTimestamp(time());
