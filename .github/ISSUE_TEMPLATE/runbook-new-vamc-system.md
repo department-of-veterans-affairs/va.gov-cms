@@ -41,6 +41,9 @@ assignees: ''
 - [ ] Enable the menu in Menu Breadcrumbs module
 - [ ] Export the config file and create a PR to merge it into the va.gov-cms repo
 
+### Enable menu in Content Build / Next Build [FE Engineer]
+- [ ] Update CONTENT BUILD FILE with the menu
+
 ### Create initial VAMC System Drupal entities [CMS helpdesk or Sitewide team]
 - [ ] Add a new Term in the [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview) 
    - [ ] Nest the term under VHA > VAMC Facilities > VISN ##
@@ -48,9 +51,9 @@ assignees: ''
    - [ ] As you create all the subsequent Drupal entities, assign them to this Section
 - [ ] [Add a VAMC System](https://prod.cms.va.gov/node/add/health_care_region_page)
    - [ ] Fill out all required fields
-      - [ ] Meta description = placeholder?
-      - [ ] Banner image = placeholder?
-      - [ ] GovDelivery ID(s) = placeholder?
+      - [ ] Meta description 
+      - [ ] Banner image 
+      - [ ] GovDelivery ID(s)
       - [ ] Menu settings > Menu link title = VAMC system plain language name
       - [ ] Menu settings > Parent link = `<VAMC system plain language name>`
       - [ ] System menu = VAMC system plain language name
@@ -66,11 +69,13 @@ assignees: ''
     - [ ] Events List
     - [ ] News Releases List
     - [ ] Stories List
-    - [ ] Leadership List (will need to be moved later)
+    - [ ] Leadership List
     - [ ] VAMC System Policies Page
     - [ ] VAMC System VA Police page
 
 ### Clone these semi-hardened VAMC detail pages [CMS helpdesk or Sitewide team]
+- [ ] Find an existing VAMC in the same VISN as the new system and clone from there
+- [ ] You will need to edit the cloned pages to update any references to the VAMC system, and fix links to other pages.
 - [ ] Parent link = `<VAMC system plain language name>`
   - [ ] Make an appointment
   - [ ] Pharmacy
@@ -108,8 +113,11 @@ assignees: ''
 - [ ] Find the relevant menu and select edit menu
 - [ ] Ensure all menu links are nested in the proper place
 - [ ] Set some menu links to disabled 
-- [ ] Consult [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh) for menu settings 
-- [ ] Update CONTENT BUILD FILE with the menu
+- [ ] Consult [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh) for menu settings
+
+### URL alias configuration [CMS helpdesk or Sitewide team]
+- [ ] Check that each page has the correct URL alias matching the [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh)
+- [ ] If pages dont have the correct URL Alias, change them from Auto to Manual and input the correct URL alias
 
 ### User set up [CMS helpdesk]
 - [ ] Create users if need / assign users to the appropriate section [link to KB article]
@@ -117,7 +125,6 @@ assignees: ''
 ### VAMC editor tasks
 - [ ] Complete training if they haven't already
 - [ ] Do all the things listed [here](https://prod.cms.va.gov/help/vamc)
-- [ ] Do we have a checklist like we do for VBA?
 - [ ] Confirm when ready to publish
 
 ### Launch tasks
