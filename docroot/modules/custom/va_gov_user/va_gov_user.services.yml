@@ -18,3 +18,6 @@ services:
   va_gov_user.user_perms:
     class: Drupal\va_gov_user\Service\UserPermsService
     arguments: ['@current_user', '@entity_type.manager', '@database']
+  monolog.processor.va_gov_current_user:
+    class: Drupal\va_gov_user\Logger\Processor\VaGovUserCurrentUserProcessor
+    arguments: ['@current_user']
