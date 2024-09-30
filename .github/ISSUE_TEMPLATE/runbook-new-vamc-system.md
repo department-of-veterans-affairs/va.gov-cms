@@ -42,7 +42,7 @@ assignees: ''
 - [ ] Export the config file and create a PR to merge it into the va.gov-cms repo
 
 ### Enable menu in Content Build / Next Build [FE Engineer]
-- [ ] Update CONTENT BUILD FILE with the menu
+- [ ] Update [facilitySidebar.nav.graphql.js](https://github.com/department-of-veterans-affairs/content-build/blob/main/src/site/stages/build/drupal/graphql/navigation-fragments/facilitySidebar.nav.graphql.js) with the machine name of the menu under FACILITY_MENU_NAMES and in the appropriate VISN
 
 ### Create initial VAMC System Drupal entities [CMS helpdesk or Sitewide team]
 - [ ] Add a new Term in the [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview) 
@@ -120,11 +120,13 @@ assignees: ''
 - [ ] If pages dont have the correct URL Alias, change them from Auto to Manual and input the correct URL alias
 
 ### User set up [CMS helpdesk]
-- [ ] Create users if need / assign users to the appropriate section [link to KB article]
+- [ ] Create users if needed
+- [ ] Assign users to the appropriate section
+- [ ] Follow guidance in [CMS User Administration documentation](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/user-administration)
 
 ### VAMC editor tasks
 - [ ] Complete training if they haven't already
-- [ ] Do all the things listed [here](https://prod.cms.va.gov/help/vamc)
+- [ ] Follow the instructions in [VAMC editor guide](https://prod.cms.va.gov/help/vamc)
 - [ ] Confirm when ready to publish
 
 ### Launch tasks
