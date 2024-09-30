@@ -56,7 +56,6 @@ third_party_settings:
     group_feature_this_story:
       children:
         - field_featured
-        - field_order
       label: 'Feature this story'
       region: content
       parent_name: ''
@@ -191,12 +190,6 @@ content:
     settings:
       media_types: {  }
     third_party_settings: {  }
-  field_order:
-    type: options_select
-    weight: 22
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 22
@@ -231,6 +224,7 @@ content:
 hidden:
   created: true
   field_meta_tags: true
+  field_order: true
   langcode: true
   promote: true
   status: true
