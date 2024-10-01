@@ -103,11 +103,8 @@ function create_digital_forms() {
 /**
  * Creates a Digital Form Step.
  *
- * For now, this only creates the Name and Date of Birth step.
- * That will change as more patterns are added.
- *
  * @param array $values
- *   The values for the Paragraph.
+ *   An associative array containing the values for the Paragraph.
  *
  * @return \Drupal\paragraphs\Entity\Paragraph
  *   The created Step.
