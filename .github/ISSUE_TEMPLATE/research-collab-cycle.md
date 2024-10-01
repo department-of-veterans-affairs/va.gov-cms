@@ -3,7 +3,7 @@ name: Collaboration Cycle Research touchpoint(s) for [PRODUCT/INITIATIVE]
 about: Use this template when you have a research plan & conversation guide ready
   for review by other teams
 title: Get through Collaboration Cycle before user research starts
-labels: UX, Research
+labels: Research, UX
 assignees: ''
 
 ---

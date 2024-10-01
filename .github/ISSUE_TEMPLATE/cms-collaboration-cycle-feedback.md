@@ -1,8 +1,10 @@
 ---
 name: CMS Collaboration Cycle Feedback
-about: Use this template for CMS Team practice areas to provide feedback to teams going through the CMS Collaboration Cycle.
-title: 'Name of Collab Touchpoint - Practice Area Feedback - Name of Project'
+about: Use this template for CMS Team practice areas to provide feedback to teams
+  going through the CMS Collaboration Cycle.
+title: Name of Collab Touchpoint - Practice Area Feedback - Name of Project
 labels: CMS Team, CMS-Collab-Cycle, collab-cycle-feedback
+assignees: ''
 
 ---
 

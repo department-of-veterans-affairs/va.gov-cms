@@ -2,7 +2,7 @@
 name: Sitewide QA Plan
 about: QA plan template for test coverage of big-enough features
 title: 'QA test plan for: '
-labels: sitewide, Facilities, Manual QA, Public Websites
+labels: Facilities, Manual QA, Public Websites, sitewide
 assignees: ''
 
 ---
