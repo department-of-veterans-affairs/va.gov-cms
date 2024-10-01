@@ -10,7 +10,6 @@ use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\telephone\Plugin\Field\FieldType\TelephoneItem;
-use JetBrains\PhpStorm\ArrayShape;
 use libphonenumber\PhoneNumberUtil;
 
 /**
@@ -96,8 +95,8 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
       }
     }
     // Set the new phone value(s) on the node.
-    /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
     $node->set(name: $this->targetFieldName, value: array_map(callback: fn($paragraph) => [
+      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
       'target_id' => $paragraph->id(),
       'target_revision_id' => $paragraph->getRevisionId(),
     ], array: $paragraphs));
@@ -150,10 +149,6 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
    *   The extracted and parsed phone and extension. Phone will be in the
    *   nnn-nnn-nnnn format while the extension will contain only integers.
    */
-  #[ArrayShape([
-    'phone' => "mixed|string",
-    'extension' => "mixed|string",
-  ])]
   public static function extractPhoneAndExtension(string $input): array {
     $phoneNumberUtil = PhoneNumberUtil::getInstance();
     $phoneNumberMatcher = $phoneNumberUtil->findNumbers($input, 'US');
