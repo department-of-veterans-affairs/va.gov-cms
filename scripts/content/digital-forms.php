@@ -49,6 +49,11 @@ function create_digital_form(
       'title' => 'Generated Identification Information',
       'include_sn' => TRUE,
     ],
+    [
+      'type' => 'digital_form_address',
+      'title' => 'Generated Address',
+      'military_address_checkbox' => FALSE,
+    ],
   ],
 ) {
   $digital_form = Node::create($values);
@@ -84,6 +89,11 @@ function create_digital_forms() {
       'title' => 'Identification information',
       'include_sn' => TRUE,
     ],
+    [
+      'type' => 'digital_form_address',
+      'title' => "Veteran's mailing information",
+      'military_address_checkbox' => TRUE,
+    ],
   ];
 
   create_digital_form();
@@ -93,11 +103,8 @@ function create_digital_forms() {
 /**
  * Creates a Digital Form Step.
  *
- * For now, this only creates the Name and Date of Birth step.
- * That will change as more patterns are added.
- *
  * @param array $values
- *   The values for the Paragraph.
+ *   An associative array containing the values for the Paragraph.
  *
  * @return \Drupal\paragraphs\Entity\Paragraph
  *   The created Step.
@@ -107,6 +114,10 @@ function create_step(
 ): Paragraph {
   $step_type = $values['type'] ?? 'digital_form_name_and_date_of_bi';
   $additional_fields = match ($step_type) {
+    'digital_form_address' => [
+      'field_military_address_checkbox' =>
+      $values['military_address_checkbox'] ?? TRUE,
+    ],
     'digital_form_identification_info' => [
       'field_include_veteran_s_service' => $values['include_sn'] ?? FALSE,
     ],
