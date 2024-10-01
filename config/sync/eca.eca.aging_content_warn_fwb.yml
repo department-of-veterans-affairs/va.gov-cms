@@ -54,7 +54,7 @@ actions:
     configuration:
       token_name: job
       type: va_gov_aging_content_notification
-      payload: "template_values:\r\n    uid: \"[node:revision_uid:target_id]\"\r\n    template: aging_content_warn_fwb\r\nvalues:\r\n    field_warning_date: \"[node:warning_date:date:html_date]\"\r\n    field_target_node_title: \"[node:title]\""
+      payload: "template_values:\r\n    uid: \"[node:revision_uid:target_id]\"\r\n    template: aging_content_warn_fwb\r\nvalues:\r\n    field_warning_date: \"[node:warning_date:date:html_date]\"\r\n    field_expired_date: \"[node:expiration_date:date:html_date]\"\r\n    field_target_node_title: \"[node:title]\"\r\n"
       queue: aging_content
     successors: {  }
   eca_trigger_content_entity_cus_1:
