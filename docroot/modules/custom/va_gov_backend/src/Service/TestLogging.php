@@ -20,7 +20,7 @@ final class TestLogging implements TestLoggingInterface {
    * Constructs a TestLogging object.
    *
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
-   *    The logger factory.
+   *   The logger factory.
    */
   public function __construct(
     LoggerChannelFactoryInterface $loggerFactory,
