@@ -1,24 +1,25 @@
-uuid: a74fa585-127b-49f9-9533-de900988e8b1
+uuid: fa5b4181-5374-42bc-bcba-6c126c46e4fc
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_omb_number
+    - field.storage.node.field_expiration_date
     - node.type.digital_form
   module:
+    - datetime
     - tmgmt_content
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: node.digital_form.field_omb_number
-field_name: field_omb_number
+id: node.digital_form.field_expiration_date
+field_name: field_expiration_date
 entity_type: node
 bundle: digital_form
-label: 'OMB Number'
-description: 'Format: XXXX-XXXX'
+label: 'Expiration date'
+description: 'The form expiration date.'
 required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string
+field_type: datetime
