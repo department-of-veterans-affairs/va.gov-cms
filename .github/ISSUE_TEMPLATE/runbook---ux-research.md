@@ -3,7 +3,7 @@ name: Runbook - UX Research
 about: Use this template when starting a new UX research process. This will create
   a high-level checklist to guide you through building tickets for upcoming sprints.
 title: "[PRODUCT/INITIATIVE] Research Runbook"
-labels: UX, Research
+labels: Research, UX
 assignees: ''
 
 ---

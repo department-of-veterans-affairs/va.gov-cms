@@ -1,7 +1,8 @@
 ---
 name: Sitewide Epic - Web Governance Board
-about: Epic template for Sitewide projects that need to be publicized in the Web Governance Board project view, for Public Websites and Facilities teams.
-title: ""
+about: Epic template for Sitewide projects that need to be publicized in the Web Governance
+  Board project view, for Public Websites and Facilities teams.
+title: ''
 labels: Epic, sitewide
 assignees: ''
 

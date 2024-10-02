@@ -2,7 +2,7 @@
 name: "(PW) Injected Header/Footer - publish to prod"
 about: Submit a request to publish the injected header/footer to prod.
 title: 'Injected header/footer: Publish to prod: <domain(s)>'
-labels: Injected header, Needs refining, Public Websites, VA.gov frontend, sitewide
+labels: Injected header, Needs refining, Public Websites, sitewide, VA.gov frontend
 assignees: jilladams
 
 ---
