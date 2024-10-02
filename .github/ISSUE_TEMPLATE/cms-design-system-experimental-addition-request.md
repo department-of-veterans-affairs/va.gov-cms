@@ -1,9 +1,10 @@
 ---
 name: CMS Design System Experimental Addition Request
-about: Use this template for designers outside of the CMS team to request a component or pattern be added to the CMS Design System.
-title: 'Experimental Design for [component or pattern name]'
-labels: CMS design system, CMS design, CMS Team, Needs refining
-assignees: BlakeOrgan
+about: Use this template for designers outside of the CMS team to request a component
+  or pattern be added to the CMS Design System.
+title: Experimental Design for [component or pattern name]
+labels: CMS design system, CMS Team, Needs refining
+assignees: ''
 
 ---
 

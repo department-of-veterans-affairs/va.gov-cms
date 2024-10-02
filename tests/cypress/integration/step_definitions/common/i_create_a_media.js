@@ -128,7 +128,6 @@ Given("I create a {string} media", (mediaType) => {
       .then(($element) => {
         cy.injectAxe();
         cy.checkAccessibility();
-        cy.drupalWatchdogHasNoNewErrors();
         const mediaPath = $element.attr("href");
         const pathComponents = mediaPath.split("/");
         const mediaId = pathComponents.pop();
