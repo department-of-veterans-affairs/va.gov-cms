@@ -1,0 +1,24 @@
+uuid: ffeb98b2-e56b-4faa-b32f-f054129271d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_expired_date
+    - message.template.aging_content_expired_news_promo
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: message.aging_content_expired_news_promo.field_expired_date
+field_name: field_expired_date
+entity_type: message
+bundle: aging_content_expired_news_promo
+label: 'Expired Date'
+description: 'The date this content expired.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
