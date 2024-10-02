@@ -2,7 +2,8 @@
 name: Runbook - VBA Facility name change
 about: Steps for updating names and URLs
 title: 'VBA Facility name change: <insert_name>'
-labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, VBA
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support,
+  VBA
 assignees: ''
 
 ---

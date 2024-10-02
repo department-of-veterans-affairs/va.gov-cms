@@ -1,9 +1,10 @@
 ---
-name: "Dark launch request"
-about: Request to dark launch CMS content that includes React widget, owned by CMS team
+name: Dark launch request
+about: Request to dark launch CMS content that includes React widget, owned by CMS
+  team
 title: 'CMS/React content dark launch request: <content info>'
-labels: Drupal engineering, Needs analysis, CMS Team
-assignees: BerniXiongA6
+labels: CMS Team, Drupal engineering
+assignees: ''
 
 ---
 
@@ -39,4 +40,4 @@ Please tick the boxes for completed steps as we go, for cross-team visibility.
 ## Acceptance Criteria
 - [ ] Page is verified: Live on Staging
 - [ ] Page is **not** live on Prod
-- [ ] Ticket is cut for production launch planning, e.g. #10627 
+- [ ] Ticket is cut for production launch planning, e.g. #10627
