@@ -100,7 +100,7 @@
         "drupal/health_check_url": "^3.0",
         "drupal/hierarchy_manager": "^3.0",
         "drupal/hms_field": "^2.0",
-        "drupal/hook_event_dispatcher": "4.0.3",
+        "drupal/hook_event_dispatcher": "4.2.0",
         "drupal/ief_table_view_mode": "^3.0",
         "drupal/image_style_warmer": "^1.2@RC",
         "drupal/image_widget_crop": "^2.2",
@@ -111,7 +111,7 @@
         "drupal/jsonapi_resources": "^1.0@beta",
         "drupal/jsonapi_views": "^1.0",
         "drupal/libraries": "^4.0",
-        "drupal/limited_field_widgets": "^2.1@alpha",
+        "drupal/limited_field_widgets": "^3.0@alpha",
         "drupal/linkit": "^6.0@RC",
         "drupal/linky": "^2.0@beta",
         "drupal/linkychecker": "^2.2",
@@ -191,7 +191,7 @@
         "drupal/user_history": "^1.0@alpha",
         "drupal/video_embed_media": "^2.2",
         "drupal/viewfield": "^3.0@beta",
-        "drupal/views_bulk_edit": "^2.3",
+        "drupal/views_bulk_edit": "^3.0",
         "drupal/views_bulk_operations": "^4.2",
         "drupal/views_conditional": "^1.4",
         "drupal/views_data_export": "^1.4",
@@ -227,7 +227,7 @@
         "symfony/phpunit-bridge": "^5.1",
         "symfony/process": "^6.3",
         "symfony/routing": "^6.3",
-        "va-gov/content-build": "^0.0.3594",
+        "va-gov/content-build": "^0.0.3605",
         "vlucas/phpdotenv": "^5.6",
         "webflo/drupal-finder": "1.2.2",
         "webmozart/path-util": "^2.3",
@@ -365,9 +365,6 @@
         "composer-exit-on-patch-failure": true,
         "patches-ignore": {},
         "patches": {
-            "drupal/admin_toolbar": {
-                "3338408 - Resolve access check errors for D10 compatibility": "https://www.drupal.org/files/issues/2023-05-30/3338408-fix-access-check-error.patch"
-            },
             "drupal/cer": {
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch",
                 "3254663 - Notice: Undefined index: target_bundles on Drupal\\cer\\Entity\\CorrespondingReference->synchronizeCorrespondingField()": "https://www.drupal.org/files/issues/2022-02-14/prevent-undefined-index-3254663-6.patch"

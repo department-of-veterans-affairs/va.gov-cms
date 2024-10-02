@@ -34,4 +34,4 @@ assignees: ''
 - [ ] Some initial findings and potential recommendations shared (in Mural?) with Sitewide UX Lead and/or team members. What's important and what we might do next have been discussed.
 - [ ] Research report feedback requested from Sitewide UX Lead and other team members.
 - [ ] Sitewide UX Lead requested feedback from VA PO and shared with researcher
-- [ ] All feedback on research report incorporated 
+- [ ] All feedback on research report incorporated
