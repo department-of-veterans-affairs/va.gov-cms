@@ -5,14 +5,37 @@ dependencies:
   config:
     - field.field.node.digital_form.field_administration
     - field.field.node.digital_form.field_chapters
+    - field.field.node.digital_form.field_expiration_date
     - field.field.node.digital_form.field_last_saved_by_an_editor
     - field.field.node.digital_form.field_meta_tags
     - field.field.node.digital_form.field_omb_number
+    - field.field.node.digital_form.field_respondent_burden
     - field.field.node.digital_form.field_va_form_number
     - node.type.digital_form
   module:
+    - datetime
     - entity_reference_revisions
+    - field_group
     - user
+third_party_settings:
+  field_group:
+    group_omb_info:
+      children:
+        - field_respondent_burden
+        - field_omb_number
+        - field_expiration_date
+      label: 'OMB info'
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: true
+        description: ''
 id: node.digital_form.default
 targetEntityType: node
 bundle: digital_form
@@ -25,15 +48,33 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 3
+    region: content
+  field_expiration_date:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: short_date_no_time
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_omb_number:
     type: string
-    label: above
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
+    weight: 6
+    region: content
+  field_respondent_burden:
+    type: number_integer
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_va_form_number:
     type: string
