@@ -52,15 +52,12 @@ assignees: ''
    - [ ] As you create all the subsequent Drupal entities, assign them to this Section
 - [ ] [Add a VAMC System](https://prod.cms.va.gov/node/add/health_care_region_page)
    - [ ] Fill out all required fields
-      - [ ] Meta description 
-      - [ ] Banner image 
-      - [ ] GovDelivery ID(s)
-      - [ ] Meta description 
-      - [ ] Banner image 
-      - [ ] GovDelivery ID(s)
-      - [ ] Menu settings > Menu link title = VAMC system plain language name
-      - [ ] Menu settings > Parent link = `<VAMC system plain language name>`
-      - [ ] System menu = VAMC system plain language name
+    - [ ] Meta description 
+    - [ ] Banner image 
+    - [ ] GovDelivery ID(s)
+    - [ ] Menu settings > Menu link title = VAMC system plain language name
+    - [ ] Menu settings > Parent link = `<VAMC system plain language name>`
+    - [ ] System menu = VAMC system plain language name
 
 ### Create one copy of each of these hardened VAMC content types [CMS helpdesk or Sitewide team]
  - [ ] Parent link = `<VAMC system plain language name>`
@@ -74,13 +71,10 @@ assignees: ''
     - [ ] News Releases List
     - [ ] Stories List
     - [ ] Leadership List
-    - [ ] Leadership List
     - [ ] VAMC System Policies Page
     - [ ] VAMC System VA Police page
 
 ### Clone these semi-hardened VAMC detail pages [CMS helpdesk or Sitewide team]
-- [ ] Find an existing VAMC in the same VISN as the new system and clone from there
-- [ ] You will need to edit the cloned pages to update any references to the VAMC system, and fix links to other pages.
 - [ ] Find an existing VAMC in the same VISN as the new system and clone from there
 - [ ] You will need to edit the cloned pages to update any references to the VAMC system, and fix links to other pages.
 - [ ] Parent link = `<VAMC system plain language name>`
