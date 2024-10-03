@@ -2,7 +2,8 @@
 name: Runbook - NCA Facility name change
 about: Steps for updating names and URLs
 title: 'NCA Facility name change: <insert_name>'
-labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, NCA
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, NCA, User
+  support
 assignees: ''
 
 ---

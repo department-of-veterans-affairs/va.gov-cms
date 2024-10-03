@@ -1,8 +1,8 @@
 ---
-name: Task
+name: CMS Task
 about: A task for the CMS team.
 title: "<Insert summary of task>"
-labels: Needs refining
+labels: Needs refining, UX writing
 assignees: ''
 
 ---
