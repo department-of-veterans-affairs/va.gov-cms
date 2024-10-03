@@ -30,7 +30,6 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   public function setUp(): void {
     parent::setUp();
 
-    $this->drupalLogin($this->createUser(['edit any digital_form content']));
     $this->controller = new VaGovFormBuilderController(\Drupal::formBuilder());
   }
 
