@@ -1,8 +1,9 @@
 ---
 name: Research Prep Tasks
-about: Use this template when preparing for a research study after the research plan and conversation guide have been drafted
+about: Use this template when preparing for a research study after the research plan
+  and conversation guide have been drafted
 title: Prep for [PRODUCT/INITIATIVE] research
-labels: UX, Research
+labels: Research, UX
 assignees: ''
 
 ---
@@ -95,5 +96,3 @@ These types of studies have additional logistical considerations
 - [ ] The moderator(s), notetaker(s), and observer(s) have been invited to research sessions and daily debriefs
 - [ ] Pilot session(s) have been conducted
 - [ ] All preparation done before the first day of research sessions
-
-
