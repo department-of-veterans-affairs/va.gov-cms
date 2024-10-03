@@ -11,7 +11,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
 /**
  * Unit tests for the VaGovFormBuilderController class.
  *
- * @group unit
+ * @group functional
  * @group all
  *
  * @coversDefaultClass \Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController
