@@ -25,11 +25,12 @@ assignees: ''
 
 ## Testing & QA
 
-**Scope / Impact analysis**: What, if anything, could break as a result of this change: 
+### Scope / Impact analysis
+_What, if anything, could break as a result of this change?_
 _Engineer should assess this when approaching PR._
-* 
 
-**Roles / assignments**
+
+### Roles / assignments
 _After functional testing, code review, accessibility review, and design review can happen in parallel._
 * Functional testing: 
   * **Does this product have established regression test plans?**
