@@ -366,17 +366,17 @@
         "patches-ignore": {},
         "patches": {
             "drupal/cer": {
-                "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch",
-                "3254663 - Notice: Undefined index: target_bundles on Drupal\\cer\\Entity\\CorrespondingReference->synchronizeCorrespondingField()": "https://www.drupal.org/files/issues/2022-02-14/prevent-undefined-index-3254663-6.patch"
+                "3200122 - Remove delete hook": "patches/3200122-delete-hook-added-in-dev-causes-test-failures.patch",
+                "3254663 - Notice: Undefined index: target_bundles on Drupal\\cer\\Entity\\CorrespondingReference->synchronizeCorrespondingField()": "patches/3254669-prevent-undefined-index.patch"
             },
             "drupal/clientside_validation": {
-                "2949540 - Allow specific form ids for clientside validation": "https://www.drupal.org/files/issues/2023-10-27/2949540-31.patch"
+                "2949540 - Allow specific form ids for clientside validation": "patches/2949540-allow-specific-form-ids-for-clientside-validation.patch"
             },
             "drupal/consumer_image_styles": {
-                "3301224 - Follow-up: Very slow JSON:API responses when images are stored on AWS bucket": "https://www.drupal.org/files/issues/2023-02-07/3301224-9.patch"
+                "3301224 - Follow-up: Very slow JSON:API responses when images are stored on AWS bucket": "patches/3301224-very-slow-json-api-responses-when-images-are-stored-on-aws-bucket.patch"
             },
             "drupal/content_lock": {
-                "2951652 - Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
+                "2951652 - Content lock causes redirect response preventing migration rollback.": "patches/2951652-content-lock-causes-redirect-response-preventing-migration-rollback.patch"
             },
             "drupal/core": {
                 "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2023-01-31/3057267-maintenance-forced-logout-experimental.patch",
@@ -410,8 +410,8 @@
                 "3228798 - Make revisions overview page accessible": "https://www.drupal.org/files/issues/2024-05-14/diff-3228798-17.patch",
                 "2834253 - Missing column headings in Revisions list": "https://www.drupal.org/files/issues/2024-05-09/diff-missing_column_headers-2834253-23.patch"
             },
-            "drupal/eca" : {
-                "3465031 - Multiple cron events not firing consistently" : "patches/3465031-eca-fix-cron-consistency.patch",
+            "drupal/eca": {
+                "3465031 - Multiple cron events not firing consistently": "patches/3465031-eca-fix-cron-consistency.patch",
                 "3472437 - Drupal\\eca\\Service\\ExportRecipe::__construct(): Argument #2 ($fileSystem) must be of type Drupal\\Core\\File\\FileSystem": "https://www.drupal.org/files/issues/2024-09-05/3472437-instatiate-against-file-system-interface.patch"
             },
             "drupal/entity_browser": {
