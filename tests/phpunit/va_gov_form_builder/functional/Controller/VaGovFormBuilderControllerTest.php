@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_form_builder\unit\Controller;
+namespace tests\phpunit\va_gov_form_builder\functional\Controller;
 
 use Drupal\Core\Url;
 use Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController;
