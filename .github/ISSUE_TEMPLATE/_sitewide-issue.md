@@ -47,7 +47,7 @@ _ACs should capture expected behavior, to inform test plans. Consider devices, d
 - [ ] 
 - [ ] Impact analysis is filled out and QA test plan is updated accordingly
 - [ ] Does this product have an existing regression test plan?
-      - [ ] Yes, link: 
-      - [ ] No, regression test plan will be created as part of the work / points in this ticket
+	- [ ] Yes, link: 
+	- [ ] No, regression test plan will be created as part of the work / points in this ticket
 - [ ] Design review? 
 - [ ] Accessibility review? 
