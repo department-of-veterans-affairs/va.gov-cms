@@ -18,6 +18,11 @@ class StartConversionTest extends VaGovExistingSiteBase {
   use SharedConstants;
 
   /**
+   * {@inheritdoc}
+   */
+  private static $modules = ['va_gov_form_builder'];
+
+  /**
    * Setup the environment for each test.
    */
   public function setUp(): void {

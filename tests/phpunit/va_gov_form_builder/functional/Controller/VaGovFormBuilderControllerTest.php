@@ -19,6 +19,11 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
 class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
   /**
+   * {@inheritdoc}
+   */
+  private static $modules = ['va_gov_form_builder'];
+
+  /**
    * The controller instance.
    *
    * @var \Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController
