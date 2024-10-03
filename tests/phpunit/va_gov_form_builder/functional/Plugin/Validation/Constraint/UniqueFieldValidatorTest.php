@@ -4,6 +4,7 @@ namespace tests\phpunit\va_gov_form_builder\functional\Plugin\Validation\Constra
 
 use Drupal\node\Entity\Node;
 use Drupal\va_gov_form_builder\Plugin\Validation\Constraint\UniqueField;
+use tests\phpunit\va_gov_form_builder\Traits\SharedConstants;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
@@ -16,15 +17,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
  */
 class UniqueFieldValidatorTest extends VaGovExistingSiteBase {
 
-  /**
-   * A unique VA form number.
-   *
-   * A string that we know will be unique among field_va_form_number
-   * values on Digital Form nodes.
-   *
-   * @var string
-   */
-  private const UNIQUE_VA_FORM_NUMBER = 'unique_va_form_number_!@#$%^&*()';
+  use SharedConstants;
 
   /**
    * Entity Type Manager.
@@ -52,7 +45,7 @@ class UniqueFieldValidatorTest extends VaGovExistingSiteBase {
     $query = $nodeStorage->getQuery()
       ->accessCheck(FALSE)
       ->condition('type', 'digital_form')
-      ->condition('field_va_form_number', self::UNIQUE_VA_FORM_NUMBER);
+      ->condition('field_va_form_number', self::getUniqueVaFormNumber());
     $nids = $query->execute();
 
     // Load and delete each node.
@@ -73,12 +66,12 @@ class UniqueFieldValidatorTest extends VaGovExistingSiteBase {
    * @return \Drupal\node\Entity\Node
    *   A Digital Form node
    */
-  private static function createNewDigitalForm($formNumber = self::UNIQUE_VA_FORM_NUMBER) {
+  private static function createNewDigitalForm($formNumber = NULL) {
     // Calling Node::create does not save the entity to the database,
     // so the returned entity is a new node.
     return Node::create([
       'type' => 'digital_form',
-      'field_va_form_number' => $formNumber,
+      'field_va_form_number' => $formNumber ?? self::getUniqueVaFormNumber(),
     ]);
   }
 
@@ -91,12 +84,12 @@ class UniqueFieldValidatorTest extends VaGovExistingSiteBase {
    * @return \Drupal\node\Entity\Node
    *   A Digital Form node
    */
-  private function createExistingDigitalForm($formNumber = self::UNIQUE_VA_FORM_NUMBER) {
+  private function createExistingDigitalForm($formNumber = NULL) {
     // Calling $this->createNode saves the entity to the database,
     // so the returned value is an existing node.
     return $this->createNode([
       'type' => 'digital_form',
-      'field_va_form_number' => $formNumber,
+      'field_va_form_number' => $formNumber ?? self::getUniqueVaFormNumber(),
     ]);
   }
 
