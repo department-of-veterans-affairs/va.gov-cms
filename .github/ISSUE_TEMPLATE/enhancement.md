@@ -1,5 +1,5 @@
 ---
-name: Enhancement (user story or feature request)
+name: CMS Enhancement (user story or feature request)
 about: Suggest an idea for the CMS
 title: "<Summary of enhancement>"
 labels: Enhancement, Needs refining
