@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_form_builder\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Form\FormBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -33,19 +32,13 @@ class VaGovFormBuilderController extends ControllerBase {
   private $drupalFormBuilder;
 
   /**
-   * {@inheritDoc}
-   */
-  public function __construct(FormBuilderInterface $drupalFormBuilder) {
-    $this->drupalFormBuilder = $drupalFormBuilder;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('form_builder')
-    );
+    $instance = parent::create($container);
+    $instance->drupalFormBuilder = $container->get('form_builder');
+
+    return $instance;
   }
 
   /**

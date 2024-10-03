@@ -4,6 +4,7 @@ namespace tests\phpunit\va_gov_form_builder\unit\Controller;
 
 use Drupal\Core\Url;
 use Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
@@ -30,7 +31,9 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   public function setUp(): void {
     parent::setUp();
 
-    $this->controller = new VaGovFormBuilderController(\Drupal::formBuilder());
+    $container = new ContainerBuilder();
+    $container->set('form_builder', \Drupal::formBuilder());
+    $this->controller = VaGovFormBuilderController::create($container);
   }
 
   /**
