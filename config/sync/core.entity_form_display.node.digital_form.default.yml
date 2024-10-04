@@ -5,15 +5,18 @@ dependencies:
   config:
     - field.field.node.digital_form.field_administration
     - field.field.node.digital_form.field_chapters
+    - field.field.node.digital_form.field_expiration_date
     - field.field.node.digital_form.field_last_saved_by_an_editor
     - field.field.node.digital_form.field_meta_tags
     - field.field.node.digital_form.field_omb_number
+    - field.field.node.digital_form.field_respondent_burden
     - field.field.node.digital_form.field_va_form_number
     - node.type.digital_form
     - workflows.workflow.editorial
   module:
     - change_labels
     - content_moderation
+    - datetime
     - field_group
     - limited_field_widgets
     - no_table_drag
@@ -29,7 +32,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -38,6 +41,25 @@ third_party_settings:
         description: ''
         required_fields: true
         description_display: after
+    group_omb_info:
+      children:
+        - field_respondent_burden
+        - field_omb_number
+        - field_expiration_date
+      label: 'OMB info'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: 'Text required by the Office of Management and Budget (OMB) to be present on all forms.'
+        required_fields: true
+        open: true
+        description_display: after
 id: node.digital_form.default
 targetEntityType: node
 bundle: digital_form
@@ -45,7 +67,7 @@ mode: default
 content:
   field_chapters:
     type: paragraphs_browser
-    weight: 5
+    weight: 6
     region: content
     settings:
       title: Step
@@ -78,6 +100,12 @@ content:
         add_another: ''
       no_table_drag:
         no_table_drag: false
+  field_expiration_date:
+    type: datetime_default
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
     weight: 2
@@ -86,11 +114,18 @@ content:
     third_party_settings: {  }
   field_omb_number:
     type: string_textfield
-    weight: 4
+    weight: 8
     region: content
     settings:
       size: 9
       placeholder: XXXX-XXXX
+    third_party_settings: {  }
+  field_respondent_burden:
+    type: number
+    weight: 7
+    region: content
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   field_va_form_number:
     type: string_textfield
