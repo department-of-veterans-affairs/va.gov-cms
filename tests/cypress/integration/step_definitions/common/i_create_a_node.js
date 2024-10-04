@@ -432,6 +432,23 @@ const creators = {
     );
     return cy;
   },
+  news_story: () => {
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.findAllByLabelText("Title").type(`[Test Data] ${faker.lorem.word()}`, {
+      force: true,
+    });
+    cy.findAllByLabelText("Where should the story be listed?").select(
+      "VA Albany health care: Stories",
+      { force: true }
+    );
+    cy.findAllByLabelText("First sentence (lede)").type(
+      faker.lorem.sentence(),
+      {
+        force: true,
+      }
+    );
+    return cy;
+  },
 };
 
 Given("I create a {string} node", (contentType) => {
