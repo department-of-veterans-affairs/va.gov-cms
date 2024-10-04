@@ -411,6 +411,27 @@ const creators = {
     cy.findAllByLabelText("Section").select("VACO", { force: true });
     return cy;
   },
+  press_release: () => {
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.findAllByLabelText("Press Release Title").type(
+      `[Test Data] ${faker.lorem.word()}`,
+      { force: true }
+    );
+    cy.findAllByLabelText("News releases listing").select(
+      "VA Albany health care: News releases",
+      { force: true }
+    );
+    cy.findAllByLabelText("City").type(`Albany`, { force: true });
+    cy.findAllByLabelText("State").select("New York", { force: true });
+    cy.findAllByLabelText("Introduction").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.type_ckeditor(
+      "edit-field-press-release-fulltext-0-value",
+      faker.lorem.paragraph()
+    );
+    return cy;
+  },
 };
 
 Given("I create a {string} node", (contentType) => {
