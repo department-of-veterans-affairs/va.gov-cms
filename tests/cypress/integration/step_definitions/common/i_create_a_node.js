@@ -449,6 +449,28 @@ const creators = {
     );
     return cy;
   },
+  page: () => {
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.findAllByLabelText("Page title").type(
+      `[Test Data] ${faker.lorem.word()}`,
+      { force: true }
+    );
+    cy.type_ckeditor(
+      "edit-field-intro-text-limited-html-0-value",
+      faker.lorem.paragraph()
+    );
+    cy.findAllByLabelText("Meta description").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.scrollToSelector("#edit-field-content-block-add-more-browse");
+    cy.get("#edit-field-content-block-add-more-browse").click({ force: true });
+    cy.findByText("An open-ended text field.").click({ force: true });
+    cy.type_ckeditor(
+      "edit-field-content-block-0-subform-field-wysiwyg-0-value",
+      faker.lorem.paragraph()
+    );
+    return cy;
+  },
 };
 
 Given("I create a {string} node", (contentType) => {
