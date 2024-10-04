@@ -18,6 +18,8 @@ class DigitalFormTest extends VaGovExistingSiteBase {
    */
   public function testBundleClass() {
     $digital_form_attrs = [
+      'field_expiration_date' => '2025-08-28',
+      'field_respondent_burden' => 5,
       'field_va_form_number' => '12345',
       'field_omb_number' => '1234-5678',
       'title' => 'Test Digital Form',
@@ -32,8 +34,16 @@ class DigitalFormTest extends VaGovExistingSiteBase {
       $digital_form_attrs['field_va_form_number']
     );
     $this->assertEquals(
+      $node->get('field_expiration_date')->getString(),
+      $digital_form_attrs['field_expiration_date']
+    );
+    $this->assertEquals(
       $node->get('field_omb_number')->getString(),
       $digital_form_attrs['field_omb_number']
+    );
+    $this->assertEquals(
+      $node->get('field_respondent_burden')->getString(),
+      $digital_form_attrs['field_respondent_burden']
     );
   }
 
