@@ -65,11 +65,14 @@ assignees: ''
     - [ ] VAMC System Medical Records Office
     - [ ] VAMC System Operating Status
     - [ ] VAMC System Register for Care
+- [ ] Parent link = SERVICES AND LOCATIONS    
     - [ ] Health Services List
     - [ ] VAMC System Locations List
+- [ ] Parent link = NEWS AND EVENTS     
     - [ ] Events List
     - [ ] News Releases List
     - [ ] Stories List
+- [ ] Parent link = ABOUT VA [REGION NAME]
     - [ ] Leadership List
     - [ ] VAMC System Policies Page
     - [ ] VAMC System VA Police page
@@ -80,12 +83,7 @@ assignees: ''
 - [ ] Parent link = `<VAMC system plain language name>`
   - [ ] Make an appointment
   - [ ] Pharmacy
-  - [ ] About us
-  - [ ] Programs
-  - [ ] Research
-  - [ ] Work with us
-  - [ ] Contact us
-- [ ] Parent link = Health Services List
+- [ ] Parent link = SERVICES AND LOCATIONS / Health Services List  
   - [ ] Caregiver support
   - [ ] Homeless Veteran care
   - [ ] LGBT Veteran care
@@ -95,11 +93,17 @@ assignees: ''
   - [ ] Returning service members
   - [ ] Suicide prevention
   - [ ] Women Veteran care
-- [ ] Parent link = About us
+- [ ] Parent link = ABOUT VA [REGION NAME]
+  - [ ] About us
+  - [ ] Programs
+  - [ ] Research
+  - [ ] Work with us
+  - [ ] Contact us
+- [ ] Parent link = ABOUT VA [REGION NAME] / About us
   - [ ] Mission and vision
   - [ ] History
   - [ ] Performance
-- [ ] Parent link = Work with us
+- [ ] Parent link = ABOUT VA [REGION NAME] / Work with us
   - [ ] Jobs and careers
   - [ ] Internships and fellowships
   - [ ] Volunteer or donate
@@ -107,7 +111,7 @@ assignees: ''
 
 ### Find any existing VAMC facilities that belong to this system [CMS helpdesk or Sitewide team]
 - [ ] Set them to the appropriate Section
-- [ ] Set their Parent link settings to Locations
+- [ ] Set their Parent link settings to SERVICES AND LOCATIONS / Locations
 
 ### Menu configuration and clean up [CMS helpdesk or Sitewide team]
 - [ ] Go to [Content / Menus](https://prod.cms.va.gov/admin/structure/menu)
