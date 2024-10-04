@@ -1,0 +1,13 @@
+diff --git a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserTableWidget.php b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserTableWidget.php
+index 11673299..0883a51b 100644
+--- a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserTableWidget.php
++++ b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserTableWidget.php
+@@ -260,7 +260,7 @@ public function buildRemoveButton(EntityInterface $entity, $details_id, $row_id,
+       ],
+       '#submit' => [[get_class($this), 'removeItemSubmit']],
+       '#name' => $this->fieldDefinition->getName() . '_remove_' . $entity->id() . '_' . $row_id . '_' . md5(json_encode($field_parents)),
+-      '#limit_validation_errors' => [array_merge($field_parents, [$this->fieldDefinition->getName()])],
++      '#limit_validation_errors' => [$field_parents],
+       '#attributes' => [
+         'data-entity-id' => $entity->getEntityTypeId() . ':' . $entity->id(),
+         'data-row-id' => $row_id,
