@@ -61,8 +61,21 @@ before(() => {
 
 after(() => {
   const accessibilityViolations = Cypress.config("accessibilityViolations");
-  cy.writeFile(
-    "cypress_accessibility_violations.json",
+  const fileName = "cypress_accessibility_violations.json";
+  const violations = JSON.parse(
     JSON.stringify(accessibilityViolations, null, 2)
   );
+
+  cy.task("readFileMaybe", fileName).then((result) => {
+    if (result != null) {
+      cy.readFile(fileName).then((list) => {
+        for (let step = 0; step < violations.length; step++) {
+          list.push(violations[step]);
+        }
+        cy.writeFile(fileName, list);
+      });
+    } else {
+      cy.writeFile(fileName, violations);
+    }
+  });
 });
