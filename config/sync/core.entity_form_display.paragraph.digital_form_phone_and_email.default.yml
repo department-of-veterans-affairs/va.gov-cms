@@ -1,0 +1,40 @@
+uuid: 61cc39e0-1a19-4b96-83a6-ddf2fbfaaaf2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_phone_and_email.field_include_email
+    - field.field.paragraph.digital_form_phone_and_email.field_title
+    - paragraphs.paragraphs_type.digital_form_phone_and_email
+  module:
+    - textfield_counter
+id: paragraph.digital_form_phone_and_email.default
+targetEntityType: paragraph
+bundle: digital_form_phone_and_email
+mode: default
+content:
+  field_include_email:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield_with_counter
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
