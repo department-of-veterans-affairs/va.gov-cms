@@ -2,7 +2,7 @@
 
 We have moved away from pointing our patches to drupal.org in the event of losing access to those remote files. We will continue to contribute any relevant patches there, but we will only point our patches to local files.
 
-# Naming patch files
+## Naming patch files
 
 The naming convention for patches is as follows.
 
@@ -12,6 +12,6 @@ In the case that it is a local patch only (one we do not want to submit to drupa
 
 Replace all special characters (like colons, underscores, and apostraphes) with hyphens to ensure the file name is acceptable. Also, make sure to have an empty line at the bottom of the file to ensure consistency.
 
-# Patching the file
+## Patching the file
 
 Please follow the guidelines provided by drupal in terms of how to apply and contribute patches [here](https://www.drupal.org/docs/develop/git/using-git-to-contribute-to-drupal/working-with-patches/applying-a-patch-in-a-feature-branch).
