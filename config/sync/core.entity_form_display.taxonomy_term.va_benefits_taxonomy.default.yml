@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_application_process
     - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_id
     - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_value
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_after_applying
@@ -108,6 +109,7 @@ third_party_settings:
       children:
         - field_va_benefit_app_form
         - field_va_benefit_app_preparation
+        - field_application_process
         - field_va_benefit_app_help
       label: 'How to apply'
       region: content
@@ -139,7 +141,6 @@ third_party_settings:
     group_va_benefit_workflow:
       children:
         - moderation_state
-        - revision_log_message
       label: 'Editorial workflow'
       region: content
       parent_name: ''
@@ -173,6 +174,14 @@ targetEntityType: taxonomy_term
 bundle: va_benefits_taxonomy
 mode: default
 content:
+  field_application_process:
+    type: text_textarea
+    weight: 8
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_enforce_unique_id:
     type: allow_only_one_widget
     weight: 5
@@ -206,6 +215,7 @@ content:
       maxlength: 60
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -220,12 +230,12 @@ content:
       placeholder: ''
     third_party_settings:
       limited_field_widgets:
-        limit_values: '0'
+        limit_values: 0
       change_labels:
         add_another: 'Add another form'
   field_va_benefit_app_help:
     type: text_textarea
-    weight: 8
+    weight: 9
     region: content
     settings:
       rows: 5
@@ -255,6 +265,7 @@ content:
       maxlength: 500
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings:
@@ -272,7 +283,7 @@ content:
       placeholder: ''
     third_party_settings:
       limited_field_widgets:
-        limit_values: '0'
+        limit_values: 0
       change_labels:
         add_another: 'Add another link'
   field_va_benefit_eligibility_ov:
@@ -288,7 +299,7 @@ content:
       default_paragraph_type: _none
     third_party_settings:
       limited_field_widgets:
-        limit_values: '0'
+        limit_values: 0
       change_labels:
         add_another: 'Add another section'
   field_va_benefit_legislation:
@@ -300,7 +311,7 @@ content:
       placeholder_title: ''
     third_party_settings:
       limited_field_widgets:
-        limit_values: '0'
+        limit_values: 0
       change_labels:
         add_another: 'Add another link'
   field_va_benefit_long_summary:
@@ -320,7 +331,7 @@ content:
       placeholder: ''
     third_party_settings:
       limited_field_widgets:
-        limit_values: '0'
+        limit_values: 0
       change_labels:
         add_another: 'Add another name'
   field_va_benefit_prerequisite:
@@ -334,7 +345,7 @@ content:
       placeholder: ''
     third_party_settings:
       limited_field_widgets:
-        limit_values: '0'
+        limit_values: 0
       change_labels:
         add_another: 'Add another link'
   field_va_benefit_teaser_summary:
@@ -347,6 +358,7 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -375,6 +387,7 @@ content:
       maxlength: 255
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
