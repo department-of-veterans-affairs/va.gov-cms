@@ -1,0 +1,12 @@
+diff --git a/src/Plugin/EntityBrowser/Display/Modal.php b/src/Plugin/EntityBrowser/Display/Modal.php
+index 01562b2..8b506c4 100644
+--- a/src/Plugin/EntityBrowser/Display/Modal.php
++++ b/src/Plugin/EntityBrowser/Display/Modal.php
+@@ -123,6 +123,7 @@ class Modal extends IFrame {
+         'style' => 'padding:0; position:relative; z-index:10002;',
+         'name' => $name,
+         'id' => $name,
++        'tabindex' => 0,
+       ],
+     ];
+     if (!empty($this->configuration['height']) && is_numeric($this->configuration['height']) && $this->configuration['height'] > 90) {

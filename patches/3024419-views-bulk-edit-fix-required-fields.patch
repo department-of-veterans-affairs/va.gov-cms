@@ -1,0 +1,56 @@
+diff --git a/src/Form/BulkEditFormTrait.php b/src/Form/BulkEditFormTrait.php
+index f7a12a3..c14dfa5 100644
+--- a/src/Form/BulkEditFormTrait.php
++++ b/src/Form/BulkEditFormTrait.php
+@@ -67,6 +67,10 @@ trait BulkEditFormTrait {
+     // Store entity data.
+     $form_state->set('vbe_entity_bundles_data', $bundle_data);
+ 
++    // Disable HTML5 form validation to prevent required fields, that are left
++    // empty, causing the form to not be submittable.
++    $form['#attributes']['novalidate'] = 'novalidate';
++
+     $form['#attributes']['class'] = ['views-bulk-edit-form'];
+     $form['#attached']['library'][] = 'views_bulk_edit/views_bulk_edit.edit_form';
+ 
+@@ -84,9 +88,40 @@ trait BulkEditFormTrait {
+       }
+     }
+ 
++    $form['#after_build'][] = [static::class, 'buildBundleFormsAfterBuild'];
++
+     return $form;
+   }
+ 
++  /**
++   * Form #after_build callback for bulk edit bundle forms.
++   */
++  public static function buildBundleFormsAfterBuild(array $element, FormStateInterface $form_state) {
++    // Limit validation errors to only those for fields selected to edit in
++    // bulk.
++    $triggering_element = &$form_state->getTriggeringElement();
++    if (!empty($triggering_element['#name']) && $triggering_element['#name'] === 'op') {
++      $storage = $form_state->getStorage();
++      if (!empty($storage['vbe_entity_bundles_data'])) {
++        $triggering_element['#limit_validation_errors'] = [];
++        foreach ($storage['vbe_entity_bundles_data'] as $entity_type_id => $bundles) {
++          foreach (array_keys($bundles) as $bundle) {
++            $field_data = $form_state->getValue([$entity_type_id, $bundle]);
++            $modify = array_filter($field_data['_field_selector']);
++            foreach (array_keys($modify) as $key) {
++              $triggering_element['#limit_validation_errors'][] = [$entity_type_id, $bundle, $key];
++              $triggering_element['#limit_validation_errors'][] = [$entity_type_id, $bundle, "{$key}_change_method"];
++            }
++            $triggering_element['#limit_validation_errors'][] = [$entity_type_id, $bundle, "_field_selector"];
++            $triggering_element['#limit_validation_errors'][] = [$entity_type_id, $bundle, 'revision_information'];
++          }
++        }
++      }
++    }
++
++    return $element;
++  }
++
+   /**
+    * Gets the form for this entity display.
+    *

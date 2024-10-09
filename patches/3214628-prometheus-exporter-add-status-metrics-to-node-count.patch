@@ -1,0 +1,78 @@
+diff --git a/config/install/prometheus_exporter.settings.yml b/config/install/prometheus_exporter.settings.yml
+index f89d039..f880820 100644
+--- a/config/install/prometheus_exporter.settings.yml
++++ b/config/install/prometheus_exporter.settings.yml
+@@ -11,6 +11,7 @@ collectors:
+     enabled: false
+     weight: 0
+     settings:
++      status: false
+       bundles: {  }
+   phpinfo:
+     id: phpinfo
+diff --git a/src/Plugin/MetricsCollector/NodeCount.php b/src/Plugin/MetricsCollector/NodeCount.php
+index 3f98953..f3307c6 100644
+--- a/src/Plugin/MetricsCollector/NodeCount.php
++++ b/src/Plugin/MetricsCollector/NodeCount.php
+@@ -60,6 +60,11 @@ class NodeCount extends BaseMetricsCollector implements ContainerFactoryPluginIn
+    * {@inheritdoc}
+    */
+   public function settingsForm(array $form, FormStateInterface $form_state) {
++    $form['status'] = [
++      '#type' => 'checkbox',
++      '#title' => $this->t('Include published/unpublished statistics'),
++      '#default_value' => (bool) $this->getConfiguration()['settings']['status'],
++    ];
+     $options = node_type_get_names();
+     $form['bundles'] = [
+       '#type' => 'checkboxes',
+@@ -79,16 +84,21 @@ class NodeCount extends BaseMetricsCollector implements ContainerFactoryPluginIn
+    *
+    * @param string $bundle
+    *   (optional) The bundle name to filter by.
++   * @param bool $status
++   *   (optional) If provided, a status by which to filter.
+    *
+    * @return int
+    *   The node count.
+    */
+-  protected function getCount($bundle = NULL) {
++  protected function getCount($bundle = NULL, $status = NULL) {
+     $query = $this->nodeStorage->getQuery();
+     $query->accessCheck(TRUE);
+     if ($bundle) {
+       $query->condition('type', $bundle);
+     }
++    if ($status !== NULL) {
++      $query->condition('status', $status);
++    }
+     return $query->count()->execute();
+   }
+ 
+@@ -97,10 +107,25 @@ class NodeCount extends BaseMetricsCollector implements ContainerFactoryPluginIn
+    */
+   public function collectMetrics() {
+     $gauge = new Gauge($this->getNamespace(), 'total', $this->getDescription());
++    $status = (bool) $this->getConfiguration()['settings']['status'];
+     $gauge->set($this->getCount());
++    if ($status) {
++      $gauge->set($this->getCount(NULL, TRUE), ['status' => 'published']);
++      $gauge->set($this->getCount(NULL, FALSE), ['status' => 'unpublished']);
++    }
+     $bundles = $this->getConfiguration()['settings']['bundles'] ?? [];
+-    array_map(function ($bundle) use ($gauge) {
++    array_map(function ($bundle) use ($gauge, $status) {
+       $gauge->set($this->getCount($bundle), ['bundle' => $bundle]);
++      if ($status) {
++        $gauge->set($this->getCount($bundle, TRUE), [
++          'bundle' => $bundle,
++          'status' => 'published',
++        ]);
++        $gauge->set($this->getCount($bundle, FALSE), [
++          'bundle' => $bundle,
++          'status' => 'unpublished',
++        ]);
++      }
+     }, array_filter($bundles, function ($bundle) {
+       // Disabled bundles have a value of 0.
+       return $bundle !== 0;

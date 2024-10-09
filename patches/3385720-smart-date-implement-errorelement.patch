@@ -1,0 +1,33 @@
+diff --git a/src/Plugin/Field/FieldWidget/SmartDateDefaultWidget.php b/src/Plugin/Field/FieldWidget/SmartDateDefaultWidget.php
+index df78ae1..40d4f5a 100644
+--- a/src/Plugin/Field/FieldWidget/SmartDateDefaultWidget.php
++++ b/src/Plugin/Field/FieldWidget/SmartDateDefaultWidget.php
+@@ -2,6 +2,7 @@
+ 
+ namespace Drupal\smart_date\Plugin\Field\FieldWidget;
+ 
++use Drupal\Component\Utility\NestedArray;
+ use Drupal\Core\Entity\EntityStorageInterface;
+ use Drupal\Core\Field\FieldDefinitionInterface;
+ use Drupal\Core\Field\FieldItemListInterface;
+@@ -9,6 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
+ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+ use Drupal\smart_date\SmartDateDurationConfigTrait;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
++use Symfony\Component\Validator\ConstraintViolationInterface;
+ 
+ /**
+  * Plugin implementation of the 'smartdate_default' widget.
+@@ -140,4 +142,12 @@ class SmartDateDefaultWidget extends SmartDateWidgetBase implements ContainerFac
+     return $element;
+   }
+ 
++  /**
++   * {@inheritdoc}
++   */
++  public function errorElement(array $element, ConstraintViolationInterface $violation, array $form, FormStateInterface $form_state) {
++    $error_element = NestedArray::getValue($element, $violation->arrayPropertyPath);
++    return is_array($error_element) ? $error_element : FALSE;
++  }
++
+ }
