@@ -32,7 +32,7 @@ echo "{}" > "${build_path}/metalsmith-build-data.json"
 
 # Patch the content-build process to log the time at which the specific tasks
 # start and complete.
-cp patches/content-build-gql-logging.patch "${web_path}/"
+cp patches/testing_patches/content-build-gql-logging.patch "${web_path}/"
 pushd "${web_path}"
 git apply content-build-gql-logging.patch || echo 'patch failed'
 popd
