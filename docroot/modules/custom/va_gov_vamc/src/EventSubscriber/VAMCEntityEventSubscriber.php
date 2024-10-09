@@ -13,6 +13,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\feature_toggle\FeatureStatus;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -106,6 +107,13 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
+   * Feature Toggle status service.
+   *
+   * @var \Drupal\feature_toggle\FeatureStatus
+   */
+  private FeatureStatus $featureStatus;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -120,6 +128,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *   The deduper service.
    * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
    *   VA gov NotificationsManager service.
+   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
+   *   The Feature Status service.
    */
   public function __construct(
     EntityTypeManager $entity_type_manager,
@@ -128,6 +138,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     UserPermsService $user_perms_service,
     ContentHardeningDeduper $content_hardening_deduper,
     NotificationsManager $notifications_manager,
+    FeatureStatus $feature_status,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->currentUser = $currentUser;
@@ -135,6 +146,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
     $this->notificationsManager = $notifications_manager;
+    $this->featureStatus = $feature_status;
   }
 
   /**
@@ -327,7 +339,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $form_state = $event->getFormState();
     $this->addCovidStatusData($form, $form_state);
     $this->removePhoneLabel($event);
-
+    $this->showTelephone($event);
   }
 
   /**
@@ -362,6 +374,27 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   public function alterVamcSystemBillingAndInsuranceForm(FormIdAlterEvent $event) {
     $this->alterTopTaskNodeForm($event);
     $this->removePhoneLabel($event);
+    $this->showTelephone($event);
+  }
+
+  /**
+   * Show the correct telephone field based on feature toggle for VACMS-17854.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The form event.
+   */
+  private function showTelephone($event) {
+    $form = &$event->getForm();
+    $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
+    if ($status) {
+      // Show only the new telephone field.
+      unset($form['field_phone_number']);
+      unset($form['field_mental_health_phone']);
+    }
+    else {
+      // Show only the old telephone field.
+      unset($form['field_telephone']);
+    }
   }
 
   /**
