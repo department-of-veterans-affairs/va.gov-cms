@@ -1,0 +1,394 @@
+diff --git a/field_group.libraries.yml b/field_group.libraries.yml
+index e09631b..2b9a811 100644
+--- a/field_group.libraries.yml
++++ b/field_group.libraries.yml
+@@ -11,6 +11,30 @@ field_ui:
+     - core/drupal
+     - core/drupalSettings
+ 
++details_validation:
++  header: false
++  version: VERSION
++  js:
++    js/field_group.details_validation.js: {}
++  dependencies:
++    - core/jquery
++
++tab_validation:
++  header: false
++  version: VERSION
++  js:
++    js/field_group.tab_validation.js: {}
++  dependencies:
++    - core/jquery
++
++tabs_validation:
++  header: false
++  version: VERSION
++  js:
++    js/field_group.tabs_validation.js: {}
++  dependencies:
++    - core/jquery
++
+ core:
+   version: VERSION
+   js:
+diff --git a/js/field_group.details_validation.js b/js/field_group.details_validation.js
+new file mode 100644
+index 0000000..13a00fd
+--- /dev/null
++++ b/js/field_group.details_validation.js
+@@ -0,0 +1,26 @@
++(function ($) {
++  'use strict';
++
++  /**
++   * Behaviors for details validation.
++   */
++  Drupal.behaviors.fieldGroupDetailsValidation = {
++    attach: function (context, settings) {
++      $('.field-group-details :input', context).each(function (i) {
++        var $field_group_input = $(this);
++        this.addEventListener('invalid', function (e) {
++          // Open any hidden parents first.
++          $(e.target).parents('details:not([open])').each(function () {
++            $(this).attr('open', '');
++          });
++        }, false);
++        if ($field_group_input.hasClass('error')) {
++          $field_group_input.parents('details:not([open])').each(function () {
++            $(this).attr('open', '');
++          });
++        }
++      });
++    }
++  };
++
++})(jQuery);
+diff --git a/js/field_group.tab_validation.js b/js/field_group.tab_validation.js
+new file mode 100644
+index 0000000..4ba1af5
+--- /dev/null
++++ b/js/field_group.tab_validation.js
+@@ -0,0 +1,19 @@
++(function ($) {
++  'use strict';
++
++  /**
++   * Make sure tab field groups which contain invalid data are expanded when they first load, and also
++   * when someone clicks the submit button.
++   */
++  Drupal.behaviors.fieldGroupTabValidation = {
++    attach: function () {
++      var openTabsWithInvalidFields = function() {
++        $('.field-group-tab :invalid').parents('details').children('summary[aria-expanded=false]').click();
++      }
++
++      // When someone tries to submit a form, open tabs with invalid fields.
++      $('#edit-submit').on('click', openTabsWithInvalidFields);
++    }
++  };
++
++})(jQuery);
+diff --git a/js/field_group.tabs_validation.js b/js/field_group.tabs_validation.js
+new file mode 100644
+index 0000000..775842b
+--- /dev/null
++++ b/js/field_group.tabs_validation.js
+@@ -0,0 +1,34 @@
++(function ($) {
++  'use strict';
++
++  /**
++   * Behaviors for tab validation.
++   */
++  Drupal.behaviors.fieldGroupTabsValidation = {
++    attach: function () {
++        var fieldGroupTabsOpen = function ($field_group) {
++            if ($field_group.data('verticalTab')) {
++                $field_group.data('verticalTab').tabShow();
++            } else {
++                if ($field_group.data('horizontalTab')) {
++                    $field_group.data('horizontalTab').tabShow();
++                } else {
++                    $field_group.attr('open', '');
++                }
++            }
++        };
++
++        var onInvalid = function(e) {
++            $inputs.off('invalid', onInvalid);
++            $(e.target).parents('details:not(:visible), details.horizontal-tab-hidden, details.vertical-tab-hidden').each(function() {
++              fieldGroupTabsOpen($(this));
++            });
++            requestAnimationFrame(function () { $inputs.on('invalid', onInvalid); });
++        };
++
++        var $inputs = $('.field-group-tabs-wrapper :input');
++        $inputs.on('invalid', onInvalid);
++    }
++  };
++
++})(jQuery);
+diff --git a/src/Plugin/field_group/FieldGroupFormatter/Details.php b/src/Plugin/field_group/FieldGroupFormatter/Details.php
+index fdbde63..f1deab1 100644
+--- a/src/Plugin/field_group/FieldGroupFormatter/Details.php
++++ b/src/Plugin/field_group/FieldGroupFormatter/Details.php
+@@ -48,6 +48,7 @@ class Details extends FieldGroupFormatterBase {
+       $element['#attached']['library'][] = 'field_group/core';
+     }
+ 
++    $element['#attached']['library'][] = 'field_group/details_validation';
+   }
+ 
+   /**
+diff --git a/src/Plugin/field_group/FieldGroupFormatter/Tab.php b/src/Plugin/field_group/FieldGroupFormatter/Tab.php
+index ba2c728..aeccab5 100644
+--- a/src/Plugin/field_group/FieldGroupFormatter/Tab.php
++++ b/src/Plugin/field_group/FieldGroupFormatter/Tab.php
+@@ -62,6 +62,8 @@ class Tab extends FieldGroupFormatterBase {
+       $element['#attached']['library'][] = 'field_group/core';
+     }
+ 
++    $element['#attached']['library'][] = 'field_group/tab_validation';
++
+     $element += $add;
+ 
+   }
+diff --git a/src/Plugin/field_group/FieldGroupFormatter/Tabs.php b/src/Plugin/field_group/FieldGroupFormatter/Tabs.php
+index de6b562..6d4c540 100644
+--- a/src/Plugin/field_group/FieldGroupFormatter/Tabs.php
++++ b/src/Plugin/field_group/FieldGroupFormatter/Tabs.php
+@@ -54,6 +54,7 @@ class Tabs extends FieldGroupFormatterBase {
+       '#theme_wrappers' => [$this->getSetting('direction') . '_tabs'],
+     ];
+ 
++    $element['#attached']['library'][] = 'field_group/tabs_validation';
+   }
+ 
+   /**
+diff --git a/tests/src/FunctionalJavascript/EntityFormTest.php b/tests/src/FunctionalJavascript/EntityFormTest.php
+new file mode 100644
+index 0000000..ce96b61
+--- /dev/null
++++ b/tests/src/FunctionalJavascript/EntityFormTest.php
+@@ -0,0 +1,219 @@
++<?php
++
++namespace Drupal\Tests\field_group\Functional;
++
++use Drupal\Core\Entity\Entity\EntityFormDisplay;
++use Drupal\field\Entity\FieldConfig;
++use Drupal\field\Entity\FieldStorageConfig;
++use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
++
++/**
++ * Tests for form display.
++ *
++ * @group field_group
++ */
++class EntityFormTest extends WebDriverTestBase {
++
++  use FieldGroupTestTrait;
++
++  /**
++   * {@inheritdoc}
++   */
++  public static $modules = [
++    'node',
++    'field_test',
++    'field_ui',
++    'field_group',
++    'field_group_test',
++  ];
++
++  /**
++   * The node type id.
++   *
++   * @var string
++   */
++  protected $type;
++
++  /**
++   * A node to use for testing.
++   *
++   * @var \Drupal\node\NodeInterface
++   */
++  protected $node;
++
++  /**
++   * {@inheritdoc}
++   */
++  public function setUp() {
++    parent::setUp();
++
++    // Create test user.
++    $admin_user = $this->drupalCreateUser([
++      'access content',
++      'administer content types',
++      'administer node fields',
++      'administer node form display',
++      'administer node display',
++      'bypass node access',
++    ]);
++    $this->drupalLogin($admin_user);
++
++    // Create content type, with underscores.
++    $type_name = strtolower($this->randomMachineName(8)) . '_test';
++    $type = $this->drupalCreateContentType(['name' => $type_name, 'type' => $type_name]);
++    $this->type = $type->id();
++
++    // Create test field.
++    $field_storage = FieldStorageConfig::create([
++      'field_name' => 'field_test',
++      'entity_type' => 'node',
++      'type' => 'test_field',
++    ]);
++    $field_storage->save();
++
++    $instance = FieldConfig::create([
++      'field_storage' => $field_storage,
++      'bundle' => $type_name,
++      'label' => 'field_test',
++      'required' => TRUE,
++    ]);
++    $instance->save();
++
++    /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $form_display */
++    $form_display = EntityFormDisplay::load('node.' . $this->type . '.default');
++
++    // Set the field visible on the form display object.
++    $display_options = [
++      'type' => 'string_textfield',
++      'region' => 'content',
++      'settings' => [
++        'size' => 60,
++      ],
++    ];
++    $form_display->setComponent('field_test', $display_options);
++
++    // Save the form display.
++    $form_display->save();
++  }
++
++  /**
++   * Test required fields validation with tabs are visible.
++   */
++  public function testHtmlElement() {
++    $data = [
++      'label' => 'Tab 1',
++      'weight' => '1',
++      'children' => [
++        0 => 'title',
++        1 => 'body',
++      ],
++      'format_type' => 'tab',
++      'format_settings' => [
++        'label' => 'Tab 1',
++        'classes' => 'test-class',
++        'description' => '',
++        'formatter' => 'open',
++      ],
++    ];
++    $first_tab = $this->createGroup('node', $this->type, 'form', 'default', $data);
++
++    $data = [
++      'label' => 'Field group collapsible',
++      'weight' => '1',
++      'children' => [
++        0 => 'field_test',
++      ],
++      'format_type' => 'details',
++      'format_settings' => [
++        'open' => FALSE,
++        'required_fields' => TRUE,
++      ],
++    ];
++    $field_group_collapsible = $this->createGroup('node', $this->type, 'form', 'default', $data);
++
++    $data = [
++      'label' => 'Tab 2',
++      'weight' => '1',
++      'children' => [
++        0 => $field_group_collapsible->group_name,
++      ],
++      'format_type' => 'tab',
++      'format_settings' => [
++        'label' => 'Tab 1',
++        'classes' => 'test-class-2',
++        'description' => 'description of second tab',
++        'formatter' => 'closed',
++      ],
++    ];
++    $second_tab = $this->createGroup('node', $this->type, 'form', 'default', $data);
++
++    $data = [
++      'label' => 'Tabs',
++      'weight' => '1',
++      'children' => [
++        0 => $first_tab->group_name,
++        1 => $second_tab->group_name,
++      ],
++      'format_type' => 'tabs',
++      'format_settings' => [
++        'direction' => 'vertical',
++        'label' => 'Tab 1',
++        'classes' => 'test-class-wrapper',
++      ],
++    ];
++    $tabs_group = $this->createGroup('node', $this->type, 'form', 'default', $data);
++
++    // Load the node creation page.
++    $this->drupalGet('node/add/' . $this->type);
++
++    // Test if it's a vertical tab.
++    $this->assertTrue($this->xpath('//div[@data-vertical-tabs-panes=""]'), 'Tabs are shown vertical.');
++
++    // Assert that the required field_test is present but not visible.
++    $this->assertSession()->fieldExists('field_test');
++    $this->assertFalse($this->getSession()->getDriver()->isVisible($this->cssSelectToXpath('input[name="field_test[0][value]"]')));
++
++    // Submit the form without filling any required field.
++    $this->getSession()->getPage()->pressButton('Save');
++
++    // Assert that the field_test is not visible because it's in the first tab.
++    $this->assertFalse($this->getSession()->getDriver()->isVisible($this->cssSelectToXpath('input[name="field_test[0][value]"]')));
++
++    // Fill in the title field and leave the required field_test empty.
++    $this->getSession()->getPage()->fillField('Title', 'Node title');
++    $this->getSession()->getPage()->pressButton('Save');
++
++    // Assert that the field_test is visible because the second tab is in focus
++    // and the collapsible field group is open.
++    $this->assertTrue($this->getSession()->getDriver()->isVisible($this->cssSelectToXpath('input[name="field_test[0][value]"]')));
++
++    // Switch to horizontal.
++    $tabs_group->format_settings['direction'] = 'horizontal';
++    field_group_group_save($tabs_group);
++
++    // Reload the node creation page.
++    $this->drupalGet('node/add/' . $this->type);
++
++    // Test if it's a horizontal tab.
++    $this->assertTrue($this->xpath('//div[@data-horizontal-tabs-panes=""]'), 'Tabs are shown horizontal.');
++
++    // Assert that the required field, field_test is present but not visible.
++    $this->assertSession()->fieldExists('field_test');
++    $this->assertFalse($this->getSession()->getDriver()->isVisible($this->cssSelectToXpath('input[name="field_test[0][value]"]')));
++
++    // Submit the form without filling any required field.
++    $this->getSession()->getPage()->pressButton('Save');
++
++    // Assert that the field_test is not visible because it's in the first tab.
++    $this->assertFalse($this->getSession()->getDriver()->isVisible($this->cssSelectToXpath('input[name="field_test[0][value]"]')));
++
++    // Fill in the title field and leave the required field_test empty.
++    $this->getSession()->getPage()->fillField('Title', 'Node title');
++    $this->getSession()->getPage()->pressButton('Save');
++
++    // Assert that the field_test is visible because the second tab is in focus
++    // and the collapsible field group is open.
++    $this->assertTrue($this->getSession()->getDriver()->isVisible($this->cssSelectToXpath('input[name="field_test[0][value]"]')));
++  }
++
++}

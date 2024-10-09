@@ -1,0 +1,67 @@
+uuid: 1f258e15-5c8f-4645-bc99-42d7c6ab772e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.aging_content_content_block
+  module:
+    - eca_base
+    - eca_content
+    - eca_views
+    - va_gov_eca
+id: aging_content_expired_news_promo
+modeller: core
+label: 'Aging Content: Expired V2 News Spotlight'
+version: ''
+weight: -9
+events:
+  eca_base_eca_cron:
+    plugin: 'eca_base:eca_cron'
+    label: Cron
+    configuration:
+      frequency: '0 0 * * *'
+    successors:
+      -
+        id: eca_views_query
+        condition: null
+  content_entity_custom:
+    plugin: 'content_entity:custom'
+    label: 'Content  Aware Event: Queue Email'
+    configuration:
+      event_id: aging_content_expired_news_promo_email
+    successors:
+      -
+        id: create_advancedqueue_job
+        condition: null
+conditions: {  }
+gateways: {  }
+actions:
+  eca_views_query:
+    plugin: eca_views_query
+    label: 'Views: Query Expired V2 News Spotlight Promo Results'
+    configuration:
+      token_name: results
+      view_id: aging_content_content_block
+      display_id: v2_news_spotlight_expired
+      arguments: ''
+    successors:
+      -
+        id: eca_trigger_content_entity_cus_1
+        condition: null
+  create_advancedqueue_job:
+    plugin: create_advancedqueue_job
+    label: 'Queue Notification'
+    configuration:
+      token_name: job
+      type: va_gov_aging_content_notification
+      payload: "template_values:\r\n    uid: \"[block_content:revision_user:target_id]\"\r\n    template: aging_content_expired_news_promo\r\nvalues:\r\n    field_expired_date: \"[block_content:expiration_date:date:html_date]\"\r\n    field_title: \"[block_content:info]\"\r\n"
+      queue: aging_content
+    successors: {  }
+  eca_trigger_content_entity_cus_1:
+    plugin: eca_trigger_content_entity_custom_event
+    label: 'Trigger Custom Event: Queue Notification'
+    configuration:
+      event_id: aging_content_expired_news_promo_email
+      tokens: ''
+      object: results
+    successors: {  }

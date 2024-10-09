@@ -1,0 +1,20 @@
+diff --git a/src/Plugin/Field/FieldType/EntityReferenceRevisionsItem.php b/src/Plugin/Field/FieldType/EntityReferenceRevisionsItem.php
+index 16496db..02df0e2 100644
+--- a/src/Plugin/Field/FieldType/EntityReferenceRevisionsItem.php
++++ b/src/Plugin/Field/FieldType/EntityReferenceRevisionsItem.php
+@@ -273,11 +273,10 @@ class EntityReferenceRevisionsItem extends EntityReferenceItem implements Option
+       if ($is_affected && !$host->isNew() && $this->entity && $this->entity->getEntityType()->get('entity_revision_parent_id_field')) {
+         if ($host->isNewRevision()) {
+           $this->entity->setNewRevision();
+-          $needs_save = TRUE;
+-        }
+-        // Additionally ensure that the default revision state is kept in sync.
+-        if ($this->entity && $host->isDefaultRevision() != $this->entity->isDefaultRevision()) {
+-          $this->entity->isDefaultRevision($host->isDefaultRevision());
++          // Additionally ensure that the default revision state is kept in sync.
++          if ($host->isDefaultRevision() != $this->entity->isDefaultRevision()) {
++            $this->entity->isDefaultRevision($host->isDefaultRevision());
++          }
+           $needs_save = TRUE;
+         }
+       }

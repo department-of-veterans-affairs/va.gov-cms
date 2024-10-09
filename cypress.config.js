@@ -51,6 +51,12 @@ async function setupNodeEvents(on, config) {
 
       return `HTML has been saved to ${httpsUrl}`;
     },
+    readFileMaybe(filename) {
+      if (fs.existsSync(filename)) {
+        return fs.readFileSync(filename, "utf8");
+      }
+      return null;
+    },
   });
 
   on("file:preprocessor", browserify.default(config));
