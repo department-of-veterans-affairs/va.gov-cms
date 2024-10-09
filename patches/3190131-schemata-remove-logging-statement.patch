@@ -1,0 +1,15 @@
+diff --git a/src/SchemaFactory.php b/src/SchemaFactory.php
+index c207899..da982af 100644
+--- a/src/SchemaFactory.php
++++ b/src/SchemaFactory.php
+@@ -110,11 +110,6 @@ class SchemaFactory {
+       $data_definition->getPropertyDefinitions()
+     );
+ 
+-    $this->logger->notice('Schema generated for Entity Type (%entity_type) and Bundle (%bundle).', [
+-      '%entity_type' => $entity_type,
+-      '%bundle' => empty($bundle) ? 'N/A' : $bundle,
+-    ]);
+-
+     return $schema;
+   }

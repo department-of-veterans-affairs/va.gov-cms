@@ -1,0 +1,88 @@
+diff --git a/composer.json b/composer.json
+index 20f49c5..fd62bd1 100644
+--- a/composer.json
++++ b/composer.json
+@@ -4,6 +4,6 @@
+     "drupal/flysystem": "^2.0",
+     "league/flysystem": "^1.0.20",
+     "league/flysystem-aws-s3-v3": "^1.0, !=1.0.12, !=1.0.13",
+-    "drupal/core": "^9.0"
++    "drupal/core": "^9 || ^10"
+   }
+ }
+diff --git a/flysystem_s3.info.yml b/flysystem_s3.info.yml
+index deb1bcd..40a4e99 100644
+--- a/flysystem_s3.info.yml
++++ b/flysystem_s3.info.yml
+@@ -1,7 +1,7 @@
+ name: Flysystem Amazon S3
+-description: 'Provides an Amazon S3 plugin for Flysystem.'
+ type: module
+-core_version_requirement: ^9
++description: 'Provides an Amazon S3 plugin for Flysystem.'
++core_version_requirement: ^9 || ^10
+ # version: 8.0-dev
+ package: Flysystem
+ dependencies:
+diff --git a/src/Flysystem/Adapter/S3Adapter.php b/src/Flysystem/Adapter/S3Adapter.php
+index f42d12f..412fa76 100644
+--- a/src/Flysystem/Adapter/S3Adapter.php
++++ b/src/Flysystem/Adapter/S3Adapter.php
+@@ -33,10 +33,10 @@ class S3Adapter extends AwsS3Adapter {
+    */
+   public function has($path) {
+     $location = $this->applyPathPrefix($path);
+-    if ($this->s3Client->doesObjectExist($this->bucket, $location, $this->options)) {
++    if ($this->s3Client->doesObjectExistV2($this->bucket, $location, $this->options)) {
+       return TRUE;
+     }
+-    if ($this->s3Client->doesObjectExist($this->bucket, $location . '/') === TRUE) {
++    if ($this->s3Client->doesObjectExistV2($this->bucket, $location . '/') === TRUE) {
+       return TRUE;
+     }
+     else {
+diff --git a/src/Flysystem/S3.php b/src/Flysystem/S3.php
+index 7a07c87..f39c422 100644
+--- a/src/Flysystem/S3.php
++++ b/src/Flysystem/S3.php
+@@ -208,7 +208,7 @@ class S3 implements FlysystemPluginInterface, ContainerFactoryPluginInterface {
+    */
+   public function ensure($force = FALSE) {
+     try {
+-      $exists = $this->client->doesBucketExist($this->bucket);
++      $exists = $this->client->doesBucketExistV2($this->bucket);
+     }
+     catch (S3Exception $e) {
+       $message = $e->getMessage();
+diff --git a/tests/src/Functional/ModuleInstallUninstallWebTest.php b/tests/src/Functional/ModuleInstallUninstallWebTest.php
+index b33704d..755b9a4 100644
+--- a/tests/src/Functional/ModuleInstallUninstallWebTest.php
++++ b/tests/src/Functional/ModuleInstallUninstallWebTest.php
+@@ -14,6 +14,6 @@ class ModuleInstallUninstallWebTest extends Base {
+   /**
+    * {@inheritdoc}
+    */
+-  public static $modules = ['flysystem_s3'];
++  protected static $modules = ['flysystem_s3'];
+
+ }
+diff --git a/tests/src/Unit/Flysystem/S3Test.php b/tests/src/Unit/Flysystem/S3Test.php
+index c574a71..35108a3 100644
+--- a/tests/src/Unit/Flysystem/S3Test.php
++++ b/tests/src/Unit/Flysystem/S3Test.php
+@@ -2,6 +2,7 @@
+
+ namespace Drupal\Tests\flysystem_s3\Unit\Flysystem;
+
++use Prophecy\PhpUnit\ProphecyTrait;
+ use Aws\Credentials\Credentials;
+ use Aws\S3\S3Client;
+ use Aws\S3\S3ClientInterface;
+@@ -23,6 +24,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
+  */
+ class S3Test extends UnitTestCase {
+
++  use ProphecyTrait;
+   /**
+    * @covers ::__construct
+    * @covers ::getExternalUrl

@@ -312,7 +312,8 @@
             "cweagans/composer-patches": true,
             "orakili/composer-drupal-info-file-patch-helper": true,
             "digitalrevolution/php-codesniffer-baseline": true,
-            "mnsami/composer-custom-directory-installer": true
+            "mnsami/composer-custom-directory-installer": true,
+            "simplesamlphp/composer-xmlprovider-installer": true
         }
     },
     "extra": {
@@ -366,175 +367,175 @@
         "patches-ignore": {},
         "patches": {
             "drupal/cer": {
-                "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch",
-                "3254663 - Notice: Undefined index: target_bundles on Drupal\\cer\\Entity\\CorrespondingReference->synchronizeCorrespondingField()": "https://www.drupal.org/files/issues/2022-02-14/prevent-undefined-index-3254663-6.patch"
+                "3200122 - Remove delete hook": "patches/3200122-delete-hook-added-in-dev-causes-test-failures.patch",
+                "3254663 - Notice: Undefined index: target_bundles on Drupal\\cer\\Entity\\CorrespondingReference->synchronizeCorrespondingField()": "patches/3254669-prevent-undefined-index.patch"
             },
             "drupal/clientside_validation": {
-                "2949540 - Allow specific form ids for clientside validation": "https://www.drupal.org/files/issues/2023-10-27/2949540-31.patch"
+                "2949540 - Allow specific form ids for clientside validation": "patches/2949540-allow-specific-form-ids-for-clientside-validation.patch"
             },
             "drupal/consumer_image_styles": {
-                "3301224 - Follow-up: Very slow JSON:API responses when images are stored on AWS bucket": "https://www.drupal.org/files/issues/2023-02-07/3301224-9.patch"
+                "3301224 - Follow-up: Very slow JSON:API responses when images are stored on AWS bucket": "patches/3301224-very-slow-json-api-responses-when-images-are-stored-on-aws-bucket.patch"
             },
             "drupal/content_lock": {
-                "2951652 - Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
+                "2951652 - Content lock causes redirect response preventing migration rollback.": "patches/2951652-content-lock-causes-redirect-response-preventing-migration-rollback.patch"
             },
             "drupal/core": {
-                "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2023-01-31/3057267-maintenance-forced-logout-experimental.patch",
-                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2024-08-12/2893933-queue_lease_time-11.x-75.patch",
-                "3025164 - Make moderation_state available to field queries": "https://www.drupal.org/files/issues/2020-09-25/3025164-28.patch",
-                "3229493 - TextareaWidget::errorElement() does not consult violation property path.": "https://www.drupal.org/files/issues/2024-08-13/text_module-3229493-12.patch",
-                "3027240 - Undefined index: #parents FormState.php": "https://www.drupal.org/files/issues/2019-01-21/form_system-undefined_index-3027240-2.patch",
-                "2915792 - MenuLinkContentAccessControlHandler does not allow \"view\" access without admin permission": "patches/drupal-core-menu-link-perm-mr-339.patch",
-                "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch",
-                "Internal Claro tweaks": "patches/claro-css-tweaks.patch",
-                "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch",
-                "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch",
-                "Claro claro_preprocess_input()": "patches/drupal-core-claro_preprocess_input.patch",
-                "1156338 - Fixed maximum number of field values, but use «add more» similar to when cardinality «unlimited» is used": "https://www.drupal.org/files/issues/2024-02-09/1156338-33.patch",
-                "2942404 - Contentinfo landmark": "https://www.drupal.org/files/issues/2024-08-13/2942404-65-11.x.patch",
-                "3106205 - Length of menu_tree.url and menu_tree.route_param_key are too short (255 characters)": "https://www.drupal.org/files/issues/2024-01-02/3106205-length-menu-tree-too-short-48.patch",
+                "3057267 - User logout during maintenance mode": "patches/3057267-maintenance-forced-logout-experimental.patch",
+                "2893933 - claimItem in the database and memory queues does not use expire correctly": "patches/2893933-queue-lease-time.patch",
+                "3025164 - Make moderation_state available to field queries": "patches/3025164-make-moderation-state-available-to-field-queries.patch",
+                "3229493 - TextareaWidget::errorElement() does not consult violation property path.": "patches/3229493-textarea-does-not-consult-violation-property-path.patch",
+                "3027240 - Undefined index: #parents FormState.php": "patches/3027240-form-system-undefined-index.patch",
+                "2915792 - MenuLinkContentAccessControlHandler does not allow \"view\" access without admin permission": "patches/2915792-drupal-core-menu-link-perm-mr-339.patch",
+                "2421445 - Text format wrapper does not take description_display into account": "patches/2421445-text-format-wrapper-does-not-take-description-display-into-account.patch",
+                "Internal Claro tweaks": "patches/VACMS-16018-claro-css-tweaks.patch",
+                "2767243 - Create a theme suggestion for taxonomy terms by view mode": "patches/2767243-core-theme-suggestion-for-taxonomy-view-modes.patch",
+                "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "patches/2775665-menulinkcontent-updatelink-function-generates-misleading-php-warning.patch",
+                "Claro claro_preprocess_input()": "patches/VACMS-12054-drupal-core-claro-preprocess-input.patch",
+                "1156338 - Fixed maximum number of field values, but use «add more» similar to when cardinality «unlimited» is used": "patches/1156338-fixed-maximum-number-of-field-values.patch",
+                "2942404 - Contentinfo landmark": "patches/2942404-contentinfo-landmark.patch",
+                "3106205 - Length of menu_tree.url and menu_tree.route_param_key are too short (255 characters)": "patches/3106205-length-menu-tree-too-short.patch",
                 "3333401 - Pager h4 cause accessibility flag on many pages": "patches/3333401-configurable-pager-heading-default-h2.patch",
-                "3382759 - Add multiple workflow content moderation filter to Views.": "https://www.drupal.org/files/issues/2023-08-24/3382759-8.patch",
-                "3241295 - CKEditor 5 isn't respecting field widgets row settings": "https://www.drupal.org/files/issues/2023-11-14/3241295-d10.1.6-114.patch",
-                "3376267 - [upstream] Add style to anchor leads to unusable behavior": "https://www.drupal.org/files/issues/2023-08-09/fix_anchor_scheme_to_not_copy_on_enter-3376167-11.patch",
-                "3285657 - The content has either been modified by another user, or you have already submitted modifications error": "https://www.drupal.org/files/issues/2022-06-14/core9.2-node-lock-translations-2744851.patch",
-                "VACMS-19177 remove username form logging in user module": "patches/VACMS-19177-patch_for_user_module_to_log_uid.patch"
+                "3382759 - Add multiple workflow content moderation filter to Views.": "patches/3382759-add-multiple-workflow-content-moderation-filter-to-views.patch",
+                "3241295 - CKEditor 5 isn't respecting field widgets row settings": "patches/3241295-ckeditor-5-not-respecting-field-widgets-row-settings.patch",
+                "3376267 - [upstream] Add style to anchor leads to unusable behavior": "patches/3376267-add-style-to-anchor-leads-to-unusable-behavior.patch",
+                "3285657 - The content has either been modified by another user, or you have already submitted modifications error": "patches/3285657-node-lock-translations.patch",
+                "VACMS-19177 remove username form logging in user module": "patches/VACMS-19177-patch-for-user-module-to-log-uid.patch"
             },
             "drupal/danse": {
-                "3364925 - added explicit access check": "https://www.drupal.org/files/issues/2023-06-05/3364925-added-explicit-access-check.patch"
+                "3364925 - added explicit access check": "patches/3364925-added-explicit-access-check.patch"
             },
             "drupal/decoupled_router": {
-                "3111456 - Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2022-12-01/decouple_router-3111456-resolve-language-issue-58--get-translation.patch"
+                "3111456 - Unable to resolve path on node in other language than default": "patches/3111456-resolve-language-issue.patch"
             },
             "drupal/diff": {
-                "3228798 - Make revisions overview page accessible": "https://www.drupal.org/files/issues/2024-05-14/diff-3228798-17.patch",
-                "2834253 - Missing column headings in Revisions list": "https://www.drupal.org/files/issues/2024-05-09/diff-missing_column_headers-2834253-23.patch"
+                "3228798 - Make revisions overview page accessible": "patches/3228798-make-revisions-overview-page-accessible.patch",
+                "2834253 - Missing column headings in Revisions list": "patches/2834253-missing-column-headers.patch"
             },
-            "drupal/eca" : {
-                "3465031 - Multiple cron events not firing consistently" : "patches/3465031-eca-fix-cron-consistency.patch",
-                "3472437 - Drupal\\eca\\Service\\ExportRecipe::__construct(): Argument #2 ($fileSystem) must be of type Drupal\\Core\\File\\FileSystem": "https://www.drupal.org/files/issues/2024-09-05/3472437-instatiate-against-file-system-interface.patch"
+            "drupal/eca": {
+                "3465031 - Multiple cron events not firing consistently": "patches/3465031-eca-fix-cron-consistency.patch",
+                "3472437 - Drupal\\eca\\Service\\ExportRecipe::__construct(): Argument #2 ($fileSystem) must be of type Drupal\\Core\\File\\FileSystem": "patches/3472437-instatiate-against-file-system-interface.patch"
             },
             "drupal/entity_browser": {
-                "2856138 - Entity browser cardinality validation": "https://www.drupal.org/files/issues/0001-Issue-2856138-by-gordon-Error-messages-are-not-being.patch",
-                "3191302 - Make modal iframe tab accessible": "https://www.drupal.org/files/issues/2021-01-07/3191302-3.patch"
+                "2856138 - Entity browser cardinality validation": "patches/2856138-entity-browser-cardinality-validation.patch",
+                "3191302 - Make modal iframe tab accessible": "patches/3191302-make-modal-iframe-tab-accessible.patch"
             },
             "drupal/entity_browser_table": {
-                "3194622 - Custom field validation should not be applied to remove button": "https://www.drupal.org/files/issues/2021-01-25/limit-remove-button-validators.patch",
-                "3408217 - Error: Call to a member function getStorage() on null": "https://www.drupal.org/files/issues/2023-12-21/3408217-error-call-to-member-function-getstorage-on-null.patch"
+                "3194622 - Custom field validation should not be applied to remove button": "patches/3794622-limit-remove-button-validators.patch",
+                "3408217 - Error: Call to a member function getStorage() on null": "patches/3408217-error-call-to-member-function-getstorage-on-null.patch"
             },
             "drupal/entity_clone": {
-                "3112577 - Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
+                "3112577 - Cloning child references to nodes has potential to cause memory resource issues": "patches/3112577-entity-clone-child-node-system-drain.patch"
             },
             "drupal/entity_reference_hierarchy": {
-                "3219011 - reference fields are shown twice when ERwH is installed": "https://www.drupal.org/files/issues/2023-08-22/3219011-ERwH-removes-preconfigured-fields-06.patch"
+                "3219011 - reference fields are shown twice when ERwH is installed": "patches/3219011-ERwH-removes-preconfigured-fields.patch"
             },
             "drupal/entity_reference_revisions": {
-                "2984027 - Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
+                "2984027 - Incorrect manipulation of default revision flag": "patches/2984027-incorrect-manipulation-of-default-revision-flag.patch"
             },
             "drupal/entity_usage_addons": {
-                "3000184 - In detailed usage, resolve the paragraph URL to parent entity": "https://www.drupal.org/files/issues/2024-04-03/3000184-resolve_the_paragraph_URL_to_parent_entity.patch",
-                "3443270 - Check Access entity usage statistics perms in linkedUsage() method": "https://www.drupal.org/files/issues/2024-04-24/3443270-Check-Access-entity-usage-statistics-perms-in-linkedUsage-method.patch"
+                "3000184 - In detailed usage, resolve the paragraph URL to parent entity": "patches/3000184-resolve-the-paragraph-URL-to-parent-entity.patch",
+                "3443270 - Check Access entity usage statistics perms in linkedUsage() method": "patches/3443270-check-access-entity-usage-statistics-perms-in-linked-usage-method.patch"
             },
             "drupal/environment_indicator": {
-                "3463388 - fgColor not being picked up.": "https://www.drupal.org/files/issues/2024-07-23/3463201-fix-for-change-in-class-for-toolbar_0.patch"
+                "3463388 - fgColor not being picked up.": "patches/3463201-fix-for-change-in-class-for-toolbar.patch"
             },
             "drupal/externalauth": {
-                "VACMS-19177 remove usernmae from logging": "patches/VACMS-19177-removing_username_from_logging_for_externalauth.patch"
+                "VACMS-19177 remove usernmae from logging": "patches/VACMS-19177-removing-username-from-logging-for-externalauth.patch"
             },
             "drupal/field_group": {
-                "2787179 - Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
-                "3053242 - Undefined index #description_display when adding a description to fieldset group type": "https://www.drupal.org/files/issues/2022-07-04/field_group-undefined-index-description-display-3053242-11.patch"
+                "2787179 - Visibility of invalid fields": "patches/2787179-highlight-html5-validation.patch",
+                "3053242 - Undefined index #description_display when adding a description to fieldset group type": "patches/3053242-field-group-undefined-index-description-display.patch"
             },
             "drupal/flag": {
-                "2893259 - Flags with VBO 8.x-4.x Patch 40": "https://www.drupal.org/files/issues/2020-07-25/flag-vbo-2893259-40.patch"
+                "2893259 - Flags with VBO 8.x-4.x Patch 40": "patches/2893259-flag-vbo.patch"
             },
             "drupal/flysystem_s3": {
-                "3297257 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2023-04-27/3297257-drupal-10-compatibility-fixes_0.patch"
+                "3297257 - Automated Drupal 10 compatibility fixes": "patches/3297257-drupal-10-compatibility-fixes.patch"
             },
             "drupal/html_tag_usage": {
-                "3270450 - Add csv generator and filters": "https://www.drupal.org/files/issues/2022-06-30/add-filters-and-csv-20.patch"
+                "3270450 - Add csv generator and filters": "patches/3270450-add-filters-and-csv.patch"
             },
             "drupal/inline_entity_form": {
-                "3226473 - Opt-in system delete.": "https://www.drupal.org/files/issues/2023-03-28/3226473-opt-in-system-delete-2.patch",
-                "3061620 - Cancel closes all forms": "https://www.drupal.org/files/issues/2022-07-21/inline_entity_form-close-only-forms-where-close-clicked-3061620-13.patch"
+                "3226473 - Opt-in system delete.": "patches/3226473-opt-in-system-delete.patch",
+                "3061620 - Cancel closes all forms": "patches/3067620-inline-entity-form-close-only-forms-where-close-clicked.patch"
             },
             "drupal/jsonapi_extras": {
-                "3025283 - Default field enhancer for each field type": "patches/field-type-enhancer-3025283-3.patch"
+                "3025283 - Default field enhancer for each field type": "patches/3025283-field-type-enhancer.patch"
             },
             "drupal/linkit": {
-                "3049946 - Linkit unpublished nodes not included": "https://www.drupal.org/files/issues/2023-11-09/linkit-unpublished-nodes-not-included-3049946-34.patch"
+                "3049946 - Linkit unpublished nodes not included": "patches/3049946-linkit-unpublished-nodes-not-included.patch"
             },
             "drupal/memcache": {
-                "3058121 - Use persistent connections": "https://www.drupal.org/files/issues/2024-08-26/memcache-persistent-connections-memcached-3058121-18.patch"
+                "3058121 - Use persistent connections": "patches/3058121-memcache-persistent-connections-memcached.patch"
             },
             "drupal/menu_item_extras": {
-                "3210468 - The 'bundle' field is not always populated with the menu name": "https://www.drupal.org/files/issues/2021-04-23/3210468.patch"
+                "3210468 - The 'bundle' field is not always populated with the menu name": "patches/3210468-the-bundle-field-is-not-always-populated-with-the-menu-name.patch"
             },
             "drupal/migration_tools": {
-                "3366789 - Create convert to boolean process plugin": "https://www.drupal.org/files/issues/2023-06-20/add-convert-boolean-process_0.patch"
+                "3366789 - Create convert to boolean process plugin": "patches/3366789-add-convert-boolean-process.patch"
             },
             "drupal/openapi_jsonapi": {
-                "3110109 - Support renamed resource types Part 1": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/17070f1ef70ff89f732619a11c29730107a2083e.patch",
-                "3110109 - Support renamed resource types Part 2": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/9b02c70521c499152c915e481aaf4925992bc8f9.patch",
-                "3185778 - Fix TypeError: Cannot read property 'anyOf' of undefined": "https://www.drupal.org/files/issues/2020-12-21/add_required_keyword_8.x_2.x-3185778-5.patch"
+                "3110109 - Support renamed resource types Part 1": "patches/3110109-support-renamed-resource-types-part-1.patch",
+                "3110109 - Support renamed resource types Part 2": "patches/3110109-support-renamed-resource-types-part-2.patch",
+                "3185778 - Fix TypeError: Cannot read property 'anyOf' of undefined": "patches/3185778-add-required-keyword.patch"
             },
             "drupal/openapi_ui_swagger": {
-                "3259746 - Add more UI config defaults": "https://www.drupal.org/files/issues/2023-12-13/add-more-config-defaults-3259746-3.patch"
+                "3259746 - Add more UI config defaults": "patches/3259746-add-more-config-defaults.patch"
             },
             "drupal/paragraphs": {
-                "3138609 - Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
-                "2919186 - Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
+                "3138609 - Fix broken fieldsets on forms": "patches/3138609-fix-broken-fieldsets-on-forms.patch",
+                "2919186 - Remove button should not be shown on required field": "patches/2919186-hide-field-required-paragraphs-remove-botton.patch"
             },
             "drupal/pathauto": {
-                "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2024-09-05/pathauto-vbo-support-3204586-30.patch",
-                "3214658 - Omit nolink items from url path args and add token that uses parent url": "https://www.drupal.org/files/issues/2022-05-08/remove-nolink-args-use-parent-entity-url-3214658-18.patch"
+                "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "patches/3204586-pathauto-vbo-support.patch",
+                "3214658 - Omit nolink items from url path args and add token that uses parent url": "patches/3214658-remove-nolink-args-use-parent-entity-url.patch"
             },
             "drupal/prometheus_exporter": {
-                "3214628 - Add published/unpublished node statistics to NodeCount.": "https://www.drupal.org/files/issues/2021-06-29/prometheus_exporter-add_status_metrics_to_node_count-3214628-3.patch"
+                "3214628 - Add published/unpublished node statistics to NodeCount.": "patches/3214628-prometheus-exporter-add-status-metrics-to-node-count.patch"
             },
             "drupal/raven": {
-                "Sentry/Dsn throws a TypeError, blowing up everything.": "patches/raven-catch-typeerror.patch"
+                "Sentry/Dsn throws a TypeError, blowing up everything.": "patches/VACMS-0000-PR-11436-raven-catch-typeerror.patch"
             },
             "drupal/redirect_options": {
-                "form_alter hook check on classes fails in some cases": "https://www.drupal.org/files/issues/2023-01-23/redirect_options-form_alter_array_check-3335893-2.patch"
+                "3335893 - form_alter hook check on classes fails in some cases": "patches/3335893-redirect-options-form-alter-array-check.patch"
             },
             "drupal/schemata": {
-                "3190131 - Possibly unnecessary logging in SchemaFactory::create().": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
+                "3190131 - Possibly unnecessary logging in SchemaFactory::create().": "patches/3190131-schemata-remove-logging-statement.patch"
             },
             "drupal/social_media_links": {
-                "3044002 - Platform Name and Aria Label issue": "https://www.drupal.org/files/issues/2021-05-17/3044002-13.patch"
+                "3044002 - Platform Name and Aria Label issue": "patches/3044002-platform-name-and-aria-label-issue.patch"
             },
             "drupal/subrequests": {
-                "63049395 - Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
+                "63049395 - Get same results on different request": "patches/63049395-change-request-type.patch"
             },
             "drupal/smart_date": {
-                "3260965 - Undefined index: #value": "https://www.drupal.org/files/issues/2024-08-27/smart_date-undefined_value_in_validation-3260965-24-reroll.patch",
-                "3385720 - Implement errorElement() in Widgets": "https://www.drupal.org/files/issues/2023-09-08/smart_date-implement-errorelement-3385720-3.patch"
+                "3260965 - Undefined index: #value": "patches/3260965-smart-date-undefined-value-in-validation.patch",
+                "3385720 - Implement errorElement() in Widgets": "patches/3385720-smart-date-implement-errorelement.patch"
             },
             "drupal/tablefield": {
-                "3100109 - 0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
-                "3163841 - Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
-                "3176982 - Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch",
-                "3195203 - Copying caption to value breaks some data exports 3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch",
-                "3341971 - Drag & drop addition adds meaningless numbers to table data, could break integrating code": "https://www.drupal.org/files/issues/2023-03-23/tablefield-disable-drag-drop-controls.patch"
+                "3100109 - 0 string value in cell throws empty error": "patches/3100109-0-value-throwing-empty-error.patch",
+                "3163841 - Fix Undefined index: caption notice": "patches/3163841-tablefield-empty-caption-notice.patch",
+                "3176982 - Tablefield input elements have no title or label": "patches/3176982-tablefield-add-title-to-input-elements.patch",
+                "3195203 - Copying caption to value breaks some data exports 3195203": "patches/3195203-tablefield-caption-copied-to-value.patch",
+                "3341971 - Drag & drop addition adds meaningless numbers to table data, could break integrating code": "patches/3341971-tablefield-disable-drag-drop-controls.patch"
             },
             "drupal/textfield_counter": {
-                "3380997 - Textarea with summary and counter doesn't respect count only setting": "patches/3380997-fix-textfield_counter-respect-count-only-mode.patch"
+                "3380997 - Textarea with summary and counter doesn't respect count only setting": "patches/3380997-fix-textfield-counter-respect-count-only-mode.patch"
             },
             "drupal/token": {
-                "3047568 - Consistent tokens support across all entities and fields": "https://www.drupal.org/files/issues/2022-08-04/token-consistent-entity-and-field-support-3047568-17.patch"
+                "3047568 - Consistent tokens support across all entities and fields": "patches/3047568-token-consistent-entity-and-field-support.patch"
             },
             "drupal/viewfield": {
-                "3252356 - Add option to display default view on node edit when always use default value selected": "https://www.drupal.org/files/issues/2023-02-07/viewfield-option-display-default-view-on-node-edit-3252356-5.patch"
+                "3252356 - Add option to display default view on node edit when always use default value selected": "patches/3252356-viewfield-option-display-default-view-on-node-edit.patch"
             },
             "drupal/views_bulk_edit": {
-                "3024419 - Fix Required fields to really not be required": "https://www.drupal.org/files/issues/2022-06-07/views_bulk_edit-fix_required_fields-3024419-29.patch"
+                "3024419 - Fix Required fields to really not be required": "patches/3024419-views-bulk-edit-fix-required-fields.patch"
             },
             "drupal/views_bulk_operations": {
-                "3246212 - When access is denied, display the reason": "https://www.drupal.org/files/issues/2023-01-19/display_access_denied_reason-3246212-22.patch"
+                "3246212 - When access is denied, display the reason": "patches/3246212-display-access-denied-reason.patch"
             },
             "drupal/views_data_export": {
-                "3189135 - Use relative URL for export button": "https://www.drupal.org/files/issues/2022-08-06/use-relative-url-for-export-3189135-10.patch"
+                "3189135 - Use relative URL for export button": "patches/3189135-use-relative-url-for-export.patch"
             }
         }
     },
