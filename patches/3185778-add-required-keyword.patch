@@ -1,0 +1,28 @@
+diff --git a/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php b/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php
+index 40353bd..fc3a666 100644
+--- a/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php
++++ b/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php
+@@ -544,6 +544,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+             )->toString(),
+           ]
+         ),
++        'items' => [],
+       ];
+       $parameters[] = [
+         'name' => 'sort',
+@@ -557,6 +558,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+             )->toString(),
+           ]
+         ),
++        'items' => [],
+       ];
+       $parameters[] = [
+         'name' => 'page',
+@@ -570,6 +572,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+             )->toString(),
+           ]
+         ),
++        'items' => [],
+       ];
+       $parameters[] = [
+         'name' => 'include',
