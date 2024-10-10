@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_application_process
     - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_id
     - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_value
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_after_applying
@@ -108,6 +109,7 @@ third_party_settings:
       children:
         - field_va_benefit_app_form
         - field_va_benefit_app_preparation
+        - field_application_process
         - field_va_benefit_app_help
       label: 'How to apply'
       region: content
@@ -173,6 +175,14 @@ targetEntityType: taxonomy_term
 bundle: va_benefits_taxonomy
 mode: default
 content:
+  field_application_process:
+    type: text_textarea
+    weight: 8
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_enforce_unique_id:
     type: allow_only_one_widget
     weight: 5
@@ -206,6 +216,7 @@ content:
       maxlength: 60
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -225,7 +236,7 @@ content:
         add_another: 'Add another form'
   field_va_benefit_app_help:
     type: text_textarea
-    weight: 8
+    weight: 9
     region: content
     settings:
       rows: 5
@@ -255,6 +266,7 @@ content:
       maxlength: 500
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings:
@@ -347,6 +359,7 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -375,6 +388,7 @@ content:
       maxlength: 255
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
