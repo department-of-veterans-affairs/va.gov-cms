@@ -17,13 +17,14 @@ dependencies:
     - field.field.node.vamc_system_billing_insurance.field_office_hours
     - field.field.node.vamc_system_billing_insurance.field_phone_number
     - field.field.node.vamc_system_billing_insurance.field_service_name_and_descripti
+    - field.field.node.vamc_system_billing_insurance.field_telephone
     - node.type.vamc_system_billing_insurance
   module:
     - entity_field_fetch
+    - entity_reference_revisions
     - field_group
     - layout_builder
     - office_hours
-    - telephone
     - user
     - viewfield
 third_party_settings:
@@ -67,7 +68,7 @@ third_party_settings:
         attributes: ''
     group_inquiries_about_copay:
       children:
-        - field_phone_number
+        - field_telephone
         - field_office_hours
       label: 'For inquiries by phone about copay balance'
       parent_name: ''
@@ -156,15 +157,16 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: content
-  field_phone_number:
-    type: telephone_link
+  field_telephone:
+    type: entity_reference_revisions_entity_view
     label: above
     settings:
-      title: ''
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   flag_email_node:
     settings: {  }
@@ -192,6 +194,7 @@ hidden:
   field_enforce_unique_combo_offic: true
   field_last_saved_by_an_editor: true
   field_office: true
+  field_phone_number: true
   field_service_name_and_descripti: true
   langcode: true
   search_api_excerpt: true

@@ -407,12 +407,25 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
    * Gathers the mental health phone number from the facility.
    *
    * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/15686
+   * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/17862
    *
    * @return string
    *   The mental health phone number.
    */
   protected function getFacilityMentalHealthPhone(): string {
-    $mental_health_phone = $this->getFieldSafe('field_mental_health_phone');
+    if (!$this->facilityNode->hasField('field_telephone')) {
+      return '';
+    }
+    $telephone_paragraph_id = $this->facilityNode->get('field_telephone')->target_id;
+    if (empty($telephone_paragraph_id)) {
+      return '';
+    }
+    $telephone_paragraph = $this->entityTypeManager->getStorage('paragraph')->load($telephone_paragraph_id);
+    $mental_health_phone = $telephone_paragraph->get('field_phone_number')->value ?? '';
+    $mental_health_extension = $telephone_paragraph->get('field_phone_extension')->value ?? '';
+    if (!empty($mental_health_extension)) {
+      $mental_health_phone .= ', ext. ' . $mental_health_extension;
+    }
     return $mental_health_phone;
   }
 
