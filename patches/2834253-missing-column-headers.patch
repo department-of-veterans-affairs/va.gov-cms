@@ -1,0 +1,31 @@
+diff --git a/src/Form/RevisionOverviewForm.php b/src/Form/RevisionOverviewForm.php
+index be03826..16f4e22 100755
+--- a/src/Form/RevisionOverviewForm.php
++++ b/src/Form/RevisionOverviewForm.php
+@@ -178,13 +178,15 @@ class RevisionOverviewForm extends FormBase {
+     ];
+ 
+     $table_header = [];
+-    $table_header['revision'] = $this->t('Revision');
++    $table_header['revision'] = $this->t('Revision information');
+ 
+     // Allow comparisons only if there are 2 or more revisions.
++    $table_caption = '';
+     if ($revision_count > 1) {
++      $table_caption = $this->t('Use the radio buttons in the table below to select two revisions to compare. Then click the "Compare selected revisions" button to generate the comparison.');
+       $table_header += [
+-        'select_column_one' => '',
+-        'select_column_two' => '',
++        'select_column_one' => $this->t('Select revision A'),
++        'select_column_two' => $this->t('Select revision B'),
+       ];
+     }
+     $table_header['operations'] = $this->t('Operations');
+@@ -201,6 +203,7 @@ class RevisionOverviewForm extends FormBase {
+     // Contains the table listing the revisions.
+     $build['node_revisions_table'] = [
+       '#type' => 'table',
++      '#caption' => $table_caption,
+       '#header' => $table_header,
+       '#attributes' => ['class' => ['diff-revisions']],
+     ];

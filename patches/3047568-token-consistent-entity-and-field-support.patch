@@ -1,0 +1,73 @@
+diff --git a/tests/src/Kernel/FieldTest.php b/tests/src/Kernel/FieldTest.php
+index d49038d..9174755 100644
+--- a/tests/src/Kernel/FieldTest.php
++++ b/tests/src/Kernel/FieldTest.php
+@@ -55,6 +55,7 @@ class FieldTest extends KernelTestBase {
+     'language',
+     'datetime',
+     'datetime_range',
++    'path',
+   ];
+ 
+   /**
+@@ -465,8 +466,11 @@ class FieldTest extends KernelTestBase {
+     $this->assertEquals($token_info['description'], 'Text (plain) field.');
+     $this->assertEquals($token_info['module'], 'token');
+ 
+-    // Verify that node entity type doesn't have a uid token.
+-    $this->assertNull($tokenService->getTokenInfo('node', 'uid'));
++    // Verify that node entity type has the uid token, a stored base field.
++    $this->assertNotNull($tokenService->getTokenInfo('node', 'uid'));
++
++    // Verify that node entity type has the path token, a computed base field.
++    $this->assertNotNull($tokenService->getTokenInfo('node', 'path'));
+   }
+ 
+   /*
+diff --git a/token.tokens.inc b/token.tokens.inc
+index 7b2e2cf..2ca0171 100755
+--- a/token.tokens.inc
++++ b/token.tokens.inc
+@@ -15,7 +15,6 @@ use Drupal\Component\Utility\Html;
+ use Drupal\Core\Routing\RouteObjectInterface;
+ use Drupal\Core\TypedData\DataReferenceDefinitionInterface;
+ use Drupal\Core\Url;
+-use Drupal\field\FieldStorageConfigInterface;
+ use Drupal\menu_link_content\MenuLinkContentInterface;
+ use Drupal\node\Entity\Node;
+ use Drupal\node\Entity\NodeType;
+@@ -1509,20 +1508,20 @@ function field_token_info_alter(&$info) {
+       continue;
+     }
+ 
+-    $fields = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions($entity_type_id);
+-    foreach ($fields as $field_name => $field) {
+-      /** @var \Drupal\field\FieldStorageConfigInterface $field */
++    // Get base and storage field definitions for the entity type.
++    // Base field definitions include computed fields, while storage field
++    // definitions include
++    $fields = \Drupal::service('entity_field.manager')->getBaseFieldDefinitions($entity_type_id)
++      + \Drupal::service('entity_field.manager')->getFieldStorageDefinitions($entity_type_id);
+ 
+-      // Ensure the token implements FieldStorageConfigInterface or is defined
+-      // in token module.
+-      $provider = '';
+-      if (isset($info['types'][$token_type]['module'])) {
+-        $provider = $info['types'][$token_type]['module'];
+-      }
+-      if (!($field instanceof FieldStorageConfigInterface) && $provider != 'token') {
+-        continue;
+-      }
++    // Bundles can define their own base field definitions so add those to the
++    // field list too.
++    // @see hook_entity_bundle_field_info_alter().
++    foreach (\Drupal::service('entity_type.bundle.info')->getBundleInfo($entity_type_id) as $bundle_name => $bundle) {
++      $fields += \Drupal::service('entity_field.manager')->getFieldDefinitions($entity_type_id, $bundle_name);
++    }
+ 
++    foreach ($fields as $field_name => $field) {
+       // If a token already exists for this field, then don't add it.
+       if (isset($info['tokens'][$token_type][$field_name])) {
+         continue;
+-- 
+2.35.1.windows.2

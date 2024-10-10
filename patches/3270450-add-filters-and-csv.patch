@@ -1,0 +1,744 @@
+diff --git a/html_tag_usage.install b/html_tag_usage.install
+index aa5caeb..f781858 100644
+--- a/html_tag_usage.install
++++ b/html_tag_usage.install
+@@ -68,6 +68,18 @@ function html_tag_usage_schema() {
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+       ],
++      'bundle' => [
++        'type' => 'varchar',
++        'description' => 'Node bundle',
++        'length' => 50,
++        'not null' => FALSE,
++      ],
++      'field_text' => [
++        'type' => 'text',
++        'description' => 'Field text',
++        'size' => 'big',
++        'not null' => FALSE,
++      ],
+     ],
+     'primary key' => [
+       'entity_type',
+@@ -97,3 +109,24 @@ function html_tag_usage_schema() {
+ function html_tag_usage_uninstall($is_syncing) {
+   \Drupal::state()->delete(Analyzer::REPORT_LAST_GENERATED_STATE_KEY);
+ }
++
++/**
++ * Add bundle and field text columns to the table.
++ */
++function html_tag_usage_update_9001() {
++  $bundle = [
++    'type' => 'varchar',
++    'description' => t('Node bundle'),
++    'length' => 50,
++    'not null' => FALSE,
++  ];
++  $field_text = [
++    'type' => 'text',
++    'description' => t('Field text'),
++    'size' => 'big',
++    'not null' => FALSE,
++  ];
++  $schema = \Drupal::service('database')->schema();
++  $schema->addField('html_tag_usage', 'bundle', $bundle);
++  $schema->addField('html_tag_usage', 'field_text', $field_text);
++}
+diff --git a/html_tag_usage.routing.yml b/html_tag_usage.routing.yml
+index 7b32728..6ea078d 100644
+--- a/html_tag_usage.routing.yml
++++ b/html_tag_usage.routing.yml
+@@ -34,3 +34,12 @@ html_tag_usage.configure:
+     _title: 'Administer HTML tag usage configuration'
+   requirements:
+     _permission: 'administer html tag usage'
++
++html_tag_usage.csv:
++  path: '/api/html-tag-usage/{text_format}/{tag}/{attribute}'
++  defaults:
++    _controller: 'Drupal\html_tag_usage\Controller\CsvController::buildCsv'
++    _title: 'Html Tag Usage csv generator'
++  methods:  [GET]
++  requirements:
++    _access: 'TRUE'
+diff --git a/html_tag_usage.services.yml b/html_tag_usage.services.yml
+index 12d9bfe..a97766e 100644
+--- a/html_tag_usage.services.yml
++++ b/html_tag_usage.services.yml
+@@ -9,3 +9,22 @@ services:
+       - '@messenger'
+       - '@state'
+       - '@datetime.time'
++      - '@form_builder'
++      - '@renderer'
++      - '@request_stack'
++  html_tag_usage.csv:
++    class: Drupal\html_tag_usage\Controller\CsvController
++    arguments:
++      - '@config.factory'
++      - '@database'
++      - '@entity_type.manager'
++      - '@entity_field.manager'
++      - '@request_stack'
++      - '@renderer'
++  html_tag_usage.filters_form:
++    class: Drupal\html_tag_usage\Form\FiltersForm
++    arguments:
++      - '@entity_type.bundle.info'
++      - '@entity_type.manager'
++      - '@request_stack'
++
+diff --git a/src/Analyzer.php b/src/Analyzer.php
+index dd90d1f..9f15e1e 100644
+--- a/src/Analyzer.php
++++ b/src/Analyzer.php
+@@ -2,6 +2,8 @@
+ 
+ namespace Drupal\html_tag_usage;
+ 
++use Symfony\Component\HttpFoundation\RequestStack;
++use Drupal\Core\Render\RendererInterface;
+ use Drupal\Component\Datetime\TimeInterface;
+ use Drupal\Component\Utility\Html;
+ use Drupal\Core\Batch\BatchBuilder;
+@@ -12,11 +14,13 @@ use Drupal\Core\DependencyInjection\DependencySerializationTrait;
+ use Drupal\Core\Entity\EntityFieldManagerInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\Entity\FieldableEntityInterface;
++use Drupal\Core\Form\FormBuilder;
+ use Drupal\Core\Messenger\MessengerInterface;
+ use Drupal\Core\State\StateInterface;
+ use Drupal\Core\StringTranslation\StringTranslationTrait;
+ use Drupal\Core\TypedData\TypedDataInterface;
+ use Drupal\Core\Url;
++use Drupal\Core\Link;
+ use Drupal\Core\StringTranslation\TranslatableMarkup;
+ use Drupal\html_tag_usage\Batch\BatchOperations;
+ 
+@@ -84,6 +88,27 @@ class Analyzer {
+    */
+   protected $time;
+ 
++  /**
++   * The form builder service.
++   *
++   * @var \Drupal\Core\Form\FormBuilder
++   */
++  protected $formBuilder;
++
++  /**
++   * The render service.
++   *
++   * @var \Drupal\Core\Render\RendererInterface
++   */
++  protected $render;
++
++  /**
++   * A request stack symfony instance.
++   *
++   * @var \Symfony\Component\HttpFoundation\RequestStack
++   */
++  protected $requestStack;
++
+   /**
+    * Constructs a new Analyzer instance.
+    *
+@@ -101,8 +126,24 @@ class Analyzer {
+    *   The state service.
+    * @param \Drupal\Component\Datetime\TimeInterface $time
+    *   The time service.
++   * @param \Drupal\Core\Form\FormBuilder $form_builder
++   *   The form builder service.
++   * @param \Drupal\Core\Render\RendererInterface $render
++   *   The form render service.
++   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
++   *   A request stack symfony instance.
+    */
+-  public function __construct(ConfigFactoryInterface $config_factory, Connection $database, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, MessengerInterface $messenger, StateInterface $state, TimeInterface $time) {
++  public function __construct(
++  ConfigFactoryInterface $config_factory,
++  Connection $database,
++  EntityTypeManagerInterface $entity_type_manager,
++  EntityFieldManagerInterface $entity_field_manager,
++  MessengerInterface $messenger,
++  StateInterface $state,
++  TimeInterface $time,
++  FormBuilder $form_builder,
++  RendererInterface $render,
++  RequestStack $requestStack) {
+     $this->configFactory = $config_factory;
+     $this->database = $database;
+     $this->entityTypeManager = $entity_type_manager;
+@@ -110,6 +151,9 @@ class Analyzer {
+     $this->messenger = $messenger;
+     $this->state = $state;
+     $this->time = $time;
++    $this->formBuilder = $form_builder;
++    $this->render = $render;
++    $this->requestStack = $requestStack;
+   }
+ 
+   /**
+@@ -292,6 +336,7 @@ class Analyzer {
+    *   Renderable array.
+    */
+   public function buildInspectionTable(string $text_format, string $tag, string $attribute): array {
++
+     $header = [
+       [
+         'field' => 'entity_type',
+@@ -321,6 +366,19 @@ class Analyzer {
+       ],
+     ];
+ 
++    $request = $this->requestStack->getCurrentRequest();
++
++    $field_name = $request->query->get('field_name') ?? NULL;
++    $entity_name = $request->query->get('entity_name') ?? NULL;
++    $bundle_name = NULL;
++    if ($request->query->get('bundle_name')) {
++      $bundle_name = $request->query->get('bundle_name');
++    }
++    if ($request->query->get('paragraph_bundle_name')) {
++      $bundle_name = $request->query->get('paragraph_bundle_name');
++    }
++    $string_name = $request->query->get('string_name') ?? NULL;
++
+     $query = $this->database->select('html_tag_usage', 'htu')
+       ->extend('\\Drupal\\Core\\Database\\Query\\PagerSelectExtender')
+       ->extend('\\Drupal\\Core\\Database\\Query\\TableSortExtender');
+@@ -333,6 +391,19 @@ class Analyzer {
+     $query->condition('htu.text_format', $text_format);
+     $query->condition('htu.tag', $tag);
+     $query->condition('htu.attribute', $attribute);
++    if ($field_name) {
++      $query->condition('htu.field_name', $field_name);
++    }
++    if ($entity_name) {
++      $query->condition('htu.entity_type', $entity_name);
++    }
++    if ($bundle_name) {
++      $query->condition('htu.bundle', $bundle_name);
++    }
++    if ($string_name) {
++      $query->condition('htu.field_text', "%" . $query->escapeLike($string_name) . "%", 'LIKE');
++      $query->condition('htu.tag', "%" . $query->escapeLike($tag) . "%", 'LIKE');
++    }
+     $query->addExpression('SUM(htu.count)', 'tag_count');
+     $query->groupBy('htu.entity_type');
+     $query->groupBy('htu.entity_id');
+@@ -350,6 +421,7 @@ class Analyzer {
+       $entity_label = $entity->getEntityType()->hasLinkTemplate('edit-form') ? $entity->toLink($entity->label(), 'edit-form')->toRenderable() : $entity->label();
+       if ($entity->getEntityType()->id() === 'paragraph') {
+         // Link to parent entity edit form for paragraphs.
++        /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+         $paragraph = $entity;
+         while ($paragraph->getEntityType()->id() === 'paragraph' && $parent_entity = $paragraph->getParentEntity()) {
+           $paragraph = $parent_entity;
+@@ -390,6 +462,26 @@ class Analyzer {
+       ];
+     }
+ 
++    $csv_options = [
++      'query' => [
++        'field_name' => $field_name,
++        'entity_name' => $entity_name,
++        'bundle_name' => $bundle_name,
++        'string_name' => $string_name,
++      ],
++    ];
++    $csv_url = Url::fromRoute('html_tag_usage.csv', [
++      'text_format' => $text_format,
++      'tag' => $tag,
++      'attribute' => $attribute,
++    ],
++    $csv_options,
++    );
++    $csv_link = Link::fromTextAndUrl($this->t('Download CSV'), $csv_url);
++    $csv_link = $csv_link->toRenderable();
++    $build['#prefix'] = $this->render->render($csv_link);
++    $filters_form = $this->formBuilder->getForm('Drupal\html_tag_usage\Form\FiltersForm');
++    $build['filters']['#markup'] = $this->render->render($filters_form);
+     $build['table_for_inspection'] = [
+       '#type' => 'table',
+       '#header' => $header,
+@@ -556,6 +648,7 @@ class Analyzer {
+    *   The field to analyze.
+    */
+   public function analyzeEntityField(FieldableEntityInterface $entity, string $field_name) {
++    $bundle = NULL;
+     if (!$entity->hasField($field_name)) {
+       return;
+     }
+@@ -563,8 +656,11 @@ class Analyzer {
+     if ($field_item_list->isEmpty()) {
+       return;
+     }
++    if ($entity->getEntityTypeId() === 'node' || $entity->getEntityTypeId() === 'paragraph') {
++      $bundle = $entity->bundle();
++    }
+     foreach ($field_item_list as $delta => $field_item) {
+-      $this->analyzeEntityFieldItem($entity, $field_name, $delta, $field_item);
++      $this->analyzeEntityFieldItem($entity, $field_name, $delta, $field_item, $bundle);
+     }
+   }
+ 
+@@ -582,8 +678,10 @@ class Analyzer {
+    *   The delta of the field item.
+    * @param \Drupal\Core\TypedData\TypedDataInterface $field_item
+    *   The field item to analyze.
++   * @param string $bundle
++   *   The name of the node bundle.
+    */
+-  protected function analyzeEntityFieldItem(FieldableEntityInterface $entity, string $field_name, int $delta, TypedDataInterface $field_item) {
++  protected function analyzeEntityFieldItem(FieldableEntityInterface $entity, string $field_name, int $delta, TypedDataInterface $field_item, string $bundle = NULL) {
+     $tags = [];
+     $seen = [];
+ 
+@@ -595,6 +693,8 @@ class Analyzer {
+       'field_name' => $field_name,
+       'delta' => $delta,
+       'text_format' => $value['format'],
++      'bundle' => $bundle,
++      'field_text' => $value['value'],
+     ];
+ 
+     $dom = Html::load($value['value']);
+diff --git a/src/Controller/CsvController.php b/src/Controller/CsvController.php
+new file mode 100644
+index 0000000..f16b387
+--- /dev/null
++++ b/src/Controller/CsvController.php
+@@ -0,0 +1,212 @@
++<?php
++
++namespace Drupal\html_tag_usage\Controller;
++
++use Drupal\Core\Config\ConfigFactoryInterface;
++use Drupal\Core\Controller\ControllerBase;
++use Drupal\Core\Database\Connection;
++use Drupal\Core\Entity\EntityFieldManagerInterface;
++use Drupal\Core\Entity\EntityTypeManagerInterface;
++use Drupal\Core\Render\RendererInterface;
++use Symfony\Component\DependencyInjection\ContainerInterface;
++use Symfony\Component\HttpFoundation\RequestStack;
++use Symfony\Component\HttpFoundation\Response;
++
++/**
++ * Creates a downloadable csv.
++ *
++ * @package Drupal\html_tag_usage\Controller
++ */
++class CsvController extends ControllerBase {
++
++  /**
++   * The factory for configuration object.
++   *
++   * @var \Drupal\Core\Config\ConfigFactoryInterface
++   */
++  protected $configFactory;
++
++  /**
++   * The database connection.
++   *
++   * @var \Drupal\Core\Database\Connection
++   */
++  protected $database;
++
++  /**
++   * The entity field manager.
++   *
++   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
++   */
++  protected $entityFieldManager;
++
++  /**
++   * The entity type manager.
++   *
++   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
++   */
++  protected $entityTypeManager;
++
++  /**
++   * A request stack symfony instance.
++   *
++   * @var \Symfony\Component\HttpFoundation\RequestStack
++   */
++  protected $requestStack;
++
++  /**
++   * The render service.
++   *
++   * @var \Drupal\Core\Render\RendererInterface
++   */
++  protected $render;
++
++  /**
++   * Constructs a new CsvController instance.
++   *
++   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
++   *   The factory for configuration objects.
++   * @param \Drupal\Core\Database\Connection $database
++   *   The database connection.
++   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
++   *   The entity type manager.
++   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
++   *   The entity field manager.
++   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
++   *   A request stack symfony instance.
++   * @param \Drupal\Core\Render\RendererInterface $render
++   *   The form render service.
++   */
++  public function __construct(
++  ConfigFactoryInterface $config_factory,
++  Connection $database,
++  EntityTypeManagerInterface $entity_type_manager,
++  EntityFieldManagerInterface $entity_field_manager,
++  RequestStack $request_stack,
++  RendererInterface $render) {
++    $this->configFactory = $config_factory;
++    $this->database = $database;
++    $this->entityTypeManager = $entity_type_manager;
++    $this->entityFieldManager = $entity_field_manager;
++    $this->requestStack = $request_stack;
++    $this->render = $render;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public static function create(ContainerInterface $container) {
++    return new static(
++        $container->get('config.factory'),
++        $container->get('database'),
++        $container->get('entity_type.manager'),
++        $container->get('entity_field.manager'),
++        $container->get('request_stack'),
++        $container->get('renderer'),
++        );
++  }
++
++  /**
++   * Generates tag data csv.
++   *
++   * @return array
++   *   The tag data csv array.
++   */
++  public function buildCsv() {
++    $request = $this->requestStack->getCurrentRequest();
++    $text_format = $request->get('text_format');
++    $tag = $request->get('tag');
++    $attribute = $request->get('attribute') ? $request->get('attribute') : '*';
++    $field_name = $request->query->get('field_name') ?? NULL;
++    $entity_name = $request->query->get('entity_name') ?? NULL;
++    $bundle_name = NULL;
++    if ($request->query->get('bundle_name')) {
++      $bundle_name = $request->query->get('bundle_name');
++    }
++    if ($request->query->get('paragraph_bundle_name')) {
++      $bundle_name = $request->query->get('paragraph_bundle_name');
++    }
++    $string_name = $request->query->get('string_name') ?? NULL;
++
++    $text_format = $request->get('text_format');
++    $tag = $request->get('tag');
++    $data = [];
++    $query = $this->database->select('html_tag_usage', 'htu');
++    $query->fields('htu', ['entity_type', 'entity_id', 'langcode', 'field_name']);
++    $query->condition('htu.text_format', $text_format);
++    $query->condition('htu.tag', $tag);
++    $query->condition('htu.attribute', $attribute);
++    if ($field_name) {
++      $query->condition('htu.field_name', $field_name);
++    }
++    if ($entity_name) {
++      $query->condition('htu.entity_type', $entity_name);
++    }
++    if ($bundle_name) {
++      $query->condition('htu.bundle', $bundle_name);
++    }
++    if ($string_name) {
++      $query->condition('htu.field_text', "%" . $query->escapeLike($string_name) . "%", 'LIKE');
++      $query->condition('htu.tag', "%" . $query->escapeLike($tag) . "%", 'LIKE');
++    }
++    $query->addExpression('SUM(htu.count)', 'tag_count');
++    $query->groupBy('htu.entity_type');
++    $query->groupBy('htu.entity_id');
++    $query->groupBy('htu.langcode');
++    $query->groupBy('htu.field_name');
++
++    $results = $query->execute();
++    $handle = fopen('php://temp', 'w+');
++    $header = [
++      'entity_type',
++      'entity_id',
++      'language',
++      'field',
++      'entity',
++      'count',
++    ];
++    fputcsv($handle, $header);
++    foreach ($results as $record) {
++      /** @var \Drupal\Core\Entity\FieldableEntityInterface $entity */
++      $entity = $this->entityTypeManager
++        ->getStorage($record->entity_type)
++        ->load($record->entity_id);
++
++      $entity_label = $entity->getEntityType()->hasLinkTemplate('edit-form') ? $entity->toLink($entity->label(), 'edit-form')->toRenderable() : $entity->label();
++      if ($entity->getEntityType()->id() === 'paragraph') {
++        // Link to parent entity edit form for paragraphs.
++        /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
++        $paragraph = $entity;
++        while ($paragraph->getEntityType()->id() === 'paragraph' && $parent_entity = $paragraph->getParentEntity()) {
++          $paragraph = $parent_entity;
++          $entity_label = $parent_entity->hasLinkTemplate('edit-form') ? $parent_entity->toLink($entity->label(), 'edit-form')->toRenderable() : $entity->label();
++        }
++      }
++
++      $data = [
++        'entity_type' => $entity->getEntityType()->getSingularLabel()->__toString(),
++        'entity_id' => $entity->id(),
++        'language' => $entity->language()->getName(),
++        'field' => $entity
++          ->get($record->field_name)
++          ->getFieldDefinition()
++          ->getLabel(),
++        'entity' => is_array($entity_label) ? $this->render->render($entity_label) : '',
++        'count' => $record->tag_count,
++      ];
++      fputcsv($handle, array_values($data));
++    }
++    rewind($handle);
++
++    // Retrieve the data from the file handler.
++    $csv_data = stream_get_contents($handle);
++    fclose($handle);
++    $response = new Response();
++    $response->headers->set('Content-Type', 'text/csv');
++    $response->headers->set('Content-Disposition', 'attachment; filename="html-tag-report.csv"');
++    $response->setContent($csv_data);
++
++    return $response;
++  }
++
++}
+diff --git a/src/Form/FiltersForm.php b/src/Form/FiltersForm.php
+new file mode 100644
+index 0000000..64c3e07
+--- /dev/null
++++ b/src/Form/FiltersForm.php
+@@ -0,0 +1,212 @@
++<?php
++
++namespace Drupal\html_tag_usage\Form;
++
++use Drupal\Core\Url;
++use Drupal\Core\Entity\EntityTypeBundleInfo;
++use Drupal\Core\Entity\EntityTypeManagerInterface;
++use Drupal\Core\Form\FormBase;
++use Drupal\Core\Form\FormStateInterface;
++use Symfony\Component\DependencyInjection\ContainerInterface;
++use Symfony\Component\HttpFoundation\RequestStack;
++use Symfony\Component\HttpFoundation\RedirectResponse;
++
++/**
++ * Provides a form to limit table selections.
++ */
++class FiltersForm extends FormBase {
++
++  /**
++   * The entity type manager.
++   *
++   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
++   */
++  protected $entityTypeManager;
++  /**
++   * The entity type bundle info class.
++   *
++   * @var \Drupal\Core\Entity\EntityTypeBundleInfo
++   */
++  protected $entityTypeBundleInfo;
++
++  /**
++   * A request stack symfony instance.
++   *
++   * @var \Symfony\Component\HttpFoundation\RequestStack
++   */
++  protected $requestStack;
++
++  /**
++   * Constructs a new FiltersForm instance.
++   *
++   * @param \Drupal\Core\Entity\EntityTypeBundleInfo $entity_type_bundle_info
++   *   The entity type bundle info class.
++   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
++   *   The entity type manager.
++   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
++   *   A request stack symfony instance.
++   */
++  public function __construct(EntityTypeBundleInfo $entity_type_bundle_info, EntityTypeManagerInterface $entity_type_manager, RequestStack $requestStack) {
++    $this->entityTypeBundleInfo = $entity_type_bundle_info;
++    $this->entityTypeManager = $entity_type_manager;
++    $this->requestStack = $requestStack;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public static function create(ContainerInterface $container) {
++    return new static(
++    $container->get('entity_type.bundle.info'),
++    $container->get('entity_type.manager'),
++    $container->get('request_stack'),
++    );
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function getFormId() {
++    return 'html_tag_usage_filters_form';
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function buildForm(array $form, FormStateInterface $form_state) {
++    $request = $this->requestStack->getCurrentRequest();
++    $default_field = $request->query->get('field_name') ?: 'all';
++    $field_options = [];
++    $node_bundle_options = [];
++    $ref_fields = $this->entityTypeManager->getStorage('field_storage_config')->loadByProperties(
++    [
++      'deleted' => FALSE,
++      'status' => 1,
++    ]
++    );
++    $field_options['all'] = '-- Select --';
++    /** @var Drupal\field\Entity\FieldStorageConfig $field */
++    foreach ($ref_fields as $field) {
++      $field_name = $field->getName();
++      $field_options[$field_name] = $field_name;
++    }
++
++    $entity_types = $this->entityTypeManager->getDefinitions();
++    $node_bundles = $this->entityTypeBundleInfo->getBundleInfo('node');
++    $node_bundle_options['all'] = 'All';
++    foreach ($node_bundles as $node_key => $node_bundle_name) {
++      $node_bundle_options[$node_key] = $node_bundle_name['label'];
++    }
++
++    $paragraph_bundles = $this->entityTypeBundleInfo->getBundleInfo('paragraph');
++    $paragraph_bundle_options['all'] = 'All';
++    foreach ($paragraph_bundles as $paragraph_key => $paragraph_bundle_name) {
++      $paragraph_bundle_options[$paragraph_key] = $paragraph_bundle_name['label'];
++    }
++
++    $default_entity = $request->query->get('entity_name') ?: 'all';
++    $default_bundle = $request->query->get('bundle_name') ?: 'all';
++    $default_paragraph_bundle = $request->query->get('paragraph_bundle_name') ?: 'all';
++    $default_string = $request->query->get('string_name') ?: '';
++    $entity_options = [];
++    $entity_types = $this->entityTypeManager->getDefinitions();
++    $entity_options['all'] = '-- Select --';
++    foreach ($entity_types as $type) {
++      $entity_name = $type->get('id');
++      $entity_options[$entity_name] = $entity_name;
++    }
++    $form['html_tag_usage']['fields'] = [
++      '#type' => 'select',
++      '#title' => $this->t('Name of the field to filter'),
++      '#options' => $field_options,
++      '#default_value' => $default_field,
++    ];
++
++    $form['html_tag_usage']['types'] = [
++      '#type' => 'select',
++      '#title' => $this->t('Name of the entity type to filter'),
++      '#options' => $entity_options,
++      '#default_value' => $default_entity,
++    ];
++
++    $form['html_tag_usage']['bundle'] = [
++      '#type' => 'select',
++      '#title' => $this->t('Name of the bundle type to filter'),
++      '#options' => $node_bundle_options,
++      '#default_value' => $default_bundle,
++      '#states' => [
++        'visible' => [
++          'select[id="edit-types"]' => [
++            ['value' => 'node'],
++          ],
++        ],
++      ],
++    ];
++
++    $form['html_tag_usage']['paragraph_bundle'] = [
++      '#type' => 'select',
++      '#title' => $this->t('Name of the bundle type to filter'),
++      '#options' => $paragraph_bundle_options,
++      '#default_value' => $default_paragraph_bundle,
++      '#states' => [
++        'visible' => [
++          'select[id="edit-types"]' => [
++            ['value' => 'paragraph'],
++          ],
++        ],
++      ],
++    ];
++
++    $form['html_tag_usage']['string_name'] = [
++      '#type' => 'textfield',
++      '#title' => $this->t('Search by string'),
++      '#default_value' => $default_string,
++      '#states' => [
++        'visible' => [
++          'select[id="edit-types"]' => [
++            ['value' => 'node'],
++            ['value' => 'paragraph'],
++          ],
++        ],
++      ],
++    ];
++    $path = $request->getSchemeAndHttpHost() . Url::fromRoute('<current>')->toString();
++
++    $form['html_tag_usage']['path'] = [
++      '#type' => 'hidden',
++      '#value' => $path,
++    ];
++    $form['#token'] = FALSE;
++    $form['html_tag_usage']['submit'] = [
++      '#type' => 'submit',
++      '#value' => 'Apply filters',
++    ];
++
++    return $form;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function submitForm(array &$form, FormStateInterface $form_state) {
++    $path = $form_state->getUserInput()['path'];
++    if (!empty($form_state->getUserInput()['fields']) && $form_state->getUserInput()['fields'] !== 'all') {
++      $path .= '&field_name=' . $form_state->getUserInput()['fields'];
++    }
++    if (!empty($form_state->getUserInput()['types']) && $form_state->getUserInput()['types'] !== 'all') {
++      $path .= '&entity_name=' . $form_state->getUserInput()['types'];
++    }
++    if (!empty($form_state->getUserInput()['bundle']) && $form_state->getUserInput()['bundle'] !== 'all') {
++      $path .= '&bundle_name=' . $form_state->getUserInput()['bundle'];
++    }
++    if (!empty($form_state->getUserInput()['paragraph_bundle']) && $form_state->getUserInput()['paragraph_bundle'] !== 'all') {
++      $path .= '&paragraph_bundle_name=' . $form_state->getUserInput()['paragraph_bundle'];
++    }
++    if (!empty($form_state->getUserInput()['string_name']) && $form_state->getUserInput()['string_name'] !== '') {
++      $path .= '&string_name=' . $form_state->getUserInput()['string_name'];
++    }
++    $response = new RedirectResponse($path);
++    $response->send();
++  }
++
++}
