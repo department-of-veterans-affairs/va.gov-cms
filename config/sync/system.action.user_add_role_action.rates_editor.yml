@@ -3,12 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - user.role.business_line_editor
+    - user.role.rates_editor
   module:
     - user
-id: user_add_role_action.business_line_editor
+id: user_add_role_action.rates_editor
 label: 'Add the Business Line Editor role to the selected user(s)'
 type: user
 plugin: user_add_role_action
 configuration:
-  rid: business_line_editor
+  rid: rates_editor
