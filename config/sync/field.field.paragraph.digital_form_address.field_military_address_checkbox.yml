@@ -1,0 +1,28 @@
+uuid: 0be9e21a-1d09-4660-aadc-57c066a5ca98
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_military_address_checkbox
+    - paragraphs.paragraphs_type.digital_form_address
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_address.field_military_address_checkbox
+field_name: field_military_address_checkbox
+entity_type: paragraph
+bundle: digital_form_address
+label: 'Include military address checkbox?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

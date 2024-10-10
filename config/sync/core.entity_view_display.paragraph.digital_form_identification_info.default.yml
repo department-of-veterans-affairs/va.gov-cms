@@ -1,17 +1,17 @@
-uuid: 6ace573b-80bd-4b83-af01-3de996a1423c
+uuid: ee8a8314-d05e-41c9-a1d4-8f79e7f32a0c
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.digital_form_name_and_date_of_bi.field_include_date_of_birth
-    - field.field.paragraph.digital_form_name_and_date_of_bi.field_title
-    - paragraphs.paragraphs_type.digital_form_name_and_date_of_bi
-id: paragraph.digital_form_name_and_date_of_bi.default
+    - field.field.paragraph.digital_form_identification_info.field_include_veteran_s_service
+    - field.field.paragraph.digital_form_identification_info.field_title
+    - paragraphs.paragraphs_type.digital_form_identification_info
+id: paragraph.digital_form_identification_info.default
 targetEntityType: paragraph
-bundle: digital_form_name_and_date_of_bi
+bundle: digital_form_identification_info
 mode: default
 content:
-  field_include_date_of_birth:
+  field_include_veteran_s_service:
     type: boolean
     label: above
     settings:

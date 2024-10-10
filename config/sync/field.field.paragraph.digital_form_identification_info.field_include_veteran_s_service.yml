@@ -1,0 +1,28 @@
+uuid: fbc94490-e23d-420b-8736-2b90f367ac0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_include_veteran_s_service
+    - paragraphs.paragraphs_type.digital_form_identification_info
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_identification_info.field_include_veteran_s_service
+field_name: field_include_veteran_s_service
+entity_type: paragraph
+bundle: digital_form_identification_info
+label: "Include Veteran's Service Number?"
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
