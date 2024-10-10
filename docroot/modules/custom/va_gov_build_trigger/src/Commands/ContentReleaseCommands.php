@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_build_trigger\Commands;
 
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Controller\ContentReleaseNotificationController;
 use Drupal\va_gov_build_trigger\EventSubscriber\ContinuousReleaseSubscriber;
@@ -16,6 +16,8 @@ use Drush\Commands\DrushCommands;
  * A Drush interface to the content release.
  */
 class ContentReleaseCommands extends DrushCommands {
+
+  use LoggerChannelTrait;
   /**
    * The release state manager.
    *
@@ -55,21 +57,18 @@ class ContentReleaseCommands extends DrushCommands {
    *   The request service.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
-   *   A logger channel factory.
    */
   public function __construct(
     ReleaseStateManagerInterface $releaseStateManager,
     BuildSchedulerInterface $buildScheduler,
     RequestInterface $requestService,
     StateInterface $state,
-    LoggerChannelFactoryInterface $loggerChannelFactory
   ) {
     $this->releaseStateManager = $releaseStateManager;
     $this->buildScheduler = $buildScheduler;
     $this->requestService = $requestService;
     $this->state = $state;
-    $this->logger = $loggerChannelFactory->get('va_gov_build_trigger');
+    $this->logger = $this->getLogger('va_gov_build_trigger');
   }
 
   /**
