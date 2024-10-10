@@ -1,0 +1,21 @@
+diff --git a/src/Plugin/Action/FlagAction.php b/src/Plugin/Action/FlagAction.php
+index fc00f7b..19bb8ef 100644
+--- a/src/Plugin/Action/FlagAction.php
++++ b/src/Plugin/Action/FlagAction.php
+@@ -59,8 +59,14 @@ class FlagAction extends ActionBase implements ContainerFactoryPluginInterface,
+   public function __construct(array $configuration, $plugin_id, $plugin_definition, FlagServiceInterface $flag_service) {
+     parent::__construct($configuration, $plugin_id, $plugin_definition);
+     $this->flagService = $flag_service;
+-    $this->flag = $this->flagService->getFlagById($configuration['flag_id']);
+-    $this->flagOperation = $configuration['flag_action'];
++    if (!empty($configuration['flag_id']) && !empty($configuration['flag_action'])) {
++      $this->flag = $this->flagService->getFlagById($configuration['flag_id']);
++      $this->flagOperation = $configuration['flag_action'];
++    } 
++    elseif (preg_match('/flag_action:(.*)_((?:un)?flag)$/', $plugin_id, $action_info)) {
++      $this->flag = $this->flagService->getFlagById($action_info[1]);
++      $this->flagOperation = $action_info[2];
++    }
+   }
+ 
+   /**
