@@ -1,7 +1,13 @@
 uuid: c75e8ce8-7b31-4ef9-9b47-4f0ef8f17302
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - workbench_menu_access
+third_party_settings:
+  workbench_menu_access:
+    access_scheme:
+      1187: '1187'
 id: manila-va-clinic
 label: 'Manila VA Clinic'
 description: 'VISN 21 | va.gov/manila-va-clinic'
