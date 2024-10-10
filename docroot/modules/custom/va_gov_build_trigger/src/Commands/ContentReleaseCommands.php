@@ -79,7 +79,7 @@ class ContentReleaseCommands extends DrushCommands {
    */
   public function resetState() {
     $this->releaseStateManager->resetState();
-    $this->logger()->info('Content release state has been reset to \'ready\'.');
+    $this->getLogger('va_gov_build_trigger')->info('Content release state has been reset to \'ready\'.');
   }
 
   /**
@@ -97,14 +97,14 @@ class ContentReleaseCommands extends DrushCommands {
     $can_transition = ($can_transition === ReleaseStateManager::STATE_TRANSITION_OK);
 
     if (!$is_allowed_notification || !$can_transition) {
-      $this->logger()->error('State cannot be advanced to @state', [
+      $this->getLogger('va_gov_build_trigger')->error('State cannot be advanced to @state', [
         '@state' => $state,
       ]);
       return;
     }
 
     $this->releaseStateManager->advanceStateTo($state);
-    $this->logger()->info('State has been advanced to @state', [
+    $this->getLogger('va_gov_build_trigger')->info('State has been advanced to @state', [
       '@state' => $state,
     ]);
   }
