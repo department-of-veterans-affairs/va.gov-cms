@@ -50,7 +50,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -66,7 +66,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: ''
@@ -79,7 +79,7 @@ third_party_settings:
       label: '"Prepare for your visit"'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -94,7 +94,7 @@ third_party_settings:
       label: 'VAMC system'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -108,7 +108,7 @@ third_party_settings:
       label: 'Title and summary'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -120,7 +120,7 @@ third_party_settings:
       label: 'Social Media'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -134,7 +134,7 @@ third_party_settings:
       label: 'Operating status'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -149,7 +149,7 @@ third_party_settings:
       label: 'Meta Tags'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -159,6 +159,7 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_facility_data_from_vast
+        - field_mental_health_phone
       label: 'Locations and contact information'
       region: content
       parent_name: ''
@@ -232,7 +233,7 @@ content:
     third_party_settings: {  }
   field_administration:
     type: options_select
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -288,7 +289,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -306,7 +307,7 @@ content:
     third_party_settings: {  }
   field_main_location:
     type: boolean_checkbox
-    weight: 21
+    weight: 22
     region: content
     settings:
       display_label: true
@@ -317,6 +318,13 @@ content:
     region: content
     settings:
       media_types: {  }
+    third_party_settings: {  }
+  field_mental_health_phone:
+    type: telephone_default
+    weight: 21
+    region: content
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   field_mobile:
     type: boolean_checkbox
@@ -410,7 +418,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -432,7 +440,6 @@ content:
 hidden:
   created: true
   field_local_health_care_service_: true
-  field_mental_health_phone: true
   field_meta_tags: true
   field_supplemental_status: true
   field_supplemental_status_more_i: true

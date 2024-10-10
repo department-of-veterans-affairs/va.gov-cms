@@ -29,6 +29,7 @@ dependencies:
     - media_library
     - paragraphs
     - path
+    - telephone
     - text
     - textfield_counter
 third_party_settings:
@@ -54,7 +55,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: fieldset
       format_settings:
         classes: ''
@@ -80,6 +81,7 @@ third_party_settings:
     group_contact_info:
       children:
         - field_email_address
+        - field_phone_number
         - field_telephone
       label: 'Contact info'
       region: content
@@ -148,7 +150,7 @@ content:
     third_party_settings: {  }
   field_body:
     type: text_textarea
-    weight: 9
+    weight: 13
     region: content
     settings:
       rows: 5
@@ -156,14 +158,14 @@ content:
     third_party_settings: {  }
   field_complete_biography:
     type: file_generic
-    weight: 11
+    weight: 14
     region: content
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
   field_complete_biography_create:
     type: boolean_checkbox
-    weight: 7
+    weight: 11
     region: content
     settings:
       display_label: true
@@ -186,7 +188,7 @@ content:
     third_party_settings: {  }
   field_intro_text:
     type: string_textarea_with_counter
-    weight: 8
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -208,7 +210,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -233,6 +235,13 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_phone_number:
+    type: telephone_default
+    weight: 6
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_photo_allow_hires_download:
     type: boolean_checkbox
     weight: 7
@@ -250,7 +259,7 @@ content:
     third_party_settings: {  }
   field_telephone:
     type: paragraphs
-    weight: 6
+    weight: 7
     region: content
     settings:
       title: Paragraph
@@ -294,7 +303,6 @@ content:
 hidden:
   created: true
   field_meta_tags: true
-  field_phone_number: true
   langcode: true
   promote: true
   status: true

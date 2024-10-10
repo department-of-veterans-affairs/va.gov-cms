@@ -8,6 +8,7 @@ services:
       - '@va_gov_user.user_perms'
       - '@va_gov_vamc.content_hardening_deduper'
       - '@va_gov_notifications.notifications_manager'
+      - '@feature_toggle.feature_status'
     tags:
       - { name: event_subscriber }
   va_gov_vamc.entity_prevent_reuse:

@@ -7,6 +7,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\feature_toggle\FeatureStatus;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -28,9 +29,15 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * The entity manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManager
-   *  The entity manager.
    */
   private $entityTypeManager;
+
+  /**
+   * Feature Toggle status service.
+   *
+   * @var \Drupal\feature_toggle\FeatureStatus
+   */
+  private FeatureStatus $featureStatus;
 
   /**
    * Constructs the EventSubscriber object.
@@ -39,13 +46,17 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The current user perms service.
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   The entity type manager service.
+   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
+   *   The Feature Status service.
    */
   public function __construct(
     UserPermsService $user_perms_service,
     EntityTypeManager $entity_type_manager,
+    FeatureStatus $feature_status,
   ) {
     $this->userPermsService = $user_perms_service;
     $this->entityTypeManager = $entity_type_manager;
+    $this->featureStatus = $feature_status;
   }
 
   /**
@@ -82,6 +93,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterstaffProfileNodeForm(FormIdAlterEvent $event): void {
     $this->addStateManagementToBioFields($event);
     $this->removePhoneLabel($event);
+    $this->showTelephone($event);
   }
 
   /**
@@ -130,6 +142,25 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         [$selector => ['checked' => TRUE]],
       ],
     ];
+  }
+
+  /**
+   * Show the correct telephone field based on feature toggle for VACMS-17854.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The form event.
+   */
+  private function showTelephone($event) {
+    $form = &$event->getForm();
+    $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
+    if ($status) {
+      // Show only the new telephone field.
+      unset($form['field_phone_number']);
+    }
+    else {
+      // Show only the old telephone field.
+      unset($form['field_telephone']);
+    }
   }
 
   /**
