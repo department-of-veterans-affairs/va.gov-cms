@@ -54,6 +54,11 @@ function create_digital_form(
       'title' => 'Generated Address',
       'military_address_checkbox' => FALSE,
     ],
+    [
+      'type' => 'digital_form_phone_and_email',
+      'title' => 'Generated Phone',
+      'include_email' => FALSE,
+    ],
   ],
 ) {
   $digital_form = Node::create($values);
@@ -94,6 +99,11 @@ function create_digital_forms() {
       'title' => "Veteran's mailing information",
       'military_address_checkbox' => TRUE,
     ],
+    [
+      'type' => 'digital_form_phone_and_email',
+      'title' => "Veteran's contact information",
+      'include_email' => TRUE,
+    ],
   ];
 
   create_digital_form();
@@ -123,6 +133,9 @@ function create_step(
     ],
     'digital_form_name_and_date_of_bi' => [
       'field_include_date_of_birth' => $values['include_dob'] ?? TRUE,
+    ],
+    'digital_form_phone_and_email' => [
+      'field_include_email' => $values['include_email'] ?? TRUE,
     ],
     default => [],
   };
