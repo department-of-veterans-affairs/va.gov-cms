@@ -111,6 +111,7 @@ third_party_settings:
         - field_address
         - field_phone_number
         - field_mobile
+        - field_mental_health_phone
         - field_telephone
         - field_office_hours
         - field_timezone
@@ -200,6 +201,14 @@ content:
         attribute: lazy
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_mental_health_phone:
+    type: telephone_link
+    label: inline
+    settings:
+      title: ''
+    third_party_settings: {  }
+    weight: 19
     region: content
   field_mobile:
     type: boolean
@@ -303,7 +312,6 @@ hidden:
   field_last_saved_by_an_editor: true
   field_local_health_care_service_: true
   field_main_location: true
-  field_mental_health_phone: true
   field_meta_tags: true
   field_region_page: true
   field_supplemental_status: true
