@@ -46,9 +46,14 @@ assignees: ''
   - [ ] New React app or widget
   - [ ] Revisions to existing apps, widgets, or templates
 - [ ] Collab Cycle - required for any new application, usability research, major architectural change to an existing product. If you're not sure, ask Governance team.
-     
----
 
+---
+     
+## Product documentation
+* **Existing product docs**: 
+* **Initiative brief:** 
+
+---
 
 ## Monthly project updates:
 
