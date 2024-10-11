@@ -1,0 +1,13 @@
+diff --git a/src/Service/ViewsBulkOperationsActionProcessor.php b/src/Service/ViewsBulkOperationsActionProcessor.php
+index 330a38e..67d9b8d 100644
+--- a/src/Service/ViewsBulkOperationsActionProcessor.php
++++ b/src/Service/ViewsBulkOperationsActionProcessor.php
+@@ -443,7 +443,7 @@ class ViewsBulkOperationsActionProcessor implements ViewsBulkOperationsActionPro
+     // Check access.
+     foreach ($this->queue as $delta => $entity) {
+       $accessResult = $this->action->access($entity, $this->currentUser, TRUE);
+-      if ($accessResult->isAllowed() === FALSE) {
++      if (!$accessResult || ($accessResult instanceof AccessResultReasonInterface && $accessResult->isAllowed() === FALSE)) {
+         $result = [
+           'message' => (string) $this->t('Access denied'),
+           'type' => 'warning',

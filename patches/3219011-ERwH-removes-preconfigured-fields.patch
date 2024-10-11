@@ -1,0 +1,27 @@
+From 2d2a73f198950e3b1852f8e1a8e307e4bcd48f01 Mon Sep 17 00:00:00 2001
+From: Daniel Sasser <daniel.sasser@agile6.com>
+Date: Tue, 15 Aug 2023 09:52:07 -0700
+Subject: [PATCH] Issue #3219011 - Removes preconfigured fields.
+
+---
+ .../Field/FieldType/EntityReferenceHierarchyItemTrait.php  | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/Plugin/Field/FieldType/EntityReferenceHierarchyItemTrait.php b/src/Plugin/Field/FieldType/EntityReferenceHierarchyItemTrait.php
+index b403a1e..856eea5 100644
+--- a/src/Plugin/Field/FieldType/EntityReferenceHierarchyItemTrait.php
++++ b/src/Plugin/Field/FieldType/EntityReferenceHierarchyItemTrait.php
+@@ -50,4 +50,11 @@ trait EntityReferenceHierarchyItemTrait {
+ 
+   }
+ 
++  /**
++   * {@inheritdoc}
++   */
++  public static function getPreconfiguredOptions() {
++    return [];
++  }
++
+ }
+-- 
+GitLab

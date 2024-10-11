@@ -1,0 +1,43 @@
+diff --git a/src/Plugin/SocialMediaLinks/Iconset/FontAwesome.php b/src/Plugin/SocialMediaLinks/Iconset/FontAwesome.php
+index ac22028..0586d0c 100755
+--- a/src/Plugin/SocialMediaLinks/Iconset/FontAwesome.php
++++ b/src/Plugin/SocialMediaLinks/Iconset/FontAwesome.php
+@@ -67,13 +67,13 @@ class FontAwesome extends IconsetBase implements IconsetInterface {
+     if ($icon_name == 'envelope' || $icon_name == 'home' || $icon_name == 'rss') {
+       $icon = [
+         '#type' => 'markup',
+-        '#markup' => "<span class='fa fa-$icon_name fa-$style'></span>",
++        '#markup' => "<span class='fa fa-$icon_name fa-$style' aria-hidden=\"true\"></span>",
+       ];
+     }
+     else {
+       $icon = [
+         '#type' => 'markup',
+-        '#markup' => "<span class='fab fa-$icon_name fa-$style'></span>",
++        '#markup' => "<span class='fab fa-$icon_name fa-$style' aria-hidden=\"true\"></span>",
+       ];
+     }
+ 
+diff --git a/templates/social-media-links-platforms.html.twig b/templates/social-media-links-platforms.html.twig
+index 29adeab..575719f 100644
+--- a/templates/social-media-links-platforms.html.twig
++++ b/templates/social-media-links-platforms.html.twig
+@@ -17,15 +17,12 @@
+     <li>
+       <a class="social-media-link-icon--{{ platform.id }}" href="{{ platform.url }}" {{ platform.attributes }} >
+         {{ platform.element }}
+-      </a>
+-
+-      {% if appearance.show_name %}
+-        {% if appearance.orientation == 'h' %}
++        {% if appearance.show_name and appearance.orientation == 'h' %}
+           <br />
+         {% endif %}
+ 
+-        <span><a class="social-media-link--{{ platform.id }}" href="{{ platform.url }}" {{ platform.attributes }}>{{ platform.name }}</a></span>
+-      {% endif %}
++        <span class ="platform--name{{ appearance.show_name ? '' : ' visually-hidden' }}">{{ platform.name }}</span>
++      </a>
+     </li>
+   {% endfor %}
+ </ul>
