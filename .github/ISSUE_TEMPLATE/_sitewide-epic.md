@@ -1,5 +1,5 @@
 ---
-name: [Sitewide] Epic template
+name: "(Sitewide) Epic template"
 about: Epic template for Sitewide projects for Public Websites and Facilities portfolios
 title: ''
 labels: Epic, sitewide
