@@ -32,7 +32,9 @@ assignees: ''
   - [ ] Knowledge Base article creation or updates are required in either case
 - [ ] Vets-api (Ruby)
   - [ ] New API or endpoints
+    - [ ] Datadog monitoring is required 
   - [ ] Revisions to existing API / endpoints
+    - [ ] Datadog monitoring updates may be required, tbd the scope of changes 
 - [ ] Content-build (FE) 
   - [ ] New templates -- try to avoid this and build in Next if possible
   - [ ] Revisions to existing templates
