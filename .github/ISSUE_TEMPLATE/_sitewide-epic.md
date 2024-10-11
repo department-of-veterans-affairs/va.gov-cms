@@ -34,11 +34,12 @@ assignees: ''
 - [ ] Analytics review
 - [ ] Backlog review
 - [ ] Content audit
-- [ ] Design
+- [ ] FE Design
 - [ ] Usability research
 - [ ] Drupal
+  - [ ] CMS Design
   - [ ] New config, fields, or entities
-    - [ ] Content modeling is required 
+    - [ ] Content modeling is required
   - [ ] Revisions to existing config, fields, or entities -- Content modeling _may_ be required, tbd scope
   - [ ] Editor Change management is required in either case
   - [ ] Knowledge Base article creation or updates are required in either case
