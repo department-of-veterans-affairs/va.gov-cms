@@ -1,0 +1,81 @@
+diff --git a/core/lib/Drupal/Core/Entity/Query/Sql/Tables.php b/core/lib/Drupal/Core/Entity/Query/Sql/Tables.php
+index ac6a3795c1..10467c91fe 100644
+--- a/core/lib/Drupal/Core/Entity/Query/Sql/Tables.php
++++ b/core/lib/Drupal/Core/Entity/Query/Sql/Tables.php
+@@ -108,6 +108,65 @@ public function addField($field, $type, $langcode) {
+       // This can either be the name of an entity base field or a configurable
+       // field.
+       $specifier = $specifiers[$key];
++
++      // This ugly hack allows to query the moderation state transparently. I
++      // just wish there was more straightforward way to query for this field
++      // within entity query.
++      $is_moderation_state_column = FALSE;
++      if ($specifier == 'moderation_state' && $entity_type_id !== 'content_moderation_state') {
++        $is_moderation_state_column = TRUE;
++
++        $original_variables = [
++          'entity_type' => $entity_type,
++          'entity_type_id' => $entity_type_id,
++          'field_storage_definitions' => $field_storage_definitions,
++        ];
++
++        $entity_type_id = 'content_moderation_state';
++        $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
++        $field_storage_definitions = $this->entityFieldManager->getActiveFieldStorageDefinitions($entity_type->id());
++
++        $join_conditions = [];
++        $join_arguments = [];
++
++        $join_conditions[] = '%alias.content_entity_type_id = :content_moderation_state_entity_type';
++        $join_arguments[':content_moderation_state_entity_type'] = $original_variables['entity_type_id'];
++
++        // Determine the best table to JOIN to. If it's a simple query, then
++        // we do not have much to choose from. But if it is the contrary case,
++        // we could have a revision data table which is a more desired table to
++        // JOIN to since same revision might be available in multiple languages.
++        $base_table_alias = 'base_table';
++        if (!$this->sqlQuery->getMetaData('simple_query') && isset($this->sqlQuery->getTables()[$original_variables['entity_type']->getRevisionDataTable()])) {
++          $base_table_alias = $original_variables['entity_type']->getRevisionDataTable();
++        }
++
++        $join_conditions[] = "%alias.content_entity_id = $base_table_alias." . $original_variables['entity_type']->getKey('id');
++
++        if ($entity_type->hasKey('langcode') && $original_variables['entity_type']->hasKey('langcode')) {
++          $join_conditions[] = "%alias." . $entity_type->getKey('langcode') . " = $base_table_alias." . $original_variables['entity_type']->getKey('langcode');
++        }
++
++        if ($entity_type->hasKey('revision') && $original_variables['entity_type']->hasKey('revision')) {
++          $join_conditions[] = "%alias.content_entity_revision_id = $base_table_alias." . $original_variables['entity_type']->getKey('revision');
++        }
++
++        if ($all_revisions) {
++          // TODO: this key should be derived from $index_prefix and other bits
++          // that may influence it. Such current construction will only work for
++          // content moderation states on the base entity, not on any sort of
++          // relationship.
++          $this->entityTables[$entity_type->getRevisionDataTable()] = $this->sqlQuery->addJoin($type, $entity_type->getRevisionDataTable(), NULL, implode(' AND ', $join_conditions), $join_arguments);
++        }
++        else {
++          // TODO: this key should be derived from $index_prefix and other bits
++          // that may influence it. Such current construction will only work for
++          // content moderation states on the base entity, not on any sort of
++          // relationship.
++          $this->entityTables[$entity_type->getDataTable()] = $this->sqlQuery->addJoin($type, $entity_type->getDataTable(), NULL, implode(' AND ', $join_conditions), $join_arguments);
++        }
++      }
++
+       if (isset($field_storage_definitions[$specifier])) {
+         $field_storage = $field_storage_definitions[$specifier];
+         $column = $field_storage->getMainPropertyName();
+@@ -306,6 +365,10 @@ public function addField($field, $type, $langcode) {
+           throw new QueryException("Invalid specifier '$relationship_specifier'");
+         }
+       }
++
++      if ($is_moderation_state_column) {
++        extract($original_variables);
++      }
+     }
+     return "$table.$sql_column";
+   }
