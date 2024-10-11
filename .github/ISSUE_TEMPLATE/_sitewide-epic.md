@@ -34,8 +34,12 @@ assignees: ''
   - [ ] New API or endpoints
   - [ ] Revisions to existing API / endpoints
 - [ ] Content-build (FE) 
-  - [ ] New templates
+  - [ ] New templates -- try to avoid this and build in Next if possible
   - [ ] Revisions to existing templates
+- [ ] Next-build (FE)
+  - [ ] New template(s)
+  - [ ] Migration of existing content-build template(s)
+  - [ ] Revisions to existing Next templates
 - [ ] Vets-website (FE)
   - [ ] New React app or widget
   - [ ] Revisions to existing apps, widgets, or templates
