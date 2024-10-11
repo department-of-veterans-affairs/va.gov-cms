@@ -1,8 +1,9 @@
 ---
 name: Content Model Specification
-about: Use this template when you are specifying proposed changes to the CMS Content Model
-title: "Content model specification for [PRODUCT/FEATURE]"
-labels: Content Model
+about: Use this template when you are specifying proposed changes to the CMS Content
+  Model
+title: Content model specification for [PRODUCT/FEATURE]
+labels: ''
 assignees: ''
 
 ---

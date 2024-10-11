@@ -1,10 +1,12 @@
 ---
-name: (AP) Feature
+name: "(AP) Feature"
 about: New or work or enhancements
 title: "<brief summary of value/outcome>"
-labels: Needs refining, Accelerated Publishing
+labels: Accelerated Publishing, Needs refining
+assignees: ''
 
 ---
+
 ## Requirements
 <!-- one to two sentences about the value being delivered; why are we doing this? -->
 <!-- for very technical implementation tasks a more direct explanation is fine, but otherwise avoid solutions here. -->
@@ -17,4 +19,3 @@ labels: Needs refining, Accelerated Publishing
 ## Background & implementation details
 <!-- any suppporting information, links etc. -->
 <!-- solution-specific discussion is great here. -->
-

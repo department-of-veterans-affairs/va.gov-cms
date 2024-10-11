@@ -2,10 +2,12 @@
 name: Runbook - Vet Center, Outstation, Mobile Vet Center name change
 about: Steps for updating names and URLs
 title: 'Vet Center name change: <insert_name>'
-labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, Vet Center
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support,
+  Vet Center
 assignees: ''
 
 ---
+
 ## Vet Center, Outstation, Mobile Vet Center facility name change - Description
 Vet Centers, Mobile Vet Centers, and Vet Center Oustations may all be subject to name changes in VAST. Not all steps apply to each type of facility -- please pay attention and make sure you've done the relevant steps based on facility type.
 

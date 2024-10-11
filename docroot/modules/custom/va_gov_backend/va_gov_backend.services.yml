@@ -47,3 +47,11 @@ services:
 #  monolog.processor.va_gov_datadog_apm:
 #    class: Drupal\va_gov_backend\Logger\Processor\DatadogApmProcessor
 #    arguments: ['@va_gov_backend.datadog_context_provider']
+  monolog.processor.va_gov_datadog_severity:
+    class: Drupal\va_gov_backend\Logger\Processor\DatadogLevelProcessor
+  logger.channel.va_gov_media:
+    parent: logger.channel_base
+    arguments: [ 'va_gov_testing' ]
+  va_gov_backend.test_logging:
+    class: Drupal\va_gov_backend\Service\TestLogging
+    arguments: ['@logger.factory']

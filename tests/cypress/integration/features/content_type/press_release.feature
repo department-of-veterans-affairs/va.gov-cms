@@ -8,3 +8,7 @@ Feature: Content Type: News Release
     And the element with selector "#edit-field-address-0" should contain "Country"
     And the element with selector "#edit-field-address-0" should contain "City"
     And the element with selector "#edit-field-address-0" should contain "State"
+
+  Scenario: Log in and create a news release
+    Given I am logged in as a user with the "content_admin" role
+    Then I create a "press_release" node

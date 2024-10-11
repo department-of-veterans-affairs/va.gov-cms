@@ -1,6 +1,7 @@
 ---
 name: Knowledge Base article - Create or update
-about: Use this template for new CMS Knowledge Base articles that need to be written or for  updates to existing KB articles.
+about: Use this template for new CMS Knowledge Base articles that need to be written
+  or for  updates to existing KB articles.
 title: 'Create new KB article or update  existing article : <insert topic here>'
 labels: Knowledge Base, Needs refining
 assignees: ''
