@@ -38,7 +38,8 @@ assignees: ''
 - [ ] Usability research
 - [ ] Drupal
   - [ ] New config, fields, or entities
-  - [ ] Revisions to existing config, fields, or entities
+    - [ ] Content modeling is required 
+  - [ ] Revisions to existing config, fields, or entities -- Content modeling _may_ be required, tbd scope
   - [ ] Editor Change management is required in either case
   - [ ] Knowledge Base article creation or updates are required in either case
 - [ ] Vets-api (Ruby)
