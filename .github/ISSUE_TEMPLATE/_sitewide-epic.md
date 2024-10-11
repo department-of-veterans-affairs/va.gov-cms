@@ -9,6 +9,8 @@ assignees: ''
 
 ## Top-line Description / Goal(s)
 
+**Initiative brief:** 
+
 ### Business Case
 
 ### User Story or Problem Statement
@@ -18,7 +20,16 @@ assignees: ''
 
 ### Affected users and stakeholders
 
+## Scope
+### In scope
 
+### Out of scope
+
+
+## Product documentation
+* **Existing product docs**: 
+
+---
 ### High level work required to complete the epic
 - [ ] Analytics review
 - [ ] Backlog review
@@ -46,12 +57,6 @@ assignees: ''
   - [ ] New React app or widget
   - [ ] Revisions to existing apps, widgets, or templates
 - [ ] Collab Cycle - required for any new application, usability research, major architectural change to an existing product. If you're not sure, ask Governance team.
-
----
-     
-## Product documentation
-* **Existing product docs**: 
-* **Initiative brief:** 
 
 ---
 
