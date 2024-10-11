@@ -158,7 +158,35 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
     $this->alterAppendedSystemHealthServices($event);
+    $this->showRenderedTelephone($event);
+  }
 
+  /**
+   * Show the correct telephone field based on feature toggle for VACMS-17854.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter event.
+   */
+  private function showRenderedTelephone(EntityViewAlterEvent $event) {
+    $node_type = $event->getEntity()->bundle();
+    if ($node_type !== 'vamc_system_billing_insurance' &&
+        $node_type !== 'health_care_local_facility') {
+      return;
+    }
+    // We want to hide the old mental health phone field on the facility node.
+    $old_field_to_hide = $node_type === 'health_care_local_facility'
+      ? 'field_mental_health_phone' : 'field_phone_number';
+
+    $build = &$event->getBuild();
+    $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
+    if ($status) {
+      // Hide the old telephone field, and, thereby, show the new one.
+      unset($build[$old_field_to_hide]);
+    }
+    else {
+      // Hide the new telephone field, and, thereby, show the old one.
+      unset($build['field_telephone']);
+    }
   }
 
   /**
@@ -385,14 +413,16 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   private function showTelephone($event) {
     $form = &$event->getForm();
+    $form_id = $form['#form_id'];
+    $old_field_to_hide = $form_id === 'node_health_care_local_facility_edit_form'
+      ? 'field_mental_health_phone' : 'field_phone_number';
     $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
     if ($status) {
-      // Show only the new telephone field.
-      unset($form['field_phone_number']);
-      unset($form['field_mental_health_phone']);
+      // Hide the old telephone field, and, thereby, show the new one.
+      unset($form[$old_field_to_hide]);
     }
     else {
-      // Show only the old telephone field.
+      // Hide the new telephone field, and, thereby, show the old one.
       unset($form['field_telephone']);
     }
   }

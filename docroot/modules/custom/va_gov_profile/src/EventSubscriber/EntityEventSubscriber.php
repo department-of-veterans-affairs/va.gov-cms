@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\feature_toggle\FeatureStatus;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -67,6 +68,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_person_profile_edit_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
       EntityHookEvents::ENTITY_TYPE_ALTER => 'entityTypeAlter',
+      EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
     ];
   }
 
@@ -81,6 +83,38 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if (!empty($entity_types['node'])) {
       $entity = $entity_types['node'];
       $entity->addConstraint('PersonPageRequiredFieldsConstraint');
+    }
+  }
+
+  /**
+   * Alteration to entity view pages.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function entityViewAlter(EntityViewAlterEvent $event):void {
+    $this->showRenderedTelephone($event);
+  }
+
+  /**
+   * Show the correct telephone field based on feature toggle for VACMS-17854.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter event.
+   */
+  private function showRenderedTelephone(EntityViewAlterEvent $event) {
+    if ($event->getDisplay()->getTargetBundle() !== 'person_profile') {
+      return;
+    }
+    $build = &$event->getBuild();
+    $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
+    if ($status) {
+      // Hide the old telephone field, and, thereby, show the new one.
+      unset($build['field_phone_number']);
+    }
+    else {
+      // Hide the new telephone field, and, thereby, show the old one.
+      unset($build['field_telephone']);
     }
   }
 
@@ -154,11 +188,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
     if ($status) {
-      // Show only the new telephone field.
+      // Hide the old telephone field, and, thereby, show the new one.
       unset($form['field_phone_number']);
     }
     else {
-      // Show only the old telephone field.
+      // Hide the new telephone field, and, thereby, show the old one.
       unset($form['field_telephone']);
     }
   }
