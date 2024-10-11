@@ -55,7 +55,7 @@ assignees: ''
   - [ ] Revisions to existing Next templates
 - [ ] Vets-website (FE)
   - [ ] New React app or widget
-  - [ ] Revisions to existing apps, widgets, or templates
+  - [ ] Revisions to existing apps, widgets, templates, or styles
 - [ ] Collab Cycle - required for any new application, usability research, major architectural change to an existing product. If you're not sure, ask Governance team.
 
 ---
