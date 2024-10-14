@@ -414,7 +414,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   private function showTelephone($event) {
     $form = &$event->getForm();
     $form_id = $form['#form_id'];
-    $old_field_to_hide = $form_id === 'node_health_care_local_facility_edit_form'
+    $old_field_to_hide = $form_id === 'node_health_care_local_facility_form'
+      || 'node_health_care_local_facility_edit_form'
       ? 'field_mental_health_phone' : 'field_phone_number';
     $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
     if ($status) {
