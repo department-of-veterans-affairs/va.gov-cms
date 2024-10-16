@@ -230,7 +230,7 @@ class VamcPdfDeleteService implements VamcPdfDeleteInterface {
 
     try {
       // Open a file in write mode ('w')
-      $file = fopen($filename, 'w');
+      $file = fopen($filename, 'w+');
     }
     catch (\Exception $e) {
       $this->loggerFactory->get('va_gov_media')->error('Error opening or creating CSV file: @error', ['@error' => $e->getMessage()]);
@@ -242,7 +242,7 @@ class VamcPdfDeleteService implements VamcPdfDeleteInterface {
       fputcsv($file, $fields);
     }
     fclose($file);
-    $destination = 's3://' . $timestamp . '/' . $filename;
+    $destination = 's3://' . $timestamp . '/' . $timestamp . '-deleted-pdf-list.csv';
     $this->s3fs->copy($filename, $destination);
     unlink($filename);
     $this->loggerFactory->get('va_gov_media')->info("CSV written to {$destination}");
