@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_application_process
     - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_id
     - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_value
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_after_applying
@@ -81,6 +82,7 @@ third_party_settings:
       children:
         - field_va_benefit_app_form
         - field_va_benefit_app_preparation
+        - field_application_process
         - field_va_benefit_app_help
       label: 'How to apply'
       parent_name: ''
@@ -142,6 +144,13 @@ content:
     third_party_settings: {  }
     weight: 8
     region: content
+  field_application_process:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
   field_enforce_unique_id:
     type: allow_only_one
     label: hidden
@@ -184,7 +193,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 12
     region: content
   field_va_benefit_app_preparation:
     type: text_default
@@ -276,5 +285,6 @@ content:
     weight: 11
     region: content
 hidden:
+  breadcrumbs: true
   langcode: true
   search_api_excerpt: true

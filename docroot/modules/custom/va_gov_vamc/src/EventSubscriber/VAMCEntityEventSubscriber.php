@@ -13,6 +13,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\feature_toggle\FeatureStatus;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -41,8 +42,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_regional_health_care_service_des_edit_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
       'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_edit_form.alter' => 'alterTopTaskNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_edit_form.alter' => 'alterVamcSystemBillingAndInsuranceForm',
+      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_form.alter' => 'alterVamcSystemBillingAndInsuranceForm',
       'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_policies_page_edit_form.alter' => 'alterTopTaskNodeForm',
@@ -106,6 +107,13 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
+   * Feature Toggle status service.
+   *
+   * @var \Drupal\feature_toggle\FeatureStatus
+   */
+  private FeatureStatus $featureStatus;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -120,6 +128,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *   The deduper service.
    * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
    *   VA gov NotificationsManager service.
+   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
+   *   The Feature Status service.
    */
   public function __construct(
     EntityTypeManager $entity_type_manager,
@@ -127,7 +137,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     Flagger $flagger,
     UserPermsService $user_perms_service,
     ContentHardeningDeduper $content_hardening_deduper,
-    NotificationsManager $notifications_manager
+    NotificationsManager $notifications_manager,
+    FeatureStatus $feature_status,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->currentUser = $currentUser;
@@ -135,6 +146,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
     $this->notificationsManager = $notifications_manager;
+    $this->featureStatus = $feature_status;
   }
 
   /**
@@ -146,7 +158,35 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
     $this->alterAppendedSystemHealthServices($event);
+    $this->showRenderedTelephone($event);
+  }
 
+  /**
+   * Show the correct telephone field based on feature toggle for VACMS-17854.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter event.
+   */
+  private function showRenderedTelephone(EntityViewAlterEvent $event) {
+    $node_type = $event->getEntity()->bundle();
+    if ($node_type !== 'vamc_system_billing_insurance' &&
+        $node_type !== 'health_care_local_facility') {
+      return;
+    }
+    // We want to hide the old mental health phone field on the facility node.
+    $old_field_to_hide = $node_type === 'health_care_local_facility'
+      ? 'field_mental_health_phone' : 'field_phone_number';
+
+    $build = &$event->getBuild();
+    $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
+    if ($status) {
+      // Hide the old telephone field, and, thereby, show the new one.
+      unset($build[$old_field_to_hide]);
+    }
+    else {
+      // Hide the new telephone field, and, thereby, show the old one.
+      unset($build['field_telephone']);
+    }
   }
 
   /**
@@ -306,6 +346,17 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Removes the phone label on VAMC facility content type forms.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  private function removePhoneLabel(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form['field_telephone']['widget'][0]['subform']['field_phone_label']['#access'] = FALSE;
+  }
+
+  /**
    * Alter VAMC Facility node form.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
@@ -315,6 +366,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $this->addCovidStatusData($form, $form_state);
+    $this->removePhoneLabel($event);
+    $this->showTelephone($event);
   }
 
   /**
@@ -338,6 +391,42 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form['#attached']['library'][] = 'va_gov_vamc/set_menu_title';
     $form['title']['#disabled'] = 'disabled';
+  }
+
+  /**
+   * Alter the VAMC System and Billing Insurance node form..
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVamcSystemBillingAndInsuranceForm(FormIdAlterEvent $event) {
+    $this->alterTopTaskNodeForm($event);
+    $this->removePhoneLabel($event);
+    $this->showTelephone($event);
+  }
+
+  /**
+   * Show the correct telephone field based on feature toggle for VACMS-17854.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The form event.
+   */
+  private function showTelephone($event) {
+    $form = &$event->getForm();
+    $form_id = $form['#form_id'];
+    // We want to hide the old mental health phone field on the facility node,
+    // where there are two phone fields.
+    $old_field_to_hide = $form_id === 'node_health_care_local_facility_form' || $form_id === 'node_health_care_local_facility_edit_form'
+      ? 'field_mental_health_phone' : 'field_phone_number';
+    $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
+    if ($status) {
+      // Hide the old telephone field, and, thereby, show the new one.
+      unset($form[$old_field_to_hide]);
+    }
+    else {
+      // Hide the new telephone field, and, thereby, show the old one.
+      unset($form['field_telephone']);
+    }
   }
 
   /**
