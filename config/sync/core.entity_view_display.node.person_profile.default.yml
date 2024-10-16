@@ -19,9 +19,11 @@ dependencies:
     - field.field.node.person_profile.field_phone_number
     - field.field.node.person_profile.field_photo_allow_hires_download
     - field.field.node.person_profile.field_suffix
+    - field.field.node.person_profile.field_telephone
     - image.style.2_3_medium_thumbnail
     - node.type.person_profile
   module:
+    - entity_reference_revisions
     - field_group
     - file
     - media
@@ -35,7 +37,7 @@ third_party_settings:
       label: ''
       parent_name: ''
       region: hidden
-      weight: 19
+      weight: 22
       format_type: fieldset
       format_settings:
         classes: ''
@@ -59,7 +61,7 @@ content:
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: content
   field_complete_biography_create:
     type: boolean
@@ -69,7 +71,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: content
   field_description:
     type: string
@@ -84,7 +86,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   field_intro_text:
     type: basic_string
@@ -135,6 +137,15 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_telephone:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 8
     region: content
 hidden:
   breadcrumbs: true
