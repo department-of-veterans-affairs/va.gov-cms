@@ -6,8 +6,6 @@ dependencies:
     - field.storage.node.field_chapters
     - node.type.digital_form
     - paragraphs.paragraphs_type.digital_form_address
-    - paragraphs.paragraphs_type.digital_form_identification_info
-    - paragraphs.paragraphs_type.digital_form_name_and_date_of_bi
     - paragraphs.paragraphs_type.digital_form_phone_and_email
     - paragraphs.paragraphs_type.digital_form_your_personal_info
   module:
@@ -31,8 +29,6 @@ settings:
   handler_settings:
     target_bundles:
       digital_form_your_personal_info: digital_form_your_personal_info
-      digital_form_name_and_date_of_bi: digital_form_name_and_date_of_bi
-      digital_form_identification_info: digital_form_identification_info
       digital_form_address: digital_form_address
       digital_form_phone_and_email: digital_form_phone_and_email
     negate: 0
@@ -74,16 +70,16 @@ settings:
         weight: -79
         enabled: false
       digital_form_address:
-        weight: -92
-        enabled: true
-      digital_form_identification_info:
-        weight: -93
-        enabled: true
-      digital_form_name_and_date_of_bi:
         weight: -94
         enabled: true
-      digital_form_phone_and_email:
+      digital_form_identification_info:
         weight: -91
+        enabled: false
+      digital_form_name_and_date_of_bi:
+        weight: -92
+        enabled: false
+      digital_form_phone_and_email:
+        weight: -93
         enabled: true
       digital_form_your_personal_info:
         weight: -95
