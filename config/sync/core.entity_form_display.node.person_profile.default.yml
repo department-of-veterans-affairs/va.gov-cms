@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.person_profile.field_phone_number
     - field.field.node.person_profile.field_photo_allow_hires_download
     - field.field.node.person_profile.field_suffix
+    - field.field.node.person_profile.field_telephone
     - node.type.person_profile
     - workflows.workflow.editorial
   module:
@@ -26,6 +27,7 @@ dependencies:
     - field_group
     - file
     - media_library
+    - paragraphs
     - path
     - telephone
     - text
@@ -53,7 +55,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: fieldset
       format_settings:
         classes: ''
@@ -80,6 +82,7 @@ third_party_settings:
       children:
         - field_email_address
         - field_phone_number
+        - field_telephone
       label: 'Contact info'
       region: content
       parent_name: ''
@@ -127,7 +130,7 @@ third_party_settings:
       label: 'Meta Tags'
       region: hidden
       parent_name: ''
-      weight: 16
+      weight: 19
       format_type: fieldset
       format_settings:
         classes: ''
@@ -141,13 +144,13 @@ mode: default
 content:
   field_administration:
     type: options_select
-    weight: 17
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
   field_body:
     type: text_textarea
-    weight: 28
+    weight: 13
     region: content
     settings:
       rows: 5
@@ -155,14 +158,14 @@ content:
     third_party_settings: {  }
   field_complete_biography:
     type: file_generic
-    weight: 29
+    weight: 14
     region: content
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
   field_complete_biography_create:
     type: boolean_checkbox
-    weight: 26
+    weight: 11
     region: content
     settings:
       display_label: true
@@ -185,7 +188,7 @@ content:
     third_party_settings: {  }
   field_intro_text:
     type: string_textarea_with_counter
-    weight: 27
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -193,6 +196,7 @@ content:
       maxlength: 160
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
@@ -206,7 +210,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 30
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -240,7 +244,7 @@ content:
     third_party_settings: {  }
   field_photo_allow_hires_download:
     type: boolean_checkbox
-    weight: 6
+    weight: 7
     region: content
     settings:
       display_label: true
@@ -253,9 +257,27 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_telephone:
+    type: paragraphs
+    weight: 7
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 16
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
