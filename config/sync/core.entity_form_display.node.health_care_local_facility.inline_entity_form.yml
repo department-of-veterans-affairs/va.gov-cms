@@ -26,10 +26,13 @@ dependencies:
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_supplemental_status
     - field.field.node.health_care_local_facility.field_supplemental_status_more_i
+    - field.field.node.health_care_local_facility.field_telephone
     - field.field.node.health_care_local_facility.field_timezone
     - node.type.health_care_local_facility
   module:
     - field_group
+    - ief_table_view_mode
+    - telephone
     - textfield_counter
 third_party_settings:
   field_group:
@@ -39,7 +42,7 @@ third_party_settings:
       label: 'Section settings'
       region: hidden
       parent_name: ''
-      weight: 25
+      weight: 31
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -49,13 +52,13 @@ third_party_settings:
         weight: -10
     group_editorial_workflow:
       children:
-        - revision_log
         - moderation_state
+        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: hidden
       parent_name: ''
-      weight: 27
+      weight: 32
       format_type: fieldset
       format_settings:
         classes: ''
@@ -68,7 +71,7 @@ third_party_settings:
       label: 'Facility Locator'
       region: hidden
       parent_name: ''
-      weight: 23
+      weight: 29
       format_type: fieldset
       format_settings:
         classes: ''
@@ -82,7 +85,7 @@ third_party_settings:
       label: 'Location services'
       region: hidden
       parent_name: ''
-      weight: 24
+      weight: 30
       format_type: details
       format_settings:
         classes: ''
@@ -97,7 +100,7 @@ third_party_settings:
       label: Region
       region: hidden
       parent_name: ''
-      weight: 22
+      weight: 28
       format_type: fieldset
       format_settings:
         classes: ''
@@ -109,6 +112,13 @@ targetEntityType: node
 bundle: health_care_local_facility
 mode: inline_entity_form
 content:
+  field_mental_health_phone:
+    type: telephone_default
+    weight: 22
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_operating_status_facility:
     type: options_select
     weight: 1
@@ -125,8 +135,28 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_telephone:
+    type: inline_entity_form_complex_table_view_mode
+    weight: 3
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      removed_reference: optional
+      allow_system_delete: false
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -150,7 +180,6 @@ hidden:
   field_location_services: true
   field_main_location: true
   field_media: true
-  field_mental_health_phone: true
   field_meta_tags: true
   field_mobile: true
   field_office_hours: true

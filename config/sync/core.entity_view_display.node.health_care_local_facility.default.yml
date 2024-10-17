@@ -25,6 +25,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_supplemental_status
     - field.field.node.health_care_local_facility.field_supplemental_status_more_i
+    - field.field.node.health_care_local_facility.field_telephone
     - field.field.node.health_care_local_facility.field_timezone
     - image.style.crop_3_2
     - node.type.health_care_local_facility
@@ -111,6 +112,7 @@ third_party_settings:
         - field_phone_number
         - field_mobile
         - field_mental_health_phone
+        - field_telephone
         - field_office_hours
         - field_timezone
       label: 'Facility data'
@@ -137,7 +139,7 @@ third_party_settings:
       label: 'COVID-19 health protection guidelines'
       parent_name: ''
       region: hidden
-      weight: 24
+      weight: 27
       format_type: fieldset
       format_settings:
         classes: ''
@@ -251,7 +253,7 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 20
+    weight: 21
     region: content
   field_operating_status_facility:
     type: list_default
@@ -275,12 +277,21 @@ content:
     third_party_settings: {  }
     weight: 17
     region: content
+  field_telephone:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 20
+    region: content
   field_timezone:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 21
+    weight: 22
     region: content
   flag_email_node:
     settings: {  }

@@ -168,7 +168,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Delete any existing comment.
-        uses: thollander/actions-comment-pull-request@fabd468d3a1a0b97feee5f6b9e499eab0dd903f6 # v2.5.0
+        uses: thollander/actions-comment-pull-request@e2c37e53a7d2227b61585343765f73a9ca57eda9 # v3.0.0
         continue-on-error: true
         with:
           comment_tag: check-composer-lock-changes
@@ -184,7 +184,7 @@ jobs:
           echo "LINES_CHANGED=$LINES_CHANGED" >> $GITHUB_ENV
           echo "THRESHOLD=$THRESHOLD" >> $GITHUB_ENV
       - name: Comment if composer.lock changes exceed threshold.
-        uses: thollander/actions-comment-pull-request@fabd468d3a1a0b97feee5f6b9e499eab0dd903f6 # v2.5.0
+        uses: thollander/actions-comment-pull-request@e2c37e53a7d2227b61585343765f73a9ca57eda9 # v3.0.0
         if: env.LINES_CHANGED > env.THRESHOLD
         continue-on-error: true
         with:
