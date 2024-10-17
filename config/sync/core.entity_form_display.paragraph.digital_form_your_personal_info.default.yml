@@ -1,0 +1,51 @@
+uuid: b4a33089-b539-4fe4-bb9c-45abb0c19772
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_your_personal_info.field_identification_information
+    - field.field.paragraph.digital_form_your_personal_info.field_name_and_date_of_birth
+    - paragraphs.paragraphs_type.digital_form_your_personal_info
+  module:
+    - inline_entity_form
+    - paragraphs_features
+id: paragraph.digital_form_your_personal_info.default
+targetEntityType: paragraph
+bundle: digital_form_your_personal_info
+mode: default
+content:
+  field_identification_information:
+    type: inline_entity_form_simple
+    weight: 2
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      revision: false
+    third_party_settings: {  }
+  field_name_and_date_of_birth:
+    type: inline_entity_form_simple
+    weight: 1
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      revision: false
+    third_party_settings:
+      paragraphs_features:
+        add_in_between: false
+        add_in_between_link_count: 3
+        delete_confirmation: false
+        show_drag_and_drop: false
+        show_collapse_all: false
+hidden:
+  created: true
+  status: true

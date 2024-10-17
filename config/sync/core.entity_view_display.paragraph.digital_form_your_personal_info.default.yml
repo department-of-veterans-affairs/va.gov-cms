@@ -1,0 +1,36 @@
+uuid: f26f48c3-e64c-48ed-ae78-2dcb4079fa93
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_your_personal_info.field_identification_information
+    - field.field.paragraph.digital_form_your_personal_info.field_name_and_date_of_birth
+    - paragraphs.paragraphs_type.digital_form_your_personal_info
+  module:
+    - entity_reference_revisions
+id: paragraph.digital_form_your_personal_info.default
+targetEntityType: paragraph
+bundle: digital_form_your_personal_info
+mode: default
+content:
+  field_identification_information:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_name_and_date_of_birth:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  breadcrumbs: true
+  search_api_excerpt: true
