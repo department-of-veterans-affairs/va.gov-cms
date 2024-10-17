@@ -5,15 +5,15 @@
  */
 
 // tokens
-import * as tokens from './tokens';
+import * as tokens from "./tokens";
 
 // components
-import * as alert from './alert';
-import * as button from './button';
-import * as icon from './icon';
-import * as input from './input';
-import * as announcementBlock from './announcement-block';
-import * as sitewideAlert from './sitewide-alert';
+import * as alert from "./alert";
+import * as button from "./button";
+import * as icon from "./icon";
+import * as input from "./input";
+import * as announcementBlock from "./announcement-block";
+import * as sitewideAlert from "./sitewide-alert";
 
 const components = {
   tokens,
@@ -22,7 +22,7 @@ const components = {
   icon,
   input,
   announcementBlock,
-  sitewideAlert
+  sitewideAlert,
 };
 
 /**
@@ -32,7 +32,7 @@ export default components;
 
 /**
  * All component names as an array
- * @returns {Array} List of components name strings
+ * @return {Array} List of components name strings
  */
 export const componentNames = () =>
   Object.values(components).map(({ name }) => name);
