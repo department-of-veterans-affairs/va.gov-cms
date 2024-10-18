@@ -1,7 +1,7 @@
 // Import module styles
-import './_variables.scss';
+import "./_variables.scss";
 
-export const name = 'tokens';
+export const name = "tokens";
 
 export function disable() {}
 

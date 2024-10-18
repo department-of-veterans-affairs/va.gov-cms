@@ -9,7 +9,7 @@
     padding-left: 1.94em;
 
     > li {
-      border-left: 8px solid var(--va-gray-lighter);
+      border-left: 8px solid var(--va-gray-lightest);
       counter-increment: process-counter;
       line-height: 1.5;
       list-style: none;
@@ -21,10 +21,10 @@
       }
 
       &::before {
-        background: var(--va-gray-light);
-        border: 4px solid var(--color-white);
+        background: var(--va-gray-lightest);
+        border: 4px solid var(--va-white);
         border-radius: 4em;
-        color: var(--color-white);
+        color: var(--va-white);
         content: counter(process-counter);
         display: block;
         float: left;
@@ -41,7 +41,7 @@
         border-left: 8px solid transparent;
 
         &::before {
-          border: 4px solid var(--color-white);
+          border: 4px solid var(--va-white);
         }
       }
     }

@@ -1,71 +1,61 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Bitter:400,600&display=swap&subset=latin-ext');
+@use "sass:color";
+
+$va-blue-dark: #004795;
+$blue-hover: darken($va-blue-dark, 10%);
+$va-gray-med: #aeb0b5;
+$gray-hover: darken($va-gray-med, 10%);
+
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Bitter:400,600&display=swap&subset=latin-ext");
 
 :root {
   /*
    * Our unique design system variables.
    */
-  --va-gray-lightest: #e5e3e1;
-  --va-gray-lighter: #e4e2e0;
-  --va-gray-light: #d3d3d3;
-  --va-gray-med: #757576;
-  --va-gray-dark: #595959;
-  --va-gray-darker: #494440;
+  --va-gray-lightest: #f1f1f1;
+  --va-gray-med: #{$va-gray-med};
   --va-gray-darkest: #212121;
-  --va-gray-cool-lightest: #f1f4f9;
-  --va-gray-cool-lighter: #e7ecf4;
-  --va-gray-cool-light: #dce4ef;
-  --va-gray-cool: #d1d9e3;
-  --va-gray-cool-med: #aeb0b5;
-  --va-gray-cool-dark: #5b616b;
-  --va-gray-cool-darker: #323a45;
-  --va-gray-button-hover: #c1c2c7;
   --va-blue-lightest: #f0f6fb;
-  --va-blue-lighter: #e4eff9;
-  --va-blue-light: #d9e8f6;
-  --va-blue: #3e94cf;
-  --va-blue-med: #0071bb;
-  --va-blue-dark: #004795;
-  --va-blue-darker: #003e73;
+  --va-blue-dark: #{$va-blue-dark};
   --va-blue-darkest: #112e51;
-  --va-blue-bright: #9bdaf1;
-  --va-blue-bright-med: #02bfe7;
-  --va-blue-bright-med-dark: #00a6d2;
-  --va-blue-bright-dark: #046b99;
   --va-gold-lightest: #fff1d2;
-  --va-gold-lighter: #fad980;
-  --va-gold: #f9c642;
   --va-gold-med: #fdb81e;
-  --va-green-lightest: #d5e7d9;
-  --va-green-light: #4aa564;
+  --va-gold-dark: #c58702;
+  --va-green-lightest: #e7f4e4;
   --va-green: #2e8540;
   --va-green-dark: #195c27;
-  --va-green-alt: #0fa56f;
-  --va-green-alt-bright: #1bc47d;
   --va-red-lightest: #f9dede;
-  --va-red: #f24f44;
-  --va-red-alt-dark: #d04037;
-  --va-red-bright: #e31c3d;
   --va-red-dark: #cd2026;
   --va-red-darker: #981b1e;
-  --va-sky: #f0f6fb;
-  --va-sand: #fdf5e3;
-  --va-blush: #fbf0ec;
-  --va-mint: #f6fdf4;
-  --color-white: #fff;
-  --color-black: #000;
+  --va-white: #ffffff;
+  --va-black: #212121;
 
   /* Colors for textfield_counter overrides */
-  --color-textfield-counter-warning: #C58702;
-  --color-textfield-counter-over: #B20D01;
+  --color-textfield-counter-warning: var(--va-gold-dark);
+  --color-textfield-counter-over: var(--va-red-dark);
 
-  /*
-  * New colors added for CMSDS
-  */
-  --color-sky: #f0f6fb;
-  --color-sand: #fdf5e3;
-  --color-blush: #fbf0Ec;
-  --color-mint: #f6fdf4;
+  /* claro overrides */
+  --color-absolutezero: var(--va-blue-dark);
+  --color-absolutezero-hover: var(--va-blue-dark);
+  --color-absolutezero-active: var(--va-blue-darkest);
+  --color-sunglow: var(--va-gold-med);
+  --color-maximumred: var(--va-red-dark);
+  --color-lightninggreen: var(--va-green-dark);
+  --color-lightgray: var(--va-gray-lightest);
+  --color-whitesmoke: var(--va-gray-lightest);
+  --color-text: var(--va-gray-darkest);
+  --color-grayblue: var(--va-gray-lightest);
+  --color-davysgray: var(--va-gray-darkest);
+  --color-bgblue-hover: var(--va-blue-lightest);
+  --color-bgblue-active: var(--va-blue-lightest);
+  --button-fg-color--primary: var(--va-white);
+  --button--hover-bg-color--primary: #{$blue-hover};
+  --button-bg-color--primary: var(--va-blue-dark);
+  --button-bg-color: var(--va-gray-med);
+  --button--hover-bg-color: #{$gray-hover};
+  --input-fg-color-description--alt: var(--va-gray-darkest);
+  --input--hover-border-color: var(--va-blue-darkest);
+  --input--disabled-fg-color: var(--va-gray-darkest);
 
   /* rem size based on :root font-size of 16px, so 1rem = 16px */
   --spacing-xxs: 0.25rem;
@@ -77,8 +67,8 @@
   --spacing-xl: 3rem;
 
   /* font families */
-  --font-family-sans: 'Source Sans Pro', sans-serif;
-  --font-family-serif: 'Bitter', serif;
+  --font-family-sans: "Source Sans Pro", sans-serif;
+  --font-family-serif: "Bitter", serif;
 
   /* font sizes */
   --va-display-xl: 48px;
@@ -90,27 +80,8 @@
   --va-text: 18px;
   --va-helptext: 14px;
 
-  /* claro overrides */
-  --color-absolutezero: var(--va-blue-med);
-  --color-absolutezero-hover: var(--va-blue-dark);
-  --color-absolutezero-active: var(--va-blue-darker);
-  --color-sunglow: var(--va-gold-med);
-  --color-maximumred: var(--va-red-dark);
-  --color-lightninggreen: var(--va-green);
-  --color-lightgray: var(--va-gray-lighter);
-  --color-whitesmoke: var(--va-gray-lightest);
-  --color-text: var(--va-gray-darkest);
-  --color-grayblue: var(--va-gray-cool-med);
-  --color-davysgray: var(--va-gray-med);
-  --color-bgblue-hover: var(--va-blue-light);
-  --color-bgblue-active: var(--va-blue-light);
-
   --messages__text-margin: 0;
 
-  --input-fg-color-description--alt: var(--va-gray-dark);
-  --input--hover-border-color: var(--va-blue-darker);
-  --input--disabled-fg-color: var(--va-gray-darkest);
-
   --focus-outline: 2px dotted transparent;
-  --focus-box-shadow:0 0 0 2px #fff, 0 0 0 5px #26a769;
+  --focus-box-shadow: 0 0 0 2px #fff, 0 0 0 5px var(--va-green);
 }
