@@ -99,7 +99,7 @@ class FormBuilderEditBaseTest extends VaGovUnitTestBase {
    * Test that the buildForm method properly initializes the changed flag.
    */
   public function testBuildFormInitializesChangedFlag() {
-    $reflection = new ReflectionClass($this->classInstance);
+    $reflection = new \ReflectionClass($this->classInstance);
     $isChangedFlag = $reflection->getProperty('digitalFormNodeIsChanged');
     $isChangedFlag->setAccessible(TRUE);
 

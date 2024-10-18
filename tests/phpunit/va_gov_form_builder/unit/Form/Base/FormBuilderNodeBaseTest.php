@@ -68,7 +68,7 @@ class FormBuilderNodeBaseTest extends VaGovUnitTestBase {
     $violationList = new ConstraintViolationList([]);
     $digitalFormNode->method('validate')->willReturn($violationList);
 
-    $reflection = new ReflectionClass($this->classInstance);
+    $reflection = new \ReflectionClass($this->classInstance);
     $digitalFormNodeProperty = $reflection->getProperty('digitalFormNode');
     $digitalFormNodeProperty->setAccessible(TRUE);
     $digitalFormNodeProperty->setValue($this->classInstance, $digitalFormNode);
@@ -97,7 +97,7 @@ class FormBuilderNodeBaseTest extends VaGovUnitTestBase {
 
     $digitalFormNode->method('validate')->willReturn($violationList);
 
-    $reflection = new ReflectionClass($this->classInstance);
+    $reflection = new \ReflectionClass($this->classInstance);
     $digitalFormNodeProperty = $reflection->getProperty('digitalFormNode');
     $digitalFormNodeProperty->setAccessible(TRUE);
     $digitalFormNodeProperty->setValue($this->classInstance, $digitalFormNode);
@@ -130,7 +130,7 @@ class FormBuilderNodeBaseTest extends VaGovUnitTestBase {
 
     $digitalFormNode->method('validate')->willReturn($violationList);
 
-    $reflection = new ReflectionClass($this->classInstance);
+    $reflection = new \ReflectionClass($this->classInstance);
     $digitalFormNodeProperty = $reflection->getProperty('digitalFormNode');
     $digitalFormNodeProperty->setAccessible(TRUE);
     $digitalFormNodeProperty->setValue($this->classInstance, $digitalFormNode);
