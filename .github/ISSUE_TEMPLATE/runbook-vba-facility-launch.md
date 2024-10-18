@@ -28,7 +28,7 @@ Facility CMS link: <insert_facility_link>
 - [ ] Create a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=kristinoletmuskat%2C+strelich%2C+Agile6MSkinner&labels=sitewide+CAIA%2C+Sitewide+IA%2C+Facilities%2C+Regional+Office%2C+sitewide%2C+VA.gov+frontend%2C+Redirect+request&projects=&template=redirect-request.md&title=Redirect+Request) to redirect the previous TeamSite page to the modernized page.
   - [ ] **Indicate in ticket** that this is a [page level redirect for a Teamsite using the injected header](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/engineering/redirect-implementation-strategy.md#3-subdomain--vagov-page-level-cross-domain-redirect-for-a-subdomain-that-loads-proxy-rewrite-js) -- it can be done within proxy rewrite as a client-side redirect
 
-## Facilities engineer tasks
-- [ ] After Content release has run and completed successfully, send a request to Lighthouse in #cms-lighthouse, to update the canonical URL from the API ID facility locator detail page, to the published / modernized page. **This may take several days for LH to complete.**
-- [ ] Create a redirect in vsp-platform-revproxy to point traffic from the facility locator detail page to the modernized page path
-- [ ] Notify VBA leadership, with CMS Helpdesk in cc, of completed launch, including: link to live Regional Office page(s), [VBA KB landing page](https://prod.cms.va.gov/help/veterans-benefits-administration-vba), and estimated timing from LH for the CSV updates
+## Facilities PM / DM tasks
+- [ ] Verify that TeamSite redirect is complete
+- [ ] Verify that Facility Locator / LIghthouse redirect is complete
+- [ ] Notify VBA leadership, with CMS Helpdesk in cc, of completed launch, including: link to live Regional Office page(s), [VBA KB landing page](https://prod.cms.va.gov/help/veterans-benefits-administration-vba)
