@@ -71,4 +71,20 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertArrayHasKey('start_new_conversion_header', $form);
   }
 
+  /**
+   * Tests the nameAndDob method returns a NameAndDob form.
+   */
+  public function testNameAndDob() {
+    // Create a node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'field_chapters' => [],
+    ]);
+
+    $form = $this->controller->nameAndDob($node->id());
+
+    $this->assertArrayHasKey('#type', $form);
+    $this->assertArrayHasKey('name_and_dob_header', $form);
+  }
+
 }
