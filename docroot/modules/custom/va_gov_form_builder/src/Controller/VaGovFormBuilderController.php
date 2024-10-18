@@ -62,4 +62,11 @@ class VaGovFormBuilderController extends ControllerBase {
     return $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\StartConversion');
   }
 
+  /**
+   * Name-and-date-of-birth page.
+   */
+  public function nameAndDob($nid) {
+    return $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\NameAndDob', $nid);
+  }
+
 }

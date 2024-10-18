@@ -16,3 +16,9 @@ va_gov_form_builder.start_conversion:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::startConversion'
   requirements:
     _permission: "edit any digital_form content"
+va_gov_form_builder.name_and_dob:
+  path: "/form-builder/{nid}/name-and-dob"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::nameAndDob'
+  requirements:
+    _permission: "edit any digital_form content"

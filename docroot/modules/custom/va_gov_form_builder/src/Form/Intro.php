@@ -2,13 +2,13 @@
 
 namespace Drupal\va_gov_form_builder\Form;
 
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\va_gov_form_builder\Form\Base\FormBuilderBase;
 
 /**
  * Form step for creating a new form (new conversion).
  */
-class Intro extends FormBase {
+class Intro extends FormBuilderBase {
 
   /**
    * {@inheritdoc}
@@ -20,8 +20,15 @@ class Intro extends FormBase {
   /**
    * {@inheritdoc}
    */
+  protected function getFields() {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['#title'] = $this->t('Form Builder');
+    $form = parent::buildForm($form, $form_state);
 
     $form['working_with_form_builder_header'] = [
       '#type' => 'html_tag',

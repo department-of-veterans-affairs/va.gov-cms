@@ -3,6 +3,7 @@
 namespace tests\phpunit\va_gov_form_builder\functional\Form;
 
 use tests\phpunit\va_gov_form_builder\Traits\SharedConstants;
+use tests\phpunit\va_gov_form_builder\Traits\TestFormLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
@@ -16,6 +17,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
 class StartConversionTest extends VaGovExistingSiteBase {
 
   use SharedConstants;
+  use TestFormLoads;
 
   /**
    * {@inheritdoc}
@@ -23,32 +25,34 @@ class StartConversionTest extends VaGovExistingSiteBase {
   private static $modules = ['va_gov_form_builder'];
 
   /**
+   * Returns the url for this form.
+   */
+  private function getFormPageUrl() {
+    return '/form-builder/start-conversion';
+  }
+
+  /**
    * Setup the environment for each test.
    */
   public function setUp(): void {
     parent::setUp();
 
-    $this->drupalLogin($this->createUser(['edit any digital_form content']));
-    $this->drupalGet('/form-builder/start-conversion');
+    $this->loginDigitalFormUser();
+    $this->drupalGet($this->getFormPageUrl());
   }
 
   /**
    * Test the form is accessible to a user with the correct privilege.
    */
   public function testFormLoads() {
-    $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains('Start a new conversion');
+    $this->sharedTestFormLoads($this->getFormPageUrl(), 'Start a new conversion');
   }
 
   /**
    * Test the form is not accessible to a user without the correct privilege.
    */
   public function testFormDoesNotLoad() {
-    // Log out the good user and log in a user without permission.
-    $this->drupalLogin($this->createUser([]));
-    $this->drupalGet('/form-builder/start-conversion');
-
-    $this->assertSession()->statusCodeNotEquals(200);
+    $this->sharedTestFormDoesNotLoad($this->getFormPageUrl());
   }
 
   /**

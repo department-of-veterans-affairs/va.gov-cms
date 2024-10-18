@@ -2,53 +2,13 @@
 
 namespace Drupal\va_gov_form_builder\Form;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\node\Entity\Node;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\va_gov_form_builder\Form\Base\FormBuilderNodeBase;
 
 /**
  * Form step for starting a new form conversion.
  */
-class StartConversion extends FormBase {
-  private const FIELD_NAMES = [
-    'title',
-    'field_va_form_number',
-    'field_omb_number',
-    'field_respondent_burden',
-    'field_expiration_date',
-  ];
-
-  /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  private $entityTypeManager;
-
-  /**
-   * The Digital Form node set for creation by this form.
-   *
-   * @var \Drupal\node\Entity\Node
-   */
-  private $digitalFormNode;
-
-  /**
-   * {@inheritDoc}
-   */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
-    $this->entityTypeManager = $entityTypeManager;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('entity_type.manager')
-    );
-  }
+class StartConversion extends FormBuilderNodeBase {
 
   /**
    * {@inheritdoc}
@@ -60,8 +20,21 @@ class StartConversion extends FormBase {
   /**
    * {@inheritdoc}
    */
+  protected function getFields() {
+    return [
+      'title',
+      'field_va_form_number',
+      'field_omb_number',
+      'field_respondent_burden',
+      'field_expiration_date',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['#title'] = $this->t('Form Builder');
+    $form = parent::buildForm($form, $form_state);
 
     $form['start_new_conversion_header'] = [
       '#type' => 'html_tag',
@@ -143,10 +116,10 @@ class StartConversion extends FormBase {
   }
 
   /**
-   * Creates a Digital Form node from the form-state data.
+   * {@inheritdoc}
    */
-  private function createDigitalFormNode(array &$form, FormStateInterface $form_state) {
-    $this->digitalFormNode = Node::create([
+  protected function setDigitalFormNodeFromFormState(array &$form, FormStateInterface $form_state) {
+    $this->digitalFormNode = $this->entityTypeManager->getStorage('node')->create([
       'type' => 'digital_form',
       'title' => $form_state->getValue('title'),
       'field_va_form_number' => $form_state->getValue('field_va_form_number'),
@@ -166,38 +139,11 @@ class StartConversion extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    $this->createDigitalFormNode($form, $form_state);
-
-    // Validate the node entity.
-    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
-    $violations = $this->digitalFormNode->validate();
-
-    // Loop through each violation and set errors on the form.
-    if ($violations->count() > 0) {
-      foreach ($violations as $violation) {
-        $fieldName = $violation->getPropertyPath();
-
-        // Only concern ourselves with validation of fields used on this form.
-        if (in_array($fieldName, self::FIELD_NAMES)) {
-          $message = $violation->getMessage();
-          $form_state->setErrorByName($fieldName, $message);
-        }
-      }
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Save the previously validated node.
-    $this->digitalFormNode->save();
+    parent::submitForm($form, $form_state);
 
-    // For now, redirect to the default node-edit form
-    // to confirm creation of the node.
-    $form_state->setRedirect('entity.node.edit_form', [
-      'node' => $this->digitalFormNode->id(),
+    $form_state->setRedirect('va_gov_form_builder.name_and_dob', [
+      'nid' => $this->digitalFormNode->id(),
     ]);
   }
 
