@@ -1,6 +1,7 @@
 @content_type__support_resources_detail_page
 Feature: Content Type: Resources and Support Detail Page
 
+  @critical_path
   Scenario: Validate Tags with attention to conditional fields
     Given I am logged in as a user with the "content_admin" role
     When I am at "node/add/support_resources_detail_page"

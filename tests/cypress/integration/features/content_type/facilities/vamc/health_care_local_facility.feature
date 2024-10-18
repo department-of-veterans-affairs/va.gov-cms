@@ -4,6 +4,7 @@ Feature: CMS Users may effectively interact with the VAMC Facility form
   As anyone involved in the project
   I need to have certain functionality available
 
+  @critical_path
   Scenario: Log in and create a VAMC Facility as an admin
     Given I am logged in as a user with the "content_admin" role
     When I am at "/node/add/health_care_local_facility"
