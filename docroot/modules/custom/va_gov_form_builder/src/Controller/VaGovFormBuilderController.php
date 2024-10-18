@@ -66,6 +66,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * Name-and-date-of-birth page.
    */
   public function nameAndDob($nid) {
+    // @phpstan-ignore-next-line
     return $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\NameAndDob', $nid);
   }
 

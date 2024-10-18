@@ -28,6 +28,14 @@ class NameAndDob extends FormBuilderEditBase {
    * {@inheritdoc}
    */
   protected function getFields() {
+    // We need to add a way to tie form fields (of different names)
+    // to the Digital Form fields.
+    //
+    // Example:
+    // If we get an error validating `field_chapters`,
+    // we need to tie that to `step_name` on this sub-form.
+    //
+    // For now, we just return an empty array.
     return [];
   }
 
