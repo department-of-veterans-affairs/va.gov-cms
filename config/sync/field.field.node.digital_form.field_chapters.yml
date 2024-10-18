@@ -5,7 +5,10 @@ dependencies:
   config:
     - field.storage.node.field_chapters
     - node.type.digital_form
+    - paragraphs.paragraphs_type.digital_form_address
+    - paragraphs.paragraphs_type.digital_form_identification_info
     - paragraphs.paragraphs_type.digital_form_name_and_date_of_bi
+    - paragraphs.paragraphs_type.digital_form_phone_and_email
   module:
     - entity_reference_revisions
     - tmgmt_content
@@ -27,6 +30,9 @@ settings:
   handler_settings:
     target_bundles:
       digital_form_name_and_date_of_bi: digital_form_name_and_date_of_bi
+      digital_form_identification_info: digital_form_identification_info
+      digital_form_address: digital_form_address
+      digital_form_phone_and_email: digital_form_phone_and_email
     negate: 0
     target_bundles_drag_drop:
       address:
@@ -65,106 +71,115 @@ settings:
       contact_information:
         weight: -84
         enabled: false
+      digital_form_address:
+        weight: -97
+        enabled: true
+      digital_form_identification_info:
+        weight: -98
+        enabled: true
       digital_form_name_and_date_of_bi:
-        weight: -82
+        weight: -99
+        enabled: true
+      digital_form_phone_and_email:
+        weight: -96
         enabled: true
       downloadable_file:
-        weight: -81
+        weight: -83
         enabled: false
       email_contact:
-        weight: -80
+        weight: -82
         enabled: false
       embedded_video:
-        weight: -79
+        weight: -81
         enabled: false
       expandable_text:
-        weight: -78
+        weight: -80
         enabled: false
       featured_content:
-        weight: -77
+        weight: -79
         enabled: false
       health_care_local_facility_servi:
-        weight: -76
+        weight: -78
         enabled: false
       link_teaser:
-        weight: -75
+        weight: -77
         enabled: false
       link_teaser_with_image:
-        weight: -74
+        weight: -76
         enabled: false
       list_of_link_teasers:
-        weight: -71
-        enabled: false
-      list_of_links:
-        weight: -72
-        enabled: false
-      lists_of_links:
         weight: -73
         enabled: false
+      list_of_links:
+        weight: -74
+        enabled: false
+      lists_of_links:
+        weight: -75
+        enabled: false
       magichead_group:
-        weight: -70
+        weight: -72
         enabled: false
       media:
-        weight: -69
+        weight: -71
         enabled: false
       media_list_images:
-        weight: -68
+        weight: -70
         enabled: false
       media_list_videos:
-        weight: -67
+        weight: -69
         enabled: false
       non_reusable_alert:
-        weight: -66
+        weight: -68
         enabled: false
       number_callout:
-        weight: -65
+        weight: -67
         enabled: false
       phone_number:
-        weight: -64
+        weight: -66
         enabled: false
       process:
-        weight: -63
+        weight: -65
         enabled: false
       q_a:
-        weight: -62
+        weight: -64
         enabled: false
       q_a_group:
-        weight: -61
+        weight: -63
         enabled: false
       q_a_section:
-        weight: -60
+        weight: -62
         enabled: false
       react_widget:
-        weight: -59
+        weight: -61
         enabled: false
       rich_text_char_limit_1000:
-        weight: -58
+        weight: -60
         enabled: false
       service_location:
-        weight: -57
+        weight: -59
         enabled: false
       service_location_address:
-        weight: -56
+        weight: -58
         enabled: false
       situation_update:
-        weight: -55
+        weight: -57
         enabled: false
       spanish_translation_summary:
-        weight: -54
+        weight: -56
         enabled: false
       staff_profile:
-        weight: -53
+        weight: -55
         enabled: false
       step:
-        weight: -52
+        weight: -54
         enabled: false
       step_by_step:
-        weight: -51
+        weight: -53
         enabled: false
       table:
-        weight: -50
+        weight: -52
         enabled: false
       wysiwyg:
-        weight: -49
+        weight: -51
         enabled: false
 field_type: entity_reference_revisions
