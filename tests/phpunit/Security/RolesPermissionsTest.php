@@ -910,6 +910,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
         'homepage_manager',
         [
           'access block library',
+          'create banner content',
           'create benefit_promo block content',
           'create cta_with_link block content',
           'create news_promo block content',
