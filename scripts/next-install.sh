@@ -17,8 +17,10 @@ cd next
 #repo_root="$(git rev-parse --show-toplevel)"
 #pushd "${repo_root}" > /dev/null
 
-nvm install 18.17.0 
+# Make sure the correct node version is installed and in use
+nvm install 18.17.0
 nvm use 18.17.0
+
 corepack enable
 corepack prepare yarn@stable --activate
 echo "Node $(node -v)"
