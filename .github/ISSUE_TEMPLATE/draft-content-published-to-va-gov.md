@@ -7,8 +7,8 @@ assignees: ''
 
 ---
 
-## What were the exact changes that happened to the draft page that was incorrectly published?
-{Changes that were in draft that shouldn't have been pub;ished}
+## What were the exact changes that happened to the draft page that were incorrectly published?
+{Changes that were in draft that shouldn't have been published}
 
 ## Links
 - Drupal link:[Title of page inside Drupal](url)
