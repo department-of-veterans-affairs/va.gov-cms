@@ -1,5 +1,5 @@
-@import '../tokens/mixins';
-@import '../components/undo_field_styling';
+@import "../tokens/mixins";
+@import "../components/undo_field_styling";
 
 #block-vagovclaro-content {
   font-size: 1rem;
@@ -19,7 +19,8 @@
     td {
       vertical-align: top;
 
-      @media all and (max-width: 48em) { /* 768px */
+      @media all and (max-width: 48em) {
+        /* 768px */
         display: block;
         width: 100%;
       }
@@ -37,7 +38,7 @@
       float: none;
 
       &::after {
-        content: '';
+        content: "";
       }
     }
   }
@@ -141,7 +142,6 @@
             -webkit-appearance: none; /* 3 */
             -moz-appearance: none; /* 3 */
             background-color: var(--va-gray-lightest);
-            background-image: linear-gradient(to bottom, var(--va-gray-darkest), var(--va-gray-lightest));
             border: 1px solid var(--va-gray-darkest);
             border-radius: 0.8rem;
             box-sizing: border-box;

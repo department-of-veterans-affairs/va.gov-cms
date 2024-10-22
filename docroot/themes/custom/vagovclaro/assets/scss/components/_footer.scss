@@ -4,7 +4,7 @@
 }
 
 .va-footer .layout-container {
-  @include breakpoint('md') {
+  @include breakpoint("md") {
     align-items: center;
     display: flex;
     justify-content: space-between;
@@ -24,7 +24,7 @@
     display: none;
   }
 
-  @include breakpoint('md') {
+  @include breakpoint("md") {
     display: flex;
     flex-direction: row;
 
@@ -33,12 +33,12 @@
 
       &::after {
         color: var(--va-white);
-        content: ' | ';
+        content: " | ";
         padding-right: 1rem;
       }
 
       &:last-child::after {
-        content: '';
+        content: "";
       }
     }
   }
@@ -57,7 +57,7 @@
 .va-footer-logo {
   margin-top: 2rem;
 
-  @include breakpoint('md') {
+  @include breakpoint("md") {
     margin-top: 0;
   }
 }

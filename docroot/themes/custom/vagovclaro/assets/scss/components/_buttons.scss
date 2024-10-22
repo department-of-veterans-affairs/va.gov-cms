@@ -45,7 +45,10 @@
 }
 
 .button--outline.action-link {
-  padding: calc((var(--space-m) - var(--space-l)/2 + var(--space-m)/2) - 2px) calc(var(--space-m) - 2px);
+  padding: calc(
+      (var(--space-m) - var(--space-l) / 2 + var(--space-m) / 2) - 2px
+    )
+    calc(var(--space-m) - 2px);
   text-decoration: none;
 }
 
@@ -77,6 +80,8 @@ table .button:not(:focus) {
 }
 
 // keeps dropbuttons text aligned with the toggle
-.js.no-touchevents .dropbutton--multiple.dropbutton--extrasmall .dropbutton__item:first-of-type {
+.js.no-touchevents
+  .dropbutton--multiple.dropbutton--extrasmall
+  .dropbutton__item:first-of-type {
   white-space: nowrap;
 }

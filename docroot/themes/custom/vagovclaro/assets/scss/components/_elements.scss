@@ -21,7 +21,6 @@
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%230071bb'/%3e%3c/svg%3e");
 }
 
-
 // classes for consistent styles on various help-texts around the cms
 .form-item__description,
 .fieldset__description,
@@ -97,7 +96,6 @@ a:hover {
   display: inline-block;
   margin: var(--space-s) var(--space-xs) var(--space-s) 0;
 }
-
 
 // help text on a non-white background needs more contrast
 .claro-details__wrapper--accordion-item .form-item__description {
@@ -220,8 +218,8 @@ p.vc-help-text {
 }
 
 .filter-help a::after {
-  background: transparent url('../../../../../core/misc/help.png');
-  content: '';
+  background: transparent url("../../../../../core/misc/help.png");
+  content: "";
   display: block;
   height: 16px;
   position: absolute;
@@ -234,7 +232,7 @@ p.vc-help-text {
   color: var(--va-blue-dark);
   text-decoration: underline;
   transition-duration: 0.3s;
-  transition-property: color,background-color,border-color;
+  transition-property: color, background-color, border-color;
   transition-timing-function: ease-in-out;
 
   &:focus,
@@ -276,8 +274,9 @@ p.vc-help-text {
   }
 
   &::after {
-    background: transparent url('../images/icons/004795/carrot.svg') no-repeat center center;
-    content: '';
+    background: transparent url("../images/icons/004795/carrot.svg") no-repeat
+      center center;
+    content: "";
     display: block;
     height: 16px;
     position: absolute;
@@ -286,7 +285,7 @@ p.vc-help-text {
     width: 16px;
   }
 
-  &[aria-expanded='true']::after {
+  &[aria-expanded="true"]::after {
     transform: rotate(180deg);
   }
 }
