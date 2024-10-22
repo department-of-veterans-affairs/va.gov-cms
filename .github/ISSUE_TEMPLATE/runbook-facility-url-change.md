@@ -3,7 +3,7 @@ name: Runbook - Facility URL Change
 about: Submit a request to change the URL of a facility
 title: 'URL Change for: <insert facility name>'
 labels: Drupal engineering, Facilities, Flagged Facilities, Redirect request, User
-  support
+  support, sitewide
 assignees: ''
 
 ---
