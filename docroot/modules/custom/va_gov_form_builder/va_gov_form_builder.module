@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_form_builder.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function va_gov_form_builder_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  if ($entity_type->id() === 'node' && $bundle === 'digital_form') {
+    $fields['field_va_form_number']->addConstraint('FormBuilder_UniqueField');
+  }
+
+  return $fields;
+}
