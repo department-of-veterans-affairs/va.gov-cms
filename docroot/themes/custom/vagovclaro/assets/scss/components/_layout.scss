@@ -1,16 +1,16 @@
 .content-header {
   background-color: var(--va-blue-darkest);
-  color: var(--color-white);
+  color: var(--va-white);
 
   // only re-color primary tab links when not in menu layout.
-  @include breakpoint('tabs') {
+  @include breakpoint("tabs") {
     .is-horizontal .tabs {
       .tabs__link {
-        color: var(--va-gray-lighter);
+        color: var(--va-gray-lightest);
       }
 
       .tabs__link:hover {
-        color: var(--va-blue-med);
+        color: var(--va-blue-dark);
       }
 
       .tabs__link.is-active {
@@ -59,7 +59,7 @@
   margin-left: 2rem !important;
   margin-right: 2rem !important;
 
-  @include breakpoint('lg') {
+  @include breakpoint("lg") {
     margin-left: 3rem !important;
     margin-right: 3rem !important;
   }
@@ -72,13 +72,13 @@
   grid-gap: 1rem;
   grid-template-columns: 1fr;
 
-  @include breakpoint('sm') {
+  @include breakpoint("sm") {
     grid-template-columns: 1fr 300px;
   }
-  @include breakpoint('md') {
+  @include breakpoint("md") {
     grid-gap: 2rem;
   }
-  @include breakpoint('lg') {
+  @include breakpoint("lg") {
     grid-template-columns: 1fr 360px;
   }
 }
@@ -86,7 +86,7 @@
 .layout--node-main {
   min-width: 0;
 
-  @include breakpoint('sm') {
+  @include breakpoint("sm") {
     grid-area: 1 / 1 / 1 / 2;
   }
 
@@ -99,7 +99,7 @@
 .layout--node-secondary {
   min-width: 0;
 
-  @include breakpoint('sm') {
+  @include breakpoint("sm") {
     grid-area: 1 / 2 / 1 / 3;
     max-width: 100%;
 
@@ -120,7 +120,7 @@
     max-width: 52rem;
   }
 
-  @include breakpoint('sm') {
+  @include breakpoint("sm") {
     grid-area: 2 / 1 / 2 / 2;
   }
 }
