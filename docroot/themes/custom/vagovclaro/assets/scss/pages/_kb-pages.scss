@@ -131,13 +131,13 @@
   }
 
   .form-element {
-    background: var(--va-blue-darker);
-    border-color: var(--va-gray-cool-med);
-    color: var(--color-white);
+    background: var(--va-blue-dark);
+    border-color: var(--va-gray-darkest);
+    color: var(--va-white);
     min-height: 32px;
 
     &::placeholder {
-      color: var(--color-white);
+      color: var(--va-white);
     }
   }
 
@@ -169,7 +169,7 @@
     }
 
     a:hover {
-      background: var(--va-blue-light);
+      background: var(--va-blue-lightest);
       text-decoration: none;
     }
   }
@@ -285,7 +285,7 @@ main {
 
       input {
         background-color: var(--color-absolutezero-hover);
-        color: var(--color-white);
+        color: var(--va-white);
         transition-duration: 0.3s;
         transition-property: background-color;
         transition-timing-function: ease-in-out;
@@ -304,8 +304,8 @@ main {
     display: inline-block;
 
     .usa-button {
-      background: var(--va-gray-light);
-      color: var(--color-black);
+      background: var(--va-gray-lightest);
+      color: var(--va-black);
 
       &:hover {
         background: var(--va-gray-med);
