@@ -51,16 +51,16 @@ See [RepositoryCommands.php](docroot/modules/custom/va_gov_git/src/Commands/Repo
 ### API commands (these commands require you to shell in to tugboat)
 
 See [ApiClientCommands.php](docroot/modules/custom/va_gov_github/src/Commands/ApiClientCommands.php).
-- `va-gov-github:api-client:repository-dispatch` -- Send a repository dispatch event.
-- `va-gov-github:api-client:search-issues` -- Search issues for a repository.
-- `va-gov-github:api-client:search-pull-requests` (alias va-gov-github-api-client-search-prs) -- Search pull requests for a repository.
-- `va-gov-github:api-client:workflow-dispatch` -- Send a workflow dispatch event.
-- `va-gov-github:api-client:workflow-runs` -- List workflow runs for a repository and workflow.
+- `va-gov-github:api-client:repository-dispatch` -- add $owner $repository $eventType $apiToken -- Send a repository dispatch event.
+- `va-gov-github:api-client:search-issues` -- add $owner $repository $searchString $apiToken $sortField $sortOrder -- Search issues for a repository.
+- `va-gov-github:api-client:search-pull-requests` (alias va-gov-github-api-client-search-prs) -- add $owner $repository $searchString $apiToken $sortField $sortOrder -- Search pull requests for a repository.
+- `va-gov-github:api-client:workflow-dispatch` -- add $owner $repository $workflowId $reference $apiToken --Send a workflow dispatch event.
+- `va-gov-github:api-client:workflow-runs` -- add $owner $repository $workflowId $apiToken -- List workflow runs for a repository and workflow.
 
 See [RawApiClientCommands.php](docroot/modules/custom/va_gov_github/src/Commands/RawApiClientCommands.php).
-- `va-gov-github:raw-api-client:current-user:organizations` -- List organizational memberships of the current user.
-- `va-gov-github:raw-api-client:current-user:repositories` -- List repositories accessible by the current user.
-- `va-gov-github:raw-api-client:request:get` (alias va-gov-github:raw-api-client:request) -- Request any route.
+- `va-gov-github:raw-api-client:current-user:organizations` -- add $apiToken -- List organizational memberships of the current user.
+- `va-gov-github:raw-api-client:current-user:repositories` -- add $apiToken -- List repositories accessible by the current user.
+- `va-gov-github:raw-api-client:request:get` (alias va-gov-github:raw-api-client:request) -- add $route and $apiToken -- Request any route.
 
 
 ### Migration commands
