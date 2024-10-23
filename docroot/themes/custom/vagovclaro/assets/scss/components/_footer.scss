@@ -4,7 +4,7 @@
 }
 
 .va-footer .layout-container {
-  @include breakpoint('md') {
+  @include breakpoint("md") {
     align-items: center;
     display: flex;
     justify-content: space-between;
@@ -24,7 +24,7 @@
     display: none;
   }
 
-  @include breakpoint('md') {
+  @include breakpoint("md") {
     display: flex;
     flex-direction: row;
 
@@ -32,24 +32,24 @@
       list-style-type: none;
 
       &::after {
-        color: var(--color-white);
-        content: ' | ';
+        color: var(--va-white);
+        content: " | ";
         padding-right: 1rem;
       }
 
       &:last-child::after {
-        content: '';
+        content: "";
       }
     }
   }
 
   a {
-    color: var(--color-white);
+    color: var(--va-white);
     margin-right: 1rem;
 
     &:hover,
     &:focus {
-      color: var(--va-blue-darker);
+      color: var(--va-blue-darkest);
     }
   }
 }
@@ -57,7 +57,7 @@
 .va-footer-logo {
   margin-top: 2rem;
 
-  @include breakpoint('md') {
+  @include breakpoint("md") {
     margin-top: 0;
   }
 }

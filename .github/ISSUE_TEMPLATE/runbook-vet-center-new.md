@@ -3,7 +3,7 @@ name: Runbook - New Vet Center Facility
 about: changing facility information in the CMS for Vet Center facilities
 title: 'New Vet Center Facility: <insert_name_of_facility>'
 labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support,
-  Vet Center
+  Vet Center, sitewide
 assignees: ''
 
 ---
