@@ -48,7 +48,7 @@ See [RepositoryCommands.php](docroot/modules/custom/va_gov_git/src/Commands/Repo
 - `va-gov-git:repository:search-remote-branches` -- add repository name to end (i.e. va.gov-cms) and search string/term (i.e. discovery) -- List remote branches containing the specified string.
 
 
-### API commands
+### API commands (these commands require you to shell in to tugboat)
 
 See [ApiClientCommands.php](docroot/modules/custom/va_gov_github/src/Commands/ApiClientCommands.php).
 - `va-gov-github:api-client:repository-dispatch` -- Send a repository dispatch event.
