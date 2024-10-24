@@ -12,7 +12,7 @@
 
   .data-updated::after {
     clear: both;
-    content: ' ';
+    content: " ";
     display: block;
     font-size: 0;
     height: 0;
@@ -37,8 +37,17 @@
 // non-admin users shouldn't be able to edit centralized content, lots of minor tweaks for them
 .centralized-content {
   &.role-not-admin {
-    [data-drupal-selector='edit-field-content-block'] > table > thead > tr > th > .paragraphs-actions,
-    [data-drupal-selector='edit-field-content-block'] > table > tbody > tr.draggable > td.field-multiple-drag {
+    [data-drupal-selector="edit-field-content-block"]
+      > table
+      > thead
+      > tr
+      > th
+      > .paragraphs-actions,
+    [data-drupal-selector="edit-field-content-block"]
+      > table
+      > tbody
+      > tr.draggable
+      > td.field-multiple-drag {
       display: none;
     }
 
@@ -51,9 +60,10 @@
       display: none;
     }
 
-    .paragraph--type--centralized-content-descriptor.paragraph--view-mode--default .js-form-item {
-      background-color: var(--va-gray-med);
-      color: var(--color-white);
+    .paragraph--type--centralized-content-descriptor.paragraph--view-mode--default
+      .js-form-item {
+      background-color: var(--va-gray-darkest);
+      color: var(--va-white);
 
       legend {
         display: none;
@@ -123,8 +133,8 @@
       }
 
       .cc-paragraph-header {
-        background: var(--va-gray-med);
-        color: var(--color-white);
+        background: var(--va-gray-darkest);
+        color: var(--va-white);
 
         td {
           padding: 15px;

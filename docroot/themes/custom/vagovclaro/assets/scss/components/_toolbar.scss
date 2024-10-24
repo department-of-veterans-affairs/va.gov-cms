@@ -19,13 +19,13 @@ body.toolbar-fixed {
 .toolbar-icon-9 .toolbar-icon-admin-toolbar-tools-help::before,
 .toolbar-icon-9 .toolbar-icon-admin-toolbar-tools-help:active::before,
 .toolbar-icon-9 .toolbar-icon-admin-toolbar-tools-help.active::before {
-  background-image: url('../images/toolbar-logo.png');
+  background-image: url("../images/toolbar-logo.png");
 }
 
 .toolbar-icon-10 .toolbar-icon-admin-toolbar-tools-help::before,
 .toolbar-icon-10 .toolbar-icon-admin-toolbar-tools-help:active::before,
 .toolbar-icon-10 .toolbar-icon-admin-toolbar-tools-help.active::before {
-  background-image: url('../images/toolbar-logo.png');
+  background-image: url("../images/toolbar-logo.png");
 }
 
 .cms-prod,
@@ -44,11 +44,11 @@ body.toolbar-fixed {
     }
 
     &:active {
-      color: var(--color-white) !important;
+      color: var(--va-white) !important;
     }
 
     &::before {
-      background-image: url('../images/icons/ffffff/#{$icon}.svg');
+      background-image: url("../images/icons/ffffff/#{$icon}.svg");
     }
 
     &:hover::before,
@@ -56,12 +56,12 @@ body.toolbar-fixed {
     &:hover:focus::before,
     &:focus::before,
     &.is-active:hover::before {
-      background-image: url('../images/icons/004795/#{$icon}.svg');
+      background-image: url("../images/icons/004795/#{$icon}.svg");
     }
 
     &:active::before,
     &.is-active::before {
-      background-image: url('../images/icons/ffffff/#{$icon}.svg');
+      background-image: url("../images/icons/ffffff/#{$icon}.svg");
     }
   }
 
@@ -71,31 +71,31 @@ body.toolbar-fixed {
     .toolbar-icon {
       // Manage
       &-menu {
-        @include top-toolbar-item('hamburger');
+        @include top-toolbar-item("hamburger");
       }
 
       // Sections
       &-toolbar-menu-sections {
-        @include top-toolbar-item('sections');
+        @include top-toolbar-item("sections");
       }
 
       // Knowledge Base
       &-help {
-        @include top-toolbar-item('questionmark-disc');
+        @include top-toolbar-item("questionmark-disc");
       }
 
       // User
       &-user {
-        @include top-toolbar-item('person');
+        @include top-toolbar-item("person");
       }
 
       // Edit
       &-edit {
-        @include top-toolbar-item('pencil');
+        @include top-toolbar-item("pencil");
 
         // this element is a <button> instead of <a>, add bg color for consistency
         &:hover {
-          background-color: var(--va-blue-lighter);
+          background-color: var(--va-blue-lightest);
         }
       }
     }
@@ -140,24 +140,24 @@ body.toolbar-fixed {
     }
 
     &:active {
-      color: var(--color-white) !important;
+      color: var(--va-white) !important;
     }
 
     &::before {
-      background-image: url('../images/icons/212121/#{$icon}.svg');
+      background-image: url("../images/icons/212121/#{$icon}.svg");
     }
 
     &:hover::before,
     &:hover:active::before,
     &:hover:focus::before,
     &.is-active:hover::before {
-      background-image: url('../images/icons/004795/#{$icon}.svg');
+      background-image: url("../images/icons/004795/#{$icon}.svg");
     }
 
     &:focus::before,
     &:active::before,
     &.is-active::before {
-      background-image: url('../images/icons/212121/#{$icon}.svg');
+      background-image: url("../images/icons/212121/#{$icon}.svg");
     }
   }
 
@@ -167,31 +167,31 @@ body.toolbar-fixed {
     .toolbar-icon {
       // Manage
       &-menu {
-        @include top-toolbar-item('hamburger');
+        @include top-toolbar-item("hamburger");
       }
 
       // Sections
       &-toolbar-menu-sections {
-        @include top-toolbar-item('sections');
+        @include top-toolbar-item("sections");
       }
 
       // Knowledge Base
       &-help {
-        @include top-toolbar-item('questionmark-disc');
+        @include top-toolbar-item("questionmark-disc");
       }
 
       // User
       &-user {
-        @include top-toolbar-item('person');
+        @include top-toolbar-item("person");
       }
 
       // Edit
       &-edit {
-        @include top-toolbar-item('pencil');
+        @include top-toolbar-item("pencil");
 
         // this element is a <button> instead of <a>, add bg color for consistency
         &:hover {
-          background-color: var(--va-blue-lighter);
+          background-color: var(--va-blue-lightest);
         }
       }
     }
@@ -221,13 +221,13 @@ body.toolbar-fixed {
 }
 
 .toolbar-tray .button--primary {
-  color: var(--color-white);
+  color: var(--va-white);
   margin: 5px 10px;
 }
 
 /* Admin menus with route:<nolink> links should look OK */
 .toolbar-tray span.toolbar-icon {
-  color: var(--va-gray-med);
+  color: var(--va-gray-darkest);
   cursor: pointer;
   display: block;
   padding: 1em 1.333em;
