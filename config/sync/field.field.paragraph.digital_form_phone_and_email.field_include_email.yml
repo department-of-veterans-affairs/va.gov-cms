@@ -1,0 +1,28 @@
+uuid: a1a6747e-fe3b-49c2-966e-a0854650cea8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_include_email
+    - paragraphs.paragraphs_type.digital_form_phone_and_email
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_phone_and_email.field_include_email
+field_name: field_include_email
+entity_type: paragraph
+bundle: digital_form_phone_and_email
+label: 'Include email address?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

@@ -1,0 +1,34 @@
+uuid: ee8a8314-d05e-41c9-a1d4-8f79e7f32a0c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_identification_info.field_include_veteran_s_service
+    - field.field.paragraph.digital_form_identification_info.field_title
+    - paragraphs.paragraphs_type.digital_form_identification_info
+id: paragraph.digital_form_identification_info.default
+targetEntityType: paragraph
+bundle: digital_form_identification_info
+mode: default
+content:
+  field_include_veteran_s_service:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  breadcrumbs: true
+  search_api_excerpt: true
