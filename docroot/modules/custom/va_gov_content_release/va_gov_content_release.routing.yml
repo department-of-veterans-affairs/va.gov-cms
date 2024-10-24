@@ -38,3 +38,11 @@ va_gov_content_release.frontend_version_autocomplete:
     _format: json
   requirements:
     _permission: "va gov deploy content build"
+
+va_gov_content_release.check_status_form:
+  path: '/admin/content/deploy/check-status'
+  defaults:
+    _title: 'Content Release Status'
+    _form: '\Drupal\va_gov_content_release\Form\ContentReleaseStatusForm'
+  requirements:
+    _permission: 'va gov deploy content build'
