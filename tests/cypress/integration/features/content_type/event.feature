@@ -1,6 +1,7 @@
 @content_type__event
 Feature: Content Type: Event
 
+  @critical_path
   Scenario: Log in and create an event.
     Given I am logged in as a user with the "content_admin" role
     Then I create a "event" node
@@ -146,6 +147,7 @@ Feature: Content Type: Event
     When I am at "node/add/event"
     Then an element with the selector "#edit-field-datetime-range-timezone-wrapper button.tabledrag-toggle-weight" should not exist
 
+  @critical_path
   Scenario: Confirm creating "Featured" Events is possible.
     Given I am logged in as a user with the "content_admin" role
     And I create a "event" node and continue

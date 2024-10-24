@@ -1,6 +1,7 @@
 @content_editing_person_profile
 Feature: Person Profile creation.
 
+@critical_path
 Scenario: Log in and create a Person Profile with attention to conditional fields.
   # Create the page with no intention of using biography.
   When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
