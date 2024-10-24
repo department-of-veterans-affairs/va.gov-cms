@@ -3,7 +3,7 @@ name: Runbook - VAMC system name change
 about: How to update the name of a VAMC.
 title: 'VAMC system name change: <insert_name_of_vamc>'
 labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support,
-  VAMC
+  VAMC, sitewide
 assignees: ''
 
 ---
