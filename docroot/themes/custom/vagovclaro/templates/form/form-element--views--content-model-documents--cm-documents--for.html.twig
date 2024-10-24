@@ -33,9 +33,7 @@ js-form-type-[something] exists on form items. We have to keep them.
 ]
 %}
 <div{{ attributes.addClass(classes) }}>
-  {% if label_display %}
     {{ label }}
-  {% endif %}
   {% if prefix is not empty %}
     <span class="form-item__prefix{{disabled == 'disabled' ? ' is-disabled'}}">{{ prefix }}</span>
   {% endif %}
