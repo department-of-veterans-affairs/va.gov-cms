@@ -7,6 +7,10 @@ source ~/.bashrc
 
 cd next
 
+# Make sure the correct node version is installed and in use
+nvm install 18.17.0
+nvm use 18.17.0
+
 # Start the dev server. Vets-website assets will be available to the preview server after content-build builds them.
 # APP_ENV=tugboat yarn dev
 
