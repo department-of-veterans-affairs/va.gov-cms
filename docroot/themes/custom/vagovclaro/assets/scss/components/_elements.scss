@@ -21,7 +21,6 @@
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%230071bb'/%3e%3c/svg%3e");
 }
 
-
 // classes for consistent styles on various help-texts around the cms
 .form-item__description,
 .fieldset__description,
@@ -86,7 +85,7 @@ p {
 }
 
 a:hover {
-  background-color: var(--va-blue-lighter);
+  background-color: var(--va-blue-lightest);
 }
 
 .cc-suffix-text {
@@ -97,7 +96,6 @@ a:hover {
   display: inline-block;
   margin: var(--space-s) var(--space-xs) var(--space-s) 0;
 }
-
 
 // help text on a non-white background needs more contrast
 .claro-details__wrapper--accordion-item .form-item__description {
@@ -127,7 +125,7 @@ th {
 }
 
 .draggable-table th {
-  border-bottom: 1px solid var(--va-gray-cool-med);
+  border-bottom: 1px solid var(--va-gray-darkest);
 }
 
 .taxonomy-term-preview {
@@ -135,14 +133,14 @@ th {
 }
 
 #block-entitymetadisplay {
-  border: 1px solid var(--va-gray-cool-med);
+  border: 1px solid var(--va-gray-darkest);
   border-radius: 2px;
   margin-bottom: var(--spacing-m);
   padding: var(--spacing-s);
 }
 
 .field--name-field-last-saved-by-an-editor {
-  border: 1px solid var(--va-gray-cool-med);
+  border: 1px solid var(--va-gray-darkest);
   border-radius: 2px;
   margin-bottom: var(--spacing-m);
   margin-top: var(--spacing-m);
@@ -206,7 +204,7 @@ p.vc-help-text {
 }
 
 .linkit-result-line:hover .linkit-result-line--title {
-  color: var(--color-white);
+  color: var(--va-white);
 }
 
 .filter-wrapper {
@@ -220,8 +218,8 @@ p.vc-help-text {
 }
 
 .filter-help a::after {
-  background: transparent url('../../../../../core/misc/help.png');
-  content: '';
+  background: transparent url("../../../../../core/misc/help.png");
+  content: "";
   display: block;
   height: 16px;
   position: absolute;
@@ -234,13 +232,13 @@ p.vc-help-text {
   color: var(--va-blue-dark);
   text-decoration: underline;
   transition-duration: 0.3s;
-  transition-property: color,background-color,border-color;
+  transition-property: color, background-color, border-color;
   transition-timing-function: ease-in-out;
 
   &:focus,
   &:hover {
-    background-color: var(--va-blue-lighter);
-    color: var(--va-blue-darker);
+    background-color: var(--va-blue-lightest);
+    color: var(--va-blue-darkest);
     text-decoration: none;
   }
 
@@ -271,13 +269,14 @@ p.vc-help-text {
   text-decoration: dotted underline;
 
   &:hover {
-    background-color: var(--va-blue-lighter);
+    background-color: var(--va-blue-lightest);
     text-decoration: none;
   }
 
   &::after {
-    background: transparent url('../images/icons/004795/carrot.svg') no-repeat center center;
-    content: '';
+    background: transparent url("../images/icons/004795/carrot.svg") no-repeat
+      center center;
+    content: "";
     display: block;
     height: 16px;
     position: absolute;
@@ -286,13 +285,13 @@ p.vc-help-text {
     width: 16px;
   }
 
-  &[aria-expanded='true']::after {
+  &[aria-expanded="true"]::after {
     transform: rotate(180deg);
   }
 }
 
 .inline-guidance-text {
-  border-left: 3px solid var(--va-blue-bright-med);
+  border-left: 3px solid var(--va-blue-lightest);
   margin: 20px 0;
   padding: 0 20px;
 
