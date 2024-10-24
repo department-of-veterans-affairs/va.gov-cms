@@ -1,0 +1,655 @@
+diff --git a/css/textfield_counter.css b/css/textfield_counter.css
+index b527afe056e72e89330743af86312e4223ba748f..918b86d35d1b63f33a7a0f223dce85f545cfa4e8 100644
+--- a/css/textfield_counter.css
++++ b/css/textfield_counter.css
+@@ -1,25 +1,27 @@
+ .form-textarea-wrapper.textcount_warning .textfield-counter-element,
+ .form-item.textcount_warning .textfield-counter-element {
+-  border-color: #e09600;
+-  border-width: 2px;
+-}
++  border-color: #E09600;
++  border-width: 2px; }
++
+ .form-textarea-wrapper.textcount_warning .textfield_counter_counter .current_count,
+ .form-textarea-wrapper.textcount_warning .textfield_counter_counter .remaining_count,
+ .form-item.textcount_warning .textfield_counter_counter .current_count,
+ .form-item.textcount_warning .textfield_counter_counter .remaining_count {
+-  color: #e09600;
+-}
++  color: #E09600; }
+ 
+ .form-textarea-wrapper.textcount_over .textfield-counter-element,
+-.form-item.textcount_over .textfield-counter-element {
+-  border-color: #ff0000;
+-  border-width: 2px;
+-}
++.form-textarea-wrapper.textcount_below .textfield-counter-element,
++.form-item.textcount_over .textfield-counter-element,
++.form-item.textcount_below .textfield-counter-element {
++  border-color: #FF0000;
++  border-width: 2px; }
++
+ .form-textarea-wrapper.textcount_over .textfield_counter_counter .current_count,
+ .form-textarea-wrapper.textcount_over .textfield_counter_counter .remaining_count,
++.form-textarea-wrapper.textcount_below .textfield_counter_counter .current_count,
++.form-textarea-wrapper.textcount_below .textfield_counter_counter .remaining_count,
+ .form-item.textcount_over .textfield_counter_counter .current_count,
+-.form-item.textcount_over .textfield_counter_counter .remaining_count {
+-  color: #ff0000;
+-}
+-
+-/*# sourceMappingURL=textfield_counter.css.map */
++.form-item.textcount_over .textfield_counter_counter .remaining_count,
++.form-item.textcount_below .textfield_counter_counter .current_count,
++.form-item.textcount_below .textfield_counter_counter .remaining_count {
++  color: #FF0000; }
+diff --git a/css/textfield_counter.scss b/css/textfield_counter.scss
+index 166cfc54681b3e6e7f410c9540557bb5c68c030a..8c8149cb69dd0973777ed6b5d39d3f51d85626e2 100644
+--- a/css/textfield_counter.scss
++++ b/css/textfield_counter.scss
+@@ -17,7 +17,9 @@ $border-width:2px;
+ }
+ 
+ .form-textarea-wrapper.textcount_over,
+-.form-item.textcount_over {
++.form-textarea-wrapper.textcount_below,
++.form-item.textcount_over,
++.form-item.textcount_below {
+   .textfield-counter-element {
+     border-color:$over-color;
+     border-width:$border-width;
+diff --git a/js/textfield_counter.js b/js/textfield_counter.js
+index 9f9b4fa22d10131c7c997b958c21b51fba87fd03..46916a626d1f62a5610c7a328e98a087adbc8756 100644
+--- a/js/textfield_counter.js
++++ b/js/textfield_counter.js
+@@ -31,6 +31,15 @@
+       removeClass(element, "textcount_warning textcount_over");
+     }
+   }
++  
++  function checkMinClasses(element, currentLength, minlength) {
++  if (currentLength < minlength) {
++    addClass(element, "textcount_below");
++  }
++  else {
++    removeClass(element, "textcount_below");
++   }
++  }
+ 
+   function textWatcher(settings) {
+     $.each(settings.textfieldCounter, function (key) {
+@@ -38,7 +47,7 @@
+ 
+       $.each(fieldSettings.key, function (index) {
+         $(once("textfield-counter-text-watcher", "." + fieldSettings.key[index])).filter("textarea, input[type=text]").each(function () {
+-          var counter, maxlength, currentLength, remaining, countHTML;
++          var counter, minlength, maxlength, currentLength, remaining, remaining_min, countHTML;
+ 
+           maxlength = fieldSettings.maxlength;
+           if (maxlength) {
+@@ -75,6 +82,45 @@
+               checkClasses($(this).parent(), remaining);
+             });
+           }
++
++          minlength = fieldSettings.minlength;
++          if (minlength) {
++            countHTML = fieldSettings.countHTMLCharacters;
++            if (countHTML) {
++              currentLength = $(this).val().length;
++            }
++            else {
++              currentLength = $("<div/>").html($(this).val()).text().trim().replace(/(\r?\n|\r)+/g, "\n").length;
++            }
++            remaining_min = minlength - currentLength;
++            if (counter === undefined) {
++              counter = $("<div/>", {class:"textfield_counter_counter"}).html(Drupal.t(fieldSettings.textCountStatusMessage, {"@current_length":currentLength ,"@minlength":minlength, "@remaining_min":remaining_min}));
++            }
++
++            if (fieldSettings.counterPosition === "before") {
++              counter.insertBefore($(this));
++            }
++            else {
++              counter.insertAfter($(this));
++            }
++
++            checkMinClasses($(this).parent(), currentLength, minlength);
++
++            $(this).keyup(function () {
++              if (countHTML) {
++                currentLength = $(this).val().length;
++              }
++              else {
++                currentLength = $("<div/>").html($(this).val()).text().trim().replace(/(\r?\n|\r)+/g, "\n").length;
++              }
++
++              remaining_min = minlength - currentLength;
++              counter.children(".remaining_count:first").text(remaining_min);
++              counter.children(".current_count:first").text(currentLength);
++              checkMinClasses($(this).parent(), currentLength, minlength);
++            });
++          }
++
+         });
+       });
+     });
+diff --git a/src/Plugin/Field/FieldWidget/StringTextareaWithCounterWidget.php b/src/Plugin/Field/FieldWidget/StringTextareaWithCounterWidget.php
+index 43cd01a5555765c650a0f222e37ddb0d1ae655e4..01219353d6fec8824a311ca9611c6242ddd022b8 100644
+--- a/src/Plugin/Field/FieldWidget/StringTextareaWithCounterWidget.php
++++ b/src/Plugin/Field/FieldWidget/StringTextareaWithCounterWidget.php
+@@ -26,6 +26,7 @@ class StringTextareaWithCounterWidget extends StringTextareaWidget {
+    */
+   public static function defaultSettings() {
+     return [
++      'minlength' => 0,
+       'maxlength' => 0,
+       'counter_position' => 'after',
+       'js_prevent_submit' => TRUE,
+@@ -40,6 +41,7 @@ class StringTextareaWithCounterWidget extends StringTextareaWidget {
+   public function settingsForm(array $form, FormStateInterface $form_state) {
+     $form = parent::settingsForm($form, $form_state);
+ 
++    $this->addMinlengthSettingsFormElement($form);
+     $this->addMaxlengthSettingsFormElement($form);
+     $this->addCounterPositionSettingsFormElement($form);
+     $this->addJsPreventSubmitSettingsFormElement($form);
+@@ -55,6 +57,7 @@ class StringTextareaWithCounterWidget extends StringTextareaWidget {
+   public function settingsSummary() {
+     $summary = parent::settingsSummary();
+ 
++    $this->addMinlengthSummary($summary);
+     $this->addMaxlengthSummary($summary);
+     $this->addPositionSummary($summary);
+     $this->addJsSubmitPreventSummary($summary);
+@@ -87,6 +90,23 @@ class StringTextareaWithCounterWidget extends StringTextareaWidget {
+       }
+     }
+ 
++    if ($minlength = $this->getSetting('minlength')) {
++      $entity = $items->getEntity();
++      $field_defintion = $items->getFieldDefinition();
++      $this->fieldFormElement($element['value'], $entity, $field_defintion, $delta);
++      $count_html_characters = $this->getSetting('count_html_characters');
++      if (isset($element['value'])) {
++        $element['value']['#textfield-minlength'] = $minlength;
++        $element['value']['#textfield-count-html'] = $count_html_characters;
++      }
++      $element['#textfield-minlength'] = $minlength;
++      $element['#textfield-count-html'] = $count_html_characters;
++      $classes = class_uses($this);
++      if (count($classes)) {
++        $element['#element_validate'][] = [array_pop($classes), 'validateMinFieldFormElement'];
++      }
++    }
++
+     return $element;
+   }
+ 
+diff --git a/src/Plugin/Field/FieldWidget/StringTextfieldWithCounterWidget.php b/src/Plugin/Field/FieldWidget/StringTextfieldWithCounterWidget.php
+index cd4d8e5d0cf6da6d65ec7ca477a9bfea6b133af6..1d11f3626fd1ef499ea4efdcdf34b161ac08ec72 100644
+--- a/src/Plugin/Field/FieldWidget/StringTextfieldWithCounterWidget.php
++++ b/src/Plugin/Field/FieldWidget/StringTextfieldWithCounterWidget.php
+@@ -26,6 +26,7 @@ class StringTextfieldWithCounterWidget extends StringTextfieldWidget {
+    */
+   public static function defaultSettings() {
+     return [
++      'minlength' => 0,
+       'use_field_maxlength' => 0,
+       'maxlength' => 0,
+       'counter_position' => 'after',
+@@ -42,6 +43,7 @@ class StringTextfieldWithCounterWidget extends StringTextfieldWidget {
+ 
+     $form = parent::settingsForm($form, $form_state);
+ 
++    $this->addMinlengthSettingsFormElement($form);
+     $this->addMaxlengthSettingsFormElement($form, TRUE);
+     $this->addCounterPositionSettingsFormElement($form, TRUE);
+     $this->addJsPreventSubmitSettingsFormElement($form, TRUE);
+@@ -57,6 +59,7 @@ class StringTextfieldWithCounterWidget extends StringTextfieldWidget {
+   public function settingsSummary() {
+     $summary = parent::settingsSummary();
+ 
++    $this->addMinlengthSummary($summary);
+     $this->addMaxlengthSummary($summary);
+     $this->addPositionSummary($summary);
+     $this->addJsSubmitPreventSummary($summary);
+@@ -95,6 +95,23 @@ class StringTextfieldWithCounterWidget extends StringTextfieldWidget {
+         $element['#element_validate'][] = [static::class, 'validateFieldFormElement'];
+       }
+     }
++    
++     if ($minlength = $this->getSetting('minlength')) {
++      $entity = $items->getEntity();
++      $field_defintion = $items->getFieldDefinition();
++      $this->fieldFormElement($element['value'], $entity, $field_defintion, $delta);
++      $count_html_characters = $this->getSetting('count_html_characters');
++      if (isset($element['value'])) {
++        $element['value']['#textfield-minlength'] = $minlength;
++        $element['value']['#textfield-count-html'] = $count_html_characters;
++      }
++      $element['#textfield-minlength'] = $minlength;
++      $element['#textfield-count-html'] = $count_html_characters;
++      $classes = class_uses($this);
++      if (count($classes)) {
++        $element['#element_validate'][] = [static::class, 'validateMinFieldFormElement'];
++      }
++    }
+ 
+     return $element;
+   }
+diff --git a/src/Plugin/Field/FieldWidget/TextFieldCounterWidgetTrait.php b/src/Plugin/Field/FieldWidget/TextFieldCounterWidgetTrait.php
+index 2ec5b4aee65e5905038a2dbe02a444b3307b2b1c..d12ab9f7763931ae0c024c14fab000ff56487ecf 100644
+--- a/src/Plugin/Field/FieldWidget/TextFieldCounterWidgetTrait.php
++++ b/src/Plugin/Field/FieldWidget/TextFieldCounterWidgetTrait.php
+@@ -55,6 +55,27 @@ trait TextFieldCounterWidgetTrait {
+     }
+   }
+ 
++  /**
++   * Adds a form element to set the minimum number of characters allowed.
++   *
++   * @param array $form
++   *   The form render array to which the element should be added.
++   * @param bool $includeDefaultSettings
++   *   A boolean indicating whether or not to allow an override of the min
++   *   length based on the default setting for the field. This should be set to
++   *   true for textfields (textareas will not have a default setting for the
++   *   field).
++   */
++  public function addMinlengthSettingsFormElement(array &$form) {
++    $form['minlength'] = [
++      '#type' => 'number',
++      '#title' => $this->t('Minimum number of characters'),
++      '#min' => 0,
++      '#default_value' => $this->getSetting('minlength'),
++      '#description' => $this->t('Setting this value to zero will disable the counter on textareas.'),
++    ];
++  }
++
+   /**
+    * Adds a form element to set the position of the text counter.
+    *
+@@ -63,7 +84,7 @@ trait TextFieldCounterWidgetTrait {
+    * @param bool $storageSettingMaxlengthField
+    *   Whether or not the field has storage settings that include a maximum
+    *   length. Such fields allow for using the storage settings rather than the
+-   *   wiget setting.
++   *   widget setting.
+    */
+   public function addCounterPositionSettingsFormElement(array &$form, $storageSettingMaxlengthField = FALSE) {
+     $form['counter_position'] = [
+@@ -81,6 +102,7 @@ trait TextFieldCounterWidgetTrait {
+         'invisible' => [
+           ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][use_field_maxlength]"]' => ['checked' => FALSE],
+           ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][maxlength]"]' => ['value' => 0],
++          ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][minlength]"]' => ['value' => 0],
+         ],
+       ];
+     }
+@@ -88,6 +110,7 @@ trait TextFieldCounterWidgetTrait {
+       $form['counter_position']['#states'] = [
+         'invisible' => [
+           ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][maxlength]"]' => ['value' => 0],
++          ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][minlength]"]' => ['value' => 0],
+         ],
+       ];
+     }
+@@ -106,8 +129,8 @@ trait TextFieldCounterWidgetTrait {
+   public function addJsPreventSubmitSettingsFormElement(array &$form, $storageSettingMaxlengthField = FALSE) {
+     $form['js_prevent_submit'] = [
+       '#type' => 'checkbox',
+       '#title' => $this->t('Add javascript validation'),
+-      '#description' => $this->t('When validating, also use JS in addition to server-side validation to prevent submission if the user has gone over the allowed character count.'),
++      '#description' => $this->t('Prevent form submission using JavaScript if the user has gone over the allowed character count or the minimum character count has not reached.'),
+       '#default_value' => $this->getSetting('js_prevent_submit'),
+     ];
+ 
+@@ -117,6 +140,8 @@ trait TextFieldCounterWidgetTrait {
+           [':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][use_field_maxlength]"]' => ['checked' => TRUE]],
+           'or',
+           [':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][maxlength]"]' => ['value' => 0]],
++          'or',
++          [':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][minlength]"]' => ['value' => 0]],
+         ],
+       ];
+     }
+@@ -124,6 +149,7 @@ trait TextFieldCounterWidgetTrait {
+       $form['js_prevent_submit']['#states'] = [
+         'invisible' => [
+           ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][maxlength]"]' => ['value' => 0],
++          ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][minlength]"]' => ['value' => 0],
+         ],
+       ];
+     }
+@@ -137,7 +163,7 @@ trait TextFieldCounterWidgetTrait {
+    * @param bool $storageSettingMaxlengthField
+    *   Whether or not the field has storage settings that include a maximum
+    *   length. Such fields allow for using the storage settings rather than the
+-   *   wiget setting.
++   *   widget setting.
+    */
+   public function addCountHtmlSettingsFormElement(array &$form, $storageSettingMaxlengthField = FALSE) {
+     $form['count_html_characters'] = [
+@@ -152,6 +178,7 @@ trait TextFieldCounterWidgetTrait {
+         'invisible' => [
+           ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][use_field_maxlength]"]' => ['checked' => FALSE],
+           ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][maxlength]"]' => ['value' => 0],
++          ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][minlength]"]' => ['value' => 0],
+         ],
+       ];
+     }
+@@ -159,6 +186,7 @@ trait TextFieldCounterWidgetTrait {
+       $form['count_html_characters']['#states'] = [
+         'invisible' => [
+           ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][maxlength]"]' => ['value' => 0],
++          ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][minlength]"]' => ['value' => 0],
+         ],
+       ];
+     }
+@@ -171,7 +199,8 @@ trait TextFieldCounterWidgetTrait {
+    *   The default message for widget settings.
+    */
+   public static function getDefaultTextCountStatusMessage() {
+-    return 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>';
++    return 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
++      . 'Minlength: <span class="minlength_count">@minlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>';
+   }
+ 
+   /**
+@@ -197,6 +226,7 @@ trait TextFieldCounterWidgetTrait {
+         'invisible' => [
+           ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][use_field_maxlength]"]' => ['checked' => FALSE],
+           ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][maxlength]"]' => ['value' => 0],
++          ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][minlength]"]' => ['value' => 0],
+         ],
+       ];
+     }
+@@ -204,6 +234,7 @@ trait TextFieldCounterWidgetTrait {
+       $form['textcount_status_message']['#states'] = [
+         'invisible' => [
+           ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][maxlength]"]' => ['value' => 0],
++          ':input[name="fields[' . $this->fieldDefinition->getName() . '][settings_edit_form][settings][minlength]"]' => ['value' => 0],
+         ],
+       ];
+     }
+@@ -221,12 +252,23 @@ trait TextFieldCounterWidgetTrait {
+     }
+     else {
+       $maxlength = $this->getSetting('maxlength');
+-      $text = $this->t('Maximum number of characters: %count', ['%count' => ($maxlength ? $maxlength : $this->t('Disabled'))]);
++      $text = $this->t('Maximum number of characters: %count', ['%count' => ($maxlength ?: $this->t('Disabled'))]);
+     }
+ 
+     $summary['maxlength'] = $text;
+   }
+ 
++  /**
++   * Adds the summary of the minimum number of allowed characters.
++   *
++   * @param array $summary
++   *   The array of summaries to which the summary should be added.
++   */
++  public function addMinlengthSummary(array &$summary) {
++    $text = $this->t('Minimum number of characters: %count', ['%count' => ($this->getSetting('minlength') ?: $this->t('Disabled'))]);
++    $summary['minlength'] = $text;
++  }
++
+   /**
+    * Adds the summary of the position of the textfield counter.
+    *
+@@ -234,7 +276,7 @@ trait TextFieldCounterWidgetTrait {
+    *   The array of summaries to which the summary should be added.
+    */
+   public function addPositionSummary(array &$summary) {
+-    if ($this->getSetting('maxlength') || $this->getSetting('use_field_maxlength')) {
++    if ($this->getSetting('maxlength') || $this->getSetting('use_field_maxlength') || $this->getSetting('minlength')) {
+       $summary['counter_position'] = $this->t('Counter position: %position', ['%position' => $this->translateValue($this->getSetting('counter_position'))]);
+     }
+   }
+@@ -246,8 +288,8 @@ trait TextFieldCounterWidgetTrait {
+    *   The array of summaries to which the summary should be added.
+    */
+   public function addJsSubmitPreventSummary(array &$summary) {
+-    if ($this->getSetting('maxlength') && !$this->getSetting('use_field_maxlength')) {
+-      $summary['js_prevent_submit'] = $this->t('Also use javascript when validating: %prevent', ['%prevent' => ($this->getSetting('js_prevent_submit') ? $this->t('Yes') : $this->t('No'))]);
++    if ($this->getSetting('maxlength') && !$this->getSetting('use_field_maxlength') || $this->getSetting('minlength')) {
++      $summary['js_prevent_submit'] = $this->t('Prevent form submission when user goes over character count or remains below minimum count: %prevent', ['%prevent' => ($this->getSetting('js_prevent_submit') ? $this->t('Yes') : $this->t('No'))]);
+     }
+   }
+ 
+@@ -258,7 +300,7 @@ trait TextFieldCounterWidgetTrait {
+    *   The array of summaries to which the summary should be added.
+    */
+   public function addCountHtmlSummary(array &$summary) {
+-    if ($this->getSetting('maxlength') || $this->getSetting('use_field_maxlength')) {
++    if ($this->getSetting('maxlength') || $this->getSetting('use_field_maxlength') || $this->getSetting('minlength')) {
+       $summary['count_html_characters'] = $this->t('Include HTML characters in the character count: %count_html_characters', ['%count_html_characters' => ($this->getSetting('count_html_characters') ? $this->t('Yes') : $this->t('No'))]);
+     }
+   }
+@@ -270,7 +312,7 @@ trait TextFieldCounterWidgetTrait {
+    *   The array of summaries to which the summary should be added.
+    */
+   public function addTextCountStatusMessageSummary(array &$summary) {
+-    if ($this->getSetting('maxlength') || $this->getSetting('use_field_maxlength')) {
++    if ($this->getSetting('maxlength') || $this->getSetting('use_field_maxlength') || $this->getSetting('minlength')) {
+       $summary['textcount_status_message'] = $this->t('Status Message: %status_message', ['%status_message' => $this->getSetting('textcount_status_message')]);
+     }
+   }
+@@ -297,6 +339,7 @@ trait TextFieldCounterWidgetTrait {
+     else {
+       $maxlength = $this->getSetting('use_field_maxlength') ? $this->getFieldSetting('max_length') : $this->getSetting('maxlength');
+     }
++    $minlength = $this->getSetting('minlength');
+     $position = $this->getSetting('counter_position');
+ 
+     $keys = [$entity->getEntityTypeId()];
+@@ -324,6 +367,7 @@ trait TextFieldCounterWidgetTrait {
+     $element['#attached']['library'][] = 'textfield_counter/counter';
+     $element['#attached']['drupalSettings']['textfieldCounter'][$key]['key'][$delta] = $key;
+     $element['#attached']['drupalSettings']['textfieldCounter'][$key]['maxlength'] = (int) $maxlength;
++    $element['#attached']['drupalSettings']['textfieldCounter'][$key]['minlength'] = (int) $minlength;
+     $element['#attached']['drupalSettings']['textfieldCounter'][$key]['counterPosition'] = $position;
+     $element['#attached']['drupalSettings']['textfieldCounter'][$key]['textCountStatusMessage'] = $this->getSetting('textcount_status_message');
+ 
+@@ -338,7 +382,7 @@ trait TextFieldCounterWidgetTrait {
+    * Validates the field for the maximum number of characters.
+    *
+    * @param array $element
+-   *   The render array for the element to which fiels are being attached.
++   *   The render array for the element to which fields are being attached.
+    * @param \Drupal\Core\Form\FormStateInterface $form_state
+    *   The Drupal form state.
+    * @param int $maxlength
+@@ -362,6 +406,34 @@ trait TextFieldCounterWidgetTrait {
+     }
+   }
+ 
++  /**
++   * Validates the field for the minimum number of characters.
++   *
++   * @param array $element
++   *   The render array for the element to which fields are being attached.
++   * @param \Drupal\Core\Form\FormStateInterface $form_state
++   *   The Drupal form state.
++   * @param int $maxlength
++   *   The maximum allowed text length against which the field should be
++   *   validated.
++   */
++  public static function validateMinFieldFormElement(array $element, FormStateInterface $form_state, $maxlength) {
++    $input_exists = FALSE;
++    $value = NestedArray::getValue($form_state->getValues(), $element['#parents'], $input_exists);
++    $value = is_array($value) ? $value['value'] : $value;
++    $value_length = self::getLengthOfSubmittedValue($element, $value);
++    if ($value_length < $element['#textfield-minlength']) {
++      $form_state->setError($element, t(
++        '@name cannot be lesser than %min characters but is currently %length characters long.',
++        [
++          '@name' => $element['#title'],
++          '%min' => $element['#textfield-minlength'],
++          '%length' => $value_length,
++        ]
++      ));
++    }
++  }
++
+   /**
+    * Get the length of the submitted text value.
+    *
+diff --git a/src/Plugin/Field/FieldWidget/TextareaWithCounterWidget.php b/src/Plugin/Field/FieldWidget/TextareaWithCounterWidget.php
+index f4ddae0d462a77fdf282e7eeec31da0048ceee11..6d7b227f7dee21886a2befdd86b634d1c00b075c 100644
+--- a/src/Plugin/Field/FieldWidget/TextareaWithCounterWidget.php
++++ b/src/Plugin/Field/FieldWidget/TextareaWithCounterWidget.php
+@@ -26,6 +26,7 @@ class TextareaWithCounterWidget extends TextareaWidget {
+    */
+   public static function defaultSettings() {
+     return [
++      'minlength' => 0,
+       'maxlength' => 0,
+       'counter_position' => 'after',
+       'js_prevent_submit' => TRUE,
+@@ -41,6 +42,7 @@ class TextareaWithCounterWidget extends TextareaWidget {
+ 
+     $form = parent::settingsForm($form, $form_state);
+ 
++    $this->addMinlengthSettingsFormElement($form);
+     $this->addMaxlengthSettingsFormElement($form);
+     $this->addCounterPositionSettingsFormElement($form);
+     $this->addJsPreventSubmitSettingsFormElement($form);
+@@ -56,6 +58,7 @@ class TextareaWithCounterWidget extends TextareaWidget {
+   public function settingsSummary() {
+     $summary = parent::settingsSummary();
+ 
++    $this->addMinlengthSummary($summary);
+     $this->addMaxlengthSummary($summary);
+     $this->addPositionSummary($summary);
+     $this->addJsSubmitPreventSummary($summary);
+@@ -88,6 +91,23 @@ class TextareaWithCounterWidget extends TextareaWidget {
+       }
+     }
+ 
++    if ($minlength = $this->getSetting('minlength')) {
++      $entity = $items->getEntity();
++      $field_defintion = $items->getFieldDefinition();
++      $this->fieldFormElement($element, $entity, $field_defintion, $delta);
++      $count_html_characters = $this->getSetting('count_html_characters');
++      if (isset($element['value'])) {
++        $element['value']['#textfield-minlength'] = $minlength;
++        $element['value']['#textfield-count-html'] = $count_html_characters;
++      }
++      $element['#textfield-minlength'] = $minlength;
++      $element['#textfield-count-html'] = $count_html_characters;
++      $classes = class_uses($this);
++      if (count($classes)) {
++        $element['#element_validate'][] = [array_pop($classes), 'validateMinFieldFormElement'];
++      }
++    }
++
+     return $element;
+   }
+ 
+diff --git a/src/Plugin/Field/FieldWidget/TextareaWithSummaryAndCounterWidget.php b/src/Plugin/Field/FieldWidget/TextareaWithSummaryAndCounterWidget.php
+index 645e3d2a22cc6f527a8c093d6b7109d3c203cb22..9cafb0809fb9dd58de811eaca7fdf8cd446d5a13 100644
+--- a/src/Plugin/Field/FieldWidget/TextareaWithSummaryAndCounterWidget.php
++++ b/src/Plugin/Field/FieldWidget/TextareaWithSummaryAndCounterWidget.php
+@@ -26,6 +26,7 @@ class TextareaWithSummaryAndCounterWidget extends TextareaWithSummaryWidget {
+    */
+   public static function defaultSettings() {
+     return [
++      'minlength' => 0,
+       'maxlength' => 0,
+       'enable_summary' => TRUE,
+       'summary_maxlength' => 0,
+@@ -86,6 +87,7 @@ class TextareaWithSummaryAndCounterWidget extends TextareaWithSummaryWidget {
+       '#weight' => -49,
+     ];
+ 
++    $this->addMinlengthSettingsFormElement($form);
+     $this->addMaxlengthSettingsFormElement($form);
+     $this->addJsPreventSubmitSettingsFormElement($form);
+     $this->addCountHtmlSettingsFormElement($form);
+@@ -122,6 +124,7 @@ class TextareaWithSummaryAndCounterWidget extends TextareaWithSummaryWidget {
+     }
+ 
+     $summary['num_rows'] = $textarea_rows;
++    $this->addMinlengthSummary($summary);
+     $this->addMaxlengthSummary($summary);
+     $this->addJsSubmitPreventSummary($summary);
+     $this->addCountHtmlSummary($summary);
+@@ -155,6 +158,23 @@ class TextareaWithSummaryAndCounterWidget extends TextareaWithSummaryWidget {
+       }
+     }
+ 
++    if ($minlength = $this->getSetting('minlength')) {
++      $entity = $items->getEntity();
++      $field_defintion = $items->getFieldDefinition();
++      $this->fieldFormElement($element, $entity, $field_defintion, $delta);
++      $count_html_characters = $this->getSetting('count_html_characters');
++      if (isset($element['value'])) {
++        $element['value']['#textfield-minlength'] = $minlength;
++        $element['value']['#textfield-count-html'] = $count_html_characters;
++      }
++      $element['#textfield-minlength'] = $minlength;
++      $element['#textfield-count-html'] = $count_html_characters;
++      $classes = class_uses($this);
++      if (count($classes)) {
++        $element['#element_validate'][] = [array_pop($classes), 'validateMinFieldFormElement'];
++      }
++    }
++
+     if ($summary_maxlength = $this->getSetting('summary_maxlength')) {
+       $this->fieldFormElement($element['summary'], $entity, $field_defintion, $delta, TRUE);
+       $element['summary']['#textfield-maxlength'] = $summary_maxlength;
+ 
+diff --git a/src/Plugin/Field/FieldWidget/TextfieldWithCounterWidget.php b/src/Plugin/Field/FieldWidget/TextfieldWithCounterWidget.php
+index 98e412596b2251cea9dfc381d7b6f933ad791aa5..e63818496e0fd204da7cff21e9f11b3a7b7dcd2d 100644
+--- a/src/Plugin/Field/FieldWidget/TextfieldWithCounterWidget.php
++++ b/src/Plugin/Field/FieldWidget/TextfieldWithCounterWidget.php
+@@ -26,6 +26,7 @@ class TextfieldWithCounterWidget extends TextfieldWidget {
+    */
+   public static function defaultSettings() {
+     return [
++      'minlength' => 0,
+       'use_field_maxlength' => 0,
+       'maxlength' => 0,
+       'counter_position' => 'after',
+@@ -42,6 +43,7 @@ class TextfieldWithCounterWidget extends TextfieldWidget {
+ 
+     $form = parent::settingsForm($form, $form_state);
+ 
++    $this->addMinlengthSettingsFormElement($form, TRUE);
+     $this->addMaxlengthSettingsFormElement($form, TRUE);
+     $this->addCounterPositionSettingsFormElement($form, TRUE);
+     $this->addJsPreventSubmitSettingsFormElement($form, TRUE);
+@@ -57,6 +59,7 @@ class TextfieldWithCounterWidget extends TextfieldWidget {
+   public function settingsSummary() {
+     $summary = parent::settingsSummary();
+ 
++    $this->addMinlengthSummary($summary);
+     $this->addMaxlengthSummary($summary);
+     $this->addPositionSummary($summary);
+     $this->addJsSubmitPreventSummary($summary);
+@@ -91,6 +94,23 @@ class TextfieldWithCounterWidget extends TextfieldWidget {
+       }
+     }
+ 
++    if ($minlength = $this->getSetting('minlength')) {
++      $entity = $items->getEntity();
++      $field_defintion = $items->getFieldDefinition();
++      $this->fieldFormElement($element, $entity, $field_defintion, $delta);
++      $count_html_characters = $this->getSetting('count_html_characters');
++      if (isset($element['value'])) {
++        $element['value']['#textfield-minlength'] = $minlength;
++        $element['value']['#textfield-count-html'] = $count_html_characters;
++      }
++      $element['#textfield-minlength'] = $minlength;
++      $element['#textfield-count-html'] = $count_html_characters;
++      $classes = class_uses($this);
++      if (count($classes)) {
++        $element['#element_validate'][] = [array_pop($classes), 'validateMinFieldFormElement'];
++      }
++    }
++
+     return $element;
+   }
+ 
