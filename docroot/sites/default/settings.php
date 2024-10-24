@@ -146,6 +146,10 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 
 $settings['config_sync_directory'] = '../config/sync';
 
+// Setting the directory for content sync
+global $content_directories;
+$content_directories['sync'] = '../content/sync';
+
 $env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 
 /**
