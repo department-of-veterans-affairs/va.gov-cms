@@ -141,7 +141,6 @@ third_party_settings:
     group_va_benefit_workflow:
       children:
         - moderation_state
-        - revision_log_message
       label: 'Editorial workflow'
       region: content
       parent_name: ''
@@ -267,7 +266,7 @@ content:
       maxlength: 500
       counter_position: after
       js_prevent_submit: false
-      count_only_mode: false
+      count_only_mode: true
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       minlength: '301'
@@ -326,9 +325,9 @@ content:
       placeholder: ''
       maxlength: null
       counter_position: after
-      js_prevent_submit: true
-      count_only_mode: false
-      count_html_characters: true
+      js_prevent_submit: false
+      count_only_mode: true
+      count_html_characters: false
       textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>Minlength: <span class="minlength_count">@minlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
       minlength: '501'
     third_party_settings:
