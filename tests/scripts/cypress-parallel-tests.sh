@@ -18,9 +18,9 @@ npm run test:cypress:verify
 npm run test:cypress:parallel -- "${@}"
 exit_code=$?
 
-accessibility_violations=$(<../../cypress_accessibility_violations.json)
+accessibility_violations=$(<cypress_accessibility_violations.json)
 if [ "${GITHUB_COMMENT_TYPE}" == "pr" ]; then
-  if [jq length < ../../cypress_accessibility_violations.json -ne 0 ]; then
+  if [jq length < cypress_accessibility_violations.json -ne 0 ]; then
     comment="$(printf 'Accessibility Violations Found:\n``` json\n%b\n```' "${accessibility_violations}")"
     github-commenter \
       -delete-comment-regex="Accessibility Violations Found" \
