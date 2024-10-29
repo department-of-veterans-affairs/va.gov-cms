@@ -43,27 +43,31 @@ function create_digital_form(
     'moderation_state' => 'published',
   ],
   array $steps = [
-    [],
-    [
-      'type' => 'digital_form_identification_info',
-      'title' => 'Generated Identification Information',
-      'include_sn' => TRUE,
+    'your_personal_info' => [
+      'include_dob' => FALSE,
+      'include_sn' => FALSE,
     ],
-    [
-      'type' => 'digital_form_address',
-      'title' => 'Generated Address',
-      'military_address_checkbox' => FALSE,
-    ],
-    [
-      'type' => 'digital_form_phone_and_email',
-      'title' => 'Generated Phone',
-      'include_email' => FALSE,
+    'additional_steps' => [
+      [
+        'type' => 'digital_form_address',
+        'title' => 'Generated Address',
+        'military_address_checkbox' => FALSE,
+      ],
+      [
+        'type' => 'digital_form_phone_and_email',
+        'title' => 'Generated Phone',
+        'include_email' => FALSE,
+      ],
     ],
   ],
 ) {
   $digital_form = Node::create($values);
 
-  foreach ($steps as $step_values) {
+  $digital_form->field_chapters->appendItem(
+    your_personal_info($steps['your_personal_info'])
+  );
+
+  foreach ($steps['additional_steps'] as $step_values) {
     $digital_form->field_chapters->appendItem(create_step($step_values));
   }
 
@@ -84,25 +88,21 @@ function create_digital_forms() {
     'moderation_state' => 'published',
   ];
   $form_21_4140_steps = [
-    [
-      'type' => 'digital_form_name_and_date_of_bi',
-      'title' => "Veteran's personal information",
+    'your_personal_info' => [
       'include_dob' => TRUE,
-    ],
-    [
-      'type' => 'digital_form_identification_info',
-      'title' => 'Identification information',
       'include_sn' => TRUE,
     ],
-    [
-      'type' => 'digital_form_address',
-      'title' => "Veteran's mailing information",
-      'military_address_checkbox' => TRUE,
-    ],
-    [
-      'type' => 'digital_form_phone_and_email',
-      'title' => "Veteran's contact information",
-      'include_email' => TRUE,
+    'additional_steps' => [
+      [
+        'type' => 'digital_form_address',
+        'title' => "Veteran's mailing information",
+        'military_address_checkbox' => TRUE,
+      ],
+      [
+        'type' => 'digital_form_phone_and_email',
+        'title' => "Veteran's contact information",
+        'include_email' => TRUE,
+      ],
     ],
   ];
 
@@ -122,17 +122,11 @@ function create_digital_forms() {
 function create_step(
   array $values = [],
 ): Paragraph {
-  $step_type = $values['type'] ?? 'digital_form_name_and_date_of_bi';
+  $step_type = $values['type'];
   $additional_fields = match ($step_type) {
     'digital_form_address' => [
       'field_military_address_checkbox' =>
       $values['military_address_checkbox'] ?? TRUE,
-    ],
-    'digital_form_identification_info' => [
-      'field_include_veteran_s_service' => $values['include_sn'] ?? FALSE,
-    ],
-    'digital_form_name_and_date_of_bi' => [
-      'field_include_date_of_birth' => $values['include_dob'] ?? TRUE,
     ],
     'digital_form_phone_and_email' => [
       'field_include_email' => $values['include_email'] ?? TRUE,
@@ -143,4 +137,43 @@ function create_step(
     'type' => $step_type,
     'field_title' => $values['title'] ?? 'Script Generated Step',
   ] + $additional_fields);
+}
+
+/**
+ * Creates the "Your personal information" Step.
+ *
+ * @param array $options
+ *   An associate array containing options for the nested Paragraph types.
+ *
+ * @return \Drupal\paragraphs\Entity\Paragraph
+ *   The created "Your personal information" Step.
+ */
+function your_personal_info(
+  array $options = [
+    'include_dob' => TRUE,
+    'include_sn' => FALSE,
+  ],
+): Paragraph {
+  $your_personal_info = Paragraph::create(
+    ['type' => 'digital_form_your_personal_info']
+  );
+
+  $your_personal_info->field_name_and_date_of_birth->appendItem(
+    Paragraph::create([
+      'type' => 'digital_form_name_and_date_of_bi',
+      'field_title' => $options['include_dob']
+        ? 'Name and date of birth' : 'Name',
+      'field_include_date_of_birth' => $options['include_dob'],
+    ])
+  );
+
+  $your_personal_info->field_identification_information->appendItem(
+    Paragraph::create([
+      'type' => 'digital_form_identification_info',
+      'field_title' => 'Identification information',
+      'field_include_veteran_s_service' => $options['include_sn'],
+    ])
+  );
+
+  return $your_personal_info;
 }
