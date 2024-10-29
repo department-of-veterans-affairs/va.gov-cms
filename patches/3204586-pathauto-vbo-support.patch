@@ -1,0 +1,324 @@
+diff --git a/config/optional/system.action.pathauto_update_alias_node.yml b/config/optional/system.action.pathauto_update_alias_node.yml
+deleted file mode 100644
+index 3e9b9aa..0000000
+--- a/config/optional/system.action.pathauto_update_alias_node.yml
++++ /dev/null
+@@ -1,13 +0,0 @@
+-id: pathauto_update_alias_node
+-label: 'Update URL alias'
+-status: true
+-langcode: en
+-type: node
+-plugin: pathauto_update_alias
+-dependencies:
+-  enforced:
+-    module:
+-      - node
+-  module:
+-    - pathauto
+-configuration: { }
+diff --git a/config/optional/system.action.pathauto_update_alias_user.yml b/config/optional/system.action.pathauto_update_alias_user.yml
+deleted file mode 100644
+index fdec1b8..0000000
+--- a/config/optional/system.action.pathauto_update_alias_user.yml
++++ /dev/null
+@@ -1,13 +0,0 @@
+-id: pathauto_update_alias_user
+-label: 'Update URL alias'
+-status: true
+-langcode: en
+-type: user
+-plugin: pathauto_update_alias
+-dependencies:
+-  enforced:
+-    module:
+-      - user
+-  module:
+-    - pathauto
+-configuration: { }
+diff --git a/config/schema/pathauto.schema.yml b/config/schema/pathauto.schema.yml
+index 1da59f1..f6ad08f 100644
+--- a/config/schema/pathauto.schema.yml
++++ b/config/schema/pathauto.schema.yml
+@@ -34,6 +34,6 @@ pathauto.settings:
+       sequence:
+         type: string
+ 
+-action.configuration.pathauto_update_alias:
++action.configuration.entity:pathauto_update_alias:*:
+   type: action_configuration_default
+-  label: 'Update URL alias'
++  label: 'Configuration for URL alias update actions'
+diff --git a/pathauto.services.yml b/pathauto.services.yml
+index c6ba825..b3a5f44 100644
+--- a/pathauto.services.yml
++++ b/pathauto.services.yml
+@@ -19,8 +19,6 @@ services:
+   plugin.manager.alias_type:
+     class: Drupal\pathauto\AliasTypeManager
+     parent: default_plugin_manager
+-  pathauto.settings_cache_tag:
+-    class: Drupal\pathauto\EventSubscriber\PathautoSettingsCacheTag
+-    arguments: ['@entity_field.manager', '@plugin.manager.alias_type']
+-    tags:
+-      - { name: event_subscriber }
++  pathauto.settings_subscriber:
++    class: Drupal\pathauto\EventSubscriber\PathautoSettingsSubscriber
++    arguments: ['@entity_field.manager', '@plugin.manager.alias_type', '@entity_type.manager']
+diff --git a/src/EventSubscriber/PathautoSettingsSubscriber.php b/src/EventSubscriber/PathautoSettingsSubscriber.php
+new file mode 100644
+index 0000000..589d235
+--- /dev/null
++++ b/src/EventSubscriber/PathautoSettingsSubscriber.php
+@@ -0,0 +1,128 @@
++<?php
++
++namespace Drupal\pathauto\EventSubscriber;
++
++
++use Drupal\Core\Config\ConfigCrudEvent;
++use Drupal\Core\Config\ConfigEvents;
++use Drupal\Core\Entity\EntityFieldManagerInterface;
++use Drupal\Core\Entity\EntityTypeManagerInterface;
++use Drupal\Core\Entity\FieldableEntityInterface;
++use Drupal\pathauto\AliasTypeManager;
++use Symfony\Component\EventDispatcher\EventSubscriberInterface;
++
++/**
++ * A subscriber to clear fielddefinition cache when saving pathauto settings.
++ */
++class PathautoSettingsSubscriber implements EventSubscriberInterface {
++
++  /**
++   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
++   */
++  protected $entityFieldManager;
++
++  /**
++   * The alias type manager.
++   *
++   * @var \Drupal\pathauto\AliasTypeManager
++   */
++  protected $aliasTypeManager;
++
++  /**
++   * The entity type manager.
++   *
++   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
++   */
++  protected $entityTypeManager;
++
++  /**
++   * Constructs a PathautoSettingsSubscriber object.
++   *
++   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
++   *   The entity field manager.
++   * @param \Drupal\pathauto\AliasTypeManager $alias_type_manager
++   *   The alias type manager.
++   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
++   *   Manages entity type plugin definitions.
++   */
++  public function __construct(EntityFieldManagerInterface $entity_field_manager, AliasTypeManager $alias_type_manager, EntityTypeManagerInterface $entity_type_manager) {
++    $this->entityFieldManager = $entity_field_manager;
++    $this->aliasTypeManager = $alias_type_manager;
++    $this->entityTypeManager = $entity_type_manager;
++  }
++
++  /**
++   * React when the pathauto settings are updated.
++   *
++   * @param \Drupal\Core\Config\ConfigCrudEvent $event
++   *   The Event to process.
++   */
++  public function onSave(ConfigCrudEvent $event) {
++    if ($event->getConfig()->getName() === 'pathauto.settings') {
++      $config = $event->getConfig();
++      $original_entity_types = $config->getOriginal('enabled_entity_types');
++
++      // Clear cached field definitions if the values are changed to invalidate
++      // the 'rendered' cache tag whenever the settings are modified.
++      if ($original_entity_types != $config->get('enabled_entity_types')) {
++        $this->entityFieldManager->clearCachedFieldDefinitions();
++        $this->aliasTypeManager->clearCachedDefinitions();
++      }
++
++      // Get all entity types enabled for pathauto.
++      $enabled_entity_types = $config->get('enabled_entity_types');
++      $all_entity_types = $this->entityTypeManager->getDefinitions();
++
++      foreach ($all_entity_types as $entity_type_id => $entity_type) {
++        if (is_subclass_of($entity_type->getClass(), FieldableEntityInterface::class) && $entity_type->hasLinkTemplate('canonical')) {
++          $field_definitions = $this->entityFieldManager->getBaseFieldDefinitions($entity_type_id);
++          $patterns_count = $this->entityTypeManager->getStorage('pathauto_pattern')->getQuery()
++            ->condition('type', 'canonical_entities:' . $entity_type_id)
++            ->count()
++            ->execute();
++
++          if (isset($field_definitions['path']) || $patterns_count) {
++            $enabled_entity_types[] = $entity_type_id;
++          }
++        }
++      }
++
++      // Create an "Update alias" action for each enabled entity type.
++      foreach ($enabled_entity_types as $entity_type) {
++        $actions = $this->entityTypeManager->getStorage('action')->loadByProperties([
++          'id' => 'pathauto_update_alias_' . $entity_type,
++        ]);
++        if (empty($actions)) {
++          $action = $this->entityTypeManager->getStorage('action')->create([
++            'id' => 'pathauto_update_alias_' . $entity_type,
++            'label' => 'Update URL alias',
++            'plugin' => 'entity:pathauto_update_alias:' . $entity_type,
++            'type' => $entity_type,
++          ]);
++          $action->save();
++        }
++      }
++
++      // Remove the "Update alias" action for each disabled entity type.
++      $disabled_entity_types = array_diff(array_keys($all_entity_types), $enabled_entity_types);
++      foreach ($disabled_entity_types as $entity_type) {
++        $actions = $this->entityTypeManager->getStorage('action')->loadByProperties([
++          'id' => 'pathauto_update_alias_' . $entity_type,
++        ]);
++        if (!empty($actions)) {
++          $action = reset($actions);
++          $action->delete();
++        }
++      }
++    }
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public static function getSubscribedEvents() {
++    $events[ConfigEvents::SAVE][] = ['onSave'];
++    return $events;
++  }
++
++}
+diff --git a/src/Plugin/Action/UpdateAction.php b/src/Plugin/Action/UpdateAction.php
+index 6b851cd..5cec51a 100644
+--- a/src/Plugin/Action/UpdateAction.php
++++ b/src/Plugin/Action/UpdateAction.php
+@@ -11,8 +11,9 @@ use Drupal\pathauto\PathautoState;
+  * Pathauto entity update action.
+  *
+  * @Action(
+- *   id = "pathauto_update_alias",
++ *   id = "entity:pathauto_update_alias",
+  *   label = @Translation("Update URL alias of an entity"),
++ *   deriver = "Drupal\pathauto\Plugin\Derivative\EntityUrlAliasUpdateActionDeriver"
+  * )
+  */
+ class UpdateAction extends ActionBase {
+diff --git a/src/Plugin/Derivative/EntityUrlAliasUpdateActionDeriver.php b/src/Plugin/Derivative/EntityUrlAliasUpdateActionDeriver.php
+new file mode 100644
+index 0000000..533959e
+--- /dev/null
++++ b/src/Plugin/Derivative/EntityUrlAliasUpdateActionDeriver.php
+@@ -0,0 +1,102 @@
++<?php
++
++namespace Drupal\pathauto\Plugin\Derivative;
++
++use Drupal\Component\Plugin\Derivative\DeriverBase;
++use Drupal\Core\Config\ConfigFactory;
++use Drupal\Core\Entity\EntityFieldManagerInterface;
++use Drupal\Core\Entity\EntityTypeManagerInterface;
++use Drupal\Core\Entity\FieldableEntityInterface;
++use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
++use Drupal\Core\StringTranslation\StringTranslationTrait;
++use Symfony\Component\DependencyInjection\ContainerInterface;
++
++/**
++ * Generate Update URL Alias action plugin for each enabled entity type.
++ */
++class EntityUrlAliasUpdateActionDeriver extends DeriverBase implements ContainerDeriverInterface {
++
++  use StringTranslationTrait;
++
++  /**
++   * The config service.
++   *
++   * @var \Drupal\Core\Config\ConfigFactory
++   */
++  protected $config;
++
++  /**
++   * The entity type manager.
++   *
++   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
++   */
++  protected $entityTypeManager;
++
++  /**
++   * The entity field manager.
++   *
++   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
++   */
++  protected $entityFieldManager;
++
++  /**
++   * Constructs the URL alias update action deriver.
++   *
++   * @param \Drupal\Core\Config\ConfigFactory $config_factory
++   *   The config factory.
++   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
++   *   Manages entity type plugin definitions.
++   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
++   *   Manages the discovery of entity fields.
++   */
++  public function __construct(ConfigFactory $config_factory, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager) {
++    $this->config = $config_factory;
++    $this->entityTypeManager = $entity_type_manager;
++    $this->entityFieldManager = $entity_field_manager;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public static function create(ContainerInterface $container, $base_plugin_id) {
++    return new static(
++      $container->get('config.factory'),
++      $container->get('entity_type.manager'),
++      $container->get('entity_field.manager')
++    );
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function getDerivativeDefinitions($base_plugin_definition) {
++    $config = $this->config->get('pathauto.settings');
++    $enabled_entity_types = $config->get('enabled_entity_types');
++
++    // Get all entity types enabled for pathauto.
++    foreach ($this->entityTypeManager->getDefinitions() as $entity_type_id => $entity_type) {
++      if (is_subclass_of($entity_type->getClass(), FieldableEntityInterface::class) && $entity_type->hasLinkTemplate('canonical')) {
++        $field_definitions = $this->entityFieldManager->getBaseFieldDefinitions($entity_type_id);
++        $patterns_count = $this->entityTypeManager->getStorage('pathauto_pattern')->getQuery()
++          ->condition('type', 'canonical_entities:' . $entity_type_id)
++          ->count()
++          ->execute();
++
++        if (isset($field_definitions['path']) || $patterns_count) {
++          $enabled_entity_types[] = $entity_type_id;
++        }
++      }
++    }
++
++    foreach (array_unique($enabled_entity_types) as $entity_type_id) {
++      $action_id = 'update_alias_' . $entity_type_id;
++      $this->derivatives[$entity_type_id] = [
++        'id' => $action_id,
++        'label' => $this->t('Update URL alias'),
++        'type' => $entity_type_id,
++      ] + $base_plugin_definition;
++    }
++    return parent::getDerivativeDefinitions($base_plugin_definition);
++  }
++
++}

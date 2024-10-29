@@ -1,6 +1,7 @@
 @content_editing_person_profile
 Feature: Person Profile creation.
 
+@critical_path
 Scenario: Log in and create a Person Profile with attention to conditional fields.
   # Create the page with no intention of using biography.
   When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
@@ -8,6 +9,7 @@ Scenario: Log in and create a Person Profile with attention to conditional field
   And I am at "/node/add/person_profile"
   And I select option "---VA Boston health care" from dropdown "Section"
   And I select option "VA Boston health care" from dropdown "Related office or health care region"
+
   And I fill in "First name" with "James"
   And I fill in "Last name" with "Smith"
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."

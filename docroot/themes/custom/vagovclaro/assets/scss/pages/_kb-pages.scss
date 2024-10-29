@@ -131,13 +131,13 @@
   }
 
   .form-element {
-    background: var(--va-blue-darker);
-    border-color: var(--va-gray-cool-med);
-    color: var(--color-white);
+    background: var(--va-blue-dark);
+    border-color: var(--va-gray-darkest);
+    color: var(--va-white);
     min-height: 32px;
 
     &::placeholder {
-      color: var(--color-white);
+      color: var(--va-white);
     }
   }
 
@@ -169,13 +169,13 @@
     }
 
     a:hover {
-      background: var(--va-blue-light);
+      background: var(--va-blue-lightest);
       text-decoration: none;
     }
   }
 }
 
-// KB Landing page overrides
+// KB landing and search results page overrides
 #kb-landing-page__container {
   // Special override from .vagovclaro .layout-container
   margin: 0 auto !important;
@@ -184,6 +184,71 @@
 
   .field--name-field-links {
     padding-left: 10px;
+  }
+
+  &.search-results__wrapper {
+    padding-bottom: 75px;
+
+    .page-title {
+      margin-top: 12px;
+    }
+  }
+}
+
+.search-results__header {
+  padding-bottom: 36px;
+}
+
+.kb__search-result {
+  .kb__search-result__title {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+
+  .kb__search-result__intro {
+    font-size: 1.1rem;
+    line-height: 1.1;
+  }
+
+  .kb__search-result__excerpt {
+    display: block;
+    padding: 1em;
+  }
+}
+
+main {
+  #block-knowledge-base-search-form {
+    background: none;
+    border: 0;
+    box-shadow: none;
+    margin: 30px 0 50px;
+    padding: 0;
+
+    label {
+      font-family: var(--font-family-serif);
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-item--keyword {
+      display: inline-block;
+      width: 400px;
+
+      input {
+        background-image: url("/themes/custom/vagovclaro/images/icons/magnifying-glass-868686.svg");
+        background-position-x: calc(100% - 10px);
+        background-position-y: center;
+        background-repeat: no-repeat;
+        background-size: 22px;
+        padding-right: 40px;
+        width: 100%;
+      }
+    }
+
+    .form-actions {
+      display: inline-block;
+      margin: 0 0 0 20px;
+    }
   }
 }
 
@@ -220,7 +285,7 @@
 
       input {
         background-color: var(--color-absolutezero-hover);
-        color: var(--color-white);
+        color: var(--va-white);
         transition-duration: 0.3s;
         transition-property: background-color;
         transition-timing-function: ease-in-out;
@@ -239,8 +304,8 @@
     display: inline-block;
 
     .usa-button {
-      background: var(--va-gray-light);
-      color: var(--color-black);
+      background: var(--va-gray-lightest);
+      color: var(--va-black);
 
       &:hover {
         background: var(--va-gray-med);

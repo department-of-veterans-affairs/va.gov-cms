@@ -131,6 +131,32 @@ foreach ($facility_migrations as $facility_migration) {
   5.  Run the System Health Service migration.  Look for presence of migrate messages.  The messages will indicate the problems with the data.  Fix, rollback, repeat until there are no messages created and the row count of the data, matches the created count.
   6. Run the Facility Health Service migration.  Look for messages. The messages will indicate the problems with the data.  Fix, rollback, repeat until there are no messages created and the row count of the data, matches the created count.
 
+## CMS supplemental data
+When a facility is updated, such as when the operated status is edited, a payload of data about that facility is added to the Post API Queue to be sent to Lighthouse. Similarly, when a facility service is created or edited, a payload of data about that service is added to the queue. The data flow is as follows:
+
+## Diagram of current process for pushing facility data
+```mermaid
+flowchart TD
+    A(Editor updates facility or adds or updates service in CMS) --> B(CMS adds node-related payload item to queue)
+    B --> C(CMS processes Post API Queue queue on cron)
+    C --> D{Is the queue empty or has it reached item processing limit?}
+    D -- Yes -->E(QueueProcessingCompleteEvent triggered)
+    D -- No --> F(Sends a queue item to Lighthouse)
+    E --> G{Does count of items at end equal count at start?}
+    F --> H{Successfully received by Lighthouse?}
+    G -- Yes --> I(Send error to Slack--or dblogs if no Slack)
+    style I stroke-width:4px,font-weight:bold,fill:#f96;
+    G -- No --> J(((End queue processing)))
+    H -- Yes -->K(Item removed from the queue)
+    H -- No --> L{What is the issue?}
+    I --> J
+    K --> D
+    L -- 200 but response long -->B
+    L -- 201 or 202 --> M(Send error to Slack and dblogs)
+    style M stroke-width:4px,font-weight:bold,fill:#f96;
+    L --> D
+```
+
 ----
 
 [Table of Contents](../README.md)

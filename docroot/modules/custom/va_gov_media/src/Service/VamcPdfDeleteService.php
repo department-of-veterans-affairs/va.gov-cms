@@ -226,17 +226,23 @@ class VamcPdfDeleteService implements VamcPdfDeleteInterface {
    *   Return void.
    */
   protected function writeCsv(array $deleted_pdfs, string $timestamp): void {
-    $filename = $timestamp . '-deleted_pdf_list.csv';
+    $filename = DRUPAL_ROOT . '/sites/default/files/' . $timestamp . '-deleted-pdf-list.csv';
 
-    // Open a file in write mode ('w')
-    $file = fopen($filename, 'w');
+    try {
+      // Open a file in write mode ('w')
+      $file = fopen($filename, 'w+');
+    }
+    catch (\Exception $e) {
+      $this->loggerFactory->get('va_gov_media')->error('Error opening or creating CSV file: @error', ['@error' => $e->getMessage()]);
+      return;
+    }
 
     // Loop through file pointer and a line.
     foreach ($deleted_pdfs as $fields) {
       fputcsv($file, $fields);
     }
     fclose($file);
-    $destination = 's3://' . $timestamp . '/' . $filename;
+    $destination = 's3://' . $timestamp . '/' . $timestamp . '-deleted-pdf-list.csv';
     $this->s3fs->copy($filename, $destination);
     unlink($filename);
     $this->loggerFactory->get('va_gov_media')->info("CSV written to {$destination}");

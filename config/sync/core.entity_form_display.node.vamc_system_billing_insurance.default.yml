@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.vamc_system_billing_insurance.field_office_hours
     - field.field.node.vamc_system_billing_insurance.field_phone_number
     - field.field.node.vamc_system_billing_insurance.field_service_name_and_descripti
+    - field.field.node.vamc_system_billing_insurance.field_telephone
     - node.type.vamc_system_billing_insurance
     - workflows.workflow.restricted_archive
   module:
@@ -24,6 +25,7 @@ dependencies:
     - entity_field_fetch
     - field_group
     - office_hours
+    - paragraphs
     - telephone
     - viewfield
 third_party_settings:
@@ -104,6 +106,7 @@ third_party_settings:
     group_inquiries_about_copay:
       children:
         - field_phone_number
+        - field_telephone
         - field_office_hours
       label: 'For inquiries by phone about copay balance'
       region: content
@@ -173,7 +176,7 @@ content:
     third_party_settings: {  }
   field_cc_bottom_of_page_content:
     type: entity_field_fetch_widget
-    weight: 14
+    weight: 9
     region: content
     settings:
       show_field_label: 0
@@ -182,7 +185,7 @@ content:
     third_party_settings: {  }
   field_cc_related_links:
     type: entity_field_fetch_widget
-    weight: 15
+    weight: 10
     region: content
     settings:
       show_field_label: '1'
@@ -191,7 +194,7 @@ content:
     third_party_settings: {  }
   field_cc_top_of_page_content:
     type: entity_field_fetch_widget
-    weight: 14
+    weight: 9
     region: content
     settings:
       show_field_label: 0
@@ -214,7 +217,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 26
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -232,9 +235,10 @@ content:
     third_party_settings: {  }
   field_office_hours:
     type: office_hours_default
-    weight: 9
+    weight: 10
     region: content
-    settings: {  }
+    settings:
+      collapsed: false
     third_party_settings: {  }
   field_phone_number:
     type: telephone_default
@@ -242,6 +246,24 @@ content:
     region: content
     settings:
       placeholder: ''
+    third_party_settings: {  }
+  field_telephone:
+    type: paragraphs
+    weight: 9
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
