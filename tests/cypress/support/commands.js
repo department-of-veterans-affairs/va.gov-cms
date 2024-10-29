@@ -39,18 +39,18 @@ Cypress.Commands.add("saveHtmlSnapshot", (testName) => {
 });
 
 Cypress.Commands.add("drupalLogin", (username, password) => {
-  cy.visit("/user/login");
-
-  cy.get("#user-login-form").then(($form) => {
-    // PIV login by default in claro theme, so cypress checks for the toggle to click it.
-    if ($form.hasClass("piv-login")) {
-      cy.get(".js-va-login-toggle").click();
-    }
+  cy.request({
+    method: "POST",
+    url: "/user/login",
+    form: true,
+    body: {
+      name: username,
+      pass: password,
+      form_id: "user_login_form",
+      op: "Log in",
+    },
   });
-
-  cy.get("#edit-name").type(username);
-  cy.get("#edit-pass").type(password);
-  cy.get("#edit-submit").click();
+  cy.visit("/");
   cy.window().then((window) => {
     cy.wrap(window.drupalSettings.user.uid).as("uid");
   });
