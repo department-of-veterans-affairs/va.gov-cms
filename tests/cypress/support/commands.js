@@ -83,11 +83,6 @@ Cypress.Commands.add("drupalLogout", () => {
   cy.get("#edit-submit").click();
 });
 
-Cypress.Commands.add("drupalLogout", () => {
-  cy.visit("/user/logout");
-  cy.get("#edit-submit").click();
-});
-
 Cypress.Commands.add("drupalDrushCommand", (command) => {
   let cmd = "drush %command";
   if (Cypress.env("VAGOV_INTERACTIVE")) {
