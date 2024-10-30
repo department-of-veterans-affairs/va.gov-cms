@@ -58,6 +58,31 @@ Cypress.Commands.add("drupalLogin", (username, password) => {
   cy.checkAccessibility();
 });
 
+Cypress.Commands.add("drupalLoginViaUi", (username, password) => {
+  cy.visit("/user/login");
+
+  cy.get("#user-login-form").then(($form) => {
+    // PIV login by default in claro theme, so cypress checks for the toggle to click it.
+    if ($form.hasClass("piv-login")) {
+      cy.get(".js-va-login-toggle").click();
+    }
+  });
+
+  cy.get("#edit-name").type(username);
+  cy.get("#edit-pass").type(password);
+  cy.get("#edit-submit").click();
+  cy.window().then((window) => {
+    cy.wrap(window.drupalSettings.user.uid).as("uid");
+  });
+  cy.injectAxe();
+  cy.checkAccessibility();
+});
+
+Cypress.Commands.add("drupalLogout", () => {
+  cy.visit("/user/logout");
+  cy.get("#edit-submit").click();
+});
+
 Cypress.Commands.add("drupalLogout", () => {
   cy.visit("/user/logout");
   cy.get("#edit-submit").click();
