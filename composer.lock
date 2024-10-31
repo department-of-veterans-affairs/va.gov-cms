@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a12cee94126f2723f74923ce94442cf0",
+    "content-hash": "11af437af1bc8bf720eebaf330f8b49d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4119,6 +4119,84 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/content_model_documentation",
                 "issues": "http://drupal.org/project/issues/content_model_documentation"
+            }
+        },
+        {
+            "name": "drupal/content_sync",
+            "version": "4.0.0-rc2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/content_sync.git",
+                "reference": "4.0.0-rc2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/content_sync-4.0.0-rc2.zip",
+                "reference": "4.0.0-rc2",
+                "shasum": "1308846e9f1cd149784a4dfdf0c40aaa2b6b3a92"
+            },
+            "require": {
+                "drupal/core": "^9.4 || ^10.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "4.0.0-rc2",
+                    "datestamp": "1727240381",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "RC releases are not covered by Drupal security advisories."
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^10 || ^11"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Blanca.Esqueda",
+                    "homepage": "https://www.drupal.org/u/blancaesqueda",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "David Gil Hidalgo",
+                    "homepage": "https://www.drupal.org/u/dabito",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "David Nova",
+                    "homepage": "https://www.drupal.org/u/david4lim",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Andrés Moncada",
+                    "homepage": "https://www.drupal.org/u/acmoncadab4",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "See contributors",
+                    "homepage": "https://www.drupal.org/node/2865869/committers"
+                },
+                {
+                    "name": "ridefree",
+                    "homepage": "https://www.drupal.org/user/49148"
+                },
+                {
+                    "name": "tobias märz",
+                    "homepage": "https://www.drupal.org/user/1776082"
+                }
+            ],
+            "description": "Content Sync functionality.",
+            "homepage": "http://drupal.org/project/content_sync",
+            "support": {
+                "source": "https://git.drupalcode.org/project/content_sync",
+                "issues": "http://drupal.org/project/content_sync"
             }
         },
         {
@@ -14335,6 +14413,10 @@
                 {
                     "name": "jec006",
                     "homepage": "https://www.drupal.org/user/855980"
+                },
+                {
+                    "name": "mably",
+                    "homepage": "https://www.drupal.org/user/3375160"
                 },
                 {
                     "name": "plopesc",
@@ -27704,6 +27786,7 @@
         "drupal/ckeditor_abbreviation": 15,
         "drupal/codit_menu_tools": 15,
         "drupal/components": 10,
+        "drupal/content_sync": 5,
         "drupal/danse_content_moderation": 10,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 15,
