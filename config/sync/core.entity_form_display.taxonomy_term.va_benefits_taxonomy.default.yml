@@ -141,7 +141,6 @@ third_party_settings:
     group_va_benefit_workflow:
       children:
         - moderation_state
-        - revision_log_message
       label: 'Editorial workflow'
       region: content
       parent_name: ''
@@ -262,13 +261,13 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
-      maxlength: 500
+      placeholder: "Minimum characters: 501<br>\r\nMaximum characters: Unlimited<br>\r\nCharacters typed: <span class=\"current_count\">@current_length</span> "
+      maxlength: 99999999999999999
       counter_position: after
       js_prevent_submit: false
       count_only_mode: false
       count_html_characters: false
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      textcount_status_message: "Minimum characters: 301<br>\r\nMaximum characters: 500<br>\r\nCharacters typed: <span class=\"current_count\">@current_length</span> "
     third_party_settings:
       allowed_formats:
         hide_help: '0'
@@ -316,13 +315,22 @@ content:
       change_labels:
         add_another: 'Add another link'
   field_va_benefit_long_summary:
-    type: text_textarea
+    type: text_textarea_with_counter
     weight: 10
     region: content
     settings:
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings:
+      allowed_formats:
+        hide_help: '0'
+        hide_guidelines: '0'
   field_va_benefit_plain_name:
     type: string_textfield
     weight: 6
@@ -361,7 +369,7 @@ content:
       js_prevent_submit: false
       count_only_mode: false
       count_html_characters: false
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      textcount_status_message: "Minimum length: 20 characters<br>\r\nMaximum length: 300 characters<br>\r\nCharacters typed: <span class=\"current_count\">@current_length</span> "
     third_party_settings: {  }
   field_va_benefits_elig_intro:
     type: text_textarea
