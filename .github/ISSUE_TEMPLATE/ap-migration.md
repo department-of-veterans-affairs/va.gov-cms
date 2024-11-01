@@ -16,8 +16,8 @@ _URL to show an example of the template or content type in both Drupal CMS and V
 ## Description
 _Overview of template or content type, including relevant details to the migration lift._
 
-## Owning Team 
-_The team that is owning either the review, fixes, or deployment of template or content type into production_
+## Product Owner 
+_The team that owns the product in production_
 
 ## Definition of Done
 **Data:**
