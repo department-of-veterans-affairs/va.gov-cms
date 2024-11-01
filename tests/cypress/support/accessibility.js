@@ -24,7 +24,7 @@ const axeRuntimeOptions = {
   },
 };
 
-const skipFailures = true;
+// const skipFailures = true;
 
 Cypress.Commands.add("checkAccessibility", () => {
   cy.wait(1000);
@@ -45,9 +45,9 @@ Cypress.Commands.add("checkAccessibility", () => {
         accessibilityViolations.push(...violationData);
         Cypress.config("accessibilityViolations", accessibilityViolations);
       });
-    },
+    }
     // Don't fail tests now that violations are reported in PR comments
-    skipFailures
+    // skipFailures
   );
 });
 
