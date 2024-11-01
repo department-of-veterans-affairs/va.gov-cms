@@ -27114,18 +27114,29 @@
         },
         {
             "name": "weitzman/drupal-test-traits",
-            "version": "2.3.1",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/dtt.git",
-                "reference": "5e3df23c93f4f3e4f34fd7677df10bc06616f4ce"
+                "reference": "664201b00140f9b935fcb9f3eef012c6638ec0c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://git.drupalcode.org/api/v4/projects/project%2Fdtt/repository/archive.zip?sha=664201b00140f9b935fcb9f3eef012c6638ec0c5",
+                "reference": "664201b00140f9b935fcb9f3eef012c6638ec0c5",
+                "shasum": ""
             },
             "require": {
                 "php": ">=8.1"
             },
+            "conflict": {
+                "drupal/core": "<=10.2"
+            },
             "require-dev": {
-                "drush/drush": "^12.5",
-                "phpspec/prophecy-phpunit": "^2"
+                "drupal/mailsystem": "^4",
+                "drush/drush": "^12.5 || ^13",
+                "phpspec/prophecy-phpunit": "^2",
+                "webflo/drupal-finder": "^1.3.1"
             },
             "type": "library",
             "extra": {
@@ -27161,7 +27172,10 @@
                 }
             ],
             "description": "Traits for testing Drupal sites that have user content (versus unpopulated sites).",
-            "time": "2024-08-10T19:01:22+00:00"
+            "support": {
+                "source": "https://git.drupalcode.org/project/dtt/-/tree/2.5.0"
+            },
+            "time": "2024-10-30T23:28:39+00:00"
         },
         {
             "name": "willdurand/geocoder",
