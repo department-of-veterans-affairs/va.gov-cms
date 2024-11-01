@@ -20,4 +20,23 @@ _Overview of template or content type, including relevant details to the migrati
 _The team that is owning either the review, fixes, or deployment of template or content type into production_
 
 ## Definition of Done
-- [ ] _What must be true in order for you to consider this epic complete?_
+**Data:**
+- [ ] Conditional logic matches content-build / production 
+- [ ] SEO Metadata matches production
+- [ ] Analytics match production
+
+**Interaction / Behavior:**
+- [ ] Interactions / behavior match production (e.g. accordion expansion by default on page load if they do, data IDs on elements / their usage, link behavior, form / input field behaviors, etc) 
+
+**Accessibility:**
+- [ ] Accessibility experience matches production (voiceover/screen reader behavior, appearance at 400% zoom, params on elements, etc) 
+- [ ] axe devTools output matches production
+
+**Visual presentation:**
+- [ ] Design system components, prop usage and component versions match production
+- [ ] Design (font size, spacing, Anything else?) matches production
+- [ ] Review all breakpoints
+
+**Signoff / Launch**
+- [ ] Owning team has reviewed the build and provided feedback / approval
+- [ ] CMS Team has confirmed launch readiness 
