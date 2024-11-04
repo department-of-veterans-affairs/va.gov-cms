@@ -24,21 +24,31 @@ const axeRuntimeOptions = {
   },
 };
 
+const skipFailures = true;
+
 Cypress.Commands.add("checkAccessibility", () => {
   cy.wait(1000);
-  return cy.checkA11y(axeContext, axeRuntimeOptions, (violations) => {
-    cy.accessibilityLog(violations);
-    return cy.location("pathname").then((route) => {
-      // eslint-disable-next-line max-nested-callbacks
-      const violationData = violations.map((violation) => ({
-        route,
-        ...violation,
-      }));
-      const accessibilityViolations = Cypress.config("accessibilityViolations");
-      accessibilityViolations.push(...violationData);
-      Cypress.config("accessibilityViolations", accessibilityViolations);
-    });
-  });
+  return cy.checkA11y(
+    axeContext,
+    axeRuntimeOptions,
+    (violations) => {
+      cy.accessibilityLog(violations);
+      return cy.location("pathname").then((route) => {
+        // eslint-disable-next-line max-nested-callbacks
+        const violationData = violations.map((violation) => ({
+          route,
+          ...violation,
+        }));
+        const accessibilityViolations = Cypress.config(
+          "accessibilityViolations"
+        );
+        accessibilityViolations.push(...violationData);
+        Cypress.config("accessibilityViolations", accessibilityViolations);
+      });
+    },
+    // Don't fail tests now that violations are reported in PR comments
+    skipFailures
+  );
 });
 
 Cypress.Commands.add("accessibilityLog", (violations) => {
