@@ -39,6 +39,26 @@ Cypress.Commands.add("saveHtmlSnapshot", (testName) => {
 });
 
 Cypress.Commands.add("drupalLogin", (username, password) => {
+  cy.request({
+    method: "POST",
+    url: "/user/login",
+    form: true,
+    body: {
+      name: username,
+      pass: password,
+      form_id: "user_login_form",
+      op: "Log in",
+    },
+  });
+  cy.visit("/");
+  cy.window().then((window) => {
+    cy.wrap(window.drupalSettings.user.uid).as("uid");
+  });
+  cy.injectAxe();
+  cy.checkAccessibility();
+});
+
+Cypress.Commands.add("drupalLoginViaUi", (username, password) => {
   cy.visit("/user/login");
 
   cy.get("#user-login-form").then(($form) => {
