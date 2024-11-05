@@ -8,11 +8,13 @@ dependencies:
     - field.field.block_content.connect_with_us.field_email_updates_link
     - field.field.block_content.connect_with_us.field_external_link
     - field.field.block_content.connect_with_us.field_social_media_links
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - field_group
     - link
     - social_media_links_field
+    - textfield_counter
 third_party_settings:
   field_group:
     group_section_settings:
@@ -67,12 +69,19 @@ content:
     settings: {  }
     third_party_settings: {  }
   info:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 0
     region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
