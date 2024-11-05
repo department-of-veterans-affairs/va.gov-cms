@@ -115,15 +115,6 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  field_connect_with_us:
-    type: entity_reference_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: true
-    third_party_settings: {  }
-    weight: 29
-    region: content
   field_description:
     type: string
     label: above
@@ -230,6 +221,7 @@ content:
 hidden:
   breadcrumbs: true
   content_moderation_control: true
+  field_connect_with_us: true
   field_last_saved_by_an_editor: true
   field_meta_tags: true
   field_plainlanguage_date: true
