@@ -268,7 +268,7 @@ content:
       js_prevent_submit: false
       count_only_mode: false
       count_html_characters: false
-      textcount_status_message: "Minimum characters: 301<br>\r\nMaximum characters: 500<br>\r\nCharacters typed: <span class=\"current_count\">@current_length</span> "
+      textcount_status_message: "Minimum characters: 301<br>\r\nMaximum characters: 500<br>\r\nCharacters remaining: <span class=\"remaining_count\">@remaining_count</span> "
     third_party_settings:
       allowed_formats:
         hide_help: '0'
@@ -322,12 +322,12 @@ content:
     settings:
       rows: 5
       placeholder: ''
-      maxlength: 999999999999999999
+      maxlength: 9223372036854775807
       counter_position: after
-      js_prevent_submit: true
-      count_only_mode: false
+      js_prevent_submit: false
+      count_only_mode: true
       count_html_characters: true
-      textcount_status_message: "Minimum characters: 501<br>\r\nMaximum characters: Unlimited<br>\r\nCharacters typed: <span class=\"current_count\">@current_length</span> "
+      textcount_status_message: "Minimum characters: 501<br/> \r\nMaximum characters: Unlimited\r\n"
     third_party_settings:
       allowed_formats:
         hide_help: '0'
@@ -370,7 +370,7 @@ content:
       js_prevent_submit: false
       count_only_mode: false
       count_html_characters: false
-      textcount_status_message: "Minimum length: 20 characters<br>\r\nMaximum length: 300 characters<br>\r\nCharacters typed: <span class=\"current_count\">@current_length</span> "
+      textcount_status_message: "Minimum length: 20 characters<br>\r\nMaximum length: 300 characters<br>\r\nCharacters remaining: <span class=\"remaining_count\">@remaining_count</span> "
     third_party_settings: {  }
   field_va_benefits_elig_intro:
     type: text_textarea
