@@ -91,26 +91,61 @@ index 13df19e50ae44393a651c46a0524065d0c29c921..1ed67a5d842cd04b5d8c16175e339a02
      // Find IDs from target_id element (it stores selected entities in form).
      // This was added to help solve a really edge casey bug in IEF.
      $element_path = array_merge($element['#field_parents'], [$this->fieldDefinition->getName()]);
-@@ -825,6 +825,22 @@
+@@ -820,17 +821,56 @@
+
+       if (isset($parents) && $value = $form_state->getValue($parents)) {
+         $items->setValue($value);
+-        $entities = $items->referencedEntities();
++        if ($show_latest_revision) {
++          $entities = $this->getEntitiesLatestRevision($items);
++        }
++        else {
++          $entities = $items->referencedEntities();
++        }
+       }
        return $entities;
      }
 
++    // If we intend to show the latest revisions, we need to get them.
 +    if ($show_latest_revision) {
-+      $entity_type = $this->fieldDefinition->getFieldStorageDefinition()->getSetting('target_type');
-+      $entity_storage = $this->entityTypeManager->getStorage($entity_type);
-+      foreach ($items as $item) {
-+        if (isset($item->target_id)) {
-+          $entity = $entity_storage->load($item->target_id);
-+          $latest_revision_id = $entity_storage->getLatestRevisionId($item->target_id);
-+          $entity = $entity_storage->loadRevision($latest_revision_id);
-+          if (!empty($entity)) {
-+            $entities[] = $entity;
-+          }
-+        }
-+      }
-+      return $entities;
++      return $this->getEntitiesLatestRevision($items);
 +    }
 +
      // We are loading for for the first time so we need to load any existing
      // values that might already exist on the entity. Also, remove any leftover
      // data from removed entity references.
+     return $items->referencedEntities();
+   }
+
++  /**
++   * Get the latest revision of the referenced entities.
++   *
++   * @param \Drupal\Core\Field\FieldItemListInterface $items
++   *  The field items.
++   *
++   * @return \Drupal\Core\Entity\EntityInterface[]
++   *   The list of referenced entities with the latest revision.
++   */
++  protected function getEntitiesLatestRevision(FieldItemListInterface $items) {
++    $entities = [];
++    $entity_type = $this->fieldDefinition->getFieldStorageDefinition()->getSetting('target_type');
++    $entity_storage = $this->entityTypeManager->getStorage($entity_type);
++
++    foreach ($items as $item) {
++      if (isset($item->target_id)) {
++        $entity = $entity_storage->load($item->target_id);
++        $latest_revision_id = $entity_storage->getLatestRevisionId($item->target_id);
++        $entity = $entity_storage->loadRevision($latest_revision_id);
++        if (!empty($entity)) {
++          $entities[] = $entity;
++        }
++      }
++    }
++
++    return $entities;
++  }
++
++
+   /**
+    * {@inheritdoc}
+    */
