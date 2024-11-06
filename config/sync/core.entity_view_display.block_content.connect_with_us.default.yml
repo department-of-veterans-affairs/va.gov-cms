@@ -16,14 +16,6 @@ targetEntityType: block_content
 bundle: connect_with_us
 mode: default
 content:
-  field_administration:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_email_updates_link:
     type: link
     label: above
@@ -52,13 +44,18 @@ content:
     type: social_media_links_field_default
     label: above
     settings:
-      appearance: {  }
-      link_attributes: {  }
+      appearance:
+        orientation: v
+        show_name: '1'
+      link_attributes:
+        target: '<none>'
+        rel: '<none>'
     third_party_settings: {  }
     weight: 2
     region: content
 hidden:
   breadcrumbs: true
   content_moderation_control: true
+  field_administration: true
   langcode: true
   search_api_excerpt: true
