@@ -116,9 +116,9 @@ assignees: ''
 ### Menu configuration and clean up [CMS helpdesk or Sitewide team]
 - [ ] Go to [Content / Menus](https://prod.cms.va.gov/admin/structure/menu)
 - [ ] Find the relevant menu and select edit menu
-- [ ] Ensure all menu links are nested in the proper place
-- [ ] Set some menu links to disabled 
-- [ ] Consult [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh) for menu settings (Here's a [backup static copy](https://github.com/department-of-veterans-affairs/va.gov-team/blob/1b010e72b992dbefa7305764b0058841131733bc/products/facilities/medical-centers/VAMC-Sitemap.xlsx) in case of access issues in the future)  
+- [ ] Ensure all menu links are nested in the proper place by opening each menu item individually and ensuring it has the correct parent link, and saving
+- [ ] Set some menu links to disabled, according to the [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh) 
+- [ ] Consult [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh) for menu settings (Here's a [backup static copy](https://github.com/department-of-veterans-affairs/va.gov-team/blob/1b010e72b992dbefa7305764b0058841131733bc/products/facilities/medical-centers/VAMC-Sitemap.xlsx) in case of access issues in the future)
 
 ### URL alias configuration [CMS helpdesk or Sitewide team]
 - [ ] Check that each page has the correct URL alias matching the [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh)
