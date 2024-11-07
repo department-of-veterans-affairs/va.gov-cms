@@ -121,7 +121,7 @@ assignees: ''
 - [ ] Consult [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh) for menu settings (Here's a [backup static copy](https://github.com/department-of-veterans-affairs/va.gov-team/blob/1b010e72b992dbefa7305764b0058841131733bc/products/facilities/medical-centers/VAMC-Sitemap.xlsx) in case of access issues in the future)
 
 ### URL alias configuration [CMS helpdesk or Sitewide team]
-- [ ] Check that each page has the correct URL alias matching the [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh)
+- [ ] Check that each page has the correct URL alias matching the [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh), and breadcrumb
 - [ ] If pages dont have the correct URL Alias, change them from Auto to Manual and input the correct URL alias
 
 ### User set up [CMS helpdesk]
@@ -132,9 +132,11 @@ assignees: ''
 ### VAMC editor tasks
 - [ ] Complete training if they haven't already
 - [ ] Follow the instructions in [VAMC editor guide](https://prod.cms.va.gov/help/vamc)
-- [ ] Confirm when ready to publish
+- [ ] Advise the Editor not to publish content until all drafts, including Top Task pages, are ready to Publish.
+- [ ] Ask the Editor to confirm when they are ready for Helpdesk / Sitewide to publish the site
 
-### Launch tasks
-- [ ] Lighthouse coordination for service push?
-- [ ] Redirects? 
-- [ ] Comms, change management?
+### Launch tasks [CMS helpdesk or Sitewide team]
+- [ ] Bulk publish content in a Tugboat and re-verify URLs, menu items / parents / structure, and breadcrumbs
+- [ ] Coordinate timing with Editor for a bulk publish of all ready content in production, including Top Task pages
+- [ ] If there is a legacy site for the system, or if existing facilities move into the new system, create a ticket for the appropriate redirects
+- [ ] Notify the Editor that the site is published
