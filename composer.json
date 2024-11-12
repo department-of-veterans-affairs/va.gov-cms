@@ -370,6 +370,9 @@
         "composer-exit-on-patch-failure": true,
         "patches-ignore": {},
         "patches": {
+            "drupal/admin_toolbar": {
+                "3286466 - Tabbing order does not satisfy 508 accessibility requirements": "patches/admin-ttolbar-keyboard-navigation-fix-3286466-54.patch"
+            },
             "drupal/cer": {
                 "3200122 - Remove delete hook": "patches/3200122-delete-hook-added-in-dev-causes-test-failures.patch",
                 "3254663 - Notice: Undefined index: target_bundles on Drupal\\cer\\Entity\\CorrespondingReference->synchronizeCorrespondingField()": "patches/3254669-prevent-undefined-index.patch"
