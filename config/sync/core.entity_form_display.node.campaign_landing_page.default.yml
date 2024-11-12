@@ -37,6 +37,7 @@ dependencies:
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
     - field.field.node.campaign_landing_page.field_clp_why_this_matters
+    - field.field.node.campaign_landing_page.field_connect_with_us
     - field.field.node.campaign_landing_page.field_hero_blurb
     - field.field.node.campaign_landing_page.field_hero_image
     - field.field.node.campaign_landing_page.field_last_saved_by_an_editor
@@ -280,6 +281,7 @@ third_party_settings:
     group_connect_with_us:
       children:
         - field_related_office
+        - field_connect_with_us
       label: 'Connect with us'
       region: content
       parent_name: ''
@@ -306,7 +308,7 @@ content:
     third_party_settings: {  }
   field_benefit_categories:
     type: entity_reference_browser_table_widget
-    weight: 42
+    weight: 48
     region: content
     settings:
       entity_browser: lc_benefit_hubs
@@ -761,6 +763,12 @@ content:
       count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_connect_with_us:
+    type: options_select
+    weight: 46
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_hero_blurb:
     type: string_textfield_with_counter
