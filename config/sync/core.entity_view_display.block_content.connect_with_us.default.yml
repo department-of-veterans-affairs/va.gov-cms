@@ -1,0 +1,61 @@
+uuid: e017d287-9cdf-4228-a513-6c652d1812a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.connect_with_us
+    - field.field.block_content.connect_with_us.field_administration
+    - field.field.block_content.connect_with_us.field_email_updates_link
+    - field.field.block_content.connect_with_us.field_external_link
+    - field.field.block_content.connect_with_us.field_social_media_links
+  module:
+    - link
+    - social_media_links_field
+id: block_content.connect_with_us.default
+targetEntityType: block_content
+bundle: connect_with_us
+mode: default
+content:
+  field_email_updates_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_external_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_social_media_links:
+    type: social_media_links_field_default
+    label: above
+    settings:
+      appearance:
+        orientation: v
+        show_name: '1'
+      link_attributes:
+        target: '<none>'
+        rel: '<none>'
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  breadcrumbs: true
+  content_moderation_control: true
+  field_administration: true
+  langcode: true
+  search_api_excerpt: true

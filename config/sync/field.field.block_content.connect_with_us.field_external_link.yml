@@ -1,0 +1,27 @@
+uuid: 28ca552a-5a3b-441b-9d50-f5ce95af99c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.connect_with_us
+    - field.storage.block_content.field_external_link
+  module:
+    - link
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: block_content.connect_with_us.field_external_link
+field_name: field_external_link
+entity_type: block_content
+bundle: connect_with_us
+label: 'External link'
+description: 'Enter a link to the office homepage on legacy va.gov or another external site.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 2
+  link_type: 17
+field_type: link
