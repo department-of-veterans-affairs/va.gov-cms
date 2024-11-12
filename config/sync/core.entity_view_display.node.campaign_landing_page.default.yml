@@ -35,6 +35,7 @@ dependencies:
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
     - field.field.node.campaign_landing_page.field_clp_why_this_matters
+    - field.field.node.campaign_landing_page.field_connect_with_us
     - field.field.node.campaign_landing_page.field_hero_blurb
     - field.field.node.campaign_landing_page.field_hero_image
     - field.field.node.campaign_landing_page.field_last_saved_by_an_editor
@@ -206,6 +207,7 @@ third_party_settings:
     group_connect_with_us:
       children:
         - field_related_office
+        - field_connect_with_us
       label: 'Connect with us'
       parent_name: ''
       region: content
@@ -227,7 +229,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 7
+    weight: 16
     region: content
   field_clp_audience:
     type: entity_reference_label
@@ -441,6 +443,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_connect_with_us:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 28
     region: content
   field_hero_blurb:
     type: basic_string
