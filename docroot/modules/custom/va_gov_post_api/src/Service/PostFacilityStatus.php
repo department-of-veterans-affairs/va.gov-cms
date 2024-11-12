@@ -319,7 +319,8 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
 
       // Manila VA Clinic - vha_358.  Manila is a one facility system.
       if ($facility_id === 'vha_358') {
-        $payload['core']['facility_url'] = 'https://www.visn21.va.gov/locations/manila.asp';
+        $payload['core']['facility_url'] = 'https://www.va.gov/manila-va-clinic/';
+        $payload['system']['url'] = 'https://www.va.gov/manila-va-clinic/';
       }
     }
   }
