@@ -58,6 +58,11 @@ function create_digital_form(
         'title' => 'Generated Phone',
         'include_email' => FALSE,
       ],
+      [
+        'type' => 'digital_form_list_loop',
+        'title' => 'Generated List & Loop',
+        'optional' => FALSE,
+      ],
     ],
   ],
 ) {
@@ -103,6 +108,11 @@ function create_digital_forms() {
         'title' => "Veteran's contact information",
         'include_email' => TRUE,
       ],
+      [
+        'type' => 'digital_form_list_loop',
+        'title' => "Veteran's employment history",
+        'optional' => TRUE,
+      ],
     ],
   ];
 
@@ -128,6 +138,7 @@ function create_step(
       'field_military_address_checkbox' =>
       $values['military_address_checkbox'] ?? TRUE,
     ],
+    'digital_form_list_loop' => ['field_optional' => $values['optional'] ?? FALSE],
     'digital_form_phone_and_email' => [
       'field_include_email' => $values['include_email'] ?? TRUE,
     ],
