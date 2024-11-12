@@ -124,3 +124,16 @@
     grid-area: 2 / 1 / 2 / 2;
   }
 }
+
+// Fix to align elements in Editorial Workflow current state on all pages
+.js-form-item-moderation-state-0-current {
+  span {
+    display: inline;
+
+    &:first-child {
+      &::after {
+        content: ":";
+      }
+    }
+  }
+}
