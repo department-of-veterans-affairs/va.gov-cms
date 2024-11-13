@@ -488,19 +488,6 @@ diff --git a/src/Form/AdminToolbarSettingsForm.php b/src/Form/AdminToolbarSettin
 index 575f5e6..a0f0eda 100644
 --- a/src/Form/AdminToolbarSettingsForm.php
 +++ b/src/Form/AdminToolbarSettingsForm.php
-@@ -67,6 +67,12 @@ class AdminToolbarSettingsForm extends ConfigFormBase {
-       '#options' => array_combine($depth_values, $depth_values),
-     ];
-
-+    $form['remove_keyboard_accessibility'] = [
-+      '#type' => 'checkbox',
-+      '#description' => $this->t('Hide top-level keyboard navigation arrows on desktop.'),
-+      '#default_value' => $config->get('remove_keyboard_accessibility'),
-+    ];
-+
-     return parent::buildForm($form, $form_state);
-   }
-
 @@ -76,6 +82,7 @@ class AdminToolbarSettingsForm extends ConfigFormBase {
    public function submitForm(array &$form, FormStateInterface $form_state) {
      $this->config('admin_toolbar.settings')
