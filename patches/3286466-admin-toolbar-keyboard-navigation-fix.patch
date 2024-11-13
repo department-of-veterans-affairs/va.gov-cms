@@ -484,15 +484,4 @@ index a714c6e..36cff2f 100644
        if (window.matchMedia("(max-width: 767px)").matches && $('body').hasClass('toolbar-tray-open')) {
          $('body').removeClass('toolbar-tray-open');
          $('#toolbar-item-administration').removeClass('is-active');
-diff --git a/src/Form/AdminToolbarSettingsForm.php b/src/Form/AdminToolbarSettingsForm.php
-index 575f5e6..a0f0eda 100644
---- a/src/Form/AdminToolbarSettingsForm.php
-+++ b/src/Form/AdminToolbarSettingsForm.php
-@@ -76,6 +82,7 @@ class AdminToolbarSettingsForm extends ConfigFormBase {
-   public function submitForm(array &$form, FormStateInterface $form_state) {
-     $this->config('admin_toolbar.settings')
-       ->set('menu_depth', $form_state->getValue('menu_depth'))
-+      ->set('remove_keyboard_accessibility', $form_state->getValue('remove_keyboard_accessibility'))
-       ->save();
-     parent::submitForm($form, $form_state);
-     $this->cacheMenu->invalidateAll();
+
