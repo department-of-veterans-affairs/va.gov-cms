@@ -1281,7 +1281,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?edit[field_office][widget][0][target_id]=123&edit[field_service_name_and_descripti][widget][0][target_id]=1026">Add a medical records office</a> (opens in a new window).</p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?edit[field_office][widget][0][target_id]=123&edit[field_service_name_and_descripti][widget][0][target_id]=1026">Add a medical records office</a> (opens in a new tab).</p>'
             format: rich_text
           tokenize: false
       footer: {  }
@@ -2303,8 +2303,8 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: 'Edit locations at {{ title_1 }} (opens in a new tab)'
             make_link: true
             path: ''
             absolute: false
@@ -2341,7 +2341,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: 'Edit locations at this facility (opens in a new window)'
+          text: ''
           output_url_as_text: false
           absolute: false
         status:
@@ -2422,7 +2422,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<p>You have not added a register for care location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add location (opens in a new window)</a></p>"
+            value: "<p>You have not added a register for care location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add location (opens in a new tab)</a></p>"
             format: rich_text
           tokenize: true
       arguments:
@@ -2556,7 +2556,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new window)</a></p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new tab)</a></p>'
             format: rich_text
           tokenize: true
       display_extenders: {  }
@@ -3577,8 +3577,8 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: 'Edit locations at {{ title_1 }} (opens in a new tab)'
             make_link: true
             path: ''
             absolute: false
@@ -3615,7 +3615,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: 'Edit locations at this facility (opens in a new window)'
+          text: ''
           output_url_as_text: false
           absolute: false
         status:
@@ -3696,7 +3696,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<p>You have not added a billing and insurance location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add facility (opens in a new window)</a></p>"
+            value: "<p>You have not added a billing and insurance location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add facility (opens in a new tab)</a></p>"
             format: rich_text
           tokenize: true
       arguments:
@@ -3895,7 +3895,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new window)</a></p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new tab)</a></p>'
             format: rich_text
           tokenize: true
       display_extenders: {  }
@@ -4916,8 +4916,8 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: 'Edit locations at {{ title_1 }} (opens in a new tab)'
             make_link: true
             path: ''
             absolute: false
@@ -4954,7 +4954,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: 'Edit locations at this facility (opens in a new window)'
+          text: ''
           output_url_as_text: false
           absolute: false
         status:
@@ -5035,7 +5035,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<p>You have not added a medical records office location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add location (opens in a new window)</a></p>"
+            value: "<p>You have not added a medical records office location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add location (opens in a new tab)</a></p>"
             format: rich_text
           tokenize: true
       arguments:
@@ -5207,7 +5207,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new window)</a> </p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new tab)</a> </p>'
             format: rich_text
           tokenize: true
       display_extenders: {  }

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.landing_page.field_administration
     - field.field.node.landing_page.field_alert
+    - field.field.node.landing_page.field_connect_with_us
     - field.field.node.landing_page.field_description
     - field.field.node.landing_page.field_home_page_hub_label
     - field.field.node.landing_page.field_intro_text
@@ -111,6 +112,15 @@ content:
     settings:
       view_mode: default
       link: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_connect_with_us:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: true
     third_party_settings: {  }
     weight: 5
     region: content
