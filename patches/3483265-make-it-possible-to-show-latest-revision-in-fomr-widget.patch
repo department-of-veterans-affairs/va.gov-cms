@@ -13,7 +13,7 @@ index 67a1d79cc7c9a07dd5db72908cfefb46584d9a9a..ccb446d739903d5ff5dde6dce8357aa6
  entity_browser.field_widget_display.label:
    type: mapping
 diff --git a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
-index 13df19e50ae44393a651c46a0524065d0c29c921..1ed67a5d842cd04b5d8c16175e339a0251402b48 100644
+index 13df19e50ae44393a651c46a0524065d0c29c921..d3636c6ea24bc448e604cf7ee05f3cf235938e5f 100644
 --- a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
 +++ b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
 @@ -96,21 +96,23 @@ class EntityReferenceBrowserWidget extends WidgetBase {
@@ -81,54 +81,68 @@ index 13df19e50ae44393a651c46a0524065d0c29c921..1ed67a5d842cd04b5d8c16175e339a02
      }
      return $summary;
    }
-@@ -774,7 +774,8 @@
+@@ -750,13 +762,14 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+    * @param \Drupal\Core\Form\FormStateInterface $form_state
+    *   The form state.
+    *
+-   * @return \Drupal\Core\Entity\EntityInterface[]
++   * @return \Drupal\Core\Entity\EntityInterface[]|\Drupal\Core\Entity\RevisionableStorageInterface[]
+    *   The list of entities for the form element.
     */
    protected function formElementEntities(FieldItemListInterface $items, array $element, FormStateInterface $form_state) {
      $entities = [];
--
+     $entity_type = $this->fieldDefinition->getFieldStorageDefinition()->getSetting('target_type');
+     $entity_storage = $this->entityTypeManager->getStorage($entity_type);
 +    $show_latest_revision = $this->getSetting('show_latest_revision');
-+
+
      // Find IDs from target_id element (it stores selected entities in form).
      // This was added to help solve a really edge casey bug in IEF.
-     $element_path = array_merge($element['#field_parents'], [$this->fieldDefinition->getName()]);
-@@ -820,17 +821,56 @@
+@@ -796,6 +809,17 @@ class EntityReferenceBrowserWidget extends WidgetBase {
 
        if (isset($parents) && $value = $form_state->getValue($parents)) {
-         $items->setValue($value);
--        $entities = $items->referencedEntities();
+         $entities = EntityBrowserElement::processEntityIds($value);
 +        if ($show_latest_revision) {
-+          $entities = $this->getEntitiesLatestRevision($items);
++          $latest_entities = [];
++          foreach ($entities as $entity) {
++            $latest_revision_id = $entity_storage->getLatestRevisionId($entity->id());
++            $entity = $entity_storage->loadRevision($latest_revision_id);
++            if (!empty($entity)) {
++              $latest_entities[] = $entity;
++            }
++          }
++          return $latest_entities;
 +        }
-+        else {
-+          $entities = $items->referencedEntities();
-+        }
+         return $entities;
+       }
+       return $entities;
+@@ -822,6 +846,10 @@ class EntityReferenceBrowserWidget extends WidgetBase {
        }
        return $entities;
      }
-
 +    // If we intend to show the latest revisions, we need to get them.
-+    if ($show_latest_revision) {
++    elseif ($show_latest_revision) {
 +      return $this->getEntitiesLatestRevision($items);
 +    }
-+
      // We are loading for for the first time so we need to load any existing
      // values that might already exist on the entity. Also, remove any leftover
      // data from removed entity references.
-     return $items->referencedEntities();
+@@ -838,6 +866,35 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+     }
    }
 
 +  /**
 +   * Get the latest revision of the referenced entities.
 +   *
 +   * @param \Drupal\Core\Field\FieldItemListInterface $items
-+   *  The field items.
++   *   The field items.
 +   *
-+   * @return \Drupal\Core\Entity\EntityInterface[]
++   * @return \Drupal\Core\Entity\RevisionableStorageInterface[]
 +   *   The list of referenced entities with the latest revision.
 +   */
 +  protected function getEntitiesLatestRevision(FieldItemListInterface $items) {
 +    $entities = [];
 +    $entity_type = $this->fieldDefinition->getFieldStorageDefinition()->getSetting('target_type');
++    /** @var \Drupal\Core\Entity\RevisionableStorageInterface $entity_storage */
 +    $entity_storage = $this->entityTypeManager->getStorage($entity_type);
 +
 +    foreach ($items as $item) {
@@ -144,7 +158,6 @@ index 13df19e50ae44393a651c46a0524065d0c29c921..1ed67a5d842cd04b5d8c16175e339a02
 +
 +    return $entities;
 +  }
-+
 +
    /**
     * {@inheritdoc}
