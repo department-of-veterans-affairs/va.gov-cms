@@ -7,10 +7,6 @@ dependencies:
     - node.type.vet_center_outstation
   module:
     - options
-    - tmgmt_content
-third_party_settings:
-  tmgmt_content:
-    excluded: false
 id: node.vet_center_outstation.field_operating_status_facility
 field_name: field_operating_status_facility
 entity_type: node
@@ -19,9 +15,7 @@ label: 'Operating status'
 description: ''
 required: true
 translatable: false
-default_value:
-  -
-    value: normal
+default_value: {  }
 default_value_callback: ''
 settings: {  }
 field_type: list_string
