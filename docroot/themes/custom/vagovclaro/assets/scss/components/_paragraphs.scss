@@ -125,3 +125,9 @@
 #block-vagovclaro-content .paragraph.paragraph--type--magichead-group {
   border: var(--va-gray-lightest) solid 1px;
 }
+
+/* Mark the label with a required asterisk (like a typical "required" field indication) */
+#field-clp-spotlight-link-teasers-values th.field-label h4.form-item__label:before {
+  color: #FF0000; /* Red color for the asterisk */
+  content: " *"; /* Adds an asterisk before the label text */
+}
