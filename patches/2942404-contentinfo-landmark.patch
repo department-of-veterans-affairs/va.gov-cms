@@ -2,7 +2,7 @@ diff --git a/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceh
 index fc33e67c0e..82f28da02d 100644
 --- a/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceholderTestCases.php
 +++ b/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceholderTestCases.php
-@@ -106,11 +106,11 @@ public static function cases(ContainerInterface $container = NULL, AccountInterf
+@@ -105,11 +105,11 @@ public static function cases(ContainerInterface $container = NULL, AccountInterf
            'method' => 'replaceWith',
            // cspell:disable-next-line
            'selector' => '[data-big-pipe-placeholder-id="callback=Drupal%5CCore%5CRender%5CElement%5CStatusMessages%3A%3ArenderMessages&args%5B0%5D&token=_HAdUpwWmet0TOTe2PSiJuMntExoshbm1kh2wQzzzAA"]',
@@ -59,7 +59,7 @@ diff --git a/core/modules/system/tests/src/Functional/Render/PlaceholderMessageT
 index 68fd9543b0..a0e50af73c 100644
 --- a/core/modules/system/tests/src/Functional/Render/PlaceholderMessageTest.php
 +++ b/core/modules/system/tests/src/Functional/Render/PlaceholderMessageTest.php
-@@ -30,7 +30,7 @@ class PlaceholderMessageTest extends BrowserTestBase {
+@@ -28,7 +28,7 @@ class PlaceholderMessageTest extends BrowserTestBase {
     * Tests rendering of message placeholder.
     */
    public function testMessagePlaceholder(): void {
@@ -94,33 +94,6 @@ index 42f105d3df..7ef19eb5d1 100644
        </div>
      {% endif %}
    </div>
-diff --git a/core/profiles/demo_umami/themes/umami/templates/components/messages/status-messages.html.twig b/core/profiles/demo_umami/themes/umami/templates/components/messages/status-messages.html.twig
-index 1a65511a3d..75b2da4533 100644
---- a/core/profiles/demo_umami/themes/umami/templates/components/messages/status-messages.html.twig
-+++ b/core/profiles/demo_umami/themes/umami/templates/components/messages/status-messages.html.twig
-@@ -28,10 +28,12 @@
-       'messages--' ~ type,
-     ]
-   %}
--  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
-+  <div role="region" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
-     <div class="messages__content container">
-       {% if type == 'error' %}
-         <div role="alert">
-+      {% elseif type == 'status' or type == 'warning' %}
-+        <div role="status">
-       {% endif %}
-         {% if status_headings[type] %}
-           <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
-@@ -45,7 +47,7 @@
-         {% else %}
-           <span class="messages__item">{{ messages|first }}</span>
-         {% endif %}
--      {% if type == 'error' %}
-+      {% if type in ['error', 'status', 'warning'] %}
-         </div>
-       {% endif %}
-     </div>
 diff --git a/core/themes/claro/templates/misc/status-messages.html.twig b/core/themes/claro/templates/misc/status-messages.html.twig
 index 7708a745b2..4195e08459 100644
 --- a/core/themes/claro/templates/misc/status-messages.html.twig
