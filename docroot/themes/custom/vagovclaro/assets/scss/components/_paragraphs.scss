@@ -127,7 +127,12 @@
 }
 
 /* Mark the label with a required asterisk (like a typical "required" field indication) */
-#field-clp-spotlight-link-teasers-values th.field-label h4.form-item__label::after {
+[required] .field-label::after,
+[required] .fieldset__label::after,
+[required] .form-item__label::after,
+strong.form-required::after,
+.details-wrapper::after
+{
   color: #F00; /* Red color for the asterisk */
-  content: " *"; /* Adds an asterisk before the label text */
+  content: "  *"; /* Adds an asterisk before the label text */
 }
