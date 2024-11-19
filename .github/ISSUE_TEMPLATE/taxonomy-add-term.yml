@@ -58,6 +58,8 @@ body:
       - Vet Centers
       - VBA Regional Office
       - Benefit hubs
+      - Facility Locator
+      - Lighthouse VA Facilities API
       - Other
   validations:
       required: false 
@@ -80,7 +82,7 @@ body:
       - 'Yes'
       - 'No'
   validations:
-    required: true   
+    required: true    
 - type: textarea
   id: acceptance-critera
   attributes:
@@ -92,7 +94,10 @@ body:
       - [ ] If approved, a Drupal admin from Product team may add the term to the taxonomy
       - [ ] Content for subfields is updated in Drupal by Product team
       - [ ] (List any necessary review and approval steps here)
-      - [ ] Term is published
+      - [ ] Do we need to update POST API queue push to Lighthouse?
+      - [ ] Does Lighthouse need to update their API for new value?
+      - [ ] Does Facility Locator code need to update to include this new value?
+      - [ ] Term is published in Drupal
   validations:
     required: true
 
