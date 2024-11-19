@@ -31,8 +31,6 @@ dependencies:
     - node.type.health_care_local_facility
   module:
     - field_group
-    - ief_table_view_mode
-    - telephone
     - textfield_counter
 third_party_settings:
   field_group:
@@ -112,13 +110,6 @@ targetEntityType: node
 bundle: health_care_local_facility
 mode: inline_entity_form
 content:
-  field_mental_health_phone:
-    type: telephone_default
-    weight: 22
-    region: content
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
   field_operating_status_facility:
     type: options_select
     weight: 1
@@ -138,25 +129,6 @@ content:
       count_only_mode: false
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-    third_party_settings: {  }
-  field_telephone:
-    type: inline_entity_form_complex_table_view_mode
-    weight: 3
-    region: content
-    settings:
-      form_mode: default
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      allow_existing: false
-      match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: false
-      removed_reference: optional
-      allow_system_delete: false
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -180,6 +152,7 @@ hidden:
   field_location_services: true
   field_main_location: true
   field_media: true
+  field_mental_health_phone: true
   field_meta_tags: true
   field_mobile: true
   field_office_hours: true
@@ -187,6 +160,7 @@ hidden:
   field_region_page: true
   field_supplemental_status: true
   field_supplemental_status_more_i: true
+  field_telephone: true
   field_timezone: true
   flag: true
   langcode: true

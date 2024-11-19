@@ -7,6 +7,7 @@ dependencies:
     - entity_browser.browser.alert_blocks
     - field.field.node.landing_page.field_administration
     - field.field.node.landing_page.field_alert
+    - field.field.node.landing_page.field_connect_with_us
     - field.field.node.landing_page.field_description
     - field.field.node.landing_page.field_home_page_hub_label
     - field.field.node.landing_page.field_intro_text
@@ -54,6 +55,7 @@ third_party_settings:
         - field_links
         - field_support_services
         - field_related_office
+        - field_connect_with_us
       label: 'Right Rail'
       region: content
       parent_name: ''
@@ -73,7 +75,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 12
       format_type: details
       format_settings:
         classes: ''
@@ -86,7 +88,7 @@ third_party_settings:
       label: 'Page last built'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -189,6 +191,12 @@ content:
         view_mode: default
       selection_mode: selection_append
     third_party_settings: {  }
+  field_connect_with_us:
+    type: options_select
+    weight: 22
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_description:
     type: string_textfield_with_counter
     weight: 6
@@ -221,7 +229,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 26
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
