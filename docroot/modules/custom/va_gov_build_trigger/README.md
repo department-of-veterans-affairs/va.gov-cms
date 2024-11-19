@@ -25,3 +25,13 @@ The VaGovBuildTrigger module is a crucial component in the VA.gov content publis
 - Coordinates with both development environments and production systems (prod.cms.va.gov)
 
 The module is essential for maintaining the automated, decoupled publishing workflow that powers VA.gov's content management system.
+
+```mermaid
+graph LR
+    CMS[VA.gov CMS<br/>Drupal 10] -->|GraphQL API| CB[content-build]
+    CMS -->|JSON API| CB
+    CB -->|Triggers| GHA[GitHub Actions]
+    GHA -->|Builds static files| Build[HTML/CSS/JS/images]
+    Build -->|Deploys to| S3[Amazon S3]
+    S3 -->|Serves| Web[www.va.gov]
+```
