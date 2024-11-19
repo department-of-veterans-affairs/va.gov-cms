@@ -33,5 +33,5 @@ graph LR
     CB -->|Triggers| GHA[GitHub Actions]
     GHA -->|Builds static files| Build[HTML/CSS/JS/images]
     Build -->|Deploys to| S3[Amazon S3]
-    S3 -->|Serves| Web[www.va.gov]
+    S3 -->|Serves| Web["<a href='https://www.va.gov'>www.va.gov</a>"]
 ```
