@@ -40,9 +40,9 @@
         "drupal/codit_menu_tools": "^1.0@alpha",
         "drupal/components": "^3.0@beta",
         "drupal/computed_breadcrumbs": "^1.1",
-        "drupal/config_ignore": "^2.1",
+        "drupal/config_ignore": "^3.3",
         "drupal/config_override_warn": "^1.0",
-        "drupal/config_split": "^1.9",
+        "drupal/config_split": "^2.0",
         "drupal/config_view": "^9.0",
         "drupal/config_views": "^2.0",
         "drupal/consumer_image_styles": "^4.0",
@@ -54,9 +54,9 @@
         "drupal/crop": "^2.0",
         "drupal/csv_serialization": "^4.0",
         "drupal/ctools_block": "^4.0",
-        "drupal/danse": "^2.2",
+        "drupal/danse": "^2.3",
         "drupal/danse_content_moderation": "^2.0@beta",
-        "drupal/default_content_deploy": "^2.0",
+        "drupal/default_content_deploy": "^2.1",
         "drupal/devel_entity_updates": "^4.1",
         "drupal/diff": "^1.0",
         "drupal/dropzonejs": "^2.0",
@@ -298,7 +298,7 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "platform": {
-            "php": "8.1"
+            "php": "8.1.30"
         },
         "preferred-install": {
             "va-gov/content-build": "source",
@@ -377,9 +377,6 @@
             "drupal/clientside_validation": {
                 "2949540 - Allow specific form ids for clientside validation": "patches/2949540-allow-specific-form-ids-for-clientside-validation.patch"
             },
-            "drupal/consumer_image_styles": {
-                "3301224 - Follow-up: Very slow JSON:API responses when images are stored on AWS bucket": "patches/3301224-very-slow-json-api-responses-when-images-are-stored-on-aws-bucket.patch"
-            },
             "drupal/content_lock": {
                 "2951652 - Content lock causes redirect response preventing migration rollback.": "patches/2951652-content-lock-causes-redirect-response-preventing-migration-rollback.patch"
             },
@@ -417,7 +414,6 @@
                 "2834253 - Missing column headings in Revisions list": "patches/2834253-missing-column-headers.patch"
             },
             "drupal/eca": {
-                "3465031 - Multiple cron events not firing consistently": "patches/3465031-eca-fix-cron-consistency.patch",
                 "3472437 - Drupal\\eca\\Service\\ExportRecipe::__construct(): Argument #2 ($fileSystem) must be of type Drupal\\Core\\File\\FileSystem": "patches/3472437-instatiate-against-file-system-interface.patch"
             },
             "drupal/entity_browser": {
