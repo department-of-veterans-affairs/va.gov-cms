@@ -1,7 +1,7 @@
 @content_type__event
 Feature: Content Type: Event
 
-Scenario: Log in and create Event as a Lovell editor
+Scenario: Log in and create Event as a Manila editor
   When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
   And my workbench access sections are set to "1187"
   Then I am at "/node/add/event"
