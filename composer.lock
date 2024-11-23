@@ -2397,16 +2397,16 @@
         },
         {
             "name": "dragonmantank/cron-expression",
-            "version": "v3.3.3",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dragonmantank/cron-expression.git",
-                "reference": "adfb1f505deb6384dc8b39804c5065dd3c8c8c0a"
+                "reference": "8c784d071debd117328803d86b2097615b457500"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/adfb1f505deb6384dc8b39804c5065dd3c8c8c0a",
-                "reference": "adfb1f505deb6384dc8b39804c5065dd3c8c8c0a",
+                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/8c784d071debd117328803d86b2097615b457500",
+                "reference": "8c784d071debd117328803d86b2097615b457500",
                 "shasum": ""
             },
             "require": {
@@ -2419,10 +2419,14 @@
             "require-dev": {
                 "phpstan/extension-installer": "^1.0",
                 "phpstan/phpstan": "^1.0",
-                "phpstan/phpstan-webmozart-assert": "^1.0",
                 "phpunit/phpunit": "^7.0|^8.0|^9.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Cron\\": "src/Cron/"
@@ -2446,7 +2450,7 @@
             ],
             "support": {
                 "issues": "https://github.com/dragonmantank/cron-expression/issues",
-                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.3.3"
+                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.4.0"
             },
             "funding": [
                 {
@@ -2454,7 +2458,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-10T19:36:49+00:00"
+            "time": "2024-10-09T13:47:03+00:00"
         },
         {
             "name": "drupal/address",
@@ -5462,17 +5466,17 @@
         },
         {
             "name": "drupal/eca",
-            "version": "2.0.1",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/eca.git",
-                "reference": "2.0.1"
+                "reference": "2.0.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/eca-2.0.1.zip",
-                "reference": "2.0.1",
-                "shasum": "0b283199a9a080a57f20f98d750126af453bc5fb"
+                "url": "https://ftp.drupal.org/files/projects/eca-2.0.8.zip",
+                "reference": "2.0.8",
+                "shasum": "363855090e753149d81f6697c52554226e5e0c3f"
             },
             "require": {
                 "dragonmantank/cron-expression": "^3.1",
@@ -5484,17 +5488,17 @@
             },
             "require-dev": {
                 "drupal/eca_ui": "*",
-                "drupal/entity_reference_revisions": "1.x-dev",
-                "drupal/inline_entity_form": "dev-project-update-bot-only",
-                "drupal/paragraphs": "dev-3433816-manual-drupal-11",
-                "drupal/token": "1.x-dev",
-                "roave/security-advisories": "dev-latest"
+                "drupal/entity_reference_revisions": "^1.12",
+                "drupal/inline_entity_form": "^3.0",
+                "drupal/paragraphs": "^1.18",
+                "drupal/token": "^1.15",
+                "drupal/webform": "dev-3465838-drupal-11-compatibility"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.1",
-                    "datestamp": "1722254503",
+                    "version": "2.0.8",
+                    "datestamp": "1732206288",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
