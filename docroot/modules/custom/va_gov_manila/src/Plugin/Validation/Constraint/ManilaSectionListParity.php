@@ -3,7 +3,8 @@
 namespace Drupal\va_gov_manila\Plugin\Validation\Constraint;
 
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Symfony\Component\Validator\Constraint;
+use Drupal\Core\Validation\Attribute\Constraint;
+use Symfony\Component\Validator\Constraint as SymfonyConstraint;
 
 /**
  * Validates that a Manila Section choice matches the listing page choice.
@@ -13,7 +14,7 @@ use Symfony\Component\Validator\Constraint;
   label: new TranslatableMarkup('Manila Section List Parity', [], ['context' => 'Validation']),
   type: 'string'
 )]
-class ManilaSectionListParity extends Constraint {
+class ManilaSectionListParity extends SymfonyConstraint {
 
   /**
    * The message shown if the listing page does not match the Manila section.
