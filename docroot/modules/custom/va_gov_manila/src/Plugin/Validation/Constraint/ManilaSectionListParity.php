@@ -2,17 +2,17 @@
 
 namespace Drupal\va_gov_manila\Plugin\Validation\Constraint;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Symfony\Component\Validator\Constraint;
 
 /**
  * Validates that a Manila Section choice matches the listing page choice.
- *
- * @Constraint(
- *   id = "ManilaSectionListParity",
- *   label = @Translation("Manila Section List Parity", context = "Validation"),
- *   type = "string"
- * )
  */
+#[Constraint(
+  id: 'ManilaSectionListParity',
+  label: new TranslatableMarkup('Manila Section List Parity', [], ['context' => 'Validation']),
+  type: 'string'
+)]
 class ManilaSectionListParity extends Constraint {
 
   /**
