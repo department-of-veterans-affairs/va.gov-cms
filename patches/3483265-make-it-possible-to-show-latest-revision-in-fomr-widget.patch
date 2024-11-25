@@ -13,7 +13,7 @@ index 67a1d79cc7c9a07dd5db72908cfefb46584d9a9a..ccb446d739903d5ff5dde6dce8357aa6
  entity_browser.field_widget_display.label:
    type: mapping
 diff --git a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
-index 13df19e50ae44393a651c46a0524065d0c29c921..d3636c6ea24bc448e604cf7ee05f3cf235938e5f 100644
+index 13df19e50ae44393a651c46a0524065d0c29c921..89d6776e3e287c0338622e467fd06e4985b0aea6 100644
 --- a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
 +++ b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
 @@ -96,21 +96,23 @@ class EntityReferenceBrowserWidget extends WidgetBase {
@@ -97,36 +97,56 @@ index 13df19e50ae44393a651c46a0524065d0c29c921..d3636c6ea24bc448e604cf7ee05f3cf2
 
      // Find IDs from target_id element (it stores selected entities in form).
      // This was added to help solve a really edge casey bug in IEF.
-@@ -796,6 +809,17 @@ class EntityReferenceBrowserWidget extends WidgetBase {
-
-       if (isset($parents) && $value = $form_state->getValue($parents)) {
-         $entities = EntityBrowserElement::processEntityIds($value);
-+        if ($show_latest_revision) {
-+          $latest_entities = [];
-+          foreach ($entities as $entity) {
-+            $latest_revision_id = $entity_storage->getLatestRevisionId($entity->id());
-+            $entity = $entity_storage->loadRevision($latest_revision_id);
-+            if (!empty($entity)) {
-+              $latest_entities[] = $entity;
-+            }
-+          }
-+          return $latest_entities;
-+        }
-         return $entities;
+@@ -780,7 +793,7 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+           (array_slice($trigger['#parents'], 0, count($element['#field_parents'])) == $element['#field_parents']) &&
+           (array_slice($trigger['#parents'], 0, $field_name_key) == $element['#field_parents']);
        }
-       return $entities;
-@@ -822,6 +846,10 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+-    };
++    }
+
+     if ($is_relevant_submit) {
+       // Submit was triggered by hidden "target_id" element when entities were
+@@ -794,9 +807,23 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+         $parents = array_merge(array_slice($trigger['#parents'], 0, -static::$deleteDepth), ['target_id']);
+       }
+
+-      if (isset($parents) && $value = $form_state->getValue($parents)) {
+-        $entities = EntityBrowserElement::processEntityIds($value);
+-        return $entities;
++      if (isset($parents) && $referenced_entities = $form_state->getValue($parents)) {
++
++        // Turn that string into an array of entity IDs.
++        $referenced_entities = explode(' ', $referenced_entities);
++        $values = [];
++        foreach ($referenced_entities as $referenced_entity) {
++          $values[]['target_id'] = explode(':', $referenced_entity)[1];
++        }
++        $items->setValue($values);
++        // If we intend to show the latest revisions, we need to get them.
++        if ($show_latest_revision) {
++          $entities = $this->getEntitiesLatestRevision($items);
++        }
++        else {
++          $entities = $items->referencedEntities();
++        }
++        // return $entities;
        }
        return $entities;
      }
+@@ -822,7 +849,11 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+       }
+       return $entities;
+     }
+-    // We are loading for for the first time so we need to load any existing
 +    // If we intend to show the latest revisions, we need to get them.
 +    elseif ($show_latest_revision) {
 +      return $this->getEntitiesLatestRevision($items);
 +    }
-     // We are loading for for the first time so we need to load any existing
++    // We are loading for the first time so we need to load any existing
      // values that might already exist on the entity. Also, remove any leftover
      // data from removed entity references.
-@@ -838,6 +866,35 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+     else {
+@@ -838,6 +869,35 @@ class EntityReferenceBrowserWidget extends WidgetBase {
      }
    }
 
