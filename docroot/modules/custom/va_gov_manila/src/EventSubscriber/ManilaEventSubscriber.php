@@ -129,7 +129,7 @@ class ManilaEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Disable pathauto for Lovell nodes.
+   * Disable pathauto for Manila nodes.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity.
