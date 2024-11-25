@@ -29,13 +29,14 @@ class ManilaSectionListParityValidator extends ConstraintValidator {
     $entity = $items->getEntity();
     $sectionTermID = $entity->field_administration->target_id;
     $fieldLabel = $items->getFieldDefinition()->getLabel();
-    if ($sectionTermID === $this->manilaVaSystemId) {
-      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
-      $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
-      $sectionName = $term_storage->load($sectionTermID)->getName();
-      foreach ($items as $item) {
-        /** @var \Drupal\va_gov_manila\Plugin\Validation\Constraint\ManilaSectionListParity $constraint */
-        $listPage = $node_storage->load($item->target_id);
+    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+    $sectionName = $term_storage->load($sectionTermID)->getName();
+    foreach ($items as $item) {
+      /** @var \Drupal\va_gov_manila\Plugin\Validation\Constraint\ManilaSectionListParity $constraint */
+      $listPage = $node_storage->load($item->target_id);
+      if (($sectionTermID === $this->manilaVaSystemId)
+        || $listPage->field_administration->target_id === $this->manilaVaSystemId) {
         if ($listPage->field_administration->target_id !== $sectionTermID) {
           $this->context->addViolation($constraint->notSectionListMatch, [
             '%section' => $sectionName,
