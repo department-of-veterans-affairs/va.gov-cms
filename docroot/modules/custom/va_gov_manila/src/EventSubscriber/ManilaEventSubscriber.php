@@ -8,7 +8,6 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
-use Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -93,7 +92,6 @@ class ManilaEventSubscriber implements EventSubscriberInterface {
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
-      EntityHookEvents::ENTITY_BUNDLE_FIELD_INFO_ALTER => 'alterPathFieldInfo',
     ];
   }
 
@@ -128,19 +126,6 @@ class ManilaEventSubscriber implements EventSubscriberInterface {
   public function entityUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
     $this->updatePathAliases($entity);
-  }
-
-  /**
-   * Add validation to listing field.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent $event
-   *   The event.
-   */
-  public function alterPathFieldInfo(EntityBundleFieldInfoAlterEvent $event): void {
-    $fields = $event->getFields();
-    if (isset($fields['field_target_paths'])) {
-      $fields['field_target_paths']->addConstraint('RequireScope');
-    }
   }
 
   /**
