@@ -31,13 +31,24 @@ class ManilaSectionListParityValidator extends ConstraintValidator {
     $fieldLabel = $items->getFieldDefinition()->getLabel();
     $node_storage = \Drupal::entityTypeManager()->getStorage('node');
     $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+    // If we don't have a section term id, we can't get the section name.
+    if (!isset($sectionTermID)) {
+      return;
+    }
     $sectionName = $term_storage->load($sectionTermID)->getName();
+    // If we don't have any items, don't bother looping.
+    if (count($items) === 0) {
+      return;
+    }
     foreach ($items as $item) {
-      /** @var \Drupal\va_gov_manila\Plugin\Validation\Constraint\ManilaSectionListParity $constraint */
+      if (!isset($item->target_id)) {
+        continue;
+      }
       $listPage = $node_storage->load($item->target_id);
       if (($sectionTermID === $this->manilaVaSystemId)
         || $listPage->field_administration->target_id === $this->manilaVaSystemId) {
         if ($listPage->field_administration->target_id !== $sectionTermID) {
+          /** @var \Drupal\va_gov_manila\Plugin\Validation\Constraint\ManilaSectionListParity $constraint */
           $this->context->addViolation($constraint->notSectionListMatch, [
             '%section' => $sectionName,
             '%fieldLabel' => $fieldLabel,

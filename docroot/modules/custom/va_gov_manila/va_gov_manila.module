@@ -23,4 +23,14 @@ function va_gov_manila_entity_bundle_field_info_alter(&$fields, EntityTypeInterf
     // Limit the listing selection based on section.
     $fields['field_listing']->addConstraint('ManilaSectionListParity');
   }
+  $office_bundles = [
+    'person_profile',
+  ];
+  if (($entity_type->id() === 'node')
+  && (in_array($bundle, $office_bundles))
+  && (isset($fields['field_office']))
+  && (isset($fields['field_administration']))) {
+    // Limit the office selection based on section.
+    $fields['field_office']->addConstraint('ManilaSectionListParity');
+  }
 }
