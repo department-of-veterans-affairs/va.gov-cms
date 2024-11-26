@@ -8,6 +8,7 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -92,6 +93,7 @@ class ManilaEventSubscriber implements EventSubscriberInterface {
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      EntityHookEvents::ENTITY_BUNDLE_FIELD_INFO_ALTER => 'alterFieldInfo',
     ];
   }
 
@@ -126,6 +128,40 @@ class ManilaEventSubscriber implements EventSubscriberInterface {
   public function entityUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
     $this->updatePathAliases($entity);
+  }
+
+  /**
+   * Add validation to listing and office fields (for Manila).
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent $event
+   *   The event.
+   */
+  public function alterFieldInfo(EntityBundleFieldInfoAlterEvent $event): void {
+    $list_item_bundles = [
+      'event',
+      'news_story',
+      'press_release',
+    ];
+    $entity_type = $event->getEntityType();
+    $bundle = $event->getBundle();
+    $fields = $event->getFields();
+    if (($entity_type->id() === 'node')
+    && (in_array($bundle, $list_item_bundles))
+    && (isset($fields['field_listing']))
+    && (isset($fields['field_administration']))) {
+      // Limit the listing selection based on section.
+      $fields['field_listing']->addConstraint('ManilaSectionListParity');
+    }
+    $office_bundles = [
+      'person_profile',
+    ];
+    if (($entity_type->id() === 'node')
+    && (in_array($bundle, $office_bundles))
+    && (isset($fields['field_office']))
+    && (isset($fields['field_administration']))) {
+      // Limit the office selection based on section.
+      $fields['field_office']->addConstraint('ManilaSectionListParity');
+    }
   }
 
   /**
