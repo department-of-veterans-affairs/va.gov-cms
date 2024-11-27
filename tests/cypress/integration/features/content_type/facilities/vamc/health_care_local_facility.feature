@@ -10,6 +10,7 @@ Feature: CMS Users may effectively interact with the VAMC Facility form
     When I am at "/node/add/health_care_local_facility"
     And I fill in "Name of facility" with "[Test Data] Facility Name"
     And I select the "Normal services and hours" radio button
+    And I fill in field with selector "#edit-field-telephone-0-subform-field-phone-number-0-value" with value "402-867-5309"
     And I select option "VA Alaska health care" from dropdown "What health care system does the facility belong to?"
     And I fill in "Meta description" with "[Test Data] Meta description"
     And I select option "---VA Alaska health care" from dropdown "Section"
