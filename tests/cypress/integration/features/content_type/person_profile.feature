@@ -12,6 +12,7 @@ Scenario: Log in and create a Person Profile with attention to conditional field
 
   And I fill in "First name" with "James"
   And I fill in "Last name" with "Smith"
+  And I fill in field with selector "#edit-field-telephone-0-subform-field-phone-number-0-value" with value "402-867-5309"
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
   And I click the "Save" button
   Then I should see "Staff Profile James Smith has been created."
