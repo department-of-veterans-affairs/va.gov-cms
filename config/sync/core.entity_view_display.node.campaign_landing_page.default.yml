@@ -206,7 +206,6 @@ third_party_settings:
         description: ''
     group_connect_with_us:
       children:
-        - field_related_office
         - field_connect_with_us
       label: 'Connect with us'
       parent_name: ''
@@ -487,15 +486,6 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  field_related_office:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: connect_with_us
-      link: false
-    third_party_settings: {  }
-    weight: 27
-    region: content
   field_secondary_call_to_action:
     type: entity_reference_revisions_entity_view
     label: above
@@ -516,6 +506,7 @@ hidden:
   field_clp_stories_panel: true
   field_clp_video_panel: true
   field_last_saved_by_an_editor: true
+  field_related_office: true
   langcode: true
   links: true
   search_api_excerpt: true
