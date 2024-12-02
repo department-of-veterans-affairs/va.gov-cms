@@ -111,19 +111,6 @@ const creators = {
     cy.wait(3000);
     cy.get("iframe.entity-browser-modal-iframe").should("exist");
     cy.wait(3000);
-
-  //   cy.get(".entity-browser-modal iframe")
-  //   .iframe()
-  //   .within(() => {
-  //     cy.get("tr")
-  //       .should("exist")
-  //       .parent()
-  //       .find("[type='checkbox']")
-  //       .first()
-  //       .check({ force: true });
-  //     cy.get("#edit-submit").click({ force: true });
-  //   });
-  // cy.get(".entity-browser-modal iframe").should("not.exist");
     cy.wait(5000);
 
     cy.get("iframe.entity-browser-modal-iframe")
@@ -136,37 +123,103 @@ const creators = {
       cy.get("iframe.entity-browser-modal-iframe")
       .iframe()
       .within(() => {
-        // TODO: Fix this failure
-        cy.get("Add media").should("exist");
+        cy.findByDisplayValue("Add media").click({ force: true });
       });
-
-    cy.get("nothing").should("exist");
-
-        cy.contains("Add new promo")
-        .parent()
-        .within(() => {
-          cy.get("#edit-inline-entity-form-field-image-open-button").should("exist");
+      cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get('div[role="dialog"]').within(() => {
+          cy.get(".dropzone", {
+            timeout: 60000,
+          });
+      });
+      });
+      cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get(".dropzone").attachFile("images/polygon_image.png", {
+          subjectType: "drag-n-drop",
         });
+        cy.wait(10000);
+      });
+      cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
+          force: true,
+        });
+      });
+      cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
+          "VACO",
+          { force: true }
+        );
+      });
+      cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get("button").contains("Save and insert").click({ force: true });
+        cy.wait(5000);
+      });
+      cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.findAllByLabelText("URL").type(faker.internet.url(), {
+          force: true
+        });
+      });
+      cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.findAllByLabelText("Link text").type(faker.lorem.sentence(), {
+          force: true,
+        });
+      });
+      cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get('[data-drupal-selector="edit-inline-entity-form-field-owner"]').select(
+          "VACO",
+          { force: true }
+        );
+      });
+      cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get("#edit-submit").click({ force: true });
+      });
+      cy.get("iframe.entity-browser-modal-iframe").should("not.exist");
+
+
+    // cy.get("nothing").should("exist");
+
+        // cy.contains("Add new promo")
+        // .parent()
+        // .within(() => {
+        //   cy.get("#edit-inline-entity-form-field-image-open-button").should("exist");
+        // });
 
         // .within(() => {
-          cy.contains("Add media").click({ force: true });
-          cy.get('div[role="dialog"]').within(() => {
-            cy.get(".dropzone", {
-              timeout: 60000,
-            });
-          cy.get(".dropzone").attachFile("images/polygon_image.png", {
-            subjectType: "drag-n-drop",
-          });
-          cy.wait(1000);
-          cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
-            force: true,
-          });
-          cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
-            "VACO",
-            { force: true }
-          );
-          cy.get("button").contains("Save and insert").click({ force: true });
-        });
+        //   cy.contains("Add media").click({ force: true });
+        //   cy.get('div[role="dialog"]').within(() => {
+        //     cy.get(".dropzone", {
+        //       timeout: 60000,
+        //     });
+        //   cy.get(".dropzone").attachFile("images/polygon_image.png", {
+        //     subjectType: "drag-n-drop",
+        //   });
+        //   cy.wait(1000);
+        //   cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
+        //     force: true,
+        //   });
+        //   cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
+        //     "VACO",
+        //     { force: true }
+        //   );
+        //   cy.get("button").contains("Save and insert").click({ force: true });
+        // });
         // cy.get("#entity-browser-promo-blocks-browser-form").should("exist");
         // cy.get("#entity-browser-promo-blocks-browser-form")
         //   .within(() => {
@@ -182,8 +235,7 @@ const creators = {
           // .parent()
           // .find("[type='checkbox']")
           // .check({ force: true });
-        cy.get("#edit-submit").click({ force: true });
-    cy.get("iframe.entity-browser-modal-iframe").should("not.exist");
+    // cy.get("iframe.entity-browser-modal-iframe").should("not.exist");
 
 
 
@@ -194,9 +246,9 @@ const creators = {
     //     cy.findAllByLabelText("URL").type(faker.internet.url(), {
     //       force: true,
     //     });
-    //     cy.findAllByLabelText("Link text").type(faker.lorem.sentence(), {
-    //       force: true,
-    //     });
+        // cy.findAllByLabelText("Link text").type(faker.lorem.sentence(), {
+        //   force: true,
+        // });
     //     cy.findAllByLabelText("Section").select("VACO", { force: true });
     //   });
     cy.contains("What you can do").click();
