@@ -84,7 +84,8 @@ abstract class FormBuilderNodeBase extends FormBuilderBase {
     // Loop through each violation and set errors on the form.
     if ($violations->count() > 0) {
       foreach ($violations as $violation) {
-        $fieldName = $violation->getPropertyPath();
+        // Account for nested property path(e.g. `field_omb_number.0.value`).
+        $fieldName = explode('.', $violation->getPropertyPath())[0];
 
         // Only concern ourselves with validation of fields used on this form.
         if (in_array($fieldName, $this->getFields())) {

@@ -54,7 +54,6 @@ third_party_settings:
         - field_promo
         - field_links
         - field_support_services
-        - field_related_office
         - field_connect_with_us
       label: 'Right Rail'
       region: content
@@ -75,7 +74,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -229,7 +228,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 13
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -260,12 +259,6 @@ content:
       add_mode: dropdown
       form_display_mode: default
       default_paragraph_type: _none
-    third_party_settings: {  }
-  field_related_office:
-    type: options_select
-    weight: 21
-    region: content
-    settings: {  }
     third_party_settings: {  }
   field_spokes:
     type: paragraphs
@@ -348,6 +341,7 @@ hidden:
   created: true
   field_meta_tags: true
   field_plainlanguage_date: true
+  field_related_office: true
   langcode: true
   promote: true
   status: true

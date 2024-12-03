@@ -18,9 +18,7 @@ dependencies:
   module:
     - content_moderation
     - field_group
-    - link
     - path
-    - social_media_links_field
     - text
 third_party_settings:
   field_group:
@@ -30,7 +28,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 4
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -61,7 +59,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -72,7 +70,6 @@ third_party_settings:
     group_tabs:
       children:
         - group_content
-        - group_connect_with_us
         - group_meta_tags
       label: tabs
       region: content
@@ -99,23 +96,6 @@ third_party_settings:
         id: ''
         formatter: closed
         description: ''
-        required_fields: true
-    group_connect_with_us:
-      children:
-        - field_external_link
-        - field_email_updates_link
-        - field_social_media_links
-      label: 'Connect with Us'
-      region: content
-      parent_name: group_tabs
-      weight: 21
-      format_type: tab
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        formatter: closed
-        description: "The content entered below is shown in the 'Connect with Us' sidebar on related Benefits Hub Landing pages and in bottom CTA on Campaign Landing pages. "
         required_fields: true
 id: node.office.default
 targetEntityType: node
@@ -144,31 +124,15 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_email_updates_link:
-    type: link_default
-    weight: 27
-    region: content
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-  field_external_link:
-    type: link_default
-    weight: 26
-    region: content
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 31
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   field_office_id:
     type: string_textfield
-    weight: 29
+    weight: 7
     region: content
     settings:
       size: 60
@@ -176,19 +140,13 @@ content:
     third_party_settings: {  }
   field_parent_office:
     type: entity_reference_autocomplete
-    weight: 30
+    weight: 8
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  field_social_media_links:
-    type: social_media_links_field_default
-    weight: 28
-    region: content
-    settings: {  }
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
@@ -198,7 +156,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -217,7 +175,10 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_email_updates_link: true
+  field_external_link: true
   field_meta_tags: true
+  field_social_media_links: true
   langcode: true
   promote: true
   status: true

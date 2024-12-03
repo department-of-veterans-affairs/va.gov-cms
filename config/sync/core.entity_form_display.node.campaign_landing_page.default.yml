@@ -280,7 +280,6 @@ third_party_settings:
         open: 0
     group_connect_with_us:
       children:
-        - field_related_office
         - field_connect_with_us
       label: 'Connect with us'
       region: content
@@ -794,7 +793,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 46
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -829,12 +828,6 @@ content:
         delete_confirmation: false
         show_drag_and_drop: false
         split_text: false
-  field_related_office:
-    type: options_select
-    weight: 45
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_secondary_call_to_action:
     type: paragraphs
     weight: 4
@@ -895,6 +888,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_related_office: true
   langcode: true
   promote: true
   sticky: true
