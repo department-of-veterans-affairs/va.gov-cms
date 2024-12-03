@@ -86,18 +86,25 @@ body:
 - type: textarea
   id: acceptance-critera
   attributes:
-    label: Acceptance Criteria
-    description: Customize the Acceptance Critera or use the default
+    label: Tasks
+    description: Customize the Tasks or use the default
     value: |
+      **Content Review and Entry**
       - [ ] Term is reviewed by relevant taxonomy governance body
       - [ ] Term is either approved for addition, or denied with an explanation
       - [ ] If approved, a Drupal admin from Product team may add the term to the taxonomy
       - [ ] Content for subfields is updated in Drupal by Product team
-      - [ ] (List any necessary review and approval steps here)
+      - [ ] (List any other necessary review and approval steps here)
+
+      **Technical Coordination**
       - [ ] Do we need to update POST API queue push to Lighthouse?
       - [ ] Does Lighthouse need to update their API for new value?
       - [ ] Does Facility Locator code need to update to include this new value?
+      
+      **Launch and Change Management**
       - [ ] Term is published in Drupal
+      - [ ] Updates to KB articles and other editor training materials
+      - [ ] Announcement to editors     
   validations:
     required: true
 
