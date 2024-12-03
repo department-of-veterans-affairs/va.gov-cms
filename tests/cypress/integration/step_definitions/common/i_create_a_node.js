@@ -115,13 +115,12 @@ const creators = {
     cy.wait(3000);
     cy.get("iframe.entity-browser-modal-iframe").should("exist");
     cy.wait(3000);
-    cy.wait(5000);
 
     cy.get("iframe.entity-browser-modal-iframe")
       .iframe()
       .within(() => {
         cy.contains("Add new promo").click({ force: true });
-        cy.wait(10000);
+        cy.wait(5000);
       });
     cy.get("iframe.entity-browser-modal-iframe").should("exist");
     cy.get("iframe.entity-browser-modal-iframe")
@@ -164,7 +163,7 @@ const creators = {
       .iframe()
       .within(() => {
         cy.get("button").contains("Save and insert").click({ force: true });
-        cy.wait(10000);
+        cy.wait(5000);
       });
     cy.get("iframe.entity-browser-modal-iframe")
       .iframe()
