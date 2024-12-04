@@ -1,0 +1,7 @@
+services:
+  va_gov_manila.entity_event_subscriber:
+    class: Drupal\va_gov_manila\EventSubscriber\ManilaEventSubscriber
+    arguments: ['@entity_type.manager', '@current_route_match', '@pathauto.generator', '@messenger']
+    tags:
+      - { name: event_subscriber }
+
