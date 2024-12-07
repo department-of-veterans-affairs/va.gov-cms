@@ -1,0 +1,26 @@
+uuid: 22f2c100-eac7-445d-8282-8653f7f7a115
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.digital_form_identification_info
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_identification_info.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: digital_form_identification_info
+label: Title
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'Identification Information'
+default_value_callback: ''
+settings: {  }
+field_type: string
