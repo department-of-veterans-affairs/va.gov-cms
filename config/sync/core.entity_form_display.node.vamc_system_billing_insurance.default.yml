@@ -90,7 +90,7 @@ third_party_settings:
       label: 'National top of page content'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -105,13 +105,12 @@ third_party_settings:
         attributes: ''
     group_inquiries_about_copay:
       children:
-        - field_phone_number
-        - field_telephone
+        - group_phone_number
         - field_office_hours
       label: 'For inquiries by phone about copay balance'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -121,20 +120,6 @@ third_party_settings:
         description: ''
         required_fields: false
         formatter: closed
-    group_cashier_s_office:
-      children: {  }
-      label: "Cashier's office"
-      region: content
-      parent_name: ''
-      weight: 7
-      format_type: details
-      format_settings:
-        classes: ''
-        show_empty_fields: true
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
     group_national_above_top_of_page:
       children:
         - field_cc_above_top_of_page
@@ -154,6 +139,23 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
+    group_phone_number:
+      children:
+        - field_phone_number
+        - field_telephone
+      label: 'Phone number'
+      region: content
+      parent_name: group_inquiries_about_copay
+      weight: 5
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+        description_display: after
 id: node.vamc_system_billing_insurance.default
 targetEntityType: node
 bundle: vamc_system_billing_insurance
@@ -235,39 +237,33 @@ content:
     third_party_settings: {  }
   field_office_hours:
     type: office_hours_default
-    weight: 10
+    weight: 6
     region: content
     settings:
       collapsed: false
     third_party_settings: {  }
   field_phone_number:
     type: telephone_default
-    weight: 8
+    weight: 10
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_telephone:
-    type: paragraphs
-    weight: 9
+    type: entity_reference_paragraphs
+    weight: 11
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'phone number'
+      title_plural: 'phone numbers'
       edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
+      add_mode: button
       form_display_mode: default
-      default_paragraph_type: ''
-      features:
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
+      default_paragraph_type: phone_number
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 7
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
