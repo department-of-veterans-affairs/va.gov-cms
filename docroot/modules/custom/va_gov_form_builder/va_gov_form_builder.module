@@ -17,3 +17,30 @@ function va_gov_form_builder_entity_bundle_field_info_alter(&$fields, EntityType
 
   return $fields;
 }
+
+/**
+ * Implements hook_theme().
+ */
+function va_gov_form_builder_theme() {
+  return [
+    'va_gov_form_builder_page' => [
+      'template' => 'page--va-gov-form-builder',
+      'path' => \Drupal::service('extension.list.module')->getPath('va_gov_form_builder') . '/templates',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function va_gov_form_builder_theme_suggestions_page(array &$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $suggestions = [];
+
+  // Apply custom page template for all Form Builder routes.
+  if (strpos($route_name, 'va_gov_form_builder.') === 0) {
+    $suggestions[] = 'va_gov_form_builder_page';
+  }
+
+  return $suggestions;
+}
