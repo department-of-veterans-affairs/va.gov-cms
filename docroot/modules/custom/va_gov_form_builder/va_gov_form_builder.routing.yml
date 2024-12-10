@@ -1,0 +1,24 @@
+va_gov_form_builder.entry:
+  path: "/form-builder"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::entry'
+  requirements:
+    _permission: "edit any digital_form content"
+va_gov_form_builder.intro:
+  path: "/form-builder/intro"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::intro'
+  requirements:
+    _permission: "edit any digital_form content"
+va_gov_form_builder.start_conversion:
+  path: "/form-builder/start-conversion"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::startConversion'
+  requirements:
+    _permission: "edit any digital_form content"
+va_gov_form_builder.name_and_dob:
+  path: "/form-builder/{nid}/name-and-dob"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::nameAndDob'
+  requirements:
+    _permission: "edit any digital_form content"

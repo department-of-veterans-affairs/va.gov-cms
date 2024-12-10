@@ -43,7 +43,7 @@
     clear: none;
   }
 
-  [id^='edit-field-tags-0-subform-field-non-beneficiares-wrapper'] {
+  [id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"] {
     display: none;
   }
 }
@@ -157,9 +157,15 @@
 
   .form-element {
     font-size: var(--va-subsection-xs);
-    height: calc(var(--spacing-xs)*2 + var(--input-border-size)*2 + var(--va-subsection-xs));
+    height: calc(
+      var(--spacing-xs) * 2 + var(--input-border-size) * 2 +
+        var(--va-subsection-xs)
+    );
     line-height: var(--va-subsection-xs);
-    min-height: calc(var(--spacing-xs)*2 + var(--input-border-size)*2 + var(--va-subsection-xs));
+    min-height: calc(
+      var(--spacing-xs) * 2 + var(--input-border-size) * 2 +
+        var(--va-subsection-xs)
+    );
     padding: var(--spacing-xs);
   }
 
@@ -172,7 +178,7 @@
     display: flex;
     flex-direction: column;
 
-    @include breakpoint('lg') {
+    @include breakpoint("lg") {
       flex-direction: row;
     }
   }
@@ -180,7 +186,7 @@
   .form-items-inline > .form-item {
     margin: 0 0 var(--space-xs);
 
-    @include breakpoint('lg') {
+    @include breakpoint("lg") {
       margin: 0 var(--space-xs) 0 0;
     }
   }
@@ -234,7 +240,8 @@ body:not(.role-admin) {
   }
 }
 
-#edit-field-publish-to-outreach-cal-wrapper div.form-item--field-publish-to-outreach-cal-value {
+#edit-field-publish-to-outreach-cal-wrapper
+  div.form-item--field-publish-to-outreach-cal-value {
   margin-left: auto;
 }
 

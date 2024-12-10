@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_banner\EventSubscriber;
 
+use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
@@ -20,15 +21,23 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
+   * The current user service.
+   *
+   * @var \Drupal\Core\Session\AccountProxyInterface
+   */
+  protected AccountProxyInterface $currentUser;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The user perms service.
+   * @param \Drupal\Core\Session\AccountProxyInterface $accountProxy
+   *   The core current user account proxy service.
    */
-  public function __construct(
-    UserPermsService $user_perms_service
-  ) {
+  public function __construct(UserPermsService $user_perms_service, AccountProxyInterface $accountProxy) {
     $this->userPermsService = $user_perms_service;
+    $this->currentUser = $accountProxy;
   }
 
   /**
@@ -66,7 +75,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The entity form.
    */
   public function disablePathsField(array &$form): void {
-    if (!$this->userPermsService->hasAdminRole()) {
+    $hasHomepageManagerRole = array_intersect(['homepage_manager'], $this->currentUser->getRoles());
+    if (!$this->userPermsService->hasAdminRole() && !$hasHomepageManagerRole) {
       $form['field_target_paths']['#disabled'] = TRUE;
     }
   }

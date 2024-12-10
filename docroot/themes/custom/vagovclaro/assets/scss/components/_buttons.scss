@@ -1,6 +1,6 @@
 .action-link--danger {
   background-color: var(--va-red-darker);
-  color: var(--color-white);
+  color: var(--va-white);
 }
 
 .action-link--danger:hover {
@@ -26,16 +26,16 @@
 
 // hack for unlock button... form action is added way later in content_lock.module
 .content-lock-actions .button:last-child {
-  background-color: var(--color-white);
-  border: 2px solid var(--va-blue-med) !important;
+  background-color: var(--va-white);
+  border: 2px solid var(--va-blue-dark) !important;
   box-shadow: none;
-  color: var(--va-blue-med);
+  color: var(--va-blue-dark);
   padding: calc(var(--space-m) - 2px) calc(var(--space-l) - 2px); //2px offset for border
 
   &:hover {
-    background-color: var(--va-blue-light);
-    border: 2px solid var(--va-blue-darker);
-    color: var(--va-blue-darker);
+    background-color: var(--va-blue-lightest);
+    border: 2px solid var(--va-blue-darkest);
+    color: var(--va-blue-darkest);
   }
 
   &:focus {
@@ -45,14 +45,17 @@
 }
 
 .button--outline.action-link {
-  padding: calc((var(--space-m) - var(--space-l)/2 + var(--space-m)/2) - 2px) calc(var(--space-m) - 2px);
+  padding: calc(
+      (var(--space-m) - var(--space-l) / 2 + var(--space-m) / 2) - 2px
+    )
+    calc(var(--space-m) - 2px);
   text-decoration: none;
 }
 
 // admin/content/deploy builds front-end button in nested markup
 .va-gov-build-trigger-build-trigger-form {
   .button--primary a {
-    color: var(--color-white);
+    color: var(--va-white);
     text-decoration: none;
   }
 }
@@ -72,11 +75,13 @@
 table .button,
 table .button:not(:focus) {
   // fixes contrast issue when row is hovered but button isn't. !important bc core
-  border: 1px solid var(--color-white) !important;
+  border: 1px solid var(--va-white) !important;
   box-shadow: none;
 }
 
 // keeps dropbuttons text aligned with the toggle
-.js.no-touchevents .dropbutton--multiple.dropbutton--extrasmall .dropbutton__item:first-of-type {
+.js.no-touchevents
+  .dropbutton--multiple.dropbutton--extrasmall
+  .dropbutton__item:first-of-type {
   white-space: nowrap;
 }

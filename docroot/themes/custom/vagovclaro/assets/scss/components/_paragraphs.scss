@@ -4,7 +4,7 @@
   line-height: 6em;
 }
 
-@include breakpoint('sm') {
+@include breakpoint("sm") {
   .paragraph-bullet::after {
     font-size: 0.5em;
     line-height: 4.5em;
@@ -84,7 +84,11 @@
 
 // truncated paragraph descriptions use a shim to fade to white. our bg isn't white.
 .js .draggable:hover .paragraphs-collapsed-description::after {
-  background: linear-gradient(to right, rgba(247, 252, 255, 0) 0%, var(--va-blue-light) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(247, 252, 255, 0) 0%,
+    var(--va-blue-lightest) 100%
+  );
 }
 
 // fix spacing for link teaser paragraphs on all screen sizes
@@ -119,5 +123,5 @@
 }
 
 #block-vagovclaro-content .paragraph.paragraph--type--magichead-group {
-  border: var(--va-gray-light) solid 1px;;
+  border: var(--va-gray-lightest) solid 1px;
 }

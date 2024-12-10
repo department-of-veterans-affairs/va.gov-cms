@@ -2,8 +2,7 @@
 name: Runbook - Vet Center, Outstation, Mobile Vet Center name change
 about: Steps for updating names and URLs
 title: 'Vet Center name change: <insert_name>'
-labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support,
-  Vet Center
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, Vet Center, sitewide
 assignees: ''
 
 ---

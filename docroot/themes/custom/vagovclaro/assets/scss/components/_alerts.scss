@@ -27,11 +27,14 @@
   background: unset;
   margin-bottom: 0;
 
-  @include alert-icon("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%23212121'/%3e%3c/svg%3e");
+  @include alert-icon(
+    "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%23212121'/%3e%3c/svg%3e"
+  );
 
   &::before {
     left: 0;
-    transition: transform var(--details-transform-transition-duration) ease-in 0s;
+    transition: transform var(--details-transform-transition-duration) ease-in
+      0s;
   }
 }
 

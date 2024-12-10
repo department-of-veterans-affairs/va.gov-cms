@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_build_trigger\Commands;
 
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Controller\ContentReleaseNotificationController;
 use Drupal\va_gov_build_trigger\EventSubscriber\ContinuousReleaseSubscriber;
@@ -16,6 +16,8 @@ use Drush\Commands\DrushCommands;
  * A Drush interface to the content release.
  */
 class ContentReleaseCommands extends DrushCommands {
+
+  use LoggerChannelTrait;
   /**
    * The release state manager.
    *
@@ -55,21 +57,18 @@ class ContentReleaseCommands extends DrushCommands {
    *   The request service.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
-   *   A logger channel factory.
    */
   public function __construct(
     ReleaseStateManagerInterface $releaseStateManager,
     BuildSchedulerInterface $buildScheduler,
     RequestInterface $requestService,
     StateInterface $state,
-    LoggerChannelFactoryInterface $loggerChannelFactory
   ) {
     $this->releaseStateManager = $releaseStateManager;
     $this->buildScheduler = $buildScheduler;
     $this->requestService = $requestService;
     $this->state = $state;
-    $this->logger = $loggerChannelFactory->get('va_gov_build_trigger');
+    $this->logger = $this->getLogger('va_gov_build_trigger');
   }
 
   /**
@@ -80,7 +79,7 @@ class ContentReleaseCommands extends DrushCommands {
    */
   public function resetState() {
     $this->releaseStateManager->resetState();
-    $this->logger()->info('Content release state has been reset to \'ready\'.');
+    $this->getLogger('va_gov_build_trigger')->info('Content release state has been reset to \'ready\'.');
   }
 
   /**
@@ -98,14 +97,14 @@ class ContentReleaseCommands extends DrushCommands {
     $can_transition = ($can_transition === ReleaseStateManager::STATE_TRANSITION_OK);
 
     if (!$is_allowed_notification || !$can_transition) {
-      $this->logger()->error('State cannot be advanced to @state', [
+      $this->getLogger('va_gov_build_trigger')->error('State cannot be advanced to @state', [
         '@state' => $state,
       ]);
       return;
     }
 
     $this->releaseStateManager->advanceStateTo($state);
-    $this->logger()->info('State has been advanced to @state', [
+    $this->getLogger('va_gov_build_trigger')->info('State has been advanced to @state', [
       '@state' => $state,
     ]);
   }

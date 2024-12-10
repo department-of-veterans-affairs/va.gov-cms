@@ -1,0 +1,39 @@
+uuid: 02760a8d-65cb-4ff2-93a5-f5574d1dac95
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.connect_with_us
+    - field.storage.block_content.field_administration
+    - taxonomy.vocabulary.administration
+  module:
+    - entity_reference_validators
+    - tmgmt_content
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  tmgmt_content:
+    excluded: false
+id: block_content.connect_with_us.field_administration
+field_name: field_administration
+entity_type: block_content
+bundle: connect_with_us
+label: Section
+description: 'Select a section to determine who will manage this content.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

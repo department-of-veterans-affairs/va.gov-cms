@@ -19,21 +19,22 @@
 
     input {
       @include input-reset;
-      color: var(--va-blue-med);
+      color: var(--va-blue-dark);
       font-size: 16px;
-      padding: calc(var(--space-m) - 2px) var(--space-l) calc(var(--space-m) - 2px) 50px;
+      padding: calc(var(--space-m) - 2px) var(--space-l)
+        calc(var(--space-m) - 2px) 50px;
     }
   }
 
   .feedback-yes-button {
     &::before {
-      content: url('/themes/custom/vagovclaro/images/icons/0071BB/thumbs-up.svg');
+      content: url("/themes/custom/vagovclaro/images/icons/0071BB/thumbs-up.svg");
     }
   }
 
   .feedback-no-button {
     &::before {
-      content: url('/themes/custom/vagovclaro/images/icons/0071BB/thumbs-down.svg');
+      content: url("/themes/custom/vagovclaro/images/icons/0071BB/thumbs-down.svg");
     }
   }
 }

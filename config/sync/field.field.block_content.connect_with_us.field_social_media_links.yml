@@ -1,0 +1,171 @@
+uuid: 0a64580e-cb15-4c79-8fec-588ae231870e
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.connect_with_us
+    - field.storage.block_content.field_social_media_links
+  module:
+    - social_media_links_field
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: block_content.connect_with_us.field_social_media_links
+field_name: field_social_media_links
+entity_type: block_content
+bundle: connect_with_us
+label: 'Social media links'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    platform_values:
+      twitter:
+        value: ''
+      facebook:
+        value: ''
+      youtube:
+        value: ''
+      instagram:
+        value: ''
+      linkedin:
+        value: ''
+default_value_callback: ''
+settings:
+  iconset: 'fontawesome:2x'
+  platforms:
+    twitter:
+      enabled: '1'
+      description: ''
+      weight: '-43'
+    facebook:
+      enabled: '1'
+      description: ''
+      weight: '-42'
+    youtube:
+      enabled: '1'
+      description: ''
+      weight: '-41'
+    instagram:
+      enabled: '1'
+      description: ''
+      weight: '-40'
+    linkedin:
+      enabled: '1'
+      description: ''
+      weight: '-39'
+    amazon:
+      description: ''
+      weight: '-38'
+      enabled: 0
+    behance:
+      description: ''
+      weight: '-37'
+      enabled: 0
+    bitbucket:
+      description: ''
+      weight: '-36'
+      enabled: 0
+    contact:
+      description: ''
+      weight: '-35'
+      enabled: 0
+    drupal:
+      description: ''
+      weight: '-34'
+      enabled: 0
+    email:
+      description: ''
+      weight: '-33'
+      enabled: 0
+    flickr:
+      description: ''
+      weight: '-32'
+      enabled: 0
+    github:
+      description: ''
+      weight: '-31'
+      enabled: 0
+    gitlab:
+      description: ''
+      weight: '-30'
+      enabled: 0
+    glassdoor:
+      description: ''
+      weight: '-29'
+      enabled: 0
+    goodreads:
+      description: ''
+      weight: '-28'
+      enabled: 0
+    googleplay:
+      description: ''
+      weight: '-27'
+      enabled: 0
+    googleplus:
+      description: ''
+      weight: '-26'
+      enabled: 0
+    mastodon:
+      description: ''
+      weight: '-25'
+      enabled: 0
+    meetup:
+      description: ''
+      weight: '-24'
+      enabled: 0
+    patreon:
+      description: ''
+      weight: '-23'
+      enabled: 0
+    pinterest:
+      description: ''
+      weight: '-22'
+      enabled: 0
+    rss:
+      description: ''
+      weight: '-21'
+      enabled: 0
+    slideshare:
+      description: ''
+      weight: '-20'
+      enabled: 0
+    telegram:
+      description: ''
+      weight: '-19'
+      enabled: 0
+    tiktok:
+      description: ''
+      weight: '-18'
+      enabled: 0
+    tumblr:
+      description: ''
+      weight: '-17'
+      enabled: 0
+    vkontakte:
+      description: ''
+      weight: '-16'
+      enabled: 0
+    vimeo:
+      description: ''
+      weight: '-15'
+      enabled: 0
+    website:
+      description: ''
+      weight: '-14'
+      enabled: 0
+    whatsapp:
+      description: ''
+      weight: '-13'
+      enabled: 0
+    xing:
+      description: ''
+      weight: '-12'
+      enabled: 0
+    youtube_channel:
+      description: ''
+      weight: '-11'
+      enabled: 0
+field_type: social_media_links_field

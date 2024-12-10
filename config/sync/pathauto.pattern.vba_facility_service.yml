@@ -1,0 +1,22 @@
+uuid: 5cbb282f-aa12-44ac-a2ac-781a066a837a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vba_facility_service
+label: 'VBA Facility Service'
+type: 'canonical_entities:node'
+pattern: '[node:field_office:entity:title]/service/[node:title]'
+selection_criteria:
+  4edfaf10-791f-4f8a-97ff-c7b1a56aa379:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 4edfaf10-791f-4f8a-97ff-c7b1a56aa379
+    context_mapping:
+      node: node
+    bundles:
+      vba_facility_service: vba_facility_service
+selection_logic: and
+weight: -5
+relationships: {  }

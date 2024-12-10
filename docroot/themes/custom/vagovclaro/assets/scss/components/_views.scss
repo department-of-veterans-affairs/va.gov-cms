@@ -17,7 +17,7 @@
 
 /* Non-clinical services view - block displays */
 .field--name-field-non-clinical-services {
-  background-color: #fff;
+  background-color: var(--va-white);
 }
 
 .view-grouping.node--unpublished {
@@ -27,14 +27,14 @@
 
 .view-non-clinical-services {
   .view-empty {
-    border: 1px solid var(--va-gray-cool-med);
+    border: 1px solid var(--va-gray-darkest);
     border-radius: 2px;
     margin: 1em 0;
     padding: 1em 1.5em;
   }
 
   .view-grouping-content {
-    border: 1px solid var(--va-gray-cool-med);
+    border: 1px solid var(--va-gray-darkest);
     border-radius: 2px;
     margin: 1em 0;
     padding: 1em 1.5em;
@@ -53,7 +53,7 @@
       }
 
       .location-details span:not(:first-child)::before {
-        content: ', ';
+        content: ", ";
       }
 
       .address {
@@ -100,8 +100,8 @@
 
   .fieldset__label {
     line-height: var(--line-height-form-label);
-    margin-bottom: calc(var(--space-xs)/2);
-    margin-top: calc(var(--space-xs)/2);
+    margin-bottom: calc(var(--space-xs) / 2);
+    margin-top: calc(var(--space-xs) / 2);
     padding: 0;
   }
 
@@ -123,7 +123,12 @@
 
 //fixes export button
 .csv-feed .feed-icon {
-  @include button(var(--button-bg-color--primary), var(--button-fg-color--primary), var(--button--hover-bg-color--primary), var(--button--active-bg-color--primary));
+  @include button(
+    var(--button-bg-color--primary),
+    var(--button-fg-color--primary),
+    var(--button--hover-bg-color--primary),
+    var(--button--active-bg-color--primary)
+  );
 
   background-image: none;
   text-indent: unset;

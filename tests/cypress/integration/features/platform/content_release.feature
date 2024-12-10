@@ -3,7 +3,7 @@ Feature: Content Release
   As anyone involved in the project
   I need the content release page to manage and reflect an orderly underlying release process
 
-  @new_content_release
+  @new_content_release @critical_path
   Scenario: The user should be able to deploy a content release from the Simple form
     Given I am logged in as a user with the "content_admin" role
     And I reset the content release state from the command line
@@ -17,7 +17,7 @@ Feature: Content Release
     Then I should see "Content release requested successfully"
     And I should see "Build request skipped; form is under test."
 
-  @new_content_release
+  @new_content_release @critical_path
   Scenario: The user should be able to deploy a content release from the Git form
     Given I am logged in as a user with the "content_admin" role
     And I reset the content release state from the command line
@@ -32,7 +32,7 @@ Feature: Content Release
     And I should see "Reset content_build version skipped; form is under test."
     And I should see "Reset vets_website version skipped; form is under test."
 
-  @new_content_release
+  @new_content_release @critical_path
   Scenario: The user should be able to deploy a content release from the Git form with a content-build branch selected.
     Given I am logged in as a user with the "content_admin" role
     And I reset the content release state from the command line
@@ -56,7 +56,7 @@ Feature: Content Release
     And I should see "Set content_build version skipped; form is under test."
     And I should see "Reset vets_website version skipped; form is under test."
 
-  @new_content_release
+  @new_content_release @critical_path
   Scenario: The user should be able to deploy a content release from the Git form with a vets-website branch selected.
     Given I am logged in as a user with the "content_admin" role
     And I reset the content release state from the command line
@@ -80,7 +80,7 @@ Feature: Content Release
     And I should see "Reset content_build version skipped; form is under test."
     And I should see "Set vets_website version skipped; form is under test."
 
-  @new_content_release
+  @new_content_release @critical_path
   Scenario: The user should be able to deploy a content release from the Git form with a content-build and vets-website branch selected.
     Given I am logged in as a user with the "content_admin" role
     And I reset the content release state from the command line
@@ -104,7 +104,7 @@ Feature: Content Release
     And I should see "Set content_build version skipped; form is under test."
     And I should see "Set vets_website version skipped; form is under test."
 
-  @new_content_release
+  @new_content_release @critical_path
   Scenario: The Simple content release form should not display the content release status block.
     Given I am logged in as a user with the "content_admin" role
     And I reset the content release state from the command line
@@ -113,7 +113,7 @@ Feature: Content Release
     And I scroll to position "bottom"
     Then "Content release status" should not exist
 
-  @new_content_release
+  @new_content_release @critical_path
   Scenario: The Git content release form should normally display no in-process releases by default.
     Given I am logged in as a user with the "content_admin" role
     And I reset the content release state from the command line

@@ -1,0 +1,38 @@
+diff --git a/src/Service/SimplesamlphpAuthManager.php b/src/Service/SimplesamlphpAuthManager.php
+--- a/src/Service/SimplesamlphpAuthManager.php	(revision 31a968f6c4bb01dc920ddcbd09be109fce5d23fd)
++++ b/src/Service/SimplesamlphpAuthManager.php	(date 1732899571161)
+@@ -281,6 +281,35 @@
+       }
+     }
+
++    if (isset($attributes)) {
++      if (isset($attributes['firstName'])) {
++        $attributes['firstName'][0] = 'first name';
++      }
++      if (isset($attributes['lastName'])) {
++        $attributes['lastName'][0] = 'last name';
++      }
++      if (isset($attributes['adSamAccountName'])) {
++        $attributes['adSamAccountName'][0] = 'adSamAccountName';
++      }
++      if (isset($attributes['adUPN'][0])) {
++        $email = $attributes['adUPN'][0];
++        $user = user_load_by_mail($email);
++        if ($user) {
++          $attributes['adUPN'][0] = $user->id();
++        }
++      }
++      if (isset($attributes['adEmail'][0])) {
++        $email = $attributes['adEmail'][0];
++        $user = user_load_by_mail($email);
++        if ($user) {
++          $attributes['adEmail'][0] = $user->id();
++        }
++      }
++      \Drupal::logger('simplesamlphp_auth')->warning(print_r($attributes, TRUE));
++    }
++    else {
++      \Drupal::logger('simplesamlphp_auth')->warning('No simpleSAML attributes found');
++    }
+     throw new SimplesamlphpAttributeException(sprintf('Error in simplesamlphp_auth.module: no valid "%s" attribute set.', $attribute));
+   }
