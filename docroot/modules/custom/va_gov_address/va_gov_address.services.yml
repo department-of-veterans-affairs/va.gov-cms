@@ -1,0 +1,5 @@
+services:
+  va_gov_address.add_philippines_as_state_subscriber:
+    class: Drupal\va_gov_address\EventSubscriber\AddPhilippinesAsStateSubscriber
+    tags:
+      - { name: event_subscriber }
