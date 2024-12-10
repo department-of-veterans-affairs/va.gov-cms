@@ -47,7 +47,7 @@ body:
     label: Rationale for adding this term
     description: Write a short explanation of why this term is needed. Include links to any relevant issues, research findings, etc.
   validations:
-    required: true 
+    required: true
 - type: dropdown
   id: products
   attributes:
@@ -58,6 +58,8 @@ body:
       - Vet Centers
       - VBA Regional Office
       - Benefit hubs
+      - Facility Locator
+      - Lighthouse VA Facilities API
       - Other
   validations:
       required: false 
@@ -80,19 +82,28 @@ body:
       - 'Yes'
       - 'No'
   validations:
-    required: true   
+    required: true
 - type: textarea
   id: acceptance-critera
   attributes:
-    label: Acceptance Criteria
-    description: Customize the Acceptance Critera or use the default
+    label: Tasks
+    description: Customize the Tasks or use the default
     value: |
+      **Content Review and Entry**
       - [ ] Term is reviewed by relevant taxonomy governance body
       - [ ] Term is either approved for addition, or denied with an explanation
-      - [ ] If approved, a Drupal admin from Product team may add the term to the taxonomy
+      - [ ] If approved, a Drupal admin from Product team may add the term to the taxonomy and save as Draft
       - [ ] Content for subfields is updated in Drupal by Product team
-      - [ ] (List any necessary review and approval steps here)
-      - [ ] Term is published
+      - [ ] (List any other necessary review and approval steps here)
+
+      **Technical Coordination**
+      - [ ] Work with Lighthouse to update the Facilities API to accept new value
+        - This step can begin as soon as the API ID has been finalized and saved as Draft in Drupal 
+      
+      **Launch & Change Management**
+      - [ ] Once Content Review and Technical Coordination are complete, term can be published in Drupal
+      - [ ] Updates to KB articles and other editor training materials
+      - [ ] Announcement to editors     
   validations:
     required: true
 
