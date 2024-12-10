@@ -4,3 +4,4 @@ services:
     arguments: ['@entity_type.manager', '@current_route_match', '@pathauto.generator', '@messenger']
     tags:
       - { name: event_subscriber }
+
