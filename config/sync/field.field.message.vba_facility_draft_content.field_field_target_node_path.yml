@@ -1,0 +1,24 @@
+uuid: 404bd533-443b-4304-be09-90ae3965f165
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_field_target_node_path
+    - message.template.vba_facility_draft_content
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: message.vba_facility_draft_content.field_field_target_node_path
+field_name: field_field_target_node_path
+entity_type: message
+bundle: vba_facility_draft_content
+label: 'Node Path'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
