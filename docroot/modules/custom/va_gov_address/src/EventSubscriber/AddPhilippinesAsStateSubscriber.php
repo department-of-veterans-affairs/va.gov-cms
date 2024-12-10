@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_manila\EventSubscriber;
+namespace Drupal\va_gov_address\EventSubscriber;
 
 use CommerceGuys\Addressing\AddressFormat\AdministrativeAreaType;
 use Drupal\address\Event\AddressEvents;
@@ -11,7 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Adds a Philippines to the US States.
  */
-class ManilaAddPhilippinesStateSubscriber implements EventSubscriberInterface {
+class AddPhilippinesAsStateSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
