@@ -1,0 +1,28 @@
+uuid: 8ffc5c35-5b9f-4576-8a7d-79381cf7db9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_optional
+    - paragraphs.paragraphs_type.digital_form_list_loop
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_list_loop.field_optional
+field_name: field_optional
+entity_type: paragraph
+bundle: digital_form_list_loop
+label: 'Optional?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
