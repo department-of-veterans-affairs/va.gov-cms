@@ -2,9 +2,7 @@
 
 namespace Drupal\va_gov_address\EventSubscriber;
 
-use CommerceGuys\Addressing\AddressFormat\AdministrativeAreaType;
 use Drupal\address\Event\AddressEvents;
-use Drupal\address\Event\AddressFormatEvent;
 use Drupal\address\Event\SubdivisionsEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -17,25 +15,8 @@ class AddPhilippinesAsStateSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[AddressEvents::ADDRESS_FORMAT][] = ['onAddressFormat'];
     $events[AddressEvents::SUBDIVISIONS][] = ['onSubdivisions'];
     return $events;
-  }
-
-  /**
-   * Alters the address format for the US.
-   *
-   * @param \Drupal\address\Event\AddressFormatEvent $event
-   *   The address format event.
-   */
-  public function onAddressFormat(AddressFormatEvent $event) {
-    $definition = $event->getDefinition();
-    if ($definition['country_code'] == 'US') {
-      $definition['format'] = $definition['format'] . "\n%administrativeArea";
-      $definition['administrative_area_type'] = AdministrativeAreaType::STATE;
-      $definition['subdivision_depth'] = 1;
-      $event->setDefinition($definition);
-    }
   }
 
   /**
