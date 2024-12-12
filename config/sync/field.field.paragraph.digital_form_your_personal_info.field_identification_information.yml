@@ -1,13 +1,10 @@
-uuid: 333163fe-7e54-44b6-b5af-5cff8c8742ec
+uuid: a967422d-1e19-407f-8f6b-3beab573e7d6
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_chapters
-    - node.type.digital_form
-    - paragraphs.paragraphs_type.digital_form_address
-    - paragraphs.paragraphs_type.digital_form_list_loop
-    - paragraphs.paragraphs_type.digital_form_phone_and_email
+    - field.storage.paragraph.field_identification_information
+    - paragraphs.paragraphs_type.digital_form_identification_info
     - paragraphs.paragraphs_type.digital_form_your_personal_info
   module:
     - entity_reference_revisions
@@ -15,11 +12,11 @@ dependencies:
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: node.digital_form.field_chapters
-field_name: field_chapters
-entity_type: node
-bundle: digital_form
-label: Steps
+id: paragraph.digital_form_your_personal_info.field_identification_information
+field_name: field_identification_information
+entity_type: paragraph
+bundle: digital_form_your_personal_info
+label: 'Identification Information'
 description: ''
 required: true
 translatable: false
@@ -29,163 +26,157 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      digital_form_your_personal_info: digital_form_your_personal_info
-      digital_form_address: digital_form_address
-      digital_form_phone_and_email: digital_form_phone_and_email
-      digital_form_list_loop: digital_form_list_loop
+      digital_form_identification_info: digital_form_identification_info
     negate: 0
     target_bundles_drag_drop:
       address:
-        weight: -89
+        weight: 51
         enabled: false
       alert:
-        weight: -88
+        weight: 52
         enabled: false
       alert_single:
-        weight: -87
+        weight: 53
         enabled: false
       audience_topics:
-        weight: -86
+        weight: 54
         enabled: false
       basic_accordion:
-        weight: -85
+        weight: 55
         enabled: false
       button:
-        weight: -84
+        weight: 56
         enabled: false
       centralized_content_descriptor:
-        weight: -83
+        weight: 57
         enabled: false
       checklist:
-        weight: -82
+        weight: 58
         enabled: false
       checklist_item:
-        weight: -81
+        weight: 59
         enabled: false
       collapsible_panel:
-        weight: -80
+        weight: 60
         enabled: false
       collapsible_panel_item:
-        weight: -79
+        weight: 61
         enabled: false
       contact_information:
-        weight: -78
+        weight: 62
         enabled: false
       digital_form_address:
-        weight: -94
-        enabled: true
-      digital_form_identification_info:
-        weight: -90
+        weight: 63
         enabled: false
-      digital_form_list_loop:
-        weight: -92
+      digital_form_identification_info:
+        weight: 64
         enabled: true
       digital_form_name_and_date_of_bi:
-        weight: -91
+        weight: 65
         enabled: false
       digital_form_phone_and_email:
-        weight: -93
-        enabled: true
+        weight: 66
+        enabled: false
       digital_form_your_personal_info:
-        weight: -95
-        enabled: true
+        weight: 67
+        enabled: false
       downloadable_file:
-        weight: -77
+        weight: 68
         enabled: false
       email_contact:
-        weight: -76
+        weight: 69
         enabled: false
       embedded_video:
-        weight: -75
+        weight: 70
         enabled: false
       expandable_text:
-        weight: -74
+        weight: 71
         enabled: false
       featured_content:
-        weight: -73
+        weight: 72
         enabled: false
       health_care_local_facility_servi:
-        weight: -72
+        weight: 73
         enabled: false
       link_teaser:
-        weight: -71
+        weight: 74
         enabled: false
       link_teaser_with_image:
-        weight: -70
+        weight: 75
         enabled: false
       list_of_link_teasers:
-        weight: -67
+        weight: 78
         enabled: false
       list_of_links:
-        weight: -68
+        weight: 77
         enabled: false
       lists_of_links:
-        weight: -69
+        weight: 76
         enabled: false
       magichead_group:
-        weight: -66
+        weight: 79
         enabled: false
       media:
-        weight: -65
+        weight: 80
         enabled: false
       media_list_images:
-        weight: -64
+        weight: 81
         enabled: false
       media_list_videos:
-        weight: -63
+        weight: 82
         enabled: false
       non_reusable_alert:
-        weight: -62
+        weight: 83
         enabled: false
       number_callout:
-        weight: -61
+        weight: 84
         enabled: false
       phone_number:
-        weight: -60
+        weight: 85
         enabled: false
       process:
-        weight: -59
+        weight: 86
         enabled: false
       q_a:
-        weight: -58
+        weight: 87
         enabled: false
       q_a_group:
-        weight: -57
+        weight: 88
         enabled: false
       q_a_section:
-        weight: -56
+        weight: 89
         enabled: false
       react_widget:
-        weight: -55
+        weight: 90
         enabled: false
       rich_text_char_limit_1000:
-        weight: -54
+        weight: 91
         enabled: false
       service_location:
-        weight: -53
+        weight: 92
         enabled: false
       service_location_address:
-        weight: -52
+        weight: 93
         enabled: false
       situation_update:
-        weight: -51
+        weight: 94
         enabled: false
       spanish_translation_summary:
-        weight: -50
+        weight: 95
         enabled: false
       staff_profile:
-        weight: -49
+        weight: 96
         enabled: false
       step:
-        weight: -48
+        weight: 97
         enabled: false
       step_by_step:
-        weight: -47
+        weight: 98
         enabled: false
       table:
-        weight: -46
+        weight: 99
         enabled: false
       wysiwyg:
-        weight: -45
+        weight: 100
         enabled: false
 field_type: entity_reference_revisions
