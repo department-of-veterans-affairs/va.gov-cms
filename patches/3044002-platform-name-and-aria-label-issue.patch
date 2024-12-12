@@ -1,8 +1,8 @@
 diff --git a/src/Plugin/SocialMediaLinks/Iconset/FontAwesome.php b/src/Plugin/SocialMediaLinks/Iconset/FontAwesome.php
-index ac22028..0586d0c 100755
+index 9704e04..088d411 100755
 --- a/src/Plugin/SocialMediaLinks/Iconset/FontAwesome.php
 +++ b/src/Plugin/SocialMediaLinks/Iconset/FontAwesome.php
-@@ -67,13 +67,13 @@ class FontAwesome extends IconsetBase implements IconsetInterface {
+@@ -96,7 +96,7 @@ class FontAwesome extends IconsetBase implements IconsetInterface {
      if ($icon_name == 'envelope' || $icon_name == 'home' || $icon_name == 'rss') {
        $icon = [
          '#type' => 'markup',
@@ -11,32 +11,26 @@ index ac22028..0586d0c 100755
        ];
      }
      else {
-       $icon = [
-         '#type' => 'markup',
--        '#markup' => "<span class='fab fa-$icon_name fa-$style'></span>",
-+        '#markup' => "<span class='fab fa-$icon_name fa-$style' aria-hidden=\"true\"></span>",
-       ];
-     }
- 
 diff --git a/templates/social-media-links-platforms.html.twig b/templates/social-media-links-platforms.html.twig
-index 29adeab..575719f 100644
+index a5aecc6..919cf02 100644
 --- a/templates/social-media-links-platforms.html.twig
 +++ b/templates/social-media-links-platforms.html.twig
-@@ -17,15 +17,12 @@
+@@ -17,15 +17,13 @@
      <li>
-       <a class="social-media-link-icon--{{ platform.id }}" href="{{ platform.url }}" {{ platform.attributes }} >
+       <a class="social-media-link-icon--{{ platform.id }}" href="{{ platform.url | safe_link }}" {{ platform.attributes }} >
          {{ platform.element }}
 -      </a>
--
+ 
 -      {% if appearance.show_name %}
 -        {% if appearance.orientation == 'h' %}
+-          <br />
 +        {% if appearance.show_name and appearance.orientation == 'h' %}
-           <br />
++            <br />
          {% endif %}
  
--        <span><a class="social-media-link--{{ platform.id }}" href="{{ platform.url }}" {{ platform.attributes }}>{{ platform.name }}</a></span>
+-        <span><a class="social-media-link--{{ platform.id }}" href="{{ platform.url | safe_link  }}" {{ platform.attributes }}>{{ platform.name }}</a></span>
 -      {% endif %}
-+        <span class ="platform--name{{ appearance.show_name ? '' : ' visually-hidden' }}">{{ platform.name }}</span>
++        <span class="platform--name{{ appearance.show_name ? '' : ' visually-hidden' }}">{{ platform.name }}</span>
 +      </a>
      </li>
    {% endfor %}

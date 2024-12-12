@@ -8,8 +8,8 @@ use Drupal\node\Entity\Node;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderNodeBase;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
-use tests\phpunit\va_gov_form_builder\Traits\AnonymousFormClass;
 use Tests\Support\Classes\VaGovUnitTestBase;
+use tests\phpunit\va_gov_form_builder\Traits\AnonymousFormClass;
 
 /**
  * Unit tests for the abstract class FormBuilderNodeBase.
