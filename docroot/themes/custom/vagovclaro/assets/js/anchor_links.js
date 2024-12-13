@@ -14,7 +14,7 @@
 
   Drupal.behaviors.vagovclaroAnchorLinks = {
     attach: function attach() {
-      $('a[href^="#"][href!="#"]:not([href^="#edit-group"])').click(function (event) {
+      $('a[href="#"][href!="#"]:not([href^="#edit-group"])').click(function (event) {
         event.preventDefault();
 
         var target = $(event.target).attr("href");
