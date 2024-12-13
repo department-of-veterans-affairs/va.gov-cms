@@ -14,6 +14,7 @@
 
   Drupal.behaviors.vagovclaroAnchorLinks = {
     attach: function attach() {
+      //removed XOR operator because it was causing an issue where anchor lins were undefined VACMS-19375
       $('a[href="#"][href!="#"]:not([href^="#edit-group"])').click(function (event) {
         event.preventDefault();
 
