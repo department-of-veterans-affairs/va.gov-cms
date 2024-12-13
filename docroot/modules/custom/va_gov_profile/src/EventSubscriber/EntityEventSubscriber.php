@@ -7,7 +7,6 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
-use Drupal\feature_toggle\FeatureStatus;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -33,30 +32,19 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   private $entityTypeManager;
 
   /**
-   * Feature Toggle status service.
-   *
-   * @var \Drupal\feature_toggle\FeatureStatus
-   */
-  private FeatureStatus $featureStatus;
-
-  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The current user perms service.
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   The entity type manager service.
-   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
-   *   The Feature Status service.
    */
   public function __construct(
     UserPermsService $user_perms_service,
     EntityTypeManager $entity_type_manager,
-    FeatureStatus $feature_status,
   ) {
     $this->userPermsService = $user_perms_service;
     $this->entityTypeManager = $entity_type_manager;
-    $this->featureStatus = $feature_status;
   }
 
   /**

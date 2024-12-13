@@ -7,7 +7,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\feature_toggle\FeatureStatus;
 use Drupal\node\NodeInterface;
 use Drupal\post_api\Service\AddToQueue;
 use Drupal\va_gov_facilities\FacilityOps;
@@ -47,13 +46,6 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
   protected $additionalInfoToPush;
 
   /**
-   * Feature Toggle status service.
-   *
-   * @var \Drupal\feature_toggle\FeatureStatus
-   */
-  private FeatureStatus $featureStatus;
-
-  /**
    * Constructs a new PostFacilityStatus service object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
@@ -66,12 +58,9 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
    *   The messenger interface.
    * @param \Drupal\post_api\Service\AddToQueue $post_queue
    *   The PostAPI service.
-   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
-   *   The Feature Status service.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, AddToQueue $post_queue, FeatureStatus $feature_status) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, AddToQueue $post_queue) {
     parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue);
-    $this->featureStatus = $feature_status;
   }
 
   /**

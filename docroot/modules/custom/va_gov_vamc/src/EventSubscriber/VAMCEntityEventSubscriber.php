@@ -338,7 +338,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $form_state = $event->getFormState();
     $this->addCovidStatusData($form, $form_state);
     $this->removePhoneLabel($event);
-    $this->showTelephone($event);
   }
 
   /**
