@@ -46,24 +46,6 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
   protected $additionalInfoToPush;
 
   /**
-   * Constructs a new PostFacilityStatus service object.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory service.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager service.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_channel_factory
-   *   The logger factory service.
-   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
-   *   The messenger interface.
-   * @param \Drupal\post_api\Service\AddToQueue $post_queue
-   *   The PostAPI service.
-   */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, AddToQueue $post_queue) {
-    parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue);
-  }
-
-  /**
    * Adds facility service data to Post API queue.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
