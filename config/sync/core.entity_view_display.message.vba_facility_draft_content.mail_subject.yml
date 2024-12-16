@@ -4,8 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.message.mail_subject
-    - field.field.message.vba_facility_draft_content.field_field_target_node_path
     - field.field.message.vba_facility_draft_content.field_last_updated_by_editor
+    - field.field.message.vba_facility_draft_content.field_target_node_path
     - field.field.message.vba_facility_draft_content.field_target_node_title
     - message.template.vba_facility_draft_content
   module:
@@ -25,8 +25,8 @@ content:
     region: content
 hidden:
   breadcrumbs: true
-  field_field_target_node_path: true
   field_last_updated_by_editor: true
+  field_target_node_path: true
   field_target_node_title: true
   partial_1: true
   search_api_excerpt: true
