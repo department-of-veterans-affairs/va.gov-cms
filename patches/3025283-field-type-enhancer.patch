@@ -1,19 +1,11 @@
-diff --git a/.gitignore b/.gitignore
-new file mode 100644
-index 0000000..a305726
---- /dev/null
-+++ b/.gitignore
-@@ -0,0 +1,2 @@
-+# IntelliJ IDEA
-+.idea
 diff --git a/config/schema/jsonapi_extras.schema.yml b/config/schema/jsonapi_extras.schema.yml
-index 5e7e499..21c0d77 100644
+index 2a59be9..0e931a8 100644
 --- a/config/schema/jsonapi_extras.schema.yml
 +++ b/config/schema/jsonapi_extras.schema.yml
-@@ -75,3 +75,43 @@ jsonapi_extras.settings:
+@@ -79,3 +79,43 @@ jsonapi_extras.settings:
        type: boolean
-       label: 'Disabled by default'
-       description: "If activated, all resource types that don't have a matching enabled resource config will be disabled."
+       label: 'Validate configuration integrity'
+       description: "Enable a configuration validation step for the fields in your resources. This will ensure that new (and updated) fields also contain configuration for the corresponding resources."
 +
 +jsonapi_extras.jsonapi_field_type_config:
 +  type: config_entity
@@ -55,7 +47,7 @@ index 5e7e499..21c0d77 100644
 +        settings:
 +          type: jsonapi_extras.enhancer_plugin.[%parent.id]
 diff --git a/jsonapi_extras.links.task.yml b/jsonapi_extras.links.task.yml
-index 6f5567e..63bfbbc 100755
+index 1c55b9a..17a2d66 100755
 --- a/jsonapi_extras.links.task.yml
 +++ b/jsonapi_extras.links.task.yml
 @@ -22,3 +22,8 @@ jsonapi.settings.extras.resources:
@@ -67,8 +59,9 @@ index 6f5567e..63bfbbc 100755
 +  base_route: jsonapi_extras.field_types
 +  title: 'Field Types'
 +  parent_id: jsonapi.settings.extras
+\ No newline at end of file
 diff --git a/jsonapi_extras.routing.yml b/jsonapi_extras.routing.yml
-index bd4b24c..b207415 100644
+index bd4b24c..391a55c 100644
 --- a/jsonapi_extras.routing.yml
 +++ b/jsonapi_extras.routing.yml
 @@ -5,3 +5,10 @@ jsonapi_extras.settings:
@@ -82,8 +75,9 @@ index bd4b24c..b207415 100644
 +    _title: 'Field Types'
 +  requirements:
 +    _permission: 'administer site configuration'
+\ No newline at end of file
 diff --git a/jsonapi_extras.services.yml b/jsonapi_extras.services.yml
-index 0447bb1..135b416 100644
+index 859a131..03c0132 100644
 --- a/jsonapi_extras.services.yml
 +++ b/jsonapi_extras.services.yml
 @@ -16,6 +16,7 @@ services:
@@ -336,7 +330,7 @@ index 0000000..da5cce5
 +
 +}
 diff --git a/src/Normalizer/FieldItemNormalizer.php b/src/Normalizer/FieldItemNormalizer.php
-index 8882870..8b4c467 100644
+index 6d216ba..9b35169 100644
 --- a/src/Normalizer/FieldItemNormalizer.php
 +++ b/src/Normalizer/FieldItemNormalizer.php
 @@ -3,6 +3,7 @@
@@ -377,12 +371,7 @@ index 8882870..8b4c467 100644
    }
  
    /**
-@@ -51,15 +62,42 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
-   public function normalize($object, $format = NULL, array $context = []) {
-     // First get the regular output.
-     $normalized_output = parent::normalize($object, $format, $context);
-+
-     // Then detect if there is any enhancer to be applied here.
+@@ -55,11 +66,36 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
      /** @var \Drupal\jsonapi_extras\ResourceType\ConfigurableResourceType $resource_type */
      $resource_type = $context['resource_object']->getResourceType();
      $enhancer = $resource_type->getFieldEnhancer($object->getParent()->getName());
@@ -393,7 +382,6 @@ index 8882870..8b4c467 100644
 +    // Begin building the cacheability metadata.
      $cacheability = CacheableMetadata::createFromObject($normalized_output)
        ->addCacheTags(['config:jsonapi_resource_config_list']);
-+
 +    if (!$enhancer) {
 +      // Look for default field type enhancer.
 +      $config = $this->configManager->get('jsonapi_extras.jsonapi_field_type_config');
@@ -450,10 +438,10 @@ index c712bf5..b570fad 100644
      ];
    }
 diff --git a/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php b/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php
-index 0cf8ba5..ece4bcb 100644
+index c06028f..97a4295 100644
 --- a/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php
 +++ b/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php
-@@ -94,7 +94,7 @@ class UrlLinkEnhancer extends ResourceFieldEnhancerBase implements ContainerFact
+@@ -95,7 +95,7 @@ class UrlLinkEnhancer extends ResourceFieldEnhancerBase implements ContainerFact
      $form['absolute_url'] = [
        '#type' => 'checkbox',
        '#title' => $this->t('Get Absolute Urls'),
