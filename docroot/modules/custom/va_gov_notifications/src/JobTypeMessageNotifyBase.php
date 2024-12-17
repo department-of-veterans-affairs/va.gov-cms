@@ -196,7 +196,7 @@ class JobTypeMessageNotifyBase extends JobTypeBase implements ContainerFactoryPl
    *   The Message prior to being sent via Message Notify.
    *
    * @return array
-   *   The
+   *   The message options to pass to Message Notify.
    */
   protected function getMessageNotifierOptions(Message $message): array {
     $messageOptions = [];
