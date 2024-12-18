@@ -3,6 +3,7 @@
 .toolbar-oriented .toolbar-bar .toolbar-tab.branch-toolbar-tab {
   float: right;
   height: 39px;
+  z-index: 300;
 }
 
 .toolbar-oriented .toolbar-bar .toolbar-tab.branch-toolbar-tab .toolbar-icon-branch {
@@ -13,13 +14,13 @@
   font-size: 0;
 }
 
-.content-release-toolbar-tab-prod {
+#content-release-status-icon-prod {
   background-image: url('../images/content-release-tooltip.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.content-release-toolbar-tab {
+#content-release-status-icon {
   background-image: url('../images/content-release-tooltip-gray.svg');
   background-position: center;
   background-repeat: no-repeat;

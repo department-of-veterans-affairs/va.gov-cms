@@ -103,7 +103,7 @@ body.toolbar-fixed {
     // Special treatment for the tab showing the indicator.
     .toolbar-tab {
       &.branch-toolbar-tab {
-        margin-left: -26px;
+        margin-left: -10px;
       }
 
       &.environment-toolbar-tab {
@@ -113,6 +113,7 @@ body.toolbar-fixed {
       .toolbar-icon-environment-label {
         cursor: auto; // Remove the pointer cursor.
         padding-left: 1.333em; // No icon.
+        padding-right: 0;
 
         // Remove hover behaviors.
         &:hover {
@@ -199,7 +200,7 @@ body.toolbar-fixed {
     // Special treatment for the tab showing the indicator.
     .toolbar-tab {
       &.branch-toolbar-tab {
-        margin-left: -26px;
+        margin-left: -10px;
       }
 
       &.environment-toolbar-tab {
@@ -207,6 +208,7 @@ body.toolbar-fixed {
       }
 
       .toolbar-icon-environment-label {
+        color: var(--va-gray-darkest);
         cursor: auto; // Remove the pointer cursor.
         padding-left: 1.333em; // No icon.
 
