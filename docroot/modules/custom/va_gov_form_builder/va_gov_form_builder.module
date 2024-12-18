@@ -23,8 +23,8 @@ function va_gov_form_builder_entity_bundle_field_info_alter(&$fields, EntityType
  */
 function va_gov_form_builder_theme() {
   return [
-    'va_gov_form_builder_page' => [
-      'template' => 'page--va-gov-form-builder',
+    'page__va_gov_form_builder' => [
+      'base hook' => 'page',
       'path' => \Drupal::service('extension.list.module')->getPath('va_gov_form_builder') . '/templates',
     ],
   ];
@@ -39,7 +39,7 @@ function va_gov_form_builder_theme_suggestions_page(array &$variables) {
 
   // Apply custom page template for all Form Builder routes.
   if (strpos($route_name, 'va_gov_form_builder.') === 0) {
-    $suggestions[] = 'va_gov_form_builder_page';
+    $suggestions[] = 'page__va_gov_form_builder';
   }
 
   return $suggestions;
