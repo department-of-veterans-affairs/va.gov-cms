@@ -1,0 +1,1120 @@
+diff --git a/js/entity_browser.entity_reference.js b/js/entity_browser.entity_reference.js
+index 93ee783e11756f2a0318e8030f46e6c73bbc3b89..b1ae719cb75c4f76ce32ca83e43e00acf68ef58d 100644
+--- a/js/entity_browser.entity_reference.js
++++ b/js/entity_browser.entity_reference.js
+@@ -23,6 +23,15 @@
+           }
+         });
+       });
++
++      $(context).find('[data-entity-browser-entities-list] .remove-button').each(function () {
++        $(once('entity-browser-remove', $(this))).on('mousedown', function(e) {
++          var $currentItems = $(this).parents('[data-entity-browser-entities-list]:first');
++          $(this).parents('.item-container:first').remove();
++          Drupal.entityBrowserEntityReference.updateTargetId($currentItems);
++        })
++      });
++
+       // The AJAX callback will give us a flag when we need to re-open the
+       // browser, most likely due to a "Replace" button being clicked.
+       if (typeof drupalSettings.entity_browser_reopen_browser !== 'undefined' &&  drupalSettings.entity_browser_reopen_browser) {
+@@ -50,13 +59,31 @@
+    *   Object with the sortable area.
+    */
+   Drupal.entityBrowserEntityReference.entitiesReordered = function (widget) {
+-    var items = $(widget).find('.item-container');
++    Drupal.entityBrowserEntityReference.updateTargetId($(widget));
++  };
++
++  /**
++   * Updates the 'target_id' element.
++   *
++   * @param {object} $currentItems
++   *   Object with '.entities-list.sortable' element.
++   */
++  Drupal.entityBrowserEntityReference.updateTargetId = function ($currentItems) {
++    var items = $currentItems.find('.item-container');
+     var ids = [];
+     for (var i = 0; i < items.length; i++) {
+       ids[i] = $(items[i]).attr('data-entity-id');
++      // If using weight field, update it.
++      $(items[i]).find('input[name*="[_weight]"]').val(i);
+     }
++    var $target_id_element = $currentItems.parent().find('input[type*=hidden][name*="[target_id]"]');
++    $target_id_element.val(ids.join(' '));
+
+-    $(widget).parent().find('input[type*=hidden][name*="[target_id]"]').val(ids.join(' '));
+-  };
++    // Trigger ajax submission to restore entity browser form element.
++    var cardinality = parseInt($target_id_element.attr('data-cardinality'));
++    if (ids.length < cardinality && $target_id_element.attr('data-entity-browser-visible') === "0") {
++      $target_id_element.trigger('entity_browser_value_updated');
++    }
++  }
+
+ }(jQuery, Drupal, Sortable));
+diff --git a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
+index 13df19e50ae44393a651c46a0524065d0c29c921..a1e4150dcf179bf233edd3ff276b94045fbb9e85 100644
+--- a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
++++ b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
+@@ -15,7 +15,6 @@ use Drupal\entity_browser\Element\EntityBrowserElement;
+ use Drupal\entity_browser\Entity\EntityBrowser;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
+ use Symfony\Component\Validator\ConstraintViolation;
+-use Symfony\Component\Validator\ConstraintViolationInterface;
+ use Symfony\Component\Validator\ConstraintViolationListInterface;
+
+ /**
+@@ -77,6 +76,13 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+    */
+   protected $entityDisplayRepository;
+
++  /**
++   * If triggering element was hidden target_id element.
++   *
++   * @var bool
++   */
++  protected $entityBrowserValueUpdated;
++
+   /**
+    * {@inheritdoc}
+    */
+@@ -294,6 +300,12 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+     if ($violations->count() > 0) {
+       /** @var \Symfony\Component\Validator\ConstraintViolation $violation */
+       foreach ($violations as $offset => $violation) {
++        $trigger = $form_state->getTriggeringElement();
++        if (!empty($trigger['#ajax']['event']) && $trigger['#ajax']['event'] == 'entity_browser_value_updated') {
++          // Skip validation if it is triggered by hidden target_id.
++          $violations->remove($offset);
++          continue;
++        }
+         // The value of the required field is checked through the "not null"
+         // constraint, whose message is not very useful. We override it here for
+         // better UX.
+@@ -336,30 +348,21 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+
+     $entities = $this->formElementEntities($items, $element, $form_state);
+-
+-    // Get correct ordered list of entity IDs.
+-    $ids = array_map(
+-      function (EntityInterface $entity) {
+-        return $entity->id();
+-      },
+-      $entities
+-    );
+-
+-    // We store current entity IDs as we might need them in future requests. If
+-    // some other part of the form triggers an AJAX request with
+-    // #limit_validation_errors we won't have access to the value of the
+-    // target_id element and won't be able to build the form as a result of
+-    // that. This will cause missing submit (Remove, Edit, ...) elements, which
+-    // might result in unpredictable results.
+-    $form_state->set(['entity_browser_widget', $this->getFormStateKey($items)], $ids);
++    $items->setValue($entities);
+
+     $hidden_id = Html::getUniqueId('edit-' . $this->fieldDefinition->getName() . '-target-id');
+     $details_id = Html::getUniqueId('edit-' . $this->fieldDefinition->getName());
+
++    // Get configuration required to check entity browser availability.
++    $cardinality = $this->fieldDefinition->getFieldStorageDefinition()->getCardinality();
++    $selection_mode = $this->getSetting('selection_mode');
++
++    $display_entity_browser = EntityBrowserElement::isEntityBrowserAvailable($selection_mode, $cardinality, count($entities));
++
+     $element += [
+       '#id' => $details_id,
+       '#type' => 'details',
+-      '#open' => !empty($entities) || $this->getSetting('open'),
++      '#open' => !empty($entities) || $this->getSetting('open') || $this->entityBrowserValueUpdated,
+       '#required' => $this->fieldDefinition->isRequired(),
+       // We are not using Entity browser's hidden element since we maintain
+       // selected entities in it during entire process.
+@@ -367,7 +370,11 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+         '#type' => 'hidden',
+         '#id' => $hidden_id,
+         // We need to repeat ID here as it is otherwise skipped when rendering.
+-        '#attributes' => ['id' => $hidden_id],
++        '#attributes' => [
++          'id' => $hidden_id,
++          'data-cardinality' => $cardinality,
++          'data-entity-browser-visible' => $display_entity_browser,
++        ],
+         '#default_value' => implode(' ', array_map(
+             function (EntityInterface $item) {
+               return $item->getEntityTypeId() . ':' . $item->id();
+@@ -381,15 +388,14 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+           'wrapper' => $details_id,
+           'event' => 'entity_browser_value_updated',
+         ],
++        '#submit' => [[get_class($this), 'entityBrowserValueUpdated']],
++        '#limit_validation_errors' => [array_merge($element['#field_parents'], [$this->fieldDefinition->getName()])],
++        '#executes_submit_callback' => TRUE,
+       ],
+     ];
+
+-    // Get configuration required to check entity browser availability.
+-    $cardinality = $this->fieldDefinition->getFieldStorageDefinition()->getCardinality();
+-    $selection_mode = $this->getSetting('selection_mode');
+-
+     // Enable entity browser if requirements for that are fulfilled.
+-    if (EntityBrowserElement::isEntityBrowserAvailable($selection_mode, $cardinality, count($ids))) {
++    if ($display_entity_browser) {
+       $persistentData = $this->getPersistentData();
+
+       $element['entity_browser'] = [
+@@ -406,6 +412,13 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+           [get_called_class(), 'processEntityBrowser'],
+         ],
+       ];
++
++      $element['target_id']['#attributes']['data-entity-browser-available'] = 1;
++    }
++    else {
++      // Allow non-ajax remove button to trigger ajax refresh when
++      // cardinality.
++      $element['target_id']['#attributes']['data-entity-browser-visible'] = 0;
+     }
+
+     $element['#attached']['library'][] = 'entity_browser/entity_reference';
+@@ -453,9 +466,6 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+     if (!empty($trigger['#ajax']['event']) && $trigger['#ajax']['event'] == 'entity_browser_value_updated') {
+       $parents = array_slice($trigger['#array_parents'], 0, -1);
+     }
+-    elseif ($trigger['#type'] == 'submit' && strpos($trigger['#name'], '_remove_')) {
+-      $parents = array_slice($trigger['#array_parents'], 0, -static::$deleteDepth);
+-    }
+     elseif ($trigger['#type'] == 'submit' && strpos($trigger['#name'], '_replace_')) {
+       $parents = array_slice($trigger['#array_parents'], 0, -static::$deleteDepth);
+       // We need to re-open the browser. Instead of just passing "TRUE", send
+@@ -469,21 +479,10 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+     return $parents;
+   }
+
+-  /**
+-   * {@inheritdoc}
+-   */
+-  public function errorElement(array $element, ConstraintViolationInterface $violation, array $form, FormStateInterface $form_state) {
+-    if (($trigger = $form_state->getTriggeringElement())) {
+-      // Can be triggered by "Remove" button.
+-      if (end($trigger['#parents']) === 'remove_button') {
+-        return FALSE;
+-      }
+-    }
+-    return parent::errorElement($element, $violation, $form, $form_state);
+-  }
+-
+   /**
+    * Submit callback for remove buttons.
++   *
++   * @deprecated Handled in javascript.  See entity_browser.entity_reference.js.
+    */
+   public static function removeItemSubmit(&$form, FormStateInterface $form_state) {
+     $triggering_element = $form_state->getTriggeringElement();
+@@ -499,7 +498,6 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+         // @todo add weight field.
+         if ($item == $id) {
+           array_splice($values, $index, 1);
+-
+           break;
+         }
+       }
+@@ -515,6 +513,30 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+     }
+   }
+
++  /**
++   * Submit callback.
++   */
++  public static function entityBrowserValueUpdated(&$form, FormStateInterface $form_state) {
++    $triggering_element = $form_state->getTriggeringElement();
++    $parents = array_slice($triggering_element['#parents'], 0, -1);
++    $array_parents = array_slice($triggering_element['#array_parents'], 0, -1);
++
++    $values = $form_state->getValue($parents);
++
++    $entities = empty($values['target_id']) ? [] : explode(' ', trim($values['target_id']));
++    $values = [];
++    foreach ($entities as $entity) {
++      $values[]['target_id'] = explode(':', $entity)[1];
++    }
++
++    // Set new value for this widget in the form_state.
++    $element = &NestedArray::getValue($form, $array_parents);
++    $form_state->setValueForElement($element, $values);
++
++    // Rebuild form.
++    $form_state->setRebuild();
++  }
++
+   /**
+    * Builds the render array for displaying the current results.
+    *
+@@ -551,7 +573,10 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+
+     return [
+       '#theme_wrappers' => ['container'],
+-      '#attributes' => ['class' => $classes],
++      '#attributes' => [
++        'class' => $classes,
++        'data-entity-browser-entities-list' => 1,
++      ],
+       '#prefix' => '<p>' . $this->getCardinalityMessage($entities) . '</p>',
+       'items' => array_map(
+         function (ContentEntityInterface $entity, $row_id) use ($field_widget_display, $details_id, $field_parents, $replace_button_access) {
+@@ -577,13 +602,7 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+             'remove_button' => [
+               '#type' => 'submit',
+               '#value' => $this->t('Remove'),
+-              '#ajax' => [
+-                'callback' => [get_class($this), 'updateWidgetCallback'],
+-                'wrapper' => $details_id,
+-              ],
+-              '#submit' => [[get_class($this), 'removeItemSubmit']],
+               '#name' => $this->fieldDefinition->getName() . '_remove_' . $entity->id() . '_' . $row_id . '_' . md5(json_encode($field_parents)),
+-              '#limit_validation_errors' => [array_merge($field_parents, [$this->fieldDefinition->getName()])],
+               '#attributes' => [
+                 'data-entity-id' => $entity->getEntityTypeId() . ':' . $entity->id(),
+                 'data-row-id' => $row_id,
+@@ -755,13 +774,22 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+    */
+   protected function formElementEntities(FieldItemListInterface $items, array $element, FormStateInterface $form_state) {
+     $entities = [];
+-    $entity_type = $this->fieldDefinition->getFieldStorageDefinition()->getSetting('target_type');
+-    $entity_storage = $this->entityTypeManager->getStorage($entity_type);
+
+     // Find IDs from target_id element (it stores selected entities in form).
+     // This was added to help solve a really edge casey bug in IEF.
+-    if (($target_id_entities = $this->getEntitiesByTargetId($element, $form_state)) !== FALSE) {
+-      return $target_id_entities;
++    $element_path = array_merge($element['#field_parents'], [$this->fieldDefinition->getName()]);
++    $input_exists = NULL;
++    $input_value = NestedArray::getValue($form_state->getUserInput(), $element_path, $input_exists);
++    $value_exists = NestedArray::keyExists($form_state->getValues(), $element_path);
++
++    if (!$value_exists && $input_exists && isset($input_value['target_id']) && !is_array($input_value['target_id'])) {
++      $data = empty($input_value['target_id']) ? [] : explode(' ', trim($input_value['target_id']));
++      $values = [];
++      foreach ($data as $data_item) {
++        $values[]['target_id'] = explode(':', $data_item)[1];
++      }
++      $items->setValue($values);
++      return $items->referencedEntities();
+     }
+
+     // Determine if we're submitting and if submit came from this widget.
+@@ -780,62 +808,27 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+           (array_slice($trigger['#parents'], 0, count($element['#field_parents'])) == $element['#field_parents']) &&
+           (array_slice($trigger['#parents'], 0, $field_name_key) == $element['#field_parents']);
+       }
+-    };
++    }
+
+     if ($is_relevant_submit) {
+       // Submit was triggered by hidden "target_id" element when entities were
+       // added via entity browser.
+       if (!empty($trigger['#ajax']['event']) && $trigger['#ajax']['event'] == 'entity_browser_value_updated') {
+-        $parents = $trigger['#parents'];
+-      }
+-      // Submit was triggered by one of the "Remove" buttons. We need to walk
+-      // few levels up to read value of "target_id" element.
+-      elseif ($trigger['#type'] == 'submit' && strpos($trigger['#name'], $this->fieldDefinition->getName() . '_remove_') === 0) {
+-        $parents = array_merge(array_slice($trigger['#parents'], 0, -static::$deleteDepth), ['target_id']);
++        $parents = array_slice($trigger['#parents'], 0, -1);
++        $this->entityBrowserValueUpdated = TRUE;
+       }
+
+       if (isset($parents) && $value = $form_state->getValue($parents)) {
+-        $entities = EntityBrowserElement::processEntityIds($value);
+-        return $entities;
+-      }
+-      return $entities;
+-    }
+-    // IDs from a previous request might be saved in the form state.
+-    elseif ($form_state->has([
+-      'entity_browser_widget',
+-      $this->getFormStateKey($items),
+-    ])
+-    ) {
+-      $stored_ids = $form_state->get([
+-        'entity_browser_widget',
+-        $this->getFormStateKey($items),
+-      ]);
+-      $indexed_entities = $entity_storage->loadMultiple($stored_ids);
+-
+-      // Selection can contain same entity multiple times. Since loadMultiple()
+-      // returns unique list of entities, it's necessary to recreate list of
+-      // entities in order to preserve selection of duplicated entities.
+-      foreach ($stored_ids as $entity_id) {
+-        if (isset($indexed_entities[$entity_id])) {
+-          $entities[] = $indexed_entities[$entity_id];
+-        }
++        $items->setValue($value);
++        $entities = $items->referencedEntities();
+       }
+       return $entities;
+     }
++
+     // We are loading for for the first time so we need to load any existing
+     // values that might already exist on the entity. Also, remove any leftover
+     // data from removed entity references.
+-    else {
+-      foreach ($items as $item) {
+-        if (isset($item->target_id)) {
+-          $entity = $entity_storage->load($item->target_id);
+-          if (!empty($entity)) {
+-            $entities[] = $entity;
+-          }
+-        }
+-      }
+-      return $entities;
+-    }
++    return $items->referencedEntities();
+   }
+
+   /**
+@@ -853,39 +846,4 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+     return $dependencies;
+   }
+
+-  /**
+-   * Get selected elements from target_id element on form.
+-   *
+-   * @param array $element
+-   *   The form element.
+-   * @param \Drupal\Core\Form\FormStateInterface $form_state
+-   *   The form state.
+-   *
+-   * @return \Drupal\Core\Entity\EntityInterface[]|false
+-   *   Return list of entities if they are available or false.
+-   */
+-  protected function getEntitiesByTargetId(array $element, FormStateInterface $form_state) {
+-    $target_id_element_path = array_merge(
+-      $element['#field_parents'],
+-      [$this->fieldDefinition->getName(), 'target_id']
+-    );
+-
+-    $user_input = $form_state->getUserInput();
+-
+-    $ief_submit = (!empty($user_input['_triggering_element_name']) && strpos($user_input['_triggering_element_name'], 'ief-edit-submit') === 0);
+-
+-    if (!$ief_submit || !NestedArray::keyExists($form_state->getUserInput(), $target_id_element_path)) {
+-      return FALSE;
+-    }
+-
+-    // TODO Figure out how to avoid using raw user input.
+-    $current_user_input = NestedArray::getValue($form_state->getUserInput(), $target_id_element_path);
+-    if (!is_array($current_user_input)) {
+-      $entities = EntityBrowserElement::processEntityIds($current_user_input);
+-      return $entities;
+-    }
+-
+-    return FALSE;
+-  }
+-
+ }
+diff --git a/src/Plugin/Field/FieldWidget/FileBrowserWidget.php b/src/Plugin/Field/FieldWidget/FileBrowserWidget.php
+index 3ead83437b6b7a981b6cde4ef95f8dc66c801676..d9b353abcad87488e3acc599331d6202fc6988c9 100644
+--- a/src/Plugin/Field/FieldWidget/FileBrowserWidget.php
++++ b/src/Plugin/Field/FieldWidget/FileBrowserWidget.php
+@@ -164,7 +164,10 @@ class FileBrowserWidget extends EntityReferenceBrowserWidget {
+     $current = [
+       '#type' => 'table',
+       '#empty' => $this->t('No files yet'),
+-      '#attributes' => ['class' => ['entities-list']],
++      '#attributes' => [
++        'class' => ['entities-list'],
++        'data-entity-browser-entities-list' => 1,
++      ],
+       '#tabledrag' => [
+         [
+           'action' => 'order',
+@@ -230,9 +233,9 @@ class FileBrowserWidget extends EntityReferenceBrowserWidget {
+         }
+       }
+
+-      $current[$entity_id] = [
++      $current[$delta] = [
+         '#attributes' => [
+-          'class' => ['draggable'],
++          'class' => ['item-container', 'draggable'],
+           'data-entity-id' => $entity->getEntityTypeId() . ':' . $entity_id,
+           'data-row-id' => $delta,
+         ],
+@@ -240,12 +243,12 @@ class FileBrowserWidget extends EntityReferenceBrowserWidget {
+
+       // Provide a rendered entity if a view builder is available.
+       if ($has_file_entity) {
+-        $current[$entity_id]['display'] = $this->entityTypeManager->getViewBuilder('file')->view($entity, $view_mode);
++        $current[$delta]['display'] = $this->entityTypeManager->getViewBuilder('file')->view($entity, $view_mode);
+       }
+       // For images, support a preview image style as an alternative.
+       elseif ($field_type == 'image' && !empty($widget_settings['preview_image_style'])) {
+         $uri = $entity->getFileUri();
+-        $current[$entity_id]['display'] = [
++        $current[$delta]['display'] = [
+           '#weight' => -10,
+           '#theme' => 'image_style',
+           '#width' => $width,
+@@ -257,9 +260,9 @@ class FileBrowserWidget extends EntityReferenceBrowserWidget {
+       // Assume that the file name is part of the preview output if
+       // file entity is installed, do not show this column in that case.
+       if (!$has_file_entity) {
+-        $current[$entity_id]['filename'] = ['#markup' => $entity->label()];
++        $current[$delta]['filename'] = ['#markup' => $entity->label()];
+       }
+-      $current[$entity_id] += [
++      $current[$delta] += [
+         'meta' => [
+           'display_field' => [
+             '#type' => 'checkbox',
+@@ -331,11 +334,6 @@ class FileBrowserWidget extends EntityReferenceBrowserWidget {
+         'remove_button' => [
+           '#type' => 'submit',
+           '#value' => $this->t('Remove'),
+-          '#ajax' => [
+-            'callback' => [get_class($this), 'updateWidgetCallback'],
+-            'wrapper' => $details_id,
+-          ],
+-          '#submit' => [[get_class($this), 'removeItemSubmit']],
+           '#name' => $field_machine_name . '_remove_' . $entity_id . '_' . md5(json_encode($field_parents)),
+           '#limit_validation_errors' => [array_merge($field_parents, [$field_machine_name, 'target_id'])],
+           '#attributes' => [
+@@ -370,27 +368,27 @@ class FileBrowserWidget extends EntityReferenceBrowserWidget {
+   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+     $ids = empty($values['target_id']) ? [] : explode(' ', trim($values['target_id']));
+     $return = [];
+-    foreach ($ids as $id) {
++    foreach ($ids as $delta => $id) {
+       $id = explode(':', $id)[1];
+-      if (is_array($values['current']) && isset($values['current'][$id])) {
++      if (is_array($values['current']) && isset($values['current'][$delta])) {
+         $item_values = [
+           'target_id' => $id,
+-          '_weight' => $values['current'][$id]['_weight'],
++          '_weight' => $values['current'][$delta]['_weight'],
+         ];
+         if ($this->fieldDefinition->getType() == 'file') {
+-          if (isset($values['current'][$id]['meta']['description'])) {
+-            $item_values['description'] = $values['current'][$id]['meta']['description'];
++          if (isset($values['current'][$delta]['meta']['description'])) {
++            $item_values['description'] = $values['current'][$delta]['meta']['description'];
+           }
+-          if ($this->fieldDefinition->getSetting('display_field') && isset($values['current'][$id]['meta']['display_field'])) {
+-            $item_values['display'] = $values['current'][$id]['meta']['display_field'];
++          if ($this->fieldDefinition->getSetting('display_field') && isset($values['current'][$delta]['meta']['display_field'])) {
++            $item_values['display'] = $values['current'][$delta]['meta']['display_field'];
+           }
+         }
+         if ($this->fieldDefinition->getType() == 'image') {
+-          if (isset($values['current'][$id]['meta']['alt'])) {
+-            $item_values['alt'] = $values['current'][$id]['meta']['alt'];
++          if (isset($values['current'][$delta]['meta']['alt'])) {
++            $item_values['alt'] = $values['current'][$delta]['meta']['alt'];
+           }
+-          if (isset($values['current'][$id]['meta']['title'])) {
+-            $item_values['title'] = $values['current'][$id]['meta']['title'];
++          if (isset($values['current'][$delta]['meta']['title'])) {
++            $item_values['title'] = $values['current'][$delta]['meta']['title'];
+           }
+         }
+         $return[] = $item_values;
+diff --git a/tests/src/FunctionalJavascript/EntityBrowserViewsWidgetTest.php b/tests/src/FunctionalJavascript/EntityBrowserViewsWidgetTest.php
+index ae1dab6ade41f4f5f3729ebf10621b47360bf907..3bd84855b54af5433d701fe29dcea4a420d2c1cc 100644
+--- a/tests/src/FunctionalJavascript/EntityBrowserViewsWidgetTest.php
++++ b/tests/src/FunctionalJavascript/EntityBrowserViewsWidgetTest.php
+@@ -45,11 +45,14 @@ class EntityBrowserViewsWidgetTest extends EntityBrowserWebDriverTestBase {
+    * Tests Entity Browser views widget.
+    */
+   public function testViewsWidget() {
++    $current_user = \Drupal::currentUser();
++
+     // Create a file so that our test View isn't empty.
+     \Drupal::service('file_system')->copy(\Drupal::root() . '/core/misc/druplicon.png', 'public://example.jpg');
+     /** @var \Drupal\file\FileInterface $file */
+     $file = File::create([
+       'uri' => 'public://example.jpg',
++      'uid' => $current_user->id(),
+     ]);
+     $file->save();
+
+diff --git a/tests/src/FunctionalJavascript/EntityBrowserWebDriverTestBase.php b/tests/src/FunctionalJavascript/EntityBrowserWebDriverTestBase.php
+index 53e9a1b41ed0c90f2c9f0815325c68bf67ba4d00..346a4c8d0a7cac140ad636e33b5dad9b9b5f3249 100644
+--- a/tests/src/FunctionalJavascript/EntityBrowserWebDriverTestBase.php
++++ b/tests/src/FunctionalJavascript/EntityBrowserWebDriverTestBase.php
+@@ -314,4 +314,31 @@ abstract class EntityBrowserWebDriverTestBase extends WebDriverTestBase {
+     return version_compare(\Drupal::VERSION, $version, '>=');
+   }
+
++  /**
++   * Click the remove button for an .item-container at a given position.
++   *
++   * @param int $position
++   *   The xpath position of the item to remove.
++   */
++  protected function removeItemAtPosition($position): void {
++    $this->assertSession()
++      ->elementExists('xpath', '(//input[contains(@class, "remove-button")])[' . $position . ']')
++      ->press();
++  }
++
++  /**
++   * Check the order of .item-container elements.
++   *
++   * @param array $expected
++   *   The expected order of .item-container elements.  Each key
++   *   represents the order using xpath.  Each value some text contained
++   *   within the item.
++   */
++  protected function assertItemOrder(array $expected): void {
++    foreach ($expected as $key => $value) {
++      $this->assertSession()
++        ->elementContains('xpath', "(//*[contains(@class, 'item-container')])[" . $key . "]", $value);
++    }
++  }
++
+ }
+diff --git a/tests/src/FunctionalJavascript/EntityReferenceWidgetTest.php b/tests/src/FunctionalJavascript/EntityReferenceWidgetTest.php
+index c885a2ba018655ab7824597683d12edf5d8b14cc..80eb99631ac70809bbc2c7fe00e4e1f362c6f703 100644
+--- a/tests/src/FunctionalJavascript/EntityReferenceWidgetTest.php
++++ b/tests/src/FunctionalJavascript/EntityReferenceWidgetTest.php
+@@ -6,6 +6,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
+ use Drupal\entity_browser\Element\EntityBrowserElement;
+ use Drupal\field\Entity\FieldConfig;
+ use Drupal\field\Entity\FieldStorageConfig;
++use Drupal\file\Entity\File;
+ use Drupal\FunctionalJavascriptTests\SortableTestTrait;
+ use Drupal\node\Entity\Node;
+ use Drupal\user\Entity\Role;
+@@ -127,6 +128,7 @@ class EntityReferenceWidgetTest extends EntityBrowserWebDriverTestBase {
+     $title = $title_field->getValue();
+     $this->assertEquals('Walrus', $title);
+     $title_field->setValue('Alpaca');
++    $this->getSession()->switchToIFrame();
+     $this->assertSession()
+       ->elementExists('css', '.ui-dialog-buttonset.form-actions .form-submit')
+       ->press();
+@@ -550,18 +552,14 @@ class EntityReferenceWidgetTest extends EntityBrowserWebDriverTestBase {
+
+     $this->drupalGet('node/7/edit');
+
+-    $correct_order = [
++    $this->assertItemOrder([
+       1 => 'Daisy',
+       2 => 'Gatsby',
+       3 => 'Nick',
+       4 => 'Santa Claus',
+       5 => 'Easter Bunny',
+       6 => 'Pumpkin King',
+-    ];
+-    foreach ($correct_order as $key => $value) {
+-      $this->assertSession()
+-        ->elementContains('xpath', "(//div[contains(@class, 'item-container')])[" . $key . "]", $value);
+-    }
++    ]);
+
+     // In the second set of selections, drag the first item into the second
+     // position.
+@@ -570,32 +568,271 @@ class EntityReferenceWidgetTest extends EntityBrowserWebDriverTestBase {
+     $assert_session->elementsCount('css', $item_selector, 3);
+     $this->sortableAfter("$item_selector:first-child", "$item_selector:nth-child(2)", $list_selector);
+
+-    $correct_order = [
++    $this->assertItemOrder([
+       4 => 'Easter Bunny',
+       5 => 'Santa Claus',
+       6 => 'Pumpkin King',
+-    ];
+-    foreach ($correct_order as $key => $value) {
+-      $this->assertSession()
+-        ->elementContains('xpath', "(//div[contains(@class, 'item-container')])[" . $key . "]", $value);
+-    }
++    ]);
+
+     // Test that order is preserved after removing item.
+-    $this->assertSession()
+-      ->elementExists('xpath', '(//input[contains(@class, "remove-button")])[5]')
+-      ->press();
++    $this->removeItemAtPosition(5);
+
+     $this->waitForAjaxToFinish();
+
+-    $correct_order = [
++    $this->assertItemOrder([
+       4 => 'Easter Bunny',
+       5 => 'Pumpkin King',
+-    ];
++    ]);
+
+-    foreach ($correct_order as $key => $value) {
+-      $this->assertSession()
+-        ->elementContains('xpath', "(//div[contains(@class, 'item-container')])[" . $key . "]", $value);
++  }
++
++  /**
++   * Tests that reorder plus remove functions properly.
++   */
++  public function testDragAndDropAndRemove() {
++
++    // Test reorder plus remove.
++    $current_user = \Drupal::currentUser();
++
++    $file_system = \Drupal::service('file_system');
++
++    $files = [
++      1 => 'file1',
++      2 => 'file2',
++      3 => 'file3',
++      4 => 'file4',
++      5 => 'file5',
++      6 => 'file6',
++      7 => 'file7',
++      8 => 'file8',
++    ];
++    $values = [];
++    foreach ($files as $key => $filename) {
++      $file_system->copy(\Drupal::root() . '/core/misc/druplicon.png', 'public://' . $filename . '.jpg');
++      /** @var \Drupal\file\FileInterface $file */
++      $file = File::create([
++        'uri' => 'public://' . $filename . '.jpg',
++        'uid' => $current_user->id(),
++      ]);
++      $file->save();
++      $values[] = ['target_id' => $file->id()];
+     }
++
++    $node = Node::create(
++      [
++        'title' => 'Testing file sort and remove',
++        'type' => 'article',
++        'field_reference' => $values,
++      ]
++    );
++
++    $node->save();
++    $edit_link = $node->toUrl('edit-form')->toString();
++    $this->drupalGet($edit_link);
++
++    $this->assertItemOrder([
++      1 => 'file1.jpg',
++      2 => 'file2.jpg',
++      3 => 'file3.jpg',
++      4 => 'file4.jpg',
++      5 => 'file5.jpg',
++      6 => 'file6.jpg',
++      7 => 'file7.jpg',
++      8 => 'file8.jpg',
++    ]);
++
++    $list_selector = '[data-drupal-selector="edit-field-reference-current"]';
++    $item_selector = "$list_selector .item-container";
++    $this->sortableAfter("$item_selector:first-child", "$item_selector:nth-child(2)", $list_selector);
++
++    $this->assertItemOrder([
++      1 => 'file2.jpg',
++      2 => 'file1.jpg',
++    ]);
++
++    // Test that order is preserved after removing item.
++    $this->removeItemAtPosition(2);
++
++    $this->assertItemOrder([
++      1 => 'file2.jpg',
++      2 => 'file3.jpg',
++    ]);
++
++    $this->sortableAfter("$item_selector:nth-child(2)", "$item_selector:nth-child(3)", $list_selector);
++
++    $this->assertItemOrder([
++      2 => 'file4.jpg',
++      3 => 'file3.jpg',
++    ]);
++
++    // Test that order is preserved after removing item.
++    $this->removeItemAtPosition(3);
++
++    $this->assertItemOrder([
++      2 => 'file4.jpg',
++      3 => 'file5.jpg',
++    ]);
++
++    $this->sortableAfter("$item_selector:nth-child(3)", "$item_selector:nth-child(4)", $list_selector);
++
++    $this->assertItemOrder([
++      3 => 'file6.jpg',
++      4 => 'file5.jpg',
++    ]);
++
++    // Test that order is preserved after removing item.
++    $this->removeItemAtPosition(4);
++
++    $this->assertItemOrder([
++      3 => 'file6.jpg',
++      4 => 'file7.jpg',
++    ]);
++
++    $this->sortableAfter("$item_selector:first-child", "$item_selector:nth-child(4)", $list_selector);
++
++    $this->assertItemOrder([
++      1 => 'file4.jpg',
++      2 => 'file6.jpg',
++      3 => 'file7.jpg',
++      4 => 'file2.jpg',
++      5 => 'file8.jpg',
++    ]);
++
++    // Test that order is preserved after removing two items.
++    $this->removeItemAtPosition(3);
++    $this->removeItemAtPosition(3);
++
++    $this->assertItemOrder([
++      1 => 'file4.jpg',
++      2 => 'file6.jpg',
++      3 => 'file8.jpg',
++    ]);
++
++    // Test that remove with duplicate items removes the one at the correct
++    // delta.  If you remove file 1 at position 3, it should remove that one,
++    // not the same entity at position 1.
++    $values = [
++      ['target_id' => 1],
++      ['target_id' => 2],
++      ['target_id' => 1],
++      ['target_id' => 3],
++      ['target_id' => 4],
++      ['target_id' => 5],
++    ];
++    $node->field_reference->setValue($values);
++    $node->save();
++
++    $edit_link = $node->toUrl('edit-form')->toString();
++    $this->drupalGet($edit_link);
++
++    $this->assertItemOrder([
++      1 => 'file1.jpg',
++      2 => 'file2.jpg',
++      3 => 'file1.jpg',
++      4 => 'file3.jpg',
++      5 => 'file4.jpg',
++      6 => 'file5.jpg',
++    ]);
++
++    $this->removeItemAtPosition(3);
++
++    $this->assertItemOrder([
++      1 => 'file1.jpg',
++      2 => 'file2.jpg',
++      3 => 'file3.jpg',
++      4 => 'file4.jpg',
++      5 => 'file5.jpg',
++    ]);
++
++    $this->drupalGet($edit_link);
++
++    $this->assertItemOrder([
++      1 => 'file1.jpg',
++      2 => 'file2.jpg',
++      3 => 'file1.jpg',
++      4 => 'file3.jpg',
++      5 => 'file4.jpg',
++      6 => 'file5.jpg',
++    ]);
++
++    $this->removeItemAtPosition(1);
++
++    $this->assertItemOrder([
++      1 => 'file2.jpg',
++      2 => 'file1.jpg',
++      3 => 'file3.jpg',
++      4 => 'file4.jpg',
++      5 => 'file5.jpg',
++    ]);
++
++    // Test that removing item that reduces selection count to less than
++    // cardinality number restores entity browser element.
++    FieldStorageConfig::load('node.field_reference')
++      ->setCardinality(1)
++      ->save();
++
++    $values = [
++      ['target_id' => 1],
++    ];
++    $node->field_reference->setValue($values);
++    $node->save();
++
++    $this->assertSession()->buttonExists('Save')->press();
++
++    // Reopen the form.
++    $edit_link = $node->toUrl('edit-form')->toString();
++    $this->drupalGet($edit_link);
++
++    $this->assertItemOrder([
++      1 => 'file1.jpg',
++    ]);
++    // The entity browser element should not be visible with cardinality 1 and
++    // 1 currently selected item.
++    $this->assertSession()->linkNotExists('Select entities');
++    $this->assertSession()->buttonExists('Remove')->press();
++    $this->waitForAjaxToFinish();
++    // There should be no current selection.
++    $this->assertSession()
++      ->elementNotExists('xpath', "//*[contains(@class, 'item-container')]");
++    // The entity browser element should be visible with cardinality 1 and
++    // no current selection.
++    $this->assertSession()->linkExists('Select entities');
++
++    FieldStorageConfig::load('node.field_reference')
++      ->setCardinality(2)
++      ->save();
++
++    $values = [
++      ['target_id' => 1],
++      ['target_id' => 2],
++    ];
++    $node->field_reference->setValue($values);
++    $node->save();
++
++    // Reopen the form.
++    $edit_link = $node->toUrl('edit-form')->toString();
++    $this->drupalGet($edit_link);
++
++    $this->assertItemOrder([
++      1 => 'file1.jpg',
++      2 => 'file2.jpg',
++    ]);
++    // The entity browser element should not be visible with
++    // cardinality 2 and 2 selections.
++    $this->assertSession()->linkNotExists('Select entities');
++    $this->assertSession()->elementExists('xpath', "(//*[contains(@class, 'item-container')])[2]")
++      ->findButton('Remove')
++      ->press();
++    $this->waitForAjaxToFinish();
++
++    $this->assertItemOrder([
++      1 => 'file1.jpg',
++    ]);
++
++    // The entity browser element should be visible with cardinality 2 and
++    // and a selection count of 1.
++    $this->assertSession()->linkExists('Select entities');
++
+   }
+
+   /**
+diff --git a/tests/src/FunctionalJavascript/ImageFieldTest.php b/tests/src/FunctionalJavascript/ImageFieldTest.php
+index a9ed2b967175cfdca9c4875b0b1272ad12edd5e8..05b1cc650be23183134036694e3749d21a8076ec 100644
+--- a/tests/src/FunctionalJavascript/ImageFieldTest.php
++++ b/tests/src/FunctionalJavascript/ImageFieldTest.php
+@@ -140,14 +140,14 @@ class ImageFieldTest extends EntityBrowserWebDriverTestBase {
+     $this->getSession()->switchToIFrame();
+     // Check if the image thumbnail exists.
+     $this->assertSession()
+-      ->waitForElementVisible('xpath', '//tr[@data-drupal-selector="edit-field-image-current-1"]');
++      ->waitForElementVisible('xpath', '//tr[@data-drupal-selector="edit-field-image-current-0"]');
+     // Test if the image filename is present.
+     $this->assertSession()->pageTextContains('example.jpg');
+     // Test specifying Alt and Title texts and saving the node.
+     $alt_text = 'Test alt text.';
+     $title_text = 'Test title text.';
+-    $this->getSession()->getPage()->fillField('field_image[current][1][meta][alt]', $alt_text);
+-    $this->getSession()->getPage()->fillField('field_image[current][1][meta][title]', $title_text);
++    $this->getSession()->getPage()->fillField('field_image[current][0][meta][alt]', $alt_text);
++    $this->getSession()->getPage()->fillField('field_image[current][0][meta][title]', $title_text);
+     $this->getSession()->getPage()->fillField('title[0][value]', 'Node 1');
+     $this->getSession()->getPage()->pressButton('Save');
+     $this->assertSession()->pageTextContains('Article Node 1 has been created.');
+@@ -256,4 +256,193 @@ class ImageFieldTest extends EntityBrowserWebDriverTestBase {
+     $this->assertStringContainsString('entity-browser-test', $file->getFileUri());
+   }
+
++  /**
++   * Tests that reorder plus remove functions properly.
++   */
++  public function testDragAndDropAndRemove() {
++    $current_user = \Drupal::currentUser();
++    $file_system = \Drupal::service('file_system');
++
++    $files = [
++      1 => 'file1',
++      2 => 'file2',
++      3 => 'file3',
++      4 => 'file4',
++      5 => 'file5',
++      6 => 'file6',
++      7 => 'file7',
++      8 => 'file8',
++    ];
++    $values = [];
++    foreach ($files as $filename) {
++      $file_system->copy(\Drupal::root() . '/core/misc/druplicon.png', 'public://' . $filename . '.jpg');
++      /** @var \Drupal\file\FileInterface $file */
++      $file = File::create([
++        'uri' => 'public://' . $filename . '.jpg',
++        'uid' => $current_user->id(),
++      ]);
++      $file->save();
++      $values[] = ['target_id' => $file->id()];
++    }
++
++    $node = Node::create(
++      [
++        'title' => 'Testing file sort and remove',
++        'type' => 'article',
++        'field_image' => $values,
++      ]
++    );
++    $node->save();
++
++    $edit_link = $node->toUrl('edit-form')->toString();
++    $this->drupalGet($edit_link);
++
++    $this->assertItemOrder([
++      1 => 'file1.jpg',
++      2 => 'file2.jpg',
++      3 => 'file3.jpg',
++      4 => 'file4.jpg',
++      5 => 'file5.jpg',
++      6 => 'file6.jpg',
++      7 => 'file7.jpg',
++      8 => 'file8.jpg',
++    ]);
++
++    $file1_handle = $this->assertSession()->elementExists('xpath', "(//a[contains(@class, 'tabledrag-handle')])[1]");
++    $file2 = $this->assertSession()->elementExists('xpath', "(//tr[contains(@class, 'item-container')])[2]");
++    $file1_handle->dragTo($file2);
++
++    $this->assertItemOrder([
++      1 => 'file2.jpg',
++      2 => 'file1.jpg',
++    ]);
++
++    // Test that order is preserved after removing item.
++    $this->removeItemAtPosition(2);
++
++    $this->assertItemOrder([
++      1 => 'file2.jpg',
++      2 => 'file3.jpg',
++    ]);
++
++    $file3 = $this->assertSession()->elementExists('xpath', "(//tr[contains(@class, 'item-container')])[2]");
++    $this->dragDropElement($file3, 160, 0);
++
++    $file3_handle = $this->assertSession()->elementExists('xpath', "(//a[contains(@class, 'tabledrag-handle')])[2]");
++    $file4 = $this->assertSession()->elementExists('xpath', "(//tr[contains(@class, 'item-container')])[3]");
++    $file3_handle->dragTo($file4);
++
++    $this->assertItemOrder([
++      2 => 'file4.jpg',
++      3 => 'file3.jpg',
++    ]);
++
++    // Test that order is preserved after removing item.
++    $this->removeItemAtPosition(3);
++
++    $this->assertItemOrder([
++      2 => 'file4.jpg',
++      3 => 'file5.jpg',
++    ]);
++
++    $file5 = $this->assertSession()->elementExists('xpath', "(//tr[contains(@class, 'item-container')])[3]");
++    $this->dragDropElement($file5, 160, 0);
++
++    $file5_handle = $this->assertSession()->elementExists('xpath', "(//a[contains(@class, 'tabledrag-handle')])[3]");
++    $file6 = $this->assertSession()->elementExists('xpath', "(//tr[contains(@class, 'item-container')])[4]");
++    $file5_handle->dragTo($file6);
++
++    $this->assertItemOrder([
++      3 => 'file6.jpg',
++      4 => 'file5.jpg',
++    ]);
++
++    // Test that order is preserved after removing item.
++    $this->removeItemAtPosition(4);
++
++    $this->assertItemOrder([
++      3 => 'file6.jpg',
++      4 => 'file7.jpg',
++    ]);
++
++    $file2_handle = $this->assertSession()->elementExists('xpath', "(//a[contains(@class, 'tabledrag-handle')])[1]");
++    $file8 = $this->assertSession()->elementExists('xpath', "(//tr[contains(@class, 'item-container')])[5]");
++    $file2_handle->dragTo($file8);
++
++    $this->assertItemOrder([
++      1 => 'file4.jpg',
++      2 => 'file6.jpg',
++      3 => 'file7.jpg',
++      4 => 'file8.jpg',
++      5 => 'file2.jpg',
++    ]);
++
++    // Test that order is preserved after removing two items.
++    $this->removeItemAtPosition(3);
++    $this->removeItemAtPosition(4);
++
++    $this->assertItemOrder([
++      1 => 'file4.jpg',
++      2 => 'file6.jpg',
++      3 => 'file8.jpg',
++    ]);
++
++    // Test that remove with duplicate items removes the one at the
++    // correct delta.  If you remove file 1 at position 3, it should
++    // remove that one, not the same entity at position 1.
++    $values = [
++      ['target_id' => 2],
++      ['target_id' => 3],
++      ['target_id' => 2],
++      ['target_id' => 4],
++      ['target_id' => 5],
++      ['target_id' => 6],
++    ];
++    $node->field_image->setValue($values);
++    $node->save();
++
++    $edit_link = $node->toUrl('edit-form')->toString();
++    $this->drupalGet($edit_link);
++
++    $this->assertItemOrder([
++      1 => 'file1.jpg',
++      2 => 'file2.jpg',
++      3 => 'file1.jpg',
++      4 => 'file3.jpg',
++      5 => 'file4.jpg',
++      6 => 'file5.jpg',
++    ]);
++
++    $this->removeItemAtPosition(3);
++
++    $this->assertItemOrder([
++      1 => 'file1.jpg',
++      2 => 'file2.jpg',
++      3 => 'file3.jpg',
++      4 => 'file4.jpg',
++      5 => 'file5.jpg',
++    ]);
++
++    $this->drupalGet($edit_link);
++
++    $this->assertItemOrder([
++      1 => 'file1.jpg',
++      2 => 'file2.jpg',
++      3 => 'file1.jpg',
++      4 => 'file3.jpg',
++      5 => 'file4.jpg',
++      6 => 'file5.jpg',
++    ]);
++
++    $this->removeItemAtPosition(1);
++
++    $this->assertItemOrder([
++      1 => 'file2.jpg',
++      2 => 'file1.jpg',
++      3 => 'file3.jpg',
++      4 => 'file4.jpg',
++      5 => 'file5.jpg',
++    ]);
++  }
++
+ }

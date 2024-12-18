@@ -18,8 +18,6 @@ dependencies:
   module:
     - field_group
     - layout_builder
-    - link
-    - social_media_links_field
     - user
 third_party_settings:
   field_group:
@@ -30,7 +28,7 @@ third_party_settings:
       label: 'Meta tags'
       parent_name: ''
       region: hidden
-      weight: 4
+      weight: 14
       format_type: fieldset
       format_settings:
         classes: ''
@@ -44,43 +42,6 @@ targetEntityType: node
 bundle: office
 mode: connect_with_us
 content:
-  field_email_updates_link:
-    type: link
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_external_link:
-    type: link
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_social_media_links:
-    type: social_media_links_field_default
-    label: hidden
-    settings:
-      appearance:
-        orientation: v
-        show_name: '1'
-      link_attributes:
-        target: '<none>'
-        rel: '<none>'
-    third_party_settings: {  }
-    weight: 2
-    region: content
   flag_email_node:
     settings: {  }
     third_party_settings: {  }
@@ -97,10 +58,13 @@ hidden:
   field_administration: true
   field_body: true
   field_description: true
+  field_email_updates_link: true
+  field_external_link: true
   field_last_saved_by_an_editor: true
   field_meta_tags: true
   field_office_id: true
   field_parent_office: true
+  field_social_media_links: true
   langcode: true
   links: true
   search_api_excerpt: true

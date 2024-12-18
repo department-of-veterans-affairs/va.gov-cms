@@ -45,8 +45,32 @@ class FormBuilderBaseTest extends VaGovUnitTestBase {
 
     $form = $this->classInstance->buildForm($form, $formStateMock);
 
+    // Title.
     $this->assertArrayHasKey('#title', $form);
     $this->assertEquals($form['#title'], 'Form Builder');
+
+    // CSS.
+    $this->assertArrayHasKey('#attached', $form);
+
+    // 1. Form Builder Library.
+    $this->assertArrayHasKey('html_head', $form['#attached']);
+    $this->assertNotEmpty($form['#attached']['html_head']);
+
+    $found = FALSE;
+    foreach ($form['#attached']['html_head'] as $html_head_item) {
+      if (
+        isset($html_head_item[0]['#attributes']['href']) &&
+        $html_head_item[0]['#attributes']['href'] === 'https://unpkg.com/@department-of-veterans-affairs/css-library@0.16.0/dist/tokens/css/variables.css'
+      ) {
+        $found = TRUE;
+        break;
+      }
+    }
+    $this->assertTrue($found, 'The html_head array contains a link with the unpkg token url.');
+
+    // 2. External CSS.
+    $this->assertArrayHasKey('library', $form['#attached']);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles', $form['#attached']['library']);
   }
 
 }

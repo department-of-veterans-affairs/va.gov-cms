@@ -8,8 +8,8 @@ use Drupal\node\Entity\Node;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderNodeBase;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
-use tests\phpunit\va_gov_form_builder\Traits\AnonymousFormClass;
 use Tests\Support\Classes\VaGovUnitTestBase;
+use tests\phpunit\va_gov_form_builder\Traits\AnonymousFormClass;
 
 /**
  * Unit tests for the abstract class FormBuilderNodeBase.
@@ -140,6 +140,37 @@ class FormBuilderNodeBaseTest extends VaGovUnitTestBase {
     $formStateMock = $this->createMock(FormStateInterface::class);
     $formStateMock->expects($this->never())
       ->method('setErrorByName');
+
+    $this->classInstance->validateForm($form, $formStateMock);
+  }
+
+  /**
+   * Test the validateForm method with a deeply-nested violation path.
+   */
+  public function testValidateFormWithNestedViolationPath() {
+    $digitalFormNode = $this->createMock(Node::class);
+
+    // Has violation with a nested path; should raise an error the same way
+    // as if the path were not nested (on `test_field_1`).
+    $violationList = new ConstraintViolationList([
+      new ConstraintViolation('Invalid value 1', '', [], '', 'test_field_1.0.value', 'Invalid value'),
+    ]);
+
+    $digitalFormNode->method('validate')->willReturn($violationList);
+
+    $reflection = new \ReflectionClass($this->classInstance);
+    $digitalFormNodeProperty = $reflection->getProperty('digitalFormNode');
+    $digitalFormNodeProperty->setAccessible(TRUE);
+    $digitalFormNodeProperty->setValue($this->classInstance, $digitalFormNode);
+
+    $form = [];
+
+    $formStateMock = $this->createMock(FormStateInterface::class);
+    $formStateMock->expects($this->exactly(1))
+      ->method('setErrorByName')
+      ->withConsecutive(
+        ['test_field_1', 'Invalid value 1'],
+      );
 
     $this->classInstance->validateForm($form, $formStateMock);
   }

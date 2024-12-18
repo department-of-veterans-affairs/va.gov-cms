@@ -159,7 +159,6 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_facility_data_from_vast
-        - field_mental_health_phone
       label: 'Locations and contact information'
       region: content
       parent_name: ''
@@ -219,6 +218,23 @@ third_party_settings:
         effect: none
         speed: fast
         required_fields: false
+    group_mental_health_phone_number:
+      children:
+        - field_mental_health_phone
+        - field_telephone
+      label: 'Mental health phone number'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        label_as_html: false
+        description: 'Enter the number Veterans should call to access mental health services at your facility. If your facility doesn''t offer these services, enter the most appropriate system number. This number will be displayed everywhere your facility appears across VA.gov. <a href="/help/va-medical-centers-vamcs/about-locations-content-for-vamcs/how-to-edit-a-vamc-facility"  target="_blank">View guidelines for editing VAMC facilities (opens in a new tab)</a>'
+        required_fields: true
+        description_display: after
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
@@ -307,7 +323,7 @@ content:
     third_party_settings: {  }
   field_main_location:
     type: boolean_checkbox
-    weight: 22
+    weight: 21
     region: content
     settings:
       display_label: true
@@ -374,31 +390,17 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_telephone:
-    type: paragraphs
-    weight: 1
+    type: entity_reference_paragraphs
+    weight: 22
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
+      title: 'phone number'
+      title_plural: 'phone number'
       edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
+      add_mode: button
       form_display_mode: default
       default_paragraph_type: phone_number
-      features:
-        add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        convert: '0'
-        duplicate: duplicate
-    third_party_settings:
-      paragraphs_features:
-        add_in_between: false
-        add_in_between_link_count: 3
-        delete_confirmation: false
-        show_drag_and_drop: true
-        show_collapse_all: true
+    third_party_settings: {  }
   field_timezone:
     type: tzfield_default
     weight: 30
