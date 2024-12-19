@@ -54,8 +54,18 @@ class AddPhilippinesAsStateSubscriberTest extends UnitTestCase {
     /** @var \Prophecy\Prophecy\ObjectProphecy|\Drupal\address\Event\SubdivisionsEvent $event */
     $event = $this->prophesize(SubdivisionsEvent::class);
 
-    // Mock the getParents method to return ['US'].
-    $event->getParents()->willReturn(['US']);
+    // Configure the prophecy to return specific values for getDefinitions().
+    $definitions = [
+      'subdivisions' => [
+        'CA' => [
+          'code' => 'CA',
+          'name' => 'California',
+          'country_code' => 'US',
+          'id' => 'CA',
+        ],
+      ],
+    ];
+    $event->getDefinitions()->willReturn($definitions);
 
     // Set up expected calls for getParents() and setDefinitions().
     $event->getParents()->willReturn(['US']);
@@ -74,7 +84,7 @@ class AddPhilippinesAsStateSubscriberTest extends UnitTestCase {
    *
    * @covers ::onSubdivisions
    */
-  public function testOnSubdivisionsNonUS() {
+  public function testOnSubdivisionsNonUs() {
     // Create a mock event.
     /** @var \Prophecy\Prophecy\ObjectProphecy|\Drupal\address\Event\SubdivisionsEvent $event */
     $event = $this->prophesize(SubdivisionsEvent::class);
