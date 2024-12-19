@@ -14,9 +14,6 @@ abstract class FormBuilderBase extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['#theme'] = 'va_gov_form_builder';
-    $form['#title'] = $this->t('Form Builder');
-
     // Add styles.
     $form['#attached']['html_head'][] = [
       [
