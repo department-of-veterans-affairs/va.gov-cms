@@ -30,5 +30,5 @@ Facility CMS link: <insert_facility_link>
 
 ## Facilities PM / DM tasks
 - [ ] Verify that TeamSite redirect is complete
-- [ ] Verify that Facility Locator / LIghthouse redirect is complete
+- [ ] Verify that Facility Locator search results return the modernized URL for the facility
 - [ ] Notify VBA leadership, with CMS Helpdesk in cc, of completed launch, including: link to live Regional Office page(s), [VBA KB landing page](https://prod.cms.va.gov/help/veterans-benefits-administration-vba)
