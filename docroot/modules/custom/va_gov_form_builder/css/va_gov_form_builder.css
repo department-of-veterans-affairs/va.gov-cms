@@ -1,4 +1,92 @@
 /* page container */
-.va-gov-form-builder-page-container {
+.form-builder-page-container {
   font-family: var(--font-family-serif);
+}
+
+/* headings */
+.form-builder-page-container h1 {
+  font-size: var(--vads-font-size-heading-level-1);
+  line-height: var(--units-6);
+}
+
+.form-builder-page-container h2 {
+  font-size: var(--vads-font-size-heading-level-2);
+}
+
+.form-builder-page-container h2 {
+  font-size: var(--vads-font-size-heading-level-2);
+}
+
+.form-builder-page-container h3 {
+  font-size: var(--vads-font-size-heading-level-3);
+}
+
+.form-builder-page-container h4 {
+  font-size: var(--vads-font-size-heading-level-4);
+}
+
+.form-builder-page-container h5 {
+  font-size: var(--vads-font-size-heading-level-5);
+}
+
+.form-builder-page-container h6 {
+  font-size: var(--vads-font-size-heading-level-6);
+}
+
+/* header */
+.form-builder-header {
+  background-color: var(--va-blue-darkest);
+  color: var(--va-white);
+  padding-top: var(--units-1);
+}
+
+/* layout container */
+.form-builder-layout-container {
+  margin: 0 var(--units-7);
+}
+
+/* title */
+.form-builder-title {
+  margin-bottom: var(--units-1p5);
+}
+
+/* navbar */
+.form-builder-navbar__nav {
+  display: flex;
+}
+
+.form-builder-navbar__tabs {
+  display: flex;
+  gap: var(--units-5);
+  list-style: none;
+  margin: 0;
+}
+
+.form-builder-navbar__tab {
+  min-width: 100px;
+  padding: var(--units-1);
+  position: relative;
+  text-align: center;
+}
+
+.form-builder-navbar__tab--active {
+  border-bottom: var(--units-0p5) solid var(--uswds-system-color-gold-vivid-20);
+}
+
+.form-builder-navbar__link {
+  color: var(--vads-color-white);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--vads-font-line-height-default);
+  text-decoration: none;
+}
+
+.form-builder-navbar__link:hover {
+  background: transparent;
+  color: var(--vads-color-white);
+}
+
+.form-builder-navbar__tab--active .form-builder-navbar__link,
+.form-builder-navbar__tab--active .form-builder-navbar__link:hover {
+  color: var(--uswds-system-color-gold-vivid-20);
 }
