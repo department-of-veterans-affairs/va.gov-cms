@@ -1,5 +1,5 @@
-@content_type__event
-Feature: Content Type: Event
+@content_type__event, @content_editing_vamc_facility
+Feature: Content Types: Event, VAMC Facility
 
 Scenario: Log in and create Event as a Manila editor
   When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
@@ -18,3 +18,12 @@ Scenario: Log in and create Event as a Manila editor
   And I fill in "Revision log message" with "[TEST] Revision log message"
   And I click the "Save" button
   Then I should be at "manila-va-clinic"
+
+Scenario: Log in and edit the Manila VA Clinic
+  When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
+  And my workbench access sections are set to "1187"
+  Then I am at "/node/1059/edit"
+  And I select option "Published" from dropdown "Save as"
+  And I fill in "Revision log message" with "[TEST] Revision log message"
+  And I click the "Save" button
+  Then I should not be at "/manila-va-clinic/locations/manila-va-clinic"
