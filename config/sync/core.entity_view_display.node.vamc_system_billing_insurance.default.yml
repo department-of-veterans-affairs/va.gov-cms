@@ -14,7 +14,6 @@ dependencies:
     - field.field.node.vamc_system_billing_insurance.field_non_clinical_services
     - field.field.node.vamc_system_billing_insurance.field_office
     - field.field.node.vamc_system_billing_insurance.field_office_hours
-    - field.field.node.vamc_system_billing_insurance.field_phone_number
     - field.field.node.vamc_system_billing_insurance.field_service_name_and_descripti
     - field.field.node.vamc_system_billing_insurance.field_telephone
     - node.type.vamc_system_billing_insurance
@@ -24,7 +23,6 @@ dependencies:
     - entity_reference_revisions
     - field_group
     - office_hours
-    - telephone
     - user
     - viewfield
 third_party_settings:
@@ -187,14 +185,6 @@ content:
         enabled: false
     third_party_settings: {  }
     weight: 2
-    region: content
-  field_phone_number:
-    type: telephone_link
-    label: above
-    settings:
-      title: ''
-    third_party_settings: {  }
-    weight: 0
     region: content
   field_telephone:
     type: entity_reference_revisions_entity_view
