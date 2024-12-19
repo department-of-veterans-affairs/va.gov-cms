@@ -1,0 +1,17 @@
+uuid: 60db9e4b-4688-4ec6-ac1d-3038672ec705
+langcode: en
+status: true
+dependencies: {  }
+id: content_worfkow
+label: 'Content Worfkow'
+backend: database
+backend_configuration:
+  lease_time: 30
+processor: cron
+processing_time: 10
+locked: false
+stop_when_empty: true
+threshold:
+  type: 2
+  limit: 30
+  state: all

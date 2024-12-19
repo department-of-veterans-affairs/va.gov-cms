@@ -1,0 +1,93 @@
+uuid: 57d6c892-1d53-4ebe-ae60-b4dd61d53248
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.banner.field_last_saved_by_an_editor
+    - field.field.node.basic_landing_page.field_last_saved_by_an_editor
+    - field.field.node.campaign_landing_page.field_last_saved_by_an_editor
+    - field.field.node.centralized_content.field_last_saved_by_an_editor
+    - field.field.node.checklist.field_last_saved_by_an_editor
+    - field.field.node.digital_form.field_last_saved_by_an_editor
+    - field.field.node.documentation_page.field_last_saved_by_an_editor
+    - field.field.node.event.field_last_saved_by_an_editor
+    - field.field.node.event_listing.field_last_saved_by_an_editor
+    - field.field.node.faq_multiple_q_a.field_last_saved_by_an_editor
+    - field.field.node.full_width_banner_alert.field_last_saved_by_an_editor
+    - field.field.node.health_care_local_facility.field_last_saved_by_an_editor
+    - field.field.node.health_care_local_health_service.field_last_saved_by_an_editor
+    - field.field.node.health_care_region_detail_page.field_last_saved_by_an_editor
+    - field.field.node.health_care_region_page.field_last_saved_by_an_editor
+    - field.field.node.health_services_listing.field_last_saved_by_an_editor
+    - field.field.node.landing_page.field_last_saved_by_an_editor
+    - field.field.node.leadership_listing.field_last_saved_by_an_editor
+    - field.field.node.locations_listing.field_last_saved_by_an_editor
+    - field.field.node.media_list_images.field_last_saved_by_an_editor
+    - field.field.node.media_list_videos.field_last_saved_by_an_editor
+    - field.field.node.nca_facility.field_last_saved_by_an_editor
+    - field.field.node.news_story.field_last_saved_by_an_editor
+    - field.field.node.office.field_last_saved_by_an_editor
+    - field.field.node.outreach_asset.field_last_saved_by_an_editor
+    - field.field.node.page.field_last_saved_by_an_editor
+    - field.field.node.person_profile.field_last_saved_by_an_editor
+    - field.field.node.press_release.field_last_saved_by_an_editor
+    - field.field.node.press_releases_listing.field_last_saved_by_an_editor
+    - field.field.node.promo_banner.field_last_saved_by_an_editor
+    - field.field.node.publication_listing.field_last_saved_by_an_editor
+    - field.field.node.q_a.field_last_saved_by_an_editor
+    - field.field.node.regional_health_care_service_des.field_last_saved_by_an_editor
+    - field.field.node.service_region.field_last_saved_by_an_editor
+    - field.field.node.step_by_step.field_last_saved_by_an_editor
+    - field.field.node.story_listing.field_last_saved_by_an_editor
+    - field.field.node.support_resources_detail_page.field_last_saved_by_an_editor
+    - field.field.node.support_service.field_last_saved_by_an_editor
+    - field.field.node.va_form.field_last_saved_by_an_editor
+    - field.field.node.vamc_operating_status_and_alerts.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_billing_insurance.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_medical_records_offi.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_policies_page.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_register_for_care.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_va_police.field_last_saved_by_an_editor
+    - field.field.node.vba_facility.field_last_saved_by_an_editor
+    - field.field.node.vba_facility_service.field_last_saved_by_an_editor
+    - field.field.node.vet_center.field_last_saved_by_an_editor
+    - field.field.node.vet_center_cap.field_last_saved_by_an_editor
+    - field.field.node.vet_center_facility_health_servi.field_last_saved_by_an_editor
+    - field.field.node.vet_center_locations_list.field_last_saved_by_an_editor
+    - field.field.node.vet_center_mobile_vet_center.field_last_saved_by_an_editor
+    - field.field.node.vet_center_outstation.field_last_saved_by_an_editor
+    - field.field.node.vha_facility_nonclinical_service.field_last_saved_by_an_editor
+    - field.storage.node.field_last_saved_by_an_editor
+    - node.type.vba_facility
+  module:
+    - eca_workflow
+    - va_gov_eca
+id: workflow_vba_facility_as_draft
+modeller: core
+label: 'Workflow: VBA Facility as Draft'
+version: null
+weight: 0
+events:
+  workflow_transition:
+    plugin: 'workflow:transition'
+    label: 'Workflow: state transition'
+    configuration:
+      type: 'node vba_facility'
+      from_state: ''
+      to_state: draft
+    successors:
+      -
+        id: create_advancedqueue_job
+        condition: null
+conditions: {  }
+gateways: {  }
+actions:
+  create_advancedqueue_job:
+    plugin: create_advancedqueue_job
+    label: 'Create an AdvancedQueue Job and optionally enqueue it.'
+    configuration:
+      token_name: job
+      type: va_gov_workflow_content_notification
+      payload: "template_values:\r\n    uid: \"[entity:revision_uid:target_id]\"\r\n    template: vba_facility_draft_content\r\nmail:\r\n    - WEBADMIN.VBACO@va.gov\r\nvalues:\r\n    field_last_updated_by_editor: \"[entity:field_last_saved_by_an_editor:date:medium]\"\r\n    field_target_node_path: \"[entity:url:path]\"\r\n    field_target_node_title: \"[entity:title]\"\r\n"
+      queue: content_worfkow
+    successors: {  }
