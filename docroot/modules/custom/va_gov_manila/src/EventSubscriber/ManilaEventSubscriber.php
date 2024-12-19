@@ -10,7 +10,6 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\node\NodeInterface;
 use Drupal\path_alias\Entity\PathAlias;
@@ -91,21 +90,9 @@ class ManilaEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
-      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       EntityHookEvents::ENTITY_BUNDLE_FIELD_INFO_ALTER => 'alterFieldInfo',
     ];
-  }
-
-  /**
-   * Entity presave Event call.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
-   *   The event.
-   */
-  public function entityPresave(EntityPresaveEvent $event): void {
-    $entity = $event->getEntity();
-    $this->blockManilaPathauto($entity);
   }
 
   /**
@@ -165,27 +152,6 @@ class ManilaEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Disable pathauto for Manila nodes.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   */
-  protected function blockManilaPathauto(EntityInterface $entity): void {
-    if (($entity instanceof NodeInterface)
-    && ($entity->hasField('path'))
-    && ($entity->hasField('field_administration'))) {
-      $section_id = $entity->get('field_administration')->target_id;
-      if ($section_id !== $this->manilaVaSystemId) {
-        return;
-      }
-
-      // If this node is in a Manila section disable pathauto pattern.
-      // @phpstan-ignore-next-line
-      $entity->path->pathauto = 0;
-    }
-  }
-
-  /**
    * Update path aliases for Manila content.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -237,21 +203,34 @@ class ManilaEventSubscriber implements EventSubscriberInterface {
    *   An array of Pathalias objects.
    */
   protected function generateValidAliases(array $prefixes, NodeInterface $node): array {
-    $new_url = $this->pathautoGenerator->createEntityAlias($node, 'return');
-    $url_pieces = explode('/', $new_url);
-    $new_aliases = [];
-    foreach ($prefixes as $prefix) {
-      // Replace the first segment and use the rest.
-      $url = "/{$prefix}/" . implode('/', array_slice($url_pieces, 2));
-      // Remove trailing -0 from using the menu parent for VAMC detail pages.
-      // This also applies to leadership pages.
-      $url = preg_replace('/-0$/', '', $url);
+    // If this is a Manila VA Clinic node use a specific alias.
+    $bundle_type = $node->bundle();
+    if ($bundle_type === 'health_care_local_facility') {
       $new_alias = PathAlias::Create([
         'path' => "/node/{$node->id()}",
-        'alias' => $url,
+        'alias' => '/manila-va-clinic',
         'langcode' => $node->language()->getId(),
       ]);
-      $new_aliases[] = $new_alias;
+      $new_aliases = [$new_alias];
+    }
+    else {
+      // Use the Pathauto module alias pattern for all other content types.
+      $new_url = $this->pathautoGenerator->createEntityAlias($node, 'return');
+      $url_pieces = explode('/', $new_url);
+      $new_aliases = [];
+      foreach ($prefixes as $prefix) {
+        // Replace the first segment and use the rest.
+        $url = "/{$prefix}/" . implode('/', array_slice($url_pieces, 2));
+        // Remove trailing -0 from using the menu parent for VAMC detail pages.
+        // This also applies to leadership pages.
+        $url = preg_replace('/-0$/', '', $url);
+        $new_alias = PathAlias::Create([
+          'path' => "/node/{$node->id()}",
+          'alias' => $url,
+          'langcode' => $node->language()->getId(),
+        ]);
+        $new_aliases[] = $new_alias;
+      }
     }
     return $new_aliases;
   }
