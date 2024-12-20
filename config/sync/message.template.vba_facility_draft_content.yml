@@ -1,0 +1,22 @@
+uuid: 57cf55b3-98e2-45cd-8411-cf80b635f06a
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: vba_facility_draft_content
+label: 'VBA Facility: Draft Content'
+description: 'Email for VBA Facility moving to Draft Workflow State'
+text:
+  -
+    value: '<p>Drupal content changes</p>'
+    format: rich_text
+  -
+    value: '<p>Changes were made to <a href="https://prod.cms.va.gov[message:field_target_node_path]">[message:field_target_node_title]</a> on [message:field_last_updated_by_editor], and saved as draft.<br>Please review the changes at your earliest convenience.</p><p>To approve and publish the draft content,</p><ol><li>Scroll down to the Editorial workflow and click to select <strong>Save as Published</strong>.</li><li>Enter "Approved" as a <strong>Revision log message</strong>.</li><li>Click <strong>Save</strong>.</li></ol><p>The content will be queued for release and available on the page following the next successful content deployment.</p><p>If you need to reject the changes,</p><ol><li>Scroll down to the Editorial workflow and click to select <strong>Save as In review</strong>.</li><li>Enter an explanation for the rejection into the Revision log message field.</li><li>Click Save.</li></ol>'
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }
