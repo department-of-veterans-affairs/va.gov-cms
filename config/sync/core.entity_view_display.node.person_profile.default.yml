@@ -16,7 +16,6 @@ dependencies:
     - field.field.node.person_profile.field_meta_tags
     - field.field.node.person_profile.field_name_first
     - field.field.node.person_profile.field_office
-    - field.field.node.person_profile.field_phone_number
     - field.field.node.person_profile.field_photo_allow_hires_download
     - field.field.node.person_profile.field_suffix
     - field.field.node.person_profile.field_telephone
@@ -27,7 +26,6 @@ dependencies:
     - field_group
     - file
     - media
-    - telephone
     - text
     - user
 third_party_settings:
@@ -121,14 +119,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 1
-    region: content
-  field_phone_number:
-    type: telephone_link
-    label: above
-    settings:
-      title: ''
-    third_party_settings: {  }
-    weight: 7
     region: content
   field_suffix:
     type: string
