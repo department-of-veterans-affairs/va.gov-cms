@@ -4,8 +4,8 @@ namespace tests\phpunit\va_gov_address\unit\EventSubscriber;
 
 use Drupal\address\Event\AddressEvents;
 use Drupal\address\Event\SubdivisionsEvent;
-use Drupal\va_gov_address\EventSubscriber\AddPhilippinesAsStateSubscriber;
 use Drupal\Tests\UnitTestCase;
+use Drupal\va_gov_address\EventSubscriber\AddPhilippinesAsStateSubscriber;
 use Prophecy\Argument;
 
 /**
