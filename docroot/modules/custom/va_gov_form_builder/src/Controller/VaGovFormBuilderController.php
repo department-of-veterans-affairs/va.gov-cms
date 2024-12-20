@@ -63,8 +63,15 @@ class VaGovFormBuilderController extends ControllerBase {
     return [
       '#type' => 'page',
       'content' => $form,
+      // Add custom data.
       'form_builder_page_data' => [
         'active_tab' => $this->activeTab,
+      ],
+      // Add styles.
+      '#attached' => [
+        'library' => [
+          'va_gov_form_builder/va_gov_form_builder_styles',
+        ],
       ],
     ];
   }
