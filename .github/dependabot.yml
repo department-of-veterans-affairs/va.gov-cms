@@ -1,85 +1,245 @@
 version: 2
 updates:
-- package-ecosystem: composer
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "20:00"
-    timezone: US/Eastern
-  open-pull-requests-limit: 25
-  allow:
-  - dependency-type: direct
-  ignore:
-  - dependency-name: aws/aws-sdk-php
-    update-types:
-    - version-update:semver-patch
-  - dependency-name: bower-asset/dropzone
-    versions:
-    - ">= 5.7.a"
-    - "< 5.8"
-  - dependency-name: drupal/admin_toolbar
-    versions:
-    - ">= 2.a"
-    - "< 3"
-  # Ignore Drupal core updates;
-  # Dependabot can't perform all the necessary steps.
-  - dependency-name: drupal/core*
-  - dependency-name: drupal/linkit
-    versions:
-    - ">= 6.a"
-    - "< 7"
-  - dependency-name: drupal/rest_menu_tree
-    versions:
-    - ">= 2.a"
-    - "< 3"
-  - dependency-name: drupal/uswds
-    versions:
-    - ">= 2.a"
-    - "< 3"
-  - dependency-name: drupal/views_bulk_operations
-    versions:
-    - ">= 3.a"
-    - "< 4"
-  - dependency-name: drush/drush
-    versions:
-    - ">= 10.a"
-    - "< 11"
-  - dependency-name: ezyang/htmlpurifier
-    versions:
-    - ">= 4.13.a"
-    - "< 4.14"
-  - dependency-name: myclabs/deep-copy
-    versions:
-    - ">= 1.10.a"
-    - "< 1.11"
-  - dependency-name: symfony/browser-kit
-    versions:
-    - "> 4.4.3"
-    - "< 4.5"
-  - dependency-name: symfony/config
-    versions:
-    - ">= 4.a"
-    - "< 5"
-  - dependency-name: symfony/finder
-    versions:
-    - ">= 4.a"
-    - "< 5"
-  - dependency-name: symfony/phpunit-bridge
-    versions:
-    - "> 5.1.2"
-    - "< 5.2"
-  - dependency-name: symfony/validator
-    versions:
-    - "> 3.4.42"
-    - "< 3.5"
-  - dependency-name: webmozart/assert
-    versions:
-    - "> 1.9.0"
-    - "< 1.10"
-  rebase-strategy: disabled
-- package-ecosystem: "github-actions"
-  directory: "/"
-  schedule:
-    # Check for updates to GitHub Actions every week
-    interval: "weekly"
-  open-pull-requests-limit: 10
+  - package-ecosystem: composer
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "20:00"
+      timezone: US/Eastern
+    open-pull-requests-limit: 25
+    allow:
+      - dependency-type: direct
+    ignore:
+      - dependency-name: behat/mink
+      - dependency-name: behat/mink-browserkit-driver
+      - dependency-name: digitalrevolution/php-codesniffer-baseline
+      - dependency-name: drupal/devel
+      - dependency-name: drupal/html_tag_usage
+      - dependency-name: drupal/media_entity_generic
+      - dependency-name: palantirnet/drupal-rector
+      - dependency-name: bower-asset/cropper
+      - dependency-name: caxy/php-htmldiff
+      - dependency-name: composer/installers
+      - dependency-name: consolidation/site-process
+      - dependency-name: cweagans/composer-patches
+      - dependency-name: datadog/dd-trace
+      - dependency-name: dealerdirect/phpcodesniffer-composer-installer
+      - dependency-name: drupal/address
+      - dependency-name: drupal/admin_feedback
+      - dependency-name: drupal/admin_toolbar
+      - dependency-name: drupal/advancedqueue
+      - dependency-name: drupal/allow_only_one
+      - dependency-name: drupal/allowed_formats
+      - dependency-name: drupal/animated_gif
+      - dependency-name: drupal/auto_entitylabel
+      - dependency-name: drupal/better_exposed_filters
+      - dependency-name: drupal/cer
+      - dependency-name: drupal/change_labels
+      - dependency-name: drupal/ckeditor_abbreviation
+      - dependency-name: drupal/clientside_validation
+      - dependency-name: drupal/coder
+      - dependency-name: drupal/codit_batch_operations
+      - dependency-name: drupal/codit_menu_tools
+      - dependency-name: drupal/components
+      - dependency-name: drupal/computed_breadcrumbs
+      - dependency-name: drupal/config_ignore
+      - dependency-name: drupal/config_override_warn
+      - dependency-name: drupal/config_split
+      - dependency-name: drupal/config_view
+      - dependency-name: drupal/config_views
+      - dependency-name: drupal/consumer_image_styles
+      - dependency-name: drupal/consumers
+      - dependency-name: drupal/content_lock
+      - dependency-name: drupal/content_model_documentation
+      - dependency-name: drupal/core-composer-scaffold
+      - dependency-name: drupal/core-recommended
+      - dependency-name: drupal/crop
+      - dependency-name: drupal/csv_serialization
+      - dependency-name: drupal/ctools_block
+      - dependency-name: drupal/default_content_deploy
+      - dependency-name: drupal/devel_entity_updates
+      - dependency-name: drupal/diff
+      - dependency-name: drupal/dropzonejs
+      - dependency-name: drupal/dynamic_entity_reference
+      - dependency-name: drupal/easy_breadcrumb
+      - dependency-name: drupal/eca
+      - dependency-name: drupal/eca_cm
+      - dependency-name: drupal/embed
+      - dependency-name: drupal/entity_block
+      - dependency-name: drupal/entity_browser
+      - dependency-name: drupal/entity_browser_table
+      - dependency-name: drupal/entity_clone
+      - dependency-name: drupal/entity_diff_ui
+      - dependency-name: drupal/entity_field_fetch
+      - dependency-name: drupal/entity_reference_hierarchy
+      - dependency-name: drupal/entity_reference_revisions
+      - dependency-name: drupal/entity_reference_unpublished
+      - dependency-name: drupal/entity_reference_validators
+      - dependency-name: drupal/entity_route_context
+      - dependency-name: drupal/entity_update
+      - dependency-name: drupal/entity_usage
+      - dependency-name: drupal/entity_usage_addons
+      - dependency-name: drupal/entityqueue
+      - dependency-name: drupal/environment_indicator
+      - dependency-name: drupal/epp
+      - dependency-name: drupal/expirable_content
+      - dependency-name: drupal/fast_404
+      - dependency-name: drupal/feature_toggle
+      - dependency-name: drupal/field_group
+      - dependency-name: drupal/fieldhelptext
+      - dependency-name: drupal/flag
+      - dependency-name: drupal/flood_control
+      - dependency-name: drupal/formdazzle
+      - dependency-name: drupal/ga4_google_analytics
+      - dependency-name: drupal/geocoder
+      - dependency-name: drupal/geofield
+      - dependency-name: drupal/geofield_map
+      - dependency-name: drupal/google_analytics
+      - dependency-name: drupal/govdelivery_bulletins
+      - dependency-name: drupal/graphql
+      - dependency-name: drupal/graphql_core
+      - dependency-name: drupal/graphql_menu
+      - dependency-name: drupal/graphql_metatag
+      - dependency-name: drupal/health_check_url
+      - dependency-name: drupal/hierarchy_manager
+      - dependency-name: drupal/hms_field
+      - dependency-name: drupal/hook_event_dispatcher
+      - dependency-name: drupal/ief_table_view_mode
+      - dependency-name: drupal/image_style_warmer
+      - dependency-name: drupal/image_widget_crop
+      - dependency-name: drupal/jsonapi_extras
+      - dependency-name: drupal/jsonapi_hypermedia
+      - dependency-name: drupal/jsonapi_image_styles
+      - dependency-name: drupal/jsonapi_menu_items
+      - dependency-name: drupal/jsonapi_resources
+      - dependency-name: drupal/jsonapi_views
+      - dependency-name: drupal/libraries
+      - dependency-name: drupal/limited_field_widgets
+      - dependency-name: drupal/linkit
+      - dependency-name: drupal/linky
+      - dependency-name: drupal/linkychecker
+      - dependency-name: drupal/linkyreplacer
+      - dependency-name: drupal/markup
+      - dependency-name: drupal/media_file_delete
+      - dependency-name: drupal/memcache
+      - dependency-name: drupal/memcache_admin
+      - dependency-name: drupal/menu_breadcrumb
+      - dependency-name: drupal/menu_export
+      - dependency-name: drupal/menu_force
+      - dependency-name: drupal/menu_item_extras
+      - dependency-name: drupal/menu_link_attributes
+      - dependency-name: drupal/menu_normalizer
+      - dependency-name: drupal/message
+      - dependency-name: drupal/message_notify
+      - dependency-name: drupal/message_subscribe
+      - dependency-name: drupal/message_ui
+      - dependency-name: drupal/metatag
+      - dependency-name: drupal/migrate_plus
+      - dependency-name: drupal/migrate_source_csv
+      - dependency-name: drupal/migrate_source_ui
+      - dependency-name: drupal/migrate_tools
+      - dependency-name: drupal/migration_tools
+      - dependency-name: drupal/mimemail
+      - dependency-name: drupal/monolog
+      - dependency-name: drupal/next
+      - dependency-name: drupal/no_table_drag
+      - dependency-name: drupal/node_link_report
+      - dependency-name: drupal/node_revision_delete
+      - dependency-name: drupal/node_title_help_text
+      - dependency-name: drupal/office_hours
+      - dependency-name: drupal/openapi
+      - dependency-name: drupal/openapi_jsonapi
+      - dependency-name: drupal/openapi_ui
+      - dependency-name: drupal/openapi_ui_swagger
+      - dependency-name: drupal/override_node_options
+      - dependency-name: drupal/paragraphs
+      - dependency-name: drupal/paragraphs_browser
+      - dependency-name: drupal/paragraphs_features
+      - dependency-name: drupal/paragraphs_usage
+      - dependency-name: drupal/password_policy
+      - dependency-name: drupal/password_strength
+      - dependency-name: drupal/path_redirect_import
+      - dependency-name: drupal/pathauto
+      - dependency-name: drupal/pathologic
+      - dependency-name: drupal/pfm
+      - dependency-name: drupal/post_api
+      - dependency-name: drupal/prometheus_exporter
+      - dependency-name: drupal/raven
+      - dependency-name: drupal/rdf
+      - dependency-name: drupal/redirect
+      - dependency-name: drupal/redirect_options
+      - dependency-name: drupal/restui
+      - dependency-name: drupal/role_delegation
+      - dependency-name: drupal/s3fs
+      - dependency-name: drupal/schemata
+      - dependency-name: drupal/search_api
+      - dependency-name: drupal/seckit
+      - dependency-name: drupal/simplesamlphp_auth
+      - dependency-name: drupal/sitewide_alert
+      - dependency-name: drupal/slack
+      - dependency-name: drupal/smart_date
+      - dependency-name: drupal/social_media_links
+      - dependency-name: drupal/string_field_formatter
+      - dependency-name: drupal/styleguide
+      - dependency-name: drupal/tablefield
+      - dependency-name: drupal/taxonomy_entity_index
+      - dependency-name: drupal/taxonomy_menu
+      - dependency-name: drupal/textfield_counter
+      - dependency-name: drupal/tmgmt
+      - dependency-name: drupal/toolbar_menu
+      - dependency-name: drupal/twig_tweak
+      - dependency-name: drupal/tzfield
+      - dependency-name: drupal/upgrade_status
+      - dependency-name: drupal/user_history
+      - dependency-name: drupal/video_embed_media
+      - dependency-name: drupal/viewfield
+      - dependency-name: drupal/views_bulk_edit
+      - dependency-name: drupal/views_bulk_operations
+      - dependency-name: drupal/views_conditional
+      - dependency-name: drupal/views_data_export
+      - dependency-name: drupal/views_local_tasks
+      - dependency-name: drupal/workbench_access
+      - dependency-name: drupal/workbench_menu_access
+      - dependency-name: drush/drush
+      - dependency-name: easyrdf/easyrdf
+      - dependency-name: geocoder-php/mapbox-provider
+      - dependency-name: giggsey/libphonenumber-for-php
+      - dependency-name: gitonomy/gitlib
+      - dependency-name: http-interop/http-factory-guzzle
+      - dependency-name: knplabs/github-api
+      - dependency-name: mglaman/phpstan-drupal
+      - dependency-name: michelf/php-markdown
+      - dependency-name: mikey179/vfsstream
+      - dependency-name: mnsami/composer-custom-directory-installer
+      - dependency-name: npm-asset/dropzone
+      - dependency-name: npm-asset/jquery-validation
+      - dependency-name: npm-asset/yarn
+      - dependency-name: oomphinc/composer-installers-extender
+      - dependency-name: orakili/composer-drupal-info-file-patch-helper
+      - dependency-name: php-http/guzzle7-adapter
+      - dependency-name: phpspec/prophecy
+      - dependency-name: phpspec/prophecy-phpunit
+      - dependency-name: phpstan/phpstan
+      - dependency-name: phpstan/phpstan-deprecation-rules
+      - dependency-name: phpunit/phpunit
+      - dependency-name: querypath/querypath
+      - dependency-name: simplesamlphp/simplesamlphp
+      - dependency-name: squizlabs/php_codesniffer
+      - dependency-name: symfony/browser-kit
+      - dependency-name: symfony/console
+      - dependency-name: symfony/phpunit-bridge
+      - dependency-name: symfony/process
+      - dependency-name: symfony/routing
+      - dependency-name: vlucas/phpdotenv
+      - dependency-name: webflo/drupal-finder
+      - dependency-name: webmozart/path-util
+      - dependency-name: webonyx/graphql-php
+      - dependency-name: weitzman/drupal-test-traits
+      - dependency-name: zaporylie/composer-drupal-optimizations
+    rebase-strategy: disabled
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      # Check for updates to GitHub Actions every week
+      interval: "weekly"
+    open-pull-requests-limit: 10
