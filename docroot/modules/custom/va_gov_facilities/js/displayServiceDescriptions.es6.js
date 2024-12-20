@@ -5,6 +5,9 @@
 (($, Drupal) => {
   Drupal.behaviors.vaGovDisplayServiceDescriptions = {
     attach(context) {
+      if (context !== document) {
+        return;
+      }
       const loadItems = (service) => {
         // Clear out any existing term content.
         if (

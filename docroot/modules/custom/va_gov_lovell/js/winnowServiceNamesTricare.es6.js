@@ -5,6 +5,9 @@
 (($, Drupal) => {
   Drupal.behaviors.vaGovWinnowServiceNamesForTricare = {
     attach(context) {
+      if (context !== document) {
+        return;
+      }
       Drupal.isTricareSystem = (subcontext) => {
         // Lovell - grab VAMC System field (if it exists).
         let tricareSystem = false;

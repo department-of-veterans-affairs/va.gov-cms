@@ -4,10 +4,12 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-
 (function ($, Drupal) {
   Drupal.behaviors.vaGovWinnowServiceNamesForTricare = {
     attach: function attach(context) {
+      if (context !== document) {
+        return;
+      }
       Drupal.isTricareSystem = function (subcontext) {
         var tricareSystem = false;
         var vamcSystemSelector = subcontext.getElementById("edit-field-region-page");
@@ -19,11 +21,9 @@
         }
         return tricareSystem;
       };
-
       var winnowTricareServices = function winnowTricareServices(options) {
         if (options && options.length > 0) {
           var tricareSystem = Drupal.isTricareSystem(context);
-
           options.forEach(function (option) {
             if (!tricareSystem && option.text.includes("(TRICARE)") || tricareSystem && option.text.toLowerCase().includes("vet")) {
               option.classList.add("hidden-option");
@@ -33,7 +33,6 @@
           });
         }
       };
-
       window.addEventListener("DOMContentLoaded", function () {
         var systemSelect = context.getElementById("edit-field-region-page");
         if (systemSelect !== null) {

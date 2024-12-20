@@ -7,6 +7,9 @@
 (function ($, Drupal) {
   Drupal.behaviors.vaGovDisplayServiceDescriptions = {
     attach: function attach(context) {
+      if (context !== document) {
+        return;
+      }
       var loadItems = function loadItems(service) {
         if (context.getElementById(service.id + "-health_service_text_container")) {
           context.getElementById(service.id + "-health_service_text_container").remove();
