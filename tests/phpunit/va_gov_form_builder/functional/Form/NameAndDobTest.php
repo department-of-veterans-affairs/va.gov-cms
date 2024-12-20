@@ -48,7 +48,7 @@ class NameAndDobTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Setup the environment for each test.
+   * Set up the environment for each test.
    */
   public function setUp(): void {
     parent::setUp();
@@ -65,21 +65,29 @@ class NameAndDobTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test the form is accessible to a user with the correct privilege.
+   * Test that the form is accessible to a user with the correct privilege.
    */
   public function testFormLoads() {
     $this->sharedTestFormLoads($this->getFormPageUrl(), 'Collecting Name and Date of birth');
   }
 
   /**
-   * Test the form is not accessible to a user without the correct privilege.
+   * Test that the form is not accessible to a user without privilege.
    */
   public function testFormDoesNotLoad() {
     $this->sharedTestFormDoesNotLoad($this->getFormPageUrl());
   }
 
   /**
-   * Test the form submission adds a chapter when not already present.
+   * Test that the active tab is correct.
+   */
+  public function testActiveTab() {
+    $activeTab = $this->getSession()->getPage()->find('css', '.form-builder-navbar__tab--active');
+    $this->assertTrue($activeTab->hasClass('form-builder-navbar__tab--content'), 'The expected tab is active.');
+  }
+
+  /**
+   * Test that the form submission adds a chapter when not already present.
    */
   public function testFormSubmissionAddsChapter() {
     $formInput = [
@@ -93,7 +101,7 @@ class NameAndDobTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test the form submission does not add a chapter when already present.
+   * Test that the form submission does not add a chapter when already present.
    */
   public function testFormSubmissionDoesNotAddChapter() {
     // Add a chapter to begin.
@@ -116,7 +124,7 @@ class NameAndDobTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test the 'Back' button takes the user back to the start-conversion page.
+   * Test that the 'Back' button takes the user to the start-conversion page.
    */
   public function testBackButton() {
     $this->click('.button#edit-back');
