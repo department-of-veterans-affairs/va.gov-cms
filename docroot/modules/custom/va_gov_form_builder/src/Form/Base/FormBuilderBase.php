@@ -12,12 +12,13 @@ abstract class FormBuilderBase extends FormBase {
 
   /**
    * {@inheritdoc}
+   *
+   * After initially containing some logic, this function
+   * is now empty, and this entire class is a candiate
+   * for removal. Leaving it here for now, as it might prove
+   * necessary as we continue on.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    // Add styles.
-    $form['#attached']['library'][] = 'va_gov_form_builder/va_gov_form_builder_styles';
-
-    return $form;
   }
 
 }
