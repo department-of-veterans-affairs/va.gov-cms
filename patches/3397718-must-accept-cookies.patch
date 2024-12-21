@@ -1,0 +1,497 @@
+diff --git a/core/assets/scaffold/files/robots.txt b/core/assets/scaffold/files/robots.txt
+index a1e1d34317cbde622ab56fa1ac72d5d185ed270e..3a5fe08e921e4f59238e46c18a6e13af1331b090 100644
+--- a/core/assets/scaffold/files/robots.txt
++++ b/core/assets/scaffold/files/robots.txt
+@@ -56,6 +56,7 @@ Disallow: /user/register
+ Disallow: /user/password
+ Disallow: /user/login
+ Disallow: /user/logout
++Disallow: /user/verify-cookies
+ Disallow: /media/oembed
+ Disallow: /*/media/oembed
+ # Paths (no clean URLs)
+@@ -68,5 +69,6 @@ Disallow: /index.php/user/password
+ Disallow: /index.php/user/register
+ Disallow: /index.php/user/login
+ Disallow: /index.php/user/logout
++Disallow: /index.php/user/verify-cookies
+ Disallow: /index.php/media/oembed
+ Disallow: /index.php/*/media/oembed
+diff --git a/core/modules/user/src/Authentication/Provider/Cookie.php b/core/modules/user/src/Authentication/Provider/Cookie.php
+index fb2c9cd5845585db4107daf9258f6287e82d4d72..49040ae76ba9336f11705c70d3d7e26de6bcebc8 100644
+--- a/core/modules/user/src/Authentication/Provider/Cookie.php
++++ b/core/modules/user/src/Authentication/Provider/Cookie.php
+@@ -1,20 +1,27 @@
+ <?php
+
++declare(strict_types=1);
++
+ namespace Drupal\user\Authentication\Provider;
+
+ use Drupal\Component\Utility\UrlHelper;
+ use Drupal\Core\Authentication\AuthenticationProviderInterface;
+ use Drupal\Core\Database\Connection;
++use Drupal\Core\EventSubscriber\RedirectResponseSubscriber;
+ use Drupal\Core\Messenger\MessengerInterface;
++use Drupal\Core\Routing\LocalRedirectResponse;
+ use Drupal\Core\Routing\TrustedRedirectResponse;
+ use Drupal\Core\Session\AccountInterface;
+ use Drupal\Core\Session\UserSession;
+ use Drupal\Core\Session\SessionConfigurationInterface;
+ use Drupal\Core\StringTranslation\StringTranslationTrait;
++use Drupal\Core\Url;
+ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
++use Symfony\Component\HttpFoundation\Cookie as ResponseCookie;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Session\SessionInterface;
++use Symfony\Component\HttpKernel\Event\RequestEvent;
+ use Symfony\Component\HttpKernel\Event\ResponseEvent;
+ use Symfony\Component\HttpKernel\KernelEvents;
+
+@@ -46,6 +53,25 @@ class Cookie implements AuthenticationProviderInterface, EventSubscriberInterfac
+    */
+   protected $messenger;
+
++  /**
++   * Indicates if we need to verify if cookies are enabled.
++   *
++   * Cookie Authentication will not work if cookies are disabled.
++   *
++   * @var bool
++   *
++   * @see Cookie::applies()
++   * @see \Cookie::onKernelRequestVerifyCookies()
++   */
++  private $verifyCookies = FALSE;
++
++  /**
++   * The redirect response subscriber.
++   *
++   * @var \Drupal\Core\EventSubscriber\RedirectResponseSubscriber
++   */
++  protected RedirectResponseSubscriber $redirectResponseSubscriber;
++
+   /**
+    * Constructs a new cookie authentication provider.
+    *
+@@ -55,21 +81,31 @@ class Cookie implements AuthenticationProviderInterface, EventSubscriberInterfac
+    *   The database connection.
+    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+    *   The messenger.
++   * @param \Drupal\Core\EventSubscriber\RedirectResponseSubscriber $redirect_response_subscriber
++   *   The redirect response subscriber.
+    */
+-  public function __construct(SessionConfigurationInterface $session_configuration, Connection $connection, MessengerInterface $messenger) {
++  public function __construct(SessionConfigurationInterface $session_configuration, Connection $connection, MessengerInterface $messenger, RedirectResponseSubscriber $redirect_response_subscriber) {
+     $this->sessionConfiguration = $session_configuration;
+     $this->connection = $connection;
+     $this->messenger = $messenger;
++    $this->redirectResponseSubscriber = $redirect_response_subscriber;
+   }
+
+   /**
+    * {@inheritdoc}
++   *
++   * @see Cookie::addCheckToUrl()
++   *   Where the `check_logged_in` query parameter is set.
++   * @see Cookie::onKernelRequestVerifyCookies()
++   *   Event Listener that acts on verifying cookie functionality.
+    */
+-  public function applies(Request $request) {
++  public function applies(Request $request): bool {
+     $applies = $this->sessionConfiguration->hasSession($request);
+     if (!$applies && $request->query->has('check_logged_in')) {
+-      $domain = ltrim(ini_get('session.cookie_domain'), '.') ?: $request->getHttpHost();
+-      $this->messenger->addMessage($this->t('To log in to this site, your browser must accept cookies from the domain %domain.', ['%domain' => $domain]), 'error');
++      // If there is no session for this request, but there is a query parameter
++      // indicating the user has logged in, we need to verify that cookies are
++      // enabled.
++      $this->verifyCookies = TRUE;
+     }
+     return $applies;
+   }
+@@ -144,6 +180,66 @@ public function addCheckToUrl(ResponseEvent $event) {
+     }
+   }
+
++  /**
++   * Kernel Request Event listener that verifies cookies are enabled if needed.
++   *
++   * The `applies()` method will set the `verifyCookie` property to TRUE if
++   * there is a `check_logged_in` query parameter on the request, which
++   * indicates a user has previously logged in but there is no session for the
++   * request. There are two possible situations where this may occur:
++   * 1. Cookies are disabled or
++   * 2. Cookies are enabled and a user has accessed the url containing the
++   *    `check_logged_in` query parameter directly while not logged in.
++   *
++   * If it is situation #1 we need to display a helpful message to the user
++   * to inform them that cookies need to be enabled to log in. We do not want
++   * to display this message in situation #2 as it is incorrect and confusing.
++   *
++   * To determine if cookies are disabled, this method:
++   *  - Redirects to the `user/verify-cookies` page which checks if a cookie
++   *    added by this method is present. If the cookie isn't present, this page
++   *    assumes cookies are disabled and displays an error message. If the
++   *    cookie is present the user is redirected back to the original request.
++   *
++   * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
++   *   The Event to process.
++   *
++   * @see Cookie::applies()
++   * @see \Drupal\user\Controller\UserAuthenticationController::verifyCookiesEnabled()
++   */
++  public function onKernelRequestVerifyCookies(RequestEvent $event): void {
++    if (!$this->verifyCookies) {
++      return;
++    }
++    $this->verifyCookies = FALSE;
++    // Work with a clone so weâ€™re not mutating the original request object.
++    $original_request = clone $event->getRequest();
++    // Remove the `check_logged_in` parameter so it is not checked again.
++    $original_request->query->remove('check_logged_in');
++    // Redirect the user to the `user.verify_cookies` route but also add a
++    // destination query parameter to redirect the user back to the original
++    // request if cookies are enabled.
++    $query_params = $original_request->query->all();
++    $destination_url = Url::fromUri(
++      'internal:' . $original_request->getPathInfo(),
++      ['query' => $query_params]
++    )->toString();
++    $verify_cookies_url = Url::fromRoute('user.verify_cookies', [], ['query' => ['destination' => $destination_url]]);
++    $response = new LocalRedirectResponse($verify_cookies_url->toString());
++    $cookie = ResponseCookie::create('verify_cookies', '1');
++    $response->headers->setCookie($cookie);
++    $event->setResponse($response);
++    // In case the original request contains a destination parameter, set
++    // RedirectResponseSubscriber::$ignoreDestination to TRUE. This will
++    // ensure the user is redirected to the verify_cookies page and not the
++    // original request's destination.
++    $this->redirectResponseSubscriber->setIgnoreDestination();
++    // We need to kill the page cache, so that the redirect works more
++    // than just the first time. Otherwise, subsequent requests will
++    // never hit this method.
++    \Drupal::service('page_cache_kill_switch')->trigger();
++  }
++
+   /**
+    * Registers the methods in this class that should be listeners.
+    *
+@@ -151,6 +247,10 @@ public function addCheckToUrl(ResponseEvent $event) {
+    *   An array of event listener definitions.
+    */
+   public static function getSubscribedEvents(): array {
++    // Add the kernel request listener immediately after
++    // AuthenticationSubscriber::onKernelRequestAuthenticate() which will call
++    // the applies() method and may set the `verifyCookies` property to TRUE.
++    $events[KernelEvents::REQUEST][] = ['onKernelRequestVerifyCookies', 299];
+     $events[KernelEvents::RESPONSE][] = ['addCheckToUrl', -1000];
+     return $events;
+   }
+diff --git a/core/modules/user/src/Controller/UserAuthenticationController.php b/core/modules/user/src/Controller/UserAuthenticationController.php
+index af31a878ddcc957bbd2581bf257ab38703c0fbd4..1de72504b2289e3ff77759bedbc79bf2554e27dc 100644
+--- a/core/modules/user/src/Controller/UserAuthenticationController.php
++++ b/core/modules/user/src/Controller/UserAuthenticationController.php
+@@ -5,6 +5,7 @@
+ use Drupal\Core\Access\CsrfTokenGenerator;
+ use Drupal\Core\Controller\ControllerBase;
+ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
++use Drupal\Core\Routing\LocalRedirectResponse;
+ use Drupal\Core\Routing\RouteProviderInterface;
+ use Drupal\user\UserAuthenticationInterface;
+ use Drupal\user\UserAuthInterface;
+@@ -438,4 +439,42 @@ protected function getLoginFloodIdentifier(Request $request, $username) {
+     return '';
+   }
+
++  /**
++   * Verifies cookies are enabled.
++   *
++   * This page expects the `verify_cookies` cookie has been set by a previous
++   * request.
++   *
++   * Authentication providers that need cookies to be enabled can use this page
++   * to verify cookie functionality by doing the following:
++   *  - Add a kernel request event listener.
++   *  - In the listener add a redirect to this page and set the
++   *    `verify_cookies` cookie in the response.
++   *  - Also add the page the user should be redirected to if cookies are
++   *    enabled as a `destination` query parameter to the redirect.
++   *
++   * @return array|LocalRedirectResponse
++   *   If cookies are disabled, it returns an empty render array and displays an
++   *   error message. If cookies are enabled, it will redirect the user to
++   *   the destination or the root path if no destination query parameter is
++   *   declared on the request.
++   *
++   * @see \Drupal\user\Authentication\Provider\Cookie::onKernelRequestVerifyCookies()
++   *   Example of using this page to verify cookie functionality.
++   */
++  public function verifyCookiesEnabled(Request $request): array|LocalRedirectResponse {
++    if (!$request->cookies->has('verify_cookies')) {
++      $domain = ltrim(ini_get('session.cookie_domain'), '.') ?: $request->getHttpHost();
++      $this->messenger()->addError($this->t('To log in to this site, your browser must accept cookies from the domain %domain.', ['%domain' => $domain]));
++      return [];
++    }
++    $destination = $request->query->get('destination');
++    if (NULL === $destination) {
++      $destination = '/';
++    }
++    $response = new LocalRedirectResponse($destination);
++    $response->headers->clearCookie('verify_cookies');
++    return $response;
++  }
++
+ }
+diff --git a/core/modules/user/tests/src/Functional/UserLoginTest.php b/core/modules/user/tests/src/Functional/UserLoginTest.php
+index 0e8f8f9bb0e3d72fe51680ad2241f302ccb0ca8a..119e7e2fd648c474f14e609308eff917a717d149 100644
+--- a/core/modules/user/tests/src/Functional/UserLoginTest.php
++++ b/core/modules/user/tests/src/Functional/UserLoginTest.php
+@@ -29,7 +29,7 @@ class UserLoginTest extends BrowserTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected static $modules = ['dblog'];
++  protected static $modules = ['dblog', 'block'];
+
+   /**
+    * Tests login with destination.
+@@ -247,34 +247,46 @@ public function doPasswordLengthLogin(UserInterface $account, string $current_pa
+   }
+
+   /**
+-   * Tests with a browser that denies cookies.
++   * Ensure disabled cookies message doesn't display when cookies are enabled.
+    */
+-  public function testCookiesNotAccepted(): void {
+-    $this->drupalGet('user/login');
+-    $form_build_id = $this->getSession()->getPage()->findField('form_build_id');
+-
++  public function testCookiesMessage(): void {
+     $account = $this->drupalCreateUser([]);
+-    $post = [
+-      'form_id' => 'user_login_form',
+-      'form_build_id' => $form_build_id,
+-      'name' => $account->getAccountName(),
+-      'pass' => $account->passRaw,
+-      'op' => 'Log in',
+-    ];
+-    $url = $this->buildUrl(Url::fromRoute('user.login'));
+-
+-    /** @var \Psr\Http\Message\ResponseInterface $response */
+-    $response = $this->getHttpClient()->post($url, [
+-      'form_params' => $post,
+-      'http_errors' => FALSE,
+-      'cookies' => FALSE,
+-      'allow_redirects' => FALSE,
+-    ]);
+
+-    // Follow the location header.
+-    $this->drupalGet($response->getHeader('location')[0]);
++    // Ensure error message is not displayed when clicking back button after
++    // logging out.
++    $this->placeBlock('system_menu_block:account');
++    $this->drupalGet('user/login');
++    $this->assertSession()->pageTextNotContains('To log in to this site, your browser must accept cookies from the domain');
++    $values = ['name' => $account->getAccountName(), 'pass' => $account->passRaw];
++    $this->submitForm($values, 'Log in');
++    $this->assertSession()->statusCodeEquals(200);
++    $this->assertSession()->addressEquals('user/' . $account->id());
++    $this->clickLink('Log out');
++    $this->assertSession()->statusCodeEquals(200);
++    $this->assertSession()->addressEquals('/');
++    $this->getSession()->back();
+     $this->assertSession()->statusCodeEquals(403);
+-    $this->assertSession()->pageTextContains('To log in to this site, your browser must accept cookies from the domain');
++    $this->assertSession()->addressEquals('/user/' . $account->id());
++    $this->assertSession()->pageTextNotContains('To log in to this site, your browser must accept cookies from the domain');
++
++    // Ensure accessing url directly with the check_logged_in query parameter
++    // does not result in the error message being displayed.
++    $this->drupalGet('user/login', ['query' => ['check_logged_in' => 1]]);
++    $this->assertSession()->statusCodeEquals(200);
++    $this->assertSession()->addressEquals('/user/login');
++    $this->assertSession()->pageTextNotContains('To log in to this site, your browser must accept cookies from the domain');
++
++    // Ensure presence of both check_logged_in and destination query parameters
++    // is handled correctly.
++    $this->drupalGet('user/login', [
++      'query' => [
++        'check_logged_in' => 1,
++        'destination' => '/',
++      ],
++    ]);
++    $this->assertSession()->statusCodeEquals(200);
++    $this->assertSession()->addressEquals('/user/login?destination=/');
++    $this->assertSession()->pageTextNotContains('To log in to this site, your browser must accept cookies from the domain');
+   }
+
+   /**
+diff --git a/core/modules/user/tests/src/FunctionalJavascript/UserLoginTestNoCookies.php b/core/modules/user/tests/src/FunctionalJavascript/UserLoginTestNoCookies.php
+new file mode 100644
+index 0000000000000000000000000000000000000000..494c91ef10e88c62f263ceee764b5b9acea1fb64
+--- /dev/null
++++ b/core/modules/user/tests/src/FunctionalJavascript/UserLoginTestNoCookies.php
+@@ -0,0 +1,91 @@
++<?php
++
++declare(strict_types=1);
++
++namespace Drupal\Tests\user\FunctionalJavascript;
++
++use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
++
++/**
++ * Ensure that login works as expected.
++ *
++ * @group user
++ */
++class UserLoginTestNoCookies extends WebDriverTestBase {
++
++  /**
++   * {@inheritdoc}
++   */
++  protected $defaultTheme = 'stark';
++
++  /**
++   * {@inheritdoc}
++   *
++   * With cookies disabled, unable to read 'sessionStorage' so we need to
++   * disabled failOnJavascriptConsoleErrors otherwise an error occurs.
++   *
++   * @see \Drupal\FunctionalJavascriptTests\WebDriverTestBase::failOnJavaScriptErrors()
++   */
++  protected $failOnJavascriptConsoleErrors = FALSE;
++
++  /**
++   * {@inheritdoc}
++   *
++   * With cookies disabled, unable to read 'sessionStorage' so we need to
++   * disabled errorOnJavascriptDeprecationWarnings otherwise an error occurs.
++   *
++   * @see \Drupal\FunctionalJavascriptTests\WebDriverTestBase::tearDown()
++   */
++  protected $errorOnJavascriptDeprecationWarnings = FALSE;
++
++  /**
++   * {@inheritdoc}
++   *
++   * Override the default mink driver args to disabled cookies.
++   *
++   * @return string
++   *   The JSON encoded Mink driver arguments with updated cookie settings.
++   */
++  protected function getMinkDriverArgs(): string {
++    $parent_driver_args = parent::getMinkDriverArgs();
++    $driver_args = json_decode($parent_driver_args, TRUE);
++    // Support legacy key.
++    $chrome_options_key = isset($driver_args[1]['chromeOptions']) ? 'chromeOptions' : 'goog:chromeOptions';
++    $driver_args[1][$chrome_options_key]['prefs']['profile.default_content_setting_values.cookies'] = 2;
++    return json_encode($driver_args);
++  }
++
++  /**
++   * Tests Login with a browser that denies cookies.
++   */
++  public function testCookiesNotAccepted(): void {
++    // Ensure when cookies are disabled the user is redirected to the verify
++    // cookies page and displayed the error message.
++    $page = $this->getSession()->getPage();
++    $this->drupalGet('user/login');
++    $page->fillField('name', 'admin');
++    $page->fillField('pass', 'admin');
++    $page->pressButton('Log in');
++    $this->assertEquals($this->baseUrl . '/user/verify-cookies?destination=/user/1', $this->getUrl());
++    $this->assertSession()
++      ->pageTextContains('To log in to this site, your browser must accept cookies from the domain');
++
++    // Ensure accessing url directly with the check_logged_in query parameter
++    // still displays the error message.
++    $this->drupalGet('/user/1', ['query' => ['check_logged_in' => 1]]);
++    $this->assertEquals($this->baseUrl . '/user/verify-cookies?destination=/user/1', $this->getUrl());
++
++    // Ensure presence of both check_logged_in and destination query parameters
++    // is handled correctly.
++    $this->drupalGet('user/login', [
++      'query' => [
++        'check_logged_in' => 1,
++        'destination' => '/',
++      ],
++    ]);
++    $this->assertEquals($this->baseUrl . '/user/verify-cookies?destination=/user/login%3Fdestination%3D/', $this->getUrl());
++    $this->assertSession()
++      ->pageTextContains('To log in to this site, your browser must accept cookies from the domain');
++  }
++
++}
+diff --git a/core/modules/user/user.routing.yml b/core/modules/user/user.routing.yml
+index 206d8c01a13e911cf41f8ffa175c326b7640ce3b..f25ab7fcb2001eb20007811c8535307acbbad549 100644
+--- a/core/modules/user/user.routing.yml
++++ b/core/modules/user/user.routing.yml
+@@ -252,3 +252,14 @@ user.well-known.change_password:
+     _controller: '\Drupal\user\Controller\UserController::userEditPage'
+   requirements:
+     _user_is_logged_in: 'TRUE'
++
++user.verify_cookies:
++  path: '/user/verify-cookies'
++  defaults:
++    _controller: \Drupal\user\Controller\UserAuthenticationController::verifyCookiesEnabled
++    _title: Verify Cookies Enabled
++  requirements:
++    _user_is_logged_in: 'FALSE'
++  options:
++    _maintenance_access: TRUE
++    no_cache: TRUE
+diff --git a/core/modules/user/user.services.yml b/core/modules/user/user.services.yml
+index ec34738d992ea00d41bef37149cb1db7419777b6..d477962834663ace4869eda6b929381814e57596 100644
+--- a/core/modules/user/user.services.yml
++++ b/core/modules/user/user.services.yml
+@@ -19,7 +19,7 @@ services:
+       - { name: access_check, applies_to: _user_is_logged_in }
+   user.authentication.cookie:
+     class: Drupal\user\Authentication\Provider\Cookie
+-    arguments: ['@session_configuration', '@database', '@messenger']
++    arguments: ['@session_configuration', '@database', '@messenger', '@redirect_response_subscriber']
+     tags:
+       - { name: authentication_provider, provider_id: 'cookie', priority: 0, global: TRUE }
+   user.data:
+diff --git a/core/tests/Drupal/FunctionalJavascriptTests/WebDriverTestBase.php b/core/tests/Drupal/FunctionalJavascriptTests/WebDriverTestBase.php
+index 53c66638ed45dd995b6e95fa9798389da23ea776..b6f23ae79cdb9e763c85b0c704c039bf129d12f3 100644
+--- a/core/tests/Drupal/FunctionalJavascriptTests/WebDriverTestBase.php
++++ b/core/tests/Drupal/FunctionalJavascriptTests/WebDriverTestBase.php
+@@ -33,6 +33,13 @@ abstract class WebDriverTestBase extends BrowserTestBase {
+    */
+   protected $failOnJavascriptConsoleErrors = TRUE;
+
++  /**
++   * Determines if a test should fail on JavaScript console errors.
++   *
++   * @var bool
++   */
++  protected $errorOnJavascriptDeprecationWarnings = TRUE;
++
+   /**
+    * Disables CSS animations in tests for more reliable testing.
+    *
+@@ -114,12 +121,13 @@ protected function tearDown(): void {
+         // explaining what the problem is.
+         throw new \RuntimeException('Unfinished AJAX requests while tearing down a test');
+       }
+-
+-      $warnings = $this->getSession()->evaluateScript("JSON.parse(sessionStorage.getItem('js_testing_log_test.warnings') || JSON.stringify([]))");
+-      foreach ($warnings as $warning) {
+-        if (str_starts_with($warning, '[Deprecation]')) {
+-          // phpcs:ignore Drupal.Semantics.FunctionTriggerError
+-          @trigger_error('Javascript Deprecation:' . substr($warning, 13), E_USER_DEPRECATED);
++      if ($this->errorOnJavascriptDeprecationWarnings) {
++        $warnings = $this->getSession()->evaluateScript("JSON.parse(sessionStorage.getItem('js_testing_log_test.warnings') || JSON.stringify([]))");
++        foreach ($warnings as $warning) {
++          if (str_starts_with($warning, '[Deprecation]')) {
++            // phpcs:ignore Drupal.Semantics.FunctionTriggerError
++            @trigger_error('Javascript Deprecation:' . substr($warning, 13), E_USER_DEPRECATED);
++          }
+         }
+       }
+     }
