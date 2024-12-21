@@ -8,4 +8,7 @@ source ~/.bashrc
 
 cd next
 
+# Install the correct node version if necessary and use it.
+nvm install && nvm use
+
 APP_ENV=tugboat yarn build:preview
