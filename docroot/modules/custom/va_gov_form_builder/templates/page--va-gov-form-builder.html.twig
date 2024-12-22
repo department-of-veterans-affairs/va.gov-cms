@@ -57,12 +57,21 @@
   </header>
 
   <div class="form-builder-layout-container">
-    <main class="page-content clearfix" role="main">
-      <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
-
-      {# The form content #}
-      {{ page.content }}
-
-    </main>
+    <div class="form-builder-two-column-layout">
+      <div class="form-builder-left-column">
+        <main class="page-content clearfix" role="main">
+          <div class="visually-hidden">
+            <a id="main-content" tabindex="-1"></a>
+          </div>
+          {{ page.content }}
+        </main>
+      </div>
+      <div class="form-builder-right-column">
+        <aside class="form-builder-sidebar">
+          <p>Sidebar content goes here.</p>
+        </aside>
+      </div>
+    </div>
   </div>
+
 </div>
