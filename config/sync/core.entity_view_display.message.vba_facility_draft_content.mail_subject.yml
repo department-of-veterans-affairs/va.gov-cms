@@ -1,0 +1,32 @@
+uuid: 793ef29a-db3e-47f5-8a04-7352558efa93
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_subject
+    - field.field.message.vba_facility_draft_content.field_last_updated_by_editor
+    - field.field.message.vba_facility_draft_content.field_target_node_path
+    - field.field.message.vba_facility_draft_content.field_target_node_title
+    - message.template.vba_facility_draft_content
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.vba_facility_draft_content.mail_subject
+targetEntityType: message
+bundle: vba_facility_draft_content
+mode: mail_subject
+content:
+  partial_0:
+    weight: 0
+    region: content
+hidden:
+  breadcrumbs: true
+  field_last_updated_by_editor: true
+  field_target_node_path: true
+  field_target_node_title: true
+  partial_1: true
+  search_api_excerpt: true

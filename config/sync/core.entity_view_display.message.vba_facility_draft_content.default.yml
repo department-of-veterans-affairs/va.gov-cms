@@ -1,0 +1,46 @@
+uuid: 792c292e-e566-4fb0-bf70-e4d15b1986ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.vba_facility_draft_content.field_last_updated_by_editor
+    - field.field.message.vba_facility_draft_content.field_target_node_path
+    - field.field.message.vba_facility_draft_content.field_target_node_title
+    - message.template.vba_facility_draft_content
+  module:
+    - user
+id: message.vba_facility_draft_content.default
+targetEntityType: message
+bundle: vba_facility_draft_content
+mode: default
+content:
+  field_last_updated_by_editor:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_target_node_path:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_1:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  breadcrumbs: true
+  field_target_node_title: true
+  search_api_excerpt: true

@@ -86,7 +86,7 @@ class JobTypeMessageNotifyBase extends JobTypeBase implements ContainerFactoryPl
     if (!$this->allowedToSend($message, $this->job->getPayload())) {
       return JobResult::failure($this->getRestrictedRecipientMessage($job, $message), 0);
     }
-    $status = $this->messageNotifier->send($message);
+    $status = $this->messageNotifier->send($message, $this->getMessageNotifierOptions($message));
     if (!$status) {
       $error_message = $this->getErrorMessage($job, $message);
       $this->logger->error($error_message);
@@ -184,6 +184,33 @@ class JobTypeMessageNotifyBase extends JobTypeBase implements ContainerFactoryPl
     }
     // Default to allow sending.
     return TRUE;
+  }
+
+  /**
+   * Gets options for the Message Notifier plugin.
+   *
+   * Initially used to set a specific mail recipient address, rather than use
+   * the Message owner as the recipient.
+   *
+   * @param \Drupal\message\Entity\Message $message
+   *   The Message prior to being sent via Message Notify.
+   *
+   * @return array
+   *   The message options to pass to Message Notify.
+   */
+  protected function getMessageNotifierOptions(Message $message): array {
+    $messageOptions = [];
+    $payload = $this->job->getPayload();
+    // Determine if the job has a specified 'mail' address. If so, set the
+    // 'mail' configuration option, which will become the recipient(s) when
+    // processed by the Email Message Notifier.
+    if (!empty($payload['mail'])) {
+      // If there are multiple recipients, implode them into a single comma
+      // separated string.
+      $recipients = is_array($payload['mail']) ? implode(',', $payload['mail']) : $payload['mail'];
+      $messageOptions['mail'] = $recipients;
+    }
+    return $messageOptions;
   }
 
 }
