@@ -46,11 +46,14 @@ class FormBuilderPageTemplateTest extends VaGovExistingSiteBase {
   public function testExpectedElementsExist() {
     $this->assertSession()->statusCodeEquals(200);
 
-    $containerElement = $this->cssSelect('.va-gov-form-builder-page-container');
+    $containerElement = $this->cssSelect('.form-builder-page-container');
     $this->assertCount(1, $containerElement);
 
-    $navbarElement = $this->cssSelect('.va-gov-form-builder-navbar');
+    $navbarElement = $this->cssSelect('.form-builder-navbar');
     $this->assertCount(1, $navbarElement);
+
+    $sidebarElement = $this->cssSelect('.form-builder-sidebar');
+    $this->assertCount(1, $sidebarElement);
   }
 
   /**
