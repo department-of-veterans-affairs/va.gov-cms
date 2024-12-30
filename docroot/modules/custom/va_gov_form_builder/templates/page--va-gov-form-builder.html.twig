@@ -3,38 +3,66 @@
  * @file
  * VA.gov Form Builder's implementation of a single page.
  *
- * Nearly identical to VAgovClaro's implementation, except:
- * - An outermost page container has been added.
- * - The header includes additional content (navbar, eventually)
- * - Breadcrumbs have been removed
+ * The variables available to this template are passed from the controller:
+ * - page
+ *   - content: The main content of the page; the individual form
+ * - form_builder_page_data
+ *   - active_tab: The active tab in the navbar
  *
- * For more information:
- * @see docroot/themes/custom/vagovclaro/templates/page/page.html.twig
+ * @see /docroot/modules/custom/va_gov_form_builder/src/Controller/VaGovFormBuilderController.php
  */
 #}
-<div class="va-gov-form-builder-page-container">
-  <header class="content-header clearfix">
-    <div class="layout-container">
-      {{ page.header }}
+<div class="form-builder-page-container">
+  <header class="form-builder-header">
+    <div class="form-builder-layout-container">
 
-      <div class="va-gov-form-builder-navbar">
-        <!-- This is a placeholder for our navigation bar -->
+      <div class="form-builder-title">
+        <h1 class="form-builder-title__page-title">Form Builder</h1>
+      </div>
+
+      {% set active_tab = page.form_builder_page_data.active_tab %}
+      <div class="form-builder-navbar">
+        <nav class="form-builder-navbar__nav">
+          <ul class="form-builder-navbar__tabs">
+
+            <li class="form-builder-navbar__tab form-builder-navbar__tab--forms
+              {{
+                active_tab == 'forms' ? 'form-builder-navbar__tab--active'
+                : ''
+              }}"
+            >
+              <a href="#" class="form-builder-navbar__link">Forms</a>
+            </li>
+
+            <li class="form-builder-navbar__tab form-builder-navbar__tab--content
+              {{
+                active_tab == 'content' ? 'form-builder-navbar__tab--active'
+                : ''
+              }}">
+              <a href="#" class="form-builder-navbar__link">Content</a>
+            </li>
+
+            <li class="form-builder-navbar__tab form-builder-navbar__tab--layout
+              {{
+                active_tab == 'layout' ? 'form-builder-navbar__tab--active'
+                : ''
+              }}"
+            >
+              <a href="#" class="form-builder-navbar__link">Layout</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </header>
 
-  <div class="layout-container">
-    {{ page.pre_content }}
-
+  <div class="form-builder-layout-container">
     <main class="page-content clearfix" role="main">
       <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
-      {{ page.highlighted }}
-      {% if page.help %}
-      <div class="help">
-        {{ page.help }}
-      </div>
-      {% endif %}
+
+      {# The form content #}
       {{ page.content }}
+
     </main>
   </div>
 </div>
