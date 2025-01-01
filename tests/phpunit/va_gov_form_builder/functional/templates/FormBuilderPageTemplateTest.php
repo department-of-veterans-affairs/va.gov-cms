@@ -34,7 +34,7 @@ class FormBuilderPageTemplateTest extends VaGovExistingSiteBase {
   public function setUp(): void {
     parent::setUp();
 
-    $this->drupalLogin($this->createUser(['edit any digital_form content']));
+    $this->drupalLogin($this->createUser(['access form builder']));
 
     // Form Builder entry.
     $this->drupalGet('/form-builder');
