@@ -2,6 +2,7 @@
 
 namespace tests\phpunit\va_gov_form_builder\functional\Form;
 
+use tests\phpunit\va_gov_form_builder\Traits\TestFormLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
@@ -13,6 +14,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
  * @coversDefaultClass \Drupal\va_gov_form_builder\Form\Intro
  */
 class IntroTest extends VaGovExistingSiteBase {
+  use TestFormLoads;
 
   /**
    * {@inheritdoc}
@@ -20,32 +22,34 @@ class IntroTest extends VaGovExistingSiteBase {
   private static $modules = ['va_gov_form_builder'];
 
   /**
+   * Returns the url for this form (for the given node)
+   */
+  private function getFormPageUrl() {
+    return '/form-builder/intro';
+  }
+
+  /**
    * Set up the environment for each test.
    */
   public function setUp(): void {
     parent::setUp();
 
-    $this->drupalLogin($this->createUser(['edit any digital_form content']));
-    $this->drupalGet('/form-builder/intro');
+    $this->loginFormBuilderUser();
+    $this->drupalGet($this->getFormPageUrl());
   }
 
   /**
    * Test that the form is accessible to a user with the correct privilege.
    */
   public function testFormLoads() {
-    $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains('Working with the Form Builder');
+    $this->sharedTestFormLoads($this->getFormPageUrl(), 'Working with the Form Builder');
   }
 
   /**
    * Test that the form is not accessible to a user without privilege.
    */
   public function testFormDoesNotLoad() {
-    // Log out the good user and log in a user without permission.
-    $this->drupalLogin($this->createUser([]));
-    $this->drupalGet('/form-builder/intro');
-
-    $this->assertSession()->statusCodeNotEquals(200);
+    $this->sharedTestFormDoesNotLoad($this->getFormPageUrl());
   }
 
   /**
