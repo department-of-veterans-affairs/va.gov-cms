@@ -24,13 +24,13 @@ class LibrariesTest extends VaGovUnitTestBase {
   /**
    * The libraries defined in libraries.yml.
    *
-   * @var array{
+   * @var array<string, array{
    *   css?: array{
    *     theme?: array<string, mixed>
    *   },
    *   js?: array<string, mixed>,
    *   dependencies?: array<string>
-   * }
+   * }>
    */
   private $libraries;
 
