@@ -156,6 +156,8 @@ flowchart TD
     style M stroke-width:4px,font-weight:bold,fill:#f96;
     L --> D
 ```
+## Monitoring
+#19369 created a Slack notification that will push to the DSVA #cms-notifications channel if the TIC returns a 200 response with a 0 byte size.
 
 ----
 
