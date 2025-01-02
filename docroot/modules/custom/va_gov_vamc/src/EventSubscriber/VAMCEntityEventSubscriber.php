@@ -13,6 +13,8 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
+use Drupal\field_event_dispatcher\FieldHookEvents;
 use Drupal\feature_toggle\FeatureStatus;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
@@ -57,6 +59,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      FieldHookEvents::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'formWidgetAlter',
     ];
   }
 
@@ -317,17 +320,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Removes the phone label on VAMC facility content type forms.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
-  private function removePhoneLabel(FormIdAlterEvent $event): void {
-    $form = &$event->getForm();
-    $form['field_telephone']['widget'][0]['subform']['field_phone_label']['#access'] = FALSE;
-  }
-
-  /**
    * Alter VAMC Facility node form.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
@@ -337,7 +329,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $this->addCovidStatusData($form, $form_state);
-    $this->removePhoneLabel($event);
   }
 
   /**
@@ -371,7 +362,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterVamcSystemBillingAndInsuranceForm(FormIdAlterEvent $event) {
     $this->alterTopTaskNodeForm($event);
-    $this->removePhoneLabel($event);
   }
 
   /**
@@ -510,6 +500,53 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
 
+  }
+
+  /**
+   * Widget form alter Event call.
+   *
+   * @param \Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent $event
+   *   The event.
+   */
+  public function formWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
+    $form = &$event->getElement();
+    $context = $event->getContext();
+    if ($this->removePhoneLabel($form, $context)) {
+      $form = [];
+    }
+  }
+
+  /**
+   * Determine whether to empty phone label from form.
+   *
+   * @param array $form
+   *   The form.
+   * @param array $context
+   *   The context.
+   */
+  public function removePhoneLabel(array &$form, array $context): bool {
+    $empty_out_form = FALSE;
+    if (!empty($form['#field_parents']) && in_array('field_telephone', $form['#field_parents'])) {
+
+      if ($form['#title'] === 'Label') {
+        // The bundles that should not have phone labels.
+        $bundles_without_phone_labels = [
+          'health_care_local_facility',
+          'person_profile',
+          'vamc_system_billing_insurance',
+        ];
+        $paragraph_entity = $context['items']->getParent()->getEntity();
+        $parent_id = $paragraph_entity->get('parent_id')->value;
+        $storage = $this->entityTypeManager->getStorage("node");
+        $node = $storage->load($parent_id);
+
+        $node_type = $node->bundle();
+        if (in_array($node_type, $bundles_without_phone_labels)) {
+          $empty_out_form = TRUE;
+        }
+      }
+    }
+    return $empty_out_form;
   }
 
 }
