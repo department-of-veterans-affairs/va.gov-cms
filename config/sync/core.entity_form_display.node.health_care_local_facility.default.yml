@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
     - field.field.node.health_care_local_facility.field_media
-    - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_mobile
     - field.field.node.health_care_local_facility.field_office_hours
@@ -37,7 +36,6 @@ dependencies:
     - media_library
     - office_hours
     - paragraphs
-    - paragraphs_features
     - path
     - telephone
     - textfield_counter
@@ -334,13 +332,6 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
-  field_mental_health_phone:
-    type: telephone_default
-    weight: 21
-    region: content
-    settings:
-      placeholder: ''
     third_party_settings: {  }
   field_mobile:
     type: boolean_checkbox
