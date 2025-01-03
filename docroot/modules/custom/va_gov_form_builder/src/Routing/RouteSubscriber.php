@@ -16,7 +16,7 @@ class RouteSubscriber extends RouteSubscriberBase {
   protected function alterRoutes(RouteCollection $collection) {
     foreach ($collection->all() as $route_name => $route) {
       if (strpos($route_name, 'va_gov_form_builder.') === 0) {
-        if (!$route->hasRequirement('_permission', 'access form builder')) {
+        if (!$route->hasRequirement('_permission')) {
           $route->setRequirement('_permission', 'access form builder');
         }
       }
