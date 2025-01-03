@@ -10,9 +10,9 @@ trait TestFormLoads {
   /**
    * Logs-in a user with appropriate privileges.
    */
-  private function loginDigitalFormUser() {
+  private function loginFormBuilderUser() {
     $this->drupalLogin($this->createUser([
-      'edit any digital_form content',
+      'access form builder',
     ]));
   }
 
@@ -26,7 +26,7 @@ trait TestFormLoads {
    */
   private function sharedTestFormLoads($url, $expectedText) {
     // Log in a user with permission.
-    $this->loginDigitalFormUser();
+    $this->loginFormBuilderUser();
 
     // Navigate to page.
     $this->drupalGet($url);
