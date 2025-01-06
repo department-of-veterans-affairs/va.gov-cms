@@ -32,6 +32,13 @@ class VaGovFormBuilderController extends ControllerBase {
   private $drupalFormBuilder;
 
   /**
+   * The active tab in the form builder.
+   *
+   * @var 'forms'|'content'|'layout'
+   */
+  private $activeTab;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
@@ -39,6 +46,34 @@ class VaGovFormBuilderController extends ControllerBase {
     $instance->drupalFormBuilder = $container->get('form_builder');
 
     return $instance;
+  }
+
+  /**
+   * Returns a render array representing the page with the passed-in form.
+   *
+   * @param string $formName
+   *   The filename of the form to be rendered.
+   * @param string $nid
+   *   The node id, passed in when the form in question edits an existing node.
+   */
+  private function getFormPage($formName, $nid = NULL) {
+    // @phpstan-ignore-next-line
+    $form = $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\\' . $formName, $nid);
+
+    return [
+      '#type' => 'page',
+      'content' => $form,
+      // Add custom data.
+      'form_builder_page_data' => [
+        'active_tab' => $this->activeTab,
+      ],
+      // Add styles.
+      '#attached' => [
+        'library' => [
+          'va_gov_form_builder/va_gov_form_builder_styles',
+        ],
+      ],
+    ];
   }
 
   /**
@@ -52,22 +87,24 @@ class VaGovFormBuilderController extends ControllerBase {
    * Intro page.
    */
   public function intro() {
-    return $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\Intro');
+    $this->activeTab = 'forms';
+    return $this->getFormPage('Intro');
   }
 
   /**
    * Start-conversion page.
    */
   public function startConversion() {
-    return $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\StartConversion');
+    $this->activeTab = 'forms';
+    return $this->getFormPage('StartConversion');
   }
 
   /**
    * Name-and-date-of-birth page.
    */
   public function nameAndDob($nid) {
-    // @phpstan-ignore-next-line
-    return $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\NameAndDob', $nid);
+    $this->activeTab = 'content';
+    return $this->getFormPage('NameAndDob', $nid);
   }
 
 }
