@@ -31,6 +31,9 @@ function va_gov_notifications_theme() {
     'message__aging_content_warn_news_promo__mail_body' => [
       'base hook' => 'message',
     ],
+    'message__vba_facility_draft_content__mail_body' => [
+      'base hook' => 'message',
+    ],
   ];
 }
 
@@ -45,6 +48,7 @@ function va_gov_notifications_mail_alter(&$message) {
     'aging_content_warn_fwb',
     'aging_content_warn_news_promo',
     'aging_content_expired_news_promo',
+    'vba_facility_draft_content',
   ];
   if (in_array($message['key'], $types) && !empty($message['params']['message_entity'])) {
     $message['headers']['Content-Type'] = 'multipart/related; charset=UTF-8; format=flowed; delsp=yes';
