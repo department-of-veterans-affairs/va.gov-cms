@@ -32,7 +32,7 @@ class StartConversionTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Setup the environment for each test.
+   * Set up the environment for each test.
    */
   public function setUp(): void {
     parent::setUp();
@@ -42,21 +42,29 @@ class StartConversionTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test the form is accessible to a user with the correct privilege.
+   * Test that the form is accessible to a user with the correct privilege.
    */
   public function testFormLoads() {
     $this->sharedTestFormLoads($this->getFormPageUrl(), 'Start a new conversion');
   }
 
   /**
-   * Test the form is not accessible to a user without the correct privilege.
+   * Test that the form is not accessible to a user without privilege.
    */
   public function testFormDoesNotLoad() {
     $this->sharedTestFormDoesNotLoad($this->getFormPageUrl());
   }
 
   /**
-   * Test the form submission succeeds.
+   * Test that the active tab is correct.
+   */
+  public function testActiveTab() {
+    $activeTab = $this->getSession()->getPage()->find('css', '.form-builder-navbar__tab--active');
+    $this->assertTrue($activeTab->hasClass('form-builder-navbar__tab--forms'), 'The expected tab is active.');
+  }
+
+  /**
+   * Test that the form submission succeeds.
    *
    * When proper information is entered, form should be submitted.
    */
@@ -71,8 +79,9 @@ class StartConversionTest extends VaGovExistingSiteBase {
     ];
     $this->submitForm($formInput, 'Continue');
 
-    // Check if the form submission was successful.
-    $this->assertSession()->pageTextNotContains('error has been found');
+    // Successful submission should take user to next page.
+    $nextPageUrl = $this->getSession()->getCurrentUrl();
+    $this->assertStringContainsString('/name-and-dob', $nextPageUrl);
   }
 
   /**
@@ -90,7 +99,7 @@ class StartConversionTest extends VaGovExistingSiteBase {
     $this->submitForm($formInput, 'Continue');
 
     // Check if the form submission was successful.
-    $this->assertSession()->pageTextContains('error has been found');
+    $this->assertSession()->pageTextContains('Expiration date field is required.');
   }
 
   /**
