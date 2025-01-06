@@ -20,7 +20,7 @@ class IntroTest extends VaGovExistingSiteBase {
   private static $modules = ['va_gov_form_builder'];
 
   /**
-   * Setup the environment for each test.
+   * Set up the environment for each test.
    */
   public function setUp(): void {
     parent::setUp();
@@ -30,7 +30,7 @@ class IntroTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test the form is accessible to a user with the correct privilege.
+   * Test that the form is accessible to a user with the correct privilege.
    */
   public function testFormLoads() {
     $this->assertSession()->statusCodeEquals(200);
@@ -38,7 +38,7 @@ class IntroTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test the form is not accessible to a user without the correct privilege.
+   * Test that the form is not accessible to a user without privilege.
    */
   public function testFormDoesNotLoad() {
     // Log out the good user and log in a user without permission.
@@ -46,6 +46,14 @@ class IntroTest extends VaGovExistingSiteBase {
     $this->drupalGet('/form-builder/intro');
 
     $this->assertSession()->statusCodeNotEquals(200);
+  }
+
+  /**
+   * Test that the active tab is correct.
+   */
+  public function testActiveTab() {
+    $activeTab = $this->getSession()->getPage()->find('css', '.form-builder-navbar__tab--active');
+    $this->assertTrue($activeTab->hasClass('form-builder-navbar__tab--forms'), 'The expected tab is active.');
   }
 
   /**

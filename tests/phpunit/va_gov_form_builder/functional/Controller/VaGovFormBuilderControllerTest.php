@@ -42,6 +42,19 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Tests css is included.
+   */
+  public function testCssIncluded() {
+    $page = $this->controller->intro();
+
+    $this->assertContains(
+      'va_gov_form_builder/va_gov_form_builder_styles',
+      $page['#attached']['library'],
+      "The library 'va_gov_form_builder/va_gov_form_builder_styles' is successfully attached."
+    );
+  }
+
+  /**
    * Tests the entry method redirects correctly.
    */
   public function testEntryRedirect() {
@@ -55,20 +68,20 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
    * Tests the intro method returns an Intro form.
    */
   public function testIntro() {
-    $form = $this->controller->intro();
+    $page = $this->controller->intro();
 
-    $this->assertArrayHasKey('#type', $form);
-    $this->assertArrayHasKey('working_with_form_builder_header', $form);
+    $this->assertArrayHasKey('content', $page);
+    $this->assertArrayHasKey('working_with_form_builder_header', $page['content']);
   }
 
   /**
    * Tests the startConversion method returns a StartConversion form.
    */
   public function testStartConversion() {
-    $form = $this->controller->startConversion();
+    $page = $this->controller->startConversion();
 
-    $this->assertArrayHasKey('#type', $form);
-    $this->assertArrayHasKey('start_new_conversion_header', $form);
+    $this->assertArrayHasKey('content', $page);
+    $this->assertArrayHasKey('start_new_conversion_header', $page['content']);
   }
 
   /**
@@ -81,10 +94,10 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
       'field_chapters' => [],
     ]);
 
-    $form = $this->controller->nameAndDob($node->id());
+    $page = $this->controller->nameAndDob($node->id());
 
-    $this->assertArrayHasKey('#type', $form);
-    $this->assertArrayHasKey('name_and_dob_header', $form);
+    $this->assertArrayHasKey('content', $page);
+    $this->assertArrayHasKey('name_and_dob_header', $page['content']);
   }
 
 }
