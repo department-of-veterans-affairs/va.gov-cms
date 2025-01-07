@@ -180,4 +180,26 @@ class JobTypeMessageNotifyBaseTest extends KernelTestBase {
     $this->assertEquals(Job::STATE_FAILURE, $result->getState());
   }
 
+  /**
+   * Tests the process with Message Notifier Options and no Message owner.
+   */
+  public function testProcessMessageNotifierOptionsNoOwner() {
+    $payload = [
+      'values' => [],
+      'mail' => 'test@example.com',
+      'template_values' => [
+        'template' => 'foo_template',
+        'uid' => 1,
+      ],
+    ];
+    $job = new Job([
+      'type' => 'test_job_type',
+      'payload' => $payload,
+      'state' => Job::STATE_QUEUED,
+    ]);
+    $result = $this->jobType->process($job);
+    $this->assertEquals(Job::STATE_SUCCESS, $result->getState());
+    $this->assertEquals('Message 1 sent successfully.', $result->getMessage());
+  }
+
 }
