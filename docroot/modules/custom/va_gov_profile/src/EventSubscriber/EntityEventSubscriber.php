@@ -80,7 +80,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterstaffProfileNodeForm(FormIdAlterEvent $event): void {
     $this->addStateManagementToBioFields($event);
-    $this->showTelephone($event);
   }
 
   /**
