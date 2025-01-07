@@ -80,7 +80,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterstaffProfileNodeForm(FormIdAlterEvent $event): void {
     $this->addStateManagementToBioFields($event);
-    $this->removePhoneLabel($event);
   }
 
   /**
@@ -129,17 +128,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         [$selector => ['checked' => TRUE]],
       ],
     ];
-  }
-
-  /**
-   * Removes the phone label on staff profile content type forms.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The form event.
-   */
-  private function removePhoneLabel(FormIdAlterEvent $event): void {
-    $form = &$event->getForm();
-    $form['field_telephone']['widget'][0]['subform']['field_phone_label']['#access'] = FALSE;
   }
 
 }
