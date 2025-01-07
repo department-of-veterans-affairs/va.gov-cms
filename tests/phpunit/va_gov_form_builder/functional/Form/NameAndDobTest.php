@@ -53,7 +53,7 @@ class NameAndDobTest extends VaGovExistingSiteBase {
   public function setUp(): void {
     parent::setUp();
 
-    $this->loginDigitalFormUser();
+    $this->loginFormBuilderUser();
 
     // Create a node that doesn't have any chapters.
     $this->node = $this->createNode([

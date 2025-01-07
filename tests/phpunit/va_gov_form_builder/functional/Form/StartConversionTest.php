@@ -37,7 +37,7 @@ class StartConversionTest extends VaGovExistingSiteBase {
   public function setUp(): void {
     parent::setUp();
 
-    $this->loginDigitalFormUser();
+    $this->loginFormBuilderUser();
     $this->drupalGet($this->getFormPageUrl());
   }
 
