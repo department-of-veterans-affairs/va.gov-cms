@@ -447,6 +447,9 @@ const creators = {
       "edit-field-steps-0-subform-field-step-0-subform-field-wysiwyg-0-value",
       faker.lorem.sentence()
     );
+    cy.get("#edit-field-contact-information-0-top-links-remove-button").should(
+      "not.exist"
+    );
     return cy.wait(1000);
   },
   q_a: () => {
@@ -462,6 +465,9 @@ const creators = {
       faker.lorem.sentence()
     );
     cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.get("#edit-field-contact-information-0-top-links-remove-button").should(
+      "not.exist"
+    );
     return cy;
   },
   press_release: () => {
