@@ -31,7 +31,7 @@ class ModuleTest extends VaGovUnitTestBase {
   private $container;
 
   /**
-   * Setup the environment for each test.
+   * Set up the environment for each test.
    */
   protected function setUp(): void {
     parent::setUp();
@@ -69,9 +69,9 @@ class ModuleTest extends VaGovUnitTestBase {
     $result = va_gov_form_builder_theme();
 
     // Assert the expected theme definition exists.
-    $this->assertArrayHasKey('va_gov_form_builder_page', $result);
-    $this->assertEquals('page--va-gov-form-builder', $result['va_gov_form_builder_page']['template']);
-    $this->assertEquals($this->modulePath . '/templates', $result['va_gov_form_builder_page']['path']);
+    $this->assertArrayHasKey('page__va_gov_form_builder', $result);
+    $this->assertEquals('page', $result['page__va_gov_form_builder']['base hook']);
+    $this->assertEquals($this->modulePath . '/templates', $result['page__va_gov_form_builder']['path']);
   }
 
   /**
@@ -96,7 +96,7 @@ class ModuleTest extends VaGovUnitTestBase {
     $suggestions = va_gov_form_builder_theme_suggestions_page($variables);
 
     // Assert the expected theme suggestion is returned.
-    $this->assertContains('va_gov_form_builder_page', $suggestions);
+    $this->assertContains('page__va_gov_form_builder', $suggestions);
   }
 
 }
