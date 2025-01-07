@@ -7,7 +7,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\feature_toggle\FeatureStatus;
 use Drupal\node\NodeInterface;
 use Drupal\post_api\Service\AddToQueue;
 use Drupal\va_gov_facilities\FacilityOps;
@@ -45,34 +44,6 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
    * @var string
    */
   protected $additionalInfoToPush;
-
-  /**
-   * Feature Toggle status service.
-   *
-   * @var \Drupal\feature_toggle\FeatureStatus
-   */
-  private FeatureStatus $featureStatus;
-
-  /**
-   * Constructs a new PostFacilityStatus service object.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory service.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager service.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_channel_factory
-   *   The logger factory service.
-   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
-   *   The messenger interface.
-   * @param \Drupal\post_api\Service\AddToQueue $post_queue
-   *   The PostAPI service.
-   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
-   *   The Feature Status service.
-   */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, AddToQueue $post_queue, FeatureStatus $feature_status) {
-    parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue);
-    $this->featureStatus = $feature_status;
-  }
 
   /**
    * Adds facility service data to Post API queue.
@@ -448,25 +419,18 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
    *   The mental health phone number.
    */
   protected function getFacilityMentalHealthPhone(): string {
-    $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
-    // Return the original phone until the feature toggle is turned on.
-    if (!$status) {
-      return $this->getFieldSafe('field_mental_health_phone');
+    if (!$this->facilityNode->hasField('field_telephone')) {
+      return '';
     }
-    else {
-      if (!$this->facilityNode->hasField('field_telephone')) {
-        return '';
-      }
-      $telephone_paragraph_id = $this->facilityNode->get('field_telephone')->target_id;
-      if (empty($telephone_paragraph_id)) {
-        return '';
-      }
-      $telephone_paragraph = $this->entityTypeManager->getStorage('paragraph')->load($telephone_paragraph_id);
-      $mental_health_phone = $telephone_paragraph->get('field_phone_number')->value ?? '';
-      $mental_health_extension = $telephone_paragraph->get('field_phone_extension')->value ?? '';
-      if (!empty($mental_health_extension)) {
-        $mental_health_phone .= ', ext. ' . $mental_health_extension;
-      }
+    $telephone_paragraph_id = $this->facilityNode->get('field_telephone')->target_id;
+    if (empty($telephone_paragraph_id)) {
+      return '';
+    }
+    $telephone_paragraph = $this->entityTypeManager->getStorage('paragraph')->load($telephone_paragraph_id);
+    $mental_health_phone = $telephone_paragraph->get('field_phone_number')->value ?? '';
+    $mental_health_extension = $telephone_paragraph->get('field_phone_extension')->value ?? '';
+    if (!empty($mental_health_extension)) {
+      $mental_health_phone .= ', ext. ' . $mental_health_extension;
     }
 
     return $mental_health_phone;
