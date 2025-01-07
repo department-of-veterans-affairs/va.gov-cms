@@ -13,9 +13,6 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
-use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
-use Drupal\field_event_dispatcher\FieldHookEvents;
-use Drupal\feature_toggle\FeatureStatus;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -59,7 +56,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
-      FieldHookEvents::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'formWidgetAlter',
     ];
   }
 
@@ -110,13 +106,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
-   * Feature Toggle status service.
-   *
-   * @var \Drupal\feature_toggle\FeatureStatus
-   */
-  private FeatureStatus $featureStatus;
-
-  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -131,8 +120,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *   The deduper service.
    * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
    *   VA gov NotificationsManager service.
-   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
-   *   The Feature Status service.
    */
   public function __construct(
     EntityTypeManager $entity_type_manager,
@@ -141,7 +128,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     UserPermsService $user_perms_service,
     ContentHardeningDeduper $content_hardening_deduper,
     NotificationsManager $notifications_manager,
-    FeatureStatus $feature_status,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->currentUser = $currentUser;
@@ -149,7 +135,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
     $this->notificationsManager = $notifications_manager;
-    $this->featureStatus = $feature_status;
   }
 
   /**
@@ -500,53 +485,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
 
-  }
-
-  /**
-   * Widget form alter Event call.
-   *
-   * @param \Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent $event
-   *   The event.
-   */
-  public function formWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
-    $form = &$event->getElement();
-    $context = $event->getContext();
-    if ($this->removePhoneLabel($form, $context)) {
-      $form = [];
-    }
-  }
-
-  /**
-   * Determine whether to empty phone label from form.
-   *
-   * @param array $form
-   *   The form.
-   * @param array $context
-   *   The context.
-   */
-  public function removePhoneLabel(array &$form, array $context): bool {
-    $empty_out_form = FALSE;
-    if (!empty($form['#field_parents']) && in_array('field_telephone', $form['#field_parents'])) {
-
-      if ($form['#title'] === 'Label') {
-        // The bundles that should not have phone labels.
-        $bundles_without_phone_labels = [
-          'health_care_local_facility',
-          'person_profile',
-          'vamc_system_billing_insurance',
-        ];
-        $paragraph_entity = $context['items']->getParent()->getEntity();
-        $parent_id = $paragraph_entity->get('parent_id')->value;
-        $storage = $this->entityTypeManager->getStorage("node");
-        $node = $storage->load($parent_id);
-
-        $node_type = $node->bundle();
-        if (in_array($node_type, $bundles_without_phone_labels)) {
-          $empty_out_form = TRUE;
-        }
-      }
-    }
-    return $empty_out_form;
   }
 
 }

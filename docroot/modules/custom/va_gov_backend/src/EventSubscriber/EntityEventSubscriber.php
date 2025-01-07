@@ -4,6 +4,7 @@ namespace Drupal\va_gov_backend\EventSubscriber;
 
 use Drupal\Core\Config\Entity\ConfigEntityType;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
@@ -239,6 +240,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function formWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
     $form = &$event->getElement();
     $this->removeCollapseButton($form);
+    $form_state = $event->getFormState();
+    $this->removePhoneLabel($form, $form_state);
   }
 
   /**
@@ -250,6 +253,51 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function removeCollapseButton(array &$form) {
     if (!empty($form['#paragraph_type']) && $form['#paragraph_type'] === 'button') {
       unset($form['top']['actions']['actions']['collapse_button']);
+    }
+  }
+
+  /**
+   * Removes the phone label from certain forms.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form_state.
+   */
+  public function removePhoneLabel(array &$form, FormStateInterface $form_state): void {
+    if (!empty($form['#field_parents']) && in_array('field_telephone', $form['#field_parents'])) {
+
+      if ($form['#title'] === 'Label') {
+        $form_id = $form_state->getFormObject()->getFormId();
+
+        // The forms that should not have phone labels.
+        $forms_without_phone_labels = [
+          'node_person_profile_form',
+          'node_person_profile_edit_form',
+          'node_health_care_local_facility_form',
+          'node_health_care_local_facility_edit_form',
+          'node_vamc_system_billing_insurance_form',
+          'node_vamc_system_billing_insurance_edit_form',
+        ];
+
+        if (in_array($form_id, $forms_without_phone_labels)) {
+          // Hide the field on the form.
+          $form['#access'] = FALSE;
+          // Set the default value to 'Label' to satisfy the required field.
+          // Otherwise, it will throw an validation error.
+          switch ($form_id) {
+            case 'node_health_care_local_facility_form':
+            case 'node_health_care_local_facility_edit_form':
+              $form['value']['#default_value'] = 'Mental health phone';
+              break;
+
+            default:
+              $form['value']['#default_value'] = 'Phone';
+              break;
+
+          }
+        }
+      }
     }
   }
 
