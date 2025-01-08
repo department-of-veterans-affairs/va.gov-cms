@@ -6,6 +6,7 @@ Feature: Content Type: Resources and Support Detail Page
     Given I am logged in as a user with the "content_admin" role
     When I am at "node/add/support_resources_detail_page"
     Then I should see "Tags"
+    And an element with the selector "#edit-field-contact-information-0-top-links-remove-button" should not exist
 
     Given I select option "- None -" from dropdown "Audience"
     Then I should not see an element with the selector "#edit-field-tags-0-subform-field-audience-beneficiares-wrapper"

@@ -2,13 +2,21 @@
 
 /**
  * @file
- * Creates Digital Form test data for local and Tugboat environments.
+ * Creates Form Builder test data for local and Tugboat environments.
+ *
+ * 1. Creates Digital Form test nodes:
+ *  - Form 21-4140.
+ *  - Generic form.
+ * 2. Creates users with and without Form Builder access:
+ *  - User with 'access form builder' perm via 'Form Builder user' role.
+ *  - User without 'access form builder' perm via 'Authenticated user' role.
  *
  *  !!!! DO NOT RUN ON PROD !!!!
  */
 
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\user\Entity\User;
 
 require_once __DIR__ . '/script-library.php';
 
@@ -22,6 +30,7 @@ function run() {
   exit_if_not_local_or_tugboat($env);
 
   create_digital_forms();
+  create_users();
 }
 
 /**
@@ -187,4 +196,48 @@ function your_personal_info(
   );
 
   return $your_personal_info;
+}
+
+/**
+ * Creates a test user.
+ *
+ * @param string $username
+ *   The username of the user. If empty, a unique value is generated.
+ * @param string $role
+ *   The machine name of the role. Defaults to basic role 'authenticated'.
+ */
+function create_user($username = NULL, $role = 'authenticated') {
+
+  if (!$username) {
+    $username = 'user_' . uniqid();
+  }
+
+  $existing_user = user_load_by_name($username);
+  if ($existing_user) {
+    debug_log_message('User ' . $username . ' already exists. User not created.');
+    return;
+  }
+
+  $user = User::create([
+    'name' => $username,
+    'pass' => 'drupal8',
+    'mail' => $username . '@example.com',
+    'status' => TRUE,
+    'roles' => [$role],
+  ]);
+
+  $user->save();
+
+  debug_log_message('User ' . $username . ' created with role ' . $role);
+}
+
+/**
+ * Creates test users with and without Form Builder access.
+ */
+function create_users() {
+  // Create a user who does not have Form Builder access.
+  create_user('test_user_no_form_builder');
+
+  // Create a user who has Form Builder access.
+  create_user('test_user_form_builder', 'form_builder_user');
 }

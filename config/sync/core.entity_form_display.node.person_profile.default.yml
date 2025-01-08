@@ -16,7 +16,6 @@ dependencies:
     - field.field.node.person_profile.field_meta_tags
     - field.field.node.person_profile.field_name_first
     - field.field.node.person_profile.field_office
-    - field.field.node.person_profile.field_phone_number
     - field.field.node.person_profile.field_photo_allow_hires_download
     - field.field.node.person_profile.field_suffix
     - field.field.node.person_profile.field_telephone
@@ -29,7 +28,6 @@ dependencies:
     - media_library
     - paragraphs
     - path
-    - telephone
     - text
     - textfield_counter
 third_party_settings:
@@ -250,13 +248,6 @@ content:
     weight: 2
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_phone_number:
-    type: telephone_default
-    weight: 7
-    region: content
-    settings:
-      placeholder: ''
     third_party_settings: {  }
   field_photo_allow_hires_download:
     type: boolean_checkbox
