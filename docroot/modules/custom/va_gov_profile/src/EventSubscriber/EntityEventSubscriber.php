@@ -6,9 +6,7 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
-use Drupal\feature_toggle\FeatureStatus;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -34,30 +32,19 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   private $entityTypeManager;
 
   /**
-   * Feature Toggle status service.
-   *
-   * @var \Drupal\feature_toggle\FeatureStatus
-   */
-  private FeatureStatus $featureStatus;
-
-  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The current user perms service.
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   The entity type manager service.
-   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
-   *   The Feature Status service.
    */
   public function __construct(
     UserPermsService $user_perms_service,
     EntityTypeManager $entity_type_manager,
-    FeatureStatus $feature_status,
   ) {
     $this->userPermsService = $user_perms_service;
     $this->entityTypeManager = $entity_type_manager;
-    $this->featureStatus = $feature_status;
   }
 
   /**
@@ -68,7 +55,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_person_profile_edit_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
       EntityHookEvents::ENTITY_TYPE_ALTER => 'entityTypeAlter',
-      EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
     ];
   }
 
@@ -87,38 +73,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Alteration to entity view pages.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
-   *   The entity view alter service.
-   */
-  public function entityViewAlter(EntityViewAlterEvent $event):void {
-    $this->showRenderedTelephone($event);
-  }
-
-  /**
-   * Show the correct telephone field based on feature toggle for VACMS-17854.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
-   *   The entity view alter event.
-   */
-  private function showRenderedTelephone(EntityViewAlterEvent $event) {
-    if ($event->getDisplay()->getTargetBundle() !== 'person_profile') {
-      return;
-    }
-    $build = &$event->getBuild();
-    $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
-    if ($status) {
-      // Hide the old telephone field, and, thereby, show the new one.
-      unset($build['field_phone_number']);
-    }
-    else {
-      // Hide the new telephone field, and, thereby, show the old one.
-      unset($build['field_telephone']);
-    }
-  }
-
-  /**
    * Form alterations for staff profile content type.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
@@ -127,7 +81,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterstaffProfileNodeForm(FormIdAlterEvent $event): void {
     $this->addStateManagementToBioFields($event);
     $this->removePhoneLabel($event);
-    $this->showTelephone($event);
   }
 
   /**
@@ -176,25 +129,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         [$selector => ['checked' => TRUE]],
       ],
     ];
-  }
-
-  /**
-   * Show the correct telephone field based on feature toggle for VACMS-17854.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The form event.
-   */
-  private function showTelephone($event) {
-    $form = &$event->getForm();
-    $status = $this->featureStatus->getStatus('feature_telephone_migration_v1');
-    if ($status) {
-      // Hide the old telephone field, and, thereby, show the new one.
-      unset($form['field_phone_number']);
-    }
-    else {
-      // Hide the new telephone field, and, thereby, show the old one.
-      unset($form['field_telephone']);
-    }
   }
 
   /**
