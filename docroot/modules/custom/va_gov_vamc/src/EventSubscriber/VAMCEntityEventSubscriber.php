@@ -305,17 +305,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Removes the phone label on VAMC facility content type forms.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
-  private function removePhoneLabel(FormIdAlterEvent $event): void {
-    $form = &$event->getForm();
-    $form['field_telephone']['widget'][0]['subform']['field_phone_label']['#access'] = FALSE;
-  }
-
-  /**
    * Alter VAMC Facility node form.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
@@ -325,7 +314,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $this->addCovidStatusData($form, $form_state);
-    $this->removePhoneLabel($event);
   }
 
   /**
@@ -359,7 +347,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterVamcSystemBillingAndInsuranceForm(FormIdAlterEvent $event) {
     $this->alterTopTaskNodeForm($event);
-    $this->removePhoneLabel($event);
   }
 
   /**
