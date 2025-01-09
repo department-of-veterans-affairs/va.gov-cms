@@ -1166,3 +1166,20 @@ function va_gov_db_update_9015(&$sandbox) {
     'va_gov_github',
   ]);
 }
+
+/**
+ * Truncate danse events table, remove broken view and uninstall danse modules.
+ */
+function va_gov_db_update_10001(): string {
+  // Remove the danse_event table.
+  Drupal::database()->truncate('danse_event')->execute();
+  Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'danse_event table truncated.');
+  // Remove the broken danse_user_notifications view.
+  Drupal::service('config.factory')->getEditable('views.view.danse_user_notifications')->delete();
+  Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted danse_user_notifications view.');
+  $uninstall_modules = [
+    'danse',
+    'danse_content_moderation',
+  ];
+  return _va_gov_db_uninstall_modules($uninstall_modules);
+}

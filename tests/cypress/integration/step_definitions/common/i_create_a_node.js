@@ -103,43 +103,96 @@ const creators = {
         cy.findAllByLabelText("Introduction").type(faker.lorem.sentence(), {
           force: true,
         });
-        cy.get(
-          "#edit-field-clp-what-you-can-do-promos-actions-ief-add"
-        ).scrollIntoView();
-        cy.get("#edit-field-clp-what-you-can-do-promos-actions-ief-add").click({
+      });
+    cy.get(
+      "#edit-field-clp-what-you-can-do-promos-entity-browser-entity-browser-open-modal"
+    ).should("exist");
+    cy.get(
+      "#edit-field-clp-what-you-can-do-promos-entity-browser-entity-browser-open-modal"
+    ).click({
+      force: true,
+    });
+    cy.wait(3000);
+    cy.get("iframe.entity-browser-modal-iframe").should("exist");
+    cy.wait(3000);
+
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.contains("Add new promo").click({ force: true });
+        cy.wait(5000);
+      });
+    cy.get("iframe.entity-browser-modal-iframe").should("exist");
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.findByDisplayValue("Add media").click({ force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get('div[role="dialog"]').within(() => {
+          cy.get(".dropzone", {
+            timeout: 60000,
+          });
+        });
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get(".dropzone").attachFile("images/polygon_image.png", {
+          subjectType: "drag-n-drop",
+        });
+        cy.wait(10000);
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
           force: true,
         });
-        cy.contains("Add media").click({ force: true });
       });
-    cy.get('div[role="dialog"]').within(() => {
-      cy.get(".dropzone", {
-        timeout: 60000,
-      });
-      cy.get(".dropzone").attachFile("images/polygon_image.png", {
-        subjectType: "drag-n-drop",
-      });
-      cy.wait(1000);
-      cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
-        force: true,
-      });
-      cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
-        "VACO",
-        { force: true }
-      );
-      cy.get("button").contains("Save and insert").click({ force: true });
-    });
-    cy.contains("What you can do")
-      .parent()
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
       .within(() => {
-        cy.findAllByLabelText("URL").focus();
+        cy.get(
+          '[data-drupal-selector="edit-media-0-fields-field-owner"]'
+        ).select("VACO", { force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get("button").contains("Save and insert").click({ force: true });
+        cy.wait(5000);
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
         cy.findAllByLabelText("URL").type(faker.internet.url(), {
           force: true,
         });
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
         cy.findAllByLabelText("Link text").type(faker.lorem.sentence(), {
           force: true,
         });
-        cy.findAllByLabelText("Section").select("VACO", { force: true });
       });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get(
+          '[data-drupal-selector="edit-inline-entity-form-field-owner"]'
+        ).select("VACO", { force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get("#edit-submit").click({ force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe").should("not.exist");
+
     cy.contains("What you can do").click();
 
     // VA Benefits
@@ -394,6 +447,9 @@ const creators = {
       "edit-field-steps-0-subform-field-step-0-subform-field-wysiwyg-0-value",
       faker.lorem.sentence()
     );
+    cy.get("#edit-field-contact-information-0-top-links-remove-button").should(
+      "not.exist"
+    );
     return cy.wait(1000);
   },
   q_a: () => {
@@ -409,6 +465,69 @@ const creators = {
       faker.lorem.sentence()
     );
     cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.get("#edit-field-contact-information-0-top-links-remove-button").should(
+      "not.exist"
+    );
+    return cy;
+  },
+  press_release: () => {
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.findAllByLabelText("Press Release Title").type(
+      `[Test Data] ${faker.lorem.word()}`,
+      { force: true }
+    );
+    cy.findAllByLabelText("News releases listing").select(
+      "VA Albany health care: News releases",
+      { force: true }
+    );
+    cy.findAllByLabelText("City").type(`Albany`, { force: true });
+    cy.findAllByLabelText("State").select("New York", { force: true });
+    cy.findAllByLabelText("Introduction").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.type_ckeditor(
+      "edit-field-press-release-fulltext-0-value",
+      faker.lorem.paragraph()
+    );
+    return cy;
+  },
+  news_story: () => {
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.findAllByLabelText("Title").type(`[Test Data] ${faker.lorem.word()}`, {
+      force: true,
+    });
+    cy.findAllByLabelText("Where should the story be listed?").select(
+      "VA Albany health care: Stories",
+      { force: true }
+    );
+    cy.findAllByLabelText("First sentence (lede)").type(
+      faker.lorem.sentence(),
+      {
+        force: true,
+      }
+    );
+    return cy;
+  },
+  page: () => {
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.findAllByLabelText("Page title").type(
+      `[Test Data] ${faker.lorem.word()}`,
+      { force: true }
+    );
+    cy.type_ckeditor(
+      "edit-field-intro-text-limited-html-0-value",
+      faker.lorem.paragraph()
+    );
+    cy.findAllByLabelText("Meta description").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.scrollToSelector("#edit-field-content-block-add-more-browse");
+    cy.get("#edit-field-content-block-add-more-browse").click({ force: true });
+    cy.findByText("An open-ended text field.").click({ force: true });
+    cy.type_ckeditor(
+      "edit-field-content-block-0-subform-field-wysiwyg-0-value",
+      faker.lorem.paragraph()
+    );
     return cy;
   },
 };

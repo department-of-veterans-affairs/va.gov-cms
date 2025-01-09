@@ -1,0 +1,28 @@
+diff --git a/src/Plugin/Field/FieldWidget/ParagraphsWidget.php b/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
+index e6decde..8b0772a 100644
+--- a/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
++++ b/src/Plugin/Field/FieldWidget/ParagraphsWidget.php
+@@ -770,9 +770,6 @@
+         if (method_exists(FormatterHelper::class, 'formProcess')) {
+           $element['subform']['#process'][] = [FormatterHelper::class, 'formProcess'];
+         }
+-        elseif (function_exists('field_group_form_pre_render')) {
+-          $element['subform']['#pre_render'][] = 'field_group_form_pre_render';
+-        }
+         elseif (function_exists('field_group_form_process')) {
+           $element['subform']['#process'][] = 'field_group_form_process';
+         }
+diff --git a/src/Plugin/Field/FieldWidget/InlineParagraphsWidget.php b/src/Plugin/Field/FieldWidget/InlineParagraphsWidget.php
+index cc9a92a..4d6df93 100644
+--- a/src/Plugin/Field/FieldWidget/InlineParagraphsWidget.php
++++ b/src/Plugin/Field/FieldWidget/InlineParagraphsWidget.php
+@@ -652,9 +652,6 @@
+         if (method_exists(FormatterHelper::class, 'formProcess')) {
+           $element['subform']['#process'][] = [FormatterHelper::class, 'formProcess'];
+         }
+-        elseif (function_exists('field_group_form_pre_render')) {
+-          $element['subform']['#pre_render'][] = 'field_group_form_pre_render';
+-        }
+         elseif (function_exists('field_group_form_process')) {
+           $element['subform']['#process'][] = 'field_group_form_process';
+         }

@@ -16,6 +16,7 @@
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\entityqueue\Entity\EntityQueue;
 use Drupal\entityqueue\Entity\EntitySubqueue;
+use Drupal\expirable_content\EntityOperations;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
 
@@ -110,4 +111,31 @@ function va_gov_home_deploy_create_i_cta_with_links() {
   $subQueue = EntitySubqueue::load($queue->id());
   $subQueue->set('items', ['target_id' => $block->id()]);
   $subQueue->save();
+}
+
+/**
+ * Seed news promo expirable content data.
+ */
+function va_gov_home_deploy_seed_news_promo(array &$sandbox): void {
+  // This deploy hook serves to "seed" the initial expiration dates for
+  // VACMS-19077.
+  /** @var \Drupal\expirable_content\EntityOperations $entityOperations */
+  $entityOperations = \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(EntityOperations::class);
+  // We only expect one or two blocks.
+  $blocks = \Drupal::entityTypeManager()->getStorage('block_content')->loadByProperties([
+    'type' => 'news_promo',
+    'status' => 1,
+  ]);
+  foreach ($blocks as $block) {
+    try {
+      $entityOperations->entityInsert($block);
+    }
+    catch (\Exception $e) {
+      \Drupal::logger('va_gov_banner')->error(sprintf('Could not create new Expirable Content entity for block id: %bid. The error was: <pre> %error</pre>',
+        $block->id(),
+        $e,
+      ));
+    }
+  }
 }

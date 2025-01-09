@@ -20,7 +20,8 @@ body.vagovclaro .form-item.textcount_over {
     border-width: 2px;
   }
 
-  .textfield_counter_counter, .remaining_count {
+  .textfield_counter_counter,
+  .remaining_count {
     color: var(--va-red-dark);
     font-weight: 600;
   }
@@ -54,15 +55,17 @@ body.vagovclaro {
       border-width: 1px;
     }
 
-    .textfield_counter_counter, .remaining_count {
+    .textfield_counter_counter,
+    .remaining_count {
       color: var(--va-red-dark);
       font-weight: 600;
     }
   }
 
-  label.has-error ~ .form-textarea-wrapper.textcount_over .textfield-counter-element{
+  label.has-error
+    ~ .form-textarea-wrapper.textcount_over
+    .textfield-counter-element {
     border-color: var(--va-red-dark);
     border-width: 2px;
   }
 }
-

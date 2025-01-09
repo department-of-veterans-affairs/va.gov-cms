@@ -1,0 +1,13 @@
+diff --git a/src/SubrequestsManager.php b/src/SubrequestsManager.php
+index 460ee11..dc6a959 100644
+--- a/src/SubrequestsManager.php
++++ b/src/SubrequestsManager.php
+@@ -69,7 +69,7 @@ class SubrequestsManager {
+          ['master_request' => $master_request]
+        );
+        $response = $this->httpKernel
+-         ->handle($request, HttpKernelInterface::MASTER_REQUEST);
++         ->handle($request, HttpKernelInterface::SUB_REQUEST);
+        // Set the Content-ID header in the response.
+        $content_id = sprintf('<%s>', $subrequest->requestId);
+        $response->headers->set('Content-ID', $content_id);

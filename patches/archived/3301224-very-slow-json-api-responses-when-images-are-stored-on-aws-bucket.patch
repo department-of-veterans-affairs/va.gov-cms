@@ -1,0 +1,40 @@
+From 9de4d689e5b3b3e9aef7381235098d52106a907e Mon Sep 17 00:00:00 2001
+From: osopolar <osopolar@115856.no-reply.drupal.org>
+Date: Tue, 2 Aug 2022 05:27:40 +0000
+Subject: [PATCH] Build links using ImageStylesProvider::buildDerivativeLink()
+
+---
+ src/Normalizer/LinkCollectionNormalizer.php | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
+
+diff --git a/src/Normalizer/LinkCollectionNormalizer.php b/src/Normalizer/LinkCollectionNormalizer.php
+index b8c8748..8523dbe 100644
+--- a/src/Normalizer/LinkCollectionNormalizer.php
++++ b/src/Normalizer/LinkCollectionNormalizer.php
+@@ -121,15 +121,17 @@ class LinkCollectionNormalizer implements NormalizerInterface {
+     // Generate derivatives only for the found ones.
+     $image_styles = $this->imageStylesProvider->loadStyles($consumer);
+     return array_reduce($image_styles, function (LinkCollection $decorated, ImageStyleInterface $image_style) use ($uri) {
+-      $image = $this->imageFactory->get($uri);
+-      $dimensions = [
+-        'width' => $image->getWidth(),
+-        'height' => $image->getHeight(),
+-      ];
+-      $image_style->transformDimensions($dimensions, $uri);
++      $link = $this->imageStylesProvider->buildDerivativeLink($uri, $image_style);
++      $dimensions = [];
++      if (isset($link['meta']['width'])) {
++        $dimensions['width'] = $link['meta']['width'];
++      }
++      if (isset($link['meta']['height'])) {
++        $dimensions['width'] = $link['meta']['height'];
++      }
+       $variant_link = new Link(
+         CacheableMetadata::createFromObject($image_style),
+-        $this->fileUrlGenerator->generate($image_style->buildUrl($uri)),
++        Url::fromUri($link['href']),
+         ImageStylesProvider::DERIVATIVE_LINK_REL,
+         // Target attributes can only be strings, but dimensions are links.
+         array_map(function (?int $dimension): string {
+-- 
+GitLab

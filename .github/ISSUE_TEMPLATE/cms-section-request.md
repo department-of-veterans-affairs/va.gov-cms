@@ -2,7 +2,7 @@
 name: CMS section request
 about: Requests a change to the Sections hierarchy
 title: ''
-labels: Content governance, CMS Team
+labels: CMS Team, Content governance
 assignees: ''
 
 ---
