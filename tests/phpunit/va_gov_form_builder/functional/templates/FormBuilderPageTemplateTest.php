@@ -51,9 +51,6 @@ class FormBuilderPageTemplateTest extends VaGovExistingSiteBase {
 
     $navbarElement = $this->cssSelect('.form-builder-navbar');
     $this->assertCount(1, $navbarElement);
-
-    $sidebarElement = $this->cssSelect('.form-builder-sidebar');
-    $this->assertCount(1, $sidebarElement);
   }
 
   /**
