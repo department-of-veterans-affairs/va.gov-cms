@@ -1,9 +1,9 @@
 diff --git a/clientside_validation.install b/clientside_validation.install
 new file mode 100644
-index 0000000000000000000000000000000000000000..a7a419250ea95ed5e19ff966fb9e53916f2c0f3c
+index 0000000000000000000000000000000000000000..784f4b3314230e16f42f80d5335b8e4efde171f4
 --- /dev/null
 +++ b/clientside_validation.install
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,31 @@
 +<?php
 +/**
 + * Update configuration for validation_scope based on enable_all_forms.
@@ -12,17 +12,24 @@ index 0000000000000000000000000000000000000000..a7a419250ea95ed5e19ff966fb9e5391
 +  // Load the existing configuration.
 +  $config = \Drupal::configFactory()->getEditable('clientside_validation.settings');
 +
-+  // Check the value of enable_all_forms and set validation_scope accordingly.
-+  if ($config->get('enable_all_forms')) {
-+    // If enable_all_forms is checked, set validation_scope the first choice.
++  // Set default values for the new schema fields.
++  if ($config->isNew()) {
 +    $config->set('validation_scope', '0');
-+  } else {
-+    $config->set('validation_scope', '1');
++    $config->set('selected_forms', []);
 +  }
++  else {
++    // Check the value of enable_all_forms and set validation_scope accordingly.
++    if ($config->get('enable_all_forms')) {
++      // If enable_all_forms is checked, set validation_scope the first choice.
++      $config->set('validation_scope', '0');
++    } else {
++      $config->set('validation_scope', '1');
++    }
 +
-+  // Set the enabled_forms to selected_forms.
-+  if ($config->get('enabled_forms')) {
-+    $config->set('selected_forms', $config->get('enabled_forms'));
++    // Set the enabled_forms to selected_forms.
++    if ($config->get('enabled_forms')) {
++      $config->set('selected_forms', $config->get('enabled_forms'));
++    }
 +  }
 +
 +  // Save the updated configuration.
@@ -98,7 +105,7 @@ index 50fa8b3e85a750e70e3bed66b2b8432df89905b6..74d1cac29adc581ba0d05b6975939708
 +    unset($form['#after_build'][$validation_key]);
 +  }
  }
- 
+
  /**
 diff --git a/clientside_validation.permissions.yml b/clientside_validation.permissions.yml
 new file mode 100644
@@ -125,15 +132,15 @@ index 0000000000000000000000000000000000000000..9cf0f16a5754e254d777a758f9f628c3
 +    _permission: 'administer clientside validation'
 diff --git a/config/install/clientside_validation.settings.yml b/config/install/clientside_validation.settings.yml
 new file mode 100644
-index 0000000000000000000000000000000000000000..1a8ba2232f7b80975fd88f08fa42a9c657386c3a
+index 0000000000000000000000000000000000000000..92fdcdeda3de1ae234cdd5e9690f6f9d971de91e
 --- /dev/null
 +++ b/config/install/clientside_validation.settings.yml
 @@ -0,0 +1,2 @@
-+validation_scope: 0
++validation_scope: '0'
 +selected_forms: { }
 diff --git a/config/schema/clientside_validation.schema.yml b/config/schema/clientside_validation.schema.yml
 new file mode 100644
-index 0000000000000000000000000000000000000000..2091d20506888839fe13f7a48b3241387fb24785
+index 0000000000000000000000000000000000000000..724545e144f55225e786fa41554939a199102f66
 --- /dev/null
 +++ b/config/schema/clientside_validation.schema.yml
 @@ -0,0 +1,12 @@
@@ -141,7 +148,7 @@ index 0000000000000000000000000000000000000000..2091d20506888839fe13f7a48b324138
 +  type: config_object
 +  mapping:
 +    validation_scope:
-+      type: integer
++      type: string
 +      label: 'Setting for the validation scheme'
 +    selected_forms:
 +      type: sequence
