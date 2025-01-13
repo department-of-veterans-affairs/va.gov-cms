@@ -53,14 +53,6 @@ class IntroTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test that the active tab is correct.
-   */
-  public function testActiveTab() {
-    $activeTab = $this->getSession()->getPage()->find('css', '.form-builder-navbar__tab--active');
-    $this->assertTrue($activeTab->hasClass('form-builder-navbar__tab--forms'), 'The expected tab is active.');
-  }
-
-  /**
    * Test the 'Start conversion' button.
    */
   public function testButton() {

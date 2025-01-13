@@ -79,14 +79,6 @@ class NameAndDobTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test that the active tab is correct.
-   */
-  public function testActiveTab() {
-    $activeTab = $this->getSession()->getPage()->find('css', '.form-builder-navbar__tab--active');
-    $this->assertTrue($activeTab->hasClass('form-builder-navbar__tab--content'), 'The expected tab is active.');
-  }
-
-  /**
    * Test that the form submission adds a chapter when not already present.
    */
   public function testFormSubmissionAddsChapter() {

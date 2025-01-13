@@ -15,44 +15,8 @@
 <div class="form-builder-page-container">
   <header class="form-builder-header">
     <div class="form-builder-layout-container">
-
-      <div class="form-builder-title">
-        <h1 class="form-builder-title__page-title">Form Builder</h1>
-      </div>
-
-      {% set active_tab = page.form_builder_page_data.active_tab %}
-      <div class="form-builder-navbar">
-        <nav class="form-builder-navbar__nav">
-          <ul class="form-builder-navbar__tabs">
-
-            <li class="form-builder-navbar__tab form-builder-navbar__tab--forms
-              {{
-                active_tab == 'forms' ? 'form-builder-navbar__tab--active'
-                : ''
-              }}"
-            >
-              <a href="#" class="form-builder-navbar__link">Forms</a>
-            </li>
-
-            <li class="form-builder-navbar__tab form-builder-navbar__tab--content
-              {{
-                active_tab == 'content' ? 'form-builder-navbar__tab--active'
-                : ''
-              }}">
-              <a href="#" class="form-builder-navbar__link">Content</a>
-            </li>
-
-            <li class="form-builder-navbar__tab form-builder-navbar__tab--layout
-              {{
-                active_tab == 'layout' ? 'form-builder-navbar__tab--active'
-                : ''
-              }}"
-            >
-              <a href="#" class="form-builder-navbar__link">Layout</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <h1 class="form-builder-title">Form Builder</h1>
+      <p class="form-builder-subtitle">{{ page.form_builder_page_data.subtitle }}</p>
     </div>
   </header>
 

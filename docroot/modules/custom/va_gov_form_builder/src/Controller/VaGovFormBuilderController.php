@@ -32,11 +32,11 @@ class VaGovFormBuilderController extends ControllerBase {
   private $drupalFormBuilder;
 
   /**
-   * The active tab in the form builder.
+   * The page subtitle.
    *
-   * @var 'forms'|'content'|'layout'
+   * @var string
    */
-  private $activeTab;
+  private $subtitle;
 
   /**
    * {@inheritdoc}
@@ -65,7 +65,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'content' => $form,
       // Add custom data.
       'form_builder_page_data' => [
-        'active_tab' => $this->activeTab,
+        'subtitle' => $this->subtitle,
       ],
       // Add styles.
       '#attached' => [
@@ -87,7 +87,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * Intro page.
    */
   public function intro() {
-    $this->activeTab = 'forms';
+    $this->subtitle = 'Subtitle Placeholder';
     return $this->getFormPage('Intro');
   }
 
@@ -95,7 +95,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * Start-conversion page.
    */
   public function startConversion() {
-    $this->activeTab = 'forms';
+    $this->subtitle = 'Subtitle Placeholder';
     return $this->getFormPage('StartConversion');
   }
 
@@ -103,7 +103,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * Name-and-date-of-birth page.
    */
   public function nameAndDob($nid) {
-    $this->activeTab = 'content';
+    $this->subtitle = 'Subtitle Placeholder';
     return $this->getFormPage('NameAndDob', $nid);
   }
 
