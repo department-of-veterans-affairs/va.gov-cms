@@ -275,10 +275,10 @@ const creators = {
     );
     cy.get(
       "#edit-field-datetime-range-timezone-0-time-wrapper-value-date"
-    ).type("2023-11-04", { force: true });
+    ).type("2025-11-04", { force: true });
     cy.get(
       "#edit-field-datetime-range-timezone-0-time-wrapper-value-date"
-    ).type("2023-11-04", { force: true });
+    ).type("2025-11-04", { force: true });
     cy.get(
       "#edit-field-datetime-range-timezone-0-time-wrapper-value-time"
     ).type("10:00:00", { force: true });
@@ -289,7 +289,7 @@ const creators = {
     cy.get("#edit-field-datetime-range-timezone-0-make-recurring").check();
     cy.get("#edit-field-datetime-range-timezone-0-interval").type("1");
     cy.get("#edit-field-datetime-range-timezone-0-repeat-end-date").type(
-      "2023-11-07",
+      "2025-11-07",
       { force: true }
     );
     cy.get("#edit-field-datetime-range-timezone-0-repeat").select("DAILY");
@@ -298,12 +298,6 @@ const creators = {
       { force: true }
     );
     cy.get("#edit-field-publish-to-outreach-cal-value").check();
-    cy.findAllByLabelText("Street address").type(
-      faker.address.streetAddress(),
-      { force: true }
-    );
-    cy.findAllByLabelText("City").type(faker.address.city(), { force: true });
-    cy.findAllByLabelText("State").select("Alabama", { force: true });
     cy.findAllByLabelText("Section").select("--Outreach Hub", { force: true });
     cy.scrollToSelector("#edit-field-media-open-button");
     cy.get("#edit-field-media-open-button").click({ force: true });
@@ -331,12 +325,20 @@ const creators = {
         timeout: 20000,
       }
     ).should("exist");
+    cy.findAllByLabelText("At a non-VA location").check({ force: true });
+    cy.findAllByLabelText("Street address").type(
+      faker.address.streetAddress(),
+      { force: true }
+    );
+
+    cy.findAllByLabelText("City").type(faker.address.city(), { force: true });
+    cy.findAllByLabelText("State").select("Alabama", { force: true });
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
       { force: true }
     );
     cy.get("form.node-form").find("input#edit-submit").click();
-    cy.get(".node__content").contains("Sun, Nov 5 2023, 10:00am - 11:00am MST");
+    cy.get(".node__content").contains("Wed, Nov 5 2025, 10:00am - 11:00am MST");
     cy.get(".node__content").contains("Outreach events");
     cy.scrollTo("top", { ensureScrollable: false });
     cy.get(".tabs__tab a").contains("Edit").click({ force: true });
