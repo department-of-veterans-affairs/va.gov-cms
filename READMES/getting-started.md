@@ -75,7 +75,8 @@ You need a copy of the production database to get the full VA.gov CMS running.
 Use the provided ddev commands to download a database and files backup into the
 correct locations in your local development environment.
 
-- `ddev pull va `  or  `ddev pull va --skip-files`
+- `ddev pull va --skip-files`
+  - Note: you should not run `ddev pull va`, which will pull down all CMS-hosted content files in addition to the database. If you have a need to work with the full set of CMS-hosted content files locally, please contact the CMS Team to discuss your use case and needs.
 
 NOTE: This command downloads and imports the db followed by any configuration import.
 
