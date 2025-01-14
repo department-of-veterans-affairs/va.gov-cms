@@ -75,7 +75,9 @@ You need a copy of the production database to get the full VA.gov CMS running.
 Use the provided ddev commands to download a database and files backup into the
 correct locations in your local development environment.
 
-- `ddev pull va `  or  `ddev pull va --skip-files`
+- `ddev pull va --skip-files`
+- It is unusual, but if you need to pull CMS content files locally, use `ddev pull va`
+  - Note that you will need to allocate at least 120GB disk space to your docker container in this case.
 
 NOTE: This command downloads and imports the db followed by any configuration import.
 
