@@ -338,7 +338,7 @@ const creators = {
       { force: true }
     );
     cy.get("form.node-form").find("input#edit-submit").click();
-    cy.get(".node__content").contains("Sun, Nov 4 2025, 10:00am - 11:00am MST");
+    cy.get(".node__content").contains("Wed, Nov 5 2025, 10:00am - 11:00am MST");
     cy.get(".node__content").contains("Outreach events");
     cy.scrollTo("top", { ensureScrollable: false });
     cy.get(".tabs__tab a").contains("Edit").click({ force: true });
