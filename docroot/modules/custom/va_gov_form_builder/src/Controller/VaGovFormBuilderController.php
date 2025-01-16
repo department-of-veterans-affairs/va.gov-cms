@@ -43,11 +43,19 @@ class VaGovFormBuilderController extends ControllerBase {
   private $drupalFormBuilder;
 
   /**
+   * The Digital Forms service.
+   *
+   * @var \Drupal\va_gov_form_builder\DigitalFormsService
+   */
+  private $digitalFormsService;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
     $instance->drupalFormBuilder = $container->get('form_builder');
+    $instance->digitalFormsService = $container->get('va_gov_form_builder.digital_forms_service');
 
     return $instance;
   }
@@ -119,10 +127,21 @@ class VaGovFormBuilderController extends ControllerBase {
    * Home page.
    */
   public function home() {
+    $digitalForms = $this->digitalFormsService->getDigitalForms(FALSE);
+
+    $recentForms = [];
+    foreach ($digitalForms as $digitalForm) {
+      $recentForms[] = [
+        'nid' => $digitalForm->id(),
+        'title' => $digitalForm->getTitle(),
+        'formNumber' => $digitalForm->get('field_va_form_number')->value,
+      ];
+    }
+
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'home',
       '#build_form_url' => Url::fromRoute('va_gov_form_builder.start_conversion')->toString(),
-      '#recent_forms' => ['Form 1', 'Form 2'],
+      '#recent_forms' => $recentForms,
     ];
     $subtitle = 'Select a form';
     $libraries = ['home'];
