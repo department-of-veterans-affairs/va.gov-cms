@@ -21,7 +21,12 @@
     <p class="form-builder-content-section__subheading">Select a recent form to edit</p>
     <div class="form-builder-content-section--recent-forms__forms-list">
       {% for form in recent_forms %}
-        <p>{{ form }}
+        <a
+          class="form-builder-content-section--recent-forms__form-link"
+          href="/node/{{form.nid}}/edit"
+        >
+          {{ form.title }} (VA Form {{ form.formNumber }})
+        </a>
       {% endfor %}
     </div>
   </section>
