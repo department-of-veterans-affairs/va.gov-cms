@@ -3,3 +3,6 @@ services:
     class: Drupal\va_gov_form_builder\Routing\RouteSubscriber
     tags:
       - { name: "event_subscriber" }
+  va_gov_form_builder.digital_forms_service:
+    class: Drupal\va_gov_form_builder\Service\DigitalFormsService
+    arguments: ["@entity_type.manager"]
