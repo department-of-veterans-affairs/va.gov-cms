@@ -58,4 +58,28 @@ class HomeTest extends VaGovExistingSiteBase {
     $this->assertSession()->addressEquals('/form-builder/start-conversion');
   }
 
+  /**
+   * Test the list of recent forms.
+   */
+  public function testRecentFormsList() {
+    $title = 'Test Digital Form ' . uniqid();
+    $formNumber = '99-9999';
+
+    // Create a new Digital Form node.
+    $this->createNode([
+      'type' => 'digital_form',
+      'title' => $title,
+      'field_chapters' => [],
+      'field_va_form_number' => $formNumber,
+    ]);
+
+    // Refresh page.
+    $this->drupalGet($this->getPageUrl());
+
+    // Ensure a link to the form appears on the page
+    // (in the list of recent forms).
+    // Ensure the link text is formatted as expected.
+    $this->assertSession()->linkExists($title . ' (VA Form ' . $formNumber . ')');
+  }
+
 }
