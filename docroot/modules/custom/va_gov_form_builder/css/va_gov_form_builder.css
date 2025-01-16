@@ -56,3 +56,24 @@
   line-height: var(--units-3);
   padding: var(--units-1p5);
 }
+
+/* buttons */
+.form-builder-button {
+  border-radius: var(--units-0p5);
+  cursor: pointer;
+  font-weight: var(--font-weight-bold);
+  padding: var(--units-1p5) var(--units-2p5);
+  text-decoration: none;
+  transition: none;
+}
+
+.form-builder-button--primary,
+.form-builder-button--primary:focus {
+  background: var(--vads-color-primary);
+  color: var(--vads-button-color-text-primary-on-light);
+}
+
+.form-builder-button--primary:hover {
+  background: var(--vads-color-primary-dark);
+  color: var(--vads-button-color-text-primary-on-light);
+}

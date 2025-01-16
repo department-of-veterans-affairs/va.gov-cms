@@ -45,7 +45,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
    * Tests css is included.
    */
   public function testCssIncluded() {
-    $page = $this->controller->intro();
+    $page = $this->controller->home();
 
     $this->assertContains(
       'va_gov_form_builder/va_gov_form_builder_styles',
@@ -61,17 +61,18 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $response = $this->controller->entry();
 
     $this->assertInstanceOf(RedirectResponse::class, $response);
-    $this->assertStringContainsString(Url::fromRoute('va_gov_form_builder.intro')->toString(), $response->getTargetUrl());
+    $this->assertStringContainsString(Url::fromRoute('va_gov_form_builder.home')->toString(), $response->getTargetUrl());
   }
 
   /**
-   * Tests the intro method returns an Intro form.
+   * Tests the home method returns a Home page.
    */
-  public function testIntro() {
-    $page = $this->controller->intro();
+  public function testHome() {
+    $page = $this->controller->home();
 
     $this->assertArrayHasKey('content', $page);
-    $this->assertArrayHasKey('working_with_form_builder_header', $page['content']);
+    $this->assertArrayHasKey('#theme', $page['content']);
+    $this->assertEquals('page_content__va_gov_form_builder__home', $page['content']['#theme']);
   }
 
   /**
