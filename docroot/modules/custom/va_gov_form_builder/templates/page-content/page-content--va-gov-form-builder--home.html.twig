@@ -19,16 +19,18 @@
   <section class="form-builder-content-section form-builder-content-section--recent-forms">
     <h4>Recent forms</h4>
     <p class="form-builder-content-section__subheading">Select a recent form to edit</p>
-    <div class="form-builder-content-section--recent-forms__forms-list">
+    <ul class="form-builder-content-section--recent-forms__forms-list">
       {% for form in recent_forms %}
-        <a
-          class="form-builder-content-section--recent-forms__form-link"
-          href="/node/{{form.nid}}/edit"
-        >
-          {{ form.title }} (VA Form {{ form.formNumber }})
-        </a>
+        <li class="form-builder-content-section--recent-forms__form-list-item">
+          <a
+            class="form-builder-content-section--recent-forms__form-link"
+            href="/node/{{form.nid}}/edit"
+          >
+            {{ form.title }} (VA Form {{ form.formNumber }})
+          </a>
+        </li>
       {% endfor %}
-    </div>
+    </ul>
   </section>
 
 
