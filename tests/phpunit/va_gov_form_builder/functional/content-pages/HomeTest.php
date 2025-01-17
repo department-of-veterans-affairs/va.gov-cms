@@ -33,13 +33,13 @@ class HomeTest extends VaGovExistingSiteBase {
     parent::setUp();
 
     $this->loginFormBuilderUser();
-    $this->drupalGet($this->getPageUrl());
   }
 
   /**
    * Test that the page is accessible to a user with the correct privilege.
    */
   public function testPageLoads() {
+    $this->drupalGet($this->getPageUrl());
     $this->sharedTestPageLoads($this->getPageUrl(), 'Start a new form, or select a previous form to work with');
   }
 
@@ -47,6 +47,7 @@ class HomeTest extends VaGovExistingSiteBase {
    * Test that the page is not accessible to a user without privilege.
    */
   public function testPageDoesNotLoad() {
+    $this->drupalGet($this->getPageUrl());
     $this->sharedTestPageDoesNotLoad($this->getPageUrl());
   }
 
@@ -54,6 +55,7 @@ class HomeTest extends VaGovExistingSiteBase {
    * Test the 'Build a form' button.
    */
   public function testButton() {
+    $this->drupalGet($this->getPageUrl());
     $this->click('a#form-builder-build-form-button');
     $this->assertSession()->addressEquals('/form-builder/start-conversion');
   }
@@ -73,7 +75,7 @@ class HomeTest extends VaGovExistingSiteBase {
       'field_va_form_number' => $formNumber,
     ]);
 
-    // Refresh page.
+    // Load page.
     $this->drupalGet($this->getPageUrl());
 
     // Ensure a link to the form appears on the page
