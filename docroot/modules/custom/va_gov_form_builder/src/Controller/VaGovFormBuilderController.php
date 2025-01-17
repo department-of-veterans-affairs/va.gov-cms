@@ -45,7 +45,7 @@ class VaGovFormBuilderController extends ControllerBase {
   /**
    * The Digital Forms service.
    *
-   * @var \Drupal\va_gov_form_builder\DigitalFormsService
+   * @var \Drupal\va_gov_form_builder\Service\DigitalFormsService
    */
   private $digitalFormsService;
 
