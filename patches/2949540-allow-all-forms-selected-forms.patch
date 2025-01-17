@@ -1,6 +1,50 @@
+diff --git a/clientside_validation.install b/clientside_validation.install
+new file mode 100644
+index 0000000000000000000000000000000000000000..04ba76b2e178c300468d746b21b15145533a7f18
+--- /dev/null
++++ b/clientside_validation.install
+@@ -0,0 +1,38 @@
++<?php
++
++/**
++ * @file
++ * Install file for Clientside Validation.
++ */
++
++/**
++ * Update configuration for validation_scope based on enable_all_forms.
++ */
++function clientside_validation_update_10001() {
++  // Load the existing configuration.
++  $config = \Drupal::configFactory()->getEditable('clientside_validation.settings');
++
++  // Set default values for the new schema fields.
++  if ($config->isNew()) {
++    $config->set('validation_scope', CLIENTSIDE_VALIDATION_VALIDATE_ALL_FORMS);
++    $config->set('selected_forms', []);
++  }
++  else {
++    // Check the value of enable_all_forms and set validation_scope accordingly.
++    if ($config->get('enable_all_forms')) {
++      // If enable_all_forms is checked, set validation_scope the first choice.
++      $config->set('validation_scope', CLIENTSIDE_VALIDATION_VALIDATE_ALL_FORMS);
++    }
++    else {
++      $config->set('validation_scope', CLIENTSIDE_VALIDATION_VALIDATE_SELECTED_FORMS);
++    }
++
++    // Set the enabled_forms to selected_forms.
++    if ($config->get('enabled_forms')) {
++      $config->set('selected_forms', $config->get('enabled_forms'));
++    }
++  }
++
++  // Save the updated configuration.
++  $config->save();
++}
 diff --git a/clientside_validation.links.menu.yml b/clientside_validation.links.menu.yml
 new file mode 100644
-index 0000000..0803f80
+index 0000000000000000000000000000000000000000..0803f80165dab49b5d93a0ace129aba621d4e9e3
 --- /dev/null
 +++ b/clientside_validation.links.menu.yml
 @@ -0,0 +1,5 @@
@@ -10,10 +54,25 @@ index 0000000..0803f80
 +  route_name: clientside_validation.settings_form
 +  parent: system.admin_config_ui
 diff --git a/clientside_validation.module b/clientside_validation.module
-index 50fa8b3..6da4e71 100644
+index 50fa8b3e85a750e70e3bed66b2b8432df89905b6..6871e14d096096283ae8f8dbbf0a808cbb4d3545 100644
 --- a/clientside_validation.module
 +++ b/clientside_validation.module
-@@ -12,7 +12,49 @@ use Drupal\Core\Render\Element;
+@@ -5,14 +5,59 @@
+  * Hook implementations for the Clientside Validation module.
+  */
+
++use Drupal\Core\Cache\Cache;
+ use Drupal\Core\Form\FormStateInterface;
+ use Drupal\Core\Render\Element;
+
++/**
++ * Selections for the types of validation scopes.
++ */
++const CLIENTSIDE_VALIDATION_VALIDATE_ALL_FORMS = '0';
++const CLIENTSIDE_VALIDATION_VALIDATE_SELECTED_FORMS = '1';
++const CLIENTSIDE_VALIDATION_VALIDATE_EXCEPT_SELECTED_FORMS = '2';
++
+ /**
   * Implements hook_form_alter().
   */
  function clientside_validation_form_alter(&$form, FormStateInterface &$form_state, $form_id) {
@@ -22,34 +81,29 @@ index 50fa8b3..6da4e71 100644
 +
 +  // Add cache tags for the config.
 +  if (!empty($form['#cache']['tags'])) {
-+    $form['#cache']['tags'] = array_merge($form['#cache']['tags'], $config->getCacheTags());
++    $form['#cache']['tags'] = Cache::mergeTags($form['#cache']['tags'], $config->getCacheTags());
 +  }
 +  else {
 +    $form['#cache']['tags'] = $config->getCacheTags();
 +  }
 +
 +  // If enabled for all forms, add the after build function.
-+  $enable_all_forms = $config->get('enable_all_forms');
-+  if ($enable_all_forms) {
++  $validation_scope = $config->get('validation_scope');
++  if ($validation_scope === CLIENTSIDE_VALIDATION_VALIDATE_ALL_FORMS) {
 +    $form['#after_build'][] = 'clientside_validation_form_after_build';
 +  }
 +  // Else, add it only if the form ID was added in configuration.
-+  else {
-+    $enabled_forms = $config->get('enabled_forms');
-+    if (!empty($enabled_forms) && in_array($form_id, $enabled_forms)) {
++  elseif ($validation_scope === CLIENTSIDE_VALIDATION_VALIDATE_SELECTED_FORMS) {
++    $selected_forms = $config->get('selected_forms');
++    if (!empty($selected_forms) && in_array($form_id, $selected_forms)) {
 +      $form['#after_build'][] = 'clientside_validation_form_after_build';
 +    }
 +  }
-+
-+  // Webform has its own checkbox for disabling clientside validation,
-+  // making it always enabled unless there is a novalidate attribute.
-+  if (
-+    substr($form_id, 0, 19) == 'webform_submission_' &&
-+    !empty($form['#webform_id']) &&
-+    isset($form['#after_build']) &&
-+    !in_array('clientside_validation_form_after_build', $form['#after_build'])
-+  ) {
-+    $form['#after_build'][] = 'clientside_validation_form_after_build';
++  elseif ($validation_scope === CLIENTSIDE_VALIDATION_VALIDATE_EXCEPT_SELECTED_FORMS) {
++    $selected_forms = $config->get('selected_forms');
++    if (!empty($selected_forms) && !in_array($form_id, $selected_forms)) {
++      $form['#after_build'][] = 'clientside_validation_form_after_build';
++    }
 +  }
 +
 +  // Remove the clientside validation if the novalidate attribute was set.
@@ -62,11 +116,11 @@ index 50fa8b3..6da4e71 100644
 +    unset($form['#after_build'][$validation_key]);
 +  }
  }
- 
+
  /**
 diff --git a/clientside_validation.permissions.yml b/clientside_validation.permissions.yml
 new file mode 100644
-index 0000000..579ecaa
+index 0000000000000000000000000000000000000000..579ecaab512f3f2d28655a2122d78dc4643591ac
 --- /dev/null
 +++ b/clientside_validation.permissions.yml
 @@ -0,0 +1,4 @@
@@ -76,7 +130,7 @@ index 0000000..579ecaa
 +  restrict access: TRUE
 diff --git a/clientside_validation.routing.yml b/clientside_validation.routing.yml
 new file mode 100644
-index 0000000..9cf0f16
+index 0000000000000000000000000000000000000000..9cf0f16a5754e254d777a758f9f628c30746b8b5
 --- /dev/null
 +++ b/clientside_validation.routing.yml
 @@ -0,0 +1,7 @@
@@ -89,36 +143,36 @@ index 0000000..9cf0f16
 +    _permission: 'administer clientside validation'
 diff --git a/config/install/clientside_validation.settings.yml b/config/install/clientside_validation.settings.yml
 new file mode 100644
-index 0000000..dd9fdb9
+index 0000000000000000000000000000000000000000..92fdcdeda3de1ae234cdd5e9690f6f9d971de91e
 --- /dev/null
 +++ b/config/install/clientside_validation.settings.yml
 @@ -0,0 +1,2 @@
-+enable_all_forms: true
-+enabled_forms: { }
++validation_scope: '0'
++selected_forms: { }
 diff --git a/config/schema/clientside_validation.schema.yml b/config/schema/clientside_validation.schema.yml
 new file mode 100644
-index 0000000..6f8ec51
+index 0000000000000000000000000000000000000000..724545e144f55225e786fa41554939a199102f66
 --- /dev/null
 +++ b/config/schema/clientside_validation.schema.yml
 @@ -0,0 +1,12 @@
 +clientside_validation.settings:
 +  type: config_object
 +  mapping:
-+    enable_all_forms:
-+      type: boolean
-+      label: 'Setting to enable all forms for clientside validation'
-+    enabled_forms:
++    validation_scope:
++      type: string
++      label: 'Setting for the validation scheme'
++    selected_forms:
 +      type: sequence
-+      label: 'A list of clientside validation enabled forms'
++      label: 'A list of forms, based on the validation scheme'
 +      sequence:
 +        type: string
 +        label: 'The form ID'
 diff --git a/src/Form/ClientsideValidationSettingsForm.php b/src/Form/ClientsideValidationSettingsForm.php
 new file mode 100644
-index 0000000..36b2547
+index 0000000000000000000000000000000000000000..bfad9b9e882f2ad0412ce118f629dfd1a78a6ec5
 --- /dev/null
 +++ b/src/Form/ClientsideValidationSettingsForm.php
-@@ -0,0 +1,98 @@
+@@ -0,0 +1,103 @@
 +<?php
 +
 +namespace Drupal\clientside_validation\Form;
@@ -127,7 +181,7 @@ index 0000000..36b2547
 +use Drupal\Core\Form\FormStateInterface;
 +
 +/**
-+ * Class ClientsideValidationSettingsForm.
++ * Form to configure the clientside validation settings.
 + */
 +class ClientsideValidationSettingsForm extends ConfigFormBase {
 +
@@ -175,25 +229,30 @@ index 0000000..36b2547
 +      '#markup' => $this->t('Forms with the "novalidate" attribute will <strong>not</strong> have clientside validation enabled, regardless of these settings.'),
 +    ];
 +
-+    // General enabling for all forms.
-+    $form['enable_all_forms'] = [
-+      '#type' => 'checkbox',
-+      '#title' => $this->t('Use Clientside Validation in all forms'),
-+      '#description' => $this->t('Enable Clientside Validation for all forms on this site.'),
-+      '#default_value' => $config->get('enable_all_forms'),
++    // Set the scope of the validation.
++    $form['validation_scope'] = [
++      '#type' => 'radios',
++      '#title' => $this->t('Select the forms to validate'),
++      '#default_value' => $config->get('validation_scope') ?: CLIENTSIDE_VALIDATION_VALIDATE_ALL_FORMS,
++      '#options' => [
++        CLIENTSIDE_VALIDATION_VALIDATE_ALL_FORMS => $this->t('Validate all forms.'),
++        CLIENTSIDE_VALIDATION_VALIDATE_SELECTED_FORMS => $this->t('Only validate forms listed below.'),
++        CLIENTSIDE_VALIDATION_VALIDATE_EXCEPT_SELECTED_FORMS => $this->t('Validate all forms except those listed below.'),
++      ],
 +    ];
 +
-+    // Enabled forms.
-+    $enabled_forms = (!empty($config->get('enabled_forms'))) ? $config->get('enabled_forms') : [];
-+    $form['enabled_forms'] = [
++    // Selected forms.
++    $selected_forms = (!empty($config->get('selected_forms'))) ? $config->get('selected_forms') : [];
++    $form['selected_forms'] = [
 +      '#type' => 'textarea',
-+      '#title' => $this->t('Clientside Validation Enabled Forms'),
-+      '#description' => $this->t('Enter form IDs for all forms that should have clientside validation enabled, separated by a new line.'),
-+      '#default_value' => implode(PHP_EOL, $enabled_forms),
++      '#title' => $this->t('Enter form IDs below, separated by a new line.'),
++      '#default_value' => implode(PHP_EOL, $selected_forms),
 +      '#states' => [
-+        // Hide this textarea when all forms are enabled.
-+        'invisible' => [
-+          'input[name="enable_all_forms"]' => ['checked' => TRUE],
++        'visible' => [
++          // Only show this when validating less than all.
++          [':input[name="validation_scope"]' => ['value' => CLIENTSIDE_VALIDATION_VALIDATE_SELECTED_FORMS]],
++          'or',
++          [':input[name="validation_scope"]' => ['value' => CLIENTSIDE_VALIDATION_VALIDATE_EXCEPT_SELECTED_FORMS]],
 +        ],
 +      ],
 +    ];
@@ -209,10 +268,10 @@ index 0000000..36b2547
 +    $config = $this->config('clientside_validation.settings');
 +    $values = $form_state->getValues();
 +
-+    $config->set('enable_all_forms', $values['enable_all_forms']);
-+    $enabled_forms = preg_split("[\n|\r]", $values['enabled_forms']);
-+    $enabled_forms = array_filter($enabled_forms);
-+    $config->set('enabled_forms', $enabled_forms);
++    $config->set('validation_scope', $values['validation_scope']);
++    $selected_forms = preg_split("[\n|\r]", $values['selected_forms']);
++    $selected_forms = array_filter($selected_forms);
++    $config->set('selected_forms', $selected_forms);
 +    $config->save();
 +  }
 +
