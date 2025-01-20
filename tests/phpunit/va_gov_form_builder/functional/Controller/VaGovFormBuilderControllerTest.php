@@ -88,13 +88,13 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Tests the startConversion method returns a StartConversion form.
+   * Tests the formName method returns a FormName form.
    */
-  public function testStartConversion() {
-    $page = $this->controller->startConversion();
+  public function testFormName() {
+    $page = $this->controller->formName();
 
     $this->assertArrayHasKey('content', $page);
-    $this->assertArrayHasKey('start_new_conversion_header', $page['content']);
+    $this->assertArrayHasKey('start_new_form_header', $page['content']);
   }
 
   /**

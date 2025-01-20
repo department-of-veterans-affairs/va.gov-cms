@@ -141,7 +141,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'home',
-      '#build_form_url' => Url::fromRoute('va_gov_form_builder.start_conversion')->toString(),
+      '#build_form_url' => Url::fromRoute('va_gov_form_builder.form_name')->toString(),
       '#recent_forms' => $recentForms,
     ];
     $subtitle = 'Select a form';
@@ -151,11 +151,11 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
-   * Start-conversion page.
+   * Form-name page.
    */
-  public function startConversion() {
-    $formName = 'StartConversion';
-    $subtitle = 'Subtitle Placeholder';
+  public function formName() {
+    $formName = 'FormName';
+    $subtitle = 'Start a form';
     return $this->getFormPage($formName, $subtitle);
   }
 

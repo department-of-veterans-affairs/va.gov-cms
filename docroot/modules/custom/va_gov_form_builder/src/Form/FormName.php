@@ -6,15 +6,17 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderNodeBase;
 
 /**
- * Form step for starting a new form conversion.
+ * Form step for entering a form's name and other basic info.
+ *
+ * Other basic info includes form number, OMB info, etc.
  */
-class StartConversion extends FormBuilderNodeBase {
+class FormName extends FormBuilderNodeBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'form_builder__start_conversion';
+    return 'form_builder__form_name';
   }
 
   /**
@@ -36,10 +38,10 @@ class StartConversion extends FormBuilderNodeBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
-    $form['start_new_conversion_header'] = [
+    $form['start_new_form_header'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',
-      '#children' => $this->t('Start a new conversion'),
+      '#children' => $this->t('Start a new form'),
     ];
 
     $form['help_text'] = [

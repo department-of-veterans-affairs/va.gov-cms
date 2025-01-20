@@ -7,14 +7,14 @@ use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
- * Functional test of the StartConversion form.
+ * Functional test of the FormName form.
  *
  * @group functional
  * @group all
  *
- * @coversDefaultClass \Drupal\va_gov_form_builder\Form\StartConversion
+ * @coversDefaultClass \Drupal\va_gov_form_builder\Form\FormName
  */
-class StartConversionTest extends VaGovExistingSiteBase {
+class FormNameTest extends VaGovExistingSiteBase {
 
   use SharedConstants;
   use TestPageLoads;
@@ -28,7 +28,7 @@ class StartConversionTest extends VaGovExistingSiteBase {
    * Returns the url for this form.
    */
   private function getFormPageUrl() {
-    return '/form-builder/start-conversion';
+    return '/form-builder/form-name';
   }
 
   /**
@@ -45,7 +45,7 @@ class StartConversionTest extends VaGovExistingSiteBase {
    * Test that the page is accessible to a user with the correct privilege.
    */
   public function testPageLoads() {
-    $this->sharedTestPageLoads($this->getFormPageUrl(), 'Start a new conversion');
+    $this->sharedTestPageLoads($this->getFormPageUrl(), 'Insert the form name');
   }
 
   /**
