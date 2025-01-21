@@ -6,13 +6,10 @@ dependencies:
     - field.field.node.office.field_administration
     - field.field.node.office.field_body
     - field.field.node.office.field_description
-    - field.field.node.office.field_email_updates_link
-    - field.field.node.office.field_external_link
     - field.field.node.office.field_last_saved_by_an_editor
     - field.field.node.office.field_meta_tags
     - field.field.node.office.field_office_id
     - field.field.node.office.field_parent_office
-    - field.field.node.office.field_social_media_links
     - node.type.office
   module:
     - field_group
@@ -22,7 +19,6 @@ third_party_settings:
   field_group:
     group_meta:
       children:
-        - field_meta_title
         - field_meta_tags
       label: 'Meta tags'
       parent_name: ''
@@ -84,10 +80,7 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_body: true
-  field_email_updates_link: true
-  field_external_link: true
   field_last_saved_by_an_editor: true
-  field_social_media_links: true
   langcode: true
   links: true
   search_api_excerpt: true

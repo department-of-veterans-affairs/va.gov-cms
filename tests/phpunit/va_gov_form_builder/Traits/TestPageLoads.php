@@ -3,9 +3,9 @@
 namespace tests\phpunit\va_gov_form_builder\Traits;
 
 /**
- * Provides a trait for testing that forms load and do not load appropriately.
+ * Provides a trait for testing that pages load and do not load appropriately.
  */
-trait TestFormLoads {
+trait TestPageLoads {
 
   /**
    * Logs-in a user with appropriate privileges.
@@ -17,14 +17,14 @@ trait TestFormLoads {
   }
 
   /**
-   * Test the form is accessible to a user with the correct privilege.
+   * Test the page is accessible to a user with the correct privilege.
    *
    * @param string $url
-   *   The (form) page to load.
+   *   The  page to load.
    * @param string $expectedText
    *   The text expected to show on the loaded page.
    */
-  private function sharedTestFormLoads($url, $expectedText) {
+  private function sharedTestPageLoads($url, $expectedText) {
     // Log in a user with permission.
     $this->loginFormBuilderUser();
 
@@ -36,12 +36,12 @@ trait TestFormLoads {
   }
 
   /**
-   * Test the form is not accessible to a user without the correct privilege.
+   * Test the page is not accessible to a user without the correct privilege.
    *
    * @param string $url
-   *   The (form) page to load.
+   *   The page to load.
    */
-  private function sharedTestFormDoesNotLoad($url) {
+  private function sharedTestPageDoesNotLoad($url) {
     // Log in a user without permission.
     $this->drupalLogin($this->createUser([]));
 

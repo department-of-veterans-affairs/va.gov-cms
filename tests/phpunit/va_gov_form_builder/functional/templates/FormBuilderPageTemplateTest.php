@@ -11,7 +11,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
  * that should result in rendering a page that utilizes the
  * page template under test. In this way, we can test the expected
  * behavior of the template file in a consistent manner, assuming
- * the route properly utilizes the theme (which is tested elswhere).
+ * the route properly utilizes the theme (which is tested elsewhere).
  *
  * The route that makes the most sense here
  * is the `entry` route, as that should always be present, regardless

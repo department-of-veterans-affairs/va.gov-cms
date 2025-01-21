@@ -6,13 +6,10 @@ dependencies:
     - field.field.node.office.field_administration
     - field.field.node.office.field_body
     - field.field.node.office.field_description
-    - field.field.node.office.field_email_updates_link
-    - field.field.node.office.field_external_link
     - field.field.node.office.field_last_saved_by_an_editor
     - field.field.node.office.field_meta_tags
     - field.field.node.office.field_office_id
     - field.field.node.office.field_parent_office
-    - field.field.node.office.field_social_media_links
     - node.type.office
     - workflows.workflow.editorial
   module:
@@ -168,6 +165,11 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   url_redirects:
     weight: 6
     region: content
@@ -175,10 +177,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_email_updates_link: true
-  field_external_link: true
   field_meta_tags: true
-  field_social_media_links: true
   langcode: true
   promote: true
   status: true
