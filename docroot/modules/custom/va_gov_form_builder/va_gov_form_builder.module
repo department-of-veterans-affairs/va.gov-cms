@@ -21,13 +21,29 @@ function va_gov_form_builder_entity_bundle_field_info_alter(&$fields, EntityType
 /**
  * Implements hook_theme().
  */
-function va_gov_form_builder_theme() {
-  return [
-    'page__va_gov_form_builder' => [
-      'base hook' => 'page',
-      'path' => \Drupal::service('extension.list.module')->getPath('va_gov_form_builder') . '/templates',
+function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
+  $theme = [];
+
+  // Add page-wrapper theme.
+  $theme['page__va_gov_form_builder'] = [
+    'base hook' => 'page',
+    'path' => $path . '/templates/page',
+  ];
+
+  // Add page-content themes.
+  $page_content_theme_prefix = 'page_content__va_gov_form_builder__';
+  $page_content_theme_path = $path . '/templates/page-content';
+
+  // 1. Home page
+  $theme[$page_content_theme_prefix . 'home'] = [
+    'path' => $page_content_theme_path,
+    'variables' => [
+      'recent_forms' => [],
+      'build_form_url' => '',
     ],
   ];
+
+  return $theme;
 }
 
 /**

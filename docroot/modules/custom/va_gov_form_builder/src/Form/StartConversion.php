@@ -133,7 +133,7 @@ class StartConversion extends FormBuilderNodeBase {
    * Submit handler for the 'Back' button.
    */
   public function backButtonSubmitHandler(array &$form, FormStateInterface $form_state) {
-    $form_state->setRedirect('va_gov_form_builder.intro');
+    $form_state->setRedirect('va_gov_form_builder.home');
   }
 
   /**
