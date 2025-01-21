@@ -4,7 +4,7 @@ namespace tests\phpunit\va_gov_form_builder\functional\Form;
 
 use Drupal\node\Entity\Node;
 use tests\phpunit\va_gov_form_builder\Traits\SharedConstants;
-use tests\phpunit\va_gov_form_builder\Traits\TestFormLoads;
+use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
@@ -18,7 +18,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
 class NameAndDobTest extends VaGovExistingSiteBase {
 
   use SharedConstants;
-  use TestFormLoads;
+  use TestPageLoads;
 
   /**
    * {@inheritdoc}
@@ -65,17 +65,17 @@ class NameAndDobTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test that the form is accessible to a user with the correct privilege.
+   * Test that the page is accessible to a user with the correct privilege.
    */
-  public function testFormLoads() {
-    $this->sharedTestFormLoads($this->getFormPageUrl(), 'Collecting Name and Date of birth');
+  public function testPageLoads() {
+    $this->sharedTestPageLoads($this->getFormPageUrl(), 'Collecting Name and Date of birth');
   }
 
   /**
-   * Test that the form is not accessible to a user without privilege.
+   * Test that the page is not accessible to a user without privilege.
    */
-  public function testFormDoesNotLoad() {
-    $this->sharedTestFormDoesNotLoad($this->getFormPageUrl());
+  public function testPageDoesNotLoad() {
+    $this->sharedTestPageDoesNotLoad($this->getFormPageUrl());
   }
 
   /**

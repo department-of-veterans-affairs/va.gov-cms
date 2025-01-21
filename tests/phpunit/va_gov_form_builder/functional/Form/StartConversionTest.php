@@ -3,7 +3,7 @@
 namespace tests\phpunit\va_gov_form_builder\functional\Form;
 
 use tests\phpunit\va_gov_form_builder\Traits\SharedConstants;
-use tests\phpunit\va_gov_form_builder\Traits\TestFormLoads;
+use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
@@ -17,7 +17,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
 class StartConversionTest extends VaGovExistingSiteBase {
 
   use SharedConstants;
-  use TestFormLoads;
+  use TestPageLoads;
 
   /**
    * {@inheritdoc}
@@ -42,17 +42,17 @@ class StartConversionTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test that the form is accessible to a user with the correct privilege.
+   * Test that the page is accessible to a user with the correct privilege.
    */
-  public function testFormLoads() {
-    $this->sharedTestFormLoads($this->getFormPageUrl(), 'Start a new conversion');
+  public function testPageLoads() {
+    $this->sharedTestPageLoads($this->getFormPageUrl(), 'Start a new conversion');
   }
 
   /**
-   * Test that the form is not accessible to a user without privilege.
+   * Test that the page is not accessible to a user without privilege.
    */
-  public function testFormDoesNotLoad() {
-    $this->sharedTestFormDoesNotLoad($this->getFormPageUrl());
+  public function testPageDoesNotLoad() {
+    $this->sharedTestPageDoesNotLoad($this->getFormPageUrl());
   }
 
   /**
@@ -95,11 +95,11 @@ class StartConversionTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test the 'Back' button takes the user back to the Intro page.
+   * Test the 'Back' button takes the user back to the Home page.
    */
   public function testBackButton() {
     $this->click('.button#edit-back');
-    $this->assertSession()->addressEquals('/form-builder/intro');
+    $this->assertSession()->addressEquals('/form-builder/home');
   }
 
 }
