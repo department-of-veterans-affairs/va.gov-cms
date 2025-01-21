@@ -153,10 +153,19 @@ class VaGovFormBuilderController extends ControllerBase {
   /**
    * Form-name page.
    */
-  public function formName() {
+  public function formName($nid = NULL) {
     $formName = 'FormName';
-    $subtitle = 'Start a form';
-    return $this->getFormPage($formName, $subtitle);
+
+    if (!empty($nid)) {
+      // This is an edit.
+      $subtitle = 'Edit form';
+    }
+    else {
+      // This is a new form creation.
+      $subtitle = 'Start a form';
+    }
+
+    return $this->getFormPage($formName, $subtitle, NULL, $nid);
   }
 
   /**

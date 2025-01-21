@@ -88,13 +88,26 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Tests the formName method returns a FormName form.
+   * Tests the formName method returns a FormName form in create mode.
+   *
+   * When $nid is not passed (is NULL), it should be create mode.
    */
-  public function testFormName() {
+  public function testFormNameCreate() {
     $page = $this->controller->formName();
 
-    $this->assertArrayHasKey('content', $page);
-    $this->assertArrayHasKey('start_new_form_header', $page['content']);
+    $this->assertEquals('Start a form', $page['form_builder_page_data']['subtitle']);
+  }
+
+  /**
+   * Tests the formName method returns a FormName form in edit mode.
+   *
+   * When $nid is passed, it should be edit mode.
+   */
+  public function testFormNameEdit() {
+    $nid = '12345';
+    $page = $this->controller->formName($nid);
+
+    $this->assertEquals('Edit form', $page['form_builder_page_data']['subtitle']);
   }
 
   /**

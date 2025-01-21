@@ -6,10 +6,16 @@ va_gov_form_builder.home:
   path: "/form-builder/home"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::home'
-va_gov_form_builder.form_name:
+va_gov_form_builder.form_name.create:
   path: "/form-builder/form-name"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::formName'
+va_gov_form_builder.form_name.edit:
+  path: "/form-builder/{nid}/form-name"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::formName'
+  requirements:
+    nid: \d*
 va_gov_form_builder.name_and_dob:
   path: "/form-builder/{nid}/name-and-dob"
   defaults:
