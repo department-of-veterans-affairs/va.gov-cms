@@ -127,6 +127,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * Home page.
    */
   public function home() {
+    // Passing "FALSE" to fetch draft nodes rather than only published nodes.
     $digitalForms = $this->digitalFormsService->getDigitalForms(FALSE);
 
     $recentForms = [];
