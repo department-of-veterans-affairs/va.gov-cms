@@ -2,13 +2,22 @@
 
 namespace Drupal\va_gov_form_builder\Form\Base;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Abstract base class for Form Builder form steps.
  */
 abstract class FormBuilderBase extends FormBase {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * The Digital Form node created or loaded by this form step.
@@ -39,6 +48,22 @@ abstract class FormBuilderBase extends FormBase {
    * @var bool
    */
   protected $isCreate;
+
+  /**
+   * {@inheritDoc}
+   */
+  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
+    $this->entityTypeManager = $entityTypeManager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * Returns the Digital Form fields accessed by this form step.
