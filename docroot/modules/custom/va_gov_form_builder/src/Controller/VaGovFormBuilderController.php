@@ -81,7 +81,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id to load.
    *
    * @return bool
-   *   TRUE if successfully loaded. FALSe otherwise.
+   *   TRUE if successfully loaded. FALSE otherwise.
    */
   protected function loadDigitalFormNode($nid) {
     $digitalFormNode = $this->digitalFormsService->getDigitalForm($nid);
@@ -203,7 +203,7 @@ class VaGovFormBuilderController extends ControllerBase {
       $subtitle = 'Start a form';
     }
 
-    return $this->getFormPage($formName, $subtitle, NULL, $nid);
+    return $this->getFormPage($formName, $subtitle, NULL);
   }
 
   /**
@@ -212,7 +212,7 @@ class VaGovFormBuilderController extends ControllerBase {
   public function nameAndDob($nid) {
     $formName = 'NameAndDob';
     $subtitle = 'Subtitle Placeholder';
-    return $this->getFormPage($formName, $subtitle, NULL, $nid);
+    return $this->getFormPage($formName, $subtitle, NULL);
   }
 
 }
