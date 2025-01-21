@@ -3,14 +3,14 @@
 namespace Drupal\va_gov_form_builder\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\va_gov_form_builder\Form\Base\FormBuilderNodeBase;
+use Drupal\va_gov_form_builder\Form\Base\FormBuilderBase;
 
 /**
  * Form step for entering a form's name and other basic info.
  *
  * Other basic info includes form number, OMB info, etc.
  */
-class FormName extends FormBuilderNodeBase {
+class FormName extends FormBuilderBase {
 
   /**
    * {@inheritdoc}
@@ -35,8 +35,8 @@ class FormName extends FormBuilderNodeBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
-    $form = parent::buildForm($form, $form_state);
+  public function buildForm(array $form, FormStateInterface $form_state, $node = NULL) {
+    $form = parent::buildForm($form, $form_state, $node);
 
     $form['start_new_form_header'] = [
       '#type' => 'html_tag',
@@ -56,6 +56,7 @@ class FormName extends FormBuilderNodeBase {
       '#title' => $this->t('Form Name'),
       '#description' => $this->t('Insert the form name'),
       '#required' => TRUE,
+      '#default_value' => $this->getDigitalFormNodeFieldValue('title'),
     ];
 
     $form['field_va_form_number'] = [
@@ -63,6 +64,7 @@ class FormName extends FormBuilderNodeBase {
       '#title' => $this->t('Form Number'),
       '#description' => $this->t('Insert the form number'),
       '#required' => TRUE,
+      '#default_value' => $this->getDigitalFormNodeFieldValue('field_va_form_number'),
     ];
 
     $form['omb_header'] = [
@@ -76,6 +78,7 @@ class FormName extends FormBuilderNodeBase {
       '#title' => $this->t('OMB number'),
       '#description' => $this->t('Insert the OMB number (format: xxxx-xxxx)'),
       '#required' => TRUE,
+      '#default_value' => $this->getDigitalFormNodeFieldValue('field_omb_number'),
     ];
 
     $form['field_respondent_burden'] = [
@@ -83,6 +86,7 @@ class FormName extends FormBuilderNodeBase {
       '#title' => $this->t('Respondent burden'),
       '#description' => $this->t('Number of minutes as indicated on the form'),
       '#required' => TRUE,
+      '#default_value' => $this->getDigitalFormNodeFieldValue('field_respondent_burden'),
     ];
 
     $form['field_expiration_date'] = [
@@ -90,6 +94,7 @@ class FormName extends FormBuilderNodeBase {
       '#title' => $this->t('Expiration date'),
       '#description' => $this->t('Form expiration date as indicated on the form'),
       '#required' => TRUE,
+      '#default_value' => $this->getDigitalFormNodeFieldValue('field_expiration_date'),
     ];
 
     $form['actions']['continue'] = [
@@ -121,14 +126,40 @@ class FormName extends FormBuilderNodeBase {
    * {@inheritdoc}
    */
   protected function setDigitalFormNodeFromFormState(array &$form, FormStateInterface $form_state) {
-    $this->digitalFormNode = $this->entityTypeManager->getStorage('node')->create([
-      'type' => 'digital_form',
-      'title' => $form_state->getValue('title'),
-      'field_va_form_number' => $form_state->getValue('field_va_form_number'),
-      'field_omb_number' => $form_state->getValue('field_omb_number'),
-      'field_respondent_burden' => $form_state->getValue('field_respondent_burden'),
-      'field_expiration_date' => $form_state->getValue('field_expiration_date'),
-    ]);
+    $title = $form_state->getValue('title');
+    $vaFormNumber = $form_state->getValue('field_va_form_number');
+    $ombNumber = $form_state->getValue('field_omb_number');
+    $respondentBurden = $form_state->getValue('field_respondent_burden');
+    $expirationDate = $form_state->getValue('field_expiration_date');
+
+    if ($this->isCreate) {
+      /*
+       * This form is creating a new node.
+       *
+       * We can simply create the new node with the fields from this form.
+       */
+      $this->digitalFormNode = $this->entityTypeManager->getStorage('node')->create([
+        'type' => 'digital_form',
+        'title' => $title,
+        'field_va_form_number' => $vaFormNumber,
+        'field_omb_number' => $ombNumber,
+        'field_respondent_burden' => $respondentBurden,
+        'field_expiration_date' => $expirationDate,
+      ]);
+    }
+    else {
+      /*
+       * This form is editing an existing node.
+       *
+       * We need to update only the fields from this form,
+       * ensuring other fields are not changed.
+       */
+      $this->digitalFormNode->set('title', $title);
+      $this->digitalFormNode->set('field_va_form_number', $vaFormNumber);
+      $this->digitalFormNode->set('field_omb_number', $ombNumber);
+      $this->digitalFormNode->set('field_respondent_burden', $respondentBurden);
+      $this->digitalFormNode->set('field_expiration_date', $expirationDate);
+    }
   }
 
   /**
