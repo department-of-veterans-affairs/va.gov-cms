@@ -114,9 +114,9 @@ class FormInfo extends FormBuilderBase {
       '#default_value' => $this->getDigitalFormNodeFieldValue('field_expiration_date'),
     ];
 
-    $form['actions']['continue'] = [
+    $form['actions']['save_and_continue'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Continue'),
+      '#value' => $this->t('Save and continue'),
       '#attributes' => [
         'class' => [
           'button',
