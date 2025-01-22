@@ -62,7 +62,7 @@ class FormInfo extends FormBuilderBase {
       $this->isCreate = FALSE;
     }
 
-    $form['start_new_form_header'] = [
+    $form['name_this_form_header'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',
       '#children' => $this->t('Name this form'),
@@ -71,7 +71,6 @@ class FormInfo extends FormBuilderBase {
     $form['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Form Name'),
-      '#description' => $this->t('Insert the form name'),
       '#required' => TRUE,
       '#default_value' => $this->getDigitalFormNodeFieldValue('title'),
     ];
@@ -79,15 +78,14 @@ class FormInfo extends FormBuilderBase {
     $form['field_va_form_number'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Form Number'),
-      '#description' => $this->t('Insert the form number'),
       '#required' => TRUE,
       '#default_value' => $this->getDigitalFormNodeFieldValue('field_va_form_number'),
     ];
 
     $form['omb_header'] = [
-      '#type' => 'item',
-      '#title' => $this->t('OMB information'),
-      '#description' => $this->t('Refer to the form'),
+      '#type' => 'html_tag',
+      '#tag' => 'h3',
+      '#children' => $this->t('OMB information'),
     ];
 
     $form['field_omb_number'] = [
