@@ -37,23 +37,24 @@ abstract class FormBuilderBase extends FormBase {
   protected $digitalFormNodeIsChanged;
 
   /**
-   * Flag indicating if the form mode is "create".
+   * Flag indicating whether this form allows an empty node.
    *
-   * Form mode is "create" (and this value is TRUE)
-   * only if the form creates the node for the first time.
-   * This is the exception.
-   *
-   * Form mode is "edit" otherwise, and this value is FALSE.
+   * This defaults to FALSE. The only time an empty node
+   * should be allowed is on the form that creates
+   * the node for the first time. Every other form should
+   * operate on an existing form and should require a
+   * node to be populated.
    *
    * @var bool
    */
-  protected $isCreate;
+  protected $allowEmptyDigitalFormNode;
 
   /**
    * {@inheritDoc}
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager) {
     $this->entityTypeManager = $entityTypeManager;
+    $this->allowEmptyDigitalFormNode = FALSE;
   }
 
   /**
@@ -82,6 +83,9 @@ abstract class FormBuilderBase extends FormBase {
    * does not exist, returns NULL. This is primarily
    * used to populate forms with default values when the
    * form edits an existing Digital Form node.
+   *
+   * @param string $fieldName
+   *   The name of the field whose value should be fetched.
    */
   protected function getDigitalFormNodeFieldValue($fieldName) {
     if (empty($this->digitalFormNode)) {
@@ -111,15 +115,10 @@ abstract class FormBuilderBase extends FormBase {
     // When form is first built, initialize flag to false.
     $this->digitalFormNodeIsChanged = FALSE;
 
-    if (empty($node)) {
-      // If no node is passed in, this is "create" mode.
-      $this->isCreate = TRUE;
+    if (empty($node) && !$this->allowEmptyDigitalFormNode) {
+      throw new \InvalidArgumentException('Digital Form node cannot be null.');
     }
-    else {
-      // If a node is passed in, this is "edit" mode.
-      $this->isCreate = FALSE;
-      $this->digitalFormNode = $node;
-    }
+    $this->digitalFormNode = $node;
 
     return $form;
   }
@@ -129,8 +128,16 @@ abstract class FormBuilderBase extends FormBase {
    *
    * @param string $type
    *   The chapter (paragraph) type.
+   *
+   * @return bool
+   *   TRUE if the chapter exists; FALSE if the chapter
+   *   does not exist or the node does not exist.
    */
   protected function digitalFormNodeHasChapterOfType($type) {
+    if (empty($this->digitalFormNode)) {
+      return FALSE;
+    }
+
     $chapters = $this->digitalFormNode->get('field_chapters')->getValue();
 
     foreach ($chapters as $chapter) {
