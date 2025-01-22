@@ -189,18 +189,14 @@ class VaGovFormBuilderController extends ControllerBase {
    */
   public function formInfo($nid = NULL) {
     $formName = 'FormInfo';
+    $subtitle = 'Build a form';
 
     if (!empty($nid)) {
       // This is an edit.
-      $subtitle = 'Edit form';
       $nodeFound = $this->loadDigitalFormNode($nid);
       if (!$nodeFound) {
         throw new NotFoundHttpException();
       }
-    }
-    else {
-      // This is a new form creation.
-      $subtitle = 'Start a form';
     }
 
     return $this->getFormPage($formName, $subtitle);
