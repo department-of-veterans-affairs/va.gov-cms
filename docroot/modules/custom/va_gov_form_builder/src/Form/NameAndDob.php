@@ -146,7 +146,9 @@ class NameAndDob extends FormBuilderBase {
    */
   public function backButtonSubmitHandler(array &$form, FormStateInterface $form_state) {
     // This will almost certainly change.
-    $form_state->setRedirect('va_gov_form_builder.form_name.create');
+    $form_state->setRedirect('va_gov_form_builder.form_name.edit', [
+      'nid' => $this->digitalFormNode->id(),
+    ]);
   }
 
   /**
