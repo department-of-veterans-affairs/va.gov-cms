@@ -97,11 +97,7 @@ abstract class FormBuilderBase extends FormBase {
         return $this->digitalFormNode->getTitle();
       }
 
-      $field = $this->digitalFormNode->get($fieldName);
-      if (!empty($field)) {
-        return $field->value;
-      }
-
+      return $this->digitalFormNode->get($fieldName)->value;
     }
     catch (\Exception $e) {
       return NULL;
