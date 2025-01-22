@@ -96,7 +96,9 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   public function testFormInfoCreate() {
     $page = $this->controller->formInfo();
 
-    $this->assertEquals('Start a form', $page['form_builder_page_data']['subtitle']);
+    // In create mode, default value should be null.
+    $this->assertArrayHasKey('#default_value', $page['content']['title']);
+    $this->assertEmpty($page['content']['title']['#default_value']);
   }
 
   /**
@@ -119,7 +121,9 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $nid = $node->id();
     $page = $this->controller->formInfo($nid);
 
-    $this->assertEquals('Edit form', $page['form_builder_page_data']['subtitle']);
+    // In edit mode, default value should be populated.
+    $this->assertArrayHasKey('#default_value', $page['content']['title']);
+    $this->assertEquals($title, $page['content']['title']['#default_value']);
   }
 
   /**

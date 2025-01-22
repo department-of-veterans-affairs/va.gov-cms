@@ -128,14 +128,6 @@ class FormInfo extends FormBuilderBase {
       '#weight' => '10',
     ];
 
-    $form['actions']['back'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Back'),
-      '#weight' => '20',
-      '#submit' => ['::backButtonSubmitHandler'],
-      '#limit_validation_errors' => [],
-    ];
-
     return $form;
   }
 
@@ -177,13 +169,6 @@ class FormInfo extends FormBuilderBase {
       $this->digitalFormNode->set('field_respondent_burden', $respondentBurden);
       $this->digitalFormNode->set('field_expiration_date', $expirationDate);
     }
-  }
-
-  /**
-   * Submit handler for the 'Back' button.
-   */
-  public function backButtonSubmitHandler(array &$form, FormStateInterface $form_state) {
-    $form_state->setRedirect('va_gov_form_builder.home');
   }
 
   /**

@@ -157,12 +157,4 @@ class FormInfoTest extends VaGovExistingSiteBase {
     $this->assertSession()->pageTextContains('Expiration date field is required.');
   }
 
-  /**
-   * Test the 'Back' button takes the user back to the Home page.
-   */
-  public function testBackButton() {
-    $this->click('.button#edit-back');
-    $this->assertSession()->addressEquals('/form-builder/home');
-  }
-
 }
