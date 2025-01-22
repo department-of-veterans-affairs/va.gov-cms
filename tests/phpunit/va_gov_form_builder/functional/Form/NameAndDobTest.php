@@ -120,7 +120,7 @@ class NameAndDobTest extends VaGovExistingSiteBase {
    */
   public function testBackButton() {
     $this->click('.button#edit-back');
-    $this->assertSession()->addressEquals('/form-builder/form-name');
+    $this->assertSession()->addressMatches('|form-builder/\d+/form-name|');
   }
 
 }
