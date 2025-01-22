@@ -39,7 +39,6 @@ class HomeTest extends VaGovExistingSiteBase {
    * Test that the page is accessible to a user with the correct privilege.
    */
   public function testPageLoads() {
-    $this->drupalGet($this->getPageUrl());
     $this->sharedTestPageLoads($this->getPageUrl(), 'Start a new form, or select a previous form to work with');
   }
 
@@ -47,7 +46,6 @@ class HomeTest extends VaGovExistingSiteBase {
    * Test that the page is not accessible to a user without privilege.
    */
   public function testPageDoesNotLoad() {
-    $this->drupalGet($this->getPageUrl());
     $this->sharedTestPageDoesNotLoad($this->getPageUrl());
   }
 
