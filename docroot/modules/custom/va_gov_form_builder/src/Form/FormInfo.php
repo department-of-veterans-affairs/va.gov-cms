@@ -10,7 +10,7 @@ use Drupal\va_gov_form_builder\Form\Base\FormBuilderBase;
  *
  * Other basic info includes form number, OMB info, etc.
  */
-class FormName extends FormBuilderBase {
+class FormInfo extends FormBuilderBase {
 
   /**
    * Flag indicating if the form mode is "create".
@@ -28,7 +28,7 @@ class FormName extends FormBuilderBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'form_builder__form_name';
+    return 'form_builder__form_info';
   }
 
   /**

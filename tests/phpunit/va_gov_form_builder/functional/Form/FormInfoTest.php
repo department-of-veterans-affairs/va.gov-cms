@@ -7,14 +7,14 @@ use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
- * Functional test of the FormName form.
+ * Functional test of the FormInfo form.
  *
  * @group functional
  * @group all
  *
- * @coversDefaultClass \Drupal\va_gov_form_builder\Form\FormName
+ * @coversDefaultClass \Drupal\va_gov_form_builder\Form\FormInfo
  */
-class FormNameTest extends VaGovExistingSiteBase {
+class FormInfoTest extends VaGovExistingSiteBase {
 
   use SharedConstants;
   use TestPageLoads;
@@ -33,10 +33,10 @@ class FormNameTest extends VaGovExistingSiteBase {
    */
   private function getFormPageUrl($nid = NULL) {
     if (empty($nid)) {
-      return '/form-builder/form-name';
+      return '/form-builder/form-info';
     }
 
-    return "/form-builder/{$nid}/form-name";
+    return "/form-builder/{$nid}/form-info";
   }
 
   /**

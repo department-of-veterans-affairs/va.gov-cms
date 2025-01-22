@@ -172,7 +172,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'home',
-      '#build_form_url' => Url::fromRoute('va_gov_form_builder.form_name.create')->toString(),
+      '#build_form_url' => Url::fromRoute('va_gov_form_builder.form_info.create')->toString(),
       '#recent_forms' => $recentForms,
     ];
     $subtitle = 'Select a form';
@@ -182,13 +182,13 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
-   * Form-name page.
+   * Form-info page.
    *
    * @param string $nid
    *   The node id, passed in when the page edits an existing node.
    */
-  public function formName($nid = NULL) {
-    $formName = 'FormName';
+  public function formInfo($nid = NULL) {
+    $formName = 'FormInfo';
 
     if (!empty($nid)) {
       // This is an edit.

@@ -57,7 +57,7 @@ class HomeTest extends VaGovExistingSiteBase {
   public function testButton() {
     $this->drupalGet($this->getPageUrl());
     $this->click('a#form-builder-build-form-button');
-    $this->assertSession()->addressEquals('/form-builder/form-name');
+    $this->assertSession()->addressEquals('/form-builder/form-info');
   }
 
   /**

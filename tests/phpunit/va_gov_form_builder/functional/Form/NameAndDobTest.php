@@ -116,11 +116,11 @@ class NameAndDobTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test that the 'Back' button takes the user to the form-name page.
+   * Test that the 'Back' button takes the user to the form-info page.
    */
   public function testBackButton() {
     $this->click('.button#edit-back');
-    $this->assertSession()->addressMatches('|form-builder/\d+/form-name|');
+    $this->assertSession()->addressMatches('|form-builder/\d+/form-info|');
   }
 
 }

@@ -89,22 +89,22 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Tests the formName method returns a FormName form in create mode.
+   * Tests the formInfo method returns a FormInfo form in create mode.
    *
    * When $nid is not passed (is NULL), it should be create mode.
    */
-  public function testFormNameCreate() {
-    $page = $this->controller->formName();
+  public function testFormInfoCreate() {
+    $page = $this->controller->formInfo();
 
     $this->assertEquals('Start a form', $page['form_builder_page_data']['subtitle']);
   }
 
   /**
-   * Tests the formName method returns a FormName form in edit mode.
+   * Tests the formInfo method returns a FormInfo form in edit mode.
    *
    * When $nid is passed, it should be edit mode.
    */
-  public function testFormNameEdit() {
+  public function testFormInfoEdit() {
     $title = 'Test Digital Form ' . uniqid();
     $formNumber = '99-9999';
 
@@ -117,19 +117,19 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     ]);
 
     $nid = $node->id();
-    $page = $this->controller->formName($nid);
+    $page = $this->controller->formInfo($nid);
 
     $this->assertEquals('Edit form', $page['form_builder_page_data']['subtitle']);
   }
 
   /**
-   * Tests the formName method throws an exception with a bad node id.
+   * Tests the formInfo method throws an exception with a bad node id.
    */
-  public function testFormNameException() {
+  public function testFormInfoException() {
     $someNonExistentNodeId = '9999999999999';
 
     $this->expectException(NotFoundHttpException::class);
-    $this->controller->formName($someNonExistentNodeId);
+    $this->controller->formInfo($someNonExistentNodeId);
   }
 
   /**
