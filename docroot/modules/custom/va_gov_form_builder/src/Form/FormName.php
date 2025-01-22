@@ -13,6 +13,18 @@ use Drupal\va_gov_form_builder\Form\Base\FormBuilderBase;
 class FormName extends FormBuilderBase {
 
   /**
+   * Flag indicating if the form mode is "create".
+   *
+   * Form mode is "create", and this value is TRUE,
+   * if no node id is passed in representing an existing node.
+   *
+   * Form mode is "edit" otherwise, and this value is FALSE.
+   *
+   * @var bool
+   */
+  protected $isCreate;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -36,7 +48,19 @@ class FormName extends FormBuilderBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $node = NULL) {
+    // On this form, the Digital Form node should be allowed to be empty,
+    // to accommodate the case where it is in "create" mode.
+    $this->allowEmptyDigitalFormNode = TRUE;
     $form = parent::buildForm($form, $form_state, $node);
+
+    if (empty($node)) {
+      // If no node is passed in, this is "create" mode.
+      $this->isCreate = TRUE;
+    }
+    else {
+      // If a node is passed in, this is "edit" mode.
+      $this->isCreate = FALSE;
+    }
 
     $form['start_new_form_header'] = [
       '#type' => 'html_tag',
@@ -173,6 +197,11 @@ class FormName extends FormBuilderBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Only save the form if there have been changes to the node.
+    if ($this->digitalFormNodeIsChanged) {
+      parent::submitForm($form, $form_state);
+    }
+
     parent::submitForm($form, $form_state);
 
     $form_state->setRedirect('va_gov_form_builder.name_and_dob', [
