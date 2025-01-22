@@ -190,6 +190,7 @@ class VaGovFormBuilderController extends ControllerBase {
   public function formInfo($nid = NULL) {
     $formName = 'FormInfo';
     $subtitle = 'Build a form';
+    $libraries = ['form_info'];
 
     if (!empty($nid)) {
       // This is an edit.
@@ -199,7 +200,7 @@ class VaGovFormBuilderController extends ControllerBase {
       }
     }
 
-    return $this->getFormPage($formName, $subtitle);
+    return $this->getFormPage($formName, $subtitle, $libraries);
   }
 
   /**

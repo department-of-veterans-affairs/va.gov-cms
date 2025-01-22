@@ -62,6 +62,8 @@ class FormInfo extends FormBuilderBase {
       $this->isCreate = FALSE;
     }
 
+    $form['#theme'] = 'form__va_gov_form_builder__form_info';
+
     $form['name_this_form_header'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',

@@ -84,6 +84,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertArrayHasKey('#theme', $page['content']);
     $this->assertEquals('page_content__va_gov_form_builder__home', $page['content']['#theme']);
 
+    // Ensure css is added.
     $this->assertArrayHasKey('#attached', $page);
     $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__home', $page['#attached']['library']);
   }
@@ -99,6 +100,12 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // In create mode, default value should be null.
     $this->assertArrayHasKey('#default_value', $page['content']['title']);
     $this->assertEmpty($page['content']['title']['#default_value']);
+
+    // Ensure css is added.
+    // This should be present on both create and edit mode.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__form_info', $page['#attached']['library']);
+
   }
 
   /**
@@ -124,6 +131,11 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // In edit mode, default value should be populated.
     $this->assertArrayHasKey('#default_value', $page['content']['title']);
     $this->assertEquals($title, $page['content']['title']['#default_value']);
+
+    // Ensure css is added.
+    // This should be present on both create and edit mode.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__form_info', $page['#attached']['library']);
   }
 
   /**

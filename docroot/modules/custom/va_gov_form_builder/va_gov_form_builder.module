@@ -43,6 +43,15 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
     ],
   ];
 
+  // Add form themes.
+  $forms = ['form_info'];
+  foreach ($forms as $form) {
+    $theme['form__va_gov_form_builder__' . $form] = [
+      'path' => $path . '/templates/form',
+      'render element' => 'form',
+    ];
+  }
+
   return $theme;
 }
 
