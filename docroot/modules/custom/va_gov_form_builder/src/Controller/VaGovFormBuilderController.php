@@ -203,7 +203,7 @@ class VaGovFormBuilderController extends ControllerBase {
       $subtitle = 'Start a form';
     }
 
-    return $this->getFormPage($formName, $subtitle, NULL);
+    return $this->getFormPage($formName, $subtitle);
   }
 
   /**
@@ -212,7 +212,11 @@ class VaGovFormBuilderController extends ControllerBase {
   public function nameAndDob($nid) {
     $formName = 'NameAndDob';
     $subtitle = 'Subtitle Placeholder';
-    return $this->getFormPage($formName, $subtitle, NULL);
+    $nodeFound = $this->loadDigitalFormNode($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+    return $this->getFormPage($formName, $subtitle);
   }
 
 }
