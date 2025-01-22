@@ -197,11 +197,6 @@ class FormName extends FormBuilderBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Only save the form if there have been changes to the node.
-    if ($this->digitalFormNodeIsChanged) {
-      parent::submitForm($form, $form_state);
-    }
-
     parent::submitForm($form, $form_state);
 
     $form_state->setRedirect('va_gov_form_builder.name_and_dob', [
