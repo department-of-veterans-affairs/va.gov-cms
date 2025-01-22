@@ -64,6 +64,13 @@ class FormInfoTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Test that the page has the expected subtitle.
+   */
+  public function testPageSubtitle() {
+    $this->sharedTestPageHasExpectedSubtitle($this->getFormPageUrl(), 'Build a form');
+  }
+
+  /**
    * Test that the page loads correctly in create mode.
    *
    * Ensure form fields are empty (not pre-populated).
@@ -125,7 +132,7 @@ class FormInfoTest extends VaGovExistingSiteBase {
       'field_respondent_burden' => '15',
       'field_expiration_date' => '2024-10-03',
     ];
-    $this->submitForm($formInput, 'Continue');
+    $this->submitForm($formInput, 'Save and continue');
 
     // Successful submission should take user to next page.
     $nextPageUrl = $this->getSession()->getCurrentUrl();
@@ -144,7 +151,7 @@ class FormInfoTest extends VaGovExistingSiteBase {
       'field_respondent_burden' => '15',
       // 'field_expiration_date' is required but missing
     ];
-    $this->submitForm($formInput, 'Continue');
+    $this->submitForm($formInput, 'Save and continue');
 
     // Check if the form submission was successful.
     $this->assertSession()->pageTextContains('Expiration date field is required.');

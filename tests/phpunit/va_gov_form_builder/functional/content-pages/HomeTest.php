@@ -50,6 +50,13 @@ class HomeTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Test that the page has the expected subtitle.
+   */
+  public function testPageSubtitle() {
+    $this->sharedTestPageHasExpectedSubtitle($this->getPageUrl(), 'Select a form');
+  }
+
+  /**
    * Test the 'Build a form' button.
    */
   public function testButton() {
