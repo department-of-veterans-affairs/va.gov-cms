@@ -65,14 +65,7 @@ class FormInfo extends FormBuilderBase {
     $form['start_new_form_header'] = [
       '#type' => 'html_tag',
       '#tag' => 'h2',
-      '#children' => $this->t('Start a new form'),
-    ];
-
-    $form['help_text'] = [
-      '#type' => 'html_tag',
-      '#tag' => 'p',
-      '#children' => $this->t('Begin your transformation of this form by including this information to start.
-        Refer to your existing form to copy this information over.'),
+      '#children' => $this->t('Name this form'),
     ];
 
     $form['title'] = [
