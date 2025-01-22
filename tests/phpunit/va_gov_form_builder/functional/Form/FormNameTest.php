@@ -26,9 +26,17 @@ class FormNameTest extends VaGovExistingSiteBase {
 
   /**
    * Returns the url for this form.
+   *
+   * @param string|null $nid
+   *   The node id. If null, returns create-mode url.
+   *   If populated, returns edit-mode url.
    */
-  private function getFormPageUrl() {
-    return '/form-builder/form-name';
+  private function getFormPageUrl($nid = NULL) {
+    if (empty($nid)) {
+      return '/form-builder/form-name';
+    }
+
+    return "/form-builder/{$nid}/form-name";
   }
 
   /**
@@ -53,6 +61,54 @@ class FormNameTest extends VaGovExistingSiteBase {
    */
   public function testPageDoesNotLoad() {
     $this->sharedTestPageDoesNotLoad($this->getFormPageUrl());
+  }
+
+  /**
+   * Test that the page loads correctly in create mode.
+   *
+   * Ensure form fields are empty (not pre-populated).
+   */
+  public function testPageLoadsInCreateMode() {
+    $page = $this->getSession()->getPage();
+
+    // Ensure form-name field is empty.
+    $formNameInput = $page->findField('edit-title');
+    $this->assertEquals($formNameInput->getValue(), '');
+
+    // Ensure form-number field is empty.
+    $formNumberInput = $page->findField('edit-field-va-form-number');
+    $this->assertEquals($formNumberInput->getValue(), '');
+  }
+
+  /**
+   * Test that the page loads correctly in edit mode.
+   *
+   * Ensure form fields are populated as expected.
+   */
+  public function testPageLoadsInEditMode() {
+    $title = 'Test Digital Form ' . uniqid();
+    $formNumber = '99-9999';
+
+    // Create a new Digital Form node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'title' => $title,
+      'field_chapters' => [],
+      'field_va_form_number' => $formNumber,
+    ]);
+
+    // Ensure page loads.
+    $this->sharedTestPageLoads($this->getFormPageUrl($node->id()), 'Insert the form name');
+
+    $page = $this->getSession()->getPage();
+
+    // Ensure form-name field is populated correctly.
+    $formNameInput = $page->findField('edit-title');
+    $this->assertEquals($formNameInput->getValue(), $title);
+
+    // Ensure form-number field is populated correctly.
+    $formNumberInput = $page->findField('edit-field-va-form-number');
+    $this->assertEquals($formNumberInput->getValue(), $formNumber);
   }
 
   /**
