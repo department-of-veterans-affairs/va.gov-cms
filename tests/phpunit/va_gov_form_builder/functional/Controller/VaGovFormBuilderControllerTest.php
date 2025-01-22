@@ -7,6 +7,7 @@ use Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController;
 use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
@@ -104,10 +105,31 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
    * When $nid is passed, it should be edit mode.
    */
   public function testFormNameEdit() {
-    $nid = '12345';
+    $title = 'Test Digital Form ' . uniqid();
+    $formNumber = '99-9999';
+
+    // Create a new Digital Form node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'title' => $title,
+      'field_chapters' => [],
+      'field_va_form_number' => $formNumber,
+    ]);
+
+    $nid = $node->id();
     $page = $this->controller->formName($nid);
 
     $this->assertEquals('Edit form', $page['form_builder_page_data']['subtitle']);
+  }
+
+  /**
+   * Tests the formName method throws an exception with a bad node id.
+   */
+  public function testFormNameException() {
+    $someNonExistentNodeId = '9999999999999';
+
+    $this->expectException(NotFoundHttpException::class);
+    $this->controller->formName($someNonExistentNodeId);
   }
 
   /**
