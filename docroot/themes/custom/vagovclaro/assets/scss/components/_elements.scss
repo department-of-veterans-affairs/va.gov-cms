@@ -326,3 +326,10 @@ p.vc-help-text {
     margin-top: 0;
   }
 }
+
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
+  border-color: var(--input--error-border-color);
+  border-width: var(--input--error-border-size);
+}
