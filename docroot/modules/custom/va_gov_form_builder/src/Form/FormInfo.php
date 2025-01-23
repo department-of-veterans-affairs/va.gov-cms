@@ -64,12 +64,6 @@ class FormInfo extends FormBuilderBase {
 
     $form['#theme'] = 'form__va_gov_form_builder__form_info';
 
-    $form['name_this_form_header'] = [
-      '#type' => 'html_tag',
-      '#tag' => 'h2',
-      '#children' => $this->t('Name this form'),
-    ];
-
     $form['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Form Name'),
@@ -82,12 +76,6 @@ class FormInfo extends FormBuilderBase {
       '#title' => $this->t('Form Number'),
       '#required' => TRUE,
       '#default_value' => $this->getDigitalFormNodeFieldValue('field_va_form_number'),
-    ];
-
-    $form['omb_header'] = [
-      '#type' => 'html_tag',
-      '#tag' => 'h3',
-      '#children' => $this->t('OMB information'),
     ];
 
     $form['field_omb_number'] = [
