@@ -53,7 +53,7 @@ class FormInfoTest extends VaGovExistingSiteBase {
    * Test that the page is accessible to a user with the correct privilege.
    */
   public function testPageLoads() {
-    $this->sharedTestPageLoads($this->getFormPageUrl(), 'Insert the form name');
+    $this->sharedTestPageLoads($this->getFormPageUrl(), 'Name this form');
   }
 
   /**
@@ -105,7 +105,7 @@ class FormInfoTest extends VaGovExistingSiteBase {
     ]);
 
     // Ensure page loads.
-    $this->sharedTestPageLoads($this->getFormPageUrl($node->id()), 'Insert the form name');
+    $this->sharedTestPageLoads($this->getFormPageUrl($node->id()), 'Name this form');
 
     $page = $this->getSession()->getPage();
 
