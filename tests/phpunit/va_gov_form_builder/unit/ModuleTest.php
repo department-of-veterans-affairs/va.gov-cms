@@ -74,11 +74,16 @@ class ModuleTest extends VaGovUnitTestBase {
     $page_content_theme_prefix = 'page_content__va_gov_form_builder__';
     $page_content_theme_path = $this->modulePath . '/templates/page-content';
     // 1. Home page.
-    $this->assertArrayHasKey($page_content_theme_prefix . 'home', $result);
-    $this->assertEquals($page_content_theme_path, $result[$page_content_theme_prefix . 'home']['path']);
-    $this->assertArrayHasKey('variables', $result[$page_content_theme_prefix . 'home']);
-    $this->assertArrayHasKey('recent_forms', $result[$page_content_theme_prefix . 'home']['variables']);
-    $this->assertArrayHasKey('build_form_url', $result[$page_content_theme_prefix . 'home']['variables']);
+    $homeTheme = $page_content_theme_prefix . 'home';
+    $this->assertArrayHasKey($homeTheme, $result);
+    $this->assertEquals($page_content_theme_path, $result[$homeTheme]['path']);
+    $this->assertArrayHasKey('variables', $result[$homeTheme]);
+    $this->assertArrayHasKey('recent_forms', $result[$homeTheme]['variables']);
+    $this->assertArrayHasKey('build_form_url', $result[$homeTheme]['variables']);
+    // 2. Layout page.
+    $layoutTheme = $page_content_theme_prefix . 'layout';
+    $this->assertArrayHasKey($layoutTheme, $result);
+    $this->assertEquals($page_content_theme_path, $result[$layoutTheme]['path']);
 
     // Form themes.
     $form_theme_prefix = 'form__va_gov_form_builder__';

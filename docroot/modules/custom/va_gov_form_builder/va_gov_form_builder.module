@@ -33,7 +33,6 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   // Add page-content themes.
   $page_content_theme_prefix = 'page_content__va_gov_form_builder__';
   $page_content_theme_path = $path . '/templates/page-content';
-
   // 1. Home page
   $theme[$page_content_theme_prefix . 'home'] = [
     'path' => $page_content_theme_path,
@@ -41,6 +40,10 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
       'recent_forms' => [],
       'build_form_url' => '',
     ],
+  ];
+  // 2. Layout page
+  $theme[$page_content_theme_prefix . 'layout'] = [
+    'path' => $page_content_theme_path,
   ];
 
   // Add form themes.
