@@ -54,18 +54,34 @@ class LibrariesTest extends VaGovUnitTestBase {
    * Tests that the library definition contains necessary css.
    */
   public function testLibraryCss() {
-    $this->assertArrayHasKey('va_gov_form_builder_styles', $this->libraries);
-    $this->assertArrayHasKey('css', $this->libraries['va_gov_form_builder_styles']);
-    $this->assertArrayHasKey('theme', $this->libraries['va_gov_form_builder_styles']['css']);
+    $libraryPrefix = 'va_gov_form_builder_styles';
+    $cssPrefix = 'css/va_gov_form_builder';
 
-    $cssArray = array_keys($this->libraries['va_gov_form_builder_styles']['css']['theme']);
+    $this->assertArrayHasKey($libraryPrefix, $this->libraries);
+    $this->assertArrayHasKey('css', $this->libraries[$libraryPrefix]);
+    $this->assertArrayHasKey('theme', $this->libraries[$libraryPrefix]['css']);
+
+    $formBuilderCssArray = array_keys($this->libraries[$libraryPrefix]['css']['theme']);
 
     // Assert Form Builder css is present.
-    $this->assertContains('css/va_gov_form_builder.css', $cssArray, 'Form Builder css is present.');
+    $this->assertContains($cssPrefix . '.css', $formBuilderCssArray, 'Form Builder css is present.');
 
     // Assert external VADS tokens definition is present.
-    $matches = preg_grep('/unpkg.*@department-of-veterans-affairs.*css-library.*tokens\/css\/variables.css/', $cssArray);
+    $matches = preg_grep('/unpkg.*@department-of-veterans-affairs.*css-library.*tokens\/css\/variables.css/', $formBuilderCssArray);
     $this->assertNotEmpty($matches, 'VADS tokens css is present.');
+
+    // Assert page-specific libraries are present
+    // 1. Home.
+    $homeLibrary = $libraryPrefix . '__home';
+    $this->assertArrayHasKey($homeLibrary, $this->libraries);
+    $homeCssArray = array_keys($this->libraries[$homeLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . '__home.css', $homeCssArray, 'Home page css is present.');
+
+    // 2. Form Info.
+    $formInfoLibrary = $libraryPrefix . '__form_info';
+    $this->assertArrayHasKey($formInfoLibrary, $this->libraries);
+    $formInfoCssArray = array_keys($this->libraries[$formInfoLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . '__form_info.css', $formInfoCssArray, 'Form Info page css is present.');
   }
 
 }
