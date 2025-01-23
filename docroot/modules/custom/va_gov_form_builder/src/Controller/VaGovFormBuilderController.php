@@ -184,7 +184,7 @@ class VaGovFormBuilderController extends ControllerBase {
   /**
    * Form-info page.
    *
-   * @param string $nid
+   * @param string|null $nid
    *   The node id, passed in when the page edits an existing node.
    */
   public function formInfo($nid = NULL) {
@@ -204,7 +204,31 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Layout page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   */
+  public function layout($nid) {
+    $nodeFound = $this->loadDigitalFormNode($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+
+    $pageContent = [
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'layout',
+    ];
+    $subtitle = $this->digitalFormNode->getTitle();
+    $libraries = ['layout'];
+
+    return $this->getPage($pageContent, $subtitle, $libraries);
+  }
+
+  /**
    * Name-and-date-of-birth page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
    */
   public function nameAndDob($nid) {
     $formName = 'NameAndDob';

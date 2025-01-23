@@ -149,6 +149,32 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Tests the layout method returns a Layout page.
+   */
+  public function testLayout() {
+    $title = 'Test Digital Form ' . uniqid();
+    $formNumber = '99-9999';
+
+    // Create a new Digital Form node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'title' => $title,
+      'field_chapters' => [],
+      'field_va_form_number' => $formNumber,
+    ]);
+
+    $page = $this->controller->layout($node->id());
+
+    $this->assertArrayHasKey('content', $page);
+    $this->assertArrayHasKey('#theme', $page['content']);
+    $this->assertEquals('page_content__va_gov_form_builder__layout', $page['content']['#theme']);
+
+    // Ensure css is added.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__layout', $page['#attached']['library']);
+  }
+
+  /**
    * Tests the nameAndDob method returns a NameAndDob form.
    */
   public function testNameAndDob() {
