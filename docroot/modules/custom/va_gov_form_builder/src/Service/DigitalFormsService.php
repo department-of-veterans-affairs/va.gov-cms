@@ -51,4 +51,17 @@ class DigitalFormsService {
     return [];
   }
 
+  /**
+   * Retrieves a Digital Form node by node id.
+   *
+   * @param bool $nid
+   *   The node id.
+   *
+   * @return \Drupal\node\NodeInterface|null
+   *   A node object of type 'digital_form', or NULL if not found.
+   */
+  public function getDigitalForm($nid) {
+    return $this->entityTypeManager->getStorage('node')->load($nid);
+  }
+
 }
