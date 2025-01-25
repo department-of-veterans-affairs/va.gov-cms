@@ -1,0 +1,68 @@
+/* Page content*/
+.form-builder-page-content--layout {
+  width: 620px;
+}
+
+.form-builder-content__page-help-text {
+  font-family: var(--font-source-sans);
+  margin-bottom: var(--units-6);
+}
+
+/* Step groups*/
+.form-builder-layout-step-group {
+  font-family: var(--font-source-sans);
+  margin-top: var(--units-4);
+}
+
+.form-builder-layout-step-group__heading {
+  font-family: var(--font-family-serif);
+  margin-bottom: var(--units-5);
+}
+
+.form-builder-layout-step-group__heading--viewing-form {
+  margin-bottom: var(--units-2);
+}
+
+/* Individual steps */
+.form-builder-layout-step {
+  border-bottom: var(--units-1px) solid var(--vads-color-base-light);
+  margin: var(--units-3) 0 0 0;
+  padding: 0 0 var(--units-3) var(--units-3);
+  position: relative;
+}
+
+.form-builder-layout-step-group > .form-builder-layout-step:last-child {
+  border-bottom: 0;
+}
+
+.form-builder-layout-step::before {
+  border-radius: var(--units-0p25);
+  color: var(--vads-color-white);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  padding: var(--units-1px) var(--units-1);
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.form-builder-layout-step--complete::before {
+  background-color: var(
+    --vads-button-color-background-primary-alt-active-on-light
+  );
+  content: "COMPLETE";
+}
+
+.form-builder-layout-step--incomplete::before {
+  background-color: var(--vads-color-error-darker);
+  content: "INCOMPLETE";
+}
+
+.form-builder-layout-step__help-text {
+  color: var(--vads-color-gray-medium);
+}
+
+.form-builder-layout-step__view-link {
+  display: inline-block;
+  margin-top: var(--units-3);
+}
