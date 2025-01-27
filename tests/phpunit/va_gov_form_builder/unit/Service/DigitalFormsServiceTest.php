@@ -46,9 +46,9 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
   }
 
   /**
-   * Helper function to DRY up expectation setup.
+   * Helper function to DRY up expectation setup for getDigitalForms.
    */
-  private function setUpMockQuery($publishedOnly, $hasResults = TRUE) {
+  private function setUpMockQueryGetDigitalForms($publishedOnly, $hasResults = TRUE) {
     // Mock the entity storage.
     $entityStorage = $this->createMock(EntityStorageInterface::class);
 
@@ -127,7 +127,7 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
   public function testGetDigitalFormsPublishedOnlyTrue() {
     // We will call the method with $publishedOnly = TRUE,
     // so we set up expectations accordingly.
-    $this->setUpMockQuery(TRUE);
+    $this->setUpMockQueryGetDigitalForms(TRUE);
 
     // Call the method, which asserts expectations set in setup.
     $this->digitalFormsService->getDigitalForms(TRUE);
@@ -143,7 +143,7 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
   public function testGetDigitalFormsPublishedOnlyFalse() {
     // We will call the method with $publishedOnly = FALSE,
     // so we set up expectations accordingly.
-    $this->setUpMockQuery(FALSE);
+    $this->setUpMockQueryGetDigitalForms(FALSE);
 
     // Call the method, which asserts expectations set in setup.
     $this->digitalFormsService->getDigitalForms(FALSE);
@@ -159,7 +159,7 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     // and we want to ensure that the expectations are set up
     // as though the value were set to TRUE, which is the
     // expected default.
-    $this->setUpMockQuery(TRUE);
+    $this->setUpMockQueryGetDigitalForms(TRUE);
 
     // Call the method, which asserts expectations set in setup.
     $this->digitalFormsService->getDigitalForms();
@@ -183,13 +183,54 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     // 2. That `$this->entityTypeManager->getStorage('node')`
     // will be called only once, rather than twice,
     // since there will be no need to call `loadMultiple`.
-    $this->setUpMockQuery(TRUE, FALSE);
+    $this->setUpMockQueryGetDigitalForms(TRUE, FALSE);
 
     // Call the method, which asserts expectations set in setup.
     $result = $this->digitalFormsService->getDigitalForms(TRUE);
 
     // Additionally, assert the function returns no results.
     $this->assertCount(0, $result);
+  }
+
+  /**
+   * Helper function to DRY up expectation setup for getDigitalForm.
+   */
+  private function setUpMockQueryGetDigitalForm() {
+    // Mock the entity storage.
+    $entityStorage = $this->createMock(EntityStorageInterface::class);
+    $entityStorage->expects($this->once())
+      ->method('load')
+      ->willReturnMap([
+        ['1', $this->createMock('Drupal\node\NodeInterface')],
+      ]);
+
+    // Mock the entity type manager.
+    $this->entityTypeManager->expects($this->once())
+      ->method('getStorage')
+      ->with('node')
+      ->willReturn($entityStorage);
+  }
+
+  /**
+   * Tests getDigitalForm() with $nid of existing node.
+   */
+  public function testGetDigitalFormReturnsNode() {
+    $this->setUpMockQueryGetDigitalForm();
+
+    // Call the method with a nid that exists.
+    $node = $this->digitalFormsService->getDigitalForm('1');
+    $this->assertNotEmpty($node);
+  }
+
+  /**
+   * Tests getDigitalForm() with $nid of non-existent node.
+   */
+  public function testGetDigitalFormReturnsNull() {
+    $this->setUpMockQueryGetDigitalForm();
+
+    // Call the method with a nid that does not exist.
+    $node = $this->digitalFormsService->getDigitalForm('99999');
+    $this->assertEmpty($node);
   }
 
 }

@@ -39,7 +39,6 @@ class HomeTest extends VaGovExistingSiteBase {
    * Test that the page is accessible to a user with the correct privilege.
    */
   public function testPageLoads() {
-    $this->drupalGet($this->getPageUrl());
     $this->sharedTestPageLoads($this->getPageUrl(), 'Start a new form, or select a previous form to work with');
   }
 
@@ -47,8 +46,14 @@ class HomeTest extends VaGovExistingSiteBase {
    * Test that the page is not accessible to a user without privilege.
    */
   public function testPageDoesNotLoad() {
-    $this->drupalGet($this->getPageUrl());
     $this->sharedTestPageDoesNotLoad($this->getPageUrl());
+  }
+
+  /**
+   * Test that the page has the expected subtitle.
+   */
+  public function testPageSubtitle() {
+    $this->sharedTestPageHasExpectedSubtitle($this->getPageUrl(), 'Select a form');
   }
 
   /**
@@ -57,7 +62,7 @@ class HomeTest extends VaGovExistingSiteBase {
   public function testButton() {
     $this->drupalGet($this->getPageUrl());
     $this->click('a#form-builder-build-form-button');
-    $this->assertSession()->addressEquals('/form-builder/start-conversion');
+    $this->assertSession()->addressEquals('/form-builder/form-info');
   }
 
   /**
