@@ -113,6 +113,9 @@ function _va_gov_facilities_get_service_names(array $selected_office, array $ori
   || empty($selected_office['0']['target_id'])) {
     return $original_options;
   }
+  /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+  $form_object = $form_state->getFormObject();
+  $bundle = $form_object->getEntity()->bundle();
   // Initialize the remaining services.
   $remaining_services = $original_options;
   // Get the facility ID from the selected office.
@@ -125,11 +128,11 @@ function _va_gov_facilities_get_service_names(array $selected_office, array $ori
       ON tei.tid = nfsnad.field_service_name_and_descripti_target_id
       WHERE nfsnad.entity_id IN
       (SELECT entity_id FROM node__field_office AS nfo
-      WHERE bundle = :node_type
+      WHERE bundle = :bundle
       AND nfo.field_office_target_id = :nid)",
     [
       ':nid' => $facility_id,
-      ':node_type' => $form_state->getFormObject()->getEntity()->bundle(),
+      ':bundle' => $bundle,
     ]
     );
   // Get the existing services.
