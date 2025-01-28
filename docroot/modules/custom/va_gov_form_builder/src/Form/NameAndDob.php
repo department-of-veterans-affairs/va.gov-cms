@@ -126,7 +126,7 @@ class NameAndDob extends FormBuilderBase {
    */
   protected function setDigitalFormNodeFromFormState(array &$form, FormStateInterface $form_state) {
     // Do not add the name-and-dob chapter if there's one already present.
-    if ($this->digitalFormNodeHasChapterOfType($this->chapterType)) {
+    if ($this->digitalFormsService->digitalFormHasChapterOfType($this->digitalFormNode, $this->chapterType)) {
       return;
     }
 
