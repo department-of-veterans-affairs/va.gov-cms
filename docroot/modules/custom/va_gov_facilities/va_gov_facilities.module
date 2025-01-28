@@ -27,17 +27,30 @@ function va_gov_facilities_page_attachments(array &$attachments) {
  * Implements hook_form_alter().
  */
 function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form_id !== 'node_vba_facility_service_form'
-    && $form_id !== 'node_vet_center_facility_health_servi_form') {
-    return;
-  }
 
-  // Add AJAX to the field_office dropdown.
+  // Reduce options on the VBA and Vet Center facility service forms.
+  if ($form_id !== 'node_vba_facility_service_form'
+    || $form_id !== 'node_vet_center_facility_health_servi_form') {
+    _va_gov_facilities_reduce_service_options($form, $form_state);
+  }
+}
+
+/**
+ * Adds AJAX to form for service options.
+ *
+ * @param array $form
+ *   The form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function _va_gov_facilities_reduce_service_options(array &$form, FormStateInterface $form_state) {
+  // Leave if the form does not have the field_office field.
   if (!isset($form['field_office'])) {
     return;
   }
+  // Add AJAX to the field_office dropdown.
   $form['field_office']['widget']['#ajax'] = [
-    'callback' => 'va_gov_facilities_office_callback',
+    'callback' => '_va_gov_facilities_office_callback',
     'wrapper' => 'field-service-name-wrapper',
     'event' => 'change',
     'progress' => [
@@ -55,22 +68,24 @@ function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $f
 /**
  * AJAX callback to update the service name options based on selected office.
  */
-function va_gov_facilities_office_callback(array &$form, FormStateInterface $form_state) {
+function _va_gov_facilities_office_callback(array &$form, FormStateInterface $form_state) {
   // Get the selected office value.
   $selected_office = $form_state->getValue('field_office');
+  // Leave if the selected office is empty.
   if (empty($selected_office)) {
     return $form['field_service_name_and_descripti'];
   }
+  // Leave if the field_service_name_and_descripti field is empty.
   if (!($form['field_service_name_and_descripti']
   || $form['field_service_name_and_descripti']['widget']
   || $form['field_service_name_and_descripti']['widget']['#options'])) {
     return $form['field_service_name_and_descripti'];
   }
-  $original_options = $form['field_service_name_and_descripti']['widget']['#options'];
 
+  // Get the original options for the service name field.
+  $original_options = $form['field_service_name_and_descripti']['widget']['#options'];
   // Load the options for the service name field based on the selected office.
   $options = _va_gov_facilities_get_service_names($selected_office, $original_options, $form_state);
-
   // Update the options of the field_service_name_and_descripti field.
   $form['field_service_name_and_descripti']['widget']['#options'] = $options;
 
@@ -79,18 +94,30 @@ function va_gov_facilities_office_callback(array &$form, FormStateInterface $for
 }
 
 /**
- * Helper function to get service name options based on the selected office.
+ * Helper function returns the remaining service names based on selected office.
+ *
+ * @param array $selected_office
+ *   The selected office.
+ * @param array $original_options
+ *   The original options for the service name field.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return array
+ *   The remaining service names.
  */
-function _va_gov_facilities_get_service_names($selected_office, $original_options, $form_state) {
+function _va_gov_facilities_get_service_names(array $selected_office, array $original_options, FormStateInterface $form_state) {
+  // Guard clause.
   if (empty($selected_office)
   || empty($selected_office['0'])
   || empty($selected_office['0']['target_id'])) {
     return $original_options;
   }
+  // Initialize the remaining services.
   $remaining_services = $original_options;
-
+  // Get the facility ID from the selected office.
   $facility_id = $selected_office['0']['target_id'];
-
+  // Query services based on the selected office.
   $database = \Drupal::database();
   $query = $database->query(
     "SELECT DISTINCT tid FROM taxonomy_entity_index AS tei
@@ -105,9 +132,13 @@ function _va_gov_facilities_get_service_names($selected_office, $original_option
       ':node_type' => $form_state->getFormObject()->getEntity()->bundle(),
     ]
     );
+  // Get the existing services.
   $existing_services = $query->fetchAll() ?? [];
+  // Flip the existing services for comparison.
   $existing_services = array_flip(array_column($existing_services, 'tid'));
+  // Remove the existing services from the original options.
   $remaining_services = array_diff_key($original_options, $existing_services);
+
   return $remaining_services;
 }
 
