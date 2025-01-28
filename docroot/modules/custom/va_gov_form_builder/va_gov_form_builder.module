@@ -44,7 +44,45 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   // 2. Layout page
   $theme[$page_content_theme_prefix . 'layout'] = [
     'path' => $page_content_theme_path,
-    'variables' => [],
+    'variables' => [
+      'form_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'intro' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'your_personal_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'address_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'contact_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'additional_steps' => [
+        'steps' => [],
+        'add_step' => [
+          'url' => '',
+        ],
+      ],
+      'review_and_sign' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'confirmation' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'view_form' => [
+        'url' => '',
+      ],
+    ],
   ];
 
   // Add form themes.
