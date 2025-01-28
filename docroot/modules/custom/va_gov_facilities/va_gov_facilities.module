@@ -29,8 +29,8 @@ function va_gov_facilities_page_attachments(array &$attachments) {
 function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   // Reduce options on the VBA and Vet Center facility service forms.
-  if ($form_id !== 'node_vba_facility_service_form'
-    || $form_id !== 'node_vet_center_facility_health_servi_form') {
+  if ($form_id === 'node_vba_facility_service_form'
+    || $form_id === 'node_vet_center_facility_health_servi_form') {
     _va_gov_facilities_reduce_service_options($form, $form_state);
   }
 }
