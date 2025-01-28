@@ -51,4 +51,24 @@ trait TestPageLoads {
     $this->assertSession()->statusCodeNotEquals(200);
   }
 
+  /**
+   * Test the page has the expected subtitle.
+   *
+   * @param string $url
+   *   The  page to load.
+   * @param string $expectedSubtitle
+   *   The expected subtitle.
+   */
+  private function sharedTestPageHasExpectedSubtitle($url, $expectedSubtitle) {
+    // Log in a user with permission.
+    $this->loginFormBuilderUser();
+
+    // Navigate to page.
+    $this->drupalGet($url);
+
+    $page = $this->getSession()->getPage();
+    $subtitleElement = $page->find('css', '.form-builder-subtitle');
+    $this->assertEquals($subtitleElement->getText(), $expectedSubtitle);
+  }
+
 }

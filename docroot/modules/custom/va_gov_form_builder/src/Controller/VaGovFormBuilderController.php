@@ -5,6 +5,7 @@ namespace Drupal\va_gov_form_builder\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Controller for the VA Form Builder experience.
@@ -40,24 +41,56 @@ class VaGovFormBuilderController extends ControllerBase {
    *
    * @var \Drupal\Core\Form\FormBuilderInterface
    */
-  private $drupalFormBuilder;
+  protected $drupalFormBuilder;
 
   /**
    * The Digital Forms service.
    *
    * @var \Drupal\va_gov_form_builder\Service\DigitalFormsService
    */
-  private $digitalFormsService;
+  protected $digitalFormsService;
+
+  /**
+   * The Digital Form node.
+   *
+   * When the page in question edits or references an existing
+   * digital form node, this property is populated. When the
+   * page creates a new digital form node or otherwise does
+   * not reference a node, this is empty.
+   *
+   * @var \Drupal\node\Entity\Node|null
+   */
+  protected $digitalFormNode;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
+
     $instance->drupalFormBuilder = $container->get('form_builder');
     $instance->digitalFormsService = $container->get('va_gov_form_builder.digital_forms_service');
 
     return $instance;
+  }
+
+  /**
+   * Loads and sets the Digital Form node.
+   *
+   * @param string $nid
+   *   The node id to load.
+   *
+   * @return bool
+   *   TRUE if successfully loaded. FALSE otherwise.
+   */
+  protected function loadDigitalFormNode($nid) {
+    $digitalFormNode = $this->digitalFormsService->getDigitalForm($nid);
+    if (!empty($digitalFormNode)) {
+      $this->digitalFormNode = $digitalFormNode;
+      return TRUE;
+    }
+
+    return FALSE;
   }
 
   /**
@@ -71,7 +104,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   Libraries for the page, in addition to the Form Builder general library,
    *   which is added automatically.
    */
-  private function getPage($pageContent, $subtitle, $libraries = NULL) {
+  protected function getPage($pageContent, $subtitle, $libraries = NULL) {
     $page = [
       '#type' => 'page',
       'content' => $pageContent,
@@ -106,12 +139,10 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $libraries
    *   Libraries for the page, in addition to the Form Builder general library,
    *   which is added automatically.
-   * @param string $nid
-   *   The node id, passed in when the form in question edits an existing node.
    */
-  private function getFormPage($formName, $subtitle, $libraries = NULL, $nid = NULL) {
+  protected function getFormPage($formName, $subtitle, $libraries = NULL) {
     // @phpstan-ignore-next-line
-    $form = $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\\' . $formName, $nid);
+    $form = $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\\' . $formName, $this->digitalFormNode);
 
     return $this->getPage($form, $subtitle, $libraries);
   }
@@ -141,7 +172,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'home',
-      '#build_form_url' => Url::fromRoute('va_gov_form_builder.start_conversion')->toString(),
+      '#build_form_url' => Url::fromRoute('va_gov_form_builder.form_info.create')->toString(),
       '#recent_forms' => $recentForms,
     ];
     $subtitle = 'Select a form';
@@ -151,12 +182,25 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
-   * Start-conversion page.
+   * Form-info page.
+   *
+   * @param string $nid
+   *   The node id, passed in when the page edits an existing node.
    */
-  public function startConversion() {
-    $formName = 'StartConversion';
-    $subtitle = 'Subtitle Placeholder';
-    return $this->getFormPage($formName, $subtitle);
+  public function formInfo($nid = NULL) {
+    $formName = 'FormInfo';
+    $subtitle = 'Build a form';
+    $libraries = ['form_info'];
+
+    if (!empty($nid)) {
+      // This is an edit.
+      $nodeFound = $this->loadDigitalFormNode($nid);
+      if (!$nodeFound) {
+        throw new NotFoundHttpException();
+      }
+    }
+
+    return $this->getFormPage($formName, $subtitle, $libraries);
   }
 
   /**
@@ -165,7 +209,11 @@ class VaGovFormBuilderController extends ControllerBase {
   public function nameAndDob($nid) {
     $formName = 'NameAndDob';
     $subtitle = 'Subtitle Placeholder';
-    return $this->getFormPage($formName, $subtitle, NULL, $nid);
+    $nodeFound = $this->loadDigitalFormNode($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+    return $this->getFormPage($formName, $subtitle);
   }
 
 }

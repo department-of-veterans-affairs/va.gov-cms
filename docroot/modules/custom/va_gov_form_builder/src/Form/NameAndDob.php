@@ -3,12 +3,12 @@
 namespace Drupal\va_gov_form_builder\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\va_gov_form_builder\Form\Base\FormBuilderEditBase;
+use Drupal\va_gov_form_builder\Form\Base\FormBuilderBase;
 
 /**
  * Form step for adding name and date of birth.
  */
-class NameAndDob extends FormBuilderEditBase {
+class NameAndDob extends FormBuilderBase {
 
   /**
    * Paragraph type accessed by this step.
@@ -42,8 +42,8 @@ class NameAndDob extends FormBuilderEditBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $nid = NULL) {
-    $form = parent::buildForm($form, $form_state, $nid);
+  public function buildForm(array $form, FormStateInterface $form_state, $node = NULL) {
+    $form = parent::buildForm($form, $form_state, $node);
 
     $form['name_and_dob_header'] = [
       '#type' => 'html_tag',
@@ -146,7 +146,9 @@ class NameAndDob extends FormBuilderEditBase {
    */
   public function backButtonSubmitHandler(array &$form, FormStateInterface $form_state) {
     // This will almost certainly change.
-    $form_state->setRedirect('va_gov_form_builder.start_conversion');
+    $form_state->setRedirect('va_gov_form_builder.form_info.edit', [
+      'nid' => $this->digitalFormNode->id(),
+    ]);
   }
 
   /**
