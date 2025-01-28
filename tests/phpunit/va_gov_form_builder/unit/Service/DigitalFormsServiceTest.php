@@ -5,6 +5,9 @@ namespace tests\phpunit\va_gov_form_builder\unit\Service;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
@@ -231,6 +234,92 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     // Call the method with a nid that does not exist.
     $node = $this->digitalFormsService->getDigitalForm('99999');
     $this->assertEmpty($node);
+  }
+
+  /**
+   * Helper function to set up a mock query for paragraphs.
+   */
+  private function setUpMockQueryParagraph() {
+    // Mock the paragraph.
+    $mockParagraph = $this->createMock(Paragraph::class);
+    $mockParagraph->expects($this->once())
+      ->method('bundle')
+      ->willReturn('expected_paragraph_type');
+
+    // Mock the entity storage.
+    $entityStorage = $this->createMock(EntityStorageInterface::class);
+    $entityStorage->expects($this->once())
+      ->method('load')
+      ->willReturnMap([
+        ['1', $mockParagraph],
+      ]);
+
+    // Mock the entity type manager.
+    $this->entityTypeManager->expects($this->once())
+      ->method('getStorage')
+      ->with('paragraph')
+      ->willReturn($entityStorage);
+  }
+
+  /**
+   * Helper function to create and return a mock a node with a paragraph.
+   */
+  private function createMockNodeWithParagraph() {
+    // Mock the field_chapters field.
+    $mockField = $this->createMock(FieldItemListInterface::class);
+    $mockField->expects($this->once())
+      ->method('isEmpty')
+      ->willReturn(FALSE);
+    $mockField->expects($this->once())
+      ->method('getValue')
+      ->willReturn([
+        ['target_id' => '1'],
+      ]);
+
+    // Mock the node.
+    $mockNode = $this->createMock(Node::class);
+    $mockNode->expects($this->once())
+      ->method('hasField')
+      ->with('field_chapters')
+      ->willReturn(TRUE);
+    $mockNode->expects($this->exactly(2))
+      ->method('get')
+      ->with('field_chapters')
+      ->willReturn($mockField);
+
+    return $mockNode;
+  }
+
+  /**
+   * Tests digitalFormHasChapterOfType() with empty node.
+   */
+  public function testDigitalFormHasChapterOfTypeEmptyNode() {
+    $result = $this->digitalFormsService->digitalFormHasChapterOfType(NULL, NULL);
+    $this->assertFalse($result);
+  }
+
+  /**
+   * Tests digitalFormHasChapterOfType() with expected paragraph.
+   */
+  public function testDigitalFormHasChapterOfTypeWithExpectedParagraph() {
+    $this->setUpMockQueryParagraph();
+    $mockNode = $this->createMockNodeWithParagraph();
+
+    // Assert expected paragraph type returns true.
+    $resultExpectedParagraphType = $this->digitalFormsService->digitalFormHasChapterOfType($mockNode, 'expected_paragraph_type');
+    $this->assertTrue($resultExpectedParagraphType);
+  }
+
+  /**
+   * Tests digitalFormHasChapterOfType() with unexpected paragraph.
+   */
+  public function testDigitalFormHasChapterOfTypeWithUnexpectedParagraph() {
+    $this->setUpMockQueryParagraph();
+    $mockNode = $this->createMockNodeWithParagraph();
+
+    // Assert unexpected paragraph type returns false.
+    $resultUnexpectedParagraphType = $this->digitalFormsService->digitalFormHasChapterOfType($mockNode, 'any_other_paragraph_type');
+    $this->assertFalse($resultUnexpectedParagraphType);
   }
 
 }

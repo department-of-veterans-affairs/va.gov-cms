@@ -5,6 +5,7 @@ namespace Drupal\va_gov_form_builder\Form\Base;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -18,6 +19,13 @@ abstract class FormBuilderBase extends FormBase {
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
+
+  /**
+   * The Digital Forms service.
+   *
+   * @var \Drupal\va_gov_form_builder\Service\DigitalFormsService
+   */
+  protected $digitalFormsService;
 
   /**
    * The Digital Form node created or loaded by this form step.
@@ -52,8 +60,9 @@ abstract class FormBuilderBase extends FormBase {
   /**
    * {@inheritDoc}
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, DigitalFormsService $digitalFormsService) {
     $this->entityTypeManager = $entityTypeManager;
+    $this->digitalFormsService = $digitalFormsService;
     $this->allowEmptyDigitalFormNode = FALSE;
   }
 
@@ -62,7 +71,8 @@ abstract class FormBuilderBase extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('va_gov_form_builder.digital_forms_service')
     );
   }
 
@@ -117,37 +127,6 @@ abstract class FormBuilderBase extends FormBase {
     $this->digitalFormNode = $node;
 
     return $form;
-  }
-
-  /**
-   * Determines if `digitalFormNode` has a chapter (paragraph) of a given type.
-   *
-   * @param string $type
-   *   The chapter (paragraph) type.
-   *
-   * @return bool
-   *   TRUE if the chapter exists; FALSE if the chapter
-   *   does not exist or the node does not exist.
-   */
-  protected function digitalFormNodeHasChapterOfType($type) {
-    if (empty($this->digitalFormNode)) {
-      return FALSE;
-    }
-
-    $chapters = $this->digitalFormNode->get('field_chapters')->getValue();
-
-    foreach ($chapters as $chapter) {
-      if (isset($chapter['target_id'])) {
-        $paragraph = $this->entityTypeManager->getStorage('paragraph')->load($chapter['target_id']);
-        if ($paragraph) {
-          if ($paragraph->bundle() === $type) {
-            return TRUE;
-          }
-        }
-      }
-    }
-
-    return FALSE;
   }
 
   /**

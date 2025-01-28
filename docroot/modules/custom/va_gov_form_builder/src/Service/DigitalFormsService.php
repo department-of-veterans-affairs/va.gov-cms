@@ -64,4 +64,43 @@ class DigitalFormsService {
     return $this->entityTypeManager->getStorage('node')->load($nid);
   }
 
+  /**
+   * Determines if a Digital Form node has a chapter of a given type.
+   *
+   * If the node has a chapter (paragraph) of the given type, returns TRUE.
+   * Otherwise, returns FALSE.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The Digital Form node.
+   * @param string $type
+   *   The chapter (paragraph) type.
+   *
+   * @return bool
+   *   TRUE if the chapter exists; FALSE if the chapter
+   *   does not exist or the node does not exist.
+   */
+  public function digitalFormHasChapterOfType($node, $type) {
+    if (empty($node)) {
+      return FALSE;
+    }
+
+    if ($node->hasField('field_chapters') && !$node->get('field_chapters')->isEmpty()) {
+      $chapters = $node->get('field_chapters')->getValue();
+
+      foreach ($chapters as $chapter) {
+        if (isset($chapter['target_id'])) {
+          $paragraph = $this->entityTypeManager->getStorage('paragraph')->load($chapter['target_id']);
+
+          if ($paragraph) {
+            if ($paragraph->bundle() === $type) {
+              return TRUE;
+            }
+          }
+        }
+      }
+    }
+
+    return FALSE;
+  }
+
 }
