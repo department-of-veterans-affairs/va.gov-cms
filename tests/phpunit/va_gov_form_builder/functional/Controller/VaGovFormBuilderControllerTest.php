@@ -163,11 +163,27 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
       'field_va_form_number' => $formNumber,
     ]);
 
+    // Add paragraphs.
+    // Contact information.
+    $contactInfoParagraph = \Drupal::entityTypeManager()->getStorage('paragraph')->create([
+      'type' => 'digital_form_phone_and_email',
+      'field_title' => 'Contact information',
+      'field_include_email' => TRUE,
+    ]);
+    $node->get('field_chapters')->appendItem($contactInfoParagraph);
+    $node->save();
+
     $page = $this->controller->layout($node->id());
 
     $this->assertArrayHasKey('content', $page);
     $this->assertArrayHasKey('#theme', $page['content']);
     $this->assertEquals('page_content__va_gov_form_builder__layout', $page['content']['#theme']);
+
+    // Ensure step statuses are calculated correctly.
+    // --> Contact info should be "complete" since paragraph exists.
+    $this->assertEquals('complete', $page['content']['#contact_info']['status'], 'Contact info is complete');
+    // --> Address info should be "incomplete" since paragraph does not exist.
+    $this->assertEquals('incomplete', $page['content']['#address_info']['status'], 'Address info is incomplete');
 
     // Ensure css is added.
     $this->assertArrayHasKey('#attached', $page);

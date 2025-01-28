@@ -217,6 +217,43 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'layout',
+      '#form_info' => [
+        'status' => $this->digitalFormsService->getDigitalFormStepStatus($this->digitalFormNode, 'form_info'),
+        'url' => Url::fromRoute('va_gov_form_builder.form_info.edit', ['nid' => $nid])->toString(),
+      ],
+      '#intro' => [
+        'status' => $this->digitalFormsService->getDigitalFormStepStatus($this->digitalFormNode, 'intro'),
+        'url' => '',
+      ],
+      '#your_personal_info' => [
+        'status' => $this->digitalFormsService->getDigitalFormStepStatus($this->digitalFormNode, 'your_personal_info'),
+        'url' => '',
+      ],
+      '#address_info' => [
+        'status' => $this->digitalFormsService->getDigitalFormStepStatus($this->digitalFormNode, 'address_info'),
+        'url' => '',
+      ],
+      '#contact_info' => [
+        'status' => $this->digitalFormsService->getDigitalFormStepStatus($this->digitalFormNode, 'contact_info'),
+        'url' => '',
+      ],
+      '#additional_steps' => [
+        'steps' => [],
+        'add_step' => [
+          'url' => '',
+        ],
+      ],
+      '#review_and_sign' => [
+        'status' => $this->digitalFormsService->getDigitalFormStepStatus($this->digitalFormNode, 'review_and_sign'),
+        'url' => '',
+      ],
+      '#confirmation' => [
+        'status' => $this->digitalFormsService->getDigitalFormStepStatus($this->digitalFormNode, 'confirmation'),
+        'url' => '',
+      ],
+      '#view_form' => [
+        'url' => '',
+      ],
     ];
     $subtitle = $this->digitalFormNode->getTitle();
     $libraries = ['layout'];

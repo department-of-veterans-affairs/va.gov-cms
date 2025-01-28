@@ -84,6 +84,16 @@ class ModuleTest extends VaGovUnitTestBase {
     $layoutTheme = $page_content_theme_prefix . 'layout';
     $this->assertArrayHasKey($layoutTheme, $result);
     $this->assertEquals($page_content_theme_path, $result[$layoutTheme]['path']);
+    $this->assertArrayHasKey('variables', $result[$layoutTheme]);
+    $this->assertArrayHasKey('form_info', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('intro', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('your_personal_info', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('address_info', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('contact_info', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('additional_steps', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('review_and_sign', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('confirmation', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('view_form', $result[$layoutTheme]['variables']);
 
     // Form themes.
     $form_theme_prefix = 'form__va_gov_form_builder__';
