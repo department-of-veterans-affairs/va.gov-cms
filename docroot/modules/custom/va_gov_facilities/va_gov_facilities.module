@@ -28,7 +28,7 @@ function va_gov_facilities_page_attachments(array &$attachments) {
  */
 function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id !== 'node_vba_facility_service_form'
-    || $form_id !== 'node_vet_center_facility_health_servi_form') {
+    && $form_id !== 'node_vet_center_facility_health_servi_form') {
     return;
   }
 
@@ -98,10 +98,11 @@ function _va_gov_facilities_get_service_names($selected_office, $original_option
       ON tei.tid = nfsnad.field_service_name_and_descripti_target_id
       WHERE nfsnad.entity_id IN
       (SELECT entity_id FROM node__field_office AS nfo
-      WHERE bundle = 'vba_facility_service'
+      WHERE bundle = :node_type
       AND nfo.field_office_target_id = :nid)",
     [
       ':nid' => $facility_id,
+      ':node_type' => $form_state->getFormObject()->getEntity()->bundle(),
     ]
     );
   $existing_services = $query->fetchAll() ?? [];
