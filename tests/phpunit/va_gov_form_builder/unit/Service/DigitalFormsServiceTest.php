@@ -244,7 +244,7 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     $mockParagraph = $this->createMock(Paragraph::class);
     $mockParagraph->expects($this->once())
       ->method('bundle')
-      ->willReturn('expected_paragraph_type');
+      ->willReturn('digital_form_phone_and_email');
 
     // Mock the entity storage.
     $entityStorage = $this->createMock(EntityStorageInterface::class);
@@ -306,7 +306,7 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     $mockNode = $this->createMockNodeWithParagraph();
 
     // Assert expected paragraph type returns true.
-    $resultExpectedParagraphType = $this->digitalFormsService->digitalFormHasChapterOfType($mockNode, 'expected_paragraph_type');
+    $resultExpectedParagraphType = $this->digitalFormsService->digitalFormHasChapterOfType($mockNode, 'digital_form_phone_and_email');
     $this->assertTrue($resultExpectedParagraphType);
   }
 
@@ -320,6 +320,38 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     // Assert unexpected paragraph type returns false.
     $resultUnexpectedParagraphType = $this->digitalFormsService->digitalFormHasChapterOfType($mockNode, 'any_other_paragraph_type');
     $this->assertFalse($resultUnexpectedParagraphType);
+  }
+
+  /**
+   * Tests getDigitalFormStepStatus() with empty node.
+   */
+  public function testGetDigitalFormStepStatusEmptyNode() {
+    $result = $this->digitalFormsService->getDigitalFormStepStatus(NULL, NULL);
+    $this->assertEquals('incomplete', $result);
+  }
+
+  /**
+   * Tests getDigitalFormStepStatus() with paragraph present.
+   */
+  public function testGetDigitalFormStepStatusParagraphPresent() {
+    $this->setUpMockQueryParagraph();
+    $mockNode = $this->createMockNodeWithParagraph();
+
+    // Assert the status is 'complete' when paragraph is present.
+    $result = $this->digitalFormsService->getDigitalFormStepStatus($mockNode, 'contact_info');
+    $this->assertEquals('complete', $result);
+  }
+
+  /**
+   * Tests getDigitalFormStepStatus() with paragraph absent.
+   */
+  public function testGetDigitalFormStepStatusParagraphAbsent() {
+    $this->setUpMockQueryParagraph();
+    $mockNode = $this->createMockNodeWithParagraph();
+
+    // Assert the status is 'incomplete' when paragraph is absent.
+    $result = $this->digitalFormsService->getDigitalFormStepStatus($mockNode, 'address_info');
+    $this->assertEquals('incomplete', $result);
   }
 
 }
