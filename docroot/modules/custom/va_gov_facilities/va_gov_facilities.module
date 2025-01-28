@@ -24,6 +24,91 @@ function va_gov_facilities_page_attachments(array &$attachments) {
 }
 
 /**
+ * Implements hook_form_alter().
+ */
+function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id !== 'node_vba_facility_service_form') {
+    return;
+  }
+  // Add AJAX to the field_office dropdown.
+  if (!isset($form['field_office'])) {
+    return;
+  }
+  $form['field_office']['widget']['#ajax'] = [
+    'callback' => 'va_gov_facilities_office_callback',
+    'wrapper' => 'field-service-name-wrapper',
+    'event' => 'change',
+    'progress' => [
+      'type' => 'throbber',
+      'message' => t('Updating service options ...'),
+    ],
+  ];
+  // Wrap the field_service_name_and_descripti field for AJAX replacement.
+  $form['field_service_name_and_descripti']['#prefix'] =
+    '<div id="field-service-name-wrapper">';
+  $form['field_service_name_and_descripti']['#suffix'] =
+    '</div>';
+}
+
+/**
+ * AJAX callback to update the service name options based on selected office.
+ */
+function va_gov_facilities_office_callback(array &$form, FormStateInterface $form_state) {
+  // Get the selected office value.
+  $selected_office = $form_state->getValue('field_office');
+  if (empty($selected_office)) {
+    return $form['field_service_name_and_descripti'];
+  }
+  if (!($form['field_service_name_and_descripti']
+  || $form['field_service_name_and_descripti']['widget']
+  || $form['field_service_name_and_descripti']['widget']['#options'])) {
+    return $form['field_service_name_and_descripti'];
+  }
+  $original_options = $form['field_service_name_and_descripti']['widget']['#options'];
+
+  // Load the options for the service name field based on the selected office.
+  $options = _va_gov_facilities_get_service_names($selected_office, $original_options, $form_state);
+
+  // Update the options of the field_service_name_and_descripti field.
+  $form['field_service_name_and_descripti']['widget']['#options'] = $options;
+
+  // Return the updated field_service_name_and_descripti field.
+  return $form['field_service_name_and_descripti'];
+}
+
+/**
+ * Helper function to get service name options based on the selected office.
+ */
+function _va_gov_facilities_get_service_names($selected_office, $original_options, $form_state) {
+  if (empty($selected_office)
+  || empty($selected_office['0'])
+  || empty($selected_office['0']['target_id'])) {
+    return $original_options;
+  }
+  $remaining_services = $original_options;
+
+  $facility_id = $selected_office['0']['target_id'];
+
+  $database = \Drupal::database();
+  $query = $database->query(
+    "SELECT DISTINCT tid FROM taxonomy_entity_index AS tei
+      INNER JOIN node__field_service_name_and_descripti AS nfsnad
+      ON tei.tid = nfsnad.field_service_name_and_descripti_target_id
+      WHERE nfsnad.entity_id IN
+      (SELECT entity_id FROM node__field_office AS nfo
+      WHERE bundle = 'vba_facility_service'
+      AND nfo.field_office_target_id = :nid)",
+    [
+      ':nid' => $facility_id,
+    ]
+    );
+  $existing_services = $query->fetchAll() ?? [];
+  $existing_services = array_flip(array_column($existing_services, 'tid'));
+  $remaining_services = array_diff_key($original_options, $existing_services);
+  return $remaining_services;
+}
+
+/**
  * Implements hook_preprocess_HOOK().
  */
 function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables) {
