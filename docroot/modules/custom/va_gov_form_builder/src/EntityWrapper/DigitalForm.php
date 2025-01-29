@@ -33,6 +33,11 @@ class DigitalForm {
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager, NodeInterface $node) {
     $this->entityTypeManager = $entity_type_manager;
+
+    if ($node->getType() !== 'digital_form') {
+      throw new \InvalidArgumentException('The node must be of type "digital_form".');
+    }
+
     $this->node = $node;
   }
 

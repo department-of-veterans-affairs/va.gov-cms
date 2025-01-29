@@ -45,6 +45,24 @@ class DigitalFormTest extends VaGovUnitTestBase {
   }
 
   /**
+   * Test the constructor with wrong node type passed in.
+   *
+   * Ensures that passing in a node that is not a
+   * DigitalForm node thorws an error.
+   */
+  public function testConstructorWrongNodeType() {
+    $node = $this->createMock(Node::class);
+
+    // Configure the mock to return something other
+    // than 'digital_form' when getType() is called.
+    $node->method('getType')
+      ->willReturn('article');
+
+    $this->expectException(\InvalidArgumentException::class);
+    $this->digitalForm = new DigitalForm($this->entityTypeManager, $node);
+  }
+
+  /**
    * Helper function to set up a mock query for paragraphs.
    */
   private function setUpMockQueryParagraph() {
@@ -94,14 +112,17 @@ class DigitalFormTest extends VaGovUnitTestBase {
       ->method('get')
       ->with('field_chapters')
       ->willReturn($mockField);
+    $mockNode->expects($this->once())
+      ->method('getType')
+      ->willReturn('digital_form');
 
     return $mockNode;
   }
 
   /**
-   * Helper function to set up tests for hasChapterOfType.
+   * Helper function to set up a test for hasChapterOfType.
    */
-  private function setUpHasChapterOfType() {
+  private function setUpHasChapterOfTypeTest() {
     $this->setUpMockQueryParagraph();
     $node = $this->createMockNodeWithParagraph();
 
@@ -113,7 +134,7 @@ class DigitalFormTest extends VaGovUnitTestBase {
    * Tests hasChapterOfType() with expected paragraph.
    */
   public function testHasChapterOfTypeWithExpectedParagraph() {
-    $this->setUpHasChapterOfType();
+    $this->setUpHasChapterOfTypeTest();
 
     // Assert expected paragraph type returns true.
     $resultExpectedParagraphType = $this->digitalForm->hasChapterOfType('expected_paragraph');
@@ -124,7 +145,7 @@ class DigitalFormTest extends VaGovUnitTestBase {
    * Tests hasChapterOfType() with unexpected paragraph.
    */
   public function testHasChapterOfTypeWithUnexpectedParagraph() {
-    $this->setUpHasChapterOfType();
+    $this->setUpHasChapterOfTypeTest();
 
     // Assert unexpected paragraph type returns false.
     $resultUnexpectedParagraphType = $this->digitalForm->hasChapterOfType('any_other_paragraph_type');
@@ -132,9 +153,9 @@ class DigitalFormTest extends VaGovUnitTestBase {
   }
 
   /**
-   * Helper function to set up tests for getStepStatus.
+   * Helper function to set up a test for getStepStatus.
    */
-  private function setUpGetStepStatus() {
+  private function setUpGetStepStatusTest() {
     $this->digitalForm = $this->getMockBuilder(DigitalForm::class)
       ->disableOriginalConstructor()
       ->onlyMethods(['hasChapterOfType'])
@@ -146,14 +167,13 @@ class DigitalFormTest extends VaGovUnitTestBase {
         ['digital_form_phone_and_email', TRUE],
         ['digital_form_address', FALSE],
       ]);
-
   }
 
   /**
    * Tests getStepStatus() with unknown step name.
    */
   public function testGetDigitalFormStepStatusUnknownStepName() {
-    $this->setUpGetStepStatus();
+    $this->setUpGetStepStatusTest();
 
     // Assert step status is incomplete for unknown name.
     $result = $this->digitalForm->getStepStatus('some_unknown_step_name');
@@ -164,7 +184,7 @@ class DigitalFormTest extends VaGovUnitTestBase {
    * Tests getStepStatus() with paragraph present.
    */
   public function testGetDigitalFormStepStatusParagraphPresent() {
-    $this->setUpGetStepStatus();
+    $this->setUpGetStepStatusTest();
 
     // Assert the status is 'complete' when paragraph is present.
     // Note: `contact_info` step = `digital_form_phone_and_email` paragraph.
@@ -176,7 +196,7 @@ class DigitalFormTest extends VaGovUnitTestBase {
    * Tests getStepStatus() with paragraph absent.
    */
   public function testGetDigitalFormStepStatusParagraphAbsent() {
-    $this->setUpGetStepStatus();
+    $this->setUpGetStepStatusTest();
 
     // Assert the status is 'incomplete' when paragraph is absent.
     // Note: `address_info` step = `digital_form_address` paragraph.
