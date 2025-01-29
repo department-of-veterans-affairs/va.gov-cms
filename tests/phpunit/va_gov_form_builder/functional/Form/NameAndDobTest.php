@@ -4,7 +4,7 @@ namespace tests\phpunit\va_gov_form_builder\functional\Form;
 
 use Drupal\node\Entity\Node;
 use tests\phpunit\va_gov_form_builder\Traits\SharedConstants;
-use tests\phpunit\va_gov_form_builder\Traits\TestFormLoads;
+use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
@@ -18,7 +18,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
 class NameAndDobTest extends VaGovExistingSiteBase {
 
   use SharedConstants;
-  use TestFormLoads;
+  use TestPageLoads;
 
   /**
    * {@inheritdoc}
@@ -65,25 +65,17 @@ class NameAndDobTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test that the form is accessible to a user with the correct privilege.
+   * Test that the page is accessible to a user with the correct privilege.
    */
-  public function testFormLoads() {
-    $this->sharedTestFormLoads($this->getFormPageUrl(), 'Collecting Name and Date of birth');
+  public function testPageLoads() {
+    $this->sharedTestPageLoads($this->getFormPageUrl(), 'Collecting Name and Date of birth');
   }
 
   /**
-   * Test that the form is not accessible to a user without privilege.
+   * Test that the page is not accessible to a user without privilege.
    */
-  public function testFormDoesNotLoad() {
-    $this->sharedTestFormDoesNotLoad($this->getFormPageUrl());
-  }
-
-  /**
-   * Test that the active tab is correct.
-   */
-  public function testActiveTab() {
-    $activeTab = $this->getSession()->getPage()->find('css', '.form-builder-navbar__tab--active');
-    $this->assertTrue($activeTab->hasClass('form-builder-navbar__tab--content'), 'The expected tab is active.');
+  public function testPageDoesNotLoad() {
+    $this->sharedTestPageDoesNotLoad($this->getFormPageUrl());
   }
 
   /**
@@ -124,11 +116,11 @@ class NameAndDobTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test that the 'Back' button takes the user to the start-conversion page.
+   * Test that the 'Back' button takes the user to the form-info page.
    */
   public function testBackButton() {
     $this->click('.button#edit-back');
-    $this->assertSession()->addressEquals('/form-builder/start-conversion');
+    $this->assertSession()->addressMatches('|form-builder/\d+/form-info|');
   }
 
 }

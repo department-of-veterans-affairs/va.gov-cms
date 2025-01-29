@@ -3,7 +3,6 @@
 namespace tests\phpunit\va_gov_form_builder\unit;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
-use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Routing\RouteMatchInterface;
 use DrupalFinder\DrupalFinder;
 use Tests\Support\Classes\VaGovUnitTestBase;
@@ -57,21 +56,40 @@ class ModuleTest extends VaGovUnitTestBase {
    * @covers ::va_gov_form_builder_theme
    */
   public function testVaGovFormBuilderHookTheme() {
-    // Mock the extension.list.module service and add to the container.
-    $extensionListMock = $this->createMock(ModuleExtensionList::class);
-    $extensionListMock->expects($this->once())
-      ->method('getPath')
-      ->with('va_gov_form_builder')
-      ->willReturn($this->modulePath);
-    $this->container->set('extension.list.module', $extensionListMock);
-
     // Call the function to test.
-    $result = va_gov_form_builder_theme();
+    $result = va_gov_form_builder_theme(
+      NULL,
+      NULL,
+      NULL,
+      $this->modulePath
+    );
 
     // Assert the expected theme definition exists.
+    // Page (wrapper) theme.
     $this->assertArrayHasKey('page__va_gov_form_builder', $result);
     $this->assertEquals('page', $result['page__va_gov_form_builder']['base hook']);
-    $this->assertEquals($this->modulePath . '/templates', $result['page__va_gov_form_builder']['path']);
+    $this->assertEquals($this->modulePath . '/templates/page', $result['page__va_gov_form_builder']['path']);
+
+    // Page-content themes.
+    $page_content_theme_prefix = 'page_content__va_gov_form_builder__';
+    $page_content_theme_path = $this->modulePath . '/templates/page-content';
+    // 1. Home page.
+    $this->assertArrayHasKey($page_content_theme_prefix . 'home', $result);
+    $this->assertEquals($page_content_theme_path, $result[$page_content_theme_prefix . 'home']['path']);
+    $this->assertArrayHasKey('variables', $result[$page_content_theme_prefix . 'home']);
+    $this->assertArrayHasKey('recent_forms', $result[$page_content_theme_prefix . 'home']['variables']);
+    $this->assertArrayHasKey('build_form_url', $result[$page_content_theme_prefix . 'home']['variables']);
+
+    // Form themes.
+    $form_theme_prefix = 'form__va_gov_form_builder__';
+    $form_theme_path = $this->modulePath . '/templates/form';
+    // Assert all items in array exist.
+    $form_themes = ['form_info'];
+    foreach ($form_themes as $form_theme) {
+      $this->assertArrayHasKey($form_theme_prefix . $form_theme, $result);
+      $this->assertEquals($form_theme_path, $result[$form_theme_prefix . $form_theme]['path']);
+      $this->assertEquals('form', $result[$form_theme_prefix . $form_theme]['render element']);
+    }
   }
 
   /**
