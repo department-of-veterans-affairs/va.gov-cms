@@ -6,11 +6,10 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
 
 /**
- * Service for fetching Digital Forms.
+ * Service for fetching and creating Digital Forms.
  *
- * Digital Form nodes are fetched from the database,
- * then wrapped in the DigitalForm entity wrapper object,
- * and returned.
+ * Digital Form nodes are wrapped in DigitalForm
+ * entity-wrapper objects before being returned.
  */
 class DigitalFormsService {
 
@@ -73,6 +72,19 @@ class DigitalFormsService {
   public function getDigitalForm($nid) {
     $node = $this->entityTypeManager->getStorage('node')->load($nid);
 
+    return $this->wrapDigitalForm($node);
+  }
+
+  /**
+   * Returns a DigitalForm object from a passed-in Digital Form node.
+   *
+   * @param \Drupal\node\NodeInterface[] $node
+   *   The `digital_form` node to wrap.
+   *
+   * @return \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
+   *   The DigitalForm object wrapping the passed-in $node.
+   */
+  public function wrapDigitalForm($node) {
     if (!$node) {
       return NULL;
     }

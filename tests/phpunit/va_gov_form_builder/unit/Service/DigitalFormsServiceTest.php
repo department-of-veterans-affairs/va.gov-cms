@@ -237,8 +237,8 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     $this->setUpMockQueryGetDigitalForm($node);
 
     // Call the method with a nid that exists.
-    $node = $this->digitalFormsService->getDigitalForm('1');
-    $this->assertNotEmpty($node);
+    $digitalForm = $this->digitalFormsService->getDigitalForm('1');
+    $this->assertNotEmpty($digitalForm);
   }
 
   /**
@@ -252,8 +252,8 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     $this->setUpMockQueryGetDigitalForm($node);
 
     // Call the method with a nid that exists.
-    $node = $this->digitalFormsService->getDigitalForm('1');
-    $this->assertEmpty($node);
+    $digitalForm = $this->digitalFormsService->getDigitalForm('1');
+    $this->assertEmpty($digitalForm);
   }
 
   /**
@@ -263,8 +263,34 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     $this->setUpMockQueryGetDigitalForm();
 
     // Call the method with a nid that does not exist.
-    $node = $this->digitalFormsService->getDigitalForm('99999');
-    $this->assertEmpty($node);
+    $digitalForm = $this->digitalFormsService->getDigitalForm('99999');
+    $this->assertEmpty($digitalForm);
+  }
+
+  /**
+   * Tests wrapDigitalForm() with `digital_form` $node passed in.
+   */
+  public function testWrapDigitalFormCorrectNodeType() {
+    $node = $this->createMock('Drupal\node\NodeInterface');
+    $node->method('getType')
+      ->willReturn('digital_form');
+
+    // Call the method and assert a DigitalForm object is returned.
+    $digitalForm = $this->digitalFormsService->wrapDigitalForm($node);
+    $this->assertNotEmpty($digitalForm);
+  }
+
+  /**
+   * Tests wrapDigitalForm() with other type of $node passed in.
+   */
+  public function testWrapDigitalFormIncorrectNodeType() {
+    $node = $this->createMock('Drupal\node\NodeInterface');
+    $node->method('getType')
+      ->willReturn('some_other_node_type');
+
+    // Call the method and assert a DigitalForm object is returned.
+    $digitalForm = $this->digitalFormsService->wrapDigitalForm($node);
+    $this->assertEmpty($digitalForm);
   }
 
 }
