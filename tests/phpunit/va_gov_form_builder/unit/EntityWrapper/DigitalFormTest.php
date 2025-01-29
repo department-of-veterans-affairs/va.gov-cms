@@ -63,6 +63,45 @@ class DigitalFormTest extends VaGovUnitTestBase {
   }
 
   /**
+   * Test the __call magic method.
+   */
+  public function testCallMagicMethod() {
+    $id = '123';
+    $title = 'Test Digital Form 1';
+    $field = $this->createMock(FieldItemListInterface::class);
+    $field->value = 'Some field value';
+
+    $node = $this->createMock(NodeInterface::class);
+    $node->method('getType')
+      ->willReturn('digital_form');
+    $node->method('getTitle')
+      ->willReturn($title);
+    $node->method('id')
+      ->willReturn('123');
+    $node->method('get')
+      ->with('my_field')
+      ->willReturn($field);
+
+    $this->digitalForm = new DigitalForm($this->entityTypeManager, $node);
+
+    // id()
+    $idResult = $this->digitalForm->id();
+    $this->assertEquals($id, $idResult);
+
+    // getTitle()
+    $getTitleResult = $this->digitalForm->getTitle();
+    $this->assertEquals($title, $getTitleResult);
+
+    // get()->value
+    $getValueResult = $this->digitalForm->get('my_field')->value;
+    $this->assertEquals($field->value, $getValueResult);
+
+    // Unknown method.
+    $this->expectException(\BadMethodCallException::class);
+    $this->digitalForm->someUnknownMethod();
+  }
+
+  /**
    * Helper function to set up a mock query for paragraphs.
    */
   private function setUpMockQueryParagraph() {

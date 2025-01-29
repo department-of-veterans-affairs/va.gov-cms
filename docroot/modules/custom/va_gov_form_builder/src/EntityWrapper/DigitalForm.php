@@ -42,6 +42,27 @@ class DigitalForm {
   }
 
   /**
+   * Magic method to forward other method calls to the node.
+   *
+   * This makes it so we can call, for example, $wrappedNode->getTitle().
+   *
+   * @param string $name
+   *   The name of the method being called.
+   * @param array $arguments
+   *   The arguments passed to the method.
+   *
+   * @return mixed
+   *   The return value of the method called on the node.
+   */
+  public function __call($name, $arguments) {
+    if (method_exists($this->node, $name)) {
+      return call_user_func_array([$this->node, $name], $arguments);
+    }
+
+    throw new \BadMethodCallException("Method $name does not exist on the underlying node class.");
+  }
+
+  /**
    * Determines if the Digital Form node has a chapter of a given type.
    *
    * If the node has a chapter (paragraph) of the given type, returns TRUE.
