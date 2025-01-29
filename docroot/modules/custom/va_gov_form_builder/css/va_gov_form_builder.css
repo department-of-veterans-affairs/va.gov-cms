@@ -1,0 +1,108 @@
+/* page container */
+.form-builder-page-container {
+  --vads-color-divider: #a9aeb1;
+  --color-shadow: #00000040;
+
+  font-family: var(--font-family-serif);
+}
+
+/* links */
+.form-builder-page-container a {
+  text-decoration: underline;
+}
+
+.form-builder-page-container a:focus,
+.form-builder-page-container a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--vads-color-base);
+  text-decoration: underline;
+}
+
+/* headings */
+.form-builder-page-container h1 {
+  font-size: var(--vads-font-size-heading-level-1);
+  line-height: var(--units-6);
+}
+
+.form-builder-page-container h2 {
+  font-size: var(--vads-font-size-heading-level-2);
+}
+
+.form-builder-page-container h3 {
+  font-size: var(--vads-font-size-heading-level-3);
+}
+
+.form-builder-page-container h4 {
+  font-size: var(--vads-font-size-heading-level-4);
+}
+
+.form-builder-page-container h5 {
+  font-size: var(--vads-font-size-heading-level-5);
+}
+
+.form-builder-page-container h6 {
+  font-size: var(--vads-font-size-heading-level-6);
+}
+
+/* required fields */
+.form-builder-page-container .form-item__label.form-required::after {
+  color: var(--vads-color-secondary-dark);
+  content: "(*Required)";
+}
+
+/* form field descriptions/hint text */
+.form-builder-page-container .form-item__description {
+  color: var(--vads-color-gray-medium);
+}
+
+/* header */
+.form-builder-header {
+  background-color: var(--va-blue-darkest);
+  color: var(--va-white);
+  padding-top: var(--units-1);
+}
+
+/* layout container */
+.form-builder-layout-container {
+  margin: var(--units-2p5) var(--units-7);
+}
+
+/* title */
+.form-builder-title {
+  margin-bottom: var(--units-1p5);
+}
+
+/* subtitle */
+.form-builder-subtitle {
+  font-size: var(--vads-font-size-heading-level-3);
+  font-weight: 700;
+  line-height: var(--units-3);
+  padding: var(--units-1p5);
+}
+
+/* buttons */
+.form-builder-button,
+a.form-builder-button {
+  border-radius: var(--units-0p5);
+  cursor: pointer;
+  font-weight: var(--font-weight-bold);
+  padding: var(--units-1p5) var(--units-2p5);
+  text-decoration: none;
+  transition: none;
+}
+
+.form-builder-button--primary,
+.form-builder-button--primary:focus,
+a.form-builder-button--primary,
+a.form-builder-button--primary:focus {
+  background: var(--vads-color-primary);
+  color: var(--vads-button-color-text-primary-on-light);
+  text-decoration: none;
+}
+
+.form-builder-button--primary:hover,
+a.form-builder-button--primary:hover {
+  background: var(--vads-color-primary-dark);
+  color: var(--vads-button-color-text-primary-on-light);
+  text-decoration: none;
+}

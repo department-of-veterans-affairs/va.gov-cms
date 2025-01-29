@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * VA.gov Form Builder's implementation of a single page.
+ *
+ * The variables available to this template are passed from the controller:
+ * - page
+ *   - content: The main content of the page; the individual form
+ * - form_builder_page_data
+ *   - active_tab: The active tab in the navbar
+ *
+ * @see /docroot/modules/custom/va_gov_form_builder/src/Controller/VaGovFormBuilderController.php
+ */
+#}
+<div class="form-builder-page-container">
+  <header class="form-builder-header">
+    <div class="form-builder-layout-container">
+      <h1 class="form-builder-title">Form Builder</h1>
+      <p class="form-builder-subtitle">{{ page.form_builder_page_data.subtitle }}</p>
+    </div>
+  </header>
+
+  <div class="form-builder-layout-container">
+    <main class="page-content clearfix" role="main">
+      <div class="visually-hidden">
+        <a id="main-content" tabindex="-1"></a>
+      </div>
+      {{ page.content }}
+    </main>
+  </div>
+
+</div>

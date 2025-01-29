@@ -41,8 +41,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_regional_health_care_service_des_edit_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
       'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_edit_form.alter' => 'alterTopTaskNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_edit_form.alter' => 'alterVamcSystemBillingAndInsuranceForm',
+      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_form.alter' => 'alterVamcSystemBillingAndInsuranceForm',
       'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_policies_page_edit_form.alter' => 'alterTopTaskNodeForm',
@@ -127,7 +127,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     Flagger $flagger,
     UserPermsService $user_perms_service,
     ContentHardeningDeduper $content_hardening_deduper,
-    NotificationsManager $notifications_manager
+    NotificationsManager $notifications_manager,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->currentUser = $currentUser;
@@ -146,7 +146,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
     $this->alterAppendedSystemHealthServices($event);
-
   }
 
   /**
@@ -338,6 +337,16 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form['#attached']['library'][] = 'va_gov_vamc/set_menu_title';
     $form['title']['#disabled'] = 'disabled';
+  }
+
+  /**
+   * Alter the VAMC System and Billing Insurance node form..
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVamcSystemBillingAndInsuranceForm(FormIdAlterEvent $event) {
+    $this->alterTopTaskNodeForm($event);
   }
 
   /**

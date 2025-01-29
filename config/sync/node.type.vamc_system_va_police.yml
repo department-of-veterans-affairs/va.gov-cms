@@ -10,6 +10,7 @@ dependencies:
 third_party_settings:
   menu_ui:
     available_menus:
+      - manila-va-clinic
       - va-alaska-health-care
       - va-albany-health-care
       - va-alexandria-health-care
@@ -152,8 +153,8 @@ third_party_settings:
       - va-wilmington-health-care
     parent: 'va-alaska-health-care:'
   node_revision_delete:
-    minimum_revisions_to_keep: 50
     minimum_age_to_delete: 0
+    minimum_revisions_to_keep: 50
     when_to_delete: 0
   node_title_help_text:
     title_help: ''
@@ -163,7 +164,7 @@ third_party_settings:
 name: 'VAMC System VA Police page'
 type: vamc_system_va_police
 description: 'A page about how Veterans see VA Police information for a VAMC system.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 0
 display_submitted: false

@@ -1,0 +1,17 @@
+diff --git a/js/environment_indicator.js b/js/environment_indicator.js
+--- a/js/environment_indicator.js	(revision 520137b406f6428b0e6e605750fe75c1caf2c5c2)
++++ b/js/environment_indicator.js	(date 1734556460416)
+@@ -19,10 +19,10 @@
+         // Only apply text and background color if not using gin_toolbar
+         if (!$body.hasClass('gin--vertical-toolbar') && !$body.hasClass('gin--horizontal-toolbar')) {
+           $('.toolbar .toolbar-bar .toolbar-tab > .toolbar-item').css('background-color', settings.environmentIndicator.bgColor);
+-          $('#toolbar-bar .toolbar-tab a.toolbar-item', context).css('border-bottom', '0px');
+-          $('#toolbar-bar .toolbar-tab a.toolbar-item', context).css('color', settings.environmentIndicator.fgColor);
++          $('#toolbar-bar .toolbar-item', context).css('border-bottom', '0px');
++          $('#toolbar-bar .toolbar-item', context).css('color', settings.environmentIndicator.fgColor);
+           $('#toolbar-bar', context).css('background-color', settings.environmentIndicator.bgColor);
+-          $('#toolbar-bar .toolbar-tab a.toolbar-item', context).not('.is-active').css('color', settings.environmentIndicator.fgColor);
++          $('#toolbar-bar .toolbar-item', context).not('.is-active').css('color', settings.environmentIndicator.fgColor);
+         }
+
+         // Set environment color for gin_toolbar vertical toolbar.

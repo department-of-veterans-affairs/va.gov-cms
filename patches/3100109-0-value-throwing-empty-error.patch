@@ -1,0 +1,37 @@
+diff --git /src/Plugin/Field/FieldWidget/TablefieldWidget.php b/src/Plugin/Field/FieldWidget/TablefieldWidget.php
+index 13ecb81..f22eb4b 100644
+--- a/src/Plugin/Field/FieldWidget/TablefieldWidget.php
++++ b/src/Plugin/Field/FieldWidget/TablefieldWidget.php
+@@ -5,7 +5,6 @@ namespace Drupal\tablefield\Plugin\Field\FieldWidget;
+ use Drupal\Core\Config\ConfigFactoryInterface;
+ use Drupal\Core\Field\FieldDefinitionInterface;
+ use Drupal\Core\Field\FieldItemListInterface;
+-use Drupal\Core\Field\FieldItemList;
+ use Drupal\Core\Field\WidgetBase;
+ use Drupal\Core\Form\FormStateInterface;
+ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+@@ -185,20 +184,20 @@ class TablefieldWidget extends WidgetBase implements ContainerFactoryPluginInter
+    */
+   public function validateTablefield(array &$element, FormStateInterface &$form_state, array $form) {
+     if ($element['#required'] && $form_state->getTriggeringElement()['#type'] == 'submit') {
+-      $items = new FieldItemList($this->fieldDefinition);
+-      $this->extractFormValues($items, $form, $form_state);
+       $values = FALSE;
+       if (isset($element['#value'])) {
+         foreach ($element['#value']['tablefield']['table'] as $row) {
+           foreach ($row as $cell) {
+-            if (empty($cell)) {
++            // Cell values contain empty quotes by default.
++            // empty() check will return TRUE, resulting in unintended failures.
++            if ($cell === "") {
+               $values = TRUE;
+               break;
+             }
+           }
+         };
+       }
+-      if (!$items->count() && $values == TRUE) {
++      if ($values === TRUE) {
+         $form_state->setError($element, $this->t('@name field is required.', ['@name' => $this->fieldDefinition->getLabel()]));
+       }
+     }

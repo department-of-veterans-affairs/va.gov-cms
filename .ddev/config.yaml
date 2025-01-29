@@ -43,7 +43,7 @@ web_environment:
     - CMS_MARIADB_USERNAME=db
     - CMS_MARIADB_PASSWORD=db
     - CMS_MARIADB_HOST=db
-    - CYPRESS_TAGS=\"not @ignore and not @piv\"
+    - CYPRESS_TAGS=\"not @piv\"
     - DDEV_APPROOT=/var/www/html
     - DRUPAL_ADDRESS=https://va-gov-cms.ddev.site
 nodejs_version: "16"
@@ -228,10 +228,6 @@ corepack_enable: false
 # The default "ddev.site" allows DNS lookup via a wildcard
 # If you prefer you can change this to "ddev.local" to preserve
 # pre-v1.9 behavior.
-
-# ngrok_args: --basic-auth username:pass1234
-# Provide extra flags to the "ngrok http" command, see
-# https://ngrok.com/docs/ngrok-agent/config or run "ngrok http -h"
 
 # disable_settings_management: false
 # If true, DDEV will not create CMS-specific settings files like

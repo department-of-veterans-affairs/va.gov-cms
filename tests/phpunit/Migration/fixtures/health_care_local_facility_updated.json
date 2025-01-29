@@ -1,109 +1,157 @@
 {
-  "type": "FeatureCollection",
-  "features": [
+  "data": [
     {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -88.9880427,
-          40.45095922
-        ]
-      },
-      "properties": {
-        "id": "vha_999999",
-        "name": "Test VA Clinic",
-        "facility_type": "va_health_facility",
-        "classification": "Primary Care CBOC",
-        "website": "",
-        "address": {
-          "mailing": {},
-          "physical": {
-            "zip": "61704-7527",
-            "city": "Bloomington",
-            "state": "IL",
-            "address_1": "207 Hamilton Road",
-            "address_2": null,
-            "address_3": null
-          }
-        },
-        "phone": {
-          "fax": "217-554-3089",
-          "main": "309-827-4091",
-          "pharmacy": "217-554-3208",
-          "after_hours": "217-554-3000",
-          "patient_advocate": "217-554-4968",
-          "enrollment_coordinator": "217-554-7386"
-        },
-        "hours": {
-          "Friday": "800AM-400PM",
-          "Monday": "800AM-530PM",
-          "Sunday": "Closed",
-          "Tuesday": "800AM-530PM",
-          "Saturday": "Closed",
-          "Thursday": "800AM-530PM",
-          "Wednesday": "800AM-530PM"
-        },
-        "operational_hours_special_instructions": "Expanded or Nontraditional hours are available for some services on a routine and or requested basis. Please call our main phone number for details. |",
-        "services": {
-          "other": [],
-          "health": [
-            "Cardiology",
-            "Dermatology",
-            "MentalHealthCare",
-            "Nutrition",
-            "Podiatry",
-            "PrimaryCare",
-            "SpecialtyCare",
-            "Urology"
+      "id": "vha_999999",
+      "type": "va_facilities",
+      "attributes": {
+          "name": "Test VA Clinic",
+          "facilityType": "va_health_facility",
+          "classification": "Multi-Specialty CBOC",
+          "parent": {
+              "id": "vha_550",
+              "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550"
+          },
+          "website": "https://www.va.gov/illiana-health-care/locations/bloomington-va-clinic/",
+          "lat": 40.45095922,
+          "long": -88.9880427,
+          "timeZone": "America/Chicago",
+          "address": {
+              "physical": {
+                  "zip": "61704-7527",
+                  "city": "Bloomington",
+                  "state": "IL",
+                  "address1": "207 Hamilton Road"
+              }
+          },
+          "phone": {
+              "fax": "217-554-3089",
+              "main": "309-827-4091",
+              "pharmacy": "217-554-3208",
+              "afterHours": "217-554-3000",
+              "patientAdvocate": "217-554-4968",
+              "mentalHealthClinic": "217-554-4530",
+              "enrollmentCoordinator": "217-554-7386"
+          },
+          "hours": {
+              "monday": "730AM-630PM",
+              "tuesday": "600AM-630PM",
+              "wednesday": "600AM-630PM",
+              "thursday": "600AM-630PM",
+              "friday": "600AM-400PM",
+              "saturday": "Closed",
+              "sunday": "Closed"
+          },
+          "operationalHoursSpecialInstructions": [
+              "More hours are available for some services. To learn more, call our main phone number."
           ],
-          "last_updated": "2021-02-22"
-        },
-        "satisfaction": {
-          "health": {},
-          "effective_date": null
-        },
-        "wait_times": {
-          "health": [
-            {
-              "service": "Cardiology",
-              "new": 52,
-              "established": 2.6
-            },
-            {
-              "service": "Dermatology",
-              "new": 0.333333,
-              "established": null
-            },
-            {
-              "service": "MentalHealthCare",
-              "new": 7,
-              "established": 6.855172
-            },
-            {
-              "service": "PrimaryCare",
-              "new": 19.28125,
-              "established": 2.272727
-            },
-            {
-              "service": "SpecialtyCare",
-              "new": 14.210526,
-              "established": 4.823529
-            },
-            {
-              "service": "Urology",
-              "new": null,
-              "established": 0
-            }
-          ],
-          "effective_date": "2021-02-22"
-        },
-        "mobile": false,
-        "active_status": "A",
-        "operating_status": {
-          "code": "NORMAL"
-        },
-        "visn": "12"
+          "services": {
+              "health": [
+                  {
+                      "name": "Audiology and speech",
+                      "serviceId": "audiology",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/audiology"
+                  },
+                  {
+                      "name": "Cardiology",
+                      "serviceId": "cardiology",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/cardiology"
+                  },
+                  {
+                      "name": "Dermatology",
+                      "serviceId": "dermatology",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/dermatology"
+                  },
+                  {
+                      "name": "Gynecology",
+                      "serviceId": "gynecology",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/gynecology"
+                  },
+                  {
+                      "name": "Homeless Veteran care",
+                      "serviceId": "homeless",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/homeless"
+                  },
+                  {
+                      "name": "Laboratory and pathology",
+                      "serviceId": "laboratory",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/laboratory"
+                  },
+                  {
+                      "name": "MentalHealth",
+                      "serviceId": "mentalHealth",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/mentalHealth"
+                  },
+                  {
+                      "name": "Nutrition, food, and dietary care",
+                      "serviceId": "nutrition",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/nutrition"
+                  },
+                  {
+                      "name": "Optometry",
+                      "serviceId": "optometry",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/optometry"
+                  },
+                  {
+                      "name": "Pharmacy",
+                      "serviceId": "pharmacy",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/pharmacy"
+                  },
+                  {
+                      "name": "Physical medicine and rehabilitation",
+                      "serviceId": "physicalMedicine",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/physicalMedicine"
+                  },
+                  {
+                      "name": "Podiatry",
+                      "serviceId": "podiatry",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/podiatry"
+                  },
+                  {
+                      "name": "Primary care",
+                      "serviceId": "primaryCare",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/primaryCare"
+                  },
+                  {
+                      "name": "Psychology",
+                      "serviceId": "psychology",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/psychology"
+                  },
+                  {
+                      "name": "Smoking and tobacco cessation",
+                      "serviceId": "smoking",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/smoking"
+                  },
+                  {
+                      "name": "Social work",
+                      "serviceId": "socialWork",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/socialWork"
+                  },
+                  {
+                      "name": "MOVE! weight management",
+                      "serviceId": "weightManagement",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/weightManagement"
+                  },
+                  {
+                      "name": "Women Veteran care",
+                      "serviceId": "womensHealth",
+                      "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services/womensHealth"
+                  }
+              ],
+              "link": "https://sandbox-api.va.gov/services/va_facilities/v1/facilities/vha_550GG/services",
+              "lastUpdated": "2024-05-26"
+          },
+          "satisfaction": {
+              "health": {
+                  "primaryCareUrgent": 0.0,
+                  "primaryCareRoutine": 0.8899999856948853
+              },
+              "effectiveDate": "2024-02-08"
+          },
+          "mobile": false,
+          "operatingStatus": {
+              "code": "NORMAL"
+          },
+          "visn": "12"
       }
     }
   ]

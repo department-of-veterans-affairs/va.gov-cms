@@ -50,7 +50,9 @@ function va_gov_vamc_form_alter(&$form, FormStateInterface $form_state, $form_id
       _va_gov_vamc_vbo_facility_status_form_ui($form, $form_state);
     }
   }
-  if ($form_id === 'node_vha_facility_nonclinical_service_edit_form') {
+  if ($form_id === 'node_vha_facility_nonclinical_service_edit_form' ||
+    $form_id === 'node_vha_facility_nonclinical_service_form') {
+    // We need to remove fields that are not relevant to non-clinical services.
     _va_gov_vamc_remove_service_location_fields_from_non_clinical_services($form);
   }
 }

@@ -2,8 +2,13 @@
 
 namespace Drupal\va_gov_post_api\Service;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\node\NodeInterface;
+use Drupal\post_api\Service\AddToQueue;
 use Drupal\va_gov_facilities\FacilityOps;
 use Drupal\va_gov_lovell\LovellOps;
 
@@ -66,7 +71,7 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
 
       // Set a key based on which the endpoint will be
       // defined during queue execution.
-      $data['endpoint_path'] = ($facility_id) ? "/services/va_facilities/v0/facilities/{$facility_id}/cms-overlay" : NULL;
+      $data['endpoint_path'] = ($facility_id) ? "/services/va_facilities/v1/facilities/{$facility_id}/cms-overlay" : NULL;
 
       // Set payload. Default payload provided by this module is empty.
       // See README.md
@@ -285,7 +290,8 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
 
       // Manila VA Clinic - vha_358.  Manila is a one facility system.
       if ($facility_id === 'vha_358') {
-        $payload['core']['facility_url'] = 'https://www.visn21.va.gov/locations/manila.asp';
+        $payload['core']['facility_url'] = 'https://www.va.gov/manila-va-clinic/';
+        $payload['system']['url'] = 'https://www.va.gov/manila-va-clinic/';
       }
     }
   }
@@ -407,12 +413,26 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
    * Gathers the mental health phone number from the facility.
    *
    * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/15686
+   * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/17862
    *
    * @return string
    *   The mental health phone number.
    */
   protected function getFacilityMentalHealthPhone(): string {
-    $mental_health_phone = $this->getFieldSafe('field_mental_health_phone');
+    if (!$this->facilityNode->hasField('field_telephone')) {
+      return '';
+    }
+    $telephone_paragraph_id = $this->facilityNode->get('field_telephone')->target_id;
+    if (empty($telephone_paragraph_id)) {
+      return '';
+    }
+    $telephone_paragraph = $this->entityTypeManager->getStorage('paragraph')->load($telephone_paragraph_id);
+    $mental_health_phone = $telephone_paragraph->get('field_phone_number')->value ?? '';
+    $mental_health_extension = $telephone_paragraph->get('field_phone_extension')->value ?? '';
+    if (!empty($mental_health_extension)) {
+      $mental_health_phone .= ', ext. ' . $mental_health_extension;
+    }
+
     return $mental_health_phone;
   }
 

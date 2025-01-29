@@ -16,14 +16,14 @@ final class VaGovMediaAddRouteSubscriber extends RouteSubscriberBase {
    * {@inheritdoc}
    */
   protected function alterRoutes(RouteCollection $collection): void {
-    $addFormRoute = $collection->get('entity.media.add_form');
-    $addFormRoute?->setRequirements([
-      '_role' => 'administrator+content_admin',
-    ]);
-    $addPageRoute = $collection->get('entity.media.add_page');
-    $addPageRoute?->setRequirements([
-      '_role' => 'administrator+content_admin',
-    ]);
+//    $addFormRoute = $collection->get('entity.media.add_form');
+//    $addFormRoute?->setRequirements([
+//      '_role' => 'administrator+content_admin',
+//    ]);
+//    $addPageRoute = $collection->get('entity.media.add_page');
+//    $addPageRoute?->setRequirements([
+//      '_role' => 'administrator+content_admin',
+//    ]);
   }
 
 }

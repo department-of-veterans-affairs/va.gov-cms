@@ -1,0 +1,56 @@
+uuid: df069181-a709-497a-89bf-c20e6c48cc41
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.vba_facility_draft_content.field_last_updated_by_editor
+    - field.field.message.vba_facility_draft_content.field_target_node_path
+    - field.field.message.vba_facility_draft_content.field_target_node_title
+    - message.template.vba_facility_draft_content
+id: message.vba_facility_draft_content.default
+targetEntityType: message
+bundle: vba_facility_draft_content
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_last_updated_by_editor:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_target_node_path:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_target_node_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    '#group': advanced
+hidden: {  }

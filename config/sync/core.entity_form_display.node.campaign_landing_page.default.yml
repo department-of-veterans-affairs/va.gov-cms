@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - entity_browser.browser.audiences_checkboxes
-    - entity_browser.browser.events_browser
+    - entity_browser.browser.promo_blocks_browser
     - field.field.node.campaign_landing_page.field_administration
     - field.field.node.campaign_landing_page.field_benefit_categories
     - field.field.node.campaign_landing_page.field_clp_audience
@@ -37,16 +37,17 @@ dependencies:
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_intro
     - field.field.node.campaign_landing_page.field_clp_what_you_can_do_promos
     - field.field.node.campaign_landing_page.field_clp_why_this_matters
+    - field.field.node.campaign_landing_page.field_connect_with_us
     - field.field.node.campaign_landing_page.field_hero_blurb
     - field.field.node.campaign_landing_page.field_hero_image
     - field.field.node.campaign_landing_page.field_last_saved_by_an_editor
     - field.field.node.campaign_landing_page.field_media
     - field.field.node.campaign_landing_page.field_primary_call_to_action
-    - field.field.node.campaign_landing_page.field_related_office
     - field.field.node.campaign_landing_page.field_secondary_call_to_action
     - node.type.campaign_landing_page
     - workflows.workflow.editorial
   module:
+    - change_labels
     - content_moderation
     - entity_browser
     - entity_browser_entity_form
@@ -114,7 +115,7 @@ third_party_settings:
         - field_clp_why_this_matters
         - field_clp_audience
         - field_secondary_call_to_action
-      label: 'Why this matters'
+      label: 'Why this matters to you'
       region: content
       parent_name: ''
       weight: 1
@@ -279,7 +280,7 @@ third_party_settings:
         open: 0
     group_connect_with_us:
       children:
-        - field_related_office
+        - field_connect_with_us
       label: 'Connect with us'
       region: content
       parent_name: ''
@@ -306,7 +307,7 @@ content:
     third_party_settings: {  }
   field_benefit_categories:
     type: entity_reference_browser_table_widget
-    weight: 42
+    weight: 48
     region: content
     settings:
       entity_browser: lc_benefit_hubs
@@ -319,9 +320,10 @@ content:
       field_widget_display_settings: {  }
       additional_fields:
         options: null
+      show_latest_revision: false
     third_party_settings:
       limited_field_widgets:
-        limit_values: '2'
+        limit_values: 2
   field_clp_audience:
     type: entity_browser_entity_reference
     weight: 3
@@ -335,6 +337,7 @@ content:
       open: false
       field_widget_display_settings: {  }
       selection_mode: selection_append
+      show_latest_revision: false
     third_party_settings: {  }
   field_clp_events_header:
     type: string_textfield_with_counter
@@ -374,6 +377,7 @@ content:
       field_widget_replace: 0
       additional_fields:
         options: null
+      show_latest_revision: false
     third_party_settings: {  }
   field_clp_faq_cta:
     type: paragraphs
@@ -421,7 +425,7 @@ content:
         duplicate: duplicate
     third_party_settings:
       limited_field_widgets:
-        limit_values: '10'
+        limit_values: 10
   field_clp_resources:
     type: inline_entity_form_complex_table_view_mode
     weight: 34
@@ -523,7 +527,7 @@ content:
         delete_confirmation: false
         show_drag_and_drop: true
       limited_field_widgets:
-        limit_values: '0'
+        limit_values: 0
       change_labels:
         add_another: ''
   field_clp_spotlight_cta:
@@ -593,7 +597,7 @@ content:
         duplicate: duplicate
     third_party_settings:
       limited_field_widgets:
-        limit_values: '3'
+        limit_values: 3
   field_clp_spotlight_panel:
     type: boolean_checkbox
     weight: 12
@@ -728,26 +732,26 @@ content:
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
   field_clp_what_you_can_do_promos:
-    type: inline_entity_form_complex_table_view_mode
+    type: entity_reference_browser_table_widget
     weight: 7
     region: content
     settings:
-      form_mode: default
-      override_labels: true
-      label_singular: Promo
-      label_plural: Promos
-      allow_new: true
-      allow_existing: true
-      match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: true
-      removed_reference: optional
-      allow_system_delete: false
+      entity_browser: promo_blocks_browser
+      field_widget_display: linked_title
+      field_widget_display_settings:
+        target_blank: '1'
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      show_latest_revision: '1'
+      selection_mode: selection_append
+      additional_fields:
+        options:
+          status: status
+      field_widget_replace: 0
+      open: 0
     third_party_settings:
-      entity_browser_entity_form:
-        entity_browser_id: promo_blocks_browser
+      change_labels:
+        add_another: ''
   field_clp_why_this_matters:
     type: string_textarea_with_counter
     weight: 2
@@ -761,6 +765,12 @@ content:
       count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_connect_with_us:
+    type: options_select
+    weight: 46
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_hero_blurb:
     type: string_textfield_with_counter
@@ -786,7 +796,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 46
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -821,12 +831,6 @@ content:
         delete_confirmation: false
         show_drag_and_drop: false
         split_text: false
-  field_related_office:
-    type: options_select
-    weight: 45
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_secondary_call_to_action:
     type: paragraphs
     weight: 4

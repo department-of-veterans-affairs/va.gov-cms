@@ -1,5 +1,5 @@
 ---
-name: Epic
+name: CMS Epic
 about: Epic template
 title: "<Insert summary of epic>"
 labels: Epic, Needs refining

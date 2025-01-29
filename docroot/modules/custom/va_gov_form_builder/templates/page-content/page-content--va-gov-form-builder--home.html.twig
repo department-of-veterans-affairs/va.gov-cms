@@ -1,0 +1,37 @@
+<div class="form-builder-content form-builder-page-content form-builder-page-content--home">
+  <h2 class="form-builder-page-title">Start a new form, or select a previous form to work with</h2>
+
+  <section class="form-builder-content-section form-builder-content-section--new-form">
+    <h3 class="form-builder-content-section__heading">Start a new form</h3>
+    <p class="form-builder-content-section__subheading form-builder-content-section--new-form__subheading">
+      Build a new form in Form Builder by selecting Build a form
+    </p>
+    <a
+      id="form-builder-build-form-button"
+      href="{{ build_form_url }}"
+      role="button"
+      class="form-builder-button form-builder-button--primary form-builder-button--build-form"
+    >
+      Build a form
+    </a>
+  </section>
+
+  <section class="form-builder-content-section form-builder-content-section--recent-forms">
+    <h3 class="form-builder-content-section__heading">Recent forms</h3>
+    <p class="form-builder-content-section__subheading">Select a recent form to edit</p>
+    <ul class="form-builder-content-section--recent-forms__forms-list">
+      {% for form in recent_forms %}
+        <li class="form-builder-content-section--recent-forms__form-list-item">
+          <a
+            class="form-builder-content-section--recent-forms__form-link"
+            href="/node/{{form.nid}}/edit"
+          >
+            {{ form.title }} (VA Form {{ form.formNumber }})
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+
+</div>

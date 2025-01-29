@@ -11,6 +11,7 @@ third_party_settings:
   menu_ui:
     available_menus:
       - lovell-federal-health-care
+      - manila-va-clinic
       - va-alaska-health-care
       - va-albany-health-care
       - va-alexandria-health-care
@@ -155,16 +156,16 @@ third_party_settings:
   node_title_help_text:
     title_help: 'Add a story title using sentence case capitalization.'
   node_revision_delete:
-    minimum_revisions_to_keep: 50
     minimum_age_to_delete: 0
+    minimum_revisions_to_keep: 50
     when_to_delete: 0
   menu_force:
-    menu_force: 0
-    menu_force_parent: 0
+    menu_force: false
+    menu_force_parent: false
 name: Story
 type: news_story
 description: "Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story."
-help: ''
+help: null
 new_revision: true
 preview_mode: 0
 display_submitted: false

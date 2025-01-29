@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_form_builder.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function va_gov_form_builder_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  if ($entity_type->id() === 'node' && $bundle === 'digital_form') {
+    $fields['field_va_form_number']->addConstraint('FormBuilder_UniqueField');
+  }
+
+  return $fields;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
+  $theme = [];
+
+  // Add page-wrapper theme.
+  $theme['page__va_gov_form_builder'] = [
+    'base hook' => 'page',
+    'path' => $path . '/templates/page',
+  ];
+
+  // Add page-content themes.
+  $page_content_theme_prefix = 'page_content__va_gov_form_builder__';
+  $page_content_theme_path = $path . '/templates/page-content';
+
+  // 1. Home page
+  $theme[$page_content_theme_prefix . 'home'] = [
+    'path' => $page_content_theme_path,
+    'variables' => [
+      'recent_forms' => [],
+      'build_form_url' => '',
+    ],
+  ];
+
+  // Add form themes.
+  $forms = ['form_info'];
+  foreach ($forms as $form) {
+    $theme['form__va_gov_form_builder__' . $form] = [
+      'path' => $path . '/templates/form',
+      'render element' => 'form',
+    ];
+  }
+
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function va_gov_form_builder_theme_suggestions_page(array &$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $suggestions = [];
+
+  // Apply custom page template for all Form Builder routes.
+  if (strpos($route_name, 'va_gov_form_builder.') === 0) {
+    $suggestions[] = 'page__va_gov_form_builder';
+  }
+
+  return $suggestions;
+}
