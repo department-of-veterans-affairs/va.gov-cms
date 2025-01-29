@@ -1,0 +1,173 @@
+langcode: en
+status: true
+dependencies: {  }
+id: vamc_system_police_contact
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Content
+  - Node
+migration_group: vamc
+label: 'Node - VAMC System police contact.'
+source:
+  plugin: csv
+  path: modules/custom/va_gov_migrate/data/police_system_contacts.csv
+  delimiter: ','
+  enclosure: '"'
+  escape: \
+  header_offset: 0
+  track_changes: true
+  ids:
+    - vamc_system_label
+    - facility_name
+    - facility_id
+    - status
+    - skip
+  constants:
+    cms_migrator: 1317
+  fields:
+    -
+      name: city
+      label: City
+    -
+      name: facility_name
+      label: 'Facility Name'
+    -
+      name: telephone_ops
+      label: 'Phone Ops number'
+    -
+      name: visn
+      label: 'VISN number'
+    -
+      name: vamc_system_label
+      label: "VAMC System name"
+    -
+      name: facility_id
+      label: "The API id of the main facility"
+    -
+      name: status
+      label: "Status of the entry (used for internal tracking)"
+    -
+      name: skip
+      label: "A boolean indicating if the row should be skipped"
+process:
+  # This is where we process the incoming row and assign to fields.
+  pseudo_clean_phone:
+    -
+      plugin: str_replace
+      search: ["(", ")", "X"]
+      replace: ["", "-", "x"]
+      source: telephone_ops
+  pseudo_phone:
+    -
+      plugin: explode
+      delimiter: x
+      limit: 2
+      source: "@pseudo_clean_phone"
+    -
+      plugin: array_shift
+    -
+      plugin: callback
+      callable: trim
+  pseudo_extension:
+    -
+      plugin: explode
+      delimiter: x
+      limit: 2
+      source: "@pseudo_clean_phone"
+    -
+      plugin: array_pop
+    -
+      plugin: callback
+      callable: trim
+    # Remove the original number if it made it this far.
+    -
+      plugin: gate_comparator
+      value_a: '@source'
+      comparison: '!=='
+      value_b: '@pseudo_phone'
+      when_false_value: ''
+  skip:
+    -
+      plugin: skip_on_value
+      source: skip
+      method: row
+      value: 1
+  # This looks up the system by name, then looks up the police node based on the
+  # node id of the system.
+  nid:
+    -
+      plugin: entity_lookup
+      access_check: false
+      ignore_case: true
+      entity_type: node
+      bundle_key: type
+      bundle: health_care_region_page
+      value_key: title
+      source: vamc_system_label
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup found no VAMC System for @vamc_system_label.'
+    -
+      plugin: entity_lookup
+      access_check: false
+      ignore_case: true
+      entity_type: node
+      bundle_key: type
+      bundle: vamc_system_va_police
+      value_key: field_office
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup found no police page for @vamc_system_label.'
+  field_phone_numbers_paragraph:
+    -
+      plugin: create_default_paragraph_revision
+      paragraph_default:
+        create_paragraph_bundle: phone_number
+        field_phone_number_type: tel
+        field_phone_label: 'non-emergency phone number, 24/7'
+        field_phone_number: '@pseudo_phone'
+        field_phone_extension: '@pseudo_extension'
+  changed:
+    plugin: callback
+    callable: va_gov_migrate_time
+  new_revision:
+    plugin: default_value
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: 'Updated contact data by VAMC System Police contact migration.'
+  revision_timestamp:
+    plugin: callback
+    callable: va_gov_migrate_time
+  revision_uid:
+    plugin: default_value
+    default_value: "constants/cms_migrator"
+  langcode:
+    plugin: default_value
+    default_value: en
+  uid:
+    plugin: default_value
+    default_value: "constants/cms_migrator"
+destination:
+  plugin: 'entity:node'
+  default_bundle: vamc_system_va_police
+  validate: false
+  overwrite_properties:
+    - changed
+    - field_phone_numbers_paragraph
+    - new_revision
+    - nid
+    - revision_default
+    - revision_log
+    - revision_timestamp
+    - revision_uid
+migration_dependencies:
+  required: []
+  optional: []

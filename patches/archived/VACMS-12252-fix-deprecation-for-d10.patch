@@ -1,0 +1,94 @@
+diff --git a/src/EventSubscriber/SubrequestSubscriber.php b/src/EventSubscriber/SubrequestSubscriber.php
+--- a/src/EventSubscriber/SubrequestSubscriber.php	(revision 8418bb7f6a869d0482eb45bfe22efa2f817d7efd)
++++ b/src/EventSubscriber/SubrequestSubscriber.php	(date 1675886022557)
+@@ -3,7 +3,7 @@
+ namespace Drupal\graphql\EventSubscriber;
+
+ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
++use Symfony\Component\HttpKernel\Event\RequestEvent;
+ use Symfony\Component\HttpKernel\KernelEvents;
+
+ /**
+@@ -14,10 +14,10 @@
+   /**
+    * Handle kernel request events.
+    *
+-   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
++   * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+    *   The kernel event object.
+    */
+-  public function onKernelRequest(GetResponseEvent $event) {
++  public function onKernelRequest(RequestEvent $event) {
+     $request = $event->getRequest();
+     if ($request->attributes->has('_graphql_subrequest')) {
+       $request->attributes->set('_graphql_controller', $request->attributes->get('_controller'));
+
+diff --git a/src/Routing/QueryRouteEnhancer.php b/src/Routing/QueryRouteEnhancer.php
+--- a/src/Routing/QueryRouteEnhancer.php	(revision 8418bb7f6a869d0482eb45bfe22efa2f817d7efd)
++++ b/src/Routing/QueryRouteEnhancer.php	(date 1675801882596)
+@@ -6,7 +6,7 @@
+ use Drupal\Core\Routing\EnhancerInterface;
+ use Drupal\graphql\Utility\JsonHelper;
+ use GraphQL\Server\Helper;
+-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
++use Drupal\Core\Routing\RouteObjectInterface;
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\Routing\Route;
+
+diff --git a/src/GraphQL/Execution/QueryProcessor.php b/src/GraphQL/Execution/QueryProcessor.php
+--- a/src/GraphQL/Execution/QueryProcessor.php	(revision 8418bb7f6a869d0482eb45bfe22efa2f817d7efd)
++++ b/src/GraphQL/Execution/QueryProcessor.php	(date 1681755461109)
+@@ -523,7 +523,7 @@
+    * @see \Drupal\Core\Cache\CacheBackendInterface::set()
+    */
+   protected function maxAgeToExpire($maxAge) {
+-    $time = $this->requestStack->getMasterRequest()->server->get('REQUEST_TIME');
++    $time = $this->requestStack->getMainRequest()->server->get('REQUEST_TIME');
+     return ($maxAge === Cache::PERMANENT) ? Cache::PERMANENT : (int) $time + $maxAge;
+   }
+ }
+
+diff --git a/graphql.libraries.yml b/graphql.libraries.yml
+--- a/graphql.libraries.yml	(revision 8418bb7f6a869d0482eb45bfe22efa2f817d7efd)
++++ b/graphql.libraries.yml	(date 1681759583208)
+@@ -9,7 +9,7 @@
+   dependencies:
+     - core/drupal
+     - core/jquery
+-    - core/jquery.once
++    - core/once
+
+ voyager:
+   version: VERSION
+@@ -23,4 +23,4 @@
+   dependencies:
+     - core/drupal
+     - core/jquery
+-    - core/jquery.once
++    - core/once
+
+diff --git a/modules/graphql_core/src/Plugin/GraphQL/Fields/Entity/Fields/Image/ImageUrl.php b/modules/graphql_core/src/Plugin/GraphQL/Fields/Entity/Fields/Image/ImageUrl.php
+--- a/modules/graphql_core/src/Plugin/GraphQL/Fields/Entity/Fields/Image/ImageUrl.php	(revision 8418bb7f6a869d0482eb45bfe22efa2f817d7efd)
++++ b/modules/graphql_core/src/Plugin/GraphQL/Fields/Entity/Fields/Image/ImageUrl.php	(date 1681759621434)
+@@ -27,7 +27,7 @@
+    */
+   protected function resolveValues($value, array $args, ResolveContext $context, ResolveInfo $info) {
+     if ($value instanceof ImageItem && $value->entity && $value->entity->access('view')) {
+-      yield file_create_url($value->entity->getFileUri());
++      yield \Drupal::service('file_url_generator')->generateAbsoluteString($value->entity->getFileUri());
+     }
+   }
+
+diff --git a/modules/graphql_core/src/Plugin/GraphQL/Fields/File/FileUrl.php b/modules/graphql_core/src/Plugin/GraphQL/Fields/File/FileUrl.php
+index 9702e99..7dc08ab 100644
+--- a/modules/graphql_core/src/Plugin/GraphQL/Fields/File/FileUrl.php
++++ b/modules/graphql_core/src/Plugin/GraphQL/Fields/File/FileUrl.php
+@@ -25,7 +25,7 @@ class FileUrl extends FieldPluginBase {
+    */
+   public function resolveValues($value, array $args, ResolveContext $context, ResolveInfo $info) {
+     if ($value instanceof FileInterface) {
+-      yield file_create_url($value->getFileUri());
++      yield \Drupal::service('file_url_generator')->generateAbsoluteString($value->getFileUri());
+     }
+   }

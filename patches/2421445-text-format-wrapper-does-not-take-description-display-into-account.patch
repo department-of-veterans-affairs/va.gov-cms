@@ -1,0 +1,31 @@
+diff --git a/core/modules/filter/src/Element/TextFormat.php b/core/modules/filter/src/Element/TextFormat.php
+index 8bdd6a3..240ec0b 100644
+--- a/core/modules/filter/src/Element/TextFormat.php
++++ b/core/modules/filter/src/Element/TextFormat.php
+@@ -94,8 +94,6 @@ class TextFormat extends RenderElement {
+       '#process',
+       // Ensure #pre_render functions will be run.
+       '#pre_render',
+-      // Description is handled by theme_text_format_wrapper().
+-      '#description',
+       // Ensure proper ordering of children.
+       '#weight',
+       // Properties already processed for the parent element.
+diff --git a/core/themes/claro/templates/text-format-wrapper.html.twig b/core/themes/claro/templates/text-format-wrapper.html.twig
+index 6a660f1..7497f3f 100644
+--- a/core/themes/claro/templates/text-format-wrapper.html.twig
++++ b/core/themes/claro/templates/text-format-wrapper.html.twig
+@@ -29,13 +29,4 @@
+ %}
+ <div{{ attributes.addClass(classes) }}>
+   {{ children }}
+-  {% if description %}
+-    {%
+-      set description_classes = [
+-        aria_description ? 'form-item__description',
+-        disabled ? 'is-disabled',
+-      ]
+-    %}
+-    <div{{ description_attributes.addClass(description_classes) }}>{{ description }}</div>
+-  {% endif %}
+ </div>

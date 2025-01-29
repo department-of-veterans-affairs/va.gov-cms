@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.service_region.field_service_location
     - field.field.node.service_region.field_service_name_and_descripti
     - field.field.node.service_region.field_vba_region_facility_list
+    - field.field.node.service_region.field_vba_serv_reg_appt_default
     - node.type.service_region
   module:
     - entity_reference_revisions
@@ -79,6 +80,15 @@ content:
       date_format: medium
       custom_date_format: ''
       timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
     third_party_settings: {  }
     weight: 3
     region: content
@@ -111,6 +121,7 @@ hidden:
   body: true
   breadcrumbs: true
   content_moderation_control: true
+  field_vba_serv_reg_appt_default: true
   langcode: true
   links: true
   search_api_excerpt: true

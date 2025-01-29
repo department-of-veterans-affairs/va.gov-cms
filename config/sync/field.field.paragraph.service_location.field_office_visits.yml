@@ -1,0 +1,25 @@
+uuid: 7ca5d939-6e73-4797-8f19-f622ecce3414
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_office_visits
+    - paragraphs.paragraphs_type.service_location
+  module:
+    - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.service_location.field_office_visits
+field_name: field_office_visits
+entity_type: paragraph
+bundle: service_location
+label: 'Office visits'
+description: 'Select whether Veterans can travel to a physical location to receive services.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

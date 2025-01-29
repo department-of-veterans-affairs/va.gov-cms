@@ -10,9 +10,6 @@ dependencies:
     - text
     - tmgmt_content
 third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - rich_text_limited
   tmgmt_content:
     excluded: false
 id: node.service_region.body
@@ -28,4 +25,6 @@ default_value_callback: ''
 settings:
   display_summary: false
   required_summary: false
+  allowed_formats:
+    - rich_text_limited
 field_type: text_with_summary

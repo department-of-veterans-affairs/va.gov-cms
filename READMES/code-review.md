@@ -2,12 +2,12 @@
 
 ## Guiding principles
 
-* Main branch must always deployable
-* Tests must pass 
-* The cycle time from Pull Request open to Pull Request merged should be minimized
-* PR Owners must be empowered and trusted to merge code
-* PR Reviewer must Approve Pull Request
-* Automated Test Suite must be trustworthy and inspire confidence
+* `main` branch must always be deployable.
+* Automated tests must pass.
+* The time from a PR being opened to being merged (its Review Lead Time) should be minimized.
+* PR Owners must be empowered and trusted to merge their PR.
+* A PR Reviewer must approve the PR.
+* The Automated test suite must be trustworthy and inspire confidence.
 
 ## Personas
 

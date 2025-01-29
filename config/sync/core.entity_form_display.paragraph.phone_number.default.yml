@@ -16,12 +16,19 @@ bundle: phone_number
 mode: default
 content:
   field_phone_extension:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 2
     region: content
     settings:
       size: 10
       placeholder: ''
+      use_field_maxlength: false
+      maxlength: 12
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining.'
     third_party_settings: {  }
   field_phone_label:
     type: string_textfield_with_counter
@@ -34,20 +41,33 @@ content:
       maxlength: 100
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining.'
     third_party_settings: {  }
   field_phone_number:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 1
     region: content
     settings:
       size: 25
       placeholder: ''
+      use_field_maxlength: false
+      maxlength: 12
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining.'
     third_party_settings: {  }
   field_phone_number_type:
     type: options_select
     weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  translation:
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }

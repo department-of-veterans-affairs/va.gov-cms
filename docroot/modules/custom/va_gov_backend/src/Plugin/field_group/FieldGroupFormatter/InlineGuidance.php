@@ -25,7 +25,7 @@ class InlineGuidance extends HtmlElement {
   public function process(&$element, $processed_object) {
     parent::process($element, $processed_object);
 
-    $element['#attributes']['class'][] = 'inline_guidance';
+    $element['#attributes']->addClass('inline_guidance');
 
     $element['inline_guidance_help_text'] = [
       '#value' => $this->getSetting('inline_guidance_help_text'),

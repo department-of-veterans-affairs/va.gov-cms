@@ -1,0 +1,25 @@
+uuid: 105b9891-0058-4a34-8c00-39c167a32e3b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_how_to_sign_up
+    - node.type.event
+  module:
+    - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.event.field_how_to_sign_up
+field_name: field_how_to_sign_up
+entity_type: node
+bundle: event
+label: 'How to sign up'
+description: 'Choose to provide a URL or email address where participants can sign up for the event.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

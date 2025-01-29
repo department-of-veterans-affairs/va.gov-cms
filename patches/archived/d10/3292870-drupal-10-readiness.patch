@@ -1,0 +1,726 @@
+diff --git a/composer.json b/composer.json
+index eb28ea2f63458db99b4096d3f0dde4945fb554dd..923a5859dd24e09d357b8504c12982f3dda5cce9 100644
+--- a/composer.json
++++ b/composer.json
+@@ -16,7 +16,7 @@
+     "source": "http://cgit.drupalcode.org/linkit"
+   },
+   "require" : {
+-    "drupal/core": "^8.7.7 || ^9"
++    "drupal/core": "^8.7.7 || ^9 || ^10"
+   },
+   "license": "GPL-2.0-or-later"
+ }
+diff --git a/js/linkit.autocomplete.js b/js/linkit.autocomplete.js
+index 558278ddff22d60181ea2edc96ab8c11befe1112..89ab7e6bd8a5b7230795c8bbbef971f9ddc4b681 100644
+--- a/js/linkit.autocomplete.js
++++ b/js/linkit.autocomplete.js
+@@ -3,7 +3,7 @@
+  * Linkit Autocomplete based on jQuery UI.
+  */
+
+-(function ($, Drupal, _) {
++(function ($, Drupal) {
+
+   'use strict';
+
+@@ -118,9 +118,12 @@
+   function renderMenu(ul, items) {
+     var self = this.element.autocomplete('instance');
+
+-    var grouped_items = _.groupBy(items, function (item) {
+-      return item.hasOwnProperty('group') ? item.group : '';
+-    });
++    // Previous code used Underscore's `groupBy`, replacement.
++    // @see https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_groupby
++    var grouped_items = items
++      .reduce(function (r, v, i, a, k = item.hasOwnProperty('group') ? item.group : '') {
++        return ((r[k] || (r[k] = [])).push(v), r)
++      }, {})
+
+     $.each(grouped_items, function (group, items) {
+       if (group.length) {
+@@ -212,4 +215,4 @@
+     }
+   };
+
+-})(jQuery, Drupal, _);
++})(jQuery, Drupal);
+diff --git a/linkit.info.yml b/linkit.info.yml
+index e9ada136024c3c9ddc8f699d0ab7fe7a2ca31f22..2753daf50b4796af63ce162b3eb1d054a3f2dd85 100644
+--- a/linkit.info.yml
++++ b/linkit.info.yml
+@@ -2,7 +2,7 @@ name: Linkit
+ type: module
+ description: 'Provides an easy interface for internal and external linking with wysiwyg editors.'
+ package: User interface
+-core_version_requirement: ^8.8 || ^9
++core_version_requirement: ^8.8 || ^9 || ^10
+ configure: entity.linkit_profile.collection
+ test_dependencies:
+   - imce:imce
+diff --git a/linkit.libraries.yml b/linkit.libraries.yml
+index 9e00dd3101bd8c7cc809f7b118b0175fb3c999c0..4242da7d563f0101a15e38b965e5054d3e043ee0 100644
+--- a/linkit.libraries.yml
++++ b/linkit.libraries.yml
+@@ -23,8 +23,10 @@ linkit.autocomplete:
+   dependencies:
+     - linkit/linkit.base
+     - core/drupal.ajax
+-    - core/jquery.ui.autocomplete
+-    - core/underscore
++    # The jQuery UI Autocomplete library was deprecated, but has not been fully removed as a replacement could not
++    # be found. A new API will be provided in the `drupal.autocomplete` library, which still uses jQuery UI.
++    # See https://www.drupal.org/project/drupal/issues/3076171#comment-14433877 for details.
++    - core/drupal.autocomplete
+
+ linkit.filter_html.admin:
+   version: VERSION
+diff --git a/src/Plugin/Linkit/Matcher/EntityMatcher.php b/src/Plugin/Linkit/Matcher/EntityMatcher.php
+index e5a94138ff1be4c1a71ca457284f7079e18b6338..ebb9780e198e3403509b4f6c159bcf506850dbfe 100644
+--- a/src/Plugin/Linkit/Matcher/EntityMatcher.php
++++ b/src/Plugin/Linkit/Matcher/EntityMatcher.php
+@@ -365,6 +365,7 @@ class EntityMatcher extends ConfigurableMatcherBase {
+
+     $entity_type = $this->entityTypeManager->getDefinition($this->targetType);
+     $query = $this->entityTypeManager->getStorage($this->targetType)->getQuery();
++    $query->accessCheck(TRUE);
+     $label_key = $entity_type->getKey('label');
+
+     if ($label_key) {
+diff --git a/src/Plugin/Linkit/Matcher/FileMatcher.php b/src/Plugin/Linkit/Matcher/FileMatcher.php
+index 9d05089982a2c81c44be38f99e6b9777a33ae35d..be4a0e670e9ab5c041d4ff456ecd3b489bbef67c 100644
+--- a/src/Plugin/Linkit/Matcher/FileMatcher.php
++++ b/src/Plugin/Linkit/Matcher/FileMatcher.php
+@@ -4,8 +4,10 @@ namespace Drupal\linkit\Plugin\Linkit\Matcher;
+
+ use Drupal\Core\Entity\EntityInterface;
+ use Drupal\Core\Form\FormStateInterface;
++use Drupal\file\FileInterface;
+ use Drupal\image\Entity\ImageStyle;
+ use Drupal\linkit\Utility\LinkitXss;
++use Symfony\Component\DependencyInjection\ContainerInterface;
+
+ /**
+  * Provides specific linkit matchers for the file entity type.
+@@ -19,6 +21,22 @@ use Drupal\linkit\Utility\LinkitXss;
+  */
+ class FileMatcher extends EntityMatcher {
+
++  /**
++   * The file URL generator.
++   *
++   * @var \Drupal\Core\File\FileUrlGeneratorInterface
++   */
++  protected $fileUrlGenerator;
++
++  /**
++   * {@inheritdoc}
++   */
++  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
++    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
++    $instance->fileUrlGenerator = $container->get('file_url_generator');
++    return $instance;
++  }
++
+   /**
+    * {@inheritdoc}
+    */
+@@ -57,7 +75,7 @@ class FileMatcher extends EntityMatcher {
+   public function defaultConfiguration() {
+     return [
+       'file_extensions' => '',
+-      'file_status' => FILE_STATUS_PERMANENT,
++      'file_status' => FileInterface::STATUS_PERMANENT,
+       'images' => [
+         'show_dimensions' => FALSE,
+         'show_thumbnail' => FALSE,
+@@ -226,7 +244,7 @@ class FileMatcher extends EntityMatcher {
+    */
+   protected function buildPath(EntityInterface $entity) {
+     /** @var \Drupal\file\FileInterface $entity */
+-    return file_url_transform_relative(file_create_url($entity->getFileUri()));
++    return $this->fileUrlGenerator->generateString($entity->getFileUri());
+   }
+
+ }
+diff --git a/src/Plugin/Linkit/Matcher/NodeMatcher.php b/src/Plugin/Linkit/Matcher/NodeMatcher.php
+index f40c7c006e049a7fbaeb92b579ccdbbbd004f9e1..47ea24a871388f04ee0808d4576d3eeb414e3f69 100644
+--- a/src/Plugin/Linkit/Matcher/NodeMatcher.php
++++ b/src/Plugin/Linkit/Matcher/NodeMatcher.php
+@@ -88,7 +88,14 @@ class NodeMatcher extends EntityMatcher {
+     if ($this->configuration['include_unpublished'] == FALSE) {
+       $query->condition('status', NodeInterface::PUBLISHED);
+     }
+-    elseif (count($this->moduleHandler->getImplementations('node_grants')) === 0) {
++    // Support Drupal 9.3 and 9.4.
++    // @todo remove after removing support for 9.3.
++    elseif (
++      (method_exists($this->moduleHandler, 'hasImplementations') && !$this->moduleHandler->hasImplementations('node_grants'))
++      ||
++      // @phpstan-ignore-next-line
++      (method_exists($this->moduleHandler, 'getImplementations') && count($this->moduleHandler->getImplementations('node_grants')) === 0)
++    ) {
+       if (($this->currentUser->hasPermission('bypass node access') || $this->currentUser->hasPermission('view any unpublished content'))) {
+         // User can see all content, no check necessary.
+       }
+diff --git a/src/Plugin/Linkit/Substitution/File.php b/src/Plugin/Linkit/Substitution/File.php
+index c441dfc1af22a5a75bfeaa99dd108655e483d217..b504ef95cd139ef3f8b8b573a59852b1f5323c72 100644
+--- a/src/Plugin/Linkit/Substitution/File.php
++++ b/src/Plugin/Linkit/Substitution/File.php
+@@ -6,7 +6,9 @@ use Drupal\Component\Plugin\PluginBase;
+ use Drupal\Core\Entity\EntityInterface;
+ use Drupal\Core\Entity\EntityTypeInterface;
+ use Drupal\Core\GeneratedUrl;
++use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+ use Drupal\linkit\SubstitutionInterface;
++use Symfony\Component\DependencyInjection\ContainerInterface;
+
+ /**
+  * A substitution plugin for the URL to a file.
+@@ -16,7 +18,27 @@ use Drupal\linkit\SubstitutionInterface;
+  *   label = @Translation("Direct File URL"),
+  * )
+  */
+-class File extends PluginBase implements SubstitutionInterface {
++class File extends PluginBase implements SubstitutionInterface, ContainerFactoryPluginInterface {
++
++  /**
++   * The file URL generator.
++   *
++   * @var \Drupal\Core\File\FileUrlGeneratorInterface
++   */
++  protected $fileUrlGenerator;
++
++  /**
++   * {@inheritdoc}
++   */
++  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
++    $instance = new static(
++      $configuration,
++      $plugin_id,
++      $plugin_definition
++    );
++    $instance->fileUrlGenerator = $container->get('file_url_generator');
++    return $instance;
++  }
+
+   /**
+    * {@inheritdoc}
+@@ -24,7 +46,7 @@ class File extends PluginBase implements SubstitutionInterface {
+   public function getUrl(EntityInterface $entity) {
+     $url = new GeneratedUrl();
+     /** @var \Drupal\file\FileInterface $entity */
+-    $url->setGeneratedUrl(file_create_url($entity->getFileUri()));
++    $url->setGeneratedUrl($this->fileUrlGenerator->generateAbsoluteString($entity->getFileUri()));
+     $url->addCacheableDependency($entity);
+     return $url;
+   }
+diff --git a/src/Plugin/Linkit/Substitution/Media.php b/src/Plugin/Linkit/Substitution/Media.php
+index 9cdcb1cead2718470835d9950fec152046f5b880..2b6f44bb05297c5846822ef64d15ff3b6ae51b0c 100644
+--- a/src/Plugin/Linkit/Substitution/Media.php
++++ b/src/Plugin/Linkit/Substitution/Media.php
+@@ -22,16 +22,25 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
+  */
+ class Media extends PluginBase implements SubstitutionInterface, ContainerFactoryPluginInterface {
+
++  /**
++   * The file URL generator.
++   *
++   * @var \Drupal\Core\File\FileUrlGeneratorInterface
++   */
++  protected $fileUrlGenerator;
++
+   /**
+    * {@inheritdoc}
+    */
+   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+-    return new static(
++    $instance = new static(
+       $configuration,
+       $plugin_id,
+       $plugin_definition,
+       $container->get('entity_type.manager')
+     );
++    $instance->fileUrlGenerator = $container->get('file_url_generator');
++    return $instance;
+   }
+
+   /**
+@@ -48,7 +57,7 @@ class Media extends PluginBase implements SubstitutionInterface, ContainerFactor
+     if ($source_field && $entity->hasField($source_field->getName()) && $entity->get($source_field->getName())->entity instanceof FileInterface) {
+       /** @var \Drupal\file\FileInterface $file */
+       $file = $entity->get($source_field->getName())->entity;
+-      $url->setGeneratedUrl(file_create_url($file->getFileUri()));
++      $url->setGeneratedUrl($this->fileUrlGenerator->generateAbsoluteString($file->getFileUri()));
+       $url->addCacheableDependency($entity);
+       return $url;
+     }
+diff --git a/tests/linkit_test/linkit_test.info.yml b/tests/linkit_test/linkit_test.info.yml
+index 3c93d6d157ca17eb1a24de41073e39b6fc48e32a..4d05aca7de9dfd8f3beaf3cc993de42bfa879113 100644
+--- a/tests/linkit_test/linkit_test.info.yml
++++ b/tests/linkit_test/linkit_test.info.yml
+@@ -2,7 +2,7 @@ name: 'Linkit test module'
+ description: 'Support module for Linkit testing.'
+ package: Testing
+ type: module
+-core_version_requirement: ^8.8 || ^9
++core_version_requirement: ^8.8 || ^9 || ^10
+ dependencies:
+   - linkit:linkit
+   - drupal:field
+diff --git a/tests/src/Functional/Controller/LinkitControllerTest.php b/tests/src/Functional/Controller/LinkitControllerTest.php
+index e931e85ee8bfa93f31ee8cd8bc34cada8e86227f..0635e64e78f6088a7076d354431a35b4735362c6 100644
+--- a/tests/src/Functional/Controller/LinkitControllerTest.php
++++ b/tests/src/Functional/Controller/LinkitControllerTest.php
+@@ -24,7 +24,7 @@ class LinkitControllerTest extends LinkitBrowserTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     $this->linkitProfile = $this->createProfile();
+diff --git a/tests/src/Functional/LinkitBrowserTestBase.php b/tests/src/Functional/LinkitBrowserTestBase.php
+index bc61b6c87080d60ff61f2b735f6e2666dcf1bff4..7a669fe17d343bae338c55da80467026ebd67d1e 100644
+--- a/tests/src/Functional/LinkitBrowserTestBase.php
++++ b/tests/src/Functional/LinkitBrowserTestBase.php
+@@ -14,7 +14,7 @@ abstract class LinkitBrowserTestBase extends BrowserTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = ['linkit', 'linkit_test', 'block'];
++  protected static $modules = ['linkit', 'linkit_test', 'block'];
+
+   /**
+    * {@inheritdoc}
+@@ -38,7 +38,7 @@ abstract class LinkitBrowserTestBase extends BrowserTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     $this->placeBlock('page_title_block');
+diff --git a/tests/src/Functional/LinkitUpdateTest.php b/tests/src/Functional/LinkitUpdateTest.php
+index 140fe121561af73169cded28eecaa92e731633bb..851e6eb1297298269b0dedbd94325855f38bca85 100644
+--- a/tests/src/Functional/LinkitUpdateTest.php
++++ b/tests/src/Functional/LinkitUpdateTest.php
+@@ -28,7 +28,7 @@ class LinkitUpdateTest extends UpdatePathTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+     $this->configFactory = $this->container->get('config.factory');
+   }
+diff --git a/tests/src/Functional/MatcherAdminTest.php b/tests/src/Functional/MatcherAdminTest.php
+index 2db6653c28398d551170a4988b4f957b29cd451a..07337440c8adec76a4f8ff27dff4711fbe6973a5 100644
+--- a/tests/src/Functional/MatcherAdminTest.php
++++ b/tests/src/Functional/MatcherAdminTest.php
+@@ -34,7 +34,7 @@ class MatcherAdminTest extends LinkitBrowserTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+     $this->manager = $this->container->get('plugin.manager.linkit.matcher');
+
+diff --git a/tests/src/FunctionalJavascript/LinkitDialogTest.php b/tests/src/FunctionalJavascript/LinkitDialogTest.php
+index 26eb74e73803285b29032e49bfe5a139fda71764..36866129f7ff2a4d140aae80ac5c69b7a6da8545 100644
+--- a/tests/src/FunctionalJavascript/LinkitDialogTest.php
++++ b/tests/src/FunctionalJavascript/LinkitDialogTest.php
+@@ -27,7 +27,7 @@ class LinkitDialogTest extends WebDriverTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = [
++  protected static $modules = [
+     'node',
+     'ckeditor',
+     'filter',
+@@ -58,7 +58,7 @@ class LinkitDialogTest extends WebDriverTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     $matcherManager = $this->container->get('plugin.manager.linkit.matcher');
+diff --git a/tests/src/FunctionalJavascript/LinkitFormatAdminTest.php b/tests/src/FunctionalJavascript/LinkitFormatAdminTest.php
+index 7ab46ffbd64729d53421ba7e138089ed2c565376..f7f4bd27380e2592d5a890ee581c0db698e85aba 100644
+--- a/tests/src/FunctionalJavascript/LinkitFormatAdminTest.php
++++ b/tests/src/FunctionalJavascript/LinkitFormatAdminTest.php
+@@ -16,7 +16,7 @@ class LinkitFormatAdminTest extends WebDriverTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = ['editor', 'filter', 'linkit'];
++  protected static $modules = ['editor', 'filter', 'linkit'];
+
+   /**
+    * {@inheritdoc}
+@@ -26,7 +26,7 @@ class LinkitFormatAdminTest extends WebDriverTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     $account = $this->drupalCreateUser([
+diff --git a/tests/src/Kernel/AssertLinkitFilterTrait.php b/tests/src/Kernel/AssertLinkitFilterTrait.php
+index 24ca82273e5612f3676df11cb41f4876ea16e0ac..e02c00c62704ce00b148458e765a82857448d326 100644
+--- a/tests/src/Kernel/AssertLinkitFilterTrait.php
++++ b/tests/src/Kernel/AssertLinkitFilterTrait.php
+@@ -29,7 +29,7 @@ trait AssertLinkitFilterTrait {
+   protected function assertLinkitFilter(EntityInterface $entity, $langcode = LanguageInterface::LANGCODE_SITE_DEFAULT) {
+     if ($entity->getEntityTypeId() === "file") {
+       /** @var \Drupal\file\Entity\File $entity */
+-      $href = file_create_url($entity->getFileUri());
++      $href = $this->container->get('file_url_generator')->generateAbsoluteString($entity->getFileUri());
+     }
+     else {
+       $href = $entity->toUrl()->toString();
+@@ -51,7 +51,7 @@ trait AssertLinkitFilterTrait {
+   protected function assertLinkitFilterWithTitle(EntityInterface $entity, $langcode = LanguageInterface::LANGCODE_SITE_DEFAULT) {
+     if ($entity->getEntityTypeId() === "file") {
+       /** @var \Drupal\file\Entity\File $entity */
+-      $href = file_create_url($entity->getFileUri());
++      $href = $this->container->get('file_url_generator')->generateAbsoluteString($entity->getFileUri());
+     }
+     else {
+       $href = $entity->toUrl()->toString();
+diff --git a/tests/src/Kernel/EntityMatcherDeriverTest.php b/tests/src/Kernel/EntityMatcherDeriverTest.php
+index cf3832a7e891e087fb24ca44c74e3381ebbeab87..c8c4c5539284052b2a752f1186401c336ef1ed58 100644
+--- a/tests/src/Kernel/EntityMatcherDeriverTest.php
++++ b/tests/src/Kernel/EntityMatcherDeriverTest.php
+@@ -12,7 +12,7 @@ class EntityMatcherDeriverTest extends LinkitKernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  public static $modules = ['block', 'block_content', 'node', 'field'];
++  protected static $modules = ['block', 'block_content', 'node', 'field'];
+
+   /**
+    * The matcher manager.
+@@ -24,7 +24,7 @@ class EntityMatcherDeriverTest extends LinkitKernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     $this->installConfig(['block_content']);
+diff --git a/tests/src/Kernel/LinkitAutocompleteTest.php b/tests/src/Kernel/LinkitAutocompleteTest.php
+index 5eae284162e2cf2ef562d3fd8f8131e1bca3a23a..a5595713ad91791119e8e4877857b6f9ffb37d76 100644
+--- a/tests/src/Kernel/LinkitAutocompleteTest.php
++++ b/tests/src/Kernel/LinkitAutocompleteTest.php
+@@ -24,7 +24,7 @@ class LinkitAutocompleteTest extends LinkitKernelTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = ['entity_test', 'language'];
++  protected static $modules = ['entity_test', 'language'];
+
+   /**
+    * The linkit profile.
+@@ -50,7 +50,7 @@ class LinkitAutocompleteTest extends LinkitKernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     // Create user 1 who has special permissions.
+diff --git a/tests/src/Kernel/LinkitEditorLinkDialogTest.php b/tests/src/Kernel/LinkitEditorLinkDialogTest.php
+index 0a1963b44e8954cc92cd0b053be2d029c09d8241..919ac1b8e28fd536ab5d996e30928d8613c02fd1 100644
+--- a/tests/src/Kernel/LinkitEditorLinkDialogTest.php
++++ b/tests/src/Kernel/LinkitEditorLinkDialogTest.php
+@@ -38,12 +38,12 @@ class LinkitEditorLinkDialogTest extends LinkitKernelTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = ['editor', 'ckeditor', 'entity_test'];
++  protected static $modules = ['editor', 'ckeditor', 'entity_test'];
+
+   /**
+    * Sets up the test.
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     $this->installEntitySchema('entity_test');
+diff --git a/tests/src/Kernel/LinkitFilterEntityTest.php b/tests/src/Kernel/LinkitFilterEntityTest.php
+index 945b747fe10e1ae8f9ad3e52b1923c232de777f8..1de2c45a2c71fa77d7a83b9b6460251a77395fd0 100644
+--- a/tests/src/Kernel/LinkitFilterEntityTest.php
++++ b/tests/src/Kernel/LinkitFilterEntityTest.php
+@@ -5,6 +5,7 @@ namespace Drupal\Tests\linkit\Kernel;
+ use Drupal\entity_test\Entity\EntityTest;
+ use Drupal\entity_test\Entity\EntityTestMul;
+ use Drupal\file\Entity\File;
++use Drupal\file\FileInterface;
+ use Drupal\filter\FilterPluginCollection;
+ use Drupal\language\Entity\ConfigurableLanguage;
+ use Drupal\Tests\Traits\Core\PathAliasTestTrait;
+@@ -26,7 +27,7 @@ class LinkitFilterEntityTest extends LinkitKernelTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = [
++  protected static $modules = [
+     'filter',
+     'entity_test',
+     'path',
+@@ -38,7 +39,7 @@ class LinkitFilterEntityTest extends LinkitKernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     $this->installEntitySchema('entity_test');
+@@ -122,7 +123,7 @@ class LinkitFilterEntityTest extends LinkitKernelTestBase {
+       'filename' => 'druplicon.txt',
+       'uri' => 'public://druplicon.txt',
+       'filemime' => 'text/plain',
+-      'status' => FILE_STATUS_PERMANENT,
++      'status' => FileInterface::STATUS_PERMANENT,
+     ]);
+     $file->save();
+
+diff --git a/tests/src/Kernel/LinkitKernelTestBase.php b/tests/src/Kernel/LinkitKernelTestBase.php
+index d04a2bc1cba504f41e4654a1910a2809f5e67dd1..b54e917eead93dfd4600e5f52e8b69a576acbbc8 100644
+--- a/tests/src/Kernel/LinkitKernelTestBase.php
++++ b/tests/src/Kernel/LinkitKernelTestBase.php
+@@ -16,7 +16,7 @@ abstract class LinkitKernelTestBase extends KernelTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = [
++  protected static $modules = [
+     'system',
+     'user',
+     'filter',
+@@ -28,7 +28,7 @@ abstract class LinkitKernelTestBase extends KernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+     $this->installSchema('system', 'sequences');
+     $this->installEntitySchema('user');
+diff --git a/tests/src/Kernel/Matchers/ContactFormMatcherTest.php b/tests/src/Kernel/Matchers/ContactFormMatcherTest.php
+index 7d805033712a6bf48211a5f8728d195b9c31fb91..65374e5f4e0717a8f8c9643c73bd64d2ef1c204c 100644
+--- a/tests/src/Kernel/Matchers/ContactFormMatcherTest.php
++++ b/tests/src/Kernel/Matchers/ContactFormMatcherTest.php
+@@ -17,7 +17,7 @@ class ContactFormMatcherTest extends LinkitKernelTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = ['contact'];
++  protected static $modules = ['contact'];
+
+   /**
+    * The matcher manager.
+@@ -29,7 +29,7 @@ class ContactFormMatcherTest extends LinkitKernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     // Create user 1 who has special permissions.
+diff --git a/tests/src/Kernel/Matchers/FileMatcherTest.php b/tests/src/Kernel/Matchers/FileMatcherTest.php
+index d5829d154187dce4d29d5a2f15001aada8b2dc37..0ec4916f879f5e30be54f7cb483b8c64f1aa58c9 100644
+--- a/tests/src/Kernel/Matchers/FileMatcherTest.php
++++ b/tests/src/Kernel/Matchers/FileMatcherTest.php
+@@ -3,6 +3,7 @@
+ namespace Drupal\Tests\linkit\Kernel\Matchers;
+
+ use Drupal\file\Entity\File;
++use Drupal\file\FileInterface;
+ use Drupal\Tests\linkit\Kernel\LinkitKernelTestBase;
+
+ /**
+@@ -17,7 +18,7 @@ class FileMatcherTest extends LinkitKernelTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = ['file_test', 'file'];
++  protected static $modules = ['file_test', 'file'];
+
+   /**
+    * The matcher manager.
+@@ -29,7 +30,7 @@ class FileMatcherTest extends LinkitKernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     $this->installEntitySchema('file');
+@@ -45,7 +46,7 @@ class FileMatcherTest extends LinkitKernelTestBase {
+         'filename' => 'image-test.' . $ext,
+         'uri' => 'public://image-test.' . $ext,
+         'filemime' => 'text/plain',
+-        'status' => FILE_STATUS_PERMANENT,
++        'status' => FileInterface::STATUS_PERMANENT,
+       ]);
+       $file->save();
+     }
+diff --git a/tests/src/Kernel/Matchers/MediaMatcherTest.php b/tests/src/Kernel/Matchers/MediaMatcherTest.php
+index 1302bdfa99bab71acbf0da1ffb2484f578355921..28ab0b2256f2a1acb7dd4f66d23525359d2687f1 100644
+--- a/tests/src/Kernel/Matchers/MediaMatcherTest.php
++++ b/tests/src/Kernel/Matchers/MediaMatcherTest.php
+@@ -3,6 +3,7 @@
+ namespace Drupal\Tests\linkit\Kernel\Matchers;
+
+ use Drupal\file\Entity\File;
++use Drupal\file\FileInterface;
+ use Drupal\media\Entity\Media;
+ use Drupal\media\Entity\MediaType;
+ use Drupal\Tests\linkit\Kernel\LinkitKernelTestBase;
+@@ -19,7 +20,7 @@ class MediaMatcherTest extends LinkitKernelTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = ['file_test', 'file', 'media', 'image', 'field'];
++  protected static $modules = ['file_test', 'file', 'media', 'image', 'field'];
+
+   /**
+    * The matcher manager.
+@@ -31,7 +32,7 @@ class MediaMatcherTest extends LinkitKernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     $this->installEntitySchema('file');
+@@ -64,7 +65,7 @@ class MediaMatcherTest extends LinkitKernelTestBase {
+         'filename' => 'image-test.' . $ext,
+         'uri' => 'public://image-test.' . $ext,
+         'filemime' => 'text/plain',
+-        'status' => FILE_STATUS_PERMANENT,
++        'status' => FileInterface::STATUS_PERMANENT,
+       ]);
+       $file->save();
+
+diff --git a/tests/src/Kernel/Matchers/NodeMatcherTest.php b/tests/src/Kernel/Matchers/NodeMatcherTest.php
+index f225eafe5ba6c73606941a14bc7097accc326102..4ee67a880b3eb0033dfdaa0e550ba1d05be4f1fb 100644
+--- a/tests/src/Kernel/Matchers/NodeMatcherTest.php
++++ b/tests/src/Kernel/Matchers/NodeMatcherTest.php
+@@ -18,7 +18,7 @@ class NodeMatcherTest extends LinkitKernelTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = ['field', 'node', 'content_moderation', 'workflows'];
++  protected static $modules = ['field', 'node', 'content_moderation', 'workflows'];
+
+   /**
+    * The matcher manager.
+@@ -30,7 +30,7 @@ class NodeMatcherTest extends LinkitKernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     $this->installEntitySchema('node');
+diff --git a/tests/src/Kernel/Matchers/TermMatcherTest.php b/tests/src/Kernel/Matchers/TermMatcherTest.php
+index c3a3a68a932c1950f7658d11e9a2e9ed7d707a2d..98d70206d0cec3a62201502f4686c0b520c81340 100644
+--- a/tests/src/Kernel/Matchers/TermMatcherTest.php
++++ b/tests/src/Kernel/Matchers/TermMatcherTest.php
+@@ -20,7 +20,7 @@ class TermMatcherTest extends LinkitKernelTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = ['taxonomy'];
++  protected static $modules = ['taxonomy'];
+
+   /**
+    * The matcher manager.
+@@ -32,7 +32,7 @@ class TermMatcherTest extends LinkitKernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     // Create user 1 who has special permissions.
+diff --git a/tests/src/Kernel/Matchers/UserMatcherTest.php b/tests/src/Kernel/Matchers/UserMatcherTest.php
+index fbe70601315a14f193d5ec8f75b947bc5778cf47..d2ef802604553d95b8289fe4a668251d4c496b2d 100644
+--- a/tests/src/Kernel/Matchers/UserMatcherTest.php
++++ b/tests/src/Kernel/Matchers/UserMatcherTest.php
+@@ -22,7 +22,7 @@ class UserMatcherTest extends LinkitKernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected function setUp() {
++  protected function setUp(): void {
+     parent::setUp();
+
+     // Create user 1 who has special permissions.
+diff --git a/tests/src/Kernel/SubstitutionPluginTest.php b/tests/src/Kernel/SubstitutionPluginTest.php
+index 0bc6202e6e3bb8549c8fa3f422b997e90273c0c5..5354fb26dde123a630d688d3659be07cbc899b1a 100644
+--- a/tests/src/Kernel/SubstitutionPluginTest.php
++++ b/tests/src/Kernel/SubstitutionPluginTest.php
+@@ -11,6 +11,7 @@ use Drupal\linkit\Plugin\Linkit\Substitution\Media as MediaSubstitutionPlugin;
+ use Drupal\media\Entity\Media;
+ use Drupal\media\Entity\MediaType;
+ use Drupal\Core\DependencyInjection\ContainerBuilder;
++use Drupal\file\FileInterface;
+
+ /**
+  * Tests the substitution plugins.
+@@ -38,7 +39,7 @@ class SubstitutionPluginTest extends LinkitKernelTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = [
++  protected static $modules = [
+     'file',
+     'entity_test',
+     'media',
+@@ -50,7 +51,7 @@ class SubstitutionPluginTest extends LinkitKernelTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  public function setUp() {
++  public function setUp(): void {
+     parent::setUp();
+     $this->substitutionManager = $this->container->get('plugin.manager.linkit.substitution');
+     $this->entityTypeManager = $this->container->get('entity_type.manager');
+@@ -106,7 +107,7 @@ class SubstitutionPluginTest extends LinkitKernelTestBase {
+       'filename' => 'druplicon.txt',
+       'uri' => 'public://druplicon.txt',
+       'filemime' => 'text/plain',
+-      'status' => FILE_STATUS_PERMANENT,
++      'status' => FileInterface::STATUS_PERMANENT,
+     ]);
+     $file->save();
+     $this->assertEquals($GLOBALS['base_url'] . '/' . $this->siteDirectory . '/files/druplicon.txt', $fileSubstitution->getUrl($file)->getGeneratedUrl());
+@@ -158,7 +159,7 @@ class SubstitutionPluginTest extends LinkitKernelTestBase {
+       'filename' => 'druplicon.txt',
+       'uri' => 'public://druplicon.txt',
+       'filemime' => 'text/plain',
+-      'status' => FILE_STATUS_PERMANENT,
++      'status' => FileInterface::STATUS_PERMANENT,
+     ]);
+     $file->save();

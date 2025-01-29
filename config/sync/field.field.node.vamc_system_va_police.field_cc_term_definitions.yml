@@ -1,0 +1,31 @@
+uuid: f571c697-0268-4a73-8347-abbdce5c0cdd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_term_definitions
+    - node.type.vamc_system_va_police
+  module:
+    - entity_field_fetch
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vamc_system_va_police.field_cc_term_definitions
+field_name: field_cc_term_definitions
+entity_type: node
+bundle: vamc_system_va_police
+label: 'Term definitions'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: null
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '63204'
+  field_to_fetch: field_block_content
+  target_paragraph_uuid: '141563'
+field_type: entity_field_fetch

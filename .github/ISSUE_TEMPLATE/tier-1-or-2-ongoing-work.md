@@ -20,11 +20,3 @@ Tier 2 expectations here: https://docs.google.com/document/d/15oe0wtGI_MdaScYpjJ
 ### Table to help track issues and approximate time spent
 | Date | Issue | Resolution | Time Spent |
 | -- | -- | -- | -- |
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

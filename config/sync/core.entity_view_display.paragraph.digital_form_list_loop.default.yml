@@ -1,0 +1,34 @@
+uuid: 9437cc25-1730-4c5f-9389-9ede1fdf62b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_list_loop.field_optional
+    - field.field.paragraph.digital_form_list_loop.field_title
+    - paragraphs.paragraphs_type.digital_form_list_loop
+id: paragraph.digital_form_list_loop.default
+targetEntityType: paragraph
+bundle: digital_form_list_loop
+mode: default
+content:
+  field_optional:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  breadcrumbs: true
+  search_api_excerpt: true

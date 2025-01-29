@@ -27,3 +27,19 @@ Given(`I check the checkbox with selector {string}`, (selector) => {
 Given(`I uncheck the checkbox with selector {string}`, (selector) => {
   cy.get(selector).uncheck({ force: true });
 });
+
+Given(`I check all checkboxes within {string}`, (selector) => {
+  cy.get(selector).find('input[type="checkbox"]').as("checkboxes").check();
+
+  cy.get("@checkboxes").each((checkbox) => {
+    expect(checkbox[0].checked).to.equal(true);
+  });
+});
+
+Given(`I check the first checkbox within {string}`, (selector) => {
+  cy.get(selector).find('input[type="checkbox"]').first().check();
+});
+
+Given(`I uncheck the first checkbox within {string}`, (selector) => {
+  cy.get(selector).find('input[type="checkbox"]').first().uncheck();
+});

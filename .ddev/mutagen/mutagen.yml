@@ -3,8 +3,8 @@
 # and add your own configuration. If you override it you will
 # probably want to check it in.
 # Please do `ddev mutagen reset` after changing the file.
-# See ddev mutagen docs at
-# https://ddev.readthedocs.io/en/latest/users/install/performance/
+# See DDEV Mutagen docs at
+# https://ddev.readthedocs.io/en/stable/users/install/performance/#mutagen
 # For detailed information about mutagen configuration options, see
 # https://mutagen.io/documentation/introduction/configuration
 sync:
@@ -13,26 +13,22 @@ sync:
     stageMode: "neighboring"
     ignore:
       paths:
-      # The top-level .git directory is ignored because where possible it's mounted
-      # into the container with a traditional docker bind-mount
-      - "/.git"
+        # The top-level .git directory is ignored because where possible it's
+        # mounted into the container with a traditional docker bind-mount
+        - "/.git"
+        - "/.tarballs"
+        - "/.ddev/db_snapshots"
+        - "/.ddev/.importdb*"
+        - ".DS_Store"
+        - ".idea"
+        - "/docroot/sites/default/files"
 
-      - "/.tarballs"
-      - "/.ddev/db_snapshots"
-      - "/.ddev/.importdb*"
-      - ".DS_Store"
-      - ".idea"
-      
-      - "/docroot/sites/default/files"
-      
-
-      # You can also exclude other directories from mutagen-syncing
-      # For example /var/www/html/var does not need to sync in TYPO3
-      # so you can add:
-      # - "/var"
-      # vcs like .git can be ignored for safety, but then some
-      # composer operations may fail if they use dev versions/git.
-      # vcs: true
+        # You can also exclude other directories from mutagen-syncing
+        # For example /var/www/html/var does not need to sync in TYPO3
+        # so you can add:
+        # - "/var"
+        # vcs like .git can be ignored for safety, but then some
+        # composer operations may fail if they use dev versions/git.
+        # vcs: true
     symlink:
       mode: "posix-raw"
-

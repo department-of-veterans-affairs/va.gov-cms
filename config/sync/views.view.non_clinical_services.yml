@@ -537,10 +537,10 @@ display:
           condition: eq
           equalto: 'On'
           then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
-          then_translate: 1
+          then_translate: true
           or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         field_office_hours:
           id: field_office_hours
           table: node__field_office_hours
@@ -597,6 +597,7 @@ display:
             time_format: g
             compress: true
             grouped: true
+            show_empty: true
             show_closed: open
             closed_format: Closed
             separator:
@@ -678,6 +679,7 @@ display:
             time_format: g
             compress: true
             grouped: true
+            show_empty: true
             show_closed: all
             closed_format: Closed
             separator:
@@ -816,12 +818,12 @@ display:
           hide_alter_empty: true
           if: field_hours
           condition: eq
-          equalto: 'Use the facility''s hours'
+          equalto: "Use the facility's hours"
           then: '{{ field_office_hours_1 }}'
-          then_translate: 1
+          then_translate: true
           or: ''
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         views_conditional_field_2:
           id: views_conditional_field_2
           table: views_conditional
@@ -873,12 +875,12 @@ display:
           hide_alter_empty: true
           if: field_hours
           condition: eq
-          equalto: 'Use the facility''s hours'
+          equalto: "Use the facility's hours"
           then: '{{ field_office_hours }}'
-          then_translate: 1
+          then_translate: true
           or: '{{ views_conditional_field_3 }}'
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -999,6 +1001,15 @@ display:
             date_format: short
             custom_date_format: ''
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1119,7 +1130,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -1271,7 +1281,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?edit[field_office][widget][0][target_id]=123&edit[field_service_name_and_descripti][widget][0][target_id]=1026">Add a medical records office</a> (opens in a new window).</p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?edit[field_office][widget][0][target_id]=123&edit[field_service_name_and_descripti][widget][0][target_id]=1026">Add a medical records office</a> (opens in a new tab).</p>'
             format: rich_text
           tokenize: false
       footer: {  }
@@ -1282,7 +1292,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_address'
@@ -1443,7 +1452,7 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: true
+            alter_text: false
             text: '<strong>{{ field_clinic_name }}</strong>'
             make_link: false
             path: ''
@@ -1546,7 +1555,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: building-name
           group_column: value
           group_columns: {  }
@@ -1610,7 +1619,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: wing-floor-room
           group_column: value
           group_columns: {  }
@@ -1798,11 +1807,11 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
-          then_translate: 1
-          or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
-          or_translate: 1
-          strip_tags: 0
+          then: "{{ field_address }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
+          then_translate: true
+          or: "{{ field_address_1 }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
+          or_translate: true
+          strip_tags: false
         field_office_hours:
           id: field_office_hours
           table: node__field_office_hours
@@ -1859,6 +1868,7 @@ display:
             time_format: g
             compress: true
             grouped: true
+            show_empty: true
             show_closed: open
             closed_format: Closed
             separator:
@@ -1940,6 +1950,7 @@ display:
             time_format: g
             compress: true
             grouped: true
+            show_empty: true
             show_closed: all
             closed_format: Closed
             separator:
@@ -2080,10 +2091,10 @@ display:
           condition: eq
           equalto: 'Provide specific hours for this service'
           then: '{{ field_office_hours_1 }}'
-          then_translate: 1
+          then_translate: true
           or: ''
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         views_conditional_field:
           id: views_conditional_field
           table: views_conditional
@@ -2135,12 +2146,12 @@ display:
           hide_alter_empty: true
           if: field_hours
           condition: eq
-          equalto: 'Use the facility''s hours'
+          equalto: "Use the facility's hours"
           then: '{{ field_office_hours }}'
-          then_translate: 1
+          then_translate: true
           or: '{{ views_conditional_field_3 }}'
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -2261,6 +2272,15 @@ display:
             date_format: short
             custom_date_format: ''
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2283,8 +2303,8 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: 'Edit locations at {{ title_1 }} (opens in a new tab)'
             make_link: true
             path: ''
             absolute: false
@@ -2321,7 +2341,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: 'Edit locations at this facility (opens in a new window)'
+          text: ''
           output_url_as_text: false
           absolute: false
         status:
@@ -2402,7 +2422,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<p>You have not added a register for care location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add location (opens in a new window)</a></p>"
+            value: "<p>You have not added a register for care location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add location (opens in a new tab)</a></p>"
             format: rich_text
           tokenize: true
       arguments:
@@ -2426,7 +2446,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -2461,7 +2480,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -2538,7 +2556,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new window)</a></p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new tab)</a></p>'
             format: rich_text
           tokenize: true
       display_extenders: {  }
@@ -2548,7 +2566,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_address'
@@ -2709,7 +2726,7 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: true
+            alter_text: false
             text: '<strong>{{ field_clinic_name }}</strong>'
             make_link: false
             path: ''
@@ -2812,7 +2829,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: building-name
           group_column: value
           group_columns: {  }
@@ -2876,7 +2893,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: wing-floor-room
           group_column: value
           group_columns: {  }
@@ -3064,11 +3081,11 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
-          then_translate: 1
-          or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
-          or_translate: 1
-          strip_tags: 0
+          then: "{{ field_address }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
+          then_translate: true
+          or: "{{ field_address_1 }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
+          or_translate: true
+          strip_tags: false
         field_office_hours:
           id: field_office_hours
           table: node__field_office_hours
@@ -3125,6 +3142,7 @@ display:
             time_format: g
             compress: true
             grouped: true
+            show_empty: true
             show_closed: open
             closed_format: Closed
             separator:
@@ -3206,6 +3224,7 @@ display:
             time_format: g
             compress: true
             grouped: true
+            show_empty: true
             show_closed: all
             closed_format: Closed
             separator:
@@ -3346,10 +3365,10 @@ display:
           condition: eq
           equalto: 'Provide specific hours for this service'
           then: '{{ field_office_hours_1 }}'
-          then_translate: 1
+          then_translate: true
           or: ''
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         views_conditional_field:
           id: views_conditional_field
           table: views_conditional
@@ -3401,12 +3420,12 @@ display:
           hide_alter_empty: true
           if: field_hours
           condition: eq
-          equalto: 'Use the facility''s hours'
+          equalto: "Use the facility's hours"
           then: '{{ field_office_hours }}'
-          then_translate: 1
+          then_translate: true
           or: '{{ views_conditional_field_3 }}'
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -3527,6 +3546,15 @@ display:
             date_format: short
             custom_date_format: ''
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -3549,8 +3577,8 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: 'Edit locations at {{ title_1 }} (opens in a new tab)'
             make_link: true
             path: ''
             absolute: false
@@ -3587,7 +3615,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: 'Edit locations at this facility (opens in a new window)'
+          text: ''
           output_url_as_text: false
           absolute: false
         status:
@@ -3668,7 +3696,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<p>You have not added a billing and insurance location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add facility (opens in a new window)</a></p>"
+            value: "<p>You have not added a billing and insurance location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add facility (opens in a new tab)</a></p>"
             format: rich_text
           tokenize: true
       arguments:
@@ -3692,7 +3720,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -3727,7 +3754,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -3869,7 +3895,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new window)</a></p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new tab)</a></p>'
             format: rich_text
           tokenize: true
       display_extenders: {  }
@@ -3879,7 +3905,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_address'
@@ -4040,7 +4065,7 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: true
+            alter_text: false
             text: '<strong>{{ field_clinic_name }}</strong>'
             make_link: false
             path: ''
@@ -4143,7 +4168,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: building-name
           group_column: value
           group_columns: {  }
@@ -4207,7 +4232,7 @@ display:
           click_sort_column: value
           type: plain_string_formatter
           settings:
-            wrap_tag: span
+            wrap_tag: div
             wrap_class: wing-floor-room
           group_column: value
           group_columns: {  }
@@ -4395,11 +4420,11 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
-          then_translate: 1
-          or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
-          or_translate: 1
-          strip_tags: 0
+          then: "{{ field_address }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n"
+          then_translate: true
+          or: "{{ field_address_1 }}\r\n{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n"
+          or_translate: true
+          strip_tags: false
         field_office_hours:
           id: field_office_hours
           table: node__field_office_hours
@@ -4456,6 +4481,7 @@ display:
             time_format: g
             compress: true
             grouped: true
+            show_empty: true
             show_closed: open
             closed_format: Closed
             separator:
@@ -4537,6 +4563,7 @@ display:
             time_format: g
             compress: true
             grouped: true
+            show_empty: true
             show_closed: all
             closed_format: Closed
             separator:
@@ -4677,10 +4704,10 @@ display:
           condition: eq
           equalto: 'Provide specific hours for this service'
           then: '{{ field_office_hours_1 }}'
-          then_translate: 1
+          then_translate: true
           or: ''
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         views_conditional_field:
           id: views_conditional_field
           table: views_conditional
@@ -4732,12 +4759,12 @@ display:
           hide_alter_empty: true
           if: field_hours
           condition: eq
-          equalto: 'Use the facility''s hours'
+          equalto: "Use the facility's hours"
           then: '{{ field_office_hours }}'
-          then_translate: 1
+          then_translate: true
           or: '{{ views_conditional_field_3 }}'
-          or_translate: 1
-          strip_tags: 0
+          or_translate: true
+          strip_tags: false
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -4858,6 +4885,15 @@ display:
             date_format: short
             custom_date_format: ''
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -4880,8 +4916,8 @@ display:
           label: ''
           exclude: true
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: 'Edit locations at {{ title_1 }} (opens in a new tab)'
             make_link: true
             path: ''
             absolute: false
@@ -4918,7 +4954,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: 'Edit locations at this facility (opens in a new window)'
+          text: ''
           output_url_as_text: false
           absolute: false
         status:
@@ -4999,7 +5035,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<p>You have not added a medical records office location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add location (opens in a new window)</a></p>"
+            value: "<p>You have not added a medical records office location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add location (opens in a new tab)</a></p>"
             format: rich_text
           tokenize: true
       arguments:
@@ -5023,7 +5059,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -5058,7 +5093,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -5173,7 +5207,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new window)</a> </p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new tab)</a> </p>'
             format: rich_text
           tokenize: true
       display_extenders: {  }
@@ -5183,7 +5217,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_address'

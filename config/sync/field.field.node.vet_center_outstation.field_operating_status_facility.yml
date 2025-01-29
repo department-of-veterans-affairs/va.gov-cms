@@ -13,9 +13,11 @@ entity_type: node
 bundle: vet_center_outstation
 label: 'Operating status'
 description: ''
-required: false
+required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: normal
 default_value_callback: ''
 settings: {  }
 field_type: list_string

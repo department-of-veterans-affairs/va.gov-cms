@@ -4,40 +4,7 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-
 (function ($, Drupal) {
-  function enforceMaximumNumberOfTags() {
-    var total = $('div[id^="edit-field-tags-0-subform-field-topics"]').find("input:checked").length;
-
-    if (total >= 4) {
-      $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').attr("disabled", true);
-      $("div.form-item-field-tags-0-subform-field-audience-selection").addClass("form-disabled");
-
-      $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').attr("checked", true);
-      $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').attr("checked", true);
-
-      $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
-      $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
-      $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val("_none");
-    } else {
-      $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').attr("disabled", false);
-      $("div.form-item-field-tags-0-subform-field-audience-selection").removeClass("form-disabled");
-    }
-
-    var audienceSelected = $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').find('input:not([id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]):checked').length;
-    if ($('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val() === "non-beneficiaries") {
-      audienceSelected = $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').find('input:not([id^="edit-field-tags-0-subform-field-non-beneficiares-none"]):checked').length;
-    }
-
-    total += audienceSelected;
-
-    if (total >= 4) {
-      $('div[id^="edit-field-tags-0-subform-field-topics"]').find("input[type=checkbox]:not(:checked)").attr("disabled", true);
-    } else {
-      $('div[id^="edit-field-tags-0-subform-field-topics"]').find("input[type=checkbox]").attr("disabled", false);
-    }
-  }
-
   Drupal.behaviors.vaGovAudienceTopics = {
     attach: function attach() {
       if ($('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').find('input:not([id^="edit-field-tags-0-subform-field-non-beneficiares-none"]):checked').length) {
@@ -49,36 +16,26 @@
         $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').show();
         $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
       }
-
       $("#edit-group-tags > legend").addClass("form-required");
-
       $('input[id^="edit-field-tags-0-subform-field-audience-beneficiares-none"]').parent().hide();
       $('input[id^="edit-field-tags-0-subform-field-non-beneficiares-none"]').parent().hide();
-
-      enforceMaximumNumberOfTags();
-
       $("fieldset#edit-group-tags").change(function () {
         var selection = $('select[id^="edit-field-tags-0-subform-field-audience-selection"]').val();
-
         $('fieldset#edit-group-tags input[type="radio"]').attr("checked", false);
         $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').hide();
         $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').hide();
         if (selection === "beneficiaries") {
           $('div[id^="edit-field-tags-0-subform-field-audience-beneficiares-wrapper"]').show();
-
           $("#edit-field-tags-0-subform-field-non-beneficiares-none").attr("checked", true);
         }
         if (selection === "non-beneficiaries") {
           $('div[id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"]').show();
-
           $("#edit-field-tags-0-subform-field-audience-beneficiares-none").attr("checked", true);
         }
         if (selection === "_none") {
           $("#edit-field-tags-0-subform-field-non-beneficiares-none").attr("checked", true);
           $("#edit-field-tags-0-subform-field-audience-beneficiares-none").attr("checked", true);
         }
-
-        enforceMaximumNumberOfTags();
       });
     }
   };

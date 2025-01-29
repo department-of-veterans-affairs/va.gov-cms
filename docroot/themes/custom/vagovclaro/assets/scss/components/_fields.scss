@@ -1,3 +1,13 @@
+#edit-field-telephone-wrapper {
+  .paragraph-type-title {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: normal;
+  }
+}
+
 .field--name-field-phone-number {
   .form-type-textfield {
     float: left;
@@ -43,7 +53,7 @@
     clear: none;
   }
 
-  [id^='edit-field-tags-0-subform-field-non-beneficiares-wrapper'] {
+  [id^="edit-field-tags-0-subform-field-non-beneficiares-wrapper"] {
     display: none;
   }
 }
@@ -157,9 +167,15 @@
 
   .form-element {
     font-size: var(--va-subsection-xs);
-    height: calc(var(--spacing-xs)*2 + var(--input-border-size)*2 + var(--va-subsection-xs));
+    height: calc(
+      var(--spacing-xs) * 2 + var(--input-border-size) * 2 +
+        var(--va-subsection-xs)
+    );
     line-height: var(--va-subsection-xs);
-    min-height: calc(var(--spacing-xs)*2 + var(--input-border-size)*2 + var(--va-subsection-xs));
+    min-height: calc(
+      var(--spacing-xs) * 2 + var(--input-border-size) * 2 +
+        var(--va-subsection-xs)
+    );
     padding: var(--spacing-xs);
   }
 
@@ -172,7 +188,7 @@
     display: flex;
     flex-direction: column;
 
-    @include breakpoint('lg') {
+    @include breakpoint("lg") {
       flex-direction: row;
     }
   }
@@ -180,7 +196,7 @@
   .form-items-inline > .form-item {
     margin: 0 0 var(--space-xs);
 
-    @include breakpoint('lg') {
+    @include breakpoint("lg") {
       margin: 0 var(--space-xs) 0 0;
     }
   }
@@ -227,7 +243,15 @@ body:not(.role-admin) {
   margin-left: var(--spacing-xl);
 }
 
-#edit-field-publish-to-outreach-cal-wrapper div.form-item--field-publish-to-outreach-cal-value {
+.form-item--media-0-fields-image-0-alt,
+.form-item--image-0-alt {
+  .form-item--error-message {
+    margin: 5px 0;
+  }
+}
+
+#edit-field-publish-to-outreach-cal-wrapper
+  div.form-item--field-publish-to-outreach-cal-value {
   margin-left: auto;
 }
 

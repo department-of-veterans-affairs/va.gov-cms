@@ -147,6 +147,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 25
           total_pages: null
           id: 0
@@ -362,7 +363,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: '{{ vid | replace({''Audience - '':''''}) }}'
+            text: "{{ vid | replace({'Audience - ':''}) }}"
             make_link: false
             path: ''
             absolute: false

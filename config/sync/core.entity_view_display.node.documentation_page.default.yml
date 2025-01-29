@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.base_field_override.node.documentation_page.changed
     - field.field.node.documentation_page.field_administration
     - field.field.node.documentation_page.field_content_block
     - field.field.node.documentation_page.field_intro_text
@@ -112,6 +113,15 @@ third_party_settings:
                   date_format: custom
                   custom_date_format: '\L\a\s\t \u\p\d\a\t\e\d \o\n F j, Y \a\t g:i a'
                   timezone: ''
+                  tooltip:
+                    date_format: ''
+                    custom_date_format: ''
+                  time_diff:
+                    enabled: false
+                    future_format: '@interval hence'
+                    past_format: '@interval ago'
+                    granularity: 2
+                    refresh: 60
                 third_party_settings: {  }
             weight: 2
             additional: {  }
@@ -137,16 +147,6 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 4
-    region: content
   field_products:
     type: entity_reference_label
     label: above
@@ -167,6 +167,7 @@ hidden:
   breadcrumbs: true
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_table_of_contents_boolean: true
   langcode: true
   layout_builder__layout: true

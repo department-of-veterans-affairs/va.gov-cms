@@ -1,0 +1,12 @@
+diff --git a/scripts/css/compile.js b/scripts/css/compile.js
+index 810e3ea38b..83822e95c3 100644
+--- a/scripts/css/compile.js
++++ b/scripts/css/compile.js
+@@ -42,6 +42,7 @@ module.exports = (filePath, callback) => {
+         features: {
+           'blank-pseudo-class': false,
+           'focus-visible-pseudo-class': false,
++          'custom-properties': false,
+           'focus-within-pseudo-class': false,
+           'has-pseudo-class': false,
+           'image-set-function': false,

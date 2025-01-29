@@ -50,7 +50,7 @@ class ContentModerationTest extends VaGovExistingSiteBase {
       'base_form_id' => $baseFormId,
     ]);
     $formState = $formStateProphecy->reveal();
-    \va_gov_backend_field_widget_moderation_state_default_form_alter($element, $formState, $context);
+    \va_gov_backend_field_widget_single_element_moderation_state_default_form_alter($element, $formState, $context);
     $this->assertEquals($expectedElement, $element);
   }
 

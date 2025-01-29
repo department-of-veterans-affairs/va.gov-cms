@@ -1,0 +1,29 @@
+uuid: 367326cf-ac23-4402-891e-137ce92d2a9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_term_definitions_nation
+    - node.type.vamc_system_va_police
+  module:
+    - entity_field_fetch
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vamc_system_va_police.field_cc_term_definitions_nation
+field_name: field_cc_term_definitions_nation
+entity_type: node
+bundle: vamc_system_va_police
+label: 'National term definitions'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '63204'
+  field_to_fetch: field_block_content
+  target_paragraph_uuid: '142044'
+field_type: entity_field_fetch

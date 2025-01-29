@@ -14,15 +14,21 @@ If you see a message from your browser like the following:
 
 Click the "^" button and select "Keep."
 
-### OSX
-1. Open Keychain Access
-1. Go to Certificates (under Category in left sidebar)
-2. Select "System" under Keychains (in sidebar)
-3. Select "Import Items..." from File menu. (Shift-Command-I)
-4. Select the three .cer files above.
-5. They should now appear in your list of certificates
-6. For each certificate: 1) File > Get info  2) Under Trust > When using this certificate, select "Always Trust". 3) Close the Get info window, which will prompt a password save.
-7. You may need to restart your browser.
+### macOS (as of 13.4)
+1. Import the certificates.
+    1. Open Keychain Access
+    1. Select "System" under System Keychains (in sidebar)
+    <img src="images/macos-keychains.png" height="200">
+    1. Select "Import Items..." from File menu. (Shift-Command-I)
+    1. Select the three .cer files above.
+    1. They should now appear in your list of certificates under the "Keychain Access" view
+1. Trust each certificate.
+    1. For each of the three certificates, select it
+    1. File > Get info (Command-I)
+    1. Expand the "Trust" view
+    1. In the "When using this certificate" popup button, select "Always Trust".
+    1. Close the "Get Info" window, which will prompt a password save.
+1. You may need to restart your browser.
 
 ### Linux
 

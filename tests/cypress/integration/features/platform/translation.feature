@@ -29,14 +29,13 @@ Feature: Translation functionality testing.
     And I create a "basic_landing_page" node
     And I click the edit tab
     Then the element with selector ".field--name-title .textfield_counter_counter" should contain "Characters remaining"
-    Given I fill in ckeditor field "field-intro-text-limited-html-0-value" with 1010 characters
+    Given I fill in ckeditor field "edit-field-intro-text-limited-html-0-value" with 1010 characters
     And I fill in "Revision log message" with "It is a message"
     And I save the node
     Then the element with selector ".field--name-field-intro-text-limited-html .form-item--error-message" should contain "cannot be longer"
     And I click the "Translate" link
     And I click the button with selector "ul.dropbutton a[hreflang=es]"
-    Given I fill in ckeditor field "field-intro-text-limited-html-0-value" with 1010 characters
+    Given I fill in ckeditor field "edit-field-intro-text-limited-html-0-value" with 1010 characters
     And I fill in "Revision log message" with "It is a message"
     And I save the node
-    # The following is a proxy for 'node saved successfully'.
-    Then an element with the selector ".field--name-field-intro-text-limited-html textarea" should not exist
+    Then I should see "has been updated."

@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_entity_browser.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_inline_entity_form_reference_form_alter().
+ */
+function va_gov_entity_browser_inline_entity_form_reference_form_alter(array &$reference_form, FormStateInterface &$form_state): void {
+  // Hide IEF save button when using Entity Browser.
+  if (!empty($reference_form['entity_browser']) && !empty($reference_form['actions']['ief_reference_save'])) {
+    $reference_form['actions']['ief_reference_save']['#attributes']['style'] = 'display: none;';
+  }
+}

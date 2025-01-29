@@ -23,3 +23,7 @@ Please follow the following guidelines:
 - If you need to check that a given workflow or action still triggers as expected, consider running the scripts `scripts/create-bad-test-files.sh` and `scripts/delete-bad-test-files.sh` to respectively create and delete files that can be used to test lints and checks.
 
 See ["Security hardening for GitHub Actions"](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions) for more details concerning GitHub Actions and security.
+
+----
+
+[Table of Contents](../README.md)

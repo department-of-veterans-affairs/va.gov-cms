@@ -1,0 +1,19 @@
+Subject: [PATCH] fix for fatal error $renderer must not be defined
+---
+Index: src/Plugin/views/field/ViewsConditionalField.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Plugin/views/field/ViewsConditionalField.php b/src/Plugin/views/field/ViewsConditionalField.php
+--- a/src/Plugin/views/field/ViewsConditionalField.php	(revision ba0b9890da7c10711164f693d165d30882f8a13f)
++++ b/src/Plugin/views/field/ViewsConditionalField.php	(date 1699384799887)
+@@ -34,7 +34,7 @@
+   /**
+    * The renderer.
+    */
+-  protected RendererInterface $renderer;
++  protected $renderer;
+ 
+   /**
+    * {@inheritdoc}

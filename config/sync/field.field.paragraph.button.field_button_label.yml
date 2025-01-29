@@ -5,12 +5,17 @@ dependencies:
   config:
     - field.storage.paragraph.field_button_label
     - paragraphs.paragraphs_type.button
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: paragraph.button.field_button_label
 field_name: field_button_label
 entity_type: paragraph
 bundle: button
 label: 'Link text'
-description: ''
+description: 'This text should describe the purpose of the link. Additional tips are on the <a href="https://design.va.gov/content-style-guide/links#link-text" target="_blank">VA content style guide links page (opens in a new window)</a>.'
 required: true
 translatable: true
 default_value: {  }

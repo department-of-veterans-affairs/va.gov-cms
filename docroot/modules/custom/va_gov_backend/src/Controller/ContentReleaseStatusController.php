@@ -119,6 +119,7 @@ class ContentReleaseStatusController extends ControllerBase {
    *   The timestamp parsed from the build file.
    *
    * @throws \Exception
+   * @throws \GuzzleHttp\Exception\GuzzleException
    *   If the build file could not be parsed.
    */
   public function getLastReleaseTimestamp(): int {

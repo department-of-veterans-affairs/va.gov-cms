@@ -50,6 +50,11 @@ function va_gov_vamc_form_alter(&$form, FormStateInterface $form_state, $form_id
       _va_gov_vamc_vbo_facility_status_form_ui($form, $form_state);
     }
   }
+  if ($form_id === 'node_vha_facility_nonclinical_service_edit_form' ||
+    $form_id === 'node_vha_facility_nonclinical_service_form') {
+    // We need to remove fields that are not relevant to non-clinical services.
+    _va_gov_vamc_remove_service_location_fields_from_non_clinical_services($form);
+  }
 }
 
 /**
@@ -237,4 +242,43 @@ function va_gov_vamc_entity_bundle_field_info_alter(&$fields, EntityTypeInterfac
     }
   }
 
+}
+
+/**
+ * Removes unnecessary Service location fields from non-clinical services.
+ *
+ * @param array $form
+ *   The node form.
+ */
+function _va_gov_vamc_remove_service_location_fields_from_non_clinical_services(&$form) {
+  // If the field_service_location is not found, return.
+  if (!array_key_exists('field_service_location', $form)) {
+    return;
+  }
+  $service_location_widget = array_key_exists('widget', $form['field_service_location'])
+    ? $form['field_service_location']['widget']
+    : [];
+  // If the service location widget is not iterable or is empty, return.
+  if (!is_iterable($service_location_widget) || empty($service_location_widget)) {
+    return;
+  }
+  foreach ($service_location_widget as $key => $widget) {
+    if (is_numeric($key)) {
+      // Service options and Appointments are not relevant
+      // to non-clinical services.
+      $groups_to_clear = [
+        'group_service_options',
+        'group_appointments',
+      ];
+      foreach ($groups_to_clear as $group) {
+        if (isset($widget['subform']['#fieldgroups'][$group])) {
+          // In each group, set the access to false for all child fields,
+          // so they are not rendered.
+          foreach ($form['field_service_location']['widget'][$key]['subform']['#fieldgroups'][$group]->children as $form_element_id) {
+            $form["field_service_location"]["widget"][$key]["subform"][$form_element_id]["#access"] = FALSE;
+          }
+        }
+      }
+    }
+  }
 }

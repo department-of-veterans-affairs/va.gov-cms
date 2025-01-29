@@ -55,5 +55,11 @@ function va_gov_events_entity_bundle_field_info_alter(&$fields, EntityTypeInterf
     if (isset($fields['field_datetime_range_timezone'])) {
       $fields['field_datetime_range_timezone']->addConstraint('NonZeroEventDate', []);
     }
+    if (isset($fields['field_link'])) {
+      $fields['field_link']->addConstraint('LinkNoMailto', []);
+    }
+    if (isset($fields['field_cta_email'])) {
+      $fields['field_cta_email']->addConstraint('EmailToVaOnly', []);
+    }
   }
 }

@@ -5,3 +5,9 @@ services:
       ["@state", "@logger.factory", "@settings"]
     tags:
       - { name: event_subscriber }
+  va_gov_links.linky_editor_modifier:
+    class: Drupal\va_gov_links\EventSubscriber\LinkyEditorModifier
+    arguments:
+      - "@entity_type.manager"
+    tags:
+      - { name: event_subscriber }

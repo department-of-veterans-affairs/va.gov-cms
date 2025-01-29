@@ -18,7 +18,7 @@ To resolve this issue:
 
 To import users:
 
-1. go to [the import page](https://prod.cms.va.gov/migrate_source_ui)
+1. go to [the import page](https://prod.cms.va.gov/admin/content/migrate_source_ui))
 1. Select "User Import (supports csv)" from the **Migrations** dropdown
 1. Upload a CSV file in the following format:
 ```

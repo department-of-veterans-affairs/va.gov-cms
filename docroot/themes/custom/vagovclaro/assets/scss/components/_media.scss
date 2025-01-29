@@ -24,7 +24,7 @@
   &::before {
     background-repeat: no-repeat;
     background-size: contain;
-    content: '';
+    content: "";
     display: block;
     height: 16px;
     position: absolute;
@@ -34,15 +34,15 @@
 }
 
 .downloadable-file-link--document::before {
-  background-image: url('../images/icons/000000/download.svg');
+  background-image: url("../images/icons/000000/download.svg");
 }
 
 .downloadable-file-link--video::before {
-  background-image: url('../images/icons/000000/play.svg');
+  background-image: url("../images/icons/000000/play.svg");
 }
 
 .downloadable-file-link--image::before {
-  background-image: url('../images/icons/000000/download.svg');
+  background-image: url("../images/icons/000000/download.svg");
 }
 
 // Fix image hover state
@@ -50,5 +50,39 @@
   .media-library-item__attributes {
     bottom: 8px;
     max-width: calc(100% - 1.7rem);
+  }
+}
+
+.form-item--image-0 {
+  .form-managed-file.no-upload {
+    display: flex;
+  }
+}
+
+.image-widget {
+  &.form-managed-file.has-meta .form-managed-file__image-preview {
+    margin: 0 0 1rem 1rem;
+    max-width: 600px;
+  }
+
+  .form-managed-file__main {
+    display: flex;
+  }
+
+  .form-managed-file__meta-items {
+    .form-item__description {
+      margin-right: 16px;
+    }
+  }
+
+  .image-preview__img-wrapper {
+    box-shadow: unset;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+
+    img {
+      width: 100%;
+    }
   }
 }

@@ -3,6 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.alert
+    - block_content.type.promo
     - filter.format.rich_text
     - filter.format.rich_text_limited
     - media.type.document
@@ -52,6 +54,7 @@ dependencies:
     - node.type.vamc_system_medical_records_offi
     - node.type.vamc_system_policies_page
     - node.type.vamc_system_register_for_care
+    - node.type.vamc_system_va_police
     - node.type.vba_facility
     - node.type.vba_facility_service
     - node.type.vet_center
@@ -65,7 +68,7 @@ dependencies:
     - workflows.workflow.restricted_archive
   module:
     - actions_permissions
-    - block_content_permissions
+    - block_content
     - block_diff_ui
     - content_lock
     - content_moderation
@@ -85,13 +88,14 @@ dependencies:
     - workbench_access
 third_party_settings:
   va_gov_backend:
-    vgb_description: 'Can create and edit content, but can''t review or publish it. '
+    vgb_description: "Can create and edit content, but can't review or publish it. "
 id: content_editor
 label: 'Content editor'
 weight: -1
 is_admin: null
 permissions:
   - 'access administration pages'
+  - 'access block library'
   - 'access content overview'
   - 'access files overview'
   - 'access media overview'
@@ -106,6 +110,7 @@ permissions:
   - 'create media'
   - 'create promo block content'
   - 'create video media'
+  - 'edit any alert block content'
   - 'edit any banner content'
   - 'edit any basic_landing_page content'
   - 'edit any campaign_landing_page content'
@@ -137,6 +142,7 @@ permissions:
   - 'edit any person_profile content'
   - 'edit any press_release content'
   - 'edit any press_releases_listing content'
+  - 'edit any promo block content'
   - 'edit any promo_banner content'
   - 'edit any publication_listing content'
   - 'edit any q_a content'
@@ -152,6 +158,7 @@ permissions:
   - 'edit any vamc_system_medical_records_offi content'
   - 'edit any vamc_system_policies_page content'
   - 'edit any vamc_system_register_for_care content'
+  - 'edit any vamc_system_va_police content'
   - 'edit any vba_facility content'
   - 'edit any vba_facility_service content'
   - 'edit any vet_center content'
@@ -173,9 +180,7 @@ permissions:
   - 'revert image revisions'
   - 'revert promo revisions'
   - 'revert video revisions'
-  - 'update any alert block content'
   - 'update any media'
-  - 'update any promo block content'
   - 'update media'
   - 'use editorial transition create_new_draft'
   - 'use editorial transition review'
@@ -240,6 +245,7 @@ permissions:
   - 'view vamc_system_medical_records_offi revisions'
   - 'view vamc_system_policies_page revisions'
   - 'view vamc_system_register_for_care revisions'
+  - 'view vamc_system_va_police revisions'
   - 'view vba_facility revisions'
   - 'view vba_facility_service revisions'
   - 'view vet_center revisions'

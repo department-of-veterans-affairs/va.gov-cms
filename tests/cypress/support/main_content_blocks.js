@@ -13,7 +13,10 @@ Cypress.Commands.add("addMainContentBlockWithRichText", (text) => {
       .click({ force: true });
   });
   cy.get("div#drupal-modal").should("not.be.visible");
-  cy.type_ckeditor("field-wysiwyg-0", text);
+  cy.type_ckeditor(
+    "edit-field-content-block-0-subform-field-wysiwyg-0-value",
+    text
+  );
 });
 
 Cypress.Commands.add("addMainContentBlockWithFile", (type) => {

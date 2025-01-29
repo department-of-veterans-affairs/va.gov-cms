@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.promo
     - node.type.checklist
     - node.type.faq_multiple_q_a
     - node.type.media_list_images
@@ -11,7 +12,7 @@ dependencies:
     - node.type.step_by_step
     - node.type.support_resources_detail_page
   module:
-    - block_content_permissions
+    - block_content
     - file
     - node
     - node_link_report
@@ -24,6 +25,7 @@ label: 'Content creator - Resources and support'
 weight: -6
 is_admin: null
 permissions:
+  - 'access block library'
   - 'access files overview'
   - 'create checklist content'
   - 'create faq_multiple_q_a content'

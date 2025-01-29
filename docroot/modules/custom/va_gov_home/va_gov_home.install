@@ -13,6 +13,7 @@ use Drupal\entityqueue\Entity\EntitySubqueue;
 function va_gov_home_update_8001() {
   $mids = \Drupal::entityQuery('menu_link_content')
     ->condition('menu_name', 'homepage-top-tasks-blocks')
+    ->accessCheck(FALSE)
     ->execute();
   $linkStorage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
 

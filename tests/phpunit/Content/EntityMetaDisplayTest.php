@@ -6,7 +6,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\EntityTypeStorageInterface;
 use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -101,8 +100,7 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
     $routeMatch = $routeMatchProphecy->reveal();
 
     // `entity_type.manager`.
-    $entityTypeStorageProphecy = $this->prophesize(EntityTypeStorageInterface::CLASS);
-    $entityTypeStorageProphecy->willImplement(EntityStorageInterface::CLASS);
+    $entityTypeStorageProphecy = $this->prophesize(EntityStorageInterface::CLASS);
     $entityTypeProphecy = $this->prophesize(EntityTypeInterface::CLASS);
     $entityTypeProphecy->willImplement(EntityInterface::CLASS);
     $entityTypeProphecy->label()->willReturn('TEST');

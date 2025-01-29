@@ -1,0 +1,24 @@
+diff --git a/css/frontUi.css b/css/frontUi.css
+index e5fb3c4..fdb128a 100644
+--- a/css/frontUi.css
++++ b/css/frontUi.css
+@@ -4,3 +4,19 @@
+ .views-field-views-bulk-operations-bulk-form.empty {
+   display: none;
+ }
++
++details.vbo-multipage-selector {
++  align-self: center;
++  margin-inline: 0 var(--space-xl);
++}
++
++details.vbo-multipage-selector summary {
++  align-items: center;
++  background-color: transparent;
++  color: var(--input-fg-color);
++  display: flex;
++  font-size: var(--font-size-xs);
++  justify-content: center;
++  padding: calc(0.5rem - 1px) calc(2.25rem - 7px) calc(0.5rem + 1px) calc(1rem + 18px);
++  line-height: 1rem;
++}

@@ -1,0 +1,55 @@
+uuid: a6e50d9b-da73-40fe-83b7-0a2325751c77
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.vamc_system_va_police.field_administration
+    - field.field.node.vamc_system_va_police.field_cc_faq
+    - field.field.node.vamc_system_va_police.field_cc_police_report
+    - field.field.node.vamc_system_va_police.field_cc_term_definitions
+    - field.field.node.vamc_system_va_police.field_cc_term_definitions_nation
+    - field.field.node.vamc_system_va_police.field_cc_va_police_overview
+    - field.field.node.vamc_system_va_police.field_enforce_unique_combo
+    - field.field.node.vamc_system_va_police.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_va_police.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_va_police.field_office
+    - field.field.node.vamc_system_va_police.field_phone_numbers_paragraph
+    - node.type.vamc_system_va_police
+  module:
+    - entity_reference_revisions
+    - user
+id: node.vamc_system_va_police.search_index
+targetEntityType: node
+bundle: vamc_system_va_police
+mode: search_index
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_phone_numbers_paragraph:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  breadcrumbs: true
+  field_administration: true
+  field_cc_faq: true
+  field_cc_police_report: true
+  field_cc_term_definitions: true
+  field_cc_term_definitions_nation: true
+  field_cc_va_police_overview: true
+  field_enforce_unique_combo: true
+  field_enforce_unique_combo_offic: true
+  field_last_saved_by_an_editor: true
+  field_office: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

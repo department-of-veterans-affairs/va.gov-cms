@@ -1,0 +1,6 @@
+services:
+  va_gov_views.event_subscriber:
+    class: Drupal\va_gov_views\EventSubscriber\ViewsBulkOpsSubscriber
+    arguments: ['@string_translation', '@entity_type.manager', '@date.formatter']
+    tags:
+      - { name: event_subscriber }

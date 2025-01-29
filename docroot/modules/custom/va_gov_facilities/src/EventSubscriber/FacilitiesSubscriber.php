@@ -10,18 +10,21 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\field_event_dispatcher\Event\Field\WidgetCompleteFormAlterEvent;
 use Drupal\field_event_dispatcher\FieldHookEvents;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -70,6 +73,14 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
+   * The renderer service.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   *  The renderer.
+   */
+  private $renderer;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\Core\Session\AccountInterface $currentUser
@@ -84,6 +95,8 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
    *   The string translation service.
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The user perms service.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer service.
    */
   public function __construct(
     AccountInterface $currentUser,
@@ -91,7 +104,8 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
     EntityTypeManager $entityTypeManager,
     MessengerInterface $messenger,
     TranslationInterface $string_translation,
-    UserPermsService $user_perms_service
+    UserPermsService $user_perms_service,
+    RendererInterface $renderer
   ) {
     $this->currentUser = $currentUser;
     $this->entityTypeManager = $entityTypeManager;
@@ -99,6 +113,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
     $this->messenger = $messenger;
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -112,11 +127,57 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vet_center_form.alter' => 'alterVetCenterNodeForm',
       'hook_event_dispatcher.form_node_vba_facility_service_edit_form.alter' => 'alterVbaFacilityServiceNodeForm',
       'hook_event_dispatcher.form_node_vba_facility_service_form.alter' => 'alterVbaFacilityServiceNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_facility_health_servi_edit_form.alter' => 'alterVetCenterServiceNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_facility_health_servi_form.alter' => 'alterVetCenterServiceNodeForm',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       FieldHookEvents::WIDGET_COMPLETE_FORM_ALTER => 'widgetCompleteFormAlter',
       FormHookEvents::FORM_ALTER => 'formAlter',
     ];
+  }
+
+  /**
+   * Alteration to entity view pages.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function entityViewAlter(EntityViewAlterEvent $event):void {
+    $this->appendServiceDescriptionToVetCenterFacilityService($event);
+  }
+
+  /**
+   * Appends Vet Center facility service description to its title on node:view.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function appendServiceDescriptionToVetCenterFacilityService(EntityViewAlterEvent $event):void {
+    if (($event->getDisplay()->getTargetBundle() !== 'vet_center_facility_health_servi')
+    || ($event->getDisplay()->getOriginalMode() !== 'full')) {
+      return;
+    }
+    $build = &$event->getBuild();
+    $service_node = $event->getEntity();
+    $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
+    // Render the national service term description (if available).
+    if (!empty($referenced_terms)) {
+      $description = "";
+      $referenced_term = reset($referenced_terms);
+      if ($referenced_term) {
+        $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
+        $referenced_term_content = $view_builder->view($referenced_term, 'vet_center_service');
+        $description = $this->renderer->renderRoot($referenced_term_content);
+      }
+    }
+    else {
+      $description = new FormattableMarkup(
+        '<div><strong>Notice: The national service description was not found.</strong></div>',
+        []);
+    }
+    $formatted_markup = new FormattableMarkup($description, []);
+    $build['field_service_name_and_descripti']['#suffix'] = $formatted_markup;
   }
 
   /**
@@ -161,7 +222,9 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
    */
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
+    $this->clearCustomAppointmentIntroText($entity);
     $this->clearNormalStatusDetails($entity);
+    $this->clearUnusedServiceLocationHours($entity);
   }
 
   /**
@@ -292,6 +355,51 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
         $widget_items = $widget_complete_form['widget'];
         for ($i = 0; isset($widget_items[$i]); $i++) {
           $widget_complete_form['widget'][$i]['subform']['field_hours']['facility_hours'] = $this->createRenderArrayFromFieldOnRefdEntity($node, $related_field, $field_to_render);
+        }
+      }
+    }
+  }
+
+  /**
+   * Clear custom appointment intro text when unused.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity.
+   */
+  protected function clearCustomAppointmentIntroText(EntityInterface $entity): void {
+    if ($entity instanceof ParagraphInterface) {
+      $type = $entity->getType();
+      /** @var \Drupal\paragraphs\ParagraphInterface $entity */
+      if (($type === 'service_location')
+      && ($entity->hasField('field_appt_intro_text_type'))
+      && ($entity->hasField('field_appt_intro_text_custom'))) {
+        $appt_select = $entity->get('field_appt_intro_text_type')->value;
+        $appt_leadin = $entity->get('field_appt_intro_text_custom')->value;
+        if ($appt_select !== 'customize_text' && !empty($appt_leadin)) {
+          $entity->set('field_appt_intro_text_custom', '');
+        }
+      }
+    }
+  }
+
+  /**
+   * Clear service location hours when unused.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity.
+   */
+  protected function clearUnusedServiceLocationHours(EntityInterface $entity): void {
+    if ($entity instanceof ParagraphInterface) {
+      $type = $entity->getType();
+      /** @var \Drupal\paragraphs\ParagraphInterface $entity */
+      if (($type === 'service_location')
+      && ($entity->hasField('field_hours'))
+      && ($entity->hasField('field_office_hours'))) {
+        $hours = $entity->get('field_hours')->value;
+        $office_hours = $entity->get('field_office_hours')->getValue();
+        // 2 = Provide specific hours for this service.
+        if ($hours !== '2' && count($office_hours) > 0) {
+          $entity->set('field_office_hours', []);
         }
       }
     }
@@ -445,6 +553,16 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Alterations to the Vet Center facility service node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVetCenterServiceNodeForm(FormIdAlterEvent $event): void {
+    $this->buildHealthServicesDescriptionArrayAddToSettings($event);
+  }
+
+  /**
    * Builds an array of descriptions from health services available on form.
    *
    * Adds the descriptions array built by this method to drupalSettings.
@@ -552,6 +670,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
         ];
         break;
 
+      case 'vet_center_facility_health_servi':
       case 'vet_center':
         $vaServicesFields = [
           'type' => 'field_vet_center_type_of_care',

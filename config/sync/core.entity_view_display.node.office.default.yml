@@ -6,25 +6,19 @@ dependencies:
     - field.field.node.office.field_administration
     - field.field.node.office.field_body
     - field.field.node.office.field_description
-    - field.field.node.office.field_email_updates_link
-    - field.field.node.office.field_external_link
     - field.field.node.office.field_last_saved_by_an_editor
     - field.field.node.office.field_meta_tags
     - field.field.node.office.field_office_id
     - field.field.node.office.field_parent_office
-    - field.field.node.office.field_social_media_links
     - node.type.office
   module:
     - field_group
-    - link
     - metatag
-    - social_media_links_field
     - user
 third_party_settings:
   field_group:
     group_meta:
       children:
-        - field_meta_title
         - field_meta_tags
       label: 'Meta tags'
       parent_name: ''
@@ -48,30 +42,6 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_email_updates_link:
-    type: link
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_external_link:
-    type: link
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 4
-    region: content
   field_meta_tags:
     type: metatag_empty_formatter
     label: above
@@ -85,7 +55,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 5
+    weight: 2
     region: content
   field_parent_office:
     type: entity_reference_label
@@ -93,16 +63,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 6
-    region: content
-  field_social_media_links:
-    type: social_media_links_field_default
-    label: above
-    settings:
-      appearance: {  }
-      link_attributes: {  }
-    third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   flag_email_node:
     settings: {  }

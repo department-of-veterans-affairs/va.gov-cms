@@ -1,0 +1,52 @@
+uuid: 520c6342-4cfe-495c-a46d-0200298971ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.aging_content_expired_fwb.field_expired_date
+    - field.field.message.aging_content_expired_fwb.field_target_entity
+    - field.field.message.aging_content_expired_fwb.field_target_node_title
+    - message.template.aging_content_expired_fwb
+  module:
+    - user
+id: message.aging_content_expired_fwb.default
+targetEntityType: message
+bundle: aging_content_expired_fwb
+mode: default
+content:
+  field_expired_date:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_target_entity:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_target_node_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_1:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -17,7 +17,7 @@
 
 /* Non-clinical services view - block displays */
 .field--name-field-non-clinical-services {
-  background-color: #fff;
+  background-color: var(--va-white);
 }
 
 .view-grouping.node--unpublished {
@@ -27,14 +27,14 @@
 
 .view-non-clinical-services {
   .view-empty {
-    border: 1px solid var(--va-gray-cool-med);
+    border: 1px solid var(--va-gray-darkest);
     border-radius: 2px;
     margin: 1em 0;
     padding: 1em 1.5em;
   }
 
   .view-grouping-content {
-    border: 1px solid var(--va-gray-cool-med);
+    border: 1px solid var(--va-gray-darkest);
     border-radius: 2px;
     margin: 1em 0;
     padding: 1em 1.5em;
@@ -48,12 +48,16 @@
     .views-row {
       margin: 2em 0;
 
+      .views-field-views-conditional-field-1 {
+        margin-bottom: var(--spacing-s);
+      }
+
       .location-details span:not(:first-child)::before {
-        content: ', ';
+        content: ", ";
       }
 
       .address {
-        margin-top: 0;
+        margin-bottom: 0;
 
         br,
         span {
@@ -96,8 +100,8 @@
 
   .fieldset__label {
     line-height: var(--line-height-form-label);
-    margin-bottom: calc(var(--space-xs)/2);
-    margin-top: calc(var(--space-xs)/2);
+    margin-bottom: calc(var(--space-xs) / 2);
+    margin-top: calc(var(--space-xs) / 2);
     padding: 0;
   }
 
@@ -119,7 +123,12 @@
 
 //fixes export button
 .csv-feed .feed-icon {
-  @include button(var(--button-bg-color--primary), var(--button-fg-color--primary), var(--button--hover-bg-color--primary), var(--button--active-bg-color--primary));
+  @include button(
+    var(--button-bg-color--primary),
+    var(--button-fg-color--primary),
+    var(--button--hover-bg-color--primary),
+    var(--button--active-bg-color--primary)
+  );
 
   background-image: none;
   text-indent: unset;
@@ -132,5 +141,52 @@
   td.views-field-field-supplemental-status-more-i,
   th.views-field-field-supplemental-status-more-i {
     max-width: 30vw;
+  }
+}
+
+.views-bulk-actions {
+  background: #f1f1f1;
+  border: 0.5px #dedfe4 solid;
+  border-radius: 4px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .views-bulk-actions__item {
+    color: var(--va-gray-darkest);
+
+    &.js-form-type-select {
+      margin-right: 60px;
+      order: 1;
+    }
+
+    &.form-actions {
+      order: 4;
+    }
+
+    &.js-form-item-select-all {
+      order: 2;
+    }
+  }
+
+  .views-bulk-actions__item--status {
+    display: none;
+    order: 5;
+  }
+
+  details.vbo-multipage-selector {
+    flex: 0 0 100%;
+    order: 3;
+
+    summary {
+      justify-content: flex-start;
+    }
+  }
+}
+
+.views-table {
+  &.views-view-table {
+    td {
+      overflow-wrap: anywhere;
+    }
   }
 }

@@ -5,12 +5,17 @@ dependencies:
   config:
     - field.storage.paragraph.field_section_header
     - paragraphs.paragraphs_type.featured_content
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: paragraph.featured_content.field_section_header
 field_name: field_section_header
 entity_type: paragraph
 bundle: featured_content
 label: Title
-description: ''
+description: 'This title should be in sentence case and follow <a href="https://design.va.gov/content-style-guide/" target="_blank">VA content guidance (opens in a new window)</a>. '
 required: true
 translatable: false
 default_value: {  }

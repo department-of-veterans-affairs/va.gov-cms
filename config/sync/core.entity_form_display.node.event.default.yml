@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.event.field_address
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
+    - field.field.node.event.field_cta_email
     - field.field.node.event.field_datetime_range_timezone
     - field.field.node.event.field_description
     - field.field.node.event.field_event_cost
@@ -15,6 +16,7 @@ dependencies:
     - field.field.node.event.field_event_registrationrequired
     - field.field.node.event.field_facility_location
     - field.field.node.event.field_featured
+    - field.field.node.event.field_how_to_sign_up
     - field.field.node.event.field_include_registration_info
     - field.field.node.event.field_last_saved_by_an_editor
     - field.field.node.event.field_link
@@ -31,11 +33,13 @@ dependencies:
   module:
     - address
     - allowed_formats
+    - change_labels
     - content_moderation
     - field_group
     - limited_field_widgets
     - linkit
     - media_library
+    - no_table_drag
     - path
     - smart_date
     - smart_date_recur
@@ -110,8 +114,10 @@ third_party_settings:
     group_registration_link:
       children:
         - field_event_cta
+        - field_how_to_sign_up
         - field_link
-      label: 'Call to action link'
+        - field_cta_email
+      label: 'Call to action'
       region: content
       parent_name: group_link
       weight: 30
@@ -120,12 +126,12 @@ third_party_settings:
         classes: ''
         show_empty_fields: false
         id: ''
-        description: 'Direct people to take the next step. For example, "Register" with a link to event registration.'
+        description: 'Tell people what they should do next to join this event. For example, "Register" with a link to event registration.'
         required_fields: true
+        description_display: after
     group_feature_this_content:
       children:
         - field_featured
-        - field_order
       label: 'Feature This Content'
       region: content
       parent_name: ''
@@ -202,7 +208,7 @@ content:
     third_party_settings: {  }
   field_additional_information_abo:
     type: text_textarea
-    weight: 32
+    weight: 31
     region: content
     settings:
       rows: 5
@@ -210,7 +216,7 @@ content:
     third_party_settings: {  }
   field_address:
     type: address_default
-    weight: 17
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -231,6 +237,14 @@ content:
       allowed_formats:
         hide_help: '1'
         hide_guidelines: '1'
+  field_cta_email:
+    type: email_default
+    weight: 34
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
   field_datetime_range_timezone:
     type: smartdate_timezone
     weight: 1
@@ -260,11 +274,13 @@ content:
         custom
       show_extra: true
       hide_date: false
-      separator: to
-      add_abbreviations: ''
       allday: true
       remove_seconds: false
+      separator: to
+      add_abbreviations: ''
     third_party_settings:
+      no_table_drag:
+        no_table_drag: true
       smart_date_recur:
         modal: true
         allowed_recur_freq_values:
@@ -275,7 +291,9 @@ content:
           MONTHLY: MONTHLY
           YEARLY: '0'
       limited_field_widgets:
-        limit_values: '1'
+        limit_values: 1
+      change_labels:
+        add_another: ''
   field_description:
     type: string_textfield
     weight: 3
@@ -309,10 +327,16 @@ content:
     third_party_settings: {  }
   field_featured:
     type: boolean_checkbox
-    weight: 10
+    weight: 15
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_how_to_sign_up:
+    type: options_select
+    weight: 32
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_include_registration_info:
     type: boolean_checkbox
@@ -323,13 +347,13 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 16
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
   field_link:
     type: linkit
-    weight: 32
+    weight: 33
     region: content
     settings:
       placeholder_url: ''
@@ -344,12 +368,12 @@ content:
     settings: {  }
     third_party_settings:
       limited_field_widgets:
-        limit_values: '1'
+        limit_values: 1
       change_labels:
         add_another: ''
   field_location_humanreadable:
     type: string_textfield
-    weight: 16
+    weight: 15
     region: content
     settings:
       size: 60
@@ -368,12 +392,6 @@ content:
     settings:
       media_types: {  }
     third_party_settings: {  }
-  field_order:
-    type: options_select
-    weight: 11
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_publish_to_outreach_cal:
     type: boolean_checkbox
     weight: 3
@@ -383,7 +401,7 @@ content:
     third_party_settings: {  }
   field_url_of_an_online_event:
     type: linkit
-    weight: 15
+    weight: 14
     region: content
     settings:
       placeholder_url: ''
@@ -422,7 +440,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 14
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -430,6 +448,7 @@ hidden:
   field_additional_listings: true
   field_event_cost: true
   field_meta_tags: true
+  field_order: true
   langcode: true
   promote: true
   status: true

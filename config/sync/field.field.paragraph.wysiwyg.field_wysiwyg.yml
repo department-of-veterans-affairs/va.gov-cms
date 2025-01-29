@@ -8,10 +8,6 @@ dependencies:
   module:
     - allowed_formats
     - text
-third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - rich_text
 id: paragraph.wysiwyg.field_wysiwyg
 field_name: field_wysiwyg
 entity_type: paragraph
@@ -22,5 +18,7 @@ required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats:
+    - rich_text
 field_type: text_long

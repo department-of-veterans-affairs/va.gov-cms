@@ -1,6 +1,6 @@
 # Sentry
 
-Sentry is used to track errors fom Drupal.  
+Sentry is used to track errors fom Drupal.
 
 URL: http://sentry.vfs.va.gov/
 * Login using your Github Login

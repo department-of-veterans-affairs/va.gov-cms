@@ -103,7 +103,7 @@
   {{ title_suffix }}
 
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
+    {{ content|without('field_last_saved_by_an_editor') }}
   </div>
 
 </article>

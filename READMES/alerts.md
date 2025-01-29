@@ -4,7 +4,7 @@
 
 CMS Alerts are managed by [Sentry](https://sentry.vfs.va.gov/) and [DataDog](https://vagov.ddog-gov.com/).
 
-Runtime issues are reported to Sentry via the Raven module.
+[Runtime issues](READMES/sentry.md) are reported to Sentry via the Raven module.
 
 Various metrics in the CI/CD phases and at runtime are reported to DataDog.
 

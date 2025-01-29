@@ -10,6 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent;
 use Drupal\node\NodeInterface;
@@ -71,6 +72,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       EntityHookEvents::ENTITY_DELETE => 'entityDelete',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
     ];
   }
 
@@ -93,7 +95,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     UserPermsService $user_perms_service,
     WorkflowContentControl $workflow_content_control,
     Flagger $flagger,
-    NotificationsManager $notifications_manager
+    NotificationsManager $notifications_manager,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->userPermsService = $user_perms_service;
@@ -111,6 +113,19 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function entityUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
     $this->flagVaFormChanges($entity);
+  }
+
+  /**
+   * Entity Presave Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event.
+   */
+  public function entityPresave(EntityPresaveEvent $event): void {
+    $entity = $event->getEntity();
+    if ($entity instanceof NodeInterface) {
+      $this->setNewRevisionDuringMigrate($entity);
+    }
   }
 
   /**
@@ -336,7 +351,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $field_displays = $form_display->toArray();
 
     foreach ($field_displays['content'] as $field_name => $field_display) {
-      if ($this->isNodeIef($node, $field_name)) {
+      if ($this->isNodeOrBlockIef($node, $field_name)) {
         $operations = [
           'field_widget_edit' => !empty($field_display['settings']['field_widget_edit']),
           'field_widget_remove' => !empty($field_display['settings']['field_widget_remove']),
@@ -351,7 +366,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Checks to see if a field is an entity reference that targets a node.
+   * Determines whether an entity reference targets a node or content block.
    *
    * @param \Drupal\node\NodeInterface $node
    *   The node object.
@@ -361,7 +376,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @return bool
    *   TRUE if it is an ief field targeting a node, FALSE otherwise.
    */
-  protected function isNodeIef(NodeInterface $node, $field_name): bool {
+  protected function isNodeOrBlockIef(NodeInterface $node, $field_name): bool {
     $field_definition = $node->getFieldDefinition($field_name);
     if (empty($field_definition)) {
       return FALSE;
@@ -373,7 +388,24 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     ];
     $target_type = $field_definition->getItemDefinition()->getSettings()['target_type'] ?? '';
 
-    return (in_array($fieldType, $field_types_for_ief)) && ($target_type === "node");
+    return (in_array($fieldType, $field_types_for_ief)) && ($target_type === "node" || $target_type === "block_content");
+  }
+
+  /**
+   * Sets flags on an entity to create a new default revision.
+   *
+   * This is needed for migration to be able to set a new revision.
+   * {@see
+   *   https://www.drupal.org/project/drupal/issues/3052115#comment-15476028}
+   *
+   * @param \Drupal\node\NodeInterface $entity
+   *   The entity to set a revision for.
+   */
+  protected function setNewRevisionDuringMigrate($entity) :void {
+    if ($entity->isSyncing() && !$entity->isNew() && $this->flagger->isMigrating()) {
+      $entity->setNewRevision(TRUE);
+      $entity->isDefaultRevision(TRUE);
+    }
   }
 
 }

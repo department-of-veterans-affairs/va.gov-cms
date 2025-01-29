@@ -1,0 +1,18 @@
+diff --git a/core/modules/taxonomy/taxonomy.module b/core/modules/taxonomy/taxonomy.module
+index 4a93989..cfc4cdd 100644
+--- a/core/modules/taxonomy/taxonomy.module
++++ b/core/modules/taxonomy/taxonomy.module
+@@ -227,9 +227,13 @@ function taxonomy_theme_suggestions_taxonomy_term(array $variables) {
+ 
+   /** @var \Drupal\taxonomy\TermInterface $term */
+   $term = $variables['elements']['#taxonomy_term'];
++  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+ 
++  $suggestions[] = 'taxonomy_term__' . $sanitized_view_mode;
+   $suggestions[] = 'taxonomy_term__' . $term->bundle();
++  $suggestions[] = 'taxonomy_term__' . $term->bundle() . '__' . $sanitized_view_mode;
+   $suggestions[] = 'taxonomy_term__' . $term->id();
++  $suggestions[] = 'taxonomy_term__' . $term->id() . '__' . $sanitized_view_mode;
+ 
+   return $suggestions;
+ }

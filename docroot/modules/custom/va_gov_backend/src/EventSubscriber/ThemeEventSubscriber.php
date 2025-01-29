@@ -7,9 +7,6 @@ use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Theme\ThemeSuggestionsAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\core_event_dispatcher\ThemeHookEvents;
-use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
-use Drupal\field_event_dispatcher\FieldHookEvents;
-use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -22,25 +19,9 @@ class ThemeEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      FieldHookEvents::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'formWidgetAlter',
       FormHookEvents::FORM_ALTER                        => 'formAlter',
       ThemeHookEvents::THEME_SUGGESTIONS_ALTER          => 'themeSuggestionsAlter',
     ];
-  }
-
-  /**
-   * Widget form alter Event call.
-   *
-   * @param \Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent $event
-   *   The event.
-   */
-  public function formWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
-    $element = &$event->getElement();
-    $context = $event->getContext();
-    // If this is an image field type of instance.
-    if ($context['widget'] instanceof ImageWidget) {
-      $element['#process'][] = '_va_gov_media_image_field_widget_process';
-    }
   }
 
   /**

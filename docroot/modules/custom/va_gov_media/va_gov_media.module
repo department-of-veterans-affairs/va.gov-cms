@@ -74,23 +74,11 @@ function _va_gov_media_image_style_warmer_warm_up(EntityInterface $entity) {
 }
 
 /**
- * Changes the alt text description to be more helpful.
- *
- * @param array $element
- *   The element to change the alt text description.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- * @param array $form
- *   The form.
- *
- * @return array
- *   The element.
+ * Implements hook_clientside_validation_validator_info_alter().
  */
-function _va_gov_media_image_field_widget_process(array $element, FormStateInterface &$form_state, array $form) {
-  if (isset($element['alt'])) {
-    $element['alt']['#description'] = t('Adding a clear and meaningful description of the image is important for accessibility.');
+function va_gov_media_clientside_validation_validator_info_alter(&$validators) {
+  foreach ($validators as &$validator) {
+    $validator['attachments']['library'][] = 'va_gov_media/cv.alt-text.validate';
   }
-
-  // Return the altered element.
-  return $element;
+  unset($validator);
 }

@@ -1,0 +1,26 @@
+uuid: e173d8c9-2458-49d9-8406-7654da2c8882
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_last_saved_by_an_editor
+    - node.type.digital_form
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.digital_form.field_last_saved_by_an_editor
+field_name: field_last_saved_by_an_editor
+entity_type: node
+bundle: digital_form
+label: 'Last Saved by an Editor'
+description: 'This is the last time an editor interacted with this content. This field is populated automatically when you click Save.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1721337765
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_last_saved_by_an_editor
     - field.field.node.vet_center.field_media
+    - field.field.node.vet_center.field_mission_explainer
     - field.field.node.vet_center.field_office_hours
     - field.field.node.vet_center.field_official_name
     - field.field.node.vet_center.field_operating_status_facility
@@ -24,6 +25,7 @@ dependencies:
     - field.field.node.vet_center.field_prepare_for_visit
     - field.field.node.vet_center.field_table_of_contents
     - field.field.node.vet_center.field_timezone
+    - field.field.node.vet_center.field_vet_center_banner_image
     - field.field.node.vet_center.field_vet_center_feature_content
     - node.type.vet_center
   module:
@@ -82,8 +84,9 @@ content:
       time_format: g
       compress: false
       grouped: false
+      show_empty: true
       show_closed: all
-      closed_format: ''
+      closed_format: Closed
       all_day_format: 'All day open'
       separator:
         days: '<br />'
@@ -97,6 +100,7 @@ content:
         closed_text: 'Currently closed'
       exceptions:
         title: 'Exception hours'
+        replace_exceptions: false
         restrict_exceptions_to_num_days: 7
         date_format: long
         all_day_format: 'All day open'
@@ -128,12 +132,14 @@ hidden:
   field_intro_text: true
   field_last_saved_by_an_editor: true
   field_media: true
+  field_mission_explainer: true
   field_official_name: true
   field_operating_status_facility: true
   field_operating_status_more_info: true
   field_prepare_for_visit: true
   field_table_of_contents: true
   field_timezone: true
+  field_vet_center_banner_image: true
   field_vet_center_feature_content: true
   flag_awaiting_csv: true
   flag_awaiting_editor: true

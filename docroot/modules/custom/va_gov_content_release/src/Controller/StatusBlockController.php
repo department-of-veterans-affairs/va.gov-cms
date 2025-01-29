@@ -4,6 +4,7 @@ namespace Drupal\va_gov_content_release\Controller;
 
 use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Render\HtmlResponse;
 use Drupal\Core\Render\RendererInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,7 +62,7 @@ class StatusBlockController extends ControllerBase {
       ->createInstance('content_release_status_block')
       ->build();
     $output = $this->renderer->render($block);
-    return Response::create($output);
+    return new HtmlResponse($output);
   }
 
 }

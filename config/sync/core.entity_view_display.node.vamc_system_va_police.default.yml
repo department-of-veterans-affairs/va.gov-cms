@@ -1,0 +1,151 @@
+uuid: a4a39395-e389-43d2-93a9-7d74a37c5ad9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vamc_system_va_police.field_administration
+    - field.field.node.vamc_system_va_police.field_cc_faq
+    - field.field.node.vamc_system_va_police.field_cc_police_report
+    - field.field.node.vamc_system_va_police.field_cc_term_definitions
+    - field.field.node.vamc_system_va_police.field_cc_term_definitions_nation
+    - field.field.node.vamc_system_va_police.field_cc_va_police_overview
+    - field.field.node.vamc_system_va_police.field_enforce_unique_combo
+    - field.field.node.vamc_system_va_police.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_va_police.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_va_police.field_office
+    - field.field.node.vamc_system_va_police.field_phone_numbers_paragraph
+    - node.type.vamc_system_va_police
+  module:
+    - entity_field_fetch
+    - entity_reference_revisions
+    - field_group
+    - user
+third_party_settings:
+  field_group:
+    group_national_content:
+      children:
+        - field_cc_va_police_overview
+        - field_cc_police_report
+        - field_cc_term_definitions
+        - field_cc_term_definitions_nation
+        - field_cc_faq
+      label: 'National content'
+      parent_name: ''
+      region: content
+      weight: 4
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        open: false
+        required_fields: false
+    group_contact_data:
+      children:
+        - field_phone_numbers_paragraph
+      label: 'Contact Data'
+      parent_name: group_locations_and_contact_info
+      region: content
+      weight: 3
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        description: ''
+        id: external-content
+        classes: not-editable
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+    group_locations_and_contact_info:
+      children:
+        - group_contact_data
+      label: 'Contact information'
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: locations-and-contact-information
+        description: ''
+        description_display: after
+id: node.vamc_system_va_police.default
+targetEntityType: node
+bundle: vamc_system_va_police
+mode: default
+content:
+  field_cc_faq:
+    type: entity_field_fetch
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_cc_police_report:
+    type: entity_field_fetch
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_cc_term_definitions:
+    type: entity_field_fetch
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_cc_term_definitions_nation:
+    type: entity_field_fetch
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_cc_va_police_overview:
+    type: entity_field_fetch
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_office:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_phone_numbers_paragraph:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  breadcrumbs: true
+  content_moderation_control: true
+  field_administration: true
+  field_enforce_unique_combo: true
+  field_enforce_unique_combo_offic: true
+  field_last_saved_by_an_editor: true
+  langcode: true
+  search_api_excerpt: true

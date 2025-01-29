@@ -1,10 +1,9 @@
 ---
-name: "(PW) Campaign Landing Page request"
-about: Request a new Campaign Landing Page, owned by Public
-  Websites team
+name: "(Sitewide) Campaign Landing Page request"
+about: Request a new Campaign Landing Page, owned by Public Websites team
 title: 'Campaign Landing Page request: <content info>'
-labels: Needs refining, Public Websites, VA.gov frontend, User support, CLP
-assignees: jilladams, FranECross
+labels: Needs refining, Public Websites, sitewide, User support, VA.gov frontend
+assignees: FranECross, jilladams
 
 ---
 
@@ -25,14 +24,23 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
+- Campaign title: 
+- Who the editor(s) will be for the Campaign Landing Page and any appropriate stakeholders for awareness: 
+- The goals/outcomes you are looking to achieve with the campaign: 
+- Outcome success measurement & how it will be measured (note: "Page views" is not a generally accepted success measurement): 
+- Target Audience(s): 
+-  Campaign start/end dates: 
+- Is this a seasonal campaign? 
+- If not: when campaign ends, should campaign page be archived or redirected? 
+- If redirected, where should it redirect?
 
 ## Acceptance criteria
   
 - Request comes in, via helpdesk request or direct to PO, or potentially in a Github issue.
 - [ ] If not in a helpdesk request, redirect to Helpdesk or create a Helpdesk issue using email support@va-gov.atlassian.net or URL https://prod.cms.va.gov/help
 Helpdesk will use #sitewide-public-websites channel to request approvals
-- [ ] In helpdesk ticket, @ mention Dave Conlon to review/approve the creation / existence / description of the CLP. Example text: 
-> Hi Dave, Helpdesk has received a request for a new Campaign Landing Page. Can you confirm that this CLP is approved?
+- [ ] In helpdesk ticket, @ mention Michelle Middaugh to review/approve the creation / existence / description of the CLP. Example text: 
+> Hi Michelle, Helpdesk has received a request for a new Campaign Landing Page. Can you confirm that this CLP is approved?
 
 ### **If not approved**
 - [ ] Close the Helpdesk ticket and the Github issue.
@@ -43,11 +51,11 @@ Helpdesk will use #sitewide-public-websites channel to request approvals
 <insert_CLP_node_link>
 - [ ] If a new CMS editor user is needed, Helpdesk or any Drupal admin can create them and assign proper permissions according to [CLP CMS account administration policy](https://prod.cms.va.gov/help/cms-account-admin-policies/clp-cms-account-administration-policy).
 - [ ] Send the editor a link to the KB article: [self-guided Campaign Landing Page training](https://prod.cms.va.gov/help/campaign-landing-pages/how-to-manage-campaign-landing-pages)
-- [ ] Notify #sitewide-public-websites team "New CLP requested and approved" with link to this Github issue for next steps.
+- [ ] Create a post in DSVA slack channel #sitewide-public-websites, and @ mention Jill Adams and Fran Cross: "New CLP requested and approved, for your awareness:" with a link to this Github issue for next steps.
 
 
 #### Public Websites steps
-- [ ] Create a [Vanity URL redirect issue](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=jennymayoco%2C+jilladams%2C+RLHecht&labels=sitewide+CAIA%2C+Sitewide+IA%2C+Public+Websites%2C+VA.gov+frontend%2C+Redirect+request&template=redirect-request.md&title=Redirect+Request), IA _must_ review & approve URL requests.
+- [ ] Create a [Redirect, URL change, or vanity URL request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new/choose), to request the Vanity URL IA _must_ review & approve URL requests.
 
 <insert_redirect_issue_link>
 

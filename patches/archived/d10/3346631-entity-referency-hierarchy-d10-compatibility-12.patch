@@ -1,0 +1,51 @@
+diff --git a/entity_reference_hierarchy.info.yml b/entity_reference_hierarchy.info.yml
+index f00b212923d167b8077fad27699d35eb7022fd01..f134032323635ec958fa30e58b799e1541d7c0c2 100644
+--- a/entity_reference_hierarchy.info.yml
++++ b/entity_reference_hierarchy.info.yml
+@@ -2,4 +2,4 @@ name: Entity Reference (with) Hierarchy
+ type: module
+ description: Adds a flat tree structure to Entity Reference Fields
+ package: Field types
+-core_version_requirement: ^9
++core_version_requirement: ^9 || ^10
+diff --git a/modules/entity_reference_hierarchy_ief/entity_reference_hierarchy_ief.info.yml b/modules/entity_reference_hierarchy_ief/entity_reference_hierarchy_ief.info.yml
+index a7911957ce50bb2e6dd7528a1de4ba9adda3d9b4..00076ff92d4cbd5ac112823e229d5c5b40aafa14 100644
+--- a/modules/entity_reference_hierarchy_ief/entity_reference_hierarchy_ief.info.yml
++++ b/modules/entity_reference_hierarchy_ief/entity_reference_hierarchy_ief.info.yml
+@@ -2,7 +2,6 @@ name: Inline Entity Form Tree
+ type: module
+ description: Adds a flat tree structure to Entity Reference Revisions Fields
+ package: Field types
+-core: 8.x
+-core_version_requirement: ^8 || ^9
++core_version_requirement: ^9 || ^10
+ dependencies:
+   - inline_entity_form:inline_entity_form
+diff --git a/modules/entity_reference_hierarchy_paragraphs/entity_reference_hierarchy_paragraphs.info.yml b/modules/entity_reference_hierarchy_paragraphs/entity_reference_hierarchy_paragraphs.info.yml
+index 17c4a9ce813ee92c53f5ed8f3279769a79c2987c..29468afd92b9c36abbaa9a5da39e803d15349161 100644
+--- a/modules/entity_reference_hierarchy_paragraphs/entity_reference_hierarchy_paragraphs.info.yml
++++ b/modules/entity_reference_hierarchy_paragraphs/entity_reference_hierarchy_paragraphs.info.yml
+@@ -2,8 +2,7 @@ name: Paragraphs Tree
+ type: module
+ description: Adds a flat tree structure to Entity Reference Revisions Fields
+ package: Field types
+-core: 8.x
+-core_version_requirement: ^8 || ^9
++core_version_requirement: ^9 || ^10
+ dependencies:
+   - entity_reference_hierarchy:entity_reference_hierarchy_revisions
+   - entity_reference_hierarchy:entity_reference_hierarchy
+diff --git a/modules/entity_reference_hierarchy_revisions/entity_reference_hierarchy_revisions.info.yml b/modules/entity_reference_hierarchy_revisions/entity_reference_hierarchy_revisions.info.yml
+index d1ba1ca3351ca796fd5b8cf7d2431e6e440fe316..3d55ddb0630651792cd22b9e8301e993094647fe 100644
+--- a/modules/entity_reference_hierarchy_revisions/entity_reference_hierarchy_revisions.info.yml
++++ b/modules/entity_reference_hierarchy_revisions/entity_reference_hierarchy_revisions.info.yml
+@@ -2,8 +2,7 @@ name: Entity Reference (with) Hierarchy Revisions
+ type: module
+ description: Adds a flat tree structure to Entity Reference Revisions Fields
+ package: Field types
+-core: 8.x
+-core_version_requirement: ^8 || ^9
++core_version_requirement: ^9 || ^10
+ dependencies:
+   - entity_reference_revisions:entity_reference_revisions
+   - entity_reference_hierarchy:entity_reference_hierarchy

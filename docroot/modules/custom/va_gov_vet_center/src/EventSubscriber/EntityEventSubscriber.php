@@ -6,7 +6,6 @@ use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
@@ -237,7 +236,87 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterVetCenterServiceNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
-    $this->disableFacilityServiceChange($form, $form_state);
+    $is_admin = $this->userPermsService->hasAdminRole(TRUE);
+    if (!$is_admin) {
+      $this->disableFacilityServiceChange($form, $form_state);
+      $this->disableArchivingRequiredServicesNonAdmins($form, $form_state);
+    }
+    $this->showServiceAsRequiredOrOptional($form, $form_state);
+
+  }
+
+  /**
+   * Disable the Archived moderation state on required services for non-admins.
+   *
+   * @param array $form
+   *   The node form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function disableArchivingRequiredServicesNonAdmins(array &$form, FormStateInterface $form_state) {
+    $required_services = $this->requiredServices->getRequiredServices();
+    $form_object = $form_state->getFormObject();
+    $node = $form_object->getEntity();
+    $service_id = $node->field_service_name_and_descripti->target_id;
+    foreach ($required_services as $required_service) {
+      $required_service_id = $required_service->id();
+      if ($service_id == $required_service_id) {
+        if ($form['moderation_state']['widget'][0]['state']['#options']['archived']) {
+          unset($form['moderation_state']['widget'][0]['state']['#options']['archived']);
+        }
+      }
+    }
+  }
+
+  /**
+   * Show service as required or optional.
+   *
+   * @param array $form
+   *   The node form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function showServiceAsRequiredOrOptional(array &$form, FormStateInterface $form_state) {
+    $required_services = $this->requiredServices->getRequiredServices();
+    $form_object = $form_state->getFormObject();
+    $node = $form_object->getEntity();
+    $service_id = $node->field_service_name_and_descripti->target_id;
+    $service_name = $node->field_service_name_and_descripti->entity->getName();
+    foreach ($required_services as $required_service) {
+      $required_service_id = $required_service->id();
+      if ($service_id == $required_service_id) {
+        // This is a required service.
+        $service_required_or_optional = $this->t('a required');
+        $can_or_cannot = $this->t('cannot');
+        $service_required_or_optional_capitalized = $this->t('Required');
+        break;
+      }
+      else {
+        // This is an optional service.
+        $service_required_or_optional = $this->t('an optional');
+        $can_or_cannot = $this->t('can');
+        $service_required_or_optional_capitalized = $this->t('Optional');
+      }
+    }
+
+    $required_or_optional_markup = new FormattableMarkup(
+      '<div class="field-group-tooltip not-editable centralized field-group-html-element tooltip-layout">
+      <p><strong>:service_required_or_optional_capitalized Service</strong>
+      <br />:service_name is :required_or_optional service. :service_required_or_optional_capitalized services :can_or_cannot be archived. Learn more in the <a href="https://prod.cms.va.gov/help/vet-centers/how-to-edit-a-vet-center-service" target="_blank">Knowledge Base article about Vet Center Services (opens in a new window).</a></p>
+      </div>',
+      [
+        ':service_required_or_optional_capitalized' => $service_required_or_optional_capitalized,
+        ':required_or_optional' => $service_required_or_optional,
+        ':service_name' => $service_name,
+        ':can_or_cannot' => $can_or_cannot,
+      ]
+    );
+    $form['service_optional_or_required'] = [
+      '#type' => 'markup',
+      '#markup' => $this->t('@markup', ['@markup' => $required_or_optional_markup]),
+      '#weight' => 5,
+    ];
+
   }
 
   /**
@@ -308,7 +387,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       '<p class="vc-help-text"><strong>Review nearby locations</strong>
       <br />Nearby locations provide alternative
         options to the main and satellite locations and are automatically selected based on the
-        five closest locations in an 80-mile radius.</p>
+        five closest locations in an 120-mile radius.</p>
 
         <p class="vc-help-text"><a target="_blank" href="@preview_link">Preview page to review nearby locations (opens in a new tab)</a></p>
 
@@ -484,52 +563,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterVetCenterNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
-    $form_state = $event->getFormState();
-    $form['#attached']['library'][] = 'va_gov_vet_center/set_ief_service_selects';
-    $this->modifyIefServicesFormDisplay($form, $form_state);
     $this->disableNameFieldForNonAdmins($form);
-  }
-
-  /**
-   * Add column to services table.
-   *
-   * Sort alphanumerically.
-   *
-   * Remove delete options for required items.
-   *
-   * Remove drag and drop.
-   *
-   * @param array $form
-   *   The node form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   */
-  public function modifyIefServicesFormDisplay(array &$form, FormStateInterface $form_state) {
-    $form_object = $form_state->getFormObject();
-    if ($form_object instanceof EntityFormInterface) {
-      /** @var \Drupal\node\NodeInterface $node */
-      $node = $form_object->getEntity();
-      $node_title = $node->getTitle();
-      $form['field_health_services']['widget']['entities']['#table_fields']['label']['label'] = $this->t('Services offered at :title', [':title' => $node_title]);
-      $cols = &$form['field_health_services']['widget']['entities']['#table_fields'];
-      $cols['req_optional'] = [
-        'type' => 'markup',
-        'label' => $this->t('Required/optional'),
-        'weight' => 3,
-      ];
-      unset($form['field_health_services']['widget']['entities']['#table_fields'][0]);
-      $keys = Element::children($form['field_health_services']['widget']['entities']);
-      if (!empty($keys)) {
-        foreach ($keys as $key) {
-          $entity = &$form['field_health_services']['widget']['entities'][$key];
-          $entity['#markup'] = $this->t('Optional');
-          if (array_key_exists('#label', $entity) && $this->checkIfServiceRequired($entity['#label'])) {
-            unset($entity['actions']['ief_entity_remove']);
-            $entity['#markup'] = $this->t('Required');
-          }
-        }
-      }
-    }
   }
 
   /**

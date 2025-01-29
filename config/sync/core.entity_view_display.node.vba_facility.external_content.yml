@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.vba_facility.field_cc_benefits_hotline
     - field.field.node.vba_facility.field_cc_cant_find_benefits
     - field.field.node.vba_facility.field_cc_get_updates_from_vba
+    - field.field.node.vba_facility.field_cc_meta_tags
     - field.field.node.vba_facility.field_cc_national_spotlight_1
     - field.field.node.vba_facility.field_cc_vba_facility_overview
     - field.field.node.vba_facility.field_dismissible_option
@@ -110,7 +111,7 @@ third_party_settings:
         - field_non_va_location_url
         - field_office
         - field_shared_vha_location
-      label: 'DB data'
+      label: 'Facility CMS data'
       parent_name: group_facility_data
       region: content
       weight: 10
@@ -119,7 +120,7 @@ third_party_settings:
         classes: not-editable
         show_empty_fields: true
         id: ''
-        description: ''
+        description: '<p>These fields are not shown on <a href="https://www.va.gov" target="_blank">VA.gov</a>.</p>'
         description_display: after
   layout_builder:
     enabled: false
@@ -196,6 +197,7 @@ content:
       time_format: g
       compress: false
       grouped: false
+      show_empty: true
       show_closed: all
       closed_format: Closed
       all_day_format: 'All day open'
@@ -211,6 +213,7 @@ content:
         closed_text: 'Currently closed'
       exceptions:
         title: 'Exception hours'
+        replace_exceptions: false
         restrict_exceptions_to_num_days: 7
         date_format: long
         all_day_format: 'All day open'
@@ -256,6 +259,7 @@ hidden:
   field_cc_benefits_hotline: true
   field_cc_cant_find_benefits: true
   field_cc_get_updates_from_vba: true
+  field_cc_meta_tags: true
   field_cc_national_spotlight_1: true
   field_cc_vba_facility_overview: true
   field_dismissible_option: true

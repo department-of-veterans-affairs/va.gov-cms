@@ -7,6 +7,7 @@ dependencies:
     - entity_browser.browser.alert_blocks
     - field.field.node.landing_page.field_administration
     - field.field.node.landing_page.field_alert
+    - field.field.node.landing_page.field_connect_with_us
     - field.field.node.landing_page.field_description
     - field.field.node.landing_page.field_home_page_hub_label
     - field.field.node.landing_page.field_intro_text
@@ -16,7 +17,6 @@ dependencies:
     - field.field.node.landing_page.field_plainlanguage_date
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
-    - field.field.node.landing_page.field_related_office
     - field.field.node.landing_page.field_spokes
     - field.field.node.landing_page.field_support_services
     - field.field.node.landing_page.field_teaser_text
@@ -53,7 +53,7 @@ third_party_settings:
         - field_promo
         - field_links
         - field_support_services
-        - field_related_office
+        - field_connect_with_us
       label: 'Right Rail'
       region: content
       parent_name: ''
@@ -73,7 +73,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details
       format_settings:
         classes: ''
@@ -86,7 +86,7 @@ third_party_settings:
       label: 'Page last built'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -161,7 +161,7 @@ third_party_settings:
       format_settings:
         classes: ''
         id: ''
-        description: 'Add information for the benefit hub''s listing on the VA.gov home page.'
+        description: "Add information for the benefit hub's listing on the VA.gov home page."
         required_fields: true
 id: node.landing_page.default
 targetEntityType: node
@@ -188,6 +188,12 @@ content:
       field_widget_display_settings:
         view_mode: default
       selection_mode: selection_append
+    third_party_settings: {  }
+  field_connect_with_us:
+    type: options_select
+    weight: 22
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_description:
     type: string_textfield_with_counter
@@ -221,7 +227,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 26
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -252,12 +258,6 @@ content:
       add_mode: dropdown
       form_display_mode: default
       default_paragraph_type: _none
-    third_party_settings: {  }
-  field_related_office:
-    type: options_select
-    weight: 21
-    region: content
-    settings: {  }
     third_party_settings: {  }
   field_spokes:
     type: paragraphs
@@ -335,6 +335,11 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

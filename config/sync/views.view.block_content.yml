@@ -211,6 +211,15 @@ display:
             date_format: short
             custom_date_format: ''
             timezone: ''
+            tooltip:
+              date_format: ''
+              custom_date_format: ''
+            time_diff:
+              enabled: false
+              future_format: '@interval hence'
+              past_format: '@interval ago'
+              granularity: 2
+              refresh: 60
         operations:
           id: operations
           table: block_content
@@ -266,6 +275,7 @@ display:
         type: mini
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 50
           total_pages: null
           id: 0
@@ -528,7 +538,7 @@ display:
       display_extenders:
         jsonapi_views:
           enabled: true
-      path: admin/structure/block/block-content
+      path: admin/content/block
       menu:
         type: tab
         title: 'Custom block library'

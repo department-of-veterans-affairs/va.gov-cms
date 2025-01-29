@@ -19,23 +19,36 @@ const axeRuntimeOptions = {
     type: "tag",
     values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"],
   },
+  rules: {
+    "aria-allowed-attr": { enabled: false }, // See department-of-veterans-affairs/va.gov-cms#14358
+  },
 };
+
+const skipFailures = true;
 
 Cypress.Commands.add("checkAccessibility", () => {
   cy.wait(1000);
-  return cy.checkA11y(axeContext, axeRuntimeOptions, (violations) => {
-    cy.accessibilityLog(violations);
-    return cy.location("pathname").then((route) => {
-      // eslint-disable-next-line max-nested-callbacks
-      const violationData = violations.map((violation) => ({
-        route,
-        ...violation,
-      }));
-      const accessibilityViolations = Cypress.config("accessibilityViolations");
-      accessibilityViolations.push(...violationData);
-      Cypress.config("accessibilityViolations", accessibilityViolations);
-    });
-  });
+  return cy.checkA11y(
+    axeContext,
+    axeRuntimeOptions,
+    (violations) => {
+      cy.accessibilityLog(violations);
+      return cy.location("pathname").then((route) => {
+        // eslint-disable-next-line max-nested-callbacks
+        const violationData = violations.map((violation) => ({
+          route,
+          ...violation,
+        }));
+        const accessibilityViolations = Cypress.config(
+          "accessibilityViolations"
+        );
+        accessibilityViolations.push(...violationData);
+        Cypress.config("accessibilityViolations", accessibilityViolations);
+      });
+    },
+    // Don't fail tests now that violations are reported in PR comments
+    skipFailures
+  );
 });
 
 Cypress.Commands.add("accessibilityLog", (violations) => {
@@ -58,8 +71,21 @@ before(() => {
 
 after(() => {
   const accessibilityViolations = Cypress.config("accessibilityViolations");
-  cy.writeFile(
-    "cypress_accessibility_violations.json",
+  const fileName = "cypress_accessibility_violations.json";
+  const violations = JSON.parse(
     JSON.stringify(accessibilityViolations, null, 2)
   );
+
+  cy.task("readFileMaybe", fileName).then((result) => {
+    if (result != null) {
+      cy.readFile(fileName).then((list) => {
+        for (let step = 0; step < violations.length; step++) {
+          list.push(violations[step]);
+        }
+        cy.writeFile(fileName, list);
+      });
+    } else {
+      cy.writeFile(fileName, violations);
+    }
+  });
 });
