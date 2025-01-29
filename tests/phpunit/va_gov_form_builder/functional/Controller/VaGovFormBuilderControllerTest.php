@@ -38,13 +38,13 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   public function setUp(): void {
     parent::setUp();
 
+    $entityTypeManager = \Drupal::service('entity_type.manager');
+    $drupalFormBuilder = \Drupal::service('form_builder');
+    $digitalFormsService = new DigitalFormsService($entityTypeManager);
+
     $container = new ContainerBuilder();
-
-    // Add Drupal's form builder to the service container.
-    $container->set('form_builder', \Drupal::formBuilder());
-
-    // Add our DigitalFormsService to the service container.
-    $digitalFormsService = new DigitalFormsService(\Drupal::service('entity_type.manager'));
+    $container->set('entity_type.manager', $entityTypeManager);
+    $container->set('form_builder', $drupalFormBuilder);
     $container->set('va_gov_form_builder.digital_forms_service', $digitalFormsService);
 
     // Create the controller instance.
