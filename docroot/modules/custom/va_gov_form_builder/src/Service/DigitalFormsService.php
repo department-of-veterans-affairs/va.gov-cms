@@ -56,6 +56,8 @@ class DigitalFormsService {
       foreach ($nodes as $node) {
         $digitalForms[] = new DigitalForm($this->entityTypeManager, $node);
       }
+
+      return $digitalForms;
     }
     return [];
   }
