@@ -93,12 +93,20 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
       ->willReturn($query);
 
     if ($hasResults) {
+      $node1 = $this->createMock('Drupal\node\NodeInterface');
+      $node1->method('getType')
+        ->willReturn('digital_form');
+
+      $node2 = $this->createMock('Drupal\node\NodeInterface');
+      $node2->method('getType')
+        ->willReturn('digital_form');
+
       $entityStorage->expects($this->once())
         ->method('loadMultiple')
         ->with([1, 2])
         ->willReturn([
-          1 => $this->createMock('Drupal\node\NodeInterface'),
-          2 => $this->createMock('Drupal\node\NodeInterface'),
+          1 => $node1,
+          2 => $node2,
         ]);
     }
 

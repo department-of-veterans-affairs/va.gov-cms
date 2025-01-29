@@ -3,9 +3,14 @@
 namespace Drupal\va_gov_form_builder\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
 
 /**
- * Service for handling Digital Form nodes.
+ * Service for fetching Digital Forms.
+ *
+ * Digital Form nodes are fetched from the database,
+ * then wrapped in the DigitalForm entity wrapper object,
+ * and returned.
  */
 class DigitalFormsService {
 
@@ -47,7 +52,11 @@ class DigitalFormsService {
     $nids = $query->execute();
 
     if (!empty($nids)) {
-      return $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
+      $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
+      $digitalForms = [];
+      foreach ($nodes as $node) {
+        $digitalForms[] = new DigitalForm($this->entityTypeManager, $node);
+      }
     }
     return [];
   }
@@ -64,14 +73,16 @@ class DigitalFormsService {
   public function getDigitalForm($nid) {
     $node = $this->entityTypeManager->getStorage('node')->load($nid);
 
-    // Only return the node if it is a Digital Form node.
-    if ($node) {
-      if ($node->getType() !== 'digital_form') {
-        return NULL;
-      }
+    if (!$node) {
+      return NULL;
     }
 
-    return $node;
+    // Only return the node if it is a Digital Form node.
+    if ($node->getType() !== 'digital_form') {
+      return NULL;
+    }
+
+    return new DigitalForm($this->entityTypeManager, $node);
   }
 
 }
