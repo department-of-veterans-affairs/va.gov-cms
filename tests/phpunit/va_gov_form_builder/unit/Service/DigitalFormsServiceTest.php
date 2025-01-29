@@ -77,9 +77,16 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     }
 
     if ($hasResults) {
-      $query->expects($this->once())
-        ->method('execute')
-        ->willReturn([1, 2]);
+      if ($publishedOnly) {
+        $query->expects($this->once())
+          ->method('execute')
+          ->willReturn([1]);
+      }
+      else {
+        $query->expects($this->once())
+          ->method('execute')
+          ->willReturn([1, 2]);
+      }
     }
     else {
       $query->expects($this->once())
@@ -101,13 +108,23 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
       $node2->method('getType')
         ->willReturn('digital_form');
 
-      $entityStorage->expects($this->once())
-        ->method('loadMultiple')
-        ->with([1, 2])
-        ->willReturn([
-          1 => $node1,
-          2 => $node2,
-        ]);
+      if ($publishedOnly) {
+        $entityStorage->expects($this->once())
+          ->method('loadMultiple')
+          ->with([1])
+          ->willReturn([
+            1 => $node1,
+          ]);
+      }
+      else {
+        $entityStorage->expects($this->once())
+          ->method('loadMultiple')
+          ->with([1, 2])
+          ->willReturn([
+            1 => $node1,
+            2 => $node2,
+          ]);
+      }
     }
 
     // Mock the entity type manager.
@@ -138,7 +155,9 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     $this->setUpMockQueryGetDigitalForms(TRUE);
 
     // Call the method, which asserts expectations set in setup.
-    $this->digitalFormsService->getDigitalForms(TRUE);
+    $result = $this->digitalFormsService->getDigitalForms(TRUE);
+    // Assert one result is returned.
+    $this->assertCount(1, $result);
   }
 
   /**
@@ -154,7 +173,9 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     $this->setUpMockQueryGetDigitalForms(FALSE);
 
     // Call the method, which asserts expectations set in setup.
-    $this->digitalFormsService->getDigitalForms(FALSE);
+    $result = $this->digitalFormsService->getDigitalForms(FALSE);
+    // Assert two results are returned.
+    $this->assertCount(2, $result);
   }
 
   /**
@@ -170,7 +191,9 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     $this->setUpMockQueryGetDigitalForms(TRUE);
 
     // Call the method, which asserts expectations set in setup.
-    $this->digitalFormsService->getDigitalForms();
+    $result = $this->digitalFormsService->getDigitalForms();
+    // Assert one result is returned.
+    $this->assertcount(1, $result);
   }
 
   /**
@@ -195,8 +218,7 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
 
     // Call the method, which asserts expectations set in setup.
     $result = $this->digitalFormsService->getDigitalForms(TRUE);
-
-    // Additionally, assert the function returns no results.
+    // Assert the function returns no results.
     $this->assertCount(0, $result);
   }
 
