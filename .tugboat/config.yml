@@ -233,6 +233,7 @@ services:
 
       online:
       # Start the next build preview server
+      - bash -lc 'composer va:next:build'
       - bash -lc 'composer va:next:start'
 
       # We only want tests running on PRs, not branches like the base preview build of main.
