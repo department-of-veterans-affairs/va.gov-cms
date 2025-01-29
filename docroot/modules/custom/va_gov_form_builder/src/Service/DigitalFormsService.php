@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
  * Service for handling Digital Form nodes.
  */
 class DigitalFormsService {
+
   /**
    * The entity type manager service.
    *
@@ -61,7 +62,16 @@ class DigitalFormsService {
    *   A node object of type 'digital_form', or NULL if not found.
    */
   public function getDigitalForm($nid) {
-    return $this->entityTypeManager->getStorage('node')->load($nid);
+    $node = $this->entityTypeManager->getStorage('node')->load($nid);
+
+    // Only return the node if it is a Digital Form node.
+    if ($node) {
+      if ($node->getType() !== 'digital_form') {
+        return NULL;
+      }
+    }
+
+    return $node;
   }
 
 }
