@@ -5,7 +5,7 @@ namespace tests\phpunit\va_gov_form_builder\unit\EntityWrapper;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
 use Tests\Support\Classes\VaGovUnitTestBase;
@@ -51,7 +51,7 @@ class DigitalFormTest extends VaGovUnitTestBase {
    * DigitalForm node thorws an error.
    */
   public function testConstructorWrongNodeType() {
-    $node = $this->createMock(Node::class);
+    $node = $this->createMock(NodeInterface::class);
 
     // Configure the mock to return something other
     // than 'digital_form' when getType() is called.
@@ -103,7 +103,7 @@ class DigitalFormTest extends VaGovUnitTestBase {
       ]);
 
     // Mock the node.
-    $mockNode = $this->createMock(Node::class);
+    $mockNode = $this->createMock(NodeInterface::class);
     $mockNode->expects($this->once())
       ->method('hasField')
       ->with('field_chapters')
