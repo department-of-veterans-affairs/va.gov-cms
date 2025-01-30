@@ -12,6 +12,8 @@ use Drupal\node\NodeInterface;
  * @method string getTitle()
  * @method \Drupal\Core\Field\FieldItemListInterface get(string $field_name)
  * @method \Symfony\Component\Validator\ConstraintViolationListInterface validate()
+ * @method int save() Saves the entity and returns the save status
+ * @method \Drupal\node\NodeInterface set(string $field_name, mixed $value, bool $notify = TRUE) Sets a field value
  */
 class DigitalForm {
   /**
