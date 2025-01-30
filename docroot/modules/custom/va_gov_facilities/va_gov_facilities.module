@@ -32,6 +32,7 @@ function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $f
   if ($form_id === 'node_vba_facility_service_form'
     || $form_id === 'node_vet_center_facility_health_servi_form') {
     _va_gov_facilities_reduce_service_options($form, $form_state);
+    _va_gov_facilities_add_ajax_to_reduce_service_options($form, $form_state);
   }
 }
 
@@ -43,19 +44,19 @@ function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $f
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state.
  */
-function _va_gov_facilities_reduce_service_options(array &$form, FormStateInterface $form_state) {
+function _va_gov_facilities_add_ajax_to_reduce_service_options(array &$form, FormStateInterface $form_state) {
   // Leave if the form does not have the field_office field.
   if (!isset($form['field_office'])) {
     return;
   }
   // Add AJAX to the field_office dropdown.
   $form['field_office']['widget']['#ajax'] = [
-    'callback' => '_va_gov_facilities_office_callback',
+    'callback' => '_va_gov_facilities_reduce_service_options',
     'wrapper' => 'field-service-name-wrapper',
     'event' => 'change',
     'progress' => [
       'type' => 'throbber',
-      'message' => t('Updating service options ...'),
+      'message' => t('Updating Service name options ...'),
     ],
   ];
   // Wrap the field_service_name_and_descripti field for AJAX replacement.
@@ -66,13 +67,22 @@ function _va_gov_facilities_reduce_service_options(array &$form, FormStateInterf
 /**
  * AJAX callback to update the service name options based on selected office.
  */
-function _va_gov_facilities_office_callback(array &$form, FormStateInterface $form_state) {
+function _va_gov_facilities_reduce_service_options(array &$form, FormStateInterface $form_state) {
+  $selected_office_from_url = \Drupal::request()->get('field_office');
   // Get the selected office value.
-  $selected_office = $form_state->getValue('field_office');
-  // Leave if the selected office is empty.
-  if (empty($selected_office['0']['target_id'])) {
-    return $form['field_service_name_and_descripti'];
+  if (!$selected_office_from_url) {
+    $selected_office = $form_state->getValue('field_office');
+    // Leave if the selected office is empty.
+    if (empty($selected_office['0']['target_id'])) {
+      return $form['field_service_name_and_descripti'];
+    }
+    // Get facility ID from the selected office.
+    $selected_office_id = intval($selected_office['0']['target_id']);
   }
+  else {
+    $selected_office_id = intval($selected_office_from_url);
+  }
+
   // Leave if the field_service_name_and_descripti field is empty.
   if (empty($form['field_service_name_and_descripti']['widget']['#options'])) {
     return $form['field_service_name_and_descripti'];
@@ -80,8 +90,7 @@ function _va_gov_facilities_office_callback(array &$form, FormStateInterface $fo
 
   // Get the original options for the service name field.
   $original_options = $form['field_service_name_and_descripti']['widget']['#options'];
-  // Get facility ID from the selected office.
-  $selected_office_id = intval($selected_office['0']['target_id']);
+
   // Load the options for the service name field based on the selected office.
   $options = _va_gov_facilities_get_service_names($selected_office_id, $original_options, $form_state);
   // Update the options of the field_service_name_and_descripti field.
