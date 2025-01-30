@@ -59,10 +59,8 @@ function _va_gov_facilities_reduce_service_options(array &$form, FormStateInterf
     ],
   ];
   // Wrap the field_service_name_and_descripti field for AJAX replacement.
-  $form['field_service_name_and_descripti']['#prefix'] =
-    '<div id="field-service-name-wrapper">';
-  $form['field_service_name_and_descripti']['#suffix'] =
-    '</div>';
+  $form['field_service_name_and_descripti']['#prefix'] = '<div id="field-service-name-wrapper">';
+  $form['field_service_name_and_descripti']['#suffix'] = '</div>';
 }
 
 /**
@@ -76,16 +74,16 @@ function _va_gov_facilities_office_callback(array &$form, FormStateInterface $fo
     return $form['field_service_name_and_descripti'];
   }
   // Leave if the field_service_name_and_descripti field is empty.
-  if (!($form['field_service_name_and_descripti']
-  || $form['field_service_name_and_descripti']['widget']
-  || $form['field_service_name_and_descripti']['widget']['#options'])) {
+  if (empty($form['field_service_name_and_descripti']['widget']['#options'])) {
     return $form['field_service_name_and_descripti'];
   }
 
   // Get the original options for the service name field.
   $original_options = $form['field_service_name_and_descripti']['widget']['#options'];
+  // Get facility ID from the selected office.
+  $selected_office_id = intval($selected_office['0']['target_id']);
   // Load the options for the service name field based on the selected office.
-  $options = _va_gov_facilities_get_service_names($selected_office, $original_options, $form_state);
+  $options = _va_gov_facilities_get_service_names($selected_office_id, $original_options, $form_state);
   // Update the options of the field_service_name_and_descripti field.
   $form['field_service_name_and_descripti']['widget']['#options'] = $options;
 
@@ -96,7 +94,7 @@ function _va_gov_facilities_office_callback(array &$form, FormStateInterface $fo
 /**
  * Helper function returns the remaining service names based on selected office.
  *
- * @param array $selected_office
+ * @param int $selected_office_id
  *   The selected office.
  * @param array $original_options
  *   The original options for the service name field.
@@ -106,20 +104,12 @@ function _va_gov_facilities_office_callback(array &$form, FormStateInterface $fo
  * @return array
  *   The remaining service names.
  */
-function _va_gov_facilities_get_service_names(array $selected_office, array $original_options, FormStateInterface $form_state) {
-  // Guard clause.
-  if (empty($selected_office)
-  || empty($selected_office['0'])
-  || empty($selected_office['0']['target_id'])) {
-    return $original_options;
-  }
+function _va_gov_facilities_get_service_names(int $selected_office_id, array $original_options, FormStateInterface $form_state) {
   /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
   $form_object = $form_state->getFormObject();
   $bundle = $form_object->getEntity()->bundle();
   // Initialize the remaining services.
   $remaining_services = $original_options;
-  // Get the facility ID from the selected office.
-  $facility_id = $selected_office['0']['target_id'];
   // Query services based on the selected office.
   $database = \Drupal::database();
   $query = $database->query(
@@ -131,7 +121,7 @@ function _va_gov_facilities_get_service_names(array $selected_office, array $ori
       WHERE bundle = :bundle
       AND nfo.field_office_target_id = :nid)",
     [
-      ':nid' => $facility_id,
+      ':nid' => $selected_office_id,
       ':bundle' => $bundle,
     ]
     );
