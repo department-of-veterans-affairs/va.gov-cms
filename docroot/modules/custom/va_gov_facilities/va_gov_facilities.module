@@ -70,7 +70,7 @@ function _va_gov_facilities_office_callback(array &$form, FormStateInterface $fo
   // Get the selected office value.
   $selected_office = $form_state->getValue('field_office');
   // Leave if the selected office is empty.
-  if (empty($selected_office)) {
+  if (empty($selected_office['0']['target_id'])) {
     return $form['field_service_name_and_descripti'];
   }
   // Leave if the field_service_name_and_descripti field is empty.
