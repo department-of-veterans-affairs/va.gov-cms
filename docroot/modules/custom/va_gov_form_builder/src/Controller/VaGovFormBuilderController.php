@@ -245,7 +245,15 @@ class VaGovFormBuilderController extends ControllerBase {
         'url' => '',
       ],
       '#additional_steps' => [
-        'steps' => [],
+        'steps' => array_map(function ($step) {
+          return [
+            // If an additional step exists, it's complete.
+            'type' => $step['type'],
+            'title' => $step['fields']['field_title'][0]['value'],
+            'status' => 'complete',
+            'url' => '',
+          ];
+        }, $this->digitalForm->getNonStandarddSteps()),
         'add_step' => [
           'url' => '',
         ],

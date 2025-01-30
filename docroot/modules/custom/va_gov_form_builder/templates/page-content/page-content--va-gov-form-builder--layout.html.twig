@@ -15,6 +15,7 @@
       <a class="form-builder-layout-step__view-link" href="{{intro.url}}">View introduction page</a>
     </section>
   </section>
+
   <section class="form-builder-layout-step-group">
     <h3  class="form-builder-layout-step-group__heading">Form steps</h3>
     <section class="form-builder-layout-step form-builder-layout-step--{{your_personal_info.status}}">
@@ -35,6 +36,15 @@
       <p class="form-builder-layout-step__help-text">This step includes email and phone number collection from the submitter.</p>
       <a class="form-builder-layout-step__view-link" href="{{contact_info.url}}">View contact information</a>
     </section>
+
+    {% for additional_step in additional_steps.steps %}
+      <section class="form-builder-layout-step form-builder-layout-step--{{additional_step.status}}">
+        <h4>Step {{ loop.index + 3 }}: {{ additional_step.title }}</h4>
+        <p class="form-builder-layout-step__help-text">Click the link below to view this step.</p>
+        <a class="form-builder-layout-step__view-link" href="{{additional_step.url}}">View {{ additional_step.title | lower }}</a>
+      </section>
+    {% endfor %}
+
     <section class="form-builder-layout-step">
       <h4>Add a step</h4>
       <p class="form-builder-layout-step__help-text">To allow this form to collect additional information, select Add a step to access additional questions to add for the submitter.</p>
@@ -44,10 +54,11 @@
         role="button"
         class="form-builder-layout-step__view-link form-builder-button form-builder-button--primary form-builder-button--add-step"
       >
-        Add a Step
+        Add a step
       </a>
     </section>
   </section>
+
   <section class="form-builder-layout-step-group">
     <h3 class="form-builder-layout-step-group__heading">Submission and next steps</h3>
     <section class="form-builder-layout-step form-builder-layout-step--{{review_and_sign.status}}">
@@ -61,6 +72,7 @@
       <a class="form-builder-layout-step__view-link" href="{{confirmation.url}}">View confirmation page</a>
     </section>
   </section>
+
   <section class="form-builder-layout-step-group">
     <h3 class="form-builder-layout-step-group__heading form-builder-layout-step-group__heading--viewing-form">Viewing the form</h3>
     <p class="form-builder-layout-step__help-text">Once all of the steps are complete, this form can be viewed by selecting View form.</p>

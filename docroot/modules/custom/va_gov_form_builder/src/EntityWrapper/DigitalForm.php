@@ -10,6 +10,15 @@ use Drupal\node\NodeInterface;
  */
 class DigitalForm {
   /**
+   * The standard steps of a Digital Form.
+   */
+  const STANDARD_STEPS = [
+    'your_personal_info' => 'digital_form_your_personal_info',
+    'address_info' => 'digital_form_address',
+    'contact_info' => 'digital_form_phone_and_email',
+  ];
+
+  /**
    * The entity type manager service.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
@@ -60,6 +69,52 @@ class DigitalForm {
     }
 
     throw new \BadMethodCallException("Method $name does not exist on the underlying node class.");
+  }
+
+  /**
+   * Returns an array of all steps added to the form.
+   *
+   * @return array
+   *   A collection of all steps.
+   */
+  public function getAllSteps() {
+    $steps = [];
+
+    if ($this->node->hasField('field_chapters')) {
+      $chapters = $this->node->get('field_chapters')->getValue();
+
+      foreach ($chapters as $chapter) {
+        $paragraph = $this->entityTypeManager
+          ->getStorage('paragraph')
+          ->load($chapter['target_id']);
+
+        if ($paragraph) {
+          $steps[] = [
+            'type' => $paragraph->bundle(),
+            'fields' => array_map(function ($field) {
+              return $field->getValue();
+            }, $paragraph->getFields()),
+          ];
+        }
+      }
+    }
+
+    return $steps;
+  }
+
+  /**
+   * Returns an array of all steps that are not standard steps.
+   *
+   * @return array
+   *   A collection of non-standard steps.
+   */
+  public function getNonStandarddSteps() {
+    $allSteps = $this->getAllSteps();
+    $nonStandardSteps = array_values(array_filter($allSteps, function ($step) {
+       return !in_array($step['type'], array_values(self::STANDARD_STEPS));
+    }));
+
+    return $nonStandardSteps;
   }
 
   /**
@@ -130,13 +185,8 @@ class DigitalForm {
     }
 
     // Standard steps are complete if a corresponding chapter exists.
-    $standardSteps = [
-      'your_personal_info' => 'digital_form_your_personal_info',
-      'address_info' => 'digital_form_address',
-      'contact_info' => 'digital_form_phone_and_email',
-    ];
-    if (array_key_exists($stepName, $standardSteps)) {
-      $paragraphName = $standardSteps[$stepName];
+    if (array_key_exists($stepName, self::STANDARD_STEPS)) {
+      $paragraphName = self::STANDARD_STEPS[$stepName];
       return $this->hasChapterOfType($paragraphName)
         ? 'complete'
         : 'incomplete';
