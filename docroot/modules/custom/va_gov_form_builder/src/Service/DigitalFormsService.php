@@ -80,7 +80,7 @@ class DigitalFormsService {
   /**
    * Returns a DigitalForm object from a passed-in Digital Form node.
    *
-   * @param \Drupal\node\NodeInterface[] $node
+   * @param \Drupal\node\NodeInterface $node
    *   The `digital_form` node to wrap.
    *
    * @return \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
