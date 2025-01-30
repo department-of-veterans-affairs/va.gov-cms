@@ -171,6 +171,14 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
       'field_include_email' => TRUE,
     ]);
     $node->get('field_chapters')->appendItem($contactInfoParagraph);
+    // List and loop.
+    $listAndLoopParagraph = \Drupal::entityTypeManager()->getStorage('paragraph')->create([
+      'type' => 'digital_form_list_loop',
+      'field_title' => 'Your employers',
+    ]);
+    $node->get('field_chapters')->appendItem($listAndLoopParagraph);
+
+    // Save node.
     $node->save();
 
     $page = $this->controller->layout($node->id());
@@ -184,6 +192,10 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertEquals('complete', $page['content']['#contact_info']['status'], 'Contact info is complete');
     // --> Address info should be "incomplete" since paragraph does not exist.
     $this->assertEquals('incomplete', $page['content']['#address_info']['status'], 'Address info is incomplete');
+
+    // Ensure additional steps are included and have "complete" status.
+    $this->assertArrayHasKey('#additional_steps', $page['content']);
+    $this->assertEquals('complete', $page['content']['#additional_steps']['steps'][0]['status']);
 
     // Ensure css is added.
     $this->assertArrayHasKey('#attached', $page);
