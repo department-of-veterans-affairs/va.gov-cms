@@ -42,7 +42,7 @@ class DigitalForm {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
-   * @param \Drupal\Node\NodeInterface $node
+   * @param \Drupal\node\NodeInterface $node
    *   The Digital Form node to wrap.
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager, NodeInterface $node) {
