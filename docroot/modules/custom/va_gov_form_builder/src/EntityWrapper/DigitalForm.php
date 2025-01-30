@@ -7,6 +7,11 @@ use Drupal\node\NodeInterface;
 
 /**
  * A wrapper class around Digital Form nodes.
+ *
+ * @method int id()
+ * @method string getTitle()
+ * @method \Drupal\Core\Field\FieldItemListInterface get(string $field_name)
+ * @method \Symfony\Component\Validator\ConstraintViolationListInterface validate()
  */
 class DigitalForm {
   /**
@@ -54,6 +59,7 @@ class DigitalForm {
    * Magic method to forward other method calls to the node.
    *
    * This makes it so we can call, for example, $wrappedNode->getTitle().
+   * These methods are annotated in the class comment above.
    *
    * @param string $name
    *   The name of the method being called.
