@@ -78,41 +78,45 @@
             p4.prepend(s4);
           }
         }
-        if (drupalSettings.availableHealthServices[service.value] !== undefined && drupalSettings.availableHealthServices[service.value].vba_regional_service_header !== "") {
-          var p5 = context.createElement("p");
-          var s5 = context.createElement("strong");
-          p5.textContent = drupalSettings.availableHealthServices[service.value].vba_regional_service_header.replace(/&nbsp;/g, " ");
-          s5.textContent = "Regional service header: ";
-          div.classList.remove("no-content");
-          div.appendChild(p5);
-          p5.prepend(s5);
-        }
-        if (drupalSettings.availableHealthServices[service.value] !== undefined && drupalSettings.availableHealthServices[service.value].vba_regional_service_description !== "") {
-          var p6 = context.createElement("p");
-          var s6 = context.createElement("strong");
-          p6.textContent = drupalSettings.availableHealthServices[service.value].vba_regional_service_description.replace(/&nbsp;/g, " ");
-          s6.textContent = "Regional service description: ";
-          div.classList.remove("no-content");
-          div.appendChild(p6);
-          p6.prepend(s6);
-        }
-        if (drupalSettings.availableHealthServices[service.value] !== undefined && drupalSettings.availableHealthServices[service.value].vba_facility_service_header !== "") {
-          var p7 = context.createElement("p");
-          var s7 = context.createElement("strong");
-          p7.textContent = drupalSettings.availableHealthServices[service.value].vba_facility_service_header.replace(/&nbsp;/g, " ");
-          s7.textContent = "Facility service header: ";
-          div.classList.remove("no-content");
-          div.appendChild(p7);
-          p7.prepend(s7);
-        }
-        if (drupalSettings.availableHealthServices[service.value] !== undefined && drupalSettings.availableHealthServices[service.value].vba_facility_service_description !== "") {
-          var p8 = context.createElement("p");
-          var s8 = context.createElement("strong");
-          p8.textContent = drupalSettings.availableHealthServices[service.value].vba_facility_service_description.replace(/&nbsp;/g, " ");
-          s8.textContent = "Facility service description: ";
-          div.classList.remove("no-content");
-          div.appendChild(p8);
-          p8.prepend(s8);
+        var vbaForm = document.querySelector('[data-drupal-selector="node-vba-facility-service-form"]');
+        var vbaFormEdit = document.querySelector('[data-drupal-selector="node-vba-facility-service-edit-form"]');
+        if (vbaForm || vbaFormEdit) {
+          if (drupalSettings.availableHealthServices[service.value] !== undefined && drupalSettings.availableHealthServices[service.value].vba_regional_service_header !== "") {
+            var p5 = context.createElement("p");
+            var s5 = context.createElement("strong");
+            p5.textContent = drupalSettings.availableHealthServices[service.value].vba_regional_service_header.replace(/&nbsp;/g, " ");
+            s5.textContent = "Regional service header: ";
+            div.classList.remove("no-content");
+            div.appendChild(p5);
+            p5.prepend(s5);
+          }
+          if (drupalSettings.availableHealthServices[service.value] !== undefined && drupalSettings.availableHealthServices[service.value].vba_regional_service_description !== "") {
+            var p6 = context.createElement("p");
+            var s6 = context.createElement("strong");
+            p6.textContent = drupalSettings.availableHealthServices[service.value].vba_regional_service_description.replace(/&nbsp;/g, " ");
+            s6.textContent = "Regional service description: ";
+            div.classList.remove("no-content");
+            div.appendChild(p6);
+            p6.prepend(s6);
+          }
+          if (drupalSettings.availableHealthServices[service.value] !== undefined && drupalSettings.availableHealthServices[service.value].vba_facility_service_header !== "") {
+            var p7 = context.createElement("p");
+            var s7 = context.createElement("strong");
+            p7.textContent = drupalSettings.availableHealthServices[service.value].vba_facility_service_header.replace(/&nbsp;/g, " ");
+            s7.textContent = "Facility service header: ";
+            div.classList.remove("no-content");
+            div.appendChild(p7);
+            p7.prepend(s7);
+          }
+          if (drupalSettings.availableHealthServices[service.value] !== undefined && drupalSettings.availableHealthServices[service.value].vba_facility_service_description !== "") {
+            var p8 = context.createElement("p");
+            var s8 = context.createElement("strong");
+            p8.textContent = drupalSettings.availableHealthServices[service.value].vba_facility_service_description.replace(/&nbsp;/g, " ");
+            s8.textContent = "Facility service description: ";
+            div.classList.remove("no-content");
+            div.appendChild(p8);
+            p8.prepend(s8);
+          }
         }
         service.after(div);
         if (div.textContent.length > 0) {
@@ -142,7 +146,7 @@
       });
       window.addEventListener("DOMContentLoaded", function () {
         descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
-        var systemSelect = context.getElementById("edit-field-region-page");
+        var systemSelect = context.querySelector("#edit-field-region-page");
         if (systemSelect !== null) {
           systemSelect.addEventListener("change", function () {
             descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
