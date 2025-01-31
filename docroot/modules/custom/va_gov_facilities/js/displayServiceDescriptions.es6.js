@@ -145,7 +145,10 @@
         const vbaForm = document.querySelector(
           '[data-drupal-selector="node-vba-facility-service-form"]'
         );
-        if (vbaForm) {
+        const vbaFormEdit = document.querySelector(
+          '[data-drupal-selector="node-vba-facility-service-edit-form"]'
+        );
+        if (vbaForm || vbaFormEdit) {
           // VBA terms have nationalized regional data.
           if (
             drupalSettings.availableHealthServices[service.value] !==

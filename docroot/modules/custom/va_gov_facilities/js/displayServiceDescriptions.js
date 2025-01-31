@@ -79,7 +79,8 @@
           }
         }
         var vbaForm = document.querySelector('[data-drupal-selector="node-vba-facility-service-form"]');
-        if (vbaForm) {
+        var vbaFormEdit = document.querySelector('[data-drupal-selector="node-vba-facility-service-edit-form"]');
+        if (vbaForm || vbaFormEdit) {
           if (drupalSettings.availableHealthServices[service.value] !== undefined && drupalSettings.availableHealthServices[service.value].vba_regional_service_header !== "") {
             var p5 = context.createElement("p");
             var s5 = context.createElement("strong");
