@@ -166,7 +166,7 @@ class FormInfo extends FormBuilderBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
 
-    $form_state->setRedirect('va_gov_form_builder.name_and_dob', [
+    $form_state->setRedirect('va_gov_form_builder.layout', [
       'nid' => $this->digitalForm->id(),
     ]);
   }
