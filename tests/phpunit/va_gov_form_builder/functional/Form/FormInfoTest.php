@@ -2,6 +2,8 @@
 
 namespace tests\phpunit\va_gov_form_builder\functional\Form;
 
+use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
 use tests\phpunit\va_gov_form_builder\Traits\SharedConstants;
 use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
@@ -137,6 +139,30 @@ class FormInfoTest extends VaGovExistingSiteBase {
     // Successful submission should take user to next page.
     $nextPageUrl = $this->getSession()->getCurrentUrl();
     $this->assertStringContainsString('/layout', $nextPageUrl);
+
+    // Form should have default "Your personal information" chapter.
+    preg_match('|/form-builder\/(\d+)/layout|', $nextPageUrl, $matches);
+    $createdNodeId = $matches[1];
+    $createdNode = Node::load($createdNodeId);
+
+    $steps = $createdNode->get('field_chapters')->getValue();
+    $this->assertNotEmpty($steps, 'Default chapter should be added on initial node creation.');
+
+    $paragraphId = $steps[0]['target_id'];
+    $paragraph = Paragraph::load($paragraphId);
+    $this->assertEquals($paragraph->bundle(), 'digital_form_your_personal_info');
+
+    // That chapter should have two sub-chapters:
+    // 1. Name and date of birth.
+    $nameAndDob = $paragraph->get('field_name_and_date_of_birth')->getValue();
+    $nameAndDobParagraphId = $nameAndDob[0]['target_id'];
+    $nameAndDobParagraph = Paragraph::load($nameAndDobParagraphId);
+    $this->assertEquals($nameAndDobParagraph->bundle(), 'digital_form_name_and_date_of_bi');
+    // 2. Identification information.
+    $identificationInfo = $paragraph->get('field_identification_information')->getValue();
+    $identificationInfoParagraphId = $identificationInfo[0]['target_id'];
+    $identificationInfoParagraph = Paragraph::load($identificationInfoParagraphId);
+    $this->assertEquals($identificationInfoParagraph->bundle(), 'digital_form_identification_info');
   }
 
   /**

@@ -133,8 +133,11 @@ class FormInfo extends FormBuilderBase {
       /*
        * This form is creating a new Digital Form.
        *
-       * Create the new Digital Form with the fields from this form.
+       * We need to create a new Digital Form by doing two things:
+       * 1. Create the new Digital Form with the fields from this form.
+       * 2. Add default "Your personal information" step.
        */
+      // 1. Create the new Digital Form with the fields from this form.
       $node = $this->entityTypeManager->getStorage('node')->create([
         'type' => 'digital_form',
         'title' => $title,
@@ -143,6 +146,29 @@ class FormInfo extends FormBuilderBase {
         'field_respondent_burden' => $respondentBurden,
         'field_expiration_date' => $expirationDate,
       ]);
+
+      // 2. Add "Your personal information" step (paragraph).
+      // This step contains two sub-steps:
+      // --> Name and date of birth
+      $nameAndDobParagraph = $this->entityTypeManager->getStorage('paragraph')->create([
+        'type' => 'digital_form_name_and_date_of_bi',
+        'field_title' => 'Name and date of birth',
+        'field_include_date_of_birth' => TRUE,
+      ]);
+      // --> Identification information
+      $identificationInfo = $this->entityTypeManager->getStorage('paragraph')->create([
+        'type' => 'digital_form_identification_info',
+        'field_title' => 'Identifying information',
+        'field_include_veteran_s_service' => TRUE,
+      ]);
+      // Your personal information wraps both.
+      $yourPersonalInformation = $this->entityTypeManager->getStorage('paragraph')->create([
+        'type' => 'digital_form_your_personal_info',
+        'field_name_and_date_of_birth' => $nameAndDobParagraph,
+        'field_identification_information' => $identificationInfo,
+      ]);
+      $node->get('field_chapters')->appendItem($yourPersonalInformation);
+
       $this->digitalForm = $this->digitalFormsService->wrapDigitalForm($node);
     }
     else {
