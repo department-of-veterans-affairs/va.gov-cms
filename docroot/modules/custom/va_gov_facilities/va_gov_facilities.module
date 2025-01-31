@@ -68,19 +68,20 @@ function _va_gov_facilities_add_ajax_to_reduce_service_options(array &$form, For
  * AJAX callback to update the service name options based on selected office.
  */
 function _va_gov_facilities_reduce_service_options(array &$form, FormStateInterface $form_state) {
-  $selected_office_from_url = \Drupal::request()->get('field_office');
-  // Get the selected office value.
-  if (!$selected_office_from_url) {
-    $selected_office = $form_state->getValue('field_office');
-    // Leave if the selected office is empty.
-    if (empty($selected_office['0']['target_id'])) {
+  // The form_state takes precedence over the url to get the office.
+  $selected_office = $form_state->getValue('field_office');
+  if (empty($selected_office)) {
+    // But if the form_state doesn't have the office, check the URL.
+    $selected_office_from_url = \Drupal::request()->get('field_office');
+    if (empty($selected_office_from_url)) {
       return $form['field_service_name_and_descripti'];
     }
-    // Get facility ID from the selected office.
-    $selected_office_id = intval($selected_office['0']['target_id']);
+    else {
+      $selected_office_id = intval($selected_office_from_url);
+    }
   }
   else {
-    $selected_office_id = intval($selected_office_from_url);
+    $selected_office_id = intval($selected_office['0']['target_id']);
   }
 
   // Leave if the field_service_name_and_descripti field is empty.
