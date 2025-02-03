@@ -167,6 +167,10 @@ class ManilaEventSubscriber implements EventSubscriberInterface {
       if ($section_id !== $this->manilaVaSystemId) {
         return;
       }
+      // Leave the System page alone.
+      elseif ($section_id === $this->manilaVaSystemId && $entity->bundle() === 'health_care_region_page') {
+        return;
+      }
 
       // Determine which prefixes are valid based on section.
       $manila_prefix = [$this->manilaVaSystemId => 'manila-va-clinic'];
