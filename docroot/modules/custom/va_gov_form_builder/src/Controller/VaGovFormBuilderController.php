@@ -115,6 +115,11 @@ class VaGovFormBuilderController extends ControllerBase {
     $page = [
       '#type' => 'page',
       'content' => $pageContent,
+      '#cache' => [
+        // Do not cache Form Builder pages.
+        // @todo Make caching more granular/contextual.
+        'max-age' => 0,
+      ],
       // Add custom data.
       'form_builder_page_data' => [
         'subtitle' => $subtitle,
