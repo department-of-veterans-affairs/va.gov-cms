@@ -81,6 +81,41 @@
   padding: var(--units-1p5);
 }
 
+/* breadcrumbs */
+.form-builder-breadcrumbs {
+  margin: var(--units-5) 0;
+}
+
+.form-builder-breadcrumbs__list {
+  display: flex;
+  font-family: var(--font-source-sans);
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.form-builder-breadcrumbs__list-item {
+  align-items: center;
+  display: flex;
+}
+
+.form-builder-breadcrumbs__list-item::after {
+  color: #666;
+  content: ">";
+  font-family: monospace;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.form-builder-breadcrumbs__list-item:last-child {
+  font-weight: var(--font-weight-bold);
+}
+
+.form-builder-breadcrumbs__list-item:last-child::after {
+  content: "";
+}
+
 /* buttons */
 .form-builder-button,
 a.form-builder-button {

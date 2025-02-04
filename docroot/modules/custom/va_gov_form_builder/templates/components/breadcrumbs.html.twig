@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Breadcrumbs used on VA.gov Form Builder pages.
+ *
+ * The data available to this template is passed when this
+ * template is included in another. The data is a list of
+ * breadcrumbs with the following structure:
+ * [
+ *   'label' => string,
+ *   'url' => string,
+ * ]
+ *
+ * The `url` property may be empty, in which case the url
+ * should be the current page.
+ */
+#}
+<nav class="form-builder-breadcrumbs" aria-label="Breadcrumbs">
+  <ol class="form-builder-breadcrumbs__list">
+    {% for breadcrumb in breadcrumbs %}
+      <li class="form-builder-breadcrumbs__list-item"><a class="form-builder-breadcrumbs__link" href="{{breadcrumb.url}}">{{breadcrumb.label}}</a></li>
+    {% endfor %}
+  </ol>
+</nav>
