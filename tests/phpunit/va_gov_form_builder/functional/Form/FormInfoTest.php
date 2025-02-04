@@ -136,7 +136,7 @@ class FormInfoTest extends VaGovExistingSiteBase {
 
     // Successful submission should take user to next page.
     $nextPageUrl = $this->getSession()->getCurrentUrl();
-    $this->assertStringContainsString('/name-and-dob', $nextPageUrl);
+    $this->assertStringContainsString('/layout', $nextPageUrl);
   }
 
   /**
