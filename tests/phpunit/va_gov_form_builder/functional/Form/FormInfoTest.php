@@ -71,6 +71,26 @@ class FormInfoTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Test that the page has the expected breadcrumbs.
+   */
+  public function testPageBreadcrumbs() {
+    // Home page should not have breadcrumbs.
+    $this->sharedTestPageHasExpectedBreadcrumbs(
+      $this->getFormPageUrl(),
+      [
+        [
+          'label' => 'Home',
+          'url' => '/form-builder/home',
+        ],
+        [
+          'label' => 'Form info',
+          'url' => "",
+        ],
+      ],
+    );
+  }
+
+  /**
    * Test that the page loads correctly in create mode.
    *
    * Ensure form fields are empty (not pre-populated).

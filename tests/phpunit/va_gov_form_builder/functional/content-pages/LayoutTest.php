@@ -111,6 +111,30 @@ class LayoutTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Test that the page has the expected breadcrumbs.
+   */
+  public function testPageBreadcrumbs() {
+    // Home page should not have breadcrumbs.
+    $this->sharedTestPageHasExpectedBreadcrumbs(
+      $this->getFormPageUrl(),
+      [
+        [
+          'label' => 'Home',
+          'url' => '/form-builder/home',
+        ],
+        [
+          'label' => 'Form info',
+          'url' => "/form-builder/{$this->digitalFormNode->id()}/form-info",
+        ],
+        [
+          'label' => 'Layout',
+          'url' => '',
+        ],
+      ],
+    );
+  }
+
+  /**
    * Test the "Form info" section.
    */
   public function testFormInfo() {
