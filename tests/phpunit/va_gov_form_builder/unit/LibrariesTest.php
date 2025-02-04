@@ -76,12 +76,16 @@ class LibrariesTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey($homeLibrary, $this->libraries);
     $homeCssArray = array_keys($this->libraries[$homeLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . '__home.css', $homeCssArray, 'Home page css is present.');
-
     // 2. Form Info.
     $formInfoLibrary = $libraryPrefix . '__form_info';
     $this->assertArrayHasKey($formInfoLibrary, $this->libraries);
     $formInfoCssArray = array_keys($this->libraries[$formInfoLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . '__form_info.css', $formInfoCssArray, 'Form Info page css is present.');
+    // 3. Layout.
+    $layoutLibrary = $libraryPrefix . '__layout';
+    $this->assertArrayHasKey($layoutLibrary, $this->libraries);
+    $layoutCssArray = array_keys($this->libraries[$layoutLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . '__layout.css', $layoutCssArray, 'Layout page css is present.');
   }
 
 }

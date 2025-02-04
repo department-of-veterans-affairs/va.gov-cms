@@ -16,7 +16,7 @@ class FormInfo extends FormBuilderBase {
    * Flag indicating if the form mode is "create".
    *
    * Form mode is "create", and this value is TRUE,
-   * if no node id is passed in representing an existing node.
+   * if no Digital Form is passed in representing an existing Digital Form.
    *
    * Form mode is "edit" otherwise, and this value is FALSE.
    *
@@ -47,18 +47,18 @@ class FormInfo extends FormBuilderBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $node = NULL) {
-    // On this form, the Digital Form node should be allowed to be empty,
+  public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL) {
+    // On this form, the Digital Form should be allowed to be empty,
     // to accommodate the case where it is in "create" mode.
-    $this->allowEmptyDigitalFormNode = TRUE;
-    $form = parent::buildForm($form, $form_state, $node);
+    $this->allowEmptyDigitalForm = TRUE;
+    $form = parent::buildForm($form, $form_state, $digitalForm);
 
-    if (empty($node)) {
-      // If no node is passed in, this is "create" mode.
+    if (empty($digitalForm)) {
+      // If no Digital Form is passed in, this is "create" mode.
       $this->isCreate = TRUE;
     }
     else {
-      // If a node is passed in, this is "edit" mode.
+      // If a Digital Form is passed in, this is "edit" mode.
       $this->isCreate = FALSE;
     }
 
@@ -68,14 +68,14 @@ class FormInfo extends FormBuilderBase {
       '#type' => 'textfield',
       '#title' => $this->t('Form Name'),
       '#required' => TRUE,
-      '#default_value' => $this->getDigitalFormNodeFieldValue('title'),
+      '#default_value' => $this->getDigitalFormFieldValue('title'),
     ];
 
     $form['field_va_form_number'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Form Number'),
       '#required' => TRUE,
-      '#default_value' => $this->getDigitalFormNodeFieldValue('field_va_form_number'),
+      '#default_value' => $this->getDigitalFormFieldValue('field_va_form_number'),
     ];
 
     $form['field_omb_number'] = [
@@ -83,7 +83,7 @@ class FormInfo extends FormBuilderBase {
       '#title' => $this->t('OMB number'),
       '#description' => $this->t('Insert the OMB number (format: xxxx-xxxx)'),
       '#required' => TRUE,
-      '#default_value' => $this->getDigitalFormNodeFieldValue('field_omb_number'),
+      '#default_value' => $this->getDigitalFormFieldValue('field_omb_number'),
     ];
 
     $form['field_respondent_burden'] = [
@@ -91,7 +91,7 @@ class FormInfo extends FormBuilderBase {
       '#title' => $this->t('Respondent burden'),
       '#description' => $this->t('Number of minutes as indicated on the form'),
       '#required' => TRUE,
-      '#default_value' => $this->getDigitalFormNodeFieldValue('field_respondent_burden'),
+      '#default_value' => $this->getDigitalFormFieldValue('field_respondent_burden'),
     ];
 
     $form['field_expiration_date'] = [
@@ -99,7 +99,7 @@ class FormInfo extends FormBuilderBase {
       '#title' => $this->t('Expiration date'),
       '#description' => $this->t('Form expiration date as indicated on the form'),
       '#required' => TRUE,
-      '#default_value' => $this->getDigitalFormNodeFieldValue('field_expiration_date'),
+      '#default_value' => $this->getDigitalFormFieldValue('field_expiration_date'),
     ];
 
     $form['actions']['save_and_continue'] = [
@@ -122,7 +122,7 @@ class FormInfo extends FormBuilderBase {
   /**
    * {@inheritdoc}
    */
-  protected function setDigitalFormNodeFromFormState(array &$form, FormStateInterface $form_state) {
+  protected function setDigitalFormFromFormState(array &$form, FormStateInterface $form_state) {
     $title = $form_state->getValue('title');
     $vaFormNumber = $form_state->getValue('field_va_form_number');
     $ombNumber = $form_state->getValue('field_omb_number');
@@ -131,11 +131,11 @@ class FormInfo extends FormBuilderBase {
 
     if ($this->isCreate) {
       /*
-       * This form is creating a new node.
+       * This form is creating a new Digital Form.
        *
-       * We can simply create the new node with the fields from this form.
+       * Create the new Digital Form with the fields from this form.
        */
-      $this->digitalFormNode = $this->entityTypeManager->getStorage('node')->create([
+      $node = $this->entityTypeManager->getStorage('node')->create([
         'type' => 'digital_form',
         'title' => $title,
         'field_va_form_number' => $vaFormNumber,
@@ -143,19 +143,20 @@ class FormInfo extends FormBuilderBase {
         'field_respondent_burden' => $respondentBurden,
         'field_expiration_date' => $expirationDate,
       ]);
+      $this->digitalForm = $this->digitalFormsService->wrapDigitalForm($node);
     }
     else {
       /*
-       * This form is editing an existing node.
+       * This form is editing an existing Digital Form.
        *
        * We need to update only the fields from this form,
        * ensuring other fields are not changed.
        */
-      $this->digitalFormNode->set('title', $title);
-      $this->digitalFormNode->set('field_va_form_number', $vaFormNumber);
-      $this->digitalFormNode->set('field_omb_number', $ombNumber);
-      $this->digitalFormNode->set('field_respondent_burden', $respondentBurden);
-      $this->digitalFormNode->set('field_expiration_date', $expirationDate);
+      $this->digitalForm->set('title', $title);
+      $this->digitalForm->set('field_va_form_number', $vaFormNumber);
+      $this->digitalForm->set('field_omb_number', $ombNumber);
+      $this->digitalForm->set('field_respondent_burden', $respondentBurden);
+      $this->digitalForm->set('field_expiration_date', $expirationDate);
     }
   }
 
@@ -165,8 +166,8 @@ class FormInfo extends FormBuilderBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
 
-    $form_state->setRedirect('va_gov_form_builder.name_and_dob', [
-      'nid' => $this->digitalFormNode->id(),
+    $form_state->setRedirect('va_gov_form_builder.layout', [
+      'nid' => $this->digitalForm->id(),
     ]);
   }
 
