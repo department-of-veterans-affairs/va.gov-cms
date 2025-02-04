@@ -74,11 +74,26 @@ class ModuleTest extends VaGovUnitTestBase {
     $page_content_theme_prefix = 'page_content__va_gov_form_builder__';
     $page_content_theme_path = $this->modulePath . '/templates/page-content';
     // 1. Home page.
-    $this->assertArrayHasKey($page_content_theme_prefix . 'home', $result);
-    $this->assertEquals($page_content_theme_path, $result[$page_content_theme_prefix . 'home']['path']);
-    $this->assertArrayHasKey('variables', $result[$page_content_theme_prefix . 'home']);
-    $this->assertArrayHasKey('recent_forms', $result[$page_content_theme_prefix . 'home']['variables']);
-    $this->assertArrayHasKey('build_form_url', $result[$page_content_theme_prefix . 'home']['variables']);
+    $homeTheme = $page_content_theme_prefix . 'home';
+    $this->assertArrayHasKey($homeTheme, $result);
+    $this->assertEquals($page_content_theme_path, $result[$homeTheme]['path']);
+    $this->assertArrayHasKey('variables', $result[$homeTheme]);
+    $this->assertArrayHasKey('recent_forms', $result[$homeTheme]['variables']);
+    $this->assertArrayHasKey('build_form_url', $result[$homeTheme]['variables']);
+    // 2. Layout page.
+    $layoutTheme = $page_content_theme_prefix . 'layout';
+    $this->assertArrayHasKey($layoutTheme, $result);
+    $this->assertEquals($page_content_theme_path, $result[$layoutTheme]['path']);
+    $this->assertArrayHasKey('variables', $result[$layoutTheme]);
+    $this->assertArrayHasKey('form_info', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('intro', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('your_personal_info', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('address_info', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('contact_info', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('additional_steps', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('review_and_sign', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('confirmation', $result[$layoutTheme]['variables']);
+    $this->assertArrayHasKey('view_form', $result[$layoutTheme]['variables']);
 
     // Form themes.
     $form_theme_prefix = 'form__va_gov_form_builder__';

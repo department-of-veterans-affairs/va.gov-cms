@@ -38,13 +38,13 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   public function setUp(): void {
     parent::setUp();
 
+    $entityTypeManager = \Drupal::service('entity_type.manager');
+    $drupalFormBuilder = \Drupal::service('form_builder');
+    $digitalFormsService = new DigitalFormsService($entityTypeManager);
+
     $container = new ContainerBuilder();
-
-    // Add Drupal's form builder to the service container.
-    $container->set('form_builder', \Drupal::formBuilder());
-
-    // Add our DigitalFormsService to the service container.
-    $digitalFormsService = new DigitalFormsService(\Drupal::service('entity_type.manager'));
+    $container->set('entity_type.manager', $entityTypeManager);
+    $container->set('form_builder', $drupalFormBuilder);
     $container->set('va_gov_form_builder.digital_forms_service', $digitalFormsService);
 
     // Create the controller instance.
@@ -146,6 +146,60 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     $this->expectException(NotFoundHttpException::class);
     $this->controller->formInfo($someNonExistentNodeId);
+  }
+
+  /**
+   * Tests the layout method returns a Layout page.
+   */
+  public function testLayout() {
+    $title = 'Test Digital Form ' . uniqid();
+    $formNumber = '99-9999';
+
+    // Create a new Digital Form node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'title' => $title,
+      'field_chapters' => [],
+      'field_va_form_number' => $formNumber,
+    ]);
+
+    // Add paragraphs.
+    // Contact information.
+    $contactInfoParagraph = \Drupal::entityTypeManager()->getStorage('paragraph')->create([
+      'type' => 'digital_form_phone_and_email',
+      'field_title' => 'Contact information',
+      'field_include_email' => TRUE,
+    ]);
+    $node->get('field_chapters')->appendItem($contactInfoParagraph);
+    // List and loop.
+    $listAndLoopParagraph = \Drupal::entityTypeManager()->getStorage('paragraph')->create([
+      'type' => 'digital_form_list_loop',
+      'field_title' => 'Your employers',
+    ]);
+    $node->get('field_chapters')->appendItem($listAndLoopParagraph);
+
+    // Save node.
+    $node->save();
+
+    $page = $this->controller->layout($node->id());
+
+    $this->assertArrayHasKey('content', $page);
+    $this->assertArrayHasKey('#theme', $page['content']);
+    $this->assertEquals('page_content__va_gov_form_builder__layout', $page['content']['#theme']);
+
+    // Ensure step statuses are calculated correctly.
+    // --> Contact info should be "complete" since paragraph exists.
+    $this->assertEquals('complete', $page['content']['#contact_info']['status'], 'Contact info is complete');
+    // --> Address info should be "incomplete" since paragraph does not exist.
+    $this->assertEquals('incomplete', $page['content']['#address_info']['status'], 'Address info is incomplete');
+
+    // Ensure additional steps are included and have "complete" status.
+    $this->assertArrayHasKey('#additional_steps', $page['content']);
+    $this->assertEquals('complete', $page['content']['#additional_steps']['steps'][0]['status']);
+
+    // Ensure css is added.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__layout', $page['#attached']['library']);
   }
 
   /**

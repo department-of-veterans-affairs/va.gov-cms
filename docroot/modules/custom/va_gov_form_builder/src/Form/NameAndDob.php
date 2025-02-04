@@ -42,8 +42,8 @@ class NameAndDob extends FormBuilderBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $node = NULL) {
-    $form = parent::buildForm($form, $form_state, $node);
+  public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL) {
+    $form = parent::buildForm($form, $form_state, $digitalForm);
 
     $form['name_and_dob_header'] = [
       '#type' => 'html_tag',
@@ -124,9 +124,9 @@ class NameAndDob extends FormBuilderBase {
   /**
    * {@inheritdoc}
    */
-  protected function setDigitalFormNodeFromFormState(array &$form, FormStateInterface $form_state) {
+  protected function setDigitalFormFromFormState(array &$form, FormStateInterface $form_state) {
     // Do not add the name-and-dob chapter if there's one already present.
-    if ($this->digitalFormNodeHasChapterOfType($this->chapterType)) {
+    if ($this->digitalForm->hasChapterOfType($this->chapterType)) {
       return;
     }
 
@@ -135,10 +135,10 @@ class NameAndDob extends FormBuilderBase {
       'field_title' => $form_state->getValue('step_name'),
       'field_include_date_of_birth' => TRUE,
     ]);
-    $this->digitalFormNode->get('field_chapters')->appendItem($nameAndDobParagraph);
+    $this->digitalForm->get('field_chapters')->appendItem($nameAndDobParagraph);
 
-    // Node has been changed.
-    $this->digitalFormNodeIsChanged = TRUE;
+    // Digital Form has been changed.
+    $this->digitalFormIsChanged = TRUE;
   }
 
   /**
@@ -147,7 +147,7 @@ class NameAndDob extends FormBuilderBase {
   public function backButtonSubmitHandler(array &$form, FormStateInterface $form_state) {
     // This will almost certainly change.
     $form_state->setRedirect('va_gov_form_builder.form_info.edit', [
-      'nid' => $this->digitalFormNode->id(),
+      'nid' => $this->digitalForm->id(),
     ]);
   }
 
@@ -155,15 +155,15 @@ class NameAndDob extends FormBuilderBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Only save the form if there have been changes to the node.
-    if ($this->digitalFormNodeIsChanged) {
+    // Only save the form if there have been changes to the Digital Form.
+    if ($this->digitalFormIsChanged) {
       parent::submitForm($form, $form_state);
     }
 
     // For now, redirect to the default node-edit form
     // to confirm creation of the node.
     $form_state->setRedirect('entity.node.edit_form', [
-      'node' => $this->digitalFormNode->id(),
+      'node' => $this->digitalForm->id(),
     ]);
   }
 

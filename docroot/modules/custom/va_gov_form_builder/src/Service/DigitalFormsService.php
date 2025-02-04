@@ -3,11 +3,16 @@
 namespace Drupal\va_gov_form_builder\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
 
 /**
- * Service for handling Digital Form nodes.
+ * Service for fetching and creating Digital Forms.
+ *
+ * Digital Form nodes are wrapped in DigitalForm
+ * entity-wrapper objects before being returned.
  */
 class DigitalFormsService {
+
   /**
    * The entity type manager service.
    *
@@ -46,7 +51,13 @@ class DigitalFormsService {
     $nids = $query->execute();
 
     if (!empty($nids)) {
-      return $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
+      $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
+      $digitalForms = [];
+      foreach ($nodes as $node) {
+        $digitalForms[] = new DigitalForm($this->entityTypeManager, $node);
+      }
+
+      return $digitalForms;
     }
     return [];
   }
@@ -61,7 +72,31 @@ class DigitalFormsService {
    *   A node object of type 'digital_form', or NULL if not found.
    */
   public function getDigitalForm($nid) {
-    return $this->entityTypeManager->getStorage('node')->load($nid);
+    $node = $this->entityTypeManager->getStorage('node')->load($nid);
+
+    return $this->wrapDigitalForm($node);
+  }
+
+  /**
+   * Returns a DigitalForm object from a passed-in Digital Form node.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The `digital_form` node to wrap.
+   *
+   * @return \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
+   *   The DigitalForm object wrapping the passed-in $node.
+   */
+  public function wrapDigitalForm($node) {
+    if (!$node) {
+      return NULL;
+    }
+
+    // Only return the node if it is a Digital Form node.
+    if ($node->getType() !== 'digital_form') {
+      return NULL;
+    }
+
+    return new DigitalForm($this->entityTypeManager, $node);
   }
 
 }

@@ -37,6 +37,13 @@ class VaGovFormBuilderController extends ControllerBase {
   const LIBRARY_PREFIX = 'va_gov_form_builder/va_gov_form_builder_styles__';
 
   /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * The Drupal form builder.
    *
    * @var \Drupal\Core\Form\FormBuilderInterface
@@ -51,16 +58,16 @@ class VaGovFormBuilderController extends ControllerBase {
   protected $digitalFormsService;
 
   /**
-   * The Digital Form node.
+   * The Digital Form object.
    *
    * When the page in question edits or references an existing
    * digital form node, this property is populated. When the
    * page creates a new digital form node or otherwise does
    * not reference a node, this is empty.
    *
-   * @var \Drupal\node\Entity\Node|null
+   * @var \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm|null
    */
-  protected $digitalFormNode;
+  protected $digitalForm;
 
   /**
    * {@inheritdoc}
@@ -68,6 +75,7 @@ class VaGovFormBuilderController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
 
+    $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->drupalFormBuilder = $container->get('form_builder');
     $instance->digitalFormsService = $container->get('va_gov_form_builder.digital_forms_service');
 
@@ -75,7 +83,7 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
-   * Loads and sets the Digital Form node.
+   * Loads and sets the Digital Form object.
    *
    * @param string $nid
    *   The node id to load.
@@ -83,10 +91,9 @@ class VaGovFormBuilderController extends ControllerBase {
    * @return bool
    *   TRUE if successfully loaded. FALSE otherwise.
    */
-  protected function loadDigitalFormNode($nid) {
-    $digitalFormNode = $this->digitalFormsService->getDigitalForm($nid);
-    if (!empty($digitalFormNode)) {
-      $this->digitalFormNode = $digitalFormNode;
+  protected function loadDigitalForm($nid) {
+    $this->digitalForm = $this->digitalFormsService->getDigitalForm($nid);
+    if ($this->digitalForm) {
       return TRUE;
     }
 
@@ -108,6 +115,11 @@ class VaGovFormBuilderController extends ControllerBase {
     $page = [
       '#type' => 'page',
       'content' => $pageContent,
+      '#cache' => [
+        // Do not cache Form Builder pages.
+        // @todo Make caching more granular/contextual.
+        'max-age' => 0,
+      ],
       // Add custom data.
       'form_builder_page_data' => [
         'subtitle' => $subtitle,
@@ -142,7 +154,7 @@ class VaGovFormBuilderController extends ControllerBase {
    */
   protected function getFormPage($formName, $subtitle, $libraries = NULL) {
     // @phpstan-ignore-next-line
-    $form = $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\\' . $formName, $this->digitalFormNode);
+    $form = $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\\' . $formName, $this->digitalForm);
 
     return $this->getPage($form, $subtitle, $libraries);
   }
@@ -184,7 +196,7 @@ class VaGovFormBuilderController extends ControllerBase {
   /**
    * Form-info page.
    *
-   * @param string $nid
+   * @param string|null $nid
    *   The node id, passed in when the page edits an existing node.
    */
   public function formInfo($nid = NULL) {
@@ -194,7 +206,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     if (!empty($nid)) {
       // This is an edit.
-      $nodeFound = $this->loadDigitalFormNode($nid);
+      $nodeFound = $this->loadDigitalForm($nid);
       if (!$nodeFound) {
         throw new NotFoundHttpException();
       }
@@ -204,12 +216,81 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Layout page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   */
+  public function layout($nid) {
+    $nodeFound = $this->loadDigitalForm($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+
+    $pageContent = [
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'layout',
+      '#form_info' => [
+        'status' => $this->digitalForm->getStepStatus('form_info'),
+        'url' => Url::fromRoute('va_gov_form_builder.form_info.edit', ['nid' => $nid])->toString(),
+      ],
+      '#intro' => [
+        'status' => $this->digitalForm->getStepStatus('intro'),
+        'url' => '',
+      ],
+      '#your_personal_info' => [
+        'status' => $this->digitalForm->getStepStatus('your_personal_info'),
+        'url' => '',
+      ],
+      '#address_info' => [
+        'status' => $this->digitalForm->getStepStatus('address_info'),
+        'url' => '',
+      ],
+      '#contact_info' => [
+        'status' => $this->digitalForm->getStepStatus('contact_info'),
+        'url' => '',
+      ],
+      '#additional_steps' => [
+        'steps' => array_map(function ($step) {
+          return [
+            // If an additional step exists, it's complete.
+            'type' => $step['type'],
+            'title' => $step['fields']['field_title'][0]['value'],
+            'status' => 'complete',
+            'url' => '',
+          ];
+        }, $this->digitalForm->getNonStandarddSteps()),
+        'add_step' => [
+          'url' => '',
+        ],
+      ],
+      '#review_and_sign' => [
+        'status' => $this->digitalForm->getStepStatus('review_and_sign'),
+        'url' => '',
+      ],
+      '#confirmation' => [
+        'status' => $this->digitalForm->getStepStatus('confirmation'),
+        'url' => '',
+      ],
+      '#view_form' => [
+        'url' => '',
+      ],
+    ];
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = ['layout'];
+
+    return $this->getPage($pageContent, $subtitle, $libraries);
+  }
+
+  /**
    * Name-and-date-of-birth page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
    */
   public function nameAndDob($nid) {
     $formName = 'NameAndDob';
     $subtitle = 'Subtitle Placeholder';
-    $nodeFound = $this->loadDigitalFormNode($nid);
+    $nodeFound = $this->loadDigitalForm($nid);
     if (!$nodeFound) {
       throw new NotFoundHttpException();
     }
