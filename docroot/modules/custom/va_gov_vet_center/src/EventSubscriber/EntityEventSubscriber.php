@@ -78,8 +78,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     UserPermsService $user_perms_service,
     RequiredServices $required_services,
     EntityTypeManager $entity_type_manager,
-    RendererInterface $renderer
-    ) {
+    RendererInterface $renderer,
+  ) {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
     $this->requiredServices = $required_services;
@@ -238,7 +238,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form_state = $event->getFormState();
     $is_admin = $this->userPermsService->hasAdminRole(TRUE);
     if (!$is_admin) {
-      $this->disableFacilityServiceChange($form, $form_state);
       $this->disableArchivingRequiredServicesNonAdmins($form, $form_state);
     }
     $this->showServiceAsRequiredOrOptional($form, $form_state);
@@ -317,24 +316,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       '#weight' => 5,
     ];
 
-  }
-
-  /**
-   * Disable service name field for existing Vet Center - Facility Services.
-   *
-   * @param array $form
-   *   The node form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   */
-  public function disableFacilityServiceChange(array &$form, FormStateInterface $form_state) {
-    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
-    $form_object = $form_state->getFormObject();
-    /** @var \Drupal\node\NodeInterface $node*/
-    $node = $form_object->getEntity();
-    if (!$node->isNew()) {
-      $form['field_service_name_and_descripti']['#disabled'] = TRUE;
-    }
   }
 
   /**

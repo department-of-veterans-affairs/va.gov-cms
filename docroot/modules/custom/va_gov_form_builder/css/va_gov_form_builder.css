@@ -3,6 +3,7 @@
   --vads-color-divider: #a9aeb1;
   --color-shadow: #00000040;
 
+  color: var(--vads-color-base);
   font-family: var(--font-family-serif);
 }
 
@@ -85,6 +86,7 @@
 a.form-builder-button {
   border-radius: var(--units-0p5);
   cursor: pointer;
+  font-family: var(--font-source-sans);
   font-weight: var(--font-weight-bold);
   padding: var(--units-1p5) var(--units-2p5);
   text-decoration: none;
@@ -104,5 +106,22 @@ a.form-builder-button--primary:focus {
 a.form-builder-button--primary:hover {
   background: var(--vads-color-primary-dark);
   color: var(--vads-button-color-text-primary-on-light);
+  text-decoration: none;
+}
+
+.form-builder-button--secondary,
+.form-builder-button--secondary:focus,
+a.form-builder-button--secondary,
+a.form-builder-button--secondary:focus {
+  background: rgba(0, 0, 0, 0);
+  border: var(--units-0p25) solid var(--vads-color-primary);
+  color: var(--vads-color-primary);
+  text-decoration: none;
+}
+
+.form-builder-button--secondary:hover,
+a.form-builder-button--secondary:hover {
+  background: #dce4ef; /*secondary-button hover color missing from tokens*/
+  color: var(--vads-color-primary);
   text-decoration: none;
 }
