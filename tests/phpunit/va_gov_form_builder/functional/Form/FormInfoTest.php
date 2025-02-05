@@ -114,7 +114,7 @@ class FormInfoTest extends VaGovExistingSiteBase {
         ],
         [
           'label' => $title,
-          'url' => "/form-builder/{$node->id()}/layout",
+          'url' => "/form-builder/{$node->id()}",
         ],
         [
           'label' => 'Form info',
@@ -188,9 +188,9 @@ class FormInfoTest extends VaGovExistingSiteBase {
     ];
     $this->submitForm($formInput, 'Save and continue');
 
-    // Successful submission should take user to next page.
+    // Successful submission should take user to new form's layout page.
     $nextPageUrl = $this->getSession()->getCurrentUrl();
-    $this->assertStringContainsString('/layout', $nextPageUrl);
+    $this->assertMatchesRegularExpression('|/form-builder/\d+|', $nextPageUrl);
   }
 
   /**

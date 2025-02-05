@@ -30,7 +30,7 @@ class LayoutTest extends VaGovExistingSiteBase {
    * Returns the url for this page.
    */
   private function getFormPageUrl() {
-    return "/form-builder/{$this->digitalFormNode->id()}/layout";
+    return "/form-builder/{$this->digitalFormNode->id()}";
   }
 
   /**

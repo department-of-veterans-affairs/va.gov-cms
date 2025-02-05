@@ -119,7 +119,7 @@ class VaGovFormBuilderController extends ControllerBase {
       $breadcrumbTrail = [
         [
           'label' => 'Home',
-          'url' => '/form-builder/home',
+          'url' => Url::fromRoute('va_gov_form_builder.home')->toString(),
         ],
       ];
     }
@@ -129,7 +129,7 @@ class VaGovFormBuilderController extends ControllerBase {
         return [];
       }
 
-      $layoutUrl = "/form-builder/{$this->digitalForm->id()}/layout";
+      $layoutUrl = Url::fromRoute('va_gov_form_builder.layout', ['nid' => $this->digitalForm->id()])->toString();
       $breadcrumbTrail = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle(), $layoutUrl);
     }
 
@@ -225,6 +225,7 @@ class VaGovFormBuilderController extends ControllerBase {
         'nid' => $digitalForm->id(),
         'title' => $digitalForm->getTitle(),
         'formNumber' => $digitalForm->get('field_va_form_number')->value,
+        'url' => Url::fromRoute('va_gov_form_builder.layout', ['nid' => $digitalForm->id()])->toString(),
       ];
     }
 
