@@ -124,19 +124,18 @@ class VaGovFormBuilderController extends ControllerBase {
       ];
     }
 
-    elseif ($parent === 'form_info') {
-      $formInfoUrl = "/form-builder/{$this->digitalForm->id()}/form-info";
-      $breadcrumbTrail = $this->generateBreadcrumbs('home', 'Form info', $formInfoUrl);
-    }
-
     elseif ($parent === 'layout') {
+      if (!$this->digitalForm) {
+        return [];
+      }
+
       $layoutUrl = "/form-builder/{$this->digitalForm->id()}/layout";
-      $breadcrumbTrail = $this->generateBreadcrumbs('form_info', "Layout", $layoutUrl);
+      $breadcrumbTrail = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle(), $layoutUrl);
     }
 
     $breadcrumbTrail[] = [
       'label' => $label,
-      'url' => $url,
+      'url' => $url ? $url : '#content',
     ];
 
     return $breadcrumbTrail;
@@ -250,7 +249,6 @@ class VaGovFormBuilderController extends ControllerBase {
   public function formInfo($nid = NULL) {
     $formName = 'FormInfo';
     $subtitle = 'Build a form';
-    $breadcrumbs = $this->generateBreadcrumbs('home', 'Form info');
     $libraries = ['form_info'];
 
     if (!empty($nid)) {
@@ -259,6 +257,12 @@ class VaGovFormBuilderController extends ControllerBase {
       if (!$nodeFound) {
         throw new NotFoundHttpException();
       }
+
+      $breadcrumbs = $this->generateBreadcrumbs('layout', 'Form info');
+    }
+    else {
+      // This is a form creation.
+      $breadcrumbs = $this->generateBreadcrumbs('home', 'Form info');
     }
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
@@ -325,7 +329,7 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
     ];
     $subtitle = $this->digitalForm->getTitle();
-    $breadcrumbs = $this->generateBreadcrumbs('form_info', 'Layout');
+    $breadcrumbs = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle());
     $libraries = ['layout'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);

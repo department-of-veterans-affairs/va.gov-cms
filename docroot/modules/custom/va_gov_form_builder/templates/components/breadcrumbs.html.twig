@@ -10,15 +10,30 @@
  *   'label' => string,
  *   'url' => string,
  * ]
- *
- * The `url` property may be empty, in which case the url
- * should be the current page.
  */
 #}
 <nav class="form-builder-breadcrumbs" aria-label="Breadcrumbs">
   <ol class="form-builder-breadcrumbs__list">
     {% for breadcrumb in breadcrumbs %}
-      <li class="form-builder-breadcrumbs__list-item"><a class="form-builder-breadcrumbs__link" href="{{breadcrumb.url}}">{{breadcrumb.label}}</a></li>
+        {% if loop.last %}
+          <li class="form-builder-breadcrumbs__list-item" aria-current="page">
+            <a
+              class="form-builder-breadcrumbs__link form-builder-breadcrumbs__link--current"
+              href="{{breadcrumb.url}}"
+            >
+              {{breadcrumb.label}}
+            </a>
+          </li>
+        {% else %}
+          <li class="form-builder-breadcrumbs__list-item">
+            <a
+              class="form-builder-breadcrumbs__link"
+              href="{{breadcrumb.url}}"
+            >
+              {{breadcrumb.label}}
+            </a>
+          </li>
+        {% endif %}
     {% endfor %}
   </ol>
 </nav>
