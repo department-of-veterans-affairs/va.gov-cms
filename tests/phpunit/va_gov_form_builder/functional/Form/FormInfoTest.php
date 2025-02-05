@@ -71,10 +71,9 @@ class FormInfoTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test that the page has the expected breadcrumbs.
+   * Test that the page has the expected breadcrumbs in create mode.
    */
-  public function testPageBreadcrumbs() {
-    // Home page should not have breadcrumbs.
+  public function testPageBreadcrumbsCreateMode() {
     $this->sharedTestPageHasExpectedBreadcrumbs(
       $this->getFormPageUrl(),
       [
@@ -84,7 +83,42 @@ class FormInfoTest extends VaGovExistingSiteBase {
         ],
         [
           'label' => 'Form info',
-          'url' => "",
+          'url' => "#content",
+        ],
+      ],
+    );
+  }
+
+  /**
+   * Test that the page has the expected breadcrumbs in edit mode.
+   */
+  public function testPageBreadcrumbsEditMode() {
+    $title = 'Test Digital Form ' . uniqid();
+    $formNumber = '99-9999';
+
+    // Create a new Digital Form node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'title' => $title,
+      'field_chapters' => [],
+      'field_va_form_number' => $formNumber,
+    ]);
+
+    // Ensure page loads.
+    $this->sharedTestPageHasExpectedBreadcrumbs(
+      $this->getFormPageUrl($node->id()),
+      [
+        [
+          'label' => 'Home',
+          'url' => '/form-builder/home',
+        ],
+        [
+          'label' => $title,
+          'url' => "/form-builder/{$node->id()}/layout",
+        ],
+        [
+          'label' => 'Form info',
+          'url' => "#content",
         ],
       ],
     );

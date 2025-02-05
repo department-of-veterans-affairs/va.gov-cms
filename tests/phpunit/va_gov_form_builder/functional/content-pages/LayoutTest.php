@@ -123,12 +123,8 @@ class LayoutTest extends VaGovExistingSiteBase {
           'url' => '/form-builder/home',
         ],
         [
-          'label' => 'Form info',
-          'url' => "/form-builder/{$this->digitalFormNode->id()}/form-info",
-        ],
-        [
-          'label' => 'Layout',
-          'url' => '',
+          'label' => $this->digitalFormNode->getTitle(),
+          'url' => "#content",
         ],
       ],
     );
