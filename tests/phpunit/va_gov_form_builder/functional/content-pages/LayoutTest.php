@@ -30,7 +30,7 @@ class LayoutTest extends VaGovExistingSiteBase {
    * Returns the url for this page.
    */
   private function getFormPageUrl() {
-    return "/form-builder/{$this->digitalFormNode->id()}/layout";
+    return "/form-builder/{$this->digitalFormNode->id()}";
   }
 
   /**
@@ -107,6 +107,26 @@ class LayoutTest extends VaGovExistingSiteBase {
     $this->sharedTestPageHasExpectedSubtitle(
       $this->getFormPageUrl(),
       $this->digitalFormNode->getTitle(),
+    );
+  }
+
+  /**
+   * Test that the page has the expected breadcrumbs.
+   */
+  public function testPageBreadcrumbs() {
+    // Home page should not have breadcrumbs.
+    $this->sharedTestPageHasExpectedBreadcrumbs(
+      $this->getFormPageUrl(),
+      [
+        [
+          'label' => 'Home',
+          'url' => '/form-builder/home',
+        ],
+        [
+          'label' => $this->digitalFormNode->getTitle(),
+          'url' => "#content",
+        ],
+      ],
     );
   }
 
