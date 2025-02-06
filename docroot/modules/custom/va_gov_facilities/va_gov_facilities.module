@@ -276,11 +276,11 @@ function _va_gov_facilities_get_service_names(int $selected_office_id, array $or
     ]
     );
   // Get the existing services.
-  $existing_facility_services = $query->fetchAll() ?? [];
+  $existing_services = $query->fetchAll() ?? [];
   // Flip the existing services for comparison.
-  $existing_facility_services = array_flip(array_column($existing_facility_services, 'tid'));
+  $existing_services = array_flip(array_column($existing_services, 'tid'));
   // Remove the existing services from the original options.
-  $remaining_services = array_diff_key($original_options, $existing_facility_services);
+  $remaining_services = array_diff_key($original_options, $existing_services);
 
   return $remaining_services;
 }
