@@ -38,6 +38,7 @@ function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $f
   if ($form_id === 'node_health_care_local_health_service_form') {
     _va_gov_facilities_reduce_vamc_facility_service_options($form, $form_state);
     _va_gov_facilities_add_ajax_to_reduce_vamc_facility_service_options($form, $form_state);
+
   }
 }
 
@@ -161,7 +162,7 @@ function _va_gov_facilities_get_vamc_system_service_names(int $selected_facility
     ]
     );
   $none_option = [
-    '_none_' => '- Select a value -',
+    '_none' => '- Select a value -',
   ];
   // Flip the existing services for comparison.
   $existing_facility_services = array_flip(array_column($existing_facility_services, 'field_regional_health_service_target_id'));
