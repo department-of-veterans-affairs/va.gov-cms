@@ -61,7 +61,7 @@ function _va_gov_facilities_add_ajax_to_reduce_vamc_facility_service_options(arr
     'event' => 'change',
     'progress' => [
       'type' => 'throbber',
-      'message' => t('Updating Service name options ...'),
+      'message' => t('Updating VAMC system health service options ...'),
     ],
   ];
   // Wrap the field_service_name_and_descripti field for AJAX replacement.
@@ -171,6 +171,7 @@ function _va_gov_facilities_get_vamc_system_service_names(int $selected_facility
   $system_services = array_intersect_key($original_options, $system_services);
   // Remove the existing services from the original options.
   $remaining_services = array_diff_key($system_services, $existing_facility_services);
+  // Add the none option to the remaining services.
   $remaining_services = $none_option + $remaining_services;
 
   return $remaining_services;
