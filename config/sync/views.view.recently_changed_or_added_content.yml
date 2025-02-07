@@ -1812,7 +1812,7 @@ display:
       displays:
         recently_changed_or_added_content_page: recently_changed_or_added_content_page
         default: '0'
-      filename: recently-changed-or-edited-content
+      filename: recently-changed-or-edited-content-since-1-20-2025
       automatic_download: false
       store_in_public_file_directory: null
       custom_redirect_path: false
@@ -1833,11 +1833,11 @@ display:
     deleted: false
   recently_changed_or_added_content_page:
     id: recently_changed_or_added_content_page
-    display_title: 'Recently changed or added content'
+    display_title: 'Recently changed or added content since 1/20'
     display_plugin: page
     position: 6
     display_options:
-      title: 'Recently changed or added VAMC content'
+      title: 'Recently changed or added VAMC content since 1/20'
       fields:
         title:
           id: title
@@ -2668,7 +2668,7 @@ display:
           enabled: true
       path: admin/content/recently-changed-added
       menu:
-        type: tab
+        type: none
         title: 'Recently changed or added VAMC content'
         description: ''
         weight: 1
