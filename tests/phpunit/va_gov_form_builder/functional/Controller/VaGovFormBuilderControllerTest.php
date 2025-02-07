@@ -218,4 +218,21 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertArrayHasKey('name_and_dob_header', $page['content']);
   }
 
+  /**
+   * Tests the reviewAndSign method returns a Review-and-Sign page.
+   */
+  public function testReviewAndSign() {
+    // Create a node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'field_chapters' => [],
+    ]);
+
+    $page = $this->controller->reviewAndSign($node->id());
+
+    $this->assertArrayHasKey('content', $page);
+    $this->assertArrayHasKey('#theme', $page['content']);
+    $this->assertEquals('page_content__va_gov_form_builder__review_and_sign', $page['content']['#theme']);
+  }
+
 }

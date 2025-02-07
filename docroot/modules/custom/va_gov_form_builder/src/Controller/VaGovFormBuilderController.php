@@ -101,6 +101,31 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Returns the URL for a given page.
+   *
+   * @param string $page
+   *   The page name. This should match the routing name.
+   *
+   * @return string
+   *   Returns the url for the page. Throws an exception if
+   *   a route for the page is not configured or if
+   *   there is no digital form set and one is required
+   *   for the page to make sense.
+   */
+  protected function getPageUrl($page) {
+    $nonNodePages = ['home', 'form_info.create'];
+    if (in_array($page, $nonNodePages)) {
+      return Url::fromRoute("va_gov_form_builder.{$page}")->toString();
+    }
+
+    if (!$this->digitalForm) {
+      throw new \LogicException('Cannot determine page url because the digital form is not set.');
+    }
+
+    return Url::fromRoute("va_gov_form_builder.{$page}", ['nid' => $this->digitalForm->id()])->toString();
+  }
+
+  /**
    * Generates breadcrumbs.
    *
    * @param string $parent
@@ -119,7 +144,7 @@ class VaGovFormBuilderController extends ControllerBase {
       $breadcrumbTrail = [
         [
           'label' => 'Home',
-          'url' => Url::fromRoute('va_gov_form_builder.home')->toString(),
+          'url' => $this->getPageUrl('home'),
         ],
       ];
     }
@@ -129,7 +154,7 @@ class VaGovFormBuilderController extends ControllerBase {
         return [];
       }
 
-      $layoutUrl = Url::fromRoute('va_gov_form_builder.layout', ['nid' => $this->digitalForm->id()])->toString();
+      $layoutUrl = $this->getPageUrl('layout');
       $breadcrumbTrail = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle(), $layoutUrl);
     }
 
@@ -231,7 +256,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'home',
-      '#build_form_url' => Url::fromRoute('va_gov_form_builder.form_info.create')->toString(),
+      '#build_form_url' => $this->getPageUrl('form_info.create'),
       '#recent_forms' => $recentForms,
     ];
     $subtitle = 'Select a form';
@@ -285,7 +310,7 @@ class VaGovFormBuilderController extends ControllerBase {
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'layout',
       '#form_info' => [
         'status' => $this->digitalForm->getStepStatus('form_info'),
-        'url' => Url::fromRoute('va_gov_form_builder.form_info.edit', ['nid' => $nid])->toString(),
+        'url' => $this->getPageUrl('form_info.edit'),
       ],
       '#intro' => [
         'status' => $this->digitalForm->getStepStatus('intro'),
@@ -367,7 +392,8 @@ class VaGovFormBuilderController extends ControllerBase {
     }
 
     $pageContent = [
-      // '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'review_and_sign',
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'review_and_sign',
+      '#return_to_layout_url' => $this->getPageUrl('layout'),
     ];
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Review page');
