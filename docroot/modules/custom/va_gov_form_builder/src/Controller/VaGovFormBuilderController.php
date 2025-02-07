@@ -354,4 +354,26 @@ class VaGovFormBuilderController extends ControllerBase {
     return $this->getFormPage($formName, $subtitle);
   }
 
+  /**
+   * Review-and-sign page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   */
+  public function reviewAndSign($nid) {
+    $nodeFound = $this->loadDigitalForm($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+
+    $pageContent = [
+      // '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'review_and_sign',
+    ];
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Review page');
+    $libraries = [];
+
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
 }
