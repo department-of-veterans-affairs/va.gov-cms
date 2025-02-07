@@ -103,6 +103,20 @@ class VaGovFormBuilderController extends ControllerBase {
   /**
    * Returns the URL for a given page.
    *
+   * This method is effectively a wrapper around
+   * `Url::fromRoute()`, but abstracts away the
+   * addition of passing the node id to each call to that
+   * function. In this method, if the page requires
+   * a current digital form node, the node id of the
+   * current digital form node is added to the call
+   * to build the url.
+   *
+   * Ex:
+   * 'home' => '/form-builder/home'
+   * 'form_info.create' => '/form-builder/form-info'
+   * 'layout' => '/form-builder/123456'
+   * 'form_info.edit' => '/form-builder/123456/form-info'
+   *
    * @param string $page
    *   The page name. This should match the routing name.
    *
