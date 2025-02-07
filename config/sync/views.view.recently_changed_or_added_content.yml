@@ -22,6 +22,7 @@ dependencies:
     - user.role.administrator
     - user.role.authenticated
     - user.role.content_admin
+    - workflows.workflow.editorial
   module:
     - content_lock
     - content_moderation
@@ -2421,7 +2422,8 @@ display:
           entity_type: node
           plugin_id: moderation_state_filter
           operator: in
-          value: {  }
+          value:
+            editorial-published: editorial-published
           group: 1
           exposed: true
           expose:
