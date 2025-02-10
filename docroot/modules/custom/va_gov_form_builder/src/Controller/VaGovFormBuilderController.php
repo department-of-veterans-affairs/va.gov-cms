@@ -411,7 +411,7 @@ class VaGovFormBuilderController extends ControllerBase {
     ];
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Review page');
-    $libraries = [];
+    $libraries = ['review_and_sign'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
