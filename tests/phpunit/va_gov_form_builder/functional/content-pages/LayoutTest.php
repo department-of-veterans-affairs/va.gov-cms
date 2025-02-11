@@ -135,9 +135,11 @@ class LayoutTest extends VaGovExistingSiteBase {
    */
   public function testFormInfo() {
     $this->drupalGet($this->getFormPageUrl());
-    $this->assertSession()->linkExists('View form info');
 
-    $this->clickLink('View form info');
+    $linkText = 'View form info';
+    $this->assertSession()->linkExists($linkText);
+    $this->clickLink($linkText);
+
     $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}/form-info");
   }
 
@@ -200,8 +202,9 @@ class LayoutTest extends VaGovExistingSiteBase {
   public function testReviewAndSign() {
     $this->drupalGet($this->getFormPageUrl());
 
-    // There is no destination for this link yet.
-    $this->assertSession()->linkExists('View review and sign page');
+    $linkText = 'View review and sign page';
+    $this->assertSession()->linkExists($linkText);
+    $this->clickLink($linkText);
   }
 
   /**
