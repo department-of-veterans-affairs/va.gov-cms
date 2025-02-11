@@ -1,9 +1,7 @@
-{{ dump(directory) }}
 <div class="form-builder-content form-builder-page-content form-builder-page-content--review-and-sign">
   <h2>Reviewing the submission</h2>
 
   {% include '@va_gov_form_builder/components/banner--non-editable-pattern.html.twig' %}
-
 
   <section class="form-builder-review-and-sign-main-content">
     <div class="form-builder-heading-with-label form-builder-heading-with-label--step-label">
@@ -31,6 +29,7 @@
     <section>
       <h4>Default appearance of the statement of truth</h4>
       <p class="form-builder-hint-text">No edits are possible for this item</p>
+      <img src="{{ statement_of_truth_preview_url }}" alt="Statement of truth preview">
     </section>
 
     <section class="form-builder-button-group">

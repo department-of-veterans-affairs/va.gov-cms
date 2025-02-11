@@ -99,6 +99,7 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey($reviewAndSignTheme, $result);
     $this->assertEquals($page_content_theme_path, $result[$reviewAndSignTheme]['path']);
     $this->assertArrayHasKey('variables', $result[$reviewAndSignTheme]);
+    $this->assertArrayHasKey('statement_of_truth_preview_url', $result[$reviewAndSignTheme]['variables']);
     $this->assertArrayHasKey('return_to_layout_url', $result[$reviewAndSignTheme]['variables']);
 
     // Form themes.

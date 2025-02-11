@@ -233,6 +233,10 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertArrayHasKey('content', $page);
     $this->assertArrayHasKey('#theme', $page['content']);
     $this->assertEquals('page_content__va_gov_form_builder__review_and_sign', $page['content']['#theme']);
+
+    // Ensure css is added.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__review_and_sign', $page['#attached']['library']);
   }
 
 }
