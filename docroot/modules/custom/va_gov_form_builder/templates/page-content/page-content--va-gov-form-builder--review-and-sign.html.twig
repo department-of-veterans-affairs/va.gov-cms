@@ -1,7 +1,9 @@
 <div class="form-builder-content form-builder-page-content form-builder-page-content--review-and-sign">
   <h2>Reviewing the submission</h2>
 
-  {% include '@va_gov_form_builder/components/banner--non-editable-pattern.html.twig' %}
+  {% include '@va_gov_form_builder/components/banner--non-editable-pattern.html.twig' with {
+    heading_level: 3,
+  } %}
 
   <section class="form-builder-review-and-sign-main-content">
     <div class="form-builder-heading-with-label form-builder-heading-with-label--step-label">
