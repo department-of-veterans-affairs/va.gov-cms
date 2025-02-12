@@ -209,7 +209,6 @@ services:
         - mkdir -p "${TUGBOAT_ROOT}/next/public"
         - ln -snf "${TUGBOAT_ROOT}/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
 
-
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - bash -lc 'drush deploy'
 
@@ -225,6 +224,13 @@ services:
         - mkdir -p /etc/service/drupal_events
         - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
         - chmod +x /etc/service/drupal_events/run
+
+        # Separate process for next-build preview.
+        - mkdir -p /etc/service/next_build
+        - mv "${TUGBOAT_ROOT}/scripts/queue_runner/next_queue_runner.sh" /etc/service/next_build/run
+        - chmod +x /etc/service/next_build/run
+        # Need to make build script executable so the runner can run it.
+        - chmod +x "${TUGBOAT_ROOT}/scripts/next-build-frontend.sh"
 
       clone:
         # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
@@ -248,11 +254,7 @@ services:
         - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
 
         # Put necessary env variables in place for next's Drupal Preview before building server
-        # Need to construct this way instead of TUGBOAT_DEFAULT_SERVICE_URL in order to drop the trailing /
-        - echo "NEXT_PUBLIC_DRUPAL_BASE_URL=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
-        - echo "NEXT_IMAGE_DOMAIN=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
-        - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
-        - echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+        - ${TUGBOAT_ROOT}/scripts/next-set-tugboat-env-vars.sh
 
         # Build storybook and the frontends (web, next) in parallel
         - bash -lc 'time task --taskfile=tugboat.yml'
