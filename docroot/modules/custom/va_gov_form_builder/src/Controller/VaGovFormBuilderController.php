@@ -101,17 +101,60 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Generates breadcrumbs.
+   *
+   * @param string $parent
+   *   The parent under which the current breadcrumb should be added.
+   * @param string $label
+   *   The label for the current breadcrumb.
+   * @param string|null $url
+   *   The url for the current breadcrumb. This can be null or blank,
+   *   in which case the template should handle accordingly
+   *   (link to current page).
+   */
+  protected function generateBreadcrumbs($parent, $label, $url = NULL) {
+    $breadcrumbTrail = [];
+
+    if ($parent === 'home') {
+      $breadcrumbTrail = [
+        [
+          'label' => 'Home',
+          'url' => Url::fromRoute('va_gov_form_builder.home')->toString(),
+        ],
+      ];
+    }
+
+    elseif ($parent === 'layout') {
+      if (!$this->digitalForm) {
+        return [];
+      }
+
+      $layoutUrl = Url::fromRoute('va_gov_form_builder.layout', ['nid' => $this->digitalForm->id()])->toString();
+      $breadcrumbTrail = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle(), $layoutUrl);
+    }
+
+    $breadcrumbTrail[] = [
+      'label' => $label,
+      'url' => $url ? $url : '#content',
+    ];
+
+    return $breadcrumbTrail;
+  }
+
+  /**
    * Returns a render array representing the page with the passed-in content.
    *
    * @param array $pageContent
    *   A render array representing the page content.
    * @param string $subtitle
    *   The subtitle for the page.
-   * @param string $libraries
+   * @param array $breadcrumbs
+   *   The breadcrumbs for the page.
+   * @param string[] $libraries
    *   Libraries for the page, in addition to the Form Builder general library,
    *   which is added automatically.
    */
-  protected function getPage($pageContent, $subtitle, $libraries = NULL) {
+  protected function getPage($pageContent, $subtitle, $breadcrumbs = [], $libraries = []) {
     $page = [
       '#type' => 'page',
       'content' => $pageContent,
@@ -123,6 +166,7 @@ class VaGovFormBuilderController extends ControllerBase {
       // Add custom data.
       'form_builder_page_data' => [
         'subtitle' => $subtitle,
+        'breadcrumbs' => $breadcrumbs,
       ],
       // Add styles.
       '#attached' => [
@@ -148,15 +192,17 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The filename of the form to be rendered.
    * @param string $subtitle
    *   The subtitle for the page.
-   * @param string $libraries
+   * @param array $breadcrumbs
+   *   The breadcrumbs for the page.
+   * @param string[] $libraries
    *   Libraries for the page, in addition to the Form Builder general library,
    *   which is added automatically.
    */
-  protected function getFormPage($formName, $subtitle, $libraries = NULL) {
+  protected function getFormPage($formName, $subtitle, $breadcrumbs = [], $libraries = []) {
     // @phpstan-ignore-next-line
     $form = $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\\' . $formName, $this->digitalForm);
 
-    return $this->getPage($form, $subtitle, $libraries);
+    return $this->getPage($form, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
@@ -179,6 +225,7 @@ class VaGovFormBuilderController extends ControllerBase {
         'nid' => $digitalForm->id(),
         'title' => $digitalForm->getTitle(),
         'formNumber' => $digitalForm->get('field_va_form_number')->value,
+        'url' => Url::fromRoute('va_gov_form_builder.layout', ['nid' => $digitalForm->id()])->toString(),
       ];
     }
 
@@ -188,9 +235,10 @@ class VaGovFormBuilderController extends ControllerBase {
       '#recent_forms' => $recentForms,
     ];
     $subtitle = 'Select a form';
+    $breadcrumbs = [];
     $libraries = ['home'];
 
-    return $this->getPage($pageContent, $subtitle, $libraries);
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
@@ -210,9 +258,15 @@ class VaGovFormBuilderController extends ControllerBase {
       if (!$nodeFound) {
         throw new NotFoundHttpException();
       }
+
+      $breadcrumbs = $this->generateBreadcrumbs('layout', 'Form info');
+    }
+    else {
+      // This is a form creation.
+      $breadcrumbs = $this->generateBreadcrumbs('home', 'Form info');
     }
 
-    return $this->getFormPage($formName, $subtitle, $libraries);
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
@@ -276,9 +330,10 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
     ];
     $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle());
     $libraries = ['layout'];
 
-    return $this->getPage($pageContent, $subtitle, $libraries);
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
@@ -290,10 +345,12 @@ class VaGovFormBuilderController extends ControllerBase {
   public function nameAndDob($nid) {
     $formName = 'NameAndDob';
     $subtitle = 'Subtitle Placeholder';
+
     $nodeFound = $this->loadDigitalForm($nid);
     if (!$nodeFound) {
       throw new NotFoundHttpException();
     }
+
     return $this->getFormPage($formName, $subtitle);
   }
 

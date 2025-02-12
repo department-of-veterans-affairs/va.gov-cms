@@ -34,6 +34,148 @@ function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $f
     _va_gov_facilities_reduce_service_options($form, $form_state);
     _va_gov_facilities_add_ajax_to_reduce_service_options($form, $form_state);
   }
+  // Reduce options on the VAMC facility service form.
+  if ($form_id === 'node_health_care_local_health_service_form') {
+    _va_gov_facilities_reduce_vamc_facility_service_options($form, $form_state);
+    _va_gov_facilities_add_ajax_to_reduce_vamc_facility_service_options($form, $form_state);
+
+  }
+}
+
+/**
+ * Adds AJAX to form for VAMC facility service options.
+ *
+ * @param array $form
+ *   The form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function _va_gov_facilities_add_ajax_to_reduce_vamc_facility_service_options(array &$form, FormStateInterface $form_state) {
+  // Leave if the form does not have the field_office field.
+  if (!isset($form['field_facility_location'])) {
+    return;
+  }
+  // Add AJAX to the field_office dropdown.
+  $form['field_facility_location']['widget']['#ajax'] = [
+    'callback' => '_va_gov_facilities_reduce_vamc_facility_service_options',
+    'wrapper' => 'field-service-name-wrapper',
+    'event' => 'change',
+    'progress' => [
+      'type' => 'throbber',
+      'message' => t('Updating VAMC system health service options ...'),
+    ],
+  ];
+  // Wrap the field_service_name_and_descripti field for AJAX replacement.
+  $form['field_regional_health_service']['#prefix'] = '<div id="field-service-name-wrapper">';
+  $form['field_regional_health_service']['#suffix'] = '</div>';
+}
+
+/**
+ * AJAX callback to update the VAMC facility service name options.
+ *
+ * The result is based on selected VAMC facility.
+ *
+ * @param array $form
+ *   The form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return array
+ *   The updated field_service_name_and_descripti field.
+ */
+function _va_gov_facilities_reduce_vamc_facility_service_options(array &$form, FormStateInterface $form_state) {
+  // The form_state takes precedence over the url to get the office.
+  $selected_facility = $form_state->getValue('field_facility_location');
+  if (empty($selected_facility)) {
+    // But if the form_state doesn't have the office, check the URL.
+    $selected_facility_from_url = \Drupal::request()->get('field_facility_location');
+    if (empty($selected_facility_from_url)) {
+      return $form['field_regional_health_service'];
+    }
+    else {
+      $selected_facility_id = intval($selected_facility_from_url);
+    }
+  }
+  else {
+    $selected_facility_id = intval($selected_facility['0']['target_id']);
+  }
+
+  // Leave if the field_service_name_and_descripti field is empty.
+  if (empty($form['field_regional_health_service']['widget']['#options'])) {
+    return $form['field_regional_health_service'];
+  }
+
+  // Get the original options for the service name field.
+  $original_options = $form['field_regional_health_service']['widget']['#options'];
+
+  // Load the options for the service name field based on the selected office.
+  $options = _va_gov_facilities_get_vamc_system_service_names($selected_facility_id, $original_options, $form_state);
+  // Update the options of the field_service_name_and_descripti field.
+  $form['field_regional_health_service']['widget']['#options'] = $options;
+
+  // Return the updated field_service_name_and_descripti field.
+  return $form['field_regional_health_service'];
+}
+
+/**
+ * Helper function returns the remaining service names.
+ *
+ * The result is based on selected VAMC facility.
+ *
+ * @param int $selected_facility_id
+ *   The selected VAMC facility.
+ * @param array $original_options
+ *   The original options for the service name field.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ *
+ * @return array
+ *   The remaining service names.
+ */
+function _va_gov_facilities_get_vamc_system_service_names(int $selected_facility_id, array $original_options, FormStateInterface $form_state) {
+  // Initialize the remaining services.
+  $remaining_services = $original_options;
+  // Query services based on the selected office.
+  $database = \Drupal::database();
+  $query_existing_services = $database->query(
+    "SELECT nfrhs.field_regional_health_service_target_id FROM node__field_facility_location AS nffl
+    INNER JOIN node__field_regional_health_service AS nfrhs
+    ON nffl.entity_id = nfrhs.entity_id
+    WHERE nffl.entity_id IN
+      (SELECT nffl.entity_id FROM node__field_facility_location AS nffl
+      WHERE nffl.field_facility_location_target_id = :nid
+      AND nffl.bundle = 'health_care_local_health_service')",
+    [
+      ':nid' => $selected_facility_id,
+    ]
+    );
+  // Get the existing services.
+  $existing_facility_services = $query_existing_services->fetchAll() ?? [];
+  $query_system_services = $database->query(
+    "SELECT nfa.entity_id FROM node__field_administration as nfa
+    WHERE nfa.bundle = 'regional_health_care_service_des'
+    AND nfa.field_administration_target_id =
+      (SELECT nfa.field_administration_target_id FROM node__field_administration as nfa
+      WHERE nfa.entity_id = :existing_service_id)",
+    [
+      ':existing_service_id' => $existing_facility_services[0]->field_regional_health_service_target_id,
+    ]
+    );
+  $none_option = [
+    '_none' => '- Select a value -',
+  ];
+  // Flip the existing services for comparison.
+  $existing_facility_services = array_flip(array_column($existing_facility_services, 'field_regional_health_service_target_id'));
+  $existing_facility_services = array_intersect_key($original_options, $existing_facility_services);
+  $system_services = $query_system_services->fetchAll() ?? [];
+  $system_services = array_flip(array_column($system_services, 'entity_id'));
+  $system_services = array_intersect_key($original_options, $system_services);
+  // Remove the existing services from the original options.
+  $remaining_services = array_diff_key($system_services, $existing_facility_services);
+  // Add the none option to the remaining services.
+  $remaining_services = $none_option + $remaining_services;
+
+  return $remaining_services;
 }
 
 /**
