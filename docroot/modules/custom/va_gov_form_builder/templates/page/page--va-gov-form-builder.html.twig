@@ -21,7 +21,13 @@
   </header>
 
   <div class="form-builder-layout-container">
-    <main class="page-content clearfix" role="main">
+    {% if page.form_builder_page_data.breadcrumbs is not empty %}
+      {% include '@va_gov_form_builder/components/breadcrumbs.html.twig' with {
+        'breadcrumbs': page.form_builder_page_data.breadcrumbs,
+      } %}
+    {% endif %}
+
+    <main id="content" class="page-content clearfix" role="main">
       <div class="visually-hidden">
         <a id="main-content" tabindex="-1"></a>
       </div>
