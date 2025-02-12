@@ -32,12 +32,13 @@ CMS team does not want to get in the habit of having staged nodes that will not 
 Please tick the boxes for completed steps as we go, for cross-team visibility.
 - [ ] Technical POC has merged vets-website code to main & confirmed deploy to prod
 - [ ] Add Node ID to [Staged Content entity subqueue](https://prod.cms.va.gov/admin/structure/entityqueue/staged_content/staged_content?destination=/admin/structure/entityqueue)
-- [ ] Strategic POC has given approval to publish node to Staging, or has published node
+- [ ] Strategic POC has given approval to publish node to Staging
+- [ ] Node is published with a revision log indicating dark launch and referencing this ticket #
 - [ ] Nightly CMS build has run which pushes prod mirror to the staging site, or must request an out of band deployment.
-- [ ] Content-release has run. 
-- [ ] Verify on staging / prod
+- [ ] Content-release has run
+- [ ] Verify: page is present on staging.va.gov and does not appear on va.gov (prod)
 
 ## Acceptance Criteria
-- [ ] Page is verified: Live on Staging
-- [ ] Page is **not** live on Prod
+- [ ] Page is verified: Live on staging.va.gov
+- [ ] Page is **not** live on VA.gov
 - [ ] Ticket is cut for production launch planning, e.g. #10627
