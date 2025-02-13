@@ -34,8 +34,8 @@ Please tick the boxes for completed steps as we go, for cross-team visibility.
 - [ ] Add Node ID to [Staged Content entity subqueue](https://prod.cms.va.gov/admin/structure/entityqueue/staged_content/staged_content?destination=/admin/structure/entityqueue)
 - [ ] Strategic POC has given approval to publish node to Staging
 - [ ] Node is published with a revision log indicating dark launch and referencing this ticket #
-- [ ] Nightly CMS build has run which pushes prod mirror to the staging site, or must request an out of band deployment.
-- [ ] Content-release has run
+- [ ] Nightly CMS database sync from production to [content-build-branch-builds Tugboat](https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5) has run successfully
+- [ ] After the next merge to main in content-build, the [continuous integration Github action](https://github.com/department-of-veterans-affairs/content-build/actions/workflows/continuous-integration.yml) must run and be successful.
 - [ ] Verify: page is present on staging.va.gov and does not appear on va.gov (prod)
 
 ## Acceptance Criteria
