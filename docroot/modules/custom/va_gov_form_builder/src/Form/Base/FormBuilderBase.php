@@ -5,6 +5,7 @@ namespace Drupal\va_gov_form_builder\Form\Base;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -20,41 +21,49 @@ abstract class FormBuilderBase extends FormBase {
   protected $entityTypeManager;
 
   /**
-   * The Digital Form node created or loaded by this form step.
+   * The Digital Forms service.
    *
-   * @var \Drupal\node\Entity\Node
+   * @var \Drupal\va_gov_form_builder\Service\DigitalFormsService
    */
-  protected $digitalFormNode;
+  protected $digitalFormsService;
 
   /**
-   * Flag indicating if the node has been changed.
+   * The DigitalForm object created or loaded by this form step.
    *
-   * Indicates if the node has been changed
+   * @var \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
+   */
+  protected $digitalForm;
+
+  /**
+   * Flag indicating if the Digital Form has been changed.
+   *
+   * Indicates if the Digital Form has been changed
    * since the form was first instantiated.
    *
    * @var bool
    */
-  protected $digitalFormNodeIsChanged;
+  protected $digitalFormIsChanged;
 
   /**
-   * Flag indicating whether this form allows an empty node.
+   * Flag indicating whether this form allows an empty DigitalForm object.
    *
-   * This defaults to FALSE. The only time an empty node
+   * This defaults to FALSE. The only time an empty object
    * should be allowed is on the form that creates
    * the node for the first time. Every other form should
-   * operate on an existing form and should require a
-   * node to be populated.
+   * operate on an existing form and should require an
+   * object to be populated.
    *
    * @var bool
    */
-  protected $allowEmptyDigitalFormNode;
+  protected $allowEmptyDigitalForm;
 
   /**
    * {@inheritDoc}
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, DigitalFormsService $digitalFormsService) {
     $this->entityTypeManager = $entityTypeManager;
-    $this->allowEmptyDigitalFormNode = FALSE;
+    $this->digitalFormsService = $digitalFormsService;
+    $this->allowEmptyDigitalForm = FALSE;
   }
 
   /**
@@ -62,7 +71,8 @@ abstract class FormBuilderBase extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('va_gov_form_builder.digital_forms_service')
     );
   }
 
@@ -72,32 +82,32 @@ abstract class FormBuilderBase extends FormBase {
   abstract protected function getFields();
 
   /**
-   * Sets (creates or updates) a Digital Form node from the form-state data.
+   * Sets (creates or updates) a DigitalForm object from the form-state data.
    */
-  abstract protected function setDigitalFormNodeFromFormState(array &$form, FormStateInterface $form_state);
+  abstract protected function setDigitalFormFromFormState(array &$form, FormStateInterface $form_state);
 
   /**
-   * Returns a field value from the Digital Form node.
+   * Returns a field value from the Digital Form.
    *
-   * If Digital Form node is not set, or `fieldName`
+   * If Digital Form is not set, or `fieldName`
    * does not exist, returns NULL. This is primarily
    * used to populate forms with default values when the
-   * form edits an existing Digital Form node.
+   * form edits an existing Digital Form.
    *
    * @param string $fieldName
    *   The name of the field whose value should be fetched.
    */
-  protected function getDigitalFormNodeFieldValue($fieldName) {
-    if (empty($this->digitalFormNode)) {
+  protected function getDigitalFormFieldValue($fieldName) {
+    if (empty($this->digitalForm)) {
       return NULL;
     }
 
     try {
       if ($fieldName === 'title') {
-        return $this->digitalFormNode->getTitle();
+        return $this->digitalForm->getTitle();
       }
 
-      return $this->digitalFormNode->get($fieldName)->value;
+      return $this->digitalForm->get($fieldName)->value;
     }
     catch (\Exception $e) {
       return NULL;
@@ -107,58 +117,27 @@ abstract class FormBuilderBase extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $node = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL) {
     // When form is first built, initialize flag to false.
-    $this->digitalFormNodeIsChanged = FALSE;
+    $this->digitalFormIsChanged = FALSE;
 
-    if (empty($node) && !$this->allowEmptyDigitalFormNode) {
-      throw new \InvalidArgumentException('Digital Form node cannot be null.');
+    if (empty($digitalForm) && !$this->allowEmptyDigitalForm) {
+      throw new \InvalidArgumentException('Digital Form cannot be null.');
     }
-    $this->digitalFormNode = $node;
+    $this->digitalForm = $digitalForm;
 
     return $form;
-  }
-
-  /**
-   * Determines if `digitalFormNode` has a chapter (paragraph) of a given type.
-   *
-   * @param string $type
-   *   The chapter (paragraph) type.
-   *
-   * @return bool
-   *   TRUE if the chapter exists; FALSE if the chapter
-   *   does not exist or the node does not exist.
-   */
-  protected function digitalFormNodeHasChapterOfType($type) {
-    if (empty($this->digitalFormNode)) {
-      return FALSE;
-    }
-
-    $chapters = $this->digitalFormNode->get('field_chapters')->getValue();
-
-    foreach ($chapters as $chapter) {
-      if (isset($chapter['target_id'])) {
-        $paragraph = $this->entityTypeManager->getStorage('paragraph')->load($chapter['target_id']);
-        if ($paragraph) {
-          if ($paragraph->bundle() === $type) {
-            return TRUE;
-          }
-        }
-      }
-    }
-
-    return FALSE;
   }
 
   /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $this->setDigitalFormNodeFromFormState($form, $form_state);
+    $this->setDigitalFormFromFormState($form, $form_state);
 
     // Validate the node entity.
     /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
-    $violations = $this->digitalFormNode->validate();
+    $violations = $this->digitalForm->validate();
 
     // Loop through each violation and set errors on the form.
     if ($violations->count() > 0) {
@@ -179,8 +158,8 @@ abstract class FormBuilderBase extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Save the previously validated node.
-    $this->digitalFormNode->save();
+    // Save the previously validated Digital Form.
+    $this->digitalForm->save();
   }
 
 }

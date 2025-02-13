@@ -57,6 +57,16 @@ class HomeTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Test that the page has the expected breadcrumbs.
+   */
+  public function testPageBreadcrumbs() {
+    // Home page should not have breadcrumbs.
+    $this->drupalGet($this->getPageUrl());
+    $breadcrumbWrapper = $this->getSession()->getPage()->find('css', '.form-builder-breadcrumbs');
+    $this->assertEmpty($breadcrumbWrapper);
+  }
+
+  /**
    * Test the 'Build a form' button.
    */
   public function testButton() {

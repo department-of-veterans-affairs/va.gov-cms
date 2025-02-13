@@ -2,7 +2,6 @@
 
 namespace tests\phpunit\va_gov_form_builder\functional\Form;
 
-use Drupal\node\Entity\Node;
 use tests\phpunit\va_gov_form_builder\Traits\SharedConstants;
 use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
@@ -26,25 +25,33 @@ class NameAndDobTest extends VaGovExistingSiteBase {
   private static $modules = ['va_gov_form_builder'];
 
   /**
-   * The Digital Form node.
+   * The DigitalFormsService object.
    *
-   * @var \Drupal\node\Entity\Node
+   * @var \Drupal\va_gov_form_builder\Service\DigitalFormsService
    */
-  private $node;
+  private $digitalFormsService;
 
   /**
-   * Returns the url for this form (for the given node)
+   * The Digital Form object.
+   *
+   * @var \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
+   */
+  private $digitalForm;
+
+  /**
+   * Returns the url for this form (for the given Digital Form)
    */
   private function getFormPageUrl() {
-    return '/form-builder/' . $this->node->id() . '/name-and-dob';
+    return '/form-builder/' . $this->digitalForm->id() . '/name-and-dob';
   }
 
   /**
-   * Reloads the node from the database.
+   * Reloads the Digital Form from the database.
    */
-  private function reloadNode() {
-    \Drupal::entityTypeManager()->getStorage('node')->resetCache([$this->node->id()]);
-    $this->node = Node::load($this->node->id());
+  private function reloadDigitalForm() {
+    \Drupal::entityTypeManager()->getStorage('node')->resetCache([$this->digitalForm->id()]);
+
+    $this->digitalForm = $this->digitalFormsService->getDigitalForm($this->digitalForm->id());
   }
 
   /**
@@ -55,11 +62,14 @@ class NameAndDobTest extends VaGovExistingSiteBase {
 
     $this->loginFormBuilderUser();
 
+    $this->digitalFormsService = \Drupal::service('va_gov_form_builder.digital_forms_service');
+
     // Create a node that doesn't have any chapters.
-    $this->node = $this->createNode([
+    $node = $this->createNode([
       'type' => 'digital_form',
       'field_chapters' => [],
     ]);
+    $this->digitalForm = $this->digitalFormsService->wrapDigitalForm($node);
 
     $this->drupalGet($this->getFormPageUrl());
   }
@@ -87,9 +97,9 @@ class NameAndDobTest extends VaGovExistingSiteBase {
     ];
     $this->submitForm($formInput, 'Continue');
 
-    // Reload node and assert that chapters has been updated.
-    $this->reloadNode();
-    $this->assertCount(1, $this->node->get('field_chapters')->getValue());
+    // Reload Digital Form and assert that chapters has been updated.
+    $this->reloadDigitalForm();
+    $this->assertCount(1, $this->digitalForm->get('field_chapters')->getValue());
   }
 
   /**
@@ -102,17 +112,17 @@ class NameAndDobTest extends VaGovExistingSiteBase {
       'field_title' => 'Your personal information',
       'field_include_date_of_birth' => TRUE,
     ]);
-    $this->node->get('field_chapters')->appendItem($nameAndDobParagraph);
-    $this->node->save();
+    $this->digitalForm->get('field_chapters')->appendItem($nameAndDobParagraph);
+    $this->digitalForm->save();
 
     $formInput = [
       'step_name' => 'Your Personal Information',
     ];
     $this->submitForm($formInput, 'Continue');
 
-    // Reload node and assert that chapters still has only one item.
-    $this->reloadNode();
-    $this->assertCount(1, $this->node->get('field_chapters')->getValue());
+    // Reload Digital Form and assert that chapters still has only one item.
+    $this->reloadDigitalForm();
+    $this->assertCount(1, $this->digitalForm->get('field_chapters')->getValue());
   }
 
   /**

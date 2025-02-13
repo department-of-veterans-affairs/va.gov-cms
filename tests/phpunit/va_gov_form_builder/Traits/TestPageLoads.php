@@ -71,4 +71,30 @@ trait TestPageLoads {
     $this->assertEquals($subtitleElement->getText(), $expectedSubtitle);
   }
 
+  /**
+   * Test the page has the expected breadcrumbs.
+   *
+   * @param string $url
+   *   The  page to load.
+   * @param string[] $expectedBreadcrumbs
+   *   The expected breadcrumbs.
+   */
+  private function sharedTestPageHasExpectedBreadcrumbs($url, $expectedBreadcrumbs) {
+    // Log in a user with permission.
+    $this->loginFormBuilderUser();
+
+    // Navigate to page.
+    $this->drupalGet($url);
+
+    $page = $this->getSession()->getPage();
+    $breadcrumbLinks = $page->findAll('css', '.form-builder-breadcrumbs__link');
+    foreach ($breadcrumbLinks as $index => $breadcrumbLink) {
+      $label = $breadcrumbLink->getText();
+      $this->assertEquals($expectedBreadcrumbs[$index]['label'], $label);
+
+      $url = $breadcrumbLink->getAttribute('href');
+      $this->assertEquals($expectedBreadcrumbs[$index]['url'], $url);
+    }
+  }
+
 }
