@@ -23,6 +23,7 @@ dependencies:
     - paragraphs_browser
     - paragraphs_features
     - path
+    - textfield_counter
 third_party_settings:
   field_group:
     group_editorial_workflow:
@@ -113,12 +114,19 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_omb_number:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 8
     region: content
     settings:
       size: 9
       placeholder: XXXX-XXXX
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
   field_respondent_burden:
     type: number
@@ -128,12 +136,19 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_va_form_number:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 1
     region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
@@ -148,12 +163,19 @@ content:
     settings: {  }
     third_party_settings: {  }
   title:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 0
     region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: true
+      maxlength: 52
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
 hidden:
   created: true
