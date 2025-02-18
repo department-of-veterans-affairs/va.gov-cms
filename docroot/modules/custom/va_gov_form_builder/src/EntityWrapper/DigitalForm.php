@@ -243,7 +243,7 @@ class DigitalForm {
   }
 
   /**
-   * Adds a Address-information step to the Digital Form.
+   * Adds an Address-information step to the Digital Form.
    *
    * @param mixed $fields
    *   The field values to add. If needed values are not present,
@@ -261,6 +261,27 @@ class DigitalForm {
     ]);
 
     $this->node->get('field_chapters')->appendItem($addressInformation);
+  }
+
+  /**
+   * Adds a Contact-information step to the Digital Form.
+   *
+   * @param mixed $fields
+   *   The field values to add. If needed values are not present,
+   *   they take defaults as defined in the code.
+   */
+  private function addContactInfoStep($fields = NULL) {
+    if (!$this->node) {
+      throw new \Exception('Digital Form is not set. Cannot add steps to an empty Digital Form object.');
+    }
+
+    $contactInformation = $this->entityTypeManager->getStorage('paragraph')->create([
+      'type' => 'digital_form_phone_and_email',
+      'field_title' => $fields['field_title'] ?? 'Phone and email address',
+      'field_include_email' => $fields['field_include_email'] ?? TRUE,
+    ]);
+
+    $this->node->get('field_chapters')->appendItem($contactInformation);
   }
 
   /**
