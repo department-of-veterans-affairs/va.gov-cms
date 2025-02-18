@@ -167,8 +167,8 @@ class SplitMultipleExtensions extends BatchOperations implements BatchScriptInte
           $first_extension = [];
           preg_match('/^\d+/', $extension, $first_extension);
           $second_extension = [];
-          preg_match('/d+$/', $extension, $second_extension);
-          $ext_1_original_label = $phone_number_entity->get('field_phone_label')->value[0];
+          preg_match('/\d+$/', $extension, $second_extension);
+          $ext_1_original_label = $phone_number_entity->get('field_phone_label')->value;
           if (!empty($ext_1_original_label)) {
             $phone_number_entity->get('field_phone_label')->value = "$ext_1_original_label #1";
           }
@@ -176,8 +176,28 @@ class SplitMultipleExtensions extends BatchOperations implements BatchScriptInte
             $phone_number_entity->get('field_phone_extension')->value = $first_extension;
             // Set the new phone value(s) on the node.
             $phone_number_entity->set(name: 'field_phone_extension', value: $first_extension);
+            $phone_number_entity->save();
           }
-          $this->saveNodeRevision($node);
+          if (!empty($second_extension)) {
+            $field_service_location_phone = Paragraph::create([
+              'type' => 'phone_number',
+              'field_phone_number' => $phone_number_entity->set('field_phone_number', $phone_number_entity->get('field_phone_number')->value)->value,
+              'field_phone_extension' => $second_extension,
+              'status' => 1,
+              'revision_translation_affected' => 1,
+            ]);
+            $field_service_location_phone->save();
+            $service_location->field_phone->appendItem($field_service_location_phone);
+            $service_location->save();
+          }
+
+          // $node->set(name: 'field_phone', value: array_map(callback: fn($field_service_location_phone) => [
+          //   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+          //   'target_id' => $field_service_location_phone->id(),
+          //   'target_revision_id' => $field_service_location_phone->getRevisionId(),
+          // ], array: $paragraphs));
+
+          // $this->saveNodeRevision($node, 'cbu04905', FALSE);
 
         }
       }
