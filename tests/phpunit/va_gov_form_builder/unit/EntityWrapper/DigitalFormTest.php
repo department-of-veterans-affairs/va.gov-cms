@@ -458,6 +458,67 @@ class DigitalFormTest extends VaGovUnitTestBase {
   }
 
   /**
+   * Helper function to set up a test for addStep with `contact_info`.
+   *
+   * @param mixed $expectedValues
+   *   The expected values passed to the paragraph creation calls.
+   */
+  private function setUpAddStepContactInfoTest($expectedValues) {
+    $addressInfo = $this->createMockParagraph('digital_form_phone_and_email');
+
+    $mockParagraphEntityStorage = $this->createMock(EntityStorageInterface::class);
+    $mockParagraphEntityStorage
+      ->expects($this->exactly(1))
+      ->method('create')
+      ->with(
+        $this->callback(fn($params) =>
+          isset($params['type']) &&
+          $params['type'] === 'digital_form_phone_and_email' &&
+          isset($params['field_title']) &&
+          $params['field_title'] === $expectedValues['field_title'] &&
+          isset($params['field_include_email']) &&
+          $params['field_include_email'] === $expectedValues['field_include_email']
+        ),
+      )
+      ->willReturn($addressInfo);
+
+    $this->setUpAddStepTest($mockParagraphEntityStorage);
+    $this->expectAppendedParagraph('digital_form_phone_and_email');
+  }
+
+  /**
+   * Tests addStep() with `contact_info` and default values.
+   */
+  public function testAddStepContactInfoWithDefaults() {
+    // Expect the default values.
+    $this->setUpAddStepContactInfoTest([
+      'field_title' => 'Phone and email address',
+      'field_include_email' => TRUE,
+    ]);
+
+    /* Call the method under test */
+    $this->digitalForm->addStep('contact_info');
+  }
+
+  /**
+   * Tests addStep() with `contact_info` and non-default values.
+   */
+  public function testAddStepContactInfo() {
+    $contactInfoTitle = 'My contact-info title';
+    $includeEmail = FALSE;
+
+    $fields = [
+      'field_title' => $contactInfoTitle,
+      'field_include_email' => $includeEmail,
+    ];
+
+    $this->setUpAddStepContactInfoTest($fields);
+
+    /* Call the method under test */
+    $this->digitalForm->addStep('contact_info', $fields);
+  }
+
+  /**
    * Tests addStep() with non-existent step name.
    */
   public function testAddStepNonExistentStep() {
