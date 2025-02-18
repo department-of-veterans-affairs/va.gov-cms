@@ -229,7 +229,7 @@ class DigitalForm {
 
     $identificationInfo = $this->entityTypeManager->getStorage('paragraph')->create([
       'type' => 'digital_form_identification_info',
-      'field_title' => $fields['field_identification_information']['field_title'] ?? 'Identifying information',
+      'field_title' => $fields['field_identification_information']['field_title'] ?? 'Identification information',
       'field_include_veteran_s_service' => $fields['field_identification_information']['field_include_veteran_s_service'] ?? TRUE,
     ]);
 
