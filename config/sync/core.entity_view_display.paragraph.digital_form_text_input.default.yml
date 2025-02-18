@@ -1,0 +1,43 @@
+uuid: e8583044-33d3-4d53-a2e2-2f4f43fc51f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_text_input.field_digital_form_hint_text
+    - field.field.paragraph.digital_form_text_input.field_digital_form_label
+    - field.field.paragraph.digital_form_text_input.field_digital_form_required
+    - paragraphs.paragraphs_type.digital_form_text_input
+id: paragraph.digital_form_text_input.default
+targetEntityType: paragraph
+bundle: digital_form_text_input
+mode: default
+content:
+  field_digital_form_hint_text:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_digital_form_label:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_digital_form_required:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  breadcrumbs: true
+  search_api_excerpt: true

@@ -1,0 +1,24 @@
+uuid: 5d954169-fbe8-4503-ac36-fe7689695c0b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.digital_form_custom_step
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_custom_step.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: digital_form_custom_step
+label: 'Step header'
+description: 'The name for each step within the progress bar.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
