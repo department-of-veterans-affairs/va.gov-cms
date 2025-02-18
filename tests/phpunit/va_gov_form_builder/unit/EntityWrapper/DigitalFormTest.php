@@ -397,6 +397,67 @@ class DigitalFormTest extends VaGovUnitTestBase {
   }
 
   /**
+   * Helper function to set up a test for addStep with `address_info`.
+   *
+   * @param mixed $expectedValues
+   *   The expected values passed to the paragraph creation calls.
+   */
+  private function setUpAddStepAddressInfoTest($expectedValues) {
+    $addressInfo = $this->createMockParagraph('digital_form_address');
+
+    $mockParagraphEntityStorage = $this->createMock(EntityStorageInterface::class);
+    $mockParagraphEntityStorage
+      ->expects($this->exactly(1))
+      ->method('create')
+      ->with(
+        $this->callback(fn($params) =>
+          isset($params['type']) &&
+          $params['type'] === 'digital_form_address' &&
+          isset($params['field_title']) &&
+          $params['field_title'] === $expectedValues['field_title'] &&
+          isset($params['field_military_address_checkbox']) &&
+          $params['field_military_address_checkbox'] === $expectedValues['field_military_address_checkbox']
+        ),
+      )
+      ->willReturn($addressInfo);
+
+    $this->setUpAddStepTest($mockParagraphEntityStorage);
+    $this->expectAppendedParagraph('digital_form_address');
+  }
+
+  /**
+   * Tests addStep() with `address_info` and default values.
+   */
+  public function testAddStepAddressInfoWithDefaults() {
+    // Expect the default values.
+    $this->setUpAddStepAddressInfoTest([
+      'field_title' => 'Mailing address',
+      'field_military_address_checkbox' => TRUE,
+    ]);
+
+    /* Call the method under test */
+    $this->digitalForm->addStep('address_info');
+  }
+
+  /**
+   * Tests addStep() with `address_info` and non-default values.
+   */
+  public function testAddStepAddressInfo() {
+    $addressInfoTitle = 'My address-info title';
+    $includeMilitaryAddressCheckbox = FALSE;
+
+    $fields = [
+      'field_title' => $addressInfoTitle,
+      'field_military_address_checkbox' => $includeMilitaryAddressCheckbox,
+    ];
+
+    $this->setUpAddStepAddressInfoTest($fields);
+
+    /* Call the method under test */
+    $this->digitalForm->addStep('address_info', $fields);
+  }
+
+  /**
    * Tests addStep() with non-existent step name.
    */
   public function testAddStepNonExistentStep() {
