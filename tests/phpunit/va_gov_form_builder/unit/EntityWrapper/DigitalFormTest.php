@@ -362,7 +362,7 @@ class DigitalFormTest extends VaGovUnitTestBase {
       ],
       'field_identification_information' => [
         'field_title' => 'Identification information',
-        'field_include_veteran_s_service' => TRUE,
+        'field_include_veteran_s_service' => FALSE,
       ],
     ]);
 
@@ -377,7 +377,7 @@ class DigitalFormTest extends VaGovUnitTestBase {
     $nameAndDobTitle = 'My name-and-dob title';
     $includeDob = FALSE;
     $identificationInfoTitle = 'My identification-info title';
-    $includeVeteranService = FALSE;
+    $includeVeteranService = TRUE;
 
     $fields = [
       'field_name_and_date_of_birth' => [
