@@ -116,8 +116,8 @@ class SplitMultipleExtensions extends BatchOperations implements BatchScriptInte
     $query_paragraph_field_phone->addField('nfd','nid');
     $query_paragraph_field_phone->addField('pfpe','entity_id');
 
-    $union_select = $query_node_field_telephone->union($query_node_field_phone_numbers_paragraph);
-    $union_select = $union_select->union($query_paragraph_field_other_phone_numbers);
+    // $union_select = $query_node_field_telephone->union($query_node_field_phone_numbers_paragraph);
+    $union_select = $query_node_field_phone_numbers_paragraph->union($query_paragraph_field_other_phone_numbers);
     $union_select = $union_select->union($query_paragraph_field_phone);
 
     $nids = $union_select->execute()->fetchAllKeyed();
@@ -135,25 +135,27 @@ class SplitMultipleExtensions extends BatchOperations implements BatchScriptInte
       $node_id = $matches[0];
     }
     if (empty($node_id)) {
-      $message = "No node id for $key";
+      $message = "No node id in $key. Nothing to process.";
       return $message;
     }
 
-    // load the node to which we'll be adding the paragraph
+    // Load the node to which we'll be adding the paragraph
     $node = Node::load($node_id);
     $bundle_type = $node->bundle();
     if ($bundle_type !== "health_care_local_health_service" and $bundle_type !== "vha_facility_nonclinical_service") {
-      $message = "No nodes to change";
+      $message = "No nodes to change in the targeted bundle types.";
       return $message;
     }
     $all_revisions = $this->getNodeAllRevisions($node_id);
     foreach ($all_revisions as $revision) {
-      // get the paragraph
+      // Get the Service Location paragraph.
       $service_locations = $revision->get('field_service_location')->referencedEntities();
       if (empty($service_locations)) {
         continue;
       }
       foreach ($service_locations as $service_location) {
+        // These are the two phone fields in Service Location.
+        // They both use the phone_number paragraph type.
         $phone_fields = [
           'field_phone',
           'field_other_phone_numbers',
@@ -166,6 +168,7 @@ class SplitMultipleExtensions extends BatchOperations implements BatchScriptInte
           foreach ($phone_number_entities as $phone_number_entity) {
             $extension = $phone_number_entity->get('field_phone_extension')->value;
 
+            // We only need extensions with non-numerical characters.
             if (!preg_match('/[^0-9]/', $extension)) {
               continue;
             }

@@ -81,7 +81,6 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
     else {
       $message = "No changes made for paragraph id $item";
     }
-
     return $message;
   }
 
@@ -94,7 +93,7 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
    * @return string
    *   The changed extension
    */
-  public static function replaceNonNumerals(string $extension): string {
+  public function replaceNonNumerals(string $extension): string {
 
     $pattern_to_ignore = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/';
 
