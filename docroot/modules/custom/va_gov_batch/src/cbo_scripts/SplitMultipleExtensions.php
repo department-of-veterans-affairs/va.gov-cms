@@ -130,6 +130,7 @@ class SplitMultipleExtensions extends BatchOperations implements BatchScriptInte
    */
   public function processOne(string $key, mixed $item, array &$sandbox): string {
     $matches = [];
+    // Get the node id from the key.
     if (preg_match('/\d+$/', $key, $matches)) {
       $node_id = $matches[0];
     }
@@ -153,43 +154,53 @@ class SplitMultipleExtensions extends BatchOperations implements BatchScriptInte
         continue;
       }
       foreach ($service_locations as $service_location) {
-        $phone_number_entities = $service_location->get('field_phone')->referencedEntities();
-        if (empty($phone_number_entities)) {
-          continue;
-        }
-        foreach ($phone_number_entities as $phone_number_entity) {
-          $extension = $phone_number_entity->get('field_phone_extension')->value;
-
-          if (!preg_match('/[^0-9]/', $extension)) {
+        $phone_fields = [
+          'field_phone',
+          'field_other_phone_numbers',
+        ];
+        foreach ($phone_fields as $phone_field) {
+          $phone_number_entities = $service_location->get($phone_field)->referencedEntities();
+          if (empty($phone_number_entities)) {
             continue;
           }
-          // @todo: get the current extension
-          $first_extension = [];
-          preg_match('/^\d+/', $extension, $first_extension);
-          $second_extension = [];
-          preg_match('/\d+$/', $extension, $second_extension);
-          $ext_1_original_label = $phone_number_entity->get('field_phone_label')->value;
-          if (!empty($ext_1_original_label)) {
-            $phone_number_entity->get('field_phone_label')->value = "$ext_1_original_label #1";
-          }
-          if (!empty($first_extension)) {
-            $phone_number_entity->get('field_phone_extension')->value = $first_extension;
-            // Set the new phone value(s) on the node.
-            $phone_number_entity->set(name: 'field_phone_extension', value: $first_extension);
-            $phone_number_entity->save();
-          }
-          if (!empty($second_extension)) {
-            $field_service_location_phone = Paragraph::create([
-              'type' => 'phone_number',
-              'field_phone_number' => $phone_number_entity->set('field_phone_number', $phone_number_entity->get('field_phone_number')->value)->value,
-              'field_phone_extension' => $second_extension,
-              'status' => 1,
-              'revision_translation_affected' => 1,
-            ]);
-            $field_service_location_phone->save();
-            $service_location->field_phone->appendItem($field_service_location_phone);
-            $service_location->save();
-          }
+          foreach ($phone_number_entities as $phone_number_entity) {
+            $extension = $phone_number_entity->get('field_phone_extension')->value;
+
+            if (!preg_match('/[^0-9]/', $extension)) {
+              continue;
+            }
+            // @todo: get the current extension
+            $first_extension = [];
+            preg_match('/^\d+/', $extension, $first_extension);
+            $second_extension = [];
+            preg_match('/\d+$/', $extension, $second_extension);
+            $original_label = $phone_number_entity->get('field_phone_label')->value;
+            if (!empty($original_label)) {
+              $phone_number_entity->get('field_phone_label')->value = "$original_label #1";
+            }
+            if (!empty($first_extension)) {
+              $phone_number_entity->get('field_phone_extension')->value = $first_extension;
+              // Set the new phone value(s) on the node.
+              $phone_number_entity->set(name: 'field_phone_extension', value: $first_extension);
+              $phone_number_entity->save();
+            }
+            if (!empty($second_extension)) {
+              $phone_number = $phone_number_entity->get('field_phone_number')->value;
+              $field_service_location_phone = Paragraph::create([
+                'type' => 'phone_number',
+                'field_phone_number_type' => 'tel',
+                'field_phone_number' => $phone_number,
+                'field_phone_extension' => $second_extension,
+                'field_phone_label' => "$original_label #2",
+                'status' => 1,
+                'revision_translation_affected' => 1,
+              ]);
+              $field_service_location_phone->save();
+              $service_location->get($phone_field)->appendItem($field_service_location_phone);
+              $service_location->save();
+            }
+        }
+
 
           // $node->set(name: 'field_phone', value: array_map(callback: fn($field_service_location_phone) => [
           //   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
