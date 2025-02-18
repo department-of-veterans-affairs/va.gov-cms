@@ -361,7 +361,7 @@ class DigitalFormTest extends VaGovUnitTestBase {
         'field_include_date_of_birth' => TRUE,
       ],
       'field_identification_information' => [
-        'field_title' => 'Identifying information',
+        'field_title' => 'Identification information',
         'field_include_veteran_s_service' => TRUE,
       ],
     ]);
