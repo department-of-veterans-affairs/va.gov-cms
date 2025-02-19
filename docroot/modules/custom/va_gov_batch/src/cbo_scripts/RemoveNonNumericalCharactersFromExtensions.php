@@ -4,10 +4,19 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;
-use Drupal\Core\Entity\EntityStorageException;
 
 /**
- * Migrate Staff profile phone field to phone paragraph.
+ * @file
+ * For non-numerical characters in the phone_number paragraph extension field.
+ *
+ * For VACMS-20371.
+ * This file should be run first.
+ * drush codit-batch-operations:run RemoveNonNumericalCharactersFromExtensions .
+ * Then, run the next file.
+ * drush codit-batch-operations:run SplitExtensionWithTwoNumbers .
+ */
+/**
+ * Remove non-numerical characters from most extensions.
  */
 class RemoveNonNumericalCharactersFromExtensions extends BatchOperations implements BatchScriptInterface {
 
@@ -100,7 +109,7 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
    * @return string
    *   The changed extension
    */
-  public function replaceNonNumerals(string $extension): string {
+  public static function replaceNonNumerals(string $extension): string {
 
     $pattern_to_ignore = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/';
 

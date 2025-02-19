@@ -7,6 +7,16 @@ use Drupal\codit_batch_operations\BatchScriptInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
+ * @file
+ * For dual numbers in the phone_number paragraph extension field.
+ *
+ * For VACMS-20371.
+ * This file should be run SECOND, after you run
+ * drush codit-batch-operations:run RemoveNonNumericalCharactersFromExtensions .
+ * Then, run this file
+ * drush codit-batch-operations:run SplitExtensionWithTwoNumbers .
+ */
+/**
  * Split extensions with two numbers.
  */
 class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScriptInterface {
@@ -121,7 +131,7 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
    *   Array with two extensions (or empty).
    *   E.g. '2132,2995' becomes ['2132','2995']
    */
-  protected function splitExtensions(string $dual_extension): array {
+  public static function splitExtensions(string $dual_extension): array {
     if (!preg_match('/[^0-9]/', $dual_extension)) {
       return [];
     }
