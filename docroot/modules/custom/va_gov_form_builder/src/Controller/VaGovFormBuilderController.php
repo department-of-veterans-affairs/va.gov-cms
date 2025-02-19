@@ -101,6 +101,45 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Returns the URL for a given page.
+   *
+   * This method is effectively a wrapper around
+   * `Url::fromRoute()`, but abstracts away the
+   * addition of passing the node id to each call to that
+   * function. In this method, if the page requires
+   * a current digital form node, the node id of the
+   * current digital form node is added to the call
+   * to build the url.
+   *
+   * Ex:
+   * 'home' => '/form-builder/home'
+   * 'form_info.create' => '/form-builder/form-info'
+   * 'layout' => '/form-builder/123456'
+   * 'form_info.edit' => '/form-builder/123456/form-info'
+   *
+   * @param string $page
+   *   The page name. This should match the routing name.
+   *
+   * @return string
+   *   Returns the url for the page. Throws an exception if
+   *   a route for the page is not configured or if
+   *   there is no digital form set and one is required
+   *   for the page to make sense.
+   */
+  protected function getPageUrl($page) {
+    $nonNodePages = ['home', 'form_info.create'];
+    if (in_array($page, $nonNodePages)) {
+      return Url::fromRoute("va_gov_form_builder.{$page}")->toString();
+    }
+
+    if (!$this->digitalForm) {
+      throw new \LogicException('Cannot determine page url because the digital form is not set.');
+    }
+
+    return Url::fromRoute("va_gov_form_builder.{$page}", ['nid' => $this->digitalForm->id()])->toString();
+  }
+
+  /**
    * Generates breadcrumbs.
    *
    * @param string $parent
@@ -119,7 +158,7 @@ class VaGovFormBuilderController extends ControllerBase {
       $breadcrumbTrail = [
         [
           'label' => 'Home',
-          'url' => Url::fromRoute('va_gov_form_builder.home')->toString(),
+          'url' => $this->getPageUrl('home'),
         ],
       ];
     }
@@ -129,7 +168,7 @@ class VaGovFormBuilderController extends ControllerBase {
         return [];
       }
 
-      $layoutUrl = Url::fromRoute('va_gov_form_builder.layout', ['nid' => $this->digitalForm->id()])->toString();
+      $layoutUrl = $this->getPageUrl('layout');
       $breadcrumbTrail = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle(), $layoutUrl);
     }
 
@@ -231,7 +270,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'home',
-      '#build_form_url' => Url::fromRoute('va_gov_form_builder.form_info.create')->toString(),
+      '#build_form_url' => $this->getPageUrl('form_info.create'),
       '#recent_forms' => $recentForms,
     ];
     $subtitle = 'Select a form';
@@ -285,7 +324,7 @@ class VaGovFormBuilderController extends ControllerBase {
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'layout',
       '#form_info' => [
         'status' => $this->digitalForm->getStepStatus('form_info'),
-        'url' => Url::fromRoute('va_gov_form_builder.form_info.edit', ['nid' => $nid])->toString(),
+        'url' => $this->getPageUrl('form_info.edit'),
       ],
       '#intro' => [
         'status' => $this->digitalForm->getStepStatus('intro'),
@@ -319,7 +358,7 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
       '#review_and_sign' => [
         'status' => $this->digitalForm->getStepStatus('review_and_sign'),
-        'url' => '',
+        'url' => $this->getPageUrl('review_and_sign'),
       ],
       '#confirmation' => [
         'status' => $this->digitalForm->getStepStatus('confirmation'),
@@ -352,6 +391,30 @@ class VaGovFormBuilderController extends ControllerBase {
     }
 
     return $this->getFormPage($formName, $subtitle);
+  }
+
+  /**
+   * Review-and-sign page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   */
+  public function reviewAndSign($nid) {
+    $nodeFound = $this->loadDigitalForm($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+
+    $pageContent = [
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'review_and_sign',
+      '#statement_of_truth_preview_url' => '/modules/custom/va_gov_form_builder/images/statement-of-truth.png',
+      '#return_to_layout_url' => $this->getPageUrl('layout'),
+    ];
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Review page');
+    $libraries = ['review_and_sign'];
+
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
 
 }

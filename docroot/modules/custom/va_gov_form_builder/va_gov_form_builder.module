@@ -33,7 +33,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   // Add page-content themes.
   $page_content_theme_prefix = 'page_content__va_gov_form_builder__';
   $page_content_theme_path = $path . '/templates/page-content';
-  // 1. Home page
+  // 1. Home page.
   $theme[$page_content_theme_prefix . 'home'] = [
     'path' => $page_content_theme_path,
     'variables' => [
@@ -41,7 +41,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
       'build_form_url' => '',
     ],
   ];
-  // 2. Layout page
+  // 2. Layout page.
   $theme[$page_content_theme_prefix . 'layout'] = [
     'path' => $page_content_theme_path,
     'variables' => [
@@ -82,6 +82,14 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
       'view_form' => [
         'url' => '',
       ],
+    ],
+  ];
+  // 3. Review and Sign page.
+  $theme[$page_content_theme_prefix . 'review_and_sign'] = [
+    'path' => $page_content_theme_path,
+    'variables' => [
+      'statement_of_truth_preview_url' => '',
+      'return_to_layout_url' => '',
     ],
   ];
 
