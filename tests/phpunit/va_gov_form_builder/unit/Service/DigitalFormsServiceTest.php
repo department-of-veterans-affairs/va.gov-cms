@@ -315,4 +315,64 @@ class DigitalFormsServiceTest extends VaGovUnitTestBase {
     $this->assertEmpty($digitalForm);
   }
 
+  /**
+   * Helper function to DRY up expectation setup for createDigitalForm.
+   *
+   * @param array|null $fields
+   *   The fields that should be on the call to `create`.
+   */
+  private function setUpMockQueryCreateDigitalForm($fields = NULL) {
+    // Mock the entity storage.
+    $entityStorage = $this->createMock(EntityStorageInterface::class);
+    if (empty($fields)) {
+      $entityStorage->expects($this->once())
+        ->method('create')
+        ->willReturn(NULL);
+    }
+    else {
+      $node = $this->createMock('Drupal\node\NodeInterface');
+      $node->method('getType')
+        ->willReturn('digital_form');
+
+      $entityStorage->expects($this->once())
+        ->method('create')
+        ->with($this->equalTo(['type' => 'digital_form'] + $fields))
+        ->willReturn($node);
+    }
+
+    // Mock the entity type manager.
+    $this->entityTypeManager->expects($this->once())
+      ->method('getStorage')
+      ->with('node')
+      ->willReturn($entityStorage);
+  }
+
+  /**
+   * Tests createDigitalForm() with good data.
+   */
+  public function testCreateDigitalFormGoodData() {
+    $fields = [
+      'title' => 'My title',
+      'field_va_form_number' => '99-1234',
+    ];
+    $this->setUpMockQueryCreateDigitalForm($fields);
+
+    $digitalForm = $this->digitalFormsService->createDigitalForm($fields);
+    $this->assertNotEmpty($digitalForm);
+  }
+
+  /**
+   * Tests createDigitalForm() catches exception.
+   */
+  public function testCreateDigitalFormCatchesException() {
+    $fields = [
+      'some_field' => 'Some value',
+    ];
+    // Mock query will throw an exception if we don't pass in any fields.
+    $this->setUpMockQueryCreateDigitalForm();
+
+    $digitalForm = $this->digitalFormsService->createDigitalForm($fields);
+    $this->assertEmpty($digitalForm);
+  }
+
 }
