@@ -14,6 +14,12 @@ use Drupal\node\NodeInterface;
  * @method \Symfony\Component\Validator\ConstraintViolationListInterface validate()
  * @method int save() Saves the entity and returns the save status
  * @method \Drupal\node\NodeInterface set(string $field_name, mixed $value, bool $notify = TRUE) Sets a field value
+ *
+ * The following line is included because the public method `addStep`
+ * makes dynamic calls to otherwise uncalled private methods, and those
+ * private methods trigger unused-method warnings when they are, in fact,
+ * not unused:
+ * @phpcs:disable DrupalPractice.Objects.UnusedPrivateMethod.UnusedMethod
  */
 class DigitalForm {
   /**
@@ -201,6 +207,105 @@ class DigitalForm {
     }
 
     return 'incomplete';
+  }
+
+  /**
+   * Adds a Your-personal-information step to the Digital Form.
+   *
+   * @param mixed $fields
+   *   The field values to add. If needed values are not present,
+   *   they take defaults as defined in the code.
+   */
+  private function addYourPersonalInfoStep($fields = NULL) {
+    if (!$this->node) {
+      throw new \Exception('Digital Form is not set. Cannot add steps to an empty Digital Form object.');
+    }
+
+    $nameAndDob = $this->entityTypeManager->getStorage('paragraph')->create([
+      'type' => 'digital_form_name_and_date_of_bi',
+      'field_title' => $fields['field_name_and_date_of_birth']['field_title'] ?? 'Name and date of birth',
+      'field_include_date_of_birth' => $fields['field_name_and_date_of_birth']['field_include_date_of_birth'] ?? TRUE,
+    ]);
+
+    $identificationInfo = $this->entityTypeManager->getStorage('paragraph')->create([
+      'type' => 'digital_form_identification_info',
+      'field_title' => $fields['field_identification_information']['field_title'] ?? 'Identification information',
+      'field_include_veteran_s_service' => $fields['field_identification_information']['field_include_veteran_s_service'] ?? FALSE,
+    ]);
+
+    $yourPersonalInformation = $this->entityTypeManager->getStorage('paragraph')->create([
+      'type' => 'digital_form_your_personal_info',
+      'field_name_and_date_of_birth' => $nameAndDob,
+      'field_identification_information' => $identificationInfo,
+    ]);
+
+    $this->node->get('field_chapters')->appendItem($yourPersonalInformation);
+  }
+
+  /**
+   * Adds an Address-information step to the Digital Form.
+   *
+   * @param mixed $fields
+   *   The field values to add. If needed values are not present,
+   *   they take defaults as defined in the code.
+   */
+  private function addAddressInfoStep($fields = NULL) {
+    if (!$this->node) {
+      throw new \Exception('Digital Form is not set. Cannot add steps to an empty Digital Form object.');
+    }
+
+    $addressInformation = $this->entityTypeManager->getStorage('paragraph')->create([
+      'type' => 'digital_form_address',
+      'field_title' => $fields['field_title'] ?? 'Mailing address',
+      'field_military_address_checkbox' => $fields['field_military_address_checkbox'] ?? TRUE,
+    ]);
+
+    $this->node->get('field_chapters')->appendItem($addressInformation);
+  }
+
+  /**
+   * Adds a Contact-information step to the Digital Form.
+   *
+   * @param mixed $fields
+   *   The field values to add. If needed values are not present,
+   *   they take defaults as defined in the code.
+   */
+  private function addContactInfoStep($fields = NULL) {
+    if (!$this->node) {
+      throw new \Exception('Digital Form is not set. Cannot add steps to an empty Digital Form object.');
+    }
+
+    $contactInformation = $this->entityTypeManager->getStorage('paragraph')->create([
+      'type' => 'digital_form_phone_and_email',
+      'field_title' => $fields['field_title'] ?? 'Phone and email address',
+      'field_include_email' => $fields['field_include_email'] ?? TRUE,
+    ]);
+
+    $this->node->get('field_chapters')->appendItem($contactInformation);
+  }
+
+  /**
+   * Adds a step to the Digital Form.
+   *
+   * @param string $stepName
+   *   The name of the step to add.
+   * @param array<string,mixed> $fields
+   *   The field values. If not passed, defaults
+   *   are used in the underlying calls.
+   */
+  public function addStep($stepName, $fields = NULL) {
+    if (!$this->node) {
+      throw new \Exception('Digital Form is not set. Cannot add steps to an empty Digital Form object.');
+    }
+
+    // Ex: 'your_personal_info' => 'addYourPersonalInfoStep'.
+    $methodName = 'add' . str_replace('_', '', ucwords($stepName, '_')) . 'Step';
+
+    if (method_exists($this, $methodName)) {
+      return $this->$methodName($fields);
+    }
+
+    throw new \InvalidArgumentException("Method $methodName does not exist.");
   }
 
 }
