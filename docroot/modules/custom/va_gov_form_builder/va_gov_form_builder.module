@@ -88,8 +88,14 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   $theme[$page_content_theme_prefix . 'review_and_sign'] = [
     'path' => $page_content_theme_path,
     'variables' => [
-      'statement_of_truth_preview_url' => '',
-      'return_to_layout_url' => '',
+      'preview' => [
+        'alt_text' => '',
+        'url' => '',
+      ],
+      'primary_button' => [
+        'label' => '',
+        'url' => '',
+      ],
     ],
   ];
 

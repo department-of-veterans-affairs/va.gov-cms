@@ -407,12 +407,18 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'review_and_sign',
-      '#statement_of_truth_preview_url' => '/modules/custom/va_gov_form_builder/images/statement-of-truth.png',
-      '#return_to_layout_url' => $this->getPageUrl('layout'),
+      '#preview' => [
+        'alt_text' => 'Statement of truth preview',
+        'url' => '/modules/custom/va_gov_form_builder/images/statement-of-truth.png',
+      ],
+      '#primary_button' => [
+        'label' => 'Save and continue',
+        'url' => $this->getPageUrl('layout'),
+      ],
     ];
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Review page');
-    $libraries = ['review_and_sign'];
+    $libraries = ['page_content__layout__non_editable_pattern'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }

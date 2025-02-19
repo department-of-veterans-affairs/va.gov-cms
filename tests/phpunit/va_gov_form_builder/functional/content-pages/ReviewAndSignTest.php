@@ -119,11 +119,11 @@ class ReviewAndSignTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test the button.
+   * Test the primary button.
    */
-  public function testButton() {
+  public function testPrimaryButton() {
     $this->drupalGet($this->getPageUrl());
-    $this->click('a#form-builder-return-to-layout-button');
+    $this->click('a#form-builder-non-editable-pattern-primary-button');
     $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}");
   }
 
