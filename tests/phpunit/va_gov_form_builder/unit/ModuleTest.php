@@ -94,6 +94,13 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey('review_and_sign', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('confirmation', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('view_form', $result[$layoutTheme]['variables']);
+    // 3. Review-and-Sign page.
+    $reviewAndSignTheme = $page_content_theme_prefix . 'review_and_sign';
+    $this->assertArrayHasKey($reviewAndSignTheme, $result);
+    $this->assertEquals($page_content_theme_path, $result[$reviewAndSignTheme]['path']);
+    $this->assertArrayHasKey('variables', $result[$reviewAndSignTheme]);
+    $this->assertArrayHasKey('statement_of_truth_preview_url', $result[$reviewAndSignTheme]['variables']);
+    $this->assertArrayHasKey('return_to_layout_url', $result[$reviewAndSignTheme]['variables']);
 
     // Form themes.
     $form_theme_prefix = 'form__va_gov_form_builder__';

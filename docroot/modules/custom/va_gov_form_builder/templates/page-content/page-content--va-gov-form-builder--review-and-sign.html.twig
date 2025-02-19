@@ -1,0 +1,49 @@
+<div id="form-builder-content-review-and-sign" class="form-builder-content form-builder-single-column-content form-builder-page-content">
+  <h2>Reviewing the submission</h2>
+
+  {% include '@va_gov_form_builder/components/banner--non-editable-pattern.html.twig' with {
+    heading_level: 3,
+  } %}
+
+  <section id="form-builder-review-and-sign-main-content">
+    <div id="heading-with-label-step-label" class="form-builder-heading-with-label">
+      <p class="form-builder-heading-with-label__label">Step label</p>
+      <h3
+        class="form-builder-heading-with-label__heading"
+        aria-labelledby="heading-label-step-label"
+      >
+        Review and sign
+      </h3>
+    </div>
+
+    <p class="review-and-sign-paragraph">
+      This step of the form allows the submitter to review their inputs and then affirm that what
+      was provided is accurate. Not shown in this tool are all of the steps that are part of this form.
+      Steps are listed on the layout page.
+    </p>
+
+    <p class="review-and-sign-paragraph">
+      <span style="font-weight: bold;">Note:</span> For any added step that can map signatures to an
+      alternate certification or attestation, the universal statement of truth on the review
+      step covers those situations as well. There is no need to add in additional text.
+    </p>
+
+    <section>
+      <h4>Default appearance of the statement of truth</h4>
+      <p class="form-builder-hint-text review-and-sign-paragraph">No edits are possible for this item</p>
+      <img src="{{ statement_of_truth_preview_url }}" alt="Statement of truth preview">
+    </section>
+
+    <section class="form-builder-button-group">
+      <a
+        id="form-builder-return-to-layout-button"
+        href="{{ return_to_layout_url }}"
+        role="button"
+        class="form-builder-button form-builder-button--primary form-builder-button--return-to-layout"
+      >
+        Save and continue
+      </a>
+    </section>
+  </section>
+
+</div>
