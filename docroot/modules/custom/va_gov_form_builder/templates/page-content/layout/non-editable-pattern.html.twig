@@ -16,9 +16,11 @@
       </h3>
     </div>
 
-    <div class="form-builder-non-editable-pattern__step_description">
-      {% block step_description%}{% endblock %}
-    </div>
+    {% if block('step_description') is not empty %}
+      <div class="form-builder-non-editable-pattern__step_description">
+        {% block step_description%}{% endblock %}
+      </div>
+    {% endif %}
 
     <section class="form-builder-non-editable-pattern__default-appearance">
       <h4>Default appearance of this step</h4>
