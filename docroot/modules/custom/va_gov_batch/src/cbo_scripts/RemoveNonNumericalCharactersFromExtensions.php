@@ -4,6 +4,7 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;
+use Drupal\Core\Entity\EntityStorageException;
 
 /**
  * Migrate Staff profile phone field to phone paragraph.
@@ -70,17 +71,23 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
 
     // If the extension has changed, update the paragraph.
     if ($result !== $extension[0]) {
-      // Update the extension field with only numbers.
-      \Drupal::database()
-        ->update('paragraph__field_phone_extension')
-        ->fields(['field_phone_extension_value' => $result])
-        ->condition('entity_id', $item)
-        ->execute();
-      $message = "Extension updated for paragraph id $item from $extension[0] to $result";
+      try {
+        \Drupal::database()
+          ->update('paragraph__field_phone_extension')
+          ->fields(['field_phone_extension_value' => $result])
+          ->condition('entity_id', $item)
+          ->execute();
+        $message = "Extension updated for paragraph id $item from '$extension[0]' to '$result'";
+      }
+      catch (\Exception $e) {
+        $message = "Exception during update of paragraph id $item with extension: $extension[0]";
+        return $message;
+      }
     }
     else {
-      $message = "No changes made for paragraph id $item";
+      $message = "No changes were made to paragraph id $item with extension: $extension[0]";
     }
+
     return $message;
   }
 

@@ -195,7 +195,6 @@ class SplitMultipleExtensions extends BatchOperations implements BatchScriptInte
                 'field_phone_number' => $phone_number,
                 'field_phone_extension' => $second_extension,
                 'field_phone_label' => "$original_label #2",
-                'status' => 1,
                 'revision_translation_affected' => 1,
               ]);
               $field_service_location_phone->save();
@@ -257,6 +256,14 @@ class SplitMultipleExtensions extends BatchOperations implements BatchScriptInte
     // $this->saveNodeRevision($node, $message);
     return "Cool";
   }
+
+  /**
+   * Gets the paragraph.
+   */
+
+   /**
+    * Gets the node from the paragraph.
+    */
 
   /**
    * Creates the paragraph.
