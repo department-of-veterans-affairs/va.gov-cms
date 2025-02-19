@@ -94,13 +94,46 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey('review_and_sign', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('confirmation', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('view_form', $result[$layoutTheme]['variables']);
-    // 3. Review-and-Sign page.
+    // 3. Non-editable-pattern-step pages.
+    // 3a. Name-and-date-of-birth page.
+    $nameAndDobTheme = $page_content_theme_prefix . 'name_and_dob';
+    $this->assertArrayHasKey($nameAndDobTheme, $result);
+    $this->assertEquals($page_content_theme_path, $result[$nameAndDobTheme]['path']);
+    $this->assertArrayHasKey('variables', $result[$nameAndDobTheme]);
+    $this->assertArrayHasKey('preview', $result[$nameAndDobTheme]['variables']);
+    $this->assertArrayHasKey('alt_text', $result[$nameAndDobTheme]['variables']['preview']);
+    $this->assertArrayHasKey('url', $result[$nameAndDobTheme]['variables']['preview']);
+    $this->assertArrayHasKey('primary_button', $result[$nameAndDobTheme]['variables']);
+    $this->assertArrayHasKey('label', $result[$nameAndDobTheme]['variables']['primary_button']);
+    $this->assertArrayHasKey('url', $result[$nameAndDobTheme]['variables']['primary_button']);
+    $this->assertArrayHasKey('secondary_button', $result[$nameAndDobTheme]['variables']);
+    $this->assertArrayHasKey('label', $result[$nameAndDobTheme]['variables']['secondary_button']);
+    $this->assertArrayHasKey('url', $result[$nameAndDobTheme]['variables']['secondary_button']);
+    // 3b. Identification-information page.
+    $identificationInfoTheme = $page_content_theme_prefix . 'identification_info';
+    $this->assertArrayHasKey($identificationInfoTheme, $result);
+    $this->assertEquals($page_content_theme_path, $result[$identificationInfoTheme]['path']);
+    $this->assertArrayHasKey('variables', $result[$identificationInfoTheme]);
+    $this->assertArrayHasKey('preview', $result[$identificationInfoTheme]['variables']);
+    $this->assertArrayHasKey('alt_text', $result[$identificationInfoTheme]['variables']['preview']);
+    $this->assertArrayHasKey('url', $result[$identificationInfoTheme]['variables']['preview']);
+    $this->assertArrayHasKey('primary_button', $result[$identificationInfoTheme]['variables']);
+    $this->assertArrayHasKey('label', $result[$identificationInfoTheme]['variables']['primary_button']);
+    $this->assertArrayHasKey('url', $result[$identificationInfoTheme]['variables']['primary_button']);
+    $this->assertArrayHasKey('secondary_button', $result[$identificationInfoTheme]['variables']);
+    $this->assertArrayHasKey('label', $result[$identificationInfoTheme]['variables']['secondary_button']);
+    $this->assertArrayHasKey('url', $result[$identificationInfoTheme]['variables']['secondary_button']);
+    // 3c. Review-and-Sign page.
     $reviewAndSignTheme = $page_content_theme_prefix . 'review_and_sign';
     $this->assertArrayHasKey($reviewAndSignTheme, $result);
     $this->assertEquals($page_content_theme_path, $result[$reviewAndSignTheme]['path']);
     $this->assertArrayHasKey('variables', $result[$reviewAndSignTheme]);
-    $this->assertArrayHasKey('statement_of_truth_preview_url', $result[$reviewAndSignTheme]['variables']);
-    $this->assertArrayHasKey('return_to_layout_url', $result[$reviewAndSignTheme]['variables']);
+    $this->assertArrayHasKey('preview', $result[$reviewAndSignTheme]['variables']);
+    $this->assertArrayHasKey('alt_text', $result[$reviewAndSignTheme]['variables']['preview']);
+    $this->assertArrayHasKey('url', $result[$reviewAndSignTheme]['variables']['preview']);
+    $this->assertArrayHasKey('primary_button', $result[$reviewAndSignTheme]['variables']);
+    $this->assertArrayHasKey('label', $result[$reviewAndSignTheme]['variables']['primary_button']);
+    $this->assertArrayHasKey('url', $result[$reviewAndSignTheme]['variables']['primary_button']);
 
     // Form themes.
     $form_theme_prefix = 'form__va_gov_form_builder__';

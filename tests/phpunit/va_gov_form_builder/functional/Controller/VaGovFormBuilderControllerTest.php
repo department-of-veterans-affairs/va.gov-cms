@@ -203,7 +203,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Tests the nameAndDob method returns a NameAndDob form.
+   * Tests the nameAndDob method returns a Name-and-date-of-birth page.
    */
   public function testNameAndDob() {
     // Create a node.
@@ -215,7 +215,33 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $page = $this->controller->nameAndDob($node->id());
 
     $this->assertArrayHasKey('content', $page);
-    $this->assertArrayHasKey('name_and_dob_header', $page['content']);
+    $this->assertArrayHasKey('#theme', $page['content']);
+    $this->assertEquals('page_content__va_gov_form_builder__name_and_dob', $page['content']['#theme']);
+
+    // Ensure css is added.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+  }
+
+  /**
+   * Tests the identificationInfo method returns an Identification-info page.
+   */
+  public function testIdentificationInfo() {
+    // Create a node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'field_chapters' => [],
+    ]);
+
+    $page = $this->controller->identificationInfo($node->id());
+
+    $this->assertArrayHasKey('content', $page);
+    $this->assertArrayHasKey('#theme', $page['content']);
+    $this->assertEquals('page_content__va_gov_form_builder__identification_info', $page['content']['#theme']);
+
+    // Ensure css is added.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
   }
 
   /**
@@ -236,7 +262,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__review_and_sign', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
   }
 
 }
