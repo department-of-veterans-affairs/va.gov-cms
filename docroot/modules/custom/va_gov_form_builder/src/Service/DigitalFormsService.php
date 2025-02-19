@@ -63,13 +63,36 @@ class DigitalFormsService {
   }
 
   /**
-   * Retrieves a Digital Form node by node id.
+   * Creates a Digital Form node and wraps it.
+   *
+   * @param array<string,mixed> $fields
+   *   The field values.
+   *
+   * @return \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm|null
+   *   A DigitalForm object wrapping the created node, or NULL if not created.
+   */
+  public function createDigitalForm($fields) {
+    try {
+      $node = $this->entityTypeManager->getStorage('node')->create([
+        'type' => 'digital_form',
+      ] + $fields);
+
+      return $this->wrapDigitalForm($node);
+    }
+    catch (\Exception $e) {
+      return NULL;
+    }
+  }
+
+  /**
+   * Retrieves a Digital Form node by node id and wraps it.
    *
    * @param bool $nid
    *   The node id.
    *
-   * @return \Drupal\node\NodeInterface|null
-   *   A node object of type 'digital_form', or NULL if not found.
+   * @return \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm|null
+   *   A DigitalForm object wrapping the fetched 'digital_form' node,
+   *   or NULL if not found.
    */
   public function getDigitalForm($nid) {
     $node = $this->entityTypeManager->getStorage('node')->load($nid);
@@ -83,8 +106,8 @@ class DigitalFormsService {
    * @param \Drupal\node\NodeInterface $node
    *   The `digital_form` node to wrap.
    *
-   * @return \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
-   *   The DigitalForm object wrapping the passed-in $node.
+   * @return \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm|null
+   *   The DigitalForm object wrapping the passed-in $node, or NULL.
    */
   public function wrapDigitalForm($node) {
     if (!$node) {

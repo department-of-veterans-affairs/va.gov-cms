@@ -135,15 +135,18 @@ class FormInfo extends FormBuilderBase {
        *
        * Create the new Digital Form with the fields from this form.
        */
-      $node = $this->entityTypeManager->getStorage('node')->create([
-        'type' => 'digital_form',
+      $this->digitalForm = $this->digitalFormsService->createDigitalForm([
         'title' => $title,
         'field_va_form_number' => $vaFormNumber,
         'field_omb_number' => $ombNumber,
         'field_respondent_burden' => $respondentBurden,
         'field_expiration_date' => $expirationDate,
       ]);
-      $this->digitalForm = $this->digitalFormsService->wrapDigitalForm($node);
+
+      // Add default standard steps.
+      $this->digitalForm->addStep('your_personal_info');
+      $this->digitalForm->addStep('address_info');
+      $this->digitalForm->addStep('contact_info');
     }
     else {
       /*
