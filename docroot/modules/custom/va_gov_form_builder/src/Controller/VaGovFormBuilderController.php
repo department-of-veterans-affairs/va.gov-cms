@@ -336,7 +336,7 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
       '#address_info' => [
         'status' => $this->digitalForm->getStepStatus('address_info'),
-        'url' => '',
+        'url' => $this->getPageUrl('address_info'),
       ],
       '#contact_info' => [
         'status' => $this->digitalForm->getStepStatus('contact_info'),
