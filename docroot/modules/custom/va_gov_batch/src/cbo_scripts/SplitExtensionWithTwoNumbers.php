@@ -75,12 +75,17 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
     $phone_parent_field_name = $phone_paragraph->get('parent_field_name')->value;
     // We only need to change two fields.
     if ($phone_parent_field_name !== 'field_phone' && $phone_parent_field_name !== 'field_other_phone_numbers') {
-      return "There is not change necessary for paragraph $item.";
+      if ($phone_parent_field_name === 'field_phone_numbers_paragraph') {
+        return "The phone data from 'field_phone_numbers_paragraph' '$item'  on 'health_care_local_health_service' has already been migrated to the Service location paragraph previously. This is a vestigial field that is unused.";
+      }
+      else {
+        return "There is no change necessary for paragraph $item.";
+      }
     }
 
     // Do the extension work.
-    $orginal_extension = $phone_paragraph->get('field_phone_extension')->value;
-    $separated_extensions = $this->splitExtensions($orginal_extension);
+    $original_extension = $phone_paragraph->get('field_phone_extension')->value;
+    $separated_extensions = $this->splitExtensions($original_extension);
     $original_label = $phone_paragraph->get('field_phone_label')->value;
 
     try {
@@ -91,7 +96,7 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
         }
         $phone_paragraph->set(name: 'field_phone_extension', value: $separated_extensions[0]);
         $phone_paragraph->save();
-        $message = "1st extension for paragraph $item changed from '$orginal_extension' to $separated_extensions[0]'." . PHP_EOL;
+        $message = "1st extension for paragraph $item changed from '$original_extension' to $separated_extensions[0]'." . PHP_EOL;
       }
 
       // Create the second extension and phone.
@@ -111,11 +116,11 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
         $phone_parent_paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($phone_parent_id);
         $phone_parent_paragraph->get($phone_parent_field_name)->appendItem($second_phone);
         $phone_parent_paragraph->save();
-        $message .= "2nd extension created for paragraph $second_phone_id from '$orginal_extension' to $separated_extensions[1]'." . PHP_EOL;
+        $message .= "2nd extension created for paragraph $second_phone_id from '$original_extension' to $separated_extensions[1]'." . PHP_EOL;
       }
     }
     catch (\Exception $e) {
-      $message = "Exception during update of paragraph id $item with extension '$orginal_extension'. Reason provided: " . $e->getMessage();
+      $message = "Exception during update of paragraph id $item with extension '$original_extension'. Reason provided: " . $e->getMessage();
       return $message;
     }
 
