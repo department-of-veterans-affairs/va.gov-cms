@@ -245,6 +245,41 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Tests the addressInfo method returns an Address-info page.
+   */
+  public function testAddressInfo() {
+    // Create a node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'field_chapters' => [],
+    ]);
+
+    $page = $this->controller->addressInfo($node->id());
+
+    $this->assertArrayHasKey('content', $page);
+
+    // Ensure theme is set as expected.
+    $this->assertArrayHasKey('#theme', $page['content']);
+    $this->assertEquals('page_content__va_gov_form_builder__address_info', $page['content']['#theme']);
+
+    // Ensure variables are set as expected.
+    $this->assertArrayHasKey('#preview', $page['content']);
+    $this->assertArrayHasKey('alt_text', $page['content']['#preview']);
+    $this->assertEquals('Address-information preview', $page['content']['#preview']['alt_text']);
+    $this->assertArrayHasKey('url', $page['content']['#preview']);
+    $this->assertStringContainsString('address-info.png', $page['content']['#preview']['url']);
+    $this->assertArrayHasKey('#primary_button', $page['content']);
+    $this->assertArrayHasKey('label', $page['content']['#primary_button']);
+    $this->assertEquals('Save and continue', $page['content']['#primary_button']['label']);
+    $this->assertArrayHasKey('url', $page['content']['#primary_button']);
+    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#primary_button']['url']);
+
+    // Ensure css is added as expected.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+  }
+
+  /**
    * Tests the reviewAndSign method returns a Review-and-Sign page.
    */
   public function testReviewAndSign() {
