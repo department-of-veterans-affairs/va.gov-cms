@@ -67,6 +67,7 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
    * {@inheritdoc}
    */
   public function processOne(string $key, mixed $item, array &$sandbox): string {
+    $message = '';
 
     // Get phone paragraph information.
     $phone_paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($item);
@@ -80,11 +81,11 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
     // Do the extension work.
     $orginal_extension = $phone_paragraph->get('field_phone_extension')->value;
     $separated_extensions = $this->splitExtensions($orginal_extension);
+    $original_label = $phone_paragraph->get('field_phone_label')->value;
 
     try {
       // Update the first extension and phone.
       if (!empty($separated_extensions[0])) {
-        $original_label = $phone_paragraph->get('field_phone_label')->value;
         if (!empty($original_label)) {
           $phone_paragraph->set(name: 'field_phone_label', value: "$original_label #1");
         }
