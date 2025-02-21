@@ -17,7 +17,6 @@ class ValidNumericValidator extends ConstraintValidator {
    * {@inheritDoc}
    */
   public function validate(mixed $items, Constraint $constraint) {
-    /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\ValidNumeric $constraint */
     foreach ($items as $delta => $item) {
       if (!preg_match("/^\d+$/", $item->value)) {
         $this->getContext()
