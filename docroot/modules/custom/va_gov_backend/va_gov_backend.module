@@ -581,7 +581,7 @@ function va_gov_backend_field_widget_single_element_boolean_checkbox_form_alter(
 /**
  * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
  */
-function va_gov_backend_field_widget_single_element_form_alter(array &$element, \Drupal\Core\Form\FormStateInterface $form_state, array $context) {
+function va_gov_backend_field_widget_single_element_form_alter(array &$element, FormStateInterface $form_state, array $context) {
   $field_definition = $context['items']->getFieldDefinition();
   if ($field_definition instanceof FieldConfig) {
     [$entity_type, , $field_name] = explode('.', $field_definition->id());
