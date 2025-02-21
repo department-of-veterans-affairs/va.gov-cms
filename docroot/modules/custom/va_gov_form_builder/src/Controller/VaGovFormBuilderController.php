@@ -332,7 +332,7 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
       '#your_personal_info' => [
         'status' => $this->digitalForm->getStepStatus('your_personal_info'),
-        'url' => '',
+        'url' => $this->getPageUrl('name_and_dob'),
       ],
       '#address_info' => [
         'status' => $this->digitalForm->getStepStatus('address_info'),
@@ -382,15 +382,65 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function nameAndDob($nid) {
-    $formName = 'NameAndDob';
-    $subtitle = 'Subtitle Placeholder';
-
     $nodeFound = $this->loadDigitalForm($nid);
     if (!$nodeFound) {
       throw new NotFoundHttpException();
     }
 
-    return $this->getFormPage($formName, $subtitle);
+    $pageContent = [
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'name_and_dob',
+      '#preview' => [
+        'alt_text' => 'Name-and-date-of-birth preview',
+        'url' => '/modules/custom/va_gov_form_builder/images/name-and-dob.png',
+      ],
+      '#primary_button' => [
+        'label' => 'Save and continue',
+        'url' => $this->getPageUrl('layout'),
+      ],
+      '#secondary_button' => [
+        'label' => 'Next page',
+        'url' => $this->getPageUrl('identification_info'),
+      ],
+    ];
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Personal information');
+    $libraries = ['page_content__layout__non_editable_pattern'];
+
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Identification-info page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   */
+  public function identificationInfo($nid) {
+    $nodeFound = $this->loadDigitalForm($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+
+    $pageContent = [
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'identification_info',
+      '#preview' => [
+        'alt_text' => 'Identification-information preview',
+        'url' => '/modules/custom/va_gov_form_builder/images/identification-info.png',
+      ],
+      '#primary_button' => [
+        'label' => 'Save and continue',
+        'url' => $this->getPageUrl('layout'),
+      ],
+      '#secondary_button' => [
+        'label' => 'Previous page',
+        'url' => $this->getPageUrl('name_and_dob'),
+      ],
+    ];
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Personal information');
+    $libraries = ['page_content__layout__non_editable_pattern'];
+
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
@@ -407,12 +457,18 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'review_and_sign',
-      '#statement_of_truth_preview_url' => '/modules/custom/va_gov_form_builder/images/statement-of-truth.png',
-      '#return_to_layout_url' => $this->getPageUrl('layout'),
+      '#preview' => [
+        'alt_text' => 'Statement-of-truth preview',
+        'url' => '/modules/custom/va_gov_form_builder/images/statement-of-truth.png',
+      ],
+      '#primary_button' => [
+        'label' => 'Save and continue',
+        'url' => $this->getPageUrl('layout'),
+      ],
     ];
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Review page');
-    $libraries = ['review_and_sign'];
+    $libraries = ['page_content__layout__non_editable_pattern'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
