@@ -21,6 +21,9 @@ Public Websites team will need to:
 - [ ] add the domain with **both www and non-www** to the [proxy-rewrite-whitelist.json](https://github.com/department-of-veterans-affairs/vets-website/blob/main/src/applications/proxy-rewrite/proxy-rewrite-whitelist.json) allow list, with `"cookieOnly": true` for staging testing. - .5hr
 
 - [ ] add the domain to Devops code that handles the TeamSite CORS allowed origins for `bucket-prod-va-gov-assets` and `bucket-preview-va-gov-assets`. The buckets are now part of the vets-api module, so you just need to make sure any needed origins are in the local allowed_origins list: https://github.com/department-of-veterans-affairs/devops/blob/master/terraform/environments/dsva-vagov-prod/main.tf#L274 - .5hr
+    - [ ] In your Devops PR, add an "Additional Steps" section to the PR description with the following checkboxes for the devops person to take on upon approving the PR ([rationale from Devops in Slack](https://dsva.slack.com/archives/CBU0KDSB1/p1740086549724649?thread_ts=1740081681.905719&cid=CBU0KDSB1))
+        - [ ] Devops merged PR
+        - [ ] Devops ran terraform
 
 - [ ] PR shepherding - .5-1hr
 
