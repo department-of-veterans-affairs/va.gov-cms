@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_backend\Plugin\Validation\Constraint;
 
+use Drupal\va_gov_backend\Plugin\Validation\Constraint\Traits\ValidatorContextAccessTrait;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -10,14 +11,19 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 class ValidNumericValidator extends ConstraintValidator {
 
+  use ValidatorContextAccessTrait;
+
   /**
    * {@inheritDoc}
    */
   public function validate(mixed $items, Constraint $constraint) {
     /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\ValidNumeric $constraint */
-    foreach ($items as $item) {
+    foreach ($items as $delta => $item) {
       if (!preg_match("/^\d+$/", $item->value)) {
-        $this->context->addViolation($constraint->notANumber);
+        $this->getContext()
+          ->buildViolation($constraint->notANumber, [])
+          ->atPath($delta . 'value')
+          ->addViolation();
       }
     }
   }
