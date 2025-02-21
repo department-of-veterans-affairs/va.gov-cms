@@ -27,17 +27,17 @@ class ValidNumericValidatorTest extends VaGovUnitTestBase {
    *   TRUE if the test string should validate, otherwise FALSE.
    * @param string $testString
    *   Some test string to attempt to validate.
-   * @param string $fieldType
-   *   The type of the text field, e.g. 'string'.
    *
    * @covers ::validate
    * @covers ::validateText
    * @covers ::validateHtml
    * @dataProvider validateDataProvider
    */
-  public function testValidate(bool $willValidate, string $testString, string $fieldType = 'string') {
+  public function testValidate(bool $willValidate, string $testString) {
+    $value = new \stdClass();
+    $value->value = $testString;
     $values = [];
-    $values[] = ['value' => $testString];
+    $values[] = $value;
     $validator = new ValidNumericValidator();
     $this->prepareValidator($validator, $willValidate);
     $validator->validate($values, new ValidNumeric());
