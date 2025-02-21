@@ -96,7 +96,7 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
         }
         $phone_paragraph->set(name: 'field_phone_extension', value: $separated_extensions[0]);
         $phone_paragraph->save();
-        $message = "1st extension for paragraph $item changed from '$original_extension' to $separated_extensions[0]'." . PHP_EOL;
+        $message = "1st extension for paragraph $item changed from '$original_extension' to $separated_extensions[0]' .";
       }
 
       // Create the second extension and phone.
