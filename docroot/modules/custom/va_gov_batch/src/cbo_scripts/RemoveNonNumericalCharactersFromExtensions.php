@@ -100,7 +100,7 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
 
     $pattern_to_ignore = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/';
 
-    // If the extension contains a slash or the word "or", we won't change it.
+    // If the extension contains two numbers separate numbers, don't change it.
     if (preg_match($pattern_to_ignore, $extension) > 0) {
       return $extension;
     }
