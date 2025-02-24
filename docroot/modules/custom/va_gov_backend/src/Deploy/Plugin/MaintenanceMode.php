@@ -28,7 +28,10 @@ class MaintenanceMode implements DeployPluginInterface {
     $html = $this->loadMaintenanceHtml($app_root, $site_path);
     $expected_update_duration = '10';
     $html = preg_replace('/\{\{\s*update_duration\s*\}\}/', $expected_update_duration, $html);
-    throw new ServiceUnavailableHttpException(120, $html);
+    $headers = [
+      'Content-Type' => 'text/html',
+    ];
+    throw new ServiceUnavailableHttpException(120, $html, null, 503, $headers);
   }
 
 }
