@@ -1,0 +1,35 @@
+uuid: 57860026-6e03-4688-9070-b8e3cab424bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_custom_step.field_digital_form_pages
+    - field.field.paragraph.digital_form_custom_step.field_title
+    - paragraphs.paragraphs_type.digital_form_custom_step
+  module:
+    - entity_reference_revisions
+id: paragraph.digital_form_custom_step.default
+targetEntityType: paragraph
+bundle: digital_form_custom_step
+mode: default
+content:
+  field_digital_form_pages:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  breadcrumbs: true
+  search_api_excerpt: true

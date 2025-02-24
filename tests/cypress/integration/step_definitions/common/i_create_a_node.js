@@ -103,43 +103,96 @@ const creators = {
         cy.findAllByLabelText("Introduction").type(faker.lorem.sentence(), {
           force: true,
         });
-        cy.get(
-          "#edit-field-clp-what-you-can-do-promos-actions-ief-add"
-        ).scrollIntoView();
-        cy.get("#edit-field-clp-what-you-can-do-promos-actions-ief-add").click({
+      });
+    cy.get(
+      "#edit-field-clp-what-you-can-do-promos-entity-browser-entity-browser-open-modal"
+    ).should("exist");
+    cy.get(
+      "#edit-field-clp-what-you-can-do-promos-entity-browser-entity-browser-open-modal"
+    ).click({
+      force: true,
+    });
+    cy.wait(3000);
+    cy.get("iframe.entity-browser-modal-iframe").should("exist");
+    cy.wait(3000);
+
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.contains("Add new promo").click({ force: true });
+        cy.wait(5000);
+      });
+    cy.get("iframe.entity-browser-modal-iframe").should("exist");
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.findByDisplayValue("Add media").click({ force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get('div[role="dialog"]').within(() => {
+          cy.get(".dropzone", {
+            timeout: 60000,
+          });
+        });
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get(".dropzone").attachFile("images/polygon_image.png", {
+          subjectType: "drag-n-drop",
+        });
+        cy.wait(10000);
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
           force: true,
         });
-        cy.contains("Add media").click({ force: true });
       });
-    cy.get('div[role="dialog"]').within(() => {
-      cy.get(".dropzone", {
-        timeout: 60000,
-      });
-      cy.get(".dropzone").attachFile("images/polygon_image.png", {
-        subjectType: "drag-n-drop",
-      });
-      cy.wait(1000);
-      cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
-        force: true,
-      });
-      cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
-        "VACO",
-        { force: true }
-      );
-      cy.get("button").contains("Save and insert").click({ force: true });
-    });
-    cy.contains("What you can do")
-      .parent()
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
       .within(() => {
-        cy.findAllByLabelText("URL").focus();
+        cy.get(
+          '[data-drupal-selector="edit-media-0-fields-field-owner"]'
+        ).select("VACO", { force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get("button").contains("Save and insert").click({ force: true });
+        cy.wait(5000);
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
         cy.findAllByLabelText("URL").type(faker.internet.url(), {
           force: true,
         });
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
         cy.findAllByLabelText("Link text").type(faker.lorem.sentence(), {
           force: true,
         });
-        cy.findAllByLabelText("Section").select("VACO", { force: true });
       });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get(
+          '[data-drupal-selector="edit-inline-entity-form-field-owner"]'
+        ).select("VACO", { force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get("#edit-submit").click({ force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe").should("not.exist");
+
     cy.contains("What you can do").click();
 
     // VA Benefits
@@ -222,10 +275,10 @@ const creators = {
     );
     cy.get(
       "#edit-field-datetime-range-timezone-0-time-wrapper-value-date"
-    ).type("2023-11-04", { force: true });
+    ).type("2025-11-04", { force: true });
     cy.get(
       "#edit-field-datetime-range-timezone-0-time-wrapper-value-date"
-    ).type("2023-11-04", { force: true });
+    ).type("2025-11-04", { force: true });
     cy.get(
       "#edit-field-datetime-range-timezone-0-time-wrapper-value-time"
     ).type("10:00:00", { force: true });
@@ -236,7 +289,7 @@ const creators = {
     cy.get("#edit-field-datetime-range-timezone-0-make-recurring").check();
     cy.get("#edit-field-datetime-range-timezone-0-interval").type("1");
     cy.get("#edit-field-datetime-range-timezone-0-repeat-end-date").type(
-      "2023-11-07",
+      "2025-11-07",
       { force: true }
     );
     cy.get("#edit-field-datetime-range-timezone-0-repeat").select("DAILY");
@@ -245,12 +298,6 @@ const creators = {
       { force: true }
     );
     cy.get("#edit-field-publish-to-outreach-cal-value").check();
-    cy.findAllByLabelText("Street address").type(
-      faker.address.streetAddress(),
-      { force: true }
-    );
-    cy.findAllByLabelText("City").type(faker.address.city(), { force: true });
-    cy.findAllByLabelText("State").select("Alabama", { force: true });
     cy.findAllByLabelText("Section").select("--Outreach Hub", { force: true });
     cy.scrollToSelector("#edit-field-media-open-button");
     cy.get("#edit-field-media-open-button").click({ force: true });
@@ -278,12 +325,20 @@ const creators = {
         timeout: 20000,
       }
     ).should("exist");
+    cy.findAllByLabelText("At a non-VA location").check({ force: true });
+    cy.findAllByLabelText("Street address").type(
+      faker.address.streetAddress(),
+      { force: true }
+    );
+
+    cy.findAllByLabelText("City").type(faker.address.city(), { force: true });
+    cy.findAllByLabelText("State").select("Alabama", { force: true });
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
       { force: true }
     );
     cy.get("form.node-form").find("input#edit-submit").click();
-    cy.get(".node__content").contains("Sun, Nov 5 2023, 10:00am - 11:00am MST");
+    cy.get(".node__content").contains("Wed, Nov 5 2025, 10:00am - 11:00am MST");
     cy.get(".node__content").contains("Outreach events");
     cy.scrollTo("top", { ensureScrollable: false });
     cy.get(".tabs__tab a").contains("Edit").click({ force: true });
@@ -394,6 +449,9 @@ const creators = {
       "edit-field-steps-0-subform-field-step-0-subform-field-wysiwyg-0-value",
       faker.lorem.sentence()
     );
+    cy.get("#edit-field-contact-information-0-top-links-remove-button").should(
+      "not.exist"
+    );
     return cy.wait(1000);
   },
   q_a: () => {
@@ -409,6 +467,9 @@ const creators = {
       faker.lorem.sentence()
     );
     cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.get("#edit-field-contact-information-0-top-links-remove-button").should(
+      "not.exist"
+    );
     return cy;
   },
   press_release: () => {

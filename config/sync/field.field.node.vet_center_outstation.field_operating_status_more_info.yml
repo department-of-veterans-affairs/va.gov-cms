@@ -5,12 +5,17 @@ dependencies:
   config:
     - field.storage.node.field_operating_status_more_info
     - node.type.vet_center_outstation
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: node.vet_center_outstation.field_operating_status_more_info
 field_name: field_operating_status_more_info
 entity_type: node
 bundle: vet_center_outstation
-label: 'Operating status more info'
-description: ''
+label: Details
+description: 'Add relevant details about how this status will impact Veterans and visitors.'
 required: false
 translatable: false
 default_value: {  }

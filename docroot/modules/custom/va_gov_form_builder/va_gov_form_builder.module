@@ -17,3 +17,122 @@ function va_gov_form_builder_entity_bundle_field_info_alter(&$fields, EntityType
 
   return $fields;
 }
+
+/**
+ * Implements hook_theme().
+ */
+function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
+  $theme = [];
+
+  // Add page-wrapper theme.
+  $theme['page__va_gov_form_builder'] = [
+    'base hook' => 'page',
+    'path' => $path . '/templates/page',
+  ];
+
+  // Add page-content themes.
+  $page_content_theme_prefix = 'page_content__va_gov_form_builder__';
+  $page_content_theme_path = $path . '/templates/page-content';
+  // 1. Home page.
+  $theme[$page_content_theme_prefix . 'home'] = [
+    'path' => $page_content_theme_path,
+    'variables' => [
+      'recent_forms' => [],
+      'build_form_url' => '',
+    ],
+  ];
+  // 2. Layout page.
+  $theme[$page_content_theme_prefix . 'layout'] = [
+    'path' => $page_content_theme_path,
+    'variables' => [
+      'form_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'intro' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'your_personal_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'address_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'contact_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'additional_steps' => [
+        'steps' => [],
+        'add_step' => [
+          'url' => '',
+        ],
+      ],
+      'review_and_sign' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'confirmation' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'view_form' => [
+        'url' => '',
+      ],
+    ],
+  ];
+  // 3. Non-editable-pattern steps.
+  $button = [
+    'label' => '',
+    'url' => '',
+  ];
+  $nonEditablePatternTheme = [
+    'path' => $page_content_theme_path,
+    'variables' => [
+      'preview' => [
+        'alt_text' => '',
+        'url' => '',
+      ],
+      'primary_button' => $button,
+    ],
+  ];
+  $nonEditablePatternWithSecondaryButtonTheme = $nonEditablePatternTheme;
+  $nonEditablePatternWithSecondaryButtonTheme['variables']['secondary_button'] = $button;
+  // 3a. Name and Date of birth page.
+  $theme[$page_content_theme_prefix . 'name_and_dob'] = $nonEditablePatternWithSecondaryButtonTheme;
+  // 3b. Identification information page.
+  $theme[$page_content_theme_prefix . 'identification_info'] = $nonEditablePatternWithSecondaryButtonTheme;
+  // 3c. Address information page.
+  $theme[$page_content_theme_prefix . 'address_info'] = $nonEditablePatternTheme;
+  // 3d. Review and Sign page.
+  $theme[$page_content_theme_prefix . 'review_and_sign'] = $nonEditablePatternTheme;
+
+  // Add form themes.
+  $forms = ['form_info'];
+  foreach ($forms as $form) {
+    $theme['form__va_gov_form_builder__' . $form] = [
+      'path' => $path . '/templates/form',
+      'render element' => 'form',
+    ];
+  }
+
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function va_gov_form_builder_theme_suggestions_page(array &$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $suggestions = [];
+
+  // Apply custom page template for all Form Builder routes.
+  if (strpos($route_name, 'va_gov_form_builder.') === 0) {
+    $suggestions[] = 'page__va_gov_form_builder';
+  }
+
+  return $suggestions;
+}
