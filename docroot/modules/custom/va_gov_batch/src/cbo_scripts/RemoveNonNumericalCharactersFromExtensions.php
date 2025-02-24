@@ -63,41 +63,28 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
    * {@inheritdoc}
    */
   public function processOne(string $key, mixed $item, array &$sandbox): string {
-    $extension = \Drupal::database()
-      ->select('paragraph__field_phone_extension', 'p')
-      ->fields('p', ['field_phone_extension_value'])
-      ->condition('entity_id', $item)
-      ->execute()
-      ->fetchCol();
-
-    // If the extension is empty, skip this item.
-    if (empty($extension[0])) {
-      $message = 'No extension found for paragraph id ' . $item;
+    $phone_paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($item);
+    if (empty($phone_paragraph)) {
+      return "No paragraph was found to update for item $item.";
+    }
+    try {
+      $original_extension = $phone_paragraph->get('field_phone_extension')->value;
+      if (empty($original_extension)) {
+        return "No extension found for paragraph id $item";
+      }
+      $number_only_extension = $this->replaceNonNumerals($original_extension);
+      if ($original_extension === $number_only_extension) {
+        return "No change to extension $original_extension in paragraph id $item";
+      }
+      $phone_paragraph->set(name: 'field_phone_extension', value: $number_only_extension);
+      $phone_paragraph->save();
+      return "Extension updated for paragraph id $item from '$original_extension' to '$number_only_extension'";
+    }
+    catch (\Exception $e) {
+      $message = "Exception during update of paragraph id $item with extension: $original_extension";
       return $message;
     }
 
-    $result = $this->replaceNonNumerals($extension[0]);
-
-    // If the extension has changed, update the paragraph.
-    if ($result !== $extension[0]) {
-      try {
-        \Drupal::database()
-          ->update('paragraph__field_phone_extension')
-          ->fields(['field_phone_extension_value' => $result])
-          ->condition('entity_id', $item)
-          ->execute();
-        $message = "Extension updated for paragraph id $item from '$extension[0]' to '$result'";
-      }
-      catch (\Exception $e) {
-        $message = "Exception during update of paragraph id $item with extension: $extension[0]";
-        return $message;
-      }
-    }
-    else {
-      $message = "No changes were made to paragraph id $item with extension: $extension[0]";
-    }
-
-    return $message;
   }
 
   /**
