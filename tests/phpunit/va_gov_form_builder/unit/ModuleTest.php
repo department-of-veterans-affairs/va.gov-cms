@@ -123,7 +123,18 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey('secondary_button', $result[$identificationInfoTheme]['variables']);
     $this->assertArrayHasKey('label', $result[$identificationInfoTheme]['variables']['secondary_button']);
     $this->assertArrayHasKey('url', $result[$identificationInfoTheme]['variables']['secondary_button']);
-    // 3c. Review-and-Sign page.
+    // 3c. Address-information page.
+    $addressInfoTheme = $page_content_theme_prefix . 'address_info';
+    $this->assertArrayHasKey($addressInfoTheme, $result);
+    $this->assertEquals($page_content_theme_path, $result[$addressInfoTheme]['path']);
+    $this->assertArrayHasKey('variables', $result[$addressInfoTheme]);
+    $this->assertArrayHasKey('preview', $result[$addressInfoTheme]['variables']);
+    $this->assertArrayHasKey('alt_text', $result[$addressInfoTheme]['variables']['preview']);
+    $this->assertArrayHasKey('url', $result[$addressInfoTheme]['variables']['preview']);
+    $this->assertArrayHasKey('primary_button', $result[$addressInfoTheme]['variables']);
+    $this->assertArrayHasKey('label', $result[$addressInfoTheme]['variables']['primary_button']);
+    $this->assertArrayHasKey('url', $result[$addressInfoTheme]['variables']['primary_button']);
+    // 3d. Review-and-Sign page.
     $reviewAndSignTheme = $page_content_theme_prefix . 'review_and_sign';
     $this->assertArrayHasKey($reviewAndSignTheme, $result);
     $this->assertEquals($page_content_theme_path, $result[$reviewAndSignTheme]['path']);

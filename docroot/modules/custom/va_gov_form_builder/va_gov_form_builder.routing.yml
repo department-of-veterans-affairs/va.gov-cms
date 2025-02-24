@@ -28,6 +28,10 @@ va_gov_form_builder.identification_info:
   path: "/form-builder/{nid}/identification-info"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::identificationInfo'
+va_gov_form_builder.address_info:
+  path: "/form-builder/{nid}/address-info"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::addressInfo'
 va_gov_form_builder.review_and_sign:
   path: "/form-builder/{nid}/review-and-sign"
   defaults:

@@ -158,9 +158,6 @@ class LayoutTest extends VaGovExistingSiteBase {
   public function testYourPersonalInfo() {
     $this->drupalGet($this->getPageUrl());
 
-    // There is no destination for this link yet.
-    $this->assertSession()->linkExists('View personal information');
-
     $linkText = 'View personal information';
     $this->assertSession()->linkExists($linkText);
     $this->clickLink($linkText);
@@ -174,8 +171,11 @@ class LayoutTest extends VaGovExistingSiteBase {
   public function testAddressInfo() {
     $this->drupalGet($this->getPageUrl());
 
-    // There is no destination for this link yet.
-    $this->assertSession()->linkExists('View address information');
+    $linkText = 'View address information';
+    $this->assertSession()->linkExists($linkText);
+    $this->clickLink($linkText);
+
+    $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}/address-info");
   }
 
   /**

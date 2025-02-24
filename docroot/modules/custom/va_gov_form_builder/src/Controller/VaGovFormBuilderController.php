@@ -336,7 +336,7 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
       '#address_info' => [
         'status' => $this->digitalForm->getStepStatus('address_info'),
-        'url' => '',
+        'url' => $this->getPageUrl('address_info'),
       ],
       '#contact_info' => [
         'status' => $this->digitalForm->getStepStatus('contact_info'),
@@ -438,6 +438,36 @@ class VaGovFormBuilderController extends ControllerBase {
     ];
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Personal information');
+    $libraries = ['page_content__layout__non_editable_pattern'];
+
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Address-info page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   */
+  public function addressInfo($nid) {
+    $nodeFound = $this->loadDigitalForm($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+
+    $pageContent = [
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'address_info',
+      '#preview' => [
+        'alt_text' => 'Address-information preview',
+        'url' => '/modules/custom/va_gov_form_builder/images/address-info.png',
+      ],
+      '#primary_button' => [
+        'label' => 'Save and continue',
+        'url' => $this->getPageUrl('layout'),
+      ],
+    ];
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Address information');
     $libraries = ['page_content__layout__non_editable_pattern'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
