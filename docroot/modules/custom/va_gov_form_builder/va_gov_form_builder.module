@@ -84,14 +84,29 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
       ],
     ],
   ];
-  // 3. Review and Sign page.
-  $theme[$page_content_theme_prefix . 'review_and_sign'] = [
+  // 3. Non-editable-pattern steps.
+  $button = [
+    'label' => '',
+    'url' => '',
+  ];
+  $nonEditablePatternTheme = [
     'path' => $page_content_theme_path,
     'variables' => [
-      'statement_of_truth_preview_url' => '',
-      'return_to_layout_url' => '',
+      'preview' => [
+        'alt_text' => '',
+        'url' => '',
+      ],
+      'primary_button' => $button,
     ],
   ];
+  $nonEditablePatternWithSecondaryButtonTheme = $nonEditablePatternTheme;
+  $nonEditablePatternWithSecondaryButtonTheme['variables']['secondary_button'] = $button;
+  // 3a. Name and Date of birth page.
+  $theme[$page_content_theme_prefix . 'name_and_dob'] = $nonEditablePatternWithSecondaryButtonTheme;
+  // 3b. Identification information page.
+  $theme[$page_content_theme_prefix . 'identification_info'] = $nonEditablePatternWithSecondaryButtonTheme;
+  // 3c. Review and Sign page.
+  $theme[$page_content_theme_prefix . 'review_and_sign'] = $nonEditablePatternTheme;
 
   // Add form themes.
   $forms = ['form_info'];
