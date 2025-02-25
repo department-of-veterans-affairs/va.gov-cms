@@ -16,7 +16,7 @@ class ValidNumericValidator extends ConstraintValidator {
   /**
    * {@inheritDoc}
    */
-  public function validate(mixed $items, Constraint $constraint) {
+  public function validate(mixed $items, ValidNumeric|Constraint $constraint) {
     foreach ($items as $delta => $item) {
       if (!preg_match("/^\d+$/", $item->value)) {
         $this->getContext()
