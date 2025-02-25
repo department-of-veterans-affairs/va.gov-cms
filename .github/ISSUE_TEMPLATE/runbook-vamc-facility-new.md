@@ -58,19 +58,14 @@ Please let us know when your draft content is complete, so that we can wrap up t
 - [ ] When editor has prepared content and let help desk know, proceed to the remaining steps.
 
 
-#### Drupal Admin steps (CMS Engineer or Help desk) _Help desk will complete these steps or escalate to request help from CMS engineering._
+#### Drupal Admin steps (_Help desk will complete these steps or escalate to request help from CMS engineering._)
 - [ ] Update the facility **Meta description** field, using the following format: "Get address and hours, parking and transportation information, and health services offered at [facility name]."
 - [ ] Move the facility link in the health care system menu to its place in the alphabetized list (medical centers first, then clinics).
 - [ ] Drupal Admin bulk publishes nodes and facility.
-- [ ] Contact Lighthouse via Slack at #cms-lighthouse channel that this facility requires a canonical link in the following format (replace the placeholder data with the actual API Id and VA.gov URL):
-  - `vha_XXX`,https://www.va.gov/SYSTEM-health-care/locations/PATH/`
-- [ ] Add the "Awaiting CSV" flag to the facility node with a revision log message that includes a link to this ticket.
-- [ ] Let Help desk know this has been done, if not done by Help desk.
 
-#### Wait (days or weeks, potentially)
-- [ ] After the canonical link has been added to the websites.csv and you have confirmation from Lighthouse that the CSV has been deployed, validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
-- [ ] Update this ticket with a comment that the CSV change has been deployed.
-- [ ] Edit facility node and remove `New facility` and "Awaiting CSV" flags with a revision log message that includes a link to this ticket.
+#### After the next nightly Facilities migration to Lighthouse
+- [ ] Validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
+- [ ] Edit facility node and remove `New facility` flag with a revision log message that includes a link to this ticket.
 
 #### CMS Help desk (wrap up)
 - [ ] Notify editor and any other stakeholders.
