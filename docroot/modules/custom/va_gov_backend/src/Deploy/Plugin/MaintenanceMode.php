@@ -31,7 +31,7 @@ class MaintenanceMode implements DeployPluginInterface {
     $headers = [
       'Content-Type' => 'text/html',
     ];
-    throw new ServiceUnavailableHttpException(120, $html, null, 503, $headers);
+    throw new ServiceUnavailableHttpException(120, $html, NULL, 503, $headers);
   }
 
 }
