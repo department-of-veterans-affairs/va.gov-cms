@@ -6,12 +6,12 @@ use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
- * Functional test of the Review-and-sign page.
+ * Functional test of the Name-and-date-of-birth page.
  *
  * @group functional
  * @group all
  */
-class ReviewAndSignTest extends VaGovExistingSiteBase {
+class NameAndDobTest extends VaGovExistingSiteBase {
   use TestPageLoads;
 
   /**
@@ -30,7 +30,7 @@ class ReviewAndSignTest extends VaGovExistingSiteBase {
    * Returns the url for this page.
    */
   private function getPageUrl() {
-    return "/form-builder/{$this->digitalFormNode->id()}/review-and-sign";
+    return "/form-builder/{$this->digitalFormNode->id()}/name-and-dob";
   }
 
   /**
@@ -73,7 +73,7 @@ class ReviewAndSignTest extends VaGovExistingSiteBase {
    */
   public function testPageLoads() {
     // Ensure page loads.
-    $this->sharedTestPageLoads($this->getPageUrl(), 'Reviewing the submission');
+    $this->sharedTestPageLoads($this->getPageUrl(), 'Collecting Name and Date of birth');
   }
 
   /**
@@ -111,7 +111,7 @@ class ReviewAndSignTest extends VaGovExistingSiteBase {
           'url' => "/form-builder/{$this->digitalFormNode->id()}",
         ],
         [
-          'label' => 'Review page',
+          'label' => 'Personal information',
           'url' => "#content",
         ],
       ],
@@ -125,6 +125,15 @@ class ReviewAndSignTest extends VaGovExistingSiteBase {
     $this->drupalGet($this->getPageUrl());
     $this->click('a#form-builder-non-editable-pattern-primary-button');
     $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}");
+  }
+
+  /**
+   * Test the secondary button.
+   */
+  public function testSecondaryButton() {
+    $this->drupalGet($this->getPageUrl());
+    $this->click('a#form-builder-non-editable-pattern-secondary-button');
+    $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}/identification-info");
   }
 
 }
