@@ -36,6 +36,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   // 1. Home page.
   $theme[$page_content_theme_prefix . 'home'] = [
     'path' => $page_content_theme_path,
+    'template' => 'home',
     'variables' => [
       'recent_forms' => [],
       'build_form_url' => '',
@@ -44,6 +45,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   // 2. Layout page.
   $theme[$page_content_theme_prefix . 'layout'] = [
     'path' => $page_content_theme_path,
+    'template' => 'layout',
     'variables' => [
       'form_info' => [
         'status' => '',
@@ -85,32 +87,60 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
     ],
   ];
   // 3. Non-editable-pattern steps.
-  $button = [
-    'label' => '',
-    'url' => '',
-  ];
-  $nonEditablePatternTheme = [
-    'path' => $page_content_theme_path,
-    'variables' => [
-      'preview' => [
-        'alt_text' => '',
-        'url' => '',
-      ],
-      'primary_button' => $button,
+  $nonEditablePatternVariables = [
+    'preview' => [
+      'alt_text' => '',
+      'url' => '',
     ],
+    'buttons' => [],
   ];
-  $nonEditablePatternWithSecondaryButtonTheme = $nonEditablePatternTheme;
-  $nonEditablePatternWithSecondaryButtonTheme['variables']['secondary_button'] = $button;
+
   // 3a. Name and Date of birth page.
-  $theme[$page_content_theme_prefix . 'name_and_dob'] = $nonEditablePatternWithSecondaryButtonTheme;
+  $theme[$page_content_theme_prefix . 'name_and_dob'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'name-and-dob',
+    'variables' => $nonEditablePatternVariables,
+  ];
   // 3b. Identification information page.
-  $theme[$page_content_theme_prefix . 'identification_info'] = $nonEditablePatternWithSecondaryButtonTheme;
+  $theme[$page_content_theme_prefix . 'identification_info'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'identification-info',
+    'variables' => $nonEditablePatternVariables,
+  ];
   // 3c. Address information page.
-  $theme[$page_content_theme_prefix . 'address_info'] = $nonEditablePatternTheme;
+  $theme[$page_content_theme_prefix . 'address_info'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'address-info',
+    'variables' => $nonEditablePatternVariables,
+  ];
   // 3d. Contact information page.
-  $theme[$page_content_theme_prefix . 'contact_info'] = $nonEditablePatternTheme;
+  $theme[$page_content_theme_prefix . 'contact_info'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'contact-info',
+    'variables' => $nonEditablePatternVariables,
+  ];
   // 3e. Review and Sign page.
-  $theme[$page_content_theme_prefix . 'review_and_sign'] = $nonEditablePatternTheme;
+  $theme[$page_content_theme_prefix . 'review_and_sign'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'review-and-sign',
+    'variables' => $nonEditablePatternVariables,
+  ];
+  // 4. View-form page
+  $viewFormPageVariables = [
+    'buttons' => [],
+  ];
+  // 4a. View-form page when viewing form is available.
+  $theme[$page_content_theme_prefix . 'view_form__available'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'view-form--available',
+    'variables' => $viewFormPageVariables,
+  ];
+  // 4b. View-form page when viewing form is unavailable.
+  $theme[$page_content_theme_prefix . 'view_form__unavailable'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'view-form--unavailable',
+    'variables' => $viewFormPageVariables,
+  ];
 
   // Add form themes.
   $forms = ['form_info'];
