@@ -25,7 +25,7 @@ Facility CMS link: <insert_facility_link>
 ### Publishing
 - [ ] Set the VBA Facility to Published, and note approvals in the revision log
 - [ ] Ask Michelle Middaugh to update the facility URL in Sandy's Database to the modernized URL. This eliminates the need for a URL change request ([LH confirmed](https://dsva.slack.com/archives/C02BTJTDFTN/p1730395863667449?thread_ts=1730395217.135779&cid=C02BTJTDFTN)).
-- [ ] Create a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=kristinoletmuskat%2C+strelich%2C+Agile6MSkinner&labels=sitewide+CAIA%2C+Sitewide+IA%2C+Facilities%2C+Regional+Office%2C+sitewide%2C+VA.gov+frontend%2C+Redirect+request&projects=&template=redirect-request.md&title=Redirect+Request) to redirect the previous TeamSite page to the modernized page.
+- [ ] Create a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis%2C+Agile6MSkinner&labels=sitewide+CAIA%2C+Sitewide+IA%2C+Facilities%2C+Regional+Office%2C+sitewide%2C+VA.gov+frontend%2C+Redirect+request&projects=&template=redirect-request.md&title=Redirect+Request) to redirect the previous TeamSite page to the modernized page.
   - [ ] **Indicate in ticket** that this is a [page level redirect for a Teamsite using the injected header](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/engineering/redirect-implementation-strategy.md#3-subdomain--vagov-page-level-cross-domain-redirect-for-a-subdomain-that-loads-proxy-rewrite-js) -- it can be done within proxy rewrite as a client-side redirect
 
 ## Facilities PM / DM tasks
