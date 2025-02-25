@@ -40,3 +40,7 @@ va_gov_form_builder.review_and_sign:
   path: "/form-builder/{nid}/review-and-sign"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::reviewAndSign'
+va_gov_form_builder.view_form:
+  path: "/form-builder/{nid}/view-form"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::viewForm'
