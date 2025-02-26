@@ -7,7 +7,7 @@
 (function ($, Drupal, once) {
   var handlePhoneExtensionMaskKeyPress = function handlePhoneExtensionMaskKeyPress(e) {
     var key = e.keyCode;
-    if ([8, 13, 37, 39, 46].includes(key)) {
+    if ([8, 9, 13, 37, 39, 46].includes(key)) {
       return;
     }
     if (key >= 48 && key <= 57) {

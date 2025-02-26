@@ -10,8 +10,8 @@
    */
   const handlePhoneExtensionMaskKeyPress = (e) => {
     const key = e.keyCode;
-    // Allow: backspace (8), enter (13), left arrow (37), right arrow (39), delete (46)
-    if ([8, 13, 37, 39, 46].includes(key)) {
+    // Allow: backspace (8), tab (9), enter (13), left arrow (37), right arrow (39), delete (46)
+    if ([8, 9, 13, 37, 39, 46].includes(key)) {
       return;
     }
 
