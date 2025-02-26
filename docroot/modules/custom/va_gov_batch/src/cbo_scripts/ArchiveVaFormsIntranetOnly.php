@@ -1,0 +1,201 @@
+<?php
+
+namespace Drupal\va_gov_batch\cbo_scripts;
+
+require 'vendor/autoload.php';
+
+use Drupal\codit_batch_operations\BatchOperations;
+use Drupal\codit_batch_operations\BatchScriptInterface;
+use Drupal\paragraphs\Entity\Paragraph;
+use League\Csv\Reader;
+use League\Csv\Statement;
+
+/**
+ * @file
+ * For dual numbers in the phone_number paragraph extension field.
+ *
+ * For VACMS-20371.
+ * This file should be run SECOND, after you run
+ * drush codit-batch-operations:run RemoveNonNumericalCharactersFromExtensions .
+ * Then, run this file
+ * drush codit-batch-operations:run SplitExtensionWithTwoNumbers .
+ */
+/**
+ * Split extensions with two numbers.
+ */
+class ArchiveVaFormsIntranetOnly extends BatchOperations implements BatchScriptInterface {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTitle(): string {
+    return <<<TITLE
+    For:
+      - VACMS-20371: https://github.com/department-of-veterans-affairs/va.gov-cms/issues/20371
+      - Splitting extensions when there are two
+    TITLE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDescription():string {
+    return <<<ENDHERE
+    Splits extensions when there are two by keeping the first and
+    using the second to create a new phone paragraph
+    ENDHERE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCompletedMessage(): string {
+    return 'Phone extensions have been processed with a total @total processed and @completed completed.';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function gatherItemsToProcess(): array {
+
+    $csv = Reader::createFromPath(DRUPAL_ROOT . '/sites/default/files/migrate_source/va_forms_data.csv', 'r');
+    $csv->setHeaderOffset(0);
+    $csv->setEnclosure('"');
+    $csv->setDelimiter(',');
+
+    //build a statement
+    // $stmt = new Statement()
+    //   ->select('rowid')
+    //   ->andWhere('IntranetOnly', '=', '1')
+    //   ->orderByAsc('rowid');
+
+    // Create a Statement
+    $stmt = (new Statement())
+    ->select('rowid')
+    ->offset(0)     // Start from first record
+    ->limit(-1)
+    ->andWhere('IntranetOnly', '=', '1')
+    ->orderByAsc('rowid');  // Get all records
+
+// Process the CSV with the statement and filter for IntranetOnly = 1
+$records = $stmt->process($csv);
+
+// Now you can iterate over the filtered records
+// foreach ($records as $record) {
+// Do something with each record
+// The record will be an array with the CSV column names as keys
+// $rowid = $record['rowid'];
+// Process form data here
+// }
+$intranet_only = [];
+      foreach ($records as $record) {
+        //do something here
+        $intranet_only[] = $record['rowid'];
+    }
+print_r($intranet_only);
+    // $records = $csv->getRecords();
+
+    // $header = $csv->getHeader(); //returns the CSV header record
+
+    //returns all the records as
+    // $records = $csv->getRecords(); // an Iterator object containing arrays
+    // $records = $csv->getRecordsAsObject(MyDTO::class); //an Iterator object containing MyDTO objects
+
+    // echo $csv->toString(); //returns the CSV document as a string
+
+    // Get all extensions that have non-numerical characters.
+    return \Drupal::database()
+      ->select('paragraph__field_phone_extension', 'p')
+      ->fields('p', ['entity_id'])
+      ->condition('field_phone_extension_value', '[^0-9]', 'REGEXP')
+      ->execute()
+      ->fetchCol();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function processOne(string $key, mixed $item, array &$sandbox): string {
+    $message = '';
+
+    // Get phone paragraph information.
+    $phone_paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($item);
+    $phone_parent_id = $phone_paragraph->get('parent_id')->value;
+    $phone_parent_field_name = $phone_paragraph->get('parent_field_name')->value;
+    // We only need to change two fields.
+    if ($phone_parent_field_name !== 'field_phone' && $phone_parent_field_name !== 'field_other_phone_numbers') {
+      if ($phone_parent_field_name === 'field_phone_numbers_paragraph') {
+        return "The phone data from 'field_phone_numbers_paragraph' '$item'  on 'health_care_local_health_service' has already been migrated to the Service location paragraph previously. This is a vestigial field that is unused.";
+      }
+      else {
+        return "There is no change necessary for paragraph $item.";
+      }
+    }
+
+    // Do the extension work.
+    $original_extension = $phone_paragraph->get('field_phone_extension')->value;
+    $separated_extensions = $this->splitExtensions($original_extension);
+    $original_label = $phone_paragraph->get('field_phone_label')->value;
+
+    try {
+      // Update the first extension and phone.
+      if (!empty($separated_extensions[0])) {
+        if (!empty($original_label)) {
+          $phone_paragraph->set(name: 'field_phone_label', value: "$original_label #1");
+        }
+        $phone_paragraph->set(name: 'field_phone_extension', value: $separated_extensions[0]);
+        $phone_paragraph->save();
+        $message = "1st extension for paragraph $item changed from '$original_extension' to $separated_extensions[0]' .";
+      }
+
+      // Create the second extension and phone.
+      if (!empty($separated_extensions[1])) {
+        $second_phone = Paragraph::create([
+          'type' => 'phone_number',
+          'field_phone_number_type' => 'tel',
+          'field_phone_number' => $phone_paragraph->get('field_phone_number')->value,
+          'field_phone_extension' => $separated_extensions[1],
+          'field_phone_label' => "$original_label #2",
+          'status' => 1,
+          'revision_translation_affected' => 1,
+        ]);
+        $second_phone->save();
+        $second_phone_id = $second_phone->id();
+        // Add the 2nd phone to the parent field.
+        $phone_parent_paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($phone_parent_id);
+        $phone_parent_paragraph->get($phone_parent_field_name)->appendItem($second_phone);
+        $phone_parent_paragraph->save();
+        $message .= "2nd extension created for paragraph $second_phone_id from '$original_extension' to $separated_extensions[1]'." . PHP_EOL;
+      }
+    }
+    catch (\Exception $e) {
+      $message = "Exception during update of paragraph id $item with extension '$original_extension'. Reason provided: " . $e->getMessage();
+      return $message;
+    }
+
+    return $message;
+  }
+
+  /**
+   * Splits extensions.
+   *
+   * @param string $dual_extension
+   *   The two-part extension.
+   *
+   * @return array
+   *   Array with two extensions (or empty).
+   *   E.g. '2132,2995' becomes ['2132','2995']
+   */
+  public static function splitExtensions(string $dual_extension): array {
+    if (!preg_match('/[^0-9]/', $dual_extension)) {
+      return [];
+    }
+    $first_extension = [];
+    preg_match('/^\d+/', $dual_extension, $first_extension);
+    $second_extension = [];
+    preg_match('/\d+$/', $dual_extension, $second_extension);
+
+    return [$first_extension[0], $second_extension[0]];
+  }
+
+}
