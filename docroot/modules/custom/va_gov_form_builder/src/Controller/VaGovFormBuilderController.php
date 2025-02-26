@@ -39,7 +39,7 @@ class VaGovFormBuilderController extends ControllerBase {
   /**
    * The prefix for the page-specific style libraries.
    */
-  const LIBRARY_PREFIX = 'va_gov_form_builder/va_gov_form_builder_styles__';
+  const LIBRARY_PREFIX = 'va_gov_form_builder/';
 
   /**
    * The entity type manager service.
@@ -215,7 +215,7 @@ class VaGovFormBuilderController extends ControllerBase {
       // Add styles.
       '#attached' => [
         'library' => [
-          'va_gov_form_builder/va_gov_form_builder_styles',
+          self::LIBRARY_PREFIX . 'form_builder',
         ],
       ],
     ];
@@ -416,7 +416,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Personal information');
     $libraries = [
       'single_column_with_buttons',
-      'page_content__layout__non_editable_pattern',
+      'non_editable_pattern',
     ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
@@ -458,7 +458,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Personal information');
     $libraries = [
       'single_column_with_buttons',
-      'page_content__layout__non_editable_pattern',
+      'non_editable_pattern',
     ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
@@ -493,7 +493,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Address information');
     $libraries = [
       'single_column_with_buttons',
-      'page_content__layout__non_editable_pattern',
+      'non_editable_pattern',
     ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
@@ -528,7 +528,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Contact information');
     $libraries = [
       'single_column_with_buttons',
-      'page_content__layout__non_editable_pattern',
+      'non_editable_pattern',
     ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
@@ -563,7 +563,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Review page');
     $libraries = [
       'single_column_with_buttons',
-      'page_content__layout__non_editable_pattern',
+      'non_editable_pattern',
     ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
