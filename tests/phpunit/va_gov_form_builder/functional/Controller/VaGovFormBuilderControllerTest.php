@@ -58,9 +58,9 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $page = $this->controller->home();
 
     $this->assertContains(
-      'va_gov_form_builder/va_gov_form_builder_styles',
+      'va_gov_form_builder/form_builder',
       $page['#attached']['library'],
-      "The library 'va_gov_form_builder/va_gov_form_builder_styles' is successfully attached."
+      "The library 'va_gov_form_builder/form_builder' is successfully attached."
     );
   }
 
@@ -86,7 +86,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__home', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/home', $page['#attached']['library']);
   }
 
   /**
@@ -104,7 +104,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // Ensure css is added.
     // This should be present on both create and edit mode.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__form_info', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/form_info', $page['#attached']['library']);
 
   }
 
@@ -135,7 +135,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // Ensure css is added.
     // This should be present on both create and edit mode.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__form_info', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/form_info', $page['#attached']['library']);
   }
 
   /**
@@ -199,7 +199,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__layout', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/layout', $page['#attached']['library']);
   }
 
   /**
@@ -225,22 +225,26 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertEquals('Name-and-date-of-birth preview', $page['content']['#preview']['alt_text']);
     $this->assertArrayHasKey('url', $page['content']['#preview']);
     $this->assertStringContainsString('name-and-dob.png', $page['content']['#preview']['url']);
+    // Buttons.
+    $this->assertArrayHasKey('#buttons', $page['content']);
     // Primary button.
-    $this->assertArrayHasKey('#primary_button', $page['content']);
-    $this->assertArrayHasKey('label', $page['content']['#primary_button']);
-    $this->assertEquals('Save and continue', $page['content']['#primary_button']['label']);
-    $this->assertArrayHasKey('url', $page['content']['#primary_button']);
-    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#primary_button']['url']);
-    // Secondary button.
-    $this->assertArrayHasKey('#secondary_button', $page['content']);
-    $this->assertArrayHasKey('label', $page['content']['#secondary_button']);
-    $this->assertEquals('Next page', $page['content']['#secondary_button']['label']);
-    $this->assertArrayHasKey('url', $page['content']['#secondary_button']);
-    $this->assertStringContainsString("/form-builder/{$node->id()}/identification-info", $page['content']['#secondary_button']['url']);
+    $this->assertArrayHasKey('primary', $page['content']['#buttons']);
+    $this->assertArrayHasKey('label', $page['content']['#buttons']['primary']);
+    $this->assertEquals('Save and continue', $page['content']['#buttons']['primary']['label']);
+    $this->assertArrayHasKey('url', $page['content']['#buttons']['primary']);
+    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#buttons']['primary']['url']);
+    // Secondary buttons.
+    $this->assertArrayHasKey('secondary', $page['content']['#buttons']);
+    $this->assertCount(1, $page['content']['#buttons']['secondary']);
+    $this->assertArrayHasKey('label', $page['content']['#buttons']['secondary'][0]);
+    $this->assertEquals('Next page', $page['content']['#buttons']['secondary'][0]['label']);
+    $this->assertArrayHasKey('url', $page['content']['#buttons']['secondary'][0]);
+    $this->assertStringContainsString("/form-builder/{$node->id()}/identification-info", $page['content']['#buttons']['secondary'][0]['url']);
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
   }
 
   /**
@@ -268,22 +272,26 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertEquals('Identification-information preview', $page['content']['#preview']['alt_text']);
     $this->assertArrayHasKey('url', $page['content']['#preview']);
     $this->assertStringContainsString('identification-info.png', $page['content']['#preview']['url']);
+    // Buttons.
+    $this->assertArrayHasKey('#buttons', $page['content']);
     // Primary button.
-    $this->assertArrayHasKey('#primary_button', $page['content']);
-    $this->assertArrayHasKey('label', $page['content']['#primary_button']);
-    $this->assertEquals('Save and continue', $page['content']['#primary_button']['label']);
-    $this->assertArrayHasKey('url', $page['content']['#primary_button']);
-    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#primary_button']['url']);
-    // Secondary button.
-    $this->assertArrayHasKey('#secondary_button', $page['content']);
-    $this->assertArrayHasKey('label', $page['content']['#secondary_button']);
-    $this->assertEquals('Previous page', $page['content']['#secondary_button']['label']);
-    $this->assertArrayHasKey('url', $page['content']['#secondary_button']);
-    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#secondary_button']['url']);
+    $this->assertArrayHasKey('primary', $page['content']['#buttons']);
+    $this->assertArrayHasKey('label', $page['content']['#buttons']['primary']);
+    $this->assertEquals('Save and continue', $page['content']['#buttons']['primary']['label']);
+    $this->assertArrayHasKey('url', $page['content']['#buttons']['primary']);
+    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#buttons']['primary']['url']);
+    // Secondary buttons.
+    $this->assertArrayHasKey('secondary', $page['content']['#buttons']);
+    $this->assertCount(1, $page['content']['#buttons']['secondary']);
+    $this->assertArrayHasKey('label', $page['content']['#buttons']['secondary'][0]);
+    $this->assertEquals('Previous page', $page['content']['#buttons']['secondary'][0]['label']);
+    $this->assertArrayHasKey('url', $page['content']['#buttons']['secondary'][0]);
+    $this->assertStringContainsString("/form-builder/{$node->id()}/name-and-dob", $page['content']['#buttons']['secondary'][0]['url']);
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
   }
 
   /**
@@ -311,16 +319,19 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertEquals('Address-information preview', $page['content']['#preview']['alt_text']);
     $this->assertArrayHasKey('url', $page['content']['#preview']);
     $this->assertStringContainsString('address-info.png', $page['content']['#preview']['url']);
+    // Buttons.
+    $this->assertArrayHasKey('#buttons', $page['content']);
     // Primary button.
-    $this->assertArrayHasKey('#primary_button', $page['content']);
-    $this->assertArrayHasKey('label', $page['content']['#primary_button']);
-    $this->assertEquals('Save and continue', $page['content']['#primary_button']['label']);
-    $this->assertArrayHasKey('url', $page['content']['#primary_button']);
-    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#primary_button']['url']);
+    $this->assertArrayHasKey('primary', $page['content']['#buttons']);
+    $this->assertArrayHasKey('label', $page['content']['#buttons']['primary']);
+    $this->assertEquals('Save and continue', $page['content']['#buttons']['primary']['label']);
+    $this->assertArrayHasKey('url', $page['content']['#buttons']['primary']);
+    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#buttons']['primary']['url']);
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
   }
 
   /**
@@ -345,19 +356,21 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // Preview image.
     $this->assertArrayHasKey('#preview', $page['content']);
     $this->assertArrayHasKey('alt_text', $page['content']['#preview']);
-    $this->assertEquals('Phone-and-email-address preview', $page['content']['#preview']['alt_text']);
+    $this->assertEquals('Contact-information preview', $page['content']['#preview']['alt_text']);
     $this->assertArrayHasKey('url', $page['content']['#preview']);
-    $this->assertStringContainsString('phone-and-email.png', $page['content']['#preview']['url']);
+    $this->assertStringContainsString('contact-info.png', $page['content']['#preview']['url']);
+    // Buttons.
+    $this->assertArrayHasKey('#buttons', $page['content']);
     // Primary button.
-    $this->assertArrayHasKey('#primary_button', $page['content']);
-    $this->assertArrayHasKey('label', $page['content']['#primary_button']);
-    $this->assertEquals('Save and continue', $page['content']['#primary_button']['label']);
-    $this->assertArrayHasKey('url', $page['content']['#primary_button']);
-    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#primary_button']['url']);
-
+    $this->assertArrayHasKey('primary', $page['content']['#buttons']);
+    $this->assertArrayHasKey('label', $page['content']['#buttons']['primary']);
+    $this->assertEquals('Save and continue', $page['content']['#buttons']['primary']['label']);
+    $this->assertArrayHasKey('url', $page['content']['#buttons']['primary']);
+    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#buttons']['primary']['url']);
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
   }
 
   /**
@@ -384,16 +397,48 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertEquals('Statement-of-truth preview', $page['content']['#preview']['alt_text']);
     $this->assertArrayHasKey('url', $page['content']['#preview']);
     $this->assertStringContainsString('statement-of-truth.png', $page['content']['#preview']['url']);
+    // Buttons.
+    $this->assertArrayHasKey('#buttons', $page['content']);
     // Primary button.
-    $this->assertArrayHasKey('#primary_button', $page['content']);
-    $this->assertArrayHasKey('label', $page['content']['#primary_button']);
-    $this->assertEquals('Save and continue', $page['content']['#primary_button']['label']);
-    $this->assertArrayHasKey('url', $page['content']['#primary_button']);
-    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#primary_button']['url']);
+    $this->assertArrayHasKey('primary', $page['content']['#buttons']);
+    $this->assertArrayHasKey('label', $page['content']['#buttons']['primary']);
+    $this->assertEquals('Save and continue', $page['content']['#buttons']['primary']['label']);
+    $this->assertArrayHasKey('url', $page['content']['#buttons']['primary']);
+    $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#buttons']['primary']['url']);
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
+  }
+
+  /**
+   * Tests the viewForm method returns a View-form page.
+   */
+  public function testViewForm() {
+    // Create a node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'field_chapters' => [],
+    ]);
+
+    $page = $this->controller->viewForm($node->id());
+
+    $this->assertArrayHasKey('content', $page);
+    // Ensure theme is set as expected.
+    $this->assertArrayHasKey('#theme', $page['content']);
+    $this->assertStringContainsSTring('page_content__va_gov_form_builder__view_form', $page['content']['#theme']);
+
+    // Ensure variables are set as expected.
+    // Buttons.
+    $this->assertArrayHasKey('#buttons', $page['content']);
+    // Primary button.
+    // @todo Update buttons test when staging-url field is added.
+    $this->assertArrayHasKey('primary', $page['content']['#buttons']);
+
+    // Ensure css is added as expected.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
   }
 
 }

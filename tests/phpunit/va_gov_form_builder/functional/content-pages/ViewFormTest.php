@@ -6,12 +6,12 @@ use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
- * Functional test of the Address-information page.
+ * Functional test of the View-form page.
  *
  * @group functional
  * @group all
  */
-class AddressInfoTest extends VaGovExistingSiteBase {
+class ViewFormTest extends VaGovExistingSiteBase {
   use TestPageLoads;
 
   /**
@@ -30,7 +30,7 @@ class AddressInfoTest extends VaGovExistingSiteBase {
    * Returns the url for this page.
    */
   private function getPageUrl() {
-    return "/form-builder/{$this->digitalFormNode->id()}/address-info";
+    return "/form-builder/{$this->digitalFormNode->id()}/view-form";
   }
 
   /**
@@ -73,7 +73,7 @@ class AddressInfoTest extends VaGovExistingSiteBase {
    */
   public function testPageLoads() {
     // Ensure page loads.
-    $this->sharedTestPageLoads($this->getPageUrl(), 'Collecting address information');
+    $this->sharedTestPageLoads($this->getPageUrl(), 'Reviewing the form');
   }
 
   /**
@@ -95,36 +95,7 @@ class AddressInfoTest extends VaGovExistingSiteBase {
     );
   }
 
-  /**
-   * Test that the page has the expected breadcrumbs.
-   */
-  public function testPageBreadcrumbs() {
-    $this->sharedTestPageHasExpectedBreadcrumbs(
-      $this->getPageUrl(),
-      [
-        [
-          'label' => 'Home',
-          'url' => '/form-builder/home',
-        ],
-        [
-          'label' => $this->digitalFormNode->getTitle(),
-          'url' => "/form-builder/{$this->digitalFormNode->id()}",
-        ],
-        [
-          'label' => 'Address information',
-          'url' => "#content",
-        ],
-      ],
-    );
-  }
-
-  /**
-   * Test the primary button.
-   */
-  public function testPrimaryButton() {
-    $this->drupalGet($this->getPageUrl());
-    $this->click('a#form-builder-primary-button');
-    $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}");
-  }
-
+  // Cannot test these until we have the staging-url field.
+  // @todo test breadcrumbs.
+  // @todo test buttons.
 }

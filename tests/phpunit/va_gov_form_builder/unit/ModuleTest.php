@@ -17,10 +17,38 @@ class ModuleTest extends VaGovUnitTestBase {
 
   /**
    * The path to the module being tested.
-   *
-   * @var string
    */
-  private $modulePath = 'modules/custom/va_gov_form_builder';
+  const MODULE_PATH = 'modules/custom/va_gov_form_builder';
+
+  /**
+   * The path to the template directory.
+   */
+  const TEMPLATE_PATH = self::MODULE_PATH . '/templates';
+
+  /**
+   * The path to the page template directory.
+   */
+  const PAGE_TEMPLATE_PATH = self::TEMPLATE_PATH . '/page';
+
+  /**
+   * The path to the page-content template directory.
+   */
+  const PAGE_CONTENT_TEMPLATE_PATH = self::TEMPLATE_PATH . '/page-content';
+
+  /**
+   * The path to the form template directory.
+   */
+  const FORM_TEMPLATE_PATH = self::TEMPLATE_PATH . '/form';
+
+  /**
+   * The prefix for page-content themes.
+   */
+  const PAGE_CONTENT_THEME_PREFIX = 'page_content__va_gov_form_builder__';
+
+  /**
+   * The prefix for form themes.
+   */
+  const FORM_THEME_PREFIX = 'form__va_gov_form_builder__';
 
   /**
    * A mock service container.
@@ -41,13 +69,76 @@ class ModuleTest extends VaGovUnitTestBase {
     $drupalRoot = $drupalFinder->getDrupalRoot();
 
     // Require the module file so we can test it.
-    require_once $drupalRoot . '/' . $this->modulePath . '/va_gov_form_builder.module';
+    require_once $drupalRoot . '/' . self::MODULE_PATH . '/va_gov_form_builder.module';
 
     // Create the mock service container.
     $this->container = new ContainerBuilder();
 
     // Set the mocked container as the global Drupal container.
     \Drupal::setContainer($this->container);
+  }
+
+  /**
+   * Helper function to assert a form theme.
+   *
+   * @param array $theme
+   *   The key of the theme entry to check. This should be
+   *   in snake-case.
+   * @param array $themeEntries
+   *   The array of theme entries returned from hook_theme.
+   */
+  private function assertTheme($theme, $themeEntries) {
+    // Assert the theme exists.
+    $this->assertArrayHasKey($theme, $themeEntries);
+
+    // Assert the path key exists and is set to the expected value.
+    $this->assertArrayHasKey('path', $themeEntries[$theme]);
+    $this->assertEquals(self::PAGE_CONTENT_TEMPLATE_PATH, $themeEntries[$theme]['path']);
+
+    // Assert the template key exists and is set to the expected value.
+    $themeWithoutPrefix = str_replace(self::PAGE_CONTENT_THEME_PREFIX, '', $theme);
+    $kebabCaseTheme = str_replace('_', '-', $themeWithoutPrefix);
+    $this->assertArrayHasKey('template', $themeEntries[$theme]);
+    $this->assertEquals($kebabCaseTheme, $themeEntries[$theme]['template']);
+  }
+
+  /**
+   * Helper function to make assertions on a non-editable-pattern theme.
+   *
+   * @param array $theme
+   *   The key of the theme entry to check. This should be
+   *   in snake-case.
+   * @param array $themeEntries
+   *   The array of theme entries returned from hook_theme.
+   */
+  private function assertNonEditablePatternTheme($theme, $themeEntries) {
+    // Assert common properties.
+    $this->assertTheme($theme, $themeEntries);
+
+    // Assert variables exist.
+    $this->assertArrayHasKey('variables', $themeEntries[$theme]);
+    $this->assertArrayHasKey('preview', $themeEntries[$theme]['variables']);
+    $this->assertArrayHasKey('alt_text', $themeEntries[$theme]['variables']['preview']);
+    $this->assertArrayHasKey('url', $themeEntries[$theme]['variables']['preview']);
+    $this->assertArrayHasKey('buttons', $themeEntries[$theme]['variables']);
+  }
+
+  /**
+   * Helper function to make assertions on a view-form theme.
+   *
+   * @param array $theme
+   *   The key of the theme entry to check. This should be
+   *   in snake-case.
+   * @param array $themeEntries
+   *   The array of theme entries returned from hook_theme.
+   */
+  private function assertViewFormTheme($theme, $themeEntries) {
+    // Assert common properties.
+    $this->assertTheme($theme, $themeEntries);
+
+    // Assert variables exist.
+    $this->assertArrayHasKey('variables', $themeEntries[$theme]);
+    $this->assertArrayHasKey('buttons', $themeEntries[$theme]['variables']);
   }
 
   /**
@@ -61,29 +152,33 @@ class ModuleTest extends VaGovUnitTestBase {
       NULL,
       NULL,
       NULL,
-      $this->modulePath
+      self::MODULE_PATH
     );
 
     // Assert the expected theme definition exists.
     // Page (wrapper) theme.
     $this->assertArrayHasKey('page__va_gov_form_builder', $result);
     $this->assertEquals('page', $result['page__va_gov_form_builder']['base hook']);
-    $this->assertEquals($this->modulePath . '/templates/page', $result['page__va_gov_form_builder']['path']);
+    $this->assertEquals(self::PAGE_TEMPLATE_PATH, $result['page__va_gov_form_builder']['path']);
 
     // Page-content themes.
-    $page_content_theme_prefix = 'page_content__va_gov_form_builder__';
-    $page_content_theme_path = $this->modulePath . '/templates/page-content';
     // 1. Home page.
-    $homeTheme = $page_content_theme_prefix . 'home';
+    $homeTheme = self::PAGE_CONTENT_THEME_PREFIX . 'home';
     $this->assertArrayHasKey($homeTheme, $result);
-    $this->assertEquals($page_content_theme_path, $result[$homeTheme]['path']);
+    $this->assertArrayHasKey('path', $result[$homeTheme]);
+    $this->assertEquals(self::PAGE_CONTENT_TEMPLATE_PATH, $result[$homeTheme]['path']);
+    $this->assertArrayHasKey('template', $result[$homeTheme]);
+    $this->assertEquals('home', $result[$homeTheme]['template']);
     $this->assertArrayHasKey('variables', $result[$homeTheme]);
     $this->assertArrayHasKey('recent_forms', $result[$homeTheme]['variables']);
     $this->assertArrayHasKey('build_form_url', $result[$homeTheme]['variables']);
     // 2. Layout page.
-    $layoutTheme = $page_content_theme_prefix . 'layout';
+    $layoutTheme = self::PAGE_CONTENT_THEME_PREFIX . 'layout';
     $this->assertArrayHasKey($layoutTheme, $result);
-    $this->assertEquals($page_content_theme_path, $result[$layoutTheme]['path']);
+    $this->assertArrayHasKey('path', $result[$layoutTheme]);
+    $this->assertEquals(self::PAGE_CONTENT_TEMPLATE_PATH, $result[$layoutTheme]['path']);
+    $this->assertArrayHasKey('template', $result[$layoutTheme]);
+    $this->assertEquals('layout', $result[$layoutTheme]['template']);
     $this->assertArrayHasKey('variables', $result[$layoutTheme]);
     $this->assertArrayHasKey('form_info', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('intro', $result[$layoutTheme]['variables']);
@@ -94,78 +189,30 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey('review_and_sign', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('confirmation', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('view_form', $result[$layoutTheme]['variables']);
-    // 3. Non-editable-pattern-step pages.
-    // 3a. Name-and-date-of-birth page.
-    $nameAndDobTheme = $page_content_theme_prefix . 'name_and_dob';
-    $this->assertArrayHasKey($nameAndDobTheme, $result);
-    $this->assertEquals($page_content_theme_path, $result[$nameAndDobTheme]['path']);
-    $this->assertArrayHasKey('variables', $result[$nameAndDobTheme]);
-    $this->assertArrayHasKey('preview', $result[$nameAndDobTheme]['variables']);
-    $this->assertArrayHasKey('alt_text', $result[$nameAndDobTheme]['variables']['preview']);
-    $this->assertArrayHasKey('url', $result[$nameAndDobTheme]['variables']['preview']);
-    $this->assertArrayHasKey('primary_button', $result[$nameAndDobTheme]['variables']);
-    $this->assertArrayHasKey('label', $result[$nameAndDobTheme]['variables']['primary_button']);
-    $this->assertArrayHasKey('url', $result[$nameAndDobTheme]['variables']['primary_button']);
-    $this->assertArrayHasKey('secondary_button', $result[$nameAndDobTheme]['variables']);
-    $this->assertArrayHasKey('label', $result[$nameAndDobTheme]['variables']['secondary_button']);
-    $this->assertArrayHasKey('url', $result[$nameAndDobTheme]['variables']['secondary_button']);
-    // 3b. Identification-information page.
-    $identificationInfoTheme = $page_content_theme_prefix . 'identification_info';
-    $this->assertArrayHasKey($identificationInfoTheme, $result);
-    $this->assertEquals($page_content_theme_path, $result[$identificationInfoTheme]['path']);
-    $this->assertArrayHasKey('variables', $result[$identificationInfoTheme]);
-    $this->assertArrayHasKey('preview', $result[$identificationInfoTheme]['variables']);
-    $this->assertArrayHasKey('alt_text', $result[$identificationInfoTheme]['variables']['preview']);
-    $this->assertArrayHasKey('url', $result[$identificationInfoTheme]['variables']['preview']);
-    $this->assertArrayHasKey('primary_button', $result[$identificationInfoTheme]['variables']);
-    $this->assertArrayHasKey('label', $result[$identificationInfoTheme]['variables']['primary_button']);
-    $this->assertArrayHasKey('url', $result[$identificationInfoTheme]['variables']['primary_button']);
-    $this->assertArrayHasKey('secondary_button', $result[$identificationInfoTheme]['variables']);
-    $this->assertArrayHasKey('label', $result[$identificationInfoTheme]['variables']['secondary_button']);
-    $this->assertArrayHasKey('url', $result[$identificationInfoTheme]['variables']['secondary_button']);
-    // 3c. Address-information page.
-    $addressInfoTheme = $page_content_theme_prefix . 'address_info';
-    $this->assertArrayHasKey($addressInfoTheme, $result);
-    $this->assertEquals($page_content_theme_path, $result[$addressInfoTheme]['path']);
-    $this->assertArrayHasKey('variables', $result[$addressInfoTheme]);
-    $this->assertArrayHasKey('preview', $result[$addressInfoTheme]['variables']);
-    $this->assertArrayHasKey('alt_text', $result[$addressInfoTheme]['variables']['preview']);
-    $this->assertArrayHasKey('url', $result[$addressInfoTheme]['variables']['preview']);
-    $this->assertArrayHasKey('primary_button', $result[$addressInfoTheme]['variables']);
-    $this->assertArrayHasKey('label', $result[$addressInfoTheme]['variables']['primary_button']);
-    $this->assertArrayHasKey('url', $result[$addressInfoTheme]['variables']['primary_button']);
-    // 3d. Contact-information page.
-    $contactInfoTheme = $page_content_theme_prefix . 'contact_info';
-    $this->assertArrayHasKey($contactInfoTheme, $result);
-    $this->assertEquals($page_content_theme_path, $result[$contactInfoTheme]['path']);
-    $this->assertArrayHasKey('variables', $result[$contactInfoTheme]);
-    $this->assertArrayHasKey('preview', $result[$contactInfoTheme]['variables']);
-    $this->assertArrayHasKey('alt_text', $result[$contactInfoTheme]['variables']['preview']);
-    $this->assertArrayHasKey('url', $result[$contactInfoTheme]['variables']['preview']);
-    $this->assertArrayHasKey('primary_button', $result[$contactInfoTheme]['variables']);
-    $this->assertArrayHasKey('label', $result[$contactInfoTheme]['variables']['primary_button']);
-    $this->assertArrayHasKey('url', $result[$contactInfoTheme]['variables']['primary_button']);
-    // 3e. Review-and-Sign page.
-    $reviewAndSignTheme = $page_content_theme_prefix . 'review_and_sign';
-    $this->assertArrayHasKey($reviewAndSignTheme, $result);
-    $this->assertEquals($page_content_theme_path, $result[$reviewAndSignTheme]['path']);
-    $this->assertArrayHasKey('variables', $result[$reviewAndSignTheme]);
-    $this->assertArrayHasKey('preview', $result[$reviewAndSignTheme]['variables']);
-    $this->assertArrayHasKey('alt_text', $result[$reviewAndSignTheme]['variables']['preview']);
-    $this->assertArrayHasKey('url', $result[$reviewAndSignTheme]['variables']['preview']);
-    $this->assertArrayHasKey('primary_button', $result[$reviewAndSignTheme]['variables']);
-    $this->assertArrayHasKey('label', $result[$reviewAndSignTheme]['variables']['primary_button']);
-    $this->assertArrayHasKey('url', $result[$reviewAndSignTheme]['variables']['primary_button']);
+    // 3. Non-editable pattern pages.
+    $nonEditablePatternPages = [
+      'name_and_dob',
+      'identification_info',
+      'address_info',
+      'contact_info',
+      'review_and_sign',
+    ];
+    foreach ($nonEditablePatternPages as $nonEditablePatternPage) {
+      $nonEditablePatternPageTheme = self::PAGE_CONTENT_THEME_PREFIX . $nonEditablePatternPage;
+      $this->assertNonEditablePatternTheme($nonEditablePatternPageTheme, $result);
+    }
+    // 4. View-form pages.
+    // 4a. View-form page when viewing form is available.
+    $this->assertViewFormTheme(self::PAGE_CONTENT_THEME_PREFIX . 'view_form__available', $result);
+    // 4b. View-form page when viewing form is unavailable.
+    $this->assertViewFormTheme(self::PAGE_CONTENT_THEME_PREFIX . 'view_form__unavailable', $result);
 
     // Form themes.
-    $form_theme_prefix = 'form__va_gov_form_builder__';
-    $form_theme_path = $this->modulePath . '/templates/form';
-    // Assert all items in array exist.
     $form_themes = ['form_info'];
     foreach ($form_themes as $form_theme) {
-      $this->assertArrayHasKey($form_theme_prefix . $form_theme, $result);
-      $this->assertEquals($form_theme_path, $result[$form_theme_prefix . $form_theme]['path']);
-      $this->assertEquals('form', $result[$form_theme_prefix . $form_theme]['render element']);
+      $this->assertArrayHasKey(self::FORM_THEME_PREFIX . $form_theme, $result);
+      $this->assertEquals(self::FORM_TEMPLATE_PATH, $result[self::FORM_THEME_PREFIX . $form_theme]['path']);
+      $this->assertEquals('form', $result[self::FORM_THEME_PREFIX . $form_theme]['render element']);
     }
   }
 

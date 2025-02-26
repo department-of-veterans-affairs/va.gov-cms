@@ -54,43 +54,46 @@ class LibrariesTest extends VaGovUnitTestBase {
    * Tests that the library definition contains necessary css.
    */
   public function testLibraryCss() {
-    $libraryPrefix = 'va_gov_form_builder_styles';
     $cssPrefix = 'css/';
 
-    $this->assertArrayHasKey($libraryPrefix, $this->libraries);
-    $this->assertArrayHasKey('css', $this->libraries[$libraryPrefix]);
-    $this->assertArrayHasKey('theme', $this->libraries[$libraryPrefix]['css']);
-
-    $formBuilderCssArray = array_keys($this->libraries[$libraryPrefix]['css']['theme']);
-
+    // Assert Form Builder base library is present.
+    $baseLibrary = 'form_builder';
+    $this->assertArrayHasKey($baseLibrary, $this->libraries);
+    $this->assertArrayHasKey('css', $this->libraries[$baseLibrary]);
+    $this->assertArrayHasKey('theme', $this->libraries[$baseLibrary]['css']);
     // Assert Form Builder css is present.
-    $this->assertContains($cssPrefix . 'form_builder.css', $formBuilderCssArray, 'Form Builder css is present.');
-
+    $formBuilderCssArray = array_keys($this->libraries[$baseLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'form-builder.css', $formBuilderCssArray, 'Form Builder css is present.');
     // Assert external VADS tokens definition is present.
     $matches = preg_grep('/unpkg.*@department-of-veterans-affairs.*css-library.*tokens\/css\/variables.css/', $formBuilderCssArray);
     $this->assertNotEmpty($matches, 'VADS tokens css is present.');
 
-    // Assert page-specific libraries are present
+    // Assert page-specific libraries are present.
     // 1. Home.
-    $homeLibrary = $libraryPrefix . '__home';
+    $homeLibrary = 'home';
     $this->assertArrayHasKey($homeLibrary, $this->libraries);
     $homeCssArray = array_keys($this->libraries[$homeLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'home.css', $homeCssArray, 'Home page css is present.');
     // 2. Form Info.
-    $formInfoLibrary = $libraryPrefix . '__form_info';
+    $formInfoLibrary = 'form_info';
     $this->assertArrayHasKey($formInfoLibrary, $this->libraries);
     $formInfoCssArray = array_keys($this->libraries[$formInfoLibrary]['css']['theme']);
-    $this->assertContains($cssPrefix . 'form_info.css', $formInfoCssArray, 'Form Info page css is present.');
+    $this->assertContains($cssPrefix . 'form-info.css', $formInfoCssArray, 'Form Info page css is present.');
     // 3. Layout.
-    $layoutLibrary = $libraryPrefix . '__layout';
+    $layoutLibrary = 'layout';
     $this->assertArrayHasKey($layoutLibrary, $this->libraries);
     $layoutCssArray = array_keys($this->libraries[$layoutLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'layout.css', $layoutCssArray, 'Layout page css is present.');
-    // 4. Non-editable-pattern.
-    $nonEditablePatternLibrary = $libraryPrefix . '__page_content__layout__non_editable_pattern';
+    // 4. Single-column-with-buttons.
+    $singleColumnWithButtonsLibrary = 'single_column_with_buttons';
+    $this->assertArrayHasKey($singleColumnWithButtonsLibrary, $this->libraries);
+    $singleColumnWithButtonsCssArray = array_keys($this->libraries[$singleColumnWithButtonsLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'single-column-with-buttons.css', $singleColumnWithButtonsCssArray, 'Non-editable-pattern css is present.');
+    // 5. Non-editable-pattern.
+    $nonEditablePatternLibrary = 'non_editable_pattern';
     $this->assertArrayHasKey($nonEditablePatternLibrary, $this->libraries);
     $nonEditablePatternCssArray = array_keys($this->libraries[$nonEditablePatternLibrary]['css']['theme']);
-    $this->assertContains($cssPrefix . 'page_content__layout__non_editable_pattern.css', $nonEditablePatternCssArray, 'Non-editable-pattern css is present.');
+    $this->assertContains($cssPrefix . 'non-editable-pattern.css', $nonEditablePatternCssArray, 'Non-editable-pattern css is present.');
   }
 
 }

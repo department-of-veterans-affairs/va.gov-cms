@@ -1,0 +1,18 @@
+{% extends '@va_gov_form_builder/page-content/base/non-editable-pattern.html.twig' %}
+
+{% set page_id = 'review-and-sign' %}
+{% set page_heading = 'Reviewing the submission' %}
+{% set step_label = 'Review and sign' %}
+
+{% block step_description %}
+  <p>
+    This step of the form allows the submitter to review their inputs and then affirm that what
+    was provided is accurate. Not shown in this tool are all of the steps that are part of this form.
+    Steps are listed on the layout page.
+  </p>
+  <p>
+    <strong>Note:</strong> For any added step that can map signatures to an
+    alternate certification or attestation, the universal statement of truth on the review
+    step covers those situations as well. There is no need to add in additional text.
+  </p>
+{% endblock %}
