@@ -579,6 +579,20 @@ function va_gov_backend_field_widget_single_element_boolean_checkbox_form_alter(
 }
 
 /**
+ * Implements hook_field_widget_single_element_WIDGET_TYPE_form_alter().
+ */
+function va_gov_backend_field_widget_single_element_form_alter(array &$element, FormStateInterface $form_state, array $context) {
+  $field_definition = $context['items']->getFieldDefinition();
+  if ($field_definition instanceof FieldConfig) {
+    [$entity_type, , $field_name] = explode('.', $field_definition->id());
+    // Add input mask js to field_phone_extension.
+    if ($entity_type === 'paragraph' && $field_name === 'field_phone_extension') {
+      $element['#attached']['library'][] = 'va_gov_backend/phone_extension_mask';
+    }
+  }
+}
+
+/**
  * Implements hook_entity_view_alter().
  *
  * Changes entity view display based on trigger field.
@@ -1203,6 +1217,12 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   if ($entity_type->id() === 'paragraph' && $bundle === 'phone_number' && isset($fields['field_phone_number'])) {
     $fields['field_phone_number']->addConstraint('ValidPhoneNumber');
   }
+
+  // Add numeric validator to phone extension in phone paragraph.
+  if ($entity_type->id() === 'paragraph' && $bundle === 'phone_number' && isset($fields['field_phone_extension'])) {
+    $fields['field_phone_extension']->addConstraint('ValidNumeric');
+  }
+
   // Add title duplication prevention validation to q_a nodes.
   if ($entity_type->id() === 'node' && $bundle === 'q_a' && isset($fields['title'])) {
     $fields['title']->addConstraint('UniqueTitle');
