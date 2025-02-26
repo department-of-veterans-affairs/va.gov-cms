@@ -58,9 +58,9 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $page = $this->controller->home();
 
     $this->assertContains(
-      'va_gov_form_builder/va_gov_form_builder_styles',
+      'va_gov_form_builder/form_builder',
       $page['#attached']['library'],
-      "The library 'va_gov_form_builder/va_gov_form_builder_styles' is successfully attached."
+      "The library 'va_gov_form_builder/form_builder' is successfully attached."
     );
   }
 
@@ -86,7 +86,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__home', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/home', $page['#attached']['library']);
   }
 
   /**
@@ -104,7 +104,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // Ensure css is added.
     // This should be present on both create and edit mode.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__form_info', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/form_info', $page['#attached']['library']);
 
   }
 
@@ -135,7 +135,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // Ensure css is added.
     // This should be present on both create and edit mode.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__form_info', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/form_info', $page['#attached']['library']);
   }
 
   /**
@@ -199,7 +199,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__layout', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/layout', $page['#attached']['library']);
   }
 
   /**
@@ -243,8 +243,8 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
   }
 
   /**
@@ -290,8 +290,8 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
   }
 
   /**
@@ -330,8 +330,8 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
   }
 
   /**
@@ -369,8 +369,8 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#buttons']['primary']['url']);
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
   }
 
   /**
@@ -408,8 +408,8 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
   }
 
   /**
@@ -438,7 +438,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
-    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
+    $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
   }
 
 }
