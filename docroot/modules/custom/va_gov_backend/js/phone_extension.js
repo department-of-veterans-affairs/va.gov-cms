@@ -16,9 +16,9 @@
     e.preventDefault();
   };
   Drupal.behaviors.phoneExtensionMask = {
-    attach: function attach(context, settings) {
+    attach: function attach(context) {
       var selector = "input[data-field-definition-id=paragraph--phone_number--field_phone_extension]";
-      $(once("phone-extension-mask", selector)).each(function () {
+      $(once("phone-extension-mask", selector), context).each(function () {
         document.querySelector(selector).addEventListener("keydown", handlePhoneExtensionMaskKeyPress);
       });
     }
