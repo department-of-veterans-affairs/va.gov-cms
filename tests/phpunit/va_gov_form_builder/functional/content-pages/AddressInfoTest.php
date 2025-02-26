@@ -123,7 +123,7 @@ class AddressInfoTest extends VaGovExistingSiteBase {
    */
   public function testPrimaryButton() {
     $this->drupalGet($this->getPageUrl());
-    $this->click('a#form-builder-non-editable-pattern-primary-button');
+    $this->click('a#form-builder-primary-button');
     $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}");
   }
 
