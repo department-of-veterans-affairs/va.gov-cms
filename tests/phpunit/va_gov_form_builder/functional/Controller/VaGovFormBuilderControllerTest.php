@@ -412,4 +412,33 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
   }
 
+  /**
+   * Tests the viewForm method returns a View-form page.
+   */
+  public function testViewForm() {
+    // Create a node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'field_chapters' => [],
+    ]);
+
+    $page = $this->controller->viewForm($node->id());
+
+    $this->assertArrayHasKey('content', $page);
+    // Ensure theme is set as expected.
+    $this->assertArrayHasKey('#theme', $page['content']);
+    $this->assertStringContainsSTring('page_content__va_gov_form_builder__view_form', $page['content']['#theme']);
+
+    // Ensure variables are set as expected.
+    // Buttons.
+    $this->assertArrayHasKey('#buttons', $page['content']);
+    // Primary button.
+    // @todo Update buttons test when staging-url field is added.
+    $this->assertArrayHasKey('primary', $page['content']['#buttons']);
+
+    // Ensure css is added as expected.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
+  }
+
 }
