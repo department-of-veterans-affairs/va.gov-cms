@@ -123,7 +123,7 @@ class NameAndDobTest extends VaGovExistingSiteBase {
    */
   public function testPrimaryButton() {
     $this->drupalGet($this->getPageUrl());
-    $this->click('a#form-builder-non-editable-pattern-primary-button');
+    $this->click('a#form-builder-primary-button');
     $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}");
   }
 
@@ -132,7 +132,7 @@ class NameAndDobTest extends VaGovExistingSiteBase {
    */
   public function testSecondaryButton() {
     $this->drupalGet($this->getPageUrl());
-    $this->click('a#form-builder-non-editable-pattern-secondary-button');
+    $this->click('a#form-builder-secondary-button-1');
     $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}/identification-info");
   }
 
