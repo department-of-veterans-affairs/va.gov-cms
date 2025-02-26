@@ -414,7 +414,10 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Personal information');
-    $libraries = ['page_content__layout__non_editable_pattern'];
+    $libraries = [
+      'single_column_with_buttons',
+      'page_content__layout__non_editable_pattern',
+    ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -453,7 +456,10 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Personal information');
-    $libraries = ['page_content__layout__non_editable_pattern'];
+    $libraries = [
+      'single_column_with_buttons',
+      'page_content__layout__non_editable_pattern',
+    ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -485,7 +491,10 @@ class VaGovFormBuilderController extends ControllerBase {
     ];
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Address information');
-    $libraries = ['page_content__layout__non_editable_pattern'];
+    $libraries = [
+      'single_column_with_buttons',
+      'page_content__layout__non_editable_pattern',
+    ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -517,7 +526,10 @@ class VaGovFormBuilderController extends ControllerBase {
     ];
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Contact information');
-    $libraries = ['page_content__layout__non_editable_pattern'];
+    $libraries = [
+      'single_column_with_buttons',
+      'page_content__layout__non_editable_pattern',
+    ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -549,7 +561,10 @@ class VaGovFormBuilderController extends ControllerBase {
     ];
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Review page');
-    $libraries = ['page_content__layout__non_editable_pattern'];
+    $libraries = [
+      'single_column_with_buttons',
+      'page_content__layout__non_editable_pattern',
+    ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -604,7 +619,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', $breadcrumbLabel);
-    $libraries = [];
+    $libraries = ['single_column_with_buttons'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }

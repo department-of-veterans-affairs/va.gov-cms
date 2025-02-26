@@ -243,6 +243,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
     $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
   }
 
@@ -289,6 +290,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
     $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
   }
 
@@ -328,6 +330,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
     $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
   }
 
@@ -366,6 +369,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertStringContainsString("/form-builder/{$node->id()}", $page['content']['#buttons']['primary']['url']);
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
     $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
   }
 
@@ -404,6 +408,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure css is added as expected.
     $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__single_column_with_buttons', $page['#attached']['library']);
     $this->assertContains('va_gov_form_builder/va_gov_form_builder_styles__page_content__layout__non_editable_pattern', $page['#attached']['library']);
   }
 

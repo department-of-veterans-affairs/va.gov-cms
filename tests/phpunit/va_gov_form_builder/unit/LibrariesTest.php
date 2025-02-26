@@ -86,7 +86,12 @@ class LibrariesTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey($layoutLibrary, $this->libraries);
     $layoutCssArray = array_keys($this->libraries[$layoutLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'layout.css', $layoutCssArray, 'Layout page css is present.');
-    // 4. Non-editable-pattern.
+    // 4. Single-column-with-buttons.
+    $singleColumnWithButtonsLibrary = $libraryPrefix . '__single_column_with_buttons';
+    $this->assertArrayHasKey($singleColumnWithButtonsLibrary, $this->libraries);
+    $singleColumnWithButtonsCssArray = array_keys($this->libraries[$singleColumnWithButtonsLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'single_column_with_buttons.css', $singleColumnWithButtonsCssArray, 'Non-editable-pattern css is present.');
+    // 5. Non-editable-pattern.
     $nonEditablePatternLibrary = $libraryPrefix . '__page_content__layout__non_editable_pattern';
     $this->assertArrayHasKey($nonEditablePatternLibrary, $this->libraries);
     $nonEditablePatternCssArray = array_keys($this->libraries[$nonEditablePatternLibrary]['css']['theme']);
