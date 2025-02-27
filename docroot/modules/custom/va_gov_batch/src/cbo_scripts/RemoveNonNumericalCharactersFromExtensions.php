@@ -74,14 +74,14 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
       }
       $number_only_extension = $this->replaceNonNumerals($original_extension);
       if ($original_extension === $number_only_extension) {
-        return "No change to extension $original_extension in paragraph id $item";
+        return "No change to extension '$original_extension' in paragraph id $item";
       }
       $phone_paragraph->set(name: 'field_phone_extension', value: $number_only_extension);
       $phone_paragraph->save();
       return "Extension updated for paragraph id $item from '$original_extension' to '$number_only_extension'";
     }
     catch (\Exception $e) {
-      $message = "Exception during update of paragraph id $item with extension: $original_extension";
+      $message = "Exception during update of paragraph id $item with extension: '$original_extension'";
       return $message;
     }
 
@@ -106,7 +106,7 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
     }
 
     // Remove non-numerical characters from the extension.
-    $just_numbers = preg_replace('/[^0-9]/', '', $extension);
+    $just_numbers = trim(preg_replace('/[^0-9]/', '', $extension));
 
     return $just_numbers;
   }

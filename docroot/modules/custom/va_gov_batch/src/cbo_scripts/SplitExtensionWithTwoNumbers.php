@@ -96,7 +96,7 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
         }
         $phone_paragraph->set(name: 'field_phone_extension', value: $separated_extensions[0]);
         $phone_paragraph->save();
-        $message = "1st extension for paragraph $item changed from '$original_extension' to $separated_extensions[0]' .";
+        $message = "1st extension for paragraph $item changed from '$original_extension' to '$separated_extensions[0]'. ";
       }
 
       // Create the second extension and phone.
@@ -116,7 +116,7 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
         $phone_parent_paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($phone_parent_id);
         $phone_parent_paragraph->get($phone_parent_field_name)->appendItem($second_phone);
         $phone_parent_paragraph->save();
-        $message .= "2nd extension created for paragraph $second_phone_id from '$original_extension' to $separated_extensions[1]'." . PHP_EOL;
+        $message .= "2nd extension created for paragraph $second_phone_id from '$original_extension' to '$separated_extensions[1]'.";
       }
     }
     catch (\Exception $e) {
@@ -138,7 +138,8 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
    *   E.g. '2132,2995' becomes ['2132','2995']
    */
   public static function splitExtensions(string $dual_extension): array {
-    if (!preg_match('/[^0-9]/', $dual_extension)) {
+    $pattern = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/';
+    if (!preg_match($pattern, $dual_extension)) {
       return [];
     }
     $first_extension = [];
@@ -146,7 +147,7 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
     $second_extension = [];
     preg_match('/\d+$/', $dual_extension, $second_extension);
 
-    return [$first_extension[0], $second_extension[0]];
+    return [trim($first_extension[0]), trim($second_extension[0])];
   }
 
 }
