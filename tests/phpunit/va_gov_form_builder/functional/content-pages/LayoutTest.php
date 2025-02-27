@@ -184,8 +184,11 @@ class LayoutTest extends VaGovExistingSiteBase {
   public function testContactInfo() {
     $this->drupalGet($this->getPageUrl());
 
-    // There is no destination for this link yet.
-    $this->assertSession()->linkExists('View contact information');
+    $linkText = 'View contact information';
+    $this->assertSession()->linkExists($linkText);
+    $this->clickLink($linkText);
+
+    $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}/contact-info");
   }
 
   /**
