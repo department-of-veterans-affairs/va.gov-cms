@@ -86,6 +86,11 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
     // Do the extension work.
     $original_extension = $phone_paragraph->get('field_phone_extension')->value;
     $separated_extensions = $this->splitExtensions($original_extension);
+    // There is something wrong with the extensions.
+    if (!$separated_extensions) {
+      return "The extension '$original_extension' cannot be successfully separated in paragraph $item.";
+    }
+    // We don't have the right pattern to separate extensions.
     if (empty($separated_extensions)) {
       return "There is no change necessary for paragraph $item.";
     }
@@ -136,11 +141,12 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
    * @param string $dual_extension
    *   The two-part extension.
    *
-   * @return array
+   * @return array|bool
    *   Array with two extensions (or empty).
    *   E.g. '2132,2995' becomes ['2132','2995']
+   *   If one or both extensions are empty, return false.
    */
-  public static function splitExtensions(string $dual_extension): array {
+  public static function splitExtensions(string $dual_extension): array|bool {
     $pattern = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/';
     if (!preg_match($pattern, $dual_extension)) {
       return [];
@@ -149,6 +155,10 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
     preg_match('/^\d+/', $dual_extension, $first_extension);
     $second_extension = [];
     preg_match('/\d+$/', $dual_extension, $second_extension);
+    // If either of these are empty, we want to bail out of this.
+    if (empty($first_extension[0]) or empty($second_extension[0])) {
+      return FALSE;
+    }
 
     return [trim($first_extension[0]), trim($second_extension[0])];
   }
