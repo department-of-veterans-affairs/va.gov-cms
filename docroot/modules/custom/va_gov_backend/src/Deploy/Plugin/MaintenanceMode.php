@@ -30,8 +30,8 @@ class MaintenanceMode implements DeployPluginInterface {
     $expected_update_duration = '10';
     $html = preg_replace('/\{\{\s*update_duration\s*\}\}/', $expected_update_duration, $html);
     $headers = [
-        'Content-Type' => 'text/html',
-        'Retry-After' => 120,
+      'Content-Type' => 'text/html',
+      'Retry-After' => 120,
     ];
     $response = new Response($html, 503, $headers);
     $response->send();
