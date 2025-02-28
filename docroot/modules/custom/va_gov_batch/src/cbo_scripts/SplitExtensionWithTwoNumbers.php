@@ -142,7 +142,7 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
    *   E.g. '2132,2995' becomes ['2132','2995']
    */
   public static function splitExtensions(string $dual_extension): array {
-    $pattern = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/';
+    $pattern = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/i';
     if (!preg_match($pattern, $dual_extension)) {
       return [];
     }

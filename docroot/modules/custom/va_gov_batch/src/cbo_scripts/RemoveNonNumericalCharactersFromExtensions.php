@@ -103,7 +103,7 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
    */
   public static function replaceNonNumerals(string $extension): string {
 
-    $pattern_to_ignore = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/';
+    $pattern_to_ignore = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/i';
 
     // If the extension contains two numbers separate numbers, don't change it.
     if (preg_match($pattern_to_ignore, $extension) > 0) {
