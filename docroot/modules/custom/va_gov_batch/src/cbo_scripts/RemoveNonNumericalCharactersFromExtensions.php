@@ -72,6 +72,11 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
       if (empty($original_extension)) {
         return "No extension found for paragraph id $item";
       }
+      $phone_parent_field_name = $phone_paragraph->get('parent_field_name')->value;
+      // Don't try to change 'field_phone_numbers_paragraph'.
+      if ($phone_parent_field_name === 'field_phone_numbers_paragraph') {
+        return "The phone data from 'field_phone_numbers_paragraph' '$item'  on 'health_care_local_health_service' has already been migrated to the Service location paragraph previously. This is a vestigial field that is unused.";
+      }
       $number_only_extension = $this->replaceNonNumerals($original_extension);
       if ($original_extension === $number_only_extension) {
         return "No change to extension '$original_extension' in paragraph id $item";

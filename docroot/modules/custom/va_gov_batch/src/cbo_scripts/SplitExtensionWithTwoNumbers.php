@@ -86,6 +86,9 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
     // Do the extension work.
     $original_extension = $phone_paragraph->get('field_phone_extension')->value;
     $separated_extensions = $this->splitExtensions($original_extension);
+    if (empty($separated_extensions)) {
+      return "There is no change necessary for paragraph $item.";
+    }
     $original_label = $phone_paragraph->get('field_phone_label')->value;
 
     try {
