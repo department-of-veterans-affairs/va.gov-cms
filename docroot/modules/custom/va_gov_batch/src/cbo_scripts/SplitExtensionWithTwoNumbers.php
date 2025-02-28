@@ -86,6 +86,10 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
     // Do the extension work.
     $original_extension = $phone_paragraph->get('field_phone_extension')->value;
     $separated_extensions = $this->splitExtensions($original_extension);
+    // There is something amiss with the extensions.
+    if (empty($separated_extensions)) {
+      return "Either no change is necessary for paragraph $item or '$original_extension' cannot be successfully separated.";
+    }
     $original_label = $phone_paragraph->get('field_phone_label')->value;
 
     try {
@@ -96,7 +100,7 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
         }
         $phone_paragraph->set(name: 'field_phone_extension', value: $separated_extensions[0]);
         $phone_paragraph->save();
-        $message = "1st extension for paragraph $item changed from '$original_extension' to $separated_extensions[0]' .";
+        $message = "1st extension for paragraph $item changed from '$original_extension' to '$separated_extensions[0]'. ";
       }
 
       // Create the second extension and phone.
@@ -116,7 +120,7 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
         $phone_parent_paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->load($phone_parent_id);
         $phone_parent_paragraph->get($phone_parent_field_name)->appendItem($second_phone);
         $phone_parent_paragraph->save();
-        $message .= "2nd extension created for paragraph $second_phone_id from '$original_extension' to $separated_extensions[1]'." . PHP_EOL;
+        $message .= "2nd extension created for paragraph $second_phone_id from '$original_extension' to '$separated_extensions[1]'.";
       }
     }
     catch (\Exception $e) {
@@ -133,20 +137,25 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
    * @param string $dual_extension
    *   The two-part extension.
    *
-   * @return array
+   * @return array|bool
    *   Array with two extensions (or empty).
    *   E.g. '2132,2995' becomes ['2132','2995']
    */
   public static function splitExtensions(string $dual_extension): array {
-    if (!preg_match('/[^0-9]/', $dual_extension)) {
+    $pattern = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/i';
+    if (!preg_match($pattern, $dual_extension)) {
       return [];
     }
     $first_extension = [];
     preg_match('/^\d+/', $dual_extension, $first_extension);
     $second_extension = [];
     preg_match('/\d+$/', $dual_extension, $second_extension);
+    // If either of these are empty, we want to bail out of this.
+    if (empty($first_extension[0]) or empty($second_extension[0])) {
+      return [];
+    }
 
-    return [$first_extension[0], $second_extension[0]];
+    return [trim($first_extension[0]), trim($second_extension[0])];
   }
 
 }
