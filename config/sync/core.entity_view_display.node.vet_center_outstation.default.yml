@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.vet_center_outstation.field_administration
     - field.field.node.vet_center_outstation.field_facility_locator_api_id
     - field.field.node.vet_center_outstation.field_geolocation
+    - field.field.node.vet_center_outstation.field_health_services
     - field.field.node.vet_center_outstation.field_last_saved_by_an_editor
     - field.field.node.vet_center_outstation.field_media
     - field.field.node.vet_center_outstation.field_office
@@ -108,6 +109,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_health_services:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 8
     region: content
   field_media:
     type: media_thumbnail
