@@ -27,6 +27,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class VaGovFormBuilderController extends ControllerBase {
 
   /**
+   * The Form Builder's image directory.
+   */
+  const IMAGE_DIR = '/modules/custom/va_gov_form_builder/images/';
+
+  /**
    * The prefix for the page-content theme definitions.
    */
   const PAGE_CONTENT_THEME_PREFIX = 'page_content__va_gov_form_builder__';
@@ -34,7 +39,7 @@ class VaGovFormBuilderController extends ControllerBase {
   /**
    * The prefix for the page-specific style libraries.
    */
-  const LIBRARY_PREFIX = 'va_gov_form_builder/va_gov_form_builder_styles__';
+  const LIBRARY_PREFIX = 'va_gov_form_builder/';
 
   /**
    * The entity type manager service.
@@ -210,7 +215,7 @@ class VaGovFormBuilderController extends ControllerBase {
       // Add styles.
       '#attached' => [
         'library' => [
-          'va_gov_form_builder/va_gov_form_builder_styles',
+          self::LIBRARY_PREFIX . 'form_builder',
         ],
       ],
     ];
@@ -365,7 +370,7 @@ class VaGovFormBuilderController extends ControllerBase {
         'url' => '',
       ],
       '#view_form' => [
-        'url' => '',
+        'url' => $this->getPageUrl('view_form'),
       ],
     ];
     $subtitle = $this->digitalForm->getTitle();
@@ -391,20 +396,28 @@ class VaGovFormBuilderController extends ControllerBase {
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'name_and_dob',
       '#preview' => [
         'alt_text' => 'Name-and-date-of-birth preview',
-        'url' => '/modules/custom/va_gov_form_builder/images/name-and-dob.png',
+        'url' => self::IMAGE_DIR . 'name-and-dob.png',
       ],
-      '#primary_button' => [
-        'label' => 'Save and continue',
-        'url' => $this->getPageUrl('layout'),
-      ],
-      '#secondary_button' => [
-        'label' => 'Next page',
-        'url' => $this->getPageUrl('identification_info'),
+      '#buttons' => [
+        'primary' => [
+          'label' => 'Save and continue',
+          'url' => $this->getPageUrl('layout'),
+        ],
+        'secondary' => [
+          [
+            'label' => 'Next page',
+            'url' => $this->getPageUrl('identification_info'),
+          ],
+        ],
       ],
     ];
+
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Personal information');
-    $libraries = ['page_content__layout__non_editable_pattern'];
+    $libraries = [
+      'single_column_with_buttons',
+      'non_editable_pattern',
+    ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -425,20 +438,28 @@ class VaGovFormBuilderController extends ControllerBase {
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'identification_info',
       '#preview' => [
         'alt_text' => 'Identification-information preview',
-        'url' => '/modules/custom/va_gov_form_builder/images/identification-info.png',
+        'url' => self::IMAGE_DIR . 'identification-info.png',
       ],
-      '#primary_button' => [
-        'label' => 'Save and continue',
-        'url' => $this->getPageUrl('layout'),
-      ],
-      '#secondary_button' => [
-        'label' => 'Previous page',
-        'url' => $this->getPageUrl('name_and_dob'),
+      '#buttons' => [
+        'primary' => [
+          'label' => 'Save and continue',
+          'url' => $this->getPageUrl('layout'),
+        ],
+        'secondary' => [
+          [
+            'label' => 'Previous page',
+            'url' => $this->getPageUrl('name_and_dob'),
+          ],
+        ],
       ],
     ];
+
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Personal information');
-    $libraries = ['page_content__layout__non_editable_pattern'];
+    $libraries = [
+      'single_column_with_buttons',
+      'non_editable_pattern',
+    ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -459,16 +480,21 @@ class VaGovFormBuilderController extends ControllerBase {
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'address_info',
       '#preview' => [
         'alt_text' => 'Address-information preview',
-        'url' => '/modules/custom/va_gov_form_builder/images/address-info.png',
+        'url' => self::IMAGE_DIR . 'address-info.png',
       ],
-      '#primary_button' => [
-        'label' => 'Save and continue',
-        'url' => $this->getPageUrl('layout'),
+      '#buttons' => [
+        'primary' => [
+          'label' => 'Save and continue',
+          'url' => $this->getPageUrl('layout'),
+        ],
       ],
     ];
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Address information');
-    $libraries = ['page_content__layout__non_editable_pattern'];
+    $libraries = [
+      'single_column_with_buttons',
+      'non_editable_pattern',
+    ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -488,17 +514,22 @@ class VaGovFormBuilderController extends ControllerBase {
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'contact_info',
       '#preview' => [
-        'alt_text' => 'Phone-and-email-address preview',
-        'url' => '/modules/custom/va_gov_form_builder/images/phone-and-email.png',
+        'alt_text' => 'Contact-information preview',
+        'url' => self::IMAGE_DIR . 'contact-info.png',
       ],
-      '#primary_button' => [
-        'label' => 'Save and continue',
-        'url' => $this->getPageUrl('layout'),
+      '#buttons' => [
+        'primary' => [
+          'label' => 'Save and continue',
+          'url' => $this->getPageUrl('layout'),
+        ],
       ],
     ];
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Contact information');
-    $libraries = ['page_content__layout__non_editable_pattern'];
+    $libraries = [
+      'single_column_with_buttons',
+      'non_editable_pattern',
+    ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -521,14 +552,74 @@ class VaGovFormBuilderController extends ControllerBase {
         'alt_text' => 'Statement-of-truth preview',
         'url' => '/modules/custom/va_gov_form_builder/images/statement-of-truth.png',
       ],
-      '#primary_button' => [
-        'label' => 'Save and continue',
-        'url' => $this->getPageUrl('layout'),
+      '#buttons' => [
+        'primary' => [
+          'label' => 'Save and continue',
+          'url' => $this->getPageUrl('layout'),
+        ],
       ],
     ];
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Review page');
-    $libraries = ['page_content__layout__non_editable_pattern'];
+    $libraries = [
+      'single_column_with_buttons',
+      'non_editable_pattern',
+    ];
+
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * View-form page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   */
+  public function viewForm($nid) {
+    $nodeFound = $this->loadDigitalForm($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+
+    // Note: We do not yet have the a field on the Digital Form
+    // node to store the form's staging url. Once we have that,
+    // this will be updated with logic to set `$isFormViewable`
+    // based on whether that field is populated. For now, the check
+    // for the form's title provides a mechanism to test both
+    // the available and unavailable contexts by changing between
+    // forms in Form Builder.
+    $isFormViewable = $this->digitalForm->getTitle() === 'Form 1';
+    $viewFormStatus = $isFormViewable ? 'available' : 'unavailable';
+
+    $buttons = $isFormViewable ? [
+      'primary' => [
+        'label' => 'Launch view',
+        // Temporary. Send somewhere other than layout page for now.
+        'url' => $this->getPageUrl('home'),
+      ],
+      'secondary' => [
+        [
+          'label' => 'Return',
+          'url' => $this->getPageUrl('layout'),
+        ],
+      ],
+    ] : [
+      'primary' => [
+        'label' => 'Return',
+        'url' => $this->getPageUrl('layout'),
+      ],
+    ];
+
+    $breadcrumbLabel = $isFormViewable ? 'View form' : 'Form not ready';
+
+    $pageContent = [
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'view_form__' . $viewFormStatus,
+      '#buttons' => $buttons,
+    ];
+
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', $breadcrumbLabel);
+    $libraries = ['single_column_with_buttons'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }

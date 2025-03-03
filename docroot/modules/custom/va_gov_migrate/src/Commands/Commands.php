@@ -146,11 +146,11 @@ class Commands extends DrushCommands {
    * @command va_gov_migrate:archive-intranet-only-forms
    * @aliases va-gov-archive-intranet-only-forms
    *
-   * @throws League\Csv\UnavailableStream
+   * @throws \League\Csv\UnavailableStream
    *   Thrown when the file is not available.
-   * @throws League\Csv\Exception
+   * @throws \League\Csv\Exception
    *   Thrown if the offset is a negative integer.
-   * @throws League\Csv|InvalidArgument
+   * @throws \League\Csv\InvalidArgument
    *   Thrown by enclosure or delimiter arguments are more than one character.
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    *   Thrown if the entity type doesn't exist.

@@ -1,6 +1,6 @@
-<div id="form-builder-content-{{ page_id }}" class="form-builder-content form-builder-single-column-content form-builder-page-content form-builder-content--non-editable-pattern">
-  <h2>{{ page_heading }}</h2>
+{% extends '@va_gov_form_builder/page-content/base/single-column-with-buttons.html.twig' %}
 
+{% block main_content %}
   {% include '@va_gov_form_builder/components/banner--non-editable-pattern.html.twig' with {
     heading_level: 3,
   } %}
@@ -18,7 +18,7 @@
 
     {% if block('step_description') is not empty %}
       <div class="form-builder-non-editable-pattern__step_description">
-        {% block step_description%}{% endblock %}
+        {% block step_description %}{% endblock %}
       </div>
     {% endif %}
 
@@ -27,29 +27,5 @@
       <p class="form-builder-hint-text">No edits are possible for this item</p>
       <img src="{{ preview.url }}" alt="{{ preview.alt_text }}">
     </section>
-
-    <section class="form-builder-button-group">
-      {% if secondary_button is defined %}
-        <a
-          id="form-builder-non-editable-pattern-secondary-button"
-          href="{{ secondary_button.url }}"
-          role="button"
-          class="form-builder-button form-builder-button--secondary"
-        >
-          {{ secondary_button.label }}
-        </a>
-      {% endif %}
-      {% if primary_button is defined %}
-        <a
-          id="form-builder-non-editable-pattern-primary-button"
-          href="{{ primary_button.url }}"
-          role="button"
-          class="form-builder-button form-builder-button--primary"
-        >
-          {{ primary_button.label }}
-        </a>
-      {% endif %}
-    </section>
   </section>
-
-</div>
+{% endblock %}
