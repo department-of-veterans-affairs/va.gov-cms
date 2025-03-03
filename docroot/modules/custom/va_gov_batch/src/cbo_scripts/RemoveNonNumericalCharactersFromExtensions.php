@@ -72,16 +72,21 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
       if (empty($original_extension)) {
         return "No extension found for paragraph id $item";
       }
+      $phone_parent_field_name = $phone_paragraph->get('parent_field_name')->value;
+      // Don't try to change 'field_phone_numbers_paragraph'.
+      if ($phone_parent_field_name === 'field_phone_numbers_paragraph') {
+        return "The phone data from 'field_phone_numbers_paragraph' '$item'  on 'health_care_local_health_service' has already been migrated to the Service location paragraph previously. This is a vestigial field that is unused.";
+      }
       $number_only_extension = $this->replaceNonNumerals($original_extension);
       if ($original_extension === $number_only_extension) {
-        return "No change to extension $original_extension in paragraph id $item";
+        return "No change to extension '$original_extension' in paragraph id $item";
       }
       $phone_paragraph->set(name: 'field_phone_extension', value: $number_only_extension);
       $phone_paragraph->save();
       return "Extension updated for paragraph id $item from '$original_extension' to '$number_only_extension'";
     }
     catch (\Exception $e) {
-      $message = "Exception during update of paragraph id $item with extension: $original_extension";
+      $message = "Exception during update of paragraph id $item with extension: '$original_extension'";
       return $message;
     }
 
@@ -98,7 +103,7 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
    */
   public static function replaceNonNumerals(string $extension): string {
 
-    $pattern_to_ignore = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/';
+    $pattern_to_ignore = '/(^\d+[,|;]\s?\d+)|(^\d+\sor\s\d+)|(^\d+\/\d+)|(^\d+\sthen\s\d+)/i';
 
     // If the extension contains two numbers separate numbers, don't change it.
     if (preg_match($pattern_to_ignore, $extension) > 0) {
@@ -106,7 +111,7 @@ class RemoveNonNumericalCharactersFromExtensions extends BatchOperations impleme
     }
 
     // Remove non-numerical characters from the extension.
-    $just_numbers = preg_replace('/[^0-9]/', '', $extension);
+    $just_numbers = trim(preg_replace('/[^0-9]/', '', $extension));
 
     return $just_numbers;
   }
