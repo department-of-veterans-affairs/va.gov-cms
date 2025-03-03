@@ -131,7 +131,7 @@ class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements Batch
       $paragraph->set(self::WIDGET_FIELD_NAME, $newWidgetName);
       $paragraph->save();
       // Get the path alias for this node for logging.
-      $alias = $this->pathAliasManager->getAliasByPath('/node' . $parentEntity->id());
+      $alias = $this->pathAliasManager->getAliasByPath('/node/' . $parentEntity->id());
       return "Updated from {$currentWidgetName} to {$newWidgetName} id {$item} for node id {$parentEntity->id()} having path alias of {$alias}";
     }
     catch (EntityStorageException $e) {
