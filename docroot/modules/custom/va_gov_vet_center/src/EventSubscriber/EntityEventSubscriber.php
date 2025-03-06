@@ -16,6 +16,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
+use Drupal\feature_toggle\FeatureStatus;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vet_center\Service\RequiredServices;
@@ -60,6 +61,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   private $renderer;
 
   /**
+   * Feature Toggle status service.
+   *
+   * @var \Drupal\feature_toggle\FeatureStatus
+   */
+  private FeatureStatus $featureStatus;
+
+  /**
    * Constructs a EntityEventSubscriber object.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
@@ -72,6 +80,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The string translation service.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
+   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
+   *   The Feature Status service.
    */
   public function __construct(
     TranslationInterface $string_translation,
@@ -79,12 +89,14 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     RequiredServices $required_services,
     EntityTypeManager $entity_type_manager,
     RendererInterface $renderer,
+    FeatureStatus $feature_status,
   ) {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
     $this->requiredServices = $required_services;
     $this->entityTypeManager = $entity_type_manager;
     $this->renderer = $renderer;
+    $this->featureStatus = $feature_status;
   }
 
   /**
@@ -339,6 +351,50 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form['#attached']['library'][] = 'va_gov_vet_center/limit_vet_service_selections';
     $this->disableNameFieldForNonAdmins($form);
+    $this->hideFieldsByToggle($form);
+  }
+
+  /**
+   * Hide new Outstation fields, based on feature toggle for VACMS-20601.
+   *
+   * @param array $form
+   *   The form.
+   */
+  private function hideFieldsByToggle(array &$form) {
+    $status = $this->featureStatus->getStatus('feature_vet_center_outstation_enhancements');
+    // If status is true, don't hide.
+    if ($status) {
+      return;
+    }
+
+    // Identify groups to hide.
+    $groups_to_hide = [
+      'group_vet_center_banner_image',
+      'group_vet_center_services_overvi',
+      'group_hours_details_and_call_cen',
+      'group_prepare_for_your_visit',
+      'group_spotlight_content',
+      'group_national_spotlight_content',
+      'group_how_we_re_different_than_a',
+    ];
+
+    // Hide all fields in the group.
+    if (isset($form['#group_children'])) {
+      foreach ($form['#group_children'] as $field_name => $group_name) {
+        if (in_array($group_name, $groups_to_hide)) {
+          $form[$field_name]['#access'] = FALSE;
+        }
+      }
+    }
+
+    // Non-grouped fields to hide.
+    if (isset($form['field_intro_text'])) {
+      $form['field_intro_text']['#access'] = FALSE;
+    }
+    if (isset($form['field_health_services'])) {
+      $form['field_health_services']['#access'] = FALSE;
+    }
+
   }
 
   /**
