@@ -61,17 +61,12 @@ Facility API ID: <insert_facility_API_ID>
 
 **Drupal Admin steps**
 - [ ] Bulk publish the nodes and facility.
-- [ ] Contact Lighthouse via Slack at #cms-lighthouse channel that this facility requires a canonical link in the following format (replacing the placeholder data with the actual API Id and VA.gov URL):
-  - `vha_691GM,https://www.va.gov/greater-los-angeles-health-care/locations/oxnard-va-clinic/`
-- [ ] Add the "Awaiting CSV" flag to the facility node with a revision log message that includes a link to this ticket.
-- [ ] Let Help desk know this has been done, if not done by Help desk.
 
-#### Wait (days or weeks, potentially)
-- [ ] After the canonical link has been added to the websites.csv and you have confirmation from Lighthouse that the CSV has been deployed, validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
-- [ ] Update this ticket with a comment that the CSV change has been deployed.
-- [ ] Edit facility node and remove `New facility` and "Awaiting CSV" flags with a revision log message that includes a link to this ticket.
+#### After next nightly Facilities migration to Lighthouse
+- [ ] Validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
+- [ ] Edit facility node and remove `New facility` flag with a revision log message that includes a link to this ticket.
 - [ ] Let Help desk know this has been done, if not done by Help desk.
 
 #### CMS Help desk (wrap up)
-- [ ] 11. Upgrade the Vet Center Director and Outreach Specialist accounts to the publisher role for that Vet Center.
-- [ ] 12. Notify editor and any other stakeholders.
+- [ ] Upgrade the Vet Center Director and Outreach Specialist accounts to the publisher role for that Vet Center.
+- [ ] Notify editor and any other stakeholders.

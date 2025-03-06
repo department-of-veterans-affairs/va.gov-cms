@@ -2,6 +2,9 @@
 
 Relates to #_issueid_. (or closes?)
 
+### Generated description
+(Select this text, hit the Copilot button, and select "Generate".)
+
 ## Testing done
 
 
