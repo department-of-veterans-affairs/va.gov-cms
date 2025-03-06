@@ -6,8 +6,8 @@ use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\node\NodeInterface;
-use Drupal\path_alias\AliasManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use League\Csv\Reader;
+use League\Csv\Statement;
 
 /**
  * For VACMS-20726.
@@ -37,20 +37,20 @@ class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements Batch
   const WIDGET_FIELD_NAME = 'field_widget_type';
 
   /**
-   * The Drupal Path Alias manager service.
+   * The path to the source of truth for the data migration.
    *
-   * @var \Drupal\path_alias\AliasManager
+   * @var string
    */
-  protected AliasManager $pathAliasManager;
+  const DATA_FILE_LOCATION = __DIR__ . '/../../data/NodesForMHVReactWidgetMigration.csv';
 
   /**
-   * {@inheritdoc}
+   * Enable for debugging. Prevents updating paragraphs.
+   *
+   * @todo Remove before pushing.
+   *
+   * @var bool
    */
-  public static function create(ContainerInterface $container) {
-    $instance = parent::create($container);
-    $instance->pathAliasManager = $container->get('path_alias.manager');
-    return $instance;
-  }
+  const DEBUG = TRUE;
 
   /**
    * {@inheritdoc}
@@ -81,18 +81,25 @@ class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements Batch
    * {@inheritdoc}
    */
   public function getItemType(): string {
-    return 'paragraph';
+    return 'node';
   }
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \League\Csv\UnavailableStream
+   * @throws \League\Csv\Exception
    */
   public function gatherItemsToProcess(): array {
-    // Finds CTA widget paragraphs for MHV. Returns ~413 records.
-    $select = $this->databaseConnection->select('paragraph__field_widget_type', 'wt');
-    $select->fields('wt', ['entity_id']);
-    $select->condition('wt.field_widget_type_value', array_keys(self::WIDGET_MAP), 'IN');
-    return $select->execute()->fetchCol();
+    // Items to process represent Node IDs which we gather from the source csv.
+    $csvReader = Reader::createFromPath(self::DATA_FILE_LOCATION);
+    $csvReader->setHeaderOffset(0);
+    $records = (new Statement())->process($csvReader);
+    $nids = [];
+    foreach ($records->fetchColumnByOffset(0) as $value) {
+      $nids[$value] = $value;
+    }
+    return $nids;
   }
 
   /**
@@ -101,42 +108,101 @@ class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements Batch
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    *   Thrown if the entity type doesn't exist.
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   *   Thrown if the storage handler couldn't be loaded.   */
+   *   Thrown if the storage handler couldn't be loaded.
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   *   Thrown if the toUrl() could not find an entity id.
+   */
   public function processOne(string $key, mixed $item, array &$sandbox): string {
-    /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
-    $paragraph = $this->entityTypeManager->getStorage('paragraph')->load($item);
-    if (!$paragraph) {
-      return "There was a problem loading paragraph id {$item}. Further investigation is needed. Skipping.";
+    /** @var \Drupal\node\NodeStorageInterface $nodeStorage */
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
+    /** @var \Drupal\node\NodeInterface|null $node */
+    $node = $nodeStorage->load($item);
+    if (!$node) {
+      return "There was a problem loading node id {$item}. Further investigation is needed. Skipping.";
     }
-    if (!$paragraph->hasField(self::WIDGET_FIELD_NAME)) {
-      return "The paragraph id {$item} doesn't have the necessary field. This is unexpected and further investigation is needed. Skipping.";
+
+    $path = $node->toUrl()->toString();
+    $nodeMessage = "Node {$node->id()} at {$path}";
+
+    // Note unpublished nodes. We may leave these alone. TBD. Skipping for now.
+    if (!$node->isPublished()) {
+      $state = $node->get('moderation_state')->value;
+      $widgetStatus = 'has ' . ($this->hasWidget($node) ? 'a React widget' : 'no React widget');
+      return $nodeMessage . " is not published. It's current status is {$state} and it {$widgetStatus}. Skipping";
     }
-    $parentEntity = $paragraph->getParentEntity();
-    if (!$parentEntity) {
-      return "There is no parent node for paragraph id {$item}. This appears to be an orphaned paragraph. Skipping.";
-    }
-    // Make sure we are acting on a node.
-    if (!$parentEntity instanceof NodeInterface) {
-      $parentEntityType = $parentEntity->getEntityType()->getLabel();
-      $parentEntityBundle = $parentEntity->bundle();
-      return "The parent entity for paragraph id {$item} is not a node. This is unexpected and warrants manual migration for this paragraph. The parent bundle is {$parentEntityBundle} and the entity type is {$parentEntityType}.";
-    }
-    try {
-      $currentWidgetName = $paragraph->get(self::WIDGET_FIELD_NAME)->value;
-      $newWidgetName = self::WIDGET_MAP[$currentWidgetName];
-      if (!isset(self::WIDGET_MAP[$currentWidgetName])) {
-        return "New widget name not found for paragraph id {$item} with widget name {$currentWidgetName}. Skipping.";
+    // Update current node.
+    $this->batchOpLog->appendLog($this->updateWidget($node));
+    return "Done processing {$node->id()}";
+  }
+
+  /**
+   * Determines if the given node has the necessary React widget.
+   *
+   * @return bool
+   *   TRUE if the widget is present on the node.
+   */
+  private function hasWidget(NodeInterface $node):bool {
+    // The widget will always be in field field_content_block as a paragraph.
+    /** @var \Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem $item */
+    foreach ($node->get('field_content_block') as $item) {
+      /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+      $paragraph = $item->entity;
+      if ($paragraph->bundle() === 'react_widget') {
+        if (in_array($paragraph->get(self::WIDGET_FIELD_NAME)->value, array_keys(self::WIDGET_MAP))) {
+          return TRUE;
+        }
       }
-      // Set the name of this widget to the new MHV widget name.
-      $paragraph->set(self::WIDGET_FIELD_NAME, $newWidgetName);
-      $paragraph->save();
-      // Get the path alias for this node for logging.
-      $alias = $this->pathAliasManager->getAliasByPath('/node/' . $parentEntity->id());
-      return "Updated from {$currentWidgetName} to {$newWidgetName} id {$item} for node id {$parentEntity->id()} having path alias of {$alias}";
     }
-    catch (EntityStorageException $e) {
-      return "There was an error saving paragraph id {$item}. This is unexpected and manual migration may be required. The error was {$e->getMessage()}";
+    return FALSE;
+  }
+
+  /**
+   * Updates the node's React widget to the modern name.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node to update.
+   *
+   * @return string
+   *   The message indicating the action taken when updating.
+   *
+   * @throws \Drupal\Core\Entity\EntityMalformedException
+   *   Thrown if the toUrl() could not find an entity id.
+   */
+  private function updateWidget(NodeInterface $node): string {
+    $path = $node->toUrl()->toString();
+    $revisionId = $node->getRevisionId();
+    $nodeMessage = "Node {$node->id()} revision {$revisionId} at {$path}";
+    // Store message for each widget we find. Some nodes may have multiple.
+    $foundWidgets = [];
+    // The widget will always be in field field_content_block as a paragraph.
+    /** @var \Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem $item */
+    foreach ($node->get('field_content_block') as $item) {
+      /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+      $paragraph = $item->entity;
+      if ($paragraph->bundle() === 'react_widget') {
+        $currentWidgetName = $paragraph->get(self::WIDGET_FIELD_NAME)->value;
+        if (in_array($currentWidgetName, array_keys(self::WIDGET_MAP))) {
+          try {
+            $newWidgetName = self::WIDGET_MAP[$currentWidgetName];
+            // @todo remove this before pushing.
+            if (!self::DEBUG) {
+              // Set the name of this widget to the new MHV widget name.
+              $paragraph->set(self::WIDGET_FIELD_NAME, $newWidgetName);
+              $paragraph->save();
+            }
+            $foundWidgets[] = $nodeMessage . ": updated widget from {$currentWidgetName} to {$newWidgetName} in paragraph id {$paragraph->id()}";
+          }
+          catch (EntityStorageException $e) {
+            return "Error saving paragraph id {$paragraph->id()}. This is unexpected and manual migration may be required. The error was {$e->getMessage()}";
+          }
+        }
+        else {
+          $foundWidgets[] = $nodeMessage . " has a React widget {$currentWidgetName} but it is not in target list.";
+        }
+      }
     }
+    array_walk($foundWidgets, fn($message) => $this->batchOpLog->appendLog($message));
+    return $nodeMessage . " finished widget updates.";
   }
 
 }
