@@ -53,3 +53,20 @@ Scenario: Log in and create a Person Profile with attention to conditional field
   Then I should see "Staff Profile James Smith has been updated."
   And I should see "Better words."
   And I should see "Fresh body."
+
+  # Create the page with phone number and attempt at incorrect extension (input mask should prevent invalid characters, allowing the node to be saved).
+  When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
+  And my workbench access sections are set to "205"
+  And I am at "/node/add/person_profile"
+  And I fill in "First name" with "James"
+  And I fill in "Last name" with "Smith"
+  And I select option "---VA Boston health care" from dropdown "Section"
+  And I select option "VA Boston health care" from dropdown "Related office or health care region"
+  And I click the "Add Phone number" button
+  And I wait "5" seconds
+  And I fill in field with selector "[data-drupal-selector*='subform-field-phone-number-0-value']" with value "402-867-5309"
+  And I fill in field with selector "[data-drupal-selector*='subform-field-phone-extension-0-value']" with value "x1234"
+  And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
+  And I click the "Save" button
+  Then I should see "Staff Profile James Smith has been created."
+
