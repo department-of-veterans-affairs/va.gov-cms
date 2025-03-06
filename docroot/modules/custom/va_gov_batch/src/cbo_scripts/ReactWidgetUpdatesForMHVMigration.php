@@ -44,15 +44,6 @@ class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements Batch
   const DATA_FILE_LOCATION = __DIR__ . '/../../data/NodesForMHVReactWidgetMigration.csv';
 
   /**
-   * Enable for debugging. Prevents updating paragraphs.
-   *
-   * @todo Remove before pushing.
-   *
-   * @var bool
-   */
-  const DEBUG = TRUE;
-
-  /**
    * {@inheritdoc}
    */
   public function getTitle():string {
@@ -120,19 +111,14 @@ class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements Batch
     if (!$node) {
       return "There was a problem loading node id {$item}. Further investigation is needed. Skipping.";
     }
-
     $path = $node->toUrl()->toString();
-    $nodeMessage = "Node {$node->id()} at {$path}";
-
     // Note unpublished nodes. We may leave these alone. TBD. Skipping for now.
     if (!$node->isPublished()) {
       $state = $node->get('moderation_state')->value;
       $widgetStatus = 'has ' . ($this->hasWidget($node) ? 'a React widget' : 'no React widget');
-      return $nodeMessage . " is not published. It's current status is {$state} and it {$widgetStatus}. Skipping";
+      return "{$node->getTitle()}:{$path}: Node is not published. It's current status is {$state} and it {$widgetStatus}. Skipping";
     }
-    // Update current node.
-    $this->batchOpLog->appendLog($this->updateWidget($node));
-    return "Done processing {$node->id()}";
+    return $this->updateWidget($node);
   }
 
   /**
@@ -170,8 +156,7 @@ class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements Batch
    */
   private function updateWidget(NodeInterface $node): string {
     $path = $node->toUrl()->toString();
-    $revisionId = $node->getRevisionId();
-    $nodeMessage = "Node {$node->id()} revision {$revisionId} at {$path}";
+    $nodeMessage = "node_{$node->id()}: {$node->getTitle()}:{$path}: ";
     // Store message for each widget we find. Some nodes may have multiple.
     $foundWidgets = [];
     // The widget will always be in field field_content_block as a paragraph.
@@ -184,25 +169,22 @@ class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements Batch
         if (in_array($currentWidgetName, array_keys(self::WIDGET_MAP))) {
           try {
             $newWidgetName = self::WIDGET_MAP[$currentWidgetName];
-            // @todo remove this before pushing.
-            if (!self::DEBUG) {
-              // Set the name of this widget to the new MHV widget name.
-              $paragraph->set(self::WIDGET_FIELD_NAME, $newWidgetName);
-              $paragraph->save();
-            }
-            $foundWidgets[] = $nodeMessage . ": updated widget from {$currentWidgetName} to {$newWidgetName} in paragraph id {$paragraph->id()}";
+            // Update the name of this widget to the new MHV widget name.
+            $paragraph->set(self::WIDGET_FIELD_NAME, $newWidgetName);
+            $paragraph->save();
+            $foundWidgets[] = $nodeMessage . "updated widget from {$currentWidgetName} to {$newWidgetName} in paragraph id {$paragraph->id()}";
           }
           catch (EntityStorageException $e) {
             return "Error saving paragraph id {$paragraph->id()}. This is unexpected and manual migration may be required. The error was {$e->getMessage()}";
           }
         }
         else {
-          $foundWidgets[] = $nodeMessage . " has a React widget {$currentWidgetName} but it is not in target list.";
+          $foundWidgets[] = $nodeMessage . "node has a React widget {$currentWidgetName} but it is not in target list.";
         }
       }
     }
     array_walk($foundWidgets, fn($message) => $this->batchOpLog->appendLog($message));
-    return $nodeMessage . " finished widget updates.";
+    return "Finished widget updates.";
   }
 
 }
