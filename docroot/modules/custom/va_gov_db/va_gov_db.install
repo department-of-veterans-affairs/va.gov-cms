@@ -1194,6 +1194,7 @@ function va_gov_db_update_10002() {
   // Get all users.
   $ids = $user_storage->getQuery()
     ->condition('status', 1)
+    ->accessCheck(FALSE)
     ->execute();
 
   $service_accounts = [
