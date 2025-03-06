@@ -111,35 +111,7 @@ class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements Batch
     if (!$node) {
       return "There was a problem loading node id {$item}. Further investigation is needed. Skipping.";
     }
-    $path = $node->toUrl()->toString();
-    // Note unpublished nodes. We may leave these alone. TBD. Skipping for now.
-    if (!$node->isPublished()) {
-      $state = $node->get('moderation_state')->value;
-      $widgetStatus = 'has ' . ($this->hasWidget($node) ? 'a React widget' : 'no React widget');
-      return "{$node->getTitle()}:{$path}: Node is not published. It's current status is {$state} and it {$widgetStatus}. Skipping";
-    }
     return $this->updateWidget($node);
-  }
-
-  /**
-   * Determines if the given node has the necessary React widget.
-   *
-   * @return bool
-   *   TRUE if the widget is present on the node.
-   */
-  private function hasWidget(NodeInterface $node):bool {
-    // The widget will always be in field field_content_block as a paragraph.
-    /** @var \Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem $item */
-    foreach ($node->get('field_content_block') as $item) {
-      /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
-      $paragraph = $item->entity;
-      if ($paragraph->bundle() === 'react_widget') {
-        if (in_array($paragraph->get(self::WIDGET_FIELD_NAME)->value, array_keys(self::WIDGET_MAP))) {
-          return TRUE;
-        }
-      }
-    }
-    return FALSE;
   }
 
   /**
