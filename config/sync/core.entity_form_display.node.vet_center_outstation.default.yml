@@ -39,6 +39,7 @@ dependencies:
     - media_library
     - office_hours
     - paragraphs
+    - path
     - telephone
     - textfield_counter
     - tzfield
@@ -82,7 +83,7 @@ third_party_settings:
       label: 'Facility name'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -96,7 +97,7 @@ third_party_settings:
       label: 'Location and contact information'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -149,7 +150,7 @@ third_party_settings:
       label: 'Vet Center banner image'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -170,7 +171,7 @@ third_party_settings:
       label: 'Vet Center services overview'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -192,7 +193,7 @@ third_party_settings:
       label: 'Hours details and call center information'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -213,7 +214,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 9
       format_type: fieldset
       format_settings:
         classes: ''
@@ -230,7 +231,7 @@ third_party_settings:
       label: 'Spotlight content'
       region: content
       parent_name: ''
-      weight: 11
+      weight: 10
       format_type: fieldset
       format_settings:
         classes: ''
@@ -266,7 +267,7 @@ third_party_settings:
       label: "How we're different than a clinic (FAQs)"
       region: content
       parent_name: ''
-      weight: 13
+      weight: 12
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -352,7 +353,7 @@ content:
     third_party_settings: {  }
   field_health_services:
     type: entity_reference_autocomplete
-    weight: 12
+    weight: 11
     region: content
     settings:
       match_operator: CONTAINS
@@ -362,7 +363,7 @@ content:
     third_party_settings: {  }
   field_intro_text:
     type: string_textarea
-    weight: 4
+    weight: 3
     region: content
     settings:
       rows: 5
@@ -376,7 +377,7 @@ content:
     third_party_settings: {  }
   field_media:
     type: media_library_widget
-    weight: 9
+    weight: 8
     region: content
     settings:
       media_types: {  }
@@ -517,6 +518,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  path:
+    type: path
+    weight: 13
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   title:
     type: string_textfield_with_counter
     weight: 11
@@ -535,7 +542,6 @@ content:
 hidden:
   created: true
   langcode: true
-  path: true
   promote: true
   status: true
   sticky: true
