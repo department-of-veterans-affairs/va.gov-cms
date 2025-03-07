@@ -182,9 +182,9 @@ third_party_settings:
         tooltip_description: "Why can’t I edit this?\r\nVHA keeps this content standardized to provide consistent messaging for Vet Center sites nationwide."
         open: false
         required_fields: false
-    group_featured_content:
+    group_spotlight_content:
       children:
-        - group_national_featured_content
+        - group_national_spotlight_content
         - field_vet_center_feature_content
       label: 'Featured content'
       parent_name: ''
@@ -198,11 +198,11 @@ third_party_settings:
         label_as_html: false
         description: 'Highlight up to two Vet Center activities, such as events or programs.'
         description_display: after
-    group_national_featured_content:
+    group_national_spotlight_content:
       children:
         - field_cc_vet_center_featured_con
       label: 'National featured content'
-      parent_name: group_featured_content
+      parent_name: group_spotlight_content
       region: content
       weight: 29
       format_type: tooltip

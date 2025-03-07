@@ -129,7 +129,32 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->appendHealthServiceTermDescriptionToVetCenter($event);
+    $this->hideVetCenterOutstationFieldsByToggle($event);
   }
+
+  /**
+   * Hides Vet Center Outstation fields by toggle, per VACMS-20601.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function hideVetCenterOutstationFieldsByToggle(EntityViewAlterEvent $event):void {
+    $display = $event->getDisplay();
+    // Only target the Vet Center Outstation
+    if (($display->getTargetBundle() !== 'vet_center_outstation') || ($display->getOriginalMode() !== 'full')) {
+      return;
+    }
+    $status = $this->featureStatus->getStatus('feature_vet_center_outstation_enhancements');
+    // If status is true, don't hide.
+    if ($status) {
+      return;
+    }
+    $build = &$event->getBuild();
+    $this->hideFieldsByToggle($build);
+
+  }
+
+
 
   /**
    * Appends health service entity description to title on entity view page.
@@ -386,6 +411,19 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         }
       }
     }
+  foreach ($groups_to_hide as $group_name) {
+
+    // Method 1: Remove the field group from content
+    if (isset($build[$group_name])) {
+      unset($build[$group_name]);
+    }
+
+    // Method 2: Set access to FALSE (use if method 1 doesn't work)
+    if (isset($build[$group_name])) {
+      $build[$group_name]['#access'] = FALSE;
+    }
+
+  }
 
     // Non-grouped fields to hide.
     if (isset($form['field_intro_text'])) {
