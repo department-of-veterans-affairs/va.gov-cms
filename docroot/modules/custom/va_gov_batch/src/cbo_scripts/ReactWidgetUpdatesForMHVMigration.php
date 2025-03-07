@@ -129,8 +129,9 @@ class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements Batch
   private function updateWidget(NodeInterface $node): string {
     $path = $node->toUrl()->toString();
     $nodeMessage = "node_{$node->id()}: {$node->getTitle()}:{$path}: ";
-    // Store message for each widget we find. Some nodes may have multiple.
-    $foundWidgets = [];
+    // Store message for each widget we update. While unlikely that a node will
+    // have multiple widgets, we need to ensure we are not missing any updates.
+    $updates = [];
     // The widget will always be in field field_content_block as a paragraph.
     /** @var \Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem $item */
     foreach ($node->get('field_content_block') as $item) {
@@ -144,19 +145,25 @@ class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements Batch
             // Update the name of this widget to the new MHV widget name.
             $paragraph->set(self::WIDGET_FIELD_NAME, $newWidgetName);
             $paragraph->save();
-            $foundWidgets[] = $nodeMessage . "updated widget from {$currentWidgetName} to {$newWidgetName} in paragraph id {$paragraph->id()}";
+            $updates[] = $nodeMessage . "updated widget from {$currentWidgetName} to {$newWidgetName} in paragraph id {$paragraph->id()}";
           }
           catch (EntityStorageException $e) {
-            return "Error saving paragraph id {$paragraph->id()}. This is unexpected and manual migration may be required. The error was {$e->getMessage()}";
+            $this->batchOpLog->appendError($nodeMessage . "Error saving paragraph id {$paragraph->id()}. This is unexpected and manual migration may be required. The error was {$e->getMessage()}");
           }
         }
         else {
-          $foundWidgets[] = $nodeMessage . "node has a React widget {$currentWidgetName} but it is not in target list.";
+          $this->batchOpLog->appendLog($nodeMessage . "node has a React widget {$currentWidgetName} but it is not in target list.");
         }
       }
     }
-    array_walk($foundWidgets, fn($message) => $this->batchOpLog->appendLog($message));
-    return "Finished widget updates.";
+    if (count($updates) > 0) {
+      array_walk($updates, fn($message) => $this->batchOpLog->appendLog($message));
+      $count = count($updates);
+      return $nodeMessage . "{$count} widget update(s) made.";
+    }
+    else {
+      return $nodeMessage . "no widget updates were made.";
+    }
   }
 
 }
