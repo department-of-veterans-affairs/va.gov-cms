@@ -1,0 +1,63 @@
+uuid: 3b03b7f2-7310-4746-a3db-9737541fee0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_date_component.field_digital_form_date_format
+    - field.field.paragraph.digital_form_date_component.field_digital_form_hint_text
+    - field.field.paragraph.digital_form_date_component.field_digital_form_label
+    - field.field.paragraph.digital_form_date_component.field_digital_form_required
+    - paragraphs.paragraphs_type.digital_form_date_component
+  module:
+    - textfield_counter
+id: paragraph.digital_form_date_component.default
+targetEntityType: paragraph
+bundle: digital_form_date_component
+mode: default
+content:
+  field_digital_form_date_format:
+    type: options_buttons
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_digital_form_hint_text:
+    type: string_textfield_with_counter
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 255
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+  field_digital_form_label:
+    type: string_textfield_with_counter
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 255
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+  field_digital_form_required:
+    type: boolean_checkbox
+    weight: 1
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

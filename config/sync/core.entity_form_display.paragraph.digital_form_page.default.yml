@@ -8,7 +8,11 @@ dependencies:
     - field.field.paragraph.digital_form_page.field_title
     - paragraphs.paragraphs_type.digital_form_page
   module:
+    - change_labels
+    - limited_field_widgets
+    - no_table_drag
     - paragraphs
+    - paragraphs_features
     - textfield_counter
 id: paragraph.digital_form_page.default
 targetEntityType: paragraph
@@ -28,19 +32,33 @@ content:
     weight: 3
     region: content
     settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
+      title: Component
+      title_plural: Components
+      edit_mode: closed
       closed_mode: summary
-      autocollapse: none
+      autocollapse: all
       closed_mode_threshold: 0
-      add_mode: dropdown
+      add_mode: modal
       form_display_mode: default
-      default_paragraph_type: ''
+      default_paragraph_type: _none
       features:
+        add_above: '0'
         collapse_edit_all: collapse_edit_all
+        convert: '0'
         duplicate: duplicate
-    third_party_settings: {  }
+    third_party_settings:
+      paragraphs_features:
+        add_in_between: false
+        add_in_between_link_count: 3
+        delete_confirmation: false
+        show_drag_and_drop: true
+        show_collapse_all: true
+      limited_field_widgets:
+        limit_values: 0
+      change_labels:
+        add_another: ''
+      no_table_drag:
+        no_table_drag: false
   field_title:
     type: string_textfield_with_counter
     weight: 1

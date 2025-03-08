@@ -1,0 +1,19 @@
+uuid: 00dbf531-0a81-4c5f-adec-90bce3a8be8e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.digital_form_response_option.field_digital_form_description
+    - field.field.paragraph.digital_form_response_option.field_digital_form_label
+    - paragraphs.paragraphs_type.digital_form_response_option
+id: paragraph.digital_form_response_option.user_guides
+targetEntityType: paragraph
+bundle: digital_form_response_option
+mode: user_guides
+content: {  }
+hidden:
+  breadcrumbs: true
+  field_digital_form_description: true
+  field_digital_form_label: true
+  search_api_excerpt: true

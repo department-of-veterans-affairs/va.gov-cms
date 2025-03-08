@@ -1,0 +1,24 @@
+uuid: 55623fa0-152c-4d89-93d0-220d98f4ee3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_digital_form_hint_text
+    - paragraphs.paragraphs_type.digital_form_checkbox
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_checkbox.field_digital_form_hint_text
+field_name: field_digital_form_hint_text
+entity_type: paragraph
+bundle: digital_form_checkbox
+label: 'Hint text'
+description: 'Optional hint text.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

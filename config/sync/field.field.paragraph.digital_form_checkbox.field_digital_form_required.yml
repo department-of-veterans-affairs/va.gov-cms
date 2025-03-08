@@ -1,0 +1,28 @@
+uuid: b1e26cd7-ac55-458a-be68-a7c3c1b11260
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_digital_form_required
+    - paragraphs.paragraphs_type.digital_form_checkbox
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_checkbox.field_digital_form_required
+field_name: field_digital_form_required
+entity_type: paragraph
+bundle: digital_form_checkbox
+label: 'Required?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
