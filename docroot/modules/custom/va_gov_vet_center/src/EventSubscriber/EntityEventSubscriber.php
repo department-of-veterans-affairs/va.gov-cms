@@ -144,6 +144,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if (($display->getTargetBundle() !== 'vet_center_outstation') || ($display->getOriginalMode() !== 'full')) {
       return;
     }
+    // Get status of Vet Center Outstation enhancements.
     $status = $this->featureStatus->getStatus('feature_vet_center_outstation_enhancements');
     // If status is true, don't hide.
     if ($status) {
@@ -162,32 +163,43 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function appendHealthServiceTermDescriptionToVetCenter(EntityViewAlterEvent $event):void {
     $display = $event->getDisplay();
-    if (($display->getTargetBundle() === 'vet_center') && ($display->getOriginalMode() === 'full')) {
-      $build = &$event->getBuild();
-      $services = $build['field_health_services'] ?? [];
-      foreach ($services as $key => $service) {
-        // If there are services (because their keys are numeric.)
-        if (is_numeric($key) && !empty($service['#options']['entity'])) {
-          $description = new FormattableMarkup('', []);
-          $service_node = $service['#options']['entity'];
-          $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
-          // Render the national service term description (if available).
-          if (!empty($referenced_terms)) {
-            $referenced_term = reset($referenced_terms);
-            if ($referenced_term) {
-              $description = $this->getVetServiceDescription($referenced_term);
-            }
+    $bundle = $display->getTargetBundle();
+    $bundles_with_services = [
+      'vet_center',
+      'vet_center_outstation',
+    ];
+    // Only append to the Vet Centers with services.
+    if (!in_array($bundle, $bundles_with_services)) {
+      return;
+    }
+    // Only append if full display.
+    if ($display->getOriginalMode() !== 'full') {
+      return;
+    }
+    $build = &$event->getBuild();
+    $services = $build['field_health_services'] ?? [];
+    foreach ($services as $key => $service) {
+      // If there are services (because their keys are numeric.)
+      if (is_numeric($key) && !empty($service['#options']['entity'])) {
+        $description = new FormattableMarkup('', []);
+        $service_node = $service['#options']['entity'];
+        $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
+        // Render the national service term description (if available).
+        if (!empty($referenced_terms)) {
+          $referenced_term = reset($referenced_terms);
+          if ($referenced_term) {
+            $description = $this->getVetServiceDescription($referenced_term);
           }
-          else {
-            $description = new FormattableMarkup(
-            '<div style="color:#e31c3d; font-weight:bold">Notice: The national service name and description were not found. Contact CMS Support to resolve this issue.</div>',
-              []);
-          }
-          // Append the facility-specific service description (no matter what).
-          $description .= $service_node->get('field_body')->value;
-          $formatted_markup = new FormattableMarkup($description, []);
-          $build['field_health_services'][$key]['#suffix'] = $formatted_markup;
         }
+        else {
+          $description = new FormattableMarkup(
+          '<div style="color:#e31c3d; font-weight:bold">Notice: The national service name and description were not found. Contact CMS Support to resolve this issue.</div>',
+            []);
+        }
+        // Append the facility-specific service description (no matter what).
+        $description .= $service_node->get('field_body')->value;
+        $formatted_markup = new FormattableMarkup($description, []);
+        $build['field_health_services'][$key]['#suffix'] = $formatted_markup;
       }
     }
   }
@@ -376,6 +388,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->disableNameFieldForNonAdmins($form);
     $this->hideFieldsByToggle($form);
 
+    // Get status of Vet Center Outstation enhancements.
     $status = $this->featureStatus->getStatus('feature_vet_center_outstation_enhancements');
 
     // If the feature is one, add the services.
@@ -432,6 +445,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The array of page data.
    */
   private function hideFieldsByToggle(array &$page_array) {
+    // Get status of Vet Center Outstation enhancements.
     $status = $this->featureStatus->getStatus('feature_vet_center_outstation_enhancements');
     // If status is true, don't hide.
     if ($status) {
