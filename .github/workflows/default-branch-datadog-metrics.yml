@@ -1,8 +1,11 @@
 name: Send data about the default branch to DataDog.
 
+#When DST, Use 345AM When not DST Use 245AM
 on:
   schedule:
-    - cron: '45 3 * * *'
+    - cron: '45 3 * * 6' #Temp Saturday
+    - cron: '45 2 * * 0' #Temp Sunday
+    - cron: '45 2 * * 1-5' #Post DST
   workflow_dispatch:
 
 jobs:
