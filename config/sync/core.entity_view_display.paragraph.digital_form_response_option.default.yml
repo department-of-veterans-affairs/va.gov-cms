@@ -1,0 +1,31 @@
+uuid: a1104d08-c2d1-4f30-af8e-8d10a03d6ea0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_response_option.field_digital_form_description
+    - field.field.paragraph.digital_form_response_option.field_digital_form_label
+    - paragraphs.paragraphs_type.digital_form_response_option
+id: paragraph.digital_form_response_option.default
+targetEntityType: paragraph
+bundle: digital_form_response_option
+mode: default
+content:
+  field_digital_form_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_digital_form_label:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  breadcrumbs: true
+  search_api_excerpt: true
