@@ -140,7 +140,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function hideVetCenterOutstationFieldsByToggle(EntityViewAlterEvent $event):void {
     $display = $event->getDisplay();
-    // Only target the Vet Center Outstation
+    // Only target the Vet Center Outstation.
     if (($display->getTargetBundle() !== 'vet_center_outstation') || ($display->getOriginalMode() !== 'full')) {
       return;
     }
@@ -153,8 +153,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->hideFieldsByToggle($build);
 
   }
-
-
 
   /**
    * Appends health service entity description to title on entity view page.
@@ -382,10 +380,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   /**
    * Hide new Outstation fields, based on feature toggle for VACMS-20601.
    *
-   * @param array $form
-   *   The form.
+   * @param array $page_array
+   *   The array of page data.
    */
-  private function hideFieldsByToggle(array &$form) {
+  private function hideFieldsByToggle(array &$page_array) {
     $status = $this->featureStatus->getStatus('feature_vet_center_outstation_enhancements');
     // If status is true, don't hide.
     if ($status) {
@@ -403,34 +401,23 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'group_how_we_re_different_than_a',
     ];
 
-    // Hide all fields in the group.
-    if (isset($form['#group_children'])) {
-      foreach ($form['#group_children'] as $field_name => $group_name) {
+    // Hide all fields in the group and group.
+    if (isset($page_array['#group_children'])) {
+      foreach ($page_array['#group_children'] as $field_name => $group_name) {
         if (in_array($group_name, $groups_to_hide)) {
-          $form[$field_name]['#access'] = FALSE;
+          $page_array[$field_name]['#access'] = FALSE;
+          $page_array["#fieldgroups"][$group_name]->format_settings["classes"] = '';
+          $page_array["#fieldgroups"][$group_name]->format_type = 'fieldset';
         }
       }
     }
-  foreach ($groups_to_hide as $group_name) {
-
-    // Method 1: Remove the field group from content
-    if (isset($build[$group_name])) {
-      unset($build[$group_name]);
-    }
-
-    // Method 2: Set access to FALSE (use if method 1 doesn't work)
-    if (isset($build[$group_name])) {
-      $build[$group_name]['#access'] = FALSE;
-    }
-
-  }
 
     // Non-grouped fields to hide.
-    if (isset($form['field_intro_text'])) {
-      $form['field_intro_text']['#access'] = FALSE;
+    if (isset($page_array['field_intro_text'])) {
+      $page_array['field_intro_text']['#access'] = FALSE;
     }
-    if (isset($form['field_health_services'])) {
-      $form['field_health_services']['#access'] = FALSE;
+    if (isset($page_array['field_health_services'])) {
+      $page_array['field_health_services']['#access'] = FALSE;
     }
 
   }
