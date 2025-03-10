@@ -1,0 +1,76 @@
+uuid: 094d5fa7-e2c7-4316-a99f-16d926d23c27
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_checkbox.field_df_response_options
+    - field.field.paragraph.digital_form_checkbox.field_digital_form_hint_text
+    - field.field.paragraph.digital_form_checkbox.field_digital_form_label
+    - field.field.paragraph.digital_form_checkbox.field_digital_form_required
+    - paragraphs.paragraphs_type.digital_form_checkbox
+  module:
+    - paragraphs
+    - textfield_counter
+id: paragraph.digital_form_checkbox.default
+targetEntityType: paragraph
+bundle: digital_form_checkbox
+mode: default
+content:
+  field_df_response_options:
+    type: paragraphs
+    weight: 4
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+  field_digital_form_hint_text:
+    type: string_textfield_with_counter
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 255
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+  field_digital_form_label:
+    type: string_textfield_with_counter
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 255
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+  field_digital_form_required:
+    type: boolean_checkbox
+    weight: 1
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
