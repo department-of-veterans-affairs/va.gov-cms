@@ -1,0 +1,55 @@
+uuid: 15b4cc5e-1312-40eb-bd12-efaf3a0f63e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_radio_button.field_df_response_options
+    - field.field.paragraph.digital_form_radio_button.field_digital_form_hint_text
+    - field.field.paragraph.digital_form_radio_button.field_digital_form_label
+    - field.field.paragraph.digital_form_radio_button.field_digital_form_required
+    - paragraphs.paragraphs_type.digital_form_radio_button
+  module:
+    - entity_reference_revisions
+id: paragraph.digital_form_radio_button.default
+targetEntityType: paragraph
+bundle: digital_form_radio_button
+mode: default
+content:
+  field_df_response_options:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_digital_form_hint_text:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_digital_form_label:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_digital_form_required:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  breadcrumbs: true
+  search_api_excerpt: true
