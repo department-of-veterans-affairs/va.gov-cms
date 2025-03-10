@@ -187,7 +187,7 @@ function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface
   $entity = $form_state->getformObject()->getEntity();
 
   // Only attach the service select setter to vet_center service bundle.
-  if ($entity->bundle() !== 'vet_center') {
+  if ($entity->bundle() !== 'vet_center' && $entity->bundle() !== 'vet_center_outstation') {
     return;
   }
 
@@ -222,7 +222,7 @@ function va_gov_vet_center_views_pre_render(ViewExecutable $view) {
   // Ensure the page title is not null and the desired field exists in the view.
   if ($entity_title && isset($view->field['field_service_name_and_descripti'])) {
     // Append the page title to the field label as needed.
-    $new_label = t('Services offered at') . $entity_title;
+    $new_label = t('Services offered at') . " " . $entity_title;
     // Set the new label for the field.
     $view->field['field_service_name_and_descripti']->options['label'] = $new_label;
   }

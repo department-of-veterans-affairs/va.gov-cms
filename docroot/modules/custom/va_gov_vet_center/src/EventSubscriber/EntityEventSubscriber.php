@@ -406,8 +406,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       foreach ($page_array['#group_children'] as $field_name => $group_name) {
         if (in_array($group_name, $groups_to_hide)) {
           $page_array[$field_name]['#access'] = FALSE;
-          $page_array["#fieldgroups"][$group_name]->format_settings["classes"] = '';
-          $page_array["#fieldgroups"][$group_name]->format_type = 'fieldset';
+          if (!empty($page_array["#fieldgroups"])) {
+            // Removing the class removes styling we don't want.
+            $page_array["#fieldgroups"][$group_name]->format_settings["classes"] = '';
+            // Changing the format_type from 'tooltip' prevents js DOM changes.
+            $page_array["#fieldgroups"][$group_name]->format_type = 'fieldset';
+          }
+
         }
       }
     }

@@ -282,6 +282,21 @@ third_party_settings:
         description: ''
         tooltip_description: "Why can’t I edit this?\r\nVHA keeps this content standardized to provide consistent messaging for Vet Center sites nationwide."
         open: false
+    group_vet_center_services:
+      children: {  }
+      label: Services
+      region: content
+      parent_name: ''
+      weight: 11
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: services
+        label_as_html: false
+        open: true
+        description: ''
+        required_fields: false
 id: node.vet_center_outstation.default
 targetEntityType: node
 bundle: vet_center_outstation
@@ -350,16 +365,6 @@ content:
     region: content
     settings:
       html5_geolocation: false
-    third_party_settings: {  }
-  field_health_services:
-    type: entity_reference_autocomplete
-    weight: 11
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
     third_party_settings: {  }
   field_intro_text:
     type: string_textarea
@@ -541,6 +546,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_health_services: true
   langcode: true
   promote: true
   status: true
