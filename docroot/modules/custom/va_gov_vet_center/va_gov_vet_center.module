@@ -183,24 +183,6 @@ function va_gov_vet_center_vc_cap_address_alter_label_after_build(array $element
  */
 function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
   _va_gov_backend_set_owner_section_default($form, $form_state);
-
-  $entity = $form_state->getformObject()->getEntity();
-
-  // Only attach the service select setter to vet_center service bundle.
-  if ($entity->bundle() !== 'vet_center' && $entity->bundle() !== 'vet_center_outstation') {
-    return;
-  }
-
-  // Attach the vet center services view to the form.
-  $form['group_vet_center_services'][] = [
-    '#type' => 'view',
-    '#name' => 'vet_center_services',
-    '#display_id' => 'vet_center_services',
-    '#embed' => TRUE,
-    '#arguments' => [$entity->id()],
-
-  ];
-
 }
 
 /**

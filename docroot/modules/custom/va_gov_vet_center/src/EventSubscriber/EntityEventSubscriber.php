@@ -375,6 +375,54 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form['#attached']['library'][] = 'va_gov_vet_center/limit_vet_service_selections';
     $this->disableNameFieldForNonAdmins($form);
     $this->hideFieldsByToggle($form);
+
+    $status = $this->featureStatus->getStatus('feature_vet_center_outstation_enhancements');
+
+    // If the feature is one, add the services.
+    if ($status) {
+      $this->addServicesViewToFacility($event);
+    }
+
+  }
+
+  /**
+   * Add list of services of this facility.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  private function addServicesViewToFacility(FormIdAlterEvent $event) {
+    $form_object = $event->getFormState()->getFormObject();
+    if ($form_object instanceof EntityFormInterface) {
+      $nid = $form_object->getEntity()->id() ?? NULL;
+      $form = &$event->getForm();
+
+      if (isset($form['#fieldgroups']['group_vet_center_services'])) {
+
+        // Generate a unique key for the services view.
+        $element_key = 'vet_center_services_view';
+
+        // Add the view to the form.
+        $form['group_vet_center_services'][$element_key] = [
+          '#type' => 'view',
+          '#name' => 'vet_center_services',
+          '#display_id' => 'vet_center_services',
+          '#embed' => TRUE,
+          '#arguments' => [$nid],
+        ];
+
+        // Associate the new element with the fieldgroup.
+        if (!isset($form['#group_children'])) {
+          $form['#group_children'] = [];
+        }
+        $form['#group_children'][$element_key] = 'group_vet_center_services';
+
+        // Add the new element to the fieldgroup's children array.
+        $form['#fieldgroups']['group_vet_center_services']->children[] = $element_key;
+      }
+
+    }
+
   }
 
   /**
@@ -423,6 +471,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     }
     if (isset($page_array['field_health_services'])) {
       $page_array['field_health_services']['#access'] = FALSE;
+    }
+
+    // Group without children to hide.
+    if (isset($page_array["#fieldgroups"]['group_vet_center_services'])) {
+      unset($page_array["#fieldgroups"]['group_vet_center_services']);
     }
 
   }
@@ -631,6 +684,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterVetCenterNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     $this->disableNameFieldForNonAdmins($form);
+    $this->addServicesViewToFacility($event);
   }
 
   /**
