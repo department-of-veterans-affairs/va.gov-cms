@@ -80,7 +80,7 @@ third_party_settings:
         - title
         - field_official_name
         - field_office
-      label: 'Facility name'
+      label: 'Top of page information'
       region: content
       parent_name: ''
       weight: 2
@@ -89,8 +89,10 @@ third_party_settings:
         classes: ''
         show_empty_fields: false
         id: facility-name
+        label_as_html: false
         description: ''
         required_fields: true
+        description_display: after
     group_locations_and_contact_info:
       children:
         - group_vet_center_data
