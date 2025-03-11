@@ -1,0 +1,28 @@
+uuid: 2029943f-c5b4-477a-9c60-ceabca0a6ca8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_digital_form_required
+    - paragraphs.paragraphs_type.digital_form_text_area
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_text_area.field_digital_form_required
+field_name: field_digital_form_required
+entity_type: paragraph
+bundle: digital_form_text_area
+label: 'Required?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
