@@ -391,7 +391,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     // Get status of Vet Center Outstation enhancements.
     $status = $this->featureStatus->getStatus('feature_vet_center_outstation_enhancements');
 
-    // If the feature is one, add the services.
+    // If the feature is on, add the services.
     if ($status) {
       $this->addServicesViewToFacility($event);
     }
