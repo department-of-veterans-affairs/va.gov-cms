@@ -2,13 +2,8 @@
 
 namespace Drupal\va_gov_post_api\Service;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\node\NodeInterface;
-use Drupal\post_api\Service\AddToQueue;
 use Drupal\va_gov_facilities\FacilityOps;
 use Drupal\va_gov_lovell\LovellOps;
 
@@ -284,14 +279,6 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
         $payload['core']['facility_url'] = 'https://www.va.gov/lovell-federal-health-care-va/';
         $payload['system']['url'] = 'https://www.va.gov/lovell-federal-health-care-va/';
         $payload['system']['covid_url'] = 'https://www.va.gov/lovell-federal-health-care-va/programs/covid-19-vaccines-and-testing/';
-      }
-      // Facility url overrides.
-      $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
-
-      // Manila VA Clinic - vha_358.  Manila is a one facility system.
-      if ($facility_id === 'vha_358') {
-        $payload['core']['facility_url'] = 'https://www.va.gov/manila-va-clinic/';
-        $payload['system']['url'] = 'https://www.va.gov/manila-va-clinic/';
       }
     }
   }
