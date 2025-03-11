@@ -171,7 +171,6 @@ class FacilityOps {
     $facilities_to_auto_archive = [
       'nca_facility',
       'vet_center_mobile_vet_center',
-      'vet_center_outstation',
     ];
 
     return in_array($type, $facilities_to_auto_archive);
@@ -206,7 +205,6 @@ class FacilityOps {
     $facilities_with_no_fe_page = [
       'vet_center_cap',
       'vet_center_mobile_vet_center',
-      'vet_center_outstation',
     ];
     return !in_array($node->bundle(), $facilities_with_no_fe_page);
   }
