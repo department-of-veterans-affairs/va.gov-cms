@@ -1184,14 +1184,12 @@ function va_gov_db_update_10001(): string {
   return _va_gov_db_uninstall_modules($uninstall_modules);
 }
 
-  /**
-   * NULL out passwords for everyone except service accounts.
-   */
-function va_gov_db_update_10005(): void {
+/**
+ * NULL out passwords for everyone except service accounts.
+ */
+function va_gov_db_update_10002(): void {
   // Get user storage object.
   $user_storage = \Drupal::entityTypeManager()->getStorage('user');
-  $logger_factory = \Drupal::service('logger.factory');
-  $session_manager = \Drupal::service('session_manager');
 
   // Get all users.
   $ids = $user_storage->getQuery()
