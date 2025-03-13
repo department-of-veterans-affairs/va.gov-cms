@@ -22,6 +22,7 @@ class DigitalFormTest extends VaGovExistingSiteBase {
       'field_respondent_burden' => 5,
       'field_va_form_number' => '12345',
       'field_omb_number' => '1234-5678',
+      'field_plain_language_title' => 'Test plain-language title',
       'title' => 'Test Digital Form',
       'type' => 'digital_form',
     ];
@@ -44,6 +45,10 @@ class DigitalFormTest extends VaGovExistingSiteBase {
     $this->assertEquals(
       $node->get('field_respondent_burden')->getString(),
       $digital_form_attrs['field_respondent_burden']
+    );
+    $this->assertEquals(
+      $node->get('field_plain_language_title')->getString(),
+      $digital_form_attrs['field_plain_language_title']
     );
   }
 
