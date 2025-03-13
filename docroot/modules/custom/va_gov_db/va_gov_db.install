@@ -1183,3 +1183,41 @@ function va_gov_db_update_10001(): string {
   ];
   return _va_gov_db_uninstall_modules($uninstall_modules);
 }
+
+/**
+ * NULL out passwords for everyone except service accounts.
+ */
+function va_gov_db_update_10002(): void {
+  // Get user storage object.
+  $user_storage = \Drupal::entityTypeManager()->getStorage('user');
+
+  // Get all users.
+  $ids = $user_storage->getQuery()
+    ->condition('status', 1)
+    ->accessCheck()
+    ->execute();
+
+  $service_accounts = [
+    '3665',
+    '5196',
+    '3668',
+    '3664',
+    '4681',
+    '1',
+    '1317',
+    '2847',
+    '4216',
+    '5275',
+    '5016',
+    '2792',
+  ];
+
+  $ids = array_diff($ids, $service_accounts);
+  $result = \Drupal::entityTypeManager()->getStorage('user')->loadMultiple($ids);
+  /** @var \Drupal\user\UserInterface $user */
+  foreach ($result as $user) {
+    $user->setPassword(NULL);
+    $user->save();
+  }
+
+};
