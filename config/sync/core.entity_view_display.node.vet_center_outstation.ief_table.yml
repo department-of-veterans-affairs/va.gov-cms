@@ -1,9 +1,9 @@
-uuid: eeb94e4e-a90a-4702-9a10-f96e7c1b5134
+uuid: d069fb03-a773-4a7f-a72a-7e5bed98155b
 langcode: en
-status: false
+status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.ief_table
     - field.field.node.vet_center_outstation.field_address
     - field.field.node.vet_center_outstation.field_administration
     - field.field.node.vet_center_outstation.field_cc_non_traditional_hours
@@ -31,15 +31,53 @@ dependencies:
     - node.type.vet_center_outstation
   module:
     - user
-id: node.vet_center_outstation.teaser
+id: node.vet_center_outstation.ief_table
 targetEntityType: node
 bundle: vet_center_outstation
-mode: teaser
+mode: ief_table
 content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
     weight: -20
+    region: content
+  field_health_services:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  flag_awaiting_csv:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_awaiting_editor:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_awaiting_redirect:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_changed_name:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_new:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_removed_from_source:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
     region: content
   links:
     settings: {  }
@@ -56,7 +94,6 @@ hidden:
   field_cc_vet_center_featured_con: true
   field_facility_locator_api_id: true
   field_geolocation: true
-  field_health_services: true
   field_intro_text: true
   field_last_saved_by_an_editor: true
   field_media: true
@@ -72,11 +109,5 @@ hidden:
   field_timezone: true
   field_vet_center_banner_image: true
   field_vet_center_feature_content: true
-  flag_awaiting_csv: true
-  flag_awaiting_editor: true
-  flag_awaiting_redirect: true
-  flag_changed_name: true
-  flag_new: true
-  flag_removed_from_source: true
   langcode: true
   search_api_excerpt: true

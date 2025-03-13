@@ -168,11 +168,23 @@ class FacilityOps {
    *   TRUE if it is a facility bundle to be auto-archived. FALSE otherwise.
    */
   public static function isBundleFacilityToAutoArchive(string $type) : bool {
-    $facilities_to_auto_archive = [
-      'nca_facility',
-      'vet_center_mobile_vet_center',
-      'vet_center_outstation',
-    ];
+    $feature_status = \Drupal::service('feature_toggle.feature_status');
+    // Get status of Vet Center Outstation enhancements.
+    $status = $feature_status->getStatus('feature_vet_center_outstation_enhancements');
+    // If status is true, Outstations cannot be autoarchived.
+    if ($status) {
+      $facilities_to_auto_archive = [
+        'nca_facility',
+        'vet_center_mobile_vet_center',
+      ];
+    }
+    else {
+      $facilities_to_auto_archive = [
+        'nca_facility',
+        'vet_center_mobile_vet_center',
+        'vet_center_outstation',
+      ];
+    }
 
     return in_array($type, $facilities_to_auto_archive);
   }
@@ -203,11 +215,24 @@ class FacilityOps {
    *   TRUE if it is a facility that has a FE page. FALSE otherwise.
    */
   public static function facilityHasFePage(NodeInterface $node) : bool {
-    $facilities_with_no_fe_page = [
-      'vet_center_cap',
-      'vet_center_mobile_vet_center',
-      'vet_center_outstation',
-    ];
+    $feature_status = \Drupal::service('feature_toggle.feature_status');
+    // Get status of Vet Center Outstation enhancements.
+    $status = $feature_status->getStatus('feature_vet_center_outstation_enhancements');
+    // If status is true, Outstations have their own pages.
+    if ($status) {
+      $facilities_with_no_fe_page = [
+        'vet_center_cap',
+        'vet_center_mobile_vet_center',
+      ];
+    }
+    else {
+      $facilities_with_no_fe_page = [
+        'vet_center_cap',
+        'vet_center_mobile_vet_center',
+        'vet_center_outstation',
+      ];
+    }
+
     return !in_array($node->bundle(), $facilities_with_no_fe_page);
   }
 
