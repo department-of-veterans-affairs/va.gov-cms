@@ -293,8 +293,8 @@ services:
     image: tugboatqa/nginx
     expose: 80
     depends: php
-    # commands:
-    #   init:
-          # - ln -snf "${TUGBOAT_ROOT}/" "${DOCROOT}"
+    commands:
+      init:
+          - ln -snf "${TUGBOAT_ROOT}/.tugboat" "${DOCROOT}"
       # build:
       #   - bash $TUGBOAT_ROOT/.tugboat/nginxBuild.sh
