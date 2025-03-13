@@ -19,13 +19,15 @@ use Tests\Support\Migration\Migrator;
 class VaNewsSpotlightMigrationTest extends VaGovExistingSiteBase {
 
   /**
-   * Test the News Spotlight BLocks Migration.
+   * Test the News Spotlight BLocks Migrations.
    *
    * @dataProvider vaNewsSpotlightDataProvider
    */
   public function testVaNewsSpotlightMigration(
     string $migration_id,
+    string $entity_type,
     string $bundle,
+    string $bundle_key,
     string $json,
     array $conditions,
     int $count,
@@ -41,12 +43,11 @@ class VaNewsSpotlightMigrationTest extends VaGovExistingSiteBase {
     $this->container->set('http_client', $client);
     // Run the migration.
     Migrator::doImport($migration_id);
-    // Asser we have successfully created the news promo block.
-    $entityCount = EntityStorage::getMatchingEntityCount('block_content', $bundle, $conditions);
+    // Assert we have successfully created the entity.
+    $entityCount = EntityStorage::getMatchingEntityCount($entity_type, $bundle, $conditions, $bundle_key);
     $this->assertSame($count, $entityCount);
-
     if ($cleanup) {
-      EntityStorage::deleteMatchingEntities('block_content', $bundle, $conditions);
+      EntityStorage::deleteMatchingEntities($entity_type, $bundle, $conditions, $bundle_key);
     }
   }
 
@@ -57,9 +58,35 @@ class VaNewsSpotlightMigrationTest extends VaGovExistingSiteBase {
    *   Test assertion data.
    */
   public function vaNewsSpotlightDataProvider() : \Generator {
-    yield 'Initial migration completes successfully' => [
+    yield 'Image migration completes successfully' => [
+      'news_spotlight_images',
+      'file',
+      '',
+      '',
+      file_get_contents(__DIR__ . '/fixtures/news-va-gov-wp-json.json'),
+      [
+        'filename' => 'Test-Health-and-benefits-distro-graphics_sq.jpg',
+      ],
+      1,
+      TRUE,
+    ];
+    yield 'Media migration completes successfully' => [
+      'news_spotlight_media',
+      'media',
+      'image',
+      'bundle',
+      file_get_contents(__DIR__ . '/fixtures/news-va-gov-wp-json.json'),
+      [
+        'name' => 'Test-Health-and-benefits-distro-graphics_sq.jpg',
+      ],
+      1,
+      TRUE,
+    ];
+    yield 'Block migration completes successfully' => [
       'news_spotlight_blocks',
+      'block_content',
       'news_promo',
+      'type',
       file_get_contents(__DIR__ . '/fixtures/news-va-gov-wp-json.json'),
       [
         'info' => 'TEST: Download the VA Health and Benefits App',
