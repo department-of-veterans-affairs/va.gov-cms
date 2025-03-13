@@ -295,6 +295,6 @@ services:
     depends: php
     commands:
       init:
-          - ln -snf "${TUGBOAT_ROOT}/.tugboat" "${DOCROOT}"
+          - ln -snf "${TUGBOAT_ROOT}/.tugboat/nginx" "${DOCROOT}"
       # build:
       #   - bash $TUGBOAT_ROOT/.tugboat/nginxBuild.sh
