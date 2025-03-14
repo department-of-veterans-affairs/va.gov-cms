@@ -93,8 +93,9 @@ class UpdateManilaContent extends BatchOperations implements BatchScriptInterfac
       $result = \Drupal::service('pathauto.generator')->updateEntityAlias($revision, 'bulkupdate', ['force' => TRUE]);
       $this->saveNodeRevision($revision, "Saved");
       $this->batchOpLog->appendLog("Updated node $node_id");
-      return "Updated $node_id";
     }
+    return "Updated $node_id";
+
 
   }
 

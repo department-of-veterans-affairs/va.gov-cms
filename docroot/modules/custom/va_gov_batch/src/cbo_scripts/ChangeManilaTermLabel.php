@@ -78,7 +78,7 @@ class ChangeManilaTermLabel extends BatchOperations implements BatchScriptInterf
    *
    * @param \Drupal\taxonomy\TermInterface $term
    *   The term to change.
-   * @param string tid
+   * @param string $tid
    *   The term id.
    *
    */
