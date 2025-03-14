@@ -290,7 +290,7 @@ services:
       - zcat cms-prod-db-sanitized-latest.sql.gz | mysql tugboat
       - rm cms-prod-db-sanitized-latest.sql.gz
   nginx:
-    image: tugboatqa/nginx
+    image: tugboatqa/php-nginx
     expose: 80
     depends: php
     commands:
