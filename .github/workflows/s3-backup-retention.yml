@@ -1,9 +1,10 @@
 
 name: VAgov CMS S3 Backup Manager
 on:
-  # UTC 5am is ET 1am, everyday.
+  # UTC 5am is ET 1am, when Daylight Savings begins.
+  # UTC 6am is ET 1am, when Daylight Savings ends.
   schedule:
-    - cron: '0 5 * * 1-5'
+    - cron: '0 6 * * 1-5'
   workflow_dispatch:
 
 jobs:

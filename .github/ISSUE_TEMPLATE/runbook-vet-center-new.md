@@ -52,15 +52,16 @@ Facility API ID: <insert_facility_API_ID>
 **If a Vet Center:**
 - [ ] Become aware that the new facility is now on the Facility API (typically, via a Flag).
 - [ ] Check with Readjustment Counseling Services to (1) confirm what district the Vet Center belongs, (2) identify the Vet Center Director and Outreach Specialist (names/email addresses), (3) confirm the new location isn't a replacement for an existing Outstation
+- [ ] Create a Vet Center - Locations List node for the Vet Center and save as Draft
 - [ ] In [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), move the Vet Center Section to the appropriate district.
 - [ ] Create account access as directed by RCS. If editors are new to Drupal, create accounts with editor rights only for Vet Center Director and Outreach Specialist so that they cannot publish on their own.
-- [ ] Contact Vet Center Director and Outreach specialist to onboard for training [@TODO write sample email - SEE runbook-vamc-facility-new] **Note: this should include instructions for adding content and preparing for publishing and RCS Central Office should be included as CC**
+- [ ] Contact Vet Center Director and Outreach specialist to onboard for training [@TODO write sample email - SEE runbook-vamc-facility-new] **Note: this should include instructions for adding content, updating the Locations list, and preparing for publishing and RCS Central Office should be included as CC**
 - [ ] Add flag `Awaiting editor` to this facility. Note: This is now blocked until RCS Central office approves.
 - [ ] **Once approved by RCS Central Office as complete, proceed to Drupal Admin publishing steps**
 
 
 **Drupal Admin steps**
-- [ ] Bulk publish the nodes and facility.
+- [ ] Bulk publish the nodes, Locations list and facility.
 
 #### After next nightly Facilities migration to Lighthouse
 - [ ] Validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
