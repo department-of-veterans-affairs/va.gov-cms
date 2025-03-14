@@ -59,13 +59,14 @@ dependencies:
     - field.field.node.vha_facility_nonclinical_service.field_last_saved_by_an_editor
     - field.storage.node.field_last_saved_by_an_editor
     - node.type.vba_facility
+    - node.type.vba_facility_service
   module:
     - eca_workflow
     - va_gov_eca
 id: workflow_vba_facility_as_draft
 modeller: core
 label: 'Workflow: VBA Facility as Draft'
-version: null
+version: ''
 weight: 0
 events:
   workflow_transition:
@@ -73,6 +74,17 @@ events:
     label: 'Workflow: state transition'
     configuration:
       type: 'node vba_facility'
+      from_state: ''
+      to_state: draft
+    successors:
+      -
+        id: create_advancedqueue_job
+        condition: null
+  workflow_transition_1:
+    plugin: 'workflow:transition'
+    label: 'Workflow: state transition'
+    configuration:
+      type: 'node vba_facility_service'
       from_state: ''
       to_state: draft
     successors:
