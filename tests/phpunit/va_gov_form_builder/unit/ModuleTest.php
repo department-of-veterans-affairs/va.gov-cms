@@ -211,8 +211,16 @@ class ModuleTest extends VaGovUnitTestBase {
     $form_themes = ['form_info'];
     foreach ($form_themes as $form_theme) {
       $this->assertArrayHasKey(self::FORM_THEME_PREFIX . $form_theme, $result);
+
+      $this->assertArrayHasKey('path', $result[self::FORM_THEME_PREFIX . $form_theme]);
       $this->assertEquals(self::FORM_TEMPLATE_PATH, $result[self::FORM_THEME_PREFIX . $form_theme]['path']);
+
+      $this->assertArrayHasKey('render element', $result[self::FORM_THEME_PREFIX . $form_theme]);
       $this->assertEquals('form', $result[self::FORM_THEME_PREFIX . $form_theme]['render element']);
+
+      $this->assertArrayHasKey('template', $result[self::FORM_THEME_PREFIX . $form_theme]);
+      $kebab_case_form_theme = str_replace('_', '-', $form_theme);
+      $this->assertEquals($kebab_case_form_theme, $result[self::FORM_THEME_PREFIX . $form_theme]['template']);
     }
   }
 
