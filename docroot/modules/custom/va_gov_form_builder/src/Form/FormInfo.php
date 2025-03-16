@@ -3,14 +3,14 @@
 namespace Drupal\va_gov_form_builder\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\va_gov_form_builder\Form\Base\FormBuilderBase;
+use Drupal\va_gov_form_builder\Form\Base\FormBuilderFormBase;
 
 /**
  * Form step for entering a form's name and other basic info.
  *
  * Other basic info includes form number, OMB info, etc.
  */
-class FormInfo extends FormBuilderBase {
+class FormInfo extends FormBuilderFormBase {
 
   /**
    * Flag indicating if the form mode is "create".
