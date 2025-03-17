@@ -47,8 +47,11 @@ abstract class FormBuilderFormBase extends FormBuilderBase {
 
   /**
    * Sets (creates or updates) a DigitalForm object from the form-state data.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    */
-  abstract protected function setDigitalFormFromFormState(array &$form, FormStateInterface $form_state);
+  abstract protected function setDigitalFormFromFormState(FormStateInterface $form_state);
 
   /**
    * Returns a field value from the Digital Form.
@@ -80,6 +83,13 @@ abstract class FormBuilderFormBase extends FormBuilderBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm|null $digitalForm
+   *   The Digital Form object.
    */
   public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL) {
     if (empty($digitalForm) && !$this->allowEmptyDigitalForm) {
@@ -94,25 +104,13 @@ abstract class FormBuilderFormBase extends FormBuilderBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $this->setDigitalFormFromFormState($form, $form_state);
+    $this->setDigitalFormFromFormState($form_state);
 
     // Validate the node entity.
     /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
     $violations = $this->digitalForm->validate();
 
-    // Loop through each violation and set errors on the form.
-    if ($violations->count() > 0) {
-      foreach ($violations as $violation) {
-        // Account for nested property path(e.g. `field_omb_number.0.value`).
-        $fieldName = explode('.', $violation->getPropertyPath())[0];
-
-        // Only concern ourselves with validation of fields used on this form.
-        if (in_array($fieldName, $this->getFields())) {
-          $message = $violation->getMessage();
-          $form_state->setErrorByName($fieldName, $message);
-        }
-      }
-    }
+    $this->setFormErrors($form_state, $violations, $this->getFields());
   }
 
   /**
