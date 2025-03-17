@@ -13,18 +13,6 @@ use Drupal\va_gov_form_builder\Form\Base\FormBuilderFormBase;
 class FormInfo extends FormBuilderFormBase {
 
   /**
-   * Flag indicating if the form mode is "create".
-   *
-   * Form mode is "create", and this value is TRUE,
-   * if no Digital Form is passed in representing an existing Digital Form.
-   *
-   * Form mode is "edit" otherwise, and this value is FALSE.
-   *
-   * @var bool
-   */
-  protected $isCreate;
-
-  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -122,7 +110,7 @@ class FormInfo extends FormBuilderFormBase {
   /**
    * {@inheritdoc}
    */
-  protected function setDigitalFormFromFormState(array &$form, FormStateInterface $form_state) {
+  protected function setDigitalFormFromFormState(FormStateInterface $form_state) {
     $title = $form_state->getValue('title');
     $vaFormNumber = $form_state->getValue('field_va_form_number');
     $ombNumber = $form_state->getValue('field_omb_number');
