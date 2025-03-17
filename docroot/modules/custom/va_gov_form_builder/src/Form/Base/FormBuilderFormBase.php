@@ -5,6 +5,7 @@ namespace Drupal\va_gov_form_builder\Form\Base;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_form_builder\Service\DigitalFormsService;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Abstract base class for Form Builder form steps.
@@ -44,8 +45,8 @@ abstract class FormBuilderFormBase extends FormBuilderBase {
   /**
    * {@inheritDoc}
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, DigitalFormsService $digitalFormsService) {
-    parent::__construct($entityTypeManager, $digitalFormsService);
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, DigitalFormsService $digitalFormsService, SessionInterface $session) {
+    parent::__construct($entityTypeManager, $digitalFormsService, $session);
     $this->allowEmptyDigitalForm = FALSE;
   }
 

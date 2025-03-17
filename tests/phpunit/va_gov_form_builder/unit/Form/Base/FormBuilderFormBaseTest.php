@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderFormBase;
 use Drupal\va_gov_form_builder\Service\DigitalFormsService;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 use tests\phpunit\va_gov_form_builder\Traits\AnonymousFormClass;
@@ -44,9 +45,14 @@ class FormBuilderFormBaseTest extends VaGovUnitTestBase {
 
     $entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
     $this->digitalFormsService = $this->createMock(DigitalFormsService::class);
+    $session = $this->createMock(SessionInterface::class);
 
     // Create an anonymous instance of a class that extends our abstract class.
-    $this->classInstance = new class($entityTypeManager, $this->digitalFormsService) extends FormBuilderFormBase {
+    $this->classInstance = new class(
+      $entityTypeManager,
+      $this->digitalFormsService,
+      $session,
+    ) extends FormBuilderFormBase {
       use AnonymousFormClass;
 
       /**
