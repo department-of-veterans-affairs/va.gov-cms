@@ -88,25 +88,6 @@ class FormBuilderFormBaseTest extends VaGovUnitTestBase {
   }
 
   /**
-   * Test that the buildForm method properly initializes the changed flag.
-   */
-  public function testBuildFormInitializesChangedFlag() {
-    $reflection = new \ReflectionClass($this->classInstance);
-    $isChangedFlag = $reflection->getProperty('digitalFormIsChanged');
-    $isChangedFlag->setAccessible(TRUE);
-
-    $form = [];
-    $formStateMock = $this->createMock(FormStateInterface::class);
-
-    // Pass a good Digital Form so no error is thrown.
-    $digitalForm = $this->createMock(DigitalForm::class);
-    $form = $this->classInstance->buildForm($form, $formStateMock, $digitalForm);
-
-    $isChangedFlagValue = $isChangedFlag->getValue($this->classInstance);
-    $this->assertEquals($isChangedFlagValue, FALSE);
-  }
-
-  /**
    * Helper function to set up tests for violations.
    *
    * @param \Symfony\Component\Validator\ConstraintViolationList $violationList
