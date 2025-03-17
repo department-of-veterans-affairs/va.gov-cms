@@ -52,15 +52,14 @@ class ChangeManilaTermLabel extends BatchOperations implements BatchScriptInterf
    * @throws \League\Csv\Exception
    */
   public function gatherItemsToProcess(): array {
-  // The Manila VA Clinic term
-  $manila_term_id = '1187';
+    // The Manila VA Clinic term.
+    $manila_term_id = '1187';
 
-  return [$manila_term_id];
+    return [$manila_term_id];
   }
 
   /**
    * {@inheritdoc}
-   *
    */
   public function processOne(string $key, mixed $item, array &$sandbox): string {
     /** @var \Drupal\taxonomy\TermInterface $term_storage */
@@ -80,7 +79,6 @@ class ChangeManilaTermLabel extends BatchOperations implements BatchScriptInterf
    *   The term to change.
    * @param string $tid
    *   The term id.
-   *
    */
   public function renameTerm(TermInterface $term, string $tid) {
     $new_name = "VA Manila health care";
