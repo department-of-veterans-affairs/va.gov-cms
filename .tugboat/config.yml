@@ -289,12 +289,12 @@ services:
       - mysql -e "DROP DATABASE IF EXISTS tugboat; CREATE DATABASE tugboat";
       - zcat cms-prod-db-sanitized-latest.sql.gz | mysql tugboat
       - rm cms-prod-db-sanitized-latest.sql.gz
-  nginx:
-    image: tugboatqa/php-nginx
-    expose: 80
-    depends: php
-    commands:
-      init:
-          - ln -snf "${TUGBOAT_ROOT}/.tugboat/nginx" "${DOCROOT}"
-      # build:
-      #   - bash $TUGBOAT_ROOT/.tugboat/nginxBuild.sh
+  # nginx:
+  #   image: tugboatqa/php-nginx
+  #   expose: 80
+  #   depends: php
+  #   commands:
+  #     init:
+  #         - ln -snf "${TUGBOAT_ROOT}/.tugboat/nginx" "${DOCROOT}"
+  #     # build:
+  #     #   - bash $TUGBOAT_ROOT/.tugboat/nginxBuild.sh
