@@ -143,7 +143,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   ];
 
   // Add form themes.
-  $forms = ['form_info'];
+  $forms = ['form_info', 'step_label'];
   foreach ($forms as $form) {
     $kebab_case_form = str_replace('_', '-', $form);
     $theme['form__va_gov_form_builder__' . $form] = [
