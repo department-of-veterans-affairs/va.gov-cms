@@ -6,11 +6,19 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Abstract base class for Form Builder steps.
  */
 abstract class FormBuilderBase extends FormBase {
+
+  /**
+   * The session service.
+   *
+   * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
+   */
+  protected $session;
 
   /**
    * The entity type manager.
@@ -36,9 +44,11 @@ abstract class FormBuilderBase extends FormBase {
   /**
    * {@inheritDoc}
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, DigitalFormsService $digitalFormsService) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, DigitalFormsService $digitalFormsService, SessionInterface $session) {
     $this->entityTypeManager = $entityTypeManager;
     $this->digitalFormsService = $digitalFormsService;
+    $this->session = $session;
+
     $this->isCreate = FALSE;
   }
 
@@ -48,7 +58,8 @@ abstract class FormBuilderBase extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
-      $container->get('va_gov_form_builder.digital_forms_service')
+      $container->get('va_gov_form_builder.digital_forms_service'),
+      $container->get('session')
     );
   }
 
