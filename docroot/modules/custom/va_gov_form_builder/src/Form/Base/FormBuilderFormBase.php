@@ -8,7 +8,7 @@ use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
- * Abstract base class for Form Builder form steps.
+ * Abstract base class for Form Builder form pages.
  */
 abstract class FormBuilderFormBase extends FormBuilderBase {
 
@@ -18,16 +18,6 @@ abstract class FormBuilderFormBase extends FormBuilderBase {
    * @var \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
    */
   protected $digitalForm;
-
-  /**
-   * Flag indicating if the Digital Form has been changed.
-   *
-   * Indicates if the Digital Form has been changed
-   * since the form was first instantiated.
-   *
-   * @var bool
-   */
-  protected $digitalFormIsChanged;
 
   /**
    * Flag indicating whether this form allows an empty DigitalForm object.
@@ -96,9 +86,6 @@ abstract class FormBuilderFormBase extends FormBuilderBase {
       throw new \InvalidArgumentException('Digital Form cannot be null.');
     }
     $this->digitalForm = $digitalForm;
-
-    // When form is first built, initialize flag to false.
-    $this->digitalFormIsChanged = FALSE;
 
     return $form;
   }
