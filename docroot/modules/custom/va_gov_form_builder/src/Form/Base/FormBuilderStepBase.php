@@ -128,8 +128,9 @@ abstract class FormBuilderStepBase extends FormBuilderBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Save the previously validated step paragraph.
-    $this->stepParagraph->save();
+    // // Save the previously validated step paragraph.
+    // $this->stepParagraph->save();
+    xdebug_var_dump('TODO: Implement submitForm() in FormBuilderStepBase');
   }
 
 }
