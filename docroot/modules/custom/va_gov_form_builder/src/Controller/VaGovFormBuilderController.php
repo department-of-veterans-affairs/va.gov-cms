@@ -75,6 +75,13 @@ class VaGovFormBuilderController extends ControllerBase {
   protected $digitalForm;
 
   /**
+   * The paragraph object representing the step.
+   *
+   * @var \Drupal\paragraphs\Entity\Paragraph|null
+   */
+  protected $stepParagraph;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
@@ -99,6 +106,24 @@ class VaGovFormBuilderController extends ControllerBase {
   protected function loadDigitalForm($nid) {
     $this->digitalForm = $this->digitalFormsService->getDigitalForm($nid);
     if ($this->digitalForm) {
+      return TRUE;
+    }
+
+    return FALSE;
+  }
+
+  /**
+   * Loads and sets the step-paragraph object.
+   *
+   * @param string $paragraphId
+   *   The paragraph id to load.
+   *
+   * @return bool
+   *   TRUE if successfully loaded. FALSE otherwise.
+   */
+  protected function loadStepParagraph($paragraphId) {
+    $this->stepParagraph = $this->entityTypeManager->getStorage('paragraph')->load($paragraphId);
+    if ($this->stepParagraph) {
       return TRUE;
     }
 
@@ -243,8 +268,20 @@ class VaGovFormBuilderController extends ControllerBase {
    *   which is added automatically.
    */
   protected function getFormPage($formName, $subtitle, $breadcrumbs = [], $libraries = []) {
+    // We pass all the possible data points to the form.
+    // Unused data points will be ignored by the form.
+    //
+    // Example:
+    // If the form does not expect any paragraphs,
+    // the form's constructor will only expect the digitalForm
+    // and the additional parameters will safely be ignored.
+    //
     // @phpstan-ignore-next-line
-    $form = $this->drupalFormBuilder->getForm('Drupal\va_gov_form_builder\Form\\' . $formName, $this->digitalForm);
+    $form = $this->drupalFormBuilder->getForm(
+      'Drupal\va_gov_form_builder\Form\\' . $formName,
+      $this->digitalForm,
+      $this->stepParagraph,
+    );
 
     return $this->getPage($form, $subtitle, $breadcrumbs, $libraries);
   }
@@ -532,6 +569,35 @@ class VaGovFormBuilderController extends ControllerBase {
     ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Step-label page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string|null $paragraphId
+   *   The entity id of the step paragraph.
+   */
+  public function stepLabel($nid, $paragraphId = NULL) {
+    $nodeFound = $this->loadDigitalForm($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+
+    if ($paragraphId) {
+      $paragraphFound = $this->loadStepParagraph($paragraphId);
+      if (!$paragraphFound) {
+        throw new NotFoundHttpException();
+      }
+    }
+
+    $formName = 'StepLabel';
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step label');
+    $libraries = ['single_column_with_buttons'];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
