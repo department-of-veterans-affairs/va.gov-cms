@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Step Label
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/single-column-with-buttons.html.twig' %}
+
+{% set page_id = 'step-label' %}
+{% set page_heading = 'Start building this step' %}
+
+{% block main_content %}
+  <section class="form-builder-content-section form-builder-content-section--step-label">
+    {{ form.field_title }}
+  </section>
+  <section class="form-builder-content-section form-builder-content-section--example">
+
+  </section>
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'field_title',
+    'actions',
+  )}}
+{% endblock %}
