@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "598cbf9b245759a9a06970a91ad4cd69",
+    "content-hash": "15da7f8dca9432bb40110578e329724b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -11431,6 +11431,75 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/openapi_ui_swagger",
                 "issues": "http://drupal.org/project/issues/openapi_ui_swagger"
+            }
+        },
+        {
+            "name": "drupal/openid_connect",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/openid_connect.git",
+                "reference": "8.x-1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/openid_connect-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "9bdbfa6365d10b2029bdaee9fbd82265aa6d4fa4"
+            },
+            "require": {
+                "drupal/core": "^9.5 || ^10",
+                "ext-json": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.4",
+                    "datestamp": "1698170385",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "bojanz",
+                    "homepage": "https://www.drupal.org/user/86106"
+                },
+                {
+                    "name": "jcnventura",
+                    "homepage": "https://www.drupal.org/user/122464"
+                },
+                {
+                    "name": "mstrelan",
+                    "homepage": "https://www.drupal.org/user/314289"
+                },
+                {
+                    "name": "pfrilling",
+                    "homepage": "https://www.drupal.org/user/169695"
+                },
+                {
+                    "name": "pjcdawkins",
+                    "homepage": "https://www.drupal.org/user/1025236"
+                },
+                {
+                    "name": "sanduhrs",
+                    "homepage": "https://www.drupal.org/user/28074"
+                }
+            ],
+            "description": "A pluggable client implementation for the OpenID Connect protocol.",
+            "homepage": "https://www.drupal.org/project/openid_connect",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/openid_connect",
+                "issues": "https://www.drupal.org/project/issues/openid_connect"
             }
         },
         {
