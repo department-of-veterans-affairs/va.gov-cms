@@ -61,7 +61,6 @@ class StepLabel extends FormBuilderStepBase {
         'class' => [
           'button',
           'button--primary',
-          'js-form-submit',
           'form-submit',
         ],
       ],
