@@ -122,12 +122,25 @@ class VaGovFormBuilderController extends ControllerBase {
    *   TRUE if successfully loaded. FALSE otherwise.
    */
   protected function loadStepParagraph($paragraphId) {
-    $this->stepParagraph = $this->entityTypeManager->getStorage('paragraph')->load($paragraphId);
-    if ($this->stepParagraph) {
-      return TRUE;
+    $paragraph = $this->entityTypeManager->getStorage('paragraph')->load($paragraphId);
+    if (!$paragraph) {
+      return FALSE;
     }
 
-    return FALSE;
+    // Ensure the paragraph belongs to the node in question.
+    if (!$this->digitalForm) {
+      return FALSE;
+    }
+    $parentId = $paragraph->get('parent_id') && is_object($paragraph->get('parent_id'))
+      ? $paragraph->get('parent_id')->value
+      : '';
+
+    if ($parentId !== $this->digitalForm->id()) {
+      return FALSE;
+    }
+
+    $this->stepParagraph = $paragraph;
+    return TRUE;
   }
 
   /**
@@ -576,18 +589,18 @@ class VaGovFormBuilderController extends ControllerBase {
    *
    * @param string $nid
    *   The node id of the Digital Form.
-   * @param string|null $paragraphId
+   * @param string|null $stepParagraphId
    *   The entity id of the step paragraph.
    */
-  public function stepLabel($nid, $paragraphId = NULL) {
+  public function stepLabel($nid, $stepParagraphId = NULL) {
     $nodeFound = $this->loadDigitalForm($nid);
     if (!$nodeFound) {
       throw new NotFoundHttpException();
     }
 
-    if ($paragraphId) {
-      $paragraphFound = $this->loadStepParagraph($paragraphId);
-      if (!$paragraphFound) {
+    if ($stepParagraphId) {
+      $stepParagraphFound = $this->loadStepParagraph($stepParagraphId);
+      if (!$stepParagraphFound) {
         throw new NotFoundHttpException();
       }
     }
