@@ -16,6 +16,11 @@ use Symfony\Component\Validator\ConstraintViolationList;
 abstract class FormBuilderBase extends FormBase {
 
   /**
+   * The Form Builder's image directory.
+   */
+  const IMAGE_DIR = '/modules/custom/va_gov_form_builder/images/';
+
+  /**
    * The session service.
    *
    * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
