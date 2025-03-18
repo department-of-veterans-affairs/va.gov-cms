@@ -595,7 +595,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $formName = 'StepLabel';
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step label');
-    $libraries = ['single_column_with_buttons'];
+    $libraries = ['single_column_with_buttons', 'step_label'];
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
