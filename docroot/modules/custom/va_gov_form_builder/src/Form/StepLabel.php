@@ -85,19 +85,27 @@ class StepLabel extends FormBuilderStepBase {
   protected function setStepParagraphFromFormState(FormStateInterface $form_state) {
     $stepLabel = $form_state->getValue('field_title');
 
-    $this->stepParagraph = $this->entityTypeManager->getStorage('paragraph')->create([
-      'type' => 'digital_form_custom_step',
-      'field_title' => $stepLabel,
-    ]);
+    if ($this->isCreate) {
+      $this->stepParagraph = $this->entityTypeManager->getStorage('paragraph')->create([
+        'type' => 'digital_form_custom_step',
+        'field_title' => $stepLabel,
+      ]);
+    }
+    else {
+      $this->stepParagraph->set('field_title', $stepLabel);
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    parent::submitForm($form, $form_state);
-
-    $this->session->set('form_builder:add_step:step_label', $form_state->getValue('step_label'));
+    if ($this->isCreate) {
+      $this->session->set('form_builder:add_step:step_label', $form_state->getValue('step_label'));
+    }
+    else {
+      parent::submitForm($form, $form_state);
+    }
   }
 
 }
