@@ -614,6 +614,27 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Step-style page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   */
+  public function stepStyle($nid) {
+    $nodeFound = $this->loadDigitalForm($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+
+    // $formName = 'StepStyle';
+    $subtitle = $this->digitalForm->getTitle();
+    // $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step label');
+    $libraries = ['single_column_with_buttons'];
+
+    // Temporary just to render something.
+    return $this->getPage([], $subtitle, [], $libraries);
+  }
+
+  /**
    * Review-and-sign page.
    *
    * @param string $nid
