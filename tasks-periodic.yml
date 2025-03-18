@@ -62,6 +62,7 @@ tasks:
       - drush $DRUSH_ALIAS scr scripts/tasks/VACMS-10735-Forms-CSV-migration-validation.php
       - drush $DRUSH_ALIAS migrate:reset-status va_node_form
       - drush $DRUSH_ALIAS migrate:import va_node_form
+      - drush $DRUSH_ALIAS va_gov_migrate:archive-intranet-only-forms
 
   va/background/daily/update/taxonomy_entity_index:
     desc: Update the taxonomy_entity_index nightly.
