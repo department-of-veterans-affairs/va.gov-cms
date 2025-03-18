@@ -54,6 +54,15 @@ class StepLabel extends FormBuilderStepBase {
       '#default_value' => $this->getStepParagraphFieldValue('field_title'),
     ];
 
+    $form['preview'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'img',
+      '#attributes' => [
+        'src' => self::IMAGE_DIR . 'step-label.png',
+        'alt' => $this->t('Step-label preview'),
+      ],
+    ];
+
     $form['actions']['save_and_continue'] = [
       '#type' => 'submit',
       '#value' => $this->t('Save and continue'),

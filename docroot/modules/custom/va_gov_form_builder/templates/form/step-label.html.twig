@@ -21,7 +21,7 @@
     {{ form.field_title }}
   </section>
   <section class="form-builder-content-section form-builder-content-section--example">
-
+    {{ form.preview }}
   </section>
 {% endblock %}
 
@@ -29,6 +29,7 @@
   {# render rest of form so it functions properly #}
   {{ form|without(
     'field_title',
+    'preview',
     'actions',
   )}}
 {% endblock %}
