@@ -294,9 +294,9 @@ services:
   nginx:
     image: tugboatqa/nginx
     expose: 80
-    depends: php
+    checkout: true
     commands:
       init:
           - ln -snf "${TUGBOAT_ROOT}/.tugboat/nginx" "${DOCROOT}"
-      # build:
-      #   - bash $TUGBOAT_ROOT/.tugboat/nginxBuild.sh
+      build:
+        - bash $TUGBOAT_ROOT/.tugboat/nginxBuild.sh
