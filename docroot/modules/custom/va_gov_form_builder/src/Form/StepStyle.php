@@ -63,7 +63,7 @@ class StepStyle extends FormBuilderStepBase {
           'button--secondary',
         ],
       ],
-      '#submit' => ['::handleEditStepLabel'],
+      '#submit' => ['::handleEditStepLabelClick'],
       // No validation needed on this button.
       '#limit_validation_errors' => [],
     ];
@@ -100,6 +100,15 @@ class StepStyle extends FormBuilderStepBase {
   }
 
   /**
+   * Handler for the edit-step-label button.
+   */
+  public function handleEditStepLabelClick(array &$form, FormStateInterface $form_state) {
+    $form_state->setRedirect('va_gov_form_builder.step.add.step_label', [
+      'nid' => $this->digitalForm->id(),
+    ]);
+  }
+
+  /**
    * {@inheritdoc}
    */
   protected function setStepParagraphFromFormState(FormStateInterface $form_state) {
@@ -117,15 +126,6 @@ class StepStyle extends FormBuilderStepBase {
         'field_title' => $stepLabel,
       ]);
     }
-  }
-
-  /**
-   * Handler for the edit-step-label button.
-   */
-  public function handleEditStepLabel(array &$form, FormStateInterface $form_state) {
-    $form_state->setRedirect('va_gov_form_builder.step.add.step_label', [
-      'nid' => $this->digitalForm->id(),
-    ]);
   }
 
   /**
