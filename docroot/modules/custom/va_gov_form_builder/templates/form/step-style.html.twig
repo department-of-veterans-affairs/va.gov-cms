@@ -36,6 +36,9 @@
       </summary>
       <p>
         A single question has one answer to provide or choice to be made.
+        <div class="form-builder-content-section__preview">
+          {{ form.preview.single_question }}
+        </div>
       </p>
     </details>
     <details class="form-builder-content-section__details form-builder-content-section__details--repeating">
@@ -44,6 +47,9 @@
       </summary>
       <p>
         A repeating set of single responses may be about an event, time range, or services provided.
+        <div class="form-builder-content-section__preview">
+          {{ form.preview.repeating_set }}
+        </div>
       </p>
     </details>
   </section>
@@ -53,6 +59,7 @@
   {# render rest of form so it functions properly #}
   {{ form|without(
     'step_label',
+    'preview',
     'actions',
   )}}
 {% endblock %}

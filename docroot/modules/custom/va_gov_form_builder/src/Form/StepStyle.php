@@ -85,6 +85,23 @@ class StepStyle extends FormBuilderStepBase {
       '#limit_validation_errors' => [],
     ];
 
+    $form['preview']['single_question'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'img',
+      '#attributes' => [
+        'src' => self::IMAGE_DIR . 'single-question.png',
+        'alt' => $this->t('Single-question preview'),
+      ],
+    ];
+    $form['preview']['repeating_set'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'img',
+      '#attributes' => [
+        'src' => self::IMAGE_DIR . 'repeating-set.png',
+        'alt' => $this->t('Repeating-set preview'),
+      ],
+    ];
+
     $form['actions']['add_repeating_set'] = [
       '#type' => 'submit',
       '#value' => $this->t('Add a repeating set'),
