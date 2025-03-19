@@ -298,5 +298,5 @@ services:
     commands:
       init:
           - ln -snf "${TUGBOAT_ROOT}/.tugboat/nginx" "${DOCROOT}"
-      build:
-        - bash $TUGBOAT_ROOT/.tugboat/nginxBuild.sh
+      # build:
+      #   - bash $TUGBOAT_ROOT/.tugboat/nginxBuild.sh
