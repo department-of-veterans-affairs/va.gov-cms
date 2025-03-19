@@ -1,0 +1,39 @@
+uuid: 44005081-7f7d-48d3-88a1-cfbbdac1fad6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_health_services
+    - node.type.vet_center_facility_health_servi
+    - node.type.vet_center_outstation
+  module:
+    - entity_reference_validators
+    - tmgmt_content
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  tmgmt_content:
+    excluded: false
+id: node.vet_center_outstation.field_health_services
+field_name: field_health_services
+entity_type: node
+bundle: vet_center_outstation
+label: Services
+description: 'Add services that Veterans can receive at your Vet Center. Some content won’t be editable because it comes from other sources. For full guidance, see <a target="_blank" href="https://prod.cms.va.gov/help/vet-centers/how-to-edit-a-vet-center-service">How to add or edit a Vet Center service (opens in a new tab)</a>.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: unpublished
+  handler_settings:
+    target_bundles:
+      vet_center_facility_health_servi: vet_center_facility_health_servi
+    sort:
+      field: title
+      direction: ASC
+    auto_create: 0
+    auto_create_bundle: ''
+field_type: entity_reference
