@@ -86,6 +86,10 @@ class StepLabel extends FormBuilderStepBase {
     $stepLabel = $form_state->getValue('field_title');
 
     if ($this->isCreate) {
+      // We don't know at this point what type of paragraph we need,
+      // and we're not actually going to persist this paragraph anyway.
+      // We just need a paragraph with a `field_title` so we can validate
+      // that field.
       $this->stepParagraph = $this->entityTypeManager->getStorage('paragraph')->create([
         'type' => 'digital_form_custom_step',
         'field_title' => $stepLabel,
