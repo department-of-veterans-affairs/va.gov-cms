@@ -47,9 +47,6 @@ class ChangeManilaTermLabel extends BatchOperations implements BatchScriptInterf
 
   /**
    * {@inheritdoc}
-   *
-   * @throws \League\Csv\UnavailableStream
-   * @throws \League\Csv\Exception
    */
   public function gatherItemsToProcess(): array {
     // The Manila VA Clinic term.
