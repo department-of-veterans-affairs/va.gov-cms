@@ -11,6 +11,15 @@ use Drupal\va_gov_form_builder\Form\Base\FormBuilderStepBase;
 class StepStyle extends FormBuilderStepBase {
 
   /**
+   * The style of the step.
+   *
+   * 'repeating' or 'single'.
+   *
+   * @var string
+   */
+  protected $stepStyle;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -22,9 +31,13 @@ class StepStyle extends FormBuilderStepBase {
    */
   protected function getFields() {
     // This form does not directly interact with
-    // any fields. Instead, it determines the type
-    // of paragraph that will be created.
-    return [];
+    // any fields. But, since it's creating the
+    // paragraph with the prevously entered
+    // step label (field_title), we should validate
+    // it here for good measure.
+    return [
+      'field_title',
+    ];
   }
 
   /**
@@ -58,6 +71,7 @@ class StepStyle extends FormBuilderStepBase {
     $form['actions']['add_repeating_set'] = [
       '#type' => 'submit',
       '#value' => $this->t('Add a repeating set'),
+      '#name' => 'add-repeating-set',
       '#attributes' => [
         'class' => [
           'button',
@@ -71,6 +85,7 @@ class StepStyle extends FormBuilderStepBase {
     $form['actions']['add_single_question'] = [
       '#type' => 'submit',
       '#value' => $this->t('Add a single question'),
+      '#name' => 'add-single-question',
       '#attributes' => [
         'class' => [
           'button',
@@ -88,7 +103,20 @@ class StepStyle extends FormBuilderStepBase {
    * {@inheritdoc}
    */
   protected function setStepParagraphFromFormState(FormStateInterface $form_state) {
+    $stepLabel = $this->session->get('form_builder:add_step:step_label');
 
+    if ($this->stepStyle === 'repeating') {
+      $this->stepParagraph = $this->entityTypeManager->getStorage('paragraph')->create([
+        'type' => 'digital_form_list_loop',
+        'field_title' => $stepLabel,
+      ]);
+    }
+    else {
+      $this->stepParagraph = $this->entityTypeManager->getStorage('paragraph')->create([
+        'type' => 'digital_form_custom_step',
+        'field_title' => $stepLabel,
+      ]);
+    }
   }
 
   /**
@@ -104,9 +132,18 @@ class StepStyle extends FormBuilderStepBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getTriggeringElement()['#name'] === 'edit-step-label') {
+    $clickedButton = $form_state->getTriggeringElement()['#name'];
+
+    if ($clickedButton === 'edit-step-label') {
       // Prevent validation for this specific button.
       return;
+    }
+
+    if ($clickedButton === 'add-repeating-set') {
+      $this->stepStyle = 'repeating';
+    }
+    else {
+      $this->stepStyle = 'single';
     }
 
     parent::validateForm($form, $form_state);
@@ -116,7 +153,12 @@ class StepStyle extends FormBuilderStepBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $this->digitalForm->get('field_chapters')->appendItem($this->stepParagraph);
+    $this->digitalForm->save();
 
+    $form_state->setRedirect('va_gov_form_builder.layout', [
+      'nid' => $this->digitalForm->id(),
+    ]);
   }
 
 }
