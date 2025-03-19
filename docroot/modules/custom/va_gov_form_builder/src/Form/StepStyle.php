@@ -40,6 +40,21 @@ class StepStyle extends FormBuilderStepBase {
 
     $form['#theme'] = 'form__va_gov_form_builder__step_style';
 
+    $form['edit_step_label'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Edit step label'),
+      '#name' => 'edit-step-label',
+      '#attributes' => [
+        'class' => [
+          'button',
+          'button--secondary',
+        ],
+      ],
+      '#submit' => ['::handleEditStepLabel'],
+      // No validation needed on this button.
+      '#limit_validation_errors' => [],
+    ];
+
     $form['actions']['add_repeating_set'] = [
       '#type' => 'submit',
       '#value' => $this->t('Add a repeating set'),
@@ -63,7 +78,7 @@ class StepStyle extends FormBuilderStepBase {
           'form-submit',
         ],
       ],
-      '#weight' => '11',
+      '#weight' => '20',
     ];
 
     return $form;
@@ -74,6 +89,27 @@ class StepStyle extends FormBuilderStepBase {
    */
   protected function setStepParagraphFromFormState(FormStateInterface $form_state) {
 
+  }
+
+  /**
+   * Handler for the edit-step-label button.
+   */
+  public function handleEditStepLabel(array &$form, FormStateInterface $form_state) {
+    $form_state->setRedirect('va_gov_form_builder.step.add.step_label', [
+      'nid' => $this->digitalForm->id(),
+    ]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    if ($form_state->getTriggeringElement()['#name'] === 'edit-step-label') {
+      // Prevent validation for this specific button.
+      return;
+    }
+
+    parent::validateForm($form, $form_state);
   }
 
   /**
