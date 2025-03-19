@@ -416,7 +416,7 @@ class VaGovFormBuilderController extends ControllerBase {
           ];
         }, $this->digitalForm->getNonStandarddSteps()),
         'add_step' => [
-          'url' => '',
+          'url' => $this->getPageUrl('step.add.step_label'),
         ],
       ],
       '#review_and_sign' => [
