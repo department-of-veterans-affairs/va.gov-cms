@@ -49,6 +49,13 @@ class VaGovFormBuilderController extends ControllerBase {
   protected $entityTypeManager;
 
   /**
+   * The session service.
+   *
+   * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
+   */
+  protected $session;
+
+  /**
    * The Drupal form builder.
    *
    * @var \Drupal\Core\Form\FormBuilderInterface
@@ -90,6 +97,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->drupalFormBuilder = $container->get('form_builder');
     $instance->digitalFormsService = $container->get('va_gov_form_builder.digital_forms_service');
+    $instance->session = $container->get('session');
 
     return $instance;
   }
@@ -625,13 +633,44 @@ class VaGovFormBuilderController extends ControllerBase {
       throw new NotFoundHttpException();
     }
 
+    // This is the second stage in the process
+    // of creating a new step. The previously
+    // entered step label should be in session storage.
+    // If it's not there, we should redirect back to the
+    // step-label page.
+    $stepLabel = $this->session->get('form_builder:add_step:step_label');
+    if (!$stepLabel) {
+      return $this->redirect('va_gov_form_builder.step.add.step_label', ['nid' => $nid]);
+    }
+
+    // This is a special circumstance of generating breadcrumbs.
+    //
+    // What we want is this:
+    // Home > [Form name] > [Step label] > Step style
+    //
+    // Typically, we'd accomplish this by:
+    // $this->generateBreadcrumbs('step-layout', 'Step style');
+    //
+    // However, since the step paragraph doesn't actually exist
+    // at this point (this is part of the process of creating it),
+    // the previously entered step label is stored in session storage.
+    // So, we can't do what we'd typically do and, instead, we need
+    // to generate the breadcrumb trail without it and then splice
+    // it in.
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step style');
+    array_splice($breadcrumbs, 2, 0, [
+      [
+        'label' => $stepLabel,
+        'url' => $this->getPageUrl('step.add.step_label'),
+      ],
+    ]);
+
     // $formName = 'StepStyle';
     $subtitle = $this->digitalForm->getTitle();
-    // $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step label');
     $libraries = ['single_column_with_buttons'];
 
     // Temporary just to render something.
-    return $this->getPage([], $subtitle, [], $libraries);
+    return $this->getPage([], $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
