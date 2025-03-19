@@ -188,6 +188,8 @@ class StepStyle extends FormBuilderStepBase {
     $this->digitalForm->get('field_chapters')->appendItem($this->stepParagraph);
     $this->digitalForm->save();
 
+    $this->session->set('form_builder:add_step:step_label', NULL);
+
     $form_state->setRedirect('va_gov_form_builder.layout', [
       'nid' => $this->digitalForm->id(),
     ]);
