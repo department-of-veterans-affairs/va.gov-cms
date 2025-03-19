@@ -99,6 +99,11 @@ class LibrariesTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey($stepLabelPatternLibrary, $this->libraries);
     $stepLabelCssArray = array_keys($this->libraries[$stepLabelPatternLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'step-label.css', $stepLabelCssArray, 'Step-label css is present.');
+    // 6. Step style.
+    $stepStylePatternLibrary = 'step_style';
+    $this->assertArrayHasKey($stepStylePatternLibrary, $this->libraries);
+    $stepStyleCssArray = array_keys($this->libraries[$stepStylePatternLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'step-style.css', $stepStyleCssArray, 'Step-style css is present.');
   }
 
 }
