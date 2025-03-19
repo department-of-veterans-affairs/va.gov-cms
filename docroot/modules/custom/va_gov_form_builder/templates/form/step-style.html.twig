@@ -10,13 +10,35 @@
 {% set page_heading = 'Determine style of step to be added' %}
 
 {% block main_content %}
-  {{ form.edit_step_label }}
+  <section class="form-builder-content-section form-builder-content-section--step-label">
+    <div class="form-builder-step-label__label">
+      <strong>{{ form.step_label.label }}</strong>
+    </div>
+    <div class="form-builder-step-label__edit-button">
+      {{ form.step_label.edit_button }}
+    </div>
+  </section>
+  <section class="form-builder-content-section form-builder-content-section--step-style">
+    <p>
+      Will this step have a single question, a series of questions, or a repeated set of questions?
+    </p>
+    <p>
+      Single questions can be added one at a time if you have several questions which make sense
+      together as a step.  An example of this might be a name or a location and a date.
+    </p>
+    <p>
+      When the submitter may have multiple responses, it make sense to add a repeating set of questions.
+      These are useful for sets of answers like: employment history, medical treatments, or several locations.
+    </p>
+    {{ form.accordion }}
+  </section>
 {% endblock %}
 
 {% block after_buttons %}
   {# render rest of form so it functions properly #}
   {{ form|without(
-    'edit_step_label',
+    'step_label',
+    'accordion',
     'actions',
   )}}
 {% endblock %}

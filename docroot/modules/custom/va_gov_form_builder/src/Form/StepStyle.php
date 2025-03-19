@@ -11,6 +11,13 @@ use Drupal\va_gov_form_builder\Form\Base\FormBuilderStepBase;
 class StepStyle extends FormBuilderStepBase {
 
   /**
+   * The label of the step.
+   *
+   * @var string
+   */
+  protected $stepLabel;
+
+  /**
    * The style of the step.
    *
    * 'repeating' or 'single'.
@@ -49,11 +56,21 @@ class StepStyle extends FormBuilderStepBase {
     $this->allowEmptyStepParagraph = TRUE;
     $this->isCreate = TRUE;
 
+    // Grab the previously entered step label from stession storage.
+    $this->stepLabel = $this->session->get('form_builder:add_step:step_label');
+
+    // Call parent build method.
     $form = parent::buildForm($form, $form_state, $digitalForm, $stepParagraph);
 
+    // Build the form.
     $form['#theme'] = 'form__va_gov_form_builder__step_style';
 
-    $form['edit_step_label'] = [
+    $form['step_label']['label'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => $this->stepLabel,
+    ];
+    $form['step_label']['edit_button'] = [
       '#type' => 'submit',
       '#value' => $this->t('Edit step label'),
       '#name' => 'edit-step-label',
@@ -66,6 +83,27 @@ class StepStyle extends FormBuilderStepBase {
       '#submit' => ['::handleEditStepLabelClick'],
       // No validation needed on this button.
       '#limit_validation_errors' => [],
+    ];
+
+    $form['accordion']['single_question'] = [
+      '#type' => 'details',
+      '#title' => $this->t('What is a single question example?'),
+      '#open' => TRUE,
+      'content' => [
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#value' => $this->t('A single question is a step that contains only one question.'),
+      ],
+    ];
+    $form['accordion']['repeating_set'] = [
+      '#type' => 'details',
+      '#title' => $this->t('What is an example of a repeated set of questions?'),
+      '#open' => FALSE,
+      'content' => [
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#value' => $this->t('A repeating set of questions is a step that contains a group of questions that can be repeated multiple times.'),
+      ],
     ];
 
     $form['actions']['add_repeating_set'] = [
@@ -112,18 +150,16 @@ class StepStyle extends FormBuilderStepBase {
    * {@inheritdoc}
    */
   protected function setStepParagraphFromFormState(FormStateInterface $form_state) {
-    $stepLabel = $this->session->get('form_builder:add_step:step_label');
-
     if ($this->stepStyle === 'repeating') {
       $this->stepParagraph = $this->entityTypeManager->getStorage('paragraph')->create([
         'type' => 'digital_form_list_loop',
-        'field_title' => $stepLabel,
+        'field_title' => $this->stepLabel,
       ]);
     }
     else {
       $this->stepParagraph = $this->entityTypeManager->getStorage('paragraph')->create([
         'type' => 'digital_form_custom_step',
-        'field_title' => $stepLabel,
+        'field_title' => $this->stepLabel,
       ]);
     }
   }
