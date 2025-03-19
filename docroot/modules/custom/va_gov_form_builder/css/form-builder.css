@@ -319,6 +319,21 @@ a.form-builder-button--secondary:hover {
   margin-top: var(--units-4);
 }
 
+/* details (accordion) */
+.form-builder-page-container details {
+  border: 0;
+  box-shadow: none;
+}
+
+.form-builder-page-container details summary {
+  background: var(--vads-color-base-lightest);
+}
+
+/* stylelint-disable-next-line selector-no-qualifying-type */
+.form-builder-page-container details[open] summary {
+  margin-bottom: var(--units-2);
+}
+
 /* misc. */
 .form-builder-hint-text {
   color: var(--vads-color-gray-medium);
