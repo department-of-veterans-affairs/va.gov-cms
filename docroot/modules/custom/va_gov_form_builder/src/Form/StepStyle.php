@@ -85,27 +85,6 @@ class StepStyle extends FormBuilderStepBase {
       '#limit_validation_errors' => [],
     ];
 
-    $form['accordion']['single_question'] = [
-      '#type' => 'details',
-      '#title' => $this->t('What is a single question example?'),
-      '#open' => TRUE,
-      'content' => [
-        '#type' => 'html_tag',
-        '#tag' => 'p',
-        '#value' => $this->t('A single question is a step that contains only one question.'),
-      ],
-    ];
-    $form['accordion']['repeating_set'] = [
-      '#type' => 'details',
-      '#title' => $this->t('What is an example of a repeated set of questions?'),
-      '#open' => FALSE,
-      'content' => [
-        '#type' => 'html_tag',
-        '#tag' => 'p',
-        '#value' => $this->t('A repeating set of questions is a step that contains a group of questions that can be repeated multiple times.'),
-      ],
-    ];
-
     $form['actions']['add_repeating_set'] = [
       '#type' => 'submit',
       '#value' => $this->t('Add a repeating set'),

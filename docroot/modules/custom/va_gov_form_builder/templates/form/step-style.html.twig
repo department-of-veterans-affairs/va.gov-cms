@@ -30,7 +30,22 @@
       When the submitter may have multiple responses, it make sense to add a repeating set of questions.
       These are useful for sets of answers like: employment history, medical treatments, or several locations.
     </p>
-    {{ form.accordion }}
+    <details class="form-builder-content-section__details form-builder-content-section__details--single" open>
+      <summary class="form-builder-content-section__details-summary">
+        What is a single question example?
+      </summary>
+      <p>
+        A single question has one answer to provide or choice to be made.
+      </p>
+    </details>
+    <details class="form-builder-content-section__details form-builder-content-section__details--repeating">
+      <summary class="form-builder-content-section__details-summary">
+        What is an example of a repeated set of questions?
+      </summary>
+      <p>
+        A repeating set of single responses may be about an event, time range, or services provided.
+      </p>
+    </details>
   </section>
 {% endblock %}
 
@@ -38,7 +53,6 @@
   {# render rest of form so it functions properly #}
   {{ form|without(
     'step_label',
-    'accordion',
     'actions',
   )}}
 {% endblock %}
