@@ -10,12 +10,13 @@
 {% set page_heading = 'Determine style of step to be added' %}
 
 {% block main_content %}
-
+  {{ form.edit_step_label }}
 {% endblock %}
 
 {% block after_buttons %}
   {# render rest of form so it functions properly #}
   {{ form|without(
+    'edit_step_label',
     'actions',
   )}}
 {% endblock %}
