@@ -665,12 +665,11 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
     ]);
 
-    // $formName = 'StepStyle';
+    $formName = 'StepStyle';
     $subtitle = $this->digitalForm->getTitle();
     $libraries = ['single_column_with_buttons'];
 
-    // Temporary just to render something.
-    return $this->getPage([], $subtitle, $breadcrumbs, $libraries);
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
