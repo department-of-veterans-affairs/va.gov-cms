@@ -38,10 +38,12 @@ class StepLabel extends FormBuilderStepBase {
     if (empty($stepParagraph)) {
       // If no step paragraph is passed in, this is "create" mode.
       $this->isCreate = TRUE;
+      $labelDefaultValue = $this->session->get('form_builder:add_step:step_label');
     }
     else {
       // If a step paragraph is passed in, this is "edit" mode.
       $this->isCreate = FALSE;
+      $labelDefaultValue = $this->getStepParagraphFieldValue('field_title');
     }
 
     $form['#theme'] = 'form__va_gov_form_builder__step_label';
@@ -51,7 +53,7 @@ class StepLabel extends FormBuilderStepBase {
       '#type' => 'textfield',
       '#title' => $this->t('Step label'),
       '#required' => TRUE,
-      '#default_value' => $this->getStepParagraphFieldValue('field_title'),
+      '#default_value' => $labelDefaultValue,
     ];
 
     $form['preview'] = [
