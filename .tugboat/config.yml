@@ -299,6 +299,5 @@ services:
       init:
           - ln -snf "${TUGBOAT_ROOT}/.tugboat/nginx" "${DOCROOT}"
       build:
-        - sed -i 's/REPLACE_NEXT_URL/https://next-${$TUGBOAT_DEFAULT_SERVICE_TOKEN}.demo.cms.va.gov/g' $TUGBOAT_ROOT/.tugboat/nginx.conf
-        - sed -i 's/REPLACE_CONTENT_URL/https://web-${$TUGBOAT_DEFAULT_SERVICE_TOKEN}.demo.cms.va.gov/g' $TUGBOAT_ROOT/.tugboat/nginx.conf
+        - sed -i 's/REPLACE_TOEKN/$TUGBOAT_DEFAULT_SERVICE_TOKEN/g' $TUGBOAT_ROOT/.tugboat/nginx.conf
         - bash $TUGBOAT_ROOT/.tugboat/nginxBuild.sh
