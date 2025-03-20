@@ -192,7 +192,6 @@ services:
       - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
       - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
       - j2 "${TUGBOAT_ROOT}/.next/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/403-error-document.html"
-      - j2 "${TUGBOAT_ROOT}/.next/404-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/404-error-document.html"
       - j2 "${TUGBOAT_ROOT}/.next/503-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/503-error-document.html"
       - composer install
       - bash -lc 'nvm install'
@@ -231,7 +230,6 @@ services:
       - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
       - j2 "${TUGBOAT_ROOT}/.next/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/403-error-document.html"
       - j2 "${TUGBOAT_ROOT}/.next/503-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/503-error-document.html"
-      - j2 "${TUGBOAT_ROOT}/.next/404-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/404-error-document.html"
 
       online:
       # Start the next build preview server
