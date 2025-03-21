@@ -41,11 +41,13 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $entityTypeManager = \Drupal::service('entity_type.manager');
     $drupalFormBuilder = \Drupal::service('form_builder');
     $digitalFormsService = new DigitalFormsService($entityTypeManager);
+    $sessionService = \Drupal::service('session');
 
     $container = new ContainerBuilder();
     $container->set('entity_type.manager', $entityTypeManager);
     $container->set('form_builder', $drupalFormBuilder);
     $container->set('va_gov_form_builder.digital_forms_service', $digitalFormsService);
+    $container->set('session', $sessionService);
 
     // Create the controller instance.
     $this->controller = VaGovFormBuilderController::create($container);
@@ -371,6 +373,74 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertArrayHasKey('#attached', $page);
     $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
     $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
+  }
+
+  /**
+   * Tests the stepLabel method returns a StepLabel form in create mode.
+   *
+   * When $stepParagraphId is not passed (is NULL), it should be create mode.
+   */
+  public function testStepLabelCreate() {
+    // Create a node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'field_chapters' => [],
+    ]);
+
+    $page = $this->controller->stepLabel($node->id());
+
+    // In create mode, default value should be null.
+    $this->assertArrayHasKey('#default_value', $page['content']['field_title']);
+    $this->assertEmpty($page['content']['field_title']['#default_value']);
+
+    // Ensure css is added.
+    // This should be present on both create and edit mode.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/step_label', $page['#attached']['library']);
+
+  }
+
+  /**
+   * Tests the stepLabel method returns a StepLabel form in edit mode.
+   *
+   * When $stepParagraphId is passed, it should be edit mode.
+   */
+  public function testStepLabelEdit() {
+    // Create a new custom-step paragraph.
+    $paragraphTitle = 'Custom Step ' . uniqid();
+    $paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->create([
+      'type' => 'digital_form_custom_step',
+      'field_title' => $paragraphTitle,
+    ]);
+    $paragraph->save();
+    // Register the paragraph for cleanup after the test.
+    // This happens automatically for nodes with calls
+    // to `$this->createNode`, but there doesn't seem to be
+    // an equivalent for paragraphs.
+    // @todo create a method to abstract this.
+    $this->markEntityForCleanup($paragraph);
+
+    // Create a new Digital Form node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'title' => 'Test Digital Form ' . uniqid(),
+      'field_chapters' => [$paragraph],
+      'field_va_form_number' => '99-9999',
+    ]);
+    $node->save();
+
+    $nid = $node->id();
+    $paragraphId = $paragraph->id();
+    $page = $this->controller->stepLabel($nid, $paragraphId);
+
+    // In edit mode, default value should be populated.
+    $this->assertArrayHasKey('#default_value', $page['content']['field_title']);
+    $this->assertEquals($paragraphTitle, $page['content']['field_title']['#default_value']);
+
+    // Ensure css is added.
+    // This should be present on both create and edit mode.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/step_label', $page['#attached']['library']);
   }
 
   /**
