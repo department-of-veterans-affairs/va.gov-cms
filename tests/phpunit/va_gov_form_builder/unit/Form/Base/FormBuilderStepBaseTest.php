@@ -4,8 +4,8 @@ namespace tests\phpunit\va_gov_form_builder\unit\Form\Base;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
-use Drupal\va_gov_form_builder\Form\Base\FormBuilderFormBase;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\va_gov_form_builder\Form\Base\FormBuilderStepBase;
 use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\ConstraintViolation;
@@ -14,14 +14,19 @@ use tests\phpunit\va_gov_form_builder\Traits\AnonymousFormClass;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
- * Unit tests for the abstract class FormBuilderFormBase.
+ * Unit tests for the abstract class FormBuilderStepBase.
+ *
+ * @todo DRY this up.
+ * This test file includes a lot of code that is repeated
+ * from FormBuilderFormBaseTest. The entire suite should be
+ * examined for ways to DRY things up.
  *
  * @group unit
  * @group all
  *
- * @coversDefaultClass \Drupal\va_gov_form_builder\Form\Base\FormBuilderFormBase
+ * @coversDefaultClass \Drupal\va_gov_form_builder\Form\Base\FormBuilderStepBase
  */
-class FormBuilderFormBaseTest extends VaGovUnitTestBase {
+class FormBuilderStepBaseTest extends VaGovUnitTestBase {
 
   /**
    * The Digital Forms service.
@@ -52,7 +57,7 @@ class FormBuilderFormBaseTest extends VaGovUnitTestBase {
       $entityTypeManager,
       $this->digitalFormsService,
       $session,
-    ) extends FormBuilderFormBase {
+    ) extends FormBuilderStepBase {
       use AnonymousFormClass;
 
       /**
@@ -66,23 +71,23 @@ class FormBuilderFormBaseTest extends VaGovUnitTestBase {
       }
 
       /**
-       * setDigitalFormFromFormState.
+       * setStepParagraphFromFormState.
        */
-      protected function setDigitalFormFromFormState(FormStateInterface $form_state) {
-        // Do nothing. We'll set the digitalForm via reflection.
+      protected function setStepParagraphFromFormState(FormStateInterface $form_state) {
+        // Do nothing. We'll set the step paragraph via reflection.
       }
 
     };
   }
 
   /**
-   * Test that the buildForm method throws error when Digital Form not passed.
+   * Test that the buildForm method throws error when paramaters missing.
    */
   public function testBuildFormThrowsError() {
     $form = [];
     $formStateMock = $this->createMock(FormStateInterface::class);
 
-    // Call `buildForm` without $digtialForm parameter.
+    // Call `buildForm` without $digitalForm or $stepParagraph parameters.
     $this->expectException(\InvalidArgumentException::class);
     $form = $this->classInstance->buildForm($form, $formStateMock);
   }
@@ -98,27 +103,24 @@ class FormBuilderFormBaseTest extends VaGovUnitTestBase {
       $violationList = new ConstraintViolationList([]);
     }
 
-    $digitalForm = $this->getMockBuilder(DigitalForm::class)
+    $stepParagraph = $this->getMockBuilder(Paragraph::class)
       ->disableOriginalConstructor()
-      ->onlyMethods(['__call'])
+      ->onlyMethods(['validate'])
       ->getMock();
 
-    $digitalForm->method('__call')
-      ->willReturnCallback(function ($name, $arguments) use ($violationList) {
-        if ($name === 'validate') {
+    $stepParagraph->method('validate')
+      ->willReturnCallback(function () use ($violationList) {
           return $violationList;
-        }
-        return NULL;
       });
 
     $reflection = new \ReflectionClass($this->classInstance);
-    $digitalFormProperty = $reflection->getProperty('digitalForm');
-    $digitalFormProperty->setAccessible(TRUE);
-    $digitalFormProperty->setValue($this->classInstance, $digitalForm);
+    $stepParagraphProperty = $reflection->getProperty('stepParagraph');
+    $stepParagraphProperty->setAccessible(TRUE);
+    $stepParagraphProperty->setValue($this->classInstance, $stepParagraph);
   }
 
   /**
-   * Test the validateForm method with a Digital Form with no violations.
+   * Test the validateForm method with a step paragraph with no violations.
    */
   public function testValidateFormWithNoViolations() {
     $this->setUpViolationTest();
@@ -133,7 +135,7 @@ class FormBuilderFormBaseTest extends VaGovUnitTestBase {
   }
 
   /**
-   * Test validateForm method with a Digital Form with applicable violations.
+   * Test validateForm method with a step paragraph with applicable violations.
    */
   public function testValidateFormWithApplicableViolations() {
     // Has violations on fields related to this form;
@@ -159,7 +161,7 @@ class FormBuilderFormBaseTest extends VaGovUnitTestBase {
   }
 
   /**
-   * Test validateForm method with a Digital Form with other violations.
+   * Test validateForm method with a step paragraph with other violations.
    */
   public function testValidateFormWithOtherViolations() {
     // Has violations, but not on fields related to this form;
