@@ -68,7 +68,7 @@ class FormBuilderFormBaseTest extends VaGovUnitTestBase {
       /**
        * setDigitalFormFromFormState.
        */
-      protected function setDigitalFormFromFormState(array &$form, FormStateInterface $form_state) {
+      protected function setDigitalFormFromFormState(FormStateInterface $form_state) {
         // Do nothing. We'll set the digitalForm via reflection.
       }
 
