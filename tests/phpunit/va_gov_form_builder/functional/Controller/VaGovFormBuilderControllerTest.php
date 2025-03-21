@@ -8,6 +8,7 @@ use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use tests\phpunit\va_gov_form_builder\Traits\ParagraphCreationTrait;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
@@ -19,6 +20,8 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
  * @coversDefaultClass \Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController
  */
 class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
+
+  use ParagraphCreationTrait;
 
   /**
    * {@inheritdoc}
@@ -408,17 +411,11 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   public function testStepLabelEdit() {
     // Create a new custom-step paragraph.
     $paragraphTitle = 'Custom Step ' . uniqid();
-    $paragraph = \Drupal::entityTypeManager()->getStorage('paragraph')->create([
+    $paragraph = $this->createParagraph([
       'type' => 'digital_form_custom_step',
       'field_title' => $paragraphTitle,
     ]);
     $paragraph->save();
-    // Register the paragraph for cleanup after the test.
-    // This happens automatically for nodes with calls
-    // to `$this->createNode`, but there doesn't seem to be
-    // an equivalent for paragraphs.
-    // @todo create a method to abstract this.
-    $this->markEntityForCleanup($paragraph);
 
     // Create a new Digital Form node.
     $node = $this->createNode([
