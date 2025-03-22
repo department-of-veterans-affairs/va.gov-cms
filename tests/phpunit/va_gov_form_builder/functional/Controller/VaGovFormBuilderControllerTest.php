@@ -489,14 +489,8 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
       'field_chapters' => [],
     ]);
 
-    $session = \Drupal::service('session');
-    $sessionVarKey = 'form_builder:add_step:step_label';
-
-    // Get the session variable value.
-    // We'll reset the value back to this.
-    $sessionVarVal = $session->get($sessionVarKey);
-
     // Ensure the expected session variable is populated.
+    $session = \Drupal::service('session');
     $session->set('form_builder:add_step:step_label', 'Some non-empty value');
 
     // Call the controller method.
@@ -506,9 +500,6 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // This should be present on both create and edit mode.
     $this->assertArrayHasKey('#attached', $page);
     $this->assertContains('va_gov_form_builder/step_style', $page['#attached']['library']);
-
-    // Set the session variable back to what it was.
-    $session->set('form_builder:add_step:step_label', $sessionVarVal);
   }
 
   /**
@@ -523,14 +514,8 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
       'field_chapters' => [],
     ]);
 
-    $session = \Drupal::service('session');
-    $sessionVarKey = 'form_builder:add_step:step_label';
-
-    // Get the session variable value.
-    // We'll reset the value back to this.
-    $sessionVarVal = $session->get($sessionVarKey);
-
     // Ensure the expected session variable is empty.
+    $session = \Drupal::service('session');
     $session->set('form_builder:add_step:step_label', NULL);
 
     // Call the controller method.
@@ -545,9 +530,6 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
       )->toString(),
       $response->getTargetUrl()
     );
-
-    // Set the session variable back to what it was.
-    $session->set('form_builder:add_step:step_label', $sessionVarVal);
   }
 
   /**
