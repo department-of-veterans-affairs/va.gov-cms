@@ -23,10 +23,14 @@ trait TestPageLoads {
    *   The  page to load.
    * @param string $expectedText
    *   The text expected to show on the loaded page.
+   * @param bool $login
+   *   Whether a new user should be logged in.
    */
-  private function sharedTestPageLoads($url, $expectedText) {
-    // Log in a user with permission.
-    $this->loginFormBuilderUser();
+  private function sharedTestPageLoads($url, $expectedText, $login = TRUE) {
+    if ($login) {
+      // Log in a user with permission.
+      $this->loginFormBuilderUser();
+    }
 
     // Navigate to page.
     $this->drupalGet($url);
@@ -58,10 +62,14 @@ trait TestPageLoads {
    *   The  page to load.
    * @param string $expectedSubtitle
    *   The expected subtitle.
+   * @param bool $login
+   *   Whether a new user should be logged in.
    */
-  private function sharedTestPageHasExpectedSubtitle($url, $expectedSubtitle) {
-    // Log in a user with permission.
-    $this->loginFormBuilderUser();
+  private function sharedTestPageHasExpectedSubtitle($url, $expectedSubtitle, $login = TRUE) {
+    if ($login) {
+      // Log in a user with permission.
+      $this->loginFormBuilderUser();
+    }
 
     // Navigate to page.
     $this->drupalGet($url);
@@ -78,10 +86,14 @@ trait TestPageLoads {
    *   The  page to load.
    * @param string[] $expectedBreadcrumbs
    *   The expected breadcrumbs.
+   * @param bool $login
+   *   Whether a new user should be logged in.
    */
-  private function sharedTestPageHasExpectedBreadcrumbs($url, $expectedBreadcrumbs) {
-    // Log in a user with permission.
-    $this->loginFormBuilderUser();
+  private function sharedTestPageHasExpectedBreadcrumbs($url, $expectedBreadcrumbs, $login = TRUE) {
+    if ($login) {
+      // Log in a user with permission.
+      $this->loginFormBuilderUser();
+    }
 
     // Navigate to page.
     $this->drupalGet($url);
