@@ -33,7 +33,7 @@ class ChangeManilaMenuContent extends BatchOperations implements BatchScriptInte
    * {@inheritdoc}
    */
   public function getCompletedMessage(): string {
-    return '@total node updates were attempted. @completed were completed.';
+    return '@total menu item updates were attempted. @completed were completed.';
   }
 
   /**
