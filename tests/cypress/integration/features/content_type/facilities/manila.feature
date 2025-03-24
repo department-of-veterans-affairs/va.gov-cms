@@ -9,7 +9,7 @@ Scenario: Log in and create Event as a Manila editor
   And I fill in "Name" with "[TEST] Manila event"
   And I fill in field with selector "#edit-field-datetime-range-timezone-0-time-wrapper-value-date" with value "2025-11-04"
   And I fill in field with selector "#edit-field-datetime-range-timezone-0-time-wrapper-end-value-date" with value "2025-11-04"
- _va_gov_facilities_populate_service_default_appt_text And I fill in field with selector "#edit-field-datetime-range-timezone-0-time-wrapper-value-time" with value "10:00:00"
+  And I fill in field with selector "#edit-field-datetime-range-timezone-0-time-wrapper-value-time" with value "10:00:00"
   And I fill in field with selector "#edit-field-datetime-range-timezone-0-time-wrapper-end-value-time" with value "11:00:00"
   And I select option "Manila" from dropdown "Time zone"
   And I select option "VA Manila health care: Events" from dropdown "Where should the event be listed?"
@@ -17,7 +17,7 @@ Scenario: Log in and create Event as a Manila editor
   And I select option "Published" from dropdown "Save as"
   And I fill in "Revision log message" with "[TEST] Revision log message"
   And I click the "Save" button
-  Then I should be at "va-manila-health-care"
+  Then I should be at "manila-health-care"
 
 Scenario: Log in and edit the Manila VA Clinic
   When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
