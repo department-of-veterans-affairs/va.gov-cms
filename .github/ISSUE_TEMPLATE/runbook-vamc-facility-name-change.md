@@ -31,29 +31,26 @@ Facility API ID: <insert_facility_API_ID>
 #### CMS help desk steps
 **Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 What happens: The name change is made in VAST, that syncs to Lighthouse which syncs to Drupal.
-- [ ] 1. Check that the title change in name field on the VAMC node has shown up in Drupal.
-- [ ] 2. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] Check that the title change in name field on the VAMC node has shown up in Drupal.
+- [ ] Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. **URL changes no longer block the remaining steps in this ticket.**
 
 <insert_url_change_request_link>
 
-
-#### CMS Engineer steps
-- [ ] 3. Execute the steps of the URL change request ticket from step 2 above.
-
-(Redirects deploy daily except Friday at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the following items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
-
 #### Drupal Admin steps (CMS Engineer or Help desk)
 _Help desk will complete these steps or escalate to request help from CMS engineering._
-- [ ] 4. Locate the newly renamed VAMC Facility (https://prod.cms.va.gov/admin/content/bulk) Search by new name
-- [ ] 5. Updates URL alias for this facility
-- [ ] 6. Resave this facility
-- [ ] 7. Make bulk alias changes to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] 8. Bulk save fixed titles to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] 9. Update menu title for facility
-- [ ] 10. May also need to directly edit the VAMC System menu to alpha sort the menu item after the title changes
-- [ ] 11. Update Alt text for facility image, if relevant
-- [ ] 12. Update Meta description (TBD: some backwards compatibility for SEM, by including something like ", formerly known as [previous name]".
-- [ ] 13. Edit facility node and remove flag `Changed name` then save node (with moderation state = published)
+- [ ] Locate the newly renamed VAMC Facility (https://prod.cms.va.gov/admin/content/bulk) Search by new name
+- [ ] Change all data for the facility, in order to ensure changes ship together in the same content release:
+    - [ ] Edit facility:
+        - [ ] Update URL alias for this facility
+        - [ ] Update menu title for the facility to use the new name
+        - [ ] Update Meta description use the new name after "at", and add ", formerly known as [previous name]".
+        - [ ] Remove flag `Changed name`
+        - [ ] Save node (and preserve moderation state)
+    - [ ] [Bulk edit](https://prod.cms.va.gov/admin/content/bulk), perform the Action: update URL alias for all facility service nodes on this facility. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
+    - [ ] [Bulk edit](https://prod.cms.va.gov/admin/content/bulk), Action: Resave content, on all facility service nodes for this facility, to fix the title. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
+     - [ ] May also need to directly edit the VAMC System menu to alpha sort the menu item after the title changes
+     - [ ] Under [Media](https://prod.cms.va.gov/admin/content/media/images): Find the image for this facility (using the old facility name or Section), and update Alt text and name for facility image, if relevant
+- [ ] After the next content release: verify that the new URL for the facility is published and accessible on VA.gov
 
 #### CMS Help desk (wrap up)
 - [ ] 14. Notify editor and any other stakeholders. Ask editor to validate that the photo of the facility does not contain the old name in any signage, etc. and to replace if necessary.
