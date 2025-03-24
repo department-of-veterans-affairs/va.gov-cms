@@ -3,7 +3,8 @@ services:
   php:
     # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
     image: tugboatqa/php:8.1-apache-bookworm
-
+    expose: 80
+  
     aliases:
     - cms
     - web
