@@ -13,7 +13,7 @@ services:
     #   1. Clones the git repository into the service container
     #   2. Exposes port 80 to the Tugboat HTTP proxy
     #   3. Routes requests to the preview URL to this service
-    default: true
+    checkout: true
 
     depends:
     - memcache
@@ -291,3 +291,14 @@ services:
       - mysql -e "DROP DATABASE IF EXISTS tugboat; CREATE DATABASE tugboat";
       - zcat cms-prod-db-sanitized-latest.sql.gz | mysql tugboat
       - rm cms-prod-db-sanitized-latest.sql.gz
+  nginx:
+    image: tugboatqa/nginx
+    expose: 80
+    default: true
+    depends: php
+    commands:
+      init:
+          - ln -snf "${TUGBOAT_ROOT}/.tugboat/nginx" "${DOCROOT}"
+      build:
+        - sed -i 's/REPLACE_TOKEN/${TUGBOAT_DEFAULT_SERVICE_TOKEN}/g' $TUGBOAT_ROOT/.tugboat/nginx.conf
+        - bash $TUGBOAT_ROOT/.tugboat/nginxBuild.sh
