@@ -584,13 +584,37 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadDigitalForm($nid);
     $this->loadStepParagraph($stepParagraphId);
 
-    $formName = 'StepLabel';
-    $subtitle = $this->digitalForm->getTitle();
     $stepLabel = $this->stepParagraph->get('field_title')->value;
-    $breadcrumbs = $this->generateBreadcrumbs('layout', $stepLabel);
-    $libraries = ['single_column_with_buttons', 'step_label'];
+    $stepType = $this->stepParagraph->bundle();
 
-    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+    // For now, only works for single-question style.
+    if ($stepType !== 'digital_form_custom_step') {
+      throw new NotFoundHttpException();
+    }
+
+    $pages = $this->stepParagraph->get('field_digital_form_pages')->value;
+    $pageContent = [
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'step_layout',
+      '#page_heading' => empty($pages) ? 'Edit this step' : 'Review or edit this step',
+      '#buttons' => [
+        'primary' => [
+          'label' => 'Return to steps',
+          'url' => $this->getPageUrl('layout'),
+        ],
+        'secondary' => [
+          [
+            'label' => 'Add question',
+            'url' => '',
+          ],
+        ],
+      ],
+    ];
+
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', $stepLabel);
+    $libraries = ['single_column_with_buttons'];
+
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
