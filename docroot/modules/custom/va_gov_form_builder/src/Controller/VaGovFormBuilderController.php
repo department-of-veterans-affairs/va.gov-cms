@@ -204,7 +204,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     // Pages that relate to a step within a form.
     // Require a nid and stepParagraphId.
-    $stepPages = ['step_layout', 'step.step_label.edit'];
+    $stepPages = ['step.layout', 'step.step_label.edit'];
     if (in_array($page, $stepPages)) {
       if (!$this->digitalForm) {
         throw new \LogicException('Cannot determine page url because the digital form is not set.');
@@ -252,6 +252,19 @@ class VaGovFormBuilderController extends ControllerBase {
 
       $layoutUrl = $this->getPageUrl('layout');
       $breadcrumbTrail = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle(), $layoutUrl);
+    }
+
+    elseif ($parent === 'step.layout') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $stepLayoutUrl = $this->getPageUrl('step.layout');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'layout',
+        $this->stepParagraph->get('field_title')->value,
+        $stepLayoutUrl
+      );
     }
 
     $breadcrumbTrail[] = [
@@ -667,11 +680,14 @@ class VaGovFormBuilderController extends ControllerBase {
 
     if ($stepParagraphId) {
       $this->loadStepParagraph($stepParagraphId);
+      $breadcrumbs = $this->generateBreadcrumbs('step.layout', 'Step label');
+    }
+    else {
+      $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step label');
     }
 
     $formName = 'StepLabel';
     $subtitle = $this->digitalForm->getTitle();
-    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step label');
     $libraries = ['single_column_with_buttons', 'step_label'];
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
