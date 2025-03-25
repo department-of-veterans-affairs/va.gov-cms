@@ -593,6 +593,33 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Step-layout page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   */
+  public function stepLayout($nid, $stepParagraphId) {
+    $nodeFound = $this->loadDigitalForm($nid);
+    if (!$nodeFound) {
+      throw new NotFoundHttpException();
+    }
+
+    $stepParagraphFound = $this->loadStepParagraph($stepParagraphId);
+    if (!$stepParagraphFound) {
+      throw new NotFoundHttpException();
+    }
+
+    $formName = 'StepLabel';
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step label');
+    $libraries = ['single_column_with_buttons', 'step_label'];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
    * Step-label page.
    *
    * @param string $nid
