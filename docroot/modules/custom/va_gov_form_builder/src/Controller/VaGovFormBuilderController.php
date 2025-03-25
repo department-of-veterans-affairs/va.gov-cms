@@ -596,6 +596,10 @@ class VaGovFormBuilderController extends ControllerBase {
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'step_layout',
       '#page_heading' => empty($pages) ? 'Edit this step' : 'Review or edit this step',
+      '#step_label' => [
+        'label' => $stepLabel,
+        'url' => '',
+      ],
       '#buttons' => [
         'primary' => [
           'label' => 'Return to steps',
