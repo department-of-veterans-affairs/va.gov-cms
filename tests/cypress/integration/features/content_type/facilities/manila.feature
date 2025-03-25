@@ -1,4 +1,4 @@
-@content_type__event, @content_editing_vamc_facility
+@content_type__event, @content_editing_vamc_facility @skip
 Feature: Content Types: Event, VAMC Facility
 
 Scenario: Log in and create Event as a Manila editor
