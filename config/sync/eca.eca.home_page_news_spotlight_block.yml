@@ -13,7 +13,7 @@ dependencies:
 id: home_page_news_spotlight_block
 modeller: core
 label: 'Home page: News Spotlight Block'
-version: null
+version: ''
 weight: 0
 events:
   migrate_post_import:
@@ -32,7 +32,7 @@ events:
     successors:
       -
         id: entityqueue_add_item
-        condition: null
+        condition: entityqueue_entity_is_in_subqueu
 conditions:
   news_spotlight_block_migration:
     plugin: eca_scalar
@@ -43,6 +43,12 @@ conditions:
       type: value
       case: false
       negate: false
+  entityqueue_entity_is_in_subqueu:
+    plugin: entityqueue_entity_is_in_subqueue
+    configuration:
+      subqueue: home_page_news_spotlight
+      negate: true
+      entity: entity
 gateways: {  }
 actions:
   eca_views_query_news_block:
