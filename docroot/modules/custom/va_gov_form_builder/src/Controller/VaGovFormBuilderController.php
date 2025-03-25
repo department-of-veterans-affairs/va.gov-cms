@@ -108,16 +108,14 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $nid
    *   The node id to load.
    *
-   * @return bool
-   *   TRUE if successfully loaded. FALSE otherwise.
+   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   *   If the node is not found.
    */
   protected function loadDigitalForm($nid) {
     $this->digitalForm = $this->digitalFormsService->getDigitalForm($nid);
-    if ($this->digitalForm) {
-      return TRUE;
+    if (!$this->digitalForm) {
+      throw new NotFoundHttpException();
     }
-
-    return FALSE;
   }
 
   /**
@@ -126,29 +124,29 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $paragraphId
    *   The paragraph id to load.
    *
-   * @return bool
-   *   TRUE if successfully loaded. FALSE otherwise.
+   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   *   If the pargraph is not found, or if the paragraph
+   *   does not belong to $this->digitalForm.
    */
   protected function loadStepParagraph($paragraphId) {
     $paragraph = $this->entityTypeManager->getStorage('paragraph')->load($paragraphId);
     if (!$paragraph) {
-      return FALSE;
+      throw new NotFoundHttpException();
     }
 
     // Ensure the paragraph belongs to the node in question.
     if (!$this->digitalForm) {
-      return FALSE;
+      throw new NotFoundHttpException();
     }
     $parentId = $paragraph->get('parent_id') && is_object($paragraph->get('parent_id'))
       ? $paragraph->get('parent_id')->value
       : '';
 
     if ($parentId !== $this->digitalForm->id()) {
-      return FALSE;
+      throw new NotFoundHttpException();
     }
 
     $this->stepParagraph = $paragraph;
-    return TRUE;
   }
 
   /**
@@ -356,10 +354,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     if (!empty($nid)) {
       // This is an edit.
-      $nodeFound = $this->loadDigitalForm($nid);
-      if (!$nodeFound) {
-        throw new NotFoundHttpException();
-      }
+      $this->loadDigitalForm($nid);
 
       $breadcrumbs = $this->generateBreadcrumbs('layout', 'Form info');
     }
@@ -378,10 +373,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function layout($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'layout',
@@ -445,10 +437,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function nameAndDob($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'name_and_dob',
@@ -487,10 +476,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function identificationInfo($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'identification_info',
@@ -529,10 +515,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function addressInfo($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'address_info',
@@ -564,10 +547,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function contactInfo($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'contact_info',
@@ -601,15 +581,8 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The entity id of the step paragraph.
    */
   public function stepLayout($nid, $stepParagraphId) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
-
-    $stepParagraphFound = $this->loadStepParagraph($stepParagraphId);
-    if (!$stepParagraphFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
 
     $formName = 'StepLabel';
     $subtitle = $this->digitalForm->getTitle();
@@ -628,16 +601,10 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The entity id of the step paragraph.
    */
   public function stepLabel($nid, $stepParagraphId = NULL) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     if ($stepParagraphId) {
-      $stepParagraphFound = $this->loadStepParagraph($stepParagraphId);
-      if (!$stepParagraphFound) {
-        throw new NotFoundHttpException();
-      }
+      $this->loadStepParagraph($stepParagraphId);
     }
 
     $formName = 'StepLabel';
@@ -655,10 +622,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function stepStyle($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     // This is the second stage in the process
     // of creating a new step. The previously
@@ -706,10 +670,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function reviewAndSign($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'review_and_sign',
@@ -774,10 +735,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function viewForm($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $applicationUrl = $this->getLaunchViewLink();
     $isFormViewable = !empty($applicationUrl);
