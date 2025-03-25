@@ -4,5 +4,5 @@
 {# page_heading passed from controller #}
 
 {% block main_content %}
-  <p><strong>Step label:</strong> <a href="">{{ step_label.label }}</a></p>
+  <p><strong>Step label:</strong> <a href="{{ step_label.url }}">{{ step_label.label }}</a></p>
 {% endblock %}

@@ -53,19 +53,19 @@ va_gov_form_builder.step.layout:
   requirements:
     nid: \d*
     stepParagraphId: \d*
-va_gov_form_builder.step.add.step_label:
+va_gov_form_builder.step.step_label.create:
   path: "/form-builder/{nid}/step/add/step-label"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepLabel'
   requirements:
     nid: \d*
-va_gov_form_builder.step.add.step_style:
+va_gov_form_builder.step.step_style:
   path: "/form-builder/{nid}/step/add/step-style"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepStyle'
   requirements:
     nid: \d*
-va_gov_form_builder.step.edit.step_label:
+va_gov_form_builder.step.step_label.edit:
   path: "/form-builder/{nid}/step/{stepParagraphId}/step-label"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepLabel'

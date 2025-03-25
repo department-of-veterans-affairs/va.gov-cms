@@ -190,7 +190,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'layout',
       'form_info.edit',
       'name_and_dob', 'identification_info', 'address_info', 'contact_info',
-      'step.add.step_label', 'step.add.step_style',
+      'step.step_label.create', 'step.step_style',
       'review_and_sign', 'view_form',
     ];
     if (in_array($page, $formPages)) {
@@ -204,7 +204,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     // Pages that relate to a step within a form.
     // Require a nid and stepParagraphId.
-    $stepPages = ['step_layout', 'step.edit.step_label'];
+    $stepPages = ['step_layout', 'step.step_label.edit'];
     if (in_array($page, $stepPages)) {
       if (!$this->digitalForm) {
         throw new \LogicException('Cannot determine page url because the digital form is not set.');
@@ -441,7 +441,7 @@ class VaGovFormBuilderController extends ControllerBase {
           ];
         }, $this->digitalForm->getNonStandarddSteps()),
         'add_step' => [
-          'url' => $this->getPageUrl('step.add.step_label'),
+          'url' => $this->getPageUrl('step.step_label.create'),
         ],
       ],
       '#review_and_sign' => [
@@ -631,7 +631,7 @@ class VaGovFormBuilderController extends ControllerBase {
       '#page_heading' => empty($pages) ? 'Edit this step' : 'Review or edit this step',
       '#step_label' => [
         'label' => $stepLabel,
-        'url' => '',
+        'url' => $this->getPageUrl('step.step_label.edit'),
       ],
       '#buttons' => [
         'primary' => [
@@ -693,7 +693,7 @@ class VaGovFormBuilderController extends ControllerBase {
     // step-label page.
     $stepLabel = $this->session->get('form_builder:add_step:step_label');
     if (!$stepLabel) {
-      return $this->redirect('va_gov_form_builder.step.add.step_label', ['nid' => $nid]);
+      return $this->redirect('va_gov_form_builder.step.step_label.create', ['nid' => $nid]);
     }
 
     // This is a special circumstance of generating breadcrumbs.
@@ -714,7 +714,7 @@ class VaGovFormBuilderController extends ControllerBase {
     array_splice($breadcrumbs, 2, 0, [
       [
         'label' => $stepLabel,
-        'url' => $this->getPageUrl('step.add.step_label'),
+        'url' => $this->getPageUrl('step.step_label.create'),
       ],
     ]);
 
