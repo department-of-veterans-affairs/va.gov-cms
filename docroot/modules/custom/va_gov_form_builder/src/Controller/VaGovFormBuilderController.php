@@ -154,17 +154,18 @@ class VaGovFormBuilderController extends ControllerBase {
    *
    * This method is effectively a wrapper around
    * `Url::fromRoute()`, but abstracts away the
-   * addition of passing the node id to each call to that
-   * function. In this method, if the page requires
-   * a current digital form node, the node id of the
-   * current digital form node is added to the call
-   * to build the url.
+   * addition of passing the entity id's to each call
+   * to that function. In this method, if the page
+   * requires one or more entity id's, those id's
+   * are grabbed from the entities stored in state and
+   * added to the call to build the url.
    *
    * Ex:
    * 'home' => '/form-builder/home'
    * 'form_info.create' => '/form-builder/form-info'
    * 'layout' => '/form-builder/123456'
    * 'form_info.edit' => '/form-builder/123456/form-info'
+   * 'step.step_label.edit' => '/form-builder/123456/step/456789/step-label'
    *
    * @param string $page
    *   The page name. This should match the routing name.
@@ -172,20 +173,52 @@ class VaGovFormBuilderController extends ControllerBase {
    * @return string
    *   Returns the url for the page. Throws an exception if
    *   a route for the page is not configured or if
-   *   there is no digital form set and one is required
+   *   a required entity is not set and is required
    *   for the page to make sense.
    */
   protected function getPageUrl($page) {
-    $nonNodePages = ['home', 'form_info.create'];
-    if (in_array($page, $nonNodePages)) {
+    // Pages that do not relate to a specific form.
+    $basicPages = ['entry', 'home', 'form_info.create'];
+    if (in_array($page, $basicPages)) {
       return Url::fromRoute("va_gov_form_builder.{$page}")->toString();
     }
 
-    if (!$this->digitalForm) {
-      throw new \LogicException('Cannot determine page url because the digital form is not set.');
+    // Pages that relate to a specific form
+    // (but not a step or page within that form).
+    // Require only a nid.
+    $formPages = [
+      'layout',
+      'form_info.edit',
+      'name_and_dob', 'identification_info', 'address_info', 'contact_info',
+      'step.add.step_label', 'step.add.step_style',
+      'review_and_sign', 'view_form',
+    ];
+    if (in_array($page, $formPages)) {
+      if (!$this->digitalForm) {
+        throw new \LogicException('Cannot determine page url because the digital form is not set.');
+      }
+      return Url::fromRoute("va_gov_form_builder.{$page}", [
+        'nid' => $this->digitalForm->id(),
+      ])->toString();
     }
 
-    return Url::fromRoute("va_gov_form_builder.{$page}", ['nid' => $this->digitalForm->id()])->toString();
+    // Pages that relate to a step within a form.
+    // Require a nid and stepParagraphId.
+    $stepPages = ['step_layout', 'step.edit.step_label'];
+    if (in_array($page, $stepPages)) {
+      if (!$this->digitalForm) {
+        throw new \LogicException('Cannot determine page url because the digital form is not set.');
+      }
+      if (!$this->stepParagraph) {
+        throw new \LogicException('Cannot determine page url because the step paragraph is not set.');
+      }
+      return Url::fromRoute("va_gov_form_builder.{$page}", [
+        'nid' => $this->digitalForm->id(),
+        'stepParagraphId' => $this->stepParagraph->id(),
+      ])->toString();
+    }
+
+    return '';
   }
 
   /**
