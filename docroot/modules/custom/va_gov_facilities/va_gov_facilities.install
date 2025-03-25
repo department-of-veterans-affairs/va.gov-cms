@@ -98,3 +98,11 @@ function _va_gov_facilities_save_term(TermInterface &$term, &$updated, &$failed,
     }
   }
 }
+
+/**
+ * Change the label of the VA Manila Section.
+ */
+function va_gov_facilities_update_9002(&$sandbox) {
+  $script = \Drupal::classResolver('\Drupal\va_gov_batch\cbo_scripts\ChangeManilaTermLabel');
+  return $script->run($sandbox, 'hook_update');
+}
