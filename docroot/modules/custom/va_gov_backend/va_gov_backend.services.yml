@@ -55,3 +55,7 @@ services:
   va_gov_backend.test_logging:
     class: Drupal\va_gov_backend\Service\TestLogging
     arguments: ['@logger.factory']
+  va_gov_backend.field_select_all_options_subscriber:
+    class: Drupal\va_gov_backend\EventSubscriber\FieldSelectAllOptionsSubscriber
+    tags:
+      - { name: event_subscriber }
