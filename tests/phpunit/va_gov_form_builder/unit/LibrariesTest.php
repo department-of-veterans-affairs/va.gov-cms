@@ -74,7 +74,7 @@ class LibrariesTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey($homeLibrary, $this->libraries);
     $homeCssArray = array_keys($this->libraries[$homeLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'home.css', $homeCssArray, 'Home page css is present.');
-    // 2. Form Info.
+    // 2. Form info.
     $formInfoLibrary = 'form_info';
     $this->assertArrayHasKey($formInfoLibrary, $this->libraries);
     $formInfoCssArray = array_keys($this->libraries[$formInfoLibrary]['css']['theme']);
@@ -84,16 +84,26 @@ class LibrariesTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey($layoutLibrary, $this->libraries);
     $layoutCssArray = array_keys($this->libraries[$layoutLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'layout.css', $layoutCssArray, 'Layout page css is present.');
-    // 4. Single-column-with-buttons.
+    // 4. Single column with buttons.
     $singleColumnWithButtonsLibrary = 'single_column_with_buttons';
     $this->assertArrayHasKey($singleColumnWithButtonsLibrary, $this->libraries);
     $singleColumnWithButtonsCssArray = array_keys($this->libraries[$singleColumnWithButtonsLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'single-column-with-buttons.css', $singleColumnWithButtonsCssArray, 'Non-editable-pattern css is present.');
-    // 5. Non-editable-pattern.
+    // 5. Non-editable pattern.
     $nonEditablePatternLibrary = 'non_editable_pattern';
     $this->assertArrayHasKey($nonEditablePatternLibrary, $this->libraries);
     $nonEditablePatternCssArray = array_keys($this->libraries[$nonEditablePatternLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'non-editable-pattern.css', $nonEditablePatternCssArray, 'Non-editable-pattern css is present.');
+    // 6. Step label.
+    $stepLabelPatternLibrary = 'step_label';
+    $this->assertArrayHasKey($stepLabelPatternLibrary, $this->libraries);
+    $stepLabelCssArray = array_keys($this->libraries[$stepLabelPatternLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'step-label.css', $stepLabelCssArray, 'Step-label css is present.');
+    // 6. Step style.
+    $stepStylePatternLibrary = 'step_style';
+    $this->assertArrayHasKey($stepStylePatternLibrary, $this->libraries);
+    $stepStyleCssArray = array_keys($this->libraries[$stepStylePatternLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'step-style.css', $stepStyleCssArray, 'Step-style css is present.');
   }
 
 }
