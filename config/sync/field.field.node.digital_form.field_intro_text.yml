@@ -1,0 +1,24 @@
+uuid: ebf6d971-def3-4661-ba73-f6320a066003
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_intro_text
+    - node.type.digital_form
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.digital_form.field_intro_text
+field_name: field_intro_text
+entity_type: node
+bundle: digital_form
+label: 'Intro paragraph'
+description: 'Add a brief intro describing when to use this form. This could be 1 to 3 sentences, with no more than 25 words per sentence. This text is styled differently than body copy.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

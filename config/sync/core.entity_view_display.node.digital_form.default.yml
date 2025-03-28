@@ -5,7 +5,9 @@ dependencies:
   config:
     - field.field.node.digital_form.field_administration
     - field.field.node.digital_form.field_chapters
+    - field.field.node.digital_form.field_digital_form_what_to_know
     - field.field.node.digital_form.field_expiration_date
+    - field.field.node.digital_form.field_intro_text
     - field.field.node.digital_form.field_last_saved_by_an_editor
     - field.field.node.digital_form.field_meta_tags
     - field.field.node.digital_form.field_omb_number
@@ -26,6 +28,22 @@ third_party_settings:
         - field_omb_number
         - field_expiration_date
       label: 'OMB info'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        open: true
+        description: ''
+    group_introduction_page:
+      children:
+        - field_intro_text
+        - field_digital_form_what_to_know
+      label: 'Introduction Page'
       parent_name: ''
       region: content
       weight: 2
@@ -49,7 +67,15 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 3
+    weight: 4
+    region: content
+  field_digital_form_what_to_know:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
     region: content
   field_expiration_date:
     type: datetime_default
@@ -59,6 +85,13 @@ content:
       format_type: short_date_no_time
     third_party_settings: {  }
     weight: 7
+    region: content
+  field_intro_text:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_omb_number:
     type: string

@@ -5,7 +5,9 @@ dependencies:
   config:
     - field.field.node.digital_form.field_administration
     - field.field.node.digital_form.field_chapters
+    - field.field.node.digital_form.field_digital_form_what_to_know
     - field.field.node.digital_form.field_expiration_date
+    - field.field.node.digital_form.field_intro_text
     - field.field.node.digital_form.field_last_saved_by_an_editor
     - field.field.node.digital_form.field_meta_tags
     - field.field.node.digital_form.field_omb_number
@@ -34,7 +36,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 10
       format_type: fieldset
       format_settings:
         classes: ''
@@ -51,7 +53,7 @@ third_party_settings:
       label: 'OMB info'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 8
       format_type: fieldset
       format_settings:
         classes: ''
@@ -62,6 +64,23 @@ third_party_settings:
         required_fields: true
         open: true
         description_display: after
+    group_introduction_page:
+      children:
+        - field_intro_text
+        - field_digital_form_what_to_know
+      label: 'Introduction Page'
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: 'The form introduction page introduces the process the Veteran or other beneficiary will follow to apply for a benefit or to complete a supporting form.'
+        required_fields: true
+        description_display: after
 id: node.digital_form.default
 targetEntityType: node
 bundle: digital_form
@@ -69,7 +88,7 @@ mode: default
 content:
   field_chapters:
     type: paragraphs_browser
-    weight: 6
+    weight: 9
     region: content
     settings:
       title: Step
@@ -102,15 +121,50 @@ content:
         add_another: ''
       no_table_drag:
         no_table_drag: false
+  field_digital_form_what_to_know:
+    type: string_textfield_with_counter
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 255
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings:
+      no_table_drag:
+        no_table_drag: true
+      limited_field_widgets:
+        limit_values: 5
+      change_labels:
+        add_another: 'Add bullet'
   field_expiration_date:
     type: datetime_default
-    weight: 9
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_intro_text:
+    type: string_textarea_with_counter
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 400
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 3
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -174,7 +228,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 4
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
