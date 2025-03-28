@@ -9,9 +9,12 @@ use Drupal\field_event_dispatcher\FieldHookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * This subscriber adds a 'select all' option to the options buttons widget.
+ * This subscriber adds a 'checkbox mixed' option to the options buttons widget.
+ *
+ * A mixed checkbox is a checkbox that can be checked, unchecked, or
+ *  indeterminate. It is used to select all options in a field.
  */
-class FieldSelectAllOptionsSubscriber implements EventSubscriberInterface {
+class FieldCheckboxMixedOptionsButtonSubscriber implements EventSubscriberInterface {
 
   use StringTranslationTrait;
 
@@ -77,22 +80,24 @@ class FieldSelectAllOptionsSubscriber implements EventSubscriberInterface {
       if ($selectAllEnabled) {
         $element = &$event->getElement();
         $selectAllText = $widget->getThirdPartySetting('va_gov_backend', 'select_all_text', $this->t('Select all'));
-        $element['select_all_wrapper'] = [
+        $element['checkbox_mixed'] = [
           '#type' => 'container',
-          '#attributes' => ['class' => ['select-all-options']],
+          '#attributes' => ['class' => ['checkbox-mixed']],
           '#weight' => 0,
         ];
-        $element['select_all_wrapper']['select_all'] = [
+        $element['checkbox_mixed']['checkbox_mixed_checkbox'] = [
           '#type' => 'checkbox',
           '#title' => $selectAllText,
           '#attributes' => [
             'class' => [
-              'select-all-options-checkbox',
+              'checkbox-mixed-checkbox',
             ],
-            'data-select-all-options' => TRUE,
+            'role' => 'checkbox',
+            'aria-checked' => 'mixed',
+            'tabindex' => '0',
           ],
         ];
-        $element['#attached']['library'][] = 'va_gov_backend/select_all_options';
+        $element['#attached']['library'][] = 'va_gov_backend/checkbox_mixed';
       }
     }
   }
