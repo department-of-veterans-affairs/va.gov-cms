@@ -39,6 +39,10 @@
     function setAllCheckboxes(value) {
       for (var i = 0; i < checkboxNodes.length; i++) {
         checkboxNodes[i].checked = value;
+        var event = new Event("change", {
+          bubbles: true
+        });
+        checkboxNodes[i].dispatchEvent(event);
       }
       updateSelectAllState();
     }
@@ -57,8 +61,9 @@
     function onKeyup(event) {
       if (event.key === " ") {
         event.preventDefault();
-        selectAllCheckbox.checked = !selectAllCheckbox.checked;
-        setAllCheckboxes(selectAllCheckbox.checked);
+        var newState = !selectAllCheckbox.checked;
+        selectAllCheckbox.checked = newState;
+        setAllCheckboxes(newState);
       }
     }
     function onFocus() {
@@ -74,6 +79,7 @@
     selectAllCheckbox.addEventListener("blur", onBlur);
     for (var i = 0; i < checkboxNodes.length; i++) {
       checkboxNodes[i].addEventListener("change", onCheckboxChange);
+      checkboxNodes[i].addEventListener("click", onCheckboxChange);
     }
     updateSelectAllState();
   }

@@ -9,7 +9,7 @@ use Drupal\field_event_dispatcher\FieldHookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Subscriber for field hooks.
+ * This subscriber adds a 'select all' option to the options buttons widget.
  */
 class FieldSelectAllOptionsSubscriber implements EventSubscriberInterface {
 
@@ -45,8 +45,19 @@ class FieldSelectAllOptionsSubscriber implements EventSubscriberInterface {
       $elements['select_all'] = [
         '#type' => 'checkbox',
         '#title' => $this->t("Include 'select all' option"),
-        '#default_value' => $plugin->getThirdPartySetting('va_gov_backend', 'select_all'),
+        '#default_value' => $plugin->getThirdPartySetting('va_gov_backend', 'Select_all'),
         '#weight' => 100,
+      ];
+      $elements['select_all_text'] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Select all text'),
+        '#default_value' => $plugin->getThirdPartySetting('va_gov_backend', 'select_all_text', $this->t('Select all')),
+        '#weight' => 101,
+        '#states' => [
+          'visible' => [
+            ':input[name*="' . $event->getFieldDefinition()->getName() . '"][name$="[third_party_settings][va_gov_backend][select_all]"]' => ['checked' => TRUE],
+          ],
+        ],
       ];
       $event->addElements('va_gov_backend', $elements);
     }
@@ -65,7 +76,23 @@ class FieldSelectAllOptionsSubscriber implements EventSubscriberInterface {
       $selectAllEnabled = $widget->getThirdPartySetting('va_gov_backend', 'select_all');
       if ($selectAllEnabled) {
         $element = &$event->getElement();
-        $element['#prefix'] = '<span>testing</span>';
+        $selectAllText = $widget->getThirdPartySetting('va_gov_backend', 'select_all_text', $this->t('Select all'));
+        $element['select_all_wrapper'] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['select-all-options']],
+          '#weight' => 0,
+        ];
+        $element['select_all_wrapper']['select_all'] = [
+          '#type' => 'checkbox',
+          '#title' => $selectAllText,
+          '#attributes' => [
+            'class' => [
+              'select-all-options-checkbox',
+            ],
+            'data-select-all-options' => TRUE,
+          ],
+        ];
+        $element['#attached']['library'][] = 'va_gov_backend/select_all_options';
       }
     }
   }
