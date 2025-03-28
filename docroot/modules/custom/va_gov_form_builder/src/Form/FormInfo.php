@@ -3,26 +3,14 @@
 namespace Drupal\va_gov_form_builder\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\va_gov_form_builder\Form\Base\FormBuilderBase;
+use Drupal\va_gov_form_builder\Form\Base\FormBuilderFormBase;
 
 /**
  * Form step for entering a form's name and other basic info.
  *
  * Other basic info includes form number, OMB info, etc.
  */
-class FormInfo extends FormBuilderBase {
-
-  /**
-   * Flag indicating if the form mode is "create".
-   *
-   * Form mode is "create", and this value is TRUE,
-   * if no Digital Form is passed in representing an existing Digital Form.
-   *
-   * Form mode is "edit" otherwise, and this value is FALSE.
-   *
-   * @var bool
-   */
-  protected $isCreate;
+class FormInfo extends FormBuilderFormBase {
 
   /**
    * {@inheritdoc}
@@ -122,7 +110,7 @@ class FormInfo extends FormBuilderBase {
   /**
    * {@inheritdoc}
    */
-  protected function setDigitalFormFromFormState(array &$form, FormStateInterface $form_state) {
+  protected function setDigitalFormFromFormState(FormStateInterface $form_state) {
     $title = $form_state->getValue('title');
     $vaFormNumber = $form_state->getValue('field_va_form_number');
     $ombNumber = $form_state->getValue('field_omb_number');

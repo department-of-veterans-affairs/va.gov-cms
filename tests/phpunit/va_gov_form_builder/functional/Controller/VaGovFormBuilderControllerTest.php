@@ -8,6 +8,7 @@ use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use tests\phpunit\va_gov_form_builder\Traits\ParagraphCreationTrait;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
@@ -19,6 +20,8 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
  * @coversDefaultClass \Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController
  */
 class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
+
+  use ParagraphCreationTrait;
 
   /**
    * {@inheritdoc}
@@ -41,11 +44,13 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $entityTypeManager = \Drupal::service('entity_type.manager');
     $drupalFormBuilder = \Drupal::service('form_builder');
     $digitalFormsService = new DigitalFormsService($entityTypeManager);
+    $sessionService = \Drupal::service('session');
 
     $container = new ContainerBuilder();
     $container->set('entity_type.manager', $entityTypeManager);
     $container->set('form_builder', $drupalFormBuilder);
     $container->set('va_gov_form_builder.digital_forms_service', $digitalFormsService);
+    $container->set('session', $sessionService);
 
     // Create the controller instance.
     $this->controller = VaGovFormBuilderController::create($container);
@@ -374,6 +379,68 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Tests the stepLabel method returns a StepLabel form in create mode.
+   *
+   * When $stepParagraphId is not passed (is NULL), it should be create mode.
+   */
+  public function testStepLabelCreate() {
+    // Create a node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'field_chapters' => [],
+    ]);
+
+    $page = $this->controller->stepLabel($node->id());
+
+    // In create mode, default value should be null.
+    $this->assertArrayHasKey('#default_value', $page['content']['field_title']);
+    $this->assertEmpty($page['content']['field_title']['#default_value']);
+
+    // Ensure css is added.
+    // This should be present on both create and edit mode.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/step_label', $page['#attached']['library']);
+
+  }
+
+  /**
+   * Tests the stepLabel method returns a StepLabel form in edit mode.
+   *
+   * When $stepParagraphId is passed, it should be edit mode.
+   */
+  public function testStepLabelEdit() {
+    // Create a new custom-step paragraph.
+    $paragraphTitle = 'Custom Step ' . uniqid();
+    $paragraph = $this->createParagraph([
+      'type' => 'digital_form_custom_step',
+      'field_title' => $paragraphTitle,
+    ]);
+    $paragraph->save();
+
+    // Create a new Digital Form node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'title' => 'Test Digital Form ' . uniqid(),
+      'field_chapters' => [$paragraph],
+      'field_va_form_number' => '99-9999',
+    ]);
+    $node->save();
+
+    $nid = $node->id();
+    $paragraphId = $paragraph->id();
+    $page = $this->controller->stepLabel($nid, $paragraphId);
+
+    // In edit mode, default value should be populated.
+    $this->assertArrayHasKey('#default_value', $page['content']['field_title']);
+    $this->assertEquals($paragraphTitle, $page['content']['field_title']['#default_value']);
+
+    // Ensure css is added.
+    // This should be present on both create and edit mode.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/step_label', $page['#attached']['library']);
+  }
+
+  /**
    * Tests the reviewAndSign method returns a Review-and-Sign page.
    */
   public function testReviewAndSign() {
@@ -410,6 +477,59 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertArrayHasKey('#attached', $page);
     $this->assertContains('va_gov_form_builder/single_column_with_buttons', $page['#attached']['library']);
     $this->assertContains('va_gov_form_builder/non_editable_pattern', $page['#attached']['library']);
+  }
+
+  /**
+   * Tests the stepStyle method returns a StepStyle form.
+   */
+  public function testStepStyle() {
+    // Create a node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'field_chapters' => [],
+    ]);
+
+    // Ensure the expected session variable is populated.
+    $session = \Drupal::service('session');
+    $session->set('form_builder:add_step:step_label', 'Some non-empty value');
+
+    // Call the controller method.
+    $page = $this->controller->stepStyle($node->id());
+
+    // Ensure css is added.
+    // This should be present on both create and edit mode.
+    $this->assertArrayHasKey('#attached', $page);
+    $this->assertContains('va_gov_form_builder/step_style', $page['#attached']['library']);
+  }
+
+  /**
+   * Tests the stepStyle method returns a redirect.
+   *
+   * When session variable is empty, it should redirect.
+   */
+  public function testStepStyleRedirect() {
+    // Create a node.
+    $node = $this->createNode([
+      'type' => 'digital_form',
+      'field_chapters' => [],
+    ]);
+
+    // Ensure the expected session variable is empty.
+    $session = \Drupal::service('session');
+    $session->set('form_builder:add_step:step_label', NULL);
+
+    // Call the controller method.
+    $response = $this->controller->stepStyle($node->id());
+
+    // Ensure the returned value is a redirect.
+    $this->assertInstanceOf(RedirectResponse::class, $response);
+    $this->assertStringContainsString(
+      Url::fromRoute(
+        'va_gov_form_builder.step.add.step_label',
+        ['nid' => $node->id()]
+      )->toString(),
+      $response->getTargetUrl()
+    );
   }
 
   /**

@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Step Label
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/single-column-with-buttons.html.twig' %}
+
+{% set page_id = 'step-label' %}
+{% set page_heading = 'Start building this step' %}
+
+{% block main_content %}
+  <section class="form-builder-content-section form-builder-content-section--step-label">
+    <h3 class="form-builder-content-section__heading">Begin by providing a step label.</h3>
+    <p>
+      Provide a simple, plain language step label that describes what information this step is collecting.
+      This could be the main subject of the question or questions you are asking, such as: <i>Provide your
+      time off</i>, <i>Location of an event</i>, or other subject.
+    </p>
+
+    <div class="form-builder-content-section__field-title">
+      {{ form.field_title }}
+    </div>
+
+    <div class="form-builder-content-section__field-preview">
+      {{ form.preview }}
+    </div>
+  </section>
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'field_title',
+    'preview',
+    'actions',
+  )}}
+{% endblock %}

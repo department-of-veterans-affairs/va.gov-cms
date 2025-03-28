@@ -7,11 +7,25 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 /**
- * Abstract base class for Form Builder form steps.
+ * Abstract base class for Form Builder steps.
  */
 abstract class FormBuilderBase extends FormBase {
+
+  /**
+   * The Form Builder's image directory.
+   */
+  const IMAGE_DIR = '/modules/custom/va_gov_form_builder/images/';
+
+  /**
+   * The session service.
+   *
+   * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
+   */
+  protected $session;
 
   /**
    * The entity type manager.
@@ -28,42 +42,27 @@ abstract class FormBuilderBase extends FormBase {
   protected $digitalFormsService;
 
   /**
-   * The DigitalForm object created or loaded by this form step.
+   * Flag indicating whether this form is in "create" mode.
    *
-   * @var \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
-   */
-  protected $digitalForm;
-
-  /**
-   * Flag indicating if the Digital Form has been changed.
+   * "Create" mode reflects the state where this form is creating
+   * an entity for the first time, and should be contrasted
+   * with "edit" mode.
    *
-   * Indicates if the Digital Form has been changed
-   * since the form was first instantiated.
+   * Defaults to FALSE.
    *
    * @var bool
    */
-  protected $digitalFormIsChanged;
-
-  /**
-   * Flag indicating whether this form allows an empty DigitalForm object.
-   *
-   * This defaults to FALSE. The only time an empty object
-   * should be allowed is on the form that creates
-   * the node for the first time. Every other form should
-   * operate on an existing form and should require an
-   * object to be populated.
-   *
-   * @var bool
-   */
-  protected $allowEmptyDigitalForm;
+  protected $isCreate;
 
   /**
    * {@inheritDoc}
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, DigitalFormsService $digitalFormsService) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, DigitalFormsService $digitalFormsService, SessionInterface $session) {
     $this->entityTypeManager = $entityTypeManager;
     $this->digitalFormsService = $digitalFormsService;
-    $this->allowEmptyDigitalForm = FALSE;
+    $this->session = $session;
+
+    $this->isCreate = FALSE;
   }
 
   /**
@@ -72,94 +71,37 @@ abstract class FormBuilderBase extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
-      $container->get('va_gov_form_builder.digital_forms_service')
+      $container->get('va_gov_form_builder.digital_forms_service'),
+      $container->get('session')
     );
   }
 
   /**
-   * Returns the Digital Form fields accessed by this form step.
-   */
-  abstract protected function getFields();
-
-  /**
-   * Sets (creates or updates) a DigitalForm object from the form-state data.
-   */
-  abstract protected function setDigitalFormFromFormState(array &$form, FormStateInterface $form_state);
-
-  /**
-   * Returns a field value from the Digital Form.
+   * Sets form errors based on validation violations.
    *
-   * If Digital Form is not set, or `fieldName`
-   * does not exist, returns NULL. This is primarily
-   * used to populate forms with default values when the
-   * form edits an existing Digital Form.
-   *
-   * @param string $fieldName
-   *   The name of the field whose value should be fetched.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   * @param \Symfony\Component\Validator\ConstraintViolationList $violations
+   *   The list of validation violations.
+   * @param string[] $fieldList
+   *   A list of fields to check for validation violations. Violations will
+   *   only trigger form errors if the field to which the violation applies
+   *   is in this list.
    */
-  protected function getDigitalFormFieldValue($fieldName) {
-    if (empty($this->digitalForm)) {
-      return NULL;
-    }
-
-    try {
-      if ($fieldName === 'title') {
-        return $this->digitalForm->getTitle();
-      }
-
-      return $this->digitalForm->get($fieldName)->value;
-    }
-    catch (\Exception $e) {
-      return NULL;
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL) {
-    // When form is first built, initialize flag to false.
-    $this->digitalFormIsChanged = FALSE;
-
-    if (empty($digitalForm) && !$this->allowEmptyDigitalForm) {
-      throw new \InvalidArgumentException('Digital Form cannot be null.');
-    }
-    $this->digitalForm = $digitalForm;
-
-    return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    $this->setDigitalFormFromFormState($form, $form_state);
-
-    // Validate the node entity.
-    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
-    $violations = $this->digitalForm->validate();
-
+  protected static function setFormErrors(FormStateInterface $form_state, ConstraintViolationList $violations, array $fieldList) {
     // Loop through each violation and set errors on the form.
     if ($violations->count() > 0) {
       foreach ($violations as $violation) {
         // Account for nested property path(e.g. `field_omb_number.0.value`).
         $fieldName = explode('.', $violation->getPropertyPath())[0];
 
-        // Only concern ourselves with validation of fields used on this form.
-        if (in_array($fieldName, $this->getFields())) {
+        // Only concern ourselves with validation of fields in passed-in list.
+        if (in_array($fieldName, $fieldList)) {
           $message = $violation->getMessage();
           $form_state->setErrorByName($fieldName, $message);
         }
       }
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Save the previously validated Digital Form.
-    $this->digitalForm->save();
   }
 
 }

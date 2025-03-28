@@ -36,6 +36,18 @@ va_gov_form_builder.contact_info:
   path: "/form-builder/{nid}/contact-info"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::contactInfo'
+va_gov_form_builder.step.add.step_label:
+  path: "/form-builder/{nid}/step/add/step-label"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepLabel'
+va_gov_form_builder.step.add.step_style:
+  path: "/form-builder/{nid}/step/add/step-style"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepStyle'
+va_gov_form_builder.step.edit.step_label:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/step-label"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepLabel'
 va_gov_form_builder.review_and_sign:
   path: "/form-builder/{nid}/review-and-sign"
   defaults:
