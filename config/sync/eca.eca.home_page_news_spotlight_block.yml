@@ -33,6 +33,14 @@ events:
       -
         id: entityqueue_add_item
         condition: entityqueue_entity_is_in_subqueu
+  migrate_post_rollback:
+    plugin: 'migrate:post_rollback'
+    label: 'Migration rollback finished'
+    configuration: {  }
+    successors:
+      -
+        id: eca_views_query_news_block
+        condition: news_spotlight_block_migration
 conditions:
   news_spotlight_block_migration:
     plugin: eca_scalar
