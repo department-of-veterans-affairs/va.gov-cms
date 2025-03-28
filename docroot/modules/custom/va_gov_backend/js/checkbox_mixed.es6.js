@@ -7,7 +7,9 @@
 
 function createCheckboxMixed(domNode) {
   const mixedNode = domNode.querySelector('[role="checkbox"]');
-  const checkboxNodes = domNode.querySelectorAll('input[type="checkbox"]');
+  const checkboxNodes = domNode.parentNode.querySelectorAll(
+    'input[type="checkbox"]'
+  );
 
   // Private functions.
   function updateCheckboxStates() {

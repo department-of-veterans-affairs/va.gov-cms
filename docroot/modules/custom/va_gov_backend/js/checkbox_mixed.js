@@ -4,47 +4,116 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-(function (Drupal) {
-  function initSelectAllOptions(domNode) {
-    var selectAllCheckbox = domNode.querySelector(".select-all-options-checkbox");
-    if (!selectAllCheckbox) {
-      return;
-    }
-    var checkboxNodes = domNode.querySelectorAll('input[type="checkbox"]:not(.select-all-options-checkbox)');
-    function updateSelectAllState() {
-      var count = 0;
-      var total = checkboxNodes.length;
-      for (var i = 0; i < checkboxNodes.length; i++) {
-        if (checkboxNodes[i].checked) {
-          count += 1;
-        }
-      }
-      selectAllCheckbox.checked = count === total;
-    }
-    function setAllCheckboxes(value) {
-      for (var i = 0; i < checkboxNodes.length; i++) {
-        checkboxNodes[i].checked = value;
-      }
-      updateSelectAllState();
-    }
-    function onSelectAllChange(event) {
-      setAllCheckboxes(event.target.checked);
-    }
-    function onCheckboxChange() {
-      updateSelectAllState();
-    }
-    selectAllCheckbox.addEventListener("change", onSelectAllChange);
+function createCheckboxMixed(domNode) {
+  var mixedNode = domNode.querySelector('[role="checkbox"]');
+  var checkboxNodes = domNode.parentNode.querySelectorAll('input[type="checkbox"]');
+  function updateCheckboxStates() {
     for (var i = 0; i < checkboxNodes.length; i++) {
-      checkboxNodes[i].addEventListener("change", onCheckboxChange);
+      var checkboxNode = checkboxNodes[i];
+      checkboxNode.setAttribute("data-last-state", checkboxNode.checked);
     }
-    updateSelectAllState();
   }
+  function updateMixed() {
+    var count = 0;
+    for (var i = 0; i < checkboxNodes.length; i++) {
+      if (checkboxNodes[i].checked) {
+        count += 1;
+      }
+    }
+    if (count === 0) {
+      mixedNode.setAttribute("aria-checked", "false");
+    } else if (count === checkboxNodes.length) {
+      mixedNode.setAttribute("aria-checked", "true");
+    } else {
+      mixedNode.setAttribute("aria-checked", "mixed");
+      updateCheckboxStates();
+    }
+  }
+  function anyLastChecked() {
+    var count = 0;
+    for (var i = 0; i < checkboxNodes.length; i++) {
+      if (checkboxNodes[i].getAttribute("data-last-state") === "true") {
+        count += 1;
+      }
+    }
+    return count > 0;
+  }
+  function setCheckboxes(value) {
+    for (var i = 0; i < checkboxNodes.length; i++) {
+      var checkboxNode = checkboxNodes[i];
+      switch (value) {
+        case "last":
+          checkboxNode.checked = checkboxNode.getAttribute("data-last-state") === "true";
+          break;
+        case "true":
+          checkboxNode.checked = true;
+          break;
+        default:
+          checkboxNode.checked = false;
+          break;
+      }
+    }
+    updateMixed();
+  }
+  function toggleMixed() {
+    var state = mixedNode.getAttribute("aria-checked");
+    var action = void 0;
+    if (state === "false") {
+      action = anyLastChecked() ? "last" : "true";
+    } else if (state === "mixed") {
+      action = "true";
+    } else {
+      action = "false";
+    }
+    setCheckboxes(action);
+    updateMixed();
+  }
+  function onMixedKeydown(event) {
+    if (event.key === " ") {
+      event.preventDefault();
+    }
+  }
+  function onMixedKeyup(event) {
+    switch (event.key) {
+      case " ":
+        toggleMixed();
+        event.stopPropagation();
+        break;
+      default:
+        break;
+    }
+  }
+  mixedNode.addEventListener("keydown", onMixedKeydown);
+  mixedNode.addEventListener("keyup", onMixedKeyup);
+  mixedNode.addEventListener("click", toggleMixed);
+  mixedNode.addEventListener("focus", function () {
+    return mixedNode.classList.add("focus");
+  });
+  mixedNode.addEventListener("blur", function () {
+    return mixedNode.classList.remove("focus");
+  });
+  for (var i = 0; i < checkboxNodes.length; i++) {
+    var checkboxNode = checkboxNodes[i];
+    checkboxNode.addEventListener("click", function (event) {
+      event.currentTarget.setAttribute("data-last-state", event.currentTarget.checked);
+      updateMixed();
+    });
+    checkboxNode.addEventListener("focus", function (event) {
+      event.currentTarget.parentNode.classList.add("focus");
+    });
+    checkboxNode.addEventListener("blur", function (event) {
+      event.currentTarget.parentNode.classList.remove("focus");
+    });
+    checkboxNode.setAttribute("data-last-state", checkboxNode.checked);
+  }
+  updateMixed();
+}
+(function (Drupal) {
   Drupal.behaviors.selectAllOptions = {
     attach: function attach(context) {
-      var containers = context.querySelectorAll(".select-all-mixed");
-      for (var i = 0; i < containers.length; i++) {
-        initSelectAllOptions(containers[i].parentNode);
-      }
+      once("checkbox-mixed", ".checkbox-mixed", context).forEach(function (element) {
+        createCheckboxMixed(element);
+      });
     }
   };
-})(Drupal);
+})(Drupal, once);

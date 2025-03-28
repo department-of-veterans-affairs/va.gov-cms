@@ -29,7 +29,7 @@ class FieldCheckboxMixedOptionsButtonSubscriber implements EventSubscriberInterf
   }
 
   /**
-   * Adds a 'select all' option to 'options_button' widgets.
+   * Adds a 'mixed' select all option to 'options_button' widgets.
    *
    * The 'options_buttons' field widget displays either a list of radio buttons
    * for single value fields, or checkboxes for multi-value fields. This method
@@ -86,8 +86,9 @@ class FieldCheckboxMixedOptionsButtonSubscriber implements EventSubscriberInterf
           '#weight' => 0,
         ];
         $element['checkbox_mixed']['checkbox_mixed_checkbox'] = [
-          '#type' => 'checkbox',
-          '#title' => $selectAllText,
+          '#type' => 'html_tag',
+          '#tag' => 'div',
+          '#value' => $selectAllText,
           '#attributes' => [
             'class' => [
               'checkbox-mixed-checkbox',
