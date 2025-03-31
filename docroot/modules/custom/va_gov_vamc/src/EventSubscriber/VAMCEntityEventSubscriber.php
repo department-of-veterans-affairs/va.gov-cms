@@ -12,6 +12,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
@@ -19,6 +20,8 @@ use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent;
+
 
 /**
  * VA.gov VAMC Entity Event Subscriber.
@@ -54,8 +57,10 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_health_care_local_health_service_edit_form.alter' => 'alterFacilityServiceNodeForm',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      EntityHookEvents::ENTITY_TYPE_ALTER => 'alterEntityTypes',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+
     ];
   }
 
@@ -315,6 +320,45 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $form_state = $event->getFormState();
     $this->addCovidStatusData($form, $form_state);
   }
+
+  /**
+   * Add validation to menu link to check for parent link.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent $event
+   *   The event.
+   */
+  public function alterFieldInfo(EntityBundleFieldInfoAlterEvent $event): void {
+    $list_item_bundles = [
+      'health_care_local_facility',
+    ];
+    $entity_type = $event->getEntityType();
+    $bundle = $event->getBundle();
+    $fields = $event->getFields();
+    if (($entity_type->id() === 'node')
+    && (in_array($bundle, $list_item_bundles))) {
+      // Set the constraint on the menu.
+      $entity_type->addConstraint('FacilityParentLinkChecker');
+    }
+  }
+
+  /**
+ * Alters entity type definitions to add constraints.
+ *
+ * @param \Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent $event
+ *   The event.
+ */
+public function alterEntityTypes(EntityTypeAlterEvent $event): void {
+  $entity_types = $event->getEntityTypes();
+
+  // @todo: Add check for "health_care_local_facility".
+  // We only want to target that content type.
+
+  if (isset($entity_types['node'])) {
+    $constraints = $entity_types['node']->getConstraints();
+    $constraints['FacilityParentLinkChecker'] = [];
+    $entity_types['node']->setConstraints($constraints);
+  }
+}
 
   /**
    * Add js script to VAMC Op status node form.
