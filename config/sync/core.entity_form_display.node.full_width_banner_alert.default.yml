@@ -225,18 +225,16 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_banner_alert_vamcs:
-    type: options_buttons
+    type: checkbox_mixed
     weight: 27
     region: content
-    settings: {  }
+    settings:
+      select_all_text: 'Select all VAMC systems'
     third_party_settings:
       limited_field_widgets:
         limit_values: 0
       change_labels:
         add_another: ''
-      va_gov_backend:
-        select_all: '1'
-        select_all_text: 'Select all VAMC systems'
   field_body:
     type: text_textarea_with_counter
     weight: 7
