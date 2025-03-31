@@ -11,6 +11,7 @@ use Drupal\migrate\MigrateExecutable;
 use Drupal\migrate\MigrateMessage;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Plugin\MigrationPluginManagerInterface;
+use Drupal\migrate\Plugin\Migration;
 use Drupal\migrate_tools\MigrateTools;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -95,9 +96,12 @@ class ExecuteMigrationImport extends ConfigurableActionBase {
   }
 
   /**
-   * Builds options for migration execution.
+   * Builds options for a migration plugin.
+   *
+   * @param \Drupal\migrate\Plugin\Migration $migration
+   *   The migration plugin to build options for.
    */
-  protected function buildOptions(MigrationInterface $migration): void {
+  protected function buildOptions(Migration $migration): void {
     $options = [
       'limit' => $this->configuration['limit'],
       'update' => $this->configuration['update'],
