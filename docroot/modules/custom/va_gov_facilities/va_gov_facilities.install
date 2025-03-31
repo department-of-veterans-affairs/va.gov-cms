@@ -106,3 +106,11 @@ function va_gov_facilities_update_9002(&$sandbox) {
   $script = \Drupal::classResolver('\Drupal\va_gov_batch\cbo_scripts\ChangeManilaTermLabel');
   return $script->run($sandbox, 'hook_update');
 }
+
+/**
+ * Gives facilities with "Closed" status "Temporary Closure".
+ */
+function va_gov_facilities_update_9003(&$sandbox) {
+  $script = \Drupal::classResolver('\Drupal\va_gov_batch\cbo_scripts\MakeClosedFacilitiesTemporarilyClosed');
+  return $script->run($sandbox, 'hook_update');
+}
