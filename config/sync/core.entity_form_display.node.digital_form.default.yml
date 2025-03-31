@@ -7,8 +7,8 @@ dependencies:
     - field.field.node.digital_form.field_chapters
     - field.field.node.digital_form.field_digital_form_what_to_know
     - field.field.node.digital_form.field_expiration_date
-    - field.field.node.digital_form.field_intro_text
     - field.field.node.digital_form.field_form_application_url
+    - field.field.node.digital_form.field_intro_text
     - field.field.node.digital_form.field_last_saved_by_an_editor
     - field.field.node.digital_form.field_meta_tags
     - field.field.node.digital_form.field_omb_number
@@ -33,11 +33,10 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 9
       format_type: fieldset
       format_settings:
         classes: ''
@@ -54,7 +53,7 @@ third_party_settings:
       label: 'OMB info'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -72,7 +71,7 @@ third_party_settings:
       label: 'Introduction Page'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -89,7 +88,7 @@ mode: default
 content:
   field_chapters:
     type: paragraphs_browser
-    weight: 9
+    weight: 8
     region: content
     settings:
       title: Step
@@ -149,6 +148,14 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_form_application_url:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_intro_text:
     type: string_textarea_with_counter
     weight: 4
@@ -165,7 +172,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -229,7 +236,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 7
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
