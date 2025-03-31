@@ -60,7 +60,6 @@ class MakeClosedFacilitiesTemporarilyClosed extends BatchOperations implements B
    */
   public function processOne(string $key, mixed $item, array &$sandbox): string {
     try {
-      /** @var \Drupal\node\NodeStorageInterface $nodeStorage */
       $node_revisions = $this->getNodeDefaultAndForwardRevisions($item);
       foreach ($node_revisions as $revision) {
         $revision->set('field_operating_status_facility', 'temporary_closure');
