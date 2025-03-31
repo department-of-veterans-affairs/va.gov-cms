@@ -33,7 +33,7 @@ class PostApiQueueTest extends VaGovExistingSiteBase {
     'endpoint_path' => '/services/va_facilities/v1/facilities/vha_568A4/cms-overlay',
     'payload' => [
       'operating_status' => [
-        'code' => 'CLOSED',
+        'code' => 'TEMPORARY_CLOSURE',
         'additional_info' => 'Test additional info',
       ],
     ],
