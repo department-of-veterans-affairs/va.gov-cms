@@ -2,7 +2,8 @@
 name: Runbook - New Vet Center Facility
 about: changing facility information in the CMS for Vet Center facilities
 title: 'New Vet Center Facility: <insert_name_of_facility>'
-labels: Change request, Vet Center, Facilities, Flagged Facilities, User support, Drupal engineering
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support,
+  Vet Center, sitewide
 assignees: ''
 
 ---
@@ -51,26 +52,22 @@ Facility API ID: <insert_facility_API_ID>
 **If a Vet Center:**
 - [ ] Become aware that the new facility is now on the Facility API (typically, via a Flag).
 - [ ] Check with Readjustment Counseling Services to (1) confirm what district the Vet Center belongs, (2) identify the Vet Center Director and Outreach Specialist (names/email addresses), (3) confirm the new location isn't a replacement for an existing Outstation
+- [ ] Create a Vet Center - Locations List node for the Vet Center and save as Draft
 - [ ] In [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), move the Vet Center Section to the appropriate district.
 - [ ] Create account access as directed by RCS. If editors are new to Drupal, create accounts with editor rights only for Vet Center Director and Outreach Specialist so that they cannot publish on their own.
-- [ ] Contact Vet Center Director and Outreach specialist to onboard for training [@TODO write sample email - SEE runbook-vamc-facility-new] **Note: this should include instructions for adding content and preparing for publishing and RCS Central Office should be included as CC**
+- [ ] Contact Vet Center Director and Outreach specialist to onboard for training [@TODO write sample email - SEE runbook-vamc-facility-new] **Note: this should include instructions for adding content, updating the Locations list, and preparing for publishing and RCS Central Office should be included as CC**
 - [ ] Add flag `Awaiting editor` to this facility. Note: This is now blocked until RCS Central office approves.
 - [ ] **Once approved by RCS Central Office as complete, proceed to Drupal Admin publishing steps**
 
 
 **Drupal Admin steps**
-- [ ] Bulk publish the nodes and facility.
-- [ ] Contact Lighthouse via Slack at #cms-lighthouse channel that this facility requires a canonical link in the following format (replacing the placeholder data with the actual API Id and VA.gov URL):
-  - `vha_691GM,https://www.va.gov/greater-los-angeles-health-care/locations/oxnard-va-clinic/`
-- [ ] Add the "Awaiting CSV" flag to the facility node with a revision log message that includes a link to this ticket.
-- [ ] Let Help desk know this has been done, if not done by Help desk.
+- [ ] Bulk publish the nodes, Locations list and facility.
 
-#### Wait (days or weeks, potentially)
-- [ ] After the canonical link has been added to the websites.csv and you have confirmation from Lighthouse that the CSV has been deployed, validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
-- [ ] Update this ticket with a comment that the CSV change has been deployed.
-- [ ] Edit facility node and remove `New facility` and "Awaiting CSV" flags with a revision log message that includes a link to this ticket.
+#### After next nightly Facilities migration to Lighthouse
+- [ ] Validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
+- [ ] Edit facility node and remove `New facility` flag with a revision log message that includes a link to this ticket.
 - [ ] Let Help desk know this has been done, if not done by Help desk.
 
 #### CMS Help desk (wrap up)
-- [ ] 11. Upgrade the Vet Center Director and Outreach Specialist accounts to the publisher role for that Vet Center.
-- [ ] 12. Notify editor and any other stakeholders.
+- [ ] Upgrade the Vet Center Director and Outreach Specialist accounts to the publisher role for that Vet Center.
+- [ ] Notify editor and any other stakeholders.

@@ -1,8 +1,8 @@
 ---
 name: Research Plan
-about: Use this template when you are drafting a research plan 
+about: Use this template when you are drafting a research plan
 title: Draft [PRODUCT/INITIATIVE] research plan
-labels: UX, Research
+labels: Research, UX
 assignees: ''
 
 ---
@@ -35,6 +35,3 @@ Use the appropriate template for the group you're conducting research with:
 - [ ] Feedback incorporated from PM and/or other team members
 - [ ] Research plan posted on github in project research folder
 - [ ] Final approval obtained from Sitewide UX Lead and documented at the bottom of the file in preparation for Research Review cycle
-
-
-

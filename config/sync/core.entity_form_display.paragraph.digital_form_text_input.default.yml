@@ -1,0 +1,56 @@
+uuid: 321a0bd8-f075-477b-b5f9-089ca60d4cb7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_text_input.field_digital_form_hint_text
+    - field.field.paragraph.digital_form_text_input.field_digital_form_label
+    - field.field.paragraph.digital_form_text_input.field_digital_form_required
+    - paragraphs.paragraphs_type.digital_form_text_input
+  module:
+    - textfield_counter
+id: paragraph.digital_form_text_input.default
+targetEntityType: paragraph
+bundle: digital_form_text_input
+mode: default
+content:
+  field_digital_form_hint_text:
+    type: string_textfield_with_counter
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 255
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+  field_digital_form_label:
+    type: string_textfield_with_counter
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 255
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+  field_digital_form_required:
+    type: boolean_checkbox
+    weight: 1
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

@@ -26,6 +26,9 @@ for pid in ${NEXT_SERVER_PIDS}; do
     kill $pid
 done
 
+# Install the correct node version if necessary and use it.
+nvm install && nvm use
+
 # Start the dev server. Vets-website assets need to be in place prior to this build.
 # Need to start in the background so the script can exit.
 APP_ENV=${APP_ENV} yarn start &> /dev/null &

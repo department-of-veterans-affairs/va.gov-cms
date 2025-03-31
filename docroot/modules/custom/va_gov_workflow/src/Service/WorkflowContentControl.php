@@ -23,7 +23,7 @@ class WorkflowContentControl {
    *   The user perms service.
    */
   public function __construct(
-    UserPermsService $user_perms_service
+    UserPermsService $user_perms_service,
   ) {
     $this->userPermsService = $user_perms_service;
   }
@@ -63,6 +63,7 @@ class WorkflowContentControl {
         'vba_facility',
         'vet_center',
         'vet_center_locations_list',
+        'vet_center_outstation',
       ],
       'block_content' => [
         'benefit_promo',

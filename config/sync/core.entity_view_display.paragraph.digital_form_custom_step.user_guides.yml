@@ -1,0 +1,26 @@
+uuid: 24380256-d404-4645-a370-c8bfa70dbecb
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.digital_form_custom_step.field_digital_form_pages
+    - field.field.paragraph.digital_form_custom_step.field_title
+    - paragraphs.paragraphs_type.digital_form_custom_step
+id: paragraph.digital_form_custom_step.user_guides
+targetEntityType: paragraph
+bundle: digital_form_custom_step
+mode: user_guides
+content:
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  breadcrumbs: true
+  field_digital_form_pages: true
+  search_api_excerpt: true

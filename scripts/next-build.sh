@@ -17,7 +17,8 @@ source ~/.bashrc
 
 cd "${ROOT}/next"
 
-nvm install 18.17.0
-nvm use 18.17.0
+# Install the correct node version if necessary and use it.
+nvm install && nvm use
 
-APP_ENV=${APP_ENV} yarn build:preview
+APP_ENV=tugboat yarn build:preview
+>>>>>>> main

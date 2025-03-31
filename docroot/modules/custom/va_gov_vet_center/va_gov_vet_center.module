@@ -183,24 +183,6 @@ function va_gov_vet_center_vc_cap_address_alter_label_after_build(array $element
  */
 function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
   _va_gov_backend_set_owner_section_default($form, $form_state);
-
-  $entity = $form_state->getformObject()->getEntity();
-
-  // Only attach the service select setter to vet_center service bundle.
-  if ($entity->bundle() !== 'vet_center') {
-    return;
-  }
-
-  // Attach the vet center services view to the form.
-  $form['group_vet_center_services'][] = [
-    '#type' => 'view',
-    '#name' => 'vet_center_services',
-    '#display_id' => 'vet_center_services',
-    '#embed' => TRUE,
-    '#arguments' => [$entity->id()],
-
-  ];
-
 }
 
 /**
@@ -222,7 +204,7 @@ function va_gov_vet_center_views_pre_render(ViewExecutable $view) {
   // Ensure the page title is not null and the desired field exists in the view.
   if ($entity_title && isset($view->field['field_service_name_and_descripti'])) {
     // Append the page title to the field label as needed.
-    $new_label = t('Services offered at') . $entity_title;
+    $new_label = t('Services offered at') . " " . $entity_title;
     // Set the new label for the field.
     $view->field['field_service_name_and_descripti']->options['label'] = $new_label;
   }
@@ -230,23 +212,10 @@ function va_gov_vet_center_views_pre_render(ViewExecutable $view) {
 }
 
 /**
- * Implements hook_inline_entity_form_alter().
- */
-function va_gov_vet_center_inline_entity_form_entity_form_alter(&$entity_form, FormStateInterface $form_state) {
-  // Disable service name field for existing Vet Center Facility Services.
-  $node_id = $entity_form['#entity']->id();
-  if ($entity_form['#bundle'] === 'vet_center_facility_health_servi' && isset($node_id)) {
-    $entity_form['field_service_name_and_descripti']['#disabled'] = TRUE;
-  }
-}
-
-/**
  * Implements hook_page_attachments().
  */
 function va_gov_vet_center_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'va_gov_vet_center/alert_form';
-  // Prevent duplicate services in select.
-  $attachments['#attached']['library'][] = 'va_gov_vet_center/prevent_select_duplicates';
   // Show service descriptions on node:view.
   $attachments['#attached']['library'][] = 'va_gov_vet_center/display_service_descriptions';
 

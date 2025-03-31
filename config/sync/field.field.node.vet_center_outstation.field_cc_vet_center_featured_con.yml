@@ -1,0 +1,31 @@
+uuid: 9bef029b-2c25-4eb8-b64d-8512dfada09d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_vet_center_featured_con
+    - node.type.vet_center_outstation
+  module:
+    - entity_field_fetch
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vet_center_outstation.field_cc_vet_center_featured_con
+field_name: field_cc_vet_center_featured_con
+entity_type: node
+bundle: vet_center_outstation
+label: 'National spotlight'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '16142'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: '32957'
+field_type: entity_field_fetch

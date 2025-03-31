@@ -1,0 +1,36 @@
+Subject: [PATCH] instantiate against FileSystemInterface
+---
+Index: src/Service/ExportRecipe.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Service/ExportRecipe.php b/src/Service/ExportRecipe.php
+--- a/src/Service/ExportRecipe.php	(revision a6a8606bd901d28ac2ab784888adb3ceddc33c1a)
++++ b/src/Service/ExportRecipe.php	(date 1725568031153)
+@@ -7,6 +7,7 @@
+ use Drupal\Core\Extension\ModuleExtensionList;
+ use Drupal\Core\File\FileExists;
+ use Drupal\Core\File\FileSystem;
++use Drupal\Core\File\FileSystemInterface;
+ use Drupal\Core\Messenger\Messenger;
+ use Drupal\Core\StringTranslation\StringTranslationTrait;
+ use Drupal\eca\Entity\Eca;
+@@ -26,7 +27,7 @@
+    *
+    * @param \Drupal\Core\Config\ManagedStorage $configStorage
+    *   The config storage.
+-   * @param \Drupal\Core\File\FileSystem $fileSystem
++   * @param \Drupal\Core\File\FileSystemInterface $fileSystem
+    *   The file system.
+    * @param \Drupal\Core\Extension\ModuleExtensionList $moduleExtensionList
+    *   The module extension list.
+@@ -37,7 +38,7 @@
+    */
+   public function __construct(
+     protected readonly ManagedStorage $configStorage,
+-    protected readonly FileSystem $fileSystem,
++    protected readonly FileSystemInterface $fileSystem,
+     protected readonly ModuleExtensionList $moduleExtensionList,
+     protected readonly Modellers $modellerService,
+     protected readonly Messenger $messenger,
