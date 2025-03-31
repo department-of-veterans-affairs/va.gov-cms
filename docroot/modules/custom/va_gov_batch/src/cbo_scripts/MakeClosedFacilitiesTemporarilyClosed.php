@@ -66,7 +66,7 @@ class MakeClosedFacilitiesTemporarilyClosed extends BatchOperations implements B
         $message = "Updated from Closed to Temporary Closure via script.";
         $this->saveNodeRevision($revision, $message);
       }
-      return "Updated node $item with Temporary Closure status.";
+      return "Updated node $item from Closed to Temporary Closure status.";
     }
     catch (\Exception $e) {
       $message = "Exception during update of node $item: $e";
