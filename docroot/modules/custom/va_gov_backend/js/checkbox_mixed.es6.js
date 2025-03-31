@@ -149,4 +149,4 @@ function createCheckboxMixed(domNode) {
       });
     },
   };
-})(Drupal, once);
+})(window.Drupal, window.once);

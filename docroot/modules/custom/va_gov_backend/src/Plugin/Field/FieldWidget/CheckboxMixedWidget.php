@@ -74,19 +74,6 @@ class CheckboxMixedWidget extends OptionsButtonsWidget {
       '#weight' => 0,
     ];
 
-//    $element['checkbox_mixed']['checkbox_mixed_checkbox'] = [
-//      '#type' => 'html_tag',
-//      '#tag' => 'div',
-//      '#value' => $this->getSetting('select_all_text'),
-//      '#attributes' => [
-//        'class' => [
-//          'checkbox-mixed-checkbox',
-//        ],
-//        'role' => 'checkbox',
-//        'aria-checked' => 'mixed',
-//        'tabindex' => '0',
-//      ],
-//    ];
     $element['checkbox_mixed']['checkbox_mixed_checkbox'] = [
       '#type' => 'checkbox',
       '#title' => $this->getSetting('select_all_text'),
