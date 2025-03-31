@@ -10,6 +10,7 @@ dependencies:
     - eca_migrate
     - eca_views
     - entityqueue
+    - va_gov_eca
 id: home_page_news_spotlight_block
 modeller: core
 label: 'Home page: News Spotlight Block'
@@ -41,6 +42,21 @@ events:
       -
         id: eca_views_query_news_block
         condition: news_spotlight_block_migration
+  eca_base_eca_cron:
+    plugin: 'eca_base:eca_cron'
+    label: 'ECA cron event'
+    configuration:
+      frequency: '15 0 * * *'
+    successors:
+      -
+        id: execute_news_spotlight_images_mi
+        condition: null
+      -
+        id: execute_news_spotlight_media_mi
+        condition: null
+      -
+        id: execute_news_spotlight_blocks_mi
+        condition: null
 conditions:
   news_spotlight_block_migration:
     plugin: eca_scalar
@@ -86,4 +102,34 @@ actions:
       subqueue: home_page_news_spotlight
       object: entity
       replace_tokens: false
+    successors: {  }
+  execute_news_spotlight_images_mi:
+    plugin: execute_migration_import
+    label: 'Execute news_spotlight_images migration'
+    configuration:
+      migration: news_spotlight_images
+      update: false
+      force: false
+      limit: ''
+      idlist: ''
+    successors: {  }
+  execute_news_spotlight_media_mi:
+    plugin: execute_migration_import
+    label: 'Execute news_spotlight_media migration'
+    configuration:
+      migration: news_spotlight_media
+      update: false
+      force: false
+      limit: ''
+      idlist: ''
+    successors: {  }
+  execute_news_spotlight_blocks_mi:
+    plugin: execute_migration_import
+    label: 'Execute news_spotlight_blocks migration'
+    configuration:
+      migration: news_spotlight_blocks
+      update: false
+      force: false
+      limit: ''
+      idlist: ''
     successors: {  }
