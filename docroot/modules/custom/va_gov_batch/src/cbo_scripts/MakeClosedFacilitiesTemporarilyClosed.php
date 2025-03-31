@@ -63,10 +63,10 @@ class MakeClosedFacilitiesTemporarilyClosed extends BatchOperations implements B
       $node_revisions = $this->getNodeDefaultAndForwardRevisions($item);
       foreach ($node_revisions as $revision) {
         $revision->set('field_operating_status_facility', 'temporary_closure');
-        $message = "Updated from Closed to Temporary Closure via script.";
+        $message = "Updated operating status from Closed to Temporary facility closure via script.";
         $this->saveNodeRevision($revision, $message);
       }
-      return "Updated node $item from Closed to Temporary Closure status.";
+      return "Updated node $item Operating Status from Closed to Temporary facility closure status.";
     }
     catch (\Exception $e) {
       $message = "Exception during update of node $item: $e";
