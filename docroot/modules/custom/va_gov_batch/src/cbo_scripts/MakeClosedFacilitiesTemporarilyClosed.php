@@ -7,7 +7,7 @@ use Drupal\codit_batch_operations\BatchScriptInterface;
 
 /**
  * @file
- * For non-numerical characters in the phone_number paragraph extension field.
+ * Updates facilities from Closed to Temporary facility closure status.
  *
  * For VACMS-20738.
  * drush codit-batch-operations:run MakeClosedFacilitiesTemporarilyClosed .
@@ -32,7 +32,7 @@ class MakeClosedFacilitiesTemporarilyClosed extends BatchOperations implements B
    */
   public function getDescription():string {
     return <<<ENDHERE
-    Updates facilities with closed status to have Temporary facility closure status.
+    Updates facilities from "Closed" status to "Temporary facility closure" operating status.
     ENDHERE;
   }
 
