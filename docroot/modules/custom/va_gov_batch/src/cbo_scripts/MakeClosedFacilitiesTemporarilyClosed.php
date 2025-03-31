@@ -32,7 +32,7 @@ class MakeClosedFacilitiesTemporarilyClosed extends BatchOperations implements B
    */
   public function getDescription():string {
     return <<<ENDHERE
-    Updates facilities with closed status to have Temporary Closure status.
+    Updates facilities with closed status to have Temporary facility closure status.
     ENDHERE;
   }
 
