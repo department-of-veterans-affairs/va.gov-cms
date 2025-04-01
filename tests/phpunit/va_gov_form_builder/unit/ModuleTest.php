@@ -214,6 +214,7 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey('template', $result[$stepLayoutTheme]);
     $this->assertEquals('step-layout', $result[$stepLayoutTheme]['template']);
     $this->assertArrayHasKey('variables', $result[$stepLayoutTheme]);
+    $this->assertArrayHasKey('supported_step_type', $result[$stepLayoutTheme]['variables']);
     $this->assertArrayHasKey('page_heading', $result[$stepLayoutTheme]['variables']);
     $this->assertArrayHasKey('step_label', $result[$stepLayoutTheme]['variables']);
     $this->assertArrayHasKey('pages', $result[$stepLayoutTheme]['variables']);

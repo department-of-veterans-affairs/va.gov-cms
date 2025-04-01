@@ -639,41 +639,47 @@ class VaGovFormBuilderController extends ControllerBase {
     $stepLabel = $this->stepParagraph->get('field_title')->value;
     $stepType = $this->stepParagraph->bundle();
 
-    // For now, only works for single-question style.
-    if ($stepType !== 'digital_form_custom_step') {
-      throw new NotFoundHttpException();
-    }
-
-    $pageEntities = $this->stepParagraph->get('field_digital_form_pages')->referencedEntities();
-    $pages = array_map(function ($page) {
-      return [
-        'id' => $page->id(),
-        'title' => $page->get('field_title')->value,
-        'url' => '',
-      ];
-    }, $pageEntities);
-
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'step_layout',
-      '#page_heading' => empty($pages) ? 'Edit this step' : 'Review or edit this step',
-      '#step_label' => [
-        'label' => $stepLabel,
-        'url' => $this->getPageUrl('step.step_label.edit'),
-      ],
-      '#pages' => $pages,
       '#buttons' => [
         'primary' => [
           'label' => 'Return to steps',
           'url' => $this->getPageUrl('layout'),
         ],
-        'secondary' => [
-          [
-            'label' => 'Add question',
-            'url' => '',
-          ],
-        ],
       ],
     ];
+
+    // For now, only works for single-question style.
+    if ($stepType !== 'digital_form_custom_step') {
+      $pageContent['#supported_step_type'] = FALSE;
+      $pageContent['#page_heading'] = 'This step type is not supported yet.';
+      $pageContent['#pages'] = [];
+    }
+    else {
+      $pageContent['#supported_step_type'] = TRUE;
+
+      $pageEntities = $this->stepParagraph->get('field_digital_form_pages')->referencedEntities();
+      $pages = array_map(function ($page) {
+        return [
+          'id' => $page->id(),
+          'title' => $page->get('field_title')->value,
+          'url' => '',
+        ];
+      }, $pageEntities);
+
+      $pageContent['#page_heading'] = empty($pages) ? 'Edit this step' : 'Review or edit this step';
+      $pageContent['#step_label'] = [
+        'label' => $stepLabel,
+        'url' => $this->getPageUrl('step.step_label.edit'),
+      ];
+      $pageContent['#pages'] = $pages;
+      $pageContent['#buttons']['secondary'] = [
+        [
+          'label' => 'Add question',
+          'url' => '',
+        ],
+      ];
+    }
 
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', $stepLabel);

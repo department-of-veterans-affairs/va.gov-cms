@@ -145,6 +145,8 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
     'path' => $page_content_theme_path,
     'template' => 'step-layout',
     'variables' => [
+      // Whether the step type is supported. Defaults to TRUE.
+      'supported_step_type' => TRUE,
       'page_heading' => '',
       'step_label' => [],
       'pages' => [],
