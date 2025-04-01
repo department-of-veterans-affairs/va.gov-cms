@@ -718,26 +718,26 @@ class VaGovFormBuilderController extends ControllerBase {
    * This function normalizes those cases to return a valid preview link.
    */
   private function getLaunchViewLink() {
-    $application_url_field = $this->digitalForm->get('field_form_application_url');
+    $applicationUrlField = $this->digitalForm->get('field_form_application_url');
 
     // Bail early if no field value.
-    if ($application_url_field->isEmpty()) {
+    if ($applicationUrlField->isEmpty()) {
       return '';
     }
 
     // Parse field value into url parts.
-    $url = parse_url($application_url_field->getString());
+    $url = parse_url($applicationUrlField->getString());
 
     $scheme = 'https://';
-    $preview_host = 'staging.va.gov';
+    $previewHost = 'staging.va.gov';
 
     if (str_starts_with($url['path'], 'staging.va.gov')) {
       return $scheme . $url['path'];
     }
     if (!str_starts_with($url['path'], '/')) {
-      return $scheme . $preview_host . '/' . $url['path'];
+      return $scheme . $previewHost . '/' . $url['path'];
     }
-    return $scheme . $preview_host . $url['path'];
+    return $scheme . $previewHost . $url['path'];
   }
 
   /**
