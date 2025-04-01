@@ -716,18 +716,23 @@ class VaGovFormBuilderController extends ControllerBase {
    *  - /form-application-url
    *  - form-application-url
    * This function normalizes those cases to return a valid preview link.
-   *
-   * @param string $string
-   *   Digital Form node's field_form_application_url value.
    */
-  public function constructLaunchViewLink($string) {
-    $url = parse_url($string);
+  private function getLaunchViewLink() {
+    $application_url_field = $this->digitalForm->get('field_form_application_url');
+
+    // Bail early if no field value.
+    if ($application_url_field->isEmpty()) {
+      return '';
+    }
+
+    // Parse field value into url parts.
+    $url = parse_url($application_url_field->getString());
 
     $scheme = 'https://';
     $preview_host = 'staging.va.gov';
 
     if (str_starts_with($url['path'], 'staging.va.gov')) {
-      return $scheme . $string;
+      return $scheme . $url['path'];
     }
     if (!str_starts_with($url['path'], '/')) {
       return $scheme . $preview_host . '/' . $url['path'];
@@ -747,15 +752,14 @@ class VaGovFormBuilderController extends ControllerBase {
       throw new NotFoundHttpException();
     }
 
-    // To preview, first check that application url for a form exists.
-    $application_url_field = $this->digitalForm->get('field_form_application_url');
-    $isFormViewable = !$application_url_field->isEmpty();
+    $applicationUrl = $this->getLaunchViewLink();
+    $isFormViewable = !empty($applicationUrl);
     $viewFormStatus = $isFormViewable ? 'available' : 'unavailable';
 
     $buttons = $isFormViewable ? [
       'primary' => [
         'label' => 'Launch view',
-        'url' => $this->constructLaunchViewLink($application_url_field->getString()),
+        'url' => $applicationUrl,
         'target' => '_blank',
       ],
       'secondary' => [
