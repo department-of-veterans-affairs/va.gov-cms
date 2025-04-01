@@ -638,7 +638,15 @@ class VaGovFormBuilderController extends ControllerBase {
       throw new NotFoundHttpException();
     }
 
-    $pages = $this->stepParagraph->get('field_digital_form_pages')->value;
+    $pageEntities = $this->stepParagraph->get('field_digital_form_pages')->referencedEntities();
+    $pages = array_map(function ($page) {
+      return [
+        'id' => $page->id(),
+        'title' => $page->get('field_title')->value,
+        'url' => '',
+      ];
+    }, $pageEntities);
+
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'step_layout',
       '#page_heading' => empty($pages) ? 'Edit this step' : 'Review or edit this step',
@@ -646,6 +654,7 @@ class VaGovFormBuilderController extends ControllerBase {
         'label' => $stepLabel,
         'url' => $this->getPageUrl('step.step_label.edit'),
       ],
+      '#pages' => $pages,
       '#buttons' => [
         'primary' => [
           'label' => 'Return to steps',

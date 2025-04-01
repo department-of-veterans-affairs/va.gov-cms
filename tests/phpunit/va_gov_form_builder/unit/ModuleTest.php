@@ -216,6 +216,7 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey('variables', $result[$stepLayoutTheme]);
     $this->assertArrayHasKey('page_heading', $result[$stepLayoutTheme]['variables']);
     $this->assertArrayHasKey('step_label', $result[$stepLayoutTheme]['variables']);
+    $this->assertArrayHasKey('pages', $result[$stepLayoutTheme]['variables']);
     $this->assertArrayHasKey('buttons', $result[$stepLayoutTheme]['variables']);
 
     // Form themes.
