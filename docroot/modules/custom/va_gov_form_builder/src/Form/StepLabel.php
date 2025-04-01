@@ -115,6 +115,11 @@ class StepLabel extends FormBuilderStepBase {
     }
     else {
       parent::submitForm($form, $form_state);
+
+      $form_state->setRedirect('va_gov_form_builder.step.layout', [
+        'nid' => $this->digitalForm->id(),
+        'stepParagraphId' => $this->stepParagraph->id(),
+      ]);
     }
   }
 
