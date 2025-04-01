@@ -671,7 +671,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', $stepLabel);
-    $libraries = ['single_column_with_buttons'];
+    $libraries = ['single_column_with_buttons', 'paragraph_sort_and_delete'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }

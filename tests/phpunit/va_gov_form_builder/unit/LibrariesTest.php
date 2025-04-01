@@ -55,6 +55,7 @@ class LibrariesTest extends VaGovUnitTestBase {
    */
   public function testLibraryCss() {
     $cssPrefix = 'css/';
+    $jsPrefix = 'js/';
 
     // Assert Form Builder base library is present.
     $baseLibrary = 'form_builder';
@@ -95,15 +96,20 @@ class LibrariesTest extends VaGovUnitTestBase {
     $nonEditablePatternCssArray = array_keys($this->libraries[$nonEditablePatternLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'non-editable-pattern.css', $nonEditablePatternCssArray, 'Non-editable-pattern css is present.');
     // 6. Step label.
-    $stepLabelPatternLibrary = 'step_label';
-    $this->assertArrayHasKey($stepLabelPatternLibrary, $this->libraries);
-    $stepLabelCssArray = array_keys($this->libraries[$stepLabelPatternLibrary]['css']['theme']);
+    $stepLabelLibrary = 'step_label';
+    $this->assertArrayHasKey($stepLabelLibrary, $this->libraries);
+    $stepLabelCssArray = array_keys($this->libraries[$stepLabelLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'step-label.css', $stepLabelCssArray, 'Step-label css is present.');
     // 6. Step style.
-    $stepStylePatternLibrary = 'step_style';
-    $this->assertArrayHasKey($stepStylePatternLibrary, $this->libraries);
-    $stepStyleCssArray = array_keys($this->libraries[$stepStylePatternLibrary]['css']['theme']);
+    $stepStyleLibrary = 'step_style';
+    $this->assertArrayHasKey($stepStyleLibrary, $this->libraries);
+    $stepStyleCssArray = array_keys($this->libraries[$stepStyleLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'step-style.css', $stepStyleCssArray, 'Step-style css is present.');
+    // 7. Paragraph sort and delete.
+    $paragraphSortAndDeleteLibrary = 'paragraph_sort_and_delete';
+    $this->assertArrayHasKey($paragraphSortAndDeleteLibrary, $this->libraries);
+    $paragraphSortAndDeleteJsArray = array_keys($this->libraries[$paragraphSortAndDeleteLibrary]['js']);
+    $this->assertContains($jsPrefix . 'paragraph-sort-and-delete.js', $paragraphSortAndDeleteJsArray, 'Paragraph-sort-and-delete js is present.');
   }
 
 }
