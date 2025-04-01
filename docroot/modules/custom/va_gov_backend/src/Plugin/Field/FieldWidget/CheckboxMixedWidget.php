@@ -85,6 +85,8 @@ class CheckboxMixedWidget extends OptionsButtonsWidget {
         'aria-checked' => 'mixed',
         'tabindex' => '0',
       ],
+      // Prevent this element from being considered a field value.
+      '#input' => FALSE,
     ];
 
     return $element;
