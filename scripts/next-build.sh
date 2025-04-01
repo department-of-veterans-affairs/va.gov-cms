@@ -21,4 +21,3 @@ cd "${ROOT}/next"
 nvm install && nvm use
 
 APP_ENV=tugboat yarn build:preview
->>>>>>> main
