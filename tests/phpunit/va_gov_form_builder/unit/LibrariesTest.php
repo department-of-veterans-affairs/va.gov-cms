@@ -95,17 +95,22 @@ class LibrariesTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey($nonEditablePatternLibrary, $this->libraries);
     $nonEditablePatternCssArray = array_keys($this->libraries[$nonEditablePatternLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'non-editable-pattern.css', $nonEditablePatternCssArray, 'Non-editable-pattern css is present.');
-    // 6. Step label.
+    // 6. Step layout.
+    $stepLayoutLibrary = 'step_layout';
+    $this->assertArrayHasKey($stepLayoutLibrary, $this->libraries);
+    $stepLayoutCssArray = array_keys($this->libraries[$stepLayoutLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'step-layout.css', $stepLayoutCssArray, 'Step-layout css is present.');
+    // 7. Step label.
     $stepLabelLibrary = 'step_label';
     $this->assertArrayHasKey($stepLabelLibrary, $this->libraries);
     $stepLabelCssArray = array_keys($this->libraries[$stepLabelLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'step-label.css', $stepLabelCssArray, 'Step-label css is present.');
-    // 6. Step style.
+    // 8. Step style.
     $stepStyleLibrary = 'step_style';
     $this->assertArrayHasKey($stepStyleLibrary, $this->libraries);
     $stepStyleCssArray = array_keys($this->libraries[$stepStyleLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'step-style.css', $stepStyleCssArray, 'Step-style css is present.');
-    // 7. Paragraph sort and delete.
+    // 9. Paragraph sort and delete.
     $paragraphSortAndDeleteLibrary = 'paragraph_sort_and_delete';
     $this->assertArrayHasKey($paragraphSortAndDeleteLibrary, $this->libraries);
     $paragraphSortAndDeleteJsArray = array_keys($this->libraries[$paragraphSortAndDeleteLibrary]['js']);
