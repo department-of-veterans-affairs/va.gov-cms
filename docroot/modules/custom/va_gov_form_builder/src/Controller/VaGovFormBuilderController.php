@@ -445,12 +445,18 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
       '#additional_steps' => [
         'steps' => array_map(function ($step) {
+          $stepParagraphId = $step['fields']['id'][0]['value'];
           return [
             // If an additional step exists, it's complete.
+            // @todo This logic needs to be updated to accommodate custom
+            // steps that are not complete by default.
             'type' => $step['type'],
             'title' => $step['fields']['field_title'][0]['value'],
             'status' => 'complete',
-            'url' => '',
+            'url' => Url::fromRoute('va_gov_form_builder.step.layout', [
+              'nid' => $this->digitalForm->id(),
+              'stepParagraphId' => $stepParagraphId,
+            ])->toString(),
           ];
         }, $this->digitalForm->getNonStandarddSteps()),
         'add_step' => [
