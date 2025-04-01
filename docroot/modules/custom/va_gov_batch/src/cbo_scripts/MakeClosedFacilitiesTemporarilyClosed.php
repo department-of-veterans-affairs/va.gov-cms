@@ -69,7 +69,7 @@ class MakeClosedFacilitiesTemporarilyClosed extends BatchOperations implements B
       return "Updated node $item Operating Status from Closed to Temporary facility closure status.";
     }
     catch (\Exception $e) {
-      $message = "Exception during update of node $item: "  . $e->getMessage();
+      $message = "Exception during update of node $item: " . $e->getMessage();
       return $message;
     }
   }
