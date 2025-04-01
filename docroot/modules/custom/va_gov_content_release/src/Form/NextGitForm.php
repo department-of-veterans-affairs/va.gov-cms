@@ -58,7 +58,7 @@ class NextGitForm extends FormBase {
     FrontendVersionInterface $frontendVersion,
     FileSystemInterface $fileSystem,
     ConfigFactory $config,
-    State $state
+    State $state,
   ) {
     $this->frontendVersion = $frontendVersion;
     $this->fileSystem = $fileSystem;
@@ -267,7 +267,7 @@ class NextGitForm extends FormBase {
     }
     else {
       $this->fileSystem->saveData(
-        'Build me, Seymour!',
+        'Next Build rebuild requested',
         'public://' . self::REQUEST_FILE_NAME,
         1);
       $this->messenger()->addMessage($this->t('Build request file set.'));
@@ -284,7 +284,7 @@ class NextGitForm extends FormBase {
    */
   protected function submitFormForFrontend(
     FrontendInterface $frontend,
-    FormStateInterface $form_state
+    FormStateInterface $form_state,
   ) {
     $selectionName = $frontend->getRawValue() . '_selection';
     if ($form_state->getValue($selectionName) === 'default') {
@@ -313,7 +313,7 @@ class NextGitForm extends FormBase {
    */
   protected function validateFormForFrontend(
     FrontendInterface $frontend,
-    FormStateInterface $form_state
+    FormStateInterface $form_state,
   ) {
     $selectionName = $frontend->getRawValue() . '_selection';
     $gitRefName = $frontend->getRawValue() . '_git_ref';
@@ -345,7 +345,7 @@ class NextGitForm extends FormBase {
    */
   public function setFrontendVersion(
     FrontendInterface $frontend,
-    FormStateInterface $form_state
+    FormStateInterface $form_state,
   ) {
     $this->frontendVersion->setVersion($frontend,
       $this->getGitRef($frontend, $form_state));
@@ -364,7 +364,7 @@ class NextGitForm extends FormBase {
    */
   public function getGitRef(
     FrontendInterface $frontend,
-    FormStateInterface $form_state
+    FormStateInterface $form_state,
   ): string {
     // If they selected a specific git ref, use that.
     $gitRefName = $frontend->getRawValue() . '_git_ref';
