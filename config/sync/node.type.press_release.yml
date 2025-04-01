@@ -84,6 +84,7 @@ third_party_settings:
       - va-madison-health-care
       - va-maine-health-care
       - va-manchester-health-care
+      - va-manila-health-care
       - va-marion-health-care
       - va-martinsburg-health-care
       - va-maryland-health-care
@@ -154,14 +155,14 @@ third_party_settings:
       - va-wilmington-health-care
     parent: 'pittsburgh-health-care:'
   node_title_help_text:
-    title_help: "The topic of this news release, in sentence case.<br/>"
+    title_help: 'The topic of this news release, in sentence case.<br/>'
   node_revision_delete:
-    minimum_revisions_to_keep: 50
     minimum_age_to_delete: 0
+    minimum_revisions_to_keep: 50
     when_to_delete: 0
   menu_force:
-    menu_force: 0
-    menu_force_parent: 0
+    menu_force: false
+    menu_force_parent: false
 name: 'News Release'
 type: press_release
 description: 'Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems.'

@@ -1,0 +1,61 @@
+diff --git c/src/Plugin/field_group/FieldGroupFormatter/Fieldset.php w/src/Plugin/field_group/FieldGroupFormatter/Fieldset.php
+index bf2e2b7..d928a0c 100644
+--- c/src/Plugin/field_group/FieldGroupFormatter/Fieldset.php
++++ w/src/Plugin/field_group/FieldGroupFormatter/Fieldset.php
+@@ -35,9 +35,15 @@ class Fieldset extends FieldGroupFormatterBase {
+       '#multilingual' => TRUE,
+     ];
+ 
+-    // When a fieldset has a description, an id is required.
++    // When a fieldset has a description, an id and description_display are required.
+     if ($this->getSetting('description') && !$this->getSetting('id')) {
+       $element['#id'] = Html::getUniqueId($this->group->group_name);
++      $element['#description_display'] = 'after';
++    }
++
++    // Use the supplied description display when it has been explicitly set.
++    if ($this->getSetting('description_display')) {
++      $element['#description_display'] = $this->getSetting('description_display');
+     }
+ 
+     if ($this->getSetting('id')) {
+@@ -78,6 +84,18 @@ class Fieldset extends FieldGroupFormatterBase {
+       '#weight' => -4,
+     ];
+ 
++    $form['description_display'] = [
++      '#title' => $this->t('Description Display'),
++      '#type' => 'select',
++      '#default_value' => $this->getSetting('description_display'),
++      '#options' => [
++        'before' => $this->t('Before'),
++        'after' => $this->t('After'),
++        'invisible' => $this->t('Invisible'),
++      ],
++      '#weight' => -3,
++    ];
++
+     if ($this->context == 'form') {
+       $form['required_fields'] = [
+         '#type' => 'checkbox',
+@@ -101,6 +119,12 @@ class Fieldset extends FieldGroupFormatterBase {
+       $summary[] = $this->t('Mark as required');
+     }
+ 
++    if ($this->getSetting('description_display')) {
++      $summary[] = $this->t('Description display : @description_display', [
++        '@description_display' => $this->getSetting('description_display'),
++      ]);
++    }
++
+     return $summary;
+   }
+ 
+@@ -110,6 +134,7 @@ class Fieldset extends FieldGroupFormatterBase {
+   public static function defaultContextSettings($context) {
+     $defaults = [
+       'description' => '',
++      'description_display' => 'after',
+     ] + parent::defaultSettings($context);
+ 
+     if ($context == 'form') {

@@ -91,11 +91,11 @@ class OutdatedContentNotification extends JobTypeBase implements ContainerFactor
     }
     $status = $this->messageNotifier->send($notification);
     if (!$status) {
-      $message = "Failed to send message {$notification->id()} to {$payload['values']['field_editor_username']}.";
+      $message = "Failed to send message {$notification->id()} to user: {$payload['values']['uid']}.";
       $this->logger->error($message);
       return JobResult::failure($message);
     }
-    $message = "Message {$notification->id()} sent successfully to {$payload['values']['field_editor_username']}.";
+    $message = "Message {$notification->id()} sent successfully to user: {$payload['values']['uid']}.";
     $this->logger->info($message);
     return JobResult::success($message);
   }

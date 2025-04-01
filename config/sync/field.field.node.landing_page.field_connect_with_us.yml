@@ -1,0 +1,39 @@
+uuid: c8f39a9d-8b23-4f4f-be96-793e6ff2ab03
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.connect_with_us
+    - field.storage.node.field_connect_with_us
+    - node.type.landing_page
+  module:
+    - entity_reference_validators
+    - tmgmt_content
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  tmgmt_content:
+    excluded: false
+id: node.landing_page.field_connect_with_us
+field_name: field_connect_with_us
+entity_type: node
+bundle: landing_page
+label: 'Add a "Connect with us" block'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      connect_with_us: connect_with_us
+    sort:
+      field: info
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

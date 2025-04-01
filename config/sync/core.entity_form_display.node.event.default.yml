@@ -132,7 +132,6 @@ third_party_settings:
     group_feature_this_content:
       children:
         - field_featured
-        - field_order
       label: 'Feature This Content'
       region: content
       parent_name: ''
@@ -275,10 +274,10 @@ content:
         custom
       show_extra: true
       hide_date: false
+      allday: true
+      remove_seconds: false
       separator: to
       add_abbreviations: ''
-      allday: '1'
-      remove_seconds: 0
     third_party_settings:
       no_table_drag:
         no_table_drag: true
@@ -292,7 +291,7 @@ content:
           MONTHLY: MONTHLY
           YEARLY: '0'
       limited_field_widgets:
-        limit_values: '1'
+        limit_values: 1
       change_labels:
         add_another: ''
   field_description:
@@ -369,7 +368,7 @@ content:
     settings: {  }
     third_party_settings:
       limited_field_widgets:
-        limit_values: '1'
+        limit_values: 1
       change_labels:
         add_another: ''
   field_location_humanreadable:
@@ -392,12 +391,6 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
-  field_order:
-    type: options_select
-    weight: 16
-    region: content
-    settings: {  }
     third_party_settings: {  }
   field_publish_to_outreach_cal:
     type: boolean_checkbox
@@ -455,6 +448,7 @@ hidden:
   field_additional_listings: true
   field_event_cost: true
   field_meta_tags: true
+  field_order: true
   langcode: true
   promote: true
   status: true

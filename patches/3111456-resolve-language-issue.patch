@@ -1,0 +1,366 @@
+diff --git a/decoupled_router.services.yml b/decoupled_router.services.yml
+index 90e959c..5753807 100644
+--- a/decoupled_router.services.yml
++++ b/decoupled_router.services.yml
+@@ -4,7 +4,8 @@ services:
+     arguments: ['decoupled_router']
+   decoupled_router.router_path_translator.subscriber:
+     class: Drupal\decoupled_router\EventSubscriber\RouterPathTranslatorSubscriber
+-    arguments: ['@service_container', '@logger.channel.decoupled_router', '@router.no_access_checks', '@module_handler', '@config.factory', '@path_alias.manager']
++    arguments: ['@service_container', '@logger.channel.decoupled_router', '@router.no_access_checks', '@module_handler', '@config.factory', '@path_alias.manager',
++                '@language_manager', '@entity.repository']
+     tags:
+       - { name: event_subscriber }
+   decoupled_router.redirect_path_translator.subscriber:
+diff --git a/src/EventSubscriber/RedirectPathTranslatorSubscriber.php b/src/EventSubscriber/RedirectPathTranslatorSubscriber.php
+index 246f7e4..797e34a 100644
+--- a/src/EventSubscriber/RedirectPathTranslatorSubscriber.php
++++ b/src/EventSubscriber/RedirectPathTranslatorSubscriber.php
+@@ -5,8 +5,10 @@ namespace Drupal\decoupled_router\EventSubscriber;
+ use Drupal\Component\Serialization\Json;
+ use Drupal\Core\Cache\CacheableJsonResponse;
+ use Drupal\Core\GeneratedUrl;
++use Drupal\Core\Language\LanguageInterface;
+ use Drupal\Core\Url;
+ use Drupal\decoupled_router\PathTranslatorEvent;
++use Symfony\Component\HttpFoundation\Request;
+ 
+ /**
+  * Event subscriber that processes a path translation with the redirect info.
+@@ -46,13 +48,31 @@ class RedirectPathTranslatorSubscriber extends RouterPathTranslatorSubscriber {
+     $redirects_trace = [];
+     while (TRUE) {
+       $destination = $this->cleanSubdirInPath($destination, $event->getRequest());
++      $path_without_prefix = $destination;
++      $langcodes = [];
++      if ($this->languageManager->isMultilingual()) {
++        $langcodes = [LanguageInterface::LANGCODE_NOT_SPECIFIED];
++        $language_negotiation_url = $this->languageManager->getNegotiator()
++          ->getNegotiationMethodInstance('language-url');
++        $router_request = Request::create($destination);
++        $langcode = $language_negotiation_url->getLangcode($router_request);
++        $language_prefixes = $this->configFactory->get('language.negotiation')->get('url.prefixes');
++        $lang_prefix = $language_prefixes[$langcode] ?? '';
++        if ($langcode && ($destination === "/$lang_prefix" || strpos($destination, "/$lang_prefix/") === 0)) {
++          $langcodes[] = $langcode;
++          $path_without_prefix = $language_negotiation_url->processInbound($destination, $router_request);
++        }
++      }
+       // Find if there is a redirect for this path.
+-      $results = $redirect_storage
++      $query = $redirect_storage
+         ->getQuery()
+         ->accessCheck(TRUE)
+         // Redirects are stored without the leading slash :-(.
+-        ->condition('redirect_source.path', ltrim($destination, '/'))
+-        ->execute();
++        ->condition('redirect_source__path', ltrim($path_without_prefix, '/'));
++      if (!empty($langcodes)) {
++        $query->condition('language', $langcodes, 'IN');
++      }
++      $results = $query->execute();
+       $rid = reset($results);
+       if (!$rid) {
+         break;
+diff --git a/src/EventSubscriber/RouterPathTranslatorSubscriber.php b/src/EventSubscriber/RouterPathTranslatorSubscriber.php
+index 1d3a1b6..ae53f6c 100644
+--- a/src/EventSubscriber/RouterPathTranslatorSubscriber.php
++++ b/src/EventSubscriber/RouterPathTranslatorSubscriber.php
+@@ -9,7 +9,10 @@ use Drupal\Core\Config\ConfigFactoryInterface;
+ use Drupal\Core\Entity\ContentEntityType;
+ use Drupal\Core\Entity\EntityInterface;
+ use Drupal\Core\Entity\EntityMalformedException;
++use Drupal\Core\Entity\EntityRepositoryInterface;
++use Drupal\Core\Entity\TranslatableInterface;
+ use Drupal\Core\Extension\ModuleHandlerInterface;
++use Drupal\Core\Language\LanguageManagerInterface;
+ use Drupal\Core\Routing\RouteObjectInterface;
+ use Drupal\Core\StringTranslation\StringTranslationTrait;
+ use Drupal\Core\Url;
+@@ -72,6 +75,27 @@ class RouterPathTranslatorSubscriber implements EventSubscriberInterface {
+    */
+   protected $aliasManager;
+ 
++  /**
++   * The language manager.
++   *
++   * @var \Drupal\Core\Language\LanguageManagerInterface
++   */
++  protected $languageManager;
++
++  /**
++   * The entity repository service.
++   *
++   * @var \Drupal\Core\Entity\EntityRepositoryInterface
++   */
++  protected $entityRepository;
++
++  /**
++   * The langcode if added as a prefix to the path.
++   *
++   * @var string
++   */
++  protected $langcode;
++
+   /**
+    * RouterPathTranslatorSubscriber constructor.
+    *
+@@ -87,6 +111,10 @@ class RouterPathTranslatorSubscriber implements EventSubscriberInterface {
+    *   The config factory.
+    * @param \Drupal\path_alias\AliasManagerInterface $aliasManager
+    *   The alias manager.
++   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
++   *   The language manager.
++   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
++   *   The entity repository.
+    */
+   public function __construct(
+     ContainerInterface $container,
+@@ -94,7 +122,9 @@ class RouterPathTranslatorSubscriber implements EventSubscriberInterface {
+     UrlMatcherInterface $router,
+     ModuleHandlerInterface $module_handler,
+     ConfigFactoryInterface $config_factory,
+-    AliasManagerInterface $aliasManager
++    AliasManagerInterface $aliasManager,
++    LanguageManagerInterface $language_manager,
++    EntityRepositoryInterface $entity_repository
+   ) {
+     $this->container = $container;
+     $this->logger = $logger;
+@@ -102,6 +132,8 @@ class RouterPathTranslatorSubscriber implements EventSubscriberInterface {
+     $this->moduleHandler = $module_handler;
+     $this->configFactory = $config_factory;
+     $this->aliasManager = $aliasManager;
++    $this->languageManager = $language_manager;
++    $this->entityRepository = $entity_repository;
+   }
+ 
+   /**
+@@ -115,6 +147,10 @@ class RouterPathTranslatorSubscriber implements EventSubscriberInterface {
+     }
+     $path = $event->getPath();
+     $path = $this->cleanSubdirInPath($path, $event->getRequest());
++    if ($this->languageManager->isMultilingual()) {
++      $path = $this->getPathFromAlias($path);
++    }
++
+     try {
+       $match_info = $this->router->match($path);
+     }
+@@ -144,6 +180,14 @@ class RouterPathTranslatorSubscriber implements EventSubscriberInterface {
+       $this->logger->notice('A route has been found but it has no entity information.');
+       return;
+     }
++    elseif (!empty($this->langcode)) {
++      if ($entity->hasTranslation($this->langcode) && method_exists($entity, 'getTranslation')) {
++        $entity = $entity->getTranslation($this->langcode);
++      }
++      else {
++        $entity = $this->entityRepository->getTranslationFromContext($entity, $this->langcode);
++      }
++    }
+     $response->addCacheableDependency($entity);
+     if ($entity->getEntityType() instanceof ContentEntityType) {
+       $can_view = $entity->access('view', NULL, TRUE);
+@@ -173,9 +217,14 @@ class RouterPathTranslatorSubscriber implements EventSubscriberInterface {
+       return;
+     }
+     $entity_param = $param_uses_uuid ? $entity->id() : $entity->uuid();
+-    $resolved_url = Url::fromRoute($match_info[RouteObjectInterface::ROUTE_NAME], [
+-      $route_parameter_entity_key => $entity_param,
+-    ], ['absolute' => TRUE])->toString(TRUE);
++    $resolved_url = Url::fromRoute(
++      $match_info[RouteObjectInterface::ROUTE_NAME],
++      [$route_parameter_entity_key => $entity_param],
++      [
++        'absolute' => TRUE,
++        'language' => $entity->language()
++      ]
++    )->toString(TRUE);
+     $response->addCacheableDependency($canonical_url);
+     $response->addCacheableDependency($resolved_url);
+     $is_home_path = $this->resolvedPathIsHomePath($resolved_url->getGeneratedUrl());
+@@ -185,6 +234,10 @@ class RouterPathTranslatorSubscriber implements EventSubscriberInterface {
+ 
+     $label_accessible = $entity->access('view label', NULL, TRUE);
+     $response->addCacheableDependency($label_accessible);
++    $langcode = NULL;
++    if ($entity instanceof TranslatableInterface) {
++      $langcode = $entity->language()->getId();
++    }
+     $output = [
+       'resolved' => $resolved_url->getGeneratedUrl(),
+       'isHomePath' => $is_home_path,
+@@ -194,6 +247,7 @@ class RouterPathTranslatorSubscriber implements EventSubscriberInterface {
+         'bundle' => $entity->bundle(),
+         'id' => $entity->id(),
+         'uuid' => $entity->uuid(),
++        'langcode' => $langcode,
+       ],
+     ];
+     if ($label_accessible->isAllowed()) {
+@@ -211,23 +265,37 @@ class RouterPathTranslatorSubscriber implements EventSubscriberInterface {
+       $rt_repo = $this->container->get('jsonapi.resource_type.repository');
+       $rt = $rt_repo->get($entity_type_id, $entity->bundle());
+       $type_name = $rt->getTypeName();
+-      $jsonapi_base_path = $this->container->getParameter('jsonapi.base_path');
+-      $entry_point_url = Url::fromRoute('jsonapi.resource_list', [], ['absolute' => TRUE])->toString(TRUE);
++      $jsonapi_base_path = Url::fromRoute(
++        'jsonapi.resource_list',
++        [],
++        ['language' => $entity->language()]
++      )->toString(TRUE);
++      $entry_point_url = Url::fromRoute(
++        'jsonapi.resource_list',
++        [],
++        [
++          'absolute' => TRUE,
++          'language' => $entity->language(),
++        ]
++      )->toString(TRUE);
+       $route_name = sprintf('jsonapi.%s.individual', $type_name);
+       $individual = Url::fromRoute(
+         $route_name,
+         [
+           static::getEntityRouteParameterName($route_name, $entity_type_id) => $entity->uuid(),
+         ],
+-        ['absolute' => TRUE]
++        [
++          'absolute' => TRUE,
++          'language' => $entity->language(),
++        ]
+       )->toString(TRUE);
+       $response->addCacheableDependency($entry_point_url);
+       $response->addCacheableDependency($individual);
+       $output['jsonapi'] = [
+         'individual' => $individual->getGeneratedUrl(),
+         'resourceName' => $type_name,
+-        'pathPrefix' => trim($jsonapi_base_path, '/'),
+-        'basePath' => $jsonapi_base_path,
++        'pathPrefix' => trim($jsonapi_base_path->getGeneratedUrl(), '/'),
++        'basePath' => $jsonapi_base_path->getGeneratedUrl(),
+         'entryPoint' => $entry_point_url->getGeneratedUrl(),
+       ];
+       $output['meta'] = [
+@@ -377,6 +445,35 @@ class RouterPathTranslatorSubscriber implements EventSubscriberInterface {
+     return preg_replace(sprintf('/^%s/', $regexp), '', $path);
+   }
+ 
++  /**
++   * Convert an alias to its source path.
++   *
++   * This is a workaround for a bug where matcher fails on aliases prefixed by
++   * a language prefix when it doesn't match the negotiated language.
++   *
++   * @param string $path
++   *   The input path string.
++   *
++   * @return string
++   *   The output path string.
++   */
++  protected function getPathFromAlias($path) {
++    $config = $this->configFactory->get('language.negotiation')->get('url');
++    $language_negotiation_url = $this->languageManager->getNegotiator()
++      ->getNegotiationMethodInstance('language-url');
++    $router_request = Request::create($path);
++    $langcode = $language_negotiation_url->getLangcode($router_request);
++    $prefix = $config['prefixes'][$langcode] ?? NULL;
++    if ($prefix && ($path == "/$prefix" || strpos($path, "/$prefix/") === 0)) {
++      $this->langcode = $langcode;
++      $path_without_prefix = $language_negotiation_url->processInbound($path, $router_request);
++      $path = $this->aliasManager->getPathByAlias($path_without_prefix, $langcode);
++      $path = "/$prefix" . $path;
++    }
++
++    return $path;
++  }
++
+   /**
+    * Checks if the resolved path is the home path.
+    *
+diff --git a/tests/src/Functional/DecoupledRouterFunctionalTest.php b/tests/src/Functional/DecoupledRouterFunctionalTest.php
+index 5eee845..237628f 100644
+--- a/tests/src/Functional/DecoupledRouterFunctionalTest.php
++++ b/tests/src/Functional/DecoupledRouterFunctionalTest.php
+@@ -231,13 +231,14 @@ class DecoupledRouterFunctionalTest extends BrowserTestBase {
+         'bundle' => 'article',
+         'id' => $node->id(),
+         'uuid' => $node->uuid(),
++        'langcode' => 'en',
+       ],
+       'label' => $node->label(),
+       'jsonapi' => [
+         'individual' => $this->buildUrl('/jsonapi/node/article/' . $node->uuid()),
+         'resourceName' => 'node--article',
+-        'pathPrefix' => 'jsonapi',
+-        'basePath' => '/jsonapi',
++        'pathPrefix' => 'subdirectory/jsonapi',
++        'basePath' => '/subdirectory/jsonapi',
+         'entryPoint' => $this->buildUrl('/jsonapi'),
+       ],
+       'meta' => [
+@@ -310,6 +311,43 @@ class DecoupledRouterFunctionalTest extends BrowserTestBase {
+     $this->assertFalse($output['isHomePath']);
+   }
+ 
++  /**
++   * Tests path argument with prefix other than negotiated language.
++   */
++  public function testUrlLanguageNegotiation() {
++    $german = ConfigurableLanguage::createFromLangcode('de');
++    $german->save();
++    $german_node = $this->createNode([
++      'uid' => ['target_id' => $this->user->id()],
++      'type' => 'article',
++      'path' => '/hallo-welt',
++      'title' => 'Hallo Welt',
++      'langcode' => 'de',
++      'status' => NodeInterface::PUBLISHED,
++    ]);
++
++    $this->drupalGet($german_node->toUrl()->toString());
++
++    $this->assertSession()->pageTextContains('Hallo Welt');
++
++    $this->drupalGet(Url::fromRoute('decoupled_router.path_translation'), [
++        'query' => [
++          'path' => '/de/hallo-welt',
++          '_format' => 'json',
++        ],
++      ]);
++    $output = $this->getSession()->getPage()->getContent();
++    // Running tests in chromedriver returns html wrapped around the JSON.
++    if (strpos($output, '<pre') !== FALSE) {
++      $output = $this->assertSession()->elementExists('css', 'pre')->getHtml();
++    }
++    $output = Json::decode($output);
++    $this->assertStringEndsWith('/de/hallo-welt', $output['resolved']);
++    $this->assertSame($german_node->id(), $output['entity']['id']);
++    $this->assertSame('node--article', $output['jsonapi']['resourceName']);
++    $this->assertStringEndsWith('/jsonapi/node/article/' . $german_node->uuid(), $output['jsonapi']['individual']);
++  }
++
+   /**
+    * Computes the base path under which the Drupal managed URLs are available.
+    *
+diff --git a/tests/src/Functional/DecoupledRouterInfoAlterTest.php b/tests/src/Functional/DecoupledRouterInfoAlterTest.php
+index f13cbab..0946a0f 100644
+--- a/tests/src/Functional/DecoupledRouterInfoAlterTest.php
++++ b/tests/src/Functional/DecoupledRouterInfoAlterTest.php
+@@ -90,13 +90,14 @@ class DecoupledRouterInfoAlterTest extends BrowserTestBase {
+         'uuid' => $node->uuid(),
+         // Result of implementing the hook_decoupled_router_info_alter.
+         'owner' => $node->getOwner()->uuid(),
++        'langcode' => 'en',
+       ],
+       'label' => $node->label(),
+       'jsonapi' => [
+         'individual' => $this->buildUrl('/jsonapi/node/article/' . $node->uuid()),
+         'resourceName' => 'node--article',
+-        'pathPrefix' => 'jsonapi',
+-        'basePath' => '/jsonapi',
++        'pathPrefix' => 'subdirectory/jsonapi',
++        'basePath' => '/subdirectory/jsonapi',
+         'entryPoint' => $this->buildUrl('/jsonapi'),
+       ],
+       'meta' => [

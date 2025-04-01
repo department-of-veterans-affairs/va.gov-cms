@@ -2,7 +2,8 @@
 name: Runbook - NCA Facility name change
 about: Steps for updating names and URLs
 title: 'NCA Facility name change: <insert_name>'
-labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, NCA
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, NCA, User
+  support, sitewide
 assignees: ''
 
 ---
@@ -16,7 +17,8 @@ Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
-## NCA Facility name change
+## NCA Facility name change: if in Draft
+_As of creation of this runbook, NCA facilities are not published via Drupal. If that changes, revisit this runbook and update the necessary steps._
 
 ### Drupal Admin steps
 - [ ] Edit the node and update the alias to match the new facility name, lowercase with dashes.

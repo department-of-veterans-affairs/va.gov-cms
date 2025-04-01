@@ -1,0 +1,24 @@
+uuid: 5ef62671-a90b-4a00-8a82-09afceb2274f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_digital_form_body_text
+    - paragraphs.paragraphs_type.digital_form_page
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_page.field_digital_form_body_text
+field_name: field_digital_form_body_text
+entity_type: paragraph
+bundle: digital_form_page
+label: 'Body text'
+description: 'Use body text to add clarifying information that is relevant to all the information under a page title. The body text should either clarify what type of information we need, or explain what we’re going to do with the data. Aim for fewer than fifty words in the body text.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

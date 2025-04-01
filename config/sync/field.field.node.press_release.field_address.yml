@@ -7,6 +7,10 @@ dependencies:
     - node.type.press_release
   module:
     - address
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: node.press_release.field_address
 field_name: field_address
 entity_type: node
@@ -17,7 +21,7 @@ required: false
 translatable: false
 default_value:
   -
-    langcode: ''
+    langcode: en
     country_code: US
     administrative_area: ''
     locality: ''
@@ -26,7 +30,7 @@ default_value:
     sorting_code: null
     address_line1: null
     address_line2: null
-    address_line3: ''
+    address_line3: null
     organization: null
     given_name: null
     additional_name: null

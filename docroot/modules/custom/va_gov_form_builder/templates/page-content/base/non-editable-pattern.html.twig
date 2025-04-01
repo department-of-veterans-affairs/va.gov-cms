@@ -1,0 +1,31 @@
+{% extends '@va_gov_form_builder/page-content/base/single-column-with-buttons.html.twig' %}
+
+{% block main_content %}
+  {% include '@va_gov_form_builder/components/banner--non-editable-pattern.html.twig' with {
+    heading_level: 3,
+  } %}
+
+  <section id="form-builder-{{ page_id }}-main-content" class="form-builder-non-editable-pattern__main-content">
+    <div id="heading-with-label-step-label" class="form-builder-heading-with-label">
+      <p class="form-builder-heading-with-label__label">Step label</p>
+      <h3
+        class="form-builder-heading-with-label__heading"
+        aria-labelledby="heading-label-step-label"
+      >
+        {{ step_label }}
+      </h3>
+    </div>
+
+    {% if block('step_description') is not empty %}
+      <div class="form-builder-non-editable-pattern__step_description">
+        {% block step_description %}{% endblock %}
+      </div>
+    {% endif %}
+
+    <section class="form-builder-non-editable-pattern__default-appearance">
+      <h4>Default appearance of this step</h4>
+      <p class="form-builder-hint-text">No edits are possible for this item</p>
+      <img src="{{ preview.url }}" alt="{{ preview.alt_text }}">
+    </section>
+  </section>
+{% endblock %}

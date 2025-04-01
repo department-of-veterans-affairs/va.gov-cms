@@ -1,0 +1,27 @@
+uuid: c5146386-b097-487d-8285-d927cb8438ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.connect_with_us
+    - field.storage.block_content.field_email_updates_link
+  module:
+    - link
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: block_content.connect_with_us.field_email_updates_link
+field_name: field_email_updates_link
+entity_type: block_content
+bundle: connect_with_us
+label: 'Email updates link'
+description: 'Your link should begin with "https://public.govdelivery.com/accounts/"... and your link text should be in the format of "{{ENTER YOUR OFFICE}} email updates".'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 2
+  link_type: 16
+field_type: link

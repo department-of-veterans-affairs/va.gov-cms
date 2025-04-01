@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.message.aging_content_warn_fwb.field_expired_date
     - field.field.message.aging_content_warn_fwb.field_target_node_title
     - field.field.message.aging_content_warn_fwb.field_warning_date
     - message.template.aging_content_warn_fwb
@@ -16,6 +17,14 @@ content:
     weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_expired_date:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_target_node_title:
     type: string_textfield

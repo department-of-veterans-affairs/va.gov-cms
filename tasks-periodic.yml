@@ -10,82 +10,35 @@ tasks:
   # http://jenkins.vfs.va.gov/job/cms/job/cms-daily
   daily:
     cmds:
-      - |
-        cat <<EOF | bash
-          exit_code=0
-          tasks=(
-            va/background/daily/migrate_copy/va_forms_csv_source
-            va/background/daily/migrate/va_forms
-            va/background/daily/update/taxonomy_entity_index
-          )
-          trap '{ (( exit_code |=\$? )); }' ERR
-          for i in "\${tasks[@]}"; do
-            task --taskfile=./tasks-periodic.yml \$i
-          done
-          trap - ERR
-          exit \$exit_code;
-        EOF
+      - task --taskfile=./tasks-periodic.yml va/background/daily/migrate_copy/va_forms_csv_source
+      - task --taskfile=./tasks-periodic.yml va/background/daily/migrate/va_forms
+      - task --taskfile=./tasks-periodic.yml va/background/daily/update/taxonomy_entity_index
 
   # Run with: ./bin/task --taskfile=tasks-periodic.yml daily_0800
   # http://jenkins.vfs.va.gov/job/cms/job/cms-daily-two
   # Similar to daily but later in the day.
   daily_0800:
     cmds:
-      - |
-        cat <<EOF | bash
-          exit_code=0
-          tasks=(
-            va/background/daily_0800/migrate/health_care_local_facility
-            va/background/daily_0800/migrate/vet_centers_facility
-            va/background/daily_0800/migrate/vba_facility
-            va/background/daily_0800/migrate/nca_facility
-            va/background/daily_0800/migrate/flag_removed_facilities
-          )
-          trap '{ (( exit_code |=\$? )); }' ERR
-          for i in "\${tasks[@]}"; do
-            task --taskfile=./tasks-periodic.yml \$i
-          done
-          trap - ERR
-          exit \$exit_code;
-        EOF
+      - task --taskfile=./tasks-periodic.yml va/background/daily_0800/migrate/health_care_local_facility
+      - task --taskfile=./tasks-periodic.yml va/background/daily_0800/migrate/vet_centers_facility
+      - task --taskfile=./tasks-periodic.yml va/background/daily_0800/migrate/vba_facility
+      - task --taskfile=./tasks-periodic.yml va/background/daily_0800/migrate/nca_facility
+      - task --taskfile=./tasks-periodic.yml va/background/daily_0800/migrate/flag_removed_facilities
+
   # Run with: ./bin/task --taskfile=tasks-periodic.yml periodic
   # http://jenkins.vfs.va.gov/job/cms/job/cms-periodic
   periodic:
     cmds:
-      - |
-        cat <<EOF | bash
-          exit_code=0
-          tasks=(
-            "va/background/periodic/check_content_release_stale"
-            "va/background/periodic/check_scheduled_content_release"
-            "va/background/periodic/cron"
-          )
-          trap '{ (( exit_code |=\$? )); }' ERR
-          for i in "\${tasks[@]}"; do
-            task --taskfile=./tasks-periodic.yml \$i
-          done
-          trap - ERR
-          exit \$exit_code;
-        EOF
+      - task --taskfile=./tasks-periodic.yml va/background/periodic/check_content_release_stale
+      - task --taskfile=./tasks-periodic.yml va/background/periodic/check_scheduled_content_release
+      - task --taskfile=./tasks-periodic.yml va/background/periodic/cron
 
   # Run with: ./bin/task --taskfile=tasks-periodic.yml every_minute
   # http://jenkins.vfs.va.gov/job/cms/job/cms-every-minute
   every_minute:
     cmds:
-      - |
-        cat <<EOF | bash
-          exit_code=0
-          tasks=(
-            "va/background/periodic/send_datadog_metrics"
-            "va/background/periodic/content_release_queues"
-          )
-          trap '{ (( exit_code |=\$? )); }' ERR
-          for i in "\${tasks[@]}"; do
-            task --taskfile=./tasks-periodic.yml \$i
-          done
-          trap - ERR
-          exit \$exit_code;
-        EOF
+      - task --taskfile=./tasks-periodic.yml va/background/periodic/send_datadog_metrics
+      - task --taskfile=./tasks-periodic.yml va/background/periodic/content_release_queues
 
   # Run with: ./bin/task --taskfile=tasks-periodic.yml every_month
   # http://jenkins.vfs.va.gov/job/cms/job/cms-every-month
@@ -109,6 +62,7 @@ tasks:
       - drush $DRUSH_ALIAS scr scripts/tasks/VACMS-10735-Forms-CSV-migration-validation.php
       - drush $DRUSH_ALIAS migrate:reset-status va_node_form
       - drush $DRUSH_ALIAS migrate:import va_node_form
+      - drush $DRUSH_ALIAS va_gov_migrate:archive-intranet-only-forms
 
   va/background/daily/update/taxonomy_entity_index:
     desc: Update the taxonomy_entity_index nightly.

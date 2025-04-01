@@ -43,7 +43,7 @@
       // If services are available on page load, operate on the selects.
       window.addEventListener("DOMContentLoaded", () => {
         // Add a change event listener to the VAMC System field.
-        const systemSelect = context.getElementById("edit-field-region-page");
+        const systemSelect = context.querySelector("#edit-field-region-page");
         if (systemSelect !== null) {
           systemSelect.addEventListener("change", () => {
             winnowTricareServices(
