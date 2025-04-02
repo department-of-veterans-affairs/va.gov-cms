@@ -94,7 +94,6 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
     ],
     'buttons' => [],
   ];
-
   // 3a. Name and Date of birth page.
   $theme[$page_content_theme_prefix . 'name_and_dob'] = [
     'path' => $page_content_theme_path,
@@ -140,6 +139,19 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
     'path' => $page_content_theme_path,
     'template' => 'view-form--unavailable',
     'variables' => $viewFormPageVariables,
+  ];
+  // 5. Step-layout page
+  $theme[$page_content_theme_prefix . 'step_layout'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'step-layout',
+    'variables' => [
+      // Whether the step type is supported. Defaults to TRUE.
+      'supported_step_type' => TRUE,
+      'page_heading' => '',
+      'step_label' => [],
+      'pages' => [],
+      'buttons' => [],
+    ],
   ];
 
   // Add form themes.
