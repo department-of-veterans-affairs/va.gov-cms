@@ -21,6 +21,9 @@
       href="{{ buttons.primary.url }}"
       role="button"
       class="form-builder-button form-builder-button--primary"
+      {% if buttons.primary.target is defined %}
+        target="{{ buttons.primary.target }}"
+      {% endif %}
     >
       {{ buttons.primary.label }}
     </a>
