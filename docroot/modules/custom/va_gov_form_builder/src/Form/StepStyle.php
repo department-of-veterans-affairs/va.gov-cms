@@ -191,8 +191,9 @@ class StepStyle extends FormBuilderStepBase {
     // Clear the session variable after successful paragraph save.
     $this->session->set('form_builder:add_step:step_label', NULL);
 
-    $form_state->setRedirect('va_gov_form_builder.layout', [
+    $form_state->setRedirect('va_gov_form_builder.step.layout', [
       'nid' => $this->digitalForm->id(),
+      'stepParagraphId' => $this->stepParagraph->id(),
     ]);
   }
 
