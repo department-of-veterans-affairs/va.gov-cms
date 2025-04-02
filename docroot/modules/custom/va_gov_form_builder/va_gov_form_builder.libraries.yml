@@ -30,6 +30,11 @@ non_editable_pattern:
   css:
     theme:
       css/non-editable-pattern.css: {}
+step_layout:
+  version: 1.x
+  css:
+    theme:
+      css/step-layout.css: {}
 step_label:
   version: 1.x
   css:
@@ -40,3 +45,11 @@ step_style:
   css:
     theme:
       css/step-style.css: {}
+paragraph_sort_and_delete:
+  version: 1.x
+  js:
+    js/paragraph-sort-and-delete.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

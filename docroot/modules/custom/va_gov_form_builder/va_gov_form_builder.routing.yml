@@ -20,39 +20,67 @@ va_gov_form_builder.layout:
   path: "/form-builder/{nid}"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::layout'
+  requirements:
+    nid: \d*
 va_gov_form_builder.name_and_dob:
   path: "/form-builder/{nid}/name-and-dob"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::nameAndDob'
+  requirements:
+    nid: \d*
 va_gov_form_builder.identification_info:
   path: "/form-builder/{nid}/identification-info"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::identificationInfo'
+  requirements:
+    nid: \d*
 va_gov_form_builder.address_info:
   path: "/form-builder/{nid}/address-info"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::addressInfo'
+  requirements:
+    nid: \d*
 va_gov_form_builder.contact_info:
   path: "/form-builder/{nid}/contact-info"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::contactInfo'
-va_gov_form_builder.step.add.step_label:
+  requirements:
+    nid: \d*
+va_gov_form_builder.step.layout:
+  path: "/form-builder/{nid}/step/{stepParagraphId}"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepLayout'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.step_label.create:
   path: "/form-builder/{nid}/step/add/step-label"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepLabel'
-va_gov_form_builder.step.add.step_style:
+  requirements:
+    nid: \d*
+va_gov_form_builder.step.step_style:
   path: "/form-builder/{nid}/step/add/step-style"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepStyle'
-va_gov_form_builder.step.edit.step_label:
+  requirements:
+    nid: \d*
+va_gov_form_builder.step.step_label.edit:
   path: "/form-builder/{nid}/step/{stepParagraphId}/step-label"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepLabel'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
 va_gov_form_builder.review_and_sign:
   path: "/form-builder/{nid}/review-and-sign"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::reviewAndSign'
+  requirements:
+    nid: \d*
 va_gov_form_builder.view_form:
   path: "/form-builder/{nid}/view-form"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::viewForm'
+  requirements:
+    nid: \d*
