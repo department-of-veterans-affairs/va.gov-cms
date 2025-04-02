@@ -222,7 +222,7 @@ services:
       - chmod +x /etc/service/drupal_events/run
 
       # Separate process for next-build preview.
-      - mkdir -p /etc/service/next_build
+      - mkdir -p /etc/service/next_build_queue_service
       - mv "${TUGBOAT_ROOT}/scripts/queue_runner/next_queue_runner.sh" /etc/service/next_build/run
       - chmod +x /etc/service/next_build_queue_service/run
       # Need to make build script executable so the runner can run it.
