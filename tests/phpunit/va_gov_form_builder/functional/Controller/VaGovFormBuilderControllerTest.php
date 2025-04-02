@@ -525,7 +525,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $this->assertInstanceOf(RedirectResponse::class, $response);
     $this->assertStringContainsString(
       Url::fromRoute(
-        'va_gov_form_builder.step.add.step_label',
+        'va_gov_form_builder.step.step_label.create',
         ['nid' => $node->id()]
       )->toString(),
       $response->getTargetUrl()
