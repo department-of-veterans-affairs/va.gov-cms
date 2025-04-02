@@ -3846,26 +3846,26 @@
         },
         {
             "name": "drupal/config_views",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/config_views.git",
-                "reference": "2.1.1"
+                "reference": "2.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/config_views-2.1.1.zip",
-                "reference": "2.1.1",
-                "shasum": "e085cc7ce3c66cdeeee2040aabcd0299b2385f61"
+                "url": "https://ftp.drupal.org/files/projects/config_views-2.1.2.zip",
+                "reference": "2.1.2",
+                "shasum": "7f37029b9bf35d94e689af1aae183ad4ed2021a7"
             },
             "require": {
-                "drupal/core": "^8 || ^9 || ^10"
+                "drupal/core": "^10.1 || ^11.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.1.1",
-                    "datestamp": "1694641549",
+                    "version": "2.1.2",
+                    "datestamp": "1739229311",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3874,12 +3874,16 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0-or-later"
+                "GPL-2.0+"
             ],
             "authors": [
                 {
                     "name": "cosmicdreams",
                     "homepage": "https://www.drupal.org/user/42579"
+                },
+                {
+                    "name": "scott_euser",
+                    "homepage": "https://www.drupal.org/user/3267594"
                 },
                 {
                     "name": "swirt",
@@ -3892,8 +3896,12 @@
             ],
             "description": "Views handler implementation for configuration entities.",
             "homepage": "https://www.drupal.org/project/config_views",
+            "keywords": [
+                "Drupal"
+            ],
             "support": {
-                "source": "https://git.drupalcode.org/project/config_views"
+                "source": "http://cgit.drupalcode.org/config_views",
+                "issues": "https://www.drupal.org/project/issues/config_views"
             }
         },
         {
