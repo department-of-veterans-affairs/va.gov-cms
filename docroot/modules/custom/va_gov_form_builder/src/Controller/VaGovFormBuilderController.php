@@ -108,16 +108,14 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $nid
    *   The node id to load.
    *
-   * @return bool
-   *   TRUE if successfully loaded. FALSE otherwise.
+   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   *   If the node is not found.
    */
   protected function loadDigitalForm($nid) {
     $this->digitalForm = $this->digitalFormsService->getDigitalForm($nid);
-    if ($this->digitalForm) {
-      return TRUE;
+    if (!$this->digitalForm) {
+      throw new NotFoundHttpException();
     }
-
-    return FALSE;
   }
 
   /**
@@ -126,29 +124,29 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $paragraphId
    *   The paragraph id to load.
    *
-   * @return bool
-   *   TRUE if successfully loaded. FALSE otherwise.
+   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   *   If the pargraph is not found, or if the paragraph
+   *   does not belong to $this->digitalForm.
    */
   protected function loadStepParagraph($paragraphId) {
     $paragraph = $this->entityTypeManager->getStorage('paragraph')->load($paragraphId);
     if (!$paragraph) {
-      return FALSE;
+      throw new NotFoundHttpException();
     }
 
     // Ensure the paragraph belongs to the node in question.
     if (!$this->digitalForm) {
-      return FALSE;
+      throw new NotFoundHttpException();
     }
     $parentId = $paragraph->get('parent_id') && is_object($paragraph->get('parent_id'))
       ? $paragraph->get('parent_id')->value
       : '';
 
     if ($parentId !== $this->digitalForm->id()) {
-      return FALSE;
+      throw new NotFoundHttpException();
     }
 
     $this->stepParagraph = $paragraph;
-    return TRUE;
   }
 
   /**
@@ -156,17 +154,18 @@ class VaGovFormBuilderController extends ControllerBase {
    *
    * This method is effectively a wrapper around
    * `Url::fromRoute()`, but abstracts away the
-   * addition of passing the node id to each call to that
-   * function. In this method, if the page requires
-   * a current digital form node, the node id of the
-   * current digital form node is added to the call
-   * to build the url.
+   * addition of passing the entity id's to each call
+   * to that function. In this method, if the page
+   * requires one or more entity id's, those id's
+   * are grabbed from the entities stored in state and
+   * added to the call to build the url.
    *
    * Ex:
    * 'home' => '/form-builder/home'
    * 'form_info.create' => '/form-builder/form-info'
    * 'layout' => '/form-builder/123456'
    * 'form_info.edit' => '/form-builder/123456/form-info'
+   * 'step.step_label.edit' => '/form-builder/123456/step/456789/step-label'
    *
    * @param string $page
    *   The page name. This should match the routing name.
@@ -174,20 +173,52 @@ class VaGovFormBuilderController extends ControllerBase {
    * @return string
    *   Returns the url for the page. Throws an exception if
    *   a route for the page is not configured or if
-   *   there is no digital form set and one is required
+   *   a required entity is not set and is required
    *   for the page to make sense.
    */
   protected function getPageUrl($page) {
-    $nonNodePages = ['home', 'form_info.create'];
-    if (in_array($page, $nonNodePages)) {
+    // Pages that do not relate to a specific form.
+    $basicPages = ['entry', 'home', 'form_info.create'];
+    if (in_array($page, $basicPages)) {
       return Url::fromRoute("va_gov_form_builder.{$page}")->toString();
     }
 
-    if (!$this->digitalForm) {
-      throw new \LogicException('Cannot determine page url because the digital form is not set.');
+    // Pages that relate to a specific form
+    // (but not a step or page within that form).
+    // Require only a nid.
+    $formPages = [
+      'layout',
+      'form_info.edit',
+      'name_and_dob', 'identification_info', 'address_info', 'contact_info',
+      'step.step_label.create', 'step.step_style',
+      'review_and_sign', 'view_form',
+    ];
+    if (in_array($page, $formPages)) {
+      if (!$this->digitalForm) {
+        throw new \LogicException('Cannot determine page url because the digital form is not set.');
+      }
+      return Url::fromRoute("va_gov_form_builder.{$page}", [
+        'nid' => $this->digitalForm->id(),
+      ])->toString();
     }
 
-    return Url::fromRoute("va_gov_form_builder.{$page}", ['nid' => $this->digitalForm->id()])->toString();
+    // Pages that relate to a step within a form.
+    // Require a nid and stepParagraphId.
+    $stepPages = ['step.layout', 'step.step_label.edit'];
+    if (in_array($page, $stepPages)) {
+      if (!$this->digitalForm) {
+        throw new \LogicException('Cannot determine page url because the digital form is not set.');
+      }
+      if (!$this->stepParagraph) {
+        throw new \LogicException('Cannot determine page url because the step paragraph is not set.');
+      }
+      return Url::fromRoute("va_gov_form_builder.{$page}", [
+        'nid' => $this->digitalForm->id(),
+        'stepParagraphId' => $this->stepParagraph->id(),
+      ])->toString();
+    }
+
+    return '';
   }
 
   /**
@@ -221,6 +252,19 @@ class VaGovFormBuilderController extends ControllerBase {
 
       $layoutUrl = $this->getPageUrl('layout');
       $breadcrumbTrail = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle(), $layoutUrl);
+    }
+
+    elseif ($parent === 'step.layout') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $stepLayoutUrl = $this->getPageUrl('step.layout');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'layout',
+        $this->stepParagraph->get('field_title')->value,
+        $stepLayoutUrl
+      );
     }
 
     $breadcrumbTrail[] = [
@@ -356,10 +400,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     if (!empty($nid)) {
       // This is an edit.
-      $nodeFound = $this->loadDigitalForm($nid);
-      if (!$nodeFound) {
-        throw new NotFoundHttpException();
-      }
+      $this->loadDigitalForm($nid);
 
       $breadcrumbs = $this->generateBreadcrumbs('layout', 'Form info');
     }
@@ -378,10 +419,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function layout($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'layout',
@@ -407,16 +445,22 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
       '#additional_steps' => [
         'steps' => array_map(function ($step) {
+          $stepParagraphId = $step['fields']['id'][0]['value'];
           return [
             // If an additional step exists, it's complete.
+            // @todo This logic needs to be updated to accommodate custom
+            // steps that are not complete by default.
             'type' => $step['type'],
             'title' => $step['fields']['field_title'][0]['value'],
             'status' => 'complete',
-            'url' => '',
+            'url' => Url::fromRoute('va_gov_form_builder.step.layout', [
+              'nid' => $this->digitalForm->id(),
+              'stepParagraphId' => $stepParagraphId,
+            ])->toString(),
           ];
         }, $this->digitalForm->getNonStandarddSteps()),
         'add_step' => [
-          'url' => $this->getPageUrl('step.add.step_label'),
+          'url' => $this->getPageUrl('step.step_label.create'),
         ],
       ],
       '#review_and_sign' => [
@@ -445,10 +489,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function nameAndDob($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'name_and_dob',
@@ -487,10 +528,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function identificationInfo($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'identification_info',
@@ -529,10 +567,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function addressInfo($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'address_info',
@@ -564,10 +599,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function contactInfo($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'contact_info',
@@ -593,6 +625,70 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Step-layout page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   */
+  public function stepLayout($nid, $stepParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    $stepLabel = $this->stepParagraph->get('field_title')->value;
+    $stepType = $this->stepParagraph->bundle();
+
+    $pageContent = [
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'step_layout',
+      '#buttons' => [
+        'primary' => [
+          'label' => 'Return to steps',
+          'url' => $this->getPageUrl('layout'),
+        ],
+      ],
+    ];
+
+    // For now, only works for single-question style.
+    if ($stepType !== 'digital_form_custom_step') {
+      $pageContent['#supported_step_type'] = FALSE;
+      $pageContent['#page_heading'] = 'This step type is not supported yet.';
+      $pageContent['#pages'] = [];
+    }
+    else {
+      $pageContent['#supported_step_type'] = TRUE;
+
+      $pageEntities = $this->stepParagraph->get('field_digital_form_pages')->referencedEntities();
+      $pages = array_map(function ($page) {
+        return [
+          'id' => $page->id(),
+          'title' => $page->get('field_title')->value,
+          'url' => '',
+        ];
+      }, $pageEntities);
+
+      $pageContent['#page_heading'] = empty($pages) ? 'Edit this step' : 'Review or edit this step';
+      $pageContent['#step_label'] = [
+        'label' => $stepLabel,
+        'url' => $this->getPageUrl('step.step_label.edit'),
+      ];
+      $pageContent['#pages'] = $pages;
+      $pageContent['#buttons']['secondary'] = [
+        [
+          'label' => 'Add question',
+          'url' => '',
+        ],
+      ];
+    }
+
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', $stepLabel);
+    $libraries = ['single_column_with_buttons', 'step_layout', 'paragraph_sort_and_delete'];
+
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
    * Step-label page.
    *
    * @param string $nid
@@ -601,21 +697,18 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The entity id of the step paragraph.
    */
   public function stepLabel($nid, $stepParagraphId = NULL) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     if ($stepParagraphId) {
-      $stepParagraphFound = $this->loadStepParagraph($stepParagraphId);
-      if (!$stepParagraphFound) {
-        throw new NotFoundHttpException();
-      }
+      $this->loadStepParagraph($stepParagraphId);
+      $breadcrumbs = $this->generateBreadcrumbs('step.layout', 'Step label');
+    }
+    else {
+      $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step label');
     }
 
     $formName = 'StepLabel';
     $subtitle = $this->digitalForm->getTitle();
-    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step label');
     $libraries = ['single_column_with_buttons', 'step_label'];
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
@@ -628,10 +721,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function stepStyle($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     // This is the second stage in the process
     // of creating a new step. The previously
@@ -640,7 +730,7 @@ class VaGovFormBuilderController extends ControllerBase {
     // step-label page.
     $stepLabel = $this->session->get('form_builder:add_step:step_label');
     if (!$stepLabel) {
-      return $this->redirect('va_gov_form_builder.step.add.step_label', ['nid' => $nid]);
+      return $this->redirect('va_gov_form_builder.step.step_label.create', ['nid' => $nid]);
     }
 
     // This is a special circumstance of generating breadcrumbs.
@@ -661,7 +751,7 @@ class VaGovFormBuilderController extends ControllerBase {
     array_splice($breadcrumbs, 2, 0, [
       [
         'label' => $stepLabel,
-        'url' => $this->getPageUrl('step.add.step_label'),
+        'url' => $this->getPageUrl('step.step_label.create'),
       ],
     ]);
 
@@ -679,10 +769,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function reviewAndSign($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'review_and_sign',
@@ -747,10 +834,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    */
   public function viewForm($nid) {
-    $nodeFound = $this->loadDigitalForm($nid);
-    if (!$nodeFound) {
-      throw new NotFoundHttpException();
-    }
+    $this->loadDigitalForm($nid);
 
     $applicationUrl = $this->getLaunchViewLink();
     $isFormViewable = !empty($applicationUrl);

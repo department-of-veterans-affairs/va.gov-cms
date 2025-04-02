@@ -206,9 +206,22 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertViewFormTheme(self::PAGE_CONTENT_THEME_PREFIX . 'view_form__available', $result);
     // 4b. View-form page when viewing form is unavailable.
     $this->assertViewFormTheme(self::PAGE_CONTENT_THEME_PREFIX . 'view_form__unavailable', $result);
+    // 5. Step-layout page.
+    $stepLayoutTheme = self::PAGE_CONTENT_THEME_PREFIX . 'step_layout';
+    $this->assertArrayHasKey($stepLayoutTheme, $result);
+    $this->assertArrayHasKey('path', $result[$stepLayoutTheme]);
+    $this->assertEquals(self::PAGE_CONTENT_TEMPLATE_PATH, $result[$stepLayoutTheme]['path']);
+    $this->assertArrayHasKey('template', $result[$stepLayoutTheme]);
+    $this->assertEquals('step-layout', $result[$stepLayoutTheme]['template']);
+    $this->assertArrayHasKey('variables', $result[$stepLayoutTheme]);
+    $this->assertArrayHasKey('supported_step_type', $result[$stepLayoutTheme]['variables']);
+    $this->assertArrayHasKey('page_heading', $result[$stepLayoutTheme]['variables']);
+    $this->assertArrayHasKey('step_label', $result[$stepLayoutTheme]['variables']);
+    $this->assertArrayHasKey('pages', $result[$stepLayoutTheme]['variables']);
+    $this->assertArrayHasKey('buttons', $result[$stepLayoutTheme]['variables']);
 
     // Form themes.
-    $form_themes = ['form_info', 'step_label'];
+    $form_themes = ['form_info', 'step_label', 'step_style'];
     foreach ($form_themes as $form_theme) {
       $this->assertArrayHasKey(self::FORM_THEME_PREFIX . $form_theme, $result);
 

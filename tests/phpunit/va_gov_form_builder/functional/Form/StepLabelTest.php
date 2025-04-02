@@ -131,13 +131,30 @@ class StepLabelTest extends VaGovExistingSiteBase {
 
   /**
    * Test that the page has the expected breadcrumbs in edit mode.
-   *
-   * @todo Update and enable this test when edit-mode
-   * breadcrumbs are updated to link to step-layout page.
-   *
-   * public function testPageBreadcrumbsEditMode() {
-   * }
    */
+  public function testPageBreadcrumbsEditMode() {
+    $this->sharedTestPageHasExpectedBreadcrumbs(
+      $this->getFormPageUrl('edit'),
+      [
+        [
+          'label' => 'Home',
+          'url' => '/form-builder/home',
+        ],
+        [
+          'label' => $this->digitalForm->getTitle(),
+          'url' => "/form-builder/{$this->digitalForm->id()}",
+        ],
+        [
+          'label' => $this->stepParagraph->get('field_title')->value,
+          'url' => "/form-builder/{$this->digitalForm->id()}/step/{$this->stepParagraph->id()}",
+        ],
+        [
+          'label' => 'Step label',
+          'url' => "#content",
+        ],
+      ],
+    );
+  }
 
   /**
    * Test that the page loads correctly in create mode.
