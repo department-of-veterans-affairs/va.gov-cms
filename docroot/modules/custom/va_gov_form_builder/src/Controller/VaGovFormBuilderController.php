@@ -708,6 +708,39 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Uses field value to construct qualified form application preview link.
+   *
+   * Likely to be in one of three or four formats:
+   *  - https://staging.va.gov/form-application-url
+   *  - staging.va.gov/form-application-url
+   *  - /form-application-url
+   *  - form-application-url
+   * This function normalizes those cases to return a valid preview link.
+   */
+  private function getLaunchViewLink() {
+    $applicationUrlField = $this->digitalForm->get('field_form_application_url');
+
+    // Bail early if no field value.
+    if ($applicationUrlField->isEmpty()) {
+      return '';
+    }
+
+    // Parse field value into url parts.
+    $url = parse_url($applicationUrlField->getString());
+
+    $scheme = 'https://';
+    $previewHost = 'staging.va.gov';
+
+    if (str_starts_with($url['path'], 'staging.va.gov')) {
+      return $scheme . $url['path'];
+    }
+    if (!str_starts_with($url['path'], '/')) {
+      return $scheme . $previewHost . '/' . $url['path'];
+    }
+    return $scheme . $previewHost . $url['path'];
+  }
+
+  /**
    * View-form page.
    *
    * @param string $nid
@@ -719,21 +752,15 @@ class VaGovFormBuilderController extends ControllerBase {
       throw new NotFoundHttpException();
     }
 
-    // Note: We do not yet have the a field on the Digital Form
-    // node to store the form's staging url. Once we have that,
-    // this will be updated with logic to set `$isFormViewable`
-    // based on whether that field is populated. For now, the check
-    // for the form's title provides a mechanism to test both
-    // the available and unavailable contexts by changing between
-    // forms in Form Builder.
-    $isFormViewable = $this->digitalForm->getTitle() === 'Form 1';
+    $applicationUrl = $this->getLaunchViewLink();
+    $isFormViewable = !empty($applicationUrl);
     $viewFormStatus = $isFormViewable ? 'available' : 'unavailable';
 
     $buttons = $isFormViewable ? [
       'primary' => [
         'label' => 'Launch view',
-        // Temporary. Send somewhere other than layout page for now.
-        'url' => $this->getPageUrl('home'),
+        'url' => $applicationUrl,
+        'target' => '_blank',
       ],
       'secondary' => [
         [

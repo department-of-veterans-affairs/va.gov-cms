@@ -1,0 +1,24 @@
+uuid: f46a1c01-f9f2-437c-8525-99f358dd7ca2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_form_application_url
+    - node.type.digital_form
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.digital_form.field_form_application_url
+field_name: field_form_application_url
+entity_type: node
+bundle: digital_form
+label: 'Form application URL'
+description: "The <code>rootUrl</code> key in content-build's app registry. This link will be used to preview this form in the Form Builder UI on staging.va.gov"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
