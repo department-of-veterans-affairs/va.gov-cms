@@ -1082,6 +1082,9 @@ function va_gov_backend_field_widget_single_element_paragraphs_form_alter(&$elem
     $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
 
     $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
+    if (!$paragraph_instance) {
+      return;
+    };
     $paragraph_type = $paragraph_instance->bundle();
 
     if ($paragraph_type === 'q_a') {
