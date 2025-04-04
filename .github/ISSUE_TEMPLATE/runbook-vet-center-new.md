@@ -9,8 +9,7 @@ assignees: ''
 
 ## Description
 
-Use this runbook if: a Vet Center, Mobile Vet Center, or Vet Center Outstation is flagged as New, OR if an existing facility is flagged as New with a new Facility API ID.
-
+- Use this runbook if: a Vet Center, Mobile Vet Center, or Vet Center Outstation is flagged as New, OR if an existing facility is flagged as New with a new Facility API ID.
 - This may also occur when an Outstation is promoted to main Vet Center or if an existing Mobile Vet Center is reallocated to a different Vet Center
 
 ## Intake
