@@ -110,7 +110,12 @@ class LibrariesTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey($stepStyleLibrary, $this->libraries);
     $stepStyleCssArray = array_keys($this->libraries[$stepStyleLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'step-style.css', $stepStyleCssArray, 'Step-style css is present.');
-    // 9. Paragraph sort and delete.
+    // 9. Custom-or-predefined-question.
+    $customOrPredefinedQuestionLibrary = 'custom_or_predefined_question';
+    $this->assertArrayHasKey($customOrPredefinedQuestionLibrary, $this->libraries);
+    $customOrPredefinedQuestionCssArray = array_keys($this->libraries[$customOrPredefinedQuestionLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'custom-or-predefined-question.css', $customOrPredefinedQuestionCssArray, 'Custom-or-predefined-question css is present.');
+    // 10. Paragraph sort and delete.
     $paragraphSortAndDeleteLibrary = 'paragraph_sort_and_delete';
     $this->assertArrayHasKey($paragraphSortAndDeleteLibrary, $this->libraries);
     $paragraphSortAndDeleteJsArray = array_keys($this->libraries[$paragraphSortAndDeleteLibrary]['js']);
