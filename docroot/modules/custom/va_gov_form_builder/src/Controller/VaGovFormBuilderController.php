@@ -204,7 +204,11 @@ class VaGovFormBuilderController extends ControllerBase {
 
     // Pages that relate to a step within a form.
     // Require a nid and stepParagraphId.
-    $stepPages = ['step.layout', 'step.step_label.edit'];
+    $stepPages = [
+      'step.layout',
+      'step.step_label.edit',
+      'step.question.custom_or_predefined',
+    ];
     if (in_array($page, $stepPages)) {
       if (!$this->digitalForm) {
         throw new \LogicException('Cannot determine page url because the digital form is not set.');
@@ -673,7 +677,7 @@ class VaGovFormBuilderController extends ControllerBase {
       $pageContent['#buttons']['secondary'] = [
         [
           'label' => 'Add question',
-          'url' => '',
+          'url' => $this->getPageUrl('step.question.custom_or_predefined'),
         ],
       ];
     }
