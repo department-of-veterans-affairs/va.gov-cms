@@ -760,6 +760,28 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Custom-or-predefined-question page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   */
+  public function customOrPredefinedQuestion($nid, $stepParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    $pageContent = [
+      '#markup' => '<div>TEST</div>',
+    ];
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('step.layout', 'Custom or predefined question');
+    $libraries = ['single_column_with_buttons'];
+
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
    * Review-and-sign page.
    *
    * @param string $nid
