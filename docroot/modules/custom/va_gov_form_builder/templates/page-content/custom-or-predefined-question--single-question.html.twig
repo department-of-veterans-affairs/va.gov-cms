@@ -12,14 +12,13 @@
   <div class="form-builder-custom-or-predefined form-builder-custom-or-predefined__single_response">
     {% if predefined_questions|length == 0 %}
       {# No predefined questions #}
-      <p>
-        <strong>
-          If there were additional ready to use patterns for this form,
+      <section class="form-buiilder-custom-or-predefined__custom">
+        <h3 class="form-builder-custom-or-predefined__custom-title">
+          If there were additional ready-to-use patterns for this form,
           they would be listed on this page.
-        </strong>
-      </p>
-      <p>However, you can create your own question and responses by selecting the Customize option below.</p>
-
+        </h3>
+        <p>However, you can create your own question and responses by selecting the Customize option below.</p>
+      </section>
     {% else %}
       {# Predefined questions exist #}
       <section class="form-builder-custom-or-predefined__predefined">
