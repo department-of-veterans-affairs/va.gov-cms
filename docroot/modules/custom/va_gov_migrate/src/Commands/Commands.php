@@ -12,6 +12,8 @@ use Drupal\va_gov_facilities\FacilityOps;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Drush\Commands\DrushCommands;
+use League\Csv\Reader;
+use League\Csv\Statement;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
@@ -87,7 +89,7 @@ class Commands extends DrushCommands {
     Flagger $flaggerservice,
     DataFetcherPluginManager $data_fetcher_plugin_manager,
     LoggerInterface $migrate_channel_logger,
-    NotificationsManager $notifications_manager
+    NotificationsManager $notifications_manager,
   ) {
     parent::__construct();
     $this->database = $data_base;
@@ -139,6 +141,65 @@ class Commands extends DrushCommands {
   }
 
   /**
+   * Archive IntranetOnly forms in the CMS.
+   *
+   * @command va_gov_migrate:archive-intranet-only-forms
+   * @aliases va-gov-archive-intranet-only-forms
+   *
+   * @throws \League\Csv\UnavailableStream
+   *   Thrown when the file is not available.
+   * @throws \League\Csv\Exception
+   *   Thrown if the offset is a negative integer.
+   * @throws \League\Csv\InvalidArgument
+   *   Thrown by enclosure or delimiter arguments are more than one character.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *   Thrown if the entity type doesn't exist.
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *   Thrown if the storage handler couldn't be loaded.
+   */
+  public function archiveIntranetOnlyForms() {
+    $csv = Reader::createFromPath(DRUPAL_ROOT . '/sites/default/files/migrate_source/va_forms_data.csv', 'r');
+    $csv->setHeaderOffset(0);
+    $csv->setEnclosure('"');
+    $csv->setDelimiter(',');
+
+    // Create a Statement.
+    $stmt = (new Statement())
+      ->select('rowid')
+    // Start from first record.
+      ->offset(0)
+      ->limit(-1)
+      ->andWhere('IntranetOnly', '=', '1')
+    // Get all records.
+      ->orderByAsc('rowid');
+
+    // Process the CSV with the statement and filter for IntranetOnly = 1.
+    $records = $stmt->process($csv);
+
+    $intranet_only = [];
+    foreach ($records as $record) {
+      // Make an array of the rowids.
+      $intranet_only[] = $record['rowid'];
+    }
+    // Get all the non-archived forms in the CMS that are IntranetOnly.
+    $select = $this->database->select('node__field_va_form_row_id', 'nfvfri');
+    $select->join('content_moderation_state_field_data', 'cmsfd', 'nfvfri.entity_id = cmsfd.content_entity_id');
+    $select->fields('nfvfri', ['entity_id'])
+      ->condition('nfvfri.field_va_form_row_id_value', $intranet_only, 'IN')
+      ->condition('cmsfd.moderation_state', 'archived', '<>');
+    $nids = $select->execute()->fetchCol();
+
+    $forms_to_archive = $this->entityTypeManager->getStorage('node')->loadMultiple(array_values($nids));
+    $message = 'Archived due to being set IntranetOnly in Forms CSV.';
+
+    // Archive the nodes.
+    foreach ($forms_to_archive as $form_to_archive) {
+      $this->archiveNode($form_to_archive, $message);
+    }
+
+  }
+
+  /**
    * Flag any facilities that no longer exist in Facilty API.
    *
    * @command va_gov_migrate:flag-missing-facilities
@@ -146,7 +207,11 @@ class Commands extends DrushCommands {
    */
   public function flagMissingFacilities() {
     $facilities_in_fapi = $this->getFapiList();
-    $count_fapi = count($facilities_in_fapi);
+    // Make the two-dimensional array one dimension.
+    $facilities_flat = array_reduce($facilities_in_fapi, function ($carry, $item) {
+      return array_merge($carry, $item);
+    }, []);
+    $count_fapi = count($facilities_flat);
     // Make sure facilities in fapi makes sense or we will flag all facilities.
     if ($this->facilityCountSeemsFaulty($count_fapi)) {
       $vars = [
@@ -156,7 +221,7 @@ class Commands extends DrushCommands {
       $this->migrateChannelLogger->log(LogLevel::WARNING, 'The facility API returned %count facilities, which seems suspicious. Flagging aborted.', $vars);
       return;
     }
-    $facilities_to_flag = $this->getFacilitiesToFlag($facilities_in_fapi);
+    $facilities_to_flag = $this->getFacilitiesToFlag($facilities_flat);
     $count_flagged = count($facilities_to_flag);
     $count_archived = 0;
     if ($count_flagged) {
@@ -206,18 +271,31 @@ class Commands extends DrushCommands {
    */
   protected function archiveRemovedFacility(NodeInterface $facility) {
     $this->clearStatusData($facility);
-    $facility->set('moderation_state', 'archived');
-    $facility->setRevisionLogMessage('Archived due to removal from Facility API.');
-    $facility->setNewRevision(TRUE);
-    $facility->setUnpublished();
+    $message = 'Archived due to removal from Facility API.';
+    $this->archiveNode($facility, $message);
+  }
+
+  /**
+   * Archive a node.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node to archive.
+   * @param string $message
+   *   The revision message.
+   */
+  protected function archiveNode(NodeInterface $node, string $message) {
+    $node->set('moderation_state', 'archived');
+    $node->setRevisionLogMessage($message);
+    $node->setNewRevision(TRUE);
+    $node->setUnpublished();
     // Assign to CMS Migrator user.
-    $facility->setRevisionUserId(1317);
+    $node->setRevisionUserId(1317);
     // Prevents some other actions.
-    $facility->setSyncing(TRUE);
-    $facility->setChangedTime(time());
-    $facility->isDefaultRevision(TRUE);
-    $facility->setRevisionCreationTime(time());
-    $facility->save();
+    $node->setSyncing(TRUE);
+    $node->setChangedTime(time());
+    $node->isDefaultRevision(TRUE);
+    $node->setRevisionCreationTime(time());
+    $node->save();
   }
 
   /**
@@ -289,14 +367,16 @@ class Commands extends DrushCommands {
     $facility_migration = Migration::load('va_node_health_care_local_facility');
     if ($facility_migration) {
       $source = $facility_migration->get('source');
-      $url = $source['urls'][0];
-      $headers = $source['headers'];
-      $fetcher = $this->dataFetcherPluginManager->createInstance('http', ['headers' => $headers]);
-      $data = $fetcher->getResponseContent($url);
-      // Convert objects to associative arrays.
-      $source_data = json_decode($data, TRUE);
-      $ids = array_map([__CLASS__, 'extractId'], $source_data['features']);
-      $facilities = array_flip($ids);
+      // We can only get a 1000 facilities at a time, so need to loop through.
+      foreach ($source['urls'] as $url) {
+        $headers = $source['headers'];
+        $fetcher = $this->dataFetcherPluginManager->createInstance('http', ['headers' => $headers]);
+        $data = $fetcher->getResponseContent($url);
+        // Convert objects to associative arrays.
+        $source_data = json_decode($data, TRUE);
+        $ids = array_map([__CLASS__, 'extractId'], $source_data['data']);
+        $facilities[] = array_flip($ids);
+      }
     }
 
     return $facilities;
@@ -312,7 +392,7 @@ class Commands extends DrushCommands {
    *   The facility api id.
    */
   protected static function extractId(array $facility) {
-    return $facility['properties']['id'];
+    return $facility['id'];
   }
 
   /**
@@ -388,7 +468,8 @@ class Commands extends DrushCommands {
    *   TRUE if suspicious, FALSE otherwise.
    */
   protected function facilityCountSeemsFaulty($count_fapi): bool {
-    if ($count_fapi < 2000 || $count_fapi > 5000) {
+    // We are always calling at least 1000 facilities, but have less than 5000.
+    if ($count_fapi < 1000 || $count_fapi > 5000) {
       // Something is suspicious.
       return TRUE;
     }

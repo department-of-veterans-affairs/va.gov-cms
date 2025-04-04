@@ -7,16 +7,19 @@ dependencies:
     - paragraphs.paragraphs_type.phone_number
   module:
     - epp
+    - tmgmt_content
 third_party_settings:
   epp:
     value: ''
     on_update: 1
+  tmgmt_content:
+    excluded: false
 id: paragraph.phone_number.field_phone_extension
 field_name: field_phone_extension
 entity_type: paragraph
 bundle: phone_number
 label: 'Extension number'
-description: 'Enter only numbers'
+description: 'Enter only numbers.'
 required: false
 translatable: true
 default_value: {  }

@@ -1,0 +1,13 @@
+diff --git a/src/Entity/CorrespondingReference.php b/src/Entity/CorrespondingReference.php
+index 15f3b55..301f748 100644
+--- a/src/Entity/CorrespondingReference.php
++++ b/src/Entity/CorrespondingReference.php
+@@ -347,7 +347,7 @@ class CorrespondingReference extends ConfigEntityBase implements CorrespondingRe
+     }
+ 
+     $handler_settings = $field->getSetting('handler_settings');
+-    $target_bundles = $handler_settings['target_bundles'];
++    $target_bundles = $handler_settings['target_bundles'] ?? NULL;
+     if (!empty($target_bundles) && !in_array($entity->bundle(), $target_bundles)) {
+       return;
+     }

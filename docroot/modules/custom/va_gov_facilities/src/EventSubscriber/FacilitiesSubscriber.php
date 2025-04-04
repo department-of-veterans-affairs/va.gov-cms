@@ -105,7 +105,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
     MessengerInterface $messenger,
     TranslationInterface $string_translation,
     UserPermsService $user_perms_service,
-    RendererInterface $renderer
+    RendererInterface $renderer,
   ) {
     $this->currentUser = $currentUser;
     $this->entityTypeManager = $entityTypeManager;
@@ -128,6 +128,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vba_facility_service_edit_form.alter' => 'alterVbaFacilityServiceNodeForm',
       'hook_event_dispatcher.form_node_vba_facility_service_form.alter' => 'alterVbaFacilityServiceNodeForm',
       'hook_event_dispatcher.form_node_vet_center_facility_health_servi_edit_form.alter' => 'alterVetCenterServiceNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_facility_health_servi_form.alter' => 'alterVetCenterServiceNodeForm',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
@@ -549,6 +550,12 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
    */
   public function alterVbaFacilityServiceNodeForm(FormIdAlterEvent $event): void {
     $this->buildHealthServicesDescriptionArrayAddToSettings($event);
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    $is_admin = $this->userPermsService->hasAdminRole(TRUE);
+    if (!$is_admin) {
+      $this->disableFacilityServiceChange($form, $form_state);
+    }
   }
 
   /**
@@ -559,6 +566,31 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
    */
   public function alterVetCenterServiceNodeForm(FormIdAlterEvent $event): void {
     $this->buildHealthServicesDescriptionArrayAddToSettings($event);
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    $is_admin = $this->userPermsService->hasAdminRole(TRUE);
+    if (!$is_admin) {
+      $this->disableFacilityServiceChange($form, $form_state);
+    }
+  }
+
+  /**
+   * Disables the facility service change for non-admins.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function disableFacilityServiceChange(array &$form, FormStateInterface $form_state) {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\NodeInterface $node*/
+    $node = $form_object->getEntity();
+    if (!$node->isNew()) {
+      $form['field_service_name_and_descripti']['#disabled'] = TRUE;
+      $form['field_office']['#disabled'] = TRUE;
+    }
   }
 
   /**

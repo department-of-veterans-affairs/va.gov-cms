@@ -3,6 +3,7 @@
 This is the public/open documentation for the VA.gov Content Management System (CMS) for development, QA and DevOps topics. For product, design, support, research and cross-team documentation, visit the [platform/cms docs](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms). For private/sensitive documentation, visit the [private docs repo](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms). See [sensitive-guidance.md](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md) to read about what should be public vs. private. We follow the U.S. Digital Services Playbook and [default to open/public](https://playbook.cio.gov/#play13)).
 
 [VA.gov](https://www.va.gov) is constructed at the highest level by three projects:
+
 - the **CMS** or **Content Management System**, in this repository
 - the [**vets-website**](https://github.com/department-of-veterans-affairs/vets-website/) project, covering the many special- and general-purpose applications making up the website
 - the [**content-build**](https://github.com/department-of-veterans-affairs/content-build/) project, which extracts and processes the content from the CMS for display on the website
@@ -30,6 +31,7 @@ The VA.gov CMS Team
    1. [Workflow](READMES/workflow.md)
    1. [Project Conventions](READMES/project-conventions.md)
    1. [Code Ownership](READMES/codeowners.md)
+   1. [Patches](READMES/patches.md)
    1. [Environments](READMES/environments.md)
       1. [CI Environments](READMES/tugboat.md)
       1. [Local - DDEV](READMES/local.md)
@@ -125,6 +127,7 @@ The source code for generating the public site is located in the [vets-website](
 #### Decoupled Drupal
 
 The production instance of the CMS is utilized in two main ways:
+
 - as a tool for the VA.gov Content Team to efficiently create and manage content
 - as a repository and API server for the content-build process to publish content to the world at large
 
@@ -143,10 +146,10 @@ This section outlines only the systems utilized by the CMS. See the READMEs in t
 - Running [Tugboat](https://www.tugboat.qa) ([docs](READMES/tugboat.md)) at [tugboat.vfs.va.gov/](https://tugboat.vfs.va.gov/). Access restricted to CAG, sign in with GitHub.
 - A single "mirror" environment is regularly populated with a sanitized production database copy.
 - Open Pull Requests get environments created automatically, cloned from the "mirror" environment, with URLs like:
-   - [pr123-{hash}.ci.cms.va.gov](https://pr123-{hash}.ci.cms.va.gov) for the CMS
-      - To access Cypress test logs and artifacts, see [Testing](READMES/testing.md) for details.
-   - [web-{hash}.ci.cms.va.gov](http://web-{hash}.ci.cms.va.gov) for the frontend web build
-   - [storybook-{hash}.ci.cms.va.gov](http://storybook-{hash}.ci.cms.va.gov) for design system documentation
+  - [pr123-{hash}.ci.cms.va.gov](https://pr123-{hash}.ci.cms.va.gov) for the CMS
+    - To access Cypress test logs and artifacts, see [Testing](READMES/testing.md) for details.
+  - [web-{hash}.ci.cms.va.gov](http://web-{hash}.ci.cms.va.gov) for the frontend web build
+  - [storybook-{hash}.ci.cms.va.gov](http://storybook-{hash}.ci.cms.va.gov) for design system documentation
 - Ad-hoc environments can be created and deleted at any time by any logged in user on [tugboat.vfs.va.gov/](https://tugboat.vfs.va.gov/):
   - Should be created under "CMS Demo Environments"
   - Can be named anything and can be set to any branch or Pull Request.

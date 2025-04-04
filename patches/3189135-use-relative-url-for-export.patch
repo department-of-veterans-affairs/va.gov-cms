@@ -1,0 +1,26 @@
+diff --git a/src/Plugin/views/display/DataExport.php b/src/Plugin/views/display/DataExport.php
+index 8b4db87..f768745 100644
+--- a/src/Plugin/views/display/DataExport.php
++++ b/src/Plugin/views/display/DataExport.php
+@@ -897,7 +897,7 @@ class DataExport extends RestExport {
+         // Create a web server accessible URL for the private file.
+         // Permissions for accessing this URL will be inherited from the View
+         // display's configuration.
+-        $url = \Drupal::service('file_url_generator')->generateAbsoluteString($results['vde_file']);
++        $url = \Drupal::service('file_url_generator')->generateString($results['vde_file']);
+         $message = t('Export complete. Download the file <a download href=":download_url"  data-download-enabled="false" id="vde-automatic-download">here</a>.', [':download_url' => $url]);
+         // If the user specified instant download than redirect to the file.
+         if ($results['automatic_download']) {
+diff --git a/src/Plugin/views/style/DataExport.php b/src/Plugin/views/style/DataExport.php
+index ab9af95..d3a2a3a 100644
+--- a/src/Plugin/views/style/DataExport.php
++++ b/src/Plugin/views/style/DataExport.php
+@@ -167,7 +167,7 @@ class DataExport extends Serializer {
+     if ($pager = $this->view->getPager()) {
+       $url_options['query']['page'] = $pager->getCurrentPage();
+     }
+-    $url_options['absolute'] = TRUE;
++    $url_options['absolute'] = FALSE;
+     if (!empty($this->options['formats'])) {
+       $url_options['query']['_format'] = reset($this->options['formats']);
+     }

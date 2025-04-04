@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Template for Form Builder form page: Form Info
+ */
+#}
+<div id="form-builder-content-form-info" class="form-builder-content form-builder-single-column-content form-builder-form-content">
+  <h2 class="form-builder-page-title">Name this form</h2>
+  <section class="form-builder-content-section form-builder-content-section--form-name-number">
+    {{ form.title }}
+    {{ form.field_va_form_number }}
+  </section>
+  <section class="form-builder-content-section form-builder-content-section--omb-info">
+    <h3 class="form-builder-content-section__header form-builder-content-section--omb-info__header">OMB information</h3>
+    {{ form.field_omb_number }}
+    {{ form.field_respondent_burden }}
+    {{ form.field_expiration_date }}
+  </section>
+  {{ form.actions }}
+
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'title',
+    'field_va_form_number',
+    'field_omb_number',
+    'field_respondent_burden',
+    'field_expiration_date',
+    'actions'
+  )}}
+</div>

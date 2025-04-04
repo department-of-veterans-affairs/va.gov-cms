@@ -407,6 +407,8 @@ function _vagovclaro_exposed_kb_search_block_form_alter(array &$form) {
     // CMS_HELP_CENTER_HOMEPAGE_NID set in va_gov_help_center.module.
     if ($current_route === 'view.knowledge_base_search_results.knowledge_base_search_page'
       || $nid == CMS_HELP_CENTER_HOMEPAGE_NID) {
+      // CMS help page redesign placeholder change.
+      $form['keyword']['#attributes']['placeholder'] = t('Enter a keyword, phrase, or question');
       return;
     }
 
@@ -449,4 +451,12 @@ function _vagovclaro_form_cms_announcement_block(array &$form) {
     $form['info']['widget'][0]['value']['#description'] = t('Used for configuration settings only.');
     $form['info']['widget'][0]['value']['#title'] = t('Block name');
   }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function vagovclaro_preprocess_page(&$variables) {
+  // Creating a url variable to track if we are on the landing page for KB.
+  $variables['url'] = $_SERVER['REQUEST_URI'];
 }

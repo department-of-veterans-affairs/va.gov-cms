@@ -6,7 +6,6 @@ use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
@@ -17,6 +16,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
+use Drupal\feature_toggle\FeatureStatus;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vet_center\Service\RequiredServices;
@@ -61,6 +61,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   private $renderer;
 
   /**
+   * Feature Toggle status service.
+   *
+   * @var \Drupal\feature_toggle\FeatureStatus
+   */
+  private FeatureStatus $featureStatus;
+
+  /**
    * Constructs a EntityEventSubscriber object.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
@@ -73,19 +80,23 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The string translation service.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
+   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
+   *   The Feature Status service.
    */
   public function __construct(
     TranslationInterface $string_translation,
     UserPermsService $user_perms_service,
     RequiredServices $required_services,
     EntityTypeManager $entity_type_manager,
-    RendererInterface $renderer
-    ) {
+    RendererInterface $renderer,
+    FeatureStatus $feature_status,
+  ) {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
     $this->requiredServices = $required_services;
     $this->entityTypeManager = $entity_type_manager;
     $this->renderer = $renderer;
+    $this->featureStatus = $feature_status;
   }
 
   /**
@@ -118,6 +129,30 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->appendHealthServiceTermDescriptionToVetCenter($event);
+    $this->hideVetCenterOutstationFieldsByToggle($event);
+  }
+
+  /**
+   * Hides Vet Center Outstation fields by toggle, per VACMS-20601.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function hideVetCenterOutstationFieldsByToggle(EntityViewAlterEvent $event):void {
+    $display = $event->getDisplay();
+    // Only target the Vet Center Outstation.
+    if (($display->getTargetBundle() !== 'vet_center_outstation') || ($display->getOriginalMode() !== 'full')) {
+      return;
+    }
+    // Get status of Vet Center Outstation enhancements.
+    $status = $this->featureStatus->getStatus('feature_vet_center_outstation_enhancements');
+    // If status is true, don't hide.
+    if ($status) {
+      return;
+    }
+    $build = &$event->getBuild();
+    $this->hideFieldsByToggle($build);
+
   }
 
   /**
@@ -128,32 +163,43 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function appendHealthServiceTermDescriptionToVetCenter(EntityViewAlterEvent $event):void {
     $display = $event->getDisplay();
-    if (($display->getTargetBundle() === 'vet_center') && ($display->getOriginalMode() === 'full')) {
-      $build = &$event->getBuild();
-      $services = $build['field_health_services'] ?? [];
-      foreach ($services as $key => $service) {
-        // If there are services (because their keys are numeric.)
-        if (is_numeric($key) && !empty($service['#options']['entity'])) {
-          $description = new FormattableMarkup('', []);
-          $service_node = $service['#options']['entity'];
-          $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
-          // Render the national service term description (if available).
-          if (!empty($referenced_terms)) {
-            $referenced_term = reset($referenced_terms);
-            if ($referenced_term) {
-              $description = $this->getVetServiceDescription($referenced_term);
-            }
+    $bundle = $display->getTargetBundle();
+    $bundles_with_services = [
+      'vet_center',
+      'vet_center_outstation',
+    ];
+    // Only append to the Vet Centers with services.
+    if (!in_array($bundle, $bundles_with_services)) {
+      return;
+    }
+    // Only append if full display.
+    if ($display->getOriginalMode() !== 'full') {
+      return;
+    }
+    $build = &$event->getBuild();
+    $services = $build['field_health_services'] ?? [];
+    foreach ($services as $key => $service) {
+      // If there are services (because their keys are numeric.)
+      if (is_numeric($key) && !empty($service['#options']['entity'])) {
+        $description = new FormattableMarkup('', []);
+        $service_node = $service['#options']['entity'];
+        $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
+        // Render the national service term description (if available).
+        if (!empty($referenced_terms)) {
+          $referenced_term = reset($referenced_terms);
+          if ($referenced_term) {
+            $description = $this->getVetServiceDescription($referenced_term);
           }
-          else {
-            $description = new FormattableMarkup(
-            '<div style="color:#e31c3d; font-weight:bold">Notice: The national service name and description were not found. Contact CMS Support to resolve this issue.</div>',
-              []);
-          }
-          // Append the facility-specific service description (no matter what).
-          $description .= $service_node->get('field_body')->value;
-          $formatted_markup = new FormattableMarkup($description, []);
-          $build['field_health_services'][$key]['#suffix'] = $formatted_markup;
         }
+        else {
+          $description = new FormattableMarkup(
+          '<div style="color:#e31c3d; font-weight:bold">Notice: The national service name and description were not found. Contact CMS Support to resolve this issue.</div>',
+            []);
+        }
+        // Append the facility-specific service description (no matter what).
+        $description .= $service_node->get('field_body')->value;
+        $formatted_markup = new FormattableMarkup($description, []);
+        $build['field_health_services'][$key]['#suffix'] = $formatted_markup;
       }
     }
   }
@@ -239,26 +285,84 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form_state = $event->getFormState();
     $is_admin = $this->userPermsService->hasAdminRole(TRUE);
     if (!$is_admin) {
-      $this->disableFacilityServiceChange($form, $form_state);
+      $this->disableArchivingRequiredServicesNonAdmins($form, $form_state);
     }
+    $this->showServiceAsRequiredOrOptional($form, $form_state);
+
   }
 
   /**
-   * Disable service name field for existing Vet Center - Facility Services.
+   * Disable the Archived moderation state on required services for non-admins.
    *
    * @param array $form
    *   The node form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public function disableFacilityServiceChange(array &$form, FormStateInterface $form_state) {
-    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+  public function disableArchivingRequiredServicesNonAdmins(array &$form, FormStateInterface $form_state) {
+    $required_services = $this->requiredServices->getRequiredServices();
     $form_object = $form_state->getFormObject();
-    /** @var \Drupal\node\NodeInterface $node*/
     $node = $form_object->getEntity();
-    if (!$node->isNew()) {
-      $form['field_service_name_and_descripti']['#disabled'] = TRUE;
+    $service_id = $node->field_service_name_and_descripti->target_id;
+    foreach ($required_services as $required_service) {
+      $required_service_id = $required_service->id();
+      if ($service_id == $required_service_id) {
+        if ($form['moderation_state']['widget'][0]['state']['#options']['archived']) {
+          unset($form['moderation_state']['widget'][0]['state']['#options']['archived']);
+        }
+      }
     }
+  }
+
+  /**
+   * Show service as required or optional.
+   *
+   * @param array $form
+   *   The node form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function showServiceAsRequiredOrOptional(array &$form, FormStateInterface $form_state) {
+    $required_services = $this->requiredServices->getRequiredServices();
+    $form_object = $form_state->getFormObject();
+    $node = $form_object->getEntity();
+    $service_id = $node->field_service_name_and_descripti->target_id;
+    $service_name = $node->field_service_name_and_descripti->entity->getName();
+    foreach ($required_services as $required_service) {
+      $required_service_id = $required_service->id();
+      if ($service_id == $required_service_id) {
+        // This is a required service.
+        $service_required_or_optional = $this->t('a required');
+        $can_or_cannot = $this->t('cannot');
+        $service_required_or_optional_capitalized = $this->t('Required');
+        break;
+      }
+      else {
+        // This is an optional service.
+        $service_required_or_optional = $this->t('an optional');
+        $can_or_cannot = $this->t('can');
+        $service_required_or_optional_capitalized = $this->t('Optional');
+      }
+    }
+
+    $required_or_optional_markup = new FormattableMarkup(
+      '<div class="field-group-tooltip not-editable centralized field-group-html-element tooltip-layout">
+      <p><strong>:service_required_or_optional_capitalized Service</strong>
+      <br />:service_name is :required_or_optional service. :service_required_or_optional_capitalized services :can_or_cannot be archived. Learn more in the <a href="https://prod.cms.va.gov/help/vet-centers/how-to-edit-a-vet-center-service" target="_blank">Knowledge Base article about Vet Center Services (opens in a new window).</a></p>
+      </div>',
+      [
+        ':service_required_or_optional_capitalized' => $service_required_or_optional_capitalized,
+        ':required_or_optional' => $service_required_or_optional,
+        ':service_name' => $service_name,
+        ':can_or_cannot' => $can_or_cannot,
+      ]
+    );
+    $form['service_optional_or_required'] = [
+      '#type' => 'markup',
+      '#markup' => $this->t('@markup', ['@markup' => $required_or_optional_markup]),
+      '#weight' => 5,
+    ];
+
   }
 
   /**
@@ -282,6 +386,112 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form['#attached']['library'][] = 'va_gov_vet_center/limit_vet_service_selections';
     $this->disableNameFieldForNonAdmins($form);
+    $this->hideFieldsByToggle($form);
+
+    // Get status of Vet Center Outstation enhancements.
+    $status = $this->featureStatus->getStatus('feature_vet_center_outstation_enhancements');
+
+    // If the feature is on, add the services.
+    if ($status) {
+      $this->addServicesViewToFacility($event);
+    }
+
+  }
+
+  /**
+   * Add list of services of this facility.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  private function addServicesViewToFacility(FormIdAlterEvent $event) {
+    $form_object = $event->getFormState()->getFormObject();
+    if ($form_object instanceof EntityFormInterface) {
+      $nid = $form_object->getEntity()->id() ?? NULL;
+      $form = &$event->getForm();
+
+      if (isset($form['#fieldgroups']['group_vet_center_services'])) {
+
+        // Generate a unique key for the services view.
+        $element_key = 'vet_center_services_view';
+
+        // Add the view to the form.
+        $form['group_vet_center_services'][$element_key] = [
+          '#type' => 'view',
+          '#name' => 'vet_center_services',
+          '#display_id' => 'vet_center_services',
+          '#embed' => TRUE,
+          '#arguments' => [$nid],
+        ];
+
+        // Associate the new element with the fieldgroup.
+        if (!isset($form['#group_children'])) {
+          $form['#group_children'] = [];
+        }
+        $form['#group_children'][$element_key] = 'group_vet_center_services';
+
+        // Add the new element to the fieldgroup's children array.
+        $form['#fieldgroups']['group_vet_center_services']->children[] = $element_key;
+      }
+
+    }
+
+  }
+
+  /**
+   * Hide new Outstation fields, based on feature toggle for VACMS-20601.
+   *
+   * @param array $page_array
+   *   The array of page data.
+   */
+  private function hideFieldsByToggle(array &$page_array) {
+    // Get status of Vet Center Outstation enhancements.
+    $status = $this->featureStatus->getStatus('feature_vet_center_outstation_enhancements');
+    // If status is true, don't hide.
+    if ($status) {
+      return;
+    }
+
+    // Identify groups to hide.
+    $groups_to_hide = [
+      'group_vet_center_banner_image',
+      'group_vet_center_services_overvi',
+      'group_hours_details_and_call_cen',
+      'group_prepare_for_your_visit',
+      'group_spotlight_content',
+      'group_national_spotlight_content',
+      'group_how_we_re_different_than_a',
+    ];
+
+    // Hide all fields in the group and group.
+    if (isset($page_array['#group_children'])) {
+      foreach ($page_array['#group_children'] as $field_name => $group_name) {
+        if (in_array($group_name, $groups_to_hide)) {
+          $page_array[$field_name]['#access'] = FALSE;
+          if (!empty($page_array["#fieldgroups"])) {
+            // Removing the class removes styling we don't want.
+            $page_array["#fieldgroups"][$group_name]->format_settings["classes"] = '';
+            // Changing the format_type from 'tooltip' prevents js DOM changes.
+            $page_array["#fieldgroups"][$group_name]->format_type = 'fieldset';
+          }
+
+        }
+      }
+    }
+
+    // Non-grouped fields to hide.
+    if (isset($page_array['field_intro_text'])) {
+      $page_array['field_intro_text']['#access'] = FALSE;
+    }
+    if (isset($page_array['field_health_services'])) {
+      $page_array['field_health_services']['#access'] = FALSE;
+    }
+
+    // Group without children to hide.
+    if (isset($page_array["#fieldgroups"]['group_vet_center_services'])) {
+      unset($page_array["#fieldgroups"]['group_vet_center_services']);
+    }
+
   }
 
   /**
@@ -487,52 +697,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterVetCenterNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
-    $form_state = $event->getFormState();
-    $form['#attached']['library'][] = 'va_gov_vet_center/set_ief_service_selects';
-    $this->modifyIefServicesFormDisplay($form, $form_state);
     $this->disableNameFieldForNonAdmins($form);
-  }
-
-  /**
-   * Add column to services table.
-   *
-   * Sort alphanumerically.
-   *
-   * Remove delete options for required items.
-   *
-   * Remove drag and drop.
-   *
-   * @param array $form
-   *   The node form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   */
-  public function modifyIefServicesFormDisplay(array &$form, FormStateInterface $form_state) {
-    $form_object = $form_state->getFormObject();
-    if ($form_object instanceof EntityFormInterface) {
-      /** @var \Drupal\node\NodeInterface $node */
-      $node = $form_object->getEntity();
-      $node_title = $node->getTitle();
-      $form['field_health_services']['widget']['entities']['#table_fields']['label']['label'] = $this->t('Services offered at :title', [':title' => $node_title]);
-      $cols = &$form['field_health_services']['widget']['entities']['#table_fields'];
-      $cols['req_optional'] = [
-        'type' => 'markup',
-        'label' => $this->t('Required/optional'),
-        'weight' => 3,
-      ];
-      unset($form['field_health_services']['widget']['entities']['#table_fields'][0]);
-      $keys = Element::children($form['field_health_services']['widget']['entities']);
-      if (!empty($keys)) {
-        foreach ($keys as $key) {
-          $entity = &$form['field_health_services']['widget']['entities'][$key];
-          $entity['#markup'] = $this->t('Optional');
-          if (array_key_exists('#label', $entity) && $this->checkIfServiceRequired($entity['#label'])) {
-            unset($entity['actions']['ief_entity_remove']);
-            $entity['#markup'] = $this->t('Required');
-          }
-        }
-      }
-    }
+    $this->addServicesViewToFacility($event);
   }
 
   /**

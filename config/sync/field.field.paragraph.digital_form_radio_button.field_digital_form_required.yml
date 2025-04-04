@@ -1,0 +1,28 @@
+uuid: d9c83cd0-01b3-4b42-9167-239089cb6b69
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_digital_form_required
+    - paragraphs.paragraphs_type.digital_form_radio_button
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_radio_button.field_digital_form_required
+field_name: field_digital_form_required
+entity_type: paragraph
+bundle: digital_form_radio_button
+label: 'Required?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

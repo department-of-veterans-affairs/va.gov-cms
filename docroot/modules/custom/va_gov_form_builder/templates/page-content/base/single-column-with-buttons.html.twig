@@ -1,0 +1,31 @@
+{% extends '@va_gov_form_builder/base/single-column-with-buttons.html.twig' %}
+
+{% set page_type = 'page' %}
+
+{% block buttons %}
+  {% if buttons.secondary is defined %}
+    {% for secondary_button in buttons.secondary %}
+      <a
+        id="form-builder-secondary-button-{{loop.index}}"
+        href="{{ secondary_button.url }}"
+        role="button"
+        class="form-builder-button form-builder-button--secondary"
+      >
+        {{ secondary_button.label }}
+      </a>
+    {% endfor %}
+  {% endif %}
+  {% if buttons.primary is defined %}
+    <a
+      id="form-builder-primary-button"
+      href="{{ buttons.primary.url }}"
+      role="button"
+      class="form-builder-button form-builder-button--primary"
+      {% if buttons.primary.target is defined %}
+        target="{{ buttons.primary.target }}"
+      {% endif %}
+    >
+      {{ buttons.primary.label }}
+    </a>
+  {% endif %}
+{% endblock %}

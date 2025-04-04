@@ -1,0 +1,88 @@
+<div id="form-builder-content-layout" class="form-builder-content form-builder-single-column-content form-builder-page-content">
+  <h2>Build this form</h2>
+  <p class="form-builder-content__page-help-text">Use this page to access and edit any content of this form or add additional steps as needed.</p>
+
+  <section class="form-builder-layout-step-group">
+    <h3 class="form-builder-layout-step-group__heading">Form overview</h3>
+    <section class="form-builder-layout-step form-builder-layout-step--{{form_info.status}}">
+      <h4>Form info</h4>
+      <p class="form-builder-layout-step__help-text">In this section: the form is named, the OMB information is provided and a plain language header is provided for the submitter.</p>
+      <a class="form-builder-layout-step__view-link" href="{{form_info.url}}">View form info</a>
+    </section>
+    <section class="form-builder-layout-step form-builder-layout-step--{{intro.status}}">
+      <h4>Introduction page</h4>
+      <p class="form-builder-layout-step__help-text">There are two paragraphs used to inform the user of the purpose of this form and the information needed to complete it.</p>
+      <a class="form-builder-layout-step__view-link" href="{{intro.url}}">View introduction page</a>
+    </section>
+  </section>
+
+  <section class="form-builder-layout-step-group">
+    <h3  class="form-builder-layout-step-group__heading">Form steps</h3>
+    <section class="form-builder-layout-step form-builder-layout-step--{{your_personal_info.status}}">
+      <h4>Step 1: Your personal information</h4>
+      <p class="form-builder-layout-step__help-text">No additional editing is needed for this step.</p>
+      <a class="form-builder-layout-step__view-link" href="{{your_personal_info.url}}">View personal information</a>
+    </section>
+    <section class="form-builder-layout-step form-builder-layout-step--{{address_info.status}}">
+      <h4>Step 2: Address information</h4>
+      <p class="form-builder-layout-step__help-text">
+        Select the Step label for this item.<br/>
+        Additional hint text can also be provided.
+      </p>
+      <a class="form-builder-layout-step__view-link"  href="{{address_info.url}}">View address information</a>
+    </section>
+    <section class="form-builder-layout-step form-builder-layout-step--{{contact_info.status}}">
+      <h4>Step 3: Contact information</h4>
+      <p class="form-builder-layout-step__help-text">This step includes email and phone number collection from the submitter.</p>
+      <a class="form-builder-layout-step__view-link" href="{{contact_info.url}}">View contact information</a>
+    </section>
+
+    {% for additional_step in additional_steps.steps %}
+      <section class="form-builder-layout-step form-builder-layout-step--{{additional_step.status}}">
+        <h4>Step {{ loop.index + 3 }}: {{ additional_step.title }}</h4>
+        <p class="form-builder-layout-step__help-text">Click the link below to view this step.</p>
+        <a class="form-builder-layout-step__view-link" href="{{additional_step.url}}">View {{ additional_step.title | lower }}</a>
+      </section>
+    {% endfor %}
+
+    <section class="form-builder-layout-step">
+      <h4>Add a step</h4>
+      <p class="form-builder-layout-step__help-text">To allow this form to collect additional information, select Add a step to access additional questions to add for the submitter.</p>
+      <a
+        id="form-builder-build-form-button"
+        href="{{additional_steps.add_step.url}}"
+        role="button"
+        class="form-builder-layout-step__view-link form-builder-button form-builder-button--primary form-builder-button--add-step"
+      >
+        Add a step
+      </a>
+    </section>
+  </section>
+
+  <section class="form-builder-layout-step-group">
+    <h3 class="form-builder-layout-step-group__heading">Submission and next steps</h3>
+    <section class="form-builder-layout-step form-builder-layout-step--{{review_and_sign.status}}">
+      <h4>Review and sign</h4>
+      <p class="form-builder-layout-step__help-text">No additional editing is needed for this step.</p>
+      <a class="form-builder-layout-step__view-link" href="{{review_and_sign.url}}">View review and sign page</a>
+    </section>
+    <section class="form-builder-layout-step form-builder-layout-step--{{confirmation.status}}">
+      <h4>Confirmation page</h4>
+      <p class="form-builder-layout-step__help-text">Upon successful submission of the form a confirmation message is displayed on this page.</p>
+      <a class="form-builder-layout-step__view-link" href="{{confirmation.url}}">View confirmation page</a>
+    </section>
+  </section>
+
+  <section class="form-builder-layout-step-group">
+    <h3 class="form-builder-layout-step-group__heading form-builder-layout-step-group__heading--viewing-form">Viewing the form</h3>
+    <p class="form-builder-layout-step__help-text">Once all of the steps are complete, this form can be viewed by selecting View form.</p>
+    <a
+      id="form-builder-build-form-button"
+      href="{{view_form.url}}"
+      role="button"
+      class="form-builder-layout-step__view-link form-builder-button form-builder-button--secondary form-builder-button--view-form"
+    >
+      View form
+    </a>
+  </section>
+</div>

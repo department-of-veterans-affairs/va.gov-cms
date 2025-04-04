@@ -1,0 +1,17 @@
+diff --git a/src/Plugin/Field/FieldFormatter/TablefieldFormatter.php b/src/Plugin/Field/FieldFormatter/TablefieldFormatter.php
+index b7c69472..18a233e0 100644
+--- a/src/Plugin/Field/FieldFormatter/TablefieldFormatter.php
++++ b/src/Plugin/Field/FieldFormatter/TablefieldFormatter.php
+@@ -142,8 +142,10 @@ class TablefieldFormatter extends FormatterBase implements ContainerFactoryPlugi
+       if (!empty($table->value)) {
+         // Tablefield::rationalizeTable($table->value);.
+         $tabledata = $table->value;
+-        $caption = $tabledata['caption'];
+-        unset($tabledata['caption']);
++        $caption = !empty($tabledata['caption']) ? $tabledata['caption'] : '';
++        if (isset($tabledata['caption'])) {
++          unset($tabledata['caption']);
++        }
+ 
+         // Run the table through input filters.
+         forea

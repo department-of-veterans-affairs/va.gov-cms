@@ -93,4 +93,3 @@ Facility API ID: <insert_facility_API_ID>
 - [ ] Edit facility node and remove `New facility` flag with a revision log message that includes a link to this ticket.
 - [ ] Let Help desk know this has been done, if not done by Help desk.
 
-

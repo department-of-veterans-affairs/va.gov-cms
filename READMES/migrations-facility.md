@@ -12,8 +12,8 @@
 ```mermaid
   graph TD;
     vast[VAST, Access To Care, etc]-- 7:30AM -->fapi;
-    fapi[(Facility API)]-- 8:00AM -->migrations[CMS migrations];
-    fapi-- Vets API -->fl[[Facility Locator App]];
+    fapi[(LH Facility API)]-- 8:00AM -->migrations[CMS migrations];
+    fapi-- facilities-api in vets-api -->fl[[Facility Locator App]];
     migrations-->nodes[Nodes: VAMC, Vet Centers, VBA, NCA];
     nodes-->FE[[FE pages]];
     nodes-->data
@@ -102,7 +102,11 @@ For these migrations to function, you'll need to obtain a Facility API Key from 
 $settings['post_api_endpoint_host'] = 'https://sandbox-api.va.gov';
 $settings['post_api_apikey'] = 'PASTE_KEY_HERE';
 
-$facility_api_urls = ['https://sandbox-api.va.gov/services/va_facilities/v0/facilities/all'];
+$facility_api_urls = [
+  'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000',
+  'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=2',
+  'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=3',
+];
 $facility_api_key = $settings['post_api_apikey'];
 $facility_migrations = [
   'va_node_health_care_local_facility',
@@ -126,6 +130,34 @@ foreach ($facility_migrations as $facility_migration) {
   4. Append the data to an existing CSV or add it as new (if you are dealing with thousands, add it as new.)  Name the file as a match to the id of the migration you are creating.
   5.  Run the System Health Service migration.  Look for presence of migrate messages.  The messages will indicate the problems with the data.  Fix, rollback, repeat until there are no messages created and the row count of the data, matches the created count.
   6. Run the Facility Health Service migration.  Look for messages. The messages will indicate the problems with the data.  Fix, rollback, repeat until there are no messages created and the row count of the data, matches the created count.
+
+## CMS supplemental data
+When a facility is updated, such as when the operated status is edited, a payload of data about that facility is added to the Post API Queue to be sent to Lighthouse. Similarly, when a facility service is created or edited, a payload of data about that service is added to the queue. The data flow is as follows:
+
+## Diagram of current process for pushing facility data
+```mermaid
+flowchart TD
+    A(Editor updates facility or adds or updates service in CMS) --> B(CMS adds node-related payload item to queue)
+    B --> C(CMS processes Post API Queue queue on cron)
+    C --> D{Is the queue empty or has it reached item processing limit?}
+    D -- Yes -->E(QueueProcessingCompleteEvent triggered)
+    D -- No --> F(Sends a queue item to Lighthouse)
+    E --> G{Does count of items at end equal count at start?}
+    F --> H{Successfully received by Lighthouse?}
+    G -- Yes --> I(Send error to Slack--or dblogs if no Slack)
+    style I stroke-width:4px,font-weight:bold,fill:#f96;
+    G -- No --> J(((End queue processing)))
+    H -- Yes -->K(Item removed from the queue)
+    H -- No --> L{What is the issue?}
+    I --> J
+    K --> D
+    L -- 200 but response long -->B
+    L -- 201 or 202 --> M(Send error to Slack and dblogs)
+    style M stroke-width:4px,font-weight:bold,fill:#f96;
+    L --> D
+```
+## Monitoring
+#19369 created a Slack notification that will push to the DSVA #cms-notifications channel if the TIC returns a 200 response with a 0 byte size.
 
 ----
 
