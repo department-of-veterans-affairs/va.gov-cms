@@ -226,6 +226,39 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Uses field value to construct qualified form application preview link.
+   *
+   * Likely to be in one of three or four formats:
+   *  - https://staging.va.gov/form-application-url
+   *  - staging.va.gov/form-application-url
+   *  - /form-application-url
+   *  - form-application-url
+   * This function normalizes those cases to return a valid preview link.
+   */
+  protected function getLaunchViewLink() {
+    $applicationUrlField = $this->digitalForm->get('field_form_application_url');
+
+    // Bail early if no field value.
+    if ($applicationUrlField->isEmpty()) {
+      return '';
+    }
+
+    // Parse field value into url parts.
+    $url = parse_url($applicationUrlField->getString());
+
+    $scheme = 'https://';
+    $previewHost = 'staging.va.gov';
+
+    if (str_starts_with($url['path'], 'staging.va.gov')) {
+      return $scheme . $url['path'];
+    }
+    if (!str_starts_with($url['path'], '/')) {
+      return $scheme . $previewHost . '/' . $url['path'];
+    }
+    return $scheme . $previewHost . $url['path'];
+  }
+
+  /**
    * Generates breadcrumbs.
    *
    * @param string $parent
@@ -640,25 +673,8 @@ class VaGovFormBuilderController extends ControllerBase {
     $stepLabel = $this->stepParagraph->get('field_title')->value;
     $stepType = $this->stepParagraph->bundle();
 
-    $pageContent = [
-      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'step_layout',
-      '#buttons' => [
-        'primary' => [
-          'label' => 'Return to steps',
-          'url' => $this->getPageUrl('layout'),
-        ],
-      ],
-    ];
-
-    // For now, only works for single-question style.
-    if ($stepType !== 'digital_form_custom_step') {
-      $pageContent['#supported_step_type'] = FALSE;
-      $pageContent['#page_heading'] = 'This step type is not supported yet.';
-      $pageContent['#pages'] = [];
-    }
-    else {
-      $pageContent['#supported_step_type'] = TRUE;
-
+    // Single question.
+    if ($stepType === 'digital_form_custom_step') {
       $pageEntities = $this->stepParagraph->get('field_digital_form_pages')->referencedEntities();
       $pages = array_map(function ($page) {
         return [
@@ -668,16 +684,37 @@ class VaGovFormBuilderController extends ControllerBase {
         ];
       }, $pageEntities);
 
-      $pageContent['#page_heading'] = empty($pages) ? 'Edit this step' : 'Review or edit this step';
-      $pageContent['#step_label'] = [
-        'label' => $stepLabel,
-        'url' => $this->getPageUrl('step.step_label.edit'),
+      $pageContent = [
+        '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'step_layout__single_question',
+        '#step_label' => [
+          'label' => $stepLabel,
+          'url' => $this->getPageUrl('step.step_label.edit'),
+        ],
+        '#pages' => $pages,
+        '#buttons' => [
+          'primary' => [
+            'label' => 'Return to steps',
+            'url' => $this->getPageUrl('layout'),
+          ],
+          'secondary' => [
+            [
+              'label' => 'Add question',
+              'url' => $this->getPageUrl('step.question.custom_or_predefined'),
+            ],
+          ],
+        ],
       ];
-      $pageContent['#pages'] = $pages;
-      $pageContent['#buttons']['secondary'] = [
-        [
-          'label' => 'Add question',
-          'url' => $this->getPageUrl('step.question.custom_or_predefined'),
+    }
+    // Repeating set.
+    else {
+      $pageContent = [
+        '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'step_layout__repeating_set',
+        '#pages' => [],
+        '#buttons' => [
+          'primary' => [
+            'label' => 'Return to steps',
+            'url' => $this->getPageUrl('layout'),
+          ],
         ],
       ];
     }
@@ -775,9 +812,31 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadDigitalForm($nid);
     $this->loadStepParagraph($stepParagraphId);
 
+    $stepType = $this->stepParagraph->bundle();
+
+    // Eventually, '#predefined_questions' will
+    // be a list conditionally populated
+    // based on `$stepType`. For now, we only support
+    // custom questions.
+    $predefinedQuestions = [];
+
     $pageContent = [
-      '#markup' => '<div>TEST</div>',
+      '#predefined_questions' => $predefinedQuestions,
+      '#buttons' => [
+        'primary' => [
+          'label' => 'Customize',
+          'url' => '',
+        ],
+      ],
     ];
+
+    if ($stepType === 'digital_form_custom_step') {
+      $pageContent['#theme'] = self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__single_question';
+    }
+    else {
+      $pageContent['#theme'] = self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__repeating_set';
+    }
+
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('step.layout', 'Custom or predefined question');
     $libraries = ['single_column_with_buttons'];
@@ -815,39 +874,6 @@ class VaGovFormBuilderController extends ControllerBase {
     ];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
-  }
-
-  /**
-   * Uses field value to construct qualified form application preview link.
-   *
-   * Likely to be in one of three or four formats:
-   *  - https://staging.va.gov/form-application-url
-   *  - staging.va.gov/form-application-url
-   *  - /form-application-url
-   *  - form-application-url
-   * This function normalizes those cases to return a valid preview link.
-   */
-  private function getLaunchViewLink() {
-    $applicationUrlField = $this->digitalForm->get('field_form_application_url');
-
-    // Bail early if no field value.
-    if ($applicationUrlField->isEmpty()) {
-      return '';
-    }
-
-    // Parse field value into url parts.
-    $url = parse_url($applicationUrlField->getString());
-
-    $scheme = 'https://';
-    $previewHost = 'staging.va.gov';
-
-    if (str_starts_with($url['path'], 'staging.va.gov')) {
-      return $scheme . $url['path'];
-    }
-    if (!str_starts_with($url['path'], '/')) {
-      return $scheme . $previewHost . '/' . $url['path'];
-    }
-    return $scheme . $previewHost . $url['path'];
   }
 
   /**
