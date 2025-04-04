@@ -1,0 +1,41 @@
+diff --git a/modules/migrate/src/Plugin/ECA/Event/MigrateEvent.php b/modules/migrate/src/Plugin/ECA/Event/MigrateEvent.php
+index b3636d4ab749e86a6a2a9d7587594ca5734a3f02..debb719adf58ed1fd32cd47ca1479e2b6f6c57a0 100644
+--- a/modules/migrate/src/Plugin/ECA/Event/MigrateEvent.php
++++ b/modules/migrate/src/Plugin/ECA/Event/MigrateEvent.php
+@@ -102,6 +102,17 @@ class MigrateEvent extends EventBase {
+       MigrateIdMapMessageEvent::class,
+     ]
+   )]
++  #[Token(
++    name: 'migration_id',
++    description: 'The migration plugin id being run.',
++    classes: [
++      MigrateImportEvent::class,
++      MigratePreRowSaveEvent::class,
++      MigrateRollbackEvent::class,
++      MigrateRowDeleteEvent::class,
++      MigrateIdMapMessageEvent::class,
++    ]
++  )]
+   #[Token(
+     name: 'map',
+     description: 'The map plugin that caused the event to fire.',
+@@ -176,6 +187,18 @@ class MigrateEvent extends EventBase {
+         }
+         break;
+ 
++      case 'migration_id':
++        if ($event instanceof MigrateImportEvent
++          || $event instanceof MigratePreRowSaveEvent
++          || $event instanceof MigrateRollbackEvent
++          || $event instanceof MigrateRowDeleteEvent
++          || $event instanceof MigrateIdMapMessageEvent
++        ) {
++          $migration = $event->getMigration();
++          return $migration->id();
++        }
++        break;
++
+       case 'map':
+         if ($event instanceof MigrateMapSaveEvent
+           || $event instanceof MigrateMapDeleteEvent
