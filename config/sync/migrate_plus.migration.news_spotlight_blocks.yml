@@ -37,7 +37,7 @@ source:
     -
       name: excerpt
       label: 'Promo text'
-      selector: excerpt/rendered
+      selector: meta_box/standfirst
     -
       name: link
       label: Link
@@ -66,7 +66,7 @@ process:
     default_value: news_promo
   moderation_state:
     plugin: default_value
-    default_value: draft
+    default_value: published
   status:
     plugin: default_value
     default_value: 0
@@ -81,6 +81,9 @@ process:
   revision_log:
     plugin: default_value
     default_value: 'Block created from news_spotlight_blocks migration'
+  revision_user:
+    plugin: default_value
+    default_value: 1317
 destination:
   plugin: 'entity:block_content'
 migration_dependencies:
