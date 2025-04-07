@@ -6,6 +6,7 @@
  */
 
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
 use Drupal\pathauto\PathautoState;
@@ -443,4 +444,31 @@ function va_gov_backend_update_8012() {
   /** @var \Drupal\paragraphs\ParagraphInterface $table */
   $table = $storage->load('50034');
   $table->delete();
+}
+
+/**
+ * Expand text limit for field_hero_blurb.
+ */
+function va_gov_backend_update_8013() {
+  // Alter the db tables.
+  $database = \Drupal::database();
+  $database->query("ALTER TABLE node__field_hero_blurb MODIFY field_hero_blurb_value VARCHAR(160)");
+  $database->query("ALTER TABLE node_revision__field_hero_blurb MODIFY field_hero_blurb_value VARCHAR(160)");
+
+  // Update storage schema.
+  $storage_key = 'node.field_schema_data.field_hero_blurb';
+  $storage_schema = \Drupal::keyValue('entity.storage_schema.sql');
+  $field_schema = $storage_schema->get($storage_key);
+  $field_schema['node__field_hero_blurb']['fields']['field_hero_blurb_value']['length'] = 160;
+  $field_schema['node_revision__field_hero_blurb']['fields']['field_hero_blurb_value']['length'] = 160;
+  $storage_schema->set($storage_key, $field_schema);
+
+  // Update field configuration.
+  $config = \Drupal::configFactory()
+    ->getEditable('field.storage.node.field_hero_blurb');
+  $config->set('settings.max_length', 160);
+  $config->save(TRUE);
+
+  // Update field storage configuration.
+  FieldStorageConfig::loadByName('node', 'field_hero_blurb')->save();
 }
