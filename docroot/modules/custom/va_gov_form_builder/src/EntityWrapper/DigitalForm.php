@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_form_builder\EntityWrapper;
 
+use Drupal\Core\Entity\EntityConstraintViolationList;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
@@ -176,14 +177,14 @@ class DigitalForm {
    *
    * @param string $stepName
    *   The step name of the step in question.
-   * @param \Drupal\paragraphs\ParagraphInterface|null $paragraph
+   * @param mixed|\Drupal\paragraphs\ParagraphInterface $paragraph
    *   Optional paragraph entity for this step.
    *
    * @return string
    *   Returns 'complete' if step is complete. Returns 'incomplete' if step is
    *   incomplete or if the step name does not exist.
    */
-  public function getStepStatus(string $stepName, ParagraphInterface|\NULL $paragraph = \NULL) {
+  public function getStepStatus(string $stepName, mixed $paragraph = NULL) {
     if ($stepName === 'form_info') {
       // If the node exists, this will necessarily be complete.
       return 'complete';
@@ -218,7 +219,7 @@ class DigitalForm {
     // its children, is updated. This could also support future enhancements to
     // display _why_ the step is not complete.
     if ($paragraph instanceof ParagraphInterface && $stepName === 'custom') {
-      $violations = $this->recursiveEntityReferenceRevisionValidator($paragraph);
+      $violations = $this->recursiveEntityReferenceRevisionValidator($paragraph, new EntityConstraintViolationList($paragraph));
       return $violations->count() > 0 ? 'incomplete' : 'complete';
     }
 

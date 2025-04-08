@@ -15,13 +15,13 @@ trait EntityReferenceRevisionsOperations {
    *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity to validate recursively.
-   * @param mixed<EntityConstraintViolationList> $violations
+   * @param \Drupal\Core\Entity\EntityConstraintViolationList $violations
    *   Violations to add to the list.
    *
    * @return \Drupal\Core\Entity\EntityConstraintViolationListInterface
    *   The comprehensive violations list for referenced the referenced entity.
    */
-  public function recursiveEntityReferenceRevisionValidator(ContentEntityInterface $entity, mixed $violations = []): EntityConstraintViolationList {
+  public function recursiveEntityReferenceRevisionValidator(ContentEntityInterface $entity, EntityConstraintViolationList $violations): EntityConstraintViolationList {
     $violations->addAll($entity->validate());
     foreach ($entity->getFields() as $field) {
       // Skip base fields.
