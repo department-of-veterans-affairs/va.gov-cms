@@ -19,7 +19,7 @@ use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
  * The following line is included because the public method `addStep`
  * makes dynamic calls to otherwise uncalled private methods, and those
  * private methods trigger unused-method warnings when they are, in fact,
- * not unused:
+ * unused:
  * @phpcs:disable DrupalPractice.Objects.UnusedPrivateMethod.UnusedMethod
  */
 class DigitalForm {
