@@ -13,13 +13,14 @@ use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
  *
  * @method int id()
  * @method string getTitle()
+ * @method \Drupal\Core\Field\FieldItemListInterface get(string $field_name)
  * @method int save() Saves the entity and returns the save status
  * @method NodeInterface set(string $field_name, mixed $value, bool $notify = TRUE) Sets a field value
  *
  * The following line is included because the public method `addStep`
  * makes dynamic calls to otherwise uncalled private methods, and those
  * private methods trigger unused-method warnings when they are, in fact,
- * unused:
+ * used:
  * @phpcs:disable DrupalPractice.Objects.UnusedPrivateMethod.UnusedMethod
  */
 class DigitalForm {
