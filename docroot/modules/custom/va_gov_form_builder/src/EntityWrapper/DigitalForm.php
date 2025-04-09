@@ -2,8 +2,11 @@
 
 namespace Drupal\va_gov_form_builder\EntityWrapper;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityConstraintViolationList;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
@@ -26,6 +29,7 @@ use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
 class DigitalForm {
 
   use EntityReferenceRevisionsOperations;
+  use StringTranslationTrait;
 
   /**
    * The standard steps of a Digital Form.
@@ -325,5 +329,79 @@ class DigitalForm {
 
     throw new \InvalidArgumentException("Method $methodName does not exist.");
   }
+
+  /**
+   *
+   */
+  public function stepActionAccess(ParagraphInterface $paragraph, string $action) {
+    return AccessResult::allowed();
+  }
+
+   public function stepMoveUpAccess() {
+     return AccessResult::forbidden();
+   }
+
+   public function stepMoveDownAccess() {
+     return AccessResult::allowed();
+   }
+
+   public function stepDeleteAccess() {
+     return AccessResult::allowed();
+   }
+
+  /**
+   * @return array|void
+   */
+   public function buildAdditionalSteps() {
+     $steps = [];
+    foreach ($this->getNonStandarddSteps() as $step) {
+      assert(!empty($step['paragraph']) && $step['paragraph'] instanceof ParagraphInterface);
+      $paragraph = $step['paragraph'];
+      $additional_step = [];
+      $additional_step['type'] = $step['type'];
+      $additional_step['title'] = $paragraph->get('field_title')->value;
+      $additional_step['status'] = $this->getStepStatus('custom', $step['paragraph']);
+      $additional_step['url'] = Url::fromRoute('va_gov_form_builder.step.layout', [
+        'nid' => $this->id(),
+        'stepParagraphId' => $paragraph->id(),
+      ])->toString();
+
+      // Determine available actions.
+      $additional_step['actions'] = [];
+      if ($this->stepMoveUpAccess()) {
+        $additional_step['actions'][] = [
+          'url' => Url::fromRoute('va_gov_form_builder.step_action', [
+            'node' => $this->id(),
+            'paragraph' => $paragraph->id(),
+            'action' => 'moveup',
+          ]),
+          'title' => $this->t('Move up')
+        ];
+      }
+      if ($this->stepMoveDownAccess()) {
+        $additional_step['actions'][] = [
+          'url' => Url::fromRoute('va_gov_form_builder.step_action', [
+            'node' => $this->id(),
+            'paragraph' => $paragraph->id(),
+            'action' => 'movedown',
+          ]),
+          'title' => $this->t('Move down')
+        ];
+      }
+      if ($this->stepDeleteAccess()) {
+        $additional_step['actions'][] = [
+          'url' => Url::fromRoute('va_gov_form_builder.step_action', [
+            'node' => $this->id(),
+            'paragraph' => $paragraph->id(),
+            'action' => 'delete',
+          ]),
+          'title' => $this->t('Delete')
+        ];
+      }
+
+      $steps[] = $additional_step;
+    }
+    return $steps;
+   }
 
 }

@@ -2,8 +2,12 @@
 
 namespace Drupal\va_gov_form_builder\Controller;
 
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -444,18 +448,7 @@ class VaGovFormBuilderController extends ControllerBase {
         'url' => $this->getPageUrl('contact_info'),
       ],
       '#additional_steps' => [
-        'steps' => array_map(function ($step) {
-          $stepParagraphId = $step['fields']['id'][0]['value'];
-          return [
-            'type' => $step['type'],
-            'title' => $step['fields']['field_title'][0]['value'],
-            'status' => $this->digitalForm->getStepStatus('custom', $step['paragraph']),
-            'url' => Url::fromRoute('va_gov_form_builder.step.layout', [
-              'nid' => $this->digitalForm->id(),
-              'stepParagraphId' => $stepParagraphId,
-            ])->toString(),
-          ];
-        }, $this->digitalForm->getNonStandarddSteps()),
+        'steps' => $this->digitalForm->buildAdditionalSteps(),
         'add_step' => [
           'url' => $this->getPageUrl('step.step_label.create'),
         ],
@@ -868,6 +861,22 @@ class VaGovFormBuilderController extends ControllerBase {
     $libraries = ['single_column_with_buttons'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Ajax callback for a step action.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse|void
+   */
+  public function stepAction(NodeInterface $node, ParagraphInterface $paragraph, string $action) {
+    $response = new AjaxResponse();
+    $this->loadDigitalForm($node->id());
+    // Step 1: Take the appropriate action
+    // Step 2: Save the node
+    // Step 3: Render the page into html
+    // Step 4: Return a ReplaceCommand eg: $response->addCommand(new ReplaceCommand('#form-builder-content-layout', ''));
+
+    return $response;
   }
 
 }
