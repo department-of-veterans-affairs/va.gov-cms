@@ -14,6 +14,7 @@ use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
  * @method int id()
  * @method string getTitle()
  * @method \Drupal\Core\Field\FieldItemListInterface get(string $field_name)
+ * @method \Symfony\Component\Validator\ConstraintViolationListInterface validate()
  * @method int save() Saves the entity and returns the save status
  * @method NodeInterface set(string $field_name, mixed $value, bool $notify = TRUE) Sets a field value
  *
@@ -178,14 +179,14 @@ class DigitalForm {
    *
    * @param string $stepName
    *   The step name of the step in question.
-   * @param mixed|\Drupal\paragraphs\ParagraphInterface $paragraph
+   * @param null|\Drupal\paragraphs\ParagraphInterface $paragraph
    *   Optional paragraph entity for this step.
    *
    * @return string
    *   Returns 'complete' if step is complete. Returns 'incomplete' if step is
    *   incomplete or if the step name does not exist.
    */
-  public function getStepStatus(string $stepName, mixed $paragraph = NULL) {
+  public function getStepStatus(string $stepName, null|ParagraphInterface $paragraph = NULL) {
     if ($stepName === 'form_info') {
       // If the node exists, this will necessarily be complete.
       return 'complete';
