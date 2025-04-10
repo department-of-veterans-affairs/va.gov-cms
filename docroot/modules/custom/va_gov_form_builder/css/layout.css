@@ -66,3 +66,26 @@
   display: inline-block;
   margin-top: var(--units-3);
 }
+
+.form-builder-paragraph-sort-and-delete {
+  margin-top: var(--units-3);
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-builder-paragraph-sort-and-delete__action-link {
+  text-decoration: none;
+}
+
+.form-builder-paragraph-sort-and-delete__action-link.action-moveup::before {
+  content: '👆';
+}
+
+.form-builder-paragraph-sort-and-delete__action-link.action-movedown::before {
+  content: '👇';
+}
+
+.form-builder-paragraph-sort-and-delete__action-link.action-delete::before {
+  content: '🗑️';
+}
