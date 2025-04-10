@@ -29,7 +29,6 @@ use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
 class DigitalForm {
 
   use EntityReferenceRevisionsOperations;
-  use StringTranslationTrait;
 
   /**
    * The standard steps of a Digital Form.
@@ -182,14 +181,14 @@ class DigitalForm {
    *
    * @param string $stepName
    *   The step name of the step in question.
-   * @param mixed|\Drupal\paragraphs\ParagraphInterface $paragraph
+   * @param null|\Drupal\paragraphs\ParagraphInterface $paragraph
    *   Optional paragraph entity for this step.
    *
    * @return string
    *   Returns 'complete' if step is complete. Returns 'incomplete' if step is
    *   incomplete or if the step name does not exist.
    */
-  public function getStepStatus(string $stepName, mixed $paragraph = NULL) {
+  public function getStepStatus(string $stepName, null|ParagraphInterface $paragraph = NULL) {
     if ($stepName === 'form_info') {
       // If the node exists, this will necessarily be complete.
       return 'complete';
