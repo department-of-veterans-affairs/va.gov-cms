@@ -70,7 +70,7 @@
 .form-builder-paragraph-sort-and-delete {
   align-items: flex-start;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-top: var(--units-3);
 }
 
@@ -84,6 +84,10 @@
 
 .form-builder-paragraph-sort-and-delete__action-link.action-movedown::before {
   content: '👇';
+}
+
+.form-builder-paragraph-sort-and-delete__action-link.action-delete a{
+  color: var(--vads-color-emergency);
 }
 
 .form-builder-paragraph-sort-and-delete__action-link.action-delete::before {

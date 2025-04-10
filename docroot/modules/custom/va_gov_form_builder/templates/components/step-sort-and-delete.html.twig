@@ -1,7 +1,7 @@
 <div class="form-builder-paragraph-sort-and-delete form-builder-step-layout__paragraph-sort-and-delete">
     {% for action in additional_step.actions %}
       <div class="form-builder-paragraph-sort-and-delete__action-link action-{{ action.action }} ">
-        <a class="use-ajax" href="{{ action.url }}">{{ action.title }}</a>
+        <a class="use-ajax" href="{{ action.url }}">{{ action.title|upper }}</a>
       </div>
     {% endfor %}
 </div>
