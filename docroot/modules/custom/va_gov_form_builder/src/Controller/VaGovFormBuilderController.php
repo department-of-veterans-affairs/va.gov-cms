@@ -93,6 +93,13 @@ class VaGovFormBuilderController extends ControllerBase {
   protected $stepParagraph;
 
   /**
+   * The Drupal render service.
+   *
+   * @var \Drupal\Core\Render\Renderer
+   */
+  protected $renderer;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
@@ -102,7 +109,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $instance->drupalFormBuilder = $container->get('form_builder');
     $instance->digitalFormsService = $container->get('va_gov_form_builder.digital_forms_service');
     $instance->session = $container->get('session');
-
+    $instance->renderer = $container->get('renderer');
     return $instance;
   }
 
@@ -487,27 +494,28 @@ class VaGovFormBuilderController extends ControllerBase {
    *   actions are able to access the route.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The ajax response to return.
+   *
    * @throws \Exception
    */
   public function stepAction(NodeInterface $node, ParagraphInterface $paragraph, string $action): AjaxResponse {
     $response = new AjaxResponse();
     $this->loadDigitalForm($node->id());
 
-    // Step 1: Take the appropriate action
+    // Step 1: Take the appropriate action.
     $this->digitalForm->executeStepAction($paragraph, $action);
 
-    // Step 2: Render the page into html
+    // Step 2: Render the page into html.
     /** @var \Drupal\Core\Render\Renderer $renderer */
-    $renderer = \Drupal::service('renderer');
     $layout = $this->layout($node->id());
-    $output = $renderer->renderRoot($layout);
+    $output = $this->renderer->renderRoot($layout);
 
     // Step 3: Return an Ajax command.
     $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
     return $response;
   }
 
-/**
+  /**
    * Name-and-date-of-birth page.
    *
    * @param string $nid

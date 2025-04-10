@@ -347,9 +347,9 @@ class DigitalForm {
    * Execute the given action on a step.
    *
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
-   *    The step paragraph we are acting upon.
+   *   The step paragraph we are acting upon.
    * @param string $action
-   *    The action to take.
+   *   The action to take.
    *
    * @throws \Exception
    * @throws \InvalidArgumentException
@@ -365,7 +365,7 @@ class DigitalForm {
       };
     }
     else {
-      throw new \InvalidArgumentException($this->t('Invalid step sort action'));
+      throw new \InvalidArgumentException('Invalid step sort action');
     }
   }
 
@@ -382,14 +382,15 @@ class DigitalForm {
    */
   public function sortStep(ParagraphInterface $paragraph, string $direction): void {
     if (!($direction === self::STEP_ACTIONS['moveup']) && !($direction === self::STEP_ACTIONS['movedown'])) {
-      throw new \InvalidArgumentException($this->t('Invalid step sort action'));
+      throw new \InvalidArgumentException('Invalid step sort action');
     }
     if (!$this->node) {
       throw new \Exception('Digital Form is not set. Cannot sort steps on an empty Digital Form object.');
     }
 
     // Moving an item presents some challenges:
-    // - Standard steps may or may not be between custom steps. They can appear anywhere in the field.
+    // - Standard steps may or may not be between custom steps. They can appear
+    //   anywhere in the field.
     // - The field ItemList parent class has a protected rekey() method that is
     //   called internally only when addItem() or removeItem() are called. This
     //   method sets proper context on the field and re-keys indexes. We need to
@@ -434,29 +435,41 @@ class DigitalForm {
   }
 
   /**
-   *
+   * Access check for step actions.
    */
   public function stepActionAccess(ParagraphInterface $paragraph, string $action) {
     return AccessResult::allowed();
   }
 
-   public function stepMoveUpAccess() {
-     return AccessResult::forbidden();
-   }
-
-   public function stepMoveDownAccess() {
-     return AccessResult::allowed();
-   }
-
-   public function stepDeleteAccess() {
-     return AccessResult::allowed();
-   }
+  /**
+   * Access check for step actions.
+   */
+  public function stepMoveUpAccess() {
+    return AccessResult::allowed();
+  }
 
   /**
-   * @return array|void
+   * Access check for step actions.
    */
-   public function buildAdditionalSteps() {
-     $steps = [];
+  public function stepMoveDownAccess() {
+    return AccessResult::allowed();
+  }
+
+  /**
+   * Access check for step actions.
+   */
+  public function stepDeleteAccess() {
+    return AccessResult::allowed();
+  }
+
+  /**
+   * Builds custom steps for theming.
+   *
+   * @return array
+   *   The additional steps theme variables.
+   */
+  public function buildAdditionalSteps(): array {
+    $steps = [];
     foreach ($this->getNonStandarddSteps() as $step) {
       assert(!empty($step['paragraph']) && $step['paragraph'] instanceof ParagraphInterface);
       $paragraph = $step['paragraph'];
@@ -508,6 +521,6 @@ class DigitalForm {
       $steps[] = $additional_step;
     }
     return $steps;
-   }
+  }
 
 }
