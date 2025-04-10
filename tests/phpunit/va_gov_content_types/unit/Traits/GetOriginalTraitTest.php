@@ -23,19 +23,19 @@ class GetOriginalTraitTest extends VaGovUnitTestBase {
   /**
    * Test the hasOriginalVersion() function.
    *
-   * @param bool $hasOriginal
+   * @param bool $hasOriginalVersion
    *   Whether the node has an original.
    * @param bool $isRightClass
    *   Whether the original is the right class.
    * @param bool $expected
    *   The expected result.
    *
-   * @covers ::hasOriginal
-   * @dataProvider hasOriginalDataProvider
+   * @covers ::hasOriginalVersion
+   * @dataProvider hasOriginalVersionDataProvider
    */
-  public function testhasOriginalVersion(bool $hasOriginal, bool $isRightClass, bool $expected) : void {
+  public function testhasOriginalVersion(bool $hasOriginalVersion, bool $isRightClass, bool $expected) : void {
     $node = $this->getMockForTrait(GetOriginalTrait::class);
-    if ($hasOriginal) {
+    if ($hasOriginalVersion) {
       $node->original = $isRightClass ? $this->createMock(VaNodeInterface::class) : $this->createMock(NodeInterface::class);
     }
     else {
@@ -45,12 +45,12 @@ class GetOriginalTraitTest extends VaGovUnitTestBase {
   }
 
   /**
-   * Data provider for testHasOriginal.
+   * Data provider for testHasOriginalVersion.
    *
    * @return array
    *   An array of arrays.
    */
-  public function hasOriginalDataProvider() {
+  public function hasOriginalVersionDataProvider() {
     return [
       'no original' => [
         FALSE,
@@ -73,21 +73,21 @@ class GetOriginalTraitTest extends VaGovUnitTestBase {
   /**
    * Test the getOriginalVersion() function.
    *
-   * @param bool $hasOriginal
+   * @param bool $hasOriginalVersion
    *   Whether the node has an original.
    *
    * @covers ::getOriginalVersion
-   * @dataProvider hasOriginalDataProvider
+   * @dataProvider hasOriginalVersionDataProvider
    */
-  public function testGetOriginal(bool $hasOriginal) : void {
+  public function testGetOriginal(bool $hasOriginalVersion) : void {
     $node = $this->getMockForTrait(GetOriginalTrait::class);
-    if ($hasOriginal) {
+    if ($hasOriginalVersion) {
       $node->original = $this->createMock(VaNodeInterface::class);
     }
     else {
       $node->original = NULL;
     }
-    if (!$hasOriginal) {
+    if (!$hasOriginalVersion) {
       $this->expectException(NoOriginalExistsException::class);
     }
     $this->assertEquals($node->original, $node->getOriginalVersion());

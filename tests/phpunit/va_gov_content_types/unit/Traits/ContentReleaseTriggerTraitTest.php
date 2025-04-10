@@ -160,7 +160,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
    *   Whether the node is a facility.
    * @param bool $didChangeOperatingStatus
    *   Whether the node changed operating status.
-   * @param bool $hasOriginal
+   * @param bool $hasOriginalVersion
    *   Whether the node has an original.
    * @param bool $expected
    *   The expected result.
@@ -173,7 +173,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
     bool $alwaysTriggersContentRelease,
     bool $isFacility,
     bool $didChangeOperatingStatus,
-    bool $hasOriginal,
+    bool $hasOriginalVersion,
     bool $expected,
   ) {
     $node = $this->getMockForTrait(ContentReleaseTriggerTrait::class);
@@ -198,7 +198,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
     $node->expects($this->any())->method('getType')->will($alwaysTriggersContentRelease ? $this->returnValue('banner') : $this->returnValue('page'));
 
     $node->expects($this->any())->method('isFacility')->will($this->returnValue($isFacility));
-    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue($hasOriginal));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue($hasOriginalVersion));
     $node->expects($this->any())->method('didChangeOperatingStatus')->will($this->returnValue($didChangeOperatingStatus));
     $this->assertEquals($expected, $node->shouldTriggerContentRelease());
   }
@@ -215,7 +215,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
       'hasTriggeringChanges' => [TRUE, FALSE],
       'alwaysTriggersContentRelease' => [TRUE, FALSE],
       'isFacility' => [TRUE, FALSE],
-      'hasOriginal' => [TRUE, FALSE],
+      'hasOriginalVersion' => [TRUE, FALSE],
       'didChangeOperatingStatus' => [TRUE, FALSE],
     ];
     $permutations = $this->generatePermutations($combinations);
@@ -224,7 +224,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
       $hasTriggeringChanges = $permutation['hasTriggeringChanges'];
       $alwaysTriggersContentRelease = $permutation['alwaysTriggersContentRelease'];
       $isFacility = $permutation['isFacility'];
-      $hasOriginal = $permutation['hasOriginal'];
+      $hasOriginalVersion = $permutation['hasOriginalVersion'];
       $didChangeOperatingStatus = $permutation['didChangeOperatingStatus'];
 
       /*
@@ -242,18 +242,18 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
           $alwaysTriggersContentRelease
           || (
             $isFacility
-            && $hasOriginal
+            && $hasOriginalVersion
             && ($hasTriggeringChanges || $didChangeOperatingStatus)
           )
         );
 
       $name = sprintf(
-        "%shasTriggeringChanges, %salwaysTriggersContentRelease, %sisFacility, %sdidChangeOperatingStatus, %shasOriginal, %sexpected",
+        "%shasTriggeringChanges, %salwaysTriggersContentRelease, %sisFacility, %sdidChangeOperatingStatus, %shasOriginalVersion, %sexpected",
         $hasTriggeringChanges ? '' : '!',
         $alwaysTriggersContentRelease ? '' : '!',
         $isFacility ? '' : '!',
         $didChangeOperatingStatus ? '' : '!',
-        $hasOriginal ? '' : '!',
+        $hasOriginalVersion ? '' : '!',
         $expected ? '' : '!'
       );
       $result[$name] = [
@@ -261,7 +261,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
         'alwaysTriggersContentRelease' => $alwaysTriggersContentRelease,
         'isFacility' => $isFacility,
         'didChangeOperatingStatus' => $didChangeOperatingStatus,
-        'hasOriginal' => $hasOriginal,
+        'hasOriginalVersion' => $hasOriginalVersion,
         'expected' => $expected,
       ];
     }
@@ -319,7 +319,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
    *
    * @param bool $isModerated
    *   Whether the node is moderated.
-   * @param bool $hasOriginal
+   * @param bool $hasOriginalVersion
    *   Whether the node has an original.
    * @param bool $isOriginalPublished
    *   Whether the original is published.
@@ -331,7 +331,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
    */
   public function testIsUnmoderatedAndWasPreviouslyPublished(
     bool $isModerated,
-    bool $hasOriginal,
+    bool $hasOriginalVersion,
     bool $isOriginalPublished,
     bool $expected,
   ) {
@@ -344,7 +344,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
 
     $node = $this->getMockForTrait(ContentReleaseTriggerTrait::class);
     $node->expects($this->any())->method('isModerated')->will($this->returnValue($isModerated));
-    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue($hasOriginal));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue($hasOriginalVersion));
     $node->expects($this->any())->method('getOriginalVersion')->will($this->returnValue($original));
 
     $this->assertEquals($expected, $node->isUnmoderatedAndWasPreviouslyPublished());
@@ -361,37 +361,37 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
     return [
       'unmoderated, has original, original published' => [
         'isModerated' => FALSE,
-        'hasOriginal' => TRUE,
+        'hasOriginalVersion' => TRUE,
         'isOriginalPublished' => TRUE,
         'expected' => TRUE,
       ],
       'unmoderated, has original, original not published' => [
         'isModerated' => FALSE,
-        'hasOriginal' => TRUE,
+        'hasOriginalVersion' => TRUE,
         'isOriginalPublished' => FALSE,
         'expected' => FALSE,
       ],
       'unmoderated, no original' => [
         'isModerated' => FALSE,
-        'hasOriginal' => FALSE,
+        'hasOriginalVersion' => FALSE,
         'isOriginalPublished' => FALSE,
         'expected' => FALSE,
       ],
       'moderated, has original, original published' => [
         'isModerated' => TRUE,
-        'hasOriginal' => TRUE,
+        'hasOriginalVersion' => TRUE,
         'isOriginalPublished' => TRUE,
         'expected' => FALSE,
       ],
       'moderated, has original, original not published' => [
         'isModerated' => TRUE,
-        'hasOriginal' => TRUE,
+        'hasOriginalVersion' => TRUE,
         'isOriginalPublished' => FALSE,
         'expected' => FALSE,
       ],
       'moderated, no original' => [
         'isModerated' => TRUE,
-        'hasOriginal' => FALSE,
+        'hasOriginalVersion' => FALSE,
         'isOriginalPublished' => FALSE,
         'expected' => FALSE,
       ],
