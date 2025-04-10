@@ -48,7 +48,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
     bool $isArchived,
     bool $isDraft,
     bool $wasPublished,
-    bool $expected
+    bool $expected,
   ) {
     $node = $this->getMockForTrait(ContentReleaseTriggerTrait::class);
     $original = $this->getMockBuilder(VaNodeInterface::class)
@@ -58,8 +58,8 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
       ->method('isPublished')
       ->willReturn($wasPublished);
 
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(TRUE));
-    $node->expects($this->any())->method('getOriginal')->will($this->returnValue($original));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(TRUE));
+    $node->expects($this->any())->method('getOriginalVersion')->will($this->returnValue($original));
     $node->expects($this->any())->method('isModerated')->will($this->returnValue($isModerated));
     $node->expects($this->any())->method('isCmPublished')->will($this->returnValue($isCmPublished));
     $node->expects($this->any())->method('isPublished')->will($this->returnValue($isPublished));
@@ -174,7 +174,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
     bool $isFacility,
     bool $didChangeOperatingStatus,
     bool $hasOriginal,
-    bool $expected
+    bool $expected,
   ) {
     $node = $this->getMockForTrait(ContentReleaseTriggerTrait::class);
 
@@ -198,7 +198,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
     $node->expects($this->any())->method('getType')->will($alwaysTriggersContentRelease ? $this->returnValue('banner') : $this->returnValue('page'));
 
     $node->expects($this->any())->method('isFacility')->will($this->returnValue($isFacility));
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue($hasOriginal));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue($hasOriginal));
     $node->expects($this->any())->method('didChangeOperatingStatus')->will($this->returnValue($didChangeOperatingStatus));
     $this->assertEquals($expected, $node->shouldTriggerContentRelease());
   }
@@ -333,7 +333,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
     bool $isModerated,
     bool $hasOriginal,
     bool $isOriginalPublished,
-    bool $expected
+    bool $expected,
   ) {
     $original = $this->getMockBuilder(VaNodeInterface::class)
       ->disableOriginalConstructor()
@@ -344,8 +344,8 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
 
     $node = $this->getMockForTrait(ContentReleaseTriggerTrait::class);
     $node->expects($this->any())->method('isModerated')->will($this->returnValue($isModerated));
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue($hasOriginal));
-    $node->expects($this->any())->method('getOriginal')->will($this->returnValue($original));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue($hasOriginal));
+    $node->expects($this->any())->method('getOriginalVersion')->will($this->returnValue($original));
 
     $this->assertEquals($expected, $node->isUnmoderatedAndWasPreviouslyPublished());
   }

@@ -38,13 +38,13 @@ class DidChangeOperatingStatusTraitTest extends VaGovUnitTestBase {
     bool $hasStatusField,
     bool $didChangeField,
     bool $hasOriginal,
-    bool $expected
+    bool $expected,
   ) : void {
     $node = $this->getMockForTrait(DidChangeOperatingStatusTrait::class);
     $node->expects($this->any())->method('isFacility')->will($this->returnValue($isFacility));
     $node->expects($this->any())->method('hasField')->will($this->returnValue($hasStatusField));
     $node->expects($this->any())->method('didChangeField')->will($this->returnValue($didChangeField));
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue($hasOriginal));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue($hasOriginal));
     if (!$isFacility) {
       $this->expectException(NonFacilityException::class);
     }
