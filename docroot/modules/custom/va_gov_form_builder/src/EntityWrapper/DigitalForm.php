@@ -17,6 +17,7 @@ use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
  * @method int id()
  * @method string getTitle()
  * @method \Drupal\Core\Field\FieldItemListInterface get(string $field_name)
+ * @method \Symfony\Component\Validator\ConstraintViolationListInterface validate()
  * @method int save() Saves the entity and returns the save status
  * @method NodeInterface set(string $field_name, mixed $value, bool $notify = TRUE) Sets a field value
  *
@@ -29,6 +30,7 @@ use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
 class DigitalForm {
 
   use EntityReferenceRevisionsOperations;
+  use StringTranslationTrait;
 
   /**
    * The standard steps of a Digital Form.
@@ -37,6 +39,18 @@ class DigitalForm {
     'your_personal_info' => 'digital_form_your_personal_info',
     'address_info' => 'digital_form_address',
     'contact_info' => 'digital_form_phone_and_email',
+  ];
+
+  /**
+   * Sort and delete actions available for steps.
+   *
+   * Any updates to these actions will need to also be made to the
+   * va_gov_form_builder.step_action route access configuration.
+   */
+  const STEP_ACTIONS = [
+    'moveup' => 'moveup',
+    'movedown' => 'movedown',
+    'delete' => 'delete',
   ];
 
   /**
@@ -330,6 +344,96 @@ class DigitalForm {
   }
 
   /**
+   * Execute the given action on a step.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *    The step paragraph we are acting upon.
+   * @param string $action
+   *    The action to take.
+   *
+   * @throws \Exception
+   * @throws \InvalidArgumentException
+   */
+  public function executeStepAction(ParagraphInterface $paragraph, string $action): void {
+    if (!$this->node) {
+      throw new \Exception('Digital Form is not set. Step cannot take an action on an empty Digital Form object.');
+    }
+    if (in_array($action, DigitalForm::STEP_ACTIONS)) {
+      match($action) {
+        self::STEP_ACTIONS['moveup'], self::STEP_ACTIONS['movedown'] => $this->sortStep($paragraph, $action),
+        self::STEP_ACTIONS['delete'] => $this->deleteStep($paragraph),
+      };
+    }
+    else {
+      throw new \InvalidArgumentException($this->t('Invalid step sort action'));
+    }
+  }
+
+  /**
+   * Sort a step moving in the direction the $direction calls for.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The step paragraph being sorted.
+   * @param string $direction
+   *   The direction to sort. Initially either 'moveup' or 'movedown'.
+   *
+   * @throws \Exception
+   * @throws \InvalidArgumentException
+   */
+  public function sortStep(ParagraphInterface $paragraph, string $direction): void {
+    if (!($direction === self::STEP_ACTIONS['moveup']) && !($direction === self::STEP_ACTIONS['movedown'])) {
+      throw new \InvalidArgumentException($this->t('Invalid step sort action'));
+    }
+    if (!$this->node) {
+      throw new \Exception('Digital Form is not set. Cannot sort steps on an empty Digital Form object.');
+    }
+
+    // Moving an item presents some challenges:
+    // - Standard steps may or may not be between custom steps. They can appear anywhere in the field.
+    // - The field ItemList parent class has a protected rekey() method that is
+    //   called internally only when addItem() or removeItem() are called. This
+    //   method sets proper context on the field and re-keys indexes. We need to
+    //   ensure this gets called.
+    // - There is no builtin "move" on the ItemList class.
+    // - We need to capture the step to move from and to in order to swap them.
+    // - Access check for both from and to steps?
+    \Drupal::messenger()->addMessage($this->t('Step %label was moved successfully', [
+      '%label' => $paragraph->field_title->value,
+    ]));
+  }
+
+  /**
+   * Delete a step.
+   *
+   * @throws \Exception
+   */
+  public function deleteStep(ParagraphInterface $paragraph) {
+    if (!$this->node) {
+      throw new \Exception('Digital Form is not set. Cannot sort steps on an empty Digital Form object.');
+    }
+    $label = $paragraph->get('field_title')->value;
+    // Remove item from the field_chapters field.
+    /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $chapters */
+    $chapters = $this->node->get('field_chapters');
+    /** @var  \Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem $chapter */
+    foreach ($chapters as $delta => $chapter) {
+      if ($paragraph->id() === $chapter->entity->id()) {
+        $chapters->removeItem($delta);
+        break;
+      }
+    }
+
+    // Save the node.
+    $this->node->save();
+
+    // Delete the paragraph.
+    $paragraph->delete();
+    \Drupal::messenger()->addWarning($this->t('Step %label was deleted successfully', [
+      '%label' => $label,
+    ]));
+  }
+
+  /**
    *
    */
   public function stepActionAccess(ParagraphInterface $paragraph, string $action) {
@@ -374,7 +478,8 @@ class DigitalForm {
             'paragraph' => $paragraph->id(),
             'action' => 'moveup',
           ]),
-          'title' => $this->t('Move up')
+          'title' => $this->t('Move up'),
+          'action' => 'moveup',
         ];
       }
       if ($this->stepMoveDownAccess()) {
@@ -384,7 +489,8 @@ class DigitalForm {
             'paragraph' => $paragraph->id(),
             'action' => 'movedown',
           ]),
-          'title' => $this->t('Move down')
+          'action' => 'movedown',
+          'title' => $this->t('Move down'),
         ];
       }
       if ($this->stepDeleteAccess()) {
@@ -394,7 +500,8 @@ class DigitalForm {
             'paragraph' => $paragraph->id(),
             'action' => 'delete',
           ]),
-          'title' => $this->t('Delete')
+          'action' => 'delete',
+          'title' => $this->t('Delete'),
         ];
       }
 

@@ -424,8 +424,10 @@ class VaGovFormBuilderController extends ControllerBase {
    */
   public function layout($nid) {
     $this->loadDigitalForm($nid);
-
-    $pageContent = [
+    $pageContent[] = [
+      '#type' => 'status_messages',
+    ];
+    $pageContent[] = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'layout',
       '#form_info' => [
         'status' => $this->digitalForm->getStepStatus('form_info'),
@@ -448,18 +450,7 @@ class VaGovFormBuilderController extends ControllerBase {
         'url' => $this->getPageUrl('contact_info'),
       ],
       '#additional_steps' => [
-        'steps' => array_map(function ($step) {
-          $stepParagraphId = $step['fields']['id'][0]['value'];
-          return [
-            'type' => $step['type'],
-            'title' => $step['fields']['field_title'][0]['value'],
-            'status' => $this->digitalForm->getStepStatus('custom', $step['paragraph']),
-            'url' => Url::fromRoute('va_gov_form_builder.step.layout', [
-              'nid' => $this->digitalForm->id(),
-              'stepParagraphId' => $stepParagraphId,
-            ])->toString(),
-          ];
-        }, $this->digitalForm->getNonStandarddSteps()),
+        'steps' => $this->digitalForm->buildAdditionalSteps(),
         'add_step' => [
           'url' => $this->getPageUrl('step.step_label.create'),
         ],
@@ -476,6 +467,7 @@ class VaGovFormBuilderController extends ControllerBase {
         'url' => $this->getPageUrl('view_form'),
       ],
     ];
+
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle());
     $libraries = ['layout'];
@@ -484,6 +476,38 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Ajax callback for a step action.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The DigitalForm node.
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The Paragraph taking the action.
+   * @param string $action
+   *   Action to take. Route takes care of ensuring only currently available
+   *   actions are able to access the route.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @throws \Exception
+   */
+  public function stepAction(NodeInterface $node, ParagraphInterface $paragraph, string $action): AjaxResponse {
+    $response = new AjaxResponse();
+    $this->loadDigitalForm($node->id());
+
+    // Step 1: Take the appropriate action
+    $this->digitalForm->executeStepAction($paragraph, $action);
+
+    // Step 2: Render the page into html
+    /** @var \Drupal\Core\Render\Renderer $renderer */
+    $renderer = \Drupal::service('renderer');
+    $layout = $this->layout($node->id());
+    $output = $renderer->renderRoot($layout);
+
+    // Step 3: Return an Ajax command.
+    $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
+    return $response;
+  }
+
+/**
    * Name-and-date-of-birth page.
    *
    * @param string $nid
@@ -872,22 +896,6 @@ class VaGovFormBuilderController extends ControllerBase {
     $libraries = ['single_column_with_buttons'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
-  }
-
-  /**
-   * Ajax callback for a step action.
-   *
-   * @return \Drupal\Core\Ajax\AjaxResponse|void
-   */
-  public function stepAction(NodeInterface $node, ParagraphInterface $paragraph, string $action) {
-    $response = new AjaxResponse();
-    $this->loadDigitalForm($node->id());
-    // Step 1: Take the appropriate action
-    // Step 2: Save the node
-    // Step 3: Render the page into html
-    // Step 4: Return a ReplaceCommand eg: $response->addCommand(new ReplaceCommand('#form-builder-content-layout', ''));
-
-    return $response;
   }
 
 }
