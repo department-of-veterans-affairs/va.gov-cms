@@ -28,7 +28,7 @@ trait DidChangeOperatingStatusTrait {
   /**
    * {@inheritDoc}
    */
-  abstract public function hasOriginal(): bool;
+  abstract public function hasOriginalVersion(): bool;
 
   /**
    * Did this facility change operating status?
@@ -46,7 +46,7 @@ trait DidChangeOperatingStatusTrait {
     if (!$this->hasField(DidChangeOperatingStatusInterface::STATUS_FIELD)) {
       return FALSE;
     }
-    if (!$this->hasOriginal()) {
+    if (!$this->hasOriginalVersion()) {
       return FALSE;
     }
     return $this->didChangeField(DidChangeOperatingStatusInterface::STATUS_FIELD) || $this->didChangeField(DidChangeOperatingStatusInterface::STATUS_INFO_FIELD);

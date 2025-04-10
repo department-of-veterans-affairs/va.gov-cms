@@ -25,12 +25,12 @@ trait ContentModerationTransitionsTrait {
   /**
    * {@inheritDoc}
    */
-  abstract public function hasOriginal(): bool;
+  abstract public function hasOriginalVersion(): bool;
 
   /**
    * {@inheritDoc}
    */
-  abstract public function getOriginal(): VaNodeInterface;
+  abstract public function getOriginalVersion(): VaNodeInterface;
 
   /**
    * {@inheritDoc}
@@ -57,10 +57,10 @@ trait ContentModerationTransitionsTrait {
     if (!$this->isModerated()) {
       throw new UnmoderatedContentTypeException('This node is not under content moderation.');
     }
-    if (!$this->hasOriginal()) {
+    if (!$this->hasOriginalVersion()) {
       throw new NoOriginalExistsException('This node does not have an original version.');
     }
-    return $this->getOriginal()->getModerationState();
+    return $this->getOriginalVersion()->getModerationState();
   }
 
   /**
@@ -70,7 +70,7 @@ trait ContentModerationTransitionsTrait {
    *   TRUE if the node was previously published, FALSE otherwise.
    */
   public function wasPublished(): bool {
-    if (!$this->hasOriginal()) {
+    if (!$this->hasOriginalVersion()) {
       return FALSE;
     }
     return $this->getOriginalModerationState() === ContentModerationInterface::MODERATION_STATE_PUBLISHED;
@@ -83,7 +83,7 @@ trait ContentModerationTransitionsTrait {
    *   TRUE if the node was previously archived, FALSE otherwise.
    */
   public function wasArchived(): bool {
-    if (!$this->hasOriginal()) {
+    if (!$this->hasOriginalVersion()) {
       return FALSE;
     }
     return $this->getOriginalModerationState() === ContentModerationInterface::MODERATION_STATE_ARCHIVED;
@@ -96,7 +96,7 @@ trait ContentModerationTransitionsTrait {
    *   TRUE if the node was previously a draft, FALSE otherwise.
    */
   public function wasDraft(): bool {
-    if (!$this->hasOriginal()) {
+    if (!$this->hasOriginalVersion()) {
       return FALSE;
     }
     return $this->getOriginalModerationState() === ContentModerationInterface::MODERATION_STATE_DRAFT;
@@ -119,7 +119,7 @@ trait ContentModerationTransitionsTrait {
    *   TRUE if the node _was_ published and _is_ now archived, otherwise FALSE.
    */
   public function didTransitionFromPublishedToArchived(): bool {
-    if (!$this->hasOriginal()) {
+    if (!$this->hasOriginalVersion()) {
       return FALSE;
     }
     // If the current state is archived, isPublished() lies to us because the

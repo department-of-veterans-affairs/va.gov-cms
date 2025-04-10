@@ -21,7 +21,7 @@ use Tests\Support\Classes\VaGovUnitTestBase;
 class GetOriginalTraitTest extends VaGovUnitTestBase {
 
   /**
-   * Test the hasOriginal() function.
+   * Test the hasOriginalVersion() function.
    *
    * @param bool $hasOriginal
    *   Whether the node has an original.
@@ -33,7 +33,7 @@ class GetOriginalTraitTest extends VaGovUnitTestBase {
    * @covers ::hasOriginal
    * @dataProvider hasOriginalDataProvider
    */
-  public function testHasOriginal(bool $hasOriginal, bool $isRightClass, bool $expected) : void {
+  public function testhasOriginalVersion(bool $hasOriginal, bool $isRightClass, bool $expected) : void {
     $node = $this->getMockForTrait(GetOriginalTrait::class);
     if ($hasOriginal) {
       $node->original = $isRightClass ? $this->createMock(VaNodeInterface::class) : $this->createMock(NodeInterface::class);
@@ -41,7 +41,7 @@ class GetOriginalTraitTest extends VaGovUnitTestBase {
     else {
       $node->original = NULL;
     }
-    $this->assertEquals($expected, $node->hasOriginal());
+    $this->assertEquals($expected, $node->hasOriginalVersion());
   }
 
   /**
@@ -71,12 +71,12 @@ class GetOriginalTraitTest extends VaGovUnitTestBase {
   }
 
   /**
-   * Test the getOriginal() function.
+   * Test the getOriginalVersion() function.
    *
    * @param bool $hasOriginal
    *   Whether the node has an original.
    *
-   * @covers ::getOriginal
+   * @covers ::getOriginalVersion
    * @dataProvider hasOriginalDataProvider
    */
   public function testGetOriginal(bool $hasOriginal) : void {
@@ -90,7 +90,7 @@ class GetOriginalTraitTest extends VaGovUnitTestBase {
     if (!$hasOriginal) {
       $this->expectException(NoOriginalExistsException::class);
     }
-    $this->assertEquals($node->original, $node->getOriginal());
+    $this->assertEquals($node->original, $node->getOriginalVersion());
   }
 
   /**
