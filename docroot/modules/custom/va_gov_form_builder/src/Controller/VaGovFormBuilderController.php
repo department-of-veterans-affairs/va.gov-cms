@@ -845,6 +845,26 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Response-kind page for custom single-question questions.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   */
+  public function customSingleQuestionKind($nid, $stepParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    $formName = 'StepLabel';
+    $breadcrumbs = $this->generateBreadcrumbs('step.layout', 'Step label');
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = ['single_column_with_buttons', 'step_label'];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
    * Review-and-sign page.
    *
    * @param string $nid
