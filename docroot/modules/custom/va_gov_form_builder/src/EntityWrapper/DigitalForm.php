@@ -424,7 +424,7 @@ class DigitalForm {
     }
 
     /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $chapters */
-    $chapters = $this->node->get('field_chapters');;
+    $chapters = $this->node->get('field_chapters');
 
     foreach ($chapters as $delta => $chapter) {
       if ($paragraph->id() === $chapter->entity->id()) {
@@ -457,7 +457,7 @@ class DigitalForm {
     }
   }
 
-    /**
+  /**
    * Access check for step actions.
    */
   public function stepMoveUpAccess() {
@@ -475,7 +475,7 @@ class DigitalForm {
    * Access check for deleting a step.
    *
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
-   *   Step to delete
+   *   Step to delete.
    *
    * @return bool
    *   TRUE if conditions are met, FALSE otherwise.
