@@ -11,10 +11,10 @@ index f89d039..f880820 100644
    phpinfo:
      id: phpinfo
 diff --git a/src/Plugin/MetricsCollector/NodeCount.php b/src/Plugin/MetricsCollector/NodeCount.php
-index 3f98953..f3307c6 100644
+index 22f5993..5705c01 100644
 --- a/src/Plugin/MetricsCollector/NodeCount.php
 +++ b/src/Plugin/MetricsCollector/NodeCount.php
-@@ -60,6 +60,11 @@ class NodeCount extends BaseMetricsCollector implements ContainerFactoryPluginIn
+@@ -60,6 +60,12 @@ class NodeCount extends BaseMetricsCollector implements ContainerFactoryPluginIn
     * {@inheritdoc}
     */
    public function settingsForm(array $form, FormStateInterface $form_state) {
@@ -23,12 +23,13 @@ index 3f98953..f3307c6 100644
 +      '#title' => $this->t('Include published/unpublished statistics'),
 +      '#default_value' => (bool) $this->getConfiguration()['settings']['status'],
 +    ];
++
      $options = node_type_get_names();
      $form['bundles'] = [
        '#type' => 'checkboxes',
-@@ -79,16 +84,21 @@ class NodeCount extends BaseMetricsCollector implements ContainerFactoryPluginIn
+@@ -79,16 +85,21 @@ class NodeCount extends BaseMetricsCollector implements ContainerFactoryPluginIn
     *
-    * @param string $bundle
+    * @param string|null $bundle
     *   (optional) The bundle name to filter by.
 +   * @param bool $status
 +   *   (optional) If provided, a status by which to filter.
@@ -36,8 +37,8 @@ index 3f98953..f3307c6 100644
     * @return int
     *   The node count.
     */
--  protected function getCount($bundle = NULL) {
-+  protected function getCount($bundle = NULL, $status = NULL) {
+-  protected function getCount(?string $bundle = NULL) {
++  protected function getCount(?string $bundle = NULL, $status = NULL) {
      $query = $this->nodeStorage->getQuery();
      $query->accessCheck(TRUE);
      if ($bundle) {
@@ -49,7 +50,7 @@ index 3f98953..f3307c6 100644
      return $query->count()->execute();
    }
  
-@@ -97,10 +107,25 @@ class NodeCount extends BaseMetricsCollector implements ContainerFactoryPluginIn
+@@ -97,10 +108,25 @@ class NodeCount extends BaseMetricsCollector implements ContainerFactoryPluginIn
     */
    public function collectMetrics() {
      $gauge = new Gauge($this->getNamespace(), 'total', $this->getDescription());
