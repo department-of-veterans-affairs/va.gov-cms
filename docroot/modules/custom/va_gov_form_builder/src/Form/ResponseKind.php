@@ -6,7 +6,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderBase;
 
 /**
- * Form step for the defining/editing a step label.
+ * Form step for choosing a question's response kind.
  */
 class ResponseKind extends FormBuilderBase {
 
@@ -20,13 +20,11 @@ class ResponseKind extends FormBuilderBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL, $stepParagraph = NULL) {
-    $form = parent::buildForm($form, $form_state, $digitalForm, $stepParagraph);
-
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $form['#theme'] = 'form__va_gov_form_builder__response_kind';
 
     $form['response_kind'] = [
-      '#type' => 'radio',
+      '#type' => 'radios',
       '#title' => $this->t('What kind of response will the submitter provide?'),
       '#options' => [
         'pizza' => $this->t('Pizza'),
