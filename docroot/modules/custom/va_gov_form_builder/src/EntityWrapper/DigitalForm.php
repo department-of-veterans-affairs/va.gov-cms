@@ -399,7 +399,7 @@ class DigitalForm {
     // - We need to capture the step to move from and to in order to swap them.
     // - Access check for both from and to steps?
     \Drupal::messenger()->addMessage($this->t('Step %label was moved successfully', [
-      '%label' => $paragraph->field_title->value,
+      '%label' => $paragraph->get('field_title')->value,
     ]));
   }
 
@@ -413,35 +413,51 @@ class DigitalForm {
       throw new \Exception('Digital Form is not set. Cannot sort steps on an empty Digital Form object.');
     }
     $label = $paragraph->get('field_title')->value;
-    // Remove item from the field_chapters field.
+    $deleted = FALSE;
+    // Check if delete is allowed for this step.
+    if (!$this->stepDeleteAccess($paragraph)) {
+      \Drupal::messenger()
+        ->addError($this->t('Step %label <em>cannot</em> be deleted. Access denied.', [
+          '%label' => $label,
+        ]));
+      return;
+    }
+
     /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $chapters */
-    $chapters = $this->node->get('field_chapters');
-    /** @var  \Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem $chapter */
+    $chapters = $this->node->get('field_chapters');;
+
     foreach ($chapters as $delta => $chapter) {
       if ($paragraph->id() === $chapter->entity->id()) {
         $chapters->removeItem($delta);
+        $deleted = TRUE;
         break;
       }
     }
 
-    // Save the node.
-    $this->node->save();
+    if ($deleted) {
+      try {
+        // Save the node.
+        $this->node->save();
 
-    // Delete the paragraph.
-    $paragraph->delete();
-    \Drupal::messenger()->addWarning($this->t('Step %label was deleted successfully', [
-      '%label' => $label,
-    ]));
+        // Delete the paragraph.
+        $paragraph->delete();
+
+        // Add success message.
+        \Drupal::messenger()->addWarning($this->t('Step %label was deleted successfully', [
+          '%label' => $label,
+        ]));
+      }
+      catch (\Exception $e) {
+        // Saving node or deleting paragraph failed. Add error message.
+        \Drupal::messenger()->addError($this->t('Step %label was <em>not</em> deleted successfully. The error was %error', [
+          '%label' => $label,
+          '%error' => $e->getMessage(),
+        ]));
+      }
+    }
   }
 
-  /**
-   * Access check for step actions.
-   */
-  public function stepActionAccess(ParagraphInterface $paragraph, string $action) {
-    return AccessResult::allowed();
-  }
-
-  /**
+    /**
    * Access check for step actions.
    */
   public function stepMoveUpAccess() {
@@ -456,10 +472,25 @@ class DigitalForm {
   }
 
   /**
-   * Access check for step actions.
+   * Access check for deleting a step.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   Step to delete
+   *
+   * @return bool
+   *   TRUE if conditions are met, FALSE otherwise.
    */
-  public function stepDeleteAccess() {
-    return AccessResult::allowed();
+  public function stepDeleteAccess(ParagraphInterface $paragraph): bool {
+    $result = AccessResult::allowed();
+    // Ensure this step is a nonstandard step.
+    $steps = $this->getNonStandarddSteps();
+    $isNonStandardStep = AccessResult::allowedIf(
+      !empty(
+        array_filter($steps, fn ($step) => $paragraph->id() === $step['paragraph']->id())
+      )
+    );
+    $result->andIf($isNonStandardStep);
+    return $result->isAllowed();
   }
 
   /**
@@ -506,7 +537,7 @@ class DigitalForm {
           'title' => $this->t('Move down'),
         ];
       }
-      if ($this->stepDeleteAccess()) {
+      if ($this->stepDeleteAccess($paragraph)) {
         $additional_step['actions'][] = [
           'url' => Url::fromRoute('va_gov_form_builder.step_action', [
             'node' => $this->id(),
