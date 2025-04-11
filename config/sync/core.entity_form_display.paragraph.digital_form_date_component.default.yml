@@ -7,6 +7,7 @@ dependencies:
     - field.field.paragraph.digital_form_date_component.field_digital_form_hint_text
     - field.field.paragraph.digital_form_date_component.field_digital_form_label
     - field.field.paragraph.digital_form_date_component.field_digital_form_required
+    - field.field.paragraph.digital_form_date_component.field_list_loop_summary_card
     - paragraphs.paragraphs_type.digital_form_date_component
   module:
     - textfield_counter
@@ -54,6 +55,13 @@ content:
   field_digital_form_required:
     type: boolean_checkbox
     weight: 1
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_list_loop_summary_card:
+    type: boolean_checkbox
+    weight: 4
     region: content
     settings:
       display_label: true

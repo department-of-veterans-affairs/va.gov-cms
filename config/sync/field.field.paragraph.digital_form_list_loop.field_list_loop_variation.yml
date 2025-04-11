@@ -1,0 +1,27 @@
+uuid: 6e3d31ff-0a93-455a-9e24-8f9b4c6fddad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_list_loop_variation
+    - paragraphs.paragraphs_type.digital_form_list_loop
+  module:
+    - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_list_loop.field_list_loop_variation
+field_name: field_list_loop_variation
+entity_type: paragraph
+bundle: digital_form_list_loop
+label: Variation
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: custom
+default_value_callback: ''
+settings: {  }
+field_type: list_string
