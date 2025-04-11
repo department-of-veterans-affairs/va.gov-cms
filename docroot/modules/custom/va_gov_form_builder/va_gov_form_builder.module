@@ -124,7 +124,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
     'template' => 'review-and-sign',
     'variables' => $nonEditablePatternVariables,
   ];
-  // 4. View-form page
+  // 4. View-form page.
   $viewFormPageVariables = [
     'buttons' => [],
   ];
@@ -140,18 +140,40 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
     'template' => 'view-form--unavailable',
     'variables' => $viewFormPageVariables,
   ];
-  // 5. Step-layout page
-  $theme[$page_content_theme_prefix . 'step_layout'] = [
+  // 5. Step-layout page.
+  $stepLayoutVariables = [
+    'step_label' => [],
+    'pages' => [],
+    'buttons' => [],
+  ];
+  // 5a. Step-layout page for single question.
+  $theme[$page_content_theme_prefix . 'step_layout__single_question'] = [
     'path' => $page_content_theme_path,
-    'template' => 'step-layout',
-    'variables' => [
-      // Whether the step type is supported. Defaults to TRUE.
-      'supported_step_type' => TRUE,
-      'page_heading' => '',
-      'step_label' => [],
-      'pages' => [],
-      'buttons' => [],
-    ],
+    'template' => 'step-layout--single-question',
+    'variables' => $stepLayoutVariables,
+  ];
+  // 5b. Step-layout page for repeating set.
+  $theme[$page_content_theme_prefix . 'step_layout__repeating_set'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'step-layout--repeating-set',
+    'variables' => $stepLayoutVariables,
+  ];
+  // 6. Custom-or-predefined-question page.
+  $customOrPredefinedQuestionVariables = [
+    'predefined_questions' => [],
+    'buttons' => [],
+  ];
+  // 6a. Custom-or-predefined-question page for single question.
+  $theme[$page_content_theme_prefix . 'custom_or_predefined_question__single_question'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'custom-or-predefined-question--single-question',
+    'variables' => $customOrPredefinedQuestionVariables,
+  ];
+  // 6b. Custom-or-predefined-question page for repeating set.
+  $theme[$page_content_theme_prefix . 'custom_or_predefined_question__repeating_set'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'custom-or-predefined-question--repeating-set',
+    'variables' => $customOrPredefinedQuestionVariables,
   ];
 
   // Add form themes.

@@ -1,0 +1,47 @@
+{% extends '@va_gov_form_builder/page-content/base/single-column-with-buttons.html.twig' %}
+
+{% set page_id = 'view-form' %}
+
+{% if predefined_questions|length == 0 %}
+  {% set page_heading = 'Customize a question set' %}
+{% else %}
+  {% set page_heading = 'Use a pre-defined question set, or customize a set' %}
+{% endif %}
+
+{% block main_content %}
+  <div class="form-builder-custom-or-predefined form-builder-custom-or-predefined__repeating-set">
+    {% if predefined_questions|length == 0 %}
+      {# No predefined questions #}
+      <section class="form-buiilder-custom-or-predefined__custom">
+        <h3 class="form-builder-custom-or-predefined__custom-title">
+          If there were additional ready-to-use patterns for this form,
+          they would be listed on this page.
+        </h3>
+        <p>However, you can create your own question set by selecting the Customize option below.</p>
+      </section>
+    {% else %}
+      {# Predefined questions exist #}
+      <section class="form-builder-custom-or-predefined__predefined">
+        <h3 class="form-builder-custom-or-predefined__predefined-title">
+          Is your question set one of these commonly asked ones?
+        </h3>
+        <p>
+          If it is, simply select the appropriate Add button and this question will
+          be added to this step in the form.
+        </p>
+
+        {#
+          Eventually, render the predefined-question list here
+          by looping over the predefined_questions variable.
+        #}
+      </section>
+      <section class="form-builder-custom-or-predefined__custom">
+        <h3 class="form-builder-custom-or-predefined__custom-title">
+          Need to customize your question and response?
+        </h3>
+        <p>
+          Begin by selecting the Customize option below.
+        </p>
+    {% endif %}
+  </div>
+{% endblock %}

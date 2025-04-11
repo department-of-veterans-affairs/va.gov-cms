@@ -72,6 +72,13 @@ va_gov_form_builder.step.step_label.edit:
   requirements:
     nid: \d*
     stepParagraphId: \d*
+va_gov_form_builder.step.question.custom_or_predefined:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom-or-predefined"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customOrPredefinedQuestion'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
 va_gov_form_builder.review_and_sign:
   path: "/form-builder/{nid}/review-and-sign"
   defaults:
