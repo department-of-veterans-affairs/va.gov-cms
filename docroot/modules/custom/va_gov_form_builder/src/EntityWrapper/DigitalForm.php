@@ -188,6 +188,22 @@ class DigitalForm {
   }
 
   /**
+   * Determines if the current step is a nonstandard/custom step.
+   *
+   * @return bool
+   *   TRUE if the step is nonstandard.
+   */
+  public function isNonStandardStep(ParagraphInterface $paragraph) {
+    static $steps = [];
+    if (empty($steps)) {
+      $steps = $this->getNonStandarddSteps();
+    }
+    return (!empty(
+      array_filter($steps, fn ($step) => $paragraph->id() === $step['paragraph']->id())
+    ));
+  }
+
+  /**
    * Returns the status of a step on the Digital Form node.
    *
    * Completeness of the step varies by step, and is documented
@@ -360,8 +376,9 @@ class DigitalForm {
     }
     if (in_array($action, DigitalForm::STEP_ACTIONS)) {
       match($action) {
-        self::STEP_ACTIONS['moveup'], self::STEP_ACTIONS['movedown'] => $this->sortStep($paragraph, $action),
-        self::STEP_ACTIONS['delete'] => $this->deleteStep($paragraph),
+        self::STEP_ACTIONS['moveup'] => $this->stepMoveUp($paragraph),
+        self::STEP_ACTIONS['movedown'] => $this->stepMoveDown($paragraph),
+        self::STEP_ACTIONS['delete'] => $this->stepDelete($paragraph),
       };
     }
     else {
@@ -370,37 +387,82 @@ class DigitalForm {
   }
 
   /**
-   * Sort a step moving in the direction the $direction calls for.
-   *
-   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
-   *   The step paragraph being sorted.
-   * @param string $direction
-   *   The direction to sort. Initially either 'moveup' or 'movedown'.
+   * Delete a step.
    *
    * @throws \Exception
-   * @throws \InvalidArgumentException
    */
-  public function sortStep(ParagraphInterface $paragraph, string $direction): void {
-    if (!($direction === self::STEP_ACTIONS['moveup']) && !($direction === self::STEP_ACTIONS['movedown'])) {
-      throw new \InvalidArgumentException('Invalid step sort action');
-    }
+  public function stepMoveUp(ParagraphInterface $paragraph) {
     if (!$this->node) {
       throw new \Exception('Digital Form is not set. Cannot sort steps on an empty Digital Form object.');
     }
+    $label = $paragraph->get('field_title')->value;
 
-    // Moving an item presents some challenges:
-    // - Standard steps may or may not be between custom steps. They can appear
-    //   anywhere in the field.
-    // - The field ItemList parent class has a protected rekey() method that is
-    //   called internally only when addItem() or removeItem() are called. This
-    //   method sets proper context on the field and re-keys indexes. We need to
-    //   ensure this gets called.
-    // - There is no builtin "move" on the ItemList class.
-    // - We need to capture the step to move from and to in order to swap them.
-    // - Access check for both from and to steps?
-    \Drupal::messenger()->addMessage($this->t('Step %label was moved successfully', [
-      '%label' => $paragraph->get('field_title')->value,
-    ]));
+    // Check if this move is allowed for this step.
+    if (!$this->stepMoveUpAccess($paragraph)) {
+      \Drupal::messenger()
+        ->addError($this->t('Step %label <em>cannot</em> be moved. Access denied.', [
+          '%label' => $label,
+        ]));
+      return;
+    }
+  }
+
+  /**
+   * Move a step down.
+   *
+   * @throws \Exception
+   */
+  public function stepMoveDown(ParagraphInterface $paragraph) {
+    if (!$this->node) {
+      throw new \Exception('Digital Form is not set. Cannot sort steps on an empty Digital Form object.');
+    }
+    $label = $paragraph->get('field_title')->value;
+
+    // Check if this move is allowed for this step.
+    if (!$this->stepMoveDownAccess($paragraph)) {
+      \Drupal::messenger()
+        ->addError($this->t('Step %label <em>cannot</em> be moved. Access denied.', [
+          '%label' => $label,
+        ]));
+      return;
+    }
+    $sourceStep = NULL;
+    $newChapters = [];
+    /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $chapters */
+    $chapters = $this->node->get('field_chapters');
+    foreach ($chapters as $delta => $chapter) {
+      if ($chapter->entity->id() === $paragraph->id()) {
+        $sourceStep = $delta;
+      }
+      elseif ($sourceStep && $this->isNonStandardStep($chapter->entity)) {
+        $newChapters[$sourceStep] = $chapter->entity;
+        $newChapters[$delta] = $chapters->get($sourceStep)->entity;
+      }
+      else {
+        // This does move standard steps to the top of the field list.
+        $newChapters[$delta] = $chapter->entity;
+      }
+    }
+
+    try {
+      // Push the newSteps into the field.
+      $this->node->set('field_chapters', $newChapters);
+
+      // Save the node.
+      $this->node->save();
+
+      // Add success message.
+      \Drupal::messenger()->addWarning($this->t('Step %label was moved down successfully', [
+        '%label' => $label,
+      ]));
+    }
+    catch (\Exception $e) {
+      // Persisting to node failed.
+      \Drupal::messenger()->addError($this->t('An error occurred while moving step %label. The error was %error', [
+        '%label' => $label,
+        '%error' => $e->getMessage(),
+      ]));
+    }
   }
 
   /**
@@ -408,9 +470,9 @@ class DigitalForm {
    *
    * @throws \Exception
    */
-  public function deleteStep(ParagraphInterface $paragraph) {
+  public function stepDelete(ParagraphInterface $paragraph) {
     if (!$this->node) {
-      throw new \Exception('Digital Form is not set. Cannot sort steps on an empty Digital Form object.');
+      throw new \Exception('Digital Form is not set. Cannot delete steps on an empty Digital Form object.');
     }
     $label = $paragraph->get('field_title')->value;
     $deleted = FALSE;
@@ -459,16 +521,40 @@ class DigitalForm {
 
   /**
    * Access check for step actions.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   Step to delete.
+   *
+   * @return bool
+   *   TRUE if conditions are met, FALSE otherwise.
    */
-  public function stepMoveUpAccess() {
-    return AccessResult::allowed();
+  public function stepMoveUpAccess(ParagraphInterface $paragraph) {
+    $result = AccessResult::allowed();
+    // Ensure this step is a nonstandard step.
+    $isNonStandardStep = AccessResult::allowedIf(($this->isNonStandardStep($paragraph)));
+    $result = $result->andIf($isNonStandardStep);
+    // Ensure this is not the first nonstandard step.
+    $steps = $this->getNonStandarddSteps();
+    $first = $steps[(array_key_first($steps))];
+    $isNotFirstStep = AccessResult::allowedIf(!($first['paragraph']->id() === $paragraph->id()));
+    $result = $result->andIf($isNotFirstStep);
+    return $result->isAllowed();
   }
 
   /**
    * Access check for step actions.
    */
-  public function stepMoveDownAccess() {
-    return AccessResult::allowed();
+  public function stepMoveDownAccess(ParagraphInterface $paragraph) {
+    $result = AccessResult::allowed();
+    // Ensure this step is a nonstandard step.
+    $isNonStandardStep = AccessResult::allowedIf(($this->isNonStandardStep($paragraph)));
+    $result = $result->andIf($isNonStandardStep);
+    // Ensure this is not the first nonstandard step.
+    $steps = $this->getNonStandarddSteps();
+    $last = $steps[(array_key_last($steps))];
+    $isNotFirstStep = AccessResult::allowedIf(!($last['paragraph']->id() === $paragraph->id()));
+    $result = $result->andIf($isNotFirstStep);
+    return $result->isAllowed();
   }
 
   /**
@@ -483,12 +569,7 @@ class DigitalForm {
   public function stepDeleteAccess(ParagraphInterface $paragraph): bool {
     $result = AccessResult::allowed();
     // Ensure this step is a nonstandard step.
-    $steps = $this->getNonStandarddSteps();
-    $isNonStandardStep = AccessResult::allowedIf(
-      !empty(
-        array_filter($steps, fn ($step) => $paragraph->id() === $step['paragraph']->id())
-      )
-    );
+    $isNonStandardStep = AccessResult::forbiddenIf(!($this->isNonStandardStep($paragraph)));
     $result->andIf($isNonStandardStep);
     return $result->isAllowed();
   }
@@ -515,7 +596,7 @@ class DigitalForm {
 
       // Determine available actions.
       $additional_step['actions'] = [];
-      if ($this->stepMoveUpAccess()) {
+      if ($this->stepMoveUpAccess($paragraph)) {
         $additional_step['actions'][] = [
           'url' => Url::fromRoute('va_gov_form_builder.step_action', [
             'node' => $this->id(),
@@ -526,7 +607,7 @@ class DigitalForm {
           'action' => 'moveup',
         ];
       }
-      if ($this->stepMoveDownAccess()) {
+      if ($this->stepMoveDownAccess($paragraph)) {
         $additional_step['actions'][] = [
           'url' => Url::fromRoute('va_gov_form_builder.step_action', [
             'node' => $this->id(),
