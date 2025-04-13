@@ -304,6 +304,19 @@ class VaGovFormBuilderController extends ControllerBase {
       );
     }
 
+    elseif ($parent === 'step.question.custom_or_predefined') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $customOrPredefinedUrl = $this->getPageUrl('step.question.custom_or_predefined');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.layout',
+        'Custom or predefined',
+        $customOrPredefinedUrl
+      );
+    }
+
     $breadcrumbTrail[] = [
       'label' => $label,
       'url' => $url ? $url : '#content',
@@ -857,7 +870,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadStepParagraph($stepParagraphId);
 
     $formName = 'ResponseKind';
-    $breadcrumbs = $this->generateBreadcrumbs('step.layout', 'Step label');
+    $breadcrumbs = $this->generateBreadcrumbs('step.question.custom_or_predefined', 'Response kind');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
       'single_column_with_buttons',
