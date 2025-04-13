@@ -405,6 +405,42 @@ class DigitalForm {
         ]));
       return;
     }
+    $newChapters = [];
+    /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $chapters */
+    $chapters = $this->node->get('field_chapters');
+    $previousStep = NULL;
+    foreach ($chapters as $delta => $chapter) {
+      if ($chapter->entity->id() === $paragraph->id() && $previousStep) {
+        $newChapters[$previousStep] = $chapter->entity;
+        $newChapters[$delta] = $chapters->get($previousStep)->entity;
+      }
+      elseif ($this->isNonStandardStep($paragraph)) {
+        $previousStep = $delta;
+        $newChapters[$delta] = $chapter->entity;
+      }
+      else {
+        $newChapters[$delta] = $chapter->entity;
+      }
+    }
+    try {
+      // Push the newSteps into the field.
+      $this->node->set('field_chapters', $newChapters);
+
+      // Save the node.
+      $this->node->save();
+
+      // Add success message.
+      \Drupal::messenger()->addWarning($this->t('Step %label was moved up successfully', [
+        '%label' => $label,
+      ]));
+    }
+    catch (\Exception $e) {
+      // Persisting to node failed.
+      \Drupal::messenger()->addError($this->t('An error occurred while moving step %label. The error was %error', [
+        '%label' => $label,
+        '%error' => $e->getMessage(),
+      ]));
+    }
   }
 
   /**
@@ -439,7 +475,6 @@ class DigitalForm {
         $newChapters[$delta] = $chapters->get($sourceStep)->entity;
       }
       else {
-        // This does move standard steps to the top of the field list.
         $newChapters[$delta] = $chapter->entity;
       }
     }
