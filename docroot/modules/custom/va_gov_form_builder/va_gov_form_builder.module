@@ -198,7 +198,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
 
   // Add page-element themes.
   $page_element_theme_prefix = 'page_element__va_gov_form_builder__';
-  // 1. Expanded-radio content.
+  // 1. Expanded-radio -- Help text and optional image.
   $theme[$page_element_theme_prefix . 'expanded_radio__help_text_optional_image'] = [
     'path' => $path . '/templates/page-elements',
     'template' => 'expanded-radio--help-text-optional-image',
