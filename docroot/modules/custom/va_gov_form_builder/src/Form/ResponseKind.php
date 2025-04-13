@@ -84,8 +84,29 @@ class ResponseKind extends FormBuilderBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    xdebug_var_dump($form_state->getValues());
-    exit;
+    $routeParameters = \Drupal::routeMatch()->getParameters()->all();
+    $nid = $routeParameters['nid'];
+    $stepParagraphId = $routeParameters['stepParagraphId'];
+
+    $responseKind = $form_state->getValue('response_kind');
+
+    switch ($responseKind) {
+      // Eventually, we'll have to handle these individually.
+      // For now, we just redirect to an arbitrary page with
+      // the response kind as a query parameter.
+      case 'choice':
+      case 'date':
+      case 'text':
+        $form_state->setRedirect('va_gov_form_builder.step.layout', [
+          'nid' => $nid,
+          'stepParagraphId' => $stepParagraphId,
+        ], [
+          'query' => [
+            'response_kind' => $responseKind,
+          ],
+        ]);
+        break;
+    }
   }
 
 }
