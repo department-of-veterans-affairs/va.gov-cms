@@ -25,15 +25,17 @@
     <span class="form-item__prefix{{disabled == 'disabled' ? ' is-disabled'}}">{{ prefix }}</span>
   {% endif %}
 
-  {# This renders the actual radio input #}
-  {{ children }}
+  <div class="form-builder-expanded-radio">
+    {# This renders the actual radio input #}
+    {{ children }}
 
-  <div class="form-builder-expanded-radio__content">
-    {{ label }}
+    <div class="form-builder-expanded-radio__content">
+      {{ label }}
 
-    {# This is where the custom expanded content gets rendered #}
-    <div class="form-builder-expanded-radio__expanded-content">
-      {{ element['#expanded_content'] }}
+      {# This is where the custom expanded content gets rendered #}
+      <div class="form-builder-expanded-radio__expanded-content">
+        {{ element['#expanded_content'] }}
+      </div>
     </div>
   </div>
 

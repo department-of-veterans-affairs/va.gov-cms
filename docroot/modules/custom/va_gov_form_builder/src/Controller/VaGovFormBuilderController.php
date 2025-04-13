@@ -852,14 +852,19 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $stepParagraphId
    *   The entity id of the step paragraph.
    */
-  public function customSingleQuestionKind($nid, $stepParagraphId) {
+  public function customSingleQuestionResponseKind($nid, $stepParagraphId) {
     $this->loadDigitalForm($nid);
     $this->loadStepParagraph($stepParagraphId);
 
     $formName = 'ResponseKind';
     $breadcrumbs = $this->generateBreadcrumbs('step.layout', 'Step label');
     $subtitle = $this->digitalForm->getTitle();
-    $libraries = ['single_column_with_buttons'];
+    $libraries = [
+      'single_column_with_buttons',
+      'response_kind',
+      'expanded_radio',
+      'expanded_radio__help_text_optional_image',
+    ];
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
