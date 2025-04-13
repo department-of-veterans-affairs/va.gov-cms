@@ -1,0 +1,15 @@
+<div class="form-builder-response-kind-expanded-radio">
+  <div class="form-builder-response-kind-expanded-radio__help_text">
+    {{ help_text }}
+  </div>
+
+  {% if image is not empty %}
+    <figure class="form-builder-response-kind-expanded-radio__image-with-caption">
+      <img
+        src="{{ image.url }}"
+        alt="{{ image.alt }}"
+      />
+      <figcaption>{{ image.caption}}</figcaption>
+    </figure>
+  {% endif %}
+</div>

@@ -11,36 +11,7 @@
 
 {% block main_content %}
   <p>We'll add the question/statement over the course of a few screens.</p>
-
-  <section class="form-builder-response-kind">
-    {{ form.response_kind }}
-    <h3 class="form-builder-response-kind__heading">
-      {{ form.response_kind['#title'] }}
-    </h3>
-    {% for value, label in form.response_kind['#options'] %}
-      {% set option_data = form.response_kind['#options_data'][value] %}
-      <div class="form-builder-response-kind__option">
-        <input
-          type="radio"
-          id="{{ value }}"
-          name="{{ value }}"
-          value="{{ value }}"
-        />
-        <label for="{{ value }}">
-          {{ label }}
-          <p>{{ option_data.help_text }}</p>
-          <figure>
-            <img
-              src="{{ option_data.image.url }}"
-              alt="{{ option_data.image.alt }}"
-              class="form-builder-response-kind__option-image"
-            />
-            <figcaption>{{ option_data.image.caption}}</figcaption>
-          </figure>
-        </label>
-      </div>
-    {% endfor %}
-  </section>
+  {{ form.response_kind }}
 {% endblock %}
 
 {% block after_buttons %}
