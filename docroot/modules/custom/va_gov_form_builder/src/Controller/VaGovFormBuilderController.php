@@ -208,6 +208,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'step.layout',
       'step.step_label.edit',
       'step.question.custom_or_predefined',
+      'step.question.custom.kind',
     ];
     if (in_array($page, $stepPages)) {
       if (!$this->digitalForm) {
@@ -845,6 +846,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     if ($stepType === 'digital_form_custom_step') {
       $pageContent['#theme'] = self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__single_question';
+      $pageContent['#buttons']['primary']['url'] = $this->getPageUrl('step.question.custom.kind');
     }
     else {
       $pageContent['#theme'] = self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__repeating_set';
