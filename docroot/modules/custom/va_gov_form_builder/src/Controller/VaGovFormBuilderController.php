@@ -119,7 +119,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $nid
    *   The node id to load.
    *
-   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
    *   If the node is not found.
    */
   protected function loadDigitalForm($nid) {
@@ -431,10 +431,10 @@ class VaGovFormBuilderController extends ControllerBase {
    */
   public function layout($nid) {
     $this->loadDigitalForm($nid);
-    $pageContent[] = [
+    $pageContent['messages'] = [
       '#type' => 'status_messages',
     ];
-    $pageContent[] = [
+    $pageContent['page'] = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'layout',
       '#form_info' => [
         'status' => $this->digitalForm->getStepStatus('form_info'),
@@ -477,7 +477,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle());
-    $libraries = ['layout'];
+    $libraries = ['layout', 'step_actions'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -502,15 +502,19 @@ class VaGovFormBuilderController extends ControllerBase {
     $response = new AjaxResponse();
     $this->loadDigitalForm($node->id());
 
-    // Step 1: Take the appropriate action.
+    // Take the appropriate action.
     $this->digitalForm->executeStepAction($paragraph, $action);
 
-    // Step 2: Render the page into html.
+    // @todo Need to support more than one page. The layout page, and the step
+    // layout page, at least for now. It could be more in the future.
+    // @todo Also, it would be more efficient to render only the steps
+    // involved, rather than the entire page.
+    // Render the page into html.
     /** @var \Drupal\Core\Render\Renderer $renderer */
     $layout = $this->layout($node->id());
     $output = $this->renderer->renderRoot($layout);
 
-    // Step 3: Return an Ajax command.
+    // Return an Ajax command.
     $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
     return $response;
   }
@@ -697,6 +701,7 @@ class VaGovFormBuilderController extends ControllerBase {
           'id' => $page->id(),
           'title' => $page->get('field_title')->value,
           'url' => '',
+          'actions' => $this->buildStepActions($page),
         ];
       }, $pageEntities);
 
@@ -716,9 +721,58 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', $stepLabel);
-    $libraries = ['single_column_with_buttons', 'step_layout', 'paragraph_sort_and_delete'];
+    $libraries = ['single_column_with_buttons', 'step_layout', 'step_actions'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Builds step actions for step layout page.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph to build steps for.
+   *
+   * @return array
+   *   Array of step actions.
+   */
+  public function buildStepActions(ParagraphInterface $paragraph) {
+    // Determine available actions.
+    $actions = [];
+    if ($this->digitalForm->stepMoveUpAccess($paragraph)) {
+      $actions[] = [
+        'url' => Url::fromRoute('va_gov_form_builder.step_action', [
+          'node' => $this->digitalForm->id(),
+          'paragraph' => $paragraph->id(),
+          'action' => 'moveup',
+        ]),
+        'title' => $this->t('Move up'),
+        'action' => 'moveup',
+      ];
+    }
+    if ($this->digitalForm->stepMoveDownAccess($paragraph)) {
+      $actions[] = [
+        'url' => Url::fromRoute('va_gov_form_builder.step_action', [
+          'node' => $this->digitalForm->id(),
+          'paragraph' => $paragraph->id(),
+          'action' => 'movedown',
+        ]),
+        'action' => 'movedown',
+        'title' => $this->t('Move down'),
+      ];
+    }
+    if ($this->digitalForm->stepDeleteAccess($paragraph)) {
+      $actions[] = [
+        'url' => Url::fromRoute('va_gov_form_builder.step_action', [
+          'node' => $this->digitalForm->id(),
+          'paragraph' => $paragraph->id(),
+          'action' => 'delete',
+        ]),
+        'action' => 'delete',
+        'title' => $this->t('Delete'),
+      ];
+    }
+    return $actions;
+
   }
 
   /**

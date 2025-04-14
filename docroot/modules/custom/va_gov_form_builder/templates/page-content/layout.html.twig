@@ -43,7 +43,7 @@
         <p class="form-builder-layout-step__help-text">Click the link below to view this step.</p>
         <a class="form-builder-layout-step__view-link" href="{{additional_step.url}}">View {{ additional_step.title | lower }}</a>
         {% if additional_step.actions %}
-          {{ include('@va_gov_form_builder/components/step-sort-and-delete.html.twig') }}
+          {{ include('@va_gov_form_builder/components/step-actions.html.twig', additional_step) }}
         {% endif %}
       </section>
     {% endfor %}

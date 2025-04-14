@@ -42,7 +42,7 @@ class DigitalForm {
   ];
 
   /**
-   * Sort and delete actions available for steps.
+   * Actions available for steps.
    *
    * Any updates to these actions will need to also be made to the
    * va_gov_form_builder.step_action route access configuration.
@@ -117,15 +117,13 @@ class DigitalForm {
     $steps = [];
 
     if ($this->node->hasField('field_chapters')) {
-      $chapters = $this->node->get('field_chapters')->getValue();
+      $chapters = $this->node->get('field_chapters');
 
-      foreach ($chapters as $chapter) {
-        $paragraph = $this->entityTypeManager
-          ->getStorage('paragraph')
-          ->load($chapter['target_id']);
+      foreach ($chapters as $delta => $chapter) {
+        $paragraph = $chapter->entity;
 
         if ($paragraph) {
-          $steps[] = [
+          $steps[$delta] = [
             'type' => $paragraph->bundle(),
             'paragraph' => $paragraph,
             'fields' => array_map(function ($field) {
@@ -147,11 +145,9 @@ class DigitalForm {
    */
   public function getNonStandarddSteps() {
     $allSteps = $this->getAllSteps();
-    $nonStandardSteps = array_values(array_filter($allSteps, function ($step) {
-       return !in_array($step['type'], array_values(self::STANDARD_STEPS));
-    }));
-
-    return $nonStandardSteps;
+    return array_filter($allSteps, function ($step) {
+      return !in_array($step['type'], array_values(self::STANDARD_STEPS));
+    });
   }
 
   /**
@@ -382,7 +378,7 @@ class DigitalForm {
       };
     }
     else {
-      throw new \InvalidArgumentException('Invalid step sort action');
+      throw new \InvalidArgumentException('Invalid step action');
     }
   }
 
@@ -405,27 +401,22 @@ class DigitalForm {
         ]));
       return;
     }
-    $newChapters = [];
+    $previousStep = NULL;
+    $previousDelta = NULL;
     /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $chapters */
     $chapters = $this->node->get('field_chapters');
-    $previousStep = NULL;
-    foreach ($chapters as $delta => $chapter) {
-      if ($chapter->entity->id() === $paragraph->id() && $previousStep) {
-        $newChapters[$previousStep] = $chapter->entity;
-        $newChapters[$delta] = $chapters->get($previousStep)->entity;
+    $steps = $this->getNonStandarddSteps();
+    foreach (array_keys($steps) as $delta) {
+      $chapter = $chapters->get($delta);
+      if ($chapter->entity->id() === $paragraph->id() && $previousStep instanceof ParagraphInterface && !is_null($previousDelta)) {
+        $chapters->set($previousDelta, $chapter->entity);
+        $chapters->set($delta, $previousStep);
+        break;
       }
-      elseif ($this->isNonStandardStep($paragraph)) {
-        $previousStep = $delta;
-        $newChapters[$delta] = $chapter->entity;
-      }
-      else {
-        $newChapters[$delta] = $chapter->entity;
-      }
+      $previousStep = $chapter->entity;
+      $previousDelta = $delta;
     }
     try {
-      // Push the newSteps into the field.
-      $this->node->set('field_chapters', $newChapters);
-
       // Save the node.
       $this->node->save();
 
@@ -463,26 +454,24 @@ class DigitalForm {
       return;
     }
     $sourceStep = NULL;
-    $newChapters = [];
+    $sourceStepId = NULL;
     /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $chapters */
     $chapters = $this->node->get('field_chapters');
-    foreach ($chapters as $delta => $chapter) {
+    $steps = $this->getNonStandarddSteps();
+    foreach (array_keys($steps) as $delta) {
+      $chapter = $chapters->get($delta);
       if ($chapter->entity->id() === $paragraph->id()) {
-        $sourceStep = $delta;
+        $sourceStep = $chapter->entity;
+        $sourceStepId = $delta;
       }
-      elseif ($sourceStep && $this->isNonStandardStep($chapter->entity)) {
-        $newChapters[$sourceStep] = $chapter->entity;
-        $newChapters[$delta] = $chapters->get($sourceStep)->entity;
-      }
-      else {
-        $newChapters[$delta] = $chapter->entity;
+      elseif ($sourceStep instanceof ParagraphInterface && isset($sourceStepId)) {
+        $chapters->set($sourceStepId, $chapter->entity);
+        $chapters->set($delta, $sourceStep);
+        break;
       }
     }
 
     try {
-      // Push the newSteps into the field.
-      $this->node->set('field_chapters', $newChapters);
-
       // Save the node.
       $this->node->save();
 
@@ -565,10 +554,6 @@ class DigitalForm {
    */
   public function stepMoveUpAccess(ParagraphInterface $paragraph) {
     $result = AccessResult::allowed();
-    // Ensure this step is a nonstandard step.
-    $isNonStandardStep = AccessResult::allowedIf(($this->isNonStandardStep($paragraph)));
-    $result = $result->andIf($isNonStandardStep);
-    // Ensure this is not the first nonstandard step.
     $steps = $this->getNonStandarddSteps();
     $first = $steps[(array_key_first($steps))];
     $isNotFirstStep = AccessResult::allowedIf(!($first['paragraph']->id() === $paragraph->id()));
@@ -581,10 +566,6 @@ class DigitalForm {
    */
   public function stepMoveDownAccess(ParagraphInterface $paragraph) {
     $result = AccessResult::allowed();
-    // Ensure this step is a nonstandard step.
-    $isNonStandardStep = AccessResult::allowedIf(($this->isNonStandardStep($paragraph)));
-    $result = $result->andIf($isNonStandardStep);
-    // Ensure this is not the first nonstandard step.
     $steps = $this->getNonStandarddSteps();
     $last = $steps[(array_key_last($steps))];
     $isNotFirstStep = AccessResult::allowedIf(!($last['paragraph']->id() === $paragraph->id()));
@@ -604,8 +585,9 @@ class DigitalForm {
   public function stepDeleteAccess(ParagraphInterface $paragraph): bool {
     $result = AccessResult::allowed();
     // Ensure this step is a nonstandard step.
-    $isNonStandardStep = AccessResult::forbiddenIf(!($this->isNonStandardStep($paragraph)));
-    $result->andIf($isNonStandardStep);
+    // $isNonStandardStep =
+    // AccessResult::allowedIf(($this->isNonStandardStep($paragraph)));
+    // $result = $result->andIf($isNonStandardStep);
     return $result->isAllowed();
   }
 
