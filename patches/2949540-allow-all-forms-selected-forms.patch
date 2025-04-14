@@ -60,11 +60,11 @@ index 50fa8b3e85a750e70e3bed66b2b8432df89905b6..6871e14d096096283ae8f8dbbf0a808c
 @@ -5,14 +5,59 @@
   * Hook implementations for the Clientside Validation module.
   */
-
+ 
 +use Drupal\Core\Cache\Cache;
  use Drupal\Core\Form\FormStateInterface;
  use Drupal\Core\Render\Element;
-
+ 
 +/**
 + * Selections for the types of validation scopes.
 + */
@@ -116,7 +116,7 @@ index 50fa8b3e85a750e70e3bed66b2b8432df89905b6..6871e14d096096283ae8f8dbbf0a808c
 +    unset($form['#after_build'][$validation_key]);
 +  }
  }
-
+ 
  /**
 diff --git a/clientside_validation.permissions.yml b/clientside_validation.permissions.yml
 new file mode 100644
