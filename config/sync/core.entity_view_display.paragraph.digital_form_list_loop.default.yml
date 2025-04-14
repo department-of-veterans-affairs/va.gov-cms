@@ -8,14 +8,12 @@ dependencies:
     - field.field.paragraph.digital_form_list_loop.field_list_loop_max_items
     - field.field.paragraph.digital_form_list_loop.field_list_loop_noun_plural
     - field.field.paragraph.digital_form_list_loop.field_list_loop_noun_singular
-    - field.field.paragraph.digital_form_list_loop.field_list_loop_variation
     - field.field.paragraph.digital_form_list_loop.field_optional
     - field.field.paragraph.digital_form_list_loop.field_section_intro
     - field.field.paragraph.digital_form_list_loop.field_title
     - paragraphs.paragraphs_type.digital_form_list_loop
   module:
     - entity_reference_revisions
-    - options
 id: paragraph.digital_form_list_loop.default
 targetEntityType: paragraph
 bundle: digital_form_list_loop
@@ -62,13 +60,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 4
-    region: content
-  field_list_loop_variation:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
     region: content
   field_optional:
     type: boolean
