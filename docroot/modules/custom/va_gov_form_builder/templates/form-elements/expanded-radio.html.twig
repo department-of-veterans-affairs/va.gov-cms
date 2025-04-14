@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * Template for an expanded radio option.
+ *
+ * @see docroot/modules/custom/va_gov_form_builder/src/Element/ExpandedRadio.php
+ * @see docroot/themes/custom/vagovclaro/templates/form/form-element.html.twig
+ */
+#}
+{%
+  set classes = [
+    'js-form-item',
+    'form-item',
+    'js-form-type-' ~ type|clean_class,
+    'form-type--' ~ type|clean_class,
+    'form-type--boolean',
+    'js-form-item-' ~ name|clean_class,
+    'form-item--' ~ name|clean_class,
+    disabled == 'disabled' ? 'form-item--disabled',
+    errors ? 'form-item--error',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {% if prefix is not empty %}
+    <span class="form-item__prefix{{disabled == 'disabled' ? ' is-disabled'}}">{{ prefix }}</span>
+  {% endif %}
+
+  <div class="form-builder-expanded-radio">
+    {# This renders the actual radio input #}
+    {{ children }}
+
+    <div class="form-builder-expanded-radio__content">
+      {{ label }}
+
+      {# This is where the custom expanded content gets rendered #}
+      <div class="form-builder-expanded-radio__expanded-content">
+        {{ element['#expanded_content'] }}
+      </div>
+    </div>
+  </div>
+
+  {% if suffix is not empty %}
+    <span class="form-item__suffix{{disabled == 'disabled' ? ' is-disabled'}}">{{ suffix }}</span>
+  {% endif %}
+
+  {% if errors %}
+    <div class="form-item__error-message">
+      {{ errors }}
+    </div>
+  {% endif %}
+</div>
