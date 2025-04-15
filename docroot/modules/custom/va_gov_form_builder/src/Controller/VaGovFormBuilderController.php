@@ -318,6 +318,19 @@ class VaGovFormBuilderController extends ControllerBase {
       );
     }
 
+    elseif ($parent === 'step.question.kind') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $kindUrl = $this->getPageUrl('step.question.kind');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom_or_predefined',
+        'Kind',
+        $kindUrl
+      );
+    }
+
     $breadcrumbTrail[] = [
       'label' => $label,
       'url' => $url ? $url : '#content',
@@ -873,6 +886,26 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $formName = 'ResponseKind';
     $breadcrumbs = $this->generateBreadcrumbs('step.question.custom_or_predefined', 'Response kind');
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'single_column_with_buttons',
+      'response_kind',
+      'expanded_radio',
+      'expanded_radio__help_text_optional_image',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Date-type page for custom single-question date response.
+   */
+  public function customSingleQuestionDateType($nid, $stepParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    $formName = 'ResponseKind';
+    $breadcrumbs = $this->generateBreadcrumbs('step.question.kind', 'Date type');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
       'single_column_with_buttons',
