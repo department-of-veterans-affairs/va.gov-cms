@@ -318,12 +318,12 @@ class VaGovFormBuilderController extends ControllerBase {
       );
     }
 
-    elseif ($parent === 'step.question.kind') {
+    elseif ($parent === 'step.question.custom.kind') {
       if (!$this->digitalForm || !$this->stepParagraph) {
         return [];
       }
 
-      $kindUrl = $this->getPageUrl('step.question.kind');
+      $kindUrl = $this->getPageUrl('step.question.custom.kind');
       $breadcrumbTrail = $this->generateBreadcrumbs(
         'step.question.custom_or_predefined',
         'Kind',
@@ -905,7 +905,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadStepParagraph($stepParagraphId);
 
     $formName = 'DateType';
-    $breadcrumbs = $this->generateBreadcrumbs('step.question.kind', 'Date type');
+    $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.kind', 'Date type');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
       'single_column_with_buttons',
