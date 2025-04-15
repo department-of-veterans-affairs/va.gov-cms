@@ -904,12 +904,11 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadDigitalForm($nid);
     $this->loadStepParagraph($stepParagraphId);
 
-    $formName = 'ResponseKind';
+    $formName = 'DateType';
     $breadcrumbs = $this->generateBreadcrumbs('step.question.kind', 'Date type');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
       'single_column_with_buttons',
-      'response_kind',
       'expanded_radio',
       'expanded_radio__help_text_optional_image',
     ];
