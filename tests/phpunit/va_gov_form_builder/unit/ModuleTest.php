@@ -41,6 +41,16 @@ class ModuleTest extends VaGovUnitTestBase {
   const FORM_TEMPLATE_PATH = self::TEMPLATE_PATH . '/form';
 
   /**
+   * The path to the form-element template directory.
+   */
+  const FORM_ELEMENT_TEMPLATE_PATH = self::TEMPLATE_PATH . '/form-elements';
+
+  /**
+   * The path to the page-element template directory.
+   */
+  const PAGE_ELEMENT_TEMPLATE_PATH = self::TEMPLATE_PATH . '/page-elements';
+
+  /**
    * The prefix for page-content themes.
    */
   const PAGE_CONTENT_THEME_PREFIX = 'page_content__va_gov_form_builder__';
@@ -49,6 +59,16 @@ class ModuleTest extends VaGovUnitTestBase {
    * The prefix for form themes.
    */
   const FORM_THEME_PREFIX = 'form__va_gov_form_builder__';
+
+  /**
+   * The prefix for form-element themes.
+   */
+  const FORM_ELEMENT_THEME_PREFIX = 'form_element__va_gov_form_builder__';
+
+  /**
+   * The prefix for page-element themes.
+   */
+  const PAGE_ELEMENT_THEME_PREFIX = 'page_element__va_gov_form_builder__';
 
   /**
    * A mock service container.
@@ -263,7 +283,7 @@ class ModuleTest extends VaGovUnitTestBase {
     );
 
     // Form themes.
-    $form_themes = ['form_info', 'step_label', 'step_style'];
+    $form_themes = ['form_info', 'step_label', 'step_style', 'response_kind'];
     foreach ($form_themes as $form_theme) {
       $this->assertArrayHasKey(self::FORM_THEME_PREFIX . $form_theme, $result);
 
@@ -277,6 +297,29 @@ class ModuleTest extends VaGovUnitTestBase {
       $kebab_case_form_theme = str_replace('_', '-', $form_theme);
       $this->assertEquals($kebab_case_form_theme, $result[self::FORM_THEME_PREFIX . $form_theme]['template']);
     }
+
+    // Form-element themes.
+    // 1. Expanded radio.
+    $expandedRadioTheme = self::FORM_ELEMENT_THEME_PREFIX . 'expanded_radio';
+    $this->assertArrayHasKey($expandedRadioTheme, $result);
+    $this->assertArrayHasKey('base hook', $result[$expandedRadioTheme]);
+    $this->assertEquals('radio', $result[$expandedRadioTheme]['base hook']);
+    $this->assertArrayHasKey('path', $result[$expandedRadioTheme]);
+    $this->assertEquals(self::FORM_ELEMENT_TEMPLATE_PATH, $result[$expandedRadioTheme]['path']);
+    $this->assertArrayHasKey('template', $result[$expandedRadioTheme]);
+    $this->assertEquals('expanded-radio', $result[$expandedRadioTheme]['template']);
+
+    // Page-element themes.
+    // 1. Expanded radio -- Help text with optional image.
+    $expandedRadioHelpTextTheme = self::PAGE_ELEMENT_THEME_PREFIX . 'expanded_radio__help_text_optional_image';
+    $this->assertArrayHasKey($expandedRadioHelpTextTheme, $result);
+    $this->assertArrayHasKey('path', $result[$expandedRadioHelpTextTheme]);
+    $this->assertEquals(self::PAGE_ELEMENT_TEMPLATE_PATH, $result[$expandedRadioHelpTextTheme]['path']);
+    $this->assertArrayHasKey('template', $result[$expandedRadioHelpTextTheme]);
+    $this->assertEquals('expanded-radio--help-text-optional-image', $result[$expandedRadioHelpTextTheme]['template']);
+    $this->assertArrayHasKey('variables', $result[$expandedRadioHelpTextTheme]);
+    $this->assertArrayHasKey('help_text', $result[$expandedRadioHelpTextTheme]['variables']);
+    $this->assertArrayHasKey('image', $result[$expandedRadioHelpTextTheme]['variables']);
   }
 
   /**

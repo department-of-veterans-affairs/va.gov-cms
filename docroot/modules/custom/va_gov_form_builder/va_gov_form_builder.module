@@ -177,7 +177,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   ];
 
   // Add form themes.
-  $forms = ['form_info', 'step_label', 'step_style'];
+  $forms = ['form_info', 'step_label', 'step_style', 'response_kind'];
   foreach ($forms as $form) {
     $kebab_case_form = str_replace('_', '-', $form);
     $theme['form__va_gov_form_builder__' . $form] = [
@@ -187,11 +187,32 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
     ];
   }
 
+  // Add form-element themes.
+  $form_element_theme_prefix = 'form_element__va_gov_form_builder__';
+  // 1. Expanded radio.
+  $theme[$form_element_theme_prefix . 'expanded_radio'] = [
+    'base hook' => 'radio',
+    'path' => $path . '/templates/form-elements',
+    'template' => 'expanded-radio',
+  ];
+
+  // Add page-element themes.
+  $page_element_theme_prefix = 'page_element__va_gov_form_builder__';
+  // 1. Expanded-radio -- Help text and optional image.
+  $theme[$page_element_theme_prefix . 'expanded_radio__help_text_optional_image'] = [
+    'path' => $path . '/templates/page-elements',
+    'template' => 'expanded-radio--help-text-optional-image',
+    'variables' => [
+      'help_text' => '',
+      'image' => [],
+    ],
+  ];
+
   return $theme;
 }
 
 /**
- * Implements hook_theme_suggestions_HOOK().
+ * Implements hook_theme_suggestions_HOOK() for page.
  */
 function va_gov_form_builder_theme_suggestions_page(array &$variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();

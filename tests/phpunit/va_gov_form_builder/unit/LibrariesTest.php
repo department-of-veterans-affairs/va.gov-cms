@@ -110,12 +110,27 @@ class LibrariesTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey($stepStyleLibrary, $this->libraries);
     $stepStyleCssArray = array_keys($this->libraries[$stepStyleLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'step-style.css', $stepStyleCssArray, 'Step-style css is present.');
-    // 9. Custom-or-predefined-question.
+    // 9. Custom-or-predefined question.
     $customOrPredefinedQuestionLibrary = 'custom_or_predefined_question';
     $this->assertArrayHasKey($customOrPredefinedQuestionLibrary, $this->libraries);
     $customOrPredefinedQuestionCssArray = array_keys($this->libraries[$customOrPredefinedQuestionLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'custom-or-predefined-question.css', $customOrPredefinedQuestionCssArray, 'Custom-or-predefined-question css is present.');
-    // 10. Paragraph sort and delete.
+    // 10. Response kind.
+    $responseKindLibrary = 'response_kind';
+    $this->assertArrayHasKey($responseKindLibrary, $this->libraries);
+    $responseKindCssArray = array_keys($this->libraries[$responseKindLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'response-kind.css', $responseKindCssArray, 'Response-kind css is present.');
+    // 11. Expanded radio.
+    $expandedRadioLibrary = 'expanded_radio';
+    $this->assertArrayHasKey($expandedRadioLibrary, $this->libraries);
+    $expandedRadioCssArray = array_keys($this->libraries[$expandedRadioLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'expanded-radio.css', $expandedRadioCssArray, 'Expanded-radio css is present.');
+    // 12. Expanded radio -- Help text with optional image.
+    $expandedRadioHelpTextLibrary = 'expanded_radio__help_text_optional_image';
+    $this->assertArrayHasKey($expandedRadioHelpTextLibrary, $this->libraries);
+    $expandedRadioHelpTextCssArray = array_keys($this->libraries[$expandedRadioHelpTextLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'expanded-radio--help-text-optional-image.css', $expandedRadioHelpTextCssArray, 'Expanded-radio -- Help text with optional image css is present.');
+    // 13. Paragraph sort and delete.
     $paragraphSortAndDeleteLibrary = 'paragraph_sort_and_delete';
     $this->assertArrayHasKey($paragraphSortAndDeleteLibrary, $this->libraries);
     $paragraphSortAndDeleteJsArray = array_keys($this->libraries[$paragraphSortAndDeleteLibrary]['js']);

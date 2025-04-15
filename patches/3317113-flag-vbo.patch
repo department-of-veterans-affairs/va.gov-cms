@@ -1,9 +1,19 @@
+From 97d15480773cc5f9f0739e51db8310acbd491105 Mon Sep 17 00:00:00 2001
+From: Jaydev Bhatt <jaydev.bhatt@qed42.com>
+Date: Wed, 12 Mar 2025 12:47:37 +0530
+Subject: [PATCH] Issue #3317113: Fix fatal error: Call to null actionAccess()
+ method.
+
+---
+ src/Plugin/Action/FlagAction.php | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
 diff --git a/src/Plugin/Action/FlagAction.php b/src/Plugin/Action/FlagAction.php
-index fc00f7b..19bb8ef 100644
+index 8d125e81..f4c0ab6a 100644
 --- a/src/Plugin/Action/FlagAction.php
 +++ b/src/Plugin/Action/FlagAction.php
-@@ -59,8 +59,14 @@ class FlagAction extends ActionBase implements ContainerFactoryPluginInterface,
-   public function __construct(array $configuration, $plugin_id, $plugin_definition, FlagServiceInterface $flag_service) {
+@@ -66,8 +66,14 @@ class FlagAction extends ActionBase implements ContainerFactoryPluginInterface,
+ 
      parent::__construct($configuration, $plugin_id, $plugin_definition);
      $this->flagService = $flag_service;
 -    $this->flag = $this->flagService->getFlagById($configuration['flag_id']);
@@ -11,7 +21,7 @@ index fc00f7b..19bb8ef 100644
 +    if (!empty($configuration['flag_id']) && !empty($configuration['flag_action'])) {
 +      $this->flag = $this->flagService->getFlagById($configuration['flag_id']);
 +      $this->flagOperation = $configuration['flag_action'];
-+    } 
++    }
 +    elseif (preg_match('/flag_action:(.*)_((?:un)?flag)$/', $plugin_id, $action_info)) {
 +      $this->flag = $this->flagService->getFlagById($action_info[1]);
 +      $this->flagOperation = $action_info[2];
@@ -19,3 +29,6 @@ index fc00f7b..19bb8ef 100644
    }
  
    /**
+-- 
+GitLab
+
