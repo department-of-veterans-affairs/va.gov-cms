@@ -81,7 +81,7 @@ class PageTitle extends FormBuilderPageBase {
       ];
     }
 
-    $form['#theme'] = 'form__va_gov_form_builder__page_title';
+    $form['#theme'] = 'form__va_gov_form_builder__custom_question_page_title';
 
     // Page title.
     $form['field_title'] = [
