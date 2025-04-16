@@ -109,6 +109,14 @@ va_gov_form_builder.step.question.custom.date.date_range.page_title.create:
   requirements:
     nid: \d*
     stepParagraphId: \d*
+va_gov_form_builder.step.question:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/{pageParagraphId}"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPage'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+    pageParagraphId: \d*
 va_gov_form_builder.step.question.page_title.edit:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/{pageParagraphId}/page-title"
   defaults:

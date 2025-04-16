@@ -89,6 +89,13 @@ class VaGovFormBuilderController extends ControllerBase {
   protected $stepParagraph;
 
   /**
+   * The paragraph object representing the page.
+   *
+   * @var \Drupal\paragraphs\Entity\Paragraph|null
+   */
+  protected $pageParagraph;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
@@ -147,6 +154,37 @@ class VaGovFormBuilderController extends ControllerBase {
     }
 
     $this->stepParagraph = $paragraph;
+  }
+
+  /**
+   * Loads and sets the page-paragraph object.
+   *
+   * @param string $paragraphId
+   *   The paragraph id to load.
+   *
+   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   *   If the paragraph is not found, or if the paragraph
+   *   does not belong to $this->stepParagraph.
+   */
+  protected function loadPageParagraph($paragraphId) {
+    $paragraph = $this->entityTypeManager->getStorage('paragraph')->load($paragraphId);
+    if (!$paragraph) {
+      throw new NotFoundHttpException();
+    }
+
+    // Ensure the page paragraph belongs to the step paragraph.
+    if (!$this->stepParagraph) {
+      throw new NotFoundHttpException();
+    }
+    $parentId = $paragraph->get('parent_id') && is_object($paragraph->get('parent_id'))
+      ? $paragraph->get('parent_id')->value
+      : '';
+
+    if ($parentId !== $this->stepParagraph->id()) {
+      throw new NotFoundHttpException();
+    }
+
+    $this->pageParagraph = $paragraph;
   }
 
   /**
@@ -221,6 +259,28 @@ class VaGovFormBuilderController extends ControllerBase {
       return Url::fromRoute("va_gov_form_builder.{$page}", [
         'nid' => $this->digitalForm->id(),
         'stepParagraphId' => $this->stepParagraph->id(),
+      ])->toString();
+    }
+
+    // Pages that relate to a question (page) with a step.
+    // Require a nid, stepParagraphId, and pageParagraphId.
+    $questionPages = [
+      'step.question.page_title.edit',
+    ];
+    if (in_array($page, $questionPages)) {
+      if (!$this->digitalForm) {
+        throw new \LogicException('Cannot determine page url because the digital form is not set.');
+      }
+      if (!$this->stepParagraph) {
+        throw new \LogicException('Cannot determine page url because the step paragraph is not set.');
+      }
+      if (!$this->pageParagraph) {
+        throw new \LogicException('Cannot determine page url because the page paragraph is not set.');
+      }
+      return Url::fromRoute("va_gov_form_builder.{$page}", [
+        'nid' => $this->digitalForm->id(),
+        'stepParagraphId' => $this->stepParagraph->id(),
+        'pageParagraphId' => $this->pageParagraph->id(),
       ])->toString();
     }
 
@@ -947,7 +1007,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadDigitalForm($nid);
     $this->loadStepParagraph($stepParagraphId);
 
-    $formName = '';
+    $formName = 'DateType';
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
       'single_column_with_buttons',
@@ -955,6 +1015,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     if (!empty($pageParagraphId)) {
       // This is a page edit.
+      $this->loadPageParagraph($pageParagraphId);
     }
     else {
       // This is page creation.
@@ -970,6 +1031,30 @@ class VaGovFormBuilderController extends ControllerBase {
     }
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Custom single-question "home" page.
+   *
+   * This route just redirects to the page-title page.
+   * This path would be the "page-layout" path, or the page "home"
+   * but since we do not have a page-layout page, the user
+   * is automatically redirected to the page-title page
+   * for the form page in question.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string $pageParagraphId
+   *   The entity id of the page paragraph.
+   */
+  public function customSingleQuestionPage($nid, $stepParagraphId, $pageParagraphId) {
+    return $this->redirect('va_gov_form_builder.step.question.page_title.edit', [
+      'nid' => $nid,
+      'stepParagraphId' => $stepParagraphId,
+      'pageParagraphId' => $pageParagraphId,
+    ]);
   }
 
   /**
