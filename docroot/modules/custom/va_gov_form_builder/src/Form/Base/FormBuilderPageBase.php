@@ -1,0 +1,149 @@
+<?php
+
+namespace Drupal\va_gov_form_builder\Form\Base;
+
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\va_gov_form_builder\Service\DigitalFormsService;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
+/**
+ * Abstract base class for Form Builder page (question) pages.
+ */
+abstract class FormBuilderPageBase extends FormBuilderBase {
+
+  /**
+   * The DigitalForm object loaded by this form.
+   *
+   * @var \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
+   */
+  protected $digitalForm;
+
+  /**
+   * The paragraph object representing the step.
+   *
+   * @var \Drupal\paragraphs\Entity\Paragraph
+   */
+  protected $stepParagraph;
+
+  /**
+   * The paragraph object representing the page paragraph.
+   *
+   * This is created or edited by this form.
+   *
+   * @var \Drupal\paragraphs\Entity\Paragraph|null
+   */
+  protected $pageParagraph;
+
+  /**
+   * Flag indicating whether this form allows an empty page paragraph.
+   *
+   * This defaults to TRUE. Most (or all) page-level forms should allow and
+   * empty page paragraph because they can all render as part of the
+   * page-creation process, in which case the page paragraph is not
+   * yet created.
+   *
+   * @var bool
+   */
+  protected $allowEmptyPageParagraph;
+
+  /**
+   * {@inheritDoc}
+   */
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, DigitalFormsService $digitalFormsService, SessionInterface $session) {
+    parent::__construct($entityTypeManager, $digitalFormsService, $session);
+    $this->allowEmptyPageParagraph = TRUE;
+  }
+
+  /**
+   * Returns the page paragraph fields accessed by this form.
+   */
+  abstract protected function getFields();
+
+  /**
+   * Sets (creates or updates) a page-paragraph object from the form-state data.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  abstract protected function setPageParagraphFromFormState(FormStateInterface $form_state);
+
+  /**
+   * Returns a field value from the page paragraph.
+   *
+   * If a page paragraph is not set, or `fieldName`
+   * does not exist, returns NULL. This is primarily
+   * used to populate forms with default values when the
+   * form edits an existing page paragraph.
+   *
+   * @param string $fieldName
+   *   The name of the field whose value should be fetched.
+   */
+  protected function getPageParagraphFieldValue($fieldName) {
+    if (empty($this->pageParagraph)) {
+      return NULL;
+    }
+
+    try {
+      return $this->pageParagraph->get($fieldName)->value;
+    }
+    catch (\Exception $e) {
+      return NULL;
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm $digitalForm
+   *   The Digital Form object.
+   * @param \Drupal\paragraphs\Entity\Paragraph $stepParagraph
+   *   The paragraph object representing the step.
+   * @param \Drupal\paragraphs\Entity\Paragraph|null $pageParagraph
+   *   The paragraph object representing the page paragraph.
+   */
+  public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL, $stepParagraph = NULL, $pageParagraph = NULL) {
+    if (empty($digitalForm)) {
+      throw new \InvalidArgumentException('Digital Form cannot be null.');
+    }
+    $this->digitalForm = $digitalForm;
+
+    if (empty($stepParagraph)) {
+      throw new \InvalidArgumentException('Step paragraph cannot be null.');
+    }
+    $this->stepParagraph = $stepParagraph;
+
+    if (empty($stepParagraph) && !$this->allowEmptyPageParagraph) {
+      throw new \InvalidArgumentException('Page paragraph cannot be null.');
+    }
+    $this->pageParagraph = $pageParagraph;
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $this->setPageParagraphFromFormState($form_state);
+
+    // Validate the node entity.
+    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
+    $violations = $this->pageParagraph->validate();
+
+    $this->setFormErrors($form_state, $violations, $this->getFields());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Save the previously validated step paragraph.
+    $this->pageParagraph->save();
+  }
+
+}

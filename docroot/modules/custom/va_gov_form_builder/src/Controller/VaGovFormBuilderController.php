@@ -1007,7 +1007,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadDigitalForm($nid);
     $this->loadStepParagraph($stepParagraphId);
 
-    $formName = 'DateType';
+    $formName = 'PageTitle';
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
       'single_column_with_buttons',
