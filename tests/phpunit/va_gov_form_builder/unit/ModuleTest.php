@@ -289,6 +289,7 @@ class ModuleTest extends VaGovUnitTestBase {
       'step_style',
       'response_kind',
       'date_type',
+      'custom_question_page_title',
     ];
     foreach ($form_themes as $form_theme) {
       $this->assertArrayHasKey(self::FORM_THEME_PREFIX . $form_theme, $result);
