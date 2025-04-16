@@ -209,6 +209,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'step.step_label.edit',
       'step.question.custom_or_predefined',
       'step.question.custom.kind',
+      'step.question.custom.date.type',
     ];
     if (in_array($page, $stepPages)) {
       if (!$this->digitalForm) {
@@ -328,6 +329,19 @@ class VaGovFormBuilderController extends ControllerBase {
         'step.question.custom_or_predefined',
         'Kind',
         $kindUrl
+      );
+    }
+
+    elseif ($parent === 'step.question.custom.date.type') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $dateTypeUrl = $this->getPageUrl('step.question.custom.date.type');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.kind',
+        'Date type',
+        $dateTypeUrl
       );
     }
 
@@ -933,22 +947,29 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadDigitalForm($nid);
     $this->loadStepParagraph($stepParagraphId);
 
+    $formName = '';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'single_column_with_buttons',
+    ];
+
     if (!empty($pageParagraphId)) {
       // This is a page edit.
     }
     else {
       // This is page creation.
+      switch ($routePageType) {
+        case 'date.single_date':
+        case 'date.date_range':
+          $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.date.type', 'Date question');
+          break;
+
+        default:
+          throw new NotFoundHttpException();
+      }
     }
 
-    switch ($routePageType) {
-      case 'date.single_date':
-        break;
-
-      default:
-        throw new NotFoundHttpException();
-    }
-
-    return [];
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
