@@ -140,6 +140,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   does not belong to $this->digitalForm.
    */
   protected function loadStepParagraph($paragraphId) {
+    /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
     $paragraph = $this->entityTypeManager->getStorage('paragraph')->load($paragraphId);
     if (!$paragraph) {
       throw new NotFoundHttpException();
@@ -483,7 +484,7 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
-   * Ajax callback for a step action.
+   * Ajax callback for a Custom Step paragraph action.
    *
    * @param \Drupal\node\NodeInterface $node
    *   The DigitalForm node.
@@ -498,20 +499,47 @@ class VaGovFormBuilderController extends ControllerBase {
    *
    * @throws \Exception
    */
-  public function stepAction(NodeInterface $node, ParagraphInterface $paragraph, string $action): AjaxResponse {
+  public function customStepAction(NodeInterface $node, ParagraphInterface $paragraph, string $action): AjaxResponse {
     $response = new AjaxResponse();
     $this->loadDigitalForm($node->id());
 
     // Take the appropriate action.
     $this->digitalForm->executeStepAction($paragraph, $action);
 
-    // @todo Need to support more than one page. The layout page, and the step
-    // layout page, at least for now. It could be more in the future.
-    // @todo Also, it would be more efficient to render only the steps
-    // involved, rather than the entire page.
-    // Render the page into html.
     /** @var \Drupal\Core\Render\Renderer $renderer */
     $layout = $this->layout($node->id());
+    $output = $this->renderer->renderRoot($layout);
+
+    // Return an Ajax command.
+    $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
+    return $response;
+  }
+
+  /**
+   * Ajax callback for a Page paragraph action.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The DigitalForm node.
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The Paragraph taking the action.
+   * @param string $action
+   *   Action to take. Route takes care of ensuring only currently available
+   *   actions are able to access the route.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The ajax response to return.
+   *
+   * @throws \Exception
+   */
+  public function pageAction(NodeInterface $node, ParagraphInterface $paragraph, string $action): AjaxResponse {
+    $response = new AjaxResponse();
+    $this->loadDigitalForm($node->id());
+
+    // Take the appropriate action.
+    $this->digitalForm->executeStepAction($paragraph, $action);
+
+    /** @var \Drupal\Core\Render\Renderer $renderer */
+    $layout = $this->stepLayout($node->id(), $paragraph->getParentEntity()->id());
     $output = $this->renderer->renderRoot($layout);
 
     // Return an Ajax command.

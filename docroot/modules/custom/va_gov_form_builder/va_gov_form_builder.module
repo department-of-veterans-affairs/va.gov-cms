@@ -6,6 +6,8 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\va_gov_form_engine\Entity\Paragraph\CustomStepParagraph;
+use Drupal\va_gov_form_engine\Entity\Paragraph\PageParagraph;
 
 /**
  * Implements hook_entity_bundle_field_info_alter().
@@ -181,4 +183,16 @@ function va_gov_form_builder_theme_suggestions_page(array &$variables) {
   }
 
   return $suggestions;
+}
+
+/**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function va_gov_form_builder_entity_bundle_info_alter(array &$bundles): void {
+  if (isset($bundles['paragraph']['digital_form_custom_step'])) {
+    $bundles['paragraph']['digital_form_custom_step']['class'] = CustomStepParagraph::class;
+  }
+  if (isset($bundles['paragraph']['digital_form_page'])) {
+    $bundles['paragraph']['digital_form_page']['class'] = PageParagraph::class;
+  }
 }
