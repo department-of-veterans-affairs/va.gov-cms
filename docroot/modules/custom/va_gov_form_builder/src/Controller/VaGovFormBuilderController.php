@@ -917,6 +917,41 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Custom single-question page title.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
+   * @param string|null $routePageType
+   *   The route substring identifying the type of page.
+   *   Ex: 'date.single_date'.
+   */
+  public function customSingleQuestionPageTitle($nid, $stepParagraphId, $pageParagraphId = NULL, $routePageType = NULL) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+    }
+    else {
+      // This is page creation.
+    }
+
+    switch ($routePageType) {
+      case 'date.single_date':
+        break;
+
+      default:
+        throw new NotFoundHttpException();
+    }
+
+    return [];
+  }
+
+  /**
    * Review-and-sign page.
    *
    * @param string $nid
