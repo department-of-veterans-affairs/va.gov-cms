@@ -296,6 +296,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'step.question.custom_or_predefined',
       'step.question.custom.kind',
       'step.question.custom.date.type',
+      'step.question.custom.date.single_date.page_title',
     ];
     if (in_array($page, $stepPages)) {
       if (!$this->digitalForm) {
@@ -313,7 +314,7 @@ class VaGovFormBuilderController extends ControllerBase {
     // Pages that relate to a question (page) with a step.
     // Require a nid, stepParagraphId, and pageParagraphId.
     $questionPages = [
-      'step.question.page_title.edit',
+      'step.question.page_title',
     ];
     if (in_array($page, $questionPages)) {
       if (!$this->digitalForm) {
@@ -450,6 +451,32 @@ class VaGovFormBuilderController extends ControllerBase {
         'step.question.custom.kind',
         'Date type',
         $dateTypeUrl
+      );
+    }
+
+    elseif ($parent === 'step.question.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph || !$this->pageParagraph) {
+        return [];
+      }
+
+      $pageTitleUrl = $this->getPageUrl('step.question.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.layout',
+        $this->pageParagraph->get('field_title')->value,
+        $pageTitleUrl
+      );
+    }
+
+    elseif ($parent === 'step.question.custom.date.single_date.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.date.single_date.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.date.type',
+        '',
+        $pageTitleUrl
       );
     }
 
@@ -1139,7 +1166,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The entity id of the page paragraph.
    */
   public function customSingleQuestionPage($nid, $stepParagraphId, $pageParagraphId) {
-    return $this->redirect('va_gov_form_builder.step.question.page_title.edit', [
+    return $this->redirect('va_gov_form_builder.step.question.page_title', [
       'nid' => $nid,
       'stepParagraphId' => $stepParagraphId,
       'pageParagraphId' => $pageParagraphId,
@@ -1157,18 +1184,70 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The entity id of the page paragraph.
    */
   public function customSingleQuestionSingleDateResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
-    $this->loadDigitalForm($nid);
-    $this->loadStepParagraph($stepParagraphId);
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
 
     if (!empty($pageParagraphId)) {
       // This is a page edit.
-      $this->loadPageParagraph($pageParagraphId);
+      if (empty($this->pageParagraph)) {
+        $this->loadPageParagraph($pageParagraphId);
+      }
+
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.page_title', 'Date response');
     }
     else {
       // This is page creation.
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.date.single_date.page_title', 'Date response');
     }
 
+    // Override the page title with "Date question".
+    $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Date question';
+
     return [];
+  }
+
+  /**
+   * Custom single-question response page.
+   *
+   * This is a catch-all method for handling
+   * all custom single-question response pages
+   * in edit mode. Once we determine which
+   * component type the page is, we call the
+   * appropriate method to handle it, and we
+   * pass in the $pageParagraphId.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string $pageParagraphId
+   *   The entity id of the page paragraph.
+   */
+  public function customSingleQuestionResponse($nid, $stepParagraphId, $pageParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+    $this->loadPageParagraph($pageParagraphId);
+
+    // Call appropriate method based on paragraph component type.
+    try {
+      $pageComponentType = self::getPageComponentType($this->pageParagraph);
+    }
+    catch (\Exception $e) {
+      // This is technically not a page-not-found
+      // error state, but we don't have a better way to
+      // handle this currently.
+      // @todo Implement better way to handle general error states.
+      throw new NotFoundHttpException();
+    }
+
+    switch ($pageComponentType) {
+      case CustomSingleQuestionPageType::SingleDate:
+        return $this->customSingleQuestionSingleDateResponse($nid, $stepParagraphId, $pageParagraphId);
+    }
   }
 
   /**
