@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\va_gov_form_engine\Paragraph\Action;
+namespace Drupal\va_gov_form_builder\Paragraph\Action;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\va_gov_form_engine\Entity\Paragraph\Action\ActionBase;
-use Drupal\va_gov_form_engine\Entity\Paragraph\FormBuilderParagraphInterface;
+use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionBase;
+use Drupal\va_gov_form_builder\Entity\Paragraph\FormBuilderParagraphInterface;
 
 /**
  * Action to delete a Form Builder Paragraph.

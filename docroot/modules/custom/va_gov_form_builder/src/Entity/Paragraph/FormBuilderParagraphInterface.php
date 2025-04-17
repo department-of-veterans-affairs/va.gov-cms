@@ -1,12 +1,12 @@
 <?php
 
-namespace Drupal\va_gov_form_engine\Entity\Paragraph;
+namespace Drupal\va_gov_form_builder\Entity\Paragraph;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\paragraphs\ParagraphInterface;
-use Drupal\va_gov_form_engine\Entity\Paragraph\Action\ActionCollection;
-use Drupal\va_gov_form_engine\Entity\Paragraph\Action\ActionInterface;
+use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionCollection;
+use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface;
 
 /**
  * An interface for Form Builder Paragraphs that may have executable actions.
@@ -28,7 +28,7 @@ interface FormBuilderParagraphInterface extends ParagraphInterface {
   /**
    * Dispatch to the given Action.
    *
-   * @param \Drupal\va_gov_form_engine\Entity\Paragraph\Action\ActionInterface $action
+   * @param \Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface $action
    *   The action to perform.
    */
   public function accept(ActionInterface $action);
@@ -44,7 +44,7 @@ interface FormBuilderParagraphInterface extends ParagraphInterface {
   /**
    * Check if the paragraph allows an action.
    *
-   * @param \Drupal\va_gov_form_engine\Entity\Paragraph\Action\ActionInterface $action
+   * @param \Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface $action
    *   The action taking place.
    *
    * @return \Drupal\Core\Access\AccessResult

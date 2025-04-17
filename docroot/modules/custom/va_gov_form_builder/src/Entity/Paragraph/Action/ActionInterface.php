@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\va_gov_form_engine\Entity\Paragraph\Action;
+namespace Drupal\va_gov_form_builder\Entity\Paragraph\Action;
 
-use Drupal\va_gov_form_engine\Entity\Paragraph\FormBuilderParagraphInterface;
+use Drupal\va_gov_form_builder\Entity\Paragraph\FormBuilderParagraphInterface;
 
 /**
  * An interface for step actions.
@@ -20,7 +20,7 @@ interface ActionInterface {
   /**
    * Check access for this action on the paragraph provided.
    *
-   * @param \Drupal\va_gov_form_engine\Entity\Paragraph\FormBuilderParagraphInterface $paragraph
+   * @param \Drupal\va_gov_form_builder\Entity\Paragraph\FormBuilderParagraphInterface $paragraph
    *   A Form Builder Paragraph.
    *
    * @return bool
@@ -31,7 +31,7 @@ interface ActionInterface {
   /**
    * Render the action.
    *
-   * @param \Drupal\va_gov_form_engine\Entity\Paragraph\FormBuilderParagraphInterface $paragraph
+   * @param \Drupal\va_gov_form_builder\Entity\Paragraph\FormBuilderParagraphInterface $paragraph
    *   The step rendering the action.
    *
    * @return array
@@ -42,7 +42,7 @@ interface ActionInterface {
   /**
    * Execute the action.
    *
-   * @param \Drupal\va_gov_form_engine\Entity\Paragraph\FormBuilderParagraphInterface $paragraph
+   * @param \Drupal\va_gov_form_builder\Entity\Paragraph\FormBuilderParagraphInterface $paragraph
    *   The step performing the action.
    */
   public function execute(FormBuilderParagraphInterface $paragraph);

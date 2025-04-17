@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_form_engine\Entity\Paragraph\Action;
+namespace Drupal\va_gov_form_builder\Entity\Paragraph\Action;
 
 /**
  * A collection of step actions.

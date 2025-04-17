@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\va_gov_form_engine\Entity;
+namespace Drupal\va_gov_form_builder\Entity\Paragraph;
 
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\va_gov_form_engine\Entity\Paragraph\Action\ActionCollection;
-use Drupal\va_gov_form_engine\Entity\Paragraph\Action\ActionInterface;
-use Drupal\va_gov_form_engine\Entity\Paragraph\FormBuilderParagraphInterface;
+use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionCollection;
+use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface;
 
 /**
  * Base class for Form Builder paragraph bundles.
@@ -17,14 +17,14 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
   /**
    * Collection of Actions for this Paragraph.
    *
-   * @var \Drupal\va_gov_form_engine\Entity\Paragraph\Action\ActionCollection|null
+   * @var \Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionCollection|null
    */
   protected ?ActionCollection $actionCollection = NULL;
 
   /**
    * {@inheritDoc}
    */
-  public function __construct(array $values, string $entity_type, bool $bundle = FALSE, array $translations = []) {
+  public function __construct(array $values, string $entity_type, $bundle = FALSE, array $translations = []) {
     parent::__construct($values, $entity_type, $bundle, $translations);
     $this->actionCollection = $this->initializeActionCollection();
   }
@@ -33,13 +33,14 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
    * {@inheritDoc}
    */
   public function getActionCollection(): ActionCollection {
+    $this->getFieldItemGroup();
     return $this->actionCollection ??= $this->initializeActionCollection();
   }
 
   /**
    * Initialize the ActionCollection for this Paragraph.
    *
-   * @return \Drupal\va_gov_form_engine\Entity\Paragraph\Action\ActionCollection
+   * @return \Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionCollection
    *   The initialized ActionCollection for this Paragraph.
    */
   protected function initializeActionCollection(): ActionCollection {
@@ -86,6 +87,17 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
     $result = AccessResult::allowedIf(!$this->isNew());
     // Ensure this Paragraph has this action in its ActionCollection.
     return $result->andIf(AccessResult::allowedIf($this->getActionCollection()->has($action->getKey())));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function postLoad(EntityStorageInterface $storage, array &$entities) {
+    parent::postLoad($storage, $entities);
+    /** @var FormBuilderParagraphBase $entity */
+    foreach ($entities as $entity) {
+      $entity->getActionCollection();
+    }
   }
 
 }

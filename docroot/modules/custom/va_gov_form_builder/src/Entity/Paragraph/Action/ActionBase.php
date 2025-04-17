@@ -1,9 +1,9 @@
 <?php
 
-namespace Drupal\va_gov_form_engine\Entity\Paragraph\Action;
+namespace Drupal\va_gov_form_builder\Entity\Paragraph\Action;
 
 use Drupal\Core\Access\AccessResult;
-use Drupal\va_gov_form_engine\Entity\Paragraph\FormBuilderParagraphInterface;
+use Drupal\va_gov_form_builder\Entity\Paragraph\FormBuilderParagraphInterface;
 
 /**
  * Abstract base Form Builder Paragraph action.

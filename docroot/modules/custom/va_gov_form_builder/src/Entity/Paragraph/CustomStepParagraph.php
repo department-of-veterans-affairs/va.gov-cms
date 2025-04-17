@@ -1,8 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_form_engine\Entity\Paragraph;
-
-use Drupal\va_gov_form_engine\Entity\FormBuilderParagraphBase;
+namespace Drupal\va_gov_form_builder\Entity\Paragraph;
 
 /**
  * Paragraph of type digital_form_custom_step.
