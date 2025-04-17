@@ -4,6 +4,7 @@ namespace Drupal\va_gov_form_builder\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -185,6 +186,53 @@ class VaGovFormBuilderController extends ControllerBase {
     }
 
     $this->pageParagraph = $paragraph;
+  }
+
+  /**
+   * Determines and returns the type of component(s) on a page paragraph.
+   *
+   * @param Paragraph $paragraph
+   *   The paragraph object representing the page.
+   *
+   * @return SingleQuestionPageType
+   *   The type of component(s) on the page paragraph.
+   */
+  protected static function getPageComponentType($paragraph) {
+    if (!$paragraph->hasField('field_digital_form_components')) {
+      throw new \LogicException('The paragraph does not have the field "field_digital_form_components".');
+    }
+
+    $pageComponents = $paragraph
+      ->get('field_digital_form_components')
+      ->referencedEntities();
+
+    if (count($pageComponents) < 1) {
+      throw new \LogicException('No components found on the page paragraph.');
+    }
+
+    switch ($pageComponents[0]->bundle()) {
+      case 'digital_form_date_component':
+        // This is a single-date page unless there is
+        // another date component.
+        if (isset($pageComponents[1])) {
+          if ($pageComponents[1]->bundle() === 'digital_form_date_component') {
+            return CustomSingleQuestionPageType::DateRange;
+          }
+        }
+        return CustomSingleQuestionPageType::SingleDate;
+
+      case 'digital_form_radio_button':
+        return CustomSingleQuestionPageType::Radio;
+
+      case 'digital_form_checkbox':
+        return CustomSingleQuestionPageType::Checkbox;
+
+      case 'digital_form_text_input':
+        return CustomSingleQuestionPageType::TextInput;
+
+      case 'digital_form_text_area':
+        return CustomSingleQuestionPageType::TextArea;
+    }
   }
 
   /**
@@ -485,6 +533,7 @@ class VaGovFormBuilderController extends ControllerBase {
       $this->digitalForm,
       $this->stepParagraph,
       $this->pageParagraph,
+      $this->pageParagraphComponentType,
     );
 
     return $this->getPage($form, $subtitle, $breadcrumbs, $libraries);
@@ -782,7 +831,7 @@ class VaGovFormBuilderController extends ControllerBase {
         return [
           'id' => $page->id(),
           'title' => $page->get('field_title')->value,
-          'url' => '',
+          'url' => $this->getPageUrl('step.layout') . '/question/' . $page->id(),
         ];
       }, $pageEntities);
 
@@ -1000,11 +1049,11 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The entity id of the step paragraph.
    * @param string|null $pageParagraphId
    *   The entity id of the page paragraph.
-   * @param string|null $routePageType
-   *   The route substring identifying the type of page.
-   *   Ex: 'date.single_date'.
+   * @param \Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType|null $pageComponentType
+   *   The type of component(s) on the page.
+   *   Ex: 'date.single_date', 'choice.radio'.
    */
-  public function customSingleQuestionPageTitle($nid, $stepParagraphId, $pageParagraphId = NULL, $routePageType = NULL) {
+  public function customSingleQuestionPageTitle($nid, $stepParagraphId, $pageParagraphId = NULL, $pageComponentType = NULL) {
     $this->loadDigitalForm($nid);
     $this->loadStepParagraph($stepParagraphId);
 
@@ -1018,13 +1067,44 @@ class VaGovFormBuilderController extends ControllerBase {
     if (!empty($pageParagraphId)) {
       // This is a page edit.
       $this->loadPageParagraph($pageParagraphId);
+
+      try {
+        $pageComponentType = self::getPageComponentType($this->pageParagraph);
+      }
+      catch (\Exception $e) {
+        // This is technically not a page-not-found
+        // error state, but we don't have a better way to
+        // handle this currently.
+        // @todo Implement better way to handle general error states.
+        throw new NotFoundHttpException();
+      }
+
+      // Set the breadcrumbs based on the page component type.
+      $breadcrumbs = match($pageComponentType) {
+        CustomSingleQuestionPageType::SingleDate =>
+          $this->generateBreadcrumbs('step.layout', 'Date question'),
+        CustomSingleQuestionPageType::DateRange =>
+          $this->generateBreadcrumbs('step.layout', 'Date-range question'),
+        CustomSingleQuestionPageType::Radio =>
+          $this->generateBreadcrumbs('step.layout', 'Radio-button question'),
+        CustomSingleQuestionPageType::Checkbox =>
+          $this->generateBreadcrumbs('step.layout', 'Checkbox question'),
+        CustomSingleQuestionPageType::TextInput =>
+          $this->generateBreadcrumbs('step.layout', 'Text-input question'),
+        CustomSingleQuestionPageType::TextArea =>
+          $this->generateBreadcrumbs('step.layout', 'Text-area question'),
+      };
     }
     else {
       // This is page creation.
-      switch ($routePageType) {
-        case 'date.single_date':
-        case 'date.date_range':
+      $pageComponentType = CustomSingleQuestionPageType::from($pageComponentType);
+      switch ($pageComponentType) {
+        case CustomSingleQuestionPageType::SingleDate:
           $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.date.type', 'Date question');
+          break;
+
+        case CustomSingleQuestionPageType::DateRange:
+          $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.date.type', 'Date-range question');
           break;
 
         default:
@@ -1032,7 +1112,14 @@ class VaGovFormBuilderController extends ControllerBase {
       }
     }
 
-    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+    $form = $this->drupalFormBuilder->getForm(
+      'Drupal\va_gov_form_builder\Form\\' . $formName,
+      $this->digitalForm,
+      $this->stepParagraph,
+      $this->pageParagraph,
+      $pageComponentType
+    );
+    return $this->getPage($form, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
