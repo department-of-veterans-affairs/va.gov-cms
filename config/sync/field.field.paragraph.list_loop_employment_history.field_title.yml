@@ -1,0 +1,24 @@
+uuid: e1e1b90b-aed5-4a5c-83ac-1bc94afa9c9b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.list_loop_employment_history
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.list_loop_employment_history.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: list_loop_employment_history
+label: Title
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
