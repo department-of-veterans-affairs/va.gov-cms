@@ -14,11 +14,14 @@ use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface;
 interface FormBuilderParagraphInterface extends ParagraphInterface {
 
   /**
-   * Obtain Paragraphs the parent holds for this Paragraph (siblings).
+   * Retrieve the “group” of related field items from the same parent field.
    *
-   * The group returned can be the entire Item List from the field, or a subset
-   * of them, in order to operate only on the correct Paragraphs. (eg: getting
-   * nonstandard (custom) Paragraphs only from the field_chapters field).
+   * This method collects field items from the parent field
+   * (e.g. `field_chapters`) that are considered part of the same group as this
+   * item, based on the grouping logic you implement (for example, matching
+   * paragraph bundle/type or other criteria). The returned set will always
+   * include the current item; if no items meet the grouping criteria, it falls
+   * back to returning the full set of siblings in the parent field.
    *
    * @return \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList
    *   Grouped results as field item list.

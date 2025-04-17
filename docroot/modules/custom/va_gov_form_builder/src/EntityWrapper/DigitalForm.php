@@ -184,22 +184,6 @@ class DigitalForm {
   }
 
   /**
-   * Determines if the current step is a nonstandard/custom step.
-   *
-   * @return bool
-   *   TRUE if the step is nonstandard.
-   */
-  public function isNonStandardStep(ParagraphInterface $paragraph) {
-    static $steps = [];
-    if (empty($steps)) {
-      $steps = $this->getNonStandarddSteps();
-    }
-    return (!empty(
-      array_filter($steps, fn ($step) => $paragraph->id() === $step['paragraph']->id())
-    ));
-  }
-
-  /**
    * Returns the status of a step on the Digital Form node.
    *
    * Completeness of the step varies by step, and is documented
@@ -611,8 +595,8 @@ class DigitalForm {
         'stepParagraphId' => $paragraph->id(),
       ])->toString();
 
-      // Determine available actions.
       $additional_step['actions'] = [];
+      // Determine available actions.
       if ($this->stepMoveUpAccess($paragraph)) {
         $additional_step['actions'][] = [
           'url' => Url::fromRoute('va_gov_form_builder.step_action', [

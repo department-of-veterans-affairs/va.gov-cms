@@ -25,11 +25,13 @@ class MoveDownAction extends ActionBase {
    * {@inheritDoc}
    */
   public function checkAccess(FormBuilderParagraphInterface $paragraph): bool {
-    $result = AccessResult::allowedIf(parent::checkAccess());
+    $result = AccessResult::allowedIf(parent::checkAccess($paragraph));
     $group = $paragraph->getFieldItemGroup();
-    $last = $group[(array_key_last($group))];
-    $isNotFirstStep = AccessResult::allowedIf(!($last['paragraph']->id() === $paragraph->id()));
-    $result = $result->andIf($isNotFirstStep);
+    $multiple = AccessResult::allowedIf($group->count() > 1);
+    $result = $result->andIf($multiple);
+    $lastParagraph = $group->get($group->count() - 1)->entity;
+    $isNotLast = AccessResult::allowedIf(!($lastParagraph->id() === $paragraph->id()));
+    $result = $result->andIf($isNotLast);
     return $result->isAllowed();
   }
 
@@ -58,20 +60,23 @@ class MoveDownAction extends ActionBase {
     }
     $sourceStep = NULL;
     $sourceStepId = NULL;
-    $fields = $paragraph->getFieldItemGroup();
-    foreach ($fields as $delta => $field) {
-      if ($field->entity->id() === $paragraph->id()) {
-        $sourceStep = $field->entity;
-        $sourceStepId = $delta;
-      }
-      elseif ($sourceStep instanceof ParagraphInterface && isset($sourceStepId)) {
-        $fields->set($sourceStepId, $field->entity);
-        $fields->set($delta, $sourceStep);
-        break;
-      }
-    }
-
     try {
+      // Iterate only on the like group of fields.
+      $group = $paragraph->getFieldItemGroup();
+      // Grab the real field, so we can persist the data to the parent.
+      $parentFieldName = $paragraph->get('parent_field_name')->value;
+      $parentField = $paragraph->getParentEntity()->get($parentFieldName);
+      foreach ($group as $delta => $groupedField) {
+        if ($groupedField->entity->id() === $paragraph->id()) {
+          $sourceStep = $groupedField->entity;
+          $sourceStepId = $delta;
+        }
+        elseif ($sourceStep instanceof ParagraphInterface && isset($sourceStepId)) {
+          $parentField->set($sourceStepId, $groupedField->entity);
+          $parentField->set($delta, $sourceStep);
+          break;
+        }
+      }
       // Save the parent.
       $paragraph->getParentEntity()->save();
 

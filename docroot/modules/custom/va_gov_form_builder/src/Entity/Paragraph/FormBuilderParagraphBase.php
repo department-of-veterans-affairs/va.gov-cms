@@ -7,6 +7,7 @@ use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionCollection;
 use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Base class for Form Builder paragraph bundles.
@@ -49,9 +50,13 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
    * {@inheritDoc}
    */
   public function getFieldItemGroup(): EntityReferenceRevisionsFieldItemList {
-    $parentField = $this->get('parent_field_name');
+    $parentFieldName = $this->get('parent_field_name')->value;
+    if (!$this->getParentEntity()->hasField($parentFieldName)) {
+      throw new NotFoundHttpException();
+    }
+    // Clone the field so changes do not persist on the parent field.
     /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $group */
-    $group = $this->getParentEntity()->get($parentField);
+    $group = clone($this->getParentEntity()->get($parentFieldName));
     return $group;
   }
 
@@ -60,7 +65,7 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
    */
   public function executeAction(string $action): void {
     if ($this->actionCollection->has($action)) {
-      $this->accept($action);
+      $this->accept($this->actionCollection->get($action));
     }
   }
 
@@ -85,6 +90,13 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
     // If this is a new Paragraph, it has not been saved, therefore there is no
     // parent node or paragraph to persist changes made by the action.
     $result = AccessResult::allowedIf(!$this->isNew());
+    if ($action->getKey() === 'delete') {
+      $canDelete = $this->access(operation: 'delete', return_as_object: TRUE);
+      $result = $result->andIf($canDelete);
+    }
+    // Prevent action if parent cannot be updated.
+    $update = $this->getParentEntity()->access(operation:'update', return_as_object: TRUE);
+    $result = $result->andIf($update);
     // Ensure this Paragraph has this action in its ActionCollection.
     return $result->andIf(AccessResult::allowedIf($this->actionCollection->has($action->getKey())));
   }

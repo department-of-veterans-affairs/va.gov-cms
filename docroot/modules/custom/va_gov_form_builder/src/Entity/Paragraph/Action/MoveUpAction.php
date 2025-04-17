@@ -25,11 +25,13 @@ class MoveUpAction extends ActionBase {
    * {@inheritDoc}
    */
   public function checkAccess(FormBuilderParagraphInterface $paragraph): bool {
-    $result = AccessResult::allowedIf(parent::checkAccess());
-    $steps = $paragraph->getFieldItemGroup();
-    $first = $steps[(array_key_first($steps))];
-    $isNotFirstStep = AccessResult::allowedIf(!($first['paragraph']->id() === $paragraph->id()));
-    $result = $result->andIf($isNotFirstStep);
+    $result = AccessResult::allowedIf(parent::checkAccess($paragraph));
+    $group = $paragraph->getFieldItemGroup();
+    $multiple = AccessResult::allowedIf($group->count() > 1);
+    $result = $result->andIf($multiple);
+    $first = $group->get(0)->entity;
+    $isNotFirst = AccessResult::allowedIf(!($first->id() === $paragraph->id()));
+    $result = $result->andIf($isNotFirst);
     return $result->isAllowed();
   }
 
@@ -51,19 +53,21 @@ class MoveUpAction extends ActionBase {
     }
     $previousStep = NULL;
     $previousDelta = NULL;
-    /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $chapters */
-    $chapters = $this->node->get('field_chapters');
-    $fields = $paragraph->getFieldItemGroup();
-    foreach ($fields as $delta => $field) {
-      if ($field->entity->id() === $paragraph->id() && $previousStep instanceof ParagraphInterface && !is_null($previousDelta)) {
-        $chapters->set($previousDelta, $field->entity);
-        $chapters->set($delta, $previousStep);
-        break;
-      }
-      $previousStep = $field->entity;
-      $previousDelta = $delta;
-    }
     try {
+      // Iterate only on the like group of fields.
+      $group = $paragraph->getFieldItemGroup();
+      // Grab the real field, so we can persist the data to the parent.
+      $parentFieldName = $paragraph->get('parent_field_name')->value;
+      $parentField = $paragraph->getParentEntity()->get($parentFieldName);
+      foreach ($group as $delta => $groupedField) {
+        if ($groupedField->entity->id() === $paragraph->id() && $previousStep instanceof ParagraphInterface && !is_null($previousDelta)) {
+          $parentField->set($previousDelta, $groupedField->entity);
+          $parentField->set($delta, $previousStep);
+          break;
+        }
+        $previousStep = $groupedField->entity;
+        $previousDelta = $delta;
+      }
       // Save the parent.
       $paragraph->getParentEntity()->save();
 

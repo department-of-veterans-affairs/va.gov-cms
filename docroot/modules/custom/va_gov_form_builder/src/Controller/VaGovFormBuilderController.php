@@ -503,9 +503,11 @@ class VaGovFormBuilderController extends ControllerBase {
     $response = new AjaxResponse();
     $this->loadDigitalForm($node->id());
 
-    // Take the appropriate action.
-    $this->digitalForm->executeStepAction($paragraph, $action);
-
+    if (method_exists($paragraph, 'executeAction')) {
+      $paragraph->executeAction($action);
+    }
+    // // Take the appropriate action.
+    // $this->digitalForm->executeStepAction($paragraph, $action);
     /** @var \Drupal\Core\Render\Renderer $renderer */
     $layout = $this->layout($node->id());
     $output = $this->renderer->renderRoot($layout);
