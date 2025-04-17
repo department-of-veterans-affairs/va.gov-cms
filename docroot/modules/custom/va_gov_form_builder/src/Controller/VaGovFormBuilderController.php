@@ -484,6 +484,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'Drupal\va_gov_form_builder\Form\\' . $formName,
       $this->digitalForm,
       $this->stepParagraph,
+      $this->pageParagraph,
     );
 
     return $this->getPage($form, $subtitle, $breadcrumbs, $libraries);

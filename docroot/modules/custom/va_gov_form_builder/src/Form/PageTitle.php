@@ -76,8 +76,8 @@ class PageTitle extends FormBuilderPageBase {
       // If a page paragraph is passed in, this is "edit" mode.
       $this->isCreate = FALSE;
       $defaultValues = [
-        'title' => $this->getPageParagraphFieldValue('field_title'),
-        'body' => $this->getPageParagraphFieldValue('field_digital_form_body_text'),
+        'title' => $this->getPageParagraphFieldValue(self::FIELD_KEYS['title']),
+        'body' => $this->getPageParagraphFieldValue(self::FIELD_KEYS['body']),
       ];
     }
 
