@@ -831,7 +831,7 @@ class VaGovFormBuilderController extends ControllerBase {
         return [
           'id' => $page->id(),
           'title' => $page->get('field_title')->value,
-          'url' => $this->getPageUrl('step.layout') . '/question/' . $page->id(),
+          'url' => "{$this->getPageUrl('step.layout')}/question/{$page->id()}",
         ];
       }, $pageEntities);
 
