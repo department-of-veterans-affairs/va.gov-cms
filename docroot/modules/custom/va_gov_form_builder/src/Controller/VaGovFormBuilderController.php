@@ -208,6 +208,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'step.layout',
       'step.step_label.edit',
       'step.question.custom_or_predefined',
+      'step.question.custom.kind',
     ];
     if (in_array($page, $stepPages)) {
       if (!$this->digitalForm) {
@@ -301,6 +302,19 @@ class VaGovFormBuilderController extends ControllerBase {
         'layout',
         $this->stepParagraph->get('field_title')->value,
         $stepLayoutUrl
+      );
+    }
+
+    elseif ($parent === 'step.question.custom_or_predefined') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $customOrPredefinedUrl = $this->getPageUrl('step.question.custom_or_predefined');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.layout',
+        'Custom or predefined',
+        $customOrPredefinedUrl
       );
     }
 
@@ -832,6 +846,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     if ($stepType === 'digital_form_custom_step') {
       $pageContent['#theme'] = self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__single_question';
+      $pageContent['#buttons']['primary']['url'] = $this->getPageUrl('step.question.custom.kind');
     }
     else {
       $pageContent['#theme'] = self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__repeating_set';
@@ -842,6 +857,31 @@ class VaGovFormBuilderController extends ControllerBase {
     $libraries = ['single_column_with_buttons', 'custom_or_predefined_question'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Response-kind page for custom single-question questions.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   */
+  public function customSingleQuestionResponseKind($nid, $stepParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    $formName = 'ResponseKind';
+    $breadcrumbs = $this->generateBreadcrumbs('step.question.custom_or_predefined', 'Response kind');
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'single_column_with_buttons',
+      'response_kind',
+      'expanded_radio',
+      'expanded_radio__help_text_optional_image',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**

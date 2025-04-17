@@ -14,13 +14,13 @@ Scenario: Log in and create VAMC Facility Health Service as a Lovell editor
   And I select option "----Lovell - VA" from dropdown "Section"
   And I wait "2" seconds
   Then I select option "Captain James A. Lovell Federal Health Care Center | Lovell Federal health care - VA" from dropdown with selector "#edit-field-facility-location"
-  Then I select option "Cardiology at Lovell Federal health care - VA" from dropdown with selector "#edit-field-regional-health-service"
+  Then I select option "Cardiology at Lovell Federal health care - VA" from dropdown with selector "select[data-drupal-selector*='edit-field-regional-health-service']"
 
 # Lovell TRICARE test
   Then I select option "----Lovell - TRICARE" from dropdown "Section"
   And I wait "2" seconds
   Then I select option "Captain James A. Lovell Federal Health Care Center | Lovell Federal health care - TRICARE" from dropdown with selector "#edit-field-facility-location"
-  Then I select option "Homeless Veteran care at Lovell Federal health care - TRICARE" from dropdown with selector "#edit-field-regional-health-service"
+  Then I select option "Homeless Veteran care at Lovell Federal health care - TRICARE" from dropdown with selector "select[data-drupal-selector*='edit-field-regional-health-service']"
 
 # Phone number AJAX test
   Then I click to expand "Appointments"
@@ -44,7 +44,7 @@ Scenario: Log in and create VAMC Facility Health Service as a non-Lovell editor
   And I wait "2" seconds
   Then I click the button with selector "#edit-group-health-service-and-facilit"
   Then I select option "Brockton VA Medical Center | VA Boston health care" from dropdown with selector "#edit-field-facility-location"
-  Then I select option "Audiology and speech at VA Boston health care" from dropdown with selector "#edit-field-regional-health-service"
+  Then I select option "Audiology and speech at VA Boston health care" from dropdown with selector "select[data-drupal-selector*='edit-field-regional-health-service']"
 
 Scenario: Editors should not be able to rename a VAMC Facility Health Service
   Given I am logged in as a user with the roles "vamc_content_creator, content_publisher, content_editor, content_admin"
