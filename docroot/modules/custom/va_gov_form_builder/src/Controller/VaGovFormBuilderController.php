@@ -1147,6 +1147,31 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Custom single-question single-date response page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
+   */
+  public function customSingleQuestionSingleDateResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+      $this->loadPageParagraph($pageParagraphId);
+    }
+    else {
+      // This is page creation.
+    }
+
+    return [];
+  }
+
+  /**
    * Review-and-sign page.
    *
    * @param string $nid
