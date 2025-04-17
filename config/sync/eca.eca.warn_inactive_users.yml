@@ -51,7 +51,7 @@ actions:
     plugin: action_message_action
     label: 'Display a message to the user'
     configuration:
-      message: 'Last login for [entity:name] is [entity:last_login] so they will receive an email at [entity:mail]'
+      message: 'Last login for [entity:name] is [entity:login] so they will receive an email at [entity:mail]'
       replace_tokens: true
     successors: {  }
   eca_trigger_content_entity_custo:
