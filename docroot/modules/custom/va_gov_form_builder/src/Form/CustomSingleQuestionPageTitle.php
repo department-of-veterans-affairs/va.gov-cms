@@ -3,6 +3,9 @@
 namespace Drupal\va_gov_form_builder\Form;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
+use Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderPageBase;
 
 /**
@@ -16,14 +19,11 @@ use Drupal\va_gov_form_builder\Form\Base\FormBuilderPageBase;
 class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
 
   /**
-   * The session keys used to store the page title and body.
+   * The session key used to store the page title and body.
    *
    * @var array
    */
-  const SESSION_KEYS = [
-    'title' => 'form_builder:add_page:page_title',
-    'body' => 'form_builder:add_page:page_body',
-  ];
+  const SESSION_KEY = 'form_builder:add_page:page_info';
 
   /**
    * The field keys on the page paragraph.
@@ -58,19 +58,24 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
   public function buildForm(
     array $form,
     FormStateInterface $form_state,
-    $digitalForm = NULL,
-    $stepParagraph = NULL,
-    $pageParagraph = NULL,
+    DigitalForm|null $digitalForm = NULL,
+    Paragraph|null $stepParagraph = NULL,
+    Paragraph|null $pageParagraph = NULL,
+    CustomSingleQuestionPageType|null $pageComponentType = NULL,
   ) {
-    $form = parent::buildForm($form, $form_state, $digitalForm, $stepParagraph, $pageParagraph);
+    $form = parent::buildForm(
+      $form,
+      $form_state,
+      $digitalForm,
+      $stepParagraph,
+      $pageParagraph,
+      $pageComponentType
+    );
 
-    if (empty($stepParagraph)) {
+    if (empty($pageParagraph)) {
       // If no page paragraph is passed in, this is "create" mode.
       $this->isCreate = TRUE;
-      $defaultValues = [
-        'title' => $this->session->get(self::SESSION_KEYS['title']),
-        'body' => $this->session->get(self::SESSION_KEYS['body']),
-      ];
+      $defaultValues = $this->session->get(self::SESSION_KEY);
     }
     else {
       // If a page paragraph is passed in, this is "edit" mode.
@@ -83,7 +88,6 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
 
     $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_page_title';
 
-    // Page title.
     $form['field_title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Page title (Question content)'),
@@ -126,8 +130,8 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
     if ($this->isCreate) {
       $this->pageParagraph = $this->entityTypeManager->getStorage('paragraph')->create([
         'type' => 'digital_form_page',
-        [self::FIELD_KEYS['title']] => $title,
-        [self::FIELD_KEYS['body']] => $body,
+        self::FIELD_KEYS['title'] => $title,
+        self::FIELD_KEYS['body'] => $body,
       ]);
     }
     else {
@@ -142,18 +146,19 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     if ($this->isCreate) {
       $this->session->set(
-        self::SESSION_KEYS['title'],
-        $form_state->getValue(self::FIELD_KEYS['title'])
-      );
-      $this->session->set(
-        self::SESSION_KEYS['body'],
-        $form_state->getValue(self::FIELD_KEYS['body'])
+        self::SESSION_KEY,
+        [
+          'title' => $form_state->getValue(self::FIELD_KEYS['title']),
+          'body' => $form_state->getValue(self::FIELD_KEYS['body']),
+        ]
       );
     }
     else {
       parent::submitForm($form, $form_state);
     }
 
+    // Temporary. This will be replaced with a conditional redirect
+    // based on $this->pageComponentType.
     $form_state->setRedirect('va_gov_form_builder.step.layout', [
       'nid' => $this->digitalForm->id(),
       'stepParagraphId' => $this->stepParagraph->id(),

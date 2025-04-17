@@ -97,7 +97,7 @@ va_gov_form_builder.step.question.custom.date.single_date.page_title.create:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/date/single-date/page-title"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
-    routePageType: "date.single_date"
+    pageComponentType: "date.single_date"
   requirements:
     nid: \d*
     stepParagraphId: \d*
@@ -105,7 +105,7 @@ va_gov_form_builder.step.question.custom.date.date_range.page_title.create:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/date/date-range/page-title"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
-    routePageType: "date.single_date"
+    pageComponentType: "date.date_range"
   requirements:
     nid: \d*
     stepParagraphId: \d*

@@ -4,6 +4,9 @@ namespace Drupal\va_gov_form_builder\Form\Base;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
+use Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType;
 use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -34,6 +37,21 @@ abstract class FormBuilderPageBase extends FormBuilderBase {
    * @var \Drupal\paragraphs\Entity\Paragraph|null
    */
   protected $pageParagraph;
+
+  /**
+   * The component type of the page.
+   *
+   * If $pageParagraph is set, this component type refers
+   * to the type of component(s) that exist on that paragraph.
+   *
+   * If $pageParagraph is not set, this component type refers
+   * to the path the user is currently on in creating a new page.
+   *
+   * Ex: `date.single_date`
+   *
+   * @var \Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType
+   */
+  protected $pageComponentType;
 
   /**
    * Flag indicating whether this form allows an empty page paragraph.
@@ -99,14 +117,23 @@ abstract class FormBuilderPageBase extends FormBuilderBase {
    *   The form array.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
-   * @param \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm $digitalForm
+   * @param \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm|null $digitalForm
    *   The Digital Form object.
-   * @param \Drupal\paragraphs\Entity\Paragraph $stepParagraph
+   * @param \Drupal\paragraphs\Entity\Paragraph|null $stepParagraph
    *   The paragraph object representing the step.
    * @param \Drupal\paragraphs\Entity\Paragraph|null $pageParagraph
    *   The paragraph object representing the page paragraph.
+   * @param \Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType|null $pageComponentType
+   *   The component type of the page.
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL, $stepParagraph = NULL, $pageParagraph = NULL) {
+  public function buildForm(
+    array $form,
+    FormStateInterface $form_state,
+    DigitalForm|null $digitalForm = NULL,
+    Paragraph|null $stepParagraph = NULL,
+    Paragraph|null $pageParagraph = NULL,
+    CustomSingleQuestionPageType|null $pageComponentType = NULL,
+  ) {
     if (empty($digitalForm)) {
       throw new \InvalidArgumentException('Digital Form cannot be null.');
     }
@@ -121,6 +148,7 @@ abstract class FormBuilderPageBase extends FormBuilderBase {
       throw new \InvalidArgumentException('Page paragraph cannot be null.');
     }
     $this->pageParagraph = $pageParagraph;
+    $this->pageComponentType = $pageComponentType;
 
     return $form;
   }
