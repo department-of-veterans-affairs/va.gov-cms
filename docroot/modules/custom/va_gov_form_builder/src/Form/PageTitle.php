@@ -87,6 +87,7 @@ class PageTitle extends FormBuilderPageBase {
     $form['field_title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Step label'),
+      '#description' => $this->t('What is the question you are asking? This could also be a statement, identifying the information to input next.'),
       '#required' => TRUE,
       '#default_value' => $defaultValues['title'],
     ];
@@ -94,6 +95,7 @@ class PageTitle extends FormBuilderPageBase {
     $form['field_digital_form_body_text'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Body content'),
+      '#description' => $this->t('Additional explanation, if needed, about this question or statement.'),
       '#required' => FALSE,
       '#default_value' => $defaultValues['body'],
     ];
