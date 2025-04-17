@@ -93,7 +93,7 @@ va_gov_form_builder.step.question.custom.date.type:
   requirements:
     nid: \d*
     stepParagraphId: \d*
-va_gov_form_builder.step.question.custom.date.single_date.page_title.create:
+va_gov_form_builder.step.question.custom.date.single_date.page_title:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/date/single-date/page-title"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
@@ -101,7 +101,7 @@ va_gov_form_builder.step.question.custom.date.single_date.page_title.create:
   requirements:
     nid: \d*
     stepParagraphId: \d*
-va_gov_form_builder.step.question.custom.date.date_range.page_title.create:
+va_gov_form_builder.step.question.custom.date.date_range.page_title:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/date/date-range/page-title"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
@@ -117,7 +117,7 @@ va_gov_form_builder.step.question:
     nid: \d*
     stepParagraphId: \d*
     pageParagraphId: \d*
-va_gov_form_builder.step.question.page_title.edit:
+va_gov_form_builder.step.question.page_title:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/{pageParagraphId}/page-title"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
@@ -125,17 +125,17 @@ va_gov_form_builder.step.question.page_title.edit:
     nid: \d*
     stepParagraphId: \d*
     pageParagraphId: \d*
-va_gov_form_builder.step.question.custom.date.single_date.response.create:
+va_gov_form_builder.step.question.custom.date.single_date.response:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/date/single-date/response"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionSingleDateResponse'
   requirements:
     nid: \d*
     stepParagraphId: \d*
-va_gov_form_builder.step.question.custom.date.single_date.response.edit:
+va_gov_form_builder.step.question.response:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/{pageParagraphId}/response"
   defaults:
-    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionSingleDateResponse'
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionResponse'
   requirements:
     nid: \d*
     stepParagraphId: \d*
