@@ -13,7 +13,7 @@ use Drupal\va_gov_form_builder\Form\Base\FormBuilderPageBase;
  * referring to it as "page title" seems to be the simplest
  * language to capture the intent of this form.
  */
-class PageTitle extends FormBuilderPageBase {
+class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
 
   /**
    * The session keys used to store the page title and body.
@@ -81,12 +81,12 @@ class PageTitle extends FormBuilderPageBase {
       ];
     }
 
-    $form['#theme'] = 'form__va_gov_form_builder__custom_question_page_title';
+    $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_page_title';
 
     // Page title.
     $form['field_title'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Step label'),
+      '#title' => $this->t('Page title (Question content)'),
       '#description' => $this->t('What is the question you are asking? This could also be a statement, identifying the information to input next.'),
       '#required' => TRUE,
       '#default_value' => $defaultValues['title'],

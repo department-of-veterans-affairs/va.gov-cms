@@ -1008,10 +1008,11 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadDigitalForm($nid);
     $this->loadStepParagraph($stepParagraphId);
 
-    $formName = 'PageTitle';
+    $formName = 'CustomSingleQuestionPageTitle';
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
       'single_column_with_buttons',
+      'custom_single_question_page_title',
     ];
 
     if (!empty($pageParagraphId)) {
