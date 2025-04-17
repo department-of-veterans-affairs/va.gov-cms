@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_form_builder\Entity\Paragraph;
 
 use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionCollection;
@@ -26,14 +25,13 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
    */
   public function __construct(array $values, string $entity_type, $bundle = FALSE, array $translations = []) {
     parent::__construct($values, $entity_type, $bundle, $translations);
-    $this->actionCollection = $this->initializeActionCollection();
+    $this->actionCollection = $this->getActionCollection();
   }
 
   /**
    * {@inheritDoc}
    */
   public function getActionCollection(): ActionCollection {
-    $this->getFieldItemGroup();
     return $this->actionCollection ??= $this->initializeActionCollection();
   }
 
@@ -51,8 +49,10 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
    * {@inheritDoc}
    */
   public function getFieldItemGroup(): EntityReferenceRevisionsFieldItemList {
-    $parentField = $this->get('parent_field_name')->value;
-    return $this->getParentEntity()->get($parentField)->filter(function ($field) {});
+    $parentField = $this->get('parent_field_name');
+    /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $group */
+    $group = $this->getParentEntity()->get($parentField);
+    return $group;
   }
 
   /**
@@ -86,18 +86,7 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
     // parent node or paragraph to persist changes made by the action.
     $result = AccessResult::allowedIf(!$this->isNew());
     // Ensure this Paragraph has this action in its ActionCollection.
-    return $result->andIf(AccessResult::allowedIf($this->getActionCollection()->has($action->getKey())));
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public static function postLoad(EntityStorageInterface $storage, array &$entities) {
-    parent::postLoad($storage, $entities);
-    /** @var FormBuilderParagraphBase $entity */
-    foreach ($entities as $entity) {
-      $entity->getActionCollection();
-    }
+    return $result->andIf(AccessResult::allowedIf($this->actionCollection->has($action->getKey())));
   }
 
 }
