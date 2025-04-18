@@ -84,7 +84,7 @@ va_gov_form_builder.view_form:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::viewForm'
   requirements:
     nid: \d*
-va_gov_form_builder.step_action:
+va_gov_form_builder.custom_step_action:
   path: "/form-builder/{node}/step/{paragraph}/custom-step-action/{action}"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customStepAction'
@@ -101,7 +101,7 @@ va_gov_form_builder.step_action:
         type: entity:paragraph
         bundle:
           - digital_form_custom_step
-va_gov_form_builder.page_step_action:
+va_gov_form_builder.page_action:
   path: "/form-builder/{node}/step/{paragraph}/page-action/{action}"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::pageAction'
