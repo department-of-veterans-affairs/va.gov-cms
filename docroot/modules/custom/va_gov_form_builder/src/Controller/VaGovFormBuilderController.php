@@ -458,10 +458,19 @@ class VaGovFormBuilderController extends ControllerBase {
         'url' => $this->getPageUrl('contact_info'),
       ],
       '#additional_steps' => [
-        'steps' => $this->digitalForm->buildAdditionalSteps(),
-        'add_step' => [
-          'url' => $this->getPageUrl('step.step_label.create'),
-        ],
+        'steps' => array_map(function ($step) {
+          $stepParagraphId = $step['fields']['id'][0]['value'];
+          return [
+            'type' => $step['type'],
+            'title' => $step['fields']['field_title'][0]['value'],
+            'status' => $this->digitalForm->getStepStatus('custom', $step['paragraph']),
+            'url' => Url::fromRoute('va_gov_form_builder.step.layout', [
+              'nid' => $this->digitalForm->id(),
+              'stepParagraphId' => $stepParagraphId,
+            ])->toString(),
+            'actions' => $this->getParagraphActions($step['paragraph']),
+          ];
+        }, $this->digitalForm->getNonStandarddSteps()),
       ],
       '#review_and_sign' => [
         'status' => $this->digitalForm->getStepStatus('review_and_sign'),
@@ -733,7 +742,7 @@ class VaGovFormBuilderController extends ControllerBase {
           'id' => $page->id(),
           'title' => $page->get('field_title')->value,
           'url' => '',
-          'actions' => $this->buildStepActions($page),
+          'actions' => $this->getParagraphActions($page, 'page_action'),
         ];
       }, $pageEntities);
 
@@ -759,15 +768,17 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
-   * Builds page actions for step layout page.
+   * Builds actions for a paragraph.
    *
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
-   *   The paragraph to build steps for.
+   *   The paragraph to build actions for.
+   * @param string $route_suffix
+   *   The suffix for the route.
    *
    * @return array
-   *   Array of page actions.
+   *   Array of paragraph actions.
    */
-  public function buildStepActions(ParagraphInterface $paragraph): array {
+  public function getParagraphActions(ParagraphInterface $paragraph, $route_suffix = 'step_action'): array {
     // Determine available actions.
     $actions = [];
     if (method_exists($paragraph, 'getActionCollection')) {
@@ -776,7 +787,7 @@ class VaGovFormBuilderController extends ControllerBase {
       foreach ($paragraphActions as $paragraphAction) {
         if ($paragraphAction->checkAccess($paragraph)) {
           $actions[] = [
-            'url' => Url::fromRoute('va_gov_form_builder.page_action', [
+            'url' => Url::fromRoute('va_gov_form_builder.' . $route_suffix, [
               'node' => $this->digitalForm->id(),
               'paragraph' => $paragraph->id(),
               'action' => $paragraphAction->getKey(),
