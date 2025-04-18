@@ -117,7 +117,7 @@ abstract class FormBuilderStepBase extends FormBuilderBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $this->setStepParagraphFromFormState($form_state);
 
-    // Validate the node entity.
+    // Validate the step-paragraph entity.
     /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
     $violations = $this->stepParagraph->validate();
 
