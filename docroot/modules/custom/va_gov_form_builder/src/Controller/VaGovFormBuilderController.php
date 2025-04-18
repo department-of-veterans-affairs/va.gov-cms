@@ -432,10 +432,7 @@ class VaGovFormBuilderController extends ControllerBase {
    */
   public function layout($nid) {
     $this->loadDigitalForm($nid);
-    $pageContent['messages'] = [
-      '#type' => 'status_messages',
-    ];
-    $pageContent['page'] = [
+    $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'layout',
       '#form_info' => [
         'status' => $this->digitalForm->getStepStatus('form_info'),
@@ -471,6 +468,9 @@ class VaGovFormBuilderController extends ControllerBase {
             'actions' => $this->getParagraphActions($step['paragraph']),
           ];
         }, $this->digitalForm->getNonStandarddSteps()),
+        'add_step' => [
+          'url' => $this->getPageUrl('step.step_label.create'),
+        ],
       ],
       '#review_and_sign' => [
         'status' => $this->digitalForm->getStepStatus('review_and_sign'),
@@ -511,17 +511,15 @@ class VaGovFormBuilderController extends ControllerBase {
   public function customStepAction(NodeInterface $node, ParagraphInterface $paragraph, string $action): AjaxResponse {
     $response = new AjaxResponse();
     $this->loadDigitalForm($node->id());
+    $this->loadStepParagraph($paragraph->id());
 
+    // Take the appropriate action on the Paragraph.
     if (method_exists($paragraph, 'executeAction')) {
       $paragraph->executeAction($action);
     }
-    // // Take the appropriate action.
-    // $this->digitalForm->executeStepAction($paragraph, $action);
-    /** @var \Drupal\Core\Render\Renderer $renderer */
+
     $layout = $this->layout($node->id());
     $output = $this->renderer->renderRoot($layout);
-
-    // Return an Ajax command.
     $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
     return $response;
   }
@@ -545,18 +543,18 @@ class VaGovFormBuilderController extends ControllerBase {
   public function pageAction(NodeInterface $node, ParagraphInterface $paragraph, string $action): AjaxResponse {
     $response = new AjaxResponse();
     $this->loadDigitalForm($node->id());
+    $this->loadStepParagraph($paragraph->getParentEntity()->id());
 
-    // Take the appropriate action.
     if (method_exists($paragraph, 'executeAction')) {
       $paragraph->executeAction($action);
     }
 
     /** @var \Drupal\Core\Render\Renderer $renderer */
-    $layout = $this->stepLayout($node->id(), $paragraph->getParentEntity()->id());
+    $layout = $this->stepLayout($node->id(), $this->stepParagraph);
     $output = $this->renderer->renderRoot($layout);
 
     // Return an Ajax command.
-    $response->addCommand(new ReplaceCommand('.form-builder-page-container:first-of-type', $output));
+    $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
     return $response;
   }
 
