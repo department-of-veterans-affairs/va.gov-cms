@@ -79,7 +79,7 @@ class MoveDownAction extends ActionBase {
       $paragraph->getParentEntity()->save();
 
       // Add success message.
-      \Drupal::messenger()->addWarning($this->t('%label was moved down successfully', [
+      \Drupal::messenger()->addStatus($this->t('%label was moved down successfully', [
         '%label' => $label,
       ]));
     }

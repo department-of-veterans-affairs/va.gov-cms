@@ -550,7 +550,7 @@ class VaGovFormBuilderController extends ControllerBase {
     }
 
     /** @var \Drupal\Core\Render\Renderer $renderer */
-    $layout = $this->stepLayout($node->id(), $this->stepParagraph);
+    $layout = $this->stepLayout($node->id(), $this->stepParagraph->id());
     $output = $this->renderer->renderRoot($layout);
 
     // Return an Ajax command.

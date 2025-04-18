@@ -76,7 +76,7 @@ class MoveUpAction extends ActionBase {
       $paragraph->getParentEntity()->save();
 
       // Add success message.
-      \Drupal::messenger()->addWarning($this->t('Step %label was moved up successfully', [
+      \Drupal::messenger()->addMessage($this->t('Step %label was moved up successfully', [
         '%label' => $label,
       ]));
     }

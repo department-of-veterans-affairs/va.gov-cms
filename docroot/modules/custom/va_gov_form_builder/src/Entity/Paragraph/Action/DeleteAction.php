@@ -65,7 +65,7 @@ class DeleteAction extends ActionBase {
 
       // Add success message.
       \Drupal::messenger()
-        ->addWarning($this->t('%label was deleted successfully', [
+        ->addStatus($this->t('%label was deleted successfully', [
           '%label' => $label,
         ]));
     }
