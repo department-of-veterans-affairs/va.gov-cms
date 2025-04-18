@@ -10,6 +10,7 @@ dependencies:
     - paragraphs.paragraphs_type.digital_form_list_loop
     - paragraphs.paragraphs_type.digital_form_phone_and_email
     - paragraphs.paragraphs_type.digital_form_your_personal_info
+    - paragraphs.paragraphs_type.list_loop_employment_history
   module:
     - entity_reference_revisions
     - tmgmt_content
@@ -35,162 +36,187 @@ settings:
       digital_form_address: digital_form_address
       digital_form_phone_and_email: digital_form_phone_and_email
       digital_form_list_loop: digital_form_list_loop
+      list_loop_employment_history: list_loop_employment_history
     negate: 0
     target_bundles_drag_drop:
       address:
-        weight: -84
-        enabled: false
-      alert:
         weight: -83
         enabled: false
-      alert_single:
+      alert:
         weight: -82
         enabled: false
-      audience_topics:
+      alert_single:
         weight: -81
         enabled: false
-      basic_accordion:
+      audience_topics:
         weight: -80
         enabled: false
-      button:
+      basic_accordion:
         weight: -79
         enabled: false
-      centralized_content_descriptor:
+      button:
         weight: -78
         enabled: false
-      checklist:
+      centralized_content_descriptor:
         weight: -77
         enabled: false
-      checklist_item:
+      checklist:
         weight: -76
         enabled: false
-      collapsible_panel:
+      checklist_item:
         weight: -75
         enabled: false
-      collapsible_panel_item:
+      collapsible_panel:
         weight: -74
         enabled: false
-      contact_information:
+      collapsible_panel_item:
         weight: -73
+        enabled: false
+      contact_information:
+        weight: -72
         enabled: false
       digital_form_address:
         weight: -89
         enabled: true
+      digital_form_checkbox:
+        weight: -38
+        enabled: false
       digital_form_custom_step:
         weight: -91
         enabled: true
+      digital_form_date_component:
+        weight: -37
+        enabled: false
       digital_form_identification_info:
-        weight: -85
+        weight: -84
         enabled: false
       digital_form_list_loop:
         weight: -87
         enabled: true
       digital_form_name_and_date_of_bi:
-        weight: -86
+        weight: -85
+        enabled: false
+      digital_form_page:
+        weight: -36
         enabled: false
       digital_form_phone_and_email:
         weight: -88
         enabled: true
+      digital_form_radio_button:
+        weight: -35
+        enabled: false
+      digital_form_response_option:
+        weight: -34
+        enabled: false
+      digital_form_text_area:
+        weight: -33
+        enabled: false
+      digital_form_text_input:
+        weight: -32
+        enabled: false
       digital_form_your_personal_info:
         weight: -90
         enabled: true
       downloadable_file:
-        weight: -72
-        enabled: false
-      email_contact:
         weight: -71
         enabled: false
-      embedded_video:
+      email_contact:
         weight: -70
         enabled: false
-      expandable_text:
+      embedded_video:
         weight: -69
         enabled: false
-      featured_content:
+      expandable_text:
         weight: -68
         enabled: false
-      health_care_local_facility_servi:
+      featured_content:
         weight: -67
         enabled: false
-      link_teaser:
+      health_care_local_facility_servi:
         weight: -66
         enabled: false
-      link_teaser_with_image:
+      link_teaser:
         weight: -65
         enabled: false
-      list_of_link_teasers:
-        weight: -62
-        enabled: false
-      list_of_links:
-        weight: -63
-        enabled: false
-      lists_of_links:
+      link_teaser_with_image:
         weight: -64
         enabled: false
-      magichead_group:
+      list_loop_employment_history:
+        weight: -86
+        enabled: true
+      list_of_link_teasers:
         weight: -61
         enabled: false
-      media:
+      list_of_links:
+        weight: -62
+        enabled: false
+      lists_of_links:
+        weight: -63
+        enabled: false
+      magichead_group:
         weight: -60
         enabled: false
-      media_list_images:
+      media:
         weight: -59
         enabled: false
-      media_list_videos:
+      media_list_images:
         weight: -58
         enabled: false
-      non_reusable_alert:
+      media_list_videos:
         weight: -57
         enabled: false
-      number_callout:
+      non_reusable_alert:
         weight: -56
         enabled: false
-      phone_number:
+      number_callout:
         weight: -55
         enabled: false
-      process:
+      phone_number:
         weight: -54
         enabled: false
-      q_a:
+      process:
         weight: -53
         enabled: false
-      q_a_group:
+      q_a:
         weight: -52
         enabled: false
-      q_a_section:
+      q_a_group:
         weight: -51
         enabled: false
-      react_widget:
+      q_a_section:
         weight: -50
         enabled: false
-      rich_text_char_limit_1000:
+      react_widget:
         weight: -49
         enabled: false
-      service_location:
+      rich_text_char_limit_1000:
         weight: -48
         enabled: false
-      service_location_address:
+      service_location:
         weight: -47
         enabled: false
-      situation_update:
+      service_location_address:
         weight: -46
         enabled: false
-      spanish_translation_summary:
+      situation_update:
         weight: -45
         enabled: false
-      staff_profile:
+      spanish_translation_summary:
         weight: -44
         enabled: false
-      step:
+      staff_profile:
         weight: -43
         enabled: false
-      step_by_step:
+      step:
         weight: -42
         enabled: false
-      table:
+      step_by_step:
         weight: -41
         enabled: false
-      wysiwyg:
+      table:
         weight: -40
+        enabled: false
+      wysiwyg:
+        weight: -39
         enabled: false
 field_type: entity_reference_revisions

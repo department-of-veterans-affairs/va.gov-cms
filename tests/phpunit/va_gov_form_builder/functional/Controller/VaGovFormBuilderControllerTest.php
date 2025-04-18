@@ -178,7 +178,7 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $node->get('field_chapters')->appendItem($contactInfoParagraph);
     // List and loop.
     $listAndLoopParagraph = \Drupal::entityTypeManager()->getStorage('paragraph')->create([
-      'type' => 'digital_form_list_loop',
+      'type' => 'list_loop_employment_history',
       'field_title' => 'Your employers',
     ]);
     $node->get('field_chapters')->appendItem($listAndLoopParagraph);

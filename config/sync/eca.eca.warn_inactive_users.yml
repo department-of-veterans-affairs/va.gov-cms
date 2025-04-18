@@ -1,0 +1,64 @@
+uuid: 6c14f46b-9a5e-4ed7-814b-5211496ccf99
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.inactive_users
+  module:
+    - eca_base
+    - eca_content
+    - eca_views
+id: warn_inactive_users
+modeller: core
+label: 'Warn Inactive Users'
+version: ''
+weight: 0
+events:
+  eca_base_eca_custom:
+    plugin: 'eca_base:eca_custom'
+    label: 'ECA custom event'
+    configuration:
+      event_id: inactive_users_warn
+    successors:
+      -
+        id: eca_views_query
+        condition: null
+  content_entity_custom:
+    plugin: 'content_entity:custom'
+    label: 'ECA custom event (entity-aware)'
+    configuration:
+      event_id: queue_results
+    successors:
+      -
+        id: action_message_action
+        condition: null
+conditions: {  }
+gateways: {  }
+actions:
+  eca_views_query:
+    plugin: eca_views_query
+    label: 'Views: Inactive Users Query'
+    configuration:
+      token_name: results
+      view_id: inactive_users
+      display_id: default
+      arguments: ''
+    successors:
+      -
+        id: eca_trigger_content_entity_custo
+        condition: null
+  action_message_action:
+    plugin: action_message_action
+    label: 'Display a message to the user'
+    configuration:
+      message: 'Last login for [entity:name] is [entity:login] so they will receive an email at [entity:mail]'
+      replace_tokens: true
+    successors: {  }
+  eca_trigger_content_entity_custo:
+    plugin: eca_trigger_content_entity_custom_event
+    label: 'Trigger a custom event (entity-aware)'
+    configuration:
+      event_id: queue_results
+      tokens: ''
+      object: results
+    successors: {  }
