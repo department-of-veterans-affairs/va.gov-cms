@@ -16,6 +16,13 @@ class DeleteAction extends ActionBase {
   /**
    * {@inheritDoc}
    */
+  public function getTitle(): string {
+    return $this->t('Delete');
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function getKey(): string {
     return 'delete';
   }
@@ -26,13 +33,6 @@ class DeleteAction extends ActionBase {
   public function checkAccess(FormBuilderParagraphInterface $paragraph): bool {
     $result = AccessResult::allowedIf(parent::checkAccess($paragraph));
     return $result->isAllowed();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function render(FormBuilderParagraphInterface $paragraph): array {
-    return [];
   }
 
   /**
@@ -49,13 +49,10 @@ class DeleteAction extends ActionBase {
       return;
     }
     try {
-      // Iterate only on the like group of fields.
-      $group = $paragraph->getFieldItemGroup();
-      // Grab the real field, so we can persist the data to the parent.
       $parentFieldName = $paragraph->get('parent_field_name')->value;
       $parentField = $paragraph->getParentEntity()->get($parentFieldName);
-      foreach ($group as $delta => $groupedField) {
-        if ($paragraph->id() === $groupedField->entity->id()) {
+      foreach ($parentField as $delta => $field) {
+        if ($paragraph->id() === $field->entity->id()) {
           $parentField->removeItem($delta);
           break;
         }

@@ -17,6 +17,13 @@ class MoveDownAction extends ActionBase {
   /**
    * {@inheritDoc}
    */
+  public function getTitle(): string {
+    return $this->t('Move down');
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function getKey(): string {
     return 'movedown';
   }
@@ -26,10 +33,10 @@ class MoveDownAction extends ActionBase {
    */
   public function checkAccess(FormBuilderParagraphInterface $paragraph): bool {
     $result = AccessResult::allowedIf(parent::checkAccess($paragraph));
-    $group = $paragraph->getFieldItemGroup();
-    $multiple = AccessResult::allowedIf($group->count() > 1);
+    $siblings = $paragraph->getFieldEntities();
+    $multiple = AccessResult::allowedIf(count($siblings) > 1);
     $result = $result->andIf($multiple);
-    $lastParagraph = $group->get($group->count() - 1)->entity;
+    $lastParagraph = $siblings[array_key_last($siblings)];
     $isNotLast = AccessResult::allowedIf(!($lastParagraph->id() === $paragraph->id()));
     $result = $result->andIf($isNotLast);
     return $result->isAllowed();
@@ -37,15 +44,6 @@ class MoveDownAction extends ActionBase {
 
   /**
    * {@inheritDoc}
-   */
-  public function render(FormBuilderParagraphInterface $paragraph): array {
-    return [];
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   public function execute(FormBuilderParagraphInterface $paragraph) {
     $label = $paragraph->get('field_title')->value;
@@ -62,17 +60,17 @@ class MoveDownAction extends ActionBase {
     $sourceStepId = NULL;
     try {
       // Iterate only on the like group of fields.
-      $group = $paragraph->getFieldItemGroup();
+      $siblings = $paragraph->getFieldEntities();
       // Grab the real field, so we can persist the data to the parent.
       $parentFieldName = $paragraph->get('parent_field_name')->value;
       $parentField = $paragraph->getParentEntity()->get($parentFieldName);
-      foreach ($group as $delta => $groupedField) {
-        if ($groupedField->entity->id() === $paragraph->id()) {
-          $sourceStep = $groupedField->entity;
+      foreach ($siblings as $delta => $entity) {
+        if ($entity->id() === $paragraph->id()) {
+          $sourceStep = $entity;
           $sourceStepId = $delta;
         }
         elseif ($sourceStep instanceof ParagraphInterface && isset($sourceStepId)) {
-          $parentField->set($sourceStepId, $groupedField->entity);
+          $parentField->set($sourceStepId, $entity);
           $parentField->set($delta, $sourceStep);
           break;
         }

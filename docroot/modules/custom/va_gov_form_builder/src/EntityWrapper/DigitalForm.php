@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_form_builder\EntityWrapper;
 
-use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityConstraintViolationList;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -39,18 +38,6 @@ class DigitalForm {
     'your_personal_info' => 'digital_form_your_personal_info',
     'address_info' => 'digital_form_address',
     'contact_info' => 'digital_form_phone_and_email',
-  ];
-
-  /**
-   * Actions available for steps.
-   *
-   * Any updates to these actions will need to also be made to the
-   * va_gov_form_builder.step_action route access configuration.
-   */
-  const STEP_ACTIONS = [
-    'moveup' => 'moveup',
-    'movedown' => 'movedown',
-    'delete' => 'delete',
   ];
 
   /**
@@ -340,242 +327,6 @@ class DigitalForm {
   }
 
   /**
-   * Execute the given action on a step.
-   *
-   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
-   *   The step paragraph we are acting upon.
-   * @param string $action
-   *   The action to take.
-   *
-   * @throws \Exception
-   * @throws \InvalidArgumentException
-   */
-  public function executeStepAction(ParagraphInterface $paragraph, string $action): void {
-    if (!$this->node) {
-      throw new \Exception('Digital Form is not set. Step cannot take an action on an empty Digital Form object.');
-    }
-    if (in_array($action, DigitalForm::STEP_ACTIONS)) {
-      match($action) {
-        self::STEP_ACTIONS['moveup'] => $this->stepMoveUp($paragraph),
-        self::STEP_ACTIONS['movedown'] => $this->stepMoveDown($paragraph),
-        self::STEP_ACTIONS['delete'] => $this->stepDelete($paragraph),
-      };
-    }
-    else {
-      throw new \InvalidArgumentException('Invalid step action');
-    }
-  }
-
-  /**
-   * Delete a step.
-   *
-   * @throws \Exception
-   */
-  public function stepMoveUp(ParagraphInterface $paragraph) {
-    if (!$this->node) {
-      throw new \Exception('Digital Form is not set. Cannot sort steps on an empty Digital Form object.');
-    }
-    $label = $paragraph->get('field_title')->value;
-
-    // Check if this move is allowed for this step.
-    if (!$this->stepMoveUpAccess($paragraph)) {
-      \Drupal::messenger()
-        ->addError($this->t('Step %label <em>cannot</em> be moved. Access denied.', [
-          '%label' => $label,
-        ]));
-      return;
-    }
-    $previousStep = NULL;
-    $previousDelta = NULL;
-    /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $chapters */
-    $chapters = $this->node->get('field_chapters');
-    $steps = $this->getNonStandarddSteps();
-    foreach (array_keys($steps) as $delta) {
-      $chapter = $chapters->get($delta);
-      if ($chapter->entity->id() === $paragraph->id() && $previousStep instanceof ParagraphInterface && !is_null($previousDelta)) {
-        $chapters->set($previousDelta, $chapter->entity);
-        $chapters->set($delta, $previousStep);
-        break;
-      }
-      $previousStep = $chapter->entity;
-      $previousDelta = $delta;
-    }
-    try {
-      // Save the node.
-      $this->node->save();
-
-      // Add success message.
-      \Drupal::messenger()->addWarning($this->t('Step %label was moved up successfully', [
-        '%label' => $label,
-      ]));
-    }
-    catch (\Exception $e) {
-      // Persisting to node failed.
-      \Drupal::messenger()->addError($this->t('An error occurred while moving step %label. The error was %error', [
-        '%label' => $label,
-        '%error' => $e->getMessage(),
-      ]));
-    }
-  }
-
-  /**
-   * Move a step down.
-   *
-   * @throws \Exception
-   */
-  public function stepMoveDown(ParagraphInterface $paragraph) {
-    if (!$this->node) {
-      throw new \Exception('Digital Form is not set. Cannot sort steps on an empty Digital Form object.');
-    }
-    $label = $paragraph->get('field_title')->value;
-
-    // Check if this move is allowed for this step.
-    if (!$this->stepMoveDownAccess($paragraph)) {
-      \Drupal::messenger()
-        ->addError($this->t('Step %label <em>cannot</em> be moved. Access denied.', [
-          '%label' => $label,
-        ]));
-      return;
-    }
-    $sourceStep = NULL;
-    $sourceStepId = NULL;
-    /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $chapters */
-    $chapters = $this->node->get('field_chapters');
-    $steps = $this->getNonStandarddSteps();
-    foreach (array_keys($steps) as $delta) {
-      $chapter = $chapters->get($delta);
-      if ($chapter->entity->id() === $paragraph->id()) {
-        $sourceStep = $chapter->entity;
-        $sourceStepId = $delta;
-      }
-      elseif ($sourceStep instanceof ParagraphInterface && isset($sourceStepId)) {
-        $chapters->set($sourceStepId, $chapter->entity);
-        $chapters->set($delta, $sourceStep);
-        break;
-      }
-    }
-
-    try {
-      // Save the node.
-      $this->node->save();
-
-      // Add success message.
-      \Drupal::messenger()->addWarning($this->t('Step %label was moved down successfully', [
-        '%label' => $label,
-      ]));
-    }
-    catch (\Exception $e) {
-      // Persisting to node failed.
-      \Drupal::messenger()->addError($this->t('An error occurred while moving step %label. The error was %error', [
-        '%label' => $label,
-        '%error' => $e->getMessage(),
-      ]));
-    }
-  }
-
-  /**
-   * Delete a step.
-   *
-   * @throws \Exception
-   */
-  public function stepDelete(ParagraphInterface $paragraph) {
-    if (!$this->node) {
-      throw new \Exception('Digital Form is not set. Cannot delete steps on an empty Digital Form object.');
-    }
-    $label = $paragraph->get('field_title')->value;
-    $deleted = FALSE;
-    // Check if delete is allowed for this step.
-    if (!$this->stepDeleteAccess($paragraph)) {
-      \Drupal::messenger()
-        ->addError($this->t('Step %label <em>cannot</em> be deleted. Access denied.', [
-          '%label' => $label,
-        ]));
-      return;
-    }
-
-    /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $chapters */
-    $chapters = $this->node->get('field_chapters');
-
-    foreach ($chapters as $delta => $chapter) {
-      if ($paragraph->id() === $chapter->entity->id()) {
-        $chapters->removeItem($delta);
-        $deleted = TRUE;
-        break;
-      }
-    }
-
-    if ($deleted) {
-      try {
-        // Save the node.
-        $this->node->save();
-
-        // Delete the paragraph.
-        $paragraph->delete();
-
-        // Add success message.
-        \Drupal::messenger()->addWarning($this->t('Step %label was deleted successfully', [
-          '%label' => $label,
-        ]));
-      }
-      catch (\Exception $e) {
-        // Saving node or deleting paragraph failed. Add error message.
-        \Drupal::messenger()->addError($this->t('Step %label was <em>not</em> deleted successfully. The error was %error', [
-          '%label' => $label,
-          '%error' => $e->getMessage(),
-        ]));
-      }
-    }
-  }
-
-  /**
-   * Access check for step actions.
-   *
-   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
-   *   Step to delete.
-   *
-   * @return bool
-   *   TRUE if conditions are met, FALSE otherwise.
-   */
-  public function stepMoveUpAccess(ParagraphInterface $paragraph) {
-    $result = AccessResult::allowed();
-    $steps = $this->getNonStandarddSteps();
-    $first = $steps[(array_key_first($steps))];
-    $isNotFirstStep = AccessResult::allowedIf(!($first['paragraph']->id() === $paragraph->id()));
-    $result = $result->andIf($isNotFirstStep);
-    return $result->isAllowed();
-  }
-
-  /**
-   * Access check for step actions.
-   */
-  public function stepMoveDownAccess(ParagraphInterface $paragraph) {
-    $result = AccessResult::allowed();
-    $steps = $this->getNonStandarddSteps();
-    $last = $steps[(array_key_last($steps))];
-    $isNotFirstStep = AccessResult::allowedIf(!($last['paragraph']->id() === $paragraph->id()));
-    $result = $result->andIf($isNotFirstStep);
-    return $result->isAllowed();
-  }
-
-  /**
-   * Access check for deleting a step.
-   *
-   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
-   *   Step to delete.
-   *
-   * @return bool
-   *   TRUE if conditions are met, FALSE otherwise.
-   */
-  public function stepDeleteAccess(ParagraphInterface $paragraph): bool {
-    $result = AccessResult::allowed();
-    // Ensure this step is a nonstandard step.
-    // $isNonStandardStep =
-    // AccessResult::allowedIf(($this->isNonStandardStep($paragraph)));
-    // $result = $result->andIf($isNonStandardStep);
-    return $result->isAllowed();
-  }
-
-  /**
    * Builds custom steps for theming.
    *
    * @return array
@@ -596,39 +347,22 @@ class DigitalForm {
       ])->toString();
 
       $additional_step['actions'] = [];
-      // Determine available actions.
-      if ($this->stepMoveUpAccess($paragraph)) {
-        $additional_step['actions'][] = [
-          'url' => Url::fromRoute('va_gov_form_builder.step_action', [
-            'node' => $this->id(),
-            'paragraph' => $paragraph->id(),
-            'action' => 'moveup',
-          ]),
-          'title' => $this->t('Move up'),
-          'action' => 'moveup',
-        ];
-      }
-      if ($this->stepMoveDownAccess($paragraph)) {
-        $additional_step['actions'][] = [
-          'url' => Url::fromRoute('va_gov_form_builder.step_action', [
-            'node' => $this->id(),
-            'paragraph' => $paragraph->id(),
-            'action' => 'movedown',
-          ]),
-          'action' => 'movedown',
-          'title' => $this->t('Move down'),
-        ];
-      }
-      if ($this->stepDeleteAccess($paragraph)) {
-        $additional_step['actions'][] = [
-          'url' => Url::fromRoute('va_gov_form_builder.step_action', [
-            'node' => $this->id(),
-            'paragraph' => $paragraph->id(),
-            'action' => 'delete',
-          ]),
-          'action' => 'delete',
-          'title' => $this->t('Delete'),
-        ];
+      if (method_exists($paragraph, 'getActionCollection')) {
+        $actions = $paragraph->getActionCollection();
+        /** @var \Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface $action */
+        foreach ($actions as $action) {
+          if ($action->checkAccess($paragraph)) {
+            $additional_step['actions'][] = [
+              'url' => Url::fromRoute('va_gov_form_builder.custom_step_action', [
+                'node' => $this->id(),
+                'paragraph' => $paragraph->id(),
+                'action' => $action->getKey(),
+              ])->toString(),
+              'title' => $action->getTitle(),
+              'action' => $action->getKey(),
+            ];
+          }
+        }
       }
 
       $steps[] = $additional_step;

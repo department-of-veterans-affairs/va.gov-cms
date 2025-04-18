@@ -301,7 +301,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   which is added automatically.
    */
   protected function getPage($pageContent, $subtitle, $breadcrumbs = [], $libraries = []) {
-    $page = [
+    $page[] = [
       '#type' => 'page',
       'content' => $pageContent,
       '#cache' => [
@@ -538,14 +538,16 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadDigitalForm($node->id());
 
     // Take the appropriate action.
-    $this->digitalForm->executeStepAction($paragraph, $action);
+    if (method_exists($paragraph, 'executeAction')) {
+      $paragraph->executeAction($action);
+    }
 
     /** @var \Drupal\Core\Render\Renderer $renderer */
     $layout = $this->stepLayout($node->id(), $paragraph->getParentEntity()->id());
     $output = $this->renderer->renderRoot($layout);
 
     // Return an Ajax command.
-    $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
+    $response->addCommand(new ReplaceCommand('.form-builder-page-container:first-of-type', $output));
     return $response;
   }
 
@@ -757,52 +759,35 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
-   * Builds step actions for step layout page.
+   * Builds page actions for step layout page.
    *
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   The paragraph to build steps for.
    *
    * @return array
-   *   Array of step actions.
+   *   Array of page actions.
    */
-  public function buildStepActions(ParagraphInterface $paragraph) {
+  public function buildStepActions(ParagraphInterface $paragraph): array {
     // Determine available actions.
     $actions = [];
-    if ($this->digitalForm->stepMoveUpAccess($paragraph)) {
-      $actions[] = [
-        'url' => Url::fromRoute('va_gov_form_builder.step_action', [
-          'node' => $this->digitalForm->id(),
-          'paragraph' => $paragraph->id(),
-          'action' => 'moveup',
-        ]),
-        'title' => $this->t('Move up'),
-        'action' => 'moveup',
-      ];
-    }
-    if ($this->digitalForm->stepMoveDownAccess($paragraph)) {
-      $actions[] = [
-        'url' => Url::fromRoute('va_gov_form_builder.step_action', [
-          'node' => $this->digitalForm->id(),
-          'paragraph' => $paragraph->id(),
-          'action' => 'movedown',
-        ]),
-        'action' => 'movedown',
-        'title' => $this->t('Move down'),
-      ];
-    }
-    if ($this->digitalForm->stepDeleteAccess($paragraph)) {
-      $actions[] = [
-        'url' => Url::fromRoute('va_gov_form_builder.step_action', [
-          'node' => $this->digitalForm->id(),
-          'paragraph' => $paragraph->id(),
-          'action' => 'delete',
-        ]),
-        'action' => 'delete',
-        'title' => $this->t('Delete'),
-      ];
+    if (method_exists($paragraph, 'getActionCollection')) {
+      $paragraphActions = $paragraph->getActionCollection();
+      /** @var \Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface $action */
+      foreach ($paragraphActions as $paragraphAction) {
+        if ($paragraphAction->checkAccess($paragraph)) {
+          $actions[] = [
+            'url' => Url::fromRoute('va_gov_form_builder.page_action', [
+              'node' => $this->digitalForm->id(),
+              'paragraph' => $paragraph->id(),
+              'action' => $paragraphAction->getKey(),
+            ])->toString(),
+            'title' => $paragraphAction->getTitle(),
+            'action' => $paragraphAction->getKey(),
+          ];
+        }
+      }
     }
     return $actions;
-
   }
 
   /**

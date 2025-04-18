@@ -3,16 +3,24 @@
 namespace Drupal\va_gov_form_builder\Entity\Paragraph;
 
 use Drupal\Core\Access\AccessResult;
-use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionCollection;
 use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Drupal\va_gov_form_builder\Entity\Paragraph\Action\DeleteAction;
+use Drupal\va_gov_form_builder\Entity\Paragraph\Action\MoveDownAction;
+use Drupal\va_gov_form_builder\Entity\Paragraph\Action\MoveUpAction;
 
 /**
  * Base class for Form Builder paragraph bundles.
  */
 abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilderParagraphInterface {
+
+  /**
+   * The short name of this class for convenient dual dispatching.
+   *
+   * @var string|null
+   */
+  private static ?string $classShortName = 'FormBuilderParagraphBase';
 
   /**
    * Collection of Actions for this Paragraph.
@@ -27,6 +35,14 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
   public function __construct(array $values, string $entity_type, $bundle = FALSE, array $translations = []) {
     parent::__construct($values, $entity_type, $bundle, $translations);
     $this->actionCollection = $this->getActionCollection();
+    static::$classShortName = static::getClassShortName();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public static function getClassShortName(): string {
+    return static::$classShortName ??= (new \ReflectionClass(new static))->getShortName();
   }
 
   /**
@@ -43,21 +59,25 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
    *   The initialized ActionCollection for this Paragraph.
    */
   protected function initializeActionCollection(): ActionCollection {
-    return new ActionCollection();
+    // Adds DeleteAction, MoveUpAction, and MoveDownAction. These are possible
+    // actions for the Paragraph. Before using any action, the
+    // $Action->checkAccess() method should be used to verify it is usable in
+    // the current context.
+    $collection = new ActionCollection();
+    $collection->add(new MoveUpAction());
+    $collection->add(new MoveDownAction());
+    $collection->add(new DeleteAction());
+    return $collection;
   }
 
   /**
    * {@inheritDoc}
    */
-  public function getFieldItemGroup(): EntityReferenceRevisionsFieldItemList {
+  public function getFieldEntities(): array {
     $parentFieldName = $this->get('parent_field_name')->value;
-    if (!$this->getParentEntity()->hasField($parentFieldName)) {
-      throw new NotFoundHttpException();
-    }
-    // Clone the field so changes do not persist on the parent field.
-    /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $group */
-    $group = clone($this->getParentEntity()->get($parentFieldName));
-    return $group;
+    /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $parentField */
+    $parentField = $this->getParentEntity()->get($parentFieldName);
+    return $parentField->referencedEntities();
   }
 
   /**
@@ -73,10 +93,10 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
    * {@inheritDoc}
    */
   public function accept(ActionInterface $action) {
-    // Use reflection to the short name of the currently called class, rather
-    // than the full namespace, which would be the output if get_class() were
-    // used.
-    $method = 'executeFor' . (new \ReflectionClass($this))->getShortName();
+    // Use reflection to get the short name of the currently called class,
+    // rather than the full namespace, which would be what get_class() would
+    // give us.
+    $method = 'executeFor' . static::getClassShortName();
     if (method_exists($action, $method)) {
       return $action->$method($this);
     }
@@ -90,13 +110,12 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
     // If this is a new Paragraph, it has not been saved, therefore there is no
     // parent node or paragraph to persist changes made by the action.
     $result = AccessResult::allowedIf(!$this->isNew());
+    // Check delete access if needed.
     if ($action->getKey() === 'delete') {
-      $canDelete = $this->access(operation: 'delete', return_as_object: TRUE);
-      $result = $result->andIf($canDelete);
+      $result = $result->andIf($this->access(operation: 'delete', return_as_object: TRUE));
     }
     // Prevent action if parent cannot be updated.
-    $update = $this->getParentEntity()->access(operation:'update', return_as_object: TRUE);
-    $result = $result->andIf($update);
+    $result = $result->andIf($this->getParentEntity()->access(operation:'update', return_as_object: TRUE));
     // Ensure this Paragraph has this action in its ActionCollection.
     return $result->andIf(AccessResult::allowedIf($this->actionCollection->has($action->getKey())));
   }

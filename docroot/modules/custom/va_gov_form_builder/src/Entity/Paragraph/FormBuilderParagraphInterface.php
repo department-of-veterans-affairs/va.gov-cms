@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_form_builder\Entity\Paragraph;
 
 use Drupal\Core\Access\AccessResult;
-use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionCollection;
 use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface;
@@ -14,19 +13,17 @@ use Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface;
 interface FormBuilderParagraphInterface extends ParagraphInterface {
 
   /**
-   * Retrieve the “group” of related field items from the same parent field.
+   * The short name of this class.
    *
-   * This method collects field items from the parent field
-   * (e.g. `field_chapters`) that are considered part of the same group as this
-   * item, based on the grouping logic you implement (for example, matching
-   * paragraph bundle/type or other criteria). The returned set will always
-   * include the current item; if no items meet the grouping criteria, it falls
-   * back to returning the full set of siblings in the parent field.
+   * Use primarily for convenient dual dispatching. Using get_class() or
+   * static::class returns the full namespaced classname. This method returns
+   * only the base class name. For instance, FormBuilderParagraphBase, rather
+   * than Drupal\va_gov_form_builder\Entity\Paragraph\FormBuilderParagraphBase.
    *
-   * @return \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList
-   *   Grouped results as field item list.
+   * @return string
+   *   The short name of this class.
    */
-  public function getFieldItemGroup(): EntityReferenceRevisionsFieldItemList;
+  public static function getClassShortName(): string;
 
   /**
    * Dispatch to the given Action.
@@ -86,5 +83,24 @@ interface FormBuilderParagraphInterface extends ParagraphInterface {
    *   The action key.
    */
   public function executeAction(string $action): void;
+
+  /**
+   * Gets an array of Paragraph entities that are siblings of this Paragraph.
+   *
+   * Siblings are Paragraph entities that reside in the same
+   * EntityReferenceFieldItemList field as this Paragraph, but may be filtered
+   * by any custom logic needed. For instance, custom/additional/nonstandard
+   * Paragraphs (field_chapters on a DigitalForm node) are mixed with standard
+   * steps. And the Paragraph actions need to know about only the custom step
+   * Paragraphs. If it calculated access based on all the vales in the
+   * field_chapters field, it could end up allowing access for a standard step,
+   * which isn't supported. So then the custom step paragraph must use this
+   * method to supply actions with only custom step paragraphs for their access
+   * calculations.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface[]
+   *   An array of "sibling" entity objects keyed by field item deltas.
+   */
+  public function getFieldEntities(): array;
 
 }

@@ -18,6 +18,14 @@ interface ActionInterface {
   public function getKey(): string;
 
   /**
+   * Returns the title for this action.
+   *
+   * @return string
+   *   The title for this action.
+   */
+  public function getTitle(): string;
+
+  /**
    * Check access for this action on the paragraph provided.
    *
    * @param \Drupal\va_gov_form_builder\Entity\Paragraph\FormBuilderParagraphInterface $paragraph
@@ -27,17 +35,6 @@ interface ActionInterface {
    *   TRUE if access is allowed.
    */
   public function checkAccess(FormBuilderParagraphInterface $paragraph): bool;
-
-  /**
-   * Render the action.
-   *
-   * @param \Drupal\va_gov_form_builder\Entity\Paragraph\FormBuilderParagraphInterface $paragraph
-   *   The step rendering the action.
-   *
-   * @return array
-   *   The action array suitable for rendering.
-   */
-  public function render(FormBuilderParagraphInterface $paragraph): array;
 
   /**
    * Execute the action.
