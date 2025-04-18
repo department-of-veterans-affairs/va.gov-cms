@@ -16,6 +16,24 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 abstract class FormBuilderPageBase extends FormBuilderBase {
 
   /**
+   * The session key used to store the page title and body.
+   *
+   * @var array
+   */
+  const SESSION_KEY = 'form_builder:add_page:page_info';
+
+  /**
+   * The field keys on the page paragraph.
+   *
+   * @var array
+   */
+  const FIELD_KEYS = [
+    'title' => 'field_title',
+    'body' => 'field_digital_form_body_text',
+    'components' => 'field_digital_form_components',
+  ];
+
+  /**
    * The DigitalForm object loaded by this form.
    *
    * @var \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
@@ -159,7 +177,7 @@ abstract class FormBuilderPageBase extends FormBuilderBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $this->setPageParagraphFromFormState($form_state);
 
-    // Validate the node entity.
+    // Validate the page-paragraph entity.
     /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
     $violations = $this->pageParagraph->validate();
 

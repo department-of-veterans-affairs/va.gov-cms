@@ -19,27 +19,10 @@ use Drupal\va_gov_form_builder\Form\Base\FormBuilderPageBase;
 class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
 
   /**
-   * The session key used to store the page title and body.
-   *
-   * @var array
-   */
-  const SESSION_KEY = 'form_builder:add_page:page_info';
-
-  /**
-   * The field keys on the page paragraph.
-   *
-   * @var array
-   */
-  const FIELD_KEYS = [
-    'title' => 'field_title',
-    'body' => 'field_digital_form_body_text',
-  ];
-
-  /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'form_builder__page_title';
+    return 'form_builder__custom_single_question_page_title';
   }
 
   /**

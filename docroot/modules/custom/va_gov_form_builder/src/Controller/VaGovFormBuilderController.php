@@ -1207,7 +1207,14 @@ class VaGovFormBuilderController extends ControllerBase {
     // Override the page title with "Date question".
     $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Date question';
 
-    return [];
+    $formName = 'CustomSingleQuestionSingleDateResponse';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'single_column_with_buttons',
+      'custom_single_question_single_date_response',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**

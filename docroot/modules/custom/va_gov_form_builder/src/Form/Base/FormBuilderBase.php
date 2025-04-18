@@ -87,8 +87,15 @@ abstract class FormBuilderBase extends FormBase {
    *   A list of fields to check for validation violations. Violations will
    *   only trigger form errors if the field to which the violation applies
    *   is in this list.
+   * @param int|null $index
+   *   The index of the component being validated, if applicable.
    */
-  protected static function setFormErrors(FormStateInterface $form_state, ConstraintViolationList $violations, array $fieldList) {
+  protected static function setFormErrors(
+    FormStateInterface $form_state,
+    ConstraintViolationList $violations,
+    array $fieldList,
+    int|null $index = NULL,
+  ) {
     // Loop through each violation and set errors on the form.
     if ($violations->count() > 0) {
       foreach ($violations as $violation) {
@@ -97,8 +104,9 @@ abstract class FormBuilderBase extends FormBase {
 
         // Only concern ourselves with validation of fields in passed-in list.
         if (in_array($fieldName, $fieldList)) {
+          $suffix = empty($index) ? '' : "--{$index}";
           $message = $violation->getMessage();
-          $form_state->setErrorByName($fieldName, $message);
+          $form_state->setErrorByName("{$fieldName}{$suffix}", $message);
         }
       }
     }
