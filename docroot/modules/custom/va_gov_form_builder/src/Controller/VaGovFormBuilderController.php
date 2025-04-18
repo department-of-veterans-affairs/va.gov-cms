@@ -301,7 +301,7 @@ class VaGovFormBuilderController extends ControllerBase {
    *   which is added automatically.
    */
   protected function getPage($pageContent, $subtitle, $breadcrumbs = [], $libraries = []) {
-    $page[] = [
+    $page = [
       '#type' => 'page',
       'content' => $pageContent,
       '#cache' => [
@@ -778,7 +778,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * @return array
    *   Array of paragraph actions.
    */
-  public function getParagraphActions(ParagraphInterface $paragraph, $route_suffix = 'step_action'): array {
+  public function getParagraphActions(ParagraphInterface $paragraph, string $route_suffix = 'custom_step_action'): array {
     // Determine available actions.
     $actions = [];
     if (method_exists($paragraph, 'getActionCollection')) {
