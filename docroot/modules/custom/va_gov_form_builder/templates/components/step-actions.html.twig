@@ -1,0 +1,17 @@
+<div class="form-builder-paragraph-actions">
+  <div class="form-builder-paragraph-actions__move-actions">
+    {# Render move actions #}
+    {% for action in actions|filter(action => action.action != 'delete') %}
+      <div class="form-builder-paragraph-actions__action-link action-{{ action.action }}">
+        <a class="use-ajax" href="{{ action.url }}">{{ action.title|upper }}</a>
+      </div>
+    {% endfor %}
+  </div>
+  {# Render delete action #}
+  {% set delete_action = actions|filter(action => action.action == 'delete')|first %}
+  {% if delete_action %}
+    <div class="form-builder-paragraph-actions__action-link action-delete">
+      <a class="use-ajax" href="{{ delete_action.url }}">{{ delete_action.title|upper }}</a>
+    </div>
+  {% endif %}
+</div>

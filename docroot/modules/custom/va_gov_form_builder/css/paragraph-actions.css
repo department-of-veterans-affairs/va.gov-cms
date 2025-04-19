@@ -1,0 +1,60 @@
+.form-builder-paragraph-actions {
+  display: flex;
+  justify-content: space-between;
+  line-height: var(--vads-spacing-8);
+  max-width: 589px;
+  padding-top: var(--units-3);
+}
+
+/* Container for move up/down actions */
+.form-builder-paragraph-actions__move-actions {
+  display: flex;
+  gap: var(--units-6);
+  min-width: var(--vads-spacing-15);
+}
+
+.form-builder-paragraph-actions__action-link {
+  align-items: center;
+  display: inline-flex;
+  position: relative;
+}
+
+.form-builder-paragraph-actions__action-link a {
+  align-items: center;
+  display: inline-flex;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.form-builder-paragraph-actions__action-link::before {
+  background-position: center;
+  background-repeat: no-repeat;
+  content: "";
+  display: inline-block;
+  height: var(--units-2);
+  margin-right: var(--units-1);
+  position: relative;
+  top: -1px;
+  vertical-align: middle;
+  width: var(--units-2);
+}
+
+.form-builder-paragraph-actions__action-link.action-moveup::before {
+  background-image: url('data:image/svg+xml,<svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.10278 10.5885L0.265798 9.7519C-0.0885993 9.39767 -0.0885993 8.82486 0.265798 8.47439L7.59126 1.14849C7.94566 0.794254 8.51873 0.794254 8.86936 1.14849L16.1948 8.47062C16.5492 8.82486 16.5492 9.39767 16.1948 9.74813L15.3578 10.5847C14.9997 10.9427 14.4153 10.9352 14.0647 10.5697L9.74027 6.03242V16.863C9.74027 17.3642 9.33686 17.7674 8.83542 17.7674H7.62897C7.12753 17.7674 6.72412 17.3642 6.72412 16.863V6.03242L2.39595 10.5734C2.04532 10.9427 1.46095 10.9503 1.10278 10.5885Z" fill="%23005EA2"/></svg>');
+}
+
+.form-builder-paragraph-actions__action-link.action-movedown::before {
+  background-image: url('data:image/svg+xml,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.319 8.13987L17.1558 8.97647C17.5101 9.33071 17.5101 9.90351 17.1558 10.254L9.83203 17.5799C9.47772 17.9341 8.90478 17.9341 8.55423 17.5799L1.22667 10.254C0.872358 9.89974 0.872358 9.32694 1.22667 8.97647L2.06346 8.13987C2.42155 7.78186 3.00579 7.7894 3.35634 8.15494L7.68352 12.6959V1.86537C7.68352 1.36416 8.08684 0.960938 8.58816 0.960938H9.79434C10.2957 0.960938 10.699 1.36416 10.699 1.86537V12.6959L15.0262 8.15494C15.3767 7.78563 15.9609 7.7781 16.319 8.13987Z" fill="%23005EA2"/></svg>');
+}
+
+.form-builder-paragraph-actions__action-link.action-delete {
+  margin-left: auto;
+}
+
+.form-builder-paragraph-actions__action-link.action-delete a {
+  color: var(--vads-color-emergency);
+}
+
+.form-builder-paragraph-actions__action-link.action-delete::before {
+  background-image: url('data:image/svg+xml,<svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.27698 14.3457C4.27698 15.1231 4.91298 15.7591 5.69031 15.7591H11.3436C12.121 15.7591 12.757 15.1231 12.757 14.3457V5.86573H4.27698V14.3457ZM13.4636 3.74573H10.9903L10.2836 3.03906H6.75031L6.04365 3.74573H3.57031V5.15906H13.4636V3.74573Z" fill="%23B50909"/></svg>');
+}

@@ -4,6 +4,8 @@ namespace Drupal\va_gov_form_builder\EntityWrapper;
 
 use Drupal\Core\Entity\EntityConstraintViolationList;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
@@ -27,6 +29,7 @@ use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
 class DigitalForm {
 
   use EntityReferenceRevisionsOperations;
+  use StringTranslationTrait;
 
   /**
    * The standard steps of a Digital Form.
@@ -103,13 +106,14 @@ class DigitalForm {
     if ($this->node->hasField('field_chapters')) {
       $chapters = $this->node->get('field_chapters')->getValue();
 
-      foreach ($chapters as $chapter) {
+      foreach ($chapters as $delta => $chapter) {
+        /** @var \Drupal\paragraphs\ParagraphInterface; $paragraph */
         $paragraph = $this->entityTypeManager
           ->getStorage('paragraph')
           ->load($chapter['target_id']);
 
         if ($paragraph) {
-          $steps[] = [
+          $steps[$delta] = [
             'type' => $paragraph->bundle(),
             'paragraph' => $paragraph,
             'fields' => array_map(function ($field) {
@@ -131,11 +135,9 @@ class DigitalForm {
    */
   public function getNonStandarddSteps() {
     $allSteps = $this->getAllSteps();
-    $nonStandardSteps = array_values(array_filter($allSteps, function ($step) {
-       return !in_array($step['type'], array_values(self::STANDARD_STEPS));
-    }));
-
-    return $nonStandardSteps;
+    return array_filter($allSteps, function ($step) {
+      return !in_array($step['type'], array_values(self::STANDARD_STEPS));
+    });
   }
 
   /**
@@ -325,6 +327,50 @@ class DigitalForm {
     }
 
     throw new \InvalidArgumentException("Method $methodName does not exist.");
+  }
+
+  /**
+   * Builds custom steps for theming.
+   *
+   * @return array
+   *   The additional steps theme variables.
+   */
+  public function buildAdditionalSteps(): array {
+    $steps = [];
+    foreach ($this->getNonStandarddSteps() as $step) {
+      assert(!empty($step['paragraph']) && $step['paragraph'] instanceof ParagraphInterface);
+      $paragraph = $step['paragraph'];
+      $additional_step = [];
+      $additional_step['type'] = $step['type'];
+      $additional_step['title'] = $paragraph->get('field_title')->value;
+      $additional_step['status'] = $this->getStepStatus('custom', $step['paragraph']);
+      $additional_step['url'] = Url::fromRoute('va_gov_form_builder.step.layout', [
+        'nid' => $this->id(),
+        'stepParagraphId' => $paragraph->id(),
+      ])->toString();
+
+      $additional_step['actions'] = [];
+      if (method_exists($paragraph, 'getActionCollection')) {
+        $actions = $paragraph->getActionCollection();
+        /** @var \Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface $action */
+        foreach ($actions as $action) {
+          if ($action->checkAccess($paragraph)) {
+            $additional_step['actions'][] = [
+              'url' => Url::fromRoute('va_gov_form_builder.custom_step_action', [
+                'node' => $this->id(),
+                'paragraph' => $paragraph->id(),
+                'action' => $action->getKey(),
+              ])->toString(),
+              'title' => $action->getTitle(),
+              'action' => $action->getKey(),
+            ];
+          }
+        }
+      }
+
+      $steps[] = $additional_step;
+    }
+    return $steps;
   }
 
 }
