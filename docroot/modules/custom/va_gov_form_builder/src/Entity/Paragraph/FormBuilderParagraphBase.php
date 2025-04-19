@@ -20,7 +20,7 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
    *
    * @var string|null
    */
-  private static ?string $classShortName = 'FormBuilderParagraphBase';
+  protected ?string $classShortName = NULL;
 
   /**
    * Collection of Actions for this Paragraph.
@@ -35,14 +35,14 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
   public function __construct(array $values, string $entity_type, $bundle = FALSE, array $translations = []) {
     parent::__construct($values, $entity_type, $bundle, $translations);
     $this->actionCollection = $this->getActionCollection();
-    static::$classShortName = static::getClassShortName();
+    $this->classShortName = $this->getClassShortName();
   }
 
   /**
    * {@inheritDoc}
    */
-  public static function getClassShortName(): string {
-    return static::$classShortName ??= (new \ReflectionClass(new static))->getShortName();
+  public function getClassShortName(): string {
+    return $this->classShortName ??= (new \ReflectionClass($this))->getShortName();
   }
 
   /**

@@ -23,7 +23,7 @@ interface FormBuilderParagraphInterface extends ParagraphInterface {
    * @return string
    *   The short name of this class.
    */
-  public static function getClassShortName(): string;
+  public function getClassShortName(): string;
 
   /**
    * Dispatch to the given Action.

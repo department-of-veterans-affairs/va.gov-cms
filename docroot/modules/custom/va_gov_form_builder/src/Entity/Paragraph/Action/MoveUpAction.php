@@ -82,7 +82,7 @@ class MoveUpAction extends ActionBase {
     }
     catch (\Exception $e) {
       // Persisting to node failed.
-      \Drupal::messenger()->addError($this->t('An error occurred while moving step %label. The error was %error', [
+      \Drupal::messenger()->addError($this->t('An error occurred while moving %label. The error was %error', [
         '%label' => $label,
         '%error' => $e->getMessage(),
       ]));

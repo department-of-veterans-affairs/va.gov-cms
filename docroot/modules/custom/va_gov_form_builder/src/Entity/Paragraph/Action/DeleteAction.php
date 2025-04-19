@@ -50,6 +50,7 @@ class DeleteAction extends ActionBase {
     }
     try {
       $parentFieldName = $paragraph->get('parent_field_name')->value;
+      /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $parentField */
       $parentField = $paragraph->getParentEntity()->get($parentFieldName);
       foreach ($parentField as $delta => $field) {
         if ($paragraph->id() === $field->entity->id()) {

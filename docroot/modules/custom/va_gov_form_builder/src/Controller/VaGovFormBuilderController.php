@@ -538,7 +538,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle());
-    $libraries = ['layout', 'step_actions'];
+    $libraries = ['layout', 'paragraph_actions'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -600,7 +600,6 @@ class VaGovFormBuilderController extends ControllerBase {
       $paragraph->executeAction($action);
     }
 
-    /** @var \Drupal\Core\Render\Renderer $renderer */
     $layout = $this->stepLayout($node->id(), $this->stepParagraph->id());
     $output = $this->renderer->renderRoot($layout);
 
@@ -815,7 +814,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', $stepLabel);
-    $libraries = ['single_column_with_buttons', 'step_layout', 'step_actions'];
+    $libraries = ['single_column_with_buttons', 'step_layout', 'paragraph_actions'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
@@ -836,7 +835,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $actions = [];
     if (method_exists($paragraph, 'getActionCollection')) {
       $paragraphActions = $paragraph->getActionCollection();
-      /** @var \Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface $action */
+      /** @var \Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface $paragraphAction */
       foreach ($paragraphActions as $paragraphAction) {
         if ($paragraphAction->checkAccess($paragraph)) {
           $actions[] = [

@@ -104,10 +104,13 @@ class DigitalForm {
     $steps = [];
 
     if ($this->node->hasField('field_chapters')) {
-      $chapters = $this->node->get('field_chapters');
+      $chapters = $this->node->get('field_chapters')->getValue();
 
       foreach ($chapters as $delta => $chapter) {
-        $paragraph = $chapter->entity;
+        /** @var \Drupal\paragraphs\ParagraphInterface; $paragraph */
+        $paragraph = $this->entityTypeManager
+          ->getStorage('paragraph')
+          ->load($chapter['target_id']);
 
         if ($paragraph) {
           $steps[$delta] = [
