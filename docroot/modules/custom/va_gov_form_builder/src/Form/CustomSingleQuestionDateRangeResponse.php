@@ -9,15 +9,15 @@ use Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderPageComponentBase;
 
 /**
- * Form step for the defining/editing a single-date response.
+ * Form step for the defining/editing a date-range response.
  */
-class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBase {
+class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'form_builder__custom_single_question_single_date_response';
+    return 'form_builder__custom_single_question_date_range_response';
   }
 
   /**
@@ -37,7 +37,7 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
       $digitalForm,
       $stepParagraph,
       $pageParagraph,
-      CustomSingleQuestionPageType::SingleDate,
+      CustomSingleQuestionPageType::DateRange,
     );
 
     // @todo Set form theme.
@@ -49,14 +49,14 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
       '#markup' => $this->pageData['body'],
     ];
 
-    $form['required'] = [
+    $form['field_digital_form_required'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Required for the submitter'),
       '#required' => TRUE,
       '#default_value' => TRUE,
     ];
 
-    $form['date_format'] = [
+    $form['field_digital_form_date_format'] = [
       '#type' => 'radios',
       '#title' => $this->t('Date format'),
       '#options' => [
@@ -67,17 +67,37 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
       '#required' => TRUE,
     ];
 
-    $form['label'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Date label'),
-      '#description' => $this->t('For example, "Anniversary date"'),
-      '#required' => TRUE,
-    ];
-
-    $form['hint_text'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Hint text for date label'),
-      '#required' => FALSE,
+    $form['components'] = [
+      [
+        'field_digital_form_label' => [
+          '#type' => 'textfield',
+          '#title' => $this->t('Date label'),
+          '#description' => $this->t('For example, "Anniversary date"'),
+          '#required' => TRUE,
+          '#parents' => ['components', '0', 'field_digital_form_label'],
+        ],
+        'field_digital_form_hint_text' => [
+          '#type' => 'textfield',
+          '#title' => $this->t('Hint text for date label'),
+          '#required' => FALSE,
+          '#parents' => ['components', '0', 'field_digital_form_hint_text'],
+        ],
+      ],
+      [
+        'field_digital_form_label' => [
+          '#type' => 'textfield',
+          '#title' => $this->t('Date label'),
+          '#description' => $this->t('For example, "Anniversary date"'),
+          '#required' => TRUE,
+          '#parents' => ['components', '1', 'field_digital_form_label'],
+        ],
+        'field_digital_form_hint_text' => [
+          '#type' => 'textfield',
+          '#title' => $this->t('Hint text for date label'),
+          '#required' => FALSE,
+          '#parents' => ['components', '1', 'field_digital_form_hint_text'],
+        ],
+      ],
     ];
 
     $form['actions']['save_and_continue'] = [
@@ -100,12 +120,20 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
    * {@inheritdoc}
    */
   protected function setComponentsFromFormState(FormStateInterface $form_state) {
+    // Set the date component paragraph.
     $this->components[0] = $this->entityTypeManager->getStorage('paragraph')->create([
       'type' => 'digital_form_date_component',
-      'field_digital_form_date_format' => $form_state->getValue('date_format'),
-      'field_digital_form_hint_text' => $form_state->getValue('hint_text'),
-      'field_digital_form_label' => $form_state->getValue('label'),
-      'field_digital_form_required' => $form_state->getValue('required'),
+      'field_digital_form_date_format' => 'month_day_year',
+      'field_digital_form_hint_text' => 'hint text',
+      'field_digital_form_label' => 'asdf',
+      'field_digital_form_required' => TRUE,
+    ]);
+    $this->components[1] = $this->entityTypeManager->getStorage('paragraph')->create([
+      'type' => 'digital_form_date_component',
+      'field_digital_form_date_format' => 'month_day_year',
+      'field_digital_form_hint_text' => 'hint text',
+      'field_digital_form_label' => 'asdf',
+      'field_digital_form_required' => TRUE,
     ]);
   }
 
@@ -121,11 +149,11 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
     $violations = $this->components[$i]->validate();
 
     if ($violations->count() > 0) {
-      self::setFormErrors($form_state, $violations, [
-        'field_digital_form_label' => $form['label'],
-        'field_digital_form_hint_text' => $form['hint_text'],
-        'field_digital_form_date_format' => $form['date_format'],
-        'field_digital_form_required' => $form['required'],
+      self::setFormErrors($form, $form_state, $violations, [
+        'field_digital_form_label' => $form['components'][$i]['field_digital_form_label'],
+        'field_digital_form_hint_text' => $form['components'][$i]['field_digital_form_hint_text'],
+        'field_digital_form_date_format' => $form['field_digital_form_date_format'],
+        'field_digital_form_required' => $form['field_digital_form_required'],
       ]);
     }
   }

@@ -560,7 +560,6 @@ class VaGovFormBuilderController extends ControllerBase {
       $this->digitalForm,
       $this->stepParagraph,
       $this->pageParagraph,
-      $this->pageParagraphComponentType,
     );
 
     return $this->getPage($form, $subtitle, $breadcrumbs, $libraries);

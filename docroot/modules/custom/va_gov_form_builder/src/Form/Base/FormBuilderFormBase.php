@@ -41,11 +41,6 @@ abstract class FormBuilderFormBase extends FormBuilderBase {
   }
 
   /**
-   * Returns the Digital Form fields accessed by this form step.
-   */
-  abstract protected function getFields();
-
-  /**
    * Sets (creates or updates) a DigitalForm object from the form-state data.
    *
    * @param \Drupal\Core\Form\FormStateInterface $form_state
@@ -101,16 +96,21 @@ abstract class FormBuilderFormBase extends FormBuilderBase {
   }
 
   /**
+   * Validate the Digital Form node.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  abstract protected function validateDigitalForm(array $form, FormStateInterface $form_state);
+
+  /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $this->setDigitalFormFromFormState($form_state);
-
-    // Validate the node entity.
-    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
-    $violations = $this->digitalForm->validate();
-
-    $this->setFormErrors($form_state, $violations, $this->getFields());
+    $this->validateDigitalForm($form, $form_state);
   }
 
   /**

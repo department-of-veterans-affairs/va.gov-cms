@@ -3,6 +3,9 @@
 namespace Drupal\va_gov_form_builder\Form\Base;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
+use Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType;
 
 /**
  * Abstract base class for Form Builder component pages.
@@ -12,6 +15,17 @@ use Drupal\Core\Form\FormStateInterface;
  * of a page paragraph.
  */
 abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
+
+  /**
+   * The page data.
+   *
+   * Keys:
+   *  - `title`
+   *  - `body`
+   *
+   * @var mixed[]
+   */
+  protected $pageData;
 
   /**
    * The list of components on the page paragraph.
@@ -25,17 +39,56 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
   protected $components;
 
   /**
-   * Returns the child-component fields accessed by this form.
-   */
-  abstract protected function getComponentFields();
-
-  /**
    * Sets (creates or updates) the components object from the form-state data.
    *
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
   abstract protected function setComponentsFromFormState(FormStateInterface $form_state);
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(
+    array $form,
+    FormStateInterface $form_state,
+    DigitalForm|null $digitalForm = NULL,
+    Paragraph|null $stepParagraph = NULL,
+    Paragraph|null $pageParagraph = NULL,
+    CustomSingleQuestionPageType|null $pageComponentType = NULL,
+  ) {
+    $form = parent::buildForm(
+      $form,
+      $form_state,
+      $digitalForm,
+      $stepParagraph,
+      $pageParagraph,
+      $pageComponentType
+    );
+
+    if (empty($pageParagraph)) {
+      // If no page paragraph is passed in, this is "create" mode.
+      $this->isCreate = TRUE;
+      $this->pageData = $this->session->get(self::SESSION_KEY) ?? [
+        'title' => '',
+        'body' => '',
+      ];
+    }
+    else {
+      // If a page paragraph is passed in, this is "edit" mode.
+      $this->isCreate = FALSE;
+      $this->pageData = [
+        'title' => $this->getPageParagraphFieldValue('field_title'),
+        'body' => $this->getPageParagraphFieldValue('field_digital_form_body_text'),
+      ];
+    }
+
+    $form['status_messages'] = [
+      '#type' => 'status_messages',
+    ];
+
+    return $form;
+  }
 
   /**
    * Returns a field value from the component data.
@@ -76,22 +129,18 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
    */
   protected function setPageParagraphFromFormState(FormStateInterface $form_state) {
     /*
-     * In create mode, the user will have entered the page information
-     * on the previous page, and it will be saved in session storage.
-     * We apply the title and body from session, and set the components
-     * from the form state.
+     * In create mode, we need to create the not only the components
+     * but also the page. Setting the page amounts to creating it and
+     * adding the components to it.
      */
     if ($this->isCreate) {
-      $sessionData = $this->session->get(self::SESSION_KEY);
-      $title = $sessionData['title'];
-      $body = $sessionData['body'];
       $this->setComponentsFromFormState($form_state);
 
       $this->pageParagraph = $this->entityTypeManager->getStorage('paragraph')->create([
         'type' => 'digital_form_page',
-        self::FIELD_KEYS['title'] => $title,
-        self::FIELD_KEYS['body'] => $body,
-        self::FIELD_KEYS['components'] => $this->components,
+        'field_title' => $this->pageData['title'],
+        'field_digital_form_body_text' => $this->pageData['body'],
+        'field_digital_form_components' => $this->components,
       ]);
     }
 
@@ -105,29 +154,100 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
   }
 
   /**
+   * Validates the page paragraph.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  protected function validatePageParagraph(array $form, FormStateInterface $form_state) {
+    if (empty($this->pageParagraph)) {
+      return;
+    }
+
+    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
+    $violations = $this->pageParagraph->validate();
+
+    if ($violations->count() > 0) {
+      foreach ($violations as $violation) {
+        $fieldName = self::getViolationFieldName($violation);
+
+        if (in_array($fieldName, ['field_title', 'field_digital_form_body_text'])) {
+          // This is a violation on the page paragraph. This should not be
+          // possible as the page paragraph should have been validated before
+          // this point, but we check here just in case. If there is an error,
+          // set an error on the form itself rather than an individual field.
+          if ($fieldName === 'field_title') {
+            $message = $this->t('There was an error with the page title. Return to the previous page and adjust as needed.');
+          }
+          else {
+            $message = $this->t('There was an error with the page body. Return to the previous page and adjust as needed.');
+          }
+          $form_state->setError(
+            $form,
+            $message,
+          );
+        }
+        else {
+          // Some other error. Again, this should not be possible, but we check
+          // here just in case. If there is an error, set an error on the
+          // form itself rather than an individual field.
+          $form_state->setError(
+            $form,
+            $this->t('There was an error. Please check all the fields and try again.'),
+          );
+        }
+      }
+    }
+  }
+
+  /**
+   * Validates a single page component.
+   *
+   * @param int $i
+   *   The component index.
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  abstract protected function validateComponent(int $i, array $form, FormStateInterface $form_state);
+
+  /**
+   * Validates the page components.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  protected function validateComponents(array $form, FormStateInterface $form_state) {
+    if (empty($this->components)) {
+      return;
+    }
+
+    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
+    foreach ($this->components as $i => $component) {
+      $this->validateComponent($i, $form, $form_state);
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     /*
-     * In create mode, we need to validate the page paragraph.
-     * This should already be valid, as the data should not
+     * In create mode, we need to validate the page paragraph
+     * as well as the components.
+     * The page data should already be valid, as the data should not
      * have been successfully stored in the session if it were
      * not valid, but double-check here.
      */
     if ($this->isCreate) {
-      // This will set the paragraph as well as its components.
       $this->setPageParagraphFromFormState($form_state);
-
-      /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
-      $violations = $this->pageParagraph->validate();
-
-      if ($violations->count() > 0) {
-        // Set error that isn't tied to a specific field, since the field.
-        $form_state->setErrorByName(
-          '',
-          $this->t('There was an error with the page title or body. Return to the previous page and edit those values as needed.'
-        ));
-      }
+      $this->validatePageParagraph($form, $form_state);
+      $this->validateComponents($form, $form_state);
     }
 
     /*
@@ -135,25 +255,7 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
      */
     else {
       $this->setComponentsFromFormState($form_state);
-    }
-
-    /*
-     * In both edit and create modes, we need to validate
-     * the form fields for the component being created.
-     */
-    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
-    foreach ($this->components as $i => $component) {
-      $violations = $component->validate();
-      if ($violations->count() > 0) {
-        xdebug_var_dump($violations);
-        exit;
-      }
-      $this->setFormErrors(
-        $form_state,
-        $violations,
-        $this->getComponentFields(),
-        $i,
-      );
+      $this->validateComponents($form, $form_state);
     }
   }
 

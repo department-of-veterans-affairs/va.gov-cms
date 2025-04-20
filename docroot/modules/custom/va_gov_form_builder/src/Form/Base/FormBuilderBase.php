@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_form_builder\Service\DigitalFormsService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 
 /**
@@ -77,36 +78,45 @@ abstract class FormBuilderBase extends FormBase {
   }
 
   /**
+   * Gets the field name from the violation.
+   *
+   * @param \Symfony\Component\Validator\ConstraintViolation $violation
+   *   The violation object.
+   *
+   * @return string
+   *   The field name associated with the violation.
+   */
+  protected static function getViolationFieldName(ConstraintViolation $violation) {
+    // Account for nested property path(e.g. `field_omb_number.0.value`).
+    return explode('.', $violation->getPropertyPath())[0];
+  }
+
+  /**
    * Sets form errors based on validation violations.
    *
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    * @param \Symfony\Component\Validator\ConstraintViolationList $violations
    *   The list of validation violations.
-   * @param string[] $fieldList
-   *   A list of fields to check for validation violations. Violations will
-   *   only trigger form errors if the field to which the violation applies
-   *   is in this list.
-   * @param int|null $index
-   *   The index of the component being validated, if applicable.
+   * @param array $fieldMapping
+   *   An array of field names to check for validation violations.
+   *   Keys are the field names on the entity, and values are the
+   *   corresponding form elements.
    */
   protected static function setFormErrors(
     FormStateInterface $form_state,
     ConstraintViolationList $violations,
-    array $fieldList,
-    int|null $index = NULL,
+    array $fieldMapping,
   ) {
     // Loop through each violation and set errors on the form.
     if ($violations->count() > 0) {
       foreach ($violations as $violation) {
-        // Account for nested property path(e.g. `field_omb_number.0.value`).
-        $fieldName = explode('.', $violation->getPropertyPath())[0];
+        $fieldName = self::getViolationFieldName($violation);
 
         // Only concern ourselves with validation of fields in passed-in list.
-        if (in_array($fieldName, $fieldList)) {
-          $suffix = empty($index) ? '' : "--{$index}";
+        if (array_key_exists($fieldName, $fieldMapping)) {
           $message = $violation->getMessage();
-          $form_state->setErrorByName("{$fieldName}{$suffix}", $message);
+          $form_state->setError($fieldMapping[$fieldName], $message);
         }
       }
     }

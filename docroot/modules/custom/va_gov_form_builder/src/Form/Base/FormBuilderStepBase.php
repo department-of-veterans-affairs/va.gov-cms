@@ -98,7 +98,7 @@ abstract class FormBuilderStepBase extends FormBuilderBase {
    *   The paragraph object representing the step.
    */
   public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL, $stepParagraph = NULL) {
-    if (empty($digitalForm)) {
+    if (empty($digitalForm) && !$this->allowEmptyDigitalForm) {
       throw new \InvalidArgumentException('Digital Form cannot be null.');
     }
     $this->digitalForm = $digitalForm;
@@ -112,16 +112,21 @@ abstract class FormBuilderStepBase extends FormBuilderBase {
   }
 
   /**
+   * Validate the step paragraph.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  abstract protected function validateStepParagraph(array $form, FormStateInterface $form_state);
+
+  /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $this->setStepParagraphFromFormState($form_state);
-
-    // Validate the step-paragraph entity.
-    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
-    $violations = $this->stepParagraph->validate();
-
-    $this->setFormErrors($form_state, $violations, $this->getFields());
+    $this->validateStepParagraph($form, $form_state);
   }
 
   /**

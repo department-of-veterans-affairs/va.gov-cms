@@ -36,20 +36,6 @@ class StepStyle extends FormBuilderStepBase {
   /**
    * {@inheritdoc}
    */
-  protected function getFields() {
-    // This form does not directly interact with
-    // any fields. But, since it's creating the
-    // paragraph with the prevously entered
-    // step label (field_title), we should validate
-    // it here for good measure.
-    return [
-      'field_title',
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL, $stepParagraph = NULL) {
     // On this form, the step paragraph should be allowed to be empty,
     // since it is always in "create" mode.
@@ -157,6 +143,43 @@ class StepStyle extends FormBuilderStepBase {
         'type' => 'digital_form_custom_step',
         'field_title' => $this->stepLabel,
       ]);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function validateStepParagraph(array $form, FormStateInterface $form_state) {
+    if (!isset($this->stepParagraph)) {
+      return;
+    }
+
+    // Validate the step paragraph.
+    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
+    $violations = $this->stepParagraph->validate();
+
+    foreach ($violations as $violation) {
+      $fieldName = self::getViolationFieldName($violation);
+
+      if ($fieldName === 'field_title') {
+        // This is a violation on the step title. This should not be
+        // possible as the step title should have been validated before
+        // this point, but we check here just in case. If there is an error,
+        // set an error on the form itself rather than an individual field.
+        $form_state->setError(
+          $form,
+          $this->t('There was an error with the step title. Return to the previous page and adjust as needed.');
+        );
+      }
+      else {
+        // Some other error. Again, this should not be possible, but we check
+        // here just in case. If there is an error, set an error on the
+        // form itself rather than an individual field.
+        $form_state->setError(
+          $form,
+          $this->t('There was an error. Please check all the fields and try again.'),
+        );
+      }
     }
   }
 

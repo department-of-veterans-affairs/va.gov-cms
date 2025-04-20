@@ -23,17 +23,6 @@ abstract class FormBuilderPageBase extends FormBuilderBase {
   const SESSION_KEY = 'form_builder:add_page:page_info';
 
   /**
-   * The field keys on the page paragraph.
-   *
-   * @var array
-   */
-  const FIELD_KEYS = [
-    'title' => 'field_title',
-    'body' => 'field_digital_form_body_text',
-    'components' => 'field_digital_form_components',
-  ];
-
-  /**
    * The DigitalForm object loaded by this form.
    *
    * @var \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
@@ -90,11 +79,6 @@ abstract class FormBuilderPageBase extends FormBuilderBase {
     parent::__construct($entityTypeManager, $digitalFormsService, $session);
     $this->allowEmptyPageParagraph = TRUE;
   }
-
-  /**
-   * Returns the page paragraph fields accessed by this form.
-   */
-  abstract protected function getFields();
 
   /**
    * Sets (creates or updates) a page-paragraph object from the form-state data.
@@ -172,16 +156,21 @@ abstract class FormBuilderPageBase extends FormBuilderBase {
   }
 
   /**
+   * Validates the page paragraph.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  abstract protected function validatePageParagraph(array $form, FormStateInterface $form_state);
+
+  /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $this->setPageParagraphFromFormState($form_state);
-
-    // Validate the page-paragraph entity.
-    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
-    $violations = $this->pageParagraph->validate();
-
-    $this->setFormErrors($form_state, $violations, $this->getFields());
+    $this->validatePageParagraph($form, $form_state);
   }
 
   /**

@@ -28,16 +28,6 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
   /**
    * {@inheritdoc}
    */
-  protected function getFields() {
-    return [
-      self::FIELD_KEYS['title'],
-      self::FIELD_KEYS['body'],
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function buildForm(
     array $form,
     FormStateInterface $form_state,
@@ -64,14 +54,14 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
       // If a page paragraph is passed in, this is "edit" mode.
       $this->isCreate = FALSE;
       $defaultValues = [
-        'title' => $this->getPageParagraphFieldValue(self::FIELD_KEYS['title']),
-        'body' => $this->getPageParagraphFieldValue(self::FIELD_KEYS['body']),
+        'title' => $this->getPageParagraphFieldValue('field_title'),
+        'body' => $this->getPageParagraphFieldValue('field_digital_form_body_text'),
       ];
     }
 
     $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_page_title';
 
-    $form['field_title'] = [
+    $form['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Page title (Question content)'),
       '#description' => $this->t('What is the question you are asking? This could also be a statement, identifying the information to input next.'),
@@ -79,7 +69,7 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
       '#default_value' => $defaultValues['title'],
     ];
 
-    $form['field_digital_form_body_text'] = [
+    $form['body_text'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Body content'),
       '#description' => $this->t('Additional explanation, if needed, about this question or statement.'),
@@ -107,19 +97,33 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
    * {@inheritdoc}
    */
   protected function setPageParagraphFromFormState(FormStateInterface $form_state) {
-    $title = $form_state->getValue(self::FIELD_KEYS['title']);
-    $body = $form_state->getValue(self::FIELD_KEYS['body']);
+    $title = $form_state->getValue('title');
+    $body = $form_state->getValue('body_text');
 
     if ($this->isCreate) {
       $this->pageParagraph = $this->entityTypeManager->getStorage('paragraph')->create([
         'type' => 'digital_form_page',
-        self::FIELD_KEYS['title'] => $title,
-        self::FIELD_KEYS['body'] => $body,
+        'field_title' => $title,
+        'field_digital_form_body_text' => $body,
       ]);
     }
     else {
-      $this->pageParagraph->set(self::FIELD_KEYS['title'], $title);
-      $this->pageParagraph->set(self::FIELD_KEYS['body'], $body);
+      $this->pageParagraph->set('field_title', $title);
+      $this->pageParagraph->set('field_digital_form_body_text', $body);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function validatePageParagraph(array $form, FormStateInterface $form_state) {
+    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
+    $violations = $this->pageParagraph->validate();
+    if ($violations->count() > 0) {
+      $this->setFormErrors($form_state, $violations, [
+        'field_title' => $form['title'],
+        'field_digital_form_body_text' => $form['body_text'],
+      ]);
     }
   }
 
@@ -131,8 +135,8 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
       $this->session->set(
         self::SESSION_KEY,
         [
-          'title' => $form_state->getValue(self::FIELD_KEYS['title']),
-          'body' => $form_state->getValue(self::FIELD_KEYS['body']),
+          'title' => $form_state->getValue('field_title'),
+          'body' => $form_state->getValue('field_digital_form_body_text'),
         ]
       );
     }
