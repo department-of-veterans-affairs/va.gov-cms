@@ -135,8 +135,8 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
       $this->session->set(
         self::SESSION_KEY,
         [
-          'title' => $form_state->getValue('field_title'),
-          'body' => $form_state->getValue('field_digital_form_body_text'),
+          'title' => $form_state->getValue('title'),
+          'body' => $form_state->getValue('body_text'),
         ]
       );
     }

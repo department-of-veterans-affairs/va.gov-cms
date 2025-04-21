@@ -5,6 +5,7 @@ namespace Drupal\va_gov_form_builder\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType;
+use Drupal\va_gov_form_builder\Form\Base\FormBuilderPageBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -1199,6 +1200,24 @@ class VaGovFormBuilderController extends ControllerBase {
       $breadcrumbs = $this->generateBreadcrumbs('step.question.page_title', 'Date response');
     }
     else {
+      // This is the second stage in the process
+      // of creating a new page. The previously
+      // entered page title and body should be in
+      // session storage. The page title is required.
+      // If it is not there, we should redirect back
+      // to the page-title page.
+      $sessionData = $this->session->get(FormBuilderPageBase::SESSION_KEY);
+      $pageTitle = $sessionData['title'] ?? NULL;
+      if (!$pageTitle) {
+        return $this->redirect(
+          'va_gov_form_builder.step.question.custom.date.single_date.page_title',
+          [
+            'nid' => $nid,
+            'stepParagraphId' => $stepParagraphId,
+          ],
+        );
+      }
+
       // This is page creation.
       $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.date.single_date.page_title', 'Date response');
     }

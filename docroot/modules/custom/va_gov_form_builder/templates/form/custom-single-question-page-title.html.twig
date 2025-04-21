@@ -18,11 +18,11 @@
 
     <div class="form-builder-form-fields">
       <div class="form-builder-form-fields__field form-builder-form-fields__field--field-title">
-        {{ form.field_title }}
+        {{ form.title }}
       </div>
 
       <div class="form-builder-form-fields__field form-builder-form-fields__field--field-digital-form-body-text">
-        {{ form.field_digital_form_body_text }}
+        {{ form.body_text }}
       </div>
     </div>
   </section>
@@ -31,8 +31,8 @@
 {% block after_buttons %}
   {# render rest of form so it functions properly #}
   {{ form|without(
-    'field_title',
-    'field_digital_form_body_text',
+    'title',
+    'body_text',
     'actions',
   )}}
 {% endblock %}
