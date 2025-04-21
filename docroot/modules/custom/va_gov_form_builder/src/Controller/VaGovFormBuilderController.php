@@ -1210,7 +1210,8 @@ class VaGovFormBuilderController extends ControllerBase {
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
       'two_column_with_buttons',
-      'custom_single_question_single_date_response',
+      'expanded_radio',
+      'custom_single_question_response',
     ];
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);

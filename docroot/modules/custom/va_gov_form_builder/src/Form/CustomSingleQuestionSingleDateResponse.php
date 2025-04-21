@@ -53,16 +53,23 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
     $form['required'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Required for the submitter'),
-      '#required' => TRUE,
       '#default_value' => TRUE,
     ];
 
     $form['date_format'] = [
-      '#type' => 'radios',
-      '#title' => $this->t('Date format'),
+      '#type' => 'va_gov_form_builder__expanded_radios',
+      '#title' => $this->t('This date type is:'),
       '#options' => [
-        'month_day_year' => $this->t('A memorable date that a submitter knows'),
-        'month_year' => $this->t('A date that a submitter can approximate'),
+        'month_day_year' => $this->t('A memorable date that a submitter knows (includes Month, Day, Year'),
+        'month_year' => $this->t('A date that a submitter can approximate (includes Month, Year'),
+      ],
+      '#options_expanded_content' => [
+        'month_day_year' => [
+          '#markup' => '<p><a href="" target="_blank">View example in Sample Forms</a></p>',
+        ],
+        'month_year' => [
+          '#markup' => '<p><a href="" target="_blank">View example in Sample Forms</a></p>',
+        ],
       ],
       '#default_value' => 'month_day_year',
       '#required' => TRUE,
@@ -106,7 +113,7 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
       'field_digital_form_date_format' => $form_state->getValue('date_format'),
       'field_digital_form_hint_text' => $form_state->getValue('hint_text'),
       'field_digital_form_label' => $form_state->getValue('label'),
-      'field_digital_form_required' => $form_state->getValue('required'),
+      'field_digital_form_required' => $form_state->getValue('required') ?? FALSE,
     ]);
   }
 
