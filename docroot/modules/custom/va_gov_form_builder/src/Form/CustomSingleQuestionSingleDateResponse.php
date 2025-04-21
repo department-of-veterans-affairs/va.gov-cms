@@ -60,8 +60,8 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
       '#type' => 'va_gov_form_builder__expanded_radios',
       '#title' => $this->t('This date type is:'),
       '#options' => [
-        'month_day_year' => $this->t('A memorable date that a submitter knows (includes Month, Day, Year'),
-        'month_year' => $this->t('A date that a submitter can approximate (includes Month, Year'),
+        'month_day_year' => $this->t('A memorable date that a submitter knows (includes Month, Day, Year)'),
+        'month_year' => $this->t('A date that a submitter can approximate (includes Month, Year)'),
       ],
       '#options_expanded_content' => [
         'month_day_year' => [
@@ -72,7 +72,6 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
         ],
       ],
       '#default_value' => 'month_day_year',
-      '#required' => TRUE,
     ];
 
     $form['label'] = [
@@ -86,6 +85,15 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
       '#type' => 'textfield',
       '#title' => $this->t('Hint text for date label'),
       '#required' => FALSE,
+    ];
+
+    $form['preview'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'img',
+      '#attributes' => [
+        'src' => self::IMAGE_DIR . 'single-date.png',
+        'alt' => $this->t('A preview of the single-date response.'),
+      ],
     ];
 
     $form['actions']['save_and_continue'] = [

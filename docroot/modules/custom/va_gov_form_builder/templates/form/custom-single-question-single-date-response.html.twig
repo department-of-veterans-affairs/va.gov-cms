@@ -41,7 +41,10 @@
 {% endblock %}
 
 {% block right_content %}
-  RIGHT CONTENT
+  <div class="form-builder-single-question-response__preview">
+    <label for="preview">Example</label>
+    <div id="preview">{{ form.preview }}</div>
+  </div>
 {% endblock %}
 
 {% block after_buttons %}
@@ -53,6 +56,7 @@
     'date_format',
     'label',
     'hint_text',
+    'preview',
     'actions',
   )}}
 {% endblock %}
