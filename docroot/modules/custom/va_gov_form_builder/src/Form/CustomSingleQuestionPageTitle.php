@@ -139,17 +139,27 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
           'body' => $form_state->getValue('body_text'),
         ]
       );
+
+      $form_state->setRedirect(
+        "va_gov_form_builder.step.question.custom." . $this->pageComponentType->value . ".response",
+        [
+          'nid' => $this->digitalForm->id(),
+          'stepParagraphId' => $this->stepParagraph->id(),
+        ],
+      );
     }
     else {
       parent::submitForm($form, $form_state);
-    }
 
-    // Temporary. This will be replaced with a conditional redirect
-    // based on $this->pageComponentType.
-    $form_state->setRedirect('va_gov_form_builder.step.layout', [
-      'nid' => $this->digitalForm->id(),
-      'stepParagraphId' => $this->stepParagraph->id(),
-    ]);
+      $form_state->setRedirect(
+        "va_gov_form_builder.step.question.response",
+        [
+          'nid' => $this->digitalForm->id(),
+          'stepParagraphId' => $this->stepParagraph->id(),
+          'pageParagraphId' => $this->pageParagraph->id(),
+        ],
+      );
+    }
   }
 
 }
