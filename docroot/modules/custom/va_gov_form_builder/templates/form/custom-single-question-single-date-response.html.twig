@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Single-date response.
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/two-column-with-buttons.html.twig' %}
+
+{% set page_id = 'custom-single-question-single-date-response' %}
+{% set page_heading = 'FILL THIS IN' %}
+
+{% block left_content %}
+  LEFT CONTENT
+{% endblock %}
+
+{% block right_content %}
+  RIGHT CONTENT
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'field_title',
+    'field_digital_form_body_text',
+    'actions',
+  )}}
+{% endblock %}

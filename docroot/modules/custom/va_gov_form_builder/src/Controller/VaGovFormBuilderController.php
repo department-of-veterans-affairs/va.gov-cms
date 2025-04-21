@@ -1209,7 +1209,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $formName = 'CustomSingleQuestionSingleDateResponse';
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
-      'single_column_with_buttons',
+      'two_column_with_buttons',
       'custom_single_question_single_date_response',
     ];
 

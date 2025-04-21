@@ -40,7 +40,8 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
       CustomSingleQuestionPageType::SingleDate,
     );
 
-    // @todo Set form theme.
+    $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_single_date_response';
+
     $form['page_title'] = [
       '#markup' => $this->pageData['title'],
     ];
