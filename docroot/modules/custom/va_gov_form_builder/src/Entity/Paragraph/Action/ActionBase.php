@@ -15,10 +15,8 @@ abstract class ActionBase implements ActionInterface {
    */
   public function checkAccess(FormBuilderParagraphInterface $paragraph): bool {
     $result = AccessResult::allowed();
-    // Delegate access check to the Paragraph if available.
-    if (method_exists($paragraph, 'actionAccess')) {
-      $result = $result->andIf($paragraph->actionAccess($this));
-    }
+    // Delegate access check to the Paragraph.
+    $result = $result->andIf($paragraph->actionAccess($this));
     return $result->isAllowed();
   }
 

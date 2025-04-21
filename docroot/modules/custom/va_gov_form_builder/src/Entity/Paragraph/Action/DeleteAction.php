@@ -49,26 +49,27 @@ class DeleteAction extends ActionBase {
       return;
     }
     try {
+      $siblings = $paragraph->getFieldEntities();
       $parentFieldName = $paragraph->get('parent_field_name')->value;
       /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $parentField */
       $parentField = $paragraph->getParentEntity()->get($parentFieldName);
-      foreach ($parentField as $delta => $field) {
-        if ($paragraph->id() === $field->entity->id()) {
+      foreach ($siblings as $delta => $entity) {
+        if ($paragraph->id() === $entity->id()) {
           $parentField->removeItem($delta);
+          // Save the parent entity.
+          $paragraph->getParentEntity()->save();
+
+          // Delete the paragraph.
+          $paragraph->delete();
+
+          // Add success message.
+          \Drupal::messenger()
+            ->addStatus($this->t('%label was deleted successfully', [
+              '%label' => $label,
+            ]));
           break;
         }
       }
-      // Save the parent entity.
-      $paragraph->getParentEntity()->save();
-
-      // Delete the paragraph.
-      $paragraph->delete();
-
-      // Add success message.
-      \Drupal::messenger()
-        ->addStatus($this->t('%label was deleted successfully', [
-          '%label' => $label,
-        ]));
     }
     catch (\Exception $e) {
       // Saving node or deleting paragraph failed. Add error message.

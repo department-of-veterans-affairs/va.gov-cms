@@ -4,7 +4,6 @@ namespace Drupal\va_gov_form_builder\Entity\Paragraph\Action;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_form_builder\Entity\Paragraph\FormBuilderParagraphInterface;
 
 /**
@@ -56,29 +55,37 @@ class MoveUpAction extends ActionBase {
         ]));
       return;
     }
-    $previousStep = NULL;
+    // Find the current paragraph and its previous sibling.
     $previousDelta = NULL;
+    $currentDelta = NULL;
     try {
       $siblings = $paragraph->getFieldEntities();
-      // Grab the real field, so we can persist the data to the parent.
       $parentFieldName = $paragraph->get('parent_field_name')->value;
       $parentField = $paragraph->getParentEntity()->get($parentFieldName);
       foreach ($siblings as $delta => $entity) {
-        if ($entity->id() === $paragraph->id() && $previousStep instanceof ParagraphInterface && !is_null($previousDelta)) {
-          $parentField->set($previousDelta, $entity);
-          $parentField->set($delta, $previousStep);
+        if ($entity->id() === $paragraph->id()) {
+          $currentDelta = $delta;
           break;
         }
-        $previousStep = $entity;
         $previousDelta = $delta;
       }
-      // Save the parent.
-      $paragraph->getParentEntity()->save();
+      // Only proceed if we found both deltas.
+      if (isset($currentDelta, $previousDelta)) {
+        $previousEntity = $siblings[$previousDelta];
+        $currentEntity = $siblings[$currentDelta];
 
-      // Add success message.
-      \Drupal::messenger()->addMessage($this->t('Step %label was moved up successfully', [
-        '%label' => $label,
-      ]));
+        // Swap positions.
+        $parentField->set($previousDelta, $currentEntity);
+        $parentField->set($currentDelta, $previousEntity);
+
+        // Save the parent.
+        $paragraph->getParentEntity()->save();
+
+        // Add success message.
+        \Drupal::messenger()->addStatus($this->t('%label was moved up successfully', [
+          '%label' => $label,
+        ]));
+      }
     }
     catch (\Exception $e) {
       // Persisting to node failed.
@@ -87,13 +94,6 @@ class MoveUpAction extends ActionBase {
         '%error' => $e->getMessage(),
       ]));
     }
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function render(FormBuilderParagraphInterface $paragraph): array {
-    return [];
   }
 
 }
