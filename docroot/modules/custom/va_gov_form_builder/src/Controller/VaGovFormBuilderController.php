@@ -135,9 +135,13 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $paragraphId
    *   The paragraph id to load.
    *
-   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-   *   If the pargraph is not found, or if the paragraph
+   * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   *   If the paragraph is not found, or if the paragraph
    *   does not belong to $this->digitalForm.
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *   Thrown if the entity type doesn't exist.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *   Thrown if the storage handler couldn't be loaded.
    */
   protected function loadStepParagraph($paragraphId) {
     /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
