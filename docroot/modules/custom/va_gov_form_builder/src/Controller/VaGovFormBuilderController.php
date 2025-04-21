@@ -510,6 +510,9 @@ class VaGovFormBuilderController extends ControllerBase {
         'url' => $this->getPageUrl('contact_info'),
       ],
       '#additional_steps' => [
+        'messages' => [
+          '#type' => 'status_messages',
+        ],
         'steps' => array_map(function ($step) {
           $stepParagraphId = $step['fields']['id'][0]['value'];
           return [
@@ -786,6 +789,9 @@ class VaGovFormBuilderController extends ControllerBase {
         '#step_label' => [
           'label' => $stepLabel,
           'url' => $this->getPageUrl('step.step_label.edit'),
+        ],
+        '#messages' => [
+          '#type' => 'status_messages',
         ],
         '#pages' => $pages,
         '#buttons' => [

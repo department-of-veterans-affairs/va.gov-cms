@@ -75,6 +75,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
         'add_step' => [
           'url' => '',
         ],
+        'messages' => [],
       ],
       'review_and_sign' => [
         'status' => '',
@@ -147,6 +148,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   $stepLayoutVariables = [
     'step_label' => [],
     'pages' => [],
+    'messages' => [],
     'buttons' => [],
   ];
   // 5a. Step-layout page for single question.
