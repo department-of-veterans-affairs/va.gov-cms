@@ -96,6 +96,23 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
       ],
     ];
 
+    $form['actions']['edit-question'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Edit question'),
+      '#name' => 'edit-question',
+      '#attributes' => [
+        'class' => [
+          'button',
+          'button--secondary',
+          'form-submit',
+        ],
+        'formnovalidate' => 'formnovalidate',
+      ],
+      '#submit' => ['::handleEditQuestionClick'],
+      '#limit_validation_errors' => [],
+      '#weight' => '10',
+    ];
+
     $form['actions']['save_and_continue'] = [
       '#type' => 'submit',
       '#value' => $this->t('Save and continue'),
@@ -106,10 +123,40 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
           'form-submit',
         ],
       ],
-      '#weight' => '10',
+      '#weight' => '20',
     ];
 
     return $form;
+  }
+
+  /**
+   * Handler for the edit-question button.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function handleEditQuestionClick(array &$form, FormStateInterface $form_state) {
+    if ($this->isCreate) {
+      $form_state->setRedirect(
+        'va_gov_form_builder.step.question.custom.date.single_date.page_title',
+        [
+          'nid' => $this->digitalForm->id(),
+          'stepParagraphId' => $this->stepParagraph->id(),
+        ],
+      );
+    }
+    else {
+      $form_state->setRedirect(
+        'va_gov_form_builder.step.question.page_title',
+        [
+          'nid' => $this->digitalForm->id(),
+          'stepParagraphId' => $this->stepParagraph->id(),
+          'pageParagraphId' => $this->pageParagraph->id(),
+        ]
+      );
+    }
   }
 
   /**

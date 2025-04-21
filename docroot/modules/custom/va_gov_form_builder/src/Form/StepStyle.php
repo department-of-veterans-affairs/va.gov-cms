@@ -121,6 +121,11 @@ class StepStyle extends FormBuilderStepBase {
 
   /**
    * Handler for the edit-step-label button.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    */
   public function handleEditStepLabelClick(array &$form, FormStateInterface $form_state) {
     $form_state->setRedirect('va_gov_form_builder.step.step_label.create', [
