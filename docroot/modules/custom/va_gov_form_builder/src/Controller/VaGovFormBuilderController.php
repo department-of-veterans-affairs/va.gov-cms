@@ -117,7 +117,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $nid
    *   The node id to load.
    *
-   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
    *   If the node is not found.
    */
   protected function loadDigitalForm($nid) {
@@ -133,7 +133,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $paragraphId
    *   The paragraph id to load.
    *
-   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
    *   If the pargraph is not found, or if the paragraph
    *   does not belong to $this->digitalForm.
    */
@@ -164,7 +164,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $paragraphId
    *   The paragraph id to load.
    *
-   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
    *   If the paragraph is not found, or if the paragraph
    *   does not belong to $this->stepParagraph.
    */
@@ -192,11 +192,16 @@ class VaGovFormBuilderController extends ControllerBase {
   /**
    * Determines and returns the type of component(s) on a page paragraph.
    *
-   * @param Paragraph $paragraph
+   * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
    *   The paragraph object representing the page.
    *
-   * @return SingleQuestionPageType
+   * @return \Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType
    *   The type of component(s) on the page paragraph.
+   *
+   * @throws \LogicException
+   *   If the paragraph doesn't have the expected field,
+   *   if the paragraph doesn't have components,
+   *   or if the component found is not an expected type.
    */
   protected static function getPageComponentType($paragraph) {
     if (!$paragraph->hasField('field_digital_form_components')) {
@@ -211,29 +216,34 @@ class VaGovFormBuilderController extends ControllerBase {
       throw new \LogicException('No components found on the page paragraph.');
     }
 
-    switch ($pageComponents[0]->bundle()) {
-      case 'digital_form_date_component':
-        // This is a single-date page unless there is
-        // another date component.
-        if (isset($pageComponents[1])) {
-          if ($pageComponents[1]->bundle() === 'digital_form_date_component') {
-            return CustomSingleQuestionPageType::DateRange;
-          }
+    $firstComponentBundle = $pageComponents[0]->bundle();
+
+    // Date or Date range.
+    if ($firstComponentBundle === 'digital_form_date_component') {
+      if (isset($pageComponents[1])) {
+        $secondComponentBundle = $pageComponents[1]->bundle();
+
+        if ($secondComponentBundle === 'digital_form_date_component') {
+          return CustomSingleQuestionPageType::DateRange;
         }
-        return CustomSingleQuestionPageType::SingleDate;
 
-      case 'digital_form_radio_button':
-        return CustomSingleQuestionPageType::Radio;
-
-      case 'digital_form_checkbox':
-        return CustomSingleQuestionPageType::Checkbox;
-
-      case 'digital_form_text_input':
-        return CustomSingleQuestionPageType::TextInput;
-
-      case 'digital_form_text_area':
-        return CustomSingleQuestionPageType::TextArea;
+        return customSingleQuestionPageType::SingleDate;
+      }
     }
+
+    // Radio, Checkbox, Text input, Text area.
+    $map = [
+      'digital_form_radio_button' => CustomSingleQuestionPageType::Radio,
+      'digital_form_checkbox' => CustomSingleQuestionPageType::Checkbox,
+      'digital_form_text_input' => CustomSingleQuestionPageType::TextInput,
+      'digital_form_text_area' => CustomSingleQuestionPageType::TextArea,
+    ];
+    if (isset($map[$firstComponentBundle])) {
+      return $map[$firstComponentBundle];
+    }
+
+    // Otherwise, it's an error.
+    throw new \LogicException('The page component type cannot be determined.');
   }
 
   /**
@@ -1153,6 +1163,7 @@ class VaGovFormBuilderController extends ControllerBase {
       }
     }
 
+    // @phpstan-ignore-next-line
     $form = $this->drupalFormBuilder->getForm(
       'Drupal\va_gov_form_builder\Form\\' . $formName,
       $this->digitalForm,

@@ -172,10 +172,11 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
     $required = $form_state->getValue('required') ?? FALSE;
     $dateFormat = 'month_day_year';
     $components = $form_state->getValue('components');
-    foreach ($components as $i => $component) {
-      $label[$i] = $component['label'] ?? '';
-      $hint[$i] = $component['hint_text'] ?? '';
-    }
+
+    $label[0] = $components[0]['label'] ?? '';
+    $hint[0] = $components[1]['hint_text'] ?? '';
+    $label[1] = $components[1]['label'] ?? '';
+    $hint[1] = $components[1]['hint_text'] ?? '';
 
     if ($this->isCreate) {
       for ($i = 0; $i <= 1; $i++) {
@@ -193,7 +194,7 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
         $this->components[$i]->set('field_digital_form_required', $required);
         $this->components[$i]->set('field_digital_form_date_format', $dateFormat);
         $this->components[$i]->set('field_digital_form_label', $label[$i]);
-        $this->components[$i]->set('field_digital_form_hint_text', $hintText[$i]);
+        $this->components[$i]->set('field_digital_form_hint_text', $hint[$i]);
       }
     }
   }

@@ -87,7 +87,7 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
       foreach ($componentParagraphs as $componentParagraph) {
         $paragraph = $this->entityTypeManager
           ->getStorage('paragraph')
-          ->load($componentParagraph->target_id);
+          ->load($componentParagraph->get('target_id')->getValue());
         if ($paragraph) {
           $this->components[] = $paragraph;
         }
@@ -234,7 +234,6 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
       return;
     }
 
-    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
     foreach ($this->components as $i => $component) {
       $this->validateComponent($i, $form, $form_state);
     }

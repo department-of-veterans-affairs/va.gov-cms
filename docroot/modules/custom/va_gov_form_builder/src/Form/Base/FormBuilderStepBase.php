@@ -93,7 +93,7 @@ abstract class FormBuilderStepBase extends FormBuilderBase {
    *   The paragraph object representing the step.
    */
   public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL, $stepParagraph = NULL) {
-    if (empty($digitalForm) && !$this->allowEmptyDigitalForm) {
+    if (empty($digitalForm)) {
       throw new \InvalidArgumentException('Digital Form cannot be null.');
     }
     $this->digitalForm = $digitalForm;

@@ -18,7 +18,7 @@ abstract class FormBuilderPageBase extends FormBuilderBase {
   /**
    * The session key used to store the page title and body.
    *
-   * @var array
+   * @var string
    */
   const SESSION_KEY = 'form_builder:add_page:page_info';
 
@@ -146,7 +146,7 @@ abstract class FormBuilderPageBase extends FormBuilderBase {
     }
     $this->stepParagraph = $stepParagraph;
 
-    if (empty($stepParagraph) && !$this->allowEmptyPageParagraph) {
+    if (empty($pageParagraph) && !$this->allowEmptyPageParagraph) {
       throw new \InvalidArgumentException('Page paragraph cannot be null.');
     }
     $this->pageParagraph = $pageParagraph;
