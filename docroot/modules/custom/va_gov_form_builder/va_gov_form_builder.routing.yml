@@ -132,6 +132,13 @@ va_gov_form_builder.step.question.custom.date.single_date.response:
   requirements:
     nid: \d*
     stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.date.date_range.response:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/date/date-range/response"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionDateRangeResponse'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
 va_gov_form_builder.step.question.response:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/{pageParagraphId}/response"
   defaults:
