@@ -99,25 +99,17 @@ class DateType extends FormBuilderBase {
     $routeParameters = \Drupal::routeMatch()->getParameters()->all();
     $nid = $routeParameters['nid'];
     $stepParagraphId = $routeParameters['stepParagraphId'];
-
     $dateType = $form_state->getValue('date_type');
+    $redirectRoute = match ($dateType) {
+      'single_date' => 'va_gov_form_builder.step.question.custom.date.single_date.page_title',
+      'date_range' => 'va_gov_form_builder.step.question.custom.date.date_range.page_title',
+      default => throw new \InvalidArgumentException('Invalid date type selected.'),
+    };
 
-    switch ($dateType) {
-      // Eventually, we'll have to handle these individually.
-      // For now, we just redirect to an arbitrary page with
-      // the response kind as a query parameter.
-      case 'single_date':
-      case 'date_range':
-        $form_state->setRedirect('va_gov_form_builder.step.layout', [
-          'nid' => $nid,
-          'stepParagraphId' => $stepParagraphId,
-        ], [
-          'query' => [
-            'date_type' => $dateType,
-          ],
-        ]);
-        break;
-    }
+    $form_state->setRedirect($redirectRoute, [
+      'nid' => $nid,
+      'stepParagraphId' => $stepParagraphId,
+    ]);
   }
 
 }
