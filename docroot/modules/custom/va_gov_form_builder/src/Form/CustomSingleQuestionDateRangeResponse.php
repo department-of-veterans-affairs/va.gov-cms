@@ -40,7 +40,8 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
       CustomSingleQuestionPageType::DateRange,
     );
 
-    // @todo Set form theme.
+    $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_date_range_response';
+
     $form['page_title'] = [
       '#markup' => $this->pageData['title'],
     ];
@@ -49,55 +50,91 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
       '#markup' => $this->pageData['body'],
     ];
 
-    $form['field_digital_form_required'] = [
+    $form['required'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Required for the submitter'),
-      '#required' => TRUE,
-      '#default_value' => TRUE,
+      '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_required')[0] ?? TRUE,
     ];
 
-    $form['field_digital_form_date_format'] = [
-      '#type' => 'radios',
-      '#title' => $this->t('Date format'),
+    $form['date_format'] = [
+      '#type' => 'va_gov_form_builder__expanded_radios',
+      '#title' => $this->t('This date type is:'),
       '#options' => [
-        'month_day_year' => $this->t('A memorable date that a submitter knows'),
-        'month_year' => $this->t('A date that a submitter can approximate'),
+        'month_day_year' => $this->t('A memorable date that a submitter knows (includes Month, Day, Year)'),
+        'month_year' => $this->t('A date that a submitter can approximate (includes Month, Year)'),
       ],
-      '#default_value' => 'month_day_year',
-      '#required' => TRUE,
+      '#options_expanded_content' => [
+        'month_day_year' => [
+          '#markup' => '<p><a href="" target="_blank">View example in Sample Forms</a></p>',
+        ],
+        'month_year' => [
+          '#markup' => '<p><a href="" target="_blank">View example in Sample Forms</a></p>',
+        ],
+      ],
+      '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_date_format')[0] ?? 'month_day_year',
     ];
 
     $form['components'] = [
       [
-        'field_digital_form_label' => [
+        'label' => [
           '#type' => 'textfield',
           '#title' => $this->t('Date label'),
           '#description' => $this->t('For example, "Anniversary date"'),
           '#required' => TRUE,
-          '#parents' => ['components', '0', 'field_digital_form_label'],
+          '#parents' => ['components', '0', 'label'],
+          '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[0] ?? '',
         ],
-        'field_digital_form_hint_text' => [
+        'hint_text' => [
           '#type' => 'textfield',
           '#title' => $this->t('Hint text for date label'),
           '#required' => FALSE,
-          '#parents' => ['components', '0', 'field_digital_form_hint_text'],
+          '#parents' => ['components', '0', 'hint_text'],
+          '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[0] ?? '',
         ],
       ],
       [
-        'field_digital_form_label' => [
+        'label' => [
           '#type' => 'textfield',
           '#title' => $this->t('Date label'),
           '#description' => $this->t('For example, "Anniversary date"'),
           '#required' => TRUE,
-          '#parents' => ['components', '1', 'field_digital_form_label'],
+          '#parents' => ['components', '1', 'label'],
+          '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[1] ?? '',
         ],
-        'field_digital_form_hint_text' => [
+        'hint_text' => [
           '#type' => 'textfield',
           '#title' => $this->t('Hint text for date label'),
           '#required' => FALSE,
-          '#parents' => ['components', '1', 'field_digital_form_hint_text'],
+          '#parents' => ['components', '1', 'hint_text'],
+          '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[1] ?? '',
         ],
       ],
+    ];
+
+    $form['preview'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'img',
+      '#attributes' => [
+        'src' => self::IMAGE_DIR . 'date-range.png',
+        'alt' => $this->t('A preview of the date-range response.'),
+      ],
+    ];
+
+    $form['actions']['edit-question'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Edit question'),
+      '#name' => 'edit-question',
+      '#attributes' => [
+        'class' => [
+          'button',
+          'button--secondary',
+          'form-submit',
+        ],
+        'formnovalidate' => 'formnovalidate',
+      ],
+      '#submit' => ['::handleEditQuestionClick'],
+      '#limit_validation_errors' => [],
+      '#weight' => '10',
     ];
 
     $form['actions']['save_and_continue'] = [
@@ -114,6 +151,36 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
     ];
 
     return $form;
+  }
+
+  /**
+   * Handler for the edit-question button.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function handleEditQuestionClick(array &$form, FormStateInterface $form_state) {
+    if ($this->isCreate) {
+      $form_state->setRedirect(
+        'va_gov_form_builder.step.question.custom.date.date_range.page_title',
+        [
+          'nid' => $this->digitalForm->id(),
+          'stepParagraphId' => $this->stepParagraph->id(),
+        ],
+      );
+    }
+    else {
+      $form_state->setRedirect(
+        'va_gov_form_builder.step.question.page_title',
+        [
+          'nid' => $this->digitalForm->id(),
+          'stepParagraphId' => $this->stepParagraph->id(),
+          'pageParagraphId' => $this->pageParagraph->id(),
+        ]
+      );
+    }
   }
 
   /**
@@ -156,6 +223,14 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
         'field_digital_form_required' => $form['field_digital_form_required'],
       ]);
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    xdebug_var_dump('submit');
+    exit;
   }
 
 }

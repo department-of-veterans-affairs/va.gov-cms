@@ -6,7 +6,7 @@
 #}
 {% extends '@va_gov_form_builder/form/base/two-column-with-buttons.html.twig' %}
 
-{% set page_id = 'custom-single-question-single-date-response' %}
+{% set page_id = 'custom-single-question-date-range-response' %}
 {% set page_heading = 'Customize the responses' %}
 
 {% block left_content %}
@@ -26,15 +26,20 @@
 
 
     <div class="form-builder-single-question-response__type">
-      <label for="guidance">Date</label>
+      <label for="guidance">Date range</label>
       <p id="guidance">Guidance for this choice</p>
     </div>
 
     {{ form.date_format }}
 
     <div class="form-builder-single-question-response__component">
-      {{ form.label }}
-      {{ form.hint_text }}
+      {{ form.components.0.label }}
+      {{ form.components.0.hint_text }}
+    </div>
+
+    <div class="form-builder-single-question-response__component">
+      {{ form.components.0.label }}
+      {{ form.components.0.hint_text }}
     </div>
 
   </section>
@@ -54,8 +59,7 @@
     'required',
     'page_body',
     'date_format',
-    'label',
-    'hint_text',
+    'components',
     'preview',
     'actions',
   )}}
