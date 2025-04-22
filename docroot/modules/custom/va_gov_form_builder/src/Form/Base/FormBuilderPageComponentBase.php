@@ -295,6 +295,11 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
         $component->save();
       }
     }
+
+    $form_state->setRedirect('va_gov_form_builder.step.layout', [
+      'nid' => $this->digitalForm->id(),
+      'stepParagraphId' => $this->stepParagraph->id(),
+    ]);
   }
 
 }
