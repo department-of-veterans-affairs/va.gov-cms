@@ -53,13 +53,6 @@ class FormBuilderBaseTest extends VaGovUnitTestBase {
       use AnonymousFormClass;
 
       /**
-       * getFields.
-       */
-      protected function getFields() {
-        return [];
-      }
-
-      /**
        * buildForm.
        */
       public function buildForm(array $form, FormStateInterface $form_state) {

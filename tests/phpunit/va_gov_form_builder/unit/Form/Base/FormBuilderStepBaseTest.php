@@ -61,13 +61,18 @@ class FormBuilderStepBaseTest extends VaGovUnitTestBase {
       use AnonymousFormClass;
 
       /**
-       * getFields.
+       * validateStepParagraph.
        */
-      protected function getFields() {
-        return [
-          'test_field_1',
-          'test_field_2',
-        ];
+      protected function validateStepParagraph(array $form, FormStateInterface $form_state) {
+        /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
+        $violations = $this->stepParagraph->validate();
+
+        if ($violations->count() > 0) {
+          self::setFormErrors($form_state, $violations, [
+            'field_test_field_1' => $form['test_field_1'],
+            'field_test_field_2' => $form['test_field_2'],
+          ]);
+        }
       }
 
       /**
@@ -125,11 +130,12 @@ class FormBuilderStepBaseTest extends VaGovUnitTestBase {
   public function testValidateFormWithNoViolations() {
     $this->setUpViolationTest();
 
-    $form = [];
+    $form['test_field_1'] = [];
+    $form['test_field_2'] = [];
 
     $formStateMock = $this->createMock(FormStateInterface::class);
     $formStateMock->expects($this->never())
-      ->method('setErrorByName');
+      ->method('setError');
 
     $this->classInstance->validateForm($form, $formStateMock);
   }
@@ -141,20 +147,21 @@ class FormBuilderStepBaseTest extends VaGovUnitTestBase {
     // Has violations on fields related to this form;
     // should raise errors.
     $violationList = new ConstraintViolationList([
-      new ConstraintViolation('Invalid value 1', '', [], '', 'test_field_1', 'Invalid value'),
-      new ConstraintViolation('Invalid value 2', '', [], '', 'test_field_2', 'Invalid value'),
+      new ConstraintViolation('Invalid value 1', '', [], '', 'field_test_field_1', 'Invalid value'),
+      new ConstraintViolation('Invalid value 2', '', [], '', 'field_test_field_2', 'Invalid value'),
     ]);
 
     $this->setUpViolationTest($violationList);
 
-    $form = [];
+    $form['test_field_1'] = [];
+    $form['test_field_2'] = [];
 
     $formStateMock = $this->createMock(FormStateInterface::class);
     $formStateMock->expects($this->exactly(2))
-      ->method('setErrorByName')
+      ->method('setError')
       ->withConsecutive(
-        ['test_field_1', 'Invalid value 1'],
-        ['test_field_2', 'Invalid value 2'],
+        [$form['test_field_1'], 'Invalid value 1'],
+        [$form['test_field_2'], 'Invalid value 2'],
       );
 
     $this->classInstance->validateForm($form, $formStateMock);
@@ -167,17 +174,18 @@ class FormBuilderStepBaseTest extends VaGovUnitTestBase {
     // Has violations, but not on fields related to this form;
     // should not raise errors.
     $violationList = new ConstraintViolationList([
-      new ConstraintViolation('Invalid value 3', '', [], '', 'test_field_3', 'Invalid value'),
-      new ConstraintViolation('Invalid value 4', '', [], '', 'test_field_4', 'Invalid value'),
+      new ConstraintViolation('Invalid value 3', '', [], '', 'field_test_field_3', 'Invalid value'),
+      new ConstraintViolation('Invalid value 4', '', [], '', 'field_test_field_4', 'Invalid value'),
     ]);
 
     $this->setUpViolationTest($violationList);
 
-    $form = [];
+    $form['test_field_1'] = [];
+    $form['test_field_2'] = [];
 
     $formStateMock = $this->createMock(FormStateInterface::class);
     $formStateMock->expects($this->never())
-      ->method('setErrorByName');
+      ->method('setError');
 
     $this->classInstance->validateForm($form, $formStateMock);
   }
@@ -189,18 +197,19 @@ class FormBuilderStepBaseTest extends VaGovUnitTestBase {
     // Has violation with a nested path; should raise an error the same way
     // as if the path were not nested (on `test_field_1`).
     $violationList = new ConstraintViolationList([
-      new ConstraintViolation('Invalid value 1', '', [], '', 'test_field_1.0.value', 'Invalid value'),
+      new ConstraintViolation('Invalid value 1', '', [], '', 'field_test_field_1.0.value', 'Invalid value'),
     ]);
 
     $this->setUpViolationTest($violationList);
 
-    $form = [];
+    $form['test_field_1'] = [];
+    $form['test_field_2'] = [];
 
     $formStateMock = $this->createMock(FormStateInterface::class);
     $formStateMock->expects($this->exactly(1))
-      ->method('setErrorByName')
+      ->method('setError')
       ->withConsecutive(
-        ['test_field_1', 'Invalid value 1'],
+        [$form['test_field_1'], 'Invalid value 1'],
       );
 
     $this->classInstance->validateForm($form, $formStateMock);
