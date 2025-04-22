@@ -141,7 +141,7 @@ class FormInfo extends FormBuilderFormBase {
   /**
    * {@inheritdoc}
    */
-  protected function validateDigitalForm(array &$form, FormStateInterface $form_state) {
+  protected function validateDigitalForm(array $form, FormStateInterface $form_state) {
     /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
     $violations = $this->digitalForm->validate();
 
