@@ -167,14 +167,19 @@ class StepStyle extends FormBuilderStepBase {
       $fieldName = self::getViolationFieldName($violation);
 
       if ($fieldName === 'field_title') {
-        // This is a violation on the step title. This should not be
-        // possible as the step title should have been validated before
+        // This is a violation on the step label. This should not be
+        // possible as the step label should have been validated before
         // this point, but we check here just in case. If there is an error,
         // set an error on the form itself rather than an individual field.
         $form_state->setError(
           $form,
-          $this->t('There was an error with the step title. Return to the previous page and adjust as needed.');
+          $this->t('There was an error with the step label. Return to the previous page and adjust as needed.'),
         );
+      }
+      elseif ($fieldName === 'field_digital_form_pages') {
+        // Do nothing. This is allowed to be empty here, despite it being a
+        // validation error. It *should* always be empty at this point
+        // of creating the step.
       }
       else {
         // Some other error. Again, this should not be possible, but we check
