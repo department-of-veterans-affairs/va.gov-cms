@@ -152,6 +152,7 @@ abstract class FormBuilderPageBase extends FormBuilderBase {
     $this->pageParagraph = $pageParagraph;
     $this->pageComponentType = $pageComponentType;
 
+    $form = parent::buildForm($form, $form_state);
     return $form;
   }
 

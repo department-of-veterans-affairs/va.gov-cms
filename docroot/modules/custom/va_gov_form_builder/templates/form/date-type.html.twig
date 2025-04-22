@@ -16,6 +16,7 @@
 {% block after_buttons %}
   {# render rest of form so it functions properly #}
   {{ form|without(
+    'status_messages',
     'date_type',
     'actions',
   )}}

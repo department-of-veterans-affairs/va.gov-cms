@@ -92,6 +92,7 @@ abstract class FormBuilderFormBase extends FormBuilderBase {
     }
     $this->digitalForm = $digitalForm;
 
+    $form = parent::buildForm($form, $form_state);
     return $form;
   }
 

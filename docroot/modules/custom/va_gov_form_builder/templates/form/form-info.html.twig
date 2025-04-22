@@ -20,6 +20,7 @@
 
   {# render rest of form so it functions properly #}
   {{ form|without(
+    'status_messages',
     'title',
     'va_form_number',
     'omb_number',

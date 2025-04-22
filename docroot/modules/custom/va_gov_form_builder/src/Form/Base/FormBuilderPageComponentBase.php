@@ -94,10 +94,6 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
       }
     }
 
-    $form['status_messages'] = [
-      '#type' => 'status_messages',
-    ];
-
     return $form;
   }
 

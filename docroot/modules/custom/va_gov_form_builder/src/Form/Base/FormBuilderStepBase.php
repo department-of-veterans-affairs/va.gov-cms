@@ -103,6 +103,7 @@ abstract class FormBuilderStepBase extends FormBuilderBase {
     }
     $this->stepParagraph = $stepParagraph;
 
+    $form = parent::buildForm($form, $form_state);
     return $form;
   }
 
