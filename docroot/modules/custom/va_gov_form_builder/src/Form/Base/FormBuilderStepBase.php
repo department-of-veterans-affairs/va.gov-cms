@@ -49,11 +49,6 @@ abstract class FormBuilderStepBase extends FormBuilderBase {
   }
 
   /**
-   * Returns the step paragraph fields accessed by this form.
-   */
-  abstract protected function getFields();
-
-  /**
    * Sets (creates or updates) a step-paragraph object from the form-state data.
    *
    * @param \Drupal\Core\Form\FormStateInterface $form_state

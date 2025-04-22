@@ -81,6 +81,17 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
         'title' => $this->getPageParagraphFieldValue('field_title'),
         'body' => $this->getPageParagraphFieldValue('field_digital_form_body_text'),
       ];
+
+      $this->components = [];
+      $componentParagraphs = $this->pageParagraph->get('field_digital_form_components');
+      foreach ($componentParagraphs as $componentParagraph) {
+        $paragraph = $this->entityTypeManager
+          ->getStorage('paragraph')
+          ->load($componentParagraph->target_id);
+        if ($paragraph) {
+          $this->components[] = $paragraph;
+        }
+      }
     }
 
     $form['status_messages'] = [

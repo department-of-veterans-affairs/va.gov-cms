@@ -158,12 +158,4 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
     }
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    xdebug_var_dump('submit');
-    exit;
-  }
-
 }
