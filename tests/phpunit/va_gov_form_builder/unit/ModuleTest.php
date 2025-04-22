@@ -290,6 +290,8 @@ class ModuleTest extends VaGovUnitTestBase {
       'response_kind',
       'date_type',
       'custom_single_question_page_title',
+      'custom_single_question_single_date_response',
+      'custom_single_question_date_range_response',
     ];
     foreach ($form_themes as $form_theme) {
       $this->assertArrayHasKey(self::FORM_THEME_PREFIX . $form_theme, $result);
