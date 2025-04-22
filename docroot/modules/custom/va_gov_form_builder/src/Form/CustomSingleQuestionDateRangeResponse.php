@@ -56,37 +56,19 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
       '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_required')[0] ?? TRUE,
     ];
 
-    $form['date_format'] = [
-      '#type' => 'va_gov_form_builder__expanded_radios',
-      '#title' => $this->t('This date type is:'),
-      '#options' => [
-        'month_day_year' => $this->t('A memorable date that a submitter knows (includes Month, Day, Year)'),
-        'month_year' => $this->t('A date that a submitter can approximate (includes Month, Year)'),
-      ],
-      '#options_expanded_content' => [
-        'month_day_year' => [
-          '#markup' => '<p><a href="" target="_blank">View example in Sample Forms</a></p>',
-        ],
-        'month_year' => [
-          '#markup' => '<p><a href="" target="_blank">View example in Sample Forms</a></p>',
-        ],
-      ],
-      '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_date_format')[0] ?? 'month_day_year',
-    ];
-
     $form['components'] = [
       [
         'label' => [
           '#type' => 'textfield',
-          '#title' => $this->t('Date label'),
-          '#description' => $this->t('For example, "Anniversary date"'),
+          '#title' => $this->t('Date label 1'),
+          '#description' => $this->t('For example, "Start date of employment"'),
           '#required' => TRUE,
           '#parents' => ['components', '0', 'label'],
           '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[0] ?? '',
         ],
         'hint_text' => [
           '#type' => 'textfield',
-          '#title' => $this->t('Hint text for date label'),
+          '#title' => $this->t('Hint text for date label 1'),
           '#required' => FALSE,
           '#parents' => ['components', '0', 'hint_text'],
           '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[0] ?? '',
@@ -95,15 +77,15 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
       [
         'label' => [
           '#type' => 'textfield',
-          '#title' => $this->t('Date label'),
-          '#description' => $this->t('For example, "Anniversary date"'),
+          '#title' => $this->t('Date label 2'),
+          '#description' => $this->t('For example, "End date of employment"'),
           '#required' => TRUE,
           '#parents' => ['components', '1', 'label'],
           '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[1] ?? '',
         ],
         'hint_text' => [
           '#type' => 'textfield',
-          '#title' => $this->t('Hint text for date label'),
+          '#title' => $this->t('Hint text for date label 2'),
           '#required' => FALSE,
           '#parents' => ['components', '1', 'hint_text'],
           '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[1] ?? '',
@@ -187,21 +169,33 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
    * {@inheritdoc}
    */
   protected function setComponentsFromFormState(FormStateInterface $form_state) {
-    // Set the date component paragraph.
-    $this->components[0] = $this->entityTypeManager->getStorage('paragraph')->create([
-      'type' => 'digital_form_date_component',
-      'field_digital_form_date_format' => 'month_day_year',
-      'field_digital_form_hint_text' => 'hint text',
-      'field_digital_form_label' => 'asdf',
-      'field_digital_form_required' => TRUE,
-    ]);
-    $this->components[1] = $this->entityTypeManager->getStorage('paragraph')->create([
-      'type' => 'digital_form_date_component',
-      'field_digital_form_date_format' => 'month_day_year',
-      'field_digital_form_hint_text' => 'hint text',
-      'field_digital_form_label' => 'asdf',
-      'field_digital_form_required' => TRUE,
-    ]);
+    $required = $form_state->getValue('required') ?? FALSE;
+    $dateFormat = 'month_day_year';
+    $components = $form_state->getValue('components');
+    foreach ($components as $i => $component) {
+      $label[$i] = $component['label'] ?? '';
+      $hint[$i] = $component['hint_text'] ?? '';
+    }
+
+    if ($this->isCreate) {
+      for ($i = 0; $i <= 1; $i++) {
+        $this->components[$i] = $this->entityTypeManager->getStorage('paragraph')->create([
+          'type' => 'digital_form_date_component',
+          'field_digital_form_required' => $required,
+          'field_digital_form_date_format' => $dateFormat,
+          'field_digital_form_label' => $label[$i],
+          'field_digital_form_hint_text' => $hint[$i],
+        ]);
+      }
+    }
+    else {
+      for ($i = 0; $i <= 1; $i++) {
+        $this->components[$i]->set('field_digital_form_required', $required);
+        $this->components[$i]->set('field_digital_form_date_format', $dateFormat);
+        $this->components[$i]->set('field_digital_form_label', $label[$i]);
+        $this->components[$i]->set('field_digital_form_hint_text', $hintText[$i]);
+      }
+    }
   }
 
   /**
@@ -216,21 +210,12 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
     $violations = $this->components[$i]->validate();
 
     if ($violations->count() > 0) {
-      self::setFormErrors($form, $form_state, $violations, [
-        'field_digital_form_label' => $form['components'][$i]['field_digital_form_label'],
-        'field_digital_form_hint_text' => $form['components'][$i]['field_digital_form_hint_text'],
-        'field_digital_form_date_format' => $form['field_digital_form_date_format'],
-        'field_digital_form_required' => $form['field_digital_form_required'],
+      self::setFormErrors($form_state, $violations, [
+        'field_digital_form_required' => $form['required'],
+        'field_digital_form_label' => $form['components'][$i]['label'],
+        'field_digital_form_hint_text' => $form['components'][$i]['hint_text'],
       ]);
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    xdebug_var_dump('submit');
-    exit;
   }
 
 }

@@ -167,23 +167,23 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
   protected function setComponentsFromFormState(FormStateInterface $form_state) {
     $required = $form_state->getValue('required') ?? FALSE;
     $dateFormat = $form_state->getValue('date_format');
-    $hintText = $form_state->getValue('hint_text');
     $label = $form_state->getValue('label');
+    $hintText = $form_state->getValue('hint_text');
 
     if ($this->isCreate) {
       $this->components[0] = $this->entityTypeManager->getStorage('paragraph')->create([
         'type' => 'digital_form_date_component',
         'field_digital_form_required' => $required,
         'field_digital_form_date_format' => $dateFormat,
-        'field_digital_form_hint_text' => $hintText,
         'field_digital_form_label' => $label,
+        'field_digital_form_hint_text' => $hintText,
       ]);
     }
     else {
       $this->components[0]->set('field_digital_form_required', $required);
       $this->components[0]->set('field_digital_form_date_format', $dateFormat);
-      $this->components[0]->set('field_digital_form_hint_text', $hintText);
       $this->components[0]->set('field_digital_form_label', $label);
+      $this->components[0]->set('field_digital_form_hint_text', $hintText);
     }
   }
 

@@ -1339,6 +1339,9 @@ class VaGovFormBuilderController extends ControllerBase {
     switch ($pageComponentType) {
       case CustomSingleQuestionPageType::SingleDate:
         return $this->customSingleQuestionSingleDateResponse($nid, $stepParagraphId, $pageParagraphId);
+
+      case CustomSingleQuestionPageType::DateRange:
+        return $this->customSingleQuestionDateRangeResponse($nid, $stepParagraphId, $pageParagraphId);
     }
   }
 
