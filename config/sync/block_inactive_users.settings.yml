@@ -1,10 +1,10 @@
 _core:
   default_config_hash: xY2pxVgSDecUqJ6WDAhrrRzsOYtWB_z59gKaGK6x7NY
-block_inactive_users_send_email: false
+block_inactive_users_send_email: true
 block_inactive_users_idle_time: '6'
-block_inactive_users_from_email: admin@test.com
-block_inactive_users_email_content: "Hi.\r\n\r\nYour account on [site:name] has been disabled. Click here to reactivate [activation-link]."
-block_inactive_users_email_subject: 'User disabled.'
+block_inactive_users_from_email: admin@va.gov
+block_inactive_users_email_content: "Hi.\r\n\r\nYour account, [user:account-name] on [site:name] has been disabled. Click here to reactivate [activation-link]."
+block_inactive_users_email_subject: 'Your disabled account.'
 block_inactive_users_warn_send_email: 1
 block_inactive_users_days_until_blocked: 14
 block_inactive_users_warn_from_email: '[site:mail]'
