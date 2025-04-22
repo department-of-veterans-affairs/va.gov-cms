@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3910e139d240434b70efcfd44893b423",
+    "content-hash": "8a1d5feb0cbe1fb8136272de79a786a7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3068,6 +3068,58 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/better_exposed_filters",
                 "issues": "https://www.drupal.org/project/issues/better_exposed_filters"
+            }
+        },
+        {
+            "name": "drupal/block_inactive_users",
+            "version": "2.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/block_inactive_users.git",
+                "reference": "8.x-2.8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/block_inactive_users-8.x-2.8.zip",
+                "reference": "8.x-2.8",
+                "shasum": "2fa16e1b8ef15e2a12a2484b1dd4f9cff1238582"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.8",
+                    "datestamp": "1734251506",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "joël_m",
+                    "homepage": "https://www.drupal.org/user/3648224"
+                },
+                {
+                    "name": "kobusvw",
+                    "homepage": "https://www.drupal.org/user/2580190"
+                },
+                {
+                    "name": "rawdreeg",
+                    "homepage": "https://www.drupal.org/user/3518125"
+                }
+            ],
+            "description": "Automatically blocks users who haven't been active for a designated amount of time or Cancel user accounts in bulk.",
+            "homepage": "https://www.drupal.org/project/block_inactive_users",
+            "support": {
+                "source": "https://git.drupalcode.org/project/block_inactive_users"
             }
         },
         {
