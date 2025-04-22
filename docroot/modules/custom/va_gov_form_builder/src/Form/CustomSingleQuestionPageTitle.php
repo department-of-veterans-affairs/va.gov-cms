@@ -48,14 +48,17 @@ class CustomSingleQuestionPageTitle extends FormBuilderPageBase {
     if (empty($pageParagraph)) {
       // If no page paragraph is passed in, this is "create" mode.
       $this->isCreate = TRUE;
-      $defaultValues = $this->session->get(self::SESSION_KEY);
+      $defaultValues = $this->session->get(self::SESSION_KEY) ?? [
+        'title' => '',
+        'body' => '',
+      ];
     }
     else {
       // If a page paragraph is passed in, this is "edit" mode.
       $this->isCreate = FALSE;
       $defaultValues = [
-        'title' => $this->getPageParagraphFieldValue('field_title'),
-        'body' => $this->getPageParagraphFieldValue('field_digital_form_body_text'),
+        'title' => $this->getPageParagraphFieldValue('field_title') ?? '',
+        'body' => $this->getPageParagraphFieldValue('field_digital_form_body_text') ?? '',
       ];
     }
 
