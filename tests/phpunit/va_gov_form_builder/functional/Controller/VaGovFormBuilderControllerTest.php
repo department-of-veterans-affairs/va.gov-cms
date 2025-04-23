@@ -393,8 +393,8 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $page = $this->controller->stepLabel($node->id());
 
     // In create mode, default value should be null.
-    $this->assertArrayHasKey('#default_value', $page['content']['field_title']);
-    $this->assertEmpty($page['content']['field_title']['#default_value']);
+    $this->assertArrayHasKey('#default_value', $page['content']['step_label']);
+    $this->assertEmpty($page['content']['step_label']['#default_value']);
 
     // Ensure css is added.
     // This should be present on both create and edit mode.
@@ -431,8 +431,8 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $page = $this->controller->stepLabel($nid, $paragraphId);
 
     // In edit mode, default value should be populated.
-    $this->assertArrayHasKey('#default_value', $page['content']['field_title']);
-    $this->assertEquals($paragraphTitle, $page['content']['field_title']['#default_value']);
+    $this->assertArrayHasKey('#default_value', $page['content']['step_label']);
+    $this->assertEquals($paragraphTitle, $page['content']['step_label']['#default_value']);
 
     // Ensure css is added.
     // This should be present on both create and edit mode.
