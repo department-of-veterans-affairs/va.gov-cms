@@ -5,7 +5,7 @@ namespace Drupal\va_gov_form_builder\Entity\Paragraph\Action;
 use Drupal\va_gov_form_builder\Entity\Paragraph\FormBuilderParagraphInterface;
 
 /**
- * An interface for step actions.
+ * An interface for paragraph actions.
  */
 interface ActionInterface {
 

@@ -40,7 +40,7 @@ class DeleteAction extends ActionBase {
    */
   public function execute(FormBuilderParagraphInterface $paragraph) {
     $label = $paragraph->get('field_title')->value;
-    // Check if delete is allowed for this step.
+    // Check if delete is allowed for this paragraph.
     if (!$this->checkAccess($paragraph)) {
       \Drupal::messenger()
         ->addError($this->t('%label <em>cannot</em> be deleted. Access denied.', [

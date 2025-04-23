@@ -3,7 +3,7 @@
 namespace Drupal\va_gov_form_builder\Entity\Paragraph\Action;
 
 /**
- * A collection of step actions.
+ * A collection of paragraph actions.
  */
 class ActionCollection implements \IteratorAggregate {
 

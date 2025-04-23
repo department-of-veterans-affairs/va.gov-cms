@@ -47,7 +47,7 @@ class MoveUpAction extends ActionBase {
   public function execute(FormBuilderParagraphInterface $paragraph) {
     $label = $paragraph->get('field_title')->value;
 
-    // Check if this move is allowed for this step.
+    // Check if this move is allowed for this paragraph.
     if (!$this->checkAccess($paragraph)) {
       \Drupal::messenger()
         ->addError($this->t('%label <em>cannot</em> be moved. Access denied.', [
