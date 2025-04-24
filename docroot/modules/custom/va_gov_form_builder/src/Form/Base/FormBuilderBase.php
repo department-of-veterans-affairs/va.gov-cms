@@ -115,9 +115,18 @@ abstract class FormBuilderBase extends FormBase {
    * @param \Symfony\Component\Validator\ConstraintViolationList $violations
    *   The list of validation violations.
    * @param array $fieldMapping
-   *   An array of field names to check for validation violations.
-   *   Keys are the field names on the entity, and values are the
-   *   corresponding form elements.
+   *   An associative array of field names to check for validation violations.
+   *   - Keys: The field names on the entity.
+   *   - Values: The corresponding form elements.
+   *   - Example: [
+   *      'field_on_the_entity' => $form['some_form_field],
+   *      'field_2_on_the_entity' =>
+   *        $form['collection_of_fields'][0]['my_form_field'],
+   *    ];
+   *   This allows significant flexibility in how field validation errors
+   *   are mapped to the form.
+   *   - The entity field names do not need to match the form field names.
+   *   - The entity fields can be mapped to form fields at any level of nesting.
    */
   protected static function setFormErrors(
     FormStateInterface $form_state,
