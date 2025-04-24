@@ -569,7 +569,6 @@ class VaGovFormBuilderController extends ControllerBase {
   public function customStepAction(NodeInterface $node, ParagraphInterface $paragraph, string $action): AjaxResponse {
     $response = new AjaxResponse();
     $this->loadDigitalForm($node->id());
-    $this->loadStepParagraph($paragraph->id());
 
     // Take the appropriate action on the Paragraph.
     if (method_exists($paragraph, 'executeAction')) {
@@ -601,13 +600,12 @@ class VaGovFormBuilderController extends ControllerBase {
   public function pageAction(NodeInterface $node, ParagraphInterface $paragraph, string $action): AjaxResponse {
     $response = new AjaxResponse();
     $this->loadDigitalForm($node->id());
-    $this->loadStepParagraph($paragraph->getParentEntity()->id());
 
     if (method_exists($paragraph, 'executeAction')) {
       $paragraph->executeAction($action);
     }
 
-    $layout = $this->stepLayout($node->id(), $this->stepParagraph->id());
+    $layout = $this->stepLayout($node->id(), $paragraph->getParentEntity()->id());
     $output = $this->renderer->renderRoot($layout);
 
     // Return an Ajax command.
