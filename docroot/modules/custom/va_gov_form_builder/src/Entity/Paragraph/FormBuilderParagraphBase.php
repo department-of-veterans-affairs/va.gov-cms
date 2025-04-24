@@ -93,10 +93,7 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
    * {@inheritDoc}
    */
   public function accept(ActionInterface $action) {
-    // Use reflection to get the short name of the currently called class,
-    // rather than the full namespace, which would be what get_class() would
-    // give us.
-    $method = 'executeFor' . static::getClassShortName();
+    $method = 'executeFor' . $this->getClassShortName();
     if (method_exists($action, $method)) {
       return $action->$method($this);
     }
