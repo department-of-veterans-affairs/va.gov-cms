@@ -573,11 +573,11 @@ class VaGovFormBuilderController extends ControllerBase {
     // Take the appropriate action on the Paragraph.
     if (method_exists($paragraph, 'executeAction')) {
       $paragraph->executeAction($action);
+      $layout = $this->layout($node->id());
+      $output = $this->renderer->renderRoot($layout);
+      $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
     }
 
-    $layout = $this->layout($node->id());
-    $output = $this->renderer->renderRoot($layout);
-    $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
     return $response;
   }
 
@@ -603,13 +603,11 @@ class VaGovFormBuilderController extends ControllerBase {
 
     if (method_exists($paragraph, 'executeAction')) {
       $paragraph->executeAction($action);
+      $layout = $this->stepLayout($node->id(), $paragraph->getParentEntity()->id());
+      $output = $this->renderer->renderRoot($layout);
+      $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
     }
 
-    $layout = $this->stepLayout($node->id(), $paragraph->getParentEntity()->id());
-    $output = $this->renderer->renderRoot($layout);
-
-    // Return an Ajax command.
-    $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
     return $response;
   }
 
