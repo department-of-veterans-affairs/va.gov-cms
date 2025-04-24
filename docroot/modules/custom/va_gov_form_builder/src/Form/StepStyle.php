@@ -36,20 +36,6 @@ class StepStyle extends FormBuilderStepBase {
   /**
    * {@inheritdoc}
    */
-  protected function getFields() {
-    // This form does not directly interact with
-    // any fields. But, since it's creating the
-    // paragraph with the prevously entered
-    // step label (field_title), we should validate
-    // it here for good measure.
-    return [
-      'field_title',
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL, $stepParagraph = NULL) {
     // On this form, the step paragraph should be allowed to be empty,
     // since it is always in "create" mode.
@@ -135,6 +121,11 @@ class StepStyle extends FormBuilderStepBase {
 
   /**
    * Handler for the edit-step-label button.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    */
   public function handleEditStepLabelClick(array &$form, FormStateInterface $form_state) {
     $form_state->setRedirect('va_gov_form_builder.step.step_label.create', [
@@ -157,6 +148,48 @@ class StepStyle extends FormBuilderStepBase {
         'type' => 'digital_form_custom_step',
         'field_title' => $this->stepLabel,
       ]);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function validateStepParagraph(array $form, FormStateInterface $form_state) {
+    if (!isset($this->stepParagraph)) {
+      return;
+    }
+
+    // Validate the step paragraph.
+    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
+    $violations = $this->stepParagraph->validate();
+
+    foreach ($violations as $violation) {
+      $fieldName = self::getViolationFieldName($violation);
+
+      if ($fieldName === 'field_title') {
+        // This is a violation on the step label. This should not be
+        // possible as the step label should have been validated before
+        // this point, but we check here just in case. If there is an error,
+        // set an error on the form itself rather than an individual field.
+        $form_state->setError(
+          $form,
+          $this->t('There was an error with the step label. Return to the previous page and adjust as needed.'),
+        );
+      }
+      elseif ($fieldName === 'field_digital_form_pages') {
+        // Do nothing. This is allowed to be empty here, despite it being a
+        // validation error. It *should* always be empty at this point
+        // of creating the step.
+      }
+      else {
+        // Some other error. Again, this should not be possible, but we check
+        // here just in case. If there is an error, set an error on the
+        // form itself rather than an individual field.
+        $form_state->setError(
+          $form,
+          $this->t('There was an error. Please check all the fields and try again.'),
+        );
+      }
     }
   }
 

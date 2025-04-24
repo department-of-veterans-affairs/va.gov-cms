@@ -1,0 +1,63 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Single-date response.
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/two-column-with-buttons.html.twig' %}
+
+{% set page_id = 'custom-single-question-single-date-response' %}
+{% set page_heading = 'Customize the responses' %}
+
+{% block left_content %}
+  <section class="form-builder-single-question-response">
+
+    <div class="form-builder-single-question-response__page-title">
+      <label for="page-title">For the single-response question:</label>
+      <div id="page-title">{{ form.page_title ?: 'None provided' }}</div>
+    </div>
+
+    {{ form.required }}
+
+    <div class="form-builder-single-question-response__page-body">
+      <label for="page-body">Body content:</label>
+      <div id="page-body">{{ form.page_body ?: 'None provided' }}</div>
+    </div>
+
+
+    <div class="form-builder-single-question-response__type">
+      <label for="guidance">Date</label>
+      <p id="guidance">Guidance for this choice</p>
+    </div>
+
+    {{ form.date_format }}
+
+    <div class="form-builder-single-question-response__component">
+      {{ form.label }}
+      {{ form.hint_text }}
+    </div>
+
+  </section>
+{% endblock %}
+
+{% block right_content %}
+  <div class="form-builder-single-question-response__preview">
+    <label for="preview">Example</label>
+    <div id="preview">{{ form.preview }}</div>
+  </div>
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'page_title',
+    'required',
+    'page_body',
+    'date_format',
+    'label',
+    'hint_text',
+    'preview',
+    'actions',
+  )}}
+{% endblock %}

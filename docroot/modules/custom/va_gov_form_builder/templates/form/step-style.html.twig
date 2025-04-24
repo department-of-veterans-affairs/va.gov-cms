@@ -58,6 +58,7 @@
 {% block after_buttons %}
   {# render rest of form so it functions properly #}
   {{ form|without(
+    'status_messages',
     'step_label',
     'preview',
     'actions',

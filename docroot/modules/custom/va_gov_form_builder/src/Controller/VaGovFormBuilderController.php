@@ -4,6 +4,8 @@ namespace Drupal\va_gov_form_builder\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType;
+use Drupal\va_gov_form_builder\Form\Base\FormBuilderPageBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -89,6 +91,13 @@ class VaGovFormBuilderController extends ControllerBase {
   protected $stepParagraph;
 
   /**
+   * The paragraph object representing the page.
+   *
+   * @var \Drupal\paragraphs\Entity\Paragraph|null
+   */
+  protected $pageParagraph;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
@@ -108,7 +117,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $nid
    *   The node id to load.
    *
-   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
    *   If the node is not found.
    */
   protected function loadDigitalForm($nid) {
@@ -124,7 +133,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $paragraphId
    *   The paragraph id to load.
    *
-   * @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
    *   If the pargraph is not found, or if the paragraph
    *   does not belong to $this->digitalForm.
    */
@@ -147,6 +156,94 @@ class VaGovFormBuilderController extends ControllerBase {
     }
 
     $this->stepParagraph = $paragraph;
+  }
+
+  /**
+   * Loads and sets the page-paragraph object.
+   *
+   * @param string $paragraphId
+   *   The paragraph id to load.
+   *
+   * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+   *   If the paragraph is not found, or if the paragraph
+   *   does not belong to $this->stepParagraph.
+   */
+  protected function loadPageParagraph($paragraphId) {
+    $paragraph = $this->entityTypeManager->getStorage('paragraph')->load($paragraphId);
+    if (!$paragraph) {
+      throw new NotFoundHttpException();
+    }
+
+    // Ensure the page paragraph belongs to the step paragraph.
+    if (!$this->stepParagraph) {
+      throw new NotFoundHttpException();
+    }
+    $parentId = $paragraph->get('parent_id') && is_object($paragraph->get('parent_id'))
+      ? $paragraph->get('parent_id')->value
+      : '';
+
+    if ($parentId !== $this->stepParagraph->id()) {
+      throw new NotFoundHttpException();
+    }
+
+    $this->pageParagraph = $paragraph;
+  }
+
+  /**
+   * Determines and returns the type of component(s) on a page paragraph.
+   *
+   * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+   *   The paragraph object representing the page.
+   *
+   * @return \Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType
+   *   The type of component(s) on the page paragraph.
+   *
+   * @throws \LogicException
+   *   If the paragraph doesn't have the expected field,
+   *   if the paragraph doesn't have components,
+   *   or if the component found is not an expected type.
+   */
+  protected static function getPageComponentType($paragraph) {
+    if (!$paragraph->hasField('field_digital_form_components')) {
+      throw new \LogicException('The paragraph does not have the field "field_digital_form_components".');
+    }
+
+    $pageComponents = $paragraph
+      ->get('field_digital_form_components')
+      ->referencedEntities();
+
+    if (count($pageComponents) < 1) {
+      throw new \LogicException('No components found on the page paragraph.');
+    }
+
+    $firstComponentBundle = $pageComponents[0]->bundle();
+
+    // Date or Date range.
+    if ($firstComponentBundle === 'digital_form_date_component') {
+      if (isset($pageComponents[1])) {
+        $secondComponentBundle = $pageComponents[1]->bundle();
+
+        if ($secondComponentBundle === 'digital_form_date_component') {
+          return CustomSingleQuestionPageType::DateRange;
+        }
+      }
+
+      return customSingleQuestionPageType::SingleDate;
+    }
+
+    // Radio, Checkbox, Text input, Text area.
+    $map = [
+      'digital_form_radio_button' => CustomSingleQuestionPageType::Radio,
+      'digital_form_checkbox' => CustomSingleQuestionPageType::Checkbox,
+      'digital_form_text_input' => CustomSingleQuestionPageType::TextInput,
+      'digital_form_text_area' => CustomSingleQuestionPageType::TextArea,
+    ];
+    if (isset($map[$firstComponentBundle])) {
+      return $map[$firstComponentBundle];
+    }
+
+    // Otherwise, it's an error.
+    throw new \LogicException('The page component type cannot be determined.');
   }
 
   /**
@@ -209,6 +306,9 @@ class VaGovFormBuilderController extends ControllerBase {
       'step.step_label.edit',
       'step.question.custom_or_predefined',
       'step.question.custom.kind',
+      'step.question.custom.date.type',
+      'step.question.custom.date.single_date.page_title',
+      'step.question.custom.date.date_range.page_title',
     ];
     if (in_array($page, $stepPages)) {
       if (!$this->digitalForm) {
@@ -220,6 +320,28 @@ class VaGovFormBuilderController extends ControllerBase {
       return Url::fromRoute("va_gov_form_builder.{$page}", [
         'nid' => $this->digitalForm->id(),
         'stepParagraphId' => $this->stepParagraph->id(),
+      ])->toString();
+    }
+
+    // Pages that relate to a question (page) with a step.
+    // Require a nid, stepParagraphId, and pageParagraphId.
+    $questionPages = [
+      'step.question.page_title',
+    ];
+    if (in_array($page, $questionPages)) {
+      if (!$this->digitalForm) {
+        throw new \LogicException('Cannot determine page url because the digital form is not set.');
+      }
+      if (!$this->stepParagraph) {
+        throw new \LogicException('Cannot determine page url because the step paragraph is not set.');
+      }
+      if (!$this->pageParagraph) {
+        throw new \LogicException('Cannot determine page url because the page paragraph is not set.');
+      }
+      return Url::fromRoute("va_gov_form_builder.{$page}", [
+        'nid' => $this->digitalForm->id(),
+        'stepParagraphId' => $this->stepParagraph->id(),
+        'pageParagraphId' => $this->pageParagraph->id(),
       ])->toString();
     }
 
@@ -318,6 +440,71 @@ class VaGovFormBuilderController extends ControllerBase {
       );
     }
 
+    elseif ($parent === 'step.question.custom.kind') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $kindUrl = $this->getPageUrl('step.question.custom.kind');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom_or_predefined',
+        'Kind',
+        $kindUrl
+      );
+    }
+
+    elseif ($parent === 'step.question.custom.date.type') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $dateTypeUrl = $this->getPageUrl('step.question.custom.date.type');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.kind',
+        'Date type',
+        $dateTypeUrl
+      );
+    }
+
+    elseif ($parent === 'step.question.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph || !$this->pageParagraph) {
+        return [];
+      }
+
+      $pageTitleUrl = $this->getPageUrl('step.question.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.layout',
+        $this->pageParagraph->get('field_title')->value,
+        $pageTitleUrl
+      );
+    }
+
+    elseif ($parent === 'step.question.custom.date.single_date.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.date.single_date.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.date.type',
+        '',
+        $pageTitleUrl
+      );
+    }
+
+    elseif ($parent === 'step.question.custom.date.date_range.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.date.date_range.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.date.type',
+        '',
+        $pageTitleUrl
+      );
+    }
+
     $breadcrumbTrail[] = [
       'label' => $label,
       'url' => $url ? $url : '#content',
@@ -397,6 +584,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'Drupal\va_gov_form_builder\Form\\' . $formName,
       $this->digitalForm,
       $this->stepParagraph,
+      $this->pageParagraph,
     );
 
     return $this->getPage($form, $subtitle, $breadcrumbs, $libraries);
@@ -694,7 +882,7 @@ class VaGovFormBuilderController extends ControllerBase {
         return [
           'id' => $page->id(),
           'title' => $page->get('field_title')->value,
-          'url' => '',
+          'url' => "{$this->getPageUrl('step.layout')}/question/{$page->id()}",
         ];
       }, $pageEntities);
 
@@ -882,6 +1070,304 @@ class VaGovFormBuilderController extends ControllerBase {
     ];
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Date-type page for custom single-question date response.
+   */
+  public function customSingleQuestionDateType($nid, $stepParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    $formName = 'DateType';
+    $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.kind', 'Date type');
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'single_column_with_buttons',
+      'expanded_radio',
+      'expanded_radio__help_text_optional_image',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Custom single-question page title.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
+   * @param \Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType|null $pageComponentType
+   *   The type of component(s) on the page.
+   *   Ex: 'date.single_date', 'choice.radio'.
+   */
+  public function customSingleQuestionPageTitle($nid, $stepParagraphId, $pageParagraphId = NULL, $pageComponentType = NULL) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    $formName = 'CustomSingleQuestionPageTitle';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'single_column_with_buttons',
+      'custom_single_question_page_title',
+    ];
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+      $this->loadPageParagraph($pageParagraphId);
+
+      try {
+        $pageComponentType = self::getPageComponentType($this->pageParagraph);
+      }
+      catch (\Exception $e) {
+        // This is technically not a page-not-found
+        // error state, but we don't have a better way to
+        // handle this currently.
+        // @todo Implement better way to handle general error states.
+        throw new NotFoundHttpException();
+      }
+
+      // Set the breadcrumbs based on the page component type.
+      $breadcrumbs = match($pageComponentType) {
+        CustomSingleQuestionPageType::SingleDate =>
+          $this->generateBreadcrumbs('step.layout', 'Date question'),
+        CustomSingleQuestionPageType::DateRange =>
+          $this->generateBreadcrumbs('step.layout', 'Date-range question'),
+        CustomSingleQuestionPageType::Radio =>
+          $this->generateBreadcrumbs('step.layout', 'Radio-button question'),
+        CustomSingleQuestionPageType::Checkbox =>
+          $this->generateBreadcrumbs('step.layout', 'Checkbox question'),
+        CustomSingleQuestionPageType::TextInput =>
+          $this->generateBreadcrumbs('step.layout', 'Text-input question'),
+        CustomSingleQuestionPageType::TextArea =>
+          $this->generateBreadcrumbs('step.layout', 'Text-area question'),
+      };
+    }
+    else {
+      // This is page creation.
+      $pageComponentType = CustomSingleQuestionPageType::from($pageComponentType);
+      switch ($pageComponentType) {
+        case CustomSingleQuestionPageType::SingleDate:
+          $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.date.type', 'Date question');
+          break;
+
+        case CustomSingleQuestionPageType::DateRange:
+          $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.date.type', 'Date-range question');
+          break;
+
+        default:
+          throw new NotFoundHttpException();
+      }
+    }
+
+    // @phpstan-ignore-next-line
+    $form = $this->drupalFormBuilder->getForm(
+      'Drupal\va_gov_form_builder\Form\\' . $formName,
+      $this->digitalForm,
+      $this->stepParagraph,
+      $this->pageParagraph,
+      $pageComponentType
+    );
+    return $this->getPage($form, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Custom single-question "home" page.
+   *
+   * This route just redirects to the page-title page.
+   * This path would be the "page-layout" path, or the page "home"
+   * but since we do not have a page-layout page, the user
+   * is automatically redirected to the page-title page
+   * for the form page in question.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string $pageParagraphId
+   *   The entity id of the page paragraph.
+   */
+  public function customSingleQuestionPage($nid, $stepParagraphId, $pageParagraphId) {
+    return $this->redirect('va_gov_form_builder.step.question.page_title', [
+      'nid' => $nid,
+      'stepParagraphId' => $stepParagraphId,
+      'pageParagraphId' => $pageParagraphId,
+    ]);
+  }
+
+  /**
+   * Custom single-question single-date response page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
+   */
+  public function customSingleQuestionSingleDateResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+      if (empty($this->pageParagraph)) {
+        $this->loadPageParagraph($pageParagraphId);
+      }
+
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.page_title', 'Date response');
+    }
+    else {
+      // This is the second stage in the process
+      // of creating a new page. The previously
+      // entered page title and body should be in
+      // session storage. The page title is required.
+      // If it is not there, we should redirect back
+      // to the page-title page.
+      $sessionData = $this->session->get(FormBuilderPageBase::SESSION_KEY);
+      $pageTitle = $sessionData['title'] ?? NULL;
+      if (!$pageTitle) {
+        return $this->redirect(
+          'va_gov_form_builder.step.question.custom.date.single_date.page_title',
+          [
+            'nid' => $nid,
+            'stepParagraphId' => $stepParagraphId,
+          ],
+        );
+      }
+
+      // This is page creation.
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.date.single_date.page_title', 'Date response');
+    }
+
+    // Override the page title with "Date question".
+    $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Date question';
+
+    $formName = 'CustomSingleQuestionSingleDateResponse';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'two_column_with_buttons',
+      'expanded_radio',
+      'custom_single_question_response',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Custom single-question date-range response page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
+   */
+  public function customSingleQuestionDateRangeResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+      if (empty($this->pageParagraph)) {
+        $this->loadPageParagraph($pageParagraphId);
+      }
+
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.page_title', 'Date-range response');
+    }
+    else {
+      // This is the second stage in the process
+      // of creating a new page. The previously
+      // entered page title and body should be in
+      // session storage. The page title is required.
+      // If it is not there, we should redirect back
+      // to the page-title page.
+      $sessionData = $this->session->get(FormBuilderPageBase::SESSION_KEY);
+      $pageTitle = $sessionData['title'] ?? NULL;
+      if (!$pageTitle) {
+        return $this->redirect(
+          'va_gov_form_builder.step.question.custom.date.date_range.page_title',
+          [
+            'nid' => $nid,
+            'stepParagraphId' => $stepParagraphId,
+          ],
+        );
+      }
+
+      // This is page creation.
+      $breadcrumbs = $this->generateBreadcrumbs(
+        'step.question.custom.date.date_range.page_title',
+        'Date-range response'
+      );
+    }
+
+    // Override the page title with "Date question".
+    $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Date-range question';
+
+    $formName = 'CustomSingleQuestionDateRangeResponse';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'two_column_with_buttons',
+      'expanded_radio',
+      'custom_single_question_response',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Custom single-question response page.
+   *
+   * This is a catch-all method for handling
+   * all custom single-question response pages
+   * in edit mode. Once we determine which
+   * component type the page is, we call the
+   * appropriate method to handle it, and we
+   * pass in the $pageParagraphId.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string $pageParagraphId
+   *   The entity id of the page paragraph.
+   */
+  public function customSingleQuestionResponse($nid, $stepParagraphId, $pageParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+    $this->loadPageParagraph($pageParagraphId);
+
+    // Call appropriate method based on paragraph component type.
+    try {
+      $pageComponentType = self::getPageComponentType($this->pageParagraph);
+    }
+    catch (\Exception $e) {
+      // This is technically not a page-not-found
+      // error state, but we don't have a better way to
+      // handle this currently.
+      // @todo Implement better way to handle general error states.
+      throw new NotFoundHttpException();
+    }
+
+    switch ($pageComponentType) {
+      case CustomSingleQuestionPageType::SingleDate:
+        return $this->customSingleQuestionSingleDateResponse($nid, $stepParagraphId, $pageParagraphId);
+
+      case CustomSingleQuestionPageType::DateRange:
+        return $this->customSingleQuestionDateRangeResponse($nid, $stepParagraphId, $pageParagraphId);
+    }
   }
 
   /**
