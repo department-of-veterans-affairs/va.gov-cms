@@ -1,0 +1,18 @@
+_core:
+  default_config_hash: xY2pxVgSDecUqJ6WDAhrrRzsOYtWB_z59gKaGK6x7NY
+block_inactive_users_send_email: true
+block_inactive_users_idle_time: '6'
+block_inactive_users_from_email: admin@va.gov
+block_inactive_users_email_content: "Hi.\r\n\r\nYour account, [user:account-name] on [site:name] has been blocked. Click here to reactivate [activation-link]. For questions, contact the <a href=\"mailto:support@va-gov.atlassian.net\">CMS helpdesk</a>."
+block_inactive_users_email_subject: 'Your Drupal CMS account has been blocked.'
+block_inactive_users_warn_send_email: 1
+block_inactive_users_days_until_blocked: 14
+block_inactive_users_warn_from_email: '[site:mail]'
+block_inactive_users_warn_email_subject: 'Pending account block on [site:name]'
+block_inactive_users_warn_email_content: 'Your account, [user:account-name] on [site:name] will be blocked soon. To prevent this, please log in with your PIV soon.'
+block_inactive_users_include_never_accessed: true
+block_inactive_users_exclude_roles:
+  content_api_consumer: content_api_consumer
+  redirect_administrator: redirect_administrator
+  administrator: administrator
+  next_js: next_js

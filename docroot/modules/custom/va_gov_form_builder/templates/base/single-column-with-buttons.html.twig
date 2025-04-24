@@ -1,4 +1,10 @@
 <div id="form-builder-content-{{ page_id }}" class="form-builder-content form-builder-single-column-content form-builder-{{ page_type }}-content form-builder-content--single-column-with-buttons">
+  {% if block('messages') %}
+    <div class="form-builder-single-column-with-buttons__messages">
+      {% block messages %}{% endblock %}
+    </div>
+  {% endif %}
+
   <h2 class="form-builder-page-title">{{ page_heading }}</h2>
 
   {% if block('main_content') is not empty %}

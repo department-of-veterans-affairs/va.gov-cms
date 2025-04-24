@@ -22,19 +22,6 @@ class FormInfo extends FormBuilderFormBase {
   /**
    * {@inheritdoc}
    */
-  protected function getFields() {
-    return [
-      'title',
-      'field_va_form_number',
-      'field_omb_number',
-      'field_respondent_burden',
-      'field_expiration_date',
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL) {
     // On this form, the Digital Form should be allowed to be empty,
     // to accommodate the case where it is in "create" mode.
@@ -59,14 +46,14 @@ class FormInfo extends FormBuilderFormBase {
       '#default_value' => $this->getDigitalFormFieldValue('title'),
     ];
 
-    $form['field_va_form_number'] = [
+    $form['va_form_number'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Form Number'),
       '#required' => TRUE,
       '#default_value' => $this->getDigitalFormFieldValue('field_va_form_number'),
     ];
 
-    $form['field_omb_number'] = [
+    $form['omb_number'] = [
       '#type' => 'textfield',
       '#title' => $this->t('OMB number'),
       '#description' => $this->t('Insert the OMB number (format: xxxx-xxxx)'),
@@ -74,7 +61,7 @@ class FormInfo extends FormBuilderFormBase {
       '#default_value' => $this->getDigitalFormFieldValue('field_omb_number'),
     ];
 
-    $form['field_respondent_burden'] = [
+    $form['respondent_burden'] = [
       '#type' => 'number',
       '#title' => $this->t('Respondent burden'),
       '#description' => $this->t('Number of minutes as indicated on the form'),
@@ -82,7 +69,7 @@ class FormInfo extends FormBuilderFormBase {
       '#default_value' => $this->getDigitalFormFieldValue('field_respondent_burden'),
     ];
 
-    $form['field_expiration_date'] = [
+    $form['expiration_date'] = [
       '#type' => 'date',
       '#title' => $this->t('Expiration date'),
       '#description' => $this->t('Form expiration date as indicated on the form'),
@@ -112,10 +99,10 @@ class FormInfo extends FormBuilderFormBase {
    */
   protected function setDigitalFormFromFormState(FormStateInterface $form_state) {
     $title = $form_state->getValue('title');
-    $vaFormNumber = $form_state->getValue('field_va_form_number');
-    $ombNumber = $form_state->getValue('field_omb_number');
-    $respondentBurden = $form_state->getValue('field_respondent_burden');
-    $expirationDate = $form_state->getValue('field_expiration_date');
+    $vaFormNumber = $form_state->getValue('va_form_number');
+    $ombNumber = $form_state->getValue('omb_number');
+    $respondentBurden = $form_state->getValue('respondent_burden');
+    $expirationDate = $form_state->getValue('expiration_date');
 
     if ($this->isCreate) {
       /*
@@ -148,6 +135,24 @@ class FormInfo extends FormBuilderFormBase {
       $this->digitalForm->set('field_omb_number', $ombNumber);
       $this->digitalForm->set('field_respondent_burden', $respondentBurden);
       $this->digitalForm->set('field_expiration_date', $expirationDate);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function validateDigitalForm(array $form, FormStateInterface $form_state) {
+    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
+    $violations = $this->digitalForm->validate();
+
+    if ($violations->count() > 0) {
+      self::setFormErrors($form_state, $violations, [
+        'title' => $form['title'],
+        'field_va_form_number' => $form['va_form_number'],
+        'field_omb_number' => $form['omb_number'],
+        'field_respondent_burden' => $form['respondent_burden'],
+        'field_expiration_date' => $form['expiration_date'],
+      ]);
     }
   }
 

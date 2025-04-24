@@ -137,7 +137,7 @@ class FormInfoTest extends VaGovExistingSiteBase {
     $this->assertEquals($formNameInput->getValue(), '');
 
     // Ensure form-number field is empty.
-    $formNumberInput = $page->findField('edit-field-va-form-number');
+    $formNumberInput = $page->findField('edit-va-form-number');
     $this->assertEquals($formNumberInput->getValue(), '');
   }
 
@@ -168,7 +168,7 @@ class FormInfoTest extends VaGovExistingSiteBase {
     $this->assertEquals($formNameInput->getValue(), $title);
 
     // Ensure form-number field is populated correctly.
-    $formNumberInput = $page->findField('edit-field-va-form-number');
+    $formNumberInput = $page->findField('edit-va-form-number');
     $this->assertEquals($formNumberInput->getValue(), $formNumber);
   }
 
@@ -181,10 +181,10 @@ class FormInfoTest extends VaGovExistingSiteBase {
     // Fill in the form fields.
     $formInput = [
       'title' => 'Test Title',
-      'field_va_form_number' => self::getUniqueVaFormNumber(),
-      'field_omb_number' => '1111-1111',
-      'field_respondent_burden' => '15',
-      'field_expiration_date' => '2024-10-03',
+      'va_form_number' => self::getUniqueVaFormNumber(),
+      'omb_number' => '1111-1111',
+      'respondent_burden' => '15',
+      'expiration_date' => '2024-10-03',
     ];
     $this->submitForm($formInput, 'Save and continue');
 
@@ -200,10 +200,10 @@ class FormInfoTest extends VaGovExistingSiteBase {
     // Fill in the form fields.
     $formInput = [
       'title' => 'Test Title',
-      'field_va_form_number' => self::getUniqueVaFormNumber(),
-      'field_omb_number' => '1111-1111',
-      'field_respondent_burden' => '15',
-      // 'field_expiration_date' is required but missing
+      'va_form_number' => self::getUniqueVaFormNumber(),
+      'omb_number' => '1111-1111',
+      'respondent_burden' => '15',
+      // 'expiration_date' is required but missing
     ];
     $this->submitForm($formInput, 'Save and continue');
 

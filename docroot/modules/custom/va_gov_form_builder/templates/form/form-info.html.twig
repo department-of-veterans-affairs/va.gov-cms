@@ -8,23 +8,24 @@
   <h2 class="form-builder-page-title">Name this form</h2>
   <section class="form-builder-content-section form-builder-content-section--form-name-number">
     {{ form.title }}
-    {{ form.field_va_form_number }}
+    {{ form.va_form_number }}
   </section>
   <section class="form-builder-content-section form-builder-content-section--omb-info">
     <h3 class="form-builder-content-section__header form-builder-content-section--omb-info__header">OMB information</h3>
-    {{ form.field_omb_number }}
-    {{ form.field_respondent_burden }}
-    {{ form.field_expiration_date }}
+    {{ form.omb_number }}
+    {{ form.respondent_burden }}
+    {{ form.expiration_date }}
   </section>
   {{ form.actions }}
 
   {# render rest of form so it functions properly #}
   {{ form|without(
+    'status_messages',
     'title',
-    'field_va_form_number',
-    'field_omb_number',
-    'field_respondent_burden',
-    'field_expiration_date',
+    'va_form_number',
+    'omb_number',
+    'respondent_burden',
+    'expiration_date',
     'actions'
   )}}
 </div>

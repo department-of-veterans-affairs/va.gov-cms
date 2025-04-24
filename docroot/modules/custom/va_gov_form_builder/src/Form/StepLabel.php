@@ -20,15 +20,6 @@ class StepLabel extends FormBuilderStepBase {
   /**
    * {@inheritdoc}
    */
-  protected function getFields() {
-    return [
-      'field_title',
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function buildForm(array $form, FormStateInterface $form_state, $digitalForm = NULL, $stepParagraph = NULL) {
     // On this form, the step paragraph should be allowed to be empty,
     // to accommodate the case where it is in "create" mode.
@@ -48,8 +39,7 @@ class StepLabel extends FormBuilderStepBase {
 
     $form['#theme'] = 'form__va_gov_form_builder__step_label';
 
-    // Step label.
-    $form['field_title'] = [
+    $form['step_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Step label'),
       '#required' => TRUE,
@@ -85,7 +75,7 @@ class StepLabel extends FormBuilderStepBase {
    * {@inheritdoc}
    */
   protected function setStepParagraphFromFormState(FormStateInterface $form_state) {
-    $stepLabel = $form_state->getValue('field_title');
+    $stepLabel = $form_state->getValue('step_label');
 
     if ($this->isCreate) {
       // We don't know at this point what type of paragraph we need,
@@ -105,9 +95,28 @@ class StepLabel extends FormBuilderStepBase {
   /**
    * {@inheritdoc}
    */
+  protected function validateStepParagraph(array $form, FormStateInterface $form_state) {
+    if (!isset($this->stepParagraph)) {
+      return;
+    }
+
+    // Validate the step paragraph.
+    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
+    $violations = $this->stepParagraph->validate();
+
+    if ($violations->count() > 0) {
+      self::setFormErrors($form_state, $violations, [
+        'field_title' => $form['step_label'],
+      ]);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     if ($this->isCreate) {
-      $this->session->set('form_builder:add_step:step_label', $form_state->getValue('field_title'));
+      $this->session->set('form_builder:add_step:step_label', $form_state->getValue('step_label'));
 
       $form_state->setRedirect('va_gov_form_builder.step.step_style', [
         'nid' => $this->digitalForm->id(),
