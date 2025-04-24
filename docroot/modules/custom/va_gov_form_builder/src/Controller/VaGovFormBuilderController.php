@@ -226,9 +226,9 @@ class VaGovFormBuilderController extends ControllerBase {
         if ($secondComponentBundle === 'digital_form_date_component') {
           return CustomSingleQuestionPageType::DateRange;
         }
-
-        return customSingleQuestionPageType::SingleDate;
       }
+
+      return customSingleQuestionPageType::SingleDate;
     }
 
     // Radio, Checkbox, Text input, Text area.
