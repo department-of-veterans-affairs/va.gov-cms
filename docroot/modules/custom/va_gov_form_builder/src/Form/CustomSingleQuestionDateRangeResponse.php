@@ -174,7 +174,7 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
     $components = $form_state->getValue('components');
 
     $label[0] = $components[0]['label'] ?? '';
-    $hint[0] = $components[1]['hint_text'] ?? '';
+    $hint[0] = $components[0]['hint_text'] ?? '';
     $label[1] = $components[1]['label'] ?? '';
     $hint[1] = $components[1]['hint_text'] ?? '';
 
