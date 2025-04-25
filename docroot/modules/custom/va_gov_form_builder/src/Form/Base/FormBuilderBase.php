@@ -137,9 +137,11 @@ abstract class FormBuilderBase extends FormBase {
       $form[$element_name . '_fieldset']['actions']['add_item'] = [
         '#type' => 'submit',
         '#value' => $this->t('Add another'),
-        '#submit' => ['::addOne'],
+        '#submit' => [$this, 'addOne'],
+        // '#submit' => ['::addOne']
         '#ajax' => [
-          'callback' => '::addmoreCallback',
+          'callback' => [$this, 'addMoreCallback'],
+          // 'callback' => '::addMoreCallback',
           'wrapper' => $element_name . '-wrapper',
         ],
       ];
@@ -151,7 +153,7 @@ abstract class FormBuilderBase extends FormBase {
    *
    * Selects and returns the fieldset with the names in it.
    */
-  public function addmoreCallback(array &$form, FormStateInterface $form_state) {
+  public function addMoreCallback(array &$form, FormStateInterface $form_state) {
     // @todo Make this field dynamic somehow.
     return $form['dynamic_radio_fieldset'];
   }
@@ -163,9 +165,9 @@ abstract class FormBuilderBase extends FormBase {
    */
   public function addOne(array &$form, FormStateInterface $form_state) {
     // @todo Make this field dynamic somehow.
-    $num_field = $form_state->get('dynamic_radios_count');
+    $num_field = $form_state->get('dynamic_radio_count');
     $new_count = $num_field + 1;
-    $form_state->set('dynamic_radios_count', $new_count);
+    $form_state->set('dynamic_radio_count', $new_count);
     $form_state->setRebuild();
   }
 
