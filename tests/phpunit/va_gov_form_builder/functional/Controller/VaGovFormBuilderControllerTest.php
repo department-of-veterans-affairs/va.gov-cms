@@ -45,13 +45,13 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     $drupalFormBuilder = \Drupal::service('form_builder');
     $digitalFormsService = new DigitalFormsService($entityTypeManager);
     $sessionService = \Drupal::service('session');
-
+    $rendererService = \Drupal::service('renderer');
     $container = new ContainerBuilder();
     $container->set('entity_type.manager', $entityTypeManager);
     $container->set('form_builder', $drupalFormBuilder);
     $container->set('va_gov_form_builder.digital_forms_service', $digitalFormsService);
     $container->set('session', $sessionService);
-
+    $container->set('renderer', $rendererService);
     // Create the controller instance.
     $this->controller = VaGovFormBuilderController::create($container);
   }
@@ -200,7 +200,8 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
 
     // Ensure additional steps are included and have "complete" status.
     $this->assertArrayHasKey('#additional_steps', $page['content']);
-    $this->assertEquals('complete', $page['content']['#additional_steps']['steps'][0]['status']);
+    $first_step = array_key_first($page['content']['#additional_steps']['steps']);
+    $this->assertEquals('complete', $page['content']['#additional_steps']['steps'][$first_step]['status']);
 
     // Ensure css is added.
     $this->assertArrayHasKey('#attached', $page);
