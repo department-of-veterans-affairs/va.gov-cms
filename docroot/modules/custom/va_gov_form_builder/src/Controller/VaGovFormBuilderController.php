@@ -537,6 +537,19 @@ class VaGovFormBuilderController extends ControllerBase {
       );
     }
 
+    elseif ($parent === 'step.question.custom.choice.radio.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.choice.radio.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.choice.type',
+        '',
+        $pageTitleUrl
+      );
+    }
+
     $breadcrumbTrail[] = [
       'label' => $label,
       'url' => $url ? $url : '#content',
