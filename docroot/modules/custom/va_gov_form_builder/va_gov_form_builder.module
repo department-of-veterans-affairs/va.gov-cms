@@ -6,6 +6,9 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\va_gov_form_builder\Entity\Paragraph\CustomStepParagraph;
+use Drupal\va_gov_form_builder\Entity\Paragraph\ListLoopParagraph;
+use Drupal\va_gov_form_builder\Entity\Paragraph\PageParagraph;
 
 /**
  * Implements hook_entity_bundle_field_info_alter().
@@ -72,6 +75,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
         'add_step' => [
           'url' => '',
         ],
+        'messages' => [],
       ],
       'review_and_sign' => [
         'status' => '',
@@ -144,6 +148,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   $stepLayoutVariables = [
     'step_label' => [],
     'pages' => [],
+    'messages' => [],
     'buttons' => [],
   ];
   // 5a. Step-layout page for single question.
@@ -233,4 +238,19 @@ function va_gov_form_builder_theme_suggestions_page(array &$variables) {
   }
 
   return $suggestions;
+}
+
+/**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function va_gov_form_builder_entity_bundle_info_alter(array &$bundles): void {
+  if (isset($bundles['paragraph']['digital_form_custom_step'])) {
+    $bundles['paragraph']['digital_form_custom_step']['class'] = CustomStepParagraph::class;
+  }
+  if (isset($bundles['paragraph']['digital_form_page'])) {
+    $bundles['paragraph']['digital_form_page']['class'] = PageParagraph::class;
+  }
+  if (isset($bundles['paragraph']['digital_form_list_loop'])) {
+    $bundles['paragraph']['digital_form_list_loop']['class'] = ListLoopParagraph::class;
+  }
 }

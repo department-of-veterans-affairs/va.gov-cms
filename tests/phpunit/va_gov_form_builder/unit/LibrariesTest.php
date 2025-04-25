@@ -55,7 +55,6 @@ class LibrariesTest extends VaGovUnitTestBase {
    */
   public function testLibraryCss() {
     $cssPrefix = 'css/';
-    $jsPrefix = 'js/';
 
     // Assert Form Builder base library is present.
     $baseLibrary = 'form_builder';
@@ -135,11 +134,13 @@ class LibrariesTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey($expandedRadioHelpTextLibrary, $this->libraries);
     $expandedRadioHelpTextCssArray = array_keys($this->libraries[$expandedRadioHelpTextLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'expanded-radio--help-text-optional-image.css', $expandedRadioHelpTextCssArray, 'Expanded-radio -- Help text with optional image css is present.');
-    // 14. Paragraph sort and delete.
-    $paragraphSortAndDeleteLibrary = 'paragraph_sort_and_delete';
-    $this->assertArrayHasKey($paragraphSortAndDeleteLibrary, $this->libraries);
-    $paragraphSortAndDeleteJsArray = array_keys($this->libraries[$paragraphSortAndDeleteLibrary]['js']);
-    $this->assertContains($jsPrefix . 'paragraph-sort-and-delete.js', $paragraphSortAndDeleteJsArray, 'Paragraph-sort-and-delete js is present.');
+    // 14. Paragraph actions.
+    $paragraphActionsLibrary = 'paragraph_actions';
+    $this->assertArrayHasKey($paragraphActionsLibrary, $this->libraries);
+    $this->assertArrayHasKey('css', $this->libraries[$paragraphActionsLibrary]);
+    $this->assertArrayHasKey('theme', $this->libraries[$paragraphActionsLibrary]['css']);
+    $paragraphActionsCssArray = array_keys($this->libraries[$paragraphActionsLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'paragraph-actions.css', $paragraphActionsCssArray, 'Paragraph-actions css is present.');
   }
 
 }

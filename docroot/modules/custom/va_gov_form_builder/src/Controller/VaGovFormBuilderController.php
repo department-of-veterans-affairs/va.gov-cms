@@ -2,8 +2,12 @@
 
 namespace Drupal\va_gov_form_builder\Controller;
 
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderPageBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -91,6 +95,13 @@ class VaGovFormBuilderController extends ControllerBase {
   protected $stepParagraph;
 
   /**
+   * The Drupal render service.
+   *
+   * @var \Drupal\Core\Render\Renderer
+   */
+  protected $renderer;
+
+  /**
    * The paragraph object representing the page.
    *
    * @var \Drupal\paragraphs\Entity\Paragraph|null
@@ -107,7 +118,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $instance->drupalFormBuilder = $container->get('form_builder');
     $instance->digitalFormsService = $container->get('va_gov_form_builder.digital_forms_service');
     $instance->session = $container->get('session');
-
+    $instance->renderer = $container->get('renderer');
     return $instance;
   }
 
@@ -134,10 +145,15 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The paragraph id to load.
    *
    * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-   *   If the pargraph is not found, or if the paragraph
+   *   If the paragraph is not found, or if the paragraph
    *   does not belong to $this->digitalForm.
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *   Thrown if the entity type doesn't exist.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *   Thrown if the storage handler couldn't be loaded.
    */
   protected function loadStepParagraph($paragraphId) {
+    /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
     $paragraph = $this->entityTypeManager->getStorage('paragraph')->load($paragraphId);
     if (!$paragraph) {
       throw new NotFoundHttpException();
@@ -659,7 +675,6 @@ class VaGovFormBuilderController extends ControllerBase {
    */
   public function layout($nid) {
     $this->loadDigitalForm($nid);
-
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'layout',
       '#form_info' => [
@@ -683,6 +698,9 @@ class VaGovFormBuilderController extends ControllerBase {
         'url' => $this->getPageUrl('contact_info'),
       ],
       '#additional_steps' => [
+        'messages' => [
+          '#type' => 'status_messages',
+        ],
         'steps' => array_map(function ($step) {
           $stepParagraphId = $step['fields']['id'][0]['value'];
           return [
@@ -693,6 +711,7 @@ class VaGovFormBuilderController extends ControllerBase {
               'nid' => $this->digitalForm->id(),
               'stepParagraphId' => $stepParagraphId,
             ])->toString(),
+            'actions' => $this->getParagraphActions($step['paragraph']),
           ];
         }, $this->digitalForm->getNonStandarddSteps()),
         'add_step' => [
@@ -711,11 +730,71 @@ class VaGovFormBuilderController extends ControllerBase {
         'url' => $this->getPageUrl('view_form'),
       ],
     ];
+
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle());
-    $libraries = ['layout'];
+    $libraries = ['layout', 'paragraph_actions'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Ajax callback for a Custom Step paragraph action.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The DigitalForm node.
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The Paragraph taking the action.
+   * @param string $action
+   *   Action to take. Route takes care of ensuring only currently available
+   *   actions are able to access the route.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The ajax response to return.
+   *
+   * @throws \Exception
+   */
+  public function customStepAction(NodeInterface $node, ParagraphInterface $paragraph, string $action): AjaxResponse {
+    $response = new AjaxResponse();
+
+    // Take the appropriate action on the Paragraph.
+    if (method_exists($paragraph, 'executeAction')) {
+      $paragraph->executeAction($action);
+      $layout = $this->layout($node->id());
+      $output = $this->renderer->renderRoot($layout);
+      $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
+    }
+
+    return $response;
+  }
+
+  /**
+   * Ajax callback for a Page paragraph action.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The DigitalForm node.
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The Paragraph taking the action.
+   * @param string $action
+   *   Action to take. Route takes care of ensuring only currently available
+   *   actions are able to access the route.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The ajax response to return.
+   *
+   * @throws \Exception
+   */
+  public function pageAction(NodeInterface $node, ParagraphInterface $paragraph, string $action): AjaxResponse {
+    $response = new AjaxResponse();
+
+    if (method_exists($paragraph, 'executeAction')) {
+      $paragraph->executeAction($action);
+      $layout = $this->stepLayout($node->id(), $paragraph->getParentEntity()->id());
+      $output = $this->renderer->renderRoot($layout);
+      $response->addCommand(new ReplaceCommand('.form-builder-page-container', $output));
+    }
+
+    return $response;
   }
 
   /**
@@ -882,6 +961,7 @@ class VaGovFormBuilderController extends ControllerBase {
         return [
           'id' => $page->id(),
           'title' => $page->get('field_title')->value,
+          'actions' => $this->getParagraphActions($page, 'page_action'),
           'url' => "{$this->getPageUrl('step.layout')}/question/{$page->id()}",
         ];
       }, $pageEntities);
@@ -891,6 +971,9 @@ class VaGovFormBuilderController extends ControllerBase {
         '#step_label' => [
           'label' => $stepLabel,
           'url' => $this->getPageUrl('step.step_label.edit'),
+        ],
+        '#messages' => [
+          '#type' => 'status_messages',
         ],
         '#pages' => $pages,
         '#buttons' => [
@@ -923,9 +1006,43 @@ class VaGovFormBuilderController extends ControllerBase {
 
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', $stepLabel);
-    $libraries = ['single_column_with_buttons', 'step_layout', 'paragraph_sort_and_delete'];
+    $libraries = ['single_column_with_buttons', 'step_layout', 'paragraph_actions'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Builds actions for a paragraph.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph to build actions for.
+   * @param string $route_suffix
+   *   The suffix for the route.
+   *
+   * @return array
+   *   Array of paragraph actions.
+   */
+  public function getParagraphActions(ParagraphInterface $paragraph, string $route_suffix = 'custom_step_action'): array {
+    // Determine available actions.
+    $actions = [];
+    if (method_exists($paragraph, 'getActionCollection')) {
+      $paragraphActions = $paragraph->getActionCollection();
+      /** @var \Drupal\va_gov_form_builder\Entity\Paragraph\Action\ActionInterface $paragraphAction */
+      foreach ($paragraphActions as $paragraphAction) {
+        if ($paragraphAction->checkAccess($paragraph)) {
+          $actions[] = [
+            'url' => Url::fromRoute('va_gov_form_builder.' . $route_suffix, [
+              'node' => $this->digitalForm->id(),
+              'paragraph' => $paragraph->id(),
+              'action' => $paragraphAction->getKey(),
+            ])->toString(),
+            'title' => $paragraphAction->getTitle(),
+            'action' => $paragraphAction->getKey(),
+          ];
+        }
+      }
+    }
+    return $actions;
   }
 
   /**

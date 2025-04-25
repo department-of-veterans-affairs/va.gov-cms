@@ -36,12 +36,15 @@
       <p class="form-builder-layout-step__help-text">This step includes email and phone number collection from the submitter.</p>
       <a class="form-builder-layout-step__view-link" href="{{contact_info.url}}">View contact information</a>
     </section>
-
+    {{ additional_steps.messages }}
     {% for additional_step in additional_steps.steps %}
       <section class="form-builder-layout-step form-builder-layout-step--{{additional_step.status}}">
         <h4>Step {{ loop.index + 3 }}: {{ additional_step.title }}</h4>
         <p class="form-builder-layout-step__help-text">Click the link below to view this step.</p>
         <a class="form-builder-layout-step__view-link" href="{{additional_step.url}}">View {{ additional_step.title | lower }}</a>
+        {% if additional_step.actions %}
+          {{ include('@va_gov_form_builder/components/step-actions.html.twig', additional_step) }}
+        {% endif %}
       </section>
     {% endfor %}
 
