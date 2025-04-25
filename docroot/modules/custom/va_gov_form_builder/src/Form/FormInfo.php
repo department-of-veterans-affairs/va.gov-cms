@@ -4,6 +4,7 @@ namespace Drupal\va_gov_form_builder\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderFormBase;
+use Drupal\va_gov_form_builder\Traits\RepeatableFieldGroup;
 
 /**
  * Form step for entering a form's name and other basic info.
@@ -11,6 +12,8 @@ use Drupal\va_gov_form_builder\Form\Base\FormBuilderFormBase;
  * Other basic info includes form number, OMB info, etc.
  */
 class FormInfo extends FormBuilderFormBase {
+
+  use RepeatableFieldGroup;
 
   /**
    * {@inheritdoc}
