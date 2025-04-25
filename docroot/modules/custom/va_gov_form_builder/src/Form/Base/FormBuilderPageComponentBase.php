@@ -105,7 +105,7 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
    *
    * If components is not set, returns an empty array.
    * If `fieldName` does not exist, or another error occurs,
-   * returns NULL for the curent index of the returned array.
+   * returns NULL for the current index of the returned array.
    *
    * This is primarily used to populate forms with default values
    * when the form edit existing components.
