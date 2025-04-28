@@ -111,7 +111,7 @@ class FormInfo extends FormBuilderFormBase {
           'form-submit',
         ],
       ],
-      '#weight' => '100',
+      '#weight' => '10',
     ];
 
     return $form;

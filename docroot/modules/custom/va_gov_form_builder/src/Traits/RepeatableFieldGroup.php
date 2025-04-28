@@ -72,7 +72,6 @@ trait RepeatableFieldGroup {
     $new_count = $num_field + 1;
     $form_state->set('dynamic_radio_count', $new_count);
     $form_state->setRebuild();
-    $form_state->disableCache();
   }
 
 }
