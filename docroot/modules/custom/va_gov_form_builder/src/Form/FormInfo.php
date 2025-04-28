@@ -93,13 +93,6 @@ class FormInfo extends FormBuilderFormBase {
       '#default_value' => $this->getDigitalFormFieldValue('field_expiration_date'),
     ];
 
-    $field_definitions = [
-      'label' => ['#type' => 'textfield', '#title' => 'Label for radio item'],
-      'description' => ['#type' => 'textfield', '#title' => 'Radio description for item'],
-    ];
-
-    $this->addRepeatableFieldGroup($form, $form_state, 'dynamic_radio', $field_definitions, 1, 5);
-
     $form['actions']['save_and_continue'] = [
       '#type' => 'submit',
       '#value' => $this->t('Save and continue'),

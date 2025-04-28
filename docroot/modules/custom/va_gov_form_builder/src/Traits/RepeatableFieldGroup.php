@@ -26,11 +26,20 @@ trait RepeatableFieldGroup {
       '#type' => 'container',
       '#attributes' => ['id' => $element_name . '-wrapper'],
     ];
+    // Helper for ajax callbacks to easily grab element name.
+    $form['#repeatableFieldName'] = $element_name;
+
+    // Fields get their own values instead of copying the first group.
+    $form[$element_name . '_fieldset'][$element_name]['#tree'] = TRUE;
 
     for ($i = 0; $i < $num_items; $i++) {
       // Create a new fields for each item.
       foreach ($field_definitions as $field_key => $definition) {
         $form[$element_name . '_fieldset'][$element_name][$i][$field_key] = $definition;
+
+        // Track given field title to iterate visible counter.
+        $label = $form[$element_name . '_fieldset'][$element_name][$i][$field_key]['#title'];
+        $form[$element_name . '_fieldset'][$element_name][$i][$field_key]['#title'] = $label . ' ' . $i + 1;
       }
     }
 
@@ -57,8 +66,8 @@ trait RepeatableFieldGroup {
    * Selects and returns the fieldset with the names in it.
    */
   public function addMoreCallback(array &$form, FormStateInterface $form_state) {
-    // @todo Make this field dynamic somehow.
-    return $form['dynamic_radio_fieldset'];
+    $element_name = $form['#repeatableFieldName'];
+    return $form[$element_name . '_fieldset'];
   }
 
   /**
@@ -67,10 +76,13 @@ trait RepeatableFieldGroup {
    * Increments the max counter and causes a rebuild.
    */
   public function addOne(array &$form, FormStateInterface $form_state) {
-    // @todo Make this field dynamic somehow.
-    $num_field = $form_state->get('dynamic_radio_count');
+    $element_name = $form['#repeatableFieldName'];
+
+    // Increment counter.
+    $num_field = $form_state->get($element_name . '_count');
     $new_count = $num_field + 1;
-    $form_state->set('dynamic_radio_count', $new_count);
+    $form_state->set($element_name . '_count', $new_count);
+
     $form_state->setRebuild();
   }
 
