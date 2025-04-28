@@ -2748,6 +2748,265 @@
             }
         },
         {
+            "name": "drupal/ai",
+            "version": "dev-1.1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ai.git",
+                "reference": "68d5a6e2ece22cd795c97ea3d9461cf71040d317"
+            },
+            "require": {
+                "drupal/core": "^10.2 || ^11",
+                "drupal/key": "^1.18",
+                "league/html-to-markdown": "^5.1",
+                "yethee/tiktoken": "^0.5.1"
+            },
+            "require-dev": {
+                "allanpichardo/mysql-vector": "^2.0",
+                "drupal/ai_assistant_api": "*",
+                "drupal/ai_search-ai_search": "*",
+                "drupal/eca": "^2.0",
+                "drupal/eca_content-eca_content": "*",
+                "drupal/field_validation": "^3.0@beta",
+                "drupal/key": "*",
+                "drupal/search_api": "^1.x-dev",
+                "drupal/search_api_solr": "^4.0",
+                "drupal/token": "^1.14"
+            },
+            "suggest": {
+                "league/commonmark": "Allows previewing of chunked content when configuring the fields to be indexed in AI Search, and formats messages in the AI Chatbot module."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.1.x": "1.1.x-dev"
+                },
+                "drupal": {
+                    "version": "1.1.x-dev",
+                    "datestamp": "1744980354",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "kevinquillen",
+                    "homepage": "https://www.drupal.org/user/317279"
+                },
+                {
+                    "name": "marcus_johansson",
+                    "homepage": "https://www.drupal.org/user/385947"
+                },
+                {
+                    "name": "scott_euser",
+                    "homepage": "https://www.drupal.org/user/3267594"
+                },
+                {
+                    "name": "seogow",
+                    "homepage": "https://www.drupal.org/user/3065779"
+                },
+                {
+                    "name": "wouters_f",
+                    "homepage": "https://www.drupal.org/user/721548"
+                },
+                {
+                    "name": "yautja_cetanu",
+                    "homepage": "https://www.drupal.org/user/626050"
+                }
+            ],
+            "description": "AI module for Drupal",
+            "homepage": "https://www.drupal.org/project/ai",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ai"
+            }
+        },
+        {
+            "name": "drupal/ai_agents",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ai_agents.git",
+                "reference": "1.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ai_agents-1.0.2.zip",
+                "reference": "1.0.2",
+                "shasum": "91837ebea9b4ca6fcf6cfc1b3f93d4295249d63f"
+            },
+            "require": {
+                "drupal/ai": "^1.0.0",
+                "drupal/core": "^10.2 || ^11"
+            },
+            "require-dev": {
+                "drupal/webform": "^6.0"
+            },
+            "suggest": {
+                "drupal/simple_crawler": "Allows the AI Form integrations to crawl websites.",
+                "drupal/unstructured": "Makes the AI Form integrations work better by allowing many file contexts."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.2",
+                    "datestamp": "1738909480",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "andrewbelcher",
+                    "homepage": "https://www.drupal.org/user/655282"
+                },
+                {
+                    "name": "marcus_johansson",
+                    "homepage": "https://www.drupal.org/user/385947"
+                },
+                {
+                    "name": "yautja_cetanu",
+                    "homepage": "https://www.drupal.org/user/626050"
+                }
+            ],
+            "description": "Allows AI agents to be used on Drupal websites to do changes and lookup things.",
+            "homepage": "https://www.drupal.org/project/ai_agents",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/ai_agents"
+            }
+        },
+        {
+            "name": "drupal/ai_image_alt_text",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ai_image_alt_text.git",
+                "reference": "1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ai_image_alt_text-1.0.1.zip",
+                "reference": "1.0.1",
+                "shasum": "8fc44919418381ab34e79334df74ee81afd2c299"
+            },
+            "require": {
+                "drupal/ai": "^1.0.0",
+                "drupal/core": "^10.2 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.1",
+                    "datestamp": "1738761806",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "DXPR",
+                    "homepage": "https://dxpr.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "jurriaanroelofs",
+                    "homepage": "https://www.drupal.org/user/52638"
+                },
+                {
+                    "name": "marcus_johansson",
+                    "homepage": "https://www.drupal.org/user/385947"
+                },
+                {
+                    "name": "yautja_cetanu",
+                    "homepage": "https://www.drupal.org/user/626050"
+                }
+            ],
+            "description": "Allows the possibility to set an alt text using AI.",
+            "homepage": "https://www.drupal.org/project/ai_image_alt_text",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/ai_image_alt_text"
+            }
+        },
+        {
+            "name": "drupal/ai_provider_aws_bedrock",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ai_provider_aws_bedrock.git",
+                "reference": "1.0.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ai_provider_aws_bedrock-1.0.0-beta1.zip",
+                "reference": "1.0.0-beta1",
+                "shasum": "f6c3d468ad233a56e10e0d67752c456e3307fc9e"
+            },
+            "require": {
+                "aws/aws-sdk-php": "^3.316",
+                "drupal/ai": "^1.0.0-alpha7",
+                "drupal/aws": "*",
+                "drupal/core": "^10.3 || ^11",
+                "drupal/key": "^1.18"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-beta1",
+                    "datestamp": "1726653420",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "andrewbelcher",
+                    "homepage": "https://www.drupal.org/user/655282"
+                },
+                {
+                    "name": "marcus_johansson",
+                    "homepage": "https://www.drupal.org/user/385947"
+                },
+                {
+                    "name": "yautja_cetanu",
+                    "homepage": "https://www.drupal.org/user/626050"
+                }
+            ],
+            "description": "AWS Bedrock provider implementation for the AI module for Drupal",
+            "homepage": "https://www.drupal.org/project/ai_provider_aws_bedrock",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ai_provider_aws_bedrock"
+            }
+        },
+        {
             "name": "drupal/allow_only_one",
             "version": "1.0.3",
             "source": {
@@ -2986,6 +3245,69 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/auto_entitylabel",
                 "issues": "https://www.drupal.org/project/issues/auto_entitylabel"
+            }
+        },
+        {
+            "name": "drupal/aws",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/aws.git",
+                "reference": "2.0.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/aws-2.0.4.zip",
+                "reference": "2.0.4",
+                "shasum": "11212a4c8a0539aafdb477eabb3e5d78985cb298"
+            },
+            "require": {
+                "aws/aws-sdk-php": "^3.54",
+                "drupal/core": "^9.2 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.4",
+                    "datestamp": "1725464633",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Davis (davisben)",
+                    "homepage": "https://www.drupal.org/u/davisben",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "dragonwize",
+                    "homepage": "https://www.drupal.org/user/137882"
+                },
+                {
+                    "name": "mpriscella",
+                    "homepage": "https://www.drupal.org/user/2354820"
+                },
+                {
+                    "name": "recidive",
+                    "homepage": "https://www.drupal.org/user/12564"
+                },
+                {
+                    "name": "yas",
+                    "homepage": "https://www.drupal.org/user/17536"
+                }
+            ],
+            "description": "Provides a unified AWS profile management system.",
+            "homepage": "http://drupal.org/project/aws",
+            "support": {
+                "source": "https://git.drupalcode.org/project/aws",
+                "issues": "https://drupal.org/project/issues/aws"
             }
         },
         {
@@ -3276,6 +3598,54 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/ckeditor_abbreviation",
                 "issues": "http://drupal.org/project/issues/ckeditor_abbreviation"
+            }
+        },
+        {
+            "name": "drupal/ckeditor_ai_agent",
+            "version": "1.0.0-beta10",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ckeditor_ai_agent.git",
+                "reference": "1.0.0-beta10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ckeditor_ai_agent-1.0.0-beta10.zip",
+                "reference": "1.0.0-beta10",
+                "shasum": "d401986368f9a005bb8467713542f2cffebcdad2"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11",
+                "drupal/key": "^1.16"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-beta10",
+                    "datestamp": "1745055856",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "jurriaanroelofs",
+                    "homepage": "https://www.drupal.org/user/52638"
+                }
+            ],
+            "description": "CKEditor 5 module for Ai Assist.",
+            "homepage": "https://www.drupal.org/project/ckeditor_ai_agent",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/ckeditor_ai_agent"
             }
         },
         {
@@ -9039,6 +9409,77 @@
             ],
             "support": {
                 "source": "https://git.drupalcode.org/project/jsonapi_views"
+            }
+        },
+        {
+            "name": "drupal/key",
+            "version": "1.20.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/key.git",
+                "reference": "8.x-1.20"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/key-8.x-1.20.zip",
+                "reference": "8.x-1.20",
+                "shasum": "f45415552de129e9976af72224393cd1d1f2ea65"
+            },
+            "require": {
+                "drupal/core": ">=8.9 <12"
+            },
+            "require-dev": {
+                "drush/drush": ">=9"
+            },
+            "suggest": {
+                "drush/drush": ">=11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.20",
+                    "datestamp": "1744582168",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": ">=9"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "cellar door",
+                    "homepage": "https://www.drupal.org/user/658076"
+                },
+                {
+                    "name": "crashtest_",
+                    "homepage": "https://www.drupal.org/user/261457"
+                },
+                {
+                    "name": "nerdstein",
+                    "homepage": "https://www.drupal.org/user/1557710"
+                },
+                {
+                    "name": "rlhawk",
+                    "homepage": "https://www.drupal.org/user/352283"
+                }
+            ],
+            "description": "Provides the ability to manage site-wide keys",
+            "homepage": "http://drupal.org/project/key",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/key",
+                "issues": "http://drupal.org/project/key"
             }
         },
         {
@@ -17603,6 +18044,95 @@
                 "source": "https://github.com/thephpleague/event/tree/3.0.3"
             },
             "time": "2024-09-04T16:06:53+00:00"
+        },
+        {
+            "name": "league/html-to-markdown",
+            "version": "5.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/html-to-markdown.git",
+                "reference": "0b4066eede55c48f38bcee4fb8f0aa85654390fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/html-to-markdown/zipball/0b4066eede55c48f38bcee4fb8f0aa85654390fd",
+                "reference": "0b4066eede55c48f38bcee4fb8f0aa85654390fd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-xml": "*",
+                "php": "^7.2.5 || ^8.0"
+            },
+            "require-dev": {
+                "mikehaertl/php-shellcommand": "^1.1.0",
+                "phpstan/phpstan": "^1.8.8",
+                "phpunit/phpunit": "^8.5 || ^9.2",
+                "scrutinizer/ocular": "^1.6",
+                "unleashedtech/php-coding-standard": "^2.7 || ^3.0",
+                "vimeo/psalm": "^4.22 || ^5.0"
+            },
+            "bin": [
+                "bin/html-to-markdown"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\HTMLToMarkdown\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colin O'Dell",
+                    "email": "colinodell@gmail.com",
+                    "homepage": "https://www.colinodell.com",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Nick Cernis",
+                    "email": "nick@cern.is",
+                    "homepage": "http://modernnerd.net",
+                    "role": "Original Author"
+                }
+            ],
+            "description": "An HTML-to-markdown conversion helper for PHP",
+            "homepage": "https://github.com/thephpleague/html-to-markdown",
+            "keywords": [
+                "html",
+                "markdown"
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/html-to-markdown/issues",
+                "source": "https://github.com/thephpleague/html-to-markdown/tree/5.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.colinodell.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.paypal.me/colinpodell/10.00",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/colinodell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/league/html-to-markdown",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-07-12T21:21:09+00:00"
         },
         {
             "name": "league/oauth2-server",
@@ -28335,6 +28865,57 @@
             "time": "2022-07-30T11:09:43+00:00"
         },
         {
+            "name": "yethee/tiktoken",
+            "version": "0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yethee/tiktoken-php.git",
+                "reference": "94a4ac18ab505198f5a0955948ab29ce659c1697"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yethee/tiktoken-php/zipball/94a4ac18ab505198f5a0955948ab29ce659c1697",
+                "reference": "94a4ac18ab505198f5a0955948ab29ce659c1697",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "symfony/service-contracts": "^2.5 || ^3.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^12.0",
+                "mikey179/vfsstream": "^1.6.11",
+                "phpbench/phpbench": "^1.2",
+                "phpunit/phpunit": "^10.5.20",
+                "psalm/plugin-phpunit": "^0.19.0",
+                "vimeo/psalm": "5.25.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yethee\\Tiktoken\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP version of tiktoken",
+            "keywords": [
+                "bpe",
+                "decode",
+                "encode",
+                "openai",
+                "tiktoken",
+                "tokenizer"
+            ],
+            "support": {
+                "issues": "https://github.com/yethee/tiktoken-php/issues",
+                "source": "https://github.com/yethee/tiktoken-php/tree/0.5.1"
+            },
+            "time": "2024-07-17T10:09:02+00:00"
+        },
+        {
             "name": "zaporylie/composer-drupal-optimizations",
             "version": "1.2.0",
             "source": {
@@ -28893,9 +29474,13 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "drupal/advancedqueue": 5,
+        "drupal/ai": 20,
+        "drupal/ai_provider_aws_bedrock": 10,
         "drupal/cer": 10,
         "drupal/change_labels": 20,
         "drupal/ckeditor_abbreviation": 15,
+        "drupal/ckeditor_ai_agent": 10,
         "drupal/codit_menu_tools": 15,
         "drupal/components": 10,
         "drupal/entity_clone": 15,
