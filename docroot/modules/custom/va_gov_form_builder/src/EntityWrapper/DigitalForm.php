@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_form_builder\EntityWrapper;
 
+use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Entity\EntityConstraintViolationList;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -27,6 +28,7 @@ use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
  */
 class DigitalForm {
 
+  use DependencySerializationTrait;
   use EntityReferenceRevisionsOperations;
   use StringTranslationTrait;
 
