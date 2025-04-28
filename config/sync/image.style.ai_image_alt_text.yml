@@ -1,0 +1,23 @@
+uuid: c847561d-30d3-497c-add2-fa65823c7d4c
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: j0gQIr7B1P1LqNRq2lZ9VoLkD6MZo3EkShOC9J79jSc
+name: ai_image_alt_text
+label: 'AI Image Alt Text'
+effects:
+  6c9c9f31-ab65-41b2-bd39-bac4c63433aa:
+    uuid: 6c9c9f31-ab65-41b2-bd39-bac4c63433aa
+    id: image_scale
+    weight: 1
+    data:
+      width: 200
+      height: 200
+      upscale: false
+  dcc1df0d-f0c8-4cee-843b-149363a237f9:
+    uuid: dcc1df0d-f0c8-4cee-843b-149363a237f9
+    id: image_convert
+    weight: 2
+    data:
+      extension: png

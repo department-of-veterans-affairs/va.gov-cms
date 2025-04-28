@@ -65,7 +65,7 @@ class MediaEventSubscriber implements EventSubscriberInterface {
     $context = $event->getContext();
     // If this is an image field type of instance.
     if ($context['widget'] instanceof ImageWidget) {
-      $element['#process'][] = [static::class, 'imageFieldWidgetProcess'];
+//      $element['#process'][] = [static::class, 'imageFieldWidgetProcess'];
     }
   }
 

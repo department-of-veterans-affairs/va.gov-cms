@@ -1,0 +1,172 @@
+Subject: [PATCH] adding keys to settings
+---
+Index: src/Entity/ProfileInterface.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Entity/ProfileInterface.php b/src/Entity/ProfileInterface.php
+--- a/src/Entity/ProfileInterface.php	(revision 8189f4bf5967349815fdac013fe6c331a956b24b)
++++ b/src/Entity/ProfileInterface.php	(date 1745876306372)
+@@ -160,4 +160,20 @@
+    */
+   public function getTemporaryCredentials(string$roleArn, string $version = 'latest');
+ 
++  /**
++   * Check if the access key is set.
++   *
++   * @return bool
++   *   TRUE if the access key is set.
++   */
++  public function accessKeyCheck(): bool;
++
++  /**
++   * Check if the secret access key is set.
++   *
++   * @return bool
++   *   TRUE if the secret access key is set.
++   */
++  public function secretKeyCheck(): bool;
++
+ }
+Index: src/Entity/Form/ProfileForm.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Entity/Form/ProfileForm.php b/src/Entity/Form/ProfileForm.php
+--- a/src/Entity/Form/ProfileForm.php	(revision 8189f4bf5967349815fdac013fe6c331a956b24b)
++++ b/src/Entity/Form/ProfileForm.php	(date 1745876117947)
+@@ -126,18 +126,38 @@
+       '#default_value' => $this->entity->getRoleSessionName(),
+     ];
+ 
++    if ($this->entity->accessKeyCheck()) {
++      $form['aws_key_warning'] = [
++        '#type' => 'markup',
++        '#markup' => $this->t('The access key is not required when it is set in settings.php.'),
++        '#prefix' => '<div id="access-key-warning" class="messages warning">',
++        '#suffix' => '</div>',
++      ];
++    }
++
+     $form['aws_access_key_id'] = [
+       '#type' => 'textfield',
+       '#title' => $this->t('Access Key'),
+       '#description' => $this->t('AWS access key.'),
+       '#default_value' => $this->entity->getAccessKey(),
++      '#disabled' => $this->entity->accessKeyCheck(),
+     ];
++
++    if ($this->entity->secretKeyCheck()) {
++      $form['secret_key_warning'] = [
++        '#type' => 'markup',
++        '#markup' => $this->t('The secret key is not required when it is set in settings.php.'),
++        '#prefix' => '<div id="secret-key-warning" class="messages warning">',
++        '#suffix' => '</div>',
++      ];
++    }
+ 
+     $form['aws_secret_access_key'] = [
+       '#type' => 'textfield',
+       '#title' => $this->t('Secret Access Key'),
+       '#description' => $this->t('AWS secret key.'),
+       '#default_value' => $this->entity->getSecretAccessKey(),
++      '#disabled' => $this->entity->secretKeyCheck(),
+     ];
+ 
+     $form['region'] = [
+Index: src/Entity/Profile.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Entity/Profile.php b/src/Entity/Profile.php
+--- a/src/Entity/Profile.php	(revision 8189f4bf5967349815fdac013fe6c331a956b24b)
++++ b/src/Entity/Profile.php	(date 1745876380680)
+@@ -8,6 +8,7 @@
+ use Aws\Sts\StsClient;
+ use Drupal\Core\Config\Entity\ConfigEntityBase;
+ use Drupal\encrypt\EncryptServiceInterface;
++use Drupal\Core\Site\Settings;
+ 
+ /**
+  * Defines the AWS Profile entity.
+@@ -197,6 +198,10 @@
+    * {@inheritdoc}
+    */
+   public function getAccessKey() {
++    $accessKey = Settings::get('aws_access_key_id');
++    if (!empty($accessKey)) {
++      return $accessKey;
++    }
+     return $this->aws_access_key_id;
+   }
+ 
+@@ -204,6 +209,10 @@
+    * {@inheritdoc}
+    */
+   public function setAccessKey(string $aws_access_key_id) {
++    $accessKey = Settings::get('aws_access_key_id');
++    if (!empty($accessKey)) {
++      return $this;
++    }
+     $this->aws_access_key_id = $aws_access_key_id;
+     return $this;
+   }
+@@ -212,6 +221,10 @@
+    * {@inheritdoc}
+    */
+   public function getSecretAccessKey() {
++    $secretAccessKey = Settings::get('aws_secret_access_key');
++    if (!empty($secretAccessKey)) {
++      return $secretAccessKey;
++    }
+     if (empty($this->aws_secret_access_key)) {
+       return '';
+     }
+@@ -222,6 +235,10 @@
+    * {@inheritdoc}
+    */
+   public function setSecretAccessKey(string $aws_secret_access_key) {
++    $secretAccessKey = Settings::get('aws_secret_access_key');
++    if (!empty($secretAccessKey)) {
++      return $this;
++    }
+     $this->aws_secret_access_key = $this->encryptSecret($aws_secret_access_key);
+     return $this;
+   }
+@@ -368,4 +385,33 @@
+     // Return non-encrypted credentials for use.
+     return $credentials;
+   }
++
++    /**
++   * Checks if access key is set in settings.
++   *
++   * @return bool
++   *  TRUE if an access key is set.
++   */
++  public function accessKeyCheck(): bool {
++    $accessKey = Settings::get('aws_access_key_id');
++    if (empty($accessKey)) {
++      return FALSE;
++    }
++    return TRUE;
++  }
++
++  /**
++   * Checks if secret key is set in settings.
++   *
++   * @return bool
++   *  TRUE if a secret key is set.
++   */
++  public function secretKeyCheck(): bool {
++    $secretKey = Settings::get('aws_secret_access_key');
++    if (empty($secretKey)) {
++      return FALSE;
++    }
++    return TRUE;
++  }
++
+ }
