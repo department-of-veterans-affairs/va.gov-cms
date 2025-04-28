@@ -6,13 +6,17 @@ id: next_js
 name: next_js
 description: Next.js
 grant_types:
+  refresh_token:
+    status: false
+    description: ''
   authorization_code:
-    status: true
+    status: false
+    description: ''
   client_credentials:
     status: true
-  refresh_token:
-    status: true
+    description: ''
 umbrella: false
-parent: null
-granularity_id: null
-granularity_configuration: {  }
+parent: _none
+granularity_id: role
+granularity_configuration:
+  role: next_js
