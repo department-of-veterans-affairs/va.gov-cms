@@ -60,7 +60,7 @@ class CustomSingleQuestionTextInputResponse extends FormBuilderPageComponentBase
       '#type' => 'html_tag',
       '#tag' => 'img',
       '#attributes' => [
-        'src' => self::IMAGE_DIR . 'date-range.png',
+        'src' => self::IMAGE_DIR . 'text-input.png',
         'alt' => $this->t('A preview of the text-input response.'),
       ],
     ];
