@@ -40,7 +40,8 @@ class CustomSingleQuestionTextInputResponse extends FormBuilderPageComponentBase
       CustomSingleQuestionPageType::DateRange,
     );
 
-    // @todo add form theme.
+    $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_text_input_response';
+
     $form['page_title'] = [
       '#markup' => $this->pageData['title'],
     ];
