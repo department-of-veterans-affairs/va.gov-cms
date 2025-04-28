@@ -3,11 +3,14 @@
 namespace Drupal\va_gov_form_builder\Traits;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Traits for repeatable fields.
  */
 trait RepeatableFieldGroup {
+
+  use StringTranslationTrait;
 
   /**
    * Creates repeatable fields dynamically using AJAX.
@@ -26,8 +29,6 @@ trait RepeatableFieldGroup {
       '#type' => 'container',
       '#attributes' => ['id' => $element_name . '-wrapper'],
     ];
-    // Helper for ajax callbacks to easily grab element name.
-    $form['#repeatableFieldName'] = $element_name;
 
     // Fields get their own values instead of copying the first group.
     $form[$element_name . '_fieldset'][$element_name]['#tree'] = TRUE;
@@ -50,6 +51,7 @@ trait RepeatableFieldGroup {
 
       $form[$element_name . '_fieldset']['actions']['add_item'] = [
         '#type' => 'submit',
+        '#name' => $element_name . '_add_item',
         '#value' => $this->t('Add another'),
         '#submit' => ['::addOne'],
         '#ajax' => [
@@ -66,8 +68,9 @@ trait RepeatableFieldGroup {
    * Selects and returns the fieldset with the names in it.
    */
   public function addMoreCallback(array &$form, FormStateInterface $form_state) {
-    $element_name = $form['#repeatableFieldName'];
-    return $form[$element_name . '_fieldset'];
+    $clickedButton = $form_state->getTriggeringElement()['#name'];
+    $elementWrapperName = str_replace('_add_item', '_fieldset', $clickedButton);
+    return $form[$elementWrapperName];
   }
 
   /**
@@ -76,12 +79,13 @@ trait RepeatableFieldGroup {
    * Increments the max counter and causes a rebuild.
    */
   public function addOne(array &$form, FormStateInterface $form_state) {
-    $element_name = $form['#repeatableFieldName'];
+    $clickedButton = $form_state->getTriggeringElement()['#name'];
+    $element_name = str_replace('_add_item', '_count', $clickedButton);
 
     // Increment counter.
-    $num_field = $form_state->get($element_name . '_count');
+    $num_field = $form_state->get($element_name);
     $new_count = $num_field + 1;
-    $form_state->set($element_name . '_count', $new_count);
+    $form_state->set($element_name, $new_count);
 
     $form_state->setRebuild();
   }
