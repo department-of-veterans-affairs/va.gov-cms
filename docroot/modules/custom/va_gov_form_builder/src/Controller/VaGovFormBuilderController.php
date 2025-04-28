@@ -1308,7 +1308,7 @@ class VaGovFormBuilderController extends ControllerBase {
           $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.choice.type', 'Radio question');
           break;
 
-        case CustomSingleQuestionPageType::Checkbox;
+        case CustomSingleQuestionPageType::Checkbox:
           $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.choice.type', 'Checkbox question');
           break;
 
@@ -1521,15 +1521,43 @@ class VaGovFormBuilderController extends ControllerBase {
 
       case CustomSingleQuestionPageType::DateRange:
         return $this->customSingleQuestionDateRangeResponse($nid, $stepParagraphId, $pageParagraphId);
+
+      case CustomSingleQuestionPageType::Radio:
+        return $this->customSingleQuestionRadioResponse($nid, $stepParagraphId, $pageParagraphId);
     }
   }
 
+  /**
+   * Custom single-question checkbox response page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   *
+   * @return array
+   *   The render array for this page.
+   */
   public function customSingleQuestionCheckboxResponse($nid, $stepParagraphId) {
     return [
       '#markup' => '<h1>Hi!</h1>',
     ];
   }
 
+  /**
+   * Custom single-question radio response page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   *
+   * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+   *   A redirect or the page response render array.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
   public function customSingleQuestionRadioResponse($nid, $stepParagraphId) {
     if (empty($this->digitalForm)) {
       $this->loadDigitalForm($nid);
@@ -1583,6 +1611,20 @@ class VaGovFormBuilderController extends ControllerBase {
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
 
+  /**
+   * Custom single question choice type page.
+   *
+   * @param int $nid
+   *   The node id.
+   * @param int $stepParagraphId
+   *   The step paragraph.
+   *
+   * @return array
+   *   The render array for this choice type.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
   public function customSingleQuestionChoiceType($nid, $stepParagraphId) {
     $this->loadDigitalForm($nid);
     $this->loadStepParagraph($stepParagraphId);
@@ -1598,7 +1640,6 @@ class VaGovFormBuilderController extends ControllerBase {
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
-
 
   /**
    * Review-and-sign page.

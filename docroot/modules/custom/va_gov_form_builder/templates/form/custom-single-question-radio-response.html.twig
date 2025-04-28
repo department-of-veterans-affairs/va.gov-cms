@@ -18,30 +18,25 @@
     </div>
 
     {{ form.required }}
-
-{#    <div class="form-builder-single-question-response__page-body">#}
-{#      <label for="page-body">Body content:</label>#}
-{#      <div id="page-body">{{ form.page_body ?: 'None provided' }}</div>#}
-{#    </div>#}
-
-
-{#    <div class="form-builder-single-question-response__type">#}
-{#      <label for="guidance">Date</label>#}
-{#      <p id="guidance">Guidance for this choice</p>#}
-{#    </div>#}
     <hr/>
     <div class="form-builder-single-question-response__component">
       {{ form.label }}
       {{ form.hint_text }}
     </div>
 
+    <div class="form-builder-single-question-response__component">
+      {{ form.label }}
+      {{ form.hint_text }}
+    </div>
   </section>
 {% endblock %}
 
 {% block right_content %}
   <div class="form-builder-single-question-response__preview">
-    <label for="preview">Example</label>
-    <div id="preview">{{ form.preview }}</div>
+    <label for="no-descriptors-preview">Example without descriptors</label>
+    <div id="no-descriptors-preview">{{ form.preview.no_descriptors }}</div>
+    <label for="no-descriptors-preview">Example with descriptors</label>
+    <div id="with-descriptors-preview">{{ form.preview.descriptors }}</div>
   </div>
 {% endblock %}
 

@@ -55,24 +55,6 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
       '#title' => $this->t('Required for the submitter'),
       '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_required')[0] ?? TRUE,
     ];
-//
-//    $form['date_format'] = [
-//      '#type' => 'va_gov_form_builder__expanded_radios',
-//      '#title' => $this->t('This date type is:'),
-//      '#options' => [
-//        'month_day_year' => $this->t('A memorable date that a submitter knows (includes Month, Day, Year)'),
-//        'month_year' => $this->t('A date that a submitter can approximate (includes Month, Year)'),
-//      ],
-//      '#options_expanded_content' => [
-//        'month_day_year' => [
-//          '#markup' => '<p><a href="" target="_blank">View example in Sample Forms</a></p>',
-//        ],
-//        'month_year' => [
-//          '#markup' => '<p><a href="" target="_blank">View example in Sample Forms</a></p>',
-//        ],
-//      ],
-//      '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_date_format')[0] ?? 'month_day_year',
-//    ];
 
     $form['label'] = [
       '#type' => 'textfield',
@@ -90,11 +72,21 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
     ];
 
     $form['preview'] = [
-      '#type' => 'html_tag',
-      '#tag' => 'img',
-      '#attributes' => [
-        'src' => self::IMAGE_DIR . 'single-date.png',
-        'alt' => $this->t('A preview of the single-date response.'),
+      'no_descriptors' => [
+        '#type' => 'html_tag',
+        '#tag' => 'img',
+        '#attributes' => [
+          'src' => self::IMAGE_DIR . 'radio-no-descriptors.png',
+          'alt' => $this->t('Example without descriptors.png'),
+        ],
+      ],
+      'descriptors' => [
+        '#type' => 'html_tag',
+        '#tag' => 'img',
+        '#attributes' => [
+          'src' => self::IMAGE_DIR . 'radio-with-descriptors.png',
+          'alt' => $this->t('Example with descriptors.png'),
+        ],
       ],
     ];
 
