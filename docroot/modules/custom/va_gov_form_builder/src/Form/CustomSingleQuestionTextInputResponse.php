@@ -50,10 +50,46 @@ class CustomSingleQuestionTextInputResponse extends FormBuilderPageComponentBase
       '#markup' => $this->pageData['body'],
     ];
 
-    $form['required'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Required for the submitter'),
-      '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_required')[0] ?? TRUE,
+    $form['components'] = [
+      '#tree' => TRUE,
+    ];
+    $form['components'][0] = [
+      '#type' => 'container',
+      'label' => [
+        '#type' => 'textfield',
+        '#title' => $this->t('Label for Text-input item 1'),
+        '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[0] ?? '',
+        '#required' => TRUE,
+      ],
+      'hint_text' => [
+        '#type' => 'textfield',
+        '#title' => $this->t('Hint text for item 1'),
+        '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[0] ?? '',
+      ],
+      'required' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Required for the submitter'),
+        '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_required')[0] ?? TRUE,
+      ],
+    ];
+    $form['components'][1] = [
+      '#type' => 'container',
+      'label' => [
+        '#type' => 'textfield',
+        '#title' => $this->t('Label for Text-input item 2'),
+        '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[1] ?? '',
+        '#required' => TRUE,
+      ],
+      'hint_text' => [
+        '#type' => 'textfield',
+        '#title' => $this->t('Hint text for item 2'),
+        '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[1] ?? '',
+      ],
+      'required' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Required for the submitter'),
+        '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_required')[1] ?? TRUE,
+      ],
     ];
 
     $form['preview'] = [

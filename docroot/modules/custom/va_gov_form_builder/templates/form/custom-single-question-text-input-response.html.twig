@@ -28,11 +28,17 @@
     </div>
 
     {% for component in form.components %}
-      <div class="form-builder-single-question-response__component">
-        {{ component.label }}
-        {{ component.hint_text }}
-        {{ component.required}}
-      </div>
+      {% if
+        component['label'] is defined
+        and component['hint_text'] is defined
+        and component['required'] is defined
+      %}
+        <div class="form-builder-single-question-response__component">
+          {{ component.label }}
+          {{ component.hint_text }}
+          {{ component.required}}
+        </div>
+      {% endif %}
     {% endfor %}
 
   </section>
