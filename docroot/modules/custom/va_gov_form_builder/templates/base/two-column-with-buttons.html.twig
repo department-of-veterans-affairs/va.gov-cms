@@ -1,0 +1,30 @@
+<div id="form-builder-content-{{ page_id }}" class="form-builder-content form-builder-two-column-content form-builder-{{ page_type }}-content form-builder-content--two-colum-with-buttons">
+  {% if block('messages') %}
+    <div class="form-builder-two-column-with-buttons__messages">
+      {% block messages %}{% endblock %}
+    </div>
+  {% endif %}
+
+  <div class="form-builder-two-column-with-buttons__content">
+    <div class="form-builder-two-column-with-buttons__left-content">
+      <h2 class="form-builder-page-title">{{ page_heading }}</h2>
+      {% block left_content %}{% endblock %}
+    </div>
+
+    <div class="form-builder-two-column-with-buttons__right-content">
+      {% block right_content %}{% endblock %}
+    </div>
+  </div>
+
+  {% if block('buttons') is not empty %}
+    <div class="form-builder-two-column-with-buttons__buttons form-builder-button-group">
+      {% block buttons %}{% endblock %}
+    </div>
+  {% endif %}
+
+  {% if block('after_buttons') is not empty %}
+    <div class="form-builder-two-column-with-buttons__after-buttons">
+      {% block after_buttons %}{% endblock %}
+    </div>
+  {% endif %}
+</div>

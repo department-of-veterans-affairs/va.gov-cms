@@ -49,11 +49,6 @@ abstract class FormBuilderStepBase extends FormBuilderBase {
   }
 
   /**
-   * Returns the step paragraph fields accessed by this form.
-   */
-  abstract protected function getFields();
-
-  /**
    * Sets (creates or updates) a step-paragraph object from the form-state data.
    *
    * @param \Drupal\Core\Form\FormStateInterface $form_state
@@ -108,20 +103,26 @@ abstract class FormBuilderStepBase extends FormBuilderBase {
     }
     $this->stepParagraph = $stepParagraph;
 
+    $form = parent::buildForm($form, $form_state);
     return $form;
   }
+
+  /**
+   * Validate the step paragraph.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  abstract protected function validateStepParagraph(array $form, FormStateInterface $form_state);
 
   /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $this->setStepParagraphFromFormState($form_state);
-
-    // Validate the node entity.
-    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
-    $violations = $this->stepParagraph->validate();
-
-    $this->setFormErrors($form_state, $violations, $this->getFields());
+    $this->validateStepParagraph($form, $form_state);
   }
 
   /**

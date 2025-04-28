@@ -10,10 +10,8 @@
     {% for page in pages %}
       <div class="form-builder-step-layout__page">
         <a class="form-builder-step-layout__page_title" href="{{ page.url }}">{{ page.title }}</a>
-        {% if pages|length > 1 %}
-          <div class="form-builder-paragraph-sort-and-delete form-builder-step-layout__paragraph-sort-and-delete">
-            <i class="form-builder-paragraph-sort-and-delete__test">(Placeholder for sort-and-delete controls)</i>
-          </div>
+        {% if page.actions %}
+          {{ include('@va_gov_form_builder/components/step-actions.html.twig', page) }}
         {% endif %}
       </div>
     {% endfor %}

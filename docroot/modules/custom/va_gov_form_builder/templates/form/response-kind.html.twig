@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Template for Form Builder step page: Step Label
+ * Template for Form Builder step page: Reponse kind
  */
 #}
 {% extends '@va_gov_form_builder/form/base/single-column-with-buttons.html.twig' %}
@@ -17,6 +17,7 @@
 {% block after_buttons %}
   {# render rest of form so it functions properly #}
   {{ form|without(
+    'status_messages',
     'response_kind',
     'actions',
   )}}
