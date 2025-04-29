@@ -17,7 +17,7 @@ trait RepeatableFieldGroup {
    */
   public function addRepeatableFieldGroup(array &$form, FormStateInterface $form_state, string $element_name, array $field_definitions, int $startIndex = 1, int $max = 10, $button_name = 'Add another') {
     // If an additional item would be over the limit, bail early.
-    if ($startIndex >= $max) {
+    if ($startIndex > $max) {
       return;
     }
 
@@ -57,6 +57,9 @@ trait RepeatableFieldGroup {
     if ($num_items < $max) {
       $form[$element_name . '_fieldset']['actions'] = [
         '#type' => 'actions',
+        '#attributes' => [
+          'class' => ['form-builder-add-item-wrapper'],
+        ],
       ];
 
       $form[$element_name . '_fieldset']['actions']['add_item'] = [
@@ -67,6 +70,9 @@ trait RepeatableFieldGroup {
         '#ajax' => [
           'callback' => '::addMoreCallback',
           'wrapper' => $element_name . '-wrapper',
+        ],
+        '#attributes' => [
+          'class' => ['form-builder-add-item'],
         ],
         // Don't validate on ajax add, only on full page submission.
         '#limit_validation_errors' => [],

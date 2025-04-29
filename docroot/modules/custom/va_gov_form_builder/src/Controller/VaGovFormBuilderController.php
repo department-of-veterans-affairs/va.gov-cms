@@ -1184,6 +1184,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'response_kind',
       'expanded_radio',
       'expanded_radio__help_text_optional_image',
+      'repeatable_field_groups',
     ];
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
@@ -1373,6 +1374,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'two_column_with_buttons',
       'expanded_radio',
       'custom_single_question_response',
+      'repeatable_field_groups',
     ];
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
@@ -1439,6 +1441,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'two_column_with_buttons',
       'expanded_radio',
       'custom_single_question_response',
+      'repeatable_field_groups',
     ];
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
