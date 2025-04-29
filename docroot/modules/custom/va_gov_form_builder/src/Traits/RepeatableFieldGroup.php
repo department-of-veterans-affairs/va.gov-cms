@@ -15,7 +15,7 @@ trait RepeatableFieldGroup {
   /**
    * Creates repeatable fields dynamically using AJAX.
    */
-  public function addRepeatableFieldGroup(array &$form, FormStateInterface $form_state, string $element_name, array $field_definitions, int $startIndex = 1, int $max = 10) {
+  public function addRepeatableFieldGroup(array &$form, FormStateInterface $form_state, string $element_name, array $field_definitions, int $startIndex = 1, int $max = 10, $button_name = 'Add another') {
     // If an additional item would be over the limit, bail early.
     if ($startIndex >= $max) {
       return;
@@ -43,9 +43,14 @@ trait RepeatableFieldGroup {
       foreach ($field_definitions as $field_key => $definition) {
         $form[$element_name . '_fieldset'][$element_name][$i][$field_key] = $definition;
 
-        // Track given field title to iterate visible counter.
-        $label = $form[$element_name . '_fieldset'][$element_name][$i][$field_key]['#title'];
-        $form[$element_name . '_fieldset'][$element_name][$i][$field_key]['#title'] = $label . ' ' . $i + 1;
+        // Append index counter to the input label for a given set of fields.
+        // - Custom key isn't set, so hideIndex === FALSE.
+        // - Or if custom key exists and value isn't FALSE.
+        $hideIndex = isset($form[$element_name . '_fieldset'][$element_name][$i][$field_key]['#displayIndexCount']);
+        if ($hideIndex === FALSE || $form[$element_name . '_fieldset'][$element_name][$i][$field_key]['#displayIndexCount'] !== FALSE) {
+          $label = $form[$element_name . '_fieldset'][$element_name][$i][$field_key]['#title'];
+          $form[$element_name . '_fieldset'][$element_name][$i][$field_key]['#title'] = $label . ' ' . $i + 1;
+        }
       }
     }
 
@@ -57,7 +62,7 @@ trait RepeatableFieldGroup {
       $form[$element_name . '_fieldset']['actions']['add_item'] = [
         '#type' => 'submit',
         '#name' => $element_name . '_add_item',
-        '#value' => $this->t('Add another'),
+        '#value' => $this->t('@button', ['@button' => $button_name]),
         '#submit' => ['::addOne'],
         '#ajax' => [
           'callback' => '::addMoreCallback',
