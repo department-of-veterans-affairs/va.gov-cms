@@ -63,6 +63,8 @@ trait RepeatableFieldGroup {
           'callback' => '::addMoreCallback',
           'wrapper' => $element_name . '-wrapper',
         ],
+        // Don't validate on ajax add, only on full page submission.
+        '#limit_validation_errors' => [],
       ];
     }
   }
