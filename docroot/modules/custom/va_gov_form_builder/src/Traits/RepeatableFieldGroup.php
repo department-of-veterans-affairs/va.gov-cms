@@ -15,12 +15,17 @@ trait RepeatableFieldGroup {
   /**
    * Creates repeatable fields dynamically using AJAX.
    */
-  public function addRepeatableFieldGroup(array &$form, FormStateInterface $form_state, string $element_name, array $field_definitions, int $min = 1, int $max = 10) {
-    // Get the number of items in the form already.
+  public function addRepeatableFieldGroup(array &$form, FormStateInterface $form_state, string $element_name, array $field_definitions, int $startIndex = 1, int $max = 10) {
+    // If an additional item would be over the limit, bail early.
+    if ($startIndex >= $max) {
+      return;
+    }
+
+    // Get the number of ajax items in the form already.
     $num_items = $form_state->get($element_name . '_count');
     // We have to ensure that there is at least one item field.
     if ($num_items === NULL) {
-      $form_state->set($element_name . '_count', 1);
+      $form_state->set($element_name . '_count', $startIndex);
       $num_items = $form_state->get($element_name . '_count');
     }
 
@@ -33,7 +38,7 @@ trait RepeatableFieldGroup {
     // Fields get their own values instead of copying the first group.
     $form[$element_name . '_fieldset'][$element_name]['#tree'] = TRUE;
 
-    for ($i = 0; $i < $num_items; $i++) {
+    for ($i = $startIndex - 1; $i < $num_items; $i++) {
       // Create a new fields for each item.
       foreach ($field_definitions as $field_key => $definition) {
         $form[$element_name . '_fieldset'][$element_name][$i][$field_key] = $definition;
