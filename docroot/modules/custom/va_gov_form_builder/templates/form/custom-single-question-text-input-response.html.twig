@@ -14,12 +14,12 @@
 
     <div class="form-builder-single-question-response__page-title">
       <label for="page-title">For the single-response question:</label>
-      <div id="page-title">{{ form.page_title ?: 'None provided' }}</div>
+      <div id="page-title">{{ form['#page_title'] ?: 'None provided' }}</div>
     </div>
 
     <div class="form-builder-single-question-response__page-body">
       <label for="page-body">Body content:</label>
-      <div id="page-body">{{ form.page_body ?: 'None provided' }}</div>
+      <div id="page-body">{{ form['#page_body'] ?: 'None provided' }}</div>
     </div>
 
     <div class="form-builder-single-question-response__type">
@@ -27,19 +27,10 @@
       <p id="guidance">Guidance for this choice</p>
     </div>
 
-    {% for component in form.components %}
-      {% if
-        component['label'] is defined
-        and component['hint_text'] is defined
-        and component['required'] is defined
-      %}
-        <div class="form-builder-single-question-response__component">
-          {{ component.label }}
-          {{ component.hint_text }}
-          {{ component.required}}
-        </div>
-      {% endif %}
-    {% endfor %}
+    <div class="form-builder-single-question-response__components">
+      {{ form.existing_text_input_fields }}
+      {{ form.dynamic_text_input_fields_fieldset }}
+    </div>
 
   </section>
 {% endblock %}
@@ -57,7 +48,8 @@
     'status_messages',
     'page_title',
     'page_body',
-    'components',
+    'existing_text_input_fields',
+    'dynamic_text_input_fields_fieldset',
     'preview',
     'actions',
   )}}
