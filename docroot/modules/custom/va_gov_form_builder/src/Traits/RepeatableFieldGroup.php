@@ -46,7 +46,11 @@ trait RepeatableFieldGroup {
     $form[$element_name . '_fieldset'][$element_name]['#tree'] = TRUE;
 
     for ($i = 0; $i < $num_items - $startIndex + 1; $i++) {
-      // Create a new fields for each item.
+      // Create a new container for each item.
+      $form[$element_name . '_fieldset'][$element_name][$i] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['form-builder-repeatable-field-group']],
+      ];
       foreach ($field_definitions as $field_key => $definition) {
         $form[$element_name . '_fieldset'][$element_name][$i][$field_key] = $definition;
 

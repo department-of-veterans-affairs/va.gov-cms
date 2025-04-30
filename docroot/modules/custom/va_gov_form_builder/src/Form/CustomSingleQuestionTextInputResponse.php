@@ -74,6 +74,7 @@ class CustomSingleQuestionTextInputResponse extends FormBuilderPageComponentBase
       foreach ($this->components as $i => $component) {
         $form['existing_text_input_fields'][$i] = [
           '#type' => 'container',
+          '#attributes' => ['class' => ['form-builder-repeatable-field-group']],
           'label' => [
             '#type' => 'textfield',
             '#title' => $labelText . ' ' . $i + 1,
@@ -116,7 +117,7 @@ class CustomSingleQuestionTextInputResponse extends FormBuilderPageComponentBase
       $form_state,
       'dynamic_text_input_fields',
       $repeatableTextInputFieldDefinitions,
-      1,
+      5,
       self::MAX_REPEATABLE_FIELDS,
       $this->existingComponentCount + 1,
       'Text Input',
