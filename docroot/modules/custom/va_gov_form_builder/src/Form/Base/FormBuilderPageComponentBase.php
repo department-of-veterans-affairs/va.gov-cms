@@ -291,6 +291,16 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
       }
     }
 
+    $this->redirectOnSuccess($form_state);
+  }
+
+  /**
+   * Redirects the user after a successful form submission.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  protected function redirectOnSuccess(FormStateInterface $form_state) {
     $form_state->setRedirect('va_gov_form_builder.step.layout', [
       'nid' => $this->digitalForm->id(),
       'stepParagraphId' => $this->stepParagraph->id(),
