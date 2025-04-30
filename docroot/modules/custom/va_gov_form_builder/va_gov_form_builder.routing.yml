@@ -147,6 +147,13 @@ va_gov_form_builder.step.question.response:
     nid: \d*
     stepParagraphId: \d*
     pageParagraphId: \d*
+va_gov_form_builder.step.question.custom.text.type:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/text/type"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionTextType'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
 va_gov_form_builder.review_and_sign:
   path: "/form-builder/{nid}/review-and-sign"
   defaults:

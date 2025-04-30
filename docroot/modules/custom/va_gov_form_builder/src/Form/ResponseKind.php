@@ -98,11 +98,17 @@ class ResponseKind extends FormBuilderBase {
         ]);
         break;
 
+      case 'text':
+        $form_state->setRedirect('va_gov_form_builder.step.question.custom.text.type', [
+          'nid' => $nid,
+          'stepParagraphId' => $stepParagraphId,
+        ]);
+        break;
+
       // Eventually, we'll have to handle these individually.
       // For now, we just redirect to an arbitrary page with
       // the response kind as a query parameter.
       case 'choice':
-      case 'text':
         $form_state->setRedirect('va_gov_form_builder.step.layout', [
           'nid' => $nid,
           'stepParagraphId' => $stepParagraphId,
