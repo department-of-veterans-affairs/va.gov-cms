@@ -1,0 +1,64 @@
+uuid: 883779b3-d5b5-44f2-b216-adf2b0990a4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.administrative_users
+  module:
+    - eca_base
+    - eca_content
+    - eca_views
+id: administrative_users
+modeller: core
+label: 'Administrative Users'
+version: '1.0'
+weight: 0
+events:
+  eca_base_eca_custom:
+    plugin: 'eca_base:eca_custom'
+    label: 'Administrative Users List'
+    configuration:
+      event_id: administrative_users_list
+    successors:
+      -
+        id: eca_views_query
+        condition: null
+  content_entity_custom:
+    plugin: 'content_entity:custom'
+    label: 'Parse Administrative Results'
+    configuration:
+      event_id: parse_administrative_results
+    successors:
+      -
+        id: action_message_action
+        condition: null
+conditions: {  }
+gateways: {  }
+actions:
+  eca_views_query:
+    plugin: eca_views_query
+    label: 'Views: Execute query'
+    configuration:
+      token_name: results
+      view_id: administrative_users
+      display_id: default
+      arguments: ''
+    successors:
+      -
+        id: eca_trigger_content_entity_custo
+        condition: null
+  action_message_action:
+    plugin: action_message_action
+    label: 'Display a message to the user'
+    configuration:
+      message: "This is the data we found:\r\nThis user named [entity:name] with an email of [entity:mail] has the roles [entity:roles]"
+      replace_tokens: true
+    successors: {  }
+  eca_trigger_content_entity_custo:
+    plugin: eca_trigger_content_entity_custom_event
+    label: 'Trigger a custom event (entity-aware)'
+    configuration:
+      event_id: parse_administrative_results
+      tokens: ''
+      object: results
+    successors: {  }
