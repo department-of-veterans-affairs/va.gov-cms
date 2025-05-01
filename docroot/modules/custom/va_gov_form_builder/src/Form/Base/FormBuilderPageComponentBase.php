@@ -94,6 +94,9 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
       }
     }
 
+    $form['#page_title'] = $this->pageData['title'] ?? '';
+    $form['#page_body'] = $this->pageData['body'] ?? '';
+
     return $form;
   }
 

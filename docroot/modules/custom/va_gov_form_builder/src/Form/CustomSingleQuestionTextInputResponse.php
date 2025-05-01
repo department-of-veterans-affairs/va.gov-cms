@@ -59,9 +59,6 @@ class CustomSingleQuestionTextInputResponse extends FormBuilderPageComponentBase
 
     $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_text_input_response';
 
-    $form['#page_title'] = $this->pageData['title'] ?? '';
-    $form['#page_body'] = $this->pageData['body'] ?? '';
-
     $labelText = 'Label for Text-input item';
     $hintText = 'Hint text for item';
     $this->existingComponentCount = empty($this->components) ? 0 : count($this->components);
