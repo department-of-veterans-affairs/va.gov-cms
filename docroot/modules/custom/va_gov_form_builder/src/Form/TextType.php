@@ -23,6 +23,8 @@ class TextType extends FormBuilderBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['#theme'] = 'form__va_gov_form_builder__text_type';
 
+    $imageDir = '/modules/custom/va_gov_form_builder/images/';
+
     $form['text_type'] = [
       '#type' => 'va_gov_form_builder__expanded_radios',
       '#title' => $this->t('Choose a text type for the submitter'),
@@ -40,6 +42,11 @@ class TextType extends FormBuilderBase {
               'description' => $this->t('Note these fields do not provide validation.'),
             ],
           ],
+          '#image' => [
+            'alt_text' => 'Example of text input fields',
+            'caption' => 'Example of text input fields',
+            'url' => $imageDir . 'response-kind-text.png',
+          ],
         ],
         'textarea' => [
           '#theme' => 'page_element__va_gov_form_builder__expanded_radio__help_text_optional_image',
@@ -49,6 +56,11 @@ class TextType extends FormBuilderBase {
             '#context' => [
               'description' => $this->t('Use this version if you need to provide a larger input space for the submitter.'),
             ],
+          ],
+          '#image' => [
+            'alt_text' => 'Example of textarea field',
+            'caption' => 'Example of textarea field',
+            'url' => $imageDir . 'response-kind-textarea.png',
           ],
         ],
       ],
