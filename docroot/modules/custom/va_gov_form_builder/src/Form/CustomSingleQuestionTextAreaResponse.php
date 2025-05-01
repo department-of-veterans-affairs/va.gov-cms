@@ -40,7 +40,8 @@ class CustomSingleQuestionTextAreaResponse extends FormBuilderPageComponentBase 
       CustomSingleQuestionPageType::DateRange,
     );
 
-    // @todo Add theme.
+    $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_text_area_response';
+
     $form['label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Labe for Text area'),
