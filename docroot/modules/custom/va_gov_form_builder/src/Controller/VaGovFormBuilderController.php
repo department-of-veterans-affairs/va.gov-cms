@@ -1201,6 +1201,27 @@ class VaGovFormBuilderController extends ControllerBase {
     $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.kind', 'Date type');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
+      'response_kind',
+      'single_column_with_buttons',
+      'expanded_radio',
+      'expanded_radio__help_text_optional_image',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Text-type page for custom single-question text response.
+   */
+  public function customSingleQuestionTextType($nid, $stepParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    $formName = 'TextType';
+    $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.kind', 'Text type');
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'response_kind',
       'single_column_with_buttons',
       'expanded_radio',
       'expanded_radio__help_text_optional_image',
