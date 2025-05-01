@@ -54,7 +54,7 @@ class CustomSingleQuestionTextInputResponse extends FormBuilderPageComponentBase
       $digitalForm,
       $stepParagraph,
       $pageParagraph,
-      CustomSingleQuestionPageType::DateRange,
+      CustomSingleQuestionPageType::TextInput,
     );
 
     $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_text_input_response';
