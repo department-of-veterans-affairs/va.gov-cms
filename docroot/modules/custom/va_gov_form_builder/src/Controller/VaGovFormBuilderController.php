@@ -1622,7 +1622,7 @@ class VaGovFormBuilderController extends ControllerBase {
     // Override the page title with "Date question".
     $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Text-area question';
 
-    $formName = 'CustomSingleQuestionTextInputResponse';
+    $formName = 'CustomSingleQuestionTextAreaResponse';
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
       'two_column_with_buttons',
