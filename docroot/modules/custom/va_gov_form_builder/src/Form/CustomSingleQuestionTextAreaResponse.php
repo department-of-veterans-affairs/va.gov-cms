@@ -139,8 +139,23 @@ class CustomSingleQuestionTextAreaResponse extends FormBuilderPageComponentBase 
    * {@inheritdoc}
    */
   protected function setComponentsFromFormState(FormStateInterface $form_state) {
-    xdebug_var_dump('setComponentsFromFormState called');
-    exit;
+    $label = $form_state->getValue('label');
+    $hintText = $form_state->getValue('hint_text');
+    $required = $form_state->getValue('required') ?? FALSE;
+
+    if ($this->isCreate) {
+      $this->components[0] = $this->entityTypeManager->getStorage('paragraph')->create([
+        'type' => 'digital_form_text_area',
+        'field_digital_form_label' => $label,
+        'field_digital_form_hint_text' => $hintText,
+        'field_digital_form_required' => $required,
+      ]);
+    }
+    else {
+      $this->components[0]->set('field_digital_form_label', $label);
+      $this->components[0]->set('field_digital_form_hint_text', $hintText);
+      $this->components[0]->set('field_digital_form_required', $required);
+    }
   }
 
   /**

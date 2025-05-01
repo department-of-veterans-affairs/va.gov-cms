@@ -1329,6 +1329,10 @@ class VaGovFormBuilderController extends ControllerBase {
           $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.text.type', 'Text-input question');
           break;
 
+        case CustomSingleQuestionPageType::TextArea:
+          $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.text.type', 'Text-area question');
+          break;
+
         default:
           throw new NotFoundHttpException();
       }
@@ -1677,6 +1681,9 @@ class VaGovFormBuilderController extends ControllerBase {
 
       case CustomSingleQuestionPageType::TextInput:
         return $this->customSingleQuestionTextInputResponse($nid, $stepParagraphId, $pageParagraphId);
+
+      case CustomSingleQuestionPageType::TextArea:
+        return $this->customSingleQuestionTextAreaResponse($nid, $stepParagraphId, $pageParagraphId);
     }
   }
 
