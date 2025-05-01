@@ -325,6 +325,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'step.question.custom.date.type',
       'step.question.custom.date.single_date.page_title',
       'step.question.custom.date.date_range.page_title',
+      'step.question.custom.text.text_input.page_title',
     ];
     if (in_array($page, $stepPages)) {
       if (!$this->digitalForm) {
@@ -516,6 +517,19 @@ class VaGovFormBuilderController extends ControllerBase {
       $pageTitleUrl = $this->getPageUrl('step.question.custom.date.date_range.page_title');
       $breadcrumbTrail = $this->generateBreadcrumbs(
         'step.question.custom.date.type',
+        '',
+        $pageTitleUrl
+      );
+    }
+
+    elseif ($parent === 'step.question.custom.text.text_input.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.text.text_input.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.text.type',
         '',
         $pageTitleUrl
       );
