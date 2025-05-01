@@ -1551,6 +1551,8 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    * @param string $stepParagraphId
    *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
    *
    * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
    *   A redirect or the page response render array.
@@ -1558,7 +1560,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function customSingleQuestionRadioResponse($nid, $stepParagraphId) {
+  public function customSingleQuestionRadioResponse($nid, $stepParagraphId, $pageParagraphId) {
     if (empty($this->digitalForm)) {
       $this->loadDigitalForm($nid);
     }

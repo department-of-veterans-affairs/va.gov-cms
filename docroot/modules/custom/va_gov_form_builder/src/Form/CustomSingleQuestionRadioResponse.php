@@ -69,8 +69,39 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
       '#title' => $this->t('Optional Hint text for list label'),
       '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[0] ?? '',
       '#required' => FALSE,
+      '#suffix' => '<hr/>',
     ];
 
+    $form['options'] = [
+      '#type' => 'container',
+      '#weight' => -10,
+      '#tree' => TRUE,
+    ];
+    $options_field_definitions = [
+      'label' => [
+        '#type' => 'textfield',
+        '#title' => 'Radio label',
+        '#required' => TRUE,
+        '#default_value' => '',
+      ],
+      'description' => [
+        '#type' => 'textfield',
+        '#title' => 'Radio description',
+        '#default_value' => '',
+        '#suffix' => '<hr/>',
+      ],
+    ];
+
+    $component = $this->components[0];
+    /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $radioOptions */
+    $radioOptions = $component->get('field_df_response_options');
+    foreach ($radioOptions as $delta => $option) {
+      $form['options'][$delta] = $options_field_definitions;
+      $form['options'][$delta]['label']['#title'] = $this->t('Radio label for item @delta', ['@delta' => $delta + 1]);
+      $form['options'][$delta]['label']['#default_value'] = $option->entity->get('field_digital_form_label')->value;
+      $form['options'][$delta]['description']['#title'] = $this->t('Radio description for item @delta', ['@delta' => $delta + 1]);
+      $form['options'][$delta]['description']['#default_value'] = $option->entity->get('field_digital_form_description')->value;
+    }
     $form['preview'] = [
       'no_descriptors' => [
         '#type' => 'html_tag',
@@ -134,7 +165,7 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
   public function handleEditQuestionClick(array &$form, FormStateInterface $form_state) {
     if ($this->isCreate) {
       $form_state->setRedirect(
-        'va_gov_form_builder.step.question.custom.date.single_date.page_title',
+        'va_gov_form_builder.step.question.custom.choice.radio.page_title',
         [
           'nid' => $this->digitalForm->id(),
           'stepParagraphId' => $this->stepParagraph->id(),
@@ -155,27 +186,44 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   protected function setComponentsFromFormState(FormStateInterface $form_state) {
     $required = $form_state->getValue('required') ?? FALSE;
-    $dateFormat = $form_state->getValue('date_format');
     $label = $form_state->getValue('label');
     $hintText = $form_state->getValue('hint_text');
+    $formOptions = $form_state->getValue('options');
 
     if ($this->isCreate) {
+      $optionParagraphs = [];
+      foreach ($formOptions as $delta => $option) {
+        $optionParagraphs[$delta] = Paragraph::create([
+          'type' => 'digital_form_response_option',
+          'field_digital_form_label' => $option[$delta]['label'],
+          'field_digital_form_description' => $option[$delta]['description'],
+        ]);
+      }
       $this->components[0] = $this->entityTypeManager->getStorage('paragraph')->create([
-        'type' => 'digital_form_date_component',
+        'type' => 'digital_form_radio_button',
         'field_digital_form_required' => $required,
-        'field_digital_form_date_format' => $dateFormat,
         'field_digital_form_label' => $label,
         'field_digital_form_hint_text' => $hintText,
+        'field_df_response_options' => $optionParagraphs,
       ]);
     }
     else {
-      $this->components[0]->set('field_digital_form_required', $required);
-      $this->components[0]->set('field_digital_form_date_format', $dateFormat);
+      /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $radioOptions */
+      $radioOptions = $this->components[0]->get('field_df_response_options');
+      foreach ($radioOptions as $delta => $option) {
+        $option->entity->set('field_digital_form_label', $formOptions[$delta]['label'] ?? []);
+        $option->entity->set('field_digital_form_description', $formOptions[$delta]['description'] ?? []);
+      }
       $this->components[0]->set('field_digital_form_label', $label);
       $this->components[0]->set('field_digital_form_hint_text', $hintText);
+      $this->components[0]->set('field_digital_form_required', $required);
     }
   }
 
@@ -194,10 +242,23 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
       self::setFormErrors($form_state, $violations, [
         'field_digital_form_label' => $form['label'],
         'field_digital_form_hint_text' => $form['hint_text'],
-        'field_digital_form_date_format' => $form['date_format'],
         'field_digital_form_required' => $form['required'],
       ]);
     }
+
+    // Validate existing radio options.
+    $radioOptions = $this->components[$i]->get('field_df_response_options');
+    foreach ($radioOptions as $delta => $option) {
+      $optionViolations = $option->entity->validate();
+      if ($optionViolations->count() > 0) {
+        self::setFormErrors($form_state, $optionViolations, [
+          'field_digital_form_label' => $form['options'][$delta]['label'],
+          'field_digital_form_description' => $form['options'][$delta]['label'],
+        ]);
+      }
+    }
+
+    // @todo Validate new items. Perhaps we need to append them to the field first?
   }
 
 }

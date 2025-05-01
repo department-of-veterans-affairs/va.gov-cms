@@ -23,10 +23,9 @@
       {{ form.label }}
       {{ form.hint_text }}
     </div>
+    <div class="form-builder-single-question-response__components">
 
-    <div class="form-builder-single-question-response__component">
-      {{ form.label }}
-      {{ form.hint_text }}
+      {{ form.options }}
     </div>
   </section>
 {% endblock %}
@@ -51,5 +50,6 @@
     'hint_text',
     'preview',
     'actions',
+    'options',
   )}}
 {% endblock %}
