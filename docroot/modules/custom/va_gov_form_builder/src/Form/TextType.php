@@ -90,8 +90,8 @@ class TextType extends FormBuilderBase {
     $stepParagraphId = $routeParameters['stepParagraphId'];
     $textType = $form_state->getValue('text_type');
     $redirectRoute = match ($textType) {
-      'text' => 'va_gov_form_builder.step.question.custom.text.text.page_title',
-      'textarea' => 'va_gov_form_builder.step.question.custom.text.textarea.page_title',
+      'text' => 'va_gov_form_builder.step.question.custom.text.text_input.page_title',
+      'textarea' => 'va_gov_form_builder.step.question.custom.text.text_area.page_title',
       default => throw new \InvalidArgumentException('Invalid text type selected.'),
     };
 
