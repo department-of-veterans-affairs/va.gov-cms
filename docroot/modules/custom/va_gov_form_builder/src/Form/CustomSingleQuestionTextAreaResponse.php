@@ -66,8 +66,8 @@ class CustomSingleQuestionTextAreaResponse extends FormBuilderPageComponentBase 
       '#type' => 'html_tag',
       '#tag' => 'img',
       '#attributes' => [
-        'src' => self::IMAGE_DIR . 'text-input.png',
-        'alt' => $this->t('A preview of the text-input response.'),
+        'src' => self::IMAGE_DIR . 'text-area.png',
+        'alt' => $this->t('A preview of the text-area response.'),
       ],
     ];
 
