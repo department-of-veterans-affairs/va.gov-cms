@@ -37,7 +37,7 @@ class CustomSingleQuestionTextAreaResponse extends FormBuilderPageComponentBase 
       $digitalForm,
       $stepParagraph,
       $pageParagraph,
-      CustomSingleQuestionPageType::DateRange,
+      CustomSingleQuestionPageType::TextArea,
     );
 
     $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_text_area_response';
