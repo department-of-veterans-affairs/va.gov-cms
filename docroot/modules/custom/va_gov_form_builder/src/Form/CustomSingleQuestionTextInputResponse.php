@@ -252,6 +252,17 @@ class CustomSingleQuestionTextInputResponse extends FormBuilderPageComponentBase
    * {@inheritdoc}
    */
   protected function setComponentsFromFormState(FormStateInterface $form_state) {
+    // Only set components if the save-and-continue button was clicked.
+    // This is critical here in this form because the ajax code that
+    // adds dynamic fields calculates the existing components based on
+    // $this->components. Without this check here, the value will be incremented
+    // when the "+ TEXT INPUT" button is clicked, which will cause issues
+    // with rendering the correct number of dynamic fields.
+    $clickedButton = $form_state->getTriggeringElement()['#name'] ?? '';
+    if ($clickedButton !== 'save_and_continue') {
+      return;
+    }
+
     // This is the index at which to start adding new components.
     $nextIndex = 0;
 
