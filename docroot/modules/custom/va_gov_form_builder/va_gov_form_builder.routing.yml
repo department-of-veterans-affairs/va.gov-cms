@@ -117,6 +117,14 @@ va_gov_form_builder.step.question.custom.text.text_input.page_title:
   requirements:
     nid: \d*
     stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.text.text_area.page_title:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/text/text-area/page-title"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
+    pageComponentType: "text.text_area"
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
 va_gov_form_builder.step.question:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/{pageParagraphId}"
   defaults:
@@ -151,6 +159,13 @@ va_gov_form_builder.step.question.custom.text.text_input.response:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/text/text-input/response"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionTextInputResponse'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.text.text_area.response:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/text/text-area/response"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionTextAreaResponse'
   requirements:
     nid: \d*
     stepParagraphId: \d*

@@ -1501,7 +1501,7 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
-   * Custom single-question date-range response page.
+   * Custom single-question text-input response page.
    *
    * @param string $nid
    *   The node id of the Digital Form.
@@ -1554,6 +1554,73 @@ class VaGovFormBuilderController extends ControllerBase {
 
     // Override the page title with "Date question".
     $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Text-input question';
+
+    $formName = 'CustomSingleQuestionTextInputResponse';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'two_column_with_buttons',
+      'expanded_radio',
+      'custom_single_question_response',
+      'repeatable_field_groups',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Custom single-question text-area response page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
+   */
+  public function customSingleQuestionTextAreaResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+      if (empty($this->pageParagraph)) {
+        $this->loadPageParagraph($pageParagraphId);
+      }
+
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.page_title', 'Text-area response');
+    }
+    else {
+      // This is the second stage in the process
+      // of creating a new page. The previously
+      // entered page title and body should be in
+      // session storage. The page title is required.
+      // If it is not there, we should redirect back
+      // to the page-title page.
+      $sessionData = $this->session->get(FormBuilderPageBase::SESSION_KEY);
+      $pageTitle = $sessionData['title'] ?? NULL;
+      if (!$pageTitle) {
+        return $this->redirect(
+          'va_gov_form_builder.step.question.custom.text.text_area.page_title',
+          [
+            'nid' => $nid,
+            'stepParagraphId' => $stepParagraphId,
+          ],
+        );
+      }
+
+      // This is page creation.
+      $breadcrumbs = $this->generateBreadcrumbs(
+        'step.question.custom.text.text_area.page_title',
+        'Text-area response'
+      );
+    }
+
+    // Override the page title with "Date question".
+    $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Text-area question';
 
     $formName = 'CustomSingleQuestionTextInputResponse';
     $subtitle = $this->digitalForm->getTitle();
