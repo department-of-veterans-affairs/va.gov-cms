@@ -74,13 +74,13 @@ class CustomSingleQuestionTextInputResponse extends FormBuilderPageComponentBase
           '#attributes' => ['class' => ['form-builder-repeatable-field-group']],
           'label' => [
             '#type' => 'textfield',
-            '#title' => $labelText . ' ' . $i + 1,
+            '#title' => $labelText . ' ' . ($i + 1),
             '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[$i] ?? '',
             '#required' => TRUE,
           ],
           'hint_text' => [
             '#type' => 'textfield',
-            '#title' => $hintText . ' ' . $i + 1,
+            '#title' => $hintText . ' ' . ($i + 1),
             '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[$i] ?? '',
           ],
           'required' => [
