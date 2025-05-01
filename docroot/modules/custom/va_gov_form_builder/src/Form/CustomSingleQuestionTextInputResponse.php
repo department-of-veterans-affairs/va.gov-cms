@@ -117,7 +117,7 @@ class CustomSingleQuestionTextInputResponse extends FormBuilderPageComponentBase
       $form_state,
       'dynamic_text_input_fields',
       $repeatableTextInputFieldDefinitions,
-      5,
+      1,
       self::MAX_REPEATABLE_FIELDS,
       $this->existingComponentCount + 1,
       'Text Input',
