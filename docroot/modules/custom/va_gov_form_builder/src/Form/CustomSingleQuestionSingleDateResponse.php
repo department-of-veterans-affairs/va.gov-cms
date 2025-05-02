@@ -42,14 +42,6 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
 
     $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_single_date_response';
 
-    $form['page_title'] = [
-      '#markup' => $this->pageData['title'],
-    ];
-
-    $form['page_body'] = [
-      '#markup' => $this->pageData['body'],
-    ];
-
     $form['required'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Required for the submitter'),

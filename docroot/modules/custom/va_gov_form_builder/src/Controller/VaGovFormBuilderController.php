@@ -323,8 +323,10 @@ class VaGovFormBuilderController extends ControllerBase {
       'step.question.custom_or_predefined',
       'step.question.custom.kind',
       'step.question.custom.date.type',
+      'step.question.custom.text.type',
       'step.question.custom.date.single_date.page_title',
       'step.question.custom.date.date_range.page_title',
+      'step.question.custom.text.text_input.page_title',
     ];
     if (in_array($page, $stepPages)) {
       if (!$this->digitalForm) {
@@ -482,6 +484,19 @@ class VaGovFormBuilderController extends ControllerBase {
       );
     }
 
+    elseif ($parent === 'step.question.custom.text.type') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $textTypeUrl = $this->getPageUrl('step.question.custom.text.type');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.kind',
+        'Text type',
+        $textTypeUrl
+      );
+    }
+
     elseif ($parent === 'step.question.page_title') {
       if (!$this->digitalForm || !$this->stepParagraph || !$this->pageParagraph) {
         return [];
@@ -516,6 +531,19 @@ class VaGovFormBuilderController extends ControllerBase {
       $pageTitleUrl = $this->getPageUrl('step.question.custom.date.date_range.page_title');
       $breadcrumbTrail = $this->generateBreadcrumbs(
         'step.question.custom.date.type',
+        '',
+        $pageTitleUrl
+      );
+    }
+
+    elseif ($parent === 'step.question.custom.text.text_input.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.text.text_input.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.text.type',
         '',
         $pageTitleUrl
       );
@@ -1297,6 +1325,10 @@ class VaGovFormBuilderController extends ControllerBase {
           $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.date.type', 'Date-range question');
           break;
 
+        case CustomSingleQuestionPageType::TextInput:
+          $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.text.type', 'Text-input question');
+          break;
+
         default:
           throw new NotFoundHttpException();
       }
@@ -1469,6 +1501,73 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Custom single-question date-range response page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
+   */
+  public function customSingleQuestionTextInputResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+      if (empty($this->pageParagraph)) {
+        $this->loadPageParagraph($pageParagraphId);
+      }
+
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.page_title', 'Text-input response');
+    }
+    else {
+      // This is the second stage in the process
+      // of creating a new page. The previously
+      // entered page title and body should be in
+      // session storage. The page title is required.
+      // If it is not there, we should redirect back
+      // to the page-title page.
+      $sessionData = $this->session->get(FormBuilderPageBase::SESSION_KEY);
+      $pageTitle = $sessionData['title'] ?? NULL;
+      if (!$pageTitle) {
+        return $this->redirect(
+          'va_gov_form_builder.step.question.custom.text.text_input.page_title',
+          [
+            'nid' => $nid,
+            'stepParagraphId' => $stepParagraphId,
+          ],
+        );
+      }
+
+      // This is page creation.
+      $breadcrumbs = $this->generateBreadcrumbs(
+        'step.question.custom.text.text_input.page_title',
+        'Text-input response'
+      );
+    }
+
+    // Override the page title with "Date question".
+    $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Text-input question';
+
+    $formName = 'CustomSingleQuestionTextInputResponse';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'two_column_with_buttons',
+      'expanded_radio',
+      'custom_single_question_response',
+      'repeatable_field_groups',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
    * Custom single-question response page.
    *
    * This is a catch-all method for handling
@@ -1508,6 +1607,9 @@ class VaGovFormBuilderController extends ControllerBase {
 
       case CustomSingleQuestionPageType::DateRange:
         return $this->customSingleQuestionDateRangeResponse($nid, $stepParagraphId, $pageParagraphId);
+
+      case CustomSingleQuestionPageType::TextInput:
+        return $this->customSingleQuestionTextInputResponse($nid, $stepParagraphId, $pageParagraphId);
     }
   }
 
