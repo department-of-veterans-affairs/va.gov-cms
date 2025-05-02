@@ -23,7 +23,6 @@ class ResponseKind extends FormBuilderBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['#theme'] = 'form__va_gov_form_builder__response_kind';
 
-    $imageDir = '/modules/custom/va_gov_form_builder/images/';
     $form['response_kind'] = [
       '#type' => 'va_gov_form_builder__expanded_radios',
       '#title' => $this->t('What kind of response will the submitter provide?'),
@@ -39,7 +38,7 @@ class ResponseKind extends FormBuilderBase {
           '#image' => [
             'alt_text' => 'Example of a list of choices',
             'caption' => 'Example of a list of choices',
-            'url' => $imageDir . 'response-kind-choice.png',
+            'url' => self::IMAGE_DIR . 'response-kind-choice.png',
           ],
         ],
         'date' => [
@@ -48,7 +47,7 @@ class ResponseKind extends FormBuilderBase {
           '#image' => [
             'alt_text' => 'Example of a date range',
             'caption' => 'Example of a date range',
-            'url' => $imageDir . 'response-kind-date.png',
+            'url' => self::IMAGE_DIR . 'response-kind-date.png',
           ],
         ],
         'text' => [
@@ -57,7 +56,7 @@ class ResponseKind extends FormBuilderBase {
           '#image' => [
             'alt_text' => 'Example of input fields',
             'caption' => 'Example of input fields',
-            'url' => $imageDir . 'response-kind-text.png',
+            'url' => self::IMAGE_DIR . 'response-kind-text.png',
           ],
         ],
       ],
@@ -98,11 +97,17 @@ class ResponseKind extends FormBuilderBase {
         ]);
         break;
 
+      case 'text':
+        $form_state->setRedirect('va_gov_form_builder.step.question.custom.text.type', [
+          'nid' => $nid,
+          'stepParagraphId' => $stepParagraphId,
+        ]);
+        break;
+
       // Eventually, we'll have to handle these individually.
       // For now, we just redirect to an arbitrary page with
       // the response kind as a query parameter.
       case 'choice':
-      case 'text':
         $form_state->setRedirect('va_gov_form_builder.step.layout', [
           'nid' => $nid,
           'stepParagraphId' => $stepParagraphId,
