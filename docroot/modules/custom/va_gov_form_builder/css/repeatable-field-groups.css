@@ -1,5 +1,5 @@
 /* stylelint-disable-next-line selector-no-qualifying-type */
-input[type="submit"].form-builder-add-item  {
+input[type="submit"].form-builder-add-item {
   background-color: unset;
   box-shadow: unset;
   color: var(--vads-color-primary);
@@ -12,4 +12,17 @@ input[type="submit"].form-builder-add-item  {
   align-self: center;
   content: url("data:image/svg+xml,%3Csvg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16.96 7.32364V9.63636C16.96 10.2748 16.442 10.7927 15.8036 10.7927H10.7927V15.8036C10.7927 16.442 10.2748 16.96 9.63636 16.96H7.32364C6.68523 16.96 6.16727 16.442 6.16727 15.8036V10.7927H1.15636C0.517955 10.7927 0 10.2748 0 9.63636V7.32364C0 6.68523 0.517955 6.16727 1.15636 6.16727H6.16727V1.15636C6.16727 0.517955 6.68523 0 7.32364 0H9.63636C10.2748 0 10.7927 0.517955 10.7927 1.15636V6.16727H15.8036C16.442 6.16727 16.96 6.68523 16.96 7.32364Z' fill='%23005EA2'/%3E%3C/svg%3E%0A");
   display: inline-block;
+}
+
+.form-builder-repeatable-field-group {
+  border-bottom: 1px solid var(--vads-color-base-light);
+  margin-bottom: 35px;
+  padding-bottom: 15px;
+}
+
+.form-builder-repeatable-field-group .js-form-type-checkbox {
+  align-items: baseline;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
 }

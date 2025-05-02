@@ -1,12 +1,12 @@
 {#
 /**
  * @file
- * Template for Form Builder step page: Single-date response.
+ * Template for Form Builder step page: Text-input response.
  */
 #}
 {% extends '@va_gov_form_builder/form/base/two-column-with-buttons.html.twig' %}
 
-{% set page_id = 'custom-single-question-date-range-response' %}
+{% set page_id = 'custom-single-question-text-input-response' %}
 {% set page_heading = 'Customize the responses' %}
 
 {% block left_content %}
@@ -17,29 +17,19 @@
       <div id="page-title">{{ form['#page_title'] ?: 'None provided' }}</div>
     </div>
 
-    {{ form.required }}
-
     <div class="form-builder-single-question-response__page-body">
       <label for="page-body">Body content:</label>
       <div id="page-body">{{ form['#page_body'] ?: 'None provided' }}</div>
     </div>
 
-
     <div class="form-builder-single-question-response__type">
-      <label for="guidance">Date range</label>
+      <label for="guidance">Text input</label>
       <p id="guidance">Guidance for this choice</p>
     </div>
 
-    {{ form.date_format }}
-
-    <div class="form-builder-single-question-response__component">
-      {{ form.components.0.label }}
-      {{ form.components.0.hint_text }}
-    </div>
-
-    <div class="form-builder-single-question-response__component">
-      {{ form.components.1.label }}
-      {{ form.components.1.hint_text }}
+    <div class="form-builder-single-question-response__components">
+      {{ form.existing_text_input_fields }}
+      {{ form.dynamic_text_input_fields_fieldset }}
     </div>
 
   </section>
@@ -57,10 +47,9 @@
   {{ form|without(
     'status_messages',
     'page_title',
-    'required',
     'page_body',
-    'date_format',
-    'components',
+    'existing_text_input_fields',
+    'dynamic_text_input_fields_fieldset',
     'preview',
     'actions',
   )}}
