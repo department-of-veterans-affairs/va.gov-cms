@@ -323,11 +323,14 @@ class VaGovFormBuilderController extends ControllerBase {
       'step.question.custom_or_predefined',
       'step.question.custom.kind',
       'step.question.custom.date.type',
+      'step.question.custom.text.type',
       'step.question.custom.date.single_date.page_title',
       'step.question.custom.date.date_range.page_title',
       'step.question.custom.choice.type',
       'step.question.custom.choice.radio.page_title',
       'step.question.custom.choice.checkbox.page_title',
+      'step.question.custom.text.text_input.page_title',
+      'step.question.custom.text.text_area.page_title',
     ];
     if (in_array($page, $stepPages)) {
       if (!$this->digitalForm) {
@@ -485,19 +488,37 @@ class VaGovFormBuilderController extends ControllerBase {
       );
     }
 
-    elseif ($parent === 'step.question.custom.choice.type') {
+    elseif ($parent === 'step.question.custom.text.type') {
       if (!$this->digitalForm || !$this->stepParagraph) {
         return [];
       }
 
-      $dateTypeUrl = $this->getPageUrl('step.question.custom.choice.type');
+      $textTypeUrl = $this->getPageUrl('step.question.custom.text.type');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.kind',
+        'Text type',
+        $textTypeUrl
+      );
+    }
+    elseif ($parent === 'step.question.custom.choice.type') {
+      $choiceTypeUrl = $this->getPageUrl('step.question.custom.choice.type');
       $breadcrumbTrail = $this->generateBreadcrumbs(
         'step.question.custom.kind',
         'Choice type',
-        $dateTypeUrl
+        $choiceTypeUrl
       );
     }
-
+    elseif ($parent === 'step.question.custom.choice.radio.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.choice.radio.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.choice.type',
+        '',
+        $pageTitleUrl
+      );
+    }
     elseif ($parent === 'step.question.page_title') {
       if (!$this->digitalForm || !$this->stepParagraph || !$this->pageParagraph) {
         return [];
@@ -537,14 +558,25 @@ class VaGovFormBuilderController extends ControllerBase {
       );
     }
 
-    elseif ($parent === 'step.question.custom.choice.radio.page_title') {
+    elseif ($parent === 'step.question.custom.text.text_input.page_title') {
       if (!$this->digitalForm || !$this->stepParagraph) {
         return [];
       }
-
-      $pageTitleUrl = $this->getPageUrl('step.question.custom.choice.radio.page_title');
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.text.text_input.page_title');
       $breadcrumbTrail = $this->generateBreadcrumbs(
-        'step.question.custom.choice.type',
+        'step.question.custom.text.type',
+        '',
+        $pageTitleUrl
+      );
+    }
+
+    elseif ($parent === 'step.question.custom.text.text_area.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.text.text_area.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.text.type',
         '',
         $pageTitleUrl
       );
@@ -1230,6 +1262,27 @@ class VaGovFormBuilderController extends ControllerBase {
     $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.kind', 'Date type');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
+      'response_kind',
+      'single_column_with_buttons',
+      'expanded_radio',
+      'expanded_radio__help_text_optional_image',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Text-type page for custom single-question text response.
+   */
+  public function customSingleQuestionTextType($nid, $stepParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    $formName = 'TextType';
+    $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.kind', 'Text type');
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'response_kind',
       'single_column_with_buttons',
       'expanded_radio',
       'expanded_radio__help_text_optional_image',
@@ -1311,6 +1364,14 @@ class VaGovFormBuilderController extends ControllerBase {
 
         case CustomSingleQuestionPageType::Checkbox:
           $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.choice.type', 'Checkbox question');
+          break;
+
+        case CustomSingleQuestionPageType::TextInput:
+          $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.text.type', 'Text-input question');
+          break;
+
+        case CustomSingleQuestionPageType::TextArea:
+          $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.text.type', 'Text-area question');
           break;
 
         default:
@@ -1485,6 +1546,140 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
+   * Custom single-question text-input response page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
+   */
+  public function customSingleQuestionTextInputResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+      if (empty($this->pageParagraph)) {
+        $this->loadPageParagraph($pageParagraphId);
+      }
+
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.page_title', 'Text-input response');
+    }
+    else {
+      // This is the second stage in the process
+      // of creating a new page. The previously
+      // entered page title and body should be in
+      // session storage. The page title is required.
+      // If it is not there, we should redirect back
+      // to the page-title page.
+      $sessionData = $this->session->get(FormBuilderPageBase::SESSION_KEY);
+      $pageTitle = $sessionData['title'] ?? NULL;
+      if (!$pageTitle) {
+        return $this->redirect(
+          'va_gov_form_builder.step.question.custom.text.text_input.page_title',
+          [
+            'nid' => $nid,
+            'stepParagraphId' => $stepParagraphId,
+          ],
+        );
+      }
+
+      // This is page creation.
+      $breadcrumbs = $this->generateBreadcrumbs(
+        'step.question.custom.text.text_input.page_title',
+        'Text-input response'
+      );
+    }
+
+    // Override the page title with "Date question".
+    $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Text-input question';
+
+    $formName = 'CustomSingleQuestionTextInputResponse';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'two_column_with_buttons',
+      'expanded_radio',
+      'custom_single_question_response',
+      'repeatable_field_groups',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Custom single-question text-area response page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
+   */
+  public function customSingleQuestionTextAreaResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+      if (empty($this->pageParagraph)) {
+        $this->loadPageParagraph($pageParagraphId);
+      }
+
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.page_title', 'Text-area response');
+    }
+    else {
+      // This is the second stage in the process
+      // of creating a new page. The previously
+      // entered page title and body should be in
+      // session storage. The page title is required.
+      // If it is not there, we should redirect back
+      // to the page-title page.
+      $sessionData = $this->session->get(FormBuilderPageBase::SESSION_KEY);
+      $pageTitle = $sessionData['title'] ?? NULL;
+      if (!$pageTitle) {
+        return $this->redirect(
+          'va_gov_form_builder.step.question.custom.text.text_area.page_title',
+          [
+            'nid' => $nid,
+            'stepParagraphId' => $stepParagraphId,
+          ],
+        );
+      }
+
+      // This is page creation.
+      $breadcrumbs = $this->generateBreadcrumbs(
+        'step.question.custom.text.text_area.page_title',
+        'Text-area response'
+      );
+    }
+
+    // Override the page title with "Date question".
+    $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Text-area question';
+
+    $formName = 'CustomSingleQuestionTextAreaResponse';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'two_column_with_buttons',
+      'expanded_radio',
+      'custom_single_question_response',
+      'repeatable_field_groups',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
    * Custom single-question response page.
    *
    * This is a catch-all method for handling
@@ -1527,6 +1722,13 @@ class VaGovFormBuilderController extends ControllerBase {
 
       case CustomSingleQuestionPageType::Radio:
         return $this->customSingleQuestionRadioResponse($nid, $stepParagraphId, $pageParagraphId);
+
+      case CustomSingleQuestionPageType::TextInput:
+        return $this->customSingleQuestionTextInputResponse($nid, $stepParagraphId, $pageParagraphId);
+
+      case CustomSingleQuestionPageType::TextArea:
+        return $this->customSingleQuestionTextAreaResponse($nid, $stepParagraphId, $pageParagraphId);
+
     }
   }
 

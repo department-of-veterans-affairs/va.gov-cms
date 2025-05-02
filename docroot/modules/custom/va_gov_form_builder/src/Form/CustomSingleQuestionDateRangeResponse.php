@@ -42,14 +42,6 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
 
     $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_date_range_response';
 
-    $form['page_title'] = [
-      '#markup' => $this->pageData['title'],
-    ];
-
-    $form['page_body'] = [
-      '#markup' => $this->pageData['body'],
-    ];
-
     $form['required'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Required for the submitter'),
@@ -57,39 +49,36 @@ class CustomSingleQuestionDateRangeResponse extends FormBuilderPageComponentBase
     ];
 
     $form['components'] = [
-      [
-        'label' => [
-          '#type' => 'textfield',
-          '#title' => $this->t('Date label 1'),
-          '#description' => $this->t('For example, "Start date of employment"'),
-          '#required' => TRUE,
-          '#parents' => ['components', '0', 'label'],
-          '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[0] ?? '',
-        ],
-        'hint_text' => [
-          '#type' => 'textfield',
-          '#title' => $this->t('Hint text for date label 1'),
-          '#required' => FALSE,
-          '#parents' => ['components', '0', 'hint_text'],
-          '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[0] ?? '',
-        ],
+      '#tree' => TRUE,
+    ];
+    $form['components'][0] = [
+      'label' => [
+        '#type' => 'textfield',
+        '#title' => $this->t('Date label 1'),
+        '#description' => $this->t('For example, "Start date of employment"'),
+        '#required' => TRUE,
+        '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[0] ?? '',
       ],
-      [
-        'label' => [
-          '#type' => 'textfield',
-          '#title' => $this->t('Date label 2'),
-          '#description' => $this->t('For example, "End date of employment"'),
-          '#required' => TRUE,
-          '#parents' => ['components', '1', 'label'],
-          '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[1] ?? '',
-        ],
-        'hint_text' => [
-          '#type' => 'textfield',
-          '#title' => $this->t('Hint text for date label 2'),
-          '#required' => FALSE,
-          '#parents' => ['components', '1', 'hint_text'],
-          '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[1] ?? '',
-        ],
+      'hint_text' => [
+        '#type' => 'textfield',
+        '#title' => $this->t('Hint text for date label 1'),
+        '#required' => FALSE,
+        '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[0] ?? '',
+      ],
+    ];
+    $form['components'][1] = [
+      'label' => [
+        '#type' => 'textfield',
+        '#title' => $this->t('Date label 2'),
+        '#description' => $this->t('For example, "End date of employment"'),
+        '#required' => TRUE,
+        '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[1] ?? '',
+      ],
+      'hint_text' => [
+        '#type' => 'textfield',
+        '#title' => $this->t('Hint text for date label 2'),
+        '#required' => FALSE,
+        '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[1] ?? '',
       ],
     ];
 

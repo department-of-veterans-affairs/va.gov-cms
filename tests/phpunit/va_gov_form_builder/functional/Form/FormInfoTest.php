@@ -182,6 +182,7 @@ class FormInfoTest extends VaGovExistingSiteBase {
     $formInput = [
       'title' => 'Test Title',
       'va_form_number' => self::getUniqueVaFormNumber(),
+      'plain_language_title' => 'A title for testing',
       'omb_number' => '1111-1111',
       'respondent_burden' => '15',
       'expiration_date' => '2024-10-03',
@@ -201,6 +202,7 @@ class FormInfoTest extends VaGovExistingSiteBase {
     $formInput = [
       'title' => 'Test Title',
       'va_form_number' => self::getUniqueVaFormNumber(),
+      'plain_language_title' => 'A title for testing',
       'omb_number' => '1111-1111',
       'respondent_burden' => '15',
       // 'expiration_date' is required but missing

@@ -9,15 +9,15 @@ use Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderPageComponentBase;
 
 /**
- * Form step for the defining/editing a single-date response.
+ * Form step for the defining/editing a text-area response.
  */
-class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBase {
+class CustomSingleQuestionTextAreaResponse extends FormBuilderPageComponentBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'form_builder__custom_single_question_single_date_response';
+    return 'form_builder__custom_single_question_text_area_response';
   }
 
   /**
@@ -37,10 +37,24 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
       $digitalForm,
       $stepParagraph,
       $pageParagraph,
-      CustomSingleQuestionPageType::SingleDate,
+      CustomSingleQuestionPageType::TextArea,
     );
 
-    $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_single_date_response';
+    $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_text_area_response';
+
+    $form['label'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Labe for Text area'),
+      '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[0] ?? '',
+      '#required' => TRUE,
+    ];
+
+    $form['hint_text'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Hint text for Text area'),
+      '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[0] ?? '',
+      '#required' => FALSE,
+    ];
 
     $form['required'] = [
       '#type' => 'checkbox',
@@ -48,45 +62,12 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
       '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_required')[0] ?? TRUE,
     ];
 
-    $form['date_format'] = [
-      '#type' => 'va_gov_form_builder__expanded_radios',
-      '#title' => $this->t('This date type is:'),
-      '#options' => [
-        'month_day_year' => $this->t('A memorable date that a submitter knows (includes Month, Day, Year)'),
-        'month_year' => $this->t('A date that a submitter can approximate (includes Month, Year)'),
-      ],
-      '#options_expanded_content' => [
-        'month_day_year' => [
-          '#markup' => '<p><a href="" target="_blank">View example in Sample Forms</a></p>',
-        ],
-        'month_year' => [
-          '#markup' => '<p><a href="" target="_blank">View example in Sample Forms</a></p>',
-        ],
-      ],
-      '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_date_format')[0] ?? 'month_day_year',
-    ];
-
-    $form['label'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Date label'),
-      '#description' => $this->t('For example, "Anniversary date"'),
-      '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_label')[0] ?? '',
-      '#required' => TRUE,
-    ];
-
-    $form['hint_text'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Hint text for date label'),
-      '#default_value' => $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[0] ?? '',
-      '#required' => FALSE,
-    ];
-
     $form['preview'] = [
       '#type' => 'html_tag',
       '#tag' => 'img',
       '#attributes' => [
-        'src' => self::IMAGE_DIR . 'single-date.png',
-        'alt' => $this->t('A preview of the single-date response.'),
+        'src' => self::IMAGE_DIR . 'text-area.png',
+        'alt' => $this->t('A preview of the text-area response.'),
       ],
     ];
 
@@ -109,6 +90,7 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
 
     $form['actions']['save_and_continue'] = [
       '#type' => 'submit',
+      '#name' => 'save_and_continue',
       '#value' => $this->t('Save and continue'),
       '#attributes' => [
         'class' => [
@@ -117,7 +99,7 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
           'form-submit',
         ],
       ],
-      '#weight' => '20',
+      '#weight' => '10',
     ];
 
     return $form;
@@ -134,7 +116,7 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
   public function handleEditQuestionClick(array &$form, FormStateInterface $form_state) {
     if ($this->isCreate) {
       $form_state->setRedirect(
-        'va_gov_form_builder.step.question.custom.date.single_date.page_title',
+        'va_gov_form_builder.step.question.custom.text.text_area.page_title',
         [
           'nid' => $this->digitalForm->id(),
           'stepParagraphId' => $this->stepParagraph->id(),
@@ -157,25 +139,22 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
    * {@inheritdoc}
    */
   protected function setComponentsFromFormState(FormStateInterface $form_state) {
-    $required = $form_state->getValue('required') ?? FALSE;
-    $dateFormat = $form_state->getValue('date_format');
     $label = $form_state->getValue('label');
     $hintText = $form_state->getValue('hint_text');
+    $required = $form_state->getValue('required') ?? FALSE;
 
     if ($this->isCreate) {
       $this->components[0] = $this->entityTypeManager->getStorage('paragraph')->create([
-        'type' => 'digital_form_date_component',
-        'field_digital_form_required' => $required,
-        'field_digital_form_date_format' => $dateFormat,
+        'type' => 'digital_form_text_area',
         'field_digital_form_label' => $label,
         'field_digital_form_hint_text' => $hintText,
+        'field_digital_form_required' => $required,
       ]);
     }
     else {
-      $this->components[0]->set('field_digital_form_required', $required);
-      $this->components[0]->set('field_digital_form_date_format', $dateFormat);
       $this->components[0]->set('field_digital_form_label', $label);
       $this->components[0]->set('field_digital_form_hint_text', $hintText);
+      $this->components[0]->set('field_digital_form_required', $required);
     }
   }
 
@@ -194,7 +173,6 @@ class CustomSingleQuestionSingleDateResponse extends FormBuilderPageComponentBas
       self::setFormErrors($form_state, $violations, [
         'field_digital_form_label' => $form['label'],
         'field_digital_form_hint_text' => $form['hint_text'],
-        'field_digital_form_date_format' => $form['date_format'],
         'field_digital_form_required' => $form['required'],
       ]);
     }
