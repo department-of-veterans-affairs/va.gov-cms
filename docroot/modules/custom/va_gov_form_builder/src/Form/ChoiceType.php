@@ -3,13 +3,17 @@
 namespace Drupal\va_gov_form_builder\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderBase;
 
 /**
  * Form step for choosing the specific type of choice response.
  */
 class ChoiceType extends FormBuilderBase {
+
+  /**
+   * The Form Builder's image directory.
+   */
+  const IMAGE_DIR = '/modules/custom/va_gov_form_builder/images/';
 
   /**
    * {@inheritdoc}
@@ -26,53 +30,43 @@ class ChoiceType extends FormBuilderBase {
 
     $form['choice_type'] = [
       '#type' => 'va_gov_form_builder__expanded_radios',
-      '#title' => $this->t('What style of choice fits the question you will ask?'),
+      '#title' => $this->t('Decide between a single choice or multiple choices that the submitter will indicate.'),
       '#options' => [
-        'radio' => $this->t('Radio'),
-        'checkbox' => $this->t('Checkbox'),
+        'radio' => $this->t('Only one choice is allowed for the question from the list.'),
+        'checkbox' => $this->t('More than once choice can be selected.'),
       ],
-//      '#options_expanded_content' => [
-//        'radio' => [
-//          '#theme' => 'page_element__va_gov_form_builder__expanded_radio__help_text_optional_image',
-//          '#help_text' => [
-//            '#type' => 'inline_template',
-//            '#template' => '<p>{{ description }} {{ link }}</p>',
-//            '#context' => [
-//              'description' => $this->t('We use radio buttons to enable this option.'),
-//              'link' => [
-//                '#type' => 'link',
-//                '#title' => $this->t('VA Design System reference'),
-//                '#url' => Url::fromUri('https://design.va.gov/patterns/ask-users-for/dates')
-//                  ->setOptions([
-//                    'attributes' => [
-//                      'target' => '_blank',
-//                    ],
-//                  ]),
-//              ],
-//            ],
-//          ],
-//        ],
-//        'checkbox' => [
-//          '#theme' => 'page_element__va_gov_form_builder__expanded_radio__help_text_optional_image',
-//          '#help_text' => [
-//            '#type' => 'inline_template',
-//            '#template' => '<p>{{ description }} {{ link }}</p>',
-//            '#context' => [
-//              'description' => $this->t('Description of date range.'),
-//              'link' => [
-//                '#type' => 'link',
-//                '#title' => $this->t('VA Design System reference'),
-//                '#url' => Url::fromUri('https://design.va.gov/patterns/ask-users-for/dates')
-//                  ->setOptions([
-//                    'attributes' => [
-//                      'target' => '_blank',
-//                    ],
-//                  ]),
-//              ],
-//            ],
-//          ],
-//        ],
-//      ],
+      '#options_expanded_content' => [
+        'radio' => [
+          '#theme' => 'page_element__va_gov_form_builder__expanded_radio__help_text_optional_image',
+          '#help_text' => [
+            '#type' => 'inline_template',
+            '#template' => '<p>{{ description }}</p>',
+            '#context' => [
+              'description' => $this->t('We use radio buttons to enable this option.'),
+            ],
+          ],
+          '#image' => [
+            'url' => self::IMAGE_DIR . 'radio-example.png',
+            'alt' => $this->t('A radio option list example.'),
+            'caption' => $this->t('Example of a radio button list'),
+          ],
+        ],
+        'checkbox' => [
+          '#theme' => 'page_element__va_gov_form_builder__expanded_radio__help_text_optional_image',
+          '#help_text' => [
+            '#type' => 'inline_template',
+            '#template' => '<p>{{ description }}</p>',
+            '#context' => [
+              'description' => $this->t('Checkbox lists are the elements we use for this.'),
+            ],
+          ],
+          '#image' => [
+            'url' => self::IMAGE_DIR . 'checkbox-example.png',
+            'alt' => $this->t('Example of a checkbox list'),
+            'caption' => $this->t('Example of a checkbox list'),
+          ],
+        ],
+      ],
       '#required' => TRUE,
     ];
 
