@@ -1765,7 +1765,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function customSingleQuestionRadioResponse($nid, $stepParagraphId, $pageParagraphId) {
+  public function customSingleQuestionRadioResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
     if (empty($this->digitalForm)) {
       $this->loadDigitalForm($nid);
     }
@@ -1804,7 +1804,7 @@ class VaGovFormBuilderController extends ControllerBase {
       $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.choice.radio.page_title', 'Radio response');
     }
 
-    // Override the page title with "Date question".
+    // Override the page title with "Radio question".
     $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Radio question';
 
     $formName = 'CustomSingleQuestionRadioResponse';
@@ -1813,6 +1813,7 @@ class VaGovFormBuilderController extends ControllerBase {
       'two_column_with_buttons',
       'expanded_radio',
       'custom_single_question_response',
+      'repeatable_field_groups',
     ];
 
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
