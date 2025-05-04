@@ -357,7 +357,7 @@ class CustomSingleQuestionCheckboxResponse extends FormBuilderPageComponentBase 
       return;
     }
     $existingOptions = $form_state->getValue('existing_checkbox_option_fields') ?? [];
-    $buttonComponent = $form_state->getValue('checkbox_fields')[0] ?? [];
+    $checkbox = $form_state->getValue('checkbox_fields')[0] ?? [];
     $newOptions = $form_state->getValue('dynamic_checkbox_options_fields') ?? [];
 
     // This is the index at which to start adding new options.
@@ -379,7 +379,7 @@ class CustomSingleQuestionCheckboxResponse extends FormBuilderPageComponentBase 
       $this->addOptions($newOptions, $nextIndex);
     }
     // Set the Checkbox component. This will update or create as necessary.
-    $this->setComponent($buttonComponent);
+    $this->setComponent($checkbox);
   }
 
   /**
