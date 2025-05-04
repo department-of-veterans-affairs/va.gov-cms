@@ -10,14 +10,14 @@ use Drupal\va_gov_form_builder\Form\Base\FormBuilderPageComponentBase;
 use Drupal\va_gov_form_builder\Traits\RepeatableFieldGroup;
 
 /**
- * Form step for the defining/editing a Radio response.
+ * Form step for the defining/editing a Checkbox response.
  */
-class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
+class CustomSingleQuestionCheckboxResponse extends FormBuilderPageComponentBase {
 
   use RepeatableFieldGroup;
 
   /**
-   * The maximum number of radio options that can be added.
+   * The maximum number of options that can be added.
    *
    * @var int
    */
@@ -31,11 +31,11 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
   const OPTIONS_FIELD_REF_NAME = 'field_df_response_options';
 
   /**
-   * The number of existing Radio options on the Radio Button component.
+   * The number of existing options on the Checkbox component.
    *
    * @var int
    */
-  protected int $existingRadioOptionsCount = 0;
+  protected int $existingOptionsCount = 0;
 
   /**
    * The number of existing components on the page paragraph.
@@ -45,7 +45,7 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
   protected int $existingComponentCount = 0;
 
   /**
-   * The Radio Options paragraphs keyed by field delta.
+   * The Options (field_df_response_options) paragraphs keyed by field delta.
    *
    * @var \Drupal\paragraphs\ParagraphInterface[]
    */
@@ -55,7 +55,7 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
    * {@inheritdoc}
    */
   public function getFormId(): string {
-    return 'form_builder__custom_single_question_radio_response';
+    return 'form_builder__custom_single_question_checkbox_response';
   }
 
   /**
@@ -75,19 +75,19 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
       $digitalForm,
       $stepParagraph,
       $pageParagraph,
-      CustomSingleQuestionPageType::Radio,
+      CustomSingleQuestionPageType::Checkbox,
     );
 
-    $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_radio_response';
+    $form['#theme'] = 'form__va_gov_form_builder__custom_single_question_checkbox_response';
 
-    // Titles for the Radio Button Component (digital_form_radio_button).
-    $radioButtonLabelText = $this->t('List label Radio item');
-    $radioButtonHintText = $this->t('Hint text for item');
-    $radioButtonRequiredText = $this->t('Required for the submitter');
+    // Titles for the Checkbox Component (digital_form_checkbox).
+    $checkboxLabelText = $this->t('List label Checkbox item');
+    $checkboxHintText = $this->t('Hint text for item');
+    $checkboxRequiredText = $this->t('Required for the submitter');
 
-    // Titles for Radio options (digital_form_response_option).
-    $radioOptionLabelText = $this->t('Label for Radio item');
-    $radioOptionDescriptionText = $this->t('Radio description for item');
+    // Titles for Checkbox options (digital_form_response_option).
+    $checkboxOptionLabelText = $this->t('Label for Checkbox item');
+    $checkboxOptionDescriptionText = $this->t('Checkbox description for item');
 
     // Set existing component count and any existing options.
     $this->existingComponentCount = empty($this->components) ? 0 : count($this->components);
@@ -96,57 +96,57 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
         /** @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $optionFieldItemList */
         $optionFieldItemList = $this->components[0]->get(self::OPTIONS_FIELD_REF_NAME);
         $this->options = $optionFieldItemList->referencedEntities();
-        $this->existingRadioOptionsCount = count($this->options);
+        $this->existingOptionsCount = count($this->options);
       }
     }
 
-    // We need the radio button fields on create and edit modes.
-    $form['radio_button_fields'] = [
+    // We need the checkbox fields on create and edit modes.
+    $form['checkbox_fields'] = [
       '#tree' => TRUE,
     ];
-    $form['radio_button_fields'][0] = [
+    $form['checkbox_fields'][0] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['form-builder-repeatable-field-group']],
       'label' => [
         '#type' => 'textfield',
-        '#title' => $radioButtonLabelText,
+        '#title' => $checkboxLabelText,
         '#required' => TRUE,
         '#default_value' => '',
       ],
       'hint_text' => [
         '#type' => 'textfield',
-        '#title' => $radioButtonHintText,
+        '#title' => $checkboxHintText,
         '#default_value' => '',
       ],
       'required' => [
         '#type' => 'checkbox',
-        '#title' => $radioButtonRequiredText,
+        '#title' => $checkboxRequiredText,
         '#default_value' => TRUE,
       ],
     ];
 
     if (!$this->isCreate && $this->existingComponentCount > 0) {
-      // Set default values for Radio Button fields.
-      $form['radio_button_fields'][0]['required']['#default_value'] = $this->getComponentParagraphFieldValue('field_digital_form_required')[0] ?? TRUE;
-      $form['radio_button_fields'][0]['label']['#default_value'] = $this->getComponentParagraphFieldValue('field_digital_form_label')[0] ?? '';
-      $form['radio_button_fields'][0]['hint_text']['#default_value'] = $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[0] ?? '';
-      // Add any existing Radio options.
-      $form['existing_radio_option_fields'] = [
+      // Set default values for checkbox fields.
+      $form['checkbox_fields'][0]['required']['#default_value'] = $this->getComponentParagraphFieldValue('field_digital_form_required')[0] ?? TRUE;
+      $form['checkbox_fields'][0]['label']['#default_value'] = $this->getComponentParagraphFieldValue('field_digital_form_label')[0] ?? '';
+      $form['checkbox_fields'][0]['hint_text']['#default_value'] = $this->getComponentParagraphFieldValue('field_digital_form_hint_text')[0] ?? '';
+      // Add any existing Checkbox options.
+      $form['existing_checkbox_option_fields'] = [
         '#tree' => TRUE,
       ];
       foreach ($this->options as $delta => $entity) {
-        $form['existing_radio_option_fields'][$delta] = [
+        $form['existing_checkbox_option_fields'][$delta] = [
           '#type' => 'container',
           '#attributes' => ['class' => ['form-builder-repeatable-field-group']],
           'label' => [
             '#type' => 'textfield',
-            '#title' => $radioOptionLabelText . ' ' . ($delta + 1),
+            '#title' => $checkboxOptionLabelText . ' ' . ($delta + 1),
             '#required' => TRUE,
             '#default_value' => $this->getParagraphFieldValue($entity, 'field_digital_form_label'),
           ],
           'description' => [
             '#type' => 'textfield',
-            '#title' => $radioOptionDescriptionText . ' ' . ($delta + 1),
+            '#title' => $checkboxOptionDescriptionText . ' ' . ($delta + 1),
             '#default_value' => $this->getParagraphFieldValue($entity, 'field_digital_form_description'),
           ],
         ];
@@ -155,24 +155,24 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
     $options_fields_definition = [
       'label' => [
         '#type' => 'textfield',
-        '#title' => $radioOptionLabelText,
+        '#title' => $checkboxOptionLabelText,
         '#required' => TRUE,
       ],
       'description' => [
         '#type' => 'textfield',
-        '#title' => $radioOptionDescriptionText,
+        '#title' => $checkboxOptionDescriptionText,
       ],
     ];
 
     $this->addRepeatableFieldGroup(
       $form,
       $form_state,
-      'dynamic_radio_options_fields',
+      'dynamic_checkbox_options_fields',
       $options_fields_definition,
-      2,
+      1,
       self::MAX_REPEATABLE_FIELDS,
-      $this->existingRadioOptionsCount + 1,
-      $this->t('Radio Item'),
+      $this->existingOptionsCount + 1,
+      $this->t('Checkbox Item'),
     );
 
     $form['preview'] = [
@@ -180,7 +180,7 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
         '#type' => 'html_tag',
         '#tag' => 'img',
         '#attributes' => [
-          'src' => self::IMAGE_DIR . 'radio-no-descriptors.png',
+          'src' => self::IMAGE_DIR . 'checkbox-no-descriptors.png',
           'alt' => $this->t('Example without descriptors.png'),
         ],
       ],
@@ -188,7 +188,7 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
         '#type' => 'html_tag',
         '#tag' => 'img',
         '#attributes' => [
-          'src' => self::IMAGE_DIR . 'radio-with-descriptors.png',
+          'src' => self::IMAGE_DIR . 'checkbox-with-descriptors.png',
           'alt' => $this->t('Example with descriptors.png'),
         ],
       ],
@@ -239,7 +239,7 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
   public function handleEditQuestionClick(array &$form, FormStateInterface $form_state) {
     if ($this->isCreate) {
       $form_state->setRedirect(
-        'va_gov_form_builder.step.question.custom.choice.radio.page_title',
+        'va_gov_form_builder.step.question.custom.choice.checkbox.page_title',
         [
           'nid' => $this->digitalForm->id(),
           'stepParagraphId' => $this->stepParagraph->id(),
@@ -274,7 +274,7 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
 
     if ($label !== '') {
       $this->components[0] = Paragraph::create([
-        'type' => 'digital_form_radio_button',
+        'type' => 'digital_form_checkbox',
         'field_digital_form_label' => $label,
         'field_digital_form_hint_text' => $hint,
         'field_digital_form_required' => $required,
@@ -302,7 +302,7 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
   }
 
   /**
-   * Sets the Radio Button component from form values.
+   * Sets the checkbox component from form values.
    *
    * This does not persist data at this point. It updates - in memory - the
    * fields of existing paragraph entity representing the component.
@@ -311,17 +311,18 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
    *   The form-state data for the component to update.
    */
   private function setComponent(array $component) {
-    $label = $component['label'] ?? '';
-    $hint = $component['hint_text'] ?? '';
-    $required = $component['required'] ?? FALSE;
-
     if (!isset($this->components[0])) {
       $this->addComponent($component);
     }
-    $this->components[0]->set('field_digital_form_label', $label);
-    $this->components[0]->set('field_digital_form_hint_text', $hint);
-    $this->components[0]->set('field_digital_form_required', $required);
-    $this->components[0]->set('field_df_response_options', $this->options);
+    else {
+      $label = $component['label'] ?? '';
+      $hint = $component['hint_text'] ?? '';
+      $required = $component['required'] ?? FALSE;
+      $this->components[0]->set('field_digital_form_label', $label);
+      $this->components[0]->set('field_digital_form_hint_text', $hint);
+      $this->components[0]->set('field_digital_form_required', $required);
+      $this->components[0]->set('field_df_response_options', $this->options);
+    }
   }
 
   /**
@@ -355,16 +356,16 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
     if ($clickedButton !== 'save_and_continue') {
       return;
     }
-    $existingOptions = $form_state->getValue('existing_radio_option_fields') ?? [];
-    $buttonComponent = $form_state->getValue('radio_button_fields')[0] ?? [];
-    $newOptions = $form_state->getValue('dynamic_radio_options_fields') ?? [];
+    $existingOptions = $form_state->getValue('existing_checkbox_option_fields') ?? [];
+    $buttonComponent = $form_state->getValue('checkbox_fields')[0] ?? [];
+    $newOptions = $form_state->getValue('dynamic_checkbox_options_fields') ?? [];
 
     // This is the index at which to start adding new options.
     $nextIndex = 0;
 
     // In edit mode, we need to first update existing options, then add new
     // options. Additionally, when we change or add options, we also need to
-    // update the Radio Button component.
+    // update the Checkbox component.
     if (!$this->isCreate) {
       if (count($existingOptions) > 0) {
         $this->updateOptions($existingOptions);
@@ -377,7 +378,7 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
     if (count($newOptions) > 0) {
       $this->addOptions($newOptions, $nextIndex);
     }
-    // Set the Radio Button component. This will update or create as necessary.
+    // Set the Checkbox component. This will update or create as necessary.
     $this->setComponent($buttonComponent);
   }
 
@@ -405,7 +406,7 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
     /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
     $violations = $this->components[$i]->validate();
     if ($violations->count() > 0) {
-      $field = $form['radio_button_fields'][$i];
+      $field = $form['checkbox_fields'][$i];
       self::setFormErrors($form_state, $violations, [
         'field_digital_form_label' => $field['label'],
         'field_digital_form_hint_text' => $field['hint_text'],
@@ -415,7 +416,7 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
   }
 
   /**
-   * Validate Radio options.
+   * Validate Checkbox options.
    *
    * @param array $form
    *   The form values array.
@@ -426,13 +427,13 @@ class CustomSingleQuestionRadioResponse extends FormBuilderPageComponentBase {
     foreach ($this->options as $delta => $paragraph) {
       $violations = $paragraph->validate();
       if ($violations->count() > 0) {
-        if ($delta < $this->existingRadioOptionsCount) {
+        if ($delta < $this->existingOptionsCount) {
           // This is an existing option.
-          $field = $form['existing_radio_option_fields'][$delta];
+          $field = $form['existing_checkbox_option_fields'][$delta];
         }
         else {
           // This is a new option that was added on this submission.
-          $field = $form['dynamic_radio_options_fields_fieldset']['dynamic_radio_options_fields'][$delta - $this->existingRadioOptionsCount];
+          $field = $form['dynamic_checkbox_options_fields_fieldset']['dynamic_checkbox_options_fields'][$delta - $this->existingOptionsCount];
         }
         self::setFormErrors($form_state, $violations, [
           'field_digital_form_label' => $field['label'],

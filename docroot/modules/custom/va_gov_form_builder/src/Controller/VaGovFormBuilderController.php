@@ -519,6 +519,17 @@ class VaGovFormBuilderController extends ControllerBase {
         $pageTitleUrl
       );
     }
+    elseif ($parent === 'step.question.custom.choice.checkbox.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.choice.checkbox.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.choice.type',
+        '',
+        $pageTitleUrl
+      );
+    }
     elseif ($parent === 'step.question.page_title') {
       if (!$this->digitalForm || !$this->stepParagraph || !$this->pageParagraph) {
         return [];
@@ -1723,6 +1734,9 @@ class VaGovFormBuilderController extends ControllerBase {
       case CustomSingleQuestionPageType::Radio:
         return $this->customSingleQuestionRadioResponse($nid, $stepParagraphId, $pageParagraphId);
 
+      case CustomSingleQuestionPageType::Checkbox:
+        return $this->customSingleQuestionCheckboxResponse($nid, $stepParagraphId, $pageParagraphId);
+
       case CustomSingleQuestionPageType::TextInput:
         return $this->customSingleQuestionTextInputResponse($nid, $stepParagraphId, $pageParagraphId);
 
@@ -1739,14 +1753,67 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    * @param string $stepParagraphId
    *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
    *
-   * @return array
-   *   The render array for this page.
+   * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+   *   A redirect or the page response render array.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function customSingleQuestionCheckboxResponse($nid, $stepParagraphId) {
-    return [
-      '#markup' => '<h1>Hi!</h1>',
+  public function customSingleQuestionCheckboxResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+      if (empty($this->pageParagraph)) {
+        $this->loadPageParagraph($pageParagraphId);
+      }
+
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.page_title', 'Checkbox response');
+    }
+    else {
+      // This is the second stage in the process
+      // of creating a new page. The previously
+      // entered page title and body should be in
+      // session storage. The page title is required.
+      // If it is not there, we should redirect back
+      // to the page-title page.
+      $sessionData = $this->session->get(FormBuilderPageBase::SESSION_KEY);
+      $pageTitle = $sessionData['title'] ?? NULL;
+      if (!$pageTitle) {
+        return $this->redirect(
+          'va_gov_form_builder.step.question.custom.choice.checkbox.page_title',
+          [
+            'nid' => $nid,
+            'stepParagraphId' => $stepParagraphId,
+          ],
+        );
+      }
+
+      // This is page creation.
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.choice.checkbox.page_title', 'Checkbox response');
+    }
+
+    // Override the page title with "Checkbox question".
+    $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Checkbox question';
+
+    $formName = 'CustomSingleQuestionCheckboxResponse';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'two_column_with_buttons',
+      'expanded_radio',
+      'custom_single_question_response',
+      'repeatable_field_groups',
     ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
