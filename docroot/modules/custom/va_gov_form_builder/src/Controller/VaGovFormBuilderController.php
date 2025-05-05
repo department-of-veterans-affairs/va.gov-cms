@@ -301,7 +301,7 @@ class VaGovFormBuilderController extends ControllerBase {
     // Require only a nid.
     $formPages = [
       'layout',
-      'form_info.edit',
+      'form_info.edit', 'intro',
       'name_and_dob', 'identification_info', 'address_info', 'contact_info',
       'step.step_label.create', 'step.step_style',
       'review_and_sign', 'view_form',
@@ -683,7 +683,7 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
       '#intro' => [
         'status' => $this->digitalForm->getStepStatus('intro'),
-        'url' => '',
+        'url' => $this->getPageUrl('intro'),
       ],
       '#your_personal_info' => [
         'status' => $this->digitalForm->getStepStatus('your_personal_info'),
@@ -795,6 +795,25 @@ class VaGovFormBuilderController extends ControllerBase {
     }
 
     return $response;
+  }
+
+  /**
+   * Form introduction page.
+   *
+   * @param string|null $nid
+   *   The node id, passed in when the page edits an existing node.
+   */
+  public function intro($nid = NULL) {
+    $this->loadDigitalForm($nid);
+
+    $formName = 'IntroPage';
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Introduction page');
+    $libraries = [
+      'form_info',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
