@@ -67,12 +67,6 @@ class IntroPage extends FormBuilderFormBase {
     $introText = $form_state->getValue('intro_text');
     $whatToKnow = $form_state->getValue('what_to_know');
 
-    /*
-     * This form is editing an existing Digital Form.
-     *
-     * We need to update only the fields from this form,
-     * ensuring other fields are not changed.
-     */
     $this->digitalForm->set('field_intro_text', $introText);
     $this->digitalForm->set('field_digital_form_what_to_know', $whatToKnow);
   }
