@@ -297,7 +297,8 @@ class ModuleTest extends VaGovUnitTestBase {
     $form_themes = [
       'form_info',
       'step_label',
-      // 'step_style',
+      'custom_or_predefined__single_question',
+      'custom_or_predefined__repeating_set',
       'response_kind',
       'date_type',
       'custom_single_question_page_title',

@@ -303,9 +303,16 @@ class VaGovFormBuilderController extends ControllerBase {
     $formPages = [
       'layout',
       'form_info.edit',
-      'name_and_dob', 'identification_info', 'address_info', 'contact_info',
-      'step.step_label.create', 'step.step_style',
-      'review_and_sign', 'view_form',
+      'name_and_dob',
+      'identification_info',
+      'address_info',
+      'contact_info',
+      'step.step_label.create',
+      'step.step_style',
+      'step.single_question.custom_or_predefined',
+      'step.repeating_set.custom_or_predefined',
+      'review_and_sign',
+      'view_form',
     ];
     if (in_array($page, $formPages)) {
       if (!$this->digitalForm) {
@@ -321,7 +328,6 @@ class VaGovFormBuilderController extends ControllerBase {
     $stepPages = [
       'step.layout',
       'step.step_label.edit',
-      'step.question.custom_or_predefined',
       'step.question.custom.kind',
       'step.question.custom.date.type',
       'step.question.custom.text.type',
@@ -435,6 +441,33 @@ class VaGovFormBuilderController extends ControllerBase {
 
       $layoutUrl = $this->getPageUrl('layout');
       $breadcrumbTrail = $this->generateBreadcrumbs('home', $this->digitalForm->getTitle(), $layoutUrl);
+    }
+
+    elseif ($parent === 'step.step_label.create') {
+      if (!$this->digitalForm) {
+        return [];
+      }
+
+      $stepLabel = $this->session->get(FormBuilderStepBase::SESSION_KEY) ?? 'Step label';
+      $stepLabelUrl = $this->getPageUrl('step.step_label.create');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'layout',
+        $stepLabel,
+        $stepLabelUrl
+      );
+    }
+
+    elseif ($parent === 'step.step_style') {
+      if (!$this->digitalForm) {
+        return [];
+      }
+
+      $stepStyleUrl = $this->getPageUrl('step.step_style');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.step_label.create',
+        'Step style',
+        $stepStyleUrl
+      );
     }
 
     elseif ($parent === 'step.layout') {
@@ -1057,7 +1090,7 @@ class VaGovFormBuilderController extends ControllerBase {
           'secondary' => [
             [
               'label' => 'Add question',
-              'url' => $this->getPageUrl('step.question.custom_or_predefined'),
+              'url' => $this->getPageUrl('step.question.custom.kind'),
             ],
           ],
         ],
@@ -1163,28 +1196,6 @@ class VaGovFormBuilderController extends ControllerBase {
       return $this->redirect('va_gov_form_builder.step.step_label.create', ['nid' => $nid]);
     }
 
-    // This is a special circumstance of generating breadcrumbs.
-    //
-    // What we want is this:
-    // Home > [Form name] > [Step label] > Step style
-    //
-    // Typically, we'd accomplish this by:
-    // $this->generateBreadcrumbs('step-layout', 'Step style');
-    //
-    // However, since the step paragraph doesn't actually exist
-    // at this point (this is part of the process of creating it),
-    // the previously entered step label is stored in session storage.
-    // So, we can't do what we'd typically do and, instead, we need
-    // to generate the breadcrumb trail without it and then splice
-    // it in.
-    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step style');
-    array_splice($breadcrumbs, 2, 0, [
-      [
-        'label' => $stepLabel,
-        'url' => $this->getPageUrl('step.step_label.create'),
-      ],
-    ]);
-
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'step_style',
       '#step_label' => [
@@ -1207,16 +1218,17 @@ class VaGovFormBuilderController extends ControllerBase {
       '#buttons' => [
         'primary' => [
           'label' => $this->t('Add a single question'),
-          'url' => '',
+          'url' => $this->getPageUrl('step.single_question.custom_or_predefined'),
         ],
         'secondary' => [
           [
             'label' => $this->t('Add a repeating set'),
-            'url' => '',
+            'url' => $this->getPageUrl('step.repeating_set.custom_or_predefined'),
           ],
         ],
       ],
     ];
+    $breadcrumbs = $this->generateBreadcrumbs('step.step_label.create', 'Step style');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = ['single_column_with_buttons', 'step_style'];
 
@@ -1224,48 +1236,43 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
-   * Custom-or-predefined-question page.
+   * Custom-or-predefined selection for single-question style.
    *
    * @param string $nid
    *   The node id of the Digital Form.
-   * @param string $stepParagraphId
-   *   The entity id of the step paragraph.
    */
-  public function customOrPredefinedQuestion($nid, $stepParagraphId) {
+  public function customOrPredefinedSingleQuestion($nid) {
+    $this->loadDigitalForm($nid);
+
+    // This is the third stage in the process
+    // of creating a new step. The previously
+    // entered step label should be in session storage.
+    // If it's not there, we should redirect back to the
+    // step-label page.
+    $stepLabel = $this->session->get(FormBuilderStepBase::SESSION_KEY);
+    if (!$stepLabel) {
+      return $this->redirect('va_gov_form_builder.step.step_label.create', ['nid' => $nid]);
+    }
+
+    $formName = 'CustomOrPredefinedSingleQuestion';
+    $breadcrumbs = $this->generateBreadcrumbs('step.step_style', 'Custom or predefined question');
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'single_column_with_buttons',
+      'custom_or_predefined_question',
+    ];
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Custom-or-predefined selection for repeating-set style.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   */
+  public function customOrPredefinedRepeatingSet($nid) {
     $this->loadDigitalForm($nid);
     $this->loadStepParagraph($stepParagraphId);
-
-    $stepType = $this->stepParagraph->bundle();
-
-    // Eventually, '#predefined_questions' will
-    // be a list conditionally populated
-    // based on `$stepType`. For now, we only support
-    // custom questions.
-    $predefinedQuestions = [];
-
-    $pageContent = [
-      '#predefined_questions' => $predefinedQuestions,
-      '#buttons' => [
-        'primary' => [
-          'label' => 'Customize',
-          'url' => '',
-        ],
-      ],
-    ];
-
-    if ($stepType === 'digital_form_custom_step') {
-      $pageContent['#theme'] = self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__single_question';
-      $pageContent['#buttons']['primary']['url'] = $this->getPageUrl('step.question.custom.kind');
-    }
-    else {
-      $pageContent['#theme'] = self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__repeating_set';
-    }
-
-    $subtitle = $this->digitalForm->getTitle();
-    $breadcrumbs = $this->generateBreadcrumbs('step.layout', 'Custom or predefined question');
-    $libraries = ['single_column_with_buttons', 'custom_or_predefined_question'];
-
-    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
@@ -1281,7 +1288,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadStepParagraph($stepParagraphId);
 
     $formName = 'ResponseKind';
-    $breadcrumbs = $this->generateBreadcrumbs('step.question.custom_or_predefined', 'Response kind');
+    $breadcrumbs = $this->generateBreadcrumbs('step.layout', 'Response kind');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
       'single_column_with_buttons',
