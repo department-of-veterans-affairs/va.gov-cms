@@ -10,6 +10,7 @@ use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType;
 use Drupal\va_gov_form_builder\Form\Base\FormBuilderPageBase;
+use Drupal\va_gov_form_builder\Form\Base\FormBuilderStepBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -1157,7 +1158,7 @@ class VaGovFormBuilderController extends ControllerBase {
     // entered step label should be in session storage.
     // If it's not there, we should redirect back to the
     // step-label page.
-    $stepLabel = $this->session->get('form_builder:add_step:step_label');
+    $stepLabel = $this->session->get(FormBuilderStepBase::SESSION_KEY);
     if (!$stepLabel) {
       return $this->redirect('va_gov_form_builder.step.step_label.create', ['nid' => $nid]);
     }
@@ -1184,11 +1185,42 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
     ]);
 
-    $formName = 'StepStyle';
+    $pageContent = [
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'step_style',
+      '#step_label' => [
+        'label' => $stepLabel,
+        'edit_button' => [
+          'label' => $this->t('Edit step label'),
+          'url' => $this->getPageUrl('step.step_label.create'),
+        ],
+      ],
+      '#preview' => [
+        'single_question' => [
+          'alt_text' => 'Single-question preview',
+          'url' => self::IMAGE_DIR . 'single-question.png',
+        ],
+        'repeating_set' => [
+          'alt_text' => 'Repeating-set preview',
+          'url' => self::IMAGE_DIR . 'repeating-set.png',
+        ],
+      ],
+      '#buttons' => [
+        'primary' => [
+          'label' => $this->t('Add a single question'),
+          'url' => '',
+        ],
+        'secondary' => [
+          [
+            'label' => $this->t('Add a repeating set'),
+            'url' => '',
+          ],
+        ],
+      ],
+    ];
     $subtitle = $this->digitalForm->getTitle();
     $libraries = ['single_column_with_buttons', 'step_style'];
 
-    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**

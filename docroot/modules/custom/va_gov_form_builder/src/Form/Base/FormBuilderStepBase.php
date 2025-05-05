@@ -13,6 +13,13 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 abstract class FormBuilderStepBase extends FormBuilderBase {
 
   /**
+   * The session key used to store the step title.
+   *
+   * @var string
+   */
+  const SESSION_KEY = 'form_builder:add_step:step_label';
+
+  /**
    * The DigitalForm object loaded by this form.
    *
    * @var \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm

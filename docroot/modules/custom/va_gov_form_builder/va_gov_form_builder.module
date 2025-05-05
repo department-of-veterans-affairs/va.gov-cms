@@ -163,18 +163,28 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
     'template' => 'step-layout--repeating-set',
     'variables' => $stepLayoutVariables,
   ];
-  // 6. Custom-or-predefined-question page.
+  // 6. Step-style page.
+  $theme[$page_content_theme_prefix . 'step_style'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'step-style',
+    'variables' => [
+      'step_label' => [],
+      'preview' => [],
+      'buttons' => [],
+    ],
+  ];
+  // 7. Custom-or-predefined-question page.
   $customOrPredefinedQuestionVariables = [
     'predefined_questions' => [],
     'buttons' => [],
   ];
-  // 6a. Custom-or-predefined-question page for single question.
+  // 7a. Custom-or-predefined-question page for single question.
   $theme[$page_content_theme_prefix . 'custom_or_predefined_question__single_question'] = [
     'path' => $page_content_theme_path,
     'template' => 'custom-or-predefined-question--single-question',
     'variables' => $customOrPredefinedQuestionVariables,
   ];
-  // 6b. Custom-or-predefined-question page for repeating set.
+  // 7b. Custom-or-predefined-question page for repeating set.
   $theme[$page_content_theme_prefix . 'custom_or_predefined_question__repeating_set'] = [
     'path' => $page_content_theme_path,
     'template' => 'custom-or-predefined-question--repeating-set',
@@ -185,7 +195,7 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   $forms = [
     'form_info',
     'step_label',
-    'step_style',
+    // 'step_style',
     'response_kind',
     'date_type',
     'choice_type',

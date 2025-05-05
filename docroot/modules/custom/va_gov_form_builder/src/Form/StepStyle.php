@@ -43,7 +43,7 @@ class StepStyle extends FormBuilderStepBase {
     $this->isCreate = TRUE;
 
     // Grab the previously entered step label from stession storage.
-    $this->stepLabel = $this->session->get('form_builder:add_step:step_label');
+    $this->stepLabel = $this->session->get(self::SESSION_KEY);
 
     // Call parent build method.
     $form = parent::buildForm($form, $form_state, $digitalForm, $stepParagraph);
@@ -222,7 +222,7 @@ class StepStyle extends FormBuilderStepBase {
     $this->digitalForm->save();
 
     // Clear the session variable after successful paragraph save.
-    $this->session->set('form_builder:add_step:step_label', NULL);
+    $this->session->set(self::SESSION_KEY, NULL);
 
     $form_state->setRedirect('va_gov_form_builder.step.layout', [
       'nid' => $this->digitalForm->id(),
