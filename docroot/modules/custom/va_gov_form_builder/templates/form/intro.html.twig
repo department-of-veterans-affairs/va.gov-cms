@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Template for Form Builder form page: Introduction page
+ */
+#}
+<div id="form-builder-content-intro" class="form-builder-content form-builder-form-content">
+  <ul>
+    <li>Add a brief intro describing when to use this form. This could be 1 to 3 sentences, with no more than 25 words per sentence.</li>
+    <li>Try reusing the "when to use" blurb from the form detail page in Find a Form. For example, using the Veterans Pension blurb from the form detail page, this intro could be "Use this form if you're a wartime Veteran and want to file a pension claim."</li>
+  </ul>
+  {{ form.intro_text }}
+
+
+  <ul>
+    <li>This content will appear under a standard H2 "What to know before you fill out this form</li>
+    <li>Use a short bulleted list (2 to 5 bullets) to explain the most important things people need to know related to the form, like who can submit this form, when submitting this form is unnecessary, or time limits to be aware of.</li>
+  </ul>
+  {{ form.what_to_know }}
+
+
+
+  {{ form.actions }}
+
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'intro_text',
+    'what_to_know',
+    'actions'
+  )}}
+</div>
