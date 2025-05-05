@@ -10,17 +10,11 @@
 
 {% block main_content %}
   <div class="form-builder-custom-or-predefined form-builder-custom-or-predefined__repeating-set">
-    {% if predefined_questions|length == 0 %}
-      {# No predefined questions #}
-      <section class="form-buiilder-custom-or-predefined__custom">
-        <h3 class="form-builder-custom-or-predefined__custom-title">
-          If there were additional ready-to-use patterns for this form,
-          they would be listed on this page.
-        </h3>
-        <p>However, you can create your own question set by selecting the Customize option below.</p>
-      </section>
+    {% if form.predefined_options|length == 0 %}
+      {# No predefined options #}
+      {# Do nothing. Custom repeating sets are not yet supported in Form Builder. #}
     {% else %}
-      {# Predefined questions exist #}
+      {# Predefined options exist #}
       <section class="form-builder-custom-or-predefined__predefined">
         <h3 class="form-builder-custom-or-predefined__predefined-title">
           Is your question set one of these commonly asked ones?
@@ -30,17 +24,33 @@
           be added to this step in the form.
         </p>
 
-        {#
-          Eventually, render the predefined-question list here
-          by looping over the predefined_questions variable.
-        #}
+        <ul class="form-builder-custom-or-predefined__predefined-list">
+          {% for option in form.predefined_options %}
+            {% if option.label is defined and option.button is defined and option.description is defined %}
+              <li class="form-builder-custom-or-predefined__predefined-item">
+                <div class="form-builder-custom-or-predefined__predefined-option">
+                  <div class="form-builder-custom-or-predefined__predefined-label">
+                    {{ option.label }}
+                  </div>
+                  <div class="form-builder-custom-or-predefined__predefined-description">
+                    {{ option.description }}
+                  </div>
+                  <div class="form-builder-custom-or-predefined__predefined-add-button">
+                    {{ option.button }}
+                  </div>
+                </div>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
       </section>
       <section class="form-builder-custom-or-predefined__custom">
         <h3 class="form-builder-custom-or-predefined__custom-title">
           Need to customize your question and response?
         </h3>
         <p>
-          Begin by selecting the Customize option below.
+          Custom repeating sets are not currently supported in Form Builder. To configure a custom
+          repeating set, please contact an admin.
         </p>
     {% endif %}
   </div>
@@ -50,6 +60,7 @@
   {# render rest of form so it functions properly #}
   {{ form|without(
     'status_messages',
+    'predefined_options',
     'actions',
   )}}
 {% endblock %}

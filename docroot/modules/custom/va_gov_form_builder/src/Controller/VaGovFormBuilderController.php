@@ -1236,12 +1236,14 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
-   * Custom-or-predefined selection for single-question style.
+   * Custom-or-predefined selection page.
    *
    * @param string $nid
    *   The node id of the Digital Form.
+   * @param string $stepType
+   *   Either `single-question` or `repeating-set`.
    */
-  public function customOrPredefinedSingleQuestion($nid) {
+  public function customOrPredefinedQuestion($nid, $stepType) {
     $this->loadDigitalForm($nid);
 
     // This is the third stage in the process
@@ -1254,7 +1256,16 @@ class VaGovFormBuilderController extends ControllerBase {
       return $this->redirect('va_gov_form_builder.step.step_label.create', ['nid' => $nid]);
     }
 
-    $formName = 'CustomOrPredefinedSingleQuestion';
+    if ($stepType === 'single-question') {
+      $formName = 'CustomOrPredefinedSingleQuestion';
+    }
+    elseif ($stepType === 'repeating-set') {
+      $formName = 'CustomOrPredefinedRepeatingSet';
+    }
+    else {
+      throw new NotFoundHttpException();
+    }
+
     $breadcrumbs = $this->generateBreadcrumbs('step.step_style', 'Custom or predefined question');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
@@ -1262,17 +1273,6 @@ class VaGovFormBuilderController extends ControllerBase {
       'custom_or_predefined_question',
     ];
     return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
-  }
-
-  /**
-   * Custom-or-predefined selection for repeating-set style.
-   *
-   * @param string $nid
-   *   The node id of the Digital Form.
-   */
-  public function customOrPredefinedRepeatingSet($nid) {
-    $this->loadDigitalForm($nid);
-    $this->loadStepParagraph($stepParagraphId);
   }
 
   /**

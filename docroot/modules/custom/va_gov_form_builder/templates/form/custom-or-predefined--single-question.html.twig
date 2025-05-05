@@ -10,8 +10,8 @@
 
 {% block main_content %}
   <div class="form-builder-custom-or-predefined form-builder-custom-or-predefined__single_response">
-    {% if predefined_questions|length == 0 %}
-      {# No predefined questions #}
+    {% if form.predefined_options|length == 0 %}
+      {# No predefined options #}
       <section class="form-buiilder-custom-or-predefined__custom">
         <h3 class="form-builder-custom-or-predefined__custom-title">
           If there were additional ready-to-use patterns for this form,
@@ -20,19 +20,19 @@
         <p>However, you can create your own question and responses by selecting the Customize option below.</p>
       </section>
     {% else %}
-      {# Predefined questions exist #}
+      {# Predefined options exist #}
       <section class="form-builder-custom-or-predefined__predefined">
         <h3 class="form-builder-custom-or-predefined__predefined-title">
           Is your question one of these commonly asked ones?
         </h3>
         <p>
           If it is, simply select the appropriate Add button and this question will
-          be added to this step in the form.
+          be added to the form.
         </p>
 
         {#
-          Eventually, render the predefined-question list here
-          by looping over the predefined_questions variable.
+          Eventually, render the predefined-option list here
+          by looping over the predefined_options variable.
         #}
       </section>
       <section class="form-builder-custom-or-predefined__custom">

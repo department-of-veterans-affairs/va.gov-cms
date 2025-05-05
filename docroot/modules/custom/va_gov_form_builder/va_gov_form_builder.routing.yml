@@ -75,13 +75,15 @@ va_gov_form_builder.step.step_label.edit:
 va_gov_form_builder.step.single_question.custom_or_predefined:
   path: "/form-builder/{nid}/step/add/single-question/custom-or-predefined"
   defaults:
-    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customOrPredefinedSingleQuestion'
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customOrPredefinedQuestion'
+    stepType: "single-question"
   requirements:
     nid: \d*
 va_gov_form_builder.step.repeating_set.custom_or_predefined:
   path: "/form-builder/{nid}/step/add/repeating-set/custom-or-predefined"
   defaults:
-    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customOrPredefinedRepeatingSet'
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customOrPredefinedQuestion'
+    stepType: "repeating-set"
   requirements:
     nid: \d*
 va_gov_form_builder.step.question.custom.kind:
