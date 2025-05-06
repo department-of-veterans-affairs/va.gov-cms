@@ -46,10 +46,10 @@ va_gov_form_builder.contact_info:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::contactInfo'
   requirements:
     nid: \d*
-va_gov_form_builder.step.layout:
+va_gov_form_builder.step.home:
   path: "/form-builder/{nid}/step/{stepParagraphId}"
   defaults:
-    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepLayout'
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepHome'
   requirements:
     nid: \d*
     stepParagraphId: \d*

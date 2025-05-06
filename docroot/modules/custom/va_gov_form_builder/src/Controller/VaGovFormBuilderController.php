@@ -326,7 +326,7 @@ class VaGovFormBuilderController extends ControllerBase {
     // Pages that relate to a step within a form.
     // Require a nid and stepParagraphId.
     $stepPages = [
-      'step.layout',
+      'step.home',
       'step.step_label.edit',
       'step.question.custom.kind',
       'step.question.custom.date.type',
@@ -470,12 +470,12 @@ class VaGovFormBuilderController extends ControllerBase {
       );
     }
 
-    elseif ($parent === 'step.layout') {
+    elseif ($parent === 'step.home') {
       if (!$this->digitalForm || !$this->stepParagraph) {
         return [];
       }
 
-      $stepLayoutUrl = $this->getPageUrl('step.layout');
+      $stepLayoutUrl = $this->getPageUrl('step.home');
       $breadcrumbTrail = $this->generateBreadcrumbs(
         'layout',
         $this->stepParagraph->get('field_title')->value,
@@ -490,7 +490,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
       $customOrPredefinedUrl = $this->getPageUrl('step.question.custom_or_predefined');
       $breadcrumbTrail = $this->generateBreadcrumbs(
-        'step.layout',
+        'step.home',
         'Custom or predefined',
         $customOrPredefinedUrl
       );
@@ -571,7 +571,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
       $pageTitleUrl = $this->getPageUrl('step.question.page_title');
       $breadcrumbTrail = $this->generateBreadcrumbs(
-        'step.layout',
+        'step.home',
         $this->pageParagraph->get('field_title')->value,
         $pageTitleUrl
       );
@@ -813,7 +813,7 @@ class VaGovFormBuilderController extends ControllerBase {
             'type' => $step['type'],
             'title' => $step['fields']['field_title'][0]['value'],
             'status' => $this->digitalForm->getStepStatus('custom', $step['paragraph']),
-            'url' => Url::fromRoute('va_gov_form_builder.step.layout', [
+            'url' => Url::fromRoute('va_gov_form_builder.step.home', [
               'nid' => $this->digitalForm->id(),
               'stepParagraphId' => $stepParagraphId,
             ])->toString(),
@@ -1046,16 +1046,63 @@ class VaGovFormBuilderController extends ControllerBase {
   }
 
   /**
-   * Step-layout page.
+   * Employment-history page.
    *
    * @param string $nid
    *   The node id of the Digital Form.
    * @param string $stepParagraphId
    *   The entity id of the step paragraph.
    */
-  public function stepLayout($nid, $stepParagraphId) {
-    $this->loadDigitalForm($nid);
-    $this->loadStepParagraph($stepParagraphId);
+  protected function employmentHistoryListLoop($nid, $stepParagraphId) {
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
+
+    $pageContent = [
+      // Placeholder. This will be updated with real employment-history content.
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'contact_info',
+      '#preview' => [
+        'alt_text' => 'Contact-information preview',
+        'url' => self::IMAGE_DIR . 'contact-info.png',
+      ],
+      '#buttons' => [
+        'primary' => [
+          'label' => 'Save and continue',
+          'url' => $this->getPageUrl('layout'),
+        ],
+      ],
+    ];
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Contact information');
+    $libraries = [
+      'single_column_with_buttons',
+      'non_editable_pattern',
+    ];
+
+    return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Step-layout page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   *
+   * @throws \LogicException
+   *   If the step is an invalid type.
+   */
+  protected function stepLayout($nid, $stepParagraphId) {
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
 
     $stepLabel = $this->stepParagraph->get('field_title')->value;
     $stepType = $this->stepParagraph->bundle();
@@ -1068,7 +1115,7 @@ class VaGovFormBuilderController extends ControllerBase {
           'id' => $page->id(),
           'title' => $page->get('field_title')->value,
           'actions' => $this->getParagraphActions($page, 'page_action'),
-          'url' => "{$this->getPageUrl('step.layout')}/question/{$page->id()}",
+          'url' => "{$this->getPageUrl('step.home')}/question/{$page->id()}",
         ];
       }, $pageEntities);
 
@@ -1097,7 +1144,7 @@ class VaGovFormBuilderController extends ControllerBase {
       ];
     }
     // Repeating set.
-    else {
+    elseif ($stepType === 'digital_form_list_loop') {
       $pageContent = [
         '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'step_layout__repeating_set',
         '#pages' => [],
@@ -1109,12 +1156,46 @@ class VaGovFormBuilderController extends ControllerBase {
         ],
       ];
     }
+    else {
+      throw new \LogicException('Invalid step type.');
+    }
 
     $subtitle = $this->digitalForm->getTitle();
     $breadcrumbs = $this->generateBreadcrumbs('layout', $stepLabel);
     $libraries = ['single_column_with_buttons', 'step_layout', 'paragraph_actions'];
 
     return $this->getPage($pageContent, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Home page for a step. Routes step to proper handler.
+   *
+   * Ex:
+   * - Custom single question -> stepLayout.
+   * - Custom list & loop -> stepLayout (but not yet supported).
+   * - Employment history -> Employment history non-editable pattern.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   */
+  public function stepHome($nid, $stepParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    $stepType = $this->stepParagraph->bundle();
+
+    // Custom single question.
+    // Custom list & loop.
+    if ($stepType === 'digital_form_custom_step' || $stepType === 'digital_form_list_loop') {
+      return $this->stepLayout($nid, $stepParagraphId);
+    }
+
+    // Employment history.
+    if ($stepType === 'list_loop_employment_history') {
+      return $this->employmentHistoryListLoop($nid, $stepParagraphId);
+    }
   }
 
   /**
@@ -1164,7 +1245,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     if ($stepParagraphId) {
       $this->loadStepParagraph($stepParagraphId);
-      $breadcrumbs = $this->generateBreadcrumbs('step.layout', 'Step label');
+      $breadcrumbs = $this->generateBreadcrumbs('step.home', 'Step label');
     }
     else {
       $breadcrumbs = $this->generateBreadcrumbs('layout', 'Step label');
@@ -1288,7 +1369,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $this->loadStepParagraph($stepParagraphId);
 
     $formName = 'ResponseKind';
-    $breadcrumbs = $this->generateBreadcrumbs('step.layout', 'Response kind');
+    $breadcrumbs = $this->generateBreadcrumbs('step.home', 'Response kind');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
       'single_column_with_buttons',
@@ -1383,17 +1464,17 @@ class VaGovFormBuilderController extends ControllerBase {
       // Set the breadcrumbs based on the page component type.
       $breadcrumbs = match($pageComponentType) {
         CustomSingleQuestionPageType::SingleDate =>
-          $this->generateBreadcrumbs('step.layout', 'Date question'),
+          $this->generateBreadcrumbs('step.home', 'Date question'),
         CustomSingleQuestionPageType::DateRange =>
-          $this->generateBreadcrumbs('step.layout', 'Date-range question'),
+          $this->generateBreadcrumbs('step.home', 'Date-range question'),
         CustomSingleQuestionPageType::Radio =>
-          $this->generateBreadcrumbs('step.layout', 'Radio-button question'),
+          $this->generateBreadcrumbs('step.home', 'Radio-button question'),
         CustomSingleQuestionPageType::Checkbox =>
-          $this->generateBreadcrumbs('step.layout', 'Checkbox question'),
+          $this->generateBreadcrumbs('step.home', 'Checkbox question'),
         CustomSingleQuestionPageType::TextInput =>
-          $this->generateBreadcrumbs('step.layout', 'Text-input question'),
+          $this->generateBreadcrumbs('step.home', 'Text-input question'),
         CustomSingleQuestionPageType::TextArea =>
-          $this->generateBreadcrumbs('step.layout', 'Text-area question'),
+          $this->generateBreadcrumbs('step.home', 'Text-area question'),
       };
     }
     else {
