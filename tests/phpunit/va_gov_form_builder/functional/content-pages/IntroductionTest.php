@@ -30,7 +30,7 @@ class IntroductionTest extends VaGovExistingSiteBase {
    * Returns the url for this page.
    */
   private function getPageUrl() {
-    return "/form-builder/{$this->digitalFormNode->id()}/introduction";
+    return "/form-builder/{$this->digitalFormNode->id()}/intro";
   }
 
   /**
@@ -111,7 +111,7 @@ class IntroductionTest extends VaGovExistingSiteBase {
           'url' => "/form-builder/{$this->digitalFormNode->id()}",
         ],
         [
-          'label' => 'Introduction',
+          'label' => 'Introduction page',
           'url' => "#content",
         ],
       ],
