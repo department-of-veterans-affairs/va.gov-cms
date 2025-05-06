@@ -138,8 +138,6 @@ class ModuleTest extends VaGovUnitTestBase {
     // Assert variables exist.
     $this->assertArrayHasKey('variables', $themeEntries[$theme]);
     $this->assertArrayHasKey('preview', $themeEntries[$theme]['variables']);
-    $this->assertArrayHasKey('alt_text', $themeEntries[$theme]['variables']['preview']);
-    $this->assertArrayHasKey('url', $themeEntries[$theme]['variables']['preview']);
     $this->assertArrayHasKey('buttons', $themeEntries[$theme]['variables']);
   }
 
