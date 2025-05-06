@@ -45,7 +45,7 @@ class CustomOrPredefinedRepeatingSet extends FormBuilderStepCustomOrPredefinedBa
         'description' => [
           '#markup' => '
             <p>This is a pre-defined multi-response pattern. No edits are available.</p>
-            <p>Note: Selecting to add Employment history will update your step label to Your Employers.</p>
+            <p>Note: Selecting to add Employment history will update your step label to "Your employers".</p>
           ',
         ],
         'button' => [
@@ -65,6 +65,22 @@ class CustomOrPredefinedRepeatingSet extends FormBuilderStepCustomOrPredefinedBa
     ];
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setStepParagraphFromFormState(FormStateInterface $form_state) {
+    // Predefined employment-history step always gets a hard-code
+    // label "Your employers". This should override the label previously
+    // entered by the user.
+    // Note: the user is notified of this in the UI.
+    $mapping = $this->getButtonToStepTypeMapping();
+    if ($this->stepType === $mapping['employment_history']) {
+      $this->stepLabel = 'Your employers';
+    }
+
+    parent::setStepParagraphFromFormState($form_state);
   }
 
   /**
