@@ -1,3 +1,9 @@
+---
+layout: default
+title: Github Workflows
+nav_enabled: true
+---
+
 ## GitHub Workflows
 
 We use GitHub Workflows to accomplish the following important tasks:

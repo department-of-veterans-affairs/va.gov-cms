@@ -1,3 +1,8 @@
+---
+layout: default
+title: CMS Alerts
+---
+
 # CMS Alerts
 
 ## Overview
