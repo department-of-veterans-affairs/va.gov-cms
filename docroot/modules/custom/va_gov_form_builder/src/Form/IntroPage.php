@@ -37,11 +37,18 @@ class IntroPage extends FormBuilderFormBase {
     ];
 
     $form['what_to_know'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t("What to know section"),
-      '#required' => TRUE,
-      '#default_value' => $this->getDigitalFormFieldValue('field_digital_form_what_to_know'),
+      '#type' => '#container',
+      '#tree' => TRUE,
     ];
+
+    $bullets = $this->digitalForm->get('field_digital_form_what_to_know')->getValue();
+    for ($i = 0; $i < 5; $i++) {
+      $form['what_to_know'][$i] = [
+        '#type' => 'textfield',
+        '#title' => $this->t("What to know section"),
+        '#default_value' => $bullets[$i] ?? '',
+      ];
+    }
 
     $form['actions']['save_and_continue'] = [
       '#type' => 'submit',
@@ -68,7 +75,14 @@ class IntroPage extends FormBuilderFormBase {
     $whatToKnow = $form_state->getValue('what_to_know');
 
     $this->digitalForm->set('field_intro_text', $introText);
-    $this->digitalForm->set('field_digital_form_what_to_know', $whatToKnow);
+    // Set each field of the multiple-value field.
+    $this->digitalForm->set('field_digital_form_what_to_know', [
+      $whatToKnow[0],
+      $whatToKnow[1],
+      $whatToKnow[2],
+      $whatToKnow[3],
+      $whatToKnow[4],
+    ]);
   }
 
   /**
