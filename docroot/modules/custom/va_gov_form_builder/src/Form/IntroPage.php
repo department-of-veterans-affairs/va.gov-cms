@@ -64,6 +64,15 @@ class IntroPage extends FormBuilderFormBase {
       '#weight' => '10',
     ];
 
+    $form['preview'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'img',
+      '#attributes' => [
+        'src' => self::IMAGE_DIR . 'introduction.png',
+        'alt' => $this->t('A preview of the introduction page.'),
+      ],
+    ];
+
     return $form;
   }
 
