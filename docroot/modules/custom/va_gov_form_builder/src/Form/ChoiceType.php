@@ -11,11 +11,6 @@ use Drupal\va_gov_form_builder\Form\Base\FormBuilderBase;
 class ChoiceType extends FormBuilderBase {
 
   /**
-   * The Form Builder's image directory.
-   */
-  const IMAGE_DIR = '/modules/custom/va_gov_form_builder/images/';
-
-  /**
    * {@inheritdoc}
    */
   public function getFormId() {
