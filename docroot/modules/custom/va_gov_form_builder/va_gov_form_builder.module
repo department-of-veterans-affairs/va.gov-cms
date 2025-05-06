@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\va_gov_form_builder\Entity\Paragraph\CustomStepParagraph;
+use Drupal\va_gov_form_builder\Entity\Paragraph\EmploymentHistoryParagraph;
 use Drupal\va_gov_form_builder\Entity\Paragraph\ListLoopParagraph;
 use Drupal\va_gov_form_builder\Entity\Paragraph\PageParagraph;
 
@@ -272,5 +273,8 @@ function va_gov_form_builder_entity_bundle_info_alter(array &$bundles): void {
   }
   if (isset($bundles['paragraph']['digital_form_list_loop'])) {
     $bundles['paragraph']['digital_form_list_loop']['class'] = ListLoopParagraph::class;
+  }
+  if (isset($bundles['paragraph']['list_loop_employment_history'])) {
+    $bundles['paragraph']['list_loop_employment_history']['class'] = EmploymentHistoryParagraph::class;
   }
 }
