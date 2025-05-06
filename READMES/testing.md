@@ -286,6 +286,29 @@ set +o allexport
 
 This will rerun the Cypress tests one by one and may resolve any failures that were due to paralellization
  
+## Testing JSON API
+
+As part of building a page type with [next-build](https://github.com/department-of-veterans-affairs/next-build/) tests should be added to ensure that the queries required to build those pages are functional. These tests are located in `/tests/cypress/integration/features/api/`. They can be as simple as 
+```
+I should receive status code 200 when I request "[JSON API path with required includes and filters]"
+```
+
+For some more complex pages like listing pages, they should attempt to test the full cycle of requests. For example these are the requests for an event listing page:
+
+- GET /router/translate-path?path=%2Fboston-health-care%2Fevents
+
+The UUID returned as part of that response is then used here
+
+- GET /jsonapi/node/event_listing/82de8912-23ac-4e97-b504-744015e38683?include=field_office
+
+The UUIDs and condition values from that response are then used to fetch the event teasers below
+
+- GET /jsonapi/node/event?filter%5Boutreach_cal_group%5D%5Bgroup%5D%5Bconjunction%5D=OR&filter%5Bfield_listing.id%5D%5Bcondition%5D%5Bpath%5D=field_listing.id&filter%5Bfield_listing.id%5D%5Bcondition%5D%5Bvalue%5D=82de8912-23ac-4e97-b504-744015e38683&filter%5Bfield_listing.id%5D%5Bcondition%5D%5BmemberOf%5D=outreach_cal_group&include=field_listing%2Cfield_administration%2Cfield_facility_location&page%5Blimit%5D=50&page%5Boffset%5D=0&sort=-create
+
+- GET /jsonapi/node/event?filter%5Boutreach_cal_group%5D%5Bgroup%5D%5Bconjunction%5D=OR&filter%5Bfield_listing.id%5D%5Bcondition%5D%5Bpath%5D=field_listing.id&filter%5Bfield_listing.id%5D%5Bcondition%5D%5Bvalue%5D=82de8912-23ac-4e97-b504-744015e38683&filter%5Bfield_listing.id%5D%5Bcondition%5D%5BmemberOf%5D=outreach_cal_group&include=field_listing%2Cfield_administration%2Cfield_facility_location&page%5Blimit%5D=50&page%5Boffset%5D=50&sort=-created
+
+To do this, a single step definition could be created to intake the translate-path route and then assert the rest.
+
 ----
 
 [Table of Contents](../README.md)
