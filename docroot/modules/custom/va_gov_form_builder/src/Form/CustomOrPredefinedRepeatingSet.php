@@ -89,9 +89,19 @@ class CustomOrPredefinedRepeatingSet extends FormBuilderStepCustomOrPredefinedBa
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
 
-    $form_state->setRedirect('va_gov_form_builder.layout', [
-      'nid' => $this->digitalForm->id(),
-    ]);
+    $mapping = $this->getButtonToStepTypeMapping();
+    if ($this->stepType === $mapping['employment_history']) {
+      $form_state->setRedirect('va_gov_form_builder.step.home', [
+        'nid' => $this->digitalForm->id(),
+        'stepParagraphId' => $this->stepParagraph->id(),
+      ]);
+    }
+    else {
+      // Shouldn't happen, but catch-all for future.
+      $form_state->setRedirect('va_gov_form_builder.layout', [
+        'nid' => $this->digitalForm->id(),
+      ]);
+    }
   }
 
 }
