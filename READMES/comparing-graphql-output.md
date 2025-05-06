@@ -1,4 +1,9 @@
-## Comparing GraphQL Output
+---
+layout: default
+title: Comparing GraphQL Output
+---
+
+# Comparing GraphQL Output
 
 The front-end project serializes a representation of the CMS data using a GraphQL query.  It is therefore important for the CMS team to be able to evaluate whether a given change that they've made has impacted the consistency of the CMS' response to that query.
 

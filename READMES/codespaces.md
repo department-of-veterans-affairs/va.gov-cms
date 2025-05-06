@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Environments: Codespaces"
+---
+
 # Environments: Codespaces
 
 ## About

@@ -1,9 +1,14 @@
+---
+layout: default
+title: Dependabot Alerts Policy
+---
+
 ## Dependabot Alerts Policy
 
 ### Background
 
 Dependabot creates [alerts](https://github.com/department-of-veterans-affairs/va.gov-cms/security/dependabot) in response to security
-vulnerabilities detected within project dependencies. In the case of the CMS, these dependencies can be any of several different 
+vulnerabilities detected within project dependencies. In the case of the CMS, these dependencies can be any of several different
 languages, installed through several package managers, span multiple subprojects and concerns within the greater CMS project, and be
 easily forgotten.
 
@@ -11,8 +16,8 @@ This policy's intent is to systematize how we handle these on an ongoing basis.
 
 ### Recommendations
 
-1. While it is important to maintain security, we acknowledge that anyone can run `composer outdated` or `npm audit` on our codebase. 
-   Given the nature of these vulnerabilities and how infrequently they are remotely exploitable, we have decided to minimize the 
+1. While it is important to maintain security, we acknowledge that anyone can run `composer outdated` or `npm audit` on our codebase.
+   Given the nature of these vulnerabilities and how infrequently they are remotely exploitable, we have decided to minimize the
    overhead of managing these issues and the resulting work by maintaining them in the open, within the public repository.
 
    However, if a vulnerability is identified as remotely exploitable or otherwise problematic, discussions and issue handling should
@@ -22,7 +27,7 @@ This policy's intent is to systematize how we handle these on an ongoing basis.
    This is intended to minimize overhead from communication and negotiation between teams, and ensure that each alert is assigned to
    an engineer during Sprint Planning.
 
-3. Carefully evaluate and consider ignoring vulnerabilities in `devDependencies` (Node) and `dev-dependencies` (Composer). Dev 
+3. Carefully evaluate and consider ignoring vulnerabilities in `devDependencies` (Node) and `dev-dependencies` (Composer). Dev
    dependencies are generally not used in our production environments, so we don't need to worry about them being remotely exploited
    at runtime. We control the build and test processes during which these dependencies are used, so we do not need to worry about
    them being exploited then.
@@ -43,9 +48,9 @@ This policy's intent is to systematize how we handle these on an ongoing basis.
 
    If the alert does not meet any of these criteria, we should _not_ proceed with addressing it, and should simply dismiss the alert and
    provide our reasoning for doing so in the "Dismissal comment" field.
-   
+
 5. Triage and create issues for Dependabot alerts during DevSecOps Refinement meetings. We don't need a lot of boilerplate here, and
-   these things are almost impossible to size. But we can at least say "Try to knock out the stack overflow vulnerability in padLeft" 
+   these things are almost impossible to size. But we can at least say "Try to knock out the stack overflow vulnerability in padLeft"
    or whatever.
 
    If multiple issues are present within a single project, we face the possibility of merge conflicts and additional toil on top of the

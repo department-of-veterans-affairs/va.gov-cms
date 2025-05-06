@@ -1,3 +1,8 @@
+---
+layout: default
+title: Broken Links
+---
+
 # Broken Links
 
 ## Guiding principles
@@ -28,19 +33,19 @@ Legitimate links can be exempted in [Prod's node link report](https://prod.cms.v
 
 - Cached, so it only updates on node save or 24hr, whichever comes first.
 - Some external domains are blocked by the VA network, so there are links
-that get falsely reported as broken. 
+that get falsely reported as broken.
 - Some external sites block the useragent that we use to check the link,
 which results in a falsely reported broken link.  These can also be exempted.
 
 ## Front End Link Checking
 
 The link checking on the front end happens during the content-build in
-[Content-Build repo](https://github.com/department-of-veterans-affairs/content-build/tree/main/src/site/stages/build/plugins/modify-dom/check-broken-links).  
+[Content-Build repo](https://github.com/department-of-veterans-affairs/content-build/tree/main/src/site/stages/build/plugins/modify-dom/check-broken-links).
 
 Only internal links are checked. If more than a certain number of broken links
 are found, the content release is considered a failure and does not occur.
 
-CMS team is to respond and remedy if this happens.  
+CMS team is to respond and remedy if this happens.
 
 The broken links are reported to [#content-broken-links](https://dsva.slack.com/archives/C030F5WV2TF) channels in Slack.
 

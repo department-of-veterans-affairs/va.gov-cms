@@ -1,3 +1,8 @@
+---
+layout: default
+title: Build Release Deploy (BRD)
+---
+
 # Build Release Deploy (BRD)
 
 The "BRD" system is designed and maintained by the VSP DevOps Team using the
@@ -35,7 +40,7 @@ running on BRD servers.
 ## CMS Release Process
 
 The BRD system uses a standard release process for all of the supported apps:
-  
+
 1. A [Jenkins job](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/)
 reads the source git repository and checks the latest commit of the default
 branch.

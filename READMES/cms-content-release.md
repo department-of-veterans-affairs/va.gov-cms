@@ -1,3 +1,8 @@
+---
+layout: default
+title: CMS Content Release
+---
+
 # CMS Content Release
 
 Content release is the process that extracts content from Drupal via an API, builds a static HTML version of the website, and deploys it to an S3 bucket for public consumption.

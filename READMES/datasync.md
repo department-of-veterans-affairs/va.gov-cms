@@ -1,3 +1,8 @@
+---
+layout: default
+title: AWS Datasync Usage
+---
+
 # Use of AWS Datasync to Facilitate Accelerated Publishing Operations
 
 The Accelerated Publishing (AP) project has a need to access the Content Management System's (CMS) asset files from a publicly accessible AWS Simple Storage Service (S3) Bucket. The CMS stores assets files which consist of:
@@ -13,18 +18,18 @@ EFS to S3 on an automated schedule. This document will describe the architecture
     * S3 Location
     * Task
   * [EFS](#efs)
-    * Security group rules 
+    * Security group rules
   * [S3](#s3)
-    * Asset files bucket 
-    * Lambda code bucket 
+    * Asset files bucket
+    * Lambda code bucket
   * [Identity and Access Management (IAM)](#iam)
     * Datasync S3 bucket access role
       * Permission Policy
     * Lambda function execution role
-      * Permission Policy 
+      * Permission Policy
   * [Lambda](#lambda)
     * Function
-    * Lambda permission 
+    * Lambda permission
   * [Cloudwatch](#cloudwatch)
     * Eventbridge
       * Event rule
@@ -84,7 +89,7 @@ The permission policy for this role was copied from the AWS documenation here:
 https://docs.aws.amazon.com/datasync/latest/userguide/create-s3-location.html#create-s3-location-access
 ### Lambda function execution role
 Lambda requires a basic execution role to function properly and additional permissions to interact with Datasync service resources.
-#### Permission Policy 
+#### Permission Policy
 In addition to basic execution permissions offered by an AWS managed policy, Lambda also needs to be allowed to start task execution as well as describe EC2 network interfaces.
 
 ## Lambda
@@ -109,7 +114,7 @@ Determines what gets triggered by the defined rule and simply takes the ARN of t
 # Deployment
 ## Terraform
 Checkout the master branch of the [DevOps](https://github.com/department-of-veterans-affairs/devops) repository then browse to the `terraform/environments` folder. CMS.tf and CMS-Test.tf Terraform modules that reference the CMS
-Terraform Infrastructure repository are found in the environments `dsva-vagov-staging` and `dsva-vagov-prod`. Incrementing the version number of the `source` attribute to reflect that lastest release from the CMS TF infrastructure repository 
+Terraform Infrastructure repository are found in the environments `dsva-vagov-staging` and `dsva-vagov-prod`. Incrementing the version number of the `source` attribute to reflect that lastest release from the CMS TF infrastructure repository
 will make the resource available to apply to the terraform state of each environment.
 ## Lambda
 While the Python script for the lambda function is tracked in the CMS Terraform Infrastructure repository there exists NO automated deployment of this code to lambda. Rather updates and changes should stay tracked in version

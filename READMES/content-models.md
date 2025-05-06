@@ -1,3 +1,8 @@
+---
+layout: default
+title: Content Models and Site Documentation
+---
+
 # Content Models and Site Documentation
 
 When possible, documentation about entities should live in Drupal.  Entities

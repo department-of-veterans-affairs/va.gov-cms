@@ -1,3 +1,8 @@
+---
+layout: default
+title: Code Ownership and CODEOWNERS
+---
+
 # Code Ownership and CODEOWNERS
 
 Code ownership is the practice of designating specific individuals or teams as the primary maintainers or "owners" of certain parts of a codebase.

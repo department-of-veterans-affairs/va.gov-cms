@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Content Model: Centralized Content"
+---
+
 # Content Model: Centralized Content
 
 ## Guiding Principles
@@ -52,7 +57,7 @@ The target_type and the target_uuid provide the details about where the content 
 
 ## Why didn't we use ___ ?
   1. **Content Blocks placed with layout builder**:  Bad workflow, bad governance, bad editorial experience, GraphQL knows nothing of layout builder.
-  2. **Paragraphs library**: Not supported cleanly by workbench moderation and workbench menu access (bad workflow and governance).  
+  2. **Paragraphs library**: Not supported cleanly by workbench moderation and workbench menu access (bad workflow and governance).
   3. **Markdown field**:  Not supported cleanly by workbench moderation and workbench menu access (bad workflow and governance). Not revisionable.
   4. **Text field with default content**: Hard to update values everywhere in one shot. (bad workflow and governance bad editoral experience)  Not revisionable.
 

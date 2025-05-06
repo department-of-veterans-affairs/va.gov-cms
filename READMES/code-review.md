@@ -1,3 +1,8 @@
+---
+layout: default
+title: Code Review
+---
+
 # Code Review
 
 ## Guiding principles
