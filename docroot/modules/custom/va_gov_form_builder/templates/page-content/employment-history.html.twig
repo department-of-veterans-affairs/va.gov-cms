@@ -1,0 +1,20 @@
+{% extends '@va_gov_form_builder/page-content/base/non-editable-pattern.html.twig' %}
+
+{% set page_id = 'employment-history' %}
+{% set page_heading = 'Collecting available employment history and time lost' %}
+{% set step_label = 'Your employers' %}
+
+{% block step_description %}
+  <p>
+    This is a multi-page step, which uses a list and loop pattern. If the submitter has
+    employment history to report, it will be captured over several pages.
+  </p>
+  <p>
+    This pattern asks the submitter a qualifying question, which is what makes the
+    collection of the history optional.
+  </p>
+  <p>
+    A “No” response allows the step to be completed without collecting
+    more information on this topic.
+  </p>
+{% endblock %}

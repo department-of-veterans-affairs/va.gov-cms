@@ -254,6 +254,7 @@ class ModuleTest extends VaGovUnitTestBase {
       'identification_info',
       'address_info',
       'contact_info',
+      'employment_history',
       'review_and_sign',
     ];
     foreach ($nonEditablePatternPages as $nonEditablePatternPage) {

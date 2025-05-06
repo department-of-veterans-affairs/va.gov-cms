@@ -915,8 +915,12 @@ class VaGovFormBuilderController extends ControllerBase {
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'name_and_dob',
       '#preview' => [
-        'alt_text' => 'Name-and-date-of-birth preview',
-        'url' => self::IMAGE_DIR . 'name-and-dob.png',
+        [
+          'image' => [
+            'alt_text' => 'Name-and-date-of-birth preview',
+            'url' => self::IMAGE_DIR . 'name-and-dob.png',
+          ],
+        ],
       ],
       '#buttons' => [
         'primary' => [
@@ -954,8 +958,12 @@ class VaGovFormBuilderController extends ControllerBase {
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'identification_info',
       '#preview' => [
-        'alt_text' => 'Identification-information preview',
-        'url' => self::IMAGE_DIR . 'identification-info.png',
+        [
+          'image' => [
+            'alt_text' => 'Identification-information preview',
+            'url' => self::IMAGE_DIR . 'identification-info.png',
+          ],
+        ],
       ],
       '#buttons' => [
         'primary' => [
@@ -993,8 +1001,12 @@ class VaGovFormBuilderController extends ControllerBase {
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'address_info',
       '#preview' => [
-        'alt_text' => 'Address-information preview',
-        'url' => self::IMAGE_DIR . 'address-info.png',
+        [
+          'image' => [
+            'alt_text' => 'Address-information preview',
+            'url' => self::IMAGE_DIR . 'address-info.png',
+          ],
+        ],
       ],
       '#buttons' => [
         'primary' => [
@@ -1025,8 +1037,12 @@ class VaGovFormBuilderController extends ControllerBase {
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'contact_info',
       '#preview' => [
-        'alt_text' => 'Contact-information preview',
-        'url' => self::IMAGE_DIR . 'contact-info.png',
+        [
+          'image' => [
+            'alt_text' => 'Contact-information preview',
+            'url' => self::IMAGE_DIR . 'contact-info.png',
+          ],
+        ],
       ],
       '#buttons' => [
         'primary' => [
@@ -1053,7 +1069,7 @@ class VaGovFormBuilderController extends ControllerBase {
    * @param string $stepParagraphId
    *   The entity id of the step paragraph.
    */
-  protected function employmentHistoryListLoop($nid, $stepParagraphId) {
+  protected function employmentHistory($nid, $stepParagraphId) {
     if (empty($this->digitalForm)) {
       $this->loadDigitalForm($nid);
     }
@@ -1062,11 +1078,59 @@ class VaGovFormBuilderController extends ControllerBase {
     }
 
     $pageContent = [
-      // Placeholder. This will be updated with real employment-history content.
-      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'contact_info',
+      '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'employment_history',
       '#preview' => [
-        'alt_text' => 'Contact-information preview',
-        'url' => self::IMAGE_DIR . 'contact-info.png',
+        [
+          'title' => 'Page 1: Qualifying question',
+          'description' => '
+            This question allows the user to exit the list and loop if they have nothing to report.
+            This is not editable.
+          ',
+          'image' => [
+            'alt_text' => 'Qualifying-question preview',
+            'url' => '/modules/custom/va_gov_form_builder/images/eh-qualifying-question.png',
+          ],
+        ],
+        [
+          'title' => 'Page 2: Qualifying question',
+          'description' => '
+            If the submitter selects “Yes” from the qualifier, they can start adding Employer
+            name and address. This would be on the next page of the form. This is not editable.
+          ',
+          'image' => [
+            'alt_text' => 'Employer-information preview',
+            'url' => '/modules/custom/va_gov_form_builder/images/eh-employer-information.png',
+          ],
+        ],
+        [
+          'title' => 'Page 3: Employed dates',
+          'description' => '
+            Continuing to the next page, the submitter would provide the dates that they worked
+            for this employer. The name is automatically carried forward. This is not editable.
+          ',
+          'image' => [
+            'alt_text' => 'Employed-dates preview',
+            'url' => '/modules/custom/va_gov_form_builder/images/eh-employed-dates.png',
+          ],
+        ],
+        [
+          'title' => 'Page 4: Details of this employment and time lost',
+          'description' => '
+            On a fourth page, the details of this position are filled in by the submitter.
+            These questions are not editable.
+          ',
+          'image' => [
+            'alt_text' => 'Employer-information preview',
+            'url' => '/modules/custom/va_gov_form_builder/images/eh-employer-information.png',
+          ],
+        ],
+        [
+          'title' => 'Page 5: Summary',
+          'description' => '
+            On the final page of this step, the submitter will see that position, with the
+            opportunity to either add another employer or end adding positions.
+          ',
+        ],
       ],
       '#buttons' => [
         'primary' => [
@@ -1076,7 +1140,7 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
     ];
     $subtitle = $this->digitalForm->getTitle();
-    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Contact information');
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Your employers');
     $libraries = [
       'single_column_with_buttons',
       'non_editable_pattern',
@@ -1194,7 +1258,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
     // Employment history.
     if ($stepType === 'list_loop_employment_history') {
-      return $this->employmentHistoryListLoop($nid, $stepParagraphId);
+      return $this->employmentHistory($nid, $stepParagraphId);
     }
   }
 
@@ -2048,8 +2112,12 @@ class VaGovFormBuilderController extends ControllerBase {
     $pageContent = [
       '#theme' => self::PAGE_CONTENT_THEME_PREFIX . 'review_and_sign',
       '#preview' => [
-        'alt_text' => 'Statement-of-truth preview',
-        'url' => '/modules/custom/va_gov_form_builder/images/statement-of-truth.png',
+        [
+          'image' => [
+            'alt_text' => 'Statement-of-truth preview',
+            'url' => '/modules/custom/va_gov_form_builder/images/statement-of-truth.png',
+          ],
+        ],
       ],
       '#buttons' => [
         'primary' => [
