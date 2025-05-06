@@ -1,3 +1,9 @@
+---
+layout: default
+title: "CMS Collaboration Cycle Accessibility"
+parent: CMS Collab Cycle
+---
+
 # CMS Collaboration Cycle Accessibility Discovery and Recomendations
 
 ## Discovery
@@ -38,7 +44,7 @@ Talking with Laura, sitewide teams are only building cypress tests when it's app
 ## Recommendations for future work
 
 1. **Automated testing with axe by Deque**
-   1. Tasks for CMS team: 
+   1. Tasks for CMS team:
       - Investigate why axe-core is being used instead of the perfered Attest mentioned in the [508-ds-process memo](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/Administrative/memos/508-ds-process.md#automated-and-integrated-508-compliance-tests-and-digital-service-reviews) (dated 2016 and added to github in 2019) found under the [axe scans in end-to-end tests heading](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/prepare-for-an-accessibility-staging-review#Prepareforanaccessibilitystagingreview-axescansinend-to-endtests) on the Prepare for an accessibility staging review page.
         - Currently Platform teams are only using axe-core and all documentation points to axe-core despite the memo. Speaking with Brian DeConinck that's the only reference he knows of to Attest.
       - Better understand what automated tests are running in the code. This will need to be a collaboration between Accessibility and QA. Once this is understood, devs will need to augment their required QA tests to make sure they are testing their builds for accessibility using the [axe checks](https://depo-platform-documentation.scrollhelp.site/developer-docs/accessibility-testing-helper-functions).
