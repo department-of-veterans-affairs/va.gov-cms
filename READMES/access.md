@@ -1,3 +1,8 @@
+---
+layout: default
+title: CMS Environment Access
+---
+
 # CMS Environment Access
 
 ## Web access
@@ -30,7 +35,7 @@ Host socks
 ```
 
 Run the following command:
-  
+
 ```bash
 $ ssh socks -D 2001 -N &
 [1] 53114
@@ -48,7 +53,7 @@ To test or debug the connection run:
 
 ```bash
 $ curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal
-- or - 
+- or -
 $ composer va:proxy:socks:test
 ```
 
