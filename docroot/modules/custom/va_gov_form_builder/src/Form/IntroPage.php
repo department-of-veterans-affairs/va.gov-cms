@@ -33,6 +33,10 @@ class IntroPage extends FormBuilderFormBase {
       '#type' => 'textarea',
       '#title' => $this->t('Intro paragraph'),
       '#required' => TRUE,
+      '#description' => '<ul>
+        <li>Add a brief intro describing when to use this form. This could be 1 to 3 sentences, with no more than 25 words per sentence.</li>
+        <li>Try reusing the "when to use" blurb from the form detail page in Find a Form. For example, using the Veterans Pension blurb from the form detail page, this intro could be "Use this form if you\'re a wartime Veteran and want to file a pension claim."</li>
+      </ul>',
       '#default_value' => $this->getDigitalFormFieldValue('field_intro_text'),
     ];
 
@@ -45,7 +49,7 @@ class IntroPage extends FormBuilderFormBase {
     for ($i = 0; $i < 5; $i++) {
       $form['what_to_know'][$i] = [
         '#type' => 'textfield',
-        '#title' => $this->t("What to know section"),
+        '#title' => $this->t("Bullet point @count", ['@count' => $i + 1]),
         '#default_value' => $bullets[$i] ?? '',
       ];
     }
