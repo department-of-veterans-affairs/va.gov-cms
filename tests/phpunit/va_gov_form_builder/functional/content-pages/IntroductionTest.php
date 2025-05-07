@@ -6,7 +6,7 @@ use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
- * Functional test of the Address-information page.
+ * Functional test of the Introduction page.
  *
  * @group functional
  * @group all
@@ -39,8 +39,6 @@ class IntroductionTest extends VaGovExistingSiteBase {
   private function generateTestNode(
     $title = NULL,
     $formNumber = '99-9999',
-    $contactInfoTitle = 'Contact information',
-    $listAndLoopTitle = 'Your employers',
   ) {
     if (!$title) {
       $title = 'Test Digital Form ' . uniqid();
