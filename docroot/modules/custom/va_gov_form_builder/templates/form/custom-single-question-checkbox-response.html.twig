@@ -17,18 +17,19 @@
       <div id="page-title">{{ form['#page_title'] ?: 'None provided' }}</div>
     </div>
 
+    {{ form.checkbox_fields.0.required }}
+
     <div class="form-builder-single-question-response__page-body">
       <label for="page-body">Body content:</label>
       <div id="page-body">{{ form['#page_body'] ?: 'None provided' }}</div>
     </div>
 
     <div class="form-builder-single-question-response__type">
-      <label for="guidance">Checkbox</label>
-      <p id="guidance">Guidance for this choice</p>
+      <p id="response-type">Checkbox</p>
     </div>
 
     <div class="form-builder-single-question-response__components">
-      {{ form.checkbox_fields }}
+      {{ form.checkbox_fields.0|without('required') }}
     </div>
 
     <div class="form-builder-single-question-response__guidance">
