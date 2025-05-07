@@ -325,7 +325,7 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
    *   The form state.
    */
   protected function redirectOnSuccess(FormStateInterface $form_state) {
-    $form_state->setRedirect('va_gov_form_builder.step.layout', [
+    $form_state->setRedirect('va_gov_form_builder.step.home', [
       'nid' => $this->digitalForm->id(),
       'stepParagraphId' => $this->stepParagraph->id(),
     ]);
