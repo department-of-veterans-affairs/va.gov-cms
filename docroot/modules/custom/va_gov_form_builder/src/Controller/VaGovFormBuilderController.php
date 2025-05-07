@@ -1243,6 +1243,9 @@ class VaGovFormBuilderController extends ControllerBase {
    *   The node id of the Digital Form.
    * @param string $stepParagraphId
    *   The entity id of the step paragraph.
+   *
+   * @throws \LogicException
+   *   If the step type is an unexpected type.
    */
   public function stepHome($nid, $stepParagraphId) {
     $this->loadDigitalForm($nid);
@@ -1260,6 +1263,9 @@ class VaGovFormBuilderController extends ControllerBase {
     if ($stepType === 'list_loop_employment_history') {
       return $this->employmentHistory($nid, $stepParagraphId);
     }
+
+    // If step type is anything else, we can't render the page.
+    throw new \LogicException('The step type is not supported.');
   }
 
   /**
