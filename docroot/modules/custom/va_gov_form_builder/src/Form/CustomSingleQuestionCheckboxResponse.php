@@ -439,7 +439,6 @@ class CustomSingleQuestionCheckboxResponse extends FormBuilderPageComponentBase 
           'field_digital_form_label' => $field['label'],
           'field_digital_form_description' => $field['description'],
         ]);
-        unset($this->options[$delta]);
       }
     }
   }
