@@ -89,13 +89,7 @@ class IntroPage extends FormBuilderFormBase {
 
     $this->digitalForm->set('field_intro_text', $introText);
     // Set each field of the multiple-value field.
-    $this->digitalForm->set('field_digital_form_what_to_know', [
-      $whatToKnow[0],
-      $whatToKnow[1],
-      $whatToKnow[2],
-      $whatToKnow[3],
-      $whatToKnow[4],
-    ]);
+    $this->digitalForm->set('field_digital_form_what_to_know', $whatToKnow);
   }
 
   /**
