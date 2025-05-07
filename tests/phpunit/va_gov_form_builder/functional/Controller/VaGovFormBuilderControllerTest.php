@@ -227,10 +227,11 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // Ensure variables are set as expected.
     // Preview image.
     $this->assertArrayHasKey('#preview', $page['content']);
-    $this->assertArrayHasKey('alt_text', $page['content']['#preview']);
-    $this->assertEquals('Name-and-date-of-birth preview', $page['content']['#preview']['alt_text']);
-    $this->assertArrayHasKey('url', $page['content']['#preview']);
-    $this->assertStringContainsString('name-and-dob.png', $page['content']['#preview']['url']);
+    $this->assertCount(1, $page['content']['#preview']);
+    $this->assertArrayHasKey('alt_text', $page['content']['#preview'][0]['image']);
+    $this->assertEquals('Name-and-date-of-birth preview', $page['content']['#preview'][0]['image']['alt_text']);
+    $this->assertArrayHasKey('url', $page['content']['#preview'][0]['image']);
+    $this->assertStringContainsString('name-and-dob.png', $page['content']['#preview'][0]['image']['url']);
     // Buttons.
     $this->assertArrayHasKey('#buttons', $page['content']);
     // Primary button.
@@ -274,10 +275,11 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // Ensure variables are set as expected.
     // Preview image.
     $this->assertArrayHasKey('#preview', $page['content']);
-    $this->assertArrayHasKey('alt_text', $page['content']['#preview']);
-    $this->assertEquals('Identification-information preview', $page['content']['#preview']['alt_text']);
-    $this->assertArrayHasKey('url', $page['content']['#preview']);
-    $this->assertStringContainsString('identification-info.png', $page['content']['#preview']['url']);
+    $this->assertCount(1, $page['content']['#preview']);
+    $this->assertArrayHasKey('alt_text', $page['content']['#preview'][0]['image']);
+    $this->assertEquals('Identification-information preview', $page['content']['#preview'][0]['image']['alt_text']);
+    $this->assertArrayHasKey('url', $page['content']['#preview'][0]['image']);
+    $this->assertStringContainsString('identification-info.png', $page['content']['#preview'][0]['image']['url']);
     // Buttons.
     $this->assertArrayHasKey('#buttons', $page['content']);
     // Primary button.
@@ -321,10 +323,11 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // Ensure variables are set as expected.
     // Preview image.
     $this->assertArrayHasKey('#preview', $page['content']);
-    $this->assertArrayHasKey('alt_text', $page['content']['#preview']);
-    $this->assertEquals('Address-information preview', $page['content']['#preview']['alt_text']);
-    $this->assertArrayHasKey('url', $page['content']['#preview']);
-    $this->assertStringContainsString('address-info.png', $page['content']['#preview']['url']);
+    $this->assertCount(1, $page['content']['#preview']);
+    $this->assertArrayHasKey('alt_text', $page['content']['#preview'][0]['image']);
+    $this->assertEquals('Address-information preview', $page['content']['#preview'][0]['image']['alt_text']);
+    $this->assertArrayHasKey('url', $page['content']['#preview'][0]['image']);
+    $this->assertStringContainsString('address-info.png', $page['content']['#preview'][0]['image']['url']);
     // Buttons.
     $this->assertArrayHasKey('#buttons', $page['content']);
     // Primary button.
@@ -361,10 +364,11 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // Ensure variables are set as expected.
     // Preview image.
     $this->assertArrayHasKey('#preview', $page['content']);
-    $this->assertArrayHasKey('alt_text', $page['content']['#preview']);
-    $this->assertEquals('Contact-information preview', $page['content']['#preview']['alt_text']);
-    $this->assertArrayHasKey('url', $page['content']['#preview']);
-    $this->assertStringContainsString('contact-info.png', $page['content']['#preview']['url']);
+    $this->assertCount(1, $page['content']['#preview']);
+    $this->assertArrayHasKey('alt_text', $page['content']['#preview'][0]['image']);
+    $this->assertEquals('Contact-information preview', $page['content']['#preview'][0]['image']['alt_text']);
+    $this->assertArrayHasKey('url', $page['content']['#preview'][0]['image']);
+    $this->assertStringContainsString('contact-info.png', $page['content']['#preview'][0]['image']['url']);
     // Buttons.
     $this->assertArrayHasKey('#buttons', $page['content']);
     // Primary button.
@@ -461,10 +465,11 @@ class VaGovFormBuilderControllerTest extends VaGovExistingSiteBase {
     // Ensure variables are set as expected.
     // Preview image.
     $this->assertArrayHasKey('#preview', $page['content']);
-    $this->assertArrayHasKey('alt_text', $page['content']['#preview']);
-    $this->assertEquals('Statement-of-truth preview', $page['content']['#preview']['alt_text']);
-    $this->assertArrayHasKey('url', $page['content']['#preview']);
-    $this->assertStringContainsString('statement-of-truth.png', $page['content']['#preview']['url']);
+    $this->assertCount(1, $page['content']['#preview']);
+    $this->assertArrayHasKey('alt_text', $page['content']['#preview'][0]['image']);
+    $this->assertEquals('Statement-of-truth preview', $page['content']['#preview'][0]['image']['alt_text']);
+    $this->assertArrayHasKey('url', $page['content']['#preview'][0]['image']);
+    $this->assertStringContainsString('statement-of-truth.png', $page['content']['#preview'][0]['image']['url']);
     // Buttons.
     $this->assertArrayHasKey('#buttons', $page['content']);
     // Primary button.

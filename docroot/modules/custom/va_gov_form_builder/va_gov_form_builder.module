@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\va_gov_form_builder\Entity\Paragraph\CustomStepParagraph;
+use Drupal\va_gov_form_builder\Entity\Paragraph\EmploymentHistoryParagraph;
 use Drupal\va_gov_form_builder\Entity\Paragraph\ListLoopParagraph;
 use Drupal\va_gov_form_builder\Entity\Paragraph\PageParagraph;
 
@@ -92,37 +93,40 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   ];
   // 3. Non-editable-pattern steps.
   $nonEditablePatternVariables = [
-    'preview' => [
-      'alt_text' => '',
-      'url' => '',
-    ],
+    'preview' => [],
     'buttons' => [],
   ];
-  // 3a. Name and Date of birth page.
+  // 3a. Name-and-Date-of-birth page.
   $theme[$page_content_theme_prefix . 'name_and_dob'] = [
     'path' => $page_content_theme_path,
     'template' => 'name-and-dob',
     'variables' => $nonEditablePatternVariables,
   ];
-  // 3b. Identification information page.
+  // 3b. Identification-information page.
   $theme[$page_content_theme_prefix . 'identification_info'] = [
     'path' => $page_content_theme_path,
     'template' => 'identification-info',
     'variables' => $nonEditablePatternVariables,
   ];
-  // 3c. Address information page.
+  // 3c. Address-information page.
   $theme[$page_content_theme_prefix . 'address_info'] = [
     'path' => $page_content_theme_path,
     'template' => 'address-info',
     'variables' => $nonEditablePatternVariables,
   ];
-  // 3d. Contact information page.
+  // 3d. Contact-information page.
   $theme[$page_content_theme_prefix . 'contact_info'] = [
     'path' => $page_content_theme_path,
     'template' => 'contact-info',
     'variables' => $nonEditablePatternVariables,
   ];
-  // 3e. Review and Sign page.
+  // 3e. Employment-history page.
+  $theme[$page_content_theme_prefix . 'employment_history'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'employment-history',
+    'variables' => $nonEditablePatternVariables,
+  ];
+  // 3f. Review-and-Sign page.
   $theme[$page_content_theme_prefix . 'review_and_sign'] = [
     'path' => $page_content_theme_path,
     'template' => 'review-and-sign',
@@ -163,18 +167,28 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
     'template' => 'step-layout--repeating-set',
     'variables' => $stepLayoutVariables,
   ];
-  // 6. Custom-or-predefined-question page.
+  // 6. Step-style page.
+  $theme[$page_content_theme_prefix . 'step_style'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'step-style',
+    'variables' => [
+      'step_label' => [],
+      'preview' => [],
+      'buttons' => [],
+    ],
+  ];
+  // 7. Custom-or-predefined-question page.
   $customOrPredefinedQuestionVariables = [
     'predefined_questions' => [],
     'buttons' => [],
   ];
-  // 6a. Custom-or-predefined-question page for single question.
+  // 7a. Custom-or-predefined-question page for single question.
   $theme[$page_content_theme_prefix . 'custom_or_predefined_question__single_question'] = [
     'path' => $page_content_theme_path,
     'template' => 'custom-or-predefined-question--single-question',
     'variables' => $customOrPredefinedQuestionVariables,
   ];
-  // 6b. Custom-or-predefined-question page for repeating set.
+  // 7b. Custom-or-predefined-question page for repeating set.
   $theme[$page_content_theme_prefix . 'custom_or_predefined_question__repeating_set'] = [
     'path' => $page_content_theme_path,
     'template' => 'custom-or-predefined-question--repeating-set',
@@ -185,7 +199,8 @@ function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
   $forms = [
     'form_info',
     'step_label',
-    'step_style',
+    'custom_or_predefined__single_question',
+    'custom_or_predefined__repeating_set',
     'response_kind',
     'date_type',
     'choice_type',
@@ -258,5 +273,8 @@ function va_gov_form_builder_entity_bundle_info_alter(array &$bundles): void {
   }
   if (isset($bundles['paragraph']['digital_form_list_loop'])) {
     $bundles['paragraph']['digital_form_list_loop']['class'] = ListLoopParagraph::class;
+  }
+  if (isset($bundles['paragraph']['list_loop_employment_history'])) {
+    $bundles['paragraph']['list_loop_employment_history']['class'] = EmploymentHistoryParagraph::class;
   }
 }

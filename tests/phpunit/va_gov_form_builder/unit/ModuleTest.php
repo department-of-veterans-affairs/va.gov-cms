@@ -138,8 +138,6 @@ class ModuleTest extends VaGovUnitTestBase {
     // Assert variables exist.
     $this->assertArrayHasKey('variables', $themeEntries[$theme]);
     $this->assertArrayHasKey('preview', $themeEntries[$theme]['variables']);
-    $this->assertArrayHasKey('alt_text', $themeEntries[$theme]['variables']['preview']);
-    $this->assertArrayHasKey('url', $themeEntries[$theme]['variables']['preview']);
     $this->assertArrayHasKey('buttons', $themeEntries[$theme]['variables']);
   }
 
@@ -254,6 +252,7 @@ class ModuleTest extends VaGovUnitTestBase {
       'identification_info',
       'address_info',
       'contact_info',
+      'employment_history',
       'review_and_sign',
     ];
     foreach ($nonEditablePatternPages as $nonEditablePatternPage) {
@@ -270,13 +269,24 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertStepLayoutTheme(self::PAGE_CONTENT_THEME_PREFIX . 'step_layout__single_question', $result);
     // 5b. Step-layout page for repeating set.
     $this->assertStepLayoutTheme(self::PAGE_CONTENT_THEME_PREFIX . 'step_layout__repeating_set', $result);
-    // 6. Custom-or-predefined-question page.
-    // 6a. Custom-or-predefined-question page for single question.
+    // 6. Step-style page.
+    $stepStyleTheme = self::PAGE_CONTENT_THEME_PREFIX . 'step_style';
+    $this->assertArrayHasKey($stepStyleTheme, $result);
+    $this->assertArrayHasKey('path', $result[$stepStyleTheme]);
+    $this->assertEquals(self::PAGE_CONTENT_TEMPLATE_PATH, $result[$stepStyleTheme]['path']);
+    $this->assertArrayHasKey('template', $result[$stepStyleTheme]);
+    $this->assertEquals('step-style', $result[$stepStyleTheme]['template']);
+    $this->assertArrayHasKey('variables', $result[$stepStyleTheme]);
+    $this->assertArrayHasKey('step_label', $result[$stepStyleTheme]['variables']);
+    $this->assertArrayHasKey('preview', $result[$stepStyleTheme]['variables']);
+    $this->assertArrayHasKey('buttons', $result[$stepStyleTheme]['variables']);
+    // 7. Custom-or-predefined-question page.
+    // 7a. Custom-or-predefined-question page for single question.
     $this->assertCustomOrPredefinedQuestionTheme(
       self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__single_question',
       $result
     );
-    // 6b. Custom-or-predefined-question page for repeating set.
+    // 7b. Custom-or-predefined-question page for repeating set.
     $this->assertCustomOrPredefinedQuestionTheme(
       self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__repeating_set',
       $result
@@ -286,7 +296,8 @@ class ModuleTest extends VaGovUnitTestBase {
     $form_themes = [
       'form_info',
       'step_label',
-      'step_style',
+      'custom_or_predefined__single_question',
+      'custom_or_predefined__repeating_set',
       'response_kind',
       'date_type',
       'custom_single_question_page_title',

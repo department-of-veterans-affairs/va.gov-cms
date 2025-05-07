@@ -46,10 +46,10 @@ va_gov_form_builder.contact_info:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::contactInfo'
   requirements:
     nid: \d*
-va_gov_form_builder.step.layout:
+va_gov_form_builder.step.home:
   path: "/form-builder/{nid}/step/{stepParagraphId}"
   defaults:
-    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepLayout'
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepHome'
   requirements:
     nid: \d*
     stepParagraphId: \d*
@@ -72,13 +72,20 @@ va_gov_form_builder.step.step_label.edit:
   requirements:
     nid: \d*
     stepParagraphId: \d*
-va_gov_form_builder.step.question.custom_or_predefined:
-  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom-or-predefined"
+va_gov_form_builder.step.single_question.custom_or_predefined:
+  path: "/form-builder/{nid}/step/add/single-question/custom-or-predefined"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customOrPredefinedQuestion'
+    stepType: "single-question"
   requirements:
     nid: \d*
-    stepParagraphId: \d*
+va_gov_form_builder.step.repeating_set.custom_or_predefined:
+  path: "/form-builder/{nid}/step/add/repeating-set/custom-or-predefined"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customOrPredefinedQuestion'
+    stepType: "repeating-set"
+  requirements:
+    nid: \d*
 va_gov_form_builder.step.question.custom.kind:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/kind"
   defaults:
@@ -248,6 +255,7 @@ va_gov_form_builder.custom_step_action:
         bundle:
           - digital_form_custom_step
           - digital_form_list_loop
+          - list_loop_employment_history
 va_gov_form_builder.page_action:
   path: "/form-builder/{node}/step/{paragraph}/page-action/{action}"
   defaults:

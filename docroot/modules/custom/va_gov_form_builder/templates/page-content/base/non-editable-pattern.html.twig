@@ -23,9 +23,29 @@
     {% endif %}
 
     <section class="form-builder-non-editable-pattern__default-appearance">
-      <h4>Default appearance of this step</h4>
-      <p class="form-builder-hint-text">No edits are possible for this item</p>
-      <img src="{{ preview.url }}" alt="{{ preview.alt_text }}">
+      <div class="form-builder-non-editable-pattern__default-appearance-intro">
+        <h4 class="form-builder-non-editable-pattern__default-appearance-heading">Default appearance of this step</h4>
+        <p class="form-builder-non-editable-pattern__default-appearance-hint-text form-builder-hint-text">No edits are possible for this item</p>
+      </div>
+      {% for item in preview %}
+        <section class="form-builder-non-editable-pattern__preview">
+          {% if item.title is defined %}
+            <h5 class="form-builder-non-editable-pattern__preview-title">{{ item.title }}</h5>
+          {% endif %}
+
+          {% if item.description is defined %}
+            <p class="form-builder-non-editable-pattern__preview-description form-builder-hint-text">{{ item.description }}</p>
+          {% endif %}
+
+          {% if item.image.url is defined and item.image.alt_text is defined %}
+            <img
+              class="form-builder-non-editable-pattern__preview-img"
+              src="{{ item.image.url }}"
+              alt="{{ item.image.alt_text }}"
+            />
+          {% endif %}
+        </section>
+      {% endfor %}
     </section>
   </section>
 {% endblock %}

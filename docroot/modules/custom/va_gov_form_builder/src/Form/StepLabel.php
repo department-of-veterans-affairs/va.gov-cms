@@ -29,7 +29,7 @@ class StepLabel extends FormBuilderStepBase {
     if (empty($stepParagraph)) {
       // If no step paragraph is passed in, this is "create" mode.
       $this->isCreate = TRUE;
-      $labelDefaultValue = $this->session->get('form_builder:add_step:step_label');
+      $labelDefaultValue = $this->session->get(self::SESSION_KEY);
     }
     else {
       // If a step paragraph is passed in, this is "edit" mode.
@@ -116,7 +116,7 @@ class StepLabel extends FormBuilderStepBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     if ($this->isCreate) {
-      $this->session->set('form_builder:add_step:step_label', $form_state->getValue('step_label'));
+      $this->session->set(self::SESSION_KEY, $form_state->getValue('step_label'));
 
       $form_state->setRedirect('va_gov_form_builder.step.step_style', [
         'nid' => $this->digitalForm->id(),
@@ -125,7 +125,7 @@ class StepLabel extends FormBuilderStepBase {
     else {
       parent::submitForm($form, $form_state);
 
-      $form_state->setRedirect('va_gov_form_builder.step.layout', [
+      $form_state->setRedirect('va_gov_form_builder.step.home', [
         'nid' => $this->digitalForm->id(),
         'stepParagraphId' => $this->stepParagraph->id(),
       ]);
