@@ -301,7 +301,8 @@ class VaGovFormBuilderController extends ControllerBase {
     // Require only a nid.
     $formPages = [
       'layout',
-      'form_info.edit', 'intro',
+      'form_info.edit',
+      'intro',
       'name_and_dob', 'identification_info', 'address_info', 'contact_info',
       'step.step_label.create', 'step.step_style',
       'review_and_sign', 'view_form',

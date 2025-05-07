@@ -197,11 +197,8 @@ class DigitalForm {
 
     if ($stepName === 'intro') {
       // This field is required, so assume complete if entered.
-      if ($this->node->hasField('field_intro_text')) {
-        $introText = $this->node->get('field_intro_text')->getValue();
-        if (isset($introText[0]['value'])) {
-          return 'complete';
-        }
+      if (!$this->node->get('field_intro_text')->isEmpty()) {
+        return 'complete';
       }
 
       return 'incomplete';
