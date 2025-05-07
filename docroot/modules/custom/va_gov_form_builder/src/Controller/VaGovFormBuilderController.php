@@ -326,6 +326,9 @@ class VaGovFormBuilderController extends ControllerBase {
       'step.question.custom.text.type',
       'step.question.custom.date.single_date.page_title',
       'step.question.custom.date.date_range.page_title',
+      'step.question.custom.choice.type',
+      'step.question.custom.choice.radio.page_title',
+      'step.question.custom.choice.checkbox.page_title',
       'step.question.custom.text.text_input.page_title',
       'step.question.custom.text.text_area.page_title',
     ];
@@ -497,7 +500,36 @@ class VaGovFormBuilderController extends ControllerBase {
         $textTypeUrl
       );
     }
-
+    elseif ($parent === 'step.question.custom.choice.type') {
+      $choiceTypeUrl = $this->getPageUrl('step.question.custom.choice.type');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.kind',
+        'Choice type',
+        $choiceTypeUrl
+      );
+    }
+    elseif ($parent === 'step.question.custom.choice.radio.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.choice.radio.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.choice.type',
+        '',
+        $pageTitleUrl
+      );
+    }
+    elseif ($parent === 'step.question.custom.choice.checkbox.page_title') {
+      if (!$this->digitalForm || !$this->stepParagraph) {
+        return [];
+      }
+      $pageTitleUrl = $this->getPageUrl('step.question.custom.choice.checkbox.page_title');
+      $breadcrumbTrail = $this->generateBreadcrumbs(
+        'step.question.custom.choice.type',
+        '',
+        $pageTitleUrl
+      );
+    }
     elseif ($parent === 'step.question.page_title') {
       if (!$this->digitalForm || !$this->stepParagraph || !$this->pageParagraph) {
         return [];
@@ -541,7 +573,6 @@ class VaGovFormBuilderController extends ControllerBase {
       if (!$this->digitalForm || !$this->stepParagraph) {
         return [];
       }
-
       $pageTitleUrl = $this->getPageUrl('step.question.custom.text.text_input.page_title');
       $breadcrumbTrail = $this->generateBreadcrumbs(
         'step.question.custom.text.type',
@@ -554,7 +585,6 @@ class VaGovFormBuilderController extends ControllerBase {
       if (!$this->digitalForm || !$this->stepParagraph) {
         return [];
       }
-
       $pageTitleUrl = $this->getPageUrl('step.question.custom.text.text_area.page_title');
       $breadcrumbTrail = $this->generateBreadcrumbs(
         'step.question.custom.text.type',
@@ -1339,6 +1369,14 @@ class VaGovFormBuilderController extends ControllerBase {
           $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.date.type', 'Date-range question');
           break;
 
+        case CustomSingleQuestionPageType::Radio:
+          $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.choice.type', 'Radio question');
+          break;
+
+        case CustomSingleQuestionPageType::Checkbox:
+          $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.choice.type', 'Checkbox question');
+          break;
+
         case CustomSingleQuestionPageType::TextInput:
           $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.text.type', 'Text-input question');
           break;
@@ -1693,12 +1731,189 @@ class VaGovFormBuilderController extends ControllerBase {
       case CustomSingleQuestionPageType::DateRange:
         return $this->customSingleQuestionDateRangeResponse($nid, $stepParagraphId, $pageParagraphId);
 
+      case CustomSingleQuestionPageType::Radio:
+        return $this->customSingleQuestionRadioResponse($nid, $stepParagraphId, $pageParagraphId);
+
+      case CustomSingleQuestionPageType::Checkbox:
+        return $this->customSingleQuestionCheckboxResponse($nid, $stepParagraphId, $pageParagraphId);
+
       case CustomSingleQuestionPageType::TextInput:
         return $this->customSingleQuestionTextInputResponse($nid, $stepParagraphId, $pageParagraphId);
 
       case CustomSingleQuestionPageType::TextArea:
         return $this->customSingleQuestionTextAreaResponse($nid, $stepParagraphId, $pageParagraphId);
+
     }
+  }
+
+  /**
+   * Custom single-question checkbox response page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
+   *
+   * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+   *   A redirect or the page response render array.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function customSingleQuestionCheckboxResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+      if (empty($this->pageParagraph)) {
+        $this->loadPageParagraph($pageParagraphId);
+      }
+
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.page_title', 'Checkbox response');
+    }
+    else {
+      // This is the second stage in the process
+      // of creating a new page. The previously
+      // entered page title and body should be in
+      // session storage. The page title is required.
+      // If it is not there, we should redirect back
+      // to the page-title page.
+      $sessionData = $this->session->get(FormBuilderPageBase::SESSION_KEY);
+      $pageTitle = $sessionData['title'] ?? NULL;
+      if (!$pageTitle) {
+        return $this->redirect(
+          'va_gov_form_builder.step.question.custom.choice.checkbox.page_title',
+          [
+            'nid' => $nid,
+            'stepParagraphId' => $stepParagraphId,
+          ],
+        );
+      }
+
+      // This is page creation.
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.choice.checkbox.page_title', 'Checkbox response');
+    }
+
+    // Override the page title with "Checkbox question".
+    $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Checkbox question';
+
+    $formName = 'CustomSingleQuestionCheckboxResponse';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'two_column_with_buttons',
+      'expanded_radio',
+      'custom_single_question_response',
+      'repeatable_field_groups',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Custom single-question radio response page.
+   *
+   * @param string $nid
+   *   The node id of the Digital Form.
+   * @param string $stepParagraphId
+   *   The entity id of the step paragraph.
+   * @param string|null $pageParagraphId
+   *   The entity id of the page paragraph.
+   *
+   * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+   *   A redirect or the page response render array.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function customSingleQuestionRadioResponse($nid, $stepParagraphId, $pageParagraphId = NULL) {
+    if (empty($this->digitalForm)) {
+      $this->loadDigitalForm($nid);
+    }
+    if (empty($this->stepParagraph)) {
+      $this->loadStepParagraph($stepParagraphId);
+    }
+
+    if (!empty($pageParagraphId)) {
+      // This is a page edit.
+      if (empty($this->pageParagraph)) {
+        $this->loadPageParagraph($pageParagraphId);
+      }
+
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.page_title', 'Radio response');
+    }
+    else {
+      // This is the second stage in the process
+      // of creating a new page. The previously
+      // entered page title and body should be in
+      // session storage. The page title is required.
+      // If it is not there, we should redirect back
+      // to the page-title page.
+      $sessionData = $this->session->get(FormBuilderPageBase::SESSION_KEY);
+      $pageTitle = $sessionData['title'] ?? NULL;
+      if (!$pageTitle) {
+        return $this->redirect(
+          'va_gov_form_builder.step.question.custom.choice.radio.page_title',
+          [
+            'nid' => $nid,
+            'stepParagraphId' => $stepParagraphId,
+          ],
+        );
+      }
+
+      // This is page creation.
+      $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.choice.radio.page_title', 'Radio response');
+    }
+
+    // Override the page title with "Radio question".
+    $breadcrumbs[count($breadcrumbs) - 2]['label'] = 'Radio question';
+
+    $formName = 'CustomSingleQuestionRadioResponse';
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'two_column_with_buttons',
+      'expanded_radio',
+      'custom_single_question_response',
+      'repeatable_field_groups',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
+  }
+
+  /**
+   * Custom single question choice type page.
+   *
+   * @param int $nid
+   *   The node id.
+   * @param int $stepParagraphId
+   *   The step paragraph.
+   *
+   * @return array
+   *   The render array for this choice type.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function customSingleQuestionChoiceType($nid, $stepParagraphId) {
+    $this->loadDigitalForm($nid);
+    $this->loadStepParagraph($stepParagraphId);
+
+    $formName = 'ChoiceType';
+    $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.kind', 'Choice type');
+    $subtitle = $this->digitalForm->getTitle();
+    $libraries = [
+      'single_column_with_buttons',
+      'expanded_radio',
+      'expanded_radio__help_text_optional_image',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
