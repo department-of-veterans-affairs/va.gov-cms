@@ -155,6 +155,40 @@ va_gov_form_builder.step.question.custom.date.date_range.response:
   requirements:
     nid: \d*
     stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.choice.type:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/choice/type"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionChoiceType'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.choice.radio.response:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/choice/radio/response"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionRadioResponse'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.choice.checkbox.response:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/choice/checkbox/response"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionCheckboxResponse'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.choice.radio.page_title:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/choice/radio/page-title"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
+    pageComponentType: "choice.radio"
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.choice.checkbox.page_title:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/choice/checkbox/page-title"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
+    pageComponentType: "choice.checkbox"
 va_gov_form_builder.step.question.custom.text.text_input.response:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/text/text-input/response"
   defaults:

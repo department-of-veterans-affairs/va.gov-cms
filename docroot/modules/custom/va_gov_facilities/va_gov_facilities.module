@@ -156,9 +156,9 @@ function _va_gov_facilities_get_vamc_system_service_names(int $selected_facility
     WHERE nfa.bundle = 'regional_health_care_service_des'
     AND nfa.field_administration_target_id =
       (SELECT nfa.field_administration_target_id FROM node__field_administration as nfa
-      WHERE nfa.entity_id = :existing_service_id)",
+      WHERE nfa.entity_id = :selected_facility_id)",
     [
-      ':existing_service_id' => $existing_facility_services[0]->field_regional_health_service_target_id,
+      ':selected_facility_id' => $selected_facility_id,
     ]
     );
   $none_option = [

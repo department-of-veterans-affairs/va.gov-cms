@@ -1,0 +1,72 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Radio response.
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/two-column-with-buttons.html.twig' %}
+
+{% set page_id = 'custom-single-question-choice-radio-response' %}
+{% set page_heading = 'Customize the responses available for the submitter' %}
+
+{% block left_content %}
+  <section class="form-builder-single-question-response">
+
+    <div class="form-builder-single-question-response__page-title">
+      <label for="page-title">For the single-response question:</label>
+      <div id="page-title">{{ form['#page_title'] ?: 'None provided' }}</div>
+    </div>
+
+    <div class="form-builder-single-question-response__page-body">
+      <label for="page-body">Body content:</label>
+      <div id="page-body">{{ form['#page_body'] ?: 'None provided' }}</div>
+    </div>
+
+    <div class="form-builder-single-question-response__type">
+      <label for="guidance">Radio Button</label>
+      <p id="guidance">Guidance for this choice</p>
+    </div>
+
+    <div class="form-builder-single-question-response__components">
+      {{ form.radio_button_fields }}
+    </div>
+
+    <div class="form-builder-single-question-response__guidance">
+      <label for="guidance-details">Provide labels for Radio items</label>
+      <div id="guidance-details" class="form-builder-single-question-response__guidance-details">
+        <p>If more choices are needed, add Radio items.</p>
+        <p>The minimum number of choices is 2.</p>
+        <p>The maximum recommended number of Radio items per list is 5.</p>
+      </div>
+    </div>
+
+    <div class="form-builder-single-question-response__components">
+      {{ form.existing_radio_option_fields }}
+      {{ form.dynamic_radio_options_fields_fieldset }}
+    </div>
+
+  </section>
+{% endblock %}
+
+{% block right_content %}
+  <div class="form-builder-single-question-response__preview">
+    <label for="no-descriptors-preview">Example without descriptors</label>
+    <div id="no-descriptors-preview">{{ form.preview.no_descriptors }}</div>
+    <label for="no-descriptors-preview">Example with descriptors</label>
+    <div id="with-descriptors-preview">{{ form.preview.descriptors }}</div>
+  </div>
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'page_title',
+    'page_body',
+    'radio_button_fields',
+    'existing_radio_option_fields',
+    'dynamic_radio_options_fields_fieldset',
+    'preview',
+    'actions',
+  )}}
+{% endblock %}
