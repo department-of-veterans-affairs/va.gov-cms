@@ -828,10 +828,6 @@ class VaGovFormBuilderController extends ControllerBase {
         'status' => $this->digitalForm->getStepStatus('review_and_sign'),
         'url' => $this->getPageUrl('review_and_sign'),
       ],
-      '#confirmation' => [
-        'status' => $this->digitalForm->getStepStatus('confirmation'),
-        'url' => '',
-      ],
       '#view_form' => [
         'url' => $this->getPageUrl('view_form'),
       ],
