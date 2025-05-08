@@ -121,7 +121,7 @@ class IntroductionTest extends VaGovExistingSiteBase {
    */
   public function testPrimaryButton() {
     $this->drupalGet($this->getPageUrl());
-    $this->click('a#form-builder-primary-button');
+    $this->click('input#edit-save-and-continue');
     $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}");
   }
 
