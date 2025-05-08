@@ -1088,7 +1088,7 @@ class VaGovFormBuilderController extends ControllerBase {
           ],
         ],
         [
-          'title' => 'Page 2: Qualifying question',
+          'title' => 'Page 2: Employer information',
           'description' => '
             If the submitter selects “Yes” from the qualifier, they can start adding Employer
             name and address. This would be on the next page of the form. This is not editable.
@@ -1117,7 +1117,7 @@ class VaGovFormBuilderController extends ControllerBase {
           ',
           'image' => [
             'alt_text' => 'Employer-information preview',
-            'url' => '/modules/custom/va_gov_form_builder/images/eh-employer-information.png',
+            'url' => '/modules/custom/va_gov_form_builder/images/eh-lost-time.png',
           ],
         ],
         [
