@@ -107,12 +107,7 @@ abstract class FormBuilderParagraphBase extends Paragraph implements FormBuilder
     // If this is a new Paragraph, it has not been saved, therefore there is no
     // parent node or paragraph to persist changes made by the action.
     $result = AccessResult::allowedIf(!$this->isNew());
-    // Check delete access if needed.
-    if ($action->getKey() === 'delete') {
-      $result = $result->andIf($this->access(operation: 'delete', return_as_object: TRUE));
-    }
-    // Prevent action if parent cannot be updated.
-    $result = $result->andIf($this->getParentEntity()->access(operation:'update', return_as_object: TRUE));
+
     // Ensure this Paragraph has this action in its ActionCollection.
     return $result->andIf(AccessResult::allowedIf($this->actionCollection->has($action->getKey())));
   }
