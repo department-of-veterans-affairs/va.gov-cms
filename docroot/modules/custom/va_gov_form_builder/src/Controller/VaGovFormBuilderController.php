@@ -2094,6 +2094,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.kind', 'Choice type');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
+      'response_kind',
       'single_column_with_buttons',
       'expanded_radio',
       'expanded_radio__help_text_optional_image',
