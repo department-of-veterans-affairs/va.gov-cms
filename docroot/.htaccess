@@ -164,6 +164,8 @@ AddEncoding gzip svgz
   RewriteRule ^ index.php [L]
 
   # For security reasons, deny access to other PHP files on public sites.
+  # Note: For extra security, the following URI conditions are anchored at the
+  # start (^) because the va-gov.cms Drupal is located at the root.
   # Allow access to PHP files in /core (like authorize.php or install.php):
   RewriteCond %{REQUEST_URI} !^/core/[^/]*\.php$
   # Allow access to test-specific PHP files:
