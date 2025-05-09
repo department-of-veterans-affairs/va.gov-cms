@@ -22,6 +22,8 @@ class DateType extends FormBuilderBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildForm($form, $form_state);
+
     $form['#theme'] = 'form__va_gov_form_builder__date_type';
 
     $form['date_type'] = [
