@@ -164,17 +164,16 @@ AddEncoding gzip svgz
   RewriteRule ^ index.php [L]
 
   # For security reasons, deny access to other PHP files on public sites.
-  # Note: The following URI conditions are not anchored at the start (^),
-  # because Drupal may be located in a subdirectory. To further improve
-  # security, you can replace '!/' with '!^/'.
+  # Note: For extra security, the following URI conditions are anchored at the
+  # start (^) because the va-gov.cms Drupal is located at the root.
   # Allow access to PHP files in /core (like authorize.php or install.php):
   RewriteCond %{REQUEST_URI} !^/core/[^/]*\.php$
   # Allow access to test-specific PHP files:
-  RewriteCond %{REQUEST_URI} !/core/modules/system/tests/https?.php
+  RewriteCond %{REQUEST_URI} !^/core/modules/system/tests/https?.php
   # Allow access to Statistics module's custom front controller.
   # Copy and adapt this rule to directly execute PHP files in contributed or
   # custom modules or to run another PHP application in the same directory.
-  RewriteCond %{REQUEST_URI} !/core/modules/statistics/statistics.php$
+  RewriteCond %{REQUEST_URI} !^/core/modules/statistics/statistics.php$
   # Allow access to simplesaml paths
   RewriteCond %{REQUEST_URI} !^/simplesaml
   # Deny access to any other PHP files that do not match the rules above.
