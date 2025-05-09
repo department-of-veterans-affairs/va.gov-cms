@@ -244,7 +244,6 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey('contact_info', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('additional_steps', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('review_and_sign', $result[$layoutTheme]['variables']);
-    $this->assertArrayHasKey('confirmation', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('view_form', $result[$layoutTheme]['variables']);
     // 3. Non-editable pattern pages.
     $nonEditablePatternPages = [

@@ -503,7 +503,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
       $kindUrl = $this->getPageUrl('step.question.custom.kind');
       $breadcrumbTrail = $this->generateBreadcrumbs(
-        'step.question.custom_or_predefined',
+        'step.home',
         'Kind',
         $kindUrl
       );
@@ -828,10 +828,6 @@ class VaGovFormBuilderController extends ControllerBase {
         'status' => $this->digitalForm->getStepStatus('review_and_sign'),
         'url' => $this->getPageUrl('review_and_sign'),
       ],
-      '#confirmation' => [
-        'status' => $this->digitalForm->getStepStatus('confirmation'),
-        'url' => '',
-      ],
       '#view_form' => [
         'url' => $this->getPageUrl('view_form'),
       ],
@@ -1092,7 +1088,7 @@ class VaGovFormBuilderController extends ControllerBase {
           ],
         ],
         [
-          'title' => 'Page 2: Qualifying question',
+          'title' => 'Page 2: Employer information',
           'description' => '
             If the submitter selects “Yes” from the qualifier, they can start adding Employer
             name and address. This would be on the next page of the form. This is not editable.
@@ -1121,7 +1117,7 @@ class VaGovFormBuilderController extends ControllerBase {
           ',
           'image' => [
             'alt_text' => 'Employer-information preview',
-            'url' => '/modules/custom/va_gov_form_builder/images/eh-employer-information.png',
+            'url' => '/modules/custom/va_gov_form_builder/images/eh-lost-time.png',
           ],
         ],
         [
@@ -2098,6 +2094,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.kind', 'Choice type');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
+      'response_kind',
       'single_column_with_buttons',
       'expanded_radio',
       'expanded_radio__help_text_optional_image',
