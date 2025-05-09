@@ -503,7 +503,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
       $kindUrl = $this->getPageUrl('step.question.custom.kind');
       $breadcrumbTrail = $this->generateBreadcrumbs(
-        'step.question.custom_or_predefined',
+        'step.home',
         'Kind',
         $kindUrl
       );
