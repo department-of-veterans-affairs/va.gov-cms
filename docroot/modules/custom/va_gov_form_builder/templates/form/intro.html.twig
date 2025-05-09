@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Template for Form Builder form page: Introduction page
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/two-column-with-buttons.html.twig' %}
+
+{% set page_id = 'intro' %}
+{% set page_heading = 'Provide introduction page content' %}
+
+{% block left_content %}
+  <section class="form-builder-intro">
+    {{ form.intro_text }}
+
+    {# Need to fake the label and description due to how the fieldset + multiple value field interact #}
+    <label class="form-item__label form-required">What to know section</label>
+    <div class="form-item__description">
+      <ul>
+        <li>This content will appear under a standard H2 "What to know before you fill out this form"</li>
+        <li>Use a short bulleted list (2 to 5 bullets) to explain the most important things people need to know related to the form, like who can submit this form, when submitting this form is unnecessary, or time limits to be aware of.</li>
+      </ul>
+    </div>
+    {{ form.what_to_know }}
+  </section>
+{% endblock %}
+
+{% block right_content %}
+  <div class="form-builder-single-question-response__preview">
+    <div id="preview">
+      {{ form.preview }}
+      <p class="reference">For more reference on the introduction page, please refer to <a href="https://design.va.gov/templates/forms/introduction#what-to-know-section-for-variation-with-no-process-list" target="_blank">this resource.</a></p>
+    </div>
+  </div>
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'intro_text',
+    'what_to_know',
+    'preview',
+    'actions'
+  )}}
+{% endblock %}

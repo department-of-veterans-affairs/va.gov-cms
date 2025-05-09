@@ -195,13 +195,21 @@ class DigitalForm {
       return 'complete';
     }
 
+    if ($stepName === 'intro') {
+      // This field is required, so assume complete if entered.
+      if (!$this->node->get('field_intro_text')->isEmpty()) {
+        return 'complete';
+      }
+
+      return 'incomplete';
+    }
+
     if ($stepName === 'review_and_sign') {
       // This is added automatically by the Forms Library.
       return 'complete';
     }
 
     if (in_array($stepName, [
-      'intro',
       'confirmation',
     ])) {
       // These haven't been handled yet.

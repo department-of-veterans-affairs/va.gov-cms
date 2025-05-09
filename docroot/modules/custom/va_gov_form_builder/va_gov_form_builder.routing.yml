@@ -22,6 +22,12 @@ va_gov_form_builder.layout:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::layout'
   requirements:
     nid: \d*
+va_gov_form_builder.intro:
+  path: "/form-builder/{nid}/intro"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::intro'
+  requirements:
+    nid: \d*
 va_gov_form_builder.name_and_dob:
   path: "/form-builder/{nid}/name-and-dob"
   defaults:
