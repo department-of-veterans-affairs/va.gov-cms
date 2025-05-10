@@ -71,6 +71,7 @@ services:
       # The internal tools ALB idle timeout is set to longer than a typical GQL query takes.
       - sed -e 's/KeepAliveTimeout 5/KeepAliveTimeout 185/' -i /etc/apache2/apache2.conf
 
+      # @todo These should be aligned with other environments...
       # BRD Environments are set to 1G, Tugboat and Lando are -1 (unlimited).
       - echo "memory_limit = 4G" >> /usr/local/etc/php/conf.d/my-php.ini
       # Set unlimited memory limit for PHP CLI to allow Composer to run.
@@ -224,6 +225,13 @@ services:
       - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
       - chmod +x /etc/service/drupal_events/run
 
+      # Separate process for next-build preview.
+      - mkdir -p /etc/service/next_build_queue_service
+      - mv "${TUGBOAT_ROOT}/scripts/queue_runner/next_queue_runner.sh" /etc/service/next_build_queue_service/run
+      - chmod +x /etc/service/next_build_queue_service/run
+      # Need to make build script executable so the runner can run it.
+      - chmod +x "${TUGBOAT_ROOT}/scripts/next-build-frontend.sh"
+
       clone:
       # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
       - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
@@ -241,7 +249,6 @@ services:
 
       # We only want tests running on PRs, not branches like the base preview build of main.
       - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'time task --taskfile=tests.yml'; fi
-
       # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
       - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/content-build"
       - find "${DOCROOT}/vendor/va-gov/content-build" -type d -exec chmod 2775 {} \+
@@ -251,6 +258,7 @@ services:
 
       # Put necessary env variables in place for next's Drupal Preview before building server
       # Need to construct this way instead of TUGBOAT_DEFAULT_SERVICE_URL in order to drop the trailing /
+      - echo "Setting up Tugboat environment variables for Next.js..."
       - echo "NEXT_PUBLIC_DRUPAL_BASE_URL=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
       - echo "NEXT_IMAGE_DOMAIN=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
       - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
