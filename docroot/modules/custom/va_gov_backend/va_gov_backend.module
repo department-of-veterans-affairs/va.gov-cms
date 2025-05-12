@@ -1904,7 +1904,6 @@ function _va_gov_backend_feature_bump(EntityInterface $entity) {
     $status = $entity->field_featured->value;
     $bundle = $entity->bundle();
     $target = $entity->field_listing->target_id;
-    // $is_default_revision = $entity->isDefaultRevision();
     // If this is our feature item and is the default, start the process.
     /** @var \Drupal\node\NodeInterface $entity */
     if ($status === 1 && $entity->isDefaultRevision()) {
