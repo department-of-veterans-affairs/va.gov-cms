@@ -303,6 +303,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $formPages = [
       'layout',
       'form_info.edit',
+      'intro',
       'name_and_dob',
       'identification_info',
       'address_info',
@@ -503,7 +504,7 @@ class VaGovFormBuilderController extends ControllerBase {
 
       $kindUrl = $this->getPageUrl('step.question.custom.kind');
       $breadcrumbTrail = $this->generateBreadcrumbs(
-        'step.question.custom_or_predefined',
+        'step.home',
         'Kind',
         $kindUrl
       );
@@ -789,7 +790,7 @@ class VaGovFormBuilderController extends ControllerBase {
       ],
       '#intro' => [
         'status' => $this->digitalForm->getStepStatus('intro'),
-        'url' => '',
+        'url' => $this->getPageUrl('intro'),
       ],
       '#your_personal_info' => [
         'status' => $this->digitalForm->getStepStatus('your_personal_info'),
@@ -827,10 +828,6 @@ class VaGovFormBuilderController extends ControllerBase {
       '#review_and_sign' => [
         'status' => $this->digitalForm->getStepStatus('review_and_sign'),
         'url' => $this->getPageUrl('review_and_sign'),
-      ],
-      '#confirmation' => [
-        'status' => $this->digitalForm->getStepStatus('confirmation'),
-        'url' => '',
       ],
       '#view_form' => [
         'url' => $this->getPageUrl('view_form'),
@@ -901,6 +898,26 @@ class VaGovFormBuilderController extends ControllerBase {
     }
 
     return $response;
+  }
+
+  /**
+   * Form introduction page.
+   *
+   * @param string|null $nid
+   *   The node id, passed in when the page edits an existing node.
+   */
+  public function intro($nid = NULL) {
+    $this->loadDigitalForm($nid);
+
+    $formName = 'IntroPage';
+    $subtitle = $this->digitalForm->getTitle();
+    $breadcrumbs = $this->generateBreadcrumbs('layout', 'Introduction page');
+    $libraries = [
+      'intro',
+      'two_column_with_buttons',
+    ];
+
+    return $this->getFormPage($formName, $subtitle, $breadcrumbs, $libraries);
   }
 
   /**
@@ -1092,7 +1109,7 @@ class VaGovFormBuilderController extends ControllerBase {
           ],
         ],
         [
-          'title' => 'Page 2: Qualifying question',
+          'title' => 'Page 2: Employer information',
           'description' => '
             If the submitter selects “Yes” from the qualifier, they can start adding Employer
             name and address. This would be on the next page of the form. This is not editable.
@@ -1121,7 +1138,7 @@ class VaGovFormBuilderController extends ControllerBase {
           ',
           'image' => [
             'alt_text' => 'Employer-information preview',
-            'url' => '/modules/custom/va_gov_form_builder/images/eh-employer-information.png',
+            'url' => '/modules/custom/va_gov_form_builder/images/eh-lost-time.png',
           ],
         ],
         [
@@ -2098,6 +2115,7 @@ class VaGovFormBuilderController extends ControllerBase {
     $breadcrumbs = $this->generateBreadcrumbs('step.question.custom.kind', 'Choice type');
     $subtitle = $this->digitalForm->getTitle();
     $libraries = [
+      'response_kind',
       'single_column_with_buttons',
       'expanded_radio',
       'expanded_radio__help_text_optional_image',

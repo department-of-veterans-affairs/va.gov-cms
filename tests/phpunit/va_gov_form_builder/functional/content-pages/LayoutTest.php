@@ -218,16 +218,6 @@ class LayoutTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Test the "Confirmation page" section.
-   */
-  public function testConfirmationPage() {
-    $this->drupalGet($this->getPageUrl());
-
-    // There is no destination for this link yet.
-    $this->assertSession()->linkExists('View confirmation page');
-  }
-
-  /**
    * Test the "Viewing the form" section.
    */
   public function testViewingTheForm() {
