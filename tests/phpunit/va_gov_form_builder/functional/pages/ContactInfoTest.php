@@ -1,17 +1,17 @@
 <?php
 
-namespace tests\phpunit\va_gov_form_builder\functional\content_pages;
+namespace Tests\va_gov_form_builder\functional\pages;
 
 use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
- * Functional test of the Identification-information page.
+ * Functional test of the Contact-information page.
  *
  * @group functional
  * @group all
  */
-class IdentificationInfoTest extends VaGovExistingSiteBase {
+class ContactInfoTest extends VaGovExistingSiteBase {
   use TestPageLoads;
 
   /**
@@ -30,7 +30,7 @@ class IdentificationInfoTest extends VaGovExistingSiteBase {
    * Returns the url for this page.
    */
   private function getPageUrl() {
-    return "/form-builder/{$this->digitalFormNode->id()}/identification-info";
+    return "/form-builder/{$this->digitalFormNode->id()}/contact-info";
   }
 
   /**
@@ -73,7 +73,7 @@ class IdentificationInfoTest extends VaGovExistingSiteBase {
    */
   public function testPageLoads() {
     // Ensure page loads.
-    $this->sharedTestPageLoads($this->getPageUrl(), 'Collecting identifying information');
+    $this->sharedTestPageLoads($this->getPageUrl(), 'Collecting contact information');
   }
 
   /**
@@ -111,7 +111,7 @@ class IdentificationInfoTest extends VaGovExistingSiteBase {
           'url' => "/form-builder/{$this->digitalFormNode->id()}",
         ],
         [
-          'label' => 'Personal information',
+          'label' => 'Contact information',
           'url' => "#content",
         ],
       ],
@@ -125,15 +125,6 @@ class IdentificationInfoTest extends VaGovExistingSiteBase {
     $this->drupalGet($this->getPageUrl());
     $this->click('a#form-builder-primary-button');
     $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}");
-  }
-
-  /**
-   * Test the secondary button.
-   */
-  public function testSecondaryButton() {
-    $this->drupalGet($this->getPageUrl());
-    $this->click('a#form-builder-secondary-button-1');
-    $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}/name-and-dob");
   }
 
 }

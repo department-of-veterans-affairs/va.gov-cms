@@ -12,7 +12,6 @@ use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
  *
  * @group functional
  * @group all
- * @group disabled
  *
  * @coversDefaultClass \Drupal\va_gov_form_builder\Form\FormInfo
  */

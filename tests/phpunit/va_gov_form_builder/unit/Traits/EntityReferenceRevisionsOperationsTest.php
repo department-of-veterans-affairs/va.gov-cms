@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\va_gov_form_builder\Unit\Traits;
+namespace Tests\va_gov_form_builder\unit\Traits;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityConstraintViolationList;
