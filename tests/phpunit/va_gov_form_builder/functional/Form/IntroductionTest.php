@@ -13,6 +13,7 @@ use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
  * @group functional
  * @group all
  * @group disabled
+ * @group test
  *
  * @coversDefaultClass \Drupal\va_gov_form_builder\Form\FormInfo
  */
