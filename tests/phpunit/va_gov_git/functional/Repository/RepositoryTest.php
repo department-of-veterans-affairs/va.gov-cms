@@ -10,6 +10,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
  *
  * @group functional
  * @group all
+ * @group test
  *
  * @coversDefaultClass \Drupal\va_gov_git\Repository\Repository
  */
