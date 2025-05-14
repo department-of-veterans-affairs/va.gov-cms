@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_administration
     - field.storage.node.field_facility_location
+    - field.storage.node.field_featured
     - field.storage.node.field_last_saved_by_an_editor
     - field.storage.node.field_other_categories
     - field.storage.node.field_primary_category
@@ -2895,6 +2896,71 @@ display:
           text: view
           output_url_as_text: true
           absolute: false
+        field_featured:
+          id: field_featured
+          table: node__field_featured
+          field: field_featured
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Featured
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: boolean
+          settings:
+            format: true-false
+            format_custom_false: ''
+            format_custom_true: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       exposed_form:
         type: basic
         options:
@@ -3180,6 +3246,65 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_featured_value:
+          id: field_featured_value
+          table: node__field_featured
+          field: field_featured_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '='
+          value: All
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: Featured
+            description: ''
+            use_operator: true
+            operator: field_featured_value_op
+            operator_limit_selection: false
+            operator_list:
+              '!=': '!='
+            identifier: field_featured_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vba: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+              next_js: '0'
+              translation_manager: '0'
+              rates_editor: '0'
+              form_builder_user: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -3259,6 +3384,7 @@ display:
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_facility_location'
+        - 'config:field.storage.node.field_featured'
     deleted: false
   outdated_content:
     id: outdated_content
@@ -5421,7 +5547,7 @@ display:
           entity_field: revision_uid
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
