@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_form_builder\functional\content_pages;
+namespace Tests\va_gov_form_builder\functional\pages;
 
 use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;

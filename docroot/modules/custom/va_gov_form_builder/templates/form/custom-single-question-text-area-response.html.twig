@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Text-area response.
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/two-column-with-buttons.html.twig' %}
+
+{% set page_id = 'custom-single-question-text-area-response' %}
+{% set page_heading = 'Customize the responses' %}
+
+{% block left_content %}
+  <section class="form-builder-single-question-response">
+
+    <div class="form-builder-single-question-response__page-title">
+      <label for="page-title">For the single-response question:</label>
+      <div id="page-title">{{ form['#page_title'] ?: 'None provided' }}</div>
+    </div>
+
+    <div class="form-builder-single-question-response__page-body">
+      <label for="page-body">Body content:</label>
+      <div id="page-body">{{ form['#page_body'] ?: 'None provided' }}</div>
+    </div>
+
+    <div class="form-builder-single-question-response__type">
+      <p id="response-type">Text area</p>
+    </div>
+
+    <div class="form-builder-single-question-response__component">
+      {{ form.label }}
+      {{ form.hint_text }}
+      {{ form.required }}
+    </div>
+
+  </section>
+{% endblock %}
+
+{% block right_content %}
+  <div class="form-builder-single-question-response__preview">
+    <label for="preview">Example</label>
+    <div id="preview">{{ form.preview }}</div>
+  </div>
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'label',
+    'hint_text',
+    'required',
+    'preview',
+    'actions',
+  )}}
+{% endblock %}

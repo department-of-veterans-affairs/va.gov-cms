@@ -1,17 +1,17 @@
 <?php
 
-namespace tests\phpunit\va_gov_form_builder\functional\content_pages;
+namespace Tests\va_gov_form_builder\functional\pages;
 
 use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
- * Functional test of the View-form page.
+ * Functional test of the Name-and-date-of-birth page.
  *
  * @group functional
  * @group all
  */
-class ViewFormTest extends VaGovExistingSiteBase {
+class NameAndDobTest extends VaGovExistingSiteBase {
   use TestPageLoads;
 
   /**
@@ -30,7 +30,7 @@ class ViewFormTest extends VaGovExistingSiteBase {
    * Returns the url for this page.
    */
   private function getPageUrl() {
-    return "/form-builder/{$this->digitalFormNode->id()}/view-form";
+    return "/form-builder/{$this->digitalFormNode->id()}/name-and-dob";
   }
 
   /**
@@ -73,7 +73,7 @@ class ViewFormTest extends VaGovExistingSiteBase {
    */
   public function testPageLoads() {
     // Ensure page loads.
-    $this->sharedTestPageLoads($this->getPageUrl(), 'Reviewing the form');
+    $this->sharedTestPageLoads($this->getPageUrl(), 'Collecting Name and Date of birth');
   }
 
   /**
@@ -95,7 +95,45 @@ class ViewFormTest extends VaGovExistingSiteBase {
     );
   }
 
-  // Cannot test these until we have the staging-url field.
-  // @todo test breadcrumbs.
-  // @todo test buttons.
+  /**
+   * Test that the page has the expected breadcrumbs.
+   */
+  public function testPageBreadcrumbs() {
+    $this->sharedTestPageHasExpectedBreadcrumbs(
+      $this->getPageUrl(),
+      [
+        [
+          'label' => 'Home',
+          'url' => '/form-builder/home',
+        ],
+        [
+          'label' => $this->digitalFormNode->getTitle(),
+          'url' => "/form-builder/{$this->digitalFormNode->id()}",
+        ],
+        [
+          'label' => 'Personal information',
+          'url' => "#content",
+        ],
+      ],
+    );
+  }
+
+  /**
+   * Test the primary button.
+   */
+  public function testPrimaryButton() {
+    $this->drupalGet($this->getPageUrl());
+    $this->click('a#form-builder-primary-button');
+    $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}");
+  }
+
+  /**
+   * Test the secondary button.
+   */
+  public function testSecondaryButton() {
+    $this->drupalGet($this->getPageUrl());
+    $this->click('a#form-builder-secondary-button-1');
+    $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}/identification-info");
+  }
+
 }

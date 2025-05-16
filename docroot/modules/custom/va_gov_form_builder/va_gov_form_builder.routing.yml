@@ -22,6 +22,12 @@ va_gov_form_builder.layout:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::layout'
   requirements:
     nid: \d*
+va_gov_form_builder.intro:
+  path: "/form-builder/{nid}/intro"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::intro'
+  requirements:
+    nid: \d*
 va_gov_form_builder.name_and_dob:
   path: "/form-builder/{nid}/name-and-dob"
   defaults:
@@ -46,10 +52,10 @@ va_gov_form_builder.contact_info:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::contactInfo'
   requirements:
     nid: \d*
-va_gov_form_builder.step.layout:
+va_gov_form_builder.step.home:
   path: "/form-builder/{nid}/step/{stepParagraphId}"
   defaults:
-    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepLayout'
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::stepHome'
   requirements:
     nid: \d*
     stepParagraphId: \d*
@@ -72,13 +78,20 @@ va_gov_form_builder.step.step_label.edit:
   requirements:
     nid: \d*
     stepParagraphId: \d*
-va_gov_form_builder.step.question.custom_or_predefined:
-  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom-or-predefined"
+va_gov_form_builder.step.single_question.custom_or_predefined:
+  path: "/form-builder/{nid}/step/add/single-question/custom-or-predefined"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customOrPredefinedQuestion'
+    stepType: "single-question"
   requirements:
     nid: \d*
-    stepParagraphId: \d*
+va_gov_form_builder.step.repeating_set.custom_or_predefined:
+  path: "/form-builder/{nid}/step/add/repeating-set/custom-or-predefined"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customOrPredefinedQuestion'
+    stepType: "repeating-set"
+  requirements:
+    nid: \d*
 va_gov_form_builder.step.question.custom.kind:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/kind"
   defaults:
@@ -109,6 +122,22 @@ va_gov_form_builder.step.question.custom.date.date_range.page_title:
   requirements:
     nid: \d*
     stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.text.text_input.page_title:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/text/text-input/page-title"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
+    pageComponentType: "text.text_input"
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.text.text_area.page_title:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/text/text-area/page-title"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
+    pageComponentType: "text.text_area"
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
 va_gov_form_builder.step.question:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/{pageParagraphId}"
   defaults:
@@ -136,6 +165,54 @@ va_gov_form_builder.step.question.custom.date.date_range.response:
   path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/date/date-range/response"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionDateRangeResponse'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.choice.type:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/choice/type"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionChoiceType'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.choice.radio.response:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/choice/radio/response"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionRadioResponse'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.choice.checkbox.response:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/choice/checkbox/response"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionCheckboxResponse'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.choice.radio.page_title:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/choice/radio/page-title"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
+    pageComponentType: "choice.radio"
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.choice.checkbox.page_title:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/choice/checkbox/page-title"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionPageTitle'
+    pageComponentType: "choice.checkbox"
+va_gov_form_builder.step.question.custom.text.text_input.response:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/text/text-input/response"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionTextInputResponse'
+  requirements:
+    nid: \d*
+    stepParagraphId: \d*
+va_gov_form_builder.step.question.custom.text.text_area.response:
+  path: "/form-builder/{nid}/step/{stepParagraphId}/question/add/custom/text/text-area/response"
+  defaults:
+    _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customSingleQuestionTextAreaResponse'
   requirements:
     nid: \d*
     stepParagraphId: \d*
@@ -172,7 +249,7 @@ va_gov_form_builder.custom_step_action:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::customStepAction'
   requirements:
     action: ^(moveup|movedown|delete)$
-    _permission: 'access form builder'
+    _permission: "access form builder"
   options:
     parameters:
       node:
@@ -184,13 +261,14 @@ va_gov_form_builder.custom_step_action:
         bundle:
           - digital_form_custom_step
           - digital_form_list_loop
+          - list_loop_employment_history
 va_gov_form_builder.page_action:
   path: "/form-builder/{node}/step/{paragraph}/page-action/{action}"
   defaults:
     _controller: '\Drupal\va_gov_form_builder\Controller\VaGovFormBuilderController::pageAction'
   requirements:
     action: ^(moveup|movedown|delete)$
-    _permission: 'access form builder'
+    _permission: "access form builder"
   options:
     parameters:
       node:

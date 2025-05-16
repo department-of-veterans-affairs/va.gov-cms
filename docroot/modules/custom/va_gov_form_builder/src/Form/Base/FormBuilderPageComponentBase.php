@@ -4,6 +4,7 @@ namespace Drupal\va_gov_form_builder\Form\Base;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_form_builder\EntityWrapper\DigitalForm;
 use Drupal\va_gov_form_builder\Enum\CustomSingleQuestionPageType;
 
@@ -94,6 +95,9 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
       }
     }
 
+    $form['#page_title'] = $this->pageData['title'] ?? '';
+    $form['#page_body'] = $this->pageData['body'] ?? '';
+
     return $form;
   }
 
@@ -105,7 +109,7 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
    *
    * If components is not set, returns an empty array.
    * If `fieldName` does not exist, or another error occurs,
-   * returns NULL for the curent index of the returned array.
+   * returns NULL for the current index of the returned array.
    *
    * This is primarily used to populate forms with default values
    * when the form edit existing components.
@@ -129,6 +133,26 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
         return NULL;
       }
     }, $this->components);
+  }
+
+  /**
+   * Gets a field value from a paragraph.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $option
+   *   The paragraph entity.
+   * @param string $fieldName
+   *   The field name to retrieve the value from.
+   *
+   * @return mixed
+   *   The value from the field, or NULL if unable to retrieve.
+   */
+  protected function getParagraphFieldValue(ParagraphInterface $option, string $fieldName): mixed {
+    try {
+      return $option->get($fieldName)->value;
+    }
+    catch (\Exception $e) {
+      return NULL;
+    }
   }
 
   /**
@@ -291,7 +315,17 @@ abstract class FormBuilderPageComponentBase extends FormBuilderPageBase {
       }
     }
 
-    $form_state->setRedirect('va_gov_form_builder.step.layout', [
+    $this->redirectOnSuccess($form_state);
+  }
+
+  /**
+   * Redirects the user after a successful form submission.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  protected function redirectOnSuccess(FormStateInterface $form_state) {
+    $form_state->setRedirect('va_gov_form_builder.step.home', [
       'nid' => $this->digitalForm->id(),
       'stepParagraphId' => $this->stepParagraph->id(),
     ]);

@@ -1,17 +1,17 @@
 <?php
 
-namespace tests\phpunit\va_gov_form_builder\functional\content_pages;
+namespace Tests\va_gov_form_builder\functional\pages;
 
 use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
- * Functional test of the Contact-information page.
+ * Functional test of the Review-and-sign page.
  *
  * @group functional
  * @group all
  */
-class ContactInfoTest extends VaGovExistingSiteBase {
+class ReviewAndSignTest extends VaGovExistingSiteBase {
   use TestPageLoads;
 
   /**
@@ -30,7 +30,7 @@ class ContactInfoTest extends VaGovExistingSiteBase {
    * Returns the url for this page.
    */
   private function getPageUrl() {
-    return "/form-builder/{$this->digitalFormNode->id()}/contact-info";
+    return "/form-builder/{$this->digitalFormNode->id()}/review-and-sign";
   }
 
   /**
@@ -73,7 +73,7 @@ class ContactInfoTest extends VaGovExistingSiteBase {
    */
   public function testPageLoads() {
     // Ensure page loads.
-    $this->sharedTestPageLoads($this->getPageUrl(), 'Collecting contact information');
+    $this->sharedTestPageLoads($this->getPageUrl(), 'Reviewing the submission');
   }
 
   /**
@@ -111,7 +111,7 @@ class ContactInfoTest extends VaGovExistingSiteBase {
           'url' => "/form-builder/{$this->digitalFormNode->id()}",
         ],
         [
-          'label' => 'Contact information',
+          'label' => 'Review page',
           'url' => "#content",
         ],
       ],

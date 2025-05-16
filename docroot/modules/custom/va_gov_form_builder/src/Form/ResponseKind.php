@@ -21,6 +21,8 @@ class ResponseKind extends FormBuilderBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildForm($form, $form_state);
+
     $form['#theme'] = 'form__va_gov_form_builder__response_kind';
 
     $form['response_kind'] = [
@@ -97,24 +99,17 @@ class ResponseKind extends FormBuilderBase {
         ]);
         break;
 
-      case 'text':
-        $form_state->setRedirect('va_gov_form_builder.step.question.custom.text.type', [
+      case 'choice':
+        $form_state->setRedirect('va_gov_form_builder.step.question.custom.choice.type', [
           'nid' => $nid,
           'stepParagraphId' => $stepParagraphId,
         ]);
         break;
 
-      // Eventually, we'll have to handle these individually.
-      // For now, we just redirect to an arbitrary page with
-      // the response kind as a query parameter.
-      case 'choice':
-        $form_state->setRedirect('va_gov_form_builder.step.layout', [
+      case 'text':
+        $form_state->setRedirect('va_gov_form_builder.step.question.custom.text.type', [
           'nid' => $nid,
           'stepParagraphId' => $stepParagraphId,
-        ], [
-          'query' => [
-            'response_kind' => $responseKind,
-          ],
         ]);
         break;
     }

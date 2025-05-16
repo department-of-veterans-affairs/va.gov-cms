@@ -1,5 +1,23 @@
-#form-builder-content-date-type,
-#form-builder-content-text-type,
-#form-builder-content-response-kind {
+#form-builder-content-date-type
+  .form-builder-single-column-with-buttons__main-content
+  .fieldset__wrapper,
+#form-builder-content-text-type
+  .form-builder-single-column-with-buttons__main-content
+  .fieldset__wrapper,
+#form-builder-content-choice-type
+  .form-builder-single-column-with-buttons__main-content
+  .fieldset__wrapper,
+#form-builder-content-response-kind
+  .form-builder-single-column-with-buttons__main-content
+  .fieldset__wrapper {
   width: 500px;
+}
+
+#form-builder-content-date-type .fieldset__legend .fieldset__label,
+#form-builder-content-text-type .fieldset__legend .fieldset__label,
+#form-builder-content-choice-type .fieldset__legend .fieldset__label,
+#form-builder-content-response-kind .fieldset__legend .fieldset__label {
+  font-size: var(--vads-font-size-heading-level-3);
+  line-height: var(--vads-font-size-heading-level-2);
+  margin: var(--units-3) 0;
 }

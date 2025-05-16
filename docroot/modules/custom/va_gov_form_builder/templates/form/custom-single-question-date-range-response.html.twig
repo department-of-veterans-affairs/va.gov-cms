@@ -14,20 +14,18 @@
 
     <div class="form-builder-single-question-response__page-title">
       <label for="page-title">For the single-response question:</label>
-      <div id="page-title">{{ form.page_title ?: 'None provided' }}</div>
+      <div id="page-title">{{ form['#page_title'] ?: 'None provided' }}</div>
     </div>
 
     {{ form.required }}
 
     <div class="form-builder-single-question-response__page-body">
       <label for="page-body">Body content:</label>
-      <div id="page-body">{{ form.page_body ?: 'None provided' }}</div>
+      <div id="page-body">{{ form['#page_body'] ?: 'None provided' }}</div>
     </div>
 
-
     <div class="form-builder-single-question-response__type">
-      <label for="guidance">Date range</label>
-      <p id="guidance">Guidance for this choice</p>
+      <p id="response-type">Date range</p>
     </div>
 
     {{ form.date_format }}
@@ -56,9 +54,7 @@
   {# render rest of form so it functions properly #}
   {{ form|without(
     'status_messages',
-    'page_title',
     'required',
-    'page_body',
     'date_format',
     'components',
     'preview',
