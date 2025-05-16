@@ -1,0 +1,22 @@
+diff --git a/src/PluginBase/AiAgentBase.php b/src/PluginBase/AiAgentBase.php
+index cd95669d9fb7e39eb45a6615eaa84360de8f552e..3a92b54e4086fc52440de289f9acc201d76f0362 100644
+--- a/src/PluginBase/AiAgentBase.php
++++ b/src/PluginBase/AiAgentBase.php
+@@ -9,7 +9,7 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
+ use Drupal\Core\Entity\ContentEntityInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\Extension\ExtensionPathResolver;
+-use Drupal\Core\File\FileSystem;
++use Drupal\Core\File\FileSystemInterface;
+ use Drupal\Core\Form\FormStateInterface;
+ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+ use Drupal\Core\Plugin\PluginBase;
+@@ -160,7 +160,7 @@ abstract class AiAgentBase extends PluginBase implements AiAgentInterface, Conta
+     $plugin_id,
+     $plugin_definition,
+     protected AgentHelper $agentHelper,
+-    protected FileSystem $fileSystem,
++    protected FileSystemInterface $fileSystem,
+     protected ConfigFactoryInterface $config,
+     protected AccountProxyInterface $currentUser,
+     protected ExtensionPathResolver $extensionPathResolver,

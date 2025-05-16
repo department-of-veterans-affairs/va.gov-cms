@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9acf2e8b5ee3ea7a020739ebed98acd6",
+    "content-hash": "d08f889df4b7a6d27538f97b9a2b87ff",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2833,23 +2833,24 @@
         },
         {
             "name": "drupal/ai_agents",
-            "version": "1.0.2",
+            "version": "1.1.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ai_agents.git",
-                "reference": "1.0.2"
+                "reference": "1.1.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ai_agents-1.0.2.zip",
-                "reference": "1.0.2",
-                "shasum": "91837ebea9b4ca6fcf6cfc1b3f93d4295249d63f"
+                "url": "https://ftp.drupal.org/files/projects/ai_agents-1.1.0-beta1.zip",
+                "reference": "1.1.0-beta1",
+                "shasum": "57186833215b23cbbfa766490c8c70f7ffd2bd9d"
             },
             "require": {
-                "drupal/ai": "^1.0.0",
+                "drupal/ai": "^1.1.0-beta1",
                 "drupal/core": "^10.2 || ^11"
             },
             "require-dev": {
+                "drupal/mcp": "^1.0@alpha",
                 "drupal/webform": "^6.0"
             },
             "suggest": {
@@ -2859,11 +2860,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.2",
-                    "datestamp": "1738909480",
+                    "version": "1.1.0-beta1",
+                    "datestamp": "1746727149",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -2879,6 +2880,10 @@
                 {
                     "name": "marcus_johansson",
                     "homepage": "https://www.drupal.org/user/385947"
+                },
+                {
+                    "name": "michaellander",
+                    "homepage": "https://www.drupal.org/user/636494"
                 },
                 {
                     "name": "yautja_cetanu",
@@ -3599,54 +3604,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/ckeditor_abbreviation",
                 "issues": "http://drupal.org/project/issues/ckeditor_abbreviation"
-            }
-        },
-        {
-            "name": "drupal/ckeditor_ai_agent",
-            "version": "1.0.0-beta10",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/ckeditor_ai_agent.git",
-                "reference": "1.0.0-beta10"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ckeditor_ai_agent-1.0.0-beta10.zip",
-                "reference": "1.0.0-beta10",
-                "shasum": "d401986368f9a005bb8467713542f2cffebcdad2"
-            },
-            "require": {
-                "drupal/core": "^10.3 || ^11",
-                "drupal/key": "^1.16"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "1.0.0-beta10",
-                    "datestamp": "1745055856",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "jurriaanroelofs",
-                    "homepage": "https://www.drupal.org/user/52638"
-                }
-            ],
-            "description": "CKEditor 5 module for Ai Assist.",
-            "homepage": "https://www.drupal.org/project/ckeditor_ai_agent",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "https://git.drupalcode.org/project/ckeditor_ai_agent"
             }
         },
         {
@@ -28996,11 +28953,11 @@
     "stability-flags": {
         "drupal/advancedqueue": 5,
         "drupal/ai": 20,
+        "drupal/ai_agents": 10,
         "drupal/ai_provider_aws_bedrock": 10,
         "drupal/cer": 10,
         "drupal/change_labels": 20,
         "drupal/ckeditor_abbreviation": 15,
-        "drupal/ckeditor_ai_agent": 10,
         "drupal/codit_menu_tools": 15,
         "drupal/components": 10,
         "drupal/entity_block": 10,
