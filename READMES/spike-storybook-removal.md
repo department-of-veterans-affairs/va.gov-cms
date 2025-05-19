@@ -25,7 +25,8 @@ It was mentioned that the Storybook in question is the one found though NodeJS a
 ---
 
 ## Understanding usage of Storybook
-Looks like Storybook was only used for the designed system
+Looks like Storybook (Node JS) was only used for the design-system. There is also a theme that is compiled and stored in docroot/design-system.
+There is some commands also referenced in composer.json file that builds storyboopk
 
 ---
 
