@@ -1,6 +1,6 @@
 <?php
 
-namespace test\phpunit\Deploy\Plugins;
+namespace Tests\Deploy\Plugins;
 
 use Drupal\va_gov_backend\Deploy\Plugin\HealthCheck;
 use Drupal\va_gov_backend\Deploy\SuccessHTTPException;

@@ -1,17 +1,17 @@
 <?php
 
-namespace tests\phpunit\va_gov_form_builder\functional\content_pages;
+namespace Tests\va_gov_form_builder\functional\pages;
 
 use tests\phpunit\va_gov_form_builder\Traits\TestPageLoads;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
- * Functional test of the Name-and-date-of-birth page.
+ * Functional test of the Address-information page.
  *
  * @group functional
  * @group all
  */
-class NameAndDobTest extends VaGovExistingSiteBase {
+class AddressInfoTest extends VaGovExistingSiteBase {
   use TestPageLoads;
 
   /**
@@ -30,7 +30,7 @@ class NameAndDobTest extends VaGovExistingSiteBase {
    * Returns the url for this page.
    */
   private function getPageUrl() {
-    return "/form-builder/{$this->digitalFormNode->id()}/name-and-dob";
+    return "/form-builder/{$this->digitalFormNode->id()}/address-info";
   }
 
   /**
@@ -73,7 +73,7 @@ class NameAndDobTest extends VaGovExistingSiteBase {
    */
   public function testPageLoads() {
     // Ensure page loads.
-    $this->sharedTestPageLoads($this->getPageUrl(), 'Collecting Name and Date of birth');
+    $this->sharedTestPageLoads($this->getPageUrl(), 'Collecting address information');
   }
 
   /**
@@ -111,7 +111,7 @@ class NameAndDobTest extends VaGovExistingSiteBase {
           'url' => "/form-builder/{$this->digitalFormNode->id()}",
         ],
         [
-          'label' => 'Personal information',
+          'label' => 'Address information',
           'url' => "#content",
         ],
       ],
@@ -125,15 +125,6 @@ class NameAndDobTest extends VaGovExistingSiteBase {
     $this->drupalGet($this->getPageUrl());
     $this->click('a#form-builder-primary-button');
     $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}");
-  }
-
-  /**
-   * Test the secondary button.
-   */
-  public function testSecondaryButton() {
-    $this->drupalGet($this->getPageUrl());
-    $this->click('a#form-builder-secondary-button-1');
-    $this->assertSession()->addressEquals("/form-builder/{$this->digitalFormNode->id()}/identification-info");
   }
 
 }
