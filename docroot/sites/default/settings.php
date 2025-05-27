@@ -14,9 +14,9 @@
 
 $databases['default']['default'] = array(
   'driver' => 'mysql',
-  'database' => getenv('CMS_MARIADB_DATABASE') ?: 'drupal8',
-  'username' => getenv('CMS_MARIADB_USERNAME') ?: 'drupal8',
-  'password' => getenv('CMS_MARIADB_PASSWORD') ?: 'drupal8',
+  'database' => getenv('CMS_MARIADB_DATABASE') ?: 'ddev-va-gov-cms-db',
+  'username' => getenv('CMS_MARIADB_USERNAME') ?: 'db',
+  'password' => getenv('CMS_MARIADB_PASSWORD') ?: 'db',
   'prefix' => '',
   // 'db' is the default DB container hostname for local.
   'host' => getenv('CMS_MARIADB_HOST') ?: 'db',
@@ -261,7 +261,7 @@ if (!empty($webhost_on_cli)) {
     $webhost = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}";
   }
 
-  $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
+  $settings['file_public_base_url'] = "http://localhost/sites/default/files";
 }
 
 // Look for an incoming request header to indicate we should use the public

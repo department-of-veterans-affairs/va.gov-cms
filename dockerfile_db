@@ -1,0 +1,26 @@
+# Use the official MySQL image
+FROM mysql:8.0
+
+# Set environment variables (change values as needed)
+ENV MYSQL_ROOT_PASSWORD=db
+ENV MYSQL_DATABASE=db
+ENV MYSQL_USER=db
+ENV MYSQL_PASSWORD=db
+ENV MYSQL_ROOT_HOST=%
+
+# Copy the custom MySQL configuration file into the container
+COPY my.cnf /etc/mysql/my.cnf
+
+# Ensure the MySQL server uses the custom configuration
+RUN chown mysql:mysql /etc/mysql/my.cnf && \
+    chmod 644 /etc/mysql/my.cnf
+
+
+# Copy the SQL backup into the container
+WORKDIR /tmp
+RUN curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz
+RUN gzip -d cms-prod-db-sanitized-latest.sql.gz
+RUN cp cms-prod-db-sanitized-latest.sql /docker-entrypoint-initdb.d/
+
+# Expose MySQL port
+EXPOSE 3306
