@@ -19,7 +19,7 @@
     </p>
 
     <div class="form-builder-content-section__field-title">
-      {{ form.field_title }}
+      {{ form.step_label }}
     </div>
 
     <div class="form-builder-content-section__field-preview">
@@ -31,7 +31,8 @@
 {% block after_buttons %}
   {# render rest of form so it functions properly #}
   {{ form|without(
-    'field_title',
+    'status_messages',
+    'step_label',
     'preview',
     'actions',
   )}}

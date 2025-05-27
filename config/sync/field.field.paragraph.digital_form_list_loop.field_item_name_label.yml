@@ -1,0 +1,26 @@
+uuid: dfa12eff-1df4-45f1-8136-5368e4c464c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_item_name_label
+    - paragraphs.paragraphs_type.digital_form_list_loop
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_list_loop.field_item_name_label
+field_name: field_item_name_label
+entity_type: paragraph
+bundle: digital_form_list_loop
+label: 'Label of Name Field'
+description: "All repeating sets require a \"name\" field for use in page titles and summary cards.\r\n<br>Examples: \"Name of employer\", \"Name of private provider or hospital\""
+required: true
+translatable: false
+default_value:
+  -
+    value: 'Name of thing'
+default_value_callback: ''
+settings: {  }
+field_type: string

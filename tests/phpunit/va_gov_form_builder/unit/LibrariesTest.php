@@ -94,16 +94,53 @@ class LibrariesTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey($nonEditablePatternLibrary, $this->libraries);
     $nonEditablePatternCssArray = array_keys($this->libraries[$nonEditablePatternLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'non-editable-pattern.css', $nonEditablePatternCssArray, 'Non-editable-pattern css is present.');
-    // 6. Step label.
-    $stepLabelPatternLibrary = 'step_label';
-    $this->assertArrayHasKey($stepLabelPatternLibrary, $this->libraries);
-    $stepLabelCssArray = array_keys($this->libraries[$stepLabelPatternLibrary]['css']['theme']);
+    // 6. Step layout.
+    $stepLayoutLibrary = 'step_layout';
+    $this->assertArrayHasKey($stepLayoutLibrary, $this->libraries);
+    $stepLayoutCssArray = array_keys($this->libraries[$stepLayoutLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'step-layout.css', $stepLayoutCssArray, 'Step-layout css is present.');
+    // 7. Step label.
+    $stepLabelLibrary = 'step_label';
+    $this->assertArrayHasKey($stepLabelLibrary, $this->libraries);
+    $stepLabelCssArray = array_keys($this->libraries[$stepLabelLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'step-label.css', $stepLabelCssArray, 'Step-label css is present.');
-    // 6. Step style.
-    $stepStylePatternLibrary = 'step_style';
-    $this->assertArrayHasKey($stepStylePatternLibrary, $this->libraries);
-    $stepStyleCssArray = array_keys($this->libraries[$stepStylePatternLibrary]['css']['theme']);
+    // 8. Step style.
+    $stepStyleLibrary = 'step_style';
+    $this->assertArrayHasKey($stepStyleLibrary, $this->libraries);
+    $stepStyleCssArray = array_keys($this->libraries[$stepStyleLibrary]['css']['theme']);
     $this->assertContains($cssPrefix . 'step-style.css', $stepStyleCssArray, 'Step-style css is present.');
+    // 9. Custom-or-predefined question.
+    $customOrPredefinedQuestionLibrary = 'custom_or_predefined_question';
+    $this->assertArrayHasKey($customOrPredefinedQuestionLibrary, $this->libraries);
+    $customOrPredefinedQuestionCssArray = array_keys($this->libraries[$customOrPredefinedQuestionLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'custom-or-predefined-question.css', $customOrPredefinedQuestionCssArray, 'Custom-or-predefined-question css is present.');
+    // 10. Response kind.
+    $responseKindLibrary = 'response_kind';
+    $this->assertArrayHasKey($responseKindLibrary, $this->libraries);
+    $responseKindCssArray = array_keys($this->libraries[$responseKindLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'response-kind.css', $responseKindCssArray, 'Response-kind css is present.');
+    // 11. Custom single-question page title.
+    $pageTitleLibrary = 'custom_single_question_page_title';
+    $this->assertArrayHasKey($pageTitleLibrary, $this->libraries);
+    $pageTitleCssArray = array_keys($this->libraries[$pageTitleLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'custom-single-question-page-title.css', $pageTitleCssArray, 'Custom single-question page title css is present.');
+    // 12. Expanded radio.
+    $expandedRadioLibrary = 'expanded_radio';
+    $this->assertArrayHasKey($expandedRadioLibrary, $this->libraries);
+    $expandedRadioCssArray = array_keys($this->libraries[$expandedRadioLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'expanded-radio.css', $expandedRadioCssArray, 'Expanded-radio css is present.');
+    // 13. Expanded radio -- Help text with optional image.
+    $expandedRadioHelpTextLibrary = 'expanded_radio__help_text_optional_image';
+    $this->assertArrayHasKey($expandedRadioHelpTextLibrary, $this->libraries);
+    $expandedRadioHelpTextCssArray = array_keys($this->libraries[$expandedRadioHelpTextLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'expanded-radio--help-text-optional-image.css', $expandedRadioHelpTextCssArray, 'Expanded-radio -- Help text with optional image css is present.');
+    // 14. Paragraph actions.
+    $paragraphActionsLibrary = 'paragraph_actions';
+    $this->assertArrayHasKey($paragraphActionsLibrary, $this->libraries);
+    $this->assertArrayHasKey('css', $this->libraries[$paragraphActionsLibrary]);
+    $this->assertArrayHasKey('theme', $this->libraries[$paragraphActionsLibrary]['css']);
+    $paragraphActionsCssArray = array_keys($this->libraries[$paragraphActionsLibrary]['css']['theme']);
+    $this->assertContains($cssPrefix . 'paragraph-actions.css', $paragraphActionsCssArray, 'Paragraph-actions css is present.');
   }
 
 }

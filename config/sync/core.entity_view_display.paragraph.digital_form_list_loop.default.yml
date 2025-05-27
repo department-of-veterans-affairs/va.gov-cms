@@ -3,14 +3,64 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.digital_form_list_loop.field_digital_form_pages
+    - field.field.paragraph.digital_form_list_loop.field_item_name_label
+    - field.field.paragraph.digital_form_list_loop.field_list_loop_max_items
+    - field.field.paragraph.digital_form_list_loop.field_list_loop_noun_plural
+    - field.field.paragraph.digital_form_list_loop.field_list_loop_noun_singular
     - field.field.paragraph.digital_form_list_loop.field_optional
+    - field.field.paragraph.digital_form_list_loop.field_section_intro
     - field.field.paragraph.digital_form_list_loop.field_title
     - paragraphs.paragraphs_type.digital_form_list_loop
+  module:
+    - entity_reference_revisions
 id: paragraph.digital_form_list_loop.default
 targetEntityType: paragraph
 bundle: digital_form_list_loop
 mode: default
 content:
+  field_digital_form_pages:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_item_name_label:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_list_loop_max_items:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_list_loop_noun_plural:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_list_loop_noun_singular:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
   field_optional:
     type: boolean
     label: above
@@ -18,6 +68,13 @@ content:
       format: default
       format_custom_false: ''
       format_custom_true: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_section_intro:
+    type: basic_string
+    label: above
+    settings: {  }
     third_party_settings: {  }
     weight: 1
     region: content

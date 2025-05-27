@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Reponse kind
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/single-column-with-buttons.html.twig' %}
+
+{% set page_id = 'response-kind' %}
+{% set page_heading = 'Select response kind' %}
+
+{% block main_content %}
+  <p>We'll add the question/statement over the course of a few screens.</p>
+  {{ form.response_kind }}
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'response_kind',
+    'actions',
+  )}}
+{% endblock %}

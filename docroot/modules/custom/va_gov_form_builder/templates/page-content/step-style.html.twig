@@ -1,0 +1,71 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Step Style
+ */
+#}
+{% extends '@va_gov_form_builder/page-content/base/single-column-with-buttons.html.twig' %}
+
+{% set page_id = 'step-style' %}
+{% set page_heading = 'Determine style of step to be added' %}
+
+{% block main_content %}
+  <section class="form-builder-content-section form-builder-content-section--step-label">
+    <div class="form-builder-step-label__label">
+      <strong>{{ step_label.label }}</strong>
+    </div>
+    <div class="form-builder-step-label__edit-button">
+      <a
+        id="form-builder-button-edit-step-label"
+        href="{{ step_label.edit_button.url }}"
+        role="button"
+        class="form-builder-button form-builder-button--secondary"
+      >
+        {{ step_label.edit_button.label }}
+      </a>
+    </div>
+  </section>
+  <section class="form-builder-content-section form-builder-content-section--step-style">
+    <p>
+      Will this step have a single question, a series of questions, or a repeated set of questions?
+    </p>
+    <p>
+      Single questions can be added one at a time if you have several questions which make sense
+      together as a step.  An example of this might be a name or a location and a date.
+    </p>
+    <p>
+      When the submitter may have multiple responses, it makes sense to add a repeating set of questions.
+      These are useful for sets of answers like: employment history, medical treatments, or several locations.
+    </p>
+    <details class="form-builder-content-section__details form-builder-content-section__details--single" open>
+      <summary class="form-builder-content-section__details-summary">
+        What is a single question example?
+      </summary>
+      <p>
+        A single question has one answer to provide or choice to be made.
+        <div class="form-builder-content-section__preview">
+          <img src="{{ preview.single_question.url }}" alt="{{ preview.single_question.alt_text }}">
+        </div>
+      </p>
+    </details>
+    <details class="form-builder-content-section__details form-builder-content-section__details--repeating">
+      <summary class="form-builder-content-section__details-summary">
+        What is an example of a repeated set of questions?
+      </summary>
+      <p>
+        A repeating set of single responses may be about an event, time range, or services provided.
+        <div class="form-builder-content-section__preview">
+          <img src="{{ preview.repeating_set.url }}" alt="{{ preview.repeating_set.alt_text }}">
+        </div>
+      </p>
+      <p>
+        The above treatment record is an example of a completed multi-response.<br/>
+        For more information, view
+          <a target="_blank" href="https://design.va.gov/patterns/ask-users-for/multiple-responses">
+            https://design.va.gov/patterns/ask-users-for/multiple-responses
+          </a>
+      </p>
+    </details>
+    <p id="which-step-style"><strong>Which style of step do you need to add?</strong></p>
+  </section>
+{% endblock %}

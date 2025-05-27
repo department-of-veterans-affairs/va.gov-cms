@@ -303,3 +303,6 @@ $databases['default']['default']['init_commands']['isolation_level'] = 'SET SESS
 
 
 $settings['state_cache'] = TRUE;
+
+// Disable the use of insecure uploads.
+$config['system.file']['allow_insecure_uploads'] = FALSE;

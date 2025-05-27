@@ -408,7 +408,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   }
   if (isset($form['field_datetime_range_timezone'])) {
     _va_gov_backend_smart_date_formatting($form, $form_state);
-  };
+  }
 
   // Only run when on a node.
   // Additionally, reduce the number of times called when editing a paragraph,
@@ -1904,12 +1904,13 @@ function _va_gov_backend_feature_bump(EntityInterface $entity) {
     $status = $entity->field_featured->value;
     $bundle = $entity->bundle();
     $target = $entity->field_listing->target_id;
-    // If this is our feature item, start the process.
-    if ($status === 1) {
+    // If this is our feature item and is the default, start the process.
+    /** @var \Drupal\node\NodeInterface $entity */
+    if ($status === 1 && $entity->isDefaultRevision()) {
       // Look for all of same bundle in system that are also featured.
       $select = \Drupal::database()->select('node__field_featured', 'nff');
       $select->join('node__field_listing', 'nfl', 'nfl.entity_id = nff.entity_id');
-      $select->fields('nff', ['entity_id'])
+      $select->fields('nff', ['entity_id', 'field_featured_value'])
       // We don't want to operate on current node.
         ->condition('nff.entity_id', $entity->id(), '!=')
         ->condition('nff.field_featured_value', 1)
@@ -1920,7 +1921,14 @@ function _va_gov_backend_feature_bump(EntityInterface $entity) {
       $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple(array_keys($results));
       foreach ($nodes as $node) {
         // Set the others to unfeatured.
+        /** @var \Drupal\node\NodeInterface $node */
         $node->field_featured->value = 0;
+        $node->setNewRevision(TRUE);
+        $node->setRevisionCreationTime(\Drupal::time()->getRequestTime());
+        // We want to associate our user with the revision.
+        $current_user = Drupal::currentUser();
+        $node->setRevisionLogMessage("Unfeatured automatically when {$current_user->getAccountName()} set node/{$entity->id()} to featured.");
+        $node->setRevisionUserId($current_user->id());
         $node->save();
       }
     }

@@ -41,6 +41,16 @@ class ModuleTest extends VaGovUnitTestBase {
   const FORM_TEMPLATE_PATH = self::TEMPLATE_PATH . '/form';
 
   /**
+   * The path to the form-element template directory.
+   */
+  const FORM_ELEMENT_TEMPLATE_PATH = self::TEMPLATE_PATH . '/form-elements';
+
+  /**
+   * The path to the page-element template directory.
+   */
+  const PAGE_ELEMENT_TEMPLATE_PATH = self::TEMPLATE_PATH . '/page-elements';
+
+  /**
    * The prefix for page-content themes.
    */
   const PAGE_CONTENT_THEME_PREFIX = 'page_content__va_gov_form_builder__';
@@ -49,6 +59,16 @@ class ModuleTest extends VaGovUnitTestBase {
    * The prefix for form themes.
    */
   const FORM_THEME_PREFIX = 'form__va_gov_form_builder__';
+
+  /**
+   * The prefix for form-element themes.
+   */
+  const FORM_ELEMENT_THEME_PREFIX = 'form_element__va_gov_form_builder__';
+
+  /**
+   * The prefix for page-element themes.
+   */
+  const PAGE_ELEMENT_THEME_PREFIX = 'page_element__va_gov_form_builder__';
 
   /**
    * A mock service container.
@@ -118,8 +138,6 @@ class ModuleTest extends VaGovUnitTestBase {
     // Assert variables exist.
     $this->assertArrayHasKey('variables', $themeEntries[$theme]);
     $this->assertArrayHasKey('preview', $themeEntries[$theme]['variables']);
-    $this->assertArrayHasKey('alt_text', $themeEntries[$theme]['variables']['preview']);
-    $this->assertArrayHasKey('url', $themeEntries[$theme]['variables']['preview']);
     $this->assertArrayHasKey('buttons', $themeEntries[$theme]['variables']);
   }
 
@@ -138,6 +156,45 @@ class ModuleTest extends VaGovUnitTestBase {
 
     // Assert variables exist.
     $this->assertArrayHasKey('variables', $themeEntries[$theme]);
+    $this->assertArrayHasKey('buttons', $themeEntries[$theme]['variables']);
+  }
+
+  /**
+   * Helper function to make assertions on a step-layout theme.
+   *
+   * @param array $theme
+   *   The key of the theme entry to check. This should be
+   *   in snake-case.
+   * @param array $themeEntries
+   *   The array of theme entries returned from hook_theme.
+   */
+  private function assertStepLayoutTheme($theme, $themeEntries) {
+    // Assert common properties.
+    $this->assertTheme($theme, $themeEntries);
+
+    // Assert variables exist.
+    $this->assertArrayHasKey('variables', $themeEntries[$theme]);
+    $this->assertArrayHasKey('step_label', $themeEntries[$theme]['variables']);
+    $this->assertArrayHasKey('pages', $themeEntries[$theme]['variables']);
+    $this->assertArrayHasKey('buttons', $themeEntries[$theme]['variables']);
+  }
+
+  /**
+   * Helper function to assert on a custom-or-predefined-question theme.
+   *
+   * @param array $theme
+   *   The key of the theme entry to check. This should be
+   *   in snake-case.
+   * @param array $themeEntries
+   *   The array of theme entries returned from hook_theme.
+   */
+  private function assertCustomOrPredefinedQuestionTheme($theme, $themeEntries) {
+    // Assert common properties.
+    $this->assertTheme($theme, $themeEntries);
+
+    // Assert variables exist.
+    $this->assertArrayHasKey('variables', $themeEntries[$theme]);
+    $this->assertArrayHasKey('predefined_questions', $themeEntries[$theme]['variables']);
     $this->assertArrayHasKey('buttons', $themeEntries[$theme]['variables']);
   }
 
@@ -187,7 +244,6 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertArrayHasKey('contact_info', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('additional_steps', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('review_and_sign', $result[$layoutTheme]['variables']);
-    $this->assertArrayHasKey('confirmation', $result[$layoutTheme]['variables']);
     $this->assertArrayHasKey('view_form', $result[$layoutTheme]['variables']);
     // 3. Non-editable pattern pages.
     $nonEditablePatternPages = [
@@ -195,6 +251,7 @@ class ModuleTest extends VaGovUnitTestBase {
       'identification_info',
       'address_info',
       'contact_info',
+      'employment_history',
       'review_and_sign',
     ];
     foreach ($nonEditablePatternPages as $nonEditablePatternPage) {
@@ -206,9 +263,50 @@ class ModuleTest extends VaGovUnitTestBase {
     $this->assertViewFormTheme(self::PAGE_CONTENT_THEME_PREFIX . 'view_form__available', $result);
     // 4b. View-form page when viewing form is unavailable.
     $this->assertViewFormTheme(self::PAGE_CONTENT_THEME_PREFIX . 'view_form__unavailable', $result);
+    // 5. Step-layout page.
+    // 5a. Step-layout page for single question.
+    $this->assertStepLayoutTheme(self::PAGE_CONTENT_THEME_PREFIX . 'step_layout__single_question', $result);
+    // 5b. Step-layout page for repeating set.
+    $this->assertStepLayoutTheme(self::PAGE_CONTENT_THEME_PREFIX . 'step_layout__repeating_set', $result);
+    // 6. Step-style page.
+    $stepStyleTheme = self::PAGE_CONTENT_THEME_PREFIX . 'step_style';
+    $this->assertArrayHasKey($stepStyleTheme, $result);
+    $this->assertArrayHasKey('path', $result[$stepStyleTheme]);
+    $this->assertEquals(self::PAGE_CONTENT_TEMPLATE_PATH, $result[$stepStyleTheme]['path']);
+    $this->assertArrayHasKey('template', $result[$stepStyleTheme]);
+    $this->assertEquals('step-style', $result[$stepStyleTheme]['template']);
+    $this->assertArrayHasKey('variables', $result[$stepStyleTheme]);
+    $this->assertArrayHasKey('step_label', $result[$stepStyleTheme]['variables']);
+    $this->assertArrayHasKey('preview', $result[$stepStyleTheme]['variables']);
+    $this->assertArrayHasKey('buttons', $result[$stepStyleTheme]['variables']);
+    // 7. Custom-or-predefined-question page.
+    // 7a. Custom-or-predefined-question page for single question.
+    $this->assertCustomOrPredefinedQuestionTheme(
+      self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__single_question',
+      $result
+    );
+    // 7b. Custom-or-predefined-question page for repeating set.
+    $this->assertCustomOrPredefinedQuestionTheme(
+      self::PAGE_CONTENT_THEME_PREFIX . 'custom_or_predefined_question__repeating_set',
+      $result
+    );
 
     // Form themes.
-    $form_themes = ['form_info', 'step_label'];
+    $form_themes = [
+      'form_info',
+      'step_label',
+      'custom_or_predefined__single_question',
+      'custom_or_predefined__repeating_set',
+      'response_kind',
+      'date_type',
+      'custom_single_question_page_title',
+      'custom_single_question_single_date_response',
+      'custom_single_question_date_range_response',
+      'custom_single_question_text_input_response',
+      'custom_single_question_text_area_response',
+      'custom_single_question_radio_response',
+      'custom_single_question_checkbox_response',
+    ];
     foreach ($form_themes as $form_theme) {
       $this->assertArrayHasKey(self::FORM_THEME_PREFIX . $form_theme, $result);
 
@@ -222,6 +320,29 @@ class ModuleTest extends VaGovUnitTestBase {
       $kebab_case_form_theme = str_replace('_', '-', $form_theme);
       $this->assertEquals($kebab_case_form_theme, $result[self::FORM_THEME_PREFIX . $form_theme]['template']);
     }
+
+    // Form-element themes.
+    // 1. Expanded radio.
+    $expandedRadioTheme = self::FORM_ELEMENT_THEME_PREFIX . 'expanded_radio';
+    $this->assertArrayHasKey($expandedRadioTheme, $result);
+    $this->assertArrayHasKey('base hook', $result[$expandedRadioTheme]);
+    $this->assertEquals('radio', $result[$expandedRadioTheme]['base hook']);
+    $this->assertArrayHasKey('path', $result[$expandedRadioTheme]);
+    $this->assertEquals(self::FORM_ELEMENT_TEMPLATE_PATH, $result[$expandedRadioTheme]['path']);
+    $this->assertArrayHasKey('template', $result[$expandedRadioTheme]);
+    $this->assertEquals('expanded-radio', $result[$expandedRadioTheme]['template']);
+
+    // Page-element themes.
+    // 1. Expanded radio -- Help text with optional image.
+    $expandedRadioHelpTextTheme = self::PAGE_ELEMENT_THEME_PREFIX . 'expanded_radio__help_text_optional_image';
+    $this->assertArrayHasKey($expandedRadioHelpTextTheme, $result);
+    $this->assertArrayHasKey('path', $result[$expandedRadioHelpTextTheme]);
+    $this->assertEquals(self::PAGE_ELEMENT_TEMPLATE_PATH, $result[$expandedRadioHelpTextTheme]['path']);
+    $this->assertArrayHasKey('template', $result[$expandedRadioHelpTextTheme]);
+    $this->assertEquals('expanded-radio--help-text-optional-image', $result[$expandedRadioHelpTextTheme]['template']);
+    $this->assertArrayHasKey('variables', $result[$expandedRadioHelpTextTheme]);
+    $this->assertArrayHasKey('help_text', $result[$expandedRadioHelpTextTheme]['variables']);
+    $this->assertArrayHasKey('image', $result[$expandedRadioHelpTextTheme]['variables']);
   }
 
   /**

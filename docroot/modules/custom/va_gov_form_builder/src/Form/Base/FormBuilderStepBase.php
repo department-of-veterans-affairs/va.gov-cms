@@ -13,6 +13,13 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 abstract class FormBuilderStepBase extends FormBuilderBase {
 
   /**
+   * The session key used to store the step title.
+   *
+   * @var string
+   */
+  const SESSION_KEY = 'form_builder:add_step:step_label';
+
+  /**
    * The DigitalForm object loaded by this form.
    *
    * @var \Drupal\va_gov_form_builder\EntityWrapper\DigitalForm
@@ -47,11 +54,6 @@ abstract class FormBuilderStepBase extends FormBuilderBase {
     parent::__construct($entityTypeManager, $digitalFormsService, $session);
     $this->allowEmptyStepParagraph = FALSE;
   }
-
-  /**
-   * Returns the step paragraph fields accessed by this form.
-   */
-  abstract protected function getFields();
 
   /**
    * Sets (creates or updates) a step-paragraph object from the form-state data.
@@ -108,20 +110,26 @@ abstract class FormBuilderStepBase extends FormBuilderBase {
     }
     $this->stepParagraph = $stepParagraph;
 
+    $form = parent::buildForm($form, $form_state);
     return $form;
   }
+
+  /**
+   * Validate the step paragraph.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  abstract protected function validateStepParagraph(array $form, FormStateInterface $form_state);
 
   /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $this->setStepParagraphFromFormState($form_state);
-
-    // Validate the node entity.
-    /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $violations */
-    $violations = $this->stepParagraph->validate();
-
-    $this->setFormErrors($form_state, $violations, $this->getFields());
+    $this->validateStepParagraph($form, $form_state);
   }
 
   /**

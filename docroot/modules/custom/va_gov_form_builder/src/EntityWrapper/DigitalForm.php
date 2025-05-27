@@ -2,8 +2,13 @@
 
 namespace Drupal\va_gov_form_builder\EntityWrapper;
 
+use Drupal\Core\DependencyInjection\DependencySerializationTrait;
+use Drupal\Core\Entity\EntityConstraintViolationList;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
+use Drupal\va_gov_form_builder\Traits\EntityReferenceRevisionsOperations;
 
 /**
  * A wrapper class around Digital Form nodes.
@@ -13,15 +18,20 @@ use Drupal\node\NodeInterface;
  * @method \Drupal\Core\Field\FieldItemListInterface get(string $field_name)
  * @method \Symfony\Component\Validator\ConstraintViolationListInterface validate()
  * @method int save() Saves the entity and returns the save status
- * @method \Drupal\node\NodeInterface set(string $field_name, mixed $value, bool $notify = TRUE) Sets a field value
+ * @method NodeInterface set(string $field_name, mixed $value, bool $notify = TRUE) Sets a field value
  *
  * The following line is included because the public method `addStep`
  * makes dynamic calls to otherwise uncalled private methods, and those
  * private methods trigger unused-method warnings when they are, in fact,
- * not unused:
+ * used:
  * @phpcs:disable DrupalPractice.Objects.UnusedPrivateMethod.UnusedMethod
  */
 class DigitalForm {
+
+  use DependencySerializationTrait;
+  use EntityReferenceRevisionsOperations;
+  use StringTranslationTrait;
+
   /**
    * The standard steps of a Digital Form.
    */
@@ -97,14 +107,16 @@ class DigitalForm {
     if ($this->node->hasField('field_chapters')) {
       $chapters = $this->node->get('field_chapters')->getValue();
 
-      foreach ($chapters as $chapter) {
+      foreach ($chapters as $delta => $chapter) {
+        /** @var \Drupal\paragraphs\ParagraphInterface; $paragraph */
         $paragraph = $this->entityTypeManager
           ->getStorage('paragraph')
           ->load($chapter['target_id']);
 
         if ($paragraph) {
-          $steps[] = [
+          $steps[$delta] = [
             'type' => $paragraph->bundle(),
+            'paragraph' => $paragraph,
             'fields' => array_map(function ($field) {
               return $field->getValue();
             }, $paragraph->getFields()),
@@ -124,11 +136,9 @@ class DigitalForm {
    */
   public function getNonStandarddSteps() {
     $allSteps = $this->getAllSteps();
-    $nonStandardSteps = array_values(array_filter($allSteps, function ($step) {
-       return !in_array($step['type'], array_values(self::STANDARD_STEPS));
-    }));
-
-    return $nonStandardSteps;
+    return array_filter($allSteps, function ($step) {
+      return !in_array($step['type'], array_values(self::STANDARD_STEPS));
+    });
   }
 
   /**
@@ -172,16 +182,26 @@ class DigitalForm {
    *
    * @param string $stepName
    *   The step name of the step in question.
+   * @param null|\Drupal\paragraphs\ParagraphInterface $paragraph
+   *   Optional paragraph entity for this step.
    *
-   * @return 'complete'|'incomplete'
-   *   Returns 'complete' if step is complete.
-   *   Returns 'incomplete if step is incomplete
-   *   or if the step name does not exist.
+   * @return string
+   *   Returns 'complete' if step is complete. Returns 'incomplete' if step is
+   *   incomplete or if the step name does not exist.
    */
-  public function getStepStatus($stepName) {
+  public function getStepStatus(string $stepName, null|ParagraphInterface $paragraph = NULL) {
     if ($stepName === 'form_info') {
       // If the node exists, this will necessarily be complete.
       return 'complete';
+    }
+
+    if ($stepName === 'intro') {
+      // This field is required, so assume complete if entered.
+      if (!$this->node->get('field_intro_text')->isEmpty()) {
+        return 'complete';
+      }
+
+      return 'incomplete';
     }
 
     if ($stepName === 'review_and_sign') {
@@ -190,7 +210,6 @@ class DigitalForm {
     }
 
     if (in_array($stepName, [
-      'intro',
       'confirmation',
     ])) {
       // These haven't been handled yet.
@@ -204,6 +223,17 @@ class DigitalForm {
       return $this->hasChapterOfType($paragraphName)
         ? 'complete'
         : 'incomplete';
+    }
+
+    // Use recursive entity validation to determine custom step status. Any
+    // violation in the custom step paragraph or descendent paragraphs will
+    // cause the status to be incomplete. This method is used to reduce
+    // technical debt if the custom step content model, or the content model of
+    // its children, is updated. This could also support future enhancements to
+    // display _why_ the step is not complete.
+    if ($paragraph instanceof ParagraphInterface && $stepName === 'custom') {
+      $violations = $this->recursiveEntityReferenceRevisionValidator($paragraph, new EntityConstraintViolationList($paragraph));
+      return $violations->count() > 0 ? 'incomplete' : 'complete';
     }
 
     return 'incomplete';

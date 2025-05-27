@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.digital_form_text_input.field_digital_form_hint_text
     - field.field.paragraph.digital_form_text_input.field_digital_form_label
     - field.field.paragraph.digital_form_text_input.field_digital_form_required
+    - field.field.paragraph.digital_form_text_input.field_list_loop_summary_card
     - paragraphs.paragraphs_type.digital_form_text_input
 id: paragraph.digital_form_text_input.default
 targetEntityType: paragraph
@@ -37,6 +38,16 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_list_loop_summary_card:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 3
     region: content
 hidden:
   breadcrumbs: true

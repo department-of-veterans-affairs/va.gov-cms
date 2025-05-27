@@ -6,7 +6,7 @@ Feature: Content Type: Campaign Landing Page
     When I am at "node/add/campaign_landing_page"
     And I click to expand "Why this matters"
     Then I can fill in field with selector "#edit-field-clp-why-this-matters-0-value" with fake text
-    When I click to expand "Select up to 3 audiences"
+    When I click to expand "Select up to 5 audiences"
     Then I should see "Select audiences"
     # TODO: Test audience selection modal
     And I should see "Secondary call to action"
