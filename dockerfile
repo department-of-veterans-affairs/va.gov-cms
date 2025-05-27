@@ -44,4 +44,4 @@ ENV CMS_MARIADB_USERNAME=db
 ENV CMS_MARIADB_PASSWORD=db
 ENV CMS_MARIADB_HOST=cmsdb
 
-CMD ["composer", "./bin/drush rs"]
+CMD ["bash", "./bin/drush rs"]
