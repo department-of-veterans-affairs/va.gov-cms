@@ -19,7 +19,8 @@ class ApiClientFactory implements ApiClientFactoryInterface {
   const CONTENT_BUILD = 'content-build';
   const VETS_WEBSITE = 'vets-website';
   const NEXT_BUILD = 'next-build';
-  const NEXT_VETS_WEBSITE = 'next-vets-website';
+  // Note that the following is the repository name.
+  const NEXT_VETS_WEBSITE = 'vets-website';
 
   /**
    * The settings service.
