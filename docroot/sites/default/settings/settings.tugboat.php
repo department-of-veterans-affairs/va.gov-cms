@@ -4,7 +4,7 @@
 
 $settings['va_gov_environment']['environment'] = 'tugboat';
 
-$databases['default']['default'] = array (
+$databases['default']['default'] = array(
   'database' => 'tugboat',
   'username' => 'tugboat',
   'password' => 'tugboat',
@@ -64,6 +64,8 @@ $settings['va_gov_frontend_build_type'] = 'tugboat';
 $settings['va_gov_app_root'] = getenv('TUGBOAT_ROOT');
 $settings['va_gov_web_root'] = getenv('TUGBOAT_ROOT') . '/web';
 $settings['va_gov_vets_website_root'] = getenv('TUGBOAT_ROOT') . '/docroot/vendor/va-gov/vets-website';
+$settings['va_gov_next_build_root'] = getenv('TUGBOAT_ROOT')  . '/next';
+$settings['va_gov_next_vets_website_root'] = getenv('TUGBOAT_ROOT') . '/vets-website';
 
 $settings['memcache']['servers'] = [
   'memcache:11211' => 'default',
@@ -97,10 +99,10 @@ $settings['broken_link_report_location'] = '/var/lib/tugboat/docroot/vendor/va-g
 $public_asset_s3_base_url = "https://dsva-vagov-staging-cms-files.s3.us-gov-west-1.amazonaws.com";
 
 //S3FS settings
-  $settings['s3fs.access_key'] = getenv('CMS_PDF_SERVICE_ACCT_KEY');
-  $settings['s3fs.secret_key'] = getenv('CMS_PDF_SERVICE_ACCT_SECRET');
-  $config['s3fs.settings']['bucket'] = 'dsva-vagov-dev-cms-pdf-archive';
-  $config['s3fs.settings']['region'] = 'us-gov-west-1';
-  $settings['s3fs.use_s3_for_public'] = FALSE;
-  $settings['s3fs.use_s3_for_private'] = FALSE;
-  $settings['s3fs.upload_as_private'] = TRUE;
+$settings['s3fs.access_key'] = getenv('CMS_PDF_SERVICE_ACCT_KEY');
+$settings['s3fs.secret_key'] = getenv('CMS_PDF_SERVICE_ACCT_SECRET');
+$config['s3fs.settings']['bucket'] = 'dsva-vagov-dev-cms-pdf-archive';
+$config['s3fs.settings']['region'] = 'us-gov-west-1';
+$settings['s3fs.use_s3_for_public'] = FALSE;
+$settings['s3fs.use_s3_for_private'] = FALSE;
+$settings['s3fs.upload_as_private'] = TRUE;
