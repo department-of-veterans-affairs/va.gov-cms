@@ -45,6 +45,6 @@ interface FrontendInterface {
    * @return bool
    *   TRUE if the current frontend is `next-vets-website`, FALSE otherwise.
    */
-  public function isNextVetsWebsite(): bool;
+  public function isNextBuildVetsWebsite(): bool;
 
 }

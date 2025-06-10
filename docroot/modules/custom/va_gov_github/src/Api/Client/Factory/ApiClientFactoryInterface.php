@@ -87,6 +87,6 @@ interface ApiClientFactoryInterface {
    * @throws \Drupal\va_gov_github\Exception\InvalidApiTokenException
    *   If the GitHub API token is provided, but is invalid.
    */
-  public function getNextVetsWebsite(): ApiClientInterface;
+  public function getNextBuildVetsWebsite(): ApiClientInterface;
 
 }

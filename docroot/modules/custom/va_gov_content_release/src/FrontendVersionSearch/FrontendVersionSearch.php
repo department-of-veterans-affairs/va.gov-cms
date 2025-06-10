@@ -142,7 +142,7 @@ class FrontendVersionSearch implements FrontendVersionSearchInterface {
       case $frontend->isNextBuild():
         return $this->nbBranchSearch;
 
-      case $frontend->isNextVetsWebsite():
+      case $frontend->isNextBuildVetsWebsite():
         return $this->nvwBranchSearch;
 
       default:
@@ -170,7 +170,7 @@ class FrontendVersionSearch implements FrontendVersionSearchInterface {
       case $frontend->isNextBuild():
         return $this->nbApiClient;
 
-      case $frontend->isNextVetsWebsite():
+      case $frontend->isNextBuildVetsWebsite():
         return $this->nvwApiClient;
 
       default:

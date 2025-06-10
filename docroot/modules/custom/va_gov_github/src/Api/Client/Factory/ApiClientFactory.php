@@ -80,7 +80,7 @@ class ApiClientFactory implements ApiClientFactoryInterface {
   /**
    * {@inheritDoc}
    */
-  public function getNextVetsWebsite(): ApiClientInterface {
+  public function getNextBuildVetsWebsite(): ApiClientInterface {
     return $this->get(
       static::OWNER,
       static::NEXT_VETS_WEBSITE,

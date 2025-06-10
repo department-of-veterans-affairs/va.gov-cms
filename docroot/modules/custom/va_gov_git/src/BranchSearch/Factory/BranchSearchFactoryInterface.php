@@ -69,6 +69,6 @@ interface BranchSearchFactoryInterface {
    * @return \Drupal\va_gov_git\BranchSearch\BranchSearchInterface
    *   The next-vets-website branch search object.
    */
-  public function getNextVetsWebsite(): BranchSearchInterface;
+  public function getNextBuildVetsWebsite(): BranchSearchInterface;
 
 }
