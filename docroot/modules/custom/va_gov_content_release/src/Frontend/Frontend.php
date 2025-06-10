@@ -51,7 +51,7 @@ enum Frontend: string implements FrontendInterface {
   /**
    * {@inheritDoc}
    */
-  public function isNextVetsWebsite(): bool {
+  public function isNextBuildVetsWebsite(): bool {
     return match ($this) {
       self::NextBuildVetsWebsite => TRUE,
       default => FALSE,

@@ -73,6 +73,6 @@ interface RepositoryFactoryInterface {
    * @return \Drupal\va_gov_git\Repository\RepositoryInterface
    *   The next-vets-website repository.
    */
-  public function getNextVetsWebsite(): RepositoryInterface;
+  public function getNextBuildVetsWebsite(): RepositoryInterface;
 
 }

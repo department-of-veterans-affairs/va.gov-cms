@@ -258,7 +258,7 @@ class NextGitForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->submitFormForFrontend(Frontend::NextBuild, $form_state);
-    $this->submitFormForFrontend(Frontend::NextVetsWebsite, $form_state);
+    $this->submitFormForFrontend(Frontend::NextBuildVetsWebsite, $form_state);
 
     $lock_file = $this->fileSystem->realpath('public://' . self::LOCK_FILE_NAME);
     if (file_exists($lock_file)) {
@@ -300,7 +300,7 @@ class NextGitForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $this->validateFormForFrontend(Frontend::NextBuild, $form_state);
-    $this->validateFormForFrontend(Frontend::NextVetsWebsite, $form_state);
+    $this->validateFormForFrontend(Frontend::NextBuildVetsWebsite, $form_state);
   }
 
   /**
