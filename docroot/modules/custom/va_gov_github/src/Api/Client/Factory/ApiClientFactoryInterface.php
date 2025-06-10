@@ -32,7 +32,7 @@ interface ApiClientFactoryInterface {
    * @throws \Drupal\va_gov_github\Exception\InvalidApiTokenException
    *   If the GitHub API token is provided, but is invalid.
    */
-  public function get(string $owner, string $repository, string $apiToken = NULL): ApiClientInterface;
+  public function get(string $owner, string $repository, ?string $apiToken = NULL): ApiClientInterface;
 
   /**
    * Retrieve an API client for the VA.gov-CMS repository.
@@ -66,5 +66,27 @@ interface ApiClientFactoryInterface {
    *   If the GitHub API token is provided, but is invalid.
    */
   public function getVetsWebsite(): ApiClientInterface;
+
+  /**
+   * Retrieve an API client for the Next Build repository.
+   *
+   * @return \Drupal\va_gov_github\Api\Client\ApiClientInterface
+   *   The GitHub Api Client instance.
+   *
+   * @throws \Drupal\va_gov_github\Exception\InvalidApiTokenException
+   *   If the GitHub API token is provided, but is invalid.
+   */
+  public function getNextBuild(): ApiClientInterface;
+
+  /**
+   * Retrieve an API client for the Next Vets-Website repository.
+   *
+   * @return \Drupal\va_gov_github\Api\Client\ApiClientInterface
+   *   The GitHub Api Client instance.
+   *
+   * @throws \Drupal\va_gov_github\Exception\InvalidApiTokenException
+   *   If the GitHub API token is provided, but is invalid.
+   */
+  public function getNextVetsWebsite(): ApiClientInterface;
 
 }
