@@ -48,7 +48,7 @@ $settings['va_gov_app_root'] = getenv('DDEV_APPROOT');
 $settings['va_gov_web_root'] = getenv('DDEV_APPROOT') . '/web';
 $settings['va_gov_vets_website_root'] = getenv('DDEV_APPROOT') . '/docroot/vendor/va-gov/vets-website';
 $settings['va_gov_next_build_root'] = getenv('DDEV_APPROOT') . '/next';
-$settings['va_gov_next_vets_website_root'] = getenv('DDEV_APPROOT') . '/vets-website';
+$settings['va_gov_next_build_vets_website_root'] = getenv('DDEV_APPROOT') . '/vets-website';
 
 $settings['memcache']['servers'] = [
   'memcached:11211' => 'default',

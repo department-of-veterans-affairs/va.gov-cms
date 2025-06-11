@@ -80,7 +80,7 @@ class RepositoryFactory implements RepositoryFactoryInterface {
    * {@inheritDoc}
    */
   public function getNextBuildVetsWebsite(): RepositoryInterface {
-    return $this->get(RepositorySettingsInterface::NEXT_VETS_WEBSITE);
+    return $this->get(RepositorySettingsInterface::NEXT_BUILD_VETS_WEBSITE);
   }
 
 }
