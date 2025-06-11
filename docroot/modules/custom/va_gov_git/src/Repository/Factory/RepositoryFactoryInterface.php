@@ -16,7 +16,7 @@ use Drupal\va_gov_git\Repository\RepositoryInterface;
  * - The `vets-website` repository.
  * - The `next-build` repository.
  *
- * Additionally, we have `next-vets-website` key which is a duplicate of
+ * Additionally, we have `next-build-vets-website` key which is a duplicate of
  * `vets-website` repository used exclusively with the `next-build` repository.
  */
 interface RepositoryFactoryInterface {
@@ -68,10 +68,10 @@ interface RepositoryFactoryInterface {
   public function getNextBuild(): RepositoryInterface;
 
   /**
-   * Get the next-vets-website repository.
+   * Get the next-build-vets-website repository.
    *
    * @return \Drupal\va_gov_git\Repository\RepositoryInterface
-   *   The next-vets-website repository.
+   *   The next-build-vets-website repository.
    */
   public function getNextBuildVetsWebsite(): RepositoryInterface;
 

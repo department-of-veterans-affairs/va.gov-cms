@@ -18,7 +18,7 @@ use Drupal\va_gov_git\Repository\Settings\RepositorySettingsInterface;
  * - The `vets-website` repository.
  * - The `next-build` repository.
  *
- * Additionally, we have `next-vets-website` key which is a duplicate of
+ * Additionally, we have `next-build-vets-website` key which is a duplicate of
  * `vets-website` repository used exclusively with the `next-build` repository.
  */
 class RepositoryFactory implements RepositoryFactoryInterface {

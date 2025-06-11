@@ -40,10 +40,11 @@ interface FrontendInterface {
   public function isNextBuild(): bool;
 
   /**
-   * Check if the frontend is `next-vets-website`.
+   * Check if the frontend is `next-build-vets-website`.
    *
    * @return bool
-   *   TRUE if the current frontend is `next-vets-website`, FALSE otherwise.
+   *   TRUE if the current frontend is `next-build-vets-website`,
+   *   FALSE otherwise.
    */
   public function isNextBuildVetsWebsite(): bool;
 
