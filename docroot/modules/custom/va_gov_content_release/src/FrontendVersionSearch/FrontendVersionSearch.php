@@ -65,14 +65,14 @@ class FrontendVersionSearch implements FrontendVersionSearchInterface {
   protected $nbApiClient;
 
   /**
-   * The branch search service for `next-vets-website`.
+   * The branch search service for `next-build-vets-website`.
    *
    * @var \Drupal\va_gov_git\BranchSearch\BranchSearchInterface
    */
   protected $nvwBranchSearch;
 
   /**
-   * The API client for `next-vets-website`.
+   * The API client for `next-build-vets-website`.
    *
    * @var \Drupal\va_gov_github\Api\Client\ApiClientInterface
    */
@@ -96,9 +96,9 @@ class FrontendVersionSearch implements FrontendVersionSearchInterface {
    * @param \Drupal\va_gov_github\Api\Client\ApiClientInterface $nbApiClient
    *   The API client for `next-build`.
    * @param \Drupal\va_gov_git\BranchSearch\BranchSearchInterface $nvwBranchSearch
-   *   The branch search service for `next-vets-website`.
+   *   The branch search service for `next-build-vets-website`.
    * @param \Drupal\va_gov_github\Api\Client\ApiClientInterface $nvwApiClient
-   *   The API client for `next-vets-website`.
+   *   The API client for `next-build-vets-website`.
    */
   public function __construct(
     BranchSearchInterface $cbBranchSearch,
