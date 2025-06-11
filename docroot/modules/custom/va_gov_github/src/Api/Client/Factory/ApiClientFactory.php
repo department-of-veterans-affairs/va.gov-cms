@@ -20,7 +20,7 @@ class ApiClientFactory implements ApiClientFactoryInterface {
   const VETS_WEBSITE = 'vets-website';
   const NEXT_BUILD = 'next-build';
   // Note that the following is the repository name.
-  const NEXT_VETS_WEBSITE = 'vets-website';
+  const NEXT_BUILD_VETS_WEBSITE = 'vets-website';
 
   /**
    * The settings service.
@@ -84,7 +84,7 @@ class ApiClientFactory implements ApiClientFactoryInterface {
   public function getNextBuildVetsWebsite(): ApiClientInterface {
     return $this->get(
       static::OWNER,
-      static::NEXT_VETS_WEBSITE,
+      static::NEXT_BUILD_VETS_WEBSITE,
       $this->settings->getApiToken()
     );
   }

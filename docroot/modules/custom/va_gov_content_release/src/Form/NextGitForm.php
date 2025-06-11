@@ -120,7 +120,7 @@ class NextGitForm extends FormBase {
       ],
     ];
 
-    $form['build_request']['next_vets_website_selection'] = [
+    $form['build_request']['next_build_vets_website_selection'] = [
       '#title' => $this->t('Which version of vets-website would you like to use?'),
       '#type' => 'radios',
       '#options' => [
@@ -130,7 +130,7 @@ class NextGitForm extends FormBase {
       '#default_value' => 'default',
     ];
 
-    $form['build_request']['next_vets_website_git_ref'] = [
+    $form['build_request']['next_build_vets_website_git_ref'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Select branch/pull request'),
       '#description' => $this->t('Start typing to select a branch for the vets-website version you want to use. Note: this vets-website branch is not connected to the vets-website branch used by content-build on this Tugboat instance. If you are testing vets-website changes with both next-build and content-build, both will need the branch updated.'),
@@ -143,7 +143,7 @@ class NextGitForm extends FormBase {
       '#maxlength' => 1024,
       '#hidden' => TRUE,
       '#states' => [
-        'visible' => [':input[name="next_vets_website_selection"]' => ['value' => 'choose']],
+        'visible' => [':input[name="next_build_vets_website_selection"]' => ['value' => 'choose']],
       ],
     ];
 
@@ -158,8 +158,8 @@ class NextGitForm extends FormBase {
     if (file_exists($this->fileSystem->realpath('public://' . self::LOCK_FILE_NAME))) {
       $form['build_request']['next_build_selection']['#disabled'] = TRUE;
       $form['build_request']['next_build_git_ref']['#disabled'] = TRUE;
-      $form['build_request']['next_vets_website_selection']['#disabled'] = TRUE;
-      $form['build_request']['next_vets_website_git_ref']['#disabled'] = TRUE;
+      $form['build_request']['next_build_vets_website_selection']['#disabled'] = TRUE;
+      $form['build_request']['next_build_vets_website_git_ref']['#disabled'] = TRUE;
       $form['build_request']['actions']['submit']['#disabled'] = TRUE;
       $build_log_text = 'Build is in progress. View log file below';
     }
