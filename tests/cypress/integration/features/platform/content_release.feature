@@ -1,4 +1,4 @@
-@ignore
+@skip
 # We are ignoring this test that is based on old assumptions
 # This test also only tests a developer facing tool in local and testing environments
 Feature: Content Release
