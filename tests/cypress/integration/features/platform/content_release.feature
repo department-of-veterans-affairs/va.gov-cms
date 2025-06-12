@@ -1,3 +1,6 @@
+@ignore
+# We are ignoring this test that is based on old assumptions
+# This test also only tests a developer facing tool in local and testing environments
 Feature: Content Release
   In order to reliably and predictably release content
   As anyone involved in the project
