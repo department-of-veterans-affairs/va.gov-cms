@@ -14200,26 +14200,29 @@
         },
         {
             "name": "drupal/toolbar_menu",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/toolbar_menu.git",
-                "reference": "3.0.0"
+                "reference": "3.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/toolbar_menu-3.0.0.zip",
-                "reference": "3.0.0",
-                "shasum": "5dc890b925392afaa24791ee46bdb436d6023f17"
+                "url": "https://ftp.drupal.org/files/projects/toolbar_menu-3.1.0.zip",
+                "reference": "3.1.0",
+                "shasum": "52cca3162055d6b00f102e7c2e29db713ad76971"
             },
             "require": {
-                "drupal/core": "^9.2 || ^10"
+                "drupal/core": "^9.2 || ^10 || ^11"
+            },
+            "suggest": {
+                "drupal/admin_toolbar": "Integrate additional Menu Toolbar items within the Admin Toolbar and combine mutliple menus."
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.0",
-                    "datestamp": "1675695084",
+                    "version": "3.1.0",
+                    "datestamp": "1743464227",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -14232,14 +14235,26 @@
             ],
             "authors": [
                 {
-                    "name": "vpeltot",
-                    "homepage": "https://www.drupal.org/user/1361586"
+                    "name": "David Suissa (dydave)",
+                    "homepage": "https://www.drupal.org/u/dydave",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Vincent Peltot (vpeltot)",
+                    "homepage": "https://www.drupal.org/u/vpeltot",
+                    "role": "Maintainer"
                 }
             ],
-            "description": "Add your favorite menu (Structure > Menu) in the Drupal Toolbar",
+            "description": "Add your favorite menu (Structure > Menu) in the Drupal Toolbar.",
             "homepage": "https://www.drupal.org/project/toolbar_menu",
+            "keywords": [
+                "Drupal",
+                "Menu",
+                "Toolbar"
+            ],
             "support": {
-                "source": "https://git.drupalcode.org/project/toolbar_menu"
+                "source": "https://git.drupalcode.org/project/toolbar_menu",
+                "issues": "https://www.drupal.org/project/issues/toolbar_menu"
             }
         },
         {
