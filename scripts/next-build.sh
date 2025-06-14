@@ -1,14 +1,35 @@
 #!/usr/bin/env bash
 #preview
 
+ROOT=${TUGBOAT_ROOT:-${DDEV_APPROOT:-/var/www/html}}
+if [ -n "${IS_DDEV_PROJECT}" ]; then
+    APP_ENV="local"
+elif [ -n "${TUGBOAT_ROOT}" ]; then
+    APP_ENV="tugboat"
+else
+    APP_ENV="tugboat"
+fi
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 source ~/.bashrc
 
-cd next
+cd "${ROOT}/next"
 
 # Install the correct node version if necessary and use it.
 nvm install && nvm use
 
-APP_ENV=tugboat yarn build:preview
+# Set environment variables if on Tugboat.
+if [ "${APP_ENV}" == "tugboat" ]; then
+    echo "Setting up Tugboat environment variables for Next.js..."
+
+    # Put necessary env variables in place for next's Drupal Preview before building server
+    # Need to construct this way instead of TUGBOAT_DEFAULT_SERVICE_URL in order to drop the trailing /
+    echo "NEXT_PUBLIC_DRUPAL_BASE_URL=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${ROOT}/next/envs/.env.tugboat
+    echo "NEXT_IMAGE_DOMAIN=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${ROOT}/next/envs/.env.tugboat
+    echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${ROOT}/next/envs/.env.tugboat
+    echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${ROOT}/next/envs/.env.tugboat
+fi
+
+APP_ENV=${APP_ENV} yarn build:preview
