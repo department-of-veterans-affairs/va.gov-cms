@@ -13,9 +13,7 @@ else
   echo "Repo next-build already cloned."
 fi
 
-cd next
-#repo_root="$(git rev-parse --show-toplevel)"
-#pushd "${repo_root}" > /dev/null
+pushd next
 
 nvm install 18.17.0
 nvm use 18.17.0
@@ -25,9 +23,5 @@ echo "Node $(node -v)"
 echo "NPM $(npm -v)"
 echo "Yarn $(yarn -v)"
 
-#not sure how popd works
-#pushd "./next"
 yarn install
-#popd
-
-#popd > /dev/null
+popd > /dev/null
