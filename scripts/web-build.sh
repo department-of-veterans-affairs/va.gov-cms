@@ -34,10 +34,10 @@ yarn build \
   --buildtype="${build_type}"
 popd
 
-echo "Replacing s3 address with local in all files."
+echo "Replacing s3 address with local in generated files."
 assets_base_url="https://dev-va-gov-assets\.s3-us-gov-west-1\.amazonaws\.com"
 find \
-  "${build_path}" \
+  "${build_path}/generated" \
   -type f \
   -exec sed -i "s#${assets_base_url}##g" {} \+;
 
