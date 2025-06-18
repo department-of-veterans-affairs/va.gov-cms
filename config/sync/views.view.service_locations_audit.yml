@@ -4,18 +4,14 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_administration
-    - field.storage.node.field_hservice_appt_intro_select
-    - field.storage.node.field_hservice_appt_leadin
     - field.storage.node.field_last_saved_by_an_editor
-    - field.storage.node.field_online_scheduling_availabl
-    - field.storage.node.field_phone_numbers_paragraph
-    - field.storage.node.field_walk_ins_accepted
     - field.storage.paragraph.field_appt_intro_text_custom
     - field.storage.paragraph.field_appt_intro_text_type
     - field.storage.paragraph.field_office_visits
     - field.storage.paragraph.field_online_scheduling_avail
     - field.storage.paragraph.field_other_phone_numbers
     - field.storage.paragraph.field_use_facility_phone_number
+    - field.storage.paragraph.field_virtual_support
     - node.type.health_care_local_health_service
     - node.type.service_region
     - node.type.vba_facility_service
@@ -616,6 +612,68 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_virtual_support:
+          id: field_virtual_support
+          table: paragraph__field_virtual_support
+          field: field_virtual_support
+          relationship: field_service_location
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Virtual support'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_online_scheduling_avail:
           id: field_online_scheduling_avail
           table: paragraph__field_online_scheduling_avail
@@ -951,6 +1009,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 100
           total_pages: null
           id: 0
@@ -968,7 +1027,6 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
-          pagination_heading_level: h4
       exposed_form:
         type: basic
         options:
@@ -1472,6 +1530,7 @@ display:
         - 'config:field.storage.paragraph.field_online_scheduling_avail'
         - 'config:field.storage.paragraph.field_other_phone_numbers'
         - 'config:field.storage.paragraph.field_use_facility_phone_number'
+        - 'config:field.storage.paragraph.field_virtual_support'
   audit_service_locations:
     id: audit_service_locations
     display_title: 'Service locations audit'
@@ -1515,6 +1574,7 @@ display:
         - 'config:field.storage.paragraph.field_online_scheduling_avail'
         - 'config:field.storage.paragraph.field_other_phone_numbers'
         - 'config:field.storage.paragraph.field_use_facility_phone_number'
+        - 'config:field.storage.paragraph.field_virtual_support'
   service_location_audit_export:
     id: service_location_audit_export
     display_title: 'Service location audit export'
@@ -1774,69 +1834,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_administration:
-          id: field_administration
-          table: node__field_administration
-          field: field_administration
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: Section
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         revision_log:
           id: revision_log
           table: node_revision
@@ -1901,15 +1898,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_hservice_appt_intro_select:
-          id: field_hservice_appt_intro_select
-          table: node__field_hservice_appt_intro_select
-          field: field_hservice_appt_intro_select
+        field_administration:
+          id: field_administration
+          table: node__field_administration
+          field: field_administration
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'OLD: Appointment intro text'
+          label: Section
           exclude: false
           alter:
             alter_text: false
@@ -1950,10 +1947,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: list_default
-          settings: {  }
-          group_column: value
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -2014,68 +2012,6 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: list_default
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_hservice_appt_leadin:
-          id: field_hservice_appt_leadin
-          table: node__field_hservice_appt_leadin
-          field: field_hservice_appt_leadin
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'OLD: Appointment lead-in text'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: basic_string
           settings: {  }
           group_column: value
           group_columns: {  }
@@ -2149,68 +2085,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_walk_ins_accepted:
-          id: field_walk_ins_accepted
-          table: node__field_walk_ins_accepted
-          field: field_walk_ins_accepted
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'OLD: Are walkins accepted?'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: list_default
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         field_office_visits:
           id: field_office_visits
           table: paragraph__field_office_visits
@@ -2273,15 +2147,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_online_scheduling_availabl:
-          id: field_online_scheduling_availabl
-          table: node__field_online_scheduling_availabl
-          field: field_online_scheduling_availabl
-          relationship: none
+        field_virtual_support:
+          id: field_virtual_support
+          table: paragraph__field_virtual_support
+          field: field_virtual_support
+          relationship: field_service_location
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'OLD: Is online scheduling available for this service?'
+          label: 'Virtual support'
           exclude: false
           alter:
             alter_text: false
@@ -2388,69 +2262,6 @@ display:
           type: list_default
           settings: {  }
           group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_phone_numbers_paragraph:
-          id: field_phone_numbers_paragraph
-          table: node__field_phone_numbers_paragraph
-          field: field_phone_numbers_paragraph
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'OLD: Phone number for appointments'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_revisions_entity_view
-          settings:
-            view_mode: default
-          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -2754,14 +2565,10 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
-        - 'config:field.storage.node.field_hservice_appt_intro_select'
-        - 'config:field.storage.node.field_hservice_appt_leadin'
-        - 'config:field.storage.node.field_online_scheduling_availabl'
-        - 'config:field.storage.node.field_phone_numbers_paragraph'
-        - 'config:field.storage.node.field_walk_ins_accepted'
         - 'config:field.storage.paragraph.field_appt_intro_text_custom'
         - 'config:field.storage.paragraph.field_appt_intro_text_type'
         - 'config:field.storage.paragraph.field_office_visits'
         - 'config:field.storage.paragraph.field_online_scheduling_avail'
         - 'config:field.storage.paragraph.field_other_phone_numbers'
         - 'config:field.storage.paragraph.field_use_facility_phone_number'
+        - 'config:field.storage.paragraph.field_virtual_support'
