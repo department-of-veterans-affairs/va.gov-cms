@@ -100,6 +100,12 @@ composer va:next:install &>> ${logfile}
 if [ "${vets_website_version}" != "__default" ]; then
   echo "==> Checking out the requested vets-website version" >> ${logfile}
   pushd ${ROOT}/vets-website
+
+  # Reset the working directory to the last commit.
+  # This is necessary because we ran `yarn install` already
+  # which means the working directory is dirty.`
+  git reset --hard &>> ${logfile}
+
   if echo "$vets_website_version" | grep -qE '^[0-9]+$' > /dev/null; then
     echo "==> Checking out PR #${vets_website_version}"
     git fetch origin pull/${vets_website_version}/head &>> ${logfile}
