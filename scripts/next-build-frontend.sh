@@ -57,7 +57,7 @@ if pgrep -f "next-server" > /dev/null; then
   echo "==> Stopping existing next-server process" >> ${logfile}
   pkill -f "next-server" &>> ${logfile}
 else
-  echo "==> No existing next server process found. Continuing." >> ${logfile}
+  echo "==> No existing next-server process found. Continuing." >> ${logfile}
 fi
 
 # Tell the frontend (and the user) that we're starting.
