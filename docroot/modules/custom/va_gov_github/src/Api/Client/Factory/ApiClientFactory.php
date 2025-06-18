@@ -18,6 +18,9 @@ class ApiClientFactory implements ApiClientFactoryInterface {
   const VA_GOV_CMS = 'va.gov-cms';
   const CONTENT_BUILD = 'content-build';
   const VETS_WEBSITE = 'vets-website';
+  const NEXT_BUILD = 'next-build';
+  // Note that the following is the repository name.
+  const NEXT_BUILD_VETS_WEBSITE = 'vets-website';
 
   /**
    * The settings service.
@@ -39,7 +42,7 @@ class ApiClientFactory implements ApiClientFactoryInterface {
   /**
    * {@inheritDoc}
    */
-  public function get(string $owner, string $repository, string $apiToken = NULL): ApiClientInterface {
+  public function get(string $owner, string $repository, ?string $apiToken = NULL): ApiClientInterface {
     return new ApiClient($owner, $repository, $apiToken);
   }
 
@@ -62,6 +65,28 @@ class ApiClientFactory implements ApiClientFactoryInterface {
    */
   public function getVetsWebsite(): ApiClientInterface {
     return $this->get(static::OWNER, static::VETS_WEBSITE, $this->settings->getApiToken());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getNextBuild(): ApiClientInterface {
+    return $this->get(
+      static::OWNER,
+      static::NEXT_BUILD,
+      $this->settings->getApiToken()
+    );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getNextBuildVetsWebsite(): ApiClientInterface {
+    return $this->get(
+      static::OWNER,
+      static::NEXT_BUILD_VETS_WEBSITE,
+      $this->settings->getApiToken()
+    );
   }
 
 }

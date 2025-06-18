@@ -3,6 +3,11 @@
 # Exit if a command fails with a non-zero status code.
 set -ex
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+source ~/.bashrc
+
 # Find repo root -> $reporoot
 reporoot="unknown"
 if [ ! -z "$IS_DDEV_PROJECT" ]; then
@@ -105,6 +110,29 @@ fi
 echo "==> Starting build" >> ${logfile}
 drush va-gov:content-release:advance-state inprogress
 composer va:web:build &>> ${logfile}
+
+# In order to make use of non-standard vets-website versions,
+# we need to install & build vets-website at the chosen branch
+# and then copy it to our output location.
+if [ "${vets_website_version}" != "__default" ]; then
+  echo "==> Installing and building non-default vets-website" >> ${logfile}
+  pushd ${reporoot}/docroot/vendor/va-gov/vets-website
+  nvm use  >> ${logfile}
+  yarn install  >> ${logfile}
+  # Build vagovdev on Tugboat.
+  echo "==> Building vets-website for vagovdev" >> ${logfile}
+  yarn build --buildtype=vagovdev
+  echo "Replacing s3 address with local in vets-website generated files." >> ${logfile}
+  assets_base_url="https://dev-va-gov-assets\.s3-us-gov-west-1\.amazonaws\.com"
+  find \
+    "build/vagovdev/generated" \
+    -type f \
+    -exec sed -i "s#${assets_base_url}##g" {} \+;
+  echo "Copy built files to content-build." >> ${logfile}
+  cp -rf build/vagovdev/generated/* /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/generated/ &>> ${logfile}
+  echo "Finished installing and building non-default vets-website" >> ${logfile}
+fi
+
 
 # Advance the state in the frontend so another build can start.
 echo "==> Build complete" >> ${logfile}

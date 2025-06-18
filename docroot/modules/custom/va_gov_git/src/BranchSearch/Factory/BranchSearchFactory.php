@@ -52,7 +52,7 @@ class BranchSearchFactory implements BranchSearchFactoryInterface {
    */
   public function __construct(
     RepositoryFactoryInterface $repositoryFactory,
-    LoggerChannelFactoryInterface $loggerFactory
+    LoggerChannelFactoryInterface $loggerFactory,
   ) {
     $this->repositoryFactory = $repositoryFactory;
     $this->loggerFactory = $loggerFactory;
@@ -85,6 +85,26 @@ class BranchSearchFactory implements BranchSearchFactoryInterface {
    */
   public function getVetsWebsite(): BranchSearchInterface {
     return new BranchSearch($this->repositoryFactory->getVetsWebsite(), $this->loggerFactory);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getNextBuild(): BranchSearchInterface {
+    return new BranchSearch(
+      $this->repositoryFactory->getNextBuild(),
+      $this->loggerFactory
+    );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getNextBuildVetsWebsite(): BranchSearchInterface {
+    return new BranchSearch(
+      $this->repositoryFactory->getNextBuildVetsWebsite(),
+      $this->loggerFactory
+    );
   }
 
 }
