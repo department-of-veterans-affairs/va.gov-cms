@@ -52,6 +52,14 @@ date >> ${logfile}
 echo "next-build version: ${next_build_version}" >> ${logfile}
 echo "vets-website version: ${vets_website_version}" >> ${logfile}
 
+# Find any existing next-server process and kill it.
+if pgrep -f "next-server" > /dev/null; then
+  echo "==> Stopping existing next-server process" >> ${logfile}
+  pkill -f "next-server" &>> ${logfile}
+else
+  echo "==> No existing next server process found. Continuing." >> ${logfile}
+fi
+
 # Tell the frontend (and the user) that we're starting.
 echo "==> Starting a frontend build. This file will be updated as the build progresses." >> ${logfile}
 
@@ -120,7 +128,7 @@ composer va:next:build &>> ${logfile}
 
 # Start next server.
 echo "==> Starting next server" >> ${logfile}
-composer va:next:start &>> ${logfile}
+composer va:next:start & &>> ${logfile}
 
 # After this point, we are less concerned with errors; the build has completed.
 set +e
