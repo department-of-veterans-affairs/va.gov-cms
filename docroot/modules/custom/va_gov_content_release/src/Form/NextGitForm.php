@@ -288,7 +288,7 @@ class NextGitForm extends FormBase {
   ) {
     $selectionName = $frontend->getRawValue() . '_selection';
     if ($form_state->getValue($selectionName) === 'default') {
-      $this->resetFrontendVersion($frontend, $form_state);
+      $this->resetFrontendVersion($frontend);
     }
     else {
       $this->setFrontendVersion($frontend, $form_state);

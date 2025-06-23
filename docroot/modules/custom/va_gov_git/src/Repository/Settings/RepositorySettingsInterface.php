@@ -15,8 +15,7 @@ interface RepositorySettingsInterface {
   const CONTENT_BUILD = 'content-build';
   const VETS_WEBSITE = 'vets-website';
   const NEXT_BUILD = 'next-build';
-  // Note that the following is the repository name.
-  const NEXT_BUILD_VETS_WEBSITE = 'vets-website';
+  const NEXT_BUILD_VETS_WEBSITE = 'next-build-vets-website';
   const REPOSITORY_NAMES = [
     self::VA_GOV_CMS,
     self::CONTENT_BUILD,
