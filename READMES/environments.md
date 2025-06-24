@@ -52,11 +52,6 @@ Rebuilding the Content Build static content generally takes about 60 minutes. On
 ### Other
 * [Access](./access.md): how to access these environments
 
-* **To preview CMS non-prod data**: Publish the content in Tugboat PR Preview's CMS, then trigger a content release in the CMS (via `/admin/content/deploy`). You will see the content built from that Tugboat's CMS data. This will not include any changes to vets-website that are not in main.
-* **To preview vets-website changes along with CMS / content-build changes**:
-  * **Staging [Dark launch](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/public-websites#shadow--dark-launches-of-content)** (for new content only). Allows preview of combined changes. Uses Staging CMS data & Frontend built from content-build main and vets-website main, so vets-website code changes must be merged to main. If vets-website changes are referenced by any existing CMS content, they should be placed behind a feature flag that can then be enabled on Staging.
-  * **In Tugboat**: you must merge to vets-website main with your changes behind a feature flag. Then, enable the feature flag within the Tugboat instance. (TODO: is this a real thing? Tugboat runs vets-api?)
-
 ## What is an Environment?
 
 _Environments_ are copies of the production site that are running newer
