@@ -64,15 +64,11 @@ fi
 echo "==> Starting a frontend build. This file will be updated as the build progresses." >> ${logfile}
 
 # Get the requested next-build version.
+pushd ${ROOT}/next
+# Reset the working directory to the last commit, to clean up any changes.
+git reset --hard &>> ${logfile}
 if [ "${next_build_version}" != "__default" ]; then
   echo "==> Checking out the requested frontend version" >> ${logfile}
-  pushd ${ROOT}/next
-
-  # Reset the working directory to the last commit.
-  # This is necessary because we set some env vars for Tugboat which prevents
-  # the checkout from working if the working directory is dirty.
-  git reset --hard &>> ${logfile}
-
   if echo "${next_build_version}" | grep -qE '^[0-9]+$' > /dev/null; then
     echo "==> Checking out PR #${next_build_version}"
     git fetch origin pull/${next_build_version}/head &>> ${logfile}
@@ -86,26 +82,22 @@ if [ "${next_build_version}" != "__default" ]; then
       echo "Setting up Tugboat environment variables for Next.js..."
       ${ROOT}/scripts/next-set-tugboat-env-vars.sh
   fi
-
-  popd
 else
-  echo "==> Using default next-build version" >> ${logfile}
+  echo "==> Using default next-build version" &>> ${logfile}
+  git checkout main &>> ${logfile}
 fi
+popd
 
-# Install 3rd party deps.
+# Install 3rd party deps for next-build.
 echo "==> Installing yarn dependencies" >> ${logfile}
 composer va:next:install &>> ${logfile}
 
 # Get the requested vets-website version
+pushd ${ROOT}/vets-website
+# Reset the working directory to the last commit.
+git reset --hard &>> ${logfile}
 if [ "${vets_website_version}" != "__default" ]; then
   echo "==> Checking out the requested vets-website version" >> ${logfile}
-  pushd ${ROOT}/vets-website
-
-  # Reset the working directory to the last commit.
-  # This is necessary because we ran `yarn install` already
-  # which means the working directory is dirty.`
-  git reset --hard &>> ${logfile}
-
   if echo "$vets_website_version" | grep -qE '^[0-9]+$' > /dev/null; then
     echo "==> Checking out PR #${vets_website_version}"
     git fetch origin pull/${vets_website_version}/head &>> ${logfile}
@@ -114,17 +106,17 @@ if [ "${vets_website_version}" != "__default" ]; then
     git fetch origin ${vets_website_version} &>> ${logfile}
   fi
   git checkout FETCH_HEAD &>> ${logfile}
-  popd
 else
-  echo "==> Using default vets-website version" >> ${logfile}
+  echo "==> Using default vets-website version" &>> ${logfile}
+  git checkout main &>> ${logfile}
 fi
+popd
 
 # Create symlink between vets-website assets and next-build.
 mkdir -p "${ROOT}/next/public"
 ln -snf "${ROOT}/vets-website/build/localhost/generated" "${ROOT}/next/public/generated"
 
 # Build vets-website again.
-# @todo Do the symlinks need to be re-created?
 echo "==> Re-building Vets Website" >> ${logfile}
 ${ROOT}/scripts/vets-web-setup.sh &>> ${logfile}
 
