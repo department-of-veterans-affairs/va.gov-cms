@@ -37,7 +37,7 @@ popd
 echo "Replacing s3 address with local in generated files."
 assets_base_url="https://dev-va-gov-assets\.s3-us-gov-west-1\.amazonaws\.com"
 find \
-  "${build_path}/generated" \
+  "${build_path}" \
   -type f \
   -exec sed -i "s#${assets_base_url}##g" {} \+;
 
