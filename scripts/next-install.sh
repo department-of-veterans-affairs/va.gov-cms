@@ -15,8 +15,8 @@ fi
 
 pushd next
 
-nvm install 18.17.0
-nvm use 18.17.0
+nvm install
+nvm use
 corepack enable
 corepack prepare yarn@stable --activate
 echo "Node $(node -v)"
