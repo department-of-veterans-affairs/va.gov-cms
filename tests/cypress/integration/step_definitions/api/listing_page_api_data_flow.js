@@ -1,7 +1,7 @@
 import { Given } from "@badeball/cypress-cucumber-preprocessor";
 
 /**
- * Helper function to fetch and validate a page of events from the JSON:API.
+ * Helper function to fetch and validate a page of listing items from the JSON:API.
  * @param {URLSearchParams} params - The query parameters for the request.
  * @param {string} singleType - The content type to fetch (e.g., 'event', 'news_story').
  */
@@ -24,7 +24,7 @@ Given(
       expect(uuid, `Expected to find a UUID for path: ${path}`).to.not.be
         .undefined;
 
-      // Use the UUID to fetch the event_listing node.
+      // Use the UUID to fetch the listing node.
       cy.request(`/jsonapi/node/${type}/${uuid}?include=field_office`).then(
         (listingResponse) => {
           expect(listingResponse.status).to.eq(200);
@@ -33,7 +33,7 @@ Given(
             event_listing: 50,
             story_listing: 10,
           };
-          // Use the UUID to fetch related events.
+          // Use the UUID to fetch related items.
           const filterParams = {
             event_listing: new URLSearchParams({
               "filter[outreach_cal_group][group][conjunction]": "OR",
@@ -59,10 +59,10 @@ Given(
             event_listing: "event",
             story_listing: "news_story",
           };
-          // Fetch the first page of events.
+          // Fetch the first page of items.
           fetchAndCheckListingPage(filterParams[type], singleTypes[type]);
 
-          // Fetch the second page of events.
+          // Fetch the second page of items.
           filterParams[type].set("page[offset]", pageLength[type]);
           fetchAndCheckListingPage(filterParams[type], singleTypes[type]);
         }
