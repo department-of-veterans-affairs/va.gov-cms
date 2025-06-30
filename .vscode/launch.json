@@ -9,7 +9,9 @@
       "port": 9003,
       "pathMappings": {
         "/var/www/html": "${workspaceRoot}"
-      }
+      },
+      "preLaunchTask": "DDEV: Enable Xdebug",
+      "postDebugTask": "DDEV: Disable Xdebug"
     }
   ]
 }
