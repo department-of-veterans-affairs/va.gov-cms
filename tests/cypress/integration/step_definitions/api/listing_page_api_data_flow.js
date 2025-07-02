@@ -57,11 +57,10 @@ Given(
             }),
             press_releases_listing: new URLSearchParams({
               "filter[field_listing.id][condition][path]": "field_listing.id",
-              include:
-                "field_release_date,field_pdf_version,field_press_release_fulltext,field_press_release_contact,field_listing",
+              include: "field_listing",
               "page[limit]": pageLength.press_releases_listing,
               "page[offset]": 0,
-              sort: "-created",
+              sort: "-field_release_date",
             }),
           };
           const singleTypes = {
