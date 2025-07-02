@@ -32,6 +32,7 @@ Given(
           const pageLength = {
             event_listing: 50,
             story_listing: 10,
+            press_releases_listing: 10,
           };
           // Use the UUID to fetch related items.
           const filterParams = {
@@ -54,10 +55,19 @@ Given(
               "page[offset]": 0,
               sort: "-created",
             }),
+            press_releases_listing: new URLSearchParams({
+              "filter[field_listing.id][condition][path]": "field_listing.id",
+              include:
+                "field_release_date,field_pdf_version,field_press_release_fulltext,field_press_release_contact,field_listing",
+              "page[limit]": pageLength.press_releases_listing,
+              "page[offset]": 0,
+              sort: "-created",
+            }),
           };
           const singleTypes = {
             event_listing: "event",
             story_listing: "news_story",
+            press_releases_listing: "press_release",
           };
           // Fetch the first page of items.
           fetchAndCheckListingPage(filterParams[type], singleTypes[type]);
