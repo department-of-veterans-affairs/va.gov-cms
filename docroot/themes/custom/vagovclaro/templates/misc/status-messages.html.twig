@@ -26,7 +26,7 @@
 <div data-drupal-messages class="messages-list">
   {# Pass variables from Drupal through to our design system components #}
   {% for type, messages in message_list %}
-    {% include '@cmsds/alert.twig' with {
+    {% include '@components/alert.twig' with {
       attributes, type, messages, status_headings, title_ids, hide_bg: true
     } %}
   {% endfor %}
