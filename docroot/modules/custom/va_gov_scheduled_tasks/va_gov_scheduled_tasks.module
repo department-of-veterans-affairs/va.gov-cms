@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_scheduled_tasks.module.
+ */
+
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\File\FileExists;
+
+/**
+ * Downloads the VA Forms data file and saves it for migration.
+ */
+function va_gov_scheduled_tasks_va_forms_csv_source() {
+  $source_url = 'https://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt';
+  $destination_dir_uri = 'public://migrate_source';
+  $destination_file_uri = $destination_dir_uri . '/va_forms_data.csv';
+
+  /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+  $file_system = \Drupal::service('file_system');
+  /** @var \GuzzleHttp\ClientInterface $http_client */
+  $http_client = \Drupal::httpClient();
+
+  // Ensure the destination directory exists, creating it if necessary.
+  if (!$file_system->prepareDirectory($destination_dir_uri, FileSystemInterface::CREATE_DIRECTORY)) {
+    \Drupal::logger('va_gov_backend')->error('Could not create or access the destination directory: @dir', ['@dir' => $destination_dir_uri]);
+    return;
+  }
+
+  try {
+    // Make the HTTP GET request. Guzzle follows redirects by default,
+    // which handles the -L option from the curl command.
+    $response = $http_client->get($source_url);
+
+    if ($response->getStatusCode() === 200) {
+      // Get the file contents from the response body.
+      $file_contents = (string) $response->getBody();
+
+      // Save the data to the destination file, replacing it if it exists.
+      $file_system->saveData($file_contents, $destination_file_uri, FileExists::Replace);
+      \Drupal::logger('va_gov_backend')->notice('Successfully downloaded and saved VA Forms data to @uri.', ['@uri' => $destination_file_uri]);
+    }
+    else {
+      \Drupal::logger('va_gov_backend')->error('Failed to download VA Forms data. Received HTTP status: @status', ['@status' => $response->getStatusCode()]);
+    }
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_backend')->error('An exception occurred while trying to download VA Forms data: @message', ['@message' => $e->getMessage()]);
+  }
+}
