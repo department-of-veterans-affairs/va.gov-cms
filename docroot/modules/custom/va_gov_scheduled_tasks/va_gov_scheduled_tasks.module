@@ -13,6 +13,7 @@ use Drupal\Core\StreamWrapper\PublicStream;
  * Downloads the VA Forms data file and saves it for migration.
  */
 function va_gov_scheduled_tasks_va_forms_csv_source() {
+  \Drupal::logger('va_gov_scheduled_tasks')->info('Starting "Download VA Forms to va_forms_data.csv."');
   $source_url = 'https://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt';
   $destination_dir_uri = PublicStream::basePath() . "/migrate_source";
   $destination_file_uri = $destination_dir_uri . '/va_forms_data.csv';
@@ -25,12 +26,8 @@ function va_gov_scheduled_tasks_va_forms_csv_source() {
   // Ensure the destination directory exists, creating it if necessary.
   if (!$file_system->prepareDirectory($destination_dir_uri, FileSystemInterface::CREATE_DIRECTORY)) {
     // More detailed logging to find the root cause.
-    $parent_dir = 'public://';
-    $is_writable = is_writable($parent_dir);
-    \Drupal::logger('va_gov_scheduled_tasks')->error('Could not create or access the destination directory: @dir. Is parent directory @parent writable? @writable', [
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Could not create or access the destination directory: @dir.', [
       '@dir' => $destination_dir_uri,
-      '@parent' => $file_system->realpath($parent_dir),
-      '@writable' => $is_writable ? 'Yes' : 'No',
     ]);
     return;
   }
@@ -57,5 +54,81 @@ function va_gov_scheduled_tasks_va_forms_csv_source() {
   catch (\Exception $e) {
     // Corrected logger channel for consistency.
     \Drupal::logger('va_gov_scheduled_tasks')->error('An exception occurred while trying to download VA Forms data: @message', ['@message' => $e->getMessage()]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->info('"Download VA Forms to va_forms_data.csv" completed.');
+}
+
+/**
+ * The function that calls everything else.
+ *
+ * Copied from scripts/tasks/VACMS-10735-Forms-CSV-migration-validation.php.
+ */
+function va_gov_scheduled_tasks_migrate_va_forms() {
+  \Drupal::logger('va_gov_scheduled_tasks')->info('Starting "Validate VA Forms CSV migration data."');
+  $exitMessageBaseText = 'Find-a-form: CSV validation failed;';
+  $csv = _va_forms_get_csv_headers();
+  va_forms_validate_csv_has_content($csv, $exitMessageBaseText);
+  va_forms_validate_csv_headers($csv, $exitMessageBaseText);
+  \Drupal::logger('va_gov_scheduled_tasks')->info('"Validate VA Forms CSV migration data" completed.');
+  // @todo add a date check on the file to see if it is not more than 3 days
+  // old (to allow for weekends).
+}
+
+/**
+ * Gets the csv headers from the known forms data csv.
+ *
+ * @return array
+ *   An array of headers from the csv
+ */
+function va_gov_scheduled_tasks_get_csv_headers() {
+  /** @var \Drupal\Core\StreamWrapper\StreamWrapperManager $wrapper */
+  $wrapper = \Drupal::service('stream_wrapper_manager');
+  $basePath = $wrapper->getViaScheme('public')->realpath();
+  $filePath = "{$basePath}/migrate_source/va_forms_data.csv";
+  $handle = fopen($filePath, 'r');
+  return fgetcsv($handle, NULL);
+}
+
+/**
+ * Validates the VA Form CSV contains the expected headers.
+ *
+ * @param array $headers
+ *   The VA forms headers.
+ * @param string $exitMessage
+ *   The exit message base text.
+ */
+function va_gov_scheduled_tasks_validate_csv_headers(array $headers, string $exitMessage) {
+  // Validate the headers against the VA forms migration config fields.
+  $config = \Drupal::config('migrate_plus.migration.va_node_form');
+  $data = $config->getRawData();
+  $fields = $data['source']['fields'];
+  $fieldNames = array_column($fields, 'name');
+  $diff = array_diff($headers, $fieldNames);
+  if (!empty($diff)) {
+    return \Drupal::logger('va_gov_scheduled_tasks')->error('@exitMessage Failed matching headers in _va_forms_validate_csv_headers(). Expected: @expected, Found: @found', [
+      '@exitMessage' => $exitMessage,
+      '@expected' => implode(', ', $fieldNames),
+      '@found' => implode(', ', $headers),
+    ]);
+  }
+}
+
+/**
+ * Validates the csv file has content (is not zero bytes).
+ *
+ * When fgetcsv() returns a value, it is either an associative array, or FALSE.
+ * Checking for FALSE allows us to quickly determine if the CSV was parsed
+ * correctly.
+ *
+ * @param bool|array $csv
+ *   The current csv row as an array, or false if not a valid csv.
+ * @param string $exitMessage
+ *   The exit message base text.
+ */
+function va_gov_scheduled_tasks_validate_csv_has_content(bool|array $csv, string $exitMessage) {
+  if ($csv === FALSE) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('@exitMessage Empty or invalid CSV in _va_forms_validate_csv_contents()', [
+      '@exitMessage' => $exitMessage,
+    ]);
   }
 }
