@@ -23,7 +23,14 @@ function va_gov_scheduled_tasks_va_forms_csv_source() {
 
   // Ensure the destination directory exists, creating it if necessary.
   if (!$file_system->prepareDirectory($destination_dir_uri, FileSystemInterface::CREATE_DIRECTORY)) {
-    \Drupal::logger('va_gov_backend')->error('Could not create or access the destination directory: @dir', ['@dir' => $destination_dir_uri]);
+    // More detailed logging to find the root cause.
+    $parent_dir = 'public://';
+    $is_writable = is_writable($parent_dir);
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Could not create or access the destination directory: @dir. Is parent directory @parent writable? @writable', [
+      '@dir' => $destination_dir_uri,
+      '@parent' => $file_system->realpath($parent_dir),
+      '@writable' => $is_writable ? 'Yes' : 'No',
+    ]);
     return;
   }
 
@@ -38,13 +45,16 @@ function va_gov_scheduled_tasks_va_forms_csv_source() {
 
       // Save the data to the destination file, replacing it if it exists.
       $file_system->saveData($file_contents, $destination_file_uri, FileExists::Replace);
-      \Drupal::logger('va_gov_backend')->notice('Successfully downloaded and saved VA Forms data to @uri.', ['@uri' => $destination_file_uri]);
+      // Corrected logger channel for consistency.
+      \Drupal::logger('va_gov_scheduled_tasks')->notice('Successfully downloaded and saved VA Forms data to @uri.', ['@uri' => $destination_file_uri]);
     }
     else {
-      \Drupal::logger('va_gov_backend')->error('Failed to download VA Forms data. Received HTTP status: @status', ['@status' => $response->getStatusCode()]);
+      // Corrected logger channel for consistency.
+      \Drupal::logger('va_gov_scheduled_tasks')->error('Failed to download VA Forms data. Received HTTP status: @status', ['@status' => $response->getStatusCode()]);
     }
   }
   catch (\Exception $e) {
-    \Drupal::logger('va_gov_backend')->error('An exception occurred while trying to download VA Forms data: @message', ['@message' => $e->getMessage()]);
+    // Corrected logger channel for consistency.
+    \Drupal::logger('va_gov_scheduled_tasks')->error('An exception occurred while trying to download VA Forms data: @message', ['@message' => $e->getMessage()]);
   }
 }
