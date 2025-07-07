@@ -7,13 +7,14 @@
 
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\File\FileExists;
+use Drupal\Core\StreamWrapper\PublicStream;
 
 /**
  * Downloads the VA Forms data file and saves it for migration.
  */
 function va_gov_scheduled_tasks_va_forms_csv_source() {
   $source_url = 'https://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt';
-  $destination_dir_uri = 'public://migrate_source';
+  $destination_dir_uri = PublicStream::basePath() . "/migrate_source";
   $destination_file_uri = $destination_dir_uri . '/va_forms_data.csv';
 
   /** @var \Drupal\Core\File\FileSystemInterface $file_system */
