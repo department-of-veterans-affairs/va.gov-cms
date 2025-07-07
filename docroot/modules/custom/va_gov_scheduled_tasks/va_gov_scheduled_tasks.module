@@ -30,7 +30,7 @@ function va_gov_scheduled_tasks_va_forms_csv_source() {
   try {
     // Make the HTTP GET request. Guzzle follows redirects by default,
     // which handles the -L option from the curl command.
-    $response = $http_client->get($source_url);
+    $response = $http_client->request('GET', $source_url);
 
     if ($response->getStatusCode() === 200) {
       // Get the file contents from the response body.
