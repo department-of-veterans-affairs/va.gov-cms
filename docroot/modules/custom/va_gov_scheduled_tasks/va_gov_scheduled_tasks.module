@@ -105,7 +105,7 @@ function va_gov_scheduled_tasks_validate_csv_headers(array $headers, string $exi
   $fieldNames = array_column($fields, 'name');
   $diff = array_diff($headers, $fieldNames);
   if (!empty($diff)) {
-    return \Drupal::logger('va_gov_scheduled_tasks')->error('@exitMessage Failed matching headers in va_gov_scheduled_tasks_validate_csv_headers(). Expected: @expected, Found: @found', [
+    \Drupal::logger('va_gov_scheduled_tasks')->error('@exitMessage Failed matching headers in va_gov_scheduled_tasks_validate_csv_headers(). Expected: @expected, Found: @found', [
       '@exitMessage' => $exitMessage,
       '@expected' => implode(', ', $fieldNames),
       '@found' => implode(', ', $headers),
