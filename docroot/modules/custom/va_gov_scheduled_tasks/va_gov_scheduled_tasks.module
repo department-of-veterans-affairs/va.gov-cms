@@ -65,6 +65,8 @@ function va_gov_scheduled_tasks_va_forms_csv_source_cron() {
  * Validate VA Forms CSV migration data scheduled task.
  *
  * Copied from scripts/tasks/VACMS-10735-Forms-CSV-migration-validation.php.
+ *
+ * @todo Remove the script file when this is running daily.
  */
 function va_gov_scheduled_tasks_va_forms_csv_source_validate_cron() {
   \Drupal::logger('va_gov_scheduled_tasks')->info('"Validate VA Forms CSV migration data" started.');
