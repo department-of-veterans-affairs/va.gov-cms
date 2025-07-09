@@ -15,7 +15,7 @@ use Drupal\migrate\MigrateMessage;
 /**
  * Downloads the VA Forms data file and saves it for migration.
  */
-function va_gov_scheduled_tasks_va_forms_csv_source_cron() {
+function va_gov_scheduled_tasks_download_forms_csv() {
   \Drupal::logger('va_gov_scheduled_tasks')->info('Starting "Download VA Forms to va_forms_data.csv."');
   $source_url = 'https://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt';
   $destination_dir_uri = PublicStream::basePath() . "/migrate_source";
@@ -68,7 +68,7 @@ function va_gov_scheduled_tasks_va_forms_csv_source_cron() {
  *
  * @todo Remove the script file when this is running daily.
  */
-function va_gov_scheduled_tasks_va_forms_csv_source_validate_cron() {
+function va_gov_scheduled_tasks_validate_forms_csv() {
   \Drupal::logger('va_gov_scheduled_tasks')->info('"Validate VA Forms CSV migration data" started.');
   $exitMessageBaseText = 'Find-a-form: CSV validation failed;';
   $csv = va_gov_scheduled_tasks_get_csv_headers();
@@ -139,12 +139,12 @@ function va_gov_scheduled_tasks_validate_csv_has_content(bool|array $csv, string
 }
 
 /**
- * Provides callback for cron job for archiving IntranetOnly forms.
+ * Archives IntranetOnly VA forms.
  */
-function va_gov_scheduled_tasks_archive_intranet_only_forms_cron() {
+function va_gov_scheduled_tasks_archive_intranet_only_forms() {
   \Drupal::logger('va_gov_scheduled_tasks')->info('"Archive IntranetOnly forms" started.');
   try {
-    $archive_service = \Drupal::service('va_gov_migrate.archive_intranet_only_forms');
+    $archive_service = \Drupal::service('va_gov_migrate.va_gov_migrate_service');
     $archive_service->archiveIntranetOnlyForms();
   }
   catch (\Exception $e) {
@@ -159,8 +159,9 @@ function va_gov_scheduled_tasks_archive_intranet_only_forms_cron() {
  * @param string $migration_id
  *   The ID of the migration to run.
  */
-function va_gov_scheduled_tasks_run_migration($migration_id) {
-  \Drupal::logger('va_gov_scheduled_tasks')->notice('0800 task @migration started', [
+function va_gov_scheduled_tasks_run_migration($migration_id, $time) {
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('@time task @migration started', [
+    '@time' => $time,
     '@migration' => $migration_id,
   ]);
   try {
@@ -174,13 +175,15 @@ function va_gov_scheduled_tasks_run_migration($migration_id) {
     $executable->import();
   }
   catch (\Exception $e) {
-    \Drupal::logger('va_gov_scheduled_tasks')->error('0800 task @migration failed: @message', [
+    \Drupal::logger('va_gov_scheduled_tasks')->error('@time task @migration failed: @message', [
+      '@time' => $time,
       '@migration' => $migration_id,
       '@message' => $e->getMessage(),
     ]);
   }
 
-  \Drupal::logger('va_gov_scheduled_tasks')->notice('0800 task @migration complete', [
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('@time task @migration complete', [
+    '@time' => $time,
     '@migration' => $migration_id,
   ]);
 }
@@ -189,30 +192,30 @@ function va_gov_scheduled_tasks_run_migration($migration_id) {
  * Scheduled task to run the health_care_local_facility migration.
  */
 function va_gov_scheduled_tasks_0800_health_care_local_facility() {
-  va_gov_scheduled_tasks_run_migration('va_node_health_care_local_facility');
+  va_gov_scheduled_tasks_run_migration('va_node_health_care_local_facility', '0800');
 }
 
 /**
  * Scheduled task to run the vet_centers_facility migration.
  */
 function va_gov_scheduled_tasks_0800_vet_centers_facility() {
-  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers');
-  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers_mvc');
-  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers_os');
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers', '0800');
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers_mvc', '0800');
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers_os', '0800');
 }
 
 /**
  * Scheduled task to run the vba_facility migration.
  */
 function va_gov_scheduled_tasks_0800_vba_facility() {
-  va_gov_scheduled_tasks_run_migration('va_node_facility_vba');
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vba', '0800');
 }
 
 /**
  * Scheduled task to run the nca_facility migration.
  */
 function va_gov_scheduled_tasks_0800_nca_facility() {
-  va_gov_scheduled_tasks_run_migration('va_node_facility_nca');
+  va_gov_scheduled_tasks_run_migration('va_node_facility_nca', '0800');
 }
 
 /**
@@ -233,6 +236,27 @@ function va_gov_scheduled_tasks_0800_flag_removed_facilities() {
 }
 
 /**
+ * Runs a Drush command and logs its status.
+ *
+ * @param string $command
+ *   The Drush command to run.
+ */
+function va_gov_scheduled_tasks_run_drush_command($command) {
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Running Drush command: @command', ['@command' => $command]);
+  try {
+    $output = [];
+    $return_var = 0;
+    exec("drush $command", $output, $return_var);
+    if ($return_var !== 0) {
+      throw new \Exception(implode("\n", $output));
+    }
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Drush command failed: @message', ['@message' => $e->getMessage()]);
+  }
+}
+
+/**
  * Tasks to run at 0800.
  */
 function va_gov_scheduled_tasks_0800() {
@@ -241,4 +265,15 @@ function va_gov_scheduled_tasks_0800() {
   va_gov_scheduled_tasks_0800_vba_facility();
   va_gov_scheduled_tasks_0800_nca_facility();
   va_gov_scheduled_tasks_0800_flag_removed_facilities();
+}
+
+/**
+ * Tasks to run daily.
+ */
+function va_gov_scheduled_tasks_daily() {
+  va_gov_scheduled_tasks_download_forms_csv();
+  va_gov_scheduled_tasks_validate_forms_csv();
+  va_gov_scheduled_tasks_run_migration('va_node_form', 'daily');
+  va_gov_scheduled_tasks_archive_intranet_only_forms();
+  va_gov_scheduled_tasks_run_drush_command('taxonomy_entity_index:rebuild');
 }
