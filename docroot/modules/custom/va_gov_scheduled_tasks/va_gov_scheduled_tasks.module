@@ -132,3 +132,18 @@ function va_gov_scheduled_tasks_validate_csv_has_content(bool|array $csv, string
     ]);
   }
 }
+
+/**
+ * Provides callback for cron job for archiving IntranetOnly forms.
+ */
+function va_gov_scheduled_tasks_archive_intranet_only_forms_cron() {
+  \Drupal::logger('va_gov_scheduled_tasks')->info('"Archive IntranetOnly forms" started.');
+  try {
+    $archive_service = \Drupal::service('va_gov_migrate.archive_intranet_only_forms');
+    $archive_service->archiveIntranetOnlyForms();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('An error occurred while archiving IntranetOnly forms: @message', ['@message' => $e->getMessage()]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->info('"Archive IntranetOnly forms" completed.');
+}
