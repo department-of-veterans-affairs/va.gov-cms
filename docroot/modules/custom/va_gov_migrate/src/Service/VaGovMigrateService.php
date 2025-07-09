@@ -131,8 +131,10 @@ class VaGovMigrateService {
 
     $count = count($vids) - count($missed_vids);
     // @phpstan-ignore-next-line
-    $this->migrateChannelLogger->success("Deleted {$count} revision(s).");
-    $this->migrateChannelLogger->warning('The following revisions were not deleted: ' . implode(', ', $missed_vids));
+    return [
+      'success' => "Deleted {$count} revision(s).",
+      'warning' => 'The following revisions were not deleted: ' . implode(', ', $missed_vids),
+    ];
   }
 
   /**
