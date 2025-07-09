@@ -8,6 +8,9 @@
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\File\FileExists;
 use Drupal\Core\StreamWrapper\PublicStream;
+use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\MigrateExecutable;
+use Drupal\migrate\MigrateMessage;
 
 /**
  * Downloads the VA Forms data file and saves it for migration.
@@ -146,4 +149,94 @@ function va_gov_scheduled_tasks_archive_intranet_only_forms_cron() {
     \Drupal::logger('va_gov_scheduled_tasks')->error('An error occurred while archiving IntranetOnly forms: @message', ['@message' => $e->getMessage()]);
   }
   \Drupal::logger('va_gov_scheduled_tasks')->info('"Archive IntranetOnly forms" completed.');
+}
+
+/**
+ * Runs the specified migration and logs its status.
+ *
+ * @param string $migration_id
+ *   The ID of the migration to run.
+ */
+function va_gov_scheduled_tasks_run_migration($migration_id) {
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('0800 task @migration started', [
+    '@migration' => $migration_id,
+  ]);
+  try {
+    $migration = \Drupal::service('plugin.manager.migration')->createInstance($migration_id);
+    $status = $migration->getStatus();
+    if ($status !== MigrationInterface::STATUS_IDLE) {
+      $migration->setStatus(MigrationInterface::STATUS_IDLE);
+    }
+    $migration->getIdMap()->prepareUpdate();
+    $executable = new MigrateExecutable($migration, new MigrateMessage());
+    $executable->import();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('0800 task @migration failed: @message', [
+      '@migration' => $migration_id,
+      '@message' => $e->getMessage(),
+    ]);
+  }
+
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('0800 task @migration complete', [
+    '@migration' => $migration_id,
+  ]);
+}
+
+/**
+ * Scheduled task to run the health_care_local_facility migration.
+ */
+function va_gov_scheduled_tasks_0800_health_care_local_facility() {
+  va_gov_scheduled_tasks_run_migration('va_node_health_care_local_facility');
+}
+
+/**
+ * Scheduled task to run the vet_centers_facility migration.
+ */
+function va_gov_scheduled_tasks_0800_vet_centers_facility() {
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers');
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers_mvc');
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers_os');
+}
+
+/**
+ * Scheduled task to run the vba_facility migration.
+ */
+function va_gov_scheduled_tasks_0800_vba_facility() {
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vba');
+}
+
+/**
+ * Scheduled task to run the nca_facility migration.
+ */
+function va_gov_scheduled_tasks_0800_nca_facility() {
+  va_gov_scheduled_tasks_run_migration('va_node_facility_nca');
+}
+
+/**
+ * Scheduled task to run the flag_removed_facilities.
+ */
+function va_gov_scheduled_tasks_0800_flag_removed_facilities() {
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('0800 task flag_removed_facilities started');
+  try {
+    $service = \Drupal::service('va_gov_migrate.va_gov_migrate_service');
+    $service->flagMissingFacilities();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('0800 task flag_removed_facilities failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('0800 task flag_removed_facilities complete');
+}
+
+/**
+ * Tasks to run at 0800.
+ */
+function va_gov_scheduled_tasks_0800() {
+  va_gov_scheduled_tasks_0800_health_care_local_facility();
+  va_gov_scheduled_tasks_0800_vet_centers_facility();
+  va_gov_scheduled_tasks_0800_vba_facility();
+  va_gov_scheduled_tasks_0800_nca_facility();
+  va_gov_scheduled_tasks_0800_flag_removed_facilities();
 }
