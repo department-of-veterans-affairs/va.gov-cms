@@ -67,7 +67,7 @@ class VaGovMigrateService {
   protected $notificationsManager;
 
   /**
-   * Constructs a new flagMissingFacilities object.
+   * Constructs a new VaGovMigrateService object.
    *
    * @param \Drupal\Core\Database\Connection $data_base
    *   Core database connection.
@@ -214,6 +214,7 @@ class VaGovMigrateService {
     $facilities_to_flag = $this->getFacilitiesToFlag($facilities_flat);
     $count_flagged = count($facilities_to_flag);
     $count_archived = 0;
+    $status = [];
     if ($count_flagged) {
       $facility_nodes_to_flag = $this->entityTypeManager->getStorage('node')->loadMultiple(array_values($facilities_to_flag));
       foreach ($facility_nodes_to_flag as $facility_node_to_flag) {
@@ -235,22 +236,18 @@ class VaGovMigrateService {
         '%count_flagged' => $count_flagged,
         '%count_archived' => $count_archived,
       ];
-
       if ($vars['%count_flagged'] > 0) {
         $msg = 'Flagged %count_flagged facilities as removed from Facility API.';
         $this->migrateChannelLogger->log(LogLevel::INFO, $msg, $vars);
-        // Create drush output.
-        // @phpstan-ignore-next-line
-        $this->logger->success("Flagged {$count_flagged} facilities as removed from Facility API.");
+        array_push($status, "Flagged {$count_flagged} facilities as removed from Facility API.");
       }
       if ($vars['%count_archived'] > 0) {
         $msg = 'Archived %count_archived facilities due to removal from Facility API.';
         $this->migrateChannelLogger->log(LogLevel::INFO, $msg, $vars);
-        // Create drush output.
-        // @phpstan-ignore-next-line
-        $this->logger->success("Archived {$count_archived} facilities due to removal from Facility API.");
+        array_push($status, "Archived {$count_archived} facilities due to removal from Facility API.");
       }
     }
+    return $status;
   }
 
   /**

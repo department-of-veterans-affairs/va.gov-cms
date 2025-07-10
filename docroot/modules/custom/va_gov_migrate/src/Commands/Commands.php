@@ -59,7 +59,15 @@ class Commands extends DrushCommands {
    * @aliases va-gov-flag-missing-facilities
    */
   public function flagMissingFacilities() {
-    $this->vaGovMigrateService->flagMissingFacilities();
+    $messages = $this->vaGovMigrateService->flagMissingFacilities();
+    if (!empty($messages)) {
+      foreach ($messages as $message) {
+        $this->logger->log('success', $message);
+      }
+    }
+    else {
+      $this->logger->log('info', 'No facilities were flagged.');
+    }
   }
 
 }
