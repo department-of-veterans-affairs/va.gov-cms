@@ -1,0 +1,17 @@
+uuid: 2337e4e2-fc4b-4455-8b12-29869b00c05b
+langcode: en
+status: true
+dependencies:
+  module:
+    - simple_oauth
+title: 'Delete expired tokens'
+id: simple_oauth_cron
+weight: 0
+module: simple_oauth
+callback: 'simple_oauth#cron'
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database
