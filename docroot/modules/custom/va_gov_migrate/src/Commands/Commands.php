@@ -38,7 +38,7 @@ class Commands extends DrushCommands {
    */
   public function cleanRevs() {
     $messages = $this->vaGovMigrateService->cleanRevs();
-    $this->logger->success($messages['success']);
+    $this->logger->log('success', $messages['success']);
     $this->logger->warning($messages['warning']);
   }
 
