@@ -33,15 +33,9 @@ RUN apt-get update && apt-get install -y \
   default-mysql-client \
   parallel
 
-#RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.24-1_all.deb
-#RUN DEBIAN_FRONTEND=noninteractive dpkg -i mysql-apt-config_0.8.24-1_all.deb
-#RUN apt-key adv --keyserver pgp.mit.edu --recv-keys A8D3785C
-#RUN apt-get update
-#RUN apt install -y mysql-client
-
+# Helper from this repo: https://github.com/mlocati/docker-php-extension-installer
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-
-RUN install-php-extensions apcu bcmath csv exif gd intl mbstring memcached opcache pcntl pdo_mysql pdo_pgsql redis sockets uploadprogress xml xmlreader xmlwriter xsl zip
+RUN install-php-extensions apcu bcmath bz2 csv ddtrace event exif gd gnupg http intl mbstring memcached oauth opcache pcntl pdo_mysql pdo_pgsql psr sockets uploadprogress xml xmlreader xmlwriter xsl zip
 
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
@@ -57,9 +51,11 @@ RUN { \
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
 
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
-    sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 10M/g' /usr/local/etc/php/php.ini && \
+    sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 64M/g' /usr/local/etc/php/php.ini && \
     sed -i 's/;max_input_vars = 1000/max_input_vars = 10000/g' /usr/local/etc/php/php.ini && \
-    sed -i 's/memory_limit = 128M/memory_limit = 4G/g' /usr/local/etc/php/php.ini
+    sed -i 's/memory_limit = 128M/memory_limit = 4G/g' /usr/local/etc/php/php.ini && \
+    sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /usr/local/etc/php/php.ini && \
+    sed -i 's/max_execution_time = 30/max_execution_time = 1800/g' /usr/local/etc/php/php.ini
 
 # https://www.drupal.org/node/3060/release
 ENV DRUPAL_VERSION=10.4.8
@@ -84,7 +80,6 @@ RUN ./scripts/install_task_runner.sh
 RUN ./scripts/install_github_status_updater.sh
 RUN ./scripts/install_github_commenter.sh
 RUN composer va:theme:compile
-RUN composer va:web:install
 
 RUN chown -R www-data:www-data samlsessiondb.sq3
 RUN chmod 0664 samlsessiondb.sq3
