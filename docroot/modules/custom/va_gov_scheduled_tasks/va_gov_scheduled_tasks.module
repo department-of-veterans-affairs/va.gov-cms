@@ -236,6 +236,19 @@ function va_gov_scheduled_tasks_0800_flag_removed_facilities() {
 }
 
 /**
+ * Sends Datadog metrics.
+ */
+function va_gov_scheduled_tasks_send_datadog_metrics() {
+  try {
+    $datadog_service = \Drupal::service('va_gov_metrics.datadog');
+    $datadog_service->sendMetrics();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Failed to send Datadog metrics: @message', ['@message' => $e->getMessage()]);
+  }
+}
+
+/**
  * Runs a Drush command and logs its status.
  *
  * @param string $command
@@ -276,4 +289,12 @@ function va_gov_scheduled_tasks_daily() {
   va_gov_scheduled_tasks_run_migration('va_node_form', 'daily');
   va_gov_scheduled_tasks_archive_intranet_only_forms();
   va_gov_scheduled_tasks_run_drush_command('taxonomy_entity_index:rebuild');
+}
+
+/**
+ * Tasks to run every minute.
+ */
+function va_gov_scheduled_tasks_every_minute() {
+  va_gov_scheduled_tasks_send_datadog_metrics();
+  va_gov_scheduled_tasks_run_drush_command('advancedqueue:queue:process content_release');
 }
