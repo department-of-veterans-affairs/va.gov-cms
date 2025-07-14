@@ -298,11 +298,3 @@ function va_gov_scheduled_tasks_every_minute() {
   va_gov_scheduled_tasks_send_datadog_metrics();
   va_gov_scheduled_tasks_run_drush_command('advancedqueue:queue:process content_release');
 }
-
-/**
- * Import new config after module is already installed.
- */
-function va_gov_scheduled_tasks_update_10001() {
-  // Import a specific config file.
-  \Drupal::service('config.installer')->installDefaultConfig('module', 'va_gov_scheduled_tasks');
-}
