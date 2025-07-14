@@ -1,0 +1,63 @@
+name: Prod RDS to S3 Backup
+
+on:
+  push:
+    branches:
+      - main # Or whatever branch triggers this task
+  workflow_dispatch: # Allows manual triggering with inputs
+
+env:
+  # Define environment variables directly in the workflow
+  # These will be available to all steps in the job
+  MY_GITHUB_VAR: "Test from GitHub Actions!"
+  ANOTHER_GITHUB_VAR: ${{ vars.ANOTHER_SHARED_VAR }} # Using GitHub-defined variables
+
+jobs:
+  run-ansible-shell:
+    runs-on: ubuntu-latest # Or your desired runner OS
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4 # Use the latest version of the checkout action
+
+    - name: Configure Credentials
+      uses: aws-actions/configure-aws-credentials@010d0da01d0b5a38af31e9c3470dbfdabdecca3a # v4.0.1
+      with:
+        role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
+        aws-region: "us-gov-west-1"
+
+    - name: Configure AWS credentials (1)
+      uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-gov-west-1
+        role-to-assume: ${{ secrets.AWS_VAGOV_CMS_PROD_S3_ROLE }}
+        role-duration-seconds: 900
+        role-session-name: vsp-vagov-cms-githubaction
+
+    - name: Set Drupal prod username
+        uses: department-of-veterans-affairs/action-inject-ssm-secrets@d8e6de3bde4dd728c9d732baef58b3c854b8c4bb # latest
+        with:
+          ssm_parameter: /cms/prod/drupal_api_users/content_build_api/username
+          env_variable_name: DRUPAL_USERNAME
+
+    - name: Copy DB from RDS and Store in S3
+      run: |
+        # Exit immediately if a command fails with a non-zero status code
+        set -e
+
+        tempdir=$(mktemp -d)
+        cd $tempdir
+
+        # UTF8MB4 is so that emoji make it downstream!
+        mysqldump --default-character-set=utf8mb4 --single-transaction -h ${{ secrets.DATABASE_HOST }} -u master -p${{ secrets.MARIADB_MASTER_PASSWORD }} dsva_cms_prod > drupal8-db-prod-$(date "+%Y-%m-%d-%H-%M").sql
+
+        gzip drupal8-db-prod-*.sql
+
+        aws s3 cp drupal8-db-prod-*.sql.gz s3://${{ secrets.S3BackupBucketPriv }}/${{ secrets.S3BackupPath }}/ --region ${{ secrets.REGION }}
+
+        aws s3api put-object-tagging --bucket ${{ secrets.S3BackupBucketPriv }} --key ${{ secrets.S3BackupPath }}/drupal8-db-prod-*.sql.gz --region ${{ secrets.REGION }} --tagging 'TagSet=[{Key=Env,Value=prod}]'
+
+        cd
+        rm -rf ${tempdir}
