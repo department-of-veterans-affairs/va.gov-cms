@@ -43,7 +43,7 @@
           const year =
             increment === "end"
               ? dateObj.getUTCFullYear() + 1
-              : dateObj.getUTCFullYear() - 1;
+              : dateObj.getUTCFullYear() - 10;
           return {
             full: `${year}-${formattedMonth}-${day}`,
             year: dateObj.getUTCFullYear(),
