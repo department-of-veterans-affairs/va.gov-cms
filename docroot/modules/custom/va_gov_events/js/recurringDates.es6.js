@@ -40,11 +40,12 @@
           const month = dateObj.getUTCMonth() + 1;
           const formattedMonth = month.toString().padStart(2, "0");
           const day = dateObj.getUTCDate();
+          // We don't want editors inputting dates > 1 year forward.
+          // But this gives editors several years to edit/archive our oldest events.
           const year =
             increment === "end"
               ? dateObj.getUTCFullYear() + 1
-              // Gives us several years to edit/archive our oldest events.
-              : dateObj.getUTCFullYear() - 10; 
+              : dateObj.getUTCFullYear() - 10;
           return {
             full: `${year}-${formattedMonth}-${day}`,
             year: dateObj.getUTCFullYear(),
