@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+ module:
+   - va_gov_scheduled_tasks
+title: 'Do scheduled tasks at 8:00 AM: NCA Facility'
+description: 'Migrate VAMC health facilities'
+id: va_gov_scheduled_tasks_0800_nca_facility
+weight: 40
+module: va_gov_scheduled_tasks
+callback: va_gov_scheduled_tasks_0800_nca_facility
+scheduler:
+ id: crontab
+ configuration:
+   rules:
+     - '0 8 * * *'
