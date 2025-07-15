@@ -1,6 +1,6 @@
-FROM drupal:10.4.8-php8.3-apache-bookworm
+FROM drupal:php8.4-fpm-bookworm
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
   apt-utils \
   build-essential \
   wget \
@@ -33,9 +33,13 @@ RUN apt-get update && apt-get install -y \
   default-mysql-client \
   parallel
 
+RUN apt clean && rm -rf /var/lib/apt/lists/*
+
 # Helper from this repo: https://github.com/mlocati/docker-php-extension-installer
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-RUN install-php-extensions apcu bcmath bz2 csv ddtrace event exif gd gnupg http intl mbstring memcached oauth opcache pcntl pdo_mysql pdo_pgsql psr sockets uploadprogress xml xmlreader xmlwriter xsl zip
+RUN install-php-extensions apcu bcmath bz2 calendar csv ddtrace event exif gettext igbinary intl ldap memcached msgpack pcntl shmop sockets sysvmsg sysvsem sysvshm uploadprogress xsl
+
+RUN php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=$(basename $(realpath $(which php)))
 
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
