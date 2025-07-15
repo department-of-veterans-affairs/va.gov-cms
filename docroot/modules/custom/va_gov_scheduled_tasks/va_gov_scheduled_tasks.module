@@ -170,7 +170,6 @@ function va_gov_scheduled_tasks_run_migration($migration_id, $time) {
     if ($status !== MigrationInterface::STATUS_IDLE) {
       $migration->setStatus(MigrationInterface::STATUS_IDLE);
     }
-    $migration->getIdMap()->prepareUpdate();
     $executable = new MigrateExecutable($migration, new MigrateMessage());
     $executable->import();
   }
