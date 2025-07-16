@@ -239,8 +239,8 @@ function va_gov_scheduled_tasks_0800_flag_removed_facilities() {
  */
 function va_gov_scheduled_tasks_send_datadog_metrics() {
   try {
-    $datadog_service = \Drupal::service('va_gov_metrics.datadog');
-    $datadog_service->sendMetrics();
+    $datadog_service = \Drupal::service('va_gov_backend.metrics');
+    $datadog_service->updateDatadog();
   }
   catch (\Exception $e) {
     \Drupal::logger('va_gov_scheduled_tasks')->error('Failed to send Datadog metrics: @message', ['@message' => $e->getMessage()]);
