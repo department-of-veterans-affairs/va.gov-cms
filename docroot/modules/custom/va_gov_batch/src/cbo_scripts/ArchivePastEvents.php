@@ -4,7 +4,7 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;
-use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\node\Entity\Node;
 
 /**
  * For VACMS-21680.
@@ -43,17 +43,16 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
     return 'event';
   }
 
-
   /**
    * {@inheritdoc}
    */
   public function gatherItemsToProcess(): array {
-    // Get all past events.
+    // Get published events that are at least 30 days old.
     $query = \Drupal::entityQuery('node')
       ->accessCheck(FALSE)
       ->condition('type', 'event')
       ->condition('field_event_date', strtotime('-30 days'), '<')
-      ->condition('status', 1); // Only published events.
+      ->condition('status', 1);
     $event_ids = $query->execute();
 
     return $event_ids;
@@ -66,7 +65,8 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
   public function processOne(string $key, mixed $item, array &$sandbox): string {
     try {
       // Load the event node.
-      $event = \Drupal\node\Entity\Node::load($item);
+      $event = Node::load($item);
+
       if (!$event) {
         $this->batchOpLog->appendError("Could not load the event node with ID $item");
         return "Item $item was not processed.";
