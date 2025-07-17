@@ -254,7 +254,18 @@ function va_gov_scheduled_tasks_send_datadog_metrics() {
  *   The Drush command to run.
  */
 function va_gov_scheduled_tasks_run_drush_command($command) {
-  \Drupal::logger('va_gov_scheduled_tasks')->notice('Running Drush command: @command', ['@command' => $command]);
+  // Some calls are made too often to log every time.
+  // We only want to log the errors for those.
+  $calls_without_logging = [
+    'va_gov_scheduled_tasks_every_minute',
+  ];
+  $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+  if (isset($backtrace[1]['function'])) {
+    $caller = $backtrace[1]['function'];
+    if (!in_array($caller, $calls_without_logging)) {
+      \Drupal::logger('va_gov_scheduled_tasks')->notice('Running Drush command: @command', ['@command' => $command]);
+    }
+  }
   try {
     $output = [];
     $return_var = 0;
