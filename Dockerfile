@@ -20,6 +20,7 @@ RUN apt update && apt install -y \
   inetutils-tools \
   pv \
   netcat-traditional \
+  net-tools \
   chromium \
   xvfb \
   libgtk2.0-dev \
@@ -31,9 +32,88 @@ RUN apt update && apt install -y \
   libasound2 \
   libasound2-plugins \
   default-mysql-client \
-  parallel
+  parallel \
+  htop
 
-RUN apt clean && rm -rf /var/lib/apt/lists/*
+RUN set -eux; \
+# allow running as an arbitrary user (https://github.com/docker-library/php/issues/743)
+	mkdir -p /var/www/html; \
+	chown www-data:www-data /var/www/html; \
+	chmod 1777 /var/www/html
+
+ENV APACHE_CONFDIR=/etc/apache2
+ENV APACHE_ENVVARS=$APACHE_CONFDIR/envvars
+
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends apache2 libapache2-mod-fcgid; \
+	rm -rf /var/lib/apt/lists/*; \
+	\
+# generically convert lines like
+#   export APACHE_RUN_USER=www-data
+# into
+#   : ${APACHE_RUN_USER:=www-data}
+#   export APACHE_RUN_USER
+# so that they can be overridden at runtime ("-e APACHE_RUN_USER=...")
+	sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS"; \
+	\
+# setup directories and permissions
+	. "$APACHE_ENVVARS"; \
+	for dir in \
+		"$APACHE_LOCK_DIR" \
+		"$APACHE_RUN_DIR" \
+		"$APACHE_LOG_DIR" \
+# https://salsa.debian.org/apache-team/apache2/-/commit/b97ca8714890ead1ba6c095699dde752e8433205
+		"$APACHE_RUN_DIR/socks" \
+	; do \
+		rm -rvf "$dir"; \
+		mkdir -p "$dir"; \
+		chown "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$dir"; \
+# allow running as an arbitrary user (https://github.com/docker-library/php/issues/743)
+		chmod 1777 "$dir"; \
+	done; \
+	\
+# delete the "index.html" that installing Apache drops in here
+	rm -rvf /var/www/html/*; \
+	\
+# logs should go to stdout / stderr
+	ln -sfT /dev/stderr "$APACHE_LOG_DIR/error.log"; \
+	ln -sfT /dev/stdout "$APACHE_LOG_DIR/access.log"; \
+	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
+	chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR"
+
+# Apache + PHP requires preforking Apache for best results
+RUN a2enmod proxy proxy_fcgi rewrite
+
+RUN { \
+		echo '<FilesMatch \.php$>'; \
+		echo '\tSetHandler "proxy:fcgi://127.0.0.1:9000"'; \
+		echo '</FilesMatch>'; \
+		echo; \
+    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=10>'; \
+    echo '</Proxy>'; \
+    echo; \
+		echo 'DirectoryIndex disabled'; \
+		echo 'DirectoryIndex index.php index.html'; \
+		echo; \
+		echo '<Directory /var/www/>'; \
+		echo '\tOptions -Indexes'; \
+		echo '\tAllowOverride All'; \
+		echo '</Directory>'; \
+	} | tee "$APACHE_CONFDIR/conf-available/docker-php.conf" \
+	&& a2enconf docker-php
+
+COPY ./scripts/apache2-foreground /usr/local/bin/
+RUN chmod uga+x /usr/local/bin/apache2-foreground
+
+# Configure PHP-FPM
+RUN sed -i 's/;listen.allowed_clients = 127.0.0.1/listen.allowed_clients = 127.0.0.1/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_children = 5/pm.max_children = 50/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.start_servers = 2/pm.start_servers = 5/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 5/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 35/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/;pm.max_requests = 500/pm.max_requests = 500/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/;clear_env = no/clear_env = no/g' /usr/local/etc/php-fpm.d/www.conf
 
 # Helper from this repo: https://github.com/mlocati/docker-php-extension-installer
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
@@ -95,5 +175,14 @@ RUN find /opt/drupal -type f -exec chmod g+w {} +
 
 RUN rm /opt/drupal/.env
 
+EXPOSE 80
+
+# Create startup script to run both Apache and PHP-FPM
+RUN echo '#!/bin/bash\n\
+php-fpm -D\n\
+apache2-foreground' > /usr/local/bin/start-services.sh && \
+chmod +x /usr/local/bin/start-services.sh
+
 ENV PATH=${PATH}:/opt/drupal/vendor/bin:/opt/drupal/docroot/core/scripts:/opt/drupal/bin
 # vim:set ft=dockerfile:
+CMD ["/usr/local/bin/start-services.sh"]
