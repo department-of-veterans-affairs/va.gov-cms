@@ -5,25 +5,29 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;
 use Drupal\node\Entity\Node;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * For VACMS-21680.
  *
  * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/21680
  */
-class ArchivePastEvents extends BatchOperations implements BatchScriptInterface {
+class ArchivePastEvents extends BatchOperations implements BatchScriptInterface
+{
 
   /**
    * {@inheritdoc}
    */
-  public function getTitle():string {
+  public function getTitle(): string
+  {
     return "Archive past events";
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getDescription():string {
+  public function getDescription(): string
+  {
     return <<<ENDHERE
     Archive all events that at least 30 days old.
     ENDHERE;
@@ -32,37 +36,57 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
   /**
    * {@inheritdoc}
    */
-  public function getCompletedMessage(): string {
-    return '@total menu item updates were attempted. @completed were completed.';
+  public function getCompletedMessage(): string
+  {
+    return '@total event updates were attempted. @completed were completed.';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getItemType(): string {
+  public function getItemType(): string
+  {
     return 'event';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function gatherItemsToProcess(): array {
-    // Get published events that are at least 30 days old.
+  public function gatherItemsToProcess(): array
+  {
+    // Get all published events.
     $query = \Drupal::entityQuery('node')
       ->accessCheck(FALSE)
       ->condition('type', 'event')
-      ->condition('field_event_date', strtotime('-30 days'), '<')
       ->condition('status', 1);
     $event_ids = $query->execute();
 
-    return $event_ids;
+    $thirty_days_ago = strtotime('-30 days');
+    $event_ids_to_archive = [];
 
+    if (!empty($event_ids)) {
+      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      $nodes = $node_storage->loadMultiple($event_ids);
+      foreach ($nodes as $node) {
+        // Smart Date stores end_value as a property on the field item.
+        $field = $node->get('field_datetime_range_timezone')->first();
+        if ($field && isset($field->end_value)) {
+          $end_value = strtotime($field->end_value);
+          if ($end_value < $thirty_days_ago) {
+            $event_ids_to_archive[] = $node->id();
+          }
+        }
+      }
+    }
+
+    return $event_ids_to_archive;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function processOne(string $key, mixed $item, array &$sandbox): string {
+  public function processOne(string $key, mixed $item, array &$sandbox): string
+  {
     try {
       // Load the event node.
       $event = Node::load($item);
@@ -75,16 +99,14 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
       $event->setRevisionUserId(1317);
       // Set the event to archived.
       $event->set('moderation_state', 'archived');
+      $event->set('revision_log', 'Archived via batch operation because it is older than 30 days.');
       $event->save();
       $message = "Event $item archived successfully.";
       $this->batchOpLog->appendLog($message);
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
       $message = $e->getMessage();
       $this->batchOpLog->appendError("Could not archive the event. The error is $message");
     }
     return "Item $item was processed.";
-
   }
-
 }
