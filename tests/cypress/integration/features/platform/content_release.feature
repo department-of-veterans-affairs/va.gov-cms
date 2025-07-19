@@ -73,9 +73,9 @@ Feature: Content Release
     Then I should see "Invalid selection."
 
     # Select vets-website branch.
-    When I fill in autocomplete field with selector "#edit-vets-website-git-ref" with value "main"
-    Then I should see "BRANCH main"
-    When I fill in autocomplete field with selector "#edit-vets-website-git-ref" with value "BRANCH main (main)"
+    When I fill in autocomplete field with selector "#edit-vets-website-git-ref" with value "cms_branch_check"
+    Then I should see "BRANCH cms_branch_check"
+    When I fill in autocomplete field with selector "#edit-vets-website-git-ref" with value "cms_branch_check"
     And I click the "Release content" button
     And I wait for form submission
     Then I should see "Content release requested successfully"
