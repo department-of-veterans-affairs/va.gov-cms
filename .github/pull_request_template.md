@@ -14,7 +14,7 @@ Relates to #_issueid_. (or closes?)
 ## QA steps
 
 <!--
-Note: Github Copilot will be added as a PR reviewer automatically. Please pay attention to its suggestions, but use your judgement when deciding whether to incorporate them.
+Note: GitHub Copilot will be added as a PR reviewer automatically. Please pay attention to its suggestions, but use your judgement when deciding whether to incorporate them.
 -->
 
 What needs to be checked to prove this works?
