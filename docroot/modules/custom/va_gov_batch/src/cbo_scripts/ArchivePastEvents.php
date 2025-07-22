@@ -14,6 +14,11 @@ use Drupal\node\Entity\Node;
 class ArchivePastEvents extends BatchOperations implements BatchScriptInterface {
 
   /**
+   * The user ID to set for the migration.
+   */
+  const MIGRATION_USER_ID = 1317;
+
+  /**
    * {@inheritdoc}
    */
   public function getTitle(): string {
@@ -70,7 +75,7 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
         if (isset($date['0']['end_value']) && empty($date['0']['rrule'])) {
           $end_value = strtotime($date['0']['end_value']);
           // Check that the event's end date is older than 30 days.
-          if ($end_value < $thirty_days_ago) {
+          if ($end_value != FALSE && $end_value < $thirty_days_ago) {
             $event_ids_to_archive[] = $node->id();
           }
         }
@@ -93,7 +98,7 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
         return "Item $item was not processed.";
       }
       // Set the user ID to the Migration user.
-      $event->setRevisionUserId(1317);
+      $event->setRevisionUserId(self::MIGRATION_USER_ID);
       // Set the event to archived.
       $event->set('moderation_state', 'archived');
       $event->set('revision_log', 'Archived via batch operation because it is older than 30 days.');
