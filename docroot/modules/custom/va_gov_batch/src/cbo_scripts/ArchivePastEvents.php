@@ -71,12 +71,23 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
         if (!$date) {
           continue;
         }
-        // If the event has a recurring rule, don't include it.
-        if (isset($date['0']['end_value']) && empty($date['0']['rrule'])) {
-          $end_value = strtotime($date['0']['end_value']);
-          // Check that the event's end date is older than 30 days.
-          if ($end_value != FALSE && $end_value < $thirty_days_ago) {
-            $event_ids_to_archive[] = $node->id();
+        // Start with newest date and work backwards.
+        for ($i = count($date) - 1; $i >= 0; $i--) {
+          if (isset($date[$i]['end_value'])) {
+            $end_value = $date[$i]['end_value'];
+            if (empty($end_value)) {
+              continue;
+            }
+            // Check that the event's end date is older than 30 days.
+            if ($end_value < $thirty_days_ago) {
+              $event_ids_to_archive[] = $node->id();
+              // We only need to add an event once, so break.
+              break;
+            }
+            else {
+              // No need to check earlier dates.
+              break;
+            }
           }
         }
       }
