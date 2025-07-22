@@ -25,7 +25,7 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
    */
   public function getDescription(): string {
     return <<<ENDHERE
-    Archive all events that at least 30 days old.
+    Archive all events that are at least 30 days old.
     ENDHERE;
   }
 
@@ -62,9 +62,14 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
       $nodes = $node_storage->loadMultiple($event_ids);
       foreach ($nodes as $node) {
         // Smart Date stores end_value as a property on the field item.
-        $field = $node->get('field_datetime_range_timezone')->first();
-        if ($field && isset($field->end_value)) {
-          $end_value = strtotime($field->end_value);
+        $date = $node->get('field_datetime_range_timezone')->getValue();
+        if (!$date) {
+          continue;
+        }
+        // If the event has a recurring rule, don't include it.
+        if (isset($date['0']['end_value']) && empty($date['0']['rrule'])) {
+          $end_value = strtotime($date['0']['end_value']);
+          // Check that the event's end date is older than 30 days.
           if ($end_value < $thirty_days_ago) {
             $event_ids_to_archive[] = $node->id();
           }
