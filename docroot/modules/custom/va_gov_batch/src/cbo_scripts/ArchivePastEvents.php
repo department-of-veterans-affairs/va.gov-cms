@@ -86,7 +86,7 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
               break;
             }
             else {
-              // No need to check earlier dates.
+              // No need to check earlier dates of event with upcoming date.
               break;
             }
           }
