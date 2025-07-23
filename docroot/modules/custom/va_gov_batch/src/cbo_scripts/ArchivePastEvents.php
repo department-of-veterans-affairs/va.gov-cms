@@ -117,7 +117,7 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
       $message = "Event $item archived successfully.";
       $this->batchOpLog->appendLog($message);
     }
-    catch (\Exception $e) {
+    catch (EntityStorageException $e) {
       $message = $e->getMessage();
       $this->batchOpLog->appendError("Could not archive the event. The error is $message");
     }
