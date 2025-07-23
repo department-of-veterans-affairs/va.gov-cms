@@ -101,6 +101,8 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
    * {@inheritdoc}
    */
   public function processOne(string $key, mixed $item, array &$sandbox): string {
+    $message = NULL;
+    $error_message = NULL;
     try {
       // Load the event node.
       $event = Node::load($item);
@@ -115,14 +117,23 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
       $event->set('moderation_state', 'archived');
       $event->set('revision_log', 'Archived via batch operation because it is older than 30 days.');
       $event->save();
-      $message = "Event $item archived successfully.";
-      $this->batchOpLog->appendLog($message);
+      $message = "Event $item ({$event->getTitle()}) archived successfully.";
     }
     catch (EntityStorageException $e) {
-      $message = $e->getMessage();
-      $this->batchOpLog->appendError("Could not archive the event. The error is $message");
+      $error_message = $e->getMessage();
+      $this->batchOpLog->appendError("Could not archive the event $item. The error is $error_message");
     }
-    return "Item $item was processed.";
+    // If processed successfully, return the message.
+    // If there was an error, return the error message.
+    return $message ?: ($error_message ?: "Unknown error or item was not processed.");
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCronTiming(): string | array {
+    // We only want this to run once per month.
+    return ['on the 1st of every 1 month'];
   }
 
 }
