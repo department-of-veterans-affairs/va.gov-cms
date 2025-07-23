@@ -5,6 +5,7 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;
 use Drupal\node\Entity\Node;
+use Drupal\Core\Entity\EntityStorageException;
 
 /**
  * For VACMS-21680.
@@ -14,7 +15,7 @@ use Drupal\node\Entity\Node;
 class ArchivePastEvents extends BatchOperations implements BatchScriptInterface {
 
   /**
-   * The user ID to set for the migration.
+   * The user ID of the CMS Migrator user, which we use for batch operations.
    */
   const MIGRATION_USER_ID = 1317;
 
@@ -29,9 +30,9 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
    * {@inheritdoc}
    */
   public function getDescription(): string {
-    return <<<ENDHERE
+    return <<<DESCRIPTION
     Archive all events that are at least 30 days old.
-    ENDHERE;
+    DESCRIPTION;
   }
 
   /**
@@ -67,15 +68,15 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
       $nodes = $node_storage->loadMultiple($event_ids);
       foreach ($nodes as $node) {
         // Smart Date stores end_value as a property on the field item.
-        $date = $node->get('field_datetime_range_timezone')->getValue();
-        if (!$date) {
+        $date_ranges = $node->get('field_datetime_range_timezone')->getValue();
+        if (!$date_ranges) {
           continue;
         }
         // Start with newest date and work backwards.
-        for ($i = count($date) - 1; $i >= 0; $i--) {
-          if (isset($date[$i]['end_value'])) {
-            $end_value = $date[$i]['end_value'];
-            if ($end_value === null || $end_value === '') {
+        for ($i = count($date_ranges) - 1; $i >= 0; $i--) {
+          if (isset($date_ranges[$i]['end_value'])) {
+            $end_value = $date_ranges[$i]['end_value'];
+            if ($end_value === NULL || $end_value === '') {
               continue;
             }
             // Check that the event's end date is older than 30 days.
