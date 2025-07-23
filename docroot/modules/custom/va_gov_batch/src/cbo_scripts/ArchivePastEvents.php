@@ -75,7 +75,7 @@ class ArchivePastEvents extends BatchOperations implements BatchScriptInterface 
         for ($i = count($date) - 1; $i >= 0; $i--) {
           if (isset($date[$i]['end_value'])) {
             $end_value = $date[$i]['end_value'];
-            if (empty($end_value)) {
+            if ($end_value === null || $end_value === '') {
               continue;
             }
             // Check that the event's end date is older than 30 days.
