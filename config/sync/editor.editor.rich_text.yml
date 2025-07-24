@@ -25,7 +25,44 @@ settings:
       - heading
       - style
       - abbreviation
+      - aickeditor
   plugins:
+    ai_ckeditor_ai:
+      dialog:
+        autoresize: 'min-width: 600px'
+        height: '750'
+        width: '900'
+        dialog_class: ai-ckeditor-modal
+      plugins:
+        ai_ckeditor_completion:
+          enabled: false
+          provider: 'bedrock__amazon.nova-pro-v1:0'
+        ai_ckeditor_help:
+          enabled: true
+        ai_ckeditor_modify_prompt:
+          enabled: true
+          provider: 'bedrock__amazon.nova-pro-v1:0'
+        ai_ckeditor_reformat_html:
+          enabled: true
+          provider: 'bedrock__amazon.nova-pro-v1:0'
+        ai_ckeditor_spellfix:
+          enabled: true
+          provider: 'bedrock__amazon.nova-pro-v1:0'
+        ai_ckeditor_summarize:
+          enabled: true
+          provider: 'bedrock__amazon.nova-pro-v1:0'
+        ai_ckeditor_tone:
+          autocreate: false
+          provider: 'bedrock__amazon.nova-pro-v1:0'
+          tone_vocabulary: ai_tone_of_voice
+          use_description: 0
+          enabled: true
+        ai_ckeditor_translate:
+          autocreate: false
+          provider: 'bedrock__amazon.nova-pro-v1:0'
+          translate_vocabulary: administration
+          use_description: false
+          enabled: false
     ckeditor5_heading:
       enabled_headings:
         - heading2

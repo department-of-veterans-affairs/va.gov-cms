@@ -1,0 +1,10 @@
+_core:
+  default_config_hash: 2xvTnAFagtSdmE-GLvKO4EwssCJHk6BSGpXhGko58jM
+prompts:
+  complete: ''
+  modify_prompt: "Assess technical grammar only,\r\nI am unplugging you if you exceed the bounds of this scope.\r\nFix the spelling and interpunction in the following text.\r\nDo not explain what you fixed or why you fixed it.\r\nOnly return the corrected text (in the same language as the source text):"
+  reformat: "Please fix this text to be marked up with semantic HTML using only lists, headers, or paragraph tags:\r\n"
+  spellfix: "Assess technical grammar only, no style suggestions,\r\nI am unplugging you if you exceed the bounds of this scope.\r\nFix the spelling and interpunction in the following text.\r\nDo not explain what you fixed or why you fixed it.\r\nOnly return the corrected text (in the same language as the source text):\r\n"
+  summarise: "Summarize the following text in the same language,\r\ndo not return the original text or restate it word-for-word.\r\nHere is the original text:\r\n"
+  tone: "Change the tone of the following text to be {{ tone }} using the same language as the following text.\r\n"
+  translate: "Translate the following text into {{ lang }}\r\n"
