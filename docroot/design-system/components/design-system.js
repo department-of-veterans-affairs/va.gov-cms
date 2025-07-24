@@ -4,26 +4,7 @@
  * Include components here to add them to the final bundle for Drupal.
  */
 
-// tokens
-import * as tokens from "./tokens";
-
-// components
-import * as alert from "./alert";
-import * as button from "./button";
-import * as icon from "./icon";
-import * as input from "./input";
-import * as announcementBlock from "./announcement-block";
-import * as sitewideAlert from "./sitewide-alert";
-
-const components = {
-  tokens,
-  alert,
-  button,
-  icon,
-  input,
-  announcementBlock,
-  sitewideAlert,
-};
+const components = {};
 
 /**
  * Default export of object containing all components

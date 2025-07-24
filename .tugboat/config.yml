@@ -224,6 +224,11 @@ services:
       - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
       - chmod +x /etc/service/drupal_events/run
 
+      # This process watches for a trigger to rebuild the next build server.
+      - mkdir -p /etc/service/next_build_queue_service
+      - mv "${TUGBOAT_ROOT}/scripts/queue_runner/next_queue_runner.sh" /etc/service/next_build_queue_service/run
+      - chmod +x /etc/service/next_build_queue_service/run
+
       clone:
       # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
       - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
@@ -235,6 +240,14 @@ services:
       - j2 "${TUGBOAT_ROOT}/.next/503-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/503-error-document.html"
 
       online:
+
+      # Put necessary env variables in place for next's Drupal Preview before building server
+      # Need to construct this way instead of TUGBOAT_DEFAULT_SERVICE_URL in order to drop the trailing /
+      - echo "NEXT_PUBLIC_DRUPAL_BASE_URL=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+      - echo "NEXT_IMAGE_DOMAIN=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+      - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+      - echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
+
       # Start the next build preview server
       - bash -lc 'composer va:next:build'
       - bash -lc 'composer va:next:start' &
@@ -249,14 +262,7 @@ services:
       - find -L "${DOCROOT}/vendor/va-gov/content-build/node_modules/.bin" -type f -exec chmod +x {} \+
       - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
 
-      # Put necessary env variables in place for next's Drupal Preview before building server
-      # Need to construct this way instead of TUGBOAT_DEFAULT_SERVICE_URL in order to drop the trailing /
-      - echo "NEXT_PUBLIC_DRUPAL_BASE_URL=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
-      - echo "NEXT_IMAGE_DOMAIN=https://cms-${TUGBOAT_SERVICE_TOKEN}.${TUGBOAT_SERVICE_CONFIG_DOMAIN}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
-      - echo "DRUPAL_CLIENT_ID=${DRUPAL_CLIENT_ID}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
-      - echo "DRUPAL_CLIENT_SECRET=${DRUPAL_CLIENT_SECRET}" >> ${TUGBOAT_ROOT}/next/envs/.env.tugboat
-
-      # Build storybook and the frontends (web, next) in parallel
+      # Build storybook and the content-build frontend (web) in parallel
       - bash -lc 'time task --taskfile=tugboat.yml'
 
   memcache:

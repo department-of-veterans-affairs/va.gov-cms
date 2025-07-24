@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains the Frontend enum.
- */
-
 namespace Drupal\va_gov_content_release\Frontend;
 
 /**
@@ -14,6 +9,7 @@ enum Frontend: string implements FrontendInterface {
   case ContentBuild = 'content_build';
   case VetsWebsite = 'vets_website';
   case NextBuild = 'next_build';
+  case NextBuildVetsWebsite = 'next_build_vets_website';
 
   /**
    * {@inheritDoc}
@@ -25,7 +21,7 @@ enum Frontend: string implements FrontendInterface {
   /**
    * {@inheritDoc}
    */
-  public function isContentBuild() : bool {
+  public function isContentBuild(): bool {
     return match ($this) {
       self::ContentBuild => TRUE,
       default => FALSE,
@@ -35,7 +31,7 @@ enum Frontend: string implements FrontendInterface {
   /**
    * {@inheritDoc}
    */
-  public function isVetsWebsite() : bool {
+  public function isVetsWebsite(): bool {
     return match ($this) {
       self::VetsWebsite => TRUE,
       default => FALSE,
@@ -45,9 +41,19 @@ enum Frontend: string implements FrontendInterface {
   /**
    * {@inheritDoc}
    */
-  public function isNextBuild() : bool {
+  public function isNextBuild(): bool {
     return match ($this) {
       self::NextBuild => TRUE,
+      default => FALSE,
+    };
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function isNextBuildVetsWebsite(): bool {
+    return match ($this) {
+      self::NextBuildVetsWebsite => TRUE,
       default => FALSE,
     };
   }

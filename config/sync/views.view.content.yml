@@ -507,7 +507,7 @@ display:
         type: full
         options:
           offset: 0
-          pagination_heading_level: ''
+          pagination_heading_level: h2
           items_per_page: 25
           total_pages: null
           id: 0
@@ -775,14 +775,16 @@ display:
             views_bulk_operations_bulk_form_1: views_bulk_operations_bulk_form_1
             title: title
             operations: operations
-            type: type
             moderation_state: moderation_state
-            field_administration: field_administration
-            changed: changed
             revision_uid: revision_uid
-            field_question_1: field_question_1
-            field_question: field_question
-            nothing: nothing
+            changed: changed
+            field_administration: field_administration
+            field_facility_location: field_facility_location
+            view_node: view_node
+            field_featured: field_featured
+            field_datetime_range_timezone_value: field_datetime_range_timezone_value
+            field_datetime_range_timezone_end_value: field_datetime_range_timezone_end_value
+            field_datetime_range_timezone_rrule: field_datetime_range_timezone_rrule
           default: changed
           info:
             views_bulk_operations_bulk_form_1:
@@ -802,13 +804,6 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            type:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             moderation_state:
               sortable: false
               default_sort_order: asc
@@ -816,8 +811,8 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_administration:
-              sortable: true
+            revision_uid:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -830,28 +825,51 @@ display:
               separator: ' by '
               empty_column: false
               responsive: priority-low
-            revision_uid:
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_facility_location:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_question_1:
+            view_node:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_question:
+            field_featured:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            nothing:
+            field_datetime_range_timezone_value:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_datetime_range_timezone_end_value:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_datetime_range_timezone_rrule:
+              sortable: true
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -2961,6 +2979,159 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_datetime_range_timezone_value:
+          id: field_datetime_range_timezone_value
+          table: node__field_datetime_range_timezone
+          field: field_datetime_range_timezone_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: date
+          label: 'Date and time - Start'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          date_format: html_date
+          custom_date_format: ''
+          timezone: ''
+        field_datetime_range_timezone_end_value:
+          id: field_datetime_range_timezone_end_value
+          table: node__field_datetime_range_timezone
+          field: field_datetime_range_timezone_end_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: date
+          label: 'Date and time - End'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          date_format: html_date
+          custom_date_format: ''
+          timezone: ''
+        field_datetime_range_timezone_rrule:
+          id: field_datetime_range_timezone_rrule
+          table: node__field_datetime_range_timezone
+          field: field_datetime_range_timezone_rrule
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          label: 'Date and time - Recurring'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
       exposed_form:
         type: basic
         options:
@@ -3305,6 +3476,69 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_datetime_range_timezone_rrule:
+          id: field_datetime_range_timezone_rrule
+          table: node__field_datetime_range_timezone
+          field: field_datetime_range_timezone_rrule
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: word
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_datetime_range_timezone_rrule_op
+            label: 'Date and time - Recurring'
+            description: ''
+            use_operator: true
+            operator: field_datetime_range_timezone_rrule_op
+            operator_limit_selection: true
+            operator_list:
+              word: word
+              empty: empty
+              'not empty': 'not empty'
+            identifier: field_datetime_range_timezone_rrule
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              anonymous: '0'
+              authenticated: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vba: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+              next_js: '0'
+              translation_manager: '0'
+              rates_editor: '0'
+              form_builder_user: '0'
+              yu4kjes3: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -3356,7 +3590,9 @@ display:
           plugin_id: result
           empty: false
           content: "<p>This view is only available to admins.</p>\r\n<hr />\r\nDisplaying @start - @end of @total"
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/events
       menu:
         type: tab
