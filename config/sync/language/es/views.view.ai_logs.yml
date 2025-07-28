@@ -1,0 +1,68 @@
+display:
+  default:
+    display_title: 'Por defecto'
+    display_options:
+      fields:
+        bundle:
+          label: Tipo
+          separator: ', '
+        created:
+          label: Fecha
+          separator: ', '
+        prompt:
+          separator: ', '
+        output_text:
+          label: Respuesta
+          separator: ', '
+        extra_data:
+          separator: ', '
+        provider:
+          label: Proveedor
+          separator: ', '
+        model:
+          label: Modelo
+          separator: ', '
+        tags_value:
+          label: Etiquetas
+          separator: ', '
+        view_ai_log:
+          text: Ver
+        edit_ai_log:
+          text: Editar
+        delete_ai_log:
+          text: Eliminar
+        dropbutton:
+          label: Acciones
+      pager:
+        options:
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« Primero'
+            last: 'Último »'
+          expose:
+            items_per_page_label: 'Elementos por página'
+            items_per_page_options_all_label: '- Todo -'
+            offset_label: Desplazamiento
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Restablecer
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      filters:
+        bundle:
+          expose:
+            label: Tipo
+        created_1:
+          expose:
+            label: Para
+        provider:
+          expose:
+            label: Proveedor
+        model:
+          expose:
+            label: Modelo
+  page_1:
+    display_title: Página
