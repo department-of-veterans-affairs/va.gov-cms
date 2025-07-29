@@ -114,7 +114,7 @@ organization on GitHub:
 
 The VFS team deploys all of these apps using a Jenkins server, configured with a [private repository](https://github.com/department-of-veterans-affairs/devops).
 
-All development on these projects is done via Pull Requests.
+All development on these projects is done via Pull Requests with approval.
 
 ### High-Level Architecture
 
