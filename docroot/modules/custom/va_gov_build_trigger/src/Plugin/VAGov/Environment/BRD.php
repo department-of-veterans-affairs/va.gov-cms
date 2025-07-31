@@ -37,6 +37,13 @@ class BRD extends EnvironmentPluginBase {
   protected $cbGitHubClient;
 
   /**
+   * Github API client for the `next-build` repository.
+   *
+   * @var \Drupal\va_gov_github\Api\Client\ApiClientInterface
+   */
+  protected $nbGitHubClient;
+
+  /**
    * {@inheritDoc}
    */
   public function __construct(
@@ -46,7 +53,8 @@ class BRD extends EnvironmentPluginBase {
     LoggerInterface $logger,
     FileSystemInterface $filesystem,
     Settings $settings,
-    ApiClientInterface $cbGitHubClient
+    ApiClientInterface $cbGitHubClient,
+    ApiClientInterface $nbGitHubClient,
   ) {
     parent::__construct(
       $configuration,
@@ -57,6 +65,7 @@ class BRD extends EnvironmentPluginBase {
     );
     $this->settings = $settings;
     $this->cbGitHubClient = $cbGitHubClient;
+    $this->nbGitHubClient = $nbGitHubClient;
   }
 
   /**
@@ -70,7 +79,8 @@ class BRD extends EnvironmentPluginBase {
       $container->get('logger.factory')->get('va_gov_build_trigger'),
       $container->get('file_system'),
       $container->get('settings'),
-      $container->get('va_gov_github.api_client.content_build')
+      $container->get('va_gov_github.api_client.content_build'),
+      $container->get('va_gov_github.api_client.next_build')
     );
   }
 
@@ -79,7 +89,7 @@ class BRD extends EnvironmentPluginBase {
    */
   public function triggerFrontendBuild() : void {
     try {
-      if ($this->pendingWorkflowRunExists()) {
+      if ($this->pendingContentBuildWorkflowRunExists()) {
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];
@@ -90,7 +100,28 @@ class BRD extends EnvironmentPluginBase {
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];
-        $message = $this->t('The system started the process of releasing this content to go live on VA.gov. <a href="@job_link">Check status</a>.', $vars);
+        $message = $this->t('The system started the process of releasing this content to go live on VA.gov. <a href="@job_link">Check content-build status</a>.', $vars);
+      }
+      $this->messenger()->addStatus($message);
+      $this->logger->info($message);
+    }
+    catch (\Throwable $exception) {
+      $this->handleBrdException($exception);
+    }
+    try {
+      if ($this->pendingNextBuildWorkflowRunExists()) {
+        $vars = [
+          '@job_link' => 'https://github.com/department-of-veterans-affairs/next-build/actions/workflows/content-release-prod.yml',
+        ];
+        $message = $this->t('Changes will be included in a content release to VA.gov that\'s already in progress. <a href="@job_link">Check status</a>.', $vars);
+      }
+      else {
+        // Trigger the next-build workflow as well.
+        $this->nbGitHubClient->triggerRepositoryDispatchEvent('content-release-prod');
+        $vars = [
+          '@job_link' => 'https://github.com/department-of-veterans-affairs/next-build/actions/workflows/content-release-prod.yml',
+        ];
+        $message = $this->t('The system started the process of releasing this content to go live on VA.gov. <a href="@cb_job_link">Check next-build status</a>.', $vars);
       }
       $this->messenger()->addStatus($message);
       $this->logger->info($message);
@@ -108,9 +139,9 @@ class BRD extends EnvironmentPluginBase {
   }
 
   /**
-   * Check for a pending content-release workflow run.
+   * Check for a pending Content Build content-release workflow run.
    */
-  protected function pendingWorkflowRunExists() : bool {
+  protected function pendingContentBuildWorkflowRunExists() : bool {
     try {
       // Check if there are any workflows pending that were created recently.
       $check_interval = 2 * 60 * 60;
@@ -120,6 +151,29 @@ class BRD extends EnvironmentPluginBase {
         'created' => '>=' . date('c', $check_time),
       ];
       $workflow_runs = $this->cbGitHubClient->getWorkflowRuns('content-release.yml', $workflow_run_params);
+
+      // A well-formed response will have `total_count` set.
+      return !empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0;
+    }
+    catch (\Throwable $exception) {
+      $this->handleBrdException($exception);
+    }
+    return FALSE;
+  }
+
+  /**
+   * Check for a pending Next Build content-release workflow run.
+   */
+  protected function pendingNextBuildWorkflowRunExists() : bool {
+    try {
+      // Check if there are any workflows pending that were created recently.
+      $check_interval = 2 * 60 * 60;
+      $check_time = time() - $check_interval;
+      $workflow_run_params = [
+        'status' => 'pending',
+        'created' => '>=' . date('c', $check_time),
+      ];
+      $workflow_runs = $this->nbGitHubClient->getWorkflowRuns('content-release-prod.yml', $workflow_run_params);
 
       // A well-formed response will have `total_count` set.
       return !empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0;
