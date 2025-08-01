@@ -5,6 +5,7 @@ namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Utility\Error;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_github\Api\Client\ApiClientInterface;
 use Psr\Log\LoggerInterface;
@@ -106,7 +107,7 @@ class BRD extends EnvironmentPluginBase {
       $this->logger->info($message);
     }
     catch (\Throwable $exception) {
-      $this->handleBrdException($exception);
+      $this->handleCbException($exception);
     }
     try {
       if ($this->pendingNextBuildWorkflowRunExists()) {
@@ -127,7 +128,7 @@ class BRD extends EnvironmentPluginBase {
       $this->logger->info($message);
     }
     catch (\Throwable $exception) {
-      $this->handleBrdException($exception);
+      $this->handleNbException($exception);
     }
   }
 
@@ -156,7 +157,7 @@ class BRD extends EnvironmentPluginBase {
       return !empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0;
     }
     catch (\Throwable $exception) {
-      $this->handleBrdException($exception);
+      $this->handleCbException($exception);
     }
     return FALSE;
   }
@@ -179,25 +180,41 @@ class BRD extends EnvironmentPluginBase {
       return !empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0;
     }
     catch (\Throwable $exception) {
-      $this->handleBrdException($exception);
+      $this->handleNbException($exception);
     }
     return FALSE;
   }
 
   /**
-   * Handle GHA API-related exceptions.
+   * Handle GHA API-related exceptions for content-build.
    *
    * @param \Throwable $exception
    *   The exception that was caught.
    */
-  protected function handleBrdException(\Throwable $exception) : void {
+  protected function handleCbException(\Throwable $exception) : void {
     $message = $this->t('A content release request has failed with an Exception. Please visit <a href="@job_link">@job_link</a> for more information on the issue. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
       '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
     ]);
     $this->messenger()->addError($message);
     $this->logger->error($message);
 
-    watchdog_exception('va_gov_build_trigger', $exception);
+    Error::logException($this->logger, $exception);
+  }
+
+  /**
+   * Handle GHA API-related exceptions for next-build.
+   *
+   * @param \Throwable $exception
+   *   The exception that was caught.
+   */
+  protected function handleNbException(\Throwable $exception) : void {
+    $message = $this->t('A content release request has failed with an Exception. Please visit <a href="@job_link">@job_link</a> for more information on the issue. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
+      '@job_link' => 'https://github.com/department-of-veterans-affairs/next-build/actions/workflows/content-release-prod.yml',
+    ]);
+    $this->messenger()->addError($message);
+    $this->logger->error($message);
+
+    Error::logException($this->logger, $exception);
   }
 
 }
