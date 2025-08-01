@@ -122,7 +122,7 @@ class BRD extends EnvironmentPluginBase {
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/next-build/actions/workflows/content-release-prod.yml',
         ];
-        $message = $this->t('The system started the process of releasing this content to go live on VA.gov. <a href="@cb_job_link">Check next-build status</a>.', $vars);
+        $message = $this->t('The system started the process of releasing this content to go live on VA.gov. <a href="@job_link">Check next-build status</a>.', $vars);
       }
       $this->messenger()->addStatus($message);
       $this->logger->info($message);
