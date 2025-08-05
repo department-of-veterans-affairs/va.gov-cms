@@ -118,16 +118,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.342.22",
+            "version": "3.352.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4f5276e14b6d7ee21859aaf54aa0e8f5367ba0d4"
+                "reference": "d25aec970dbf6af823b30d11d5c8cd73ef8a0a4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4f5276e14b6d7ee21859aaf54aa0e8f5367ba0d4",
-                "reference": "4f5276e14b6d7ee21859aaf54aa0e8f5367ba0d4",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d25aec970dbf6af823b30d11d5c8cd73ef8a0a4c",
+                "reference": "d25aec970dbf6af823b30d11d5c8cd73ef8a0a4c",
                 "shasum": ""
             },
             "require": {
@@ -209,9 +209,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.342.22"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.352.1"
             },
-            "time": "2025-04-07T18:29:40+00:00"
+            "time": "2025-08-04T18:19:17+00:00"
         },
         {
             "name": "bjeavons/zxcvbn-php",
@@ -12804,6 +12804,10 @@
                     "homepage": "https://www.drupal.org/user/1852732"
                 },
                 {
+                    "name": "dieterholvoet",
+                    "homepage": "https://www.drupal.org/user/3567222"
+                },
+                {
                     "name": "jeroent",
                     "homepage": "https://www.drupal.org/user/2228934"
                 }
@@ -12817,21 +12821,22 @@
         },
         {
             "name": "drupal/s3fs",
-            "version": "3.7.0",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/s3fs.git",
-                "reference": "8.x-3.7"
+                "reference": "8.x-3.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/s3fs-8.x-3.7.zip",
-                "reference": "8.x-3.7",
-                "shasum": "96fb481165bd330c05817958f3a1602a517c8267"
+                "url": "https://ftp.drupal.org/files/projects/s3fs-8.x-3.8.zip",
+                "reference": "8.x-3.8",
+                "shasum": "7c42a1e8addeef0f1d8cd0c27bfdc8f79283f62b"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.18",
-                "drupal/core": "^8.8 || ^9 || ~10.0.0 || ~10.1.0 || ~10.2.0 || ~10.3.0 || ~10.4.0 || ~11.0.0 || ~11.1.0"
+                "drupal/core": ">=8.8 < 10.6 || ~11.0.0 || ~11.1.0",
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
                 "drupal/key": "^1",
@@ -12848,8 +12853,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.7",
-                    "datestamp": "1734676879",
+                    "version": "8.x-3.8",
+                    "datestamp": "1750648158",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
