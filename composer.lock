@@ -11049,26 +11049,29 @@
         },
         {
             "name": "drupal/node_link_report",
-            "version": "1.18.0",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/node_link_report.git",
-                "reference": "8.x-1.18"
+                "reference": "8.x-1.21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/node_link_report-8.x-1.18.zip",
-                "reference": "8.x-1.18",
-                "shasum": "0565a7c683c4b50f00583c86fbb43335effdc4c7"
+                "url": "https://ftp.drupal.org/files/projects/node_link_report-8.x-1.21.zip",
+                "reference": "8.x-1.21",
+                "shasum": "8161c9f3f37eb4762c9915b575a9b2c79d58f52f"
             },
             "require": {
-                "drupal/core": "^9.3 || ^10"
+                "drupal/core": "^9.3 || ^10 || ^11"
+            },
+            "require-dev": {
+                "drush/drush": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.18",
-                    "datestamp": "1663034708",
+                    "version": "8.x-1.21",
+                    "datestamp": "1753888612",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -11088,7 +11091,8 @@
             "description": "Adds a link report block to alert to broken links.",
             "homepage": "https://www.drupal.org/project/node_link_report",
             "support": {
-                "source": "https://git.drupalcode.org/project/node_link_report"
+                "source": "http://cgit.drupalcode.org/node_link_report",
+                "issues": "http://drupal.org/project/issues/node_link_report"
             }
         },
         {
