@@ -5446,17 +5446,17 @@
         },
         {
             "name": "drupal/eca",
-            "version": "2.1.8",
+            "version": "2.1.11",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/eca.git",
-                "reference": "2.1.8"
+                "reference": "2.1.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/eca-2.1.8.zip",
-                "reference": "2.1.8",
-                "shasum": "266e90cbd45ff5cf9a4caf8f9dea9241b9c7419e"
+                "url": "https://ftp.drupal.org/files/projects/eca-2.1.11.zip",
+                "reference": "2.1.11",
+                "shasum": "851b00d8f2b2d9702c6aec8e4af44366e74ad592"
             },
             "require": {
                 "dragonmantank/cron-expression": "^3.1",
@@ -5467,19 +5467,21 @@
                 "php": ">=8.1"
             },
             "require-dev": {
+                "drupal/ai": "^1.2",
+                "drupal/ai_agents": "^1.2",
                 "drupal/eca_ui": "*",
                 "drupal/entity_reference_revisions": "^1.12",
                 "drupal/inline_entity_form": "^3.0",
                 "drupal/paragraphs": "^1.18",
                 "drupal/project_browser": "^2.0",
                 "drupal/token": "^1.15",
-                "drupal/webform": "dev-3465838-drupal-11-compatibility"
+                "drupal/webform": "^6.3"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.1.8",
-                    "datestamp": "1748859784",
+                    "version": "2.1.11",
+                    "datestamp": "1753534704",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
