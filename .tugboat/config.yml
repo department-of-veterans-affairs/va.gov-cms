@@ -62,7 +62,7 @@ services:
       - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-web.conf /etc/apache2/sites-enabled/
 
       # Setup storybook-*. vhost to serve static website.
-      - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-storybook.conf /etc/apache2/sites-enabled/
+      # - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-storybook.conf /etc/apache2/sites-enabled/
 
       # Setup next-*. vhost to serve static website.
       - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-next.conf /etc/apache2/sites-enabled/
