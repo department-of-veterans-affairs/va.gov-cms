@@ -442,11 +442,6 @@
             "! ./scripts/should-run-directly.sh || drush",
             "./scripts/should-run-directly.sh || ddev composer va:drush --"
         ],
-        "va:ds:drupal": [
-            "# Build the Drupal theme.",
-            "! ./scripts/should-run-directly.sh || (cd docroot/design-system && npm install && npm run build:drupal)",
-            "./scripts/should-run-directly.sh || ddev composer va:ds:drupal --"
-        ],
         "va:migrate:sync": [
             "# Copy migration ymls from va_gov_migrate to config/sync and run config import.",
             "! ./scripts/should-run-directly.sh || ./scripts/migrate-sync.sh",

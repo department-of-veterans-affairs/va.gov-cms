@@ -25,11 +25,11 @@ yarn install
 yarn build:css
 popd
 
-pushd ./docroot/design-system
-nvm install
-npm install
-npm run build:drupal
-popd
+# pushd ./docroot/design-system
+# nvm install
+# npm install
+# npm run build:drupal
+# popd
 
 if [[ "${CMS_ENVIRONMENT_TYPE}" == "tugboat" ]]; then
 

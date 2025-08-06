@@ -60,6 +60,12 @@ services:
       # Setup web-*. vhost to serve static website.
       - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-web.conf /etc/apache2/sites-enabled/
 
+<<<<<<< HEAD
+=======
+      # Setup storybook-*. vhost to serve static website.
+      # - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-storybook.conf /etc/apache2/sites-enabled/
+
+>>>>>>> 7b242f453 (Delete storybook and Design system)
       # Setup next-*. vhost to serve static website.
       - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-next.conf /etc/apache2/sites-enabled/
 
