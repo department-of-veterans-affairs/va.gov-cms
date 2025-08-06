@@ -9,3 +9,11 @@ services:
     arguments: [ '@plugin.manager.graphql.schema' ]
     tags:
       - { name: 'event_subscriber' }
+  va_gov_graphql.node_relationship_analyzer:
+    class: Drupal\va_gov_graphql\Service\NodeRelationshipAnalyzer
+    arguments: ['@entity_type.manager', '@entity_field.manager', '@logger.factory']
+  va_gov_graphql.node_relationship_commands:
+    class: Drupal\va_gov_graphql\Commands\NodeRelationshipCommands
+    arguments: ['@va_gov_graphql.node_relationship_analyzer']
+    tags:
+      - { name: drush.command }
