@@ -5,6 +5,7 @@ dependencies:
   config:
     - node.type.vba_facility_service
   module:
+    - ai_image_alt_text
     - node
     - node_link_report
     - va_gov_backend
@@ -17,4 +18,5 @@ weight: -3
 is_admin: null
 permissions:
   - 'create vba_facility_service content'
+  - 'generate ai alt tags'
   - 'view node link report'
