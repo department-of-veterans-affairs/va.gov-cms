@@ -1,0 +1,49 @@
+name: Build and Push Apache Container to ECR
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 12 * * 4
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4.2.1
+        with:
+          aws-region: us-gov-west-1
+          role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
+          role-duration-seconds: 900
+          role-session-name: vsp-vagov-next-build-githubaction
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Get next image tag
+        id: get_next_tag
+        run: |
+          REPO_NAME="dsva/cms-apache"
+          # Logic to fetch latest tag and increment (e.g., using aws cli and jq)
+          # For simplicity, let's assume a basic increment here
+          LATEST_TAG=$(aws ecr describe-images --repository-name $REPO_NAME --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text || echo "0.0.0")
+          IFS='.' read -r major minor patch <<< "$LATEST_TAG"
+          NEW_PATCH=$((patch + 1))
+          NEW_TAG="${major}.${minor}.${NEW_PATCH}"
+          echo "new_tag=${NEW_TAG}" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./docker/apache
+          platforms: linux/amd64
+          file: ./docker/apache/Dockerfile
+          push: true
+          tags: ${{ steps.login-ecr.outputs.registry }}/dsva/cms-apache:${{ steps.get_next_tag.outputs.new_tag }},${{ steps.login-ecr.outputs.registry }}/dsva/cms-apache:latet
