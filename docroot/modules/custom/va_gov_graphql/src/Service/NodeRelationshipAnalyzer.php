@@ -113,17 +113,17 @@ class NodeRelationshipAnalyzer {
   }
 
   /**
-   * Get all entities that reference this node.
+   * Get all entities that reference this entity (works for any entity type).
    *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node to analyze.
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to analyze.
    * @param array $options
    *   Options for the query (e.g., limit, entity_types).
    *
    * @return array
    *   Array of entity reference information.
    */
-  public function getReferencingEntities(NodeInterface $node, array $options = []): array {
+  public function getReferencingEntities($entity, array $options = []): array {
     $references = [];
     $limit = $options['limit'] ?? 50;
     $allowed_entity_types = $options['entity_types'] ?? NULL;
@@ -141,18 +141,28 @@ class NodeRelationshipAnalyzer {
         $storage = $this->entityTypeManager->getStorage($entity_type_id);
         
         foreach ($fields as $field_name => $field_info) {
-          // Check if this field can reference nodes.
-          $field_definitions = $this->entityFieldManager->getFieldDefinitions($entity_type_id, reset($field_info['bundles']));
-          $field_definition = $field_definitions[$field_name] ?? NULL;
+          // Check if this field can reference the target entity type
+          $can_reference_entity = FALSE;
+          $field_definition = NULL;
           
-          if (!$field_definition || $field_definition->getSetting('target_type') !== 'node') {
+          foreach ($field_info['bundles'] as $bundle) {
+            $field_definitions = $this->entityFieldManager->getFieldDefinitions($entity_type_id, $bundle);
+            $field_definition = $field_definitions[$field_name] ?? NULL;
+            
+            if ($field_definition && $field_definition->getSetting('target_type') === $entity->getEntityTypeId()) {
+              $can_reference_entity = TRUE;
+              break;
+            }
+          }
+          
+          if (!$can_reference_entity) {
             continue;
           }
 
-          // Query entities that reference this node.
+          // Query entities that reference this entity.
           $query = $storage->getQuery()
             ->accessCheck(TRUE)
-            ->condition($field_name, $node->id())
+            ->condition($field_name, $entity->id())
             ->range(0, $limit);
 
           $entity_ids = $query->execute();

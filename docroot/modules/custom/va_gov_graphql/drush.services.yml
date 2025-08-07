@@ -1,0 +1,6 @@
+services:
+  va_gov_graphql.node_relationship_commands:
+    class: Drupal\va_gov_graphql\Commands\NodeRelationshipCommands
+    arguments: ['@entity_type.manager', '@va_gov_graphql.node_relationship_analyzer']
+    tags:
+      - { name: drush.command }
