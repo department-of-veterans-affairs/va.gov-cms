@@ -46,4 +46,4 @@ jobs:
           platforms: linux/amd64
           file: ./docker/apache/Dockerfile
           push: true
-          tags: ${{ steps.login-ecr.outputs.registry }}/dsva/cms-apache:${{ steps.get_next_tag.outputs.new_tag }},${{ steps.login-ecr.outputs.registry }}/dsva/cms-apache:latet
+          tags: ${{ steps.login-ecr.outputs.registry }}/dsva/cms-apache:${{ steps.get_next_tag.outputs.new_tag }},${{ steps.login-ecr.outputs.registry }}/dsva/cms-apache:latest
