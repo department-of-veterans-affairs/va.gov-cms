@@ -24,7 +24,7 @@ echo "Dropping existing database tables"
 drush sql-drop --yes
 echo "Database tables dropped"
 echo "Importing .dumps/cms-prod-db-sanitized-latest.sql"
-drush sql-cli < cms-prod-db-sanitized-latest.sql
+pv cms-prod-db-sanitized-latest.sql | drush sql-cli
 echo "Database import complete"
 
 popd > /dev/null
