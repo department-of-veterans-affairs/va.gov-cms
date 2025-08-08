@@ -32,7 +32,7 @@ jobs:
         id: get_next_tag
         run: |
           REPO_NAME="dsva/cms-apache"
-          LAST_TAG=$(aws ecr describe-images --repository-name $REPO_NAME --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
+          LAST_TAG=$(aws ecr describe-images --repository-name $REPO_NAME --query 'sort_by(imageDetails[?imageTags!=null],& imagePushedAt)[-1].imageTags[0]' --output text)
 
           if [ -z "$LAST_TAG" ]; then
             NEW_TAG="1.0.0" # Initial tag if no images exist
