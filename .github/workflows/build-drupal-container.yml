@@ -36,18 +36,13 @@ jobs:
           # Get all images sorted by push date (newest first)
           LAST_TAG="1.0.0"  # Default fallback
           IMAGES_JSON=$(aws ecr describe-images --repository-name $REPO_NAME --query 'sort_by(reverse(imageDetails),& imagePushedAt)' --output json)
-          SEMVER_PATTERN='^[0-9]+\.[0-9]+\.[0-9]+$'
+          SEMVER_TAG=$(echo "$IMAGES_JSON" | jq -r '
+            [.[] | select(.imageTags != null) |
+             .imageTags[] | select(test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))] |
+            first
+          ')
 
-          # Loop through images from newest to oldest to find the first tag matching semantic versioning
-          echo "$IMAGES_JSON" | jq -c '.[]' | while read -r IMAGE; do
-            for TAG in $(echo "$IMAGE" | jq -r '.imageTags[]? // empty'); do
-              if [[ "$TAG" =~ $SEMVER_PATTERN ]]; then
-                LAST_TAG="$TAG"
-                echo "Found most recent semantic version tag: $LAST_TAG"
-                break 2
-              fi
-            done
-          done
+          LAST_TAG="$SEMVER_TAG"
 
           echo "LAST_TAG=$LAST_TAG" >> $GITHUB_ENV
 
