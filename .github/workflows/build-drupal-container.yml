@@ -33,11 +33,16 @@ jobs:
         id: get_last_apache_tag
         run: |
           REPO_NAME="dsva/cms-apache"
-          LAST_TAG=$(aws ecr describe-images --repository-name $REPO_NAME --query 'sort_by(imageDetails[?imageTags!=null],& imagePushedAt)[-1].imageTags[0]' --output text)
-          if [ -z "$LAST_TAG" ] || [ "$LAST_TAG" = "None" ]; then
-            echo "No tagged images found in $REPO_NAME. Using fallback tag '1.0.0'."
-            LAST_TAG="1.0.0" # Initial tag if no images exist
-          fi
+          # Get all images sorted by push date (newest first)
+          LAST_TAG="1.0.0"  # Default fallback
+          IMAGES_JSON=$(aws ecr describe-images --repository-name $REPO_NAME --query 'sort_by(reverse(imageDetails),& imagePushedAt)' --output json)
+          SEMVER_TAG=$(echo "$IMAGES_JSON" | jq -r '
+            [.[] | select(.imageTags != null) |
+             .imageTags[] | select(test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))] |
+            first
+          ')
+
+          LAST_TAG="$SEMVER_TAG"
 
           echo "LAST_TAG=$LAST_TAG" >> $GITHUB_ENV
 
