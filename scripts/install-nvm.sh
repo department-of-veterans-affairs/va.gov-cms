@@ -10,4 +10,6 @@ export NVM_DIR="$HOME/.nvm"
 
 nvm install 16.19.1
 
-npm install
+if [[ "${BUILD_ENV}" == "eks" ]]; then
+  npm install
+fi

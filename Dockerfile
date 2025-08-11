@@ -19,7 +19,6 @@ RUN set -eux; \
   rm -rf "$COMPOSER_HOME"
 
 RUN ./scripts/install-nvm.sh
-RUN ./scripts/install_task_runner.sh
 RUN ./scripts/install_github_status_updater.sh
 RUN ./scripts/install_github_commenter.sh
 RUN composer va:theme:compile
