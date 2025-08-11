@@ -167,6 +167,8 @@ RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
 
 RUN rm -rf /opt/drupal
 
+ENV BUILD_ENV=eks
+
 EXPOSE 80
 
 # Create startup script to run both Apache and PHP-FPM
