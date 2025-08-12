@@ -12,24 +12,16 @@ on:
         description: Image tag version (git sha)
         type: string
         required: true
-        default: "8f0bc0de7d3857f1d78acbce80bdba1d0527ac7c"
       app_name:
         description: App to target (cms)
         type: string
         required: true
         default: "cms"
-        options:
-          - cms
-          - cms-test
       environment:
         description: Deploy environment (dev, staging, prod)
         type: string
         required: true
         default: "dev"
-        options:
-          - dev
-          - staging
-          - prod
   # Used to trigger this workflow from another workflow
   workflow_call:
     inputs:
@@ -37,7 +29,6 @@ on:
         description: Image tag version (git sha)
         type: string
         required: true
-        default: "8f0bc0de7d3857f1d78acbce80bdba1d0527ac7c"
       app_name:
         description: App to target (cms)
         type: string
