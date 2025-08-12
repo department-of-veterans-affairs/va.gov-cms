@@ -63,3 +63,11 @@ jobs:
           build-args: |
             BUILDKIT_INLINE_CACHE=1
             BASE_IMAGE_TAG=${{ env.LAST_TAG }}
+
+  deploy-to-dev:
+    needs: build-and-push
+    uses: department-of-veterans-affairs/va.gov-cms/.github/workflows/update-manifest.yml@main
+    with:
+      image_tag: ${{ github.sha }}
+      app_name: cms
+      environment: dev
