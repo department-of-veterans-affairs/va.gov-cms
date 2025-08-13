@@ -79,7 +79,7 @@ class ReleaseChecker {
    */
   public function resetState() {
     $this->releaseStateManager->resetState();
-    $this->getLogger('va_gov_build_trigger')->info('Content release state has been reset to \'ready\'.');
+    $this->logger->info('Content release state has been reset to \'ready\'.');
   }
 
   /**
