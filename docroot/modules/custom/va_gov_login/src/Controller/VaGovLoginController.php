@@ -11,6 +11,7 @@ use GuzzleHttp\ClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Site\Settings;
 
 /**
  * Controller for handling Microsoft Entra ID.
@@ -41,6 +42,13 @@ class VaGovLoginController extends ControllerBase {
   protected $loggerFactory;
 
   /**
+   * The settings service.
+   *
+   * @var \Drupal\Core\Site\Settings
+   */
+  protected $settings;
+
+  /**
    * Constructs a VaGovLoginController object.
    *
    * @param \GuzzleHttp\ClientInterface $http_client
@@ -49,15 +57,19 @@ class VaGovLoginController extends ControllerBase {
    *   Messenger service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   Logger factory service.
+   * @param \Drupal\Core\Site\Settings $settings
+   *   The settings service.
    */
   public function __construct(
     ClientInterface $http_client,
     MessengerInterface $messenger,
     LoggerChannelFactoryInterface $logger_factory,
+    Settings $settings,
   ) {
     $this->httpClient = $http_client;
     $this->messenger = $messenger;
     $this->loggerFactory = $logger_factory;
+    $this->settings = $settings;
   }
 
   /**
@@ -67,7 +79,8 @@ class VaGovLoginController extends ControllerBase {
     return new static(
       $container->get('http_client'),
       $container->get('messenger'),
-      $container->get('logger.factory')
+      $container->get('logger.factory'),
+      $container->get('settings')
     );
   }
 
@@ -78,8 +91,8 @@ class VaGovLoginController extends ControllerBase {
    *   A trusted redirect response to the Microsoft Entra ID login URL.
    */
   public function redirectToMicrosoft() {
-    $client_id = getenv('MICROSOFT_ENTRA_ID_CLIENT_ID');
-    $tenant_id = getenv('MICROSOFT_ENTRA_ID_TENANT_ID');
+    $client_id = $this->settings->get('microsoft_entra_id_client_id');
+    $tenant_id = $this->settings->get('microsoft_entra_id_tenant_id');
 
     // Use Url::fromRoute() to generate the redirect URI.
     $redirect_uri = Url::fromRoute('va_gov_login.callback', [], ['absolute' => TRUE])->toString();
@@ -111,9 +124,9 @@ class VaGovLoginController extends ControllerBase {
 
     if ($code) {
       // Retrieve settings from environment variables.
-      $client_id = getenv('MICROSOFT_ENTRA_ID_CLIENT_ID');
-      $client_secret = getenv('MICROSOFT_ENTRA_ID_CLIENT_SECRET');
-      $tenant_id = getenv('MICROSOFT_ENTRA_ID_TENANT_ID');
+      $client_id = $this->settings->get('microsoft_entra_id_client_id');
+      $client_secret = $this->settings->get('microsoft_entra_id_client_secret');
+      $tenant_id = $this->settings->get('microsoft_entra_id_tenant_id');
       $redirect_uri = Url::fromRoute('va_gov_login.callback', [], ['absolute' => TRUE])->toString();
 
       try {
