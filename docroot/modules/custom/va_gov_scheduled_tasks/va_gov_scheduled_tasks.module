@@ -248,6 +248,15 @@ function va_gov_scheduled_tasks_send_datadog_metrics() {
 }
 
 /**
+ * Check content release state and run scheduled tasks.
+ */
+function va_gov_scheduled_tasks_check_content_release_state() {
+  $release_checker = \Drupal::service('va_gov_build_trigger.release_checker');
+  $release_checker->checkStale();
+  $release_checker->checkScheduledBuild();
+}
+
+/**
  * Runs a Drush command and logs its status.
  *
  * @param string $command
@@ -299,6 +308,13 @@ function va_gov_scheduled_tasks_daily() {
   va_gov_scheduled_tasks_run_migration('va_node_form', 'daily');
   va_gov_scheduled_tasks_archive_intranet_only_forms();
   va_gov_scheduled_tasks_run_drush_command('taxonomy_entity_index:rebuild');
+}
+
+/**
+ * Tasks to run periodically.
+ */
+function va_gov_scheduled_tasks_periodic() {
+  va_gov_scheduled_tasks_check_content_release_state();
 }
 
 /**
