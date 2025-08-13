@@ -94,6 +94,14 @@ class VaGovLoginController extends ControllerBase {
     $client_id = $this->settings->get('microsoft_entra_id_client_id');
     $tenant_id = $this->settings->get('microsoft_entra_id_tenant_id');
 
+    // Validate required Entra ID settings.
+    if (empty($client_id) || empty($tenant_id)) {
+      $this->loggerFactory->get('va_gov_login')->error('Missing required Microsoft Entra ID configuration: client_id or tenant_id.');
+      $this->messenger->addError($this->t('Login is currently unavailable. Please contact CMS helpdesk.'));
+      // Redirect to front page or another safe location.
+      return $this->redirect('<front>');
+    }
+
     // Use Url::fromRoute() to generate the redirect URI.
     $redirect_uri = Url::fromRoute('va_gov_login.callback', [], ['absolute' => TRUE])->toString();
     $scopes = 'openid profile email User.Read';
@@ -131,7 +139,7 @@ class VaGovLoginController extends ControllerBase {
 
       try {
         // Exchange the code for an access token.
-        $response = $this->httpClient->post("https://login.microsoftonline.com/$tenant_id/oauth2/v2.0/token", [
+        $response = $this->httpClient->request('POST', "https://login.microsoftonline.com/$tenant_id/oauth2/v2.0/token", [
           'form_params' => [
             'client_id' => $client_id,
             'client_secret' => $client_secret,
@@ -141,10 +149,9 @@ class VaGovLoginController extends ControllerBase {
           ],
         ]);
         $data = json_decode($response->getBody()->getContents(), TRUE);
-
         // Check if access_token exists in response.
         if (isset($data['access_token'])) {
-          $profile_response = $this->httpClient->get('https://graph.microsoft.com/v1.0/me', [
+          $profile_response = $this->httpClient->request('GET', 'https://graph.microsoft.com/v1.0/me', [
             'headers' => ['Authorization' => 'Bearer ' . $data['access_token']],
           ]);
           $profile_data = json_decode($profile_response->getBody()->getContents(), TRUE);
@@ -172,7 +179,7 @@ class VaGovLoginController extends ControllerBase {
         }
       }
       catch (\Exception $e) {
-        $this->messenger->addError($this->t('An error occurred.'));
+        $this->messenger->addError($this->t('Login failed. Please try again or contact support if the problem persists.'));
         $this->loggerFactory->get('va_gov_login')->error($e->getMessage());
       }
     }
