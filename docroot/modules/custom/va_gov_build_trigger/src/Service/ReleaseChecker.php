@@ -4,8 +4,6 @@ namespace Drupal\va_gov_build_trigger\Service;
 
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\Core\State\StateInterface;
-use Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface;
-use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 use Drupal\va_gov_content_release\Request\RequestInterface;
 
 /**
