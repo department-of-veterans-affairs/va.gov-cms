@@ -2,7 +2,7 @@
 name: CMS Epic
 about: Epic template
 title: "<Insert summary of epic>"
-labels: Epic, Needs refining
+labels: Epic, Needs refining, CMS Team
 assignees: ''
 
 ---
