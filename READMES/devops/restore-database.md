@@ -17,7 +17,7 @@ This document provides instructions on how to restore a database from backups. I
      ```bash
      aws s3 cp s3://dsva-vagov-prod-cms-backup/database/your-backup-file.sql.gz /path/to/local/destination/
      ```
-3. If you downloaded the backup file to your local machine, upload to the sanitized bucket: https://us-gov-west-1.console.amazonaws-us-gov.com/s3/buckets/dsva-vagov-prod-cms-backup-sanitized?region=us-gov-west-1&tab=objects Note: Make sure you create a /temp folder to upload it into. Note: Make sure the fiel is publicly available so that the EC2 instance can access it. Everyone should be able to read it.
+3. If you downloaded the backup file to your local machine, upload to the sanitized bucket: https://us-gov-west-1.console.amazonaws-us-gov.com/s3/buckets/dsva-vagov-prod-cms-backup-sanitized?region=us-gov-west-1&tab=objects Note: Make sure you create a /temp folder to upload it into. Note: Make sure the file is publicly available so that the EC2 instance can access it. Everyone should be able to read it.
 4. Connect to ec2 instance.
    `ssm-session vagov-prod cms auto` or connect via the Connect button in the AWS console.
 5. Modify teh `sync-db.sh` script to point to the backup file you want to restore. The script is located at `/var/www/cms/scripts/sync-db.sh`. You can use `vi` or `vim` to edit the file.
