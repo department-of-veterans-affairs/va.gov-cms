@@ -39,3 +39,8 @@ $settings['trusted_host_patterns'] = [
 
 $settings['va_gov_frontend_build_type'] = 'eks';
 $settings['va_gov_frontend_url'] = 'http://localhost:8080';
+
+// Entra ID settings
+$settings['microsoft_entra_id_client_id'] = getenv('MICROSOFT_ENTRA_ID_CLIENT_ID');
+$settings['microsoft_entra_id_client_secret'] = getenv('MICROSOFT_ENTRA_ID_CLIENT_SECRET');
+$settings['microsoft_entra_id_tenant_id'] = getenv('MICROSOFT_ENTRA_ID_TENANT_ID');
