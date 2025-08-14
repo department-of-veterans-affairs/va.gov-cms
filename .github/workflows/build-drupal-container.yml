@@ -5,6 +5,8 @@ on:
   pull_request:
     types:
       - closed # Trigger when the pull request is closed
+    branches:
+      - main # Only triggers on PRs targeting main branch
 
 permissions:
   id-token: write # This is required for requesting the JWT
