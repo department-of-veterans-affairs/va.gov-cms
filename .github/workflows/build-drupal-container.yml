@@ -2,9 +2,11 @@ name: Build and Push Drupal Container to ECR
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
+    types:
+      - closed # Trigger when the pull request is closed
     branches:
-      - main
+      - main # Only triggers on PRs targeting main branch
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -12,6 +14,7 @@ permissions:
 
 jobs:
   build-and-push:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true # Allow manual runs and merged PRs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
