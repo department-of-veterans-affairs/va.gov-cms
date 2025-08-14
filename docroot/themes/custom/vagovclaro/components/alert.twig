@@ -1,0 +1,64 @@
+{#
+/**
+ * @file
+ * Common alert component for status messages.
+ */
+#}
+{%
+  set classes = [
+  'messages-list__item',
+  'messages',
+  'messages--' ~ type,
+  'va-alert',
+  hide_bg ? 'no-background' : ''
+]
+%}
+{% if type == 'status' %}
+  {% set is_message_with_title = false %}
+  {% set alert_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>' %}
+{% else %}
+  {% set alert_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>' %}
+  {%
+    set is_message_with_title = status_headings[type]
+  %}
+  {%
+    set is_message_with_icon = type in ['error', 'status', 'warning']
+  %}
+{% endif %}
+
+
+<div role="region" aria-label="Status message" {{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+  {# attributes is not local to this template's scope, so the classes added above subsequently get passed back out. #}
+  {# This is a problem if multiple messages of different types are passed in. If we added messages--error here, #}
+  {# it will still be present when this template is called with a different type. Removing the classes here is cleanup. #}
+  {# See status-messages.html.twig and how it sends attributes to alert.twig. #}
+  {{ attributes.removeClass(classes) }}
+  {% if type == 'error' %}
+  {% set alert_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>' %}
+  <div role="alert">
+  {% endif %}
+    {% if is_message_with_title or is_message_with_icon %}
+      <div class="messages__header">
+        {% if is_message_with_title %}
+          <h2 id="{{ title_ids[type] }}" class="messages__title">
+            {{ status_headings[type] }}
+          </h2>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div class="messages__content">
+      {{ alert_icon|raw }}
+      {% if messages|length > 1 %}
+        <ul class="messages__list">
+          {% for message in messages %}
+            <li class="messages__item">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        {{ messages|first }}
+      {% endif %}
+    </div>
+  {% if type == 'error' %}
+  </div>
+  {% endif %}
+</div>

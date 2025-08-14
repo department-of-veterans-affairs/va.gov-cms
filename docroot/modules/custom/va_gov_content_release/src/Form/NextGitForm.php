@@ -13,6 +13,7 @@ use Drupal\va_gov_content_release\Frontend\Frontend;
 use Drupal\va_gov_content_release\Frontend\FrontendInterface;
 use Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 
 /**
  * A version of the form allowing selection of a Git branch, tag, or commit.
@@ -43,6 +44,13 @@ class NextGitForm extends FormBase {
   protected State $state;
 
   /**
+   * The environment discovery service.
+   *
+   * @var \Drupal\va_gov_environment\Discovery\DiscoveryInterface
+   */
+  protected $environmentDiscovery;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface $frontendVersion
@@ -53,17 +61,21 @@ class NextGitForm extends FormBase {
    *   The settings service.
    * @param \Drupal\Core\State\State $state
    *   The state service.
+   * @param \Drupal\va_gov_environment\Discovery\DiscoveryInterface $environmentDiscovery
+   *   The environment discovery service.
    */
   public function __construct(
     FrontendVersionInterface $frontendVersion,
     FileSystemInterface $fileSystem,
     ConfigFactory $config,
     State $state,
+    DiscoveryInterface $environmentDiscovery,
   ) {
     $this->frontendVersion = $frontendVersion;
     $this->fileSystem = $fileSystem;
     $this->config = $config;
     $this->state = $state;
+    $this->environmentDiscovery = $environmentDiscovery;
   }
 
   /**
@@ -74,7 +86,8 @@ class NextGitForm extends FormBase {
       $container->get('va_gov_content_release.frontend_version'),
       $container->get('file_system'),
       $container->get('config.factory'),
-      $container->get('state')
+      $container->get('state'),
+      $container->get('va_gov_environment.discovery')
     );
   }
 
@@ -87,6 +100,18 @@ class NextGitForm extends FormBase {
    *   Object containing current form state.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $env = $this->environmentDiscovery->getEnvironment();
+    $disable = $env->isBrd();
+    $form['build_request']['status'] = [];
+    if ($disable) {
+      $form['build_request']['status'] = [
+        '#prefix' => '<br><div class="va-alert messages--error"><p>',
+        '#markup' => $this->t('This feature is only available in Tugboat and local environments.'),
+        '#suffix' => '</p></div>',
+        '#hidden' => !$disable,
+      ];
+    }
+
     $form['build_request']['description'] = [
       '#prefix' => '<br><p>',
       '#markup' => $this->t('Choose specific branches for the next-build preview server and restart the server. Note: this does not perform any content-build actions.'),
@@ -101,6 +126,7 @@ class NextGitForm extends FormBase {
         'choose' => $this->t('Select a different next-build branch/pull request - for example, to see your content in a newer frontend design.'),
       ],
       '#default_value' => 'default',
+      '#disabled' => $disable,
     ];
 
     $form['build_request']['next_build_git_ref'] = [
@@ -128,6 +154,7 @@ class NextGitForm extends FormBase {
         'choose' => $this->t('Select a different vets-website branch/pull request - for example, to see your content in a newer frontend design.'),
       ],
       '#default_value' => 'default',
+      '#disabled' => $disable,
     ];
 
     $form['build_request']['next_build_vets_website_git_ref'] = [
@@ -152,8 +179,8 @@ class NextGitForm extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Restart Next Build Server'),
       '#button_type' => 'primary',
+      '#disabled' => $disable,
     ];
-
     // Disable form changes and submission if a build is in progress.
     if (file_exists($this->fileSystem->realpath('public://' . self::LOCK_FILE_NAME))) {
       $form['build_request']['next_build_selection']['#disabled'] = TRUE;
