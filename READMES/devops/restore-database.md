@@ -11,7 +11,7 @@ This document provides instructions on how to restore a database from backups. I
 ## Steps to Restore Database
 1. Find the backup you want to restore in https://us-gov-west-1.console.amazonaws-us-gov.com/s3/buckets/dsva-vagov-prod-cms-backup?region=us-gov-west-1&prefix=database/&showversions=false
 2. Download the backup file to your local machine or directly to the EC2 instance.
-   - If downloading to the EC2 instance, use `aws s3 cp s3://dsva-vagov-prod-cms-backup/database/your-backup-file.sql.gz /path/to/destination/` Note: Replace `your-backup-file.sql.gz` with the actual backup file name and `/path/to/destination/` with the desired path on the EC2 instance. This will also require autheticating with AWS CLI, which can be done using `aws configure` or by setting up an IAM role for the EC2 instance.
+   - If downloading to the EC2 instance, use `aws s3 cp s3://dsva-vagov-prod-cms-backup/database/your-backup-file.sql.gz /path/to/destination/` Note: Replace `your-backup-file.sql.gz` with the actual backup file name and `/path/to/destination/` with the desired path on the EC2 instance. This will also require authenticating with AWS CLI, which can be done using `aws configure` or by setting up an IAM role for the EC2 instance.
    - If downloading to your local machine, use the AWS CLI or the AWS S3 console to download the file.
    - If you are using the AWS CLI, you can run:
      ```bash
