@@ -250,7 +250,7 @@ function va_gov_scheduled_tasks_send_datadog_metrics() {
 /**
  * Check content release state and run scheduled tasks.
  */
-function va_gov_scheduled_tasks_check_content_release_state() {
+function va_gov_scheduled_tasks_manage_content_release() {
   $release_checker = \Drupal::service('va_gov_build_trigger.release_checker');
   $release_checker->checkStale();
   $release_checker->checkScheduledBuild();
@@ -314,7 +314,9 @@ function va_gov_scheduled_tasks_daily() {
  * Tasks to run periodically.
  */
 function va_gov_scheduled_tasks_periodic() {
-  va_gov_scheduled_tasks_check_content_release_state();
+  va_gov_scheduled_tasks_manage_content_release();
+  va_gov_scheduled_tasks_run_drush_command('cron');
+
 }
 
 /**
