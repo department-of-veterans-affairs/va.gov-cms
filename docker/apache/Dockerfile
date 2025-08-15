@@ -147,17 +147,26 @@ RUN php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/r
 
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
-# set recommended PHP.ini settings
+# set recommended opcache settings
 # see https://secure.php.net/manual/en/opcache.installation.php
 RUN { \
-  echo 'opcache.memory_consumption=128'; \
-  echo 'opcache.interned_strings_buffer=8'; \
-  echo 'opcache.max_accelerated_files=4000'; \
-  echo 'opcache.revalidate_freq=60'; \
+  echo 'opcache.memory_consumption=1024'; \
+  echo 'opcache.interned_strings_buffer=16'; \
+  echo 'opcache.max_accelerated_files=42000'; \
+  echo 'opcache.revalidate_freq=0'; \
+  echo 'opcache.fast_shutdown=1'; \
+  echo 'opcache.validate_timestamps=0'; \
   } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
-COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
+# set recommended apcu settings
+RUN { \
+    echo 'apc.enable_cli=1'; \
+    echo 'apc.shm_size=128M'; \
+    echo 'apc.rfc1867=1'; \
+} > /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
+# set recommended PHP.ini settings
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
     sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 64M/g' /usr/local/etc/php/php.ini && \
     sed -i 's/;max_input_vars = 1000/max_input_vars = 10000/g' /usr/local/etc/php/php.ini && \
