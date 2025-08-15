@@ -161,7 +161,7 @@ RUN { \
 # set recommended apcu settings
 RUN { \
     echo 'apc.enable_cli=1'; \
-    echo 'apc.shm_size==128M'; \
+    echo 'apc.shm_size=128M'; \
     echo 'apc.rfc1867=1'; \
 } > /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
