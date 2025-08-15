@@ -248,6 +248,35 @@ function va_gov_scheduled_tasks_send_datadog_metrics() {
 }
 
 /**
+ * Check content release state and run scheduled tasks.
+ */
+function va_gov_scheduled_tasks_manage_content_release() {
+  // Check for stale content releases and reset the state if necessary.
+  $release_checker = \Drupal::service('va_gov_build_trigger.release_checker');
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('periodic task checkStale started');
+  try {
+    $release_checker->checkStale();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('periodic task checkStale failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('periodic task checkStale complete');
+  // Check for scheduled builds and run them if necessary.
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('periodic task checkScheduledBuild started');
+  try {
+    $release_checker->checkScheduledBuild();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('periodic task checkScheduledBuild failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('periodic task checkScheduledBuild complete');
+}
+
+/**
  * Runs a Drush command and logs its status.
  *
  * @param string $command
@@ -299,6 +328,14 @@ function va_gov_scheduled_tasks_daily() {
   va_gov_scheduled_tasks_run_migration('va_node_form', 'daily');
   va_gov_scheduled_tasks_archive_intranet_only_forms();
   va_gov_scheduled_tasks_run_drush_command('taxonomy_entity_index:rebuild');
+}
+
+/**
+ * Tasks to run periodically.
+ */
+function va_gov_scheduled_tasks_periodic() {
+  va_gov_scheduled_tasks_manage_content_release();
+
 }
 
 /**
