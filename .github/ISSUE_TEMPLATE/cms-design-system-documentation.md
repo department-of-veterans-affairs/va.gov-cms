@@ -25,7 +25,6 @@ These levels match the levels in [VA.gov Design System Documentation](https://de
 ## Acceptance Criteria
 **Update Figma**
 - [ ] Include your documentation directly in the Figma file for this design system element.
-- [ ] Include a link from Figma to Storybook for the element that is being referenced.
 - [ ] Include examples of how to use the element being referenced.
 - [ ] Include examples of how NOT to use the element being referenced.
 - [ ] Briefly explain what this design system element does.

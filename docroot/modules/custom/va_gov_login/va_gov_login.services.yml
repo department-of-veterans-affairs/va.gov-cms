@@ -1,0 +1,4 @@
+services:
+  va_gov_login.controller:
+    class: Drupal\va_gov_login\Controller\VaGovLoginController
+    arguments: ['@http_client', '@messenger', '@logger.factory', '@settings']

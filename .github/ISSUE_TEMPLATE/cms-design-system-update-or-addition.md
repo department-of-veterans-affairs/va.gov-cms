@@ -29,8 +29,8 @@ These levels match the levels in [VA.gov Design System Documentation](https://de
 
 **Collab with Dev**
 - [ ] Set up a meeting to collaborate with the developer who will be implementing the design.
-- [ ] Agree on a naming convention to use in Figma and in Storybook.
+- [ ] Agree on a naming convention to use in Figma.
 
 **Create Follow Up Tickets**
 - [ ] Create a github ticket using [this template](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=BlakeOrgan&labels=CMS+design+system%2C+CMS+design%2C+CMS+Team%2C+Needs+refining&projects=&template=cms-design-system-documentation.md&title=Update%2Fadd+%3Cinsert+topic+here%3E+in+the+design+system+documentation.) to update the CMS Design System Documentation in Figma and link to it as a comment in this ticket.
-- [ ] Create a github ticket using [this template](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=edmund-dunn%2C+tonytaylor&labels=CMS+design+system%2C+CMS+Team%2C+Needs+refining&projects=&template=cms-design-system-dev-implementation.md&title=Implement+%3Cinsert+topic+here%3E+from+the+design+system.) for a developer to update the [CMS Storybook](https://storybook-stdirdt4jxl4xlaze1syc4vdz1pb9gvr.ci.cms.va.gov/?path=/story/introduction--page) and link to it as a comment in this ticket.
+
