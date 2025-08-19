@@ -349,8 +349,39 @@ function va_gov_scheduled_tasks_every_minute() {
  * Tasks to run each month.
  */
 function va_gov_scheduled_tasks_monthly() {
-  \Drupal::logger('va_gov_notifications')->notice('Monthly cron fired');
-  print_r(\Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vamc', 'vamc_outdated_content'));
-  print_r(\Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vet_center', 'vet_center_outdated_content'));
-  print_r(\Drupal::service('va_gov_media.pdf_delete')->vamcPdfDelete());
+  // Check for outdated VAMC content.
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_outdated_content started');
+  try {
+    \Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vamc', 'vamc_outdated_content');
+    \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_outdated_content completed');
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Monthly task vamc_outdated_content failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+
+  // Check for outdated Vet Center content.
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vet_center_outdated_content started');
+  try {
+    \Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vet_center', 'vet_center_outdated_content');
+    \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vet_center_outdated_content completed');
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Monthly task vet_center_outdated_content failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+
+  // Delete VAMC PDF files.
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_pdf_delete started');
+  try {
+    \Drupal::service('va_gov_media.pdf_delete')->vamcPdfDelete();
+    \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_pdf_delete completed');
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Monthly task vamc_pdf_delete failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
 }
