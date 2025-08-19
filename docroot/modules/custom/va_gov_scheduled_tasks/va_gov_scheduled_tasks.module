@@ -335,7 +335,6 @@ function va_gov_scheduled_tasks_daily() {
  */
 function va_gov_scheduled_tasks_periodic() {
   va_gov_scheduled_tasks_manage_content_release();
-
 }
 
 /**
@@ -344,4 +343,19 @@ function va_gov_scheduled_tasks_periodic() {
 function va_gov_scheduled_tasks_every_minute() {
   va_gov_scheduled_tasks_send_datadog_metrics();
   va_gov_scheduled_tasks_run_drush_command('advancedqueue:queue:process content_release');
+}
+
+/**
+ * Tasks to run each month.
+ */
+function va_gov_scheduled_tasks_every_month() {
+  // - drush php-eval "\Drupal::logger('va_gov_notifications')->alert('Monthly cron fired');"
+  //     - drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vamc', 'vamc_outdated_content'));"
+  //     - drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vet_center', 'vet_center_outdated_content'));"
+  //     - drush php-eval "print_r(\Drupal::service('va_gov_media.pdf_delete')->vamcPdfDelete());"
+
+  va_gov_scheduled_tasks_run_drush_command("php-eval \"\Drupal::logger(\'va_gov_notifications')->alert('Monthly cron fired');\"");
+  // va_gov_scheduled_tasks_run_drush_command('va-gov:content-release:advance-state ready');
+  // va_gov_scheduled_tasks_run_drush_command('va-gov:content-release:advance-state build');
+  // va_gov_scheduled_tasks_run_drush_command('va-gov:content-release:advance-state deploy');
 }
