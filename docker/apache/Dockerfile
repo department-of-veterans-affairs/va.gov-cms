@@ -160,9 +160,13 @@ RUN { \
 
 # set recommended apcu settings
 RUN { \
+    echo 'extension=apcu.so'; \
     echo 'apc.enable_cli=1'; \
-    echo 'apc.shm_size=128M'; \
+    echo 'apc.shm_size=256M'; \
     echo 'apc.rfc1867=1'; \
+    echo 'apc.ttl=7200'; \
+    echo 'apc.user_ttl=7200'; \
+    echo 'apc.gc_ttl=3600'; \
 } > /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
