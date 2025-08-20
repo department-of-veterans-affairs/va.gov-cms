@@ -121,7 +121,7 @@ RUN install-va-certs.sh
 RUN apt update && apt install -y ca-certificates
 RUN update-ca-certificates
 
-# Install and cnfigure prometheus
+# Install and configure prometheus
 RUN mkdir -p /opt/prometheus && \
     cd /opt/prometheus && \
     wget https://github.com/prometheus/prometheus/releases/download/v2.47.0/prometheus-2.47.0.linux-amd64.tar.gz && \
