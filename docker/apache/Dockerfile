@@ -121,6 +121,16 @@ RUN install-va-certs.sh
 RUN apt update && apt install -y ca-certificates
 RUN update-ca-certificates
 
+# Install and cnfigure prometheus
+RUN mkdir -p /opt/prometheus && \
+    cd /opt/prometheus && \
+    wget https://github.com/prometheus/prometheus/releases/download/v2.47.0/prometheus-2.47.0.linux-amd64.tar.gz && \
+    tar -xvf prometheus-2.47.0.linux-amd64.tar.gz --strip-components=1 && \
+    rm prometheus-2.47.0.linux-amd64.tar.gz
+
+# Create Prometheus config
+RUN mkdir -p /etc/prometheus
+COPY ./docker-conf-files/prometheus.yml /etc/prometheus/prometheus.yml
 
 # Configure rsyslog
 COPY ./docker-conf-files/drupal.conf ${RSYSLOG_CONF_DIR}/drupal.conf
@@ -182,13 +192,15 @@ RUN rm -rf /opt/drupal
 
 ENV BUILD_ENV=eks
 
-EXPOSE 80
+EXPOSE 80 9090
 
 # Create startup script to run both Apache and PHP-FPM
 RUN echo '#!/bin/bash\n\
 php-fpm -D\n\
 # Start rsyslog\n\
 rsyslogd\n\
+# Start Prometheus\n\
+/opt/prometheus/prometheus --config.file=/etc/prometheus/prometheus.yml --web.listen\n\
 apache2-foreground' > /usr/local/bin/start-services.sh && \
 chmod +x /usr/local/bin/start-services.sh
 
