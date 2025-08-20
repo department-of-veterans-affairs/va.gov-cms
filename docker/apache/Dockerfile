@@ -200,7 +200,7 @@ php-fpm -D\n\
 # Start rsyslog\n\
 rsyslogd\n\
 # Start Prometheus\n\
-/opt/prometheus/prometheus --config.file=/etc/prometheus/prometheus.yml --web.listen-address=0.0.0.0:9090\n\
+/opt/prometheus/prometheus --config.file=/etc/prometheus/prometheus.yml &\n\
 apache2-foreground' > /usr/local/bin/start-services.sh && \
 chmod +x /usr/local/bin/start-services.sh
 
