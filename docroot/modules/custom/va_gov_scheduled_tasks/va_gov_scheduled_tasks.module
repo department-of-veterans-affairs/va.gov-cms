@@ -253,27 +253,27 @@ function va_gov_scheduled_tasks_send_datadog_metrics() {
 function va_gov_scheduled_tasks_manage_content_release() {
   // Check for stale content releases and reset the state if necessary.
   $release_checker = \Drupal::service('va_gov_build_trigger.release_checker');
-  \Drupal::logger('va_gov_scheduled_tasks')->notice('periodic task checkStale started');
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Periodic task checkStale started');
   try {
     $release_checker->checkStale();
   }
   catch (\Exception $e) {
-    \Drupal::logger('va_gov_scheduled_tasks')->error('periodic task checkStale failed: @message', [
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Periodic task checkStale failed: @message', [
       '@message' => $e->getMessage(),
     ]);
   }
-  \Drupal::logger('va_gov_scheduled_tasks')->notice('periodic task checkStale complete');
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Periodic task checkStale complete');
   // Check for scheduled builds and run them if necessary.
-  \Drupal::logger('va_gov_scheduled_tasks')->notice('periodic task checkScheduledBuild started');
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Periodic task checkScheduledBuild started');
   try {
     $release_checker->checkScheduledBuild();
   }
   catch (\Exception $e) {
-    \Drupal::logger('va_gov_scheduled_tasks')->error('periodic task checkScheduledBuild failed: @message', [
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Periodic task checkScheduledBuild failed: @message', [
       '@message' => $e->getMessage(),
     ]);
   }
-  \Drupal::logger('va_gov_scheduled_tasks')->notice('periodic task checkScheduledBuild complete');
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Periodic task checkScheduledBuild complete');
 }
 
 /**
@@ -309,6 +309,54 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
 }
 
 /**
+ * Check for outdated content.
+ */
+function va_gov_scheduled_tasks_check_outdated_content() {
+  // Check for outdated VAMC content.
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_outdated_content started');
+  try {
+    \Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vamc', 'vamc_outdated_content');
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Monthly task vamc_outdated_content failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_outdated_content completed');
+
+  // Check for outdated Vet Center content.
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vet_center_outdated_content started');
+  try {
+    \Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vet_center', 'vet_center_outdated_content');
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Monthly task vet_center_outdated_content failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vet_center_outdated_content completed');
+
+}
+
+/**
+ * Delete unattached PDFs.
+ */
+function va_gov_scheduled_tasks_delete_unattached_pdfs() {
+  // Delete unattached VAMC PDF files.
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_pdf_delete started');
+  try {
+    \Drupal::service('va_gov_media.pdf_delete')->vamcPdfDelete();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Monthly task vamc_pdf_delete failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_pdf_delete completed');
+
+}
+
+/**
  * Tasks to run at 0800.
  */
 function va_gov_scheduled_tasks_0800() {
@@ -335,7 +383,6 @@ function va_gov_scheduled_tasks_daily() {
  */
 function va_gov_scheduled_tasks_periodic() {
   va_gov_scheduled_tasks_manage_content_release();
-
 }
 
 /**
@@ -344,4 +391,14 @@ function va_gov_scheduled_tasks_periodic() {
 function va_gov_scheduled_tasks_every_minute() {
   va_gov_scheduled_tasks_send_datadog_metrics();
   va_gov_scheduled_tasks_run_drush_command('advancedqueue:queue:process content_release');
+}
+
+/**
+ * Tasks to run each month.
+ */
+function va_gov_scheduled_tasks_monthly() {
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly tasks started');
+  va_gov_scheduled_tasks_check_outdated_content();
+  va_gov_scheduled_tasks_delete_unattached_pdfs();
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly tasks completed');
 }
