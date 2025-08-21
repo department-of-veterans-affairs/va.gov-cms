@@ -6,6 +6,7 @@ dependencies:
     - node.type.vba_facility_service
   module:
     - entity_usage
+    - ai_image_alt_text
     - node
     - node_link_report
     - va_gov_backend
@@ -19,4 +20,5 @@ is_admin: null
 permissions:
   - 'access entity usage statistics'
   - 'create vba_facility_service content'
+  - 'generate ai alt tags'
   - 'view node link report'

@@ -22,6 +22,7 @@ dependencies:
     - workflows.workflow.restricted_archive
   module:
     - actions_permissions
+    - ai_image_alt_text
     - block_content
     - block_diff_ui
     - content_lock
@@ -123,6 +124,7 @@ permissions:
   - 'execute publish_latest_revision_action node'
   - 'execute views_bulk_edit all'
   - 'export tablefield'
+  - 'generate ai alt tags'
   - 'import tablefield'
   - 'link to any page'
   - 'make smart dates recur'
