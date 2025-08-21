@@ -295,16 +295,20 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
       \Drupal::logger('va_gov_scheduled_tasks')->notice('Running Drush command: @command', ['@command' => $command]);
     }
   }
-  try {
-    $output = [];
-    $return_var = 0;
-    exec("drush $command", $output, $return_var);
-    if ($return_var !== 0) {
-      throw new \Exception(implode("\n", $output));
-    }
+  $output = [];
+  $return_var = 0;
+  exec("drush $command", $output, $return_var);
+  if ($return_var !== 0) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Drush command failed: @command Output: @output', [
+      '@command' => $command,
+      '@output' => implode("\n", $output),
+    ]);
   }
-  catch (\Exception $e) {
-    \Drupal::logger('va_gov_scheduled_tasks')->error('Drush command failed: @message', ['@message' => $e->getMessage()]);
+  else {
+    \Drupal::logger('va_gov_scheduled_tasks')->notice('Drush command succeeded: @command Output: @output', [
+      '@command' => $command,
+      '@output' => implode("\n", $output),
+    ]);
   }
 }
 
