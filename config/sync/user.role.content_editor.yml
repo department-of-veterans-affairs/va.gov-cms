@@ -68,6 +68,7 @@ dependencies:
     - workflows.workflow.restricted_archive
   module:
     - actions_permissions
+    - ai_image_alt_text
     - block_content
     - block_diff_ui
     - content_lock
@@ -170,6 +171,7 @@ permissions:
   - 'edit any vha_facility_nonclinical_service content'
   - 'edit any video media'
   - 'execute entity:break_lock node'
+  - 'generate ai alt tags'
   - 'make smart dates recur'
   - 'notify of path changes'
   - 'rebuild tablefield'

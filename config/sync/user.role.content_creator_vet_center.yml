@@ -6,6 +6,7 @@ dependencies:
     - node.type.vet_center_cap
     - node.type.vet_center_facility_health_servi
   module:
+    - ai_image_alt_text
     - node
     - node_link_report
     - va_gov_backend
@@ -19,4 +20,5 @@ is_admin: null
 permissions:
   - 'create vet_center_cap content'
   - 'create vet_center_facility_health_servi content'
+  - 'generate ai alt tags'
   - 'view node link report'
