@@ -238,6 +238,7 @@ function va_gov_scheduled_tasks_0800_flag_removed_facilities() {
  * Sends Datadog metrics.
  */
 function va_gov_scheduled_tasks_send_datadog_metrics() {
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Every minute task send_datadog_metrics started');
   try {
     $datadog_service = \Drupal::service('va_gov_backend.metrics');
     $datadog_service->updateDatadog();
@@ -245,6 +246,7 @@ function va_gov_scheduled_tasks_send_datadog_metrics() {
   catch (\Exception $e) {
     \Drupal::logger('va_gov_scheduled_tasks')->error('Failed to send Datadog metrics: @message', ['@message' => $e->getMessage()]);
   }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Every minute task send_datadog_metrics completed');
 }
 
 /**
@@ -285,9 +287,7 @@ function va_gov_scheduled_tasks_manage_content_release() {
 function va_gov_scheduled_tasks_run_drush_command($command) {
   // Some calls are made too often to log every time.
   // We only want to log the errors for those.
-  $calls_without_logging = [
-    'va_gov_scheduled_tasks_every_minute',
-  ];
+  $calls_without_logging = [];
   $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
   if (isset($backtrace[1]['function'])) {
     $caller = $backtrace[1]['function'];
