@@ -1,0 +1,17 @@
+uuid: 0ee76ccf-1364-4e14-92ff-8130d8f60a76
+langcode: en
+status: true
+dependencies:
+  module:
+    - codit_batch_operations
+title: 'Default cron handler'
+id: codit_batch_operations_cron
+weight: 0
+module: codit_batch_operations
+callback: 'codit_batch_operations#cron'
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database
