@@ -171,7 +171,7 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
    *   The count of active users in the specified time interval.
    */
   protected function getCountSinceTime(int $timestamp): int {
-    /* @var \Drupal\Core\Database\Query\Select $query */
+    /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $this->getRealUserQuery();
     $query
       ->condition('access', $timestamp, '>=');
