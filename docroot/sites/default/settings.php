@@ -309,4 +309,4 @@ $settings['state_cache'] = TRUE;
 // Disable the use of insecure uploads.
 $config['system.file']['allow_insecure_uploads'] = FALSE;
 
-$settings['session_write_interval'] = 1;
+$settings['session_write_interval'] = 30;
