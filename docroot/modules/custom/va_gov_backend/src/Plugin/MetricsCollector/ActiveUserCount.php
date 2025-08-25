@@ -103,7 +103,7 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
    * This should return the users who are not administrators, API users, or
    * "ghost" users (users with duplicate accounts).
    *
-   * @return \Drupal\Core\Entity\Query\QueryInterface
+   * @return \Drupal\Core\Database\Query\Insert|\Drupal\Core\Database\Query\SelectInterface
    *   A query, not yet completed.
    */
   protected function getRealUserQuery() {
@@ -144,6 +144,24 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
   }
 
   /**
+   * Show a count of currently active users within the last hour.
+   *
+   * @return int
+   *   The count of currently active users.
+   */
+  protected function getCurrentlyActiveUsers(): int {
+    $now = time();
+    // Current time minus one hour.
+    $timestamp = $now - (60 * 60);
+    // Count within the last hour, how many users are active on the website.
+    $query_count = $this->database->select('sessions', 's');
+    $query_count->condition('s.timestamp', $timestamp, '>=');
+    $count_rc = $query_count->countQuery()->execute()->fetchField();
+
+    return $count_rc;
+  }
+
+  /**
    * Gets a count of users active since a specified time.
    *
    * @param int $timestamp
@@ -152,7 +170,8 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
    * @return int
    *   The count of active users in the specified time interval.
    */
-  protected function getCountSinceTime($timestamp) {
+  protected function getCountSinceTime(int $timestamp): int {
+    /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $this->getRealUserQuery();
     $query
       ->condition('access', $timestamp, '>=');
@@ -163,7 +182,7 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
   /**
    * {@inheritdoc}
    */
-  public function collectMetrics() {
+  public function collectMetrics(): array {
     $now = time();
     $gauge = new Gauge($this->getNamespace(), 'total', $this->getDescription());
     $sessionWriteInterval = $this->settingsService->get('session_write_interval', 180);
@@ -173,6 +192,7 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
     // 180 days in seconds
     $sixMonthsAgoTimestamp = $now - (180 * 86400);
     $gauge->set($this->getCount());
+    $gauge->set($this->getCurrentlyActiveUsers(), ['currently' => 'active']);
     $gauge->set($this->getCountSinceTime($sessionWriteIntervalTimestamp), ['last' => 'session_write_interval']);
     $gauge->set($this->getCountSinceTime($sixtyDaysAgoTimestamp), ['last' => '60days']);
     $gauge->set($this->getCountSinceTime($sixMonthsAgoTimestamp), ['last' => '180days']);
