@@ -26,6 +26,13 @@ class WorkflowContentControl {
   protected $entityUsageService;
 
   /**
+   * Cache for usage totals.
+   *
+   * @var array
+   */
+  protected $usageTotalCache = [];
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service

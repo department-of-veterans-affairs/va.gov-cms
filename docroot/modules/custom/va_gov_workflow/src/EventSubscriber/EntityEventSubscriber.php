@@ -153,7 +153,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $form_id = $event->getFormId();
-    // Add modal for entities with usage.
+    // Add entities have usage, we need to alert editors upon archiving.
     $this->addModalForEntitiesWithUsage($form, $form_state, $form_id);
     // Keep existing behavior for removing archive option and revision message.
     if ($form_state->getFormObject() instanceof EntityFormInterface) {
@@ -319,7 +319,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form state.
    */
   protected function bypassRevisionLogValidationOnIef(array &$form, FormStateInterface $form_state): void {
-    /** @var \Drupal\node\NodeInterface $node **/
     /** @var \Drupal\Core\Entity\EntityFormInterface|null $form_object */
     $form_object = $form_state->getFormObject();
     $node = $form_object->getEntity();

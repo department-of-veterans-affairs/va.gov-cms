@@ -97,7 +97,7 @@ function va_gov_workflow_moderation_state_ajax_callback(
       // If this form has an entity and that entity has linked content, show
       // a warning modal with a link to the usage tab so the user can review
       // related items before archiving.
-      $title = \Drupal::translation()->translate('Address related content');
+      $title = t('Address related content');
       $entity = NULL;
       try {
         /** @var \Drupal\Core\Entity\ContentEntityForm|null $form_object */
@@ -112,60 +112,62 @@ function va_gov_workflow_moderation_state_ajax_callback(
       }
 
       $show_usage_warning = FALSE;
+      $usage_total = 0;
       $usage_link_html = '';
-      if ($entity) {
-        // Use the workflow content control service which knows about linked
-        // entities.
+      // No point in proceeding without an entity.
+      if (!$entity) {
+        return;
+      }
+      // Use the workflow content control service which knows about linked
+      // entities.
+      try {
+        $workflow_control = \Drupal::service('va_gov_workflow.workflow_content_control');
+        $show_usage_warning = $workflow_control->hasLinkedEntities($entity);
+        // No usage warning needed.
+        if (!$show_usage_warning) {
+          return;
+        }
+        // Build a link to the entity usage page (entity_usage_addons
+        // exposes a route like entity.{entity_type}.entity_usage).
+        $entity_type = $entity->getEntityTypeId();
+        $entity_id = $entity->id();
+        $route = "entity.{$entity_type}.entity_usage";
         try {
-          $workflow_control = \Drupal::service('va_gov_workflow.workflow_content_control');
-          if (
-            method_exists($workflow_control, 'hasLinkedEntities')
-            && $workflow_control->hasLinkedEntities($entity)
-          ) {
-            $show_usage_warning = TRUE;
-            // Build a link to the entity usage page (entity_usage_addons
-            // exposes a route like entity.{entity_type}.entity_usage).
-            $entity_type = $entity->getEntityTypeId();
-            $entity_id = $entity->id();
-            $route = "entity.{$entity_type}.entity_usage";
-            try {
-              // Get the usage total for display.
-              $usage_total = 0;
-              try {
-                $usage_service = \Drupal::service('entity_usage_addons.usage');
-                $usage_total = (int) $usage_service->getUsageTotal(
-                  $entity_type,
-                  $entity_id
-                );
-              }
-              catch (\Throwable $e) {
-                $usage_total = 0;
-              }
-              // Build a URL to the usage page and ensure it opens in a new tab.
-              $url = Url::fromRoute(
-                $route,
-                [$entity_type => $entity_id]
-              )->setOptions([
-                'attributes' => [
-                  'target' => '_blank',
-                  'rel' => 'noopener',
-                  'class' => ['button', 'button--primary'],
-                ],
-              ]);
-              $usage_link_html = Link::fromTextAndUrl(\Drupal::translation()->translate('View related content'), $url)->toString();
-            }
-            catch (\Throwable $e) {
-              // If route generation fails, fallback to a simple path link.
-              $path = '/' . $entity_type . '/' . $entity_id . '/usage';
-              $usage_link_html = '<a href="' . $path . '" target="_blank" rel="noopener" class="button button--primary">' . \Drupal::translation()->translate('View related content') . '</a>';
-            }
+          // Get the usage total for display.
+          try {
+            $usage_service = \Drupal::service('entity_usage_addons.usage');
+            $usage_total = $usage_service->getUsageTotal(
+              $entity_type,
+              $entity_id
+            );
           }
+          catch (\Throwable $e) {
+            $usage_total = 0;
+          }
+          // Build a URL to the usage page and ensure it opens in a new tab.
+          $url = Url::fromRoute(
+            $route,
+            [$entity_type => $entity_id]
+          )->setOptions([
+            'attributes' => [
+              'target' => '_blank',
+              'rel' => 'noopener',
+              'class' => ['button', 'button--primary'],
+            ],
+          ]);
+          $usage_link_html = Link::fromTextAndUrl(t('View related content'), $url)->toString();
         }
         catch (\Throwable $e) {
-          // If the service isn't available or throws, don't block archive
-          // behavior — fall through to the normal confirm modal below.
-          $show_usage_warning = FALSE;
+          // If route generation fails, fallback to a simple path link.
+          $path = '/' . $entity_type . '/' . $entity_id . '/usage';
+          $usage_link_html = '<a href="' . $path . '" target="_blank" rel="noopener" class="button button--primary">' . t('View related content') . '</a>';
         }
+
+      }
+      catch (\Throwable $e) {
+        // If the service isn't available or throws, don't block archive
+        // behavior — fall through to the normal confirm modal below.
+        $show_usage_warning = FALSE;
       }
 
       if ($show_usage_warning) {
@@ -178,7 +180,7 @@ function va_gov_workflow_moderation_state_ajax_callback(
           '#type' => 'container',
           'message' => [
             '#type' => 'markup',
-            '#markup' => '<p>' . \Drupal::translation()->translate('This content has @usage. Review and address the related content before archiving.', ['@usage' => $usage_text]) . '</p>',
+            '#markup' => '<p>' . t('This content has @usage. Review and address the related content before archiving.', ['@usage' => $usage_text]) . '</p>',
           ],
           'actions' => [
             '#type' => 'container',
@@ -233,8 +235,7 @@ function va_gov_workflow_moderation_state_ajax_callback(
     }
   }
   catch (\Throwable $e) {
-    // Swallow exceptions to avoid breaking AJAX responses. Consider logging
-    // during development to help debug issues.
+    // Swallow exceptions to avoid breaking AJAX responses.
     \Drupal::logger('va_gov_workflow')->error($e->getMessage());
   }
   return $response;
