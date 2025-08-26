@@ -75,7 +75,6 @@ function va_gov_workflow_moderation_state_ajax_callback(
     // Try to detect the moderation state value from form_state or the form
     // structure. The widget value can be nested; extract the first string we
     // find.
-    $value = NULL;
     if ($form_state->hasValue('moderation_state')) {
       $selected_value = $form_state->getValue('moderation_state');
     }
