@@ -3,6 +3,8 @@
 namespace Drupal\va_gov_workflow\Service;
 
 use Drupal\va_gov_user\Service\UserPermsService;
+use Drupal\entity_usage_addons\Service\Usage;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Service used for controlling entity workflow transitions.
@@ -17,15 +19,26 @@ class WorkflowContentControl {
   protected $userPermsService;
 
   /**
+   * The Entity Usage Service.
+   *
+   * @var \Drupal\entity_usage_addons\Service\Usage
+   */
+  protected $entityUsageService;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The user perms service.
+   * @param \Drupal\entity_usage_addons\Service\Usage $entity_usage_service
+   *   The entity usage service.
    */
   public function __construct(
     UserPermsService $user_perms_service,
+    Usage $entity_usage_service,
   ) {
     $this->userPermsService = $user_perms_service;
+    $this->entityUsageService = $entity_usage_service;
   }
 
   /**
@@ -86,6 +99,24 @@ class WorkflowContentControl {
    */
   public function isBundleArchiveableByNonAdmins(string $bundle, string $entity_type = 'node') {
     return in_array($bundle, $this->getBundlesArchiveableByAdmins($entity_type)) ? FALSE : TRUE;
+  }
+
+  /**
+   * Determine whether the given entity has linked (used) entities.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to check for linked usage.
+   *
+   * @return bool
+   *   TRUE if the entity has linked usages, FALSE otherwise.
+   */
+  public function hasLinkedEntities(EntityInterface $entity): bool {
+    $entity_type = $entity->getEntityTypeId();
+    $entity_id = $entity->id();
+    if ($this->entityUsageService->getUsageTotal($entity_type, $entity_id) > 0) {
+      return TRUE;
+    }
+    return FALSE;
   }
 
 }

@@ -21,7 +21,8 @@
 function _va_gov_workflow_change_content_type_workflow(
   string $contentType,
   string $oldWorkflow,
-  string $newWorkflow) {
+  string $newWorkflow,
+) {
   // Get the content type nids.
   $node_storage = \Drupal::entityTypeManager()->getStorage('node');
   $query = $node_storage->getQuery();
