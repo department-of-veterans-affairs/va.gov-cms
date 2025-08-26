@@ -113,7 +113,11 @@ class WorkflowContentControl {
   public function hasLinkedEntities(EntityInterface $entity): bool {
     $entity_type = $entity->getEntityTypeId();
     $entity_id = $entity->id();
-    if ($this->entityUsageService->getUsageTotal($entity_type, $entity_id) > 0) {
+    $cache_key = $entity_type . ':' . $entity_id;
+    if (!isset($this->usageTotalCache[$cache_key])) {
+      $this->usageTotalCache[$cache_key] = $this->entityUsageService->getUsageTotal($entity_type, $entity_id);
+    }
+    if ($this->usageTotalCache[$cache_key] > 0) {
       return TRUE;
     }
     return FALSE;
