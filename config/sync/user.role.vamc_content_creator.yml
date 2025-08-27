@@ -15,6 +15,7 @@ dependencies:
     - node.type.vha_facility_nonclinical_service
   module:
     - block_content
+    - entity_usage
     - file
     - node
     - node_link_report
@@ -28,6 +29,7 @@ weight: -4
 is_admin: null
 permissions:
   - 'access block library'
+  - 'access entity usage statistics'
   - 'access files overview'
   - 'create event content'
   - 'create full_width_banner_alert content'
