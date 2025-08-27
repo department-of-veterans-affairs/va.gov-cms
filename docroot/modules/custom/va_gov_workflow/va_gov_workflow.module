@@ -132,6 +132,9 @@ function va_gov_workflow_moderation_state_ajax_callback(
         $entity_type = $entity->getEntityTypeId();
         $entity_id = $entity->id();
         $route = "entity.{$entity_type}.entity_usage";
+        // Build a link to the knowledge base article.
+        $kba_id = '82190';
+
         try {
           // Get the usage total for display.
           try {
@@ -156,6 +159,16 @@ function va_gov_workflow_moderation_state_ajax_callback(
             ],
           ]);
           $usage_link_html = Link::fromTextAndUrl(t('View related content'), $url)->toString();
+
+          // Build a button to the knowledge base article.
+          $kb_url = Url::fromRoute('entity.node.canonical', ['node' => $kba_id])->setOptions([
+            'attributes' => [
+              'target' => '_blank',
+              'rel' => 'noopener',
+              'class' => ['button', 'button--primary', 'button--outline'],
+            ],
+          ]);
+          $kb_link_html = Link::fromTextAndUrl(t('See related knowledge base article'), $kb_url)->toString();
         }
         catch (\Throwable $e) {
           // If route generation fails, fallback to a simple path link.
@@ -189,6 +202,10 @@ function va_gov_workflow_moderation_state_ajax_callback(
               '#type' => 'markup',
               '#markup' => $usage_link_html,
             ],
+            'kb_link' => [
+              '#type' => 'markup',
+              '#markup' => $kb_link_html,
+            ],
           ],
           '#attached' => [
             'library' => ['va_gov_workflow/modal'],
@@ -196,6 +213,12 @@ function va_gov_workflow_moderation_state_ajax_callback(
         ];
 
         $rendered = \Drupal::service('renderer')->renderRoot($modal_build);
+        // Ensure libraries and drupalSettings attached to the modal are sent in
+        // the AjaxResponse so clients that didn't previously load the library
+        // (for example non-admin pages) will receive the JS behavior.
+        if (!empty($modal_build['#attached'])) {
+          $response->setAttachments($modal_build['#attached']);
+        }
         $response->addCommand(new OpenModalDialogCommand($title, $rendered, ['width' => '600']));
       }
     }
@@ -207,7 +230,16 @@ function va_gov_workflow_moderation_state_ajax_callback(
         if (!empty($form['#id'])) {
           try {
             $rendered_form = \Drupal::service('renderer')->renderRoot($form);
+            // Ensure our modal library (containing scroll-restore behavior)
+            // is available after the AJAX replace so behaviors re-attach.
+            $attachments = !empty($form['#attached']) ? $form['#attached'] : [];
+            if (empty($attachments['library']) || !in_array('va_gov_workflow/modal', $attachments['library'])) {
+              $attachments['library'][] = 'va_gov_workflow/modal';
+            }
+            $response->setAttachments($attachments);
             $response->addCommand(new ReplaceCommand('#' . $form['#id'], $rendered_form));
+            // No explicit focus commands; scroll-restore behavior will preserve
+            // the user's position after AJAX updates.
           }
           catch (\Throwable $e) {
             // Fallback to rendering only the moderation element.
@@ -218,6 +250,13 @@ function va_gov_workflow_moderation_state_ajax_callback(
               $to_render = $form['moderation_state'];
             }
             $rendered = \Drupal::service('renderer')->renderRoot($to_render);
+            // Include any attachments from the rendered form so behaviors are
+            // re-applied on the client and ensure our modal library is present.
+            $attachments = !empty($form['#attached']) ? $form['#attached'] : [];
+            if (empty($attachments['library']) || !in_array('va_gov_workflow/modal', $attachments['library'])) {
+              $attachments['library'][] = 'va_gov_workflow/modal';
+            }
+            $response->setAttachments($attachments);
             $response->addCommand(new ReplaceCommand('#moderation-state-wrapper', $rendered));
           }
         }
@@ -229,7 +268,16 @@ function va_gov_workflow_moderation_state_ajax_callback(
             $to_render = $form['moderation_state'];
           }
           $rendered = \Drupal::service('renderer')->renderRoot($to_render);
+          // Merge any attachments from the element and ensure our library is
+          // included so the restore-scroll behavior is sent to the client.
+          $attachments = !empty($to_render['#attached']) ? $to_render['#attached'] : [];
+          if (empty($attachments['library']) || !in_array('va_gov_workflow/modal', $attachments['library'])) {
+            $attachments['library'][] = 'va_gov_workflow/modal';
+          }
+          $response->setAttachments($attachments);
           $response->addCommand(new ReplaceCommand('#moderation-state-wrapper', $rendered));
+          // No explicit focus commands; scroll-restore behavior will preserve
+          // the user's position after AJAX updates.
         }
       }
     }
