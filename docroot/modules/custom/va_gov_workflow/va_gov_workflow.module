@@ -177,7 +177,7 @@ function va_gov_workflow_moderation_state_ajax_callback(
           // If route generation fails, fallback to a simple path link.
           $path = '/' . $entity_type . '/' . $entity_id . '/usage';
           $usage_link_html = '<a href="' . $path . '" target="_blank" rel="noopener" class="button button--primary">' . t('View related content') . '</a>';
-          $kb_link_html = '<a href="/node/' . $kba_id . '" target="_blank" rel="noopener" class="button button--primary button--outline">' . t('See related knowledge base article') . '</a>';
+          $kb_link_html = '<a href="/node/' . $kb_id . '" target="_blank" rel="noopener" class="button button--primary button--outline">' . t('See related knowledge base article') . '</a>';
         }
 
       }
