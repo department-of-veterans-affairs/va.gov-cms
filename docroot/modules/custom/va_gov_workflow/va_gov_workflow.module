@@ -110,14 +110,16 @@ function va_gov_workflow_moderation_state_ajax_callback(
         // Ignore — we'll treat as no entity found.
         $entity = NULL;
       }
-
-      $show_usage_warning = FALSE;
-      $usage_total = 0;
-      $usage_link_html = '';
       // No point in proceeding without an entity.
       if (!$entity) {
         return;
       }
+
+      $show_usage_warning = FALSE;
+      $usage_total = 0;
+      $usage_link_html = '';
+      $kb_link_html = '';
+
       // Use the workflow content control service which knows about linked
       // entities.
       try {
@@ -133,7 +135,8 @@ function va_gov_workflow_moderation_state_ajax_callback(
         $entity_id = $entity->id();
         $route = "entity.{$entity_type}.entity_usage";
         // Build a link to the knowledge base article.
-        $kba_id = '82190';
+        // Use the node id of the relevant knowledge base article.
+        $kb_id = '82190';
 
         try {
           // Get the usage total for display.
@@ -161,7 +164,7 @@ function va_gov_workflow_moderation_state_ajax_callback(
           $usage_link_html = Link::fromTextAndUrl(t('View related content'), $url)->toString();
 
           // Build a button to the knowledge base article.
-          $kb_url = Url::fromRoute('entity.node.canonical', ['node' => $kba_id])->setOptions([
+          $kb_url = Url::fromRoute('entity.node.canonical', ['node' => $kb_id])->setOptions([
             'attributes' => [
               'target' => '_blank',
               'rel' => 'noopener',

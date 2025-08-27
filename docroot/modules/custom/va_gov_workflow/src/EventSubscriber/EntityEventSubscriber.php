@@ -153,8 +153,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $form_id = $event->getFormId();
-    // Add entities have usage, we need to alert editors upon archiving.
-    $this->addModalForEntitiesWithUsage($form, $form_state, $form_id);
+    // If entities have usage, we need to alert editors upon archiving.
+    $this->addModalForEntitiesWithUsage($form, $form_state);
     // Keep existing behavior for removing archive option and revision message.
     if ($form_state->getFormObject() instanceof EntityFormInterface) {
       $this->removeArchiveOption($event);
@@ -413,16 +413,19 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Add ajax call.
+   * Adds a modal dialog to the form for entities that have usage.
+   *
+   * This function modifies the form to include an AJAX modal dialog
+   * when the entity being edited or deleted is referenced elsewhere.
+   * The modal informs the user about the entity's usage before allowing
+   * further actions.
    *
    * @param array $form
    *   The form array by reference.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state object.
-   * @param string $form_id
-   *   The form id.
    */
-  private function addModalForEntitiesWithUsage(array &$form, FormStateInterface $form_state, $form_id) {
+  private function addModalForEntitiesWithUsage(array &$form, FormStateInterface $form_state) {
     $formObject = $form_state->getFormObject();
     if (!($formObject instanceof EntityFormInterface)) {
       return;
