@@ -35,7 +35,7 @@ $settings['trusted_host_patterns'] = [
     'test.prod.cms.va.gov',
     'cms.va.gov',
     '.*\.us-gov-west-1\.elb\.amazonaws\.com',
-    '^eks-dev\.cms\.va\.gov$',
+    'eks-dev\.cms\.va\.gov',
 ];
 
 $settings['va_gov_frontend_build_type'] = 'eks';
