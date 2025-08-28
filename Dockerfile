@@ -9,6 +9,12 @@ RUN mkdir -p /opt/drupal
 COPY . /opt/drupal
 WORKDIR /opt/drupal
 
+RUN sed -i \
+  -e '/RewriteRule \^ - \[E=protossl\]/s/^/# /' \
+  -e '/RewriteCond %{HTTPS} on/s/^/# /' \
+  -e '/RewriteRule \^ - \[E=protossl:s\]/s/^/# /' \
+  /opt/drupal/docroot/.htaccess
+
 RUN set -eux; \
   export COMPOSER_HOME="$(mktemp -d)"; \
   composer install --dev; \
