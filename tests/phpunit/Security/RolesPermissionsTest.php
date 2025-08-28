@@ -857,7 +857,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
         ],
       ],
       [
-        'administrator_users',
+        'admnistrator_users',
         [
           'access entity usage statistics',
           'administer users',
