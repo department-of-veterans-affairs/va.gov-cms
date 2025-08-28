@@ -431,9 +431,26 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       return;
     }
     $entity = $formObject->getEntity();
+    // Defensive guards: bail out early for missing, new, or id-less entities so
+    // we never call the usage service with a NULL id (which triggers an
+    // assertion in entity storage).
+    if (!$entity) {
+      return;
+    }
+    if (method_exists($entity, 'isNew') && $entity->isNew()) {
+      return;
+    }
+    $maybe_id = NULL;
+    if (method_exists($entity, 'id')) {
+      $maybe_id = $entity->id();
+    }
+    if (empty($maybe_id)) {
+      return;
+    }
     if ($entity->getEntityTypeId() !== 'node') {
       return;
     }
+
     $entity_type = $entity->getEntityTypeId();
     $entity_id = $entity->id();
     $usage_total = $this->usage->getUsageTotal($entity_type, $entity_id);
