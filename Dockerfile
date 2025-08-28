@@ -1,4 +1,4 @@
-ARG BASE_IMAGE_TAG=1.0.0
+ARG BASE_IMAGE_TAG=1.0.8
 FROM 008577686731.dkr.ecr.us-gov-west-1.amazonaws.com/dsva/cms-apache:${BASE_IMAGE_TAG}
 
 # https://www.drupal.org/node/3060/release
@@ -8,6 +8,12 @@ RUN mkdir -p /opt/drupal
 # Copy in our files to start with.
 COPY . /opt/drupal
 WORKDIR /opt/drupal
+
+RUN sed -i \
+  -e '/RewriteRule \^ - \[E=protossl\]/s/^/# /' \
+  -e '/RewriteCond %{HTTPS} on/s/^/# /' \
+  -e '/RewriteRule \^ - \[E=protossl:s\]/s/^/# /' \
+  /opt/drupal/docroot/.htaccess
 
 RUN set -eux; \
   export COMPOSER_HOME="$(mktemp -d)"; \

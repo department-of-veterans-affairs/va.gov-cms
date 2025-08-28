@@ -168,6 +168,13 @@ RUN { \
   echo 'opcache.validate_timestamps=0'; \
   } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
+# set recommended opcache settings
+RUN { \
+    echo 'zend_extension=opcache'; \
+    echo 'opcache.enable=1'; \
+    echo 'opcache.enable_cli=1'; \
+} > /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+
 # set recommended apcu settings
 RUN { \
     echo 'extension=apcu.so'; \
@@ -201,6 +208,7 @@ php-fpm -D\n\
 rsyslogd\n\
 # Start Prometheus\n\
 /opt/prometheus/prometheus --config.file=/etc/prometheus/prometheus.yml &\n\
+# Start Apache in the foreground\n\
 apache2-foreground' > /usr/local/bin/start-services.sh && \
 chmod +x /usr/local/bin/start-services.sh
 
