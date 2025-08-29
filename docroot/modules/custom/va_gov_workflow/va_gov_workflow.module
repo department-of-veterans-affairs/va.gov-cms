@@ -97,7 +97,7 @@ function va_gov_workflow_moderation_state_ajax_callback(
       // If this form has an entity and that entity has linked content, show
       // a warning modal with a link to the usage tab so the user can review
       // related items before archiving.
-      $title = t('Address related content');
+      $title = t('Review related content');
       $entity = NULL;
       try {
         /** @var \Drupal\Core\Entity\ContentEntityForm|null $form_object */
@@ -190,8 +190,11 @@ function va_gov_workflow_moderation_state_ajax_callback(
           '#type' => 'container',
           'message' => [
             '#type' => 'markup',
-            '#markup' => '<p style="hyphens:none;">' . t('This content has @usage. Review these references and refer to the <a href="@url" target="_blank" rel="noopener">knowledge base article</a> to make sure archiving this content will not create broken links.',
+            '#markup' => '<p>' . t('This content has @usage. Review these references and refer to the <a href="@url" target="_blank" rel="noopener">knowledge base article</a> to make sure archiving this content will not create broken links.',
                           ['@usage' => $usage_text, '@url' => $kb_url]) . '</p>',
+            '#attributes' => [
+              'class' => ['va-gov-workflow-modal-message'],
+            ],
           ],
           'actions' => [
             '#type' => 'container',
