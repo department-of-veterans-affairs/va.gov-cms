@@ -118,7 +118,7 @@ function va_gov_workflow_moderation_state_ajax_callback(
       $show_usage_warning = FALSE;
       $usage_total = 0;
       $usage_link_html = '';
-      $kb_link_html = '';
+      $kb_url = '';
 
       // Use the workflow content control service which knows about linked
       // entities.
@@ -164,20 +164,13 @@ function va_gov_workflow_moderation_state_ajax_callback(
           $usage_link_html = Link::fromTextAndUrl(t('View related content'), $url)->toString();
 
           // Build a button to the knowledge base article.
-          $kb_url = Url::fromRoute('entity.node.canonical', ['node' => $kb_id])->setOptions([
-            'attributes' => [
-              'target' => '_blank',
-              'rel' => 'noopener',
-              'class' => ['button', 'button--primary', 'button--outline'],
-            ],
-          ]);
-          $kb_link_html = Link::fromTextAndUrl(t('See related knowledge base article'), $kb_url)->toString();
+          $kb_url = '/node/' . $kb_id;
         }
         catch (\Throwable $e) {
           // If route generation fails, fallback to a simple path link.
           $path = '/' . $entity_type . '/' . $entity_id . '/usage';
           $usage_link_html = '<a href="' . $path . '" target="_blank" rel="noopener" class="button button--primary">' . t('View related content') . '</a>';
-          $kb_link_html = '<a href="/node/' . $kb_id . '" target="_blank" rel="noopener" class="button button--primary button--outline">' . t('See related knowledge base article') . '</a>';
+          $kb_url = '/node/' . $kb_id;
         }
 
       }
@@ -197,7 +190,8 @@ function va_gov_workflow_moderation_state_ajax_callback(
           '#type' => 'container',
           'message' => [
             '#type' => 'markup',
-            '#markup' => '<p>' . t('This content has @usage. Review and address the related content before archiving.', ['@usage' => $usage_text]) . '</p>',
+            '#markup' => '<p style="hyphens:none;">' . t('This content has @usage. Review these references and refer to the <a href="@url" target="_blank" rel="noopener">knowledge base article</a> to make sure archiving this content will not create broken links.',
+                          ['@usage' => $usage_text, '@url' => $kb_url]) . '</p>',
           ],
           'actions' => [
             '#type' => 'container',
@@ -205,10 +199,6 @@ function va_gov_workflow_moderation_state_ajax_callback(
             'usage_link' => [
               '#type' => 'markup',
               '#markup' => $usage_link_html,
-            ],
-            'kb_link' => [
-              '#type' => 'markup',
-              '#markup' => $kb_link_html,
             ],
           ],
           '#attached' => [
