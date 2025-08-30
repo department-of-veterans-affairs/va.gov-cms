@@ -7,6 +7,7 @@ services:
       - '@va_gov_workflow.workflow_content_control'
       - '@va_gov_workflow.flagger'
       - '@va_gov_notifications.notifications_manager'
+      - '@entity_usage_addons.usage'
     tags:
       - { name: event_subscriber }
   va_gov_workflow.flagger:
@@ -14,7 +15,7 @@ services:
     arguments: ['@flag', '@entity_type.manager']
   va_gov_workflow.workflow_content_control:
     class: Drupal\va_gov_workflow\Service\WorkflowContentControl
-    arguments: ['@va_gov_user.user_perms']
+    arguments: ['@va_gov_user.user_perms', '@entity_usage_addons.usage']
   va_gov_workflow.migrate_event_subscriber:
     class: Drupal\va_gov_workflow\EventSubscriber\MigrateEventSubscriber
     arguments: ['@va_gov_workflow.flagger']

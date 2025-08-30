@@ -8,6 +8,7 @@ dependencies:
     - taxonomy.vocabulary.administration
   module:
     - actions_permissions
+    - entity_usage
     - filter
     - node_link_report
     - password_policy
@@ -25,6 +26,7 @@ label: 'CMS account admin'
 weight: 4
 is_admin: null
 permissions:
+  - 'access entity usage statistics'
   - 'administer users'
   - 'assign content_admin role'
   - 'assign content_api_consumer role'

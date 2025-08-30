@@ -5,6 +5,7 @@ dependencies:
   config:
     - node.type.vba_facility_service
   module:
+    - entity_usage
     - node
     - va_gov_backend
 third_party_settings:
@@ -15,5 +16,6 @@ label: 'Content creator - VBA'
 weight: -3
 is_admin: null
 permissions:
+  - 'access entity usage statistics'
   - 'create vba_facility_service content'
   - 'view node link report'

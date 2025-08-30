@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
@@ -18,12 +19,15 @@ use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Drupal\va_gov_workflow\Service\WorkflowContentControl;
+use Drupal\entity_usage_addons\Service\Usage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * VA.gov Workflow Entity Event Subscriber.
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
+
+  use StringTranslationTrait;
 
   /**
    * The entity manager.
@@ -62,6 +66,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   protected $workflowContentControl;
 
   /**
+   * The form alter service.
+   *
+   * @var \Drupal\entity_usage_addons\Service\Usage
+   */
+  protected $usage;
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
@@ -89,6 +100,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The vagov workflow flagger service.
    * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
    *   VA gov NotificationsManager service.
+   * @param \Drupal\entity_usage_addons\Service\Usage $usage
+   *   The entity usage service.
    */
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
@@ -96,12 +109,14 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     WorkflowContentControl $workflow_content_control,
     Flagger $flagger,
     NotificationsManager $notifications_manager,
+    Usage $usage,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->userPermsService = $user_perms_service;
     $this->workflowContentControl = $workflow_content_control;
     $this->flagger = $flagger;
     $this->notificationsManager = $notifications_manager;
+    $this->usage = $usage;
   }
 
   /**
@@ -138,6 +153,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $form_id = $event->getFormId();
+    // If entities have usage, we need to alert editors upon archiving.
+    $this->addModalForEntitiesWithUsage($form, $form_state);
+    // Keep existing behavior for removing archive option and revision message.
     if ($form_state->getFormObject() instanceof EntityFormInterface) {
       $this->removeArchiveOption($event);
     }
@@ -197,8 +215,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     if ($form_state->getFormObject() instanceof ContentEntityForm) {
+      /** @var \Drupal\Core\Entity\ContentEntityForm|null $form_object */
+      $form_object = $form_state->getFormObject();
       /** @var \Drupal\Core\Entity\EntityInterface $entity */
-      $entity = $form_state->getFormObject()->getEntity();
+      $entity = $form_object->getEntity();
       $entity_type = $entity->getEntityType()->id();
       $bundle = $entity->bundle();
       $is_admin = $this->userPermsService->hasAdminRole();
@@ -299,8 +319,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form state.
    */
   protected function bypassRevisionLogValidationOnIef(array &$form, FormStateInterface $form_state): void {
-    /** @var \Drupal\node\NodeInterface $node **/
-    $node = $form_state->getFormObject()->getEntity();
+    /** @var \Drupal\Core\Entity\EntityFormInterface|null $form_object */
+    $form_object = $form_state->getFormObject();
+    $node = $form_object->getEntity();
     if (!$node instanceof NodeInterface) {
       return;
     }
@@ -389,6 +410,101 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $target_type = $field_definition->getItemDefinition()->getSettings()['target_type'] ?? '';
 
     return (in_array($fieldType, $field_types_for_ief)) && ($target_type === "node" || $target_type === "block_content");
+  }
+
+  /**
+   * Adds a modal dialog to the form for entities that have usage.
+   *
+   * This function modifies the form to include an AJAX modal dialog
+   * when the entity being edited or deleted is referenced elsewhere.
+   * The modal informs the user about the entity's usage before allowing
+   * further actions.
+   *
+   * @param array $form
+   *   The form array by reference.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state object.
+   */
+  private function addModalForEntitiesWithUsage(array &$form, FormStateInterface $form_state) {
+    $formObject = $form_state->getFormObject();
+    if (!($formObject instanceof EntityFormInterface)) {
+      return;
+    }
+    $entity = $formObject->getEntity();
+    // Defensive guards: bail out early for missing, new, or id-less entities so
+    // we never call the usage service with a NULL id (which triggers an
+    // assertion in entity storage).
+    if (!$entity) {
+      return;
+    }
+    if (method_exists($entity, 'isNew') && $entity->isNew()) {
+      return;
+    }
+    $maybe_id = NULL;
+    if (method_exists($entity, 'id')) {
+      $maybe_id = $entity->id();
+    }
+    if (empty($maybe_id)) {
+      return;
+    }
+    if ($entity->getEntityTypeId() !== 'node') {
+      return;
+    }
+
+    $entity_type = $entity->getEntityTypeId();
+    $entity_id = $entity->id();
+    $usage_total = $this->usage->getUsageTotal($entity_type, $entity_id);
+    if ($usage_total < 1) {
+      return;
+    }
+
+    // Attach core AJAX support.
+    if (!empty($form['#attached']['library'])) {
+      $form['#attached']['library'][] = 'core/drupal.ajax';
+    }
+    else {
+      $form['#attached']['library'] = ['core/drupal.ajax'];
+    }
+
+    // Add ajax to the moderation state dropdown. Prefer the widget/state
+    // element path used by core content moderation widgets if present.
+    if (isset($form['moderation_state']['widget'][0]['state'])) {
+      $elem = &$form['moderation_state']['widget'][0]['state'];
+      // Ensure the element has a wrapper ID so ReplaceCommand can target it.
+      $elem['#prefix'] = '<div id="moderation-state-wrapper">';
+      $elem['#suffix'] = '</div>';
+
+      $elem['#ajax'] = [
+        'callback' => 'va_gov_workflow_moderation_state_ajax_callback',
+        'event' => 'change',
+        'wrapper' => 'moderation-state-wrapper',
+        'progress' => [
+          'type' => 'throbber',
+          'message' => $this->t('Updating...'),
+        ],
+      ];
+      $elem['#attributes']['class'][] = 'use-ajax';
+    }
+    elseif (isset($form['moderation_state'])) {
+      // Fallback for variations where moderation_state is a simple element.
+      $form['moderation_state']['#prefix'] = '<div id="moderation-state-wrapper">';
+      $form['moderation_state']['#suffix'] = '</div>';
+
+      // Attach #ajax to the element. Use change event for selects.
+      $form['moderation_state']['#ajax'] = [
+        'callback' => 'va_gov_workflow_moderation_state_ajax_callback',
+        'event' => 'change',
+        'wrapper' => 'moderation-state-wrapper',
+        'progress' => [
+          'type' => 'throbber',
+          'message' => $this->t('Updating...'),
+        ],
+      ];
+
+      // Ensure Drupal behaviors pick up AJAX-enabled elements.
+      $form['moderation_state']['#attributes']['class'][] = 'use-ajax';
+    }
+
   }
 
   /**
