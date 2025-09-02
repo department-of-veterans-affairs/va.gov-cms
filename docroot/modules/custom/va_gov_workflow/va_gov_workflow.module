@@ -97,7 +97,7 @@ function va_gov_workflow_moderation_state_ajax_callback(
       // If this form has an entity and that entity has linked content, show
       // a warning modal with a link to the usage tab so the user can review
       // related items before archiving.
-      $title = t('Review related content');
+      $title = t('View linked pages');
       $entity = NULL;
       try {
         /** @var \Drupal\Core\Entity\ContentEntityForm|null $form_object */
@@ -182,7 +182,7 @@ function va_gov_workflow_moderation_state_ajax_callback(
 
       if ($show_usage_warning) {
         // Build pluralized usage text and include it inline in the warning.
-        $usage_text = \Drupal::translation()->formatPlural($usage_total, '1 related item', '@count related items', ['@count' => $usage_total]);
+        $usage_text = \Drupal::translation()->formatPlural($usage_total, '1 page', '@count pages', ['@count' => $usage_total]);
 
         // Build a render array for the modal content so we can attach a
         // library that provides safe behaviors instead of inline JS handlers.
@@ -190,8 +190,8 @@ function va_gov_workflow_moderation_state_ajax_callback(
           '#type' => 'container',
           'message' => [
             '#type' => 'markup',
-            '#markup' => '<p>' . t('This content has @usage. Review these references and refer to the <a href="@url" target="_blank" rel="noopener">knowledge base article</a> to make sure archiving this content will not create broken links.',
-                          ['@usage' => $usage_text, '@url' => $kb_url]) . '</p>',
+            '#markup' => '<p>' . t('This content is linked on @usage. Review the page(s) and refer to the <a href="@url" target="_blank" rel="noopener">Knowledge Base article</a> to make sure that archiving this content will not create broken links.',
+              ['@usage' => $usage_text, '@url' => $kb_url]) . '</p>',
             '#attributes' => [
               'class' => ['va-gov-workflow-modal-message'],
             ],
