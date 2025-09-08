@@ -1,0 +1,176 @@
+diff --git a/core/modules/views/src/Plugin/views/pager/Full.php b/core/modules/views/src/Plugin/views/pager/Full.php
+index 0176fc6e7f9..f20d68a12cc 100644
+--- a/core/modules/views/src/Plugin/views/pager/Full.php
++++ b/core/modules/views/src/Plugin/views/pager/Full.php
+@@ -88,10 +88,14 @@ public function render($input) {
+       4 => $this->options['tags']['last'],
+     ];
+ 
++    $heading_options = [
++      'pagination_heading_level' => parent::getHeadingLevel(),
++    ];
+     return [
+       '#theme' => $this->themeFunctions(),
+       '#tags' => $tags,
+       '#element' => $this->options['id'],
++      '#options' => $heading_options,
+       '#pagination_heading_level' => parent::getHeadingLevel(),
+       '#parameters' => $input,
+       '#quantity' => $this->options['quantity'],
+diff --git a/core/modules/views/src/Plugin/views/pager/Mini.php b/core/modules/views/src/Plugin/views/pager/Mini.php
+index 0f95f7a0d2f..cd09217b5f7 100644
+--- a/core/modules/views/src/Plugin/views/pager/Mini.php
++++ b/core/modules/views/src/Plugin/views/pager/Mini.php
+@@ -96,10 +96,14 @@ public function render($input) {
+       3 => $this->options['tags']['next'],
+     ];
+ 
++    $heading_options = [
++      'pagination_heading_level' => parent::getHeadingLevel(),
++    ];
+     return [
+       '#theme' => $this->themeFunctions(),
+       '#tags' => $tags,
+       '#element' => $this->options['id'],
++      '#options' => $heading_options,
+       '#pagination_heading_level' => parent::getHeadingLevel(),
+       '#parameters' => $input,
+       '#route_name' => !empty($this->view->live_preview) ? '<current>' : '<none>',
+diff --git a/core/modules/views/src/Plugin/views/pager/PagerPluginBase.php b/core/modules/views/src/Plugin/views/pager/PagerPluginBase.php
+index b2cb87a6b8b..7a38864d04d 100644
+--- a/core/modules/views/src/Plugin/views/pager/PagerPluginBase.php
++++ b/core/modules/views/src/Plugin/views/pager/PagerPluginBase.php
+@@ -93,7 +93,7 @@ public function setOffset($offset) {
+    *   Heading level for the pager.
+    */
+   public function getHeadingLevel(): string {
+-    return $this->options['pagination_heading_level'] ?? 'h4';
++    return $this->options['pagination_heading_level'] ?? 'h2';
+   }
+ 
+   /**
+diff --git a/core/modules/views/src/Plugin/views/pager/SqlBase.php b/core/modules/views/src/Plugin/views/pager/SqlBase.php
+index 5804ba27558..01c31bbd597 100644
+--- a/core/modules/views/src/Plugin/views/pager/SqlBase.php
++++ b/core/modules/views/src/Plugin/views/pager/SqlBase.php
+@@ -68,7 +68,7 @@ protected function defineOptions() {
+     $options['offset'] = ['default' => 0];
+     $options['id'] = ['default' => 0];
+     $options['total_pages'] = ['default' => ''];
+-    $options['pagination_heading_level'] = ['default' => 'h4'];
++    $options['pagination_heading_level'] = ['default' => 'h2'];
+     $options['expose'] = [
+       'contains' => [
+         'items_per_page' => ['default' => FALSE],
+diff --git a/core/themes/claro/templates/pager.html.twig b/core/themes/claro/templates/pager.html.twig
+index 4ebb7e37a84..e6d740044c1 100644
+--- a/core/themes/claro/templates/pager.html.twig
++++ b/core/themes/claro/templates/pager.html.twig
+@@ -37,7 +37,8 @@
+ #}
+ {% if items %}
+   <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
++    {% set hx = pager['#options']['pagination_heading_level'] ?: 'h2' %}
++    <{{ hx }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ hx }}>
+     <ul class="pager__items js-pager__items">
+       {# Print first item if we are not on the first page. #}
+       {% if items.first %}
+diff --git a/core/themes/claro/templates/views/views-mini-pager.html.twig b/core/themes/claro/templates/views/views-mini-pager.html.twig
+index 1afc4f463ad..5a2ebed4a88 100644
+--- a/core/themes/claro/templates/views/views-mini-pager.html.twig
++++ b/core/themes/claro/templates/views/views-mini-pager.html.twig
+@@ -20,7 +20,8 @@
+ %}
+ {% if items.previous or items.next %}
+   <nav{{ attributes.addClass('pager').setAttribute('role', 'navigation').setAttribute('aria-labelledby', heading_id) }}>
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
++    {% set hx = options['pagination_heading_level'] ?: 'h2' %}
++    <{{ hx }}{{ title_attributes.addClass('visually-hidden').setAttribute('id', heading_id) }}>{{ 'Pagination'|t }}</{{ hx }}>
+     <ul{{ content_attributes.addClass('pager__items', 'js-pager__items') }}>
+       {% if items.previous %}
+         {% apply spaceless %}
+diff --git a/core/themes/olivero/templates/navigation/pager.html.twig b/core/themes/olivero/templates/navigation/pager.html.twig
+index 37ab8fa2886..428d8064456 100644
+--- a/core/themes/olivero/templates/navigation/pager.html.twig
++++ b/core/themes/olivero/templates/navigation/pager.html.twig
+@@ -33,7 +33,8 @@
+ #}
+ {% if items %}
+   <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
++    {% set hx = pager['#options']['pagination_heading_level'] ?: 'h2' %}
++    <{{ hx }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ hx }}>
+     <ul class="pager__items js-pager__items">
+       {# Print first item if we are not on the first page. #}
+       {% if items.first %}
+diff --git a/core/themes/olivero/templates/views/views-mini-pager.html.twig b/core/themes/olivero/templates/views/views-mini-pager.html.twig
+index a927f84ddae..094ae15342e 100644
+--- a/core/themes/olivero/templates/views/views-mini-pager.html.twig
++++ b/core/themes/olivero/templates/views/views-mini-pager.html.twig
+@@ -13,7 +13,8 @@
+ #}
+ {% if items.previous or items.next %}
+   <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
++    {% set hx = options['pagination_heading_level'] ?: 'h2' %}
++    <{{ hx }}{{ title_attributes.addClass('visually-hidden').setAttribute('id', heading_id) }}>{{ 'Pagination'|t }}</{{ hx }}>
+     <ul class="pager__items js-pager__items">
+       {# Print previous item if we are not on the first page. #}
+       {% if items.previous %}
+diff --git a/core/themes/stable9/templates/navigation/pager.html.twig b/core/themes/stable9/templates/navigation/pager.html.twig
+index cb96612a40e..ef36665a72e 100644
+--- a/core/themes/stable9/templates/navigation/pager.html.twig
++++ b/core/themes/stable9/templates/navigation/pager.html.twig
+@@ -33,7 +33,8 @@
+ #}
+ {% if items %}
+   <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
++    {% set hx = pager['#options']['pagination_heading_level'] ?: 'h2' %}
++    <{{ hx }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ hx }}>
+     <ul class="pager__items js-pager__items">
+       {# Print first item if we are not on the first page. #}
+       {% if items.first %}
+diff --git a/core/themes/stable9/templates/views/views-mini-pager.html.twig b/core/themes/stable9/templates/views/views-mini-pager.html.twig
+index 86199b9637d..7004d949634 100644
+--- a/core/themes/stable9/templates/views/views-mini-pager.html.twig
++++ b/core/themes/stable9/templates/views/views-mini-pager.html.twig
+@@ -13,7 +13,8 @@
+ #}
+ {% if items.previous or items.next %}
+   <nav role="navigation" aria-labelledby="{{ heading_id }}">
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
++    {% set hx = options['pagination_heading_level'] ?: 'h2' %}
++    <{{ hx }}{{ title_attributes.addClass('visually-hidden').setAttribute('id', heading_id) }}>{{ 'Pagination'|t }}</{{ hx }}>
+     <ul class="js-pager__items">
+       {% if items.previous %}
+         <li>
+diff --git a/core/themes/starterkit_theme/templates/navigation/pager.html.twig b/core/themes/starterkit_theme/templates/navigation/pager.html.twig
+index cb96612a40e..a8accd70a5a 100644
+--- a/core/themes/starterkit_theme/templates/navigation/pager.html.twig
++++ b/core/themes/starterkit_theme/templates/navigation/pager.html.twig
+@@ -33,7 +33,8 @@
+ #}
+ {% if items %}
+   <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
++   {% set hx = pager['#options']['pagination_heading_level'] ?: 'h2' %}
++   <{{ hx }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ hx }}>
+     <ul class="pager__items js-pager__items">
+       {# Print first item if we are not on the first page. #}
+       {% if items.first %}
+diff --git a/core/themes/starterkit_theme/templates/views/views-mini-pager.html.twig b/core/themes/starterkit_theme/templates/views/views-mini-pager.html.twig
+index 6a76ccdf0d3..c8b747a31f3 100644
+--- a/core/themes/starterkit_theme/templates/views/views-mini-pager.html.twig
++++ b/core/themes/starterkit_theme/templates/views/views-mini-pager.html.twig
+@@ -13,7 +13,8 @@
+ #}
+ {% if items.previous or items.next %}
+   <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="pager__heading visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
++    {% set hx = options['pagination_heading_level'] ?: 'h2' %}
++    <{{ hx }}{{ title_attributes.addClass('visually-hidden').setAttribute('id', heading_id) }}>{{ 'Pagination'|t }}</{{ hx }}>
+     <ul class="pager__items js-pager__items">
+       {% if items.previous %}
+         <li class="pager__item pager__item--previous">
