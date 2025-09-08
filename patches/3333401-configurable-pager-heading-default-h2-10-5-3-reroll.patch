@@ -5,7 +5,7 @@ index 0176fc6e7f9..f20d68a12cc 100644
 @@ -88,10 +88,14 @@ public function render($input) {
        4 => $this->options['tags']['last'],
      ];
- 
+
 +    $heading_options = [
 +      'pagination_heading_level' => parent::getHeadingLevel(),
 +    ];
@@ -24,7 +24,7 @@ index 0f95f7a0d2f..cd09217b5f7 100644
 @@ -96,10 +96,14 @@ public function render($input) {
        3 => $this->options['tags']['next'],
      ];
- 
+
 +    $heading_options = [
 +      'pagination_heading_level' => parent::getHeadingLevel(),
 +    ];
@@ -47,7 +47,7 @@ index b2cb87a6b8b..7a38864d04d 100644
 -    return $this->options['pagination_heading_level'] ?? 'h4';
 +    return $this->options['pagination_heading_level'] ?? 'h2';
    }
- 
+
    /**
 diff --git a/core/modules/views/src/Plugin/views/pager/SqlBase.php b/core/modules/views/src/Plugin/views/pager/SqlBase.php
 index 5804ba27558..01c31bbd597 100644
@@ -155,8 +155,8 @@ index cb96612a40e..a8accd70a5a 100644
  {% if items %}
    <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
 -    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
-+   {% set hx = pager['#options']['pagination_heading_level'] ?: 'h2' %}
-+   <{{ hx }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ hx }}>
++    {% set hx = pager['#options']['pagination_heading_level'] ?: 'h2' %}
++    <{{ hx }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ hx }}>
      <ul class="pager__items js-pager__items">
        {# Print first item if we are not on the first page. #}
        {% if items.first %}
