@@ -128,7 +128,7 @@ find \
   -exec sed -i "s#${assets_base_url}##g" {} \+;
 echo "Copy built files to content-build." >> ${logfile}
 cp -rf build/vagovdev/generated/* /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/generated/ &>> ${logfile}
-cp -rf build/vagovdev/generated/*.tff /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/fonts/
+cp -rf build/vagovdev/generated/*.ttf /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/fonts/
 cp -rf build/vagovdev/generated/*.woff2 /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/fonts/
 echo "Finished installing and building vets-website" >> ${logfile}
 
