@@ -54,7 +54,7 @@ ENV APACHE_LOG_DIR=/var/log/apache2
 
 RUN set -eux; \
 	apt-get update; \
-	apt-get install -y --no-install-recommends apache2 libapache2-mod-fcgid; \
+	apt-get install -y --no-install-recommends apache2 libapache2-mod-fcgid apache2-bin; \
 	rm -rf /var/lib/apt/lists/*; \
 	\
 # generically convert lines like
@@ -90,7 +90,7 @@ RUN set -eux; \
 	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
 	chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR"
 # Enable Apache modules
-RUN a2enmod proxy proxy_fcgi rewrite
+RUN a2enmod proxy proxy_fcgi rewrite mpm_event
 
 RUN { \
 		echo '<FilesMatch \.php$>'; \
@@ -111,6 +111,13 @@ RUN { \
     echo 'CustomLog ${APACHE_LOG_DIR}/access.log combined'; \
 	} | tee "$APACHE_CONFDIR/conf-available/docker-php.conf" \
 	&& a2enconf docker-php
+
+RUN { \
+		echo 'MaxRequestsPerChild 0'; \
+		echo 'ThreadsPerChild 150'; \
+		echo 'MaxConnectionsPerChild 0'; \
+	} | tee "$APACHE_CONFDIR/conf-available/max-requests.conf" \
+	&& a2enconf max-requests
 
 COPY ./docker-conf-files/apache2-foreground /usr/local/bin/
 RUN chmod uga+x /usr/local/bin/apache2-foreground
@@ -142,11 +149,11 @@ RUN sed -i -e '/imklog/s/^/#/' -e '/ActionFileDefaultTemplate/s/^/#/' ${RSYSLOG_
 
 # Configure PHP-FPM
 RUN sed -i 's/;listen.allowed_clients = 127.0.0.1/listen.allowed_clients = 127.0.0.1/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_children = 5/pm.max_children = 50/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.start_servers = 2/pm.start_servers = 5/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 5/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 35/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/;pm.max_requests = 500/pm.max_requests = 500/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_children = 5/pm.max_children = 100/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.start_servers = 2/pm.start_servers = 20/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 15/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 50/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/;pm.max_requests = 500/pm.max_requests = 1000/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/;clear_env = no/clear_env = no/g' /usr/local/etc/php-fpm.d/www.conf
 
 # Helper from this repo: https://github.com/mlocati/docker-php-extension-installer
