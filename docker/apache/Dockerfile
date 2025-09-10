@@ -90,7 +90,7 @@ RUN set -eux; \
 	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
 	chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR"
 # Enable Apache modules
-RUN a2enmod proxy proxy_fcgi rewrite
+RUN a2enmod proxy proxy_fcgi rewrite mpm_event
 
 RUN { \
     echo '<FilesMatch \.php$>'; \
