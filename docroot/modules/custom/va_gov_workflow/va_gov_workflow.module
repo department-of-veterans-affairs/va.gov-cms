@@ -13,6 +13,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\va_gov_workflow\VaGovWorkflowInterface;
 
 /**
  * Implements hook_help().
@@ -136,7 +137,7 @@ function va_gov_workflow_moderation_state_ajax_callback(
         $route = "entity.{$entity_type}.entity_usage";
         // Build a link to the knowledge base article.
         // Use the node id of the relevant knowledge base article.
-        $kb_id = '82190';
+        $kb_id = VaGovWorkflowInterface::KBA_ID;
 
         try {
           // Get the usage total for display.
@@ -291,16 +292,18 @@ function va_gov_workflow_moderation_state_ajax_callback(
  */
 function va_gov_workflow_preprocess_page(array &$variables) {
   $route = \Drupal::routeMatch()->getRouteName();
-  if ($route !== 'entity_usage.usage_list' && $route !== 'entity.node.entity_usage') {
+  if ($route !== 'entity.node.entity_usage') {
     return;
   }
   // Build render array and insert into page content variable.
-  $entity_type = \Drupal::routeMatch()->getParameter('entity_type');
-  $entity_id = \Drupal::routeMatch()->getParameter('entity_id');
+  $markup = "<div><p>This tab shows a list of pages that link to this content.</p>";
+  $markup .= "<p>To archive this content, first remove its link from these pages (or unpublish these pages, if necessary). You only need to remove links from the pages that show \"Published\" in the \"Status\" column and “Default” in the “Used in” column.</p>";
+  $markup .= "<p>For step-by-step instructions on how to use this tab to archive content, check the <a href=\"/node/" . VaGovWorkflowInterface::KBA_ID . "\">Knowledge Base article</a>.</p>";
+  $markup .= "</div>";
+
   $notice = [
     '#type' => 'container',
-    '#attributes' => ['class' => ['entity-usage-top-notice', 'messages', 'messages--info']],
-    '#markup' => t('Usage information for @type @id', ['@type' => $entity_type, '@id' => $entity_id]),
+    '#markup' => $markup,
     '#cache' => [
       'contexts' => ['route', 'user.permissions'],
       'tags' => ['entity_usage:usage_list'],
