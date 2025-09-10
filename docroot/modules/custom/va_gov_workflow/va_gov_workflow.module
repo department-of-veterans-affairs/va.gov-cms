@@ -296,10 +296,9 @@ function va_gov_workflow_preprocess_page(array &$variables) {
     return;
   }
   // Build render array and insert into page content variable.
-  $markup = "<div><p>This tab shows a list of pages that link to this content.</p>";
-  $markup .= "<p>To archive this content, first remove its link from these pages (or unpublish these pages, if necessary). You only need to remove links from the pages that show \"Published\" in the \"Status\" column and “Default” in the “Used in” column.</p>";
-  $markup .= "<p>For step-by-step instructions on how to use this tab to archive content, check the <a href=\"/node/" . VaGovWorkflowInterface::KBA_ID . "\">Knowledge Base article</a>.</p>";
-  $markup .= "</div>";
+  $markup = t('<div><p>This tab shows a list of pages that link to this content.</p><p>To archive this content, first remove its link from these pages (or unpublish these pages, if necessary). You only need to remove links from the pages that show "Published" in the "Status" column and “Default” in the “Used in” column.</p><p>For step-by-step instructions on how to use this tab to archive content, check the <a href=":kba_url">Knowledge Base article</a>.</p></div>', [
+    ':kba_url' => '/node/' . VaGovWorkflowInterface::KBA_ID,
+  ]);
 
   $notice = [
     '#type' => 'container',
