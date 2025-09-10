@@ -71,6 +71,7 @@ jobs:
           build-args: |
             BUILDKIT_INLINE_CACHE=1
             BASE_IMAGE_TAG=${{ env.LAST_TAG }}
+            DD_GIT_COMMIT_SHA=${{ github.sha }}
 
   deploy-to-dev:
     needs: build-and-push
