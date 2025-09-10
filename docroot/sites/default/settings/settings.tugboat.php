@@ -37,8 +37,6 @@ $config['environment_indicator.indicator']['bg_color'] = '#02BFE7';
 $config['environment_indicator.indicator']['fg_color'] = '#212121';
 $config['environment_indicator.indicator']['name'] = 'Tugboat';
 
-$settings['config_sync_directory'] = '../config/sync';
-
 // Update next-build site endpoint to the appropriate tugboat alias
 $config['next.next_site.next_build_preview_server']['base_url'] = 'https://next-' . getenv('TUGBOAT_SERVICE_TOKEN') . '.' . getenv('TUGBOAT_SERVICE_CONFIG_DOMAIN');
 $config['next.next_site.next_build_preview_server']['preview_url'] = 'https://next-' . getenv('TUGBOAT_SERVICE_TOKEN') . '.' . getenv('TUGBOAT_SERVICE_CONFIG_DOMAIN') . '/api/preview';
