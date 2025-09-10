@@ -93,24 +93,43 @@ RUN set -eux; \
 RUN a2enmod proxy proxy_fcgi rewrite mpm_event
 
 RUN { \
-		echo '<FilesMatch \.php$>'; \
-		echo '\tSetHandler "proxy:fcgi://127.0.0.1:9000"'; \
-		echo '</FilesMatch>'; \
-		echo; \
+    echo '<FilesMatch \.php$>'; \
+    echo '\tSetHandler "proxy:fcgi://127.0.0.1:9000"'; \
+    echo '</FilesMatch>'; \
+    echo; \
     echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=10>'; \
+    echo '\tProxySet timeout=1800'; \
+    echo '\tProxySet retry=300'; \
     echo '</Proxy>'; \
     echo; \
-		echo 'DirectoryIndex disabled'; \
-		echo 'DirectoryIndex index.php index.html'; \
-		echo; \
-		echo '<Directory /var/www/>'; \
-		echo '\tOptions -Indexes'; \
-		echo '\tAllowOverride All'; \
-		echo '</Directory>'; \
+    echo 'DirectoryIndex disabled'; \
+    echo 'DirectoryIndex index.php index.html'; \
+    echo; \
+    echo '<Directory /var/www/>'; \
+    echo '\tOptions -Indexes'; \
+    echo '\tAllowOverride All'; \
+    echo '</Directory>'; \
     echo 'ErrorLog /proc/1/fd/2'; \
     echo 'CustomLog ${APACHE_LOG_DIR}/access.log combined'; \
-	} | tee "$APACHE_CONFDIR/conf-available/docker-php.conf" \
-	&& a2enconf docker-php
+    echo; \
+    echo '# Proxy timeout settings'; \
+    echo 'ProxyTimeout 1800'; \
+    echo 'Timeout 1800'; \
+  } | tee "$APACHE_CONFDIR/conf-available/docker-php.conf" \
+  && a2enconf docker-php
+
+RUN { \
+    echo 'ServerLimit 50'; \
+    echo 'MaxRequestWorkers 7500'; \
+    echo 'ThreadsPerChild 150'; \
+    echo 'ThreadLimit 150'; \
+    echo 'StartServers 10'; \
+    echo 'MinSpareThreads 75'; \
+    echo 'MaxSpareThreads 750'; \
+    echo 'MaxConnectionsPerChild 0'; \
+    echo 'MaxRequestsPerChild 0'; \
+   } | tee "$APACHE_CONFDIR/conf-available/mpm-event.conf" \
+   && a2enconf mpm-event
 
 RUN { \
 		echo 'MaxRequestsPerChild 0'; \
@@ -149,10 +168,10 @@ RUN sed -i -e '/imklog/s/^/#/' -e '/ActionFileDefaultTemplate/s/^/#/' ${RSYSLOG_
 
 # Configure PHP-FPM
 RUN sed -i 's/;listen.allowed_clients = 127.0.0.1/listen.allowed_clients = 127.0.0.1/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_children = 5/pm.max_children = 100/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.start_servers = 2/pm.start_servers = 20/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 15/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 50/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_children = 5/pm.max_children = 300/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.start_servers = 2/pm.start_servers = 50/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 30/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 80/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/;pm.max_requests = 500/pm.max_requests = 1000/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/;clear_env = no/clear_env = no/g' /usr/local/etc/php-fpm.d/www.conf
 
