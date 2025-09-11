@@ -97,9 +97,10 @@ RUN { \
     echo '\tSetHandler "proxy:fcgi://127.0.0.1:9000"'; \
     echo '</FilesMatch>'; \
     echo; \
-    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=10>'; \
-    echo '\tProxySet timeout=1800'; \
-    echo '\tProxySet retry=300'; \
+    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=50>'; \
+    echo '\tProxySet timeout=300'; \
+    echo '\tProxySet retry=30'; \
+    echo '\tProxySet connectiontimeout=30'; \
     echo '</Proxy>'; \
     echo; \
     echo 'DirectoryIndex disabled'; \
@@ -113,30 +114,23 @@ RUN { \
     echo 'CustomLog ${APACHE_LOG_DIR}/access.log combined'; \
     echo; \
     echo '# Proxy timeout settings'; \
-    echo 'ProxyTimeout 1800'; \
-    echo 'Timeout 1800'; \
+    echo 'ProxyTimeout 300'; \
+    echo 'Timeout 300'; \
   } | tee "$APACHE_CONFDIR/conf-available/docker-php.conf" \
   && a2enconf docker-php
 
 RUN { \
-    echo 'ServerLimit 50'; \
-    echo 'MaxRequestWorkers 7500'; \
+    echo 'ServerLimit 20'; \
+    echo 'MaxRequestWorkers 3000'; \
     echo 'ThreadsPerChild 150'; \
     echo 'ThreadLimit 150'; \
-    echo 'StartServers 10'; \
-    echo 'MinSpareThreads 75'; \
-    echo 'MaxSpareThreads 750'; \
-    echo 'MaxConnectionsPerChild 0'; \
-    echo 'MaxRequestsPerChild 0'; \
+    echo 'StartServers 5'; \
+    echo 'MinSpareThreads 150'; \
+    echo 'MaxSpareThreads 600'; \
+    echo 'MaxConnectionsPerChild 1000'; \
+    echo 'MaxRequestsPerChild 1000'; \
    } | tee "$APACHE_CONFDIR/conf-available/mpm-event.conf" \
    && a2enconf mpm-event
-
-RUN { \
-		echo 'MaxRequestsPerChild 0'; \
-		echo 'ThreadsPerChild 150'; \
-		echo 'MaxConnectionsPerChild 0'; \
-	} | tee "$APACHE_CONFDIR/conf-available/max-requests.conf" \
-	&& a2enconf max-requests
 
 COPY ./docker-conf-files/apache2-foreground /usr/local/bin/
 RUN chmod uga+x /usr/local/bin/apache2-foreground
