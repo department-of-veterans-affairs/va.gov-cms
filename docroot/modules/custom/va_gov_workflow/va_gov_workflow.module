@@ -296,7 +296,7 @@ function va_gov_workflow_preprocess_page(array &$variables) {
     return;
   }
   // Build render array and insert into page content variable.
-  $markup = t('<div><p>This tab shows a list of pages that link to this content.</p><p>To archive this content, first remove its link from these pages (or unpublish these pages, if necessary). You only need to remove links from the pages that show "Published" in the "Status" column and “Default” in the “Used in” column.</p><p>For step-by-step instructions on how to use this tab to archive content, check the <a href=":kba_url" target="_blank">Knowledge Base article</a>.</p></div>', [
+  $markup = t('<div><p>This tab shows any pages that link to this content.</p><p>Before archiving this content, first remove its link from these pages (or unpublish these pages, if necessary). You only need to remove links from the pages that show "Published" in the "Status" column and “Default” in the “Used in” column.</p><p>For step-by-step instructions on how to use this tab to archive content, review the <a href=":kba_url" target="_blank">Usage tab Knowledge Base article</a>.</p></div>', [
     ':kba_url' => '/node/' . VaGovWorkflowInterface::KBA_ID,
   ]);
 
@@ -309,17 +309,9 @@ function va_gov_workflow_preprocess_page(array &$variables) {
     ],
     '#weight' => 0,
   ];
-  // Insert into theme page variable. Prepend so the notice appears above
-  // other content in the system_main area. Fall back to top-level content
-  // if system_main isn't present for a theme.
-  if (isset($variables['page']['content']['system_main']) && is_array($variables['page']['content']['system_main'])) {
-    $variables['page']['content']['system_main'] = ['entity_usage_top_notice' => $notice] + $variables['page']['content']['system_main'];
-  }
-  elseif (isset($variables['page']['content']) && is_array($variables['page']['content'])) {
+  // Insert into theme page variable.
+  // Prepend so the notice appears above other content.
+  if (isset($variables['page']['content']) && is_array($variables['page']['content'])) {
     $variables['page']['content'] = ['entity_usage_top_notice' => $notice] + $variables['page']['content'];
-  }
-  else {
-    // Last resort: directly set the key under system_main.
-    $variables['page']['content']['system_main']['entity_usage_top_notice'] = $notice;
   }
 }
