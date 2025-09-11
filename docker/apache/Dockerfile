@@ -90,16 +90,22 @@ RUN set -eux; \
 	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
 	chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR"
 # Enable Apache modules
-RUN a2enmod proxy proxy_fcgi rewrite mpm_event
+RUN a2enmod proxy proxy_fcgi rewrite mpm_event status cache cache_disk headers expires
+
+# Create cache directory
+RUN mkdir -p /var/cache/apache2/mod_cache_disk && \
+    chown www-data:www-data /var/cache/apache2/mod_cache_disk && \
+    chmod 755 /var/cache/apache2/mod_cache_disk
 
 RUN { \
     echo '<FilesMatch \.php$>'; \
     echo '\tSetHandler "proxy:fcgi://127.0.0.1:9000"'; \
     echo '</FilesMatch>'; \
     echo; \
-    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=10>'; \
+    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=100>'; \
     echo '\tProxySet timeout=1800'; \
-    echo '\tProxySet retry=300'; \
+    echo '\tProxySet retry=60'; \
+    echo '\tProxySet connectiontimeout=60'; \
     echo '</Proxy>'; \
     echo; \
     echo 'DirectoryIndex disabled'; \
@@ -112,31 +118,62 @@ RUN { \
     echo 'ErrorLog /proc/1/fd/2'; \
     echo 'CustomLog ${APACHE_LOG_DIR}/access.log combined'; \
     echo; \
+    echo '# Health check endpoint'; \
+    echo '<Location "/pod-health">'; \
+    echo '\tSetHandler server-status'; \
+    echo '\tRequire ip 127.0.0.1'; \
+    echo '\tRequire ip 10.0.0.0/8'; \
+    echo '\tRequire ip 172.16.0.0/12'; \
+    echo '\tRequire ip 192.168.0.0/16'; \
+    echo '</Location>'; \
+    echo; \
     echo '# Proxy timeout settings'; \
     echo 'ProxyTimeout 1800'; \
     echo 'Timeout 1800'; \
+    echo; \
+    echo '# KeepAlive settings'; \
+    echo 'KeepAlive On'; \
+    echo 'KeepAliveTimeout 4'; \
+    echo 'MaxKeepAliveRequests 1000'; \
+    echo; \
+    echo '# Cache configuration'; \
+    echo 'CacheRoot /var/cache/apache2/mod_cache_disk'; \
+    echo 'CacheEnable disk /'; \
+    echo 'CacheDirLevels 2'; \
+    echo 'CacheDirLength 1'; \
+    echo 'CacheMaxFileSize 1000000'; \
+    echo 'CacheMinFileSize 1'; \
+    echo 'CacheDefaultExpire 3600'; \
+    echo 'CacheMaxExpire 86400'; \
+    echo 'CacheIgnoreHeaders Set-Cookie'; \
+    echo; \
+    echo '# Cache static files'; \
+    echo '<LocationMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$">'; \
+    echo '\tExpiresActive On'; \
+    echo '\tExpiresDefault "access plus 1 month"'; \
+    echo '\tHeader append Cache-Control "public"'; \
+    echo '</LocationMatch>'; \
+    echo; \
+    echo '# Dont cache PHP files'; \
+    echo '<LocationMatch "\.php$">'; \
+    echo '\tCacheDisable on'; \
+    echo '</LocationMatch>'; \
   } | tee "$APACHE_CONFDIR/conf-available/docker-php.conf" \
   && a2enconf docker-php
 
 RUN { \
-    echo 'ServerLimit 50'; \
-    echo 'MaxRequestWorkers 7500'; \
-    echo 'ThreadsPerChild 150'; \
-    echo 'ThreadLimit 150'; \
-    echo 'StartServers 10'; \
-    echo 'MinSpareThreads 75'; \
-    echo 'MaxSpareThreads 750'; \
-    echo 'MaxConnectionsPerChild 0'; \
-    echo 'MaxRequestsPerChild 0'; \
+    echo 'ServerLimit 10'; \
+    echo 'MaxRequestWorkers 800'; \
+    echo 'ThreadsPerChild 80'; \
+    echo 'ThreadLimit 80'; \
+    echo 'StartServers 2'; \
+    echo 'MinSpareThreads 80'; \
+    echo 'MaxSpareThreads 240'; \
+    echo 'MaxConnectionsPerChild 1000'; \
+    echo 'MaxRequestsPerChild 1000'; \
+    echo 'AsyncRequestWorkerFactor 2'; \
    } | tee "$APACHE_CONFDIR/conf-available/mpm-event.conf" \
    && a2enconf mpm-event
-
-RUN { \
-		echo 'MaxRequestsPerChild 0'; \
-		echo 'ThreadsPerChild 150'; \
-		echo 'MaxConnectionsPerChild 0'; \
-	} | tee "$APACHE_CONFDIR/conf-available/max-requests.conf" \
-	&& a2enconf max-requests
 
 COPY ./docker-conf-files/apache2-foreground /usr/local/bin/
 RUN chmod uga+x /usr/local/bin/apache2-foreground
