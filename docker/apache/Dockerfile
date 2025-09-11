@@ -121,6 +121,16 @@ RUN install-va-certs.sh
 RUN apt update && apt install -y ca-certificates
 RUN update-ca-certificates
 
+# Install and configure prometheus
+RUN mkdir -p /opt/prometheus && \
+    cd /opt/prometheus && \
+    wget https://github.com/prometheus/prometheus/releases/download/v2.47.0/prometheus-2.47.0.linux-amd64.tar.gz && \
+    tar -xvf prometheus-2.47.0.linux-amd64.tar.gz --strip-components=1 && \
+    rm prometheus-2.47.0.linux-amd64.tar.gz
+
+# Create Prometheus config
+RUN mkdir -p /etc/prometheus
+COPY ./docker-conf-files/prometheus.yml /etc/prometheus/prometheus.yml
 
 # Configure rsyslog
 COPY ./docker-conf-files/drupal.conf ${RSYSLOG_CONF_DIR}/drupal.conf
@@ -147,17 +157,37 @@ RUN php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/r
 
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
-# set recommended PHP.ini settings
+# set recommended opcache settings
 # see https://secure.php.net/manual/en/opcache.installation.php
 RUN { \
-  echo 'opcache.memory_consumption=128'; \
-  echo 'opcache.interned_strings_buffer=8'; \
-  echo 'opcache.max_accelerated_files=4000'; \
-  echo 'opcache.revalidate_freq=60'; \
+  echo 'opcache.memory_consumption=1024'; \
+  echo 'opcache.interned_strings_buffer=16'; \
+  echo 'opcache.max_accelerated_files=42000'; \
+  echo 'opcache.revalidate_freq=0'; \
+  echo 'opcache.fast_shutdown=1'; \
+  echo 'opcache.validate_timestamps=0'; \
   } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
-COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
+# set recommended opcache settings
+RUN { \
+    echo 'zend_extension=opcache'; \
+    echo 'opcache.enable=1'; \
+    echo 'opcache.enable_cli=1'; \
+} > /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
+# set recommended apcu settings
+RUN { \
+    echo 'extension=apcu.so'; \
+    echo 'apc.enable_cli=1'; \
+    echo 'apc.shm_size=256M'; \
+    echo 'apc.rfc1867=1'; \
+    echo 'apc.ttl=7200'; \
+    echo 'apc.user_ttl=7200'; \
+    echo 'apc.gc_ttl=3600'; \
+} > /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
+
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
+# set recommended PHP.ini settings
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
     sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 64M/g' /usr/local/etc/php/php.ini && \
     sed -i 's/;max_input_vars = 1000/max_input_vars = 10000/g' /usr/local/etc/php/php.ini && \
@@ -169,13 +199,16 @@ RUN rm -rf /opt/drupal
 
 ENV BUILD_ENV=eks
 
-EXPOSE 80
+EXPOSE 80 9090
 
 # Create startup script to run both Apache and PHP-FPM
 RUN echo '#!/bin/bash\n\
 php-fpm -D\n\
 # Start rsyslog\n\
 rsyslogd\n\
+# Start Prometheus\n\
+/opt/prometheus/prometheus --config.file=/etc/prometheus/prometheus.yml &\n\
+# Start Apache in the foreground\n\
 apache2-foreground' > /usr/local/bin/start-services.sh && \
 chmod +x /usr/local/bin/start-services.sh
 
