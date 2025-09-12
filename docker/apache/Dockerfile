@@ -127,6 +127,15 @@ RUN { \
     echo '\tRequire ip 192.168.0.0/16'; \
     echo '</Location>'; \
     echo; \
+    echo '# Health check endpoint'; \
+    echo '<Location "/pod-health">'; \
+    echo '\tSetHandler server-status'; \
+    echo '\tRequire ip 127.0.0.1'; \
+    echo '\tRequire ip 10.0.0.0/8'; \
+    echo '\tRequire ip 172.16.0.0/12'; \
+    echo '\tRequire ip 192.168.0.0/16'; \
+    echo '</Location>'; \
+    echo; \
     echo '# Timeout settings - reduced for stability'; \
     echo 'ProxyTimeout 600'; \
     echo 'Timeout 600'; \
@@ -158,6 +167,34 @@ RUN { \
     echo '<LocationMatch "\.php$">'; \
     echo '\tCacheDisable'; \
     echo '\tHeader set Cache-Control "no-cache, no-store, must-revalidate"'; \
+    echo '</LocationMatch>'; \
+    echo; \
+    echo '# KeepAlive settings'; \
+    echo 'KeepAlive On'; \
+    echo 'KeepAliveTimeout 4'; \
+    echo 'MaxKeepAliveRequests 1000'; \
+    echo; \
+    echo '# Cache configuration'; \
+    echo 'CacheRoot /var/cache/apache2/mod_cache_disk'; \
+    echo 'CacheEnable disk /'; \
+    echo 'CacheDirLevels 2'; \
+    echo 'CacheDirLength 1'; \
+    echo 'CacheMaxFileSize 1000000'; \
+    echo 'CacheMinFileSize 1'; \
+    echo 'CacheDefaultExpire 3600'; \
+    echo 'CacheMaxExpire 86400'; \
+    echo 'CacheIgnoreHeaders Set-Cookie'; \
+    echo; \
+    echo '# Cache static files'; \
+    echo '<LocationMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$">'; \
+    echo '\tExpiresActive On'; \
+    echo '\tExpiresDefault "access plus 1 month"'; \
+    echo '\tHeader append Cache-Control "public"'; \
+    echo '</LocationMatch>'; \
+    echo; \
+    echo '# Dont cache PHP files'; \
+    echo '<LocationMatch "\.php$">'; \
+    echo '\tCacheDisable on'; \
     echo '</LocationMatch>'; \
   } | tee "$APACHE_CONFDIR/conf-available/docker-php.conf" \
   && a2enconf docker-php

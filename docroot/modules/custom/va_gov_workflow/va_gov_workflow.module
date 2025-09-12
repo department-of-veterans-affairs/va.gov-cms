@@ -13,6 +13,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\va_gov_workflow\VaGovWorkflowInterface;
 
 /**
  * Implements hook_help().
@@ -136,7 +137,7 @@ function va_gov_workflow_moderation_state_ajax_callback(
         $route = "entity.{$entity_type}.entity_usage";
         // Build a link to the knowledge base article.
         // Use the node id of the relevant knowledge base article.
-        $kb_id = '82190';
+        $kb_id = VaGovWorkflowInterface::KBA_ID;
 
         try {
           // Get the usage total for display.
@@ -284,4 +285,33 @@ function va_gov_workflow_moderation_state_ajax_callback(
     \Drupal::logger('va_gov_workflow')->error($e->getMessage());
   }
   return $response;
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function va_gov_workflow_preprocess_page(array &$variables) {
+  $route = \Drupal::routeMatch()->getRouteName();
+  if ($route !== 'entity.node.entity_usage') {
+    return;
+  }
+  // Build render array and insert into page content variable.
+  $markup = t('<div><p>This tab shows any pages that link to this content.</p><p>Before archiving this content, first remove its link from these pages (or unpublish these pages, if necessary). You only need to remove links from the pages that show "Published" in the "Status" column and “Default” in the “Used in” column.</p><p>For step-by-step instructions on how to use this tab to archive content, review the <a href=":kba_url" target="_blank">Usage tab Knowledge Base article</a>.</p></div>', [
+    ':kba_url' => '/node/' . VaGovWorkflowInterface::KBA_ID,
+  ]);
+
+  $notice = [
+    '#type' => 'container',
+    '#markup' => $markup,
+    '#cache' => [
+      'contexts' => ['route', 'user.permissions'],
+      'tags' => ['entity_usage:usage_list'],
+    ],
+    '#weight' => 0,
+  ];
+  // Insert into theme page variable.
+  // Prepend so the notice appears above other content.
+  if (isset($variables['page']['content']) && is_array($variables['page']['content'])) {
+    $variables['page']['content'] = ['entity_usage_top_notice' => $notice] + $variables['page']['content'];
+  }
 }
