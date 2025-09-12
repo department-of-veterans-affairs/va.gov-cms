@@ -82,6 +82,7 @@
       }
 
       // File input change: capture selected filename.
+      /* eslint-disable-next-line no-undef */
       const fileInputs = once(
         "va-gov-media-upload-file",
         'input[type="file"]',
