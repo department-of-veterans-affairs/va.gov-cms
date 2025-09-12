@@ -138,7 +138,7 @@ RUN { \
     echo; \
     echo '# Conservative cache configuration'; \
     echo 'CacheRoot /var/cache/apache2/mod_cache_disk'; \
-    echo 'CacheEnable disk /var/www/html/docroot/sites/default/files'; \
+    echo 'CacheEnable disk /sites/default/files'; \
     echo 'CacheDirLevels 1'; \
     echo 'CacheDirLength 2'; \
     echo 'CacheMaxFileSize 33554432'; \
@@ -148,7 +148,7 @@ RUN { \
     echo 'CacheIgnoreHeaders Set-Cookie Cookie Authorization'; \
     echo; \
     echo '# Only cache specific static files'; \
-    echo '<LocationMatch "^/var/www/html/docroot/sites/default/files/.*\.(css|js|png|jpg|jpeg|gif|ico|svg)$">'; \
+    echo '<LocationMatch "^/sites/default/files/.*\.(css|js|png|jpg|jpeg|gif|ico|svg)$">'; \
     echo '\tExpiresActive On'; \
     echo '\tExpiresDefault "access plus 1 hour"'; \
     echo '\tHeader append Cache-Control "public"'; \
