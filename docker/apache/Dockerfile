@@ -97,10 +97,11 @@ RUN { \
     echo '\tSetHandler "proxy:fcgi://127.0.0.1:9000"'; \
     echo '</FilesMatch>'; \
     echo; \
-    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=50>'; \
+    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=75>'; \
     echo '\tProxySet timeout=310'; \
     echo '\tProxySet retry=30'; \
     echo '\tProxySet connectiontimeout=30'; \
+    echo '\tProxySet ttl=300'; \
     echo '</Proxy>'; \
     echo; \
     echo 'DirectoryIndex disabled'; \
@@ -111,9 +112,12 @@ RUN { \
     echo '\tAllowOverride All'; \
     echo '</Directory>'; \
     echo; \
-    echo '# Timeout settings'; \
+    echo '# Performance settings'; \
     echo 'ProxyTimeout 310'; \
     echo 'Timeout 310'; \
+    echo 'KeepAlive On'; \
+    echo 'KeepAliveTimeout 5'; \
+    echo 'MaxKeepAliveRequests 100'; \
     echo; \
     echo '# Health check endpoint'; \
     echo '<Location "/pod-health">'; \
@@ -198,21 +202,27 @@ RUN { \
     echo 'request_terminate_timeout = 300s'; \
     echo 'pm.status_path = /fpm-status'; \
     echo 'ping.path = /fpm-ping'; \
-    echo 'pm.max_requests = 500'; \
+    echo 'pm.max_requests = 1000'; \
     echo 'rlimit_files = 131072'; \
     echo 'rlimit_core = unlimited'; \
 } >> /usr/local/etc/php-fpm.d/kubernetes.conf
 
-# set recommended opcache settings
-# see https://secure.php.net/manual/en/opcache.installation.php
 RUN { \
-  echo 'opcache.memory_consumption=1024'; \
-  echo 'opcache.interned_strings_buffer=16'; \
-  echo 'opcache.max_accelerated_files=42000'; \
-  echo 'opcache.revalidate_freq=0'; \
-  echo 'opcache.fast_shutdown=1'; \
-  echo 'opcache.validate_timestamps=0'; \
-  } > /usr/local/etc/php/conf.d/opcache-recommended.ini
+    echo 'memory_limit = 512M'; \
+    echo 'max_execution_time = 300'; \
+    echo 'max_input_time = 300'; \
+    echo 'post_max_size = 256M'; \
+    echo 'upload_max_filesize = 256M'; \
+    echo 'max_file_uploads = 50'; \
+    echo 'realpath_cache_size = 16M'; \
+    echo 'realpath_cache_ttl = 7200'; \
+    echo 'opcache.memory_consumption = 256'; \
+    echo 'opcache.interned_strings_buffer = 64'; \
+    echo 'opcache.max_accelerated_files = 20000'; \
+    echo 'opcache.revalidate_freq = 2'; \
+    echo 'opcache.fast_shutdown = 1'; \
+    echo 'opcache.enable_cli = 1'; \
+} >> /usr/local/etc/php/conf.d/drupal-performance.ini
 
 # set recommended opcache settings
 RUN { \
