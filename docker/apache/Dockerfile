@@ -156,7 +156,7 @@ RUN { \
     echo; \
     echo '# Explicitly disable caching for everything else'; \
     echo '<LocationMatch "\.php$">'; \
-    echo '\tCacheDisable on'; \
+    echo '\tCacheDisable'; \
     echo '\tHeader set Cache-Control "no-cache, no-store, must-revalidate"'; \
     echo '</LocationMatch>'; \
   } | tee "$APACHE_CONFDIR/conf-available/docker-php.conf" \
