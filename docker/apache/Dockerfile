@@ -208,7 +208,6 @@ RUN { \
 } >> /usr/local/etc/php-fpm.d/kubernetes.conf
 
 RUN { \
-    echo 'memory_limit = 512M'; \
     echo 'max_execution_time = 300'; \
     echo 'max_input_time = 300'; \
     echo 'post_max_size = 256M'; \
@@ -221,7 +220,6 @@ RUN { \
     echo 'opcache.max_accelerated_files = 20000'; \
     echo 'opcache.revalidate_freq = 2'; \
     echo 'opcache.fast_shutdown = 1'; \
-    echo 'opcache.enable_cli = 1'; \
 } >> /usr/local/etc/php/conf.d/drupal-performance.ini
 
 # set recommended opcache settings
