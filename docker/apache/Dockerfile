@@ -215,11 +215,6 @@ RUN { \
     echo 'max_file_uploads = 50'; \
     echo 'realpath_cache_size = 16M'; \
     echo 'realpath_cache_ttl = 7200'; \
-    echo 'opcache.memory_consumption = 256'; \
-    echo 'opcache.interned_strings_buffer = 64'; \
-    echo 'opcache.max_accelerated_files = 20000'; \
-    echo 'opcache.revalidate_freq = 2'; \
-    echo 'opcache.fast_shutdown = 1'; \
 } >> /usr/local/etc/php/conf.d/drupal-performance.ini
 
 # set recommended opcache settings
@@ -227,6 +222,11 @@ RUN { \
     echo 'zend_extension=opcache'; \
     echo 'opcache.enable=1'; \
     echo 'opcache.enable_cli=1'; \
+    echo 'opcache.memory_consumption = 256'; \
+    echo 'opcache.interned_strings_buffer = 64'; \
+    echo 'opcache.max_accelerated_files = 20000'; \
+    echo 'opcache.revalidate_freq = 2'; \
+    echo 'opcache.fast_shutdown = 1'; \
 } > /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
 # set recommended apcu settings

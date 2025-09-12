@@ -1,10 +1,11 @@
 ARG BASE_IMAGE_TAG=1.0.0
-ARG DD_GIT_COMMIT_SHA
 
 FROM 008577686731.dkr.ecr.us-gov-west-1.amazonaws.com/dsva/cms-apache:${BASE_IMAGE_TAG}
 
 # https://www.drupal.org/node/3060/release
 ENV DRUPAL_VERSION=10.4.8
+
+ARG DD_GIT_COMMIT_SHA
 ENV DD_GIT_REPOSITORY_URL=https://github.com/department-of-veterans-affairs/va.gov-cms
 ENV DD_GIT_COMMIT_SHA=${DD_GIT_COMMIT_SHA}
 RUN mkdir -p /opt/drupal
