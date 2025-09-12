@@ -90,22 +90,17 @@ RUN set -eux; \
 	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
 	chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR"
 # Enable Apache modules
-RUN a2enmod proxy proxy_fcgi rewrite mpm_event status cache cache_disk headers expires
-
-# Create cache directory
-RUN mkdir -p /var/cache/apache2/mod_cache_disk && \
-    chown www-data:www-data /var/cache/apache2/mod_cache_disk && \
-    chmod 755 /var/cache/apache2/mod_cache_disk
+RUN a2enmod proxy proxy_fcgi rewrite mpm_event status cache headers expires
 
 RUN { \
     echo '<FilesMatch \.php$>'; \
     echo '\tSetHandler "proxy:fcgi://127.0.0.1:9000"'; \
     echo '</FilesMatch>'; \
     echo; \
-    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=50>'; \
-    echo '\tProxySet timeout=600'; \
+    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=25>'; \
+    echo '\tProxySet timeout=310'; \
     echo '\tProxySet retry=30'; \
-    echo '\tProxySet connectiontimeout=30'; \
+    echo '\tProxySet connectiontimeout=10'; \
     echo '</Proxy>'; \
     echo; \
     echo 'DirectoryIndex disabled'; \
@@ -115,8 +110,10 @@ RUN { \
     echo '\tOptions -Indexes'; \
     echo '\tAllowOverride All'; \
     echo '</Directory>'; \
-    echo 'ErrorLog /proc/1/fd/2'; \
-    echo 'CustomLog ${APACHE_LOG_DIR}/access.log combined'; \
+    echo; \
+    echo '# Timeout settings'; \
+    echo 'ProxyTimeout 310'; \
+    echo 'Timeout 310'; \
     echo; \
     echo '# Health check endpoint'; \
     echo '<Location "/pod-health">'; \
@@ -126,76 +123,6 @@ RUN { \
     echo '\tRequire ip 172.16.0.0/12'; \
     echo '\tRequire ip 192.168.0.0/16'; \
     echo '</Location>'; \
-    echo; \
-    echo '# Health check endpoint'; \
-    echo '<Location "/pod-health">'; \
-    echo '\tSetHandler server-status'; \
-    echo '\tRequire ip 127.0.0.1'; \
-    echo '\tRequire ip 10.0.0.0/8'; \
-    echo '\tRequire ip 172.16.0.0/12'; \
-    echo '\tRequire ip 192.168.0.0/16'; \
-    echo '</Location>'; \
-    echo; \
-    echo '# Timeout settings - reduced for stability'; \
-    echo 'ProxyTimeout 600'; \
-    echo 'Timeout 600'; \
-    echo; \
-    echo '# KeepAlive settings'; \
-    echo 'KeepAlive On'; \
-    echo 'KeepAliveTimeout 5'; \
-    echo 'MaxKeepAliveRequests 100'; \
-    echo; \
-    echo '# Conservative cache configuration'; \
-    echo 'CacheRoot /var/cache/apache2/mod_cache_disk'; \
-    echo 'CacheEnable disk /sites/default/files'; \
-    echo 'CacheDirLevels 1'; \
-    echo 'CacheDirLength 2'; \
-    echo 'CacheMaxFileSize 33554432'; \
-    echo 'CacheMinFileSize 1'; \
-    echo 'CacheDefaultExpire 300'; \
-    echo 'CacheMaxExpire 3600'; \
-    echo 'CacheIgnoreHeaders Set-Cookie Cookie Authorization'; \
-    echo; \
-    echo '# Only cache specific static files'; \
-    echo '<LocationMatch "^/sites/default/files/.*\.(css|js|png|jpg|jpeg|gif|ico|svg)$">'; \
-    echo '\tExpiresActive On'; \
-    echo '\tExpiresDefault "access plus 1 hour"'; \
-    echo '\tHeader append Cache-Control "public"'; \
-    echo '</LocationMatch>'; \
-    echo; \
-    echo '# Explicitly disable caching for everything else'; \
-    echo '<LocationMatch "\.php$">'; \
-    echo '\tCacheDisable'; \
-    echo '\tHeader set Cache-Control "no-cache, no-store, must-revalidate"'; \
-    echo '</LocationMatch>'; \
-    echo; \
-    echo '# KeepAlive settings'; \
-    echo 'KeepAlive On'; \
-    echo 'KeepAliveTimeout 4'; \
-    echo 'MaxKeepAliveRequests 1000'; \
-    echo; \
-    echo '# Cache configuration'; \
-    echo 'CacheRoot /var/cache/apache2/mod_cache_disk'; \
-    echo 'CacheEnable disk /'; \
-    echo 'CacheDirLevels 2'; \
-    echo 'CacheDirLength 1'; \
-    echo 'CacheMaxFileSize 1000000'; \
-    echo 'CacheMinFileSize 1'; \
-    echo 'CacheDefaultExpire 3600'; \
-    echo 'CacheMaxExpire 86400'; \
-    echo 'CacheIgnoreHeaders Set-Cookie'; \
-    echo; \
-    echo '# Cache static files'; \
-    echo '<LocationMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$">'; \
-    echo '\tExpiresActive On'; \
-    echo '\tExpiresDefault "access plus 1 month"'; \
-    echo '\tHeader append Cache-Control "public"'; \
-    echo '</LocationMatch>'; \
-    echo; \
-    echo '# Dont cache PHP files'; \
-    echo '<LocationMatch "\.php$">'; \
-    echo '\tCacheDisable on'; \
-    echo '</LocationMatch>'; \
   } | tee "$APACHE_CONFDIR/conf-available/docker-php.conf" \
   && a2enconf docker-php
 
@@ -242,13 +169,15 @@ RUN sed -i -e '/imklog/s/^/#/' -e '/ActionFileDefaultTemplate/s/^/#/' ${RSYSLOG_
     && unlink ${APACHE_LOG_DIR}/other_vhosts_access.log
 
 # Configure PHP-FPM
+# Replace the PHP-FPM configuration section with:
 RUN sed -i 's/;listen.allowed_clients = 127.0.0.1/listen.allowed_clients = 127.0.0.1/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_children = 5/pm.max_children = 100/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.start_servers = 2/pm.start_servers = 20/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 10/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 30/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/;pm.max_requests = 500/pm.max_requests = 1000/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_children = 5/pm.max_children = 50/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.start_servers = 2/pm.start_servers = 10/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 5/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 15/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/;pm.max_requests = 500/pm.max_requests = 500/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/;clear_env = no/clear_env = no/g' /usr/local/etc/php-fpm.d/www.conf
+
 
 # Helper from this repo: https://github.com/mlocati/docker-php-extension-installer
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
@@ -265,11 +194,11 @@ RUN { \
     echo '[www]'; \
     echo 'access.log = /proc/1/fd/1'; \
     echo 'slowlog = /proc/1/fd/2'; \
-    echo 'request_slowlog_timeout = 10s'; \
-    echo 'request_terminate_timeout = 600s'; \
+    echo 'request_slowlog_timeout = 60s'; \
+    echo 'request_terminate_timeout = 300s'; \
     echo 'pm.status_path = /fpm-status'; \
     echo 'ping.path = /fpm-ping'; \
-    echo 'pm.max_requests = 1000'; \
+    echo 'pm.max_requests = 500'; \
     echo 'rlimit_files = 131072'; \
     echo 'rlimit_core = unlimited'; \
 } >> /usr/local/etc/php-fpm.d/kubernetes.conf
