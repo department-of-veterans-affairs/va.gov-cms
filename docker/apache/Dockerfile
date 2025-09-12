@@ -102,10 +102,10 @@ RUN { \
     echo '\tSetHandler "proxy:fcgi://127.0.0.1:9000"'; \
     echo '</FilesMatch>'; \
     echo; \
-    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=100>'; \
-    echo '\tProxySet timeout=1800'; \
-    echo '\tProxySet retry=60'; \
-    echo '\tProxySet connectiontimeout=60'; \
+    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=50>'; \
+    echo '\tProxySet timeout=600'; \
+    echo '\tProxySet retry=30'; \
+    echo '\tProxySet connectiontimeout=30'; \
     echo '</Proxy>'; \
     echo; \
     echo 'DirectoryIndex disabled'; \
@@ -127,9 +127,47 @@ RUN { \
     echo '\tRequire ip 192.168.0.0/16'; \
     echo '</Location>'; \
     echo; \
-    echo '# Proxy timeout settings'; \
-    echo 'ProxyTimeout 1800'; \
-    echo 'Timeout 1800'; \
+    echo '# Health check endpoint'; \
+    echo '<Location "/pod-health">'; \
+    echo '\tSetHandler server-status'; \
+    echo '\tRequire ip 127.0.0.1'; \
+    echo '\tRequire ip 10.0.0.0/8'; \
+    echo '\tRequire ip 172.16.0.0/12'; \
+    echo '\tRequire ip 192.168.0.0/16'; \
+    echo '</Location>'; \
+    echo; \
+    echo '# Timeout settings - reduced for stability'; \
+    echo 'ProxyTimeout 600'; \
+    echo 'Timeout 600'; \
+    echo; \
+    echo '# KeepAlive settings'; \
+    echo 'KeepAlive On'; \
+    echo 'KeepAliveTimeout 5'; \
+    echo 'MaxKeepAliveRequests 100'; \
+    echo; \
+    echo '# Conservative cache configuration'; \
+    echo 'CacheRoot /var/cache/apache2/mod_cache_disk'; \
+    echo 'CacheEnable disk /sites/default/files'; \
+    echo 'CacheDirLevels 1'; \
+    echo 'CacheDirLength 2'; \
+    echo 'CacheMaxFileSize 33554432'; \
+    echo 'CacheMinFileSize 1'; \
+    echo 'CacheDefaultExpire 300'; \
+    echo 'CacheMaxExpire 3600'; \
+    echo 'CacheIgnoreHeaders Set-Cookie Cookie Authorization'; \
+    echo; \
+    echo '# Only cache specific static files'; \
+    echo '<LocationMatch "^/sites/default/files/.*\.(css|js|png|jpg|jpeg|gif|ico|svg)$">'; \
+    echo '\tExpiresActive On'; \
+    echo '\tExpiresDefault "access plus 1 hour"'; \
+    echo '\tHeader append Cache-Control "public"'; \
+    echo '</LocationMatch>'; \
+    echo; \
+    echo '# Explicitly disable caching for everything else'; \
+    echo '<LocationMatch "\.php$">'; \
+    echo '\tCacheDisable'; \
+    echo '\tHeader set Cache-Control "no-cache, no-store, must-revalidate"'; \
+    echo '</LocationMatch>'; \
     echo; \
     echo '# KeepAlive settings'; \
     echo 'KeepAlive On'; \
@@ -162,14 +200,14 @@ RUN { \
   && a2enconf docker-php
 
 RUN { \
-    echo 'ServerLimit 10'; \
-    echo 'MaxRequestWorkers 800'; \
-    echo 'ThreadsPerChild 80'; \
-    echo 'ThreadLimit 80'; \
-    echo 'StartServers 2'; \
-    echo 'MinSpareThreads 80'; \
-    echo 'MaxSpareThreads 240'; \
-    echo 'MaxConnectionsPerChild 1000'; \
+    echo 'ServerLimit 20'; \
+    echo 'MaxRequestWorkers 400'; \
+    echo 'ThreadsPerChild 20'; \
+    echo 'ThreadLimit 20'; \
+    echo 'StartServers 5'; \
+    echo 'MinSpareThreads 40'; \
+    echo 'MaxSpareThreads 80'; \
+    echo 'MaxConnectionsPerChild 10000'; \
     echo 'MaxRequestsPerChild 1000'; \
     echo 'AsyncRequestWorkerFactor 2'; \
    } | tee "$APACHE_CONFDIR/conf-available/mpm-event.conf" \
@@ -205,10 +243,10 @@ RUN sed -i -e '/imklog/s/^/#/' -e '/ActionFileDefaultTemplate/s/^/#/' ${RSYSLOG_
 
 # Configure PHP-FPM
 RUN sed -i 's/;listen.allowed_clients = 127.0.0.1/listen.allowed_clients = 127.0.0.1/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_children = 5/pm.max_children = 300/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.start_servers = 2/pm.start_servers = 50/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 30/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 80/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_children = 5/pm.max_children = 100/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.start_servers = 2/pm.start_servers = 20/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 10/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 30/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/;pm.max_requests = 500/pm.max_requests = 1000/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/;clear_env = no/clear_env = no/g' /usr/local/etc/php-fpm.d/www.conf
 
@@ -219,6 +257,22 @@ RUN install-php-extensions apcu bcmath bz2 calendar csv ddtrace event exif gette
 RUN php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=$(basename $(realpath $(which php)))
 
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
+
+RUN { \
+    echo '[global]'; \
+    echo 'error_log = /proc/1/fd/2'; \
+    echo 'daemonize = no'; \
+    echo '[www]'; \
+    echo 'access.log = /proc/1/fd/1'; \
+    echo 'slowlog = /proc/1/fd/2'; \
+    echo 'request_slowlog_timeout = 10s'; \
+    echo 'request_terminate_timeout = 600s'; \
+    echo 'pm.status_path = /fpm-status'; \
+    echo 'ping.path = /fpm-ping'; \
+    echo 'pm.max_requests = 1000'; \
+    echo 'rlimit_files = 131072'; \
+    echo 'rlimit_core = unlimited'; \
+} >> /usr/local/etc/php-fpm.d/kubernetes.conf
 
 # set recommended opcache settings
 # see https://secure.php.net/manual/en/opcache.installation.php
