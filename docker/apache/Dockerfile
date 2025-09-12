@@ -208,7 +208,6 @@ RUN { \
 } >> /usr/local/etc/php-fpm.d/kubernetes.conf
 
 RUN { \
-    echo 'memory_limit = 512M'; \
     echo 'max_execution_time = 300'; \
     echo 'max_input_time = 300'; \
     echo 'post_max_size = 256M'; \
