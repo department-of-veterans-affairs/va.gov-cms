@@ -24,6 +24,17 @@
     }
   };
 
+  // Track clicks on the Add Media button that opens the media library.
+  const trackAddMediaClick = (label) => {
+    if (typeof gtag === "function") {
+      gtag("event", "image_upload", {
+        event_category: "Media",
+        event_label: label || "add_media_button",
+        upload_action: "add_media_click",
+      });
+    }
+  };
+
   // Track when the user focuses/clicks the image alt text field.
   const trackAltFieldFocus = () => {
     if (typeof gtag === "function") {
@@ -68,15 +79,20 @@
         /* ignore */
       }
 
-      // Only run this behavior on the media image add form to avoid
-      // instrumenting unrelated pages. Check the provided context first
-      // (for AJAX attachments), then fall back to the document.
-      const formSelector = '[data-drupal-selector="media-image-add-form"]';
+      // Only run this behavior on the media image add form or the media
+      // library dropzone modal to avoid instrumenting unrelated pages.
+      // Check the provided context first (for AJAX attachments), then
+      // fall back to the document. The dropzone modal uses a selector with
+      // a dynamic suffix, so use an attribute-starts-with selector.
+      const formSelectors = [
+        '[data-drupal-selector="media-image-add-form"]',
+        '[data-drupal-selector^="media-library-add-form-dropzonejs-"]',
+      ];
       const hasMediaForm =
         (context &&
           typeof context.querySelector === "function" &&
-          context.querySelector(formSelector)) ||
-        document.querySelector(formSelector);
+          formSelectors.some((s) => context.querySelector(s))) ||
+        formSelectors.some((s) => document.querySelector(s));
       if (!hasMediaForm) {
         return;
       }
@@ -273,6 +289,130 @@
           /* ignore delegated attach failures */
         }
       }
+
+      // Track clicks on the Add Media button used to open the media library.
+      // The control can be rendered as different elements; match by the
+      // data-drupal-selector or by ID to be resilient. Use a direct
+      // querySelector attach so elements present at attach time are
+      // immediately instrumented. Use a dataset flag to avoid duplicate
+      // listeners.
+      const addMediaSelector =
+        '[data-drupal-selector="edit-field-media-open-button"],#edit-field-media-open-button';
+      try {
+        const root = context && typeof context.querySelector === 'function' ? context : document;
+        let immediate = [];
+        try {
+          immediate = Array.from(root.querySelectorAll(addMediaSelector));
+        } catch (_e) {
+          immediate = [];
+        }
+        // If root didn't find anything, also try the full document (handles
+        // timing differences where the element lives in document but not the
+        // provided context).
+        if ((!immediate || immediate.length === 0) && document && document.querySelectorAll) {
+          try {
+            immediate = Array.from(document.querySelectorAll(addMediaSelector));
+          } catch (_e) {
+            immediate = [];
+          }
+        }
+        try {
+          /* eslint-disable-next-line no-console */
+          console.debug('vaGovMedia: immediate addMedia attach count', immediate.length);
+        } catch (_e) {
+          /* ignore */
+        }
+        if (immediate && immediate.length) {
+          immediate.forEach((btn) => {
+            if (btn.dataset.vaGovMediaAttached) return;
+            btn.addEventListener('click', () => {
+              const label = btn.getAttribute('aria-label') || btn.textContent.trim();
+              try {
+                /* eslint-disable-next-line no-console */
+                console.debug('vaGovMedia: add media button clicked', label);
+              } catch (_err) {
+                /* ignore */
+              }
+              trackAddMediaClick(label);
+            });
+            btn.dataset.vaGovMediaAttached = '1';
+          });
+        }
+      } catch (_err) {
+        /* ignore immediate attach failures */
+      }
+
+      // Delegated fallback for dynamic buttons (kept in case the element
+      // appears later and immediate attach didn't find it).
+      try {
+        document.addEventListener(
+          'click',
+          function delegatedAddMediaClick(e) {
+            const { target } = e;
+            const match = target.closest ? target.closest(addMediaSelector) : null;
+            if (match) {
+              const label = match.getAttribute('aria-label') || match.textContent.trim();
+              try {
+                /* eslint-disable-next-line no-console */
+                console.debug('vaGovMedia: delegated add media click', label);
+              } catch (_err) {
+                /* ignore */
+              }
+              trackAddMediaClick(label);
+            }
+          }
+        );
+      } catch (_err) {
+        /* ignore delegated attach failures */
+      }
+
+      // Observe the DOM for dynamically-added Add Media buttons and attach
+      // listeners when they appear. Use a data attribute to ensure we only
+      // attach once per element.
+      (function observeAddMedia() {
+        try {
+          const root = context && typeof context.querySelector === 'function' ? context : document;
+          const selector = '[data-drupal-selector*="edit-field-media-open-button"],#edit-field-media-open-button';
+          const tryAttach = (el) => {
+            if (!el || el.dataset.vaGovMediaAttached) return;
+            el.addEventListener('click', () => {
+              const label = el.getAttribute('aria-label') || el.textContent.trim();
+              try {
+                /* eslint-disable-next-line no-console */
+                console.debug('vaGovMedia: observed add media click', label);
+              } catch (_e) {
+                /* ignore */
+              }
+              trackAddMediaClick(label);
+            });
+            el.dataset.vaGovMediaAttached = '1';
+          };
+
+          // Attach to any currently-present nodes.
+          Array.from(root.querySelectorAll(selector)).forEach(tryAttach);
+
+          // Observe future nodes and attach when they appear.
+          const mo = new MutationObserver((mutations, observer) => {
+            for (const m of mutations) {
+              if (!m.addedNodes || !m.addedNodes.length) continue;
+              for (const n of m.addedNodes) {
+                if (n.nodeType !== 1) continue;
+                if (n.matches && n.matches(selector)) {
+                  tryAttach(n);
+                  observer.disconnect();
+                  return;
+                }
+                if (n.querySelectorAll) {
+                  Array.from(n.querySelectorAll(selector)).forEach(tryAttach);
+                }
+              }
+            }
+          });
+          mo.observe(root, { childList: true, subtree: true });
+        } catch (_e) {
+          /* ignore observer setup failures */
+        }
+      })();
     },
   };
 })(jQuery, once, Drupal);

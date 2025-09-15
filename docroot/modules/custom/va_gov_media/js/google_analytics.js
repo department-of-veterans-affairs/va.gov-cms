@@ -23,6 +23,15 @@
       });
     }
   };
+  var trackAddMediaClick = function trackAddMediaClick(label) {
+    if (typeof gtag === "function") {
+      gtag("event", "image_upload", {
+        event_category: "Media",
+        event_label: label || "add_media_button",
+        upload_action: "add_media_click"
+      });
+    }
+  };
   var trackAltFieldFocus = function trackAltFieldFocus() {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
@@ -55,8 +64,12 @@
       try {
         console.debug("vaGovMedia behavior attach", context);
       } catch (_e) {}
-      var formSelector = '[data-drupal-selector="media-image-add-form"]';
-      var hasMediaForm = context && typeof context.querySelector === "function" && context.querySelector(formSelector) || document.querySelector(formSelector);
+      var formSelectors = ['[data-drupal-selector="media-image-add-form"]', '[data-drupal-selector^="media-library-add-form-dropzonejs-"]'];
+      var hasMediaForm = context && typeof context.querySelector === "function" && formSelectors.some(function (s) {
+        return context.querySelector(s);
+      }) || formSelectors.some(function (s) {
+        return document.querySelector(s);
+      });
       if (!hasMediaForm) {
         return;
       }
@@ -168,6 +181,33 @@
               try {
                 console.debug("vaGovMedia: submit button clicked");
               } catch (_err) {}
+            }
+          });
+        } catch (_err) {}
+      }
+      var addMediaSelector = '[data-drupal-selector="edit-field-media-open-button"],#edit-field-media-open-button';
+      var addMediaButtons = once("va-gov-media-add-media-btn", addMediaSelector, context || document);
+      if (addMediaButtons && addMediaButtons.length) {
+        addMediaButtons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var label = btn.getAttribute("aria-label") || btn.textContent.trim();
+            try {
+              console.debug("vaGovMedia: add media button clicked", label);
+            } catch (_err) {}
+            trackAddMediaClick(label);
+          });
+        });
+      } else {
+        try {
+          document.addEventListener("click", function delegatedAddMediaClick(e) {
+            var target = e.target;
+            var match = target.closest ? target.closest(addMediaSelector) : null;
+            if (match) {
+              var label = match.getAttribute("aria-label") || match.textContent.trim();
+              try {
+                console.debug("vaGovMedia: delegated add media click", label);
+              } catch (_err) {}
+              trackAddMediaClick(label);
             }
           });
         } catch (_err) {}
