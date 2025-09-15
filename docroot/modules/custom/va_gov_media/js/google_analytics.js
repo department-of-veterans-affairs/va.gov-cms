@@ -4,8 +4,8 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-(function ($, once, Drupal) {
-  var trackUploadFileSelection = function trackUploadFileSelection(fileName) {
+(function vaGovMediaIIFE($, once, Drupal) {
+  function trackUploadFileSelection(fileName) {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
         event_category: "Media",
@@ -13,8 +13,8 @@
         upload_action: "file_selected"
       });
     }
-  };
-  var trackUploadButtonClick = function trackUploadButtonClick(label) {
+  }
+  function trackUploadButtonClick(label) {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
         event_category: "Media",
@@ -22,8 +22,8 @@
         upload_action: "button_click"
       });
     }
-  };
-  var trackAddMediaClick = function trackAddMediaClick(label) {
+  }
+  function trackAddMediaClick(label) {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
         event_category: "Media",
@@ -31,8 +31,8 @@
         upload_action: "add_media_click"
       });
     }
-  };
-  var trackAltFieldFocus = function trackAltFieldFocus() {
+  }
+  function trackAltFieldFocus() {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
         event_category: "Media",
@@ -40,8 +40,8 @@
         upload_action: "alt_field_focus"
       });
     }
-  };
-  var trackAiAltGenerationClick = function trackAiAltGenerationClick() {
+  }
+  function trackAiAltGenerationClick() {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
         event_category: "Media",
@@ -49,8 +49,8 @@
         upload_action: "ai_generate_click"
       });
     }
-  };
-  var trackSubmitClick = function trackSubmitClick() {
+  }
+  function trackSubmitClick() {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
         event_category: "Media",
@@ -58,160 +58,24 @@
         upload_action: "submit_click"
       });
     }
-  };
+  }
   Drupal.behaviors.vaGovMedia = {
-    attach: function attach(context) {
-      try {
-        console.debug("vaGovMedia behavior attach", context);
-      } catch (_e) {}
-      var formSelectors = ['[data-drupal-selector="media-image-add-form"]', '[data-drupal-selector^="media-library-add-form-dropzonejs-"]'];
-      var hasMediaForm = context && typeof context.querySelector === "function" && formSelectors.some(function (s) {
-        return context.querySelector(s);
-      }) || formSelectors.some(function (s) {
-        return document.querySelector(s);
-      });
-      if (!hasMediaForm) {
-        return;
-      }
-      var fileInputs = once("va-gov-media-upload-file", 'input[type="file"]', context || document);
-      try {
-        console.debug("vaGovMedia: file inputs found", fileInputs && fileInputs.length ? fileInputs.length : fileInputs);
-      } catch (_e) {}
-      fileInputs.forEach(function (input) {
-        input.addEventListener("change", function (e) {
-          var f = e.target.files && e.target.files[0] ? e.target.files[0].name : "";
-          try {
-            console.debug("vaGovMedia: file input change", f);
-          } catch (_err) {}
-          trackUploadFileSelection(f);
-        });
-      });
-      var buttonSelector = 'input[accept="image/*"]';
-      var uploadButtons = once("va-gov-media-upload-btn", buttonSelector, context || document);
-      try {
-        console.debug("vaGovMedia: upload buttons found", uploadButtons && uploadButtons.length ? uploadButtons.length : uploadButtons);
-      } catch (_e) {}
-      uploadButtons.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          var label = btn.getAttribute("aria-label") || btn.textContent.trim();
-          try {
-            console.debug("vaGovMedia: upload button clicked", label);
-          } catch (_err) {}
-          trackUploadButtonClick(label);
-        });
-      });
-      if (!uploadButtons || uploadButtons.length === 0) {
-        try {
-          console.debug("vaGovMedia: no upload buttons found; adding delegated listener for", buttonSelector);
-        } catch (_e) {}
-        document.addEventListener("click", function delegatedUploadClick(e) {
-          var target = e.target;
-          var match = target.closest ? target.closest(buttonSelector) : null;
-          if (match) {
-            var label = match.getAttribute("aria-label") || match.textContent.trim();
-            try {
-              console.debug("vaGovMedia: delegated upload click", label);
-            } catch (_err) {}
-            trackUploadButtonClick(label);
-          }
-        });
-      }
-      var altSelector = '[data-drupal-selector="edit-image-0-alt"]';
-      var altFields = once("va-gov-media-alt-field", altSelector, context || document);
-      if (altFields && altFields.length) {
-        altFields.forEach(function (el) {
-          el.addEventListener("focus", function () {
-            return trackAltFieldFocus();
-          });
-          el.addEventListener("click", function () {
-            return trackAltFieldFocus();
-          });
-        });
-      } else {
-        try {
-          document.addEventListener("focusin", function delegatedAltFocus(e) {
-            var target = e.target;
-            var match = target.closest ? target.closest(altSelector) : null;
-            if (match) {
-              trackAltFieldFocus();
-              try {
-                console.debug("vaGovMedia: alt text field clicked");
-              } catch (_err) {}
-            }
-          });
-        } catch (_err) {}
-      }
-      var aiSelector = '[data-drupal-selector="edit-image-0-ai-alt-text-generation-0"]';
-      var aiButtons = once("va-gov-media-ai-alt-btn", aiSelector, context || document);
-      if (aiButtons && aiButtons.length) {
-        aiButtons.forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            return trackAiAltGenerationClick();
-          });
-        });
-      } else {
-        try {
-          document.addEventListener("click", function delegatedAiClick(e) {
-            var target = e.target;
-            var match = target.closest ? target.closest(aiSelector) : null;
-            if (match) {
-              trackAiAltGenerationClick();
-              try {
-                console.debug("vaGovMedia: regenerate alt text clicked");
-              } catch (_err) {}
-            }
-          });
-        } catch (_err) {}
-      }
-      var submitSelector = '[data-drupal-selector="edit-submit"]';
-      var submitButtons = once("va-gov-media-submit-btn", submitSelector, context || document);
-      if (submitButtons && submitButtons.length) {
-        submitButtons.forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            return trackSubmitClick();
-          });
-        });
-      } else {
-        try {
-          document.addEventListener("click", function delegatedSubmitClick(e) {
-            var target = e.target;
-            var match = target.closest ? target.closest(submitSelector) : null;
-            if (match) {
-              trackSubmitClick();
-              try {
-                console.debug("vaGovMedia: submit button clicked");
-              } catch (_err) {}
-            }
-          });
-        } catch (_err) {}
-      }
+    attach: function vaGovMediaAttach(context) {
       var addMediaSelector = '[data-drupal-selector="edit-field-media-open-button"],#edit-field-media-open-button';
-      var addMediaButtons = once("va-gov-media-add-media-btn", addMediaSelector, context || document);
-      if (addMediaButtons && addMediaButtons.length) {
-        addMediaButtons.forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            var label = btn.getAttribute("aria-label") || btn.textContent.trim();
-            try {
-              console.debug("vaGovMedia: add media button clicked", label);
-            } catch (_err) {}
-            trackAddMediaClick(label);
-          });
-        });
-      } else {
-        try {
-          document.addEventListener("click", function delegatedAddMediaClick(e) {
-            var target = e.target;
-            var match = target.closest ? target.closest(addMediaSelector) : null;
-            if (match) {
-              var label = match.getAttribute("aria-label") || match.textContent.trim();
-              try {
-                console.debug("vaGovMedia: delegated add media click", label);
-              } catch (_err) {}
-              trackAddMediaClick(label);
-            }
-          });
-        } catch (_err) {}
+      function delegatedAddMediaClick(e) {
+        var target = e.target;
+        var match = target.closest ? target.closest(addMediaSelector) : null;
+        if (match) {
+          var label = match.getAttribute("aria-label") || match.textContent.trim();
+          try {
+            console.debug("vaGovMedia: delegated add media click", label);
+          } catch (_err) {}
+          trackAddMediaClick(label);
+        }
       }
+      try {
+        document.addEventListener("click", delegatedAddMediaClick);
+      } catch (_err) {}
     }
   };
 })(jQuery, once, Drupal);
