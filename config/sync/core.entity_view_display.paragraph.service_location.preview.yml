@@ -1,0 +1,194 @@
+uuid: 6d2d0a7d-a004-4bad-83ed-331e7a2b61cc
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.service_location.field_additional_hours_info
+    - field.field.paragraph.service_location.field_appt_intro_text_custom
+    - field.field.paragraph.service_location.field_appt_intro_text_type
+    - field.field.paragraph.service_location.field_email_contacts
+    - field.field.paragraph.service_location.field_hours
+    - field.field.paragraph.service_location.field_office_hours
+    - field.field.paragraph.service_location.field_office_visits
+    - field.field.paragraph.service_location.field_online_scheduling_avail
+    - field.field.paragraph.service_location.field_other_phone_numbers
+    - field.field.paragraph.service_location.field_phone
+    - field.field.paragraph.service_location.field_service_location_address
+    - field.field.paragraph.service_location.field_use_facility_phone_number
+    - field.field.paragraph.service_location.field_use_main_facility_phone
+    - field.field.paragraph.service_location.field_virtual_support
+    - paragraphs.paragraphs_type.service_location
+  module:
+    - entity_reference_revisions
+    - field_group
+    - layout_builder
+    - office_hours
+    - options
+third_party_settings:
+  field_group:
+    group_hours:
+      children:
+        - field_hours
+        - field_office_hours
+        - field_additional_hours_info
+      label: Hours
+      parent_name: group_service_location
+      region: content
+      weight: 23
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        open: true
+    group_contact_info:
+      children:
+        - field_use_main_facility_phone
+        - field_phone
+        - field_email_contacts
+      label: 'Contact info'
+      parent_name: group_service_location
+      region: content
+      weight: 25
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        open: true
+    group_address:
+      children:
+        - field_service_location_address
+      label: Address
+      parent_name: group_service_location
+      region: content
+      weight: 22
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        open: true
+    group_service_location:
+      children:
+        - group_address
+        - group_hours
+        - group_contact_info
+      label: 'Service location'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.service_location.preview
+targetEntityType: paragraph
+bundle: service_location
+mode: preview
+content:
+  field_additional_hours_info:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_email_contacts:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_hours:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_office_hours:
+    type: office_hours
+    label: above
+    settings:
+      day_format: long
+      time_format: g
+      compress: false
+      grouped: false
+      show_empty: false
+      show_closed: all
+      closed_format: Closed
+      all_day_format: 'All day open'
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      exceptions:
+        title: 'Exception hours'
+        replace_exceptions: false
+        restrict_exceptions_to_num_days: 7
+        date_format: long
+        all_day_format: 'All day open'
+      timezone_field: ''
+      office_hours_first_day: ''
+      schema:
+        enabled: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_phone:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_service_location_address:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  field_use_main_facility_phone:
+    type: boolean
+    label: above
+    settings:
+      format: custom
+      format_custom_false: 'No, do not display the general facility phone number'
+      format_custom_true: 'Yes, display the general facility phone number'
+    third_party_settings: {  }
+    weight: 5
+    region: content
+ 
+hidden:
+  breadcrumbs: true
+  search_api_excerpt: true
+  group_service_options:
+  field_virtual_support: true
+  field_office_visits: true
+  group_appointments:
+  field_appt_intro_text_type: true
+  field_appt_intro_text_custom: true
+  field_use_facility_phone_number: true
+  field_other_phone_numbers: true
+  field_online_scheduling_avail: true
