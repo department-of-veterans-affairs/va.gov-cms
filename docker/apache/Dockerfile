@@ -232,7 +232,7 @@ RUN { \
     echo 'opcache.validate_timestamps=0'; \
     echo 'opcache.save_comments=1'; \
     echo 'opcache.load_comments=1'; \
-} > /usr/local/etc/php/conf.d/99-opcache-custom.ini
+} > /usr/local/etc/php/conf.d/zz-opcache-custom.ini
 
 # set recommended apcu settings
 RUN { \
