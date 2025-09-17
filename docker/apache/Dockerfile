@@ -43,7 +43,7 @@ RUN apt update && apt install -y \
   xvfb
 
 RUN set -eux; \
-# allow running as an arbitrary user (https://github.com/docker-library/php/issues/743)
+# allow running as an arbitrary user (https://github.com/docker-library/php/issues/743) \
 	mkdir -p /var/www/html; \
 	chown www-data:www-data /var/www/html; \
 	chmod 1777 /var/www/html
@@ -57,34 +57,34 @@ RUN set -eux; \
 	apt-get install -y --no-install-recommends apache2 libapache2-mod-fcgid apache2-bin; \
 	rm -rf /var/lib/apt/lists/*; \
 	\
-# generically convert lines like
-#   export APACHE_RUN_USER=www-data
-# into
-#   : ${APACHE_RUN_USER:=www-data}
-#   export APACHE_RUN_USER
-# so that they can be overridden at runtime ("-e APACHE_RUN_USER=...")
+# generically convert lines like \
+#   export APACHE_RUN_USER=www-data \
+# into \
+#   : ${APACHE_RUN_USER:=www-data} \
+#   export APACHE_RUN_USER \
+# so that they can be overridden at runtime ("-e APACHE_RUN_USER=...") \
 	sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS"; \
 	\
-# setup directories and permissions
+# setup directories and permissions \
 	. "$APACHE_ENVVARS"; \
 	for dir in \
 		"$APACHE_LOCK_DIR" \
 		"$APACHE_RUN_DIR" \
 		"$APACHE_LOG_DIR" \
-# https://salsa.debian.org/apache-team/apache2/-/commit/b97ca8714890ead1ba6c095699dde752e8433205
+# https://salsa.debian.org/apache-team/apache2/-/commit/b97ca8714890ead1ba6c095699dde752e8433205 \
 		"$APACHE_RUN_DIR/socks" \
 	; do \
 		rm -rvf "$dir"; \
 		mkdir -p "$dir"; \
 		chown "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$dir"; \
-# allow running as an arbitrary user (https://github.com/docker-library/php/issues/743)
+# allow running as an arbitrary user (https://github.com/docker-library/php/issues/743) \
 		chmod 1777 "$dir"; \
 	done; \
 	\
-# delete the "index.html" that installing Apache drops in here
+# delete the "index.html" that installing Apache drops in here \
 	rm -rvf /var/www/html/*; \
 	\
-# logs should go to stdout / stderr
+# logs should go to stdout / stderr \
 	ln -sfT /dev/stderr "$APACHE_LOG_DIR/error.log"; \
 	ln -sfT /dev/stdout "$APACHE_LOG_DIR/access.log"; \
 	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
@@ -205,6 +205,9 @@ RUN { \
     echo 'pm.max_requests = 1000'; \
     echo 'rlimit_files = 131072'; \
     echo 'rlimit_core = unlimited'; \
+    echo 'php_admin_value[opcache.enable] = 1'; \
+    echo 'php_admin_value[opcache.memory_consumption] = 512'; \
+    echo 'php_admin_value[opcache.validate_timestamps] = 0'; \
 } >> /usr/local/etc/php-fpm.d/kubernetes.conf
 
 RUN { \
@@ -222,12 +225,14 @@ RUN { \
     echo 'zend_extension=opcache'; \
     echo 'opcache.enable=1'; \
     echo 'opcache.enable_cli=1'; \
-    echo 'opcache.memory_consumption = 256'; \
+    echo 'opcache.memory_consumption = 512'; \
     echo 'opcache.interned_strings_buffer = 64'; \
     echo 'opcache.max_accelerated_files = 20000'; \
     echo 'opcache.revalidate_freq = 2'; \
-    echo 'opcache.fast_shutdown = 1'; \
-} > /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+    echo 'opcache.validate_timestamps=0'; \
+    echo 'opcache.save_comments=1'; \
+    echo 'opcache.load_comments=1'; \
+} > /usr/local/etc/php/conf.d/99-opcache-custom.ini
 
 # set recommended apcu settings
 RUN { \

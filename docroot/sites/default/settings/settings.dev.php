@@ -76,3 +76,41 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
   $_SERVER['HTTPS'] = 'on';
   $_SERVER['SERVER_PORT'] = 443;
 }
+
+$settings['memcache']['bins'] = [
+  'default' => 'default',
+  'bootstrap' => 'default',
+  'config' => 'default',
+  'discovery' => 'default',
+  'menu' => 'default',
+  'render' => 'default',
+  'data' => 'default',
+  'toolbar' => 'default',
+];
+
+// Memcached options for optimal performance
+$settings['memcache']['options'] = [
+  \Memcached::OPT_COMPRESSION => TRUE,
+  \Memcached::OPT_DISTRIBUTION => \Memcached::DISTRIBUTION_CONSISTENT,
+  \Memcached::OPT_LIBKETAMA_COMPATIBLE => TRUE,
+  \Memcached::OPT_HASH => \Memcached::HASH_MD5,
+  \Memcached::OPT_TCP_NODELAY => TRUE,
+  \Memcached::OPT_CONNECT_TIMEOUT => 1000,
+  \Memcached::OPT_SEND_TIMEOUT => 3000000,
+  \Memcached::OPT_RECV_TIMEOUT => 3000000,
+  \Memcached::OPT_POLL_TIMEOUT => 1000,
+  \Memcached::OPT_RETRY_TIMEOUT => 5,
+  \Memcached::OPT_SERVER_FAILURE_LIMIT => 2,
+];
+
+// Cache backend configuration
+$settings['cache']['default'] = 'cache.backend.memcache';
+
+// Key prefix to avoid conflicts
+$settings['memcache']['key_prefix'] = 'va_cms_dev';
+
+// Memcache stampede protection
+$settings['memcache']['stampede_protection'] = TRUE;
+$settings['memcache']['stampede_semaphore'] = 15;
+$settings['memcache']['stampede_wait_time'] = 5;
+$settings['memcache']['stampede_wait_limit'] = 3;
