@@ -32,12 +32,12 @@
       });
     }
   }
-  function trackAltFieldFocus() {
+  function trackAltFieldChanged() {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
         event_category: "Media",
         event_label: "alt_field",
-        upload_action: "alt_field_focus",
+        upload_action: "alt_field_changed",
       });
     }
   }
@@ -111,6 +111,19 @@
         // Mark the element to prevent re-attaching on subsequent AJAX calls.
         myButton.dataset.listenerAttached = true;
       }
+
+      // @todo FIX THIS - it is not working - the altTextField is not being found.
+      const altTextField = document.querySelector("input[data-drupal-selector^='edit-media-0-fields-image-0-alt']");
+      if (altTextField && !altTextField.dataset.listenerAttached) {
+        altTextField.addEventListener("change", function () {
+          trackAltFieldChanged();
+          console.log("vaGovMedia: alt field change tracked");
+
+        altTextField.dataset.listenerAttached = true;
+
+        });
+      }
+
     },
   };
 })(jQuery, once, Drupal);
