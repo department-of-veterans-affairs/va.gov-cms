@@ -24,6 +24,7 @@
     }
   }
   function trackAddMediaClick(label) {
+    console.log('vaGovMedia: trackAddMediaClick called with label:', label);
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
         event_category: "Media",
@@ -61,21 +62,23 @@
   }
   Drupal.behaviors.vaGovMedia = {
     attach: function vaGovMediaAttach(context) {
-      var addMediaSelector = '[data-drupal-selector="edit-field-media-open-button"],#edit-field-media-open-button';
-      function delegatedAddMediaClick(e) {
-        var target = e.target;
-        var match = target.closest ? target.closest(addMediaSelector) : null;
-        if (match) {
-          var label = match.getAttribute("aria-label") || match.textContent.trim();
-          try {
-            console.debug("vaGovMedia: delegated add media click", label);
-          } catch (_err) {}
-          trackAddMediaClick(label);
-        }
+      console.log('vaGovMedia: attach called');
+      var myButton = document.querySelector('input[data-drupal-selector="edit-field-media-open-button"]');
+      if (myButton && !myButton.dataset.listenerAttached) {
+        myButton.addEventListener('mousedown', function (event) {
+          console.log('Button mousedown!');
+          trackAddMediaClick("cbu04905");
+        });
+        myButton.addEventListener('touchstart', function (event) {
+          console.log('Button touchstart!');
+          trackAddMediaClick("cbu04905");
+        });
+        myButton.addEventListener('keydown', function (event) {
+          console.log('Button keydown!');
+          trackAddMediaClick("cbu04905");
+        });
+        myButton.dataset.listenerAttached = true;
       }
-      try {
-        document.addEventListener("click", delegatedAddMediaClick);
-      } catch (_err) {}
     }
   };
 })(jQuery, once, Drupal);
