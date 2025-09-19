@@ -131,7 +131,7 @@ RUN { \
   && a2enconf docker-php
 
 RUN { \
-    echo 'ServerLimit 10'; \
+    echo 'ServerLimit 50'; \
     echo 'MaxRequestWorkers 3200'; \
     echo 'ThreadsPerChild 64'; \
     echo 'ThreadLimit 64'; \
@@ -187,7 +187,7 @@ RUN install-php-extensions apcu bcmath bz2 calendar csv ddtrace event exif gette
 # Install the PHP extensions for Datadog APM
 RUN php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=$(basename $(realpath $(which php)))
 
-RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
+RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
 RUN { \
     echo '[global]'; \
