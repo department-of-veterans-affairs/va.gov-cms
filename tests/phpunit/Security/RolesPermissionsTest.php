@@ -99,6 +99,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
         'content_admin',
         [
           'access block library',
+          'access entity usage statistics',
           'accept translation jobs',
           'access administration pages',
           'access files overview',
@@ -240,6 +241,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
         'content_creator_benefits_hubs',
         [
           'access block library',
+          'access entity usage statistics',
           'access files overview',
           'create landing_page content',
           'create page content',
@@ -252,6 +254,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
         'content_creator_resources_and_support',
         [
           'access block library',
+          'access entity usage statistics',
           'access files overview',
           'create checklist content',
           'create faq_multiple_q_a content',
@@ -267,6 +270,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
       [
         'content_creator_vba',
         [
+          'access entity usage statistics',
           'create vba_facility_service content',
           'view node link report',
         ],
@@ -274,6 +278,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
       [
         'content_creator_vet_center',
         [
+          'access entity usage statistics',
           'create vet_center_cap content',
           'create vet_center_facility_health_servi content',
           'view node link report',
@@ -285,6 +290,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'access administration pages',
           'access block library',
           'access content overview',
+          'access entity usage statistics',
           'access files overview',
           'access media overview',
           'access user profiles',
@@ -454,6 +460,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'access administration pages',
           'access block library',
           'access content overview',
+          'access entity usage statistics',
           'access files overview',
           'access media overview',
           'access user profiles',
@@ -615,6 +622,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'access administration pages',
           'access block library',
           'access content overview',
+          'access entity usage statistics',
           'access files overview',
           'access media overview',
           'access user profiles',
@@ -851,6 +859,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
       [
         'admnistrator_users',
         [
+          'access entity usage statistics',
           'administer users',
           'assign content_admin role',
           'assign content_api_consumer role',
@@ -883,6 +892,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
         'office_content_creator',
         [
           'access block library',
+          'access entity usage statistics',
           'access files overview',
           'create event content',
           'create outreach_asset content',
@@ -894,6 +904,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
         'vamc_content_creator',
         [
           'access block library',
+          'access entity usage statistics',
           'access files overview',
           'create event content',
           'create full_width_banner_alert content',
@@ -912,6 +923,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
         'homepage_manager',
         [
           'access block library',
+          'access entity usage statistics',
           'create banner content',
           'create benefit_promo block content',
           'create cta_with_link block content',
@@ -954,6 +966,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
         'translation_manager',
         [
           'accept translation jobs',
+          'access entity usage statistics',
           'create content translations',
           'create translation jobs',
           'delete translation jobs',

@@ -149,7 +149,6 @@ This section outlines only the systems utilized by the CMS. See the READMEs in t
   - [pr123-{hash}.ci.cms.va.gov](https://pr123-{hash}.ci.cms.va.gov) for the CMS
     - To access Cypress test logs and artifacts, see [Testing](READMES/testing.md) for details.
   - [web-{hash}.ci.cms.va.gov](http://web-{hash}.ci.cms.va.gov) for the frontend web build
-  - [storybook-{hash}.ci.cms.va.gov](http://storybook-{hash}.ci.cms.va.gov) for design system documentation
 - Ad-hoc environments can be created and deleted at any time by any logged in user on [tugboat.vfs.va.gov/](https://tugboat.vfs.va.gov/):
   - Should be created under "CMS Demo Environments"
   - Can be named anything and can be set to any branch or Pull Request.

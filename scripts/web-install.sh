@@ -24,6 +24,9 @@ pushd "./web"
 nvm install
 yarn run install-repos
 export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt
+if [[ "${BUILD_ENV}" == "eks" ]]; then
+  export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+fi
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE
 yarn install
 popd

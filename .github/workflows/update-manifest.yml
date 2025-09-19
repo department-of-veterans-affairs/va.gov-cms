@@ -1,0 +1,85 @@
+name: Update infrastructure manifest
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+on:
+  # Triggered manually or by another workflow
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: Image tag version (git sha)
+        type: string
+        required: true
+      app_name:
+        description: App to target (cms)
+        type: string
+        required: true
+        default: "cms"
+      environment:
+        description: Deploy environment (dev, staging, prod)
+        type: string
+        required: true
+        default: "dev"
+  # Used to trigger this workflow from another workflow
+  workflow_call:
+    inputs:
+      image_tag:
+        description: Image tag version (git sha)
+        type: string
+        required: true
+      app_name:
+        description: App to target (cms)
+        type: string
+        required: true
+        default: "cms"
+      environment:
+        description: Deploy environment (dev, staging, prod)
+        type: string
+        required: true
+        default: "dev"
+jobs:
+  update-manifest:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_TAG: ${{ inputs.image_tag }}
+    steps:
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5.0.0
+        with:
+          aws-region: us-gov-west-1
+          role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
+          role-duration-seconds: 900
+          role-session-name: vsp-vagov-next-build-githubaction
+
+      - name: Get bot token from Parameter Store
+        uses: department-of-veterans-affairs/action-inject-ssm-secrets@d8e6de3bde4dd728c9d732baef58b3c854b8c4bb # latest
+        with:
+          ssm_parameter: /devops/VA_VSP_BOT_GITHUB_TOKEN
+          env_variable_name: VA_VSP_BOT_GITHUB_TOKEN
+
+      - name: Check out Manifest Repo
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v4.1.1
+        with:
+          repository: department-of-veterans-affairs/vsp-infra-application-manifests
+          token: ${{ env.VA_VSP_BOT_GITHUB_TOKEN }}
+          fetch-depth: 1
+          path: vsp-infra-application-manifests
+
+      # If this is triggered manually, use the input values
+      - name: Update image and helm chart versions (dispatch)
+        run: |
+            cd vsp-infra-application-manifests/apps/${{ inputs.app_name }}/${{ inputs.environment }}
+            yq e -i '.deployment.container.image = "008577686731.dkr.ecr.us-gov-west-1.amazonaws.com/dsva/cms-drupal:${{ env.IMAGE_TAG }}"' values.yaml
+            git diff
+
+      - name: Add and Commit file (dispatch)
+        uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9.1.4
+        with:
+          add: '*.yaml'
+          cwd: vsp-infra-application-manifests/apps/${{ inputs.app_name }}/${{ inputs.environment }}
+          author_name: va-vsp-bot
+          author_email: 70344339+va-vsp-bot@users.noreply.github.com
+          message: 'Update ${{ inputs.app_name }} images and helm chart for ${{ inputs.environment }} environment with version ${{ env.IMAGE_TAG }}'

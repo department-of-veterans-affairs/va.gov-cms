@@ -5,9 +5,15 @@
  * Contains va_gov_workflow.module.
  */
 
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\va_gov_workflow\VaGovWorkflowInterface;
 
 /**
  * Implements hook_help().
@@ -55,5 +61,257 @@ function va_gov_workflow_entity_base_field_info_alter(&$fields, ContentEntityTyp
     $fields['revision_log_message']
       ->setRequired(TRUE)
       ->setDisplayOptions('form', $form_options);
+  }
+}
+
+/**
+ * AJAX callback for moderation state changes.
+ */
+function va_gov_workflow_moderation_state_ajax_callback(
+  array &$form,
+  FormStateInterface $form_state,
+) {
+  $response = new AjaxResponse();
+  try {
+    // Try to detect the moderation state value from form_state or the form
+    // structure. The widget value can be nested; extract the first string we
+    // find.
+    if ($form_state->hasValue('moderation_state')) {
+      $selected_value = $form_state->getValue('moderation_state');
+    }
+    elseif (isset($form['moderation_state'])) {
+      $selected_value = $form['moderation_state'];
+    }
+    else {
+      $selected_value = NULL;
+    }
+
+    // Get the selected moderation state.
+    $value = NULL;
+    if ($selected_value !== NULL
+        && is_array($selected_value)
+        && !empty($selected_value[0]['value'])) {
+      $value = $selected_value[0]['value'];
+    }
+
+    if ($value !== NULL && strtolower($value) === 'archived') {
+      // If this form has an entity and that entity has linked content, show
+      // a warning modal with a link to the usage tab so the user can review
+      // related items before archiving.
+      $title = t('View linked pages');
+      $entity = NULL;
+      try {
+        /** @var \Drupal\Core\Entity\ContentEntityForm|null $form_object */
+        $form_object = $form_state->getFormObject();
+        if ($form_object && method_exists($form_object, 'getEntity')) {
+          $entity = $form_object->getEntity();
+        }
+      }
+      catch (\Throwable $e) {
+        // Ignore — we'll treat as no entity found.
+        $entity = NULL;
+      }
+      // No point in proceeding without an entity.
+      if (!$entity) {
+        return;
+      }
+
+      $show_usage_warning = FALSE;
+      $usage_total = 0;
+      $usage_link_html = '';
+      $kb_url = '';
+
+      // Use the workflow content control service which knows about linked
+      // entities.
+      try {
+        $workflow_control = \Drupal::service('va_gov_workflow.workflow_content_control');
+        $show_usage_warning = $workflow_control->hasLinkedEntities($entity);
+        // No usage warning needed.
+        if (!$show_usage_warning) {
+          return;
+        }
+        // Build a link to the entity usage page (entity_usage_addons
+        // exposes a route like entity.{entity_type}.entity_usage).
+        $entity_type = $entity->getEntityTypeId();
+        $entity_id = $entity->id();
+        $route = "entity.{$entity_type}.entity_usage";
+        // Build a link to the knowledge base article.
+        // Use the node id of the relevant knowledge base article.
+        $kb_id = VaGovWorkflowInterface::KBA_ID;
+
+        try {
+          // Get the usage total for display.
+          try {
+            $usage_service = \Drupal::service('entity_usage_addons.usage');
+            $usage_total = $usage_service->getUsageTotal(
+              $entity_type,
+              $entity_id
+            );
+          }
+          catch (\Throwable $e) {
+            $usage_total = 0;
+          }
+          // Build a URL to the usage page and ensure it opens in a new tab.
+          $url = Url::fromRoute(
+            $route,
+            [$entity_type => $entity_id]
+          )->setOptions([
+            'attributes' => [
+              'target' => '_blank',
+              'rel' => 'noopener',
+              'class' => ['button', 'button--primary'],
+            ],
+          ]);
+          $usage_link_html = Link::fromTextAndUrl(t('View related content'), $url)->toString();
+
+          // Build a button to the knowledge base article.
+          $kb_url = '/node/' . $kb_id;
+        }
+        catch (\Throwable $e) {
+          // If route generation fails, fallback to a simple path link.
+          $path = '/' . $entity_type . '/' . $entity_id . '/usage';
+          $usage_link_html = '<a href="' . $path . '" target="_blank" rel="noopener" class="button button--primary">' . t('View related content') . '</a>';
+          $kb_url = '/node/' . $kb_id;
+        }
+
+      }
+      catch (\Throwable $e) {
+        // If the service isn't available or throws, don't block archive
+        // behavior — fall through to the normal confirm modal below.
+        $show_usage_warning = FALSE;
+      }
+
+      if ($show_usage_warning) {
+        // Build pluralized usage text and include it inline in the warning.
+        $usage_text = \Drupal::translation()->formatPlural($usage_total, '1 page', '@count pages', ['@count' => $usage_total]);
+
+        // Build a render array for the modal content so we can attach a
+        // library that provides safe behaviors instead of inline JS handlers.
+        $modal_build = [
+          '#type' => 'container',
+          'message' => [
+            '#type' => 'markup',
+            '#markup' => '<p>' . t('This content is linked on @usage. Review the page(s) and refer to the <a href="@url" target="_blank" rel="noopener">Knowledge Base article</a> to make sure that archiving this content will not create broken links.',
+              ['@usage' => $usage_text, '@url' => $kb_url]) . '</p>',
+            '#attributes' => [
+              'class' => ['va-gov-workflow-modal-message'],
+            ],
+          ],
+          'actions' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['va-gov-workflow-modal-actions']],
+            'usage_link' => [
+              '#type' => 'markup',
+              '#markup' => $usage_link_html,
+            ],
+          ],
+          '#attached' => [
+            'library' => ['va_gov_workflow/modal'],
+          ],
+        ];
+
+        $rendered = \Drupal::service('renderer')->renderRoot($modal_build);
+        // Ensure libraries and drupalSettings attached to the modal are sent in
+        // the AjaxResponse so clients that didn't previously load the library
+        // (for example non-admin pages) will receive the JS behavior.
+        if (!empty($modal_build['#attached'])) {
+          $response->setAttachments($modal_build['#attached']);
+        }
+        $response->addCommand(new OpenModalDialogCommand($title, $rendered, ['width' => '600']));
+      }
+    }
+    else {
+      if (isset($form['moderation_state'])) {
+        // Prefer re-rendering the full form when possible so that attached
+        // libraries and drupalSettings are included and Drupal behaviors are
+        // re-applied. This prevents AJAX handlers from only working once.
+        if (!empty($form['#id'])) {
+          try {
+            $rendered_form = \Drupal::service('renderer')->renderRoot($form);
+            // Ensure our modal library (containing scroll-restore behavior)
+            // is available after the AJAX replace so behaviors re-attach.
+            $attachments = !empty($form['#attached']) ? $form['#attached'] : [];
+            if (empty($attachments['library']) || !in_array('va_gov_workflow/modal', $attachments['library'])) {
+              $attachments['library'][] = 'va_gov_workflow/modal';
+            }
+            $response->setAttachments($attachments);
+            $response->addCommand(new ReplaceCommand('#' . $form['#id'], $rendered_form));
+            // No explicit focus commands; scroll-restore behavior will preserve
+            // the user's position after AJAX updates.
+          }
+          catch (\Throwable $e) {
+            // Fallback to rendering only the moderation element.
+            if (isset($form['moderation_state']['widget'][0]['state'])) {
+              $to_render = $form['moderation_state']['widget'][0]['state'];
+            }
+            else {
+              $to_render = $form['moderation_state'];
+            }
+            $rendered = \Drupal::service('renderer')->renderRoot($to_render);
+            // Include any attachments from the rendered form so behaviors are
+            // re-applied on the client and ensure our modal library is present.
+            $attachments = !empty($form['#attached']) ? $form['#attached'] : [];
+            if (empty($attachments['library']) || !in_array('va_gov_workflow/modal', $attachments['library'])) {
+              $attachments['library'][] = 'va_gov_workflow/modal';
+            }
+            $response->setAttachments($attachments);
+            $response->addCommand(new ReplaceCommand('#moderation-state-wrapper', $rendered));
+          }
+        }
+        else {
+          if (isset($form['moderation_state']['widget'][0]['state'])) {
+            $to_render = $form['moderation_state']['widget'][0]['state'];
+          }
+          else {
+            $to_render = $form['moderation_state'];
+          }
+          $rendered = \Drupal::service('renderer')->renderRoot($to_render);
+          // Merge any attachments from the element and ensure our library is
+          // included so the restore-scroll behavior is sent to the client.
+          $attachments = !empty($to_render['#attached']) ? $to_render['#attached'] : [];
+          if (empty($attachments['library']) || !in_array('va_gov_workflow/modal', $attachments['library'])) {
+            $attachments['library'][] = 'va_gov_workflow/modal';
+          }
+          $response->setAttachments($attachments);
+          $response->addCommand(new ReplaceCommand('#moderation-state-wrapper', $rendered));
+          // No explicit focus commands; scroll-restore behavior will preserve
+          // the user's position after AJAX updates.
+        }
+      }
+    }
+  }
+  catch (\Throwable $e) {
+    // Swallow exceptions to avoid breaking AJAX responses.
+    \Drupal::logger('va_gov_workflow')->error($e->getMessage());
+  }
+  return $response;
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function va_gov_workflow_preprocess_page(array &$variables) {
+  $route = \Drupal::routeMatch()->getRouteName();
+  if ($route !== 'entity.node.entity_usage') {
+    return;
+  }
+  // Build render array and insert into page content variable.
+  $markup = t('<div><p>This tab shows any pages that link to this content.</p><p>Before archiving this content, first remove its link from these pages (or unpublish these pages, if necessary). You only need to remove links from the pages that show "Published" in the "Status" column and “Default” in the “Used in” column.</p><p>For step-by-step instructions on how to use this tab to archive content, review the <a href=":kba_url" target="_blank">Usage tab Knowledge Base article</a>.</p></div>', [
+    ':kba_url' => '/node/' . VaGovWorkflowInterface::KBA_ID,
+  ]);
+
+  $notice = [
+    '#type' => 'container',
+    '#markup' => $markup,
+    '#cache' => [
+      'contexts' => ['route', 'user.permissions'],
+      'tags' => ['entity_usage:usage_list'],
+    ],
+    '#weight' => 0,
+  ];
+  // Insert into theme page variable.
+  // Prepend so the notice appears above other content.
+  if (isset($variables['page']['content']) && is_array($variables['page']['content'])) {
+    $variables['page']['content'] = ['entity_usage_top_notice' => $notice] + $variables['page']['content'];
   }
 }

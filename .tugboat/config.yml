@@ -7,7 +7,6 @@ services:
     aliases:
     - cms
     - web
-    - storybook
     - next
     # Set this as the default service. This does a few things
     #   1. Clones the git repository into the service container
@@ -60,9 +59,6 @@ services:
 
       # Setup web-*. vhost to serve static website.
       - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-web.conf /etc/apache2/sites-enabled/
-
-      # Setup storybook-*. vhost to serve static website.
-      - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-storybook.conf /etc/apache2/sites-enabled/
 
       # Setup next-*. vhost to serve static website.
       - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-next.conf /etc/apache2/sites-enabled/
@@ -190,7 +186,6 @@ services:
       - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
       # This command is shared by the clone and build stages, make sure to update both stages.
       - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
-      - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
       - j2 "${TUGBOAT_ROOT}/.next/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/403-error-document.html"
       - j2 "${TUGBOAT_ROOT}/.next/503-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/503-error-document.html"
       - composer install
@@ -235,7 +230,6 @@ services:
 
       # This command is shared by the clone and build stages, make sure to update both stages.
       - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
-      - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
       - j2 "${TUGBOAT_ROOT}/.next/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/403-error-document.html"
       - j2 "${TUGBOAT_ROOT}/.next/503-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/503-error-document.html"
 
@@ -262,7 +256,7 @@ services:
       - find -L "${DOCROOT}/vendor/va-gov/content-build/node_modules/.bin" -type f -exec chmod +x {} \+
       - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
 
-      # Build storybook and the content-build frontend (web) in parallel
+      # Build the content-build frontend (web) in parallel
       - bash -lc 'time task --taskfile=tugboat.yml'
 
   memcache:

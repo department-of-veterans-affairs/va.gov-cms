@@ -65,3 +65,8 @@ $public_asset_s3_base_url = "https://dsva-vagov-prod-cms-files.s3.us-gov-west-1.
   $settings['s3fs.use_s3_for_public'] = FALSE;
   $settings['s3fs.use_s3_for_private'] = FALSE;
   $settings['s3fs.upload_as_private'] = TRUE;
+
+// Entra ID settings
+$settings['microsoft_entra_id_client_id'] = getenv('MICROSOFT_ENTRA_ID_CLIENT_ID');
+$settings['microsoft_entra_id_client_secret'] = getenv('MICROSOFT_ENTRA_ID_CLIENT_SECRET');
+$settings['microsoft_entra_id_tenant_id'] = getenv('MICROSOFT_ENTRA_ID_TENANT_ID');

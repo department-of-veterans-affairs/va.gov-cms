@@ -3,10 +3,6 @@ dotenv: [ '.env' ]
 output: 'group'
 
 tasks:
-  build-storybook:
-    desc: Build storybook
-    cmds:
-    - composer va:ds:storybook
 
   build-frontend:
     desc: Request a frontend build
@@ -15,7 +11,6 @@ tasks:
 
   build:
     deps:
-    - build-storybook
     - build-frontend
 
   default:

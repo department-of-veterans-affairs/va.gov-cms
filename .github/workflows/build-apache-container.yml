@@ -1,0 +1,73 @@
+name: Build and Push Apache Container to ECR
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 12 * * 4
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5.0.0
+        with:
+          aws-region: us-gov-west-1
+          role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
+          role-duration-seconds: 900
+          role-session-name: vsp-vagov-next-build-githubaction
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Get next image tag
+        id: get_next_tag
+        run: |
+          REPO_NAME="dsva/cms-apache"
+          # Get all images sorted by push date (newest first)
+          LAST_TAG="1.0.0"  # Default fallback
+          IMAGES_JSON=$(aws ecr describe-images --repository-name $REPO_NAME --query 'sort_by(reverse(imageDetails),& imagePushedAt)' --output json)
+          SEMVER_TAG=$(echo "$IMAGES_JSON" | jq -r '
+            [.[] | select(.imageTags != null) |
+             .imageTags[] | select(test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))] |
+            last
+          ')
+
+          LAST_TAG="$SEMVER_TAG"
+
+          if [ -z "$LAST_TAG" ] || [ "$LAST_TAG" = "None" ]; then
+            NEW_TAG="1.0.0" # Initial tag if no images exist
+          else
+            # Example: Incrementing a semantic version tag (e.g., 1.0.1 -> 1.0.2)
+            MAJOR=$(echo $LAST_TAG | awk -F'.' '{print $1}')
+            MINOR=$(echo $LAST_TAG | awk -F'.' '{print $2}')
+            PATCH=$(echo $LAST_TAG | awk -F'.' '{print $3}')
+            PATCH=$((PATCH + 1))
+            NEW_TAG="${MAJOR}.${MINOR}.${PATCH}"
+          fi
+          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./docker/apache
+          platforms: linux/amd64
+          file: ./docker/apache/Dockerfile
+          push: true
+          provenance: false
+          tags: ${{ steps.login-ecr.outputs.registry }}/dsva/cms-apache:${{ env.NEW_TAG }}
+          cache-from: type=registry,ref=${{ steps.login-ecr.outputs.registry }}/dsva/cms-apache:cache
+          cache-to: type=registry,mode=max,image-manifest=true,oci-mediatypes=true,ref=${{ steps.login-ecr.outputs.registry }}/dsva/cms-apache:cache
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1

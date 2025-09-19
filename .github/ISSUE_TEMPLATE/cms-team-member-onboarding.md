@@ -2,7 +2,7 @@
 name: CMS team member onboarding
 about: Create an issue for each new team member
 title: 'Onboarding: <insert_name>'
-labels: Onboarding
+labels: Onboarding, CMS Team
 assignees: ''
 
 ---

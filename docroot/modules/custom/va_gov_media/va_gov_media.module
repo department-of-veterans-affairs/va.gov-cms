@@ -94,3 +94,10 @@ function va_gov_media_field_widget_single_element_form_alter(&$element, &$form_s
   }
 
 }
+
+/**
+ * Implements hook_page_attachments().
+ */
+function va_gov_media_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'va_gov_media/google_analytics';
+}

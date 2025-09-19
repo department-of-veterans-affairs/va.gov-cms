@@ -1,0 +1,17 @@
+va_gov_login.redirect:
+  path: '/user/login/entra-id'
+  defaults:
+    _controller: '\Drupal\va_gov_login\Controller\VaGovLoginController::redirectToMicrosoft'
+    _title: 'Redirect to Microsoft Login'
+  requirements:
+   # Note: Explicitly allow access to all users, This route must be accessible to anonymous users to initiate the Microsoft Entra ID login process.
+    _access: 'TRUE'
+
+va_gov_login.callback:
+  path: '/user/login/entra-id/callback'
+  defaults:
+    _controller: '\Drupal\va_gov_login\Controller\VaGovLoginController::handleMicrosoftCallback'
+    _title: 'Microsoft Callback'
+  requirements:
+   # Note: Explicitly allow access to all users, This route must be accessible to anonymous users to initiate the Microsoft Entra ID login process.
+    _access: 'TRUE'

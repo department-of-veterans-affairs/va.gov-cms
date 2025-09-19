@@ -14,18 +14,15 @@ ln -sf ../docroot/libraries/yarn/bin/yarn ./yarn
 popd
 
 export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt
+if [[ "${BUILD_ENV}" == "eks" ]]; then
+  export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+fi
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE
 
 pushd ./docroot/core
 nvm install 18
 yarn install
 yarn build:css
-popd
-
-pushd ./docroot/design-system
-nvm install
-npm install
-npm run build:drupal
 popd
 
 if [[ "${CMS_ENVIRONMENT_TYPE}" == "tugboat" ]]; then

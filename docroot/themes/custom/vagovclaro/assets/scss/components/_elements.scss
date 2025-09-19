@@ -364,3 +364,8 @@ textarea:user-invalid {
   color: var(--va-red-dark);
   margin: 5px 0;
 }
+
+// For modal message to prevent url hyphenation
+p:has(+ .va-gov-workflow-modal-actions) {
+  hyphens: none;
+}

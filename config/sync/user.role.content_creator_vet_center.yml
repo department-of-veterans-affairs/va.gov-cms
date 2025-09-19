@@ -7,6 +7,7 @@ dependencies:
     - node.type.vet_center_facility_health_servi
   module:
     - ai_image_alt_text
+    - entity_usage
     - node
     - node_link_report
     - va_gov_backend
@@ -18,6 +19,7 @@ label: 'Content creator - Vet Center'
 weight: -2
 is_admin: null
 permissions:
+  - 'access entity usage statistics'
   - 'create vet_center_cap content'
   - 'create vet_center_facility_health_servi content'
   - 'generate ai alt tags'
