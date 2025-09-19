@@ -63,57 +63,86 @@
   Drupal.behaviors.vaGovMedia = {
     attach: function vaGovMediaAttach(context) {
       console.log("vaGovMedia: attach called");
-      function observeAddMedia(element, selector, eventType, handler) {
-        try {
-          var root = context && typeof context.querySelector === "function" ? context : document;
-          var attachmentFlag = "vaGovMediaAttached" + element + eventType;
-          var tryAttach = function tryAttach(el) {
-            if (!el || el.dataset[attachmentFlag]) return;
-            el.addEventListener(eventType, function () {
-              var label = el.getAttribute("aria-label") || el.textContent.trim();
-              try {
-                console.debug("VaGovMedia: observed " + element + " " + eventType, label);
-              } catch (_e) {}
-              handler();
-            });
-            el.dataset[attachmentFlag] = "1";
-          };
-          Array.from(root.querySelectorAll(selector)).forEach(tryAttach);
-          var mo = new MutationObserver(function (mutations, observer) {
-            for (var i = 0; i < mutations.length; i += 1) {
-              var m = mutations[i];
-              if (m.addedNodes && m.addedNodes.length) {
-                for (var j = 0; j < m.addedNodes.length; j += 1) {
-                  var n = m.addedNodes[j];
-                  if (n.nodeType === 1) {
-                    if (n.matches && n.matches(selector)) {
-                      tryAttach(n);
-                      observer.disconnect();
-                      return;
-                    }
-                    if (n.querySelectorAll) {
-                      Array.from(n.querySelectorAll(selector)).forEach(tryAttach);
-                    }
-                  }
-                }
-              }
-            }
+      function attachEventToAll(selector, eventType, handler, rootContext) {
+        var root = rootContext && typeof rootContext.querySelector === "function" ? rootContext : document;
+        function attachIfNeeded(el) {
+          if (!el.dataset["vaGovMediaAttached" + eventType]) {
+            el.addEventListener(eventType, handler);
+            el.dataset["vaGovMediaAttached" + eventType] = "1";
+            console.log("[vaGovMedia] Attached '" + eventType + "' to", el, 'with selector', selector);
+          }
+        }
+        Array.from(root.querySelectorAll(selector)).forEach(attachIfNeeded);
+        function processNode(node) {
+          if (node.nodeType !== 1) return;
+          if (node.matches && node.matches(selector)) {
+            attachIfNeeded(node);
+          }
+          if (node.querySelectorAll) {
+            Array.from(node.querySelectorAll(selector)).forEach(attachIfNeeded);
+          }
+        }
+        var mo = new MutationObserver(function (mutations) {
+          mutations.forEach(function (mutation) {
+            Array.from(mutation.addedNodes).forEach(processNode);
           });
-          mo.observe(root, {
-            childList: true,
-            subtree: true
-          });
-        } catch (_e) {}
+        });
+        mo.observe(root, {
+          childList: true,
+          subtree: true
+        });
       }
-      ;
-      observeAddMedia("AddMediaButton", "input[data-drupal-selector$='field-media-open-button']", "mousedown", trackAddMediaClick);
-      observeAddMedia("AddMediaButton", "input[data-drupal-selector$='field-media-open-button']", "touchstart", trackAddMediaClick);
-      observeAddMedia("AddMediaButton", "input[data-drupal-selector$='field-media-open-button']", "keydown", trackAddMediaClick);
-      observeAddMedia("AltTextField", "input[data-drupal-selector$='edit-media-0-fields-image-0-alt']", "change", trackAltFieldChanged);
-      observeAddMedia("AiAltGenerationButton", "button[data-drupal-selector$='edit-media-0-fields-image-0-generate-alt']", "click", trackAiAltGenerationClick);
-      observeAddMedia("SubmitButton", "button.js-form-submit.form-submit", "mousedown", trackSubmitClick);
-      observeAddMedia("SubmitButton", "button.js-form-submit.form-submit", "touchstart", trackSubmitClick);
-      observeAddMedia("SubmitButton", "button.js-form-submit.form-submit", "keydown", trackSubmitClick);
+      function handleAddMediaMouseDown(e) {
+        var label = e.target.getAttribute("aria-label") || e.target.textContent.trim();
+        trackAddMediaClick(label);
+      }
+      function handleAddMediaTouchStart(e) {
+        var label = e.target.getAttribute("aria-label") || e.target.textContent.trim();
+        trackAddMediaClick(label);
+      }
+      function handleAddMediaKeyDown(e) {
+        var label = e.target.getAttribute("aria-label") || e.target.textContent.trim();
+        trackAddMediaClick(label);
+      }
+      function handleAltFieldChanged() {
+        trackAltFieldChanged();
+      }
+      function handleAiAltGenerationClick() {
+        trackAiAltGenerationClick();
+      }
+      function handleSubmitMouseDown() {
+        trackSubmitClick();
+      }
+      function handleSubmitTouchStart() {
+        trackSubmitClick();
+      }
+      function handleSubmitKeyDown() {
+        trackSubmitClick();
+      }
+      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "mousedown", handleAddMediaMouseDown, context);
+      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "touchstart", handleAddMediaTouchStart, context);
+      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "keydown", handleAddMediaKeyDown, context);
+      function delegatedAltFieldChangeHandler(e) {
+        var field = e.target.closest('input[data-drupal-selector$="edit-media-0-fields-image-0-alt"]');
+        if (field) {
+          console.log('[vaGovMedia] Delegated alt text change fired for', field);
+          trackAltFieldChanged();
+        }
+      }
+      document.addEventListener('change', delegatedAltFieldChangeHandler);
+      attachEventToAll("button[data-drupal-selector$='edit-media-0-fields-image-0-generate-alt']", "click", handleAiAltGenerationClick, context);
+      function delegatedSubmitHandler(e) {
+        var button = e.target.closest('button.js-form-submit.form-submit');
+        if (button) {
+          console.log('[vaGovMedia] Delegated handler fired for', button, 'event type:', e.type);
+          if (e.type === 'mousedown' || e.type === 'touchstart' || e.type === 'keydown') {
+            trackSubmitClick();
+          }
+        }
+      }
+      document.addEventListener('mousedown', delegatedSubmitHandler);
+      document.addEventListener('touchstart', delegatedSubmitHandler);
+      document.addEventListener('keydown', delegatedSubmitHandler);
     }
   };
 })(jQuery, once, Drupal);
