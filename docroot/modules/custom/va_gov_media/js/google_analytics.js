@@ -69,7 +69,7 @@
           if (!el.dataset["vaGovMediaAttached" + eventType]) {
             el.addEventListener(eventType, handler);
             el.dataset["vaGovMediaAttached" + eventType] = "1";
-            console.log("[vaGovMedia] Attached '" + eventType + "' to", el, 'with selector', selector);
+            console.log("[vaGovMedia] Attached '" + eventType + "' to", el, "with selector", selector);
           }
         }
         Array.from(root.querySelectorAll(selector)).forEach(attachIfNeeded);
@@ -125,24 +125,35 @@
       function delegatedAltFieldChangeHandler(e) {
         var field = e.target.closest('input[data-drupal-selector$="edit-media-0-fields-image-0-alt"]');
         if (field) {
-          console.log('[vaGovMedia] Delegated alt text change fired for', field);
+          console.log("[vaGovMedia] Delegated alt text change fired for", field);
           trackAltFieldChanged();
         }
       }
-      document.addEventListener('change', delegatedAltFieldChangeHandler);
-      attachEventToAll("button[data-drupal-selector$='edit-media-0-fields-image-0-generate-alt']", "click", handleAiAltGenerationClick, context);
-      function delegatedSubmitHandler(e) {
-        var button = e.target.closest('button.js-form-submit.form-submit');
+      document.addEventListener("change", delegatedAltFieldChangeHandler);
+      function delegatedAltTextRegenerateHandler(e) {
+        var button = e.target.closest("input[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']");
         if (button) {
-          console.log('[vaGovMedia] Delegated handler fired for', button, 'event type:', e.type);
-          if (e.type === 'mousedown' || e.type === 'touchstart' || e.type === 'keydown') {
+          console.log("[vaGovMedia] Delegated handler fired for", button, "event type:", e.type);
+          if (e.type === "mousedown" || e.type === "touchstart" || e.type === "keydown") {
+            handleAiAltGenerationClick();
+          }
+        }
+      }
+      document.addEventListener("mousedown", delegatedAltTextRegenerateHandler);
+      document.addEventListener("touchstart", delegatedAltTextRegenerateHandler);
+      document.addEventListener("keydown", delegatedAltTextRegenerateHandler);
+      function delegatedSubmitHandler(e) {
+        var button = e.target.closest("button.js-form-submit.form-submit");
+        if (button) {
+          console.log("[vaGovMedia] Delegated handler fired for", button, "event type:", e.type);
+          if (e.type === "mousedown" || e.type === "touchstart" || e.type === "keydown") {
             trackSubmitClick();
           }
         }
       }
-      document.addEventListener('mousedown', delegatedSubmitHandler);
-      document.addEventListener('touchstart', delegatedSubmitHandler);
-      document.addEventListener('keydown', delegatedSubmitHandler);
+      document.addEventListener("mousedown", delegatedSubmitHandler);
+      document.addEventListener("touchstart", delegatedSubmitHandler);
+      document.addEventListener("keydown", delegatedSubmitHandler);
     }
   };
 })(jQuery, once, Drupal);

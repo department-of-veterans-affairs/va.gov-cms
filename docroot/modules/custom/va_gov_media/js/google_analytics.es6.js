@@ -174,12 +174,48 @@
       document.addEventListener("change", delegatedAltFieldChangeHandler);
 
       // AI alt generation button
-      attachEventToAll(
-        "button[data-drupal-selector$='edit-media-0-fields-image-0-generate-alt']",
-        "click",
-        handleAiAltGenerationClick,
-        context
-      );
+      // attachEventToAll(
+      //   "input[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']",
+      //   "mousedown",
+      //   handleAiAltGenerationClick,
+      //   context
+      // );
+      // // AI alt generation button
+      // attachEventToAll(
+      //   "input[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']",
+      //   "touchstart",
+      //   handleAiAltGenerationClick,
+      //   context
+      // );
+      // attachEventToAll(
+      //   "input[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']",
+      //   "keydown",
+      //   handleAiAltGenerationClick,
+      //   context
+      // );
+
+      // Submit button event delegation
+      function delegatedAltTextRegenerateHandler(e) {
+        const button = e.target.closest("input[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']");
+        if (button) {
+          console.log(
+            "[vaGovMedia] Delegated handler fired for",
+            button,
+            "event type:",
+            e.type
+          );
+          if (
+            e.type === "mousedown" ||
+            e.type === "touchstart" ||
+            e.type === "keydown"
+          ) {
+            handleAiAltGenerationClick();
+          }
+        }
+      }
+      document.addEventListener("mousedown", delegatedAltTextRegenerateHandler);
+      document.addEventListener("touchstart", delegatedAltTextRegenerateHandler);
+      document.addEventListener("keydown", delegatedAltTextRegenerateHandler);
 
       // Submit button event delegation
       function delegatedSubmitHandler(e) {
