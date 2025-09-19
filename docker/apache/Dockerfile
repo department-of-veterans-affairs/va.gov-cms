@@ -174,6 +174,7 @@ RUN sed -i -e '/imklog/s/^/#/' -e '/ActionFileDefaultTemplate/s/^/#/' ${RSYSLOG_
 
 # Configure PHP-FPM
 RUN sed -i 's/;listen.allowed_clients = 127.0.0.1/listen.allowed_clients = 127.0.0.1/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm = dynamic/pm = static/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/pm.max_children = 5/pm.max_children = 250/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/pm.start_servers = 2/pm.start_servers = 20/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 5/g' /usr/local/etc/php-fpm.d/www.conf && \
@@ -205,7 +206,6 @@ RUN { \
     echo 'pm.max_requests = 1000'; \
     echo 'rlimit_files = 131072'; \
     echo 'rlimit_core = unlimited'; \
-    echo 'php_admin_value[opcache.enable] = 1'; \
     echo 'php_admin_value[opcache.memory_consumption] = 512'; \
     echo 'php_admin_value[opcache.validate_timestamps] = 0'; \
 } >> /usr/local/etc/php-fpm.d/kubernetes.conf
