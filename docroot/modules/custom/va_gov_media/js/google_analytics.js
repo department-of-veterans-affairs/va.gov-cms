@@ -4,7 +4,6 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == _typeof(Symbol.iterator) ? function (o) { return typeof o === "undefined" ? "undefined" : _typeof(o); } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o === "undefined" ? "undefined" : _typeof(o); }, _typeof(o); }
 (function vaGovMediaIIFE($, once, Drupal) {
   function trackUploadFileSelection(fileName) {
     if (typeof gtag === "function") {
@@ -124,12 +123,6 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
       attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "touchstart", handleAddMediaTouchStart, context);
       attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "keydown", handleAddMediaKeyDown, context);
       var altSelectorCandidates = ['input[data-drupal-selector$="edit-media-0-fields-image-0-alt"]', 'textarea[data-drupal-selector$="edit-media-0-fields-image-0-alt"]', '[data-drupal-selector*="image-0-fields-image-0-alt"]', 'input[name*="image"][name*="alt"]'];
-      try {
-        altSelectorCandidates.forEach(function (s) {
-          var n = document.querySelectorAll(s).length;
-          console.log("[vaGovMedia] alt selector check: \"" + s + "\" => " + n + " matches");
-        });
-      } catch (err) {}
       if (!document.vaGovMediaAltDelegated) {
         var stableKeyFor = function stableKeyFor(field) {
           try {
@@ -210,11 +203,6 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
         }, true);
       }
       var aiRegenerateSelectorCandidates = ["input[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']", "button[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']", "[data-drupal-selector*='ai-alt-text-generation']", "button[name*='ai'][name*='alt']"];
-      try {
-        aiRegenerateSelectorCandidates.forEach(function (s) {
-          console.log("[vaGovMedia] ai-regenerate selector check: \"" + s + "\" => " + document.querySelectorAll(s).length + " matches");
-        });
-      } catch (err) {}
       if (!document.vaGovMediaAiRegenerateDelegated) {
         var delegatedAltTextRegenerateHandler = function delegatedAltTextRegenerateHandler(e) {
           var button = e.target.closest(_aiRegenerateSelector);
@@ -282,13 +270,8 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           trackSubmitClick();
         };
         document.vaGovMediaSubmitDelegated = true;
-        var _submitSelectorCandidates = ["button.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "input.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "button[type='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "input[type='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "button[name*='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])"];
-        try {
-          _submitSelectorCandidates.forEach(function (s) {
-            console.log("[vaGovMedia] submit selector check: \"" + s + "\" => " + document.querySelectorAll(s).length + " matches");
-          });
-        } catch (err) {}
-        var submitSelector = _submitSelectorCandidates.join(',');
+        var submitSelectorCandidates = ["button.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "input.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "button[type='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "input[type='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "button[name*='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])"];
+        var submitSelector = submitSelectorCandidates.join(',');
         var submitMarkerTTL = 2000;
         document.addEventListener('click', delegatedSubmitClickHandler, true);
         document.addEventListener('submit', function (e) {
@@ -350,109 +333,6 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
           }
         }, true);
       }
-      document.vaGovMediaPrintSubmitCandidate = function () {
-        try {
-          var candidates = typeof submitSelectorCandidates !== 'undefined' ? submitSelectorCandidates : ["button.js-form-submit.form-submit", "input.js-form-submit.form-submit", "button[type='submit']", "input[type='submit']", "button[name*='submit']"];
-          for (var i = 0; i < candidates.length; i++) {
-            var s = candidates[i];
-            var el = document.querySelector(s);
-            if (el) {
-              var _ret = function () {
-                console.log('[vaGovMedia] First matched submit selector:', s, 'element:', el);
-                var attrs = {};
-                Array.from(el.attributes).forEach(function (a) {
-                  attrs[a.name] = a.value;
-                });
-                console.log('[vaGovMedia] element attributes:', attrs);
-                return {
-                  v: el
-                };
-              }();
-              if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
-            }
-          }
-          console.log('[vaGovMedia] No submit candidate matched');
-          return null;
-        } catch (err) {
-          console.error('[vaGovMedia] Error in print helper', err);
-          return null;
-        }
-      };
-      document.vaGovMediaWhichSelectorsMatch = function (elOrSelector) {
-        try {
-          var firstMatch = function firstMatch(arr) {
-            for (var i = 0; i < arr.length; i++) {
-              try {
-                if (el.matches && el.matches(arr[i])) return arr[i];
-              } catch (e) {}
-            }
-            return null;
-          };
-          var el = null;
-          if (!elOrSelector) {
-            el = Array.from(document.querySelectorAll('input[type="submit"], button[type="submit"]')).find(function (x) {
-              return x.value && x.value.toLowerCase().indexOf('regenerate alt') !== -1;
-            });
-          } else if (typeof elOrSelector === 'string') {
-            el = document.querySelector(elOrSelector) || document.getElementById(elOrSelector);
-          } else {
-            el = elOrSelector;
-          }
-          if (!el) {
-            console.log('[vaGovMedia] No element found for', elOrSelector);
-            return null;
-          }
-          console.log('[vaGovMedia] Element to test:', el);
-          var aiCandidates = typeof aiRegenerateSelectorCandidates !== 'undefined' ? aiRegenerateSelectorCandidates : ["input[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']", "button[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']", "[data-drupal-selector*='ai-alt-text-generation']", "button[name*='ai'][name*='alt']"];
-          var submitCandidates = typeof submitSelectorCandidates !== 'undefined' ? submitSelectorCandidates : ["button.js-form-submit.form-submit", "input.js-form-submit.form-submit", "button[type='submit']", "input[type='submit']", "button[name*='submit']"];
-          var matches = {
-            ai: [],
-            submit: []
-          };
-          aiCandidates.forEach(function (s) {
-            try {
-              matches.ai.push({
-                selector: s,
-                matches: !!(el.matches && el.matches(s)),
-                qsReturns: document.querySelector(s) === el
-              });
-            } catch (e) {
-              matches.ai.push({
-                selector: s,
-                error: e.message
-              });
-            }
-          });
-          submitCandidates.forEach(function (s) {
-            try {
-              matches.submit.push({
-                selector: s,
-                matches: !!(el.matches && el.matches(s)),
-                qsReturns: document.querySelector(s) === el
-              });
-            } catch (e) {
-              matches.submit.push({
-                selector: s,
-                error: e.message
-              });
-            }
-          });
-          console.log('[vaGovMedia] AI selector match results:');
-          matches.ai.forEach(function (m) {
-            console.log(m.selector, 'matches?', m.matches, 'querySelector returns this el?', m.qsReturns, m.error ? 'error:' + m.error : '');
-          });
-          console.log('[vaGovMedia] Submit selector match results:');
-          matches.submit.forEach(function (m) {
-            console.log(m.selector, 'matches?', m.matches, 'querySelector returns this el?', m.qsReturns, m.error ? 'error:' + m.error : '');
-          });
-          console.log('[vaGovMedia] First AI match:', firstMatch(aiCandidates));
-          console.log('[vaGovMedia] First Submit match:', firstMatch(submitCandidates));
-          return matches;
-        } catch (err) {
-          console.error('[vaGovMedia] Error in which-match helper', err);
-          return null;
-        }
-      };
     }
   };
 })(jQuery, once, Drupal);
