@@ -4,13 +4,14 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == _typeof(Symbol.iterator) ? function (o) { return typeof o === "undefined" ? "undefined" : _typeof(o); } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o === "undefined" ? "undefined" : _typeof(o); }, _typeof(o); }
 (function vaGovMediaIIFE($, once, Drupal) {
   function trackUploadFileSelection(fileName) {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
         event_category: "Media",
         event_label: fileName || "file_selected",
-        upload_action: "file_selected"
+        event_action: "file_selected"
       });
     }
   }
@@ -19,7 +20,7 @@
       gtag("event", "image_upload", {
         event_category: "Media",
         event_label: label || "upload_button",
-        upload_action: "button_click"
+        event_action: "button_click"
       });
     }
   }
@@ -29,7 +30,7 @@
       gtag("event", "image_upload", {
         event_category: "Media",
         event_label: label || "add_media_button",
-        upload_action: "add_media_click"
+        event_action: "add_media_click"
       });
     }
   }
@@ -38,7 +39,7 @@
       gtag("event", "image_upload", {
         event_category: "Media",
         event_label: "alt_field",
-        upload_action: "alt_field_changed"
+        event_action: "alt_field_changed"
       });
     }
   }
@@ -47,7 +48,7 @@
       gtag("event", "image_upload", {
         event_category: "Media",
         event_label: "ai_alt_generation",
-        upload_action: "ai_generate_click"
+        event_action: "ai_generate_click"
       });
     }
   }
@@ -56,7 +57,7 @@
       gtag("event", "image_upload", {
         event_category: "Media",
         event_label: "submit",
-        upload_action: "submit_click"
+        event_action: "submit_click"
       });
     }
   }
@@ -122,38 +123,336 @@
       attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "mousedown", handleAddMediaMouseDown, context);
       attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "touchstart", handleAddMediaTouchStart, context);
       attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "keydown", handleAddMediaKeyDown, context);
-      function delegatedAltFieldChangeHandler(e) {
-        var field = e.target.closest('input[data-drupal-selector$="edit-media-0-fields-image-0-alt"]');
-        if (field) {
-          console.log("[vaGovMedia] Delegated alt text change fired for", field);
-          trackAltFieldChanged();
-        }
-      }
-      document.addEventListener("change", delegatedAltFieldChangeHandler);
-      function delegatedAltTextRegenerateHandler(e) {
-        var button = e.target.closest("input[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']");
-        if (button) {
-          console.log("[vaGovMedia] Delegated handler fired for", button, "event type:", e.type);
-          if (e.type === "mousedown" || e.type === "touchstart" || e.type === "keydown") {
-            handleAiAltGenerationClick();
+      var altSelectorCandidates = ['input[data-drupal-selector$="edit-media-0-fields-image-0-alt"]', 'textarea[data-drupal-selector$="edit-media-0-fields-image-0-alt"]', '[data-drupal-selector*="image-0-fields-image-0-alt"]', 'input[name*="image"][name*="alt"]'];
+      try {
+        altSelectorCandidates.forEach(function (s) {
+          var n = document.querySelectorAll(s).length;
+          console.log("[vaGovMedia] alt selector check: \"" + s + "\" => " + n + " matches");
+        });
+      } catch (err) {}
+      if (!document.vaGovMediaAltDelegated) {
+        var stableKeyFor = function stableKeyFor(field) {
+          try {
+            if (!field) return null;
+            if (field.dataset && field.dataset.drupalSelector) return 'ds:' + field.dataset.drupalSelector;
+            if (field.name) return 'name:' + field.name;
+            if (field.id) return 'id:' + field.id;
+            if (field.form) {
+              var formId = field.form.id || field.form.dataset && field.form.dataset.drupalSelector || null;
+              if (formId) {
+                var idx = -1;
+                if (field.form.elements) {
+                  for (var i = 0; i < field.form.elements.length; i++) {
+                    if (field.form.elements[i] === field) {
+                      idx = i;
+                      break;
+                    }
+                  }
+                }
+                return 'form:' + formId + ':' + idx;
+              }
+            }
+            return null;
+          } catch (err) {
+            return null;
           }
-        }
+        };
+        var doTrackAltForKey = function doTrackAltForKey(field, key) {
+          var val = field.value;
+          var prev = lastValMap.get(key);
+          if (prev === val) return;
+          lastValMap.set(key, val);
+          console.log('[vaGovMedia] Delegated alt text change tracked for', field, 'key:', key, 'value:', val);
+          trackAltFieldChanged();
+        };
+        var scheduleTrack = function scheduleTrack(field) {
+          var key = stableKeyFor(field) || field;
+          var val = field.value;
+          var prev = lastValMap.get(key);
+          if (prev === val) return;
+          var t = timeoutsMap.get(key);
+          if (t) clearTimeout(t);
+          var id = setTimeout(function () {
+            timeoutsMap.delete(key);
+            var currentField = field;
+            if (typeof key === 'string') {
+              try {
+                if (key.indexOf('ds:') === 0) {
+                  currentField = document.querySelector('[data-drupal-selector="' + key.slice(3) + '"]') || field;
+                }
+              } catch (err) {
+                currentField = field;
+              }
+            }
+            doTrackAltForKey(currentField, key);
+          }, 250);
+          timeoutsMap.set(key, id);
+        };
+        document.vaGovMediaAltDelegated = true;
+        var altSelector = altSelectorCandidates.join(',');
+        var lastValMap = new Map();
+        var timeoutsMap = new Map();
+        document.addEventListener('input', function (e) {
+          var field = e.target.closest(altSelector);
+          if (!field) return;
+          scheduleTrack(field);
+        }, true);
+        document.addEventListener('change', function (e) {
+          var field = e.target.closest(altSelector);
+          if (!field) return;
+          var key = stableKeyFor(field) || field;
+          var t = timeoutsMap.get(key);
+          if (t) {
+            clearTimeout(t);
+            timeoutsMap.delete(key);
+          }
+          doTrackAltForKey(field, key);
+        }, true);
       }
-      document.addEventListener("mousedown", delegatedAltTextRegenerateHandler);
-      document.addEventListener("touchstart", delegatedAltTextRegenerateHandler);
-      document.addEventListener("keydown", delegatedAltTextRegenerateHandler);
-      function delegatedSubmitHandler(e) {
-        var button = e.target.closest("button.js-form-submit.form-submit");
-        if (button) {
-          console.log("[vaGovMedia] Delegated handler fired for", button, "event type:", e.type);
-          if (e.type === "mousedown" || e.type === "touchstart" || e.type === "keydown") {
+      var aiRegenerateSelectorCandidates = ["input[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']", "button[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']", "[data-drupal-selector*='ai-alt-text-generation']", "button[name*='ai'][name*='alt']"];
+      try {
+        aiRegenerateSelectorCandidates.forEach(function (s) {
+          console.log("[vaGovMedia] ai-regenerate selector check: \"" + s + "\" => " + document.querySelectorAll(s).length + " matches");
+        });
+      } catch (err) {}
+      if (!document.vaGovMediaAiRegenerateDelegated) {
+        var delegatedAltTextRegenerateHandler = function delegatedAltTextRegenerateHandler(e) {
+          var button = e.target.closest(_aiRegenerateSelector);
+          if (button) {
+            console.log("[vaGovMedia] Delegated handler fired for", button, "event type:", e.type);
+            if (e.type === "mousedown" || e.type === "touchstart" || e.type === "keydown") {
+              handleAiAltGenerationClick();
+            }
+          }
+        };
+        document.vaGovMediaAiRegenerateDelegated = true;
+        var _aiRegenerateSelector = aiRegenerateSelectorCandidates.join(',');
+        document.addEventListener("mousedown", delegatedAltTextRegenerateHandler);
+        document.addEventListener("touchstart", delegatedAltTextRegenerateHandler);
+        document.addEventListener("keydown", delegatedAltTextRegenerateHandler);
+      }
+      if (!document.vaGovMediaLastActivator) {
+        document.vaGovMediaLastActivator = {
+          elem: null,
+          ts: 0
+        };
+        document.addEventListener('pointerdown', function (e) {
+          document.vaGovMediaLastActivator.elem = e.target;
+          document.vaGovMediaLastActivator.ts = Date.now();
+        }, true);
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
+            document.vaGovMediaLastActivator.elem = document.activeElement;
+            document.vaGovMediaLastActivator.ts = Date.now();
+          }
+        }, true);
+      }
+      if (!document.vaGovMediaSubmitDelegated) {
+        var isAiRegenerateControl = function isAiRegenerateControl(el) {
+          if (!el || el.nodeType !== 1) return false;
+          try {
+            if (aiRegenerateSelector && el.matches && el.matches(aiRegenerateSelector)) return true;
+            if (el.classList && el.classList.contains('ai-alt-text-generation')) return true;
+            var ds = el.getAttribute && el.getAttribute('data-drupal-selector');
+            if (ds && ds.indexOf('ai-alt-text-generation') !== -1) return true;
+            var name = el.getAttribute && el.getAttribute('name');
+            if (name && name.indexOf('ai') !== -1 && name.indexOf('alt') !== -1) return true;
+            var val = el.getAttribute && el.getAttribute('value');
+            if (val && typeof val === 'string' && val.toLowerCase().indexOf('regenerate alt') !== -1) return true;
+          } catch (err) {}
+          return false;
+        };
+        var delegatedSubmitClickHandler = function delegatedSubmitClickHandler(e) {
+          var button = e.target.closest(submitSelector);
+          if (!button) return;
+          if (isAiRegenerateControl(button)) {
+            console.log('[vaGovMedia] Click on AI-regenerate control detected; not tracking as submit');
+            return;
+          }
+          var form = button.form || button.closest && button.closest('form') || null;
+          if (form) {
+            try {
+              form.dataset.vaGovMediaSubmitTracked = String(Date.now());
+            } catch (err) {}
+            console.log('[vaGovMedia] Delegated click on submit candidate inside form, tracking submit for form', form, 'button', button);
+            trackSubmitClick();
+            return;
+          }
+          console.log('[vaGovMedia] Delegated click on submit-like control outside form, tracking submit for element', button);
+          trackSubmitClick();
+        };
+        document.vaGovMediaSubmitDelegated = true;
+        var _submitSelectorCandidates = ["button.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "input.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "button[type='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "input[type='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "button[name*='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])"];
+        try {
+          _submitSelectorCandidates.forEach(function (s) {
+            console.log("[vaGovMedia] submit selector check: \"" + s + "\" => " + document.querySelectorAll(s).length + " matches");
+          });
+        } catch (err) {}
+        var submitSelector = _submitSelectorCandidates.join(',');
+        var submitMarkerTTL = 2000;
+        document.addEventListener('click', delegatedSubmitClickHandler, true);
+        document.addEventListener('submit', function (e) {
+          var form = e.target;
+          if (!form || form.nodeName !== 'FORM') return;
+          console.log('[vaGovMedia] submit event for form', form, 'e.submitter:', e.submitter);
+          try {
+            var v = form.dataset && form.dataset.vaGovMediaSubmitTracked;
+            if (v && Date.now() - Number(v) < submitMarkerTTL) {
+              delete form.dataset.vaGovMediaSubmitTracked;
+              console.log('[vaGovMedia] submit already tracked via delegated click; skipping duplicate');
+              return;
+            }
+          } catch (err) {}
+          var submitButton = e.submitter || null;
+          if (!submitButton) {
+            try {
+              var candidates = Array.from(form.querySelectorAll(submitSelector));
+              if (candidates.length) {
+                submitButton = candidates.slice().reverse().find(function (c) {
+                  return !isAiRegenerateControl(c);
+                }) || candidates[candidates.length - 1] || null;
+              } else {
+                submitButton = null;
+              }
+            } catch (err) {
+              try {
+                submitButton = form.querySelector(submitSelector);
+              } catch (e) {
+                submitButton = null;
+              }
+            }
+          }
+          try {
+            if (isAiRegenerateControl(submitButton)) {
+              console.log('[vaGovMedia] Resolved submitter is an AI-regenerate control; searching for alternate submit candidate');
+              var _candidates = Array.from(form.querySelectorAll(submitSelector));
+              submitButton = _candidates.slice().reverse().find(function (c) {
+                return !isAiRegenerateControl(c);
+              }) || null;
+              if (!submitButton) {
+                console.log('[vaGovMedia] No non-AI submit candidate found; skipping submit tracking');
+                return;
+              }
+            }
+          } catch (err) {}
+          if (!submitButton) {
+            var last = document.vaGovMediaLastActivator || {};
+            if (last.elem && form.contains(last.elem) && Date.now() - last.ts < 2000) {
+              submitButton = last.elem;
+              console.log('[vaGovMedia] using last activator as submitter', submitButton);
+            } else {
+              console.log('[vaGovMedia] no submit button found for form submit');
+            }
+          }
+          if (submitButton) {
+            console.log('[vaGovMedia] Form submit tracked for', form, 'submitter', submitButton);
             trackSubmitClick();
           }
-        }
+        }, true);
       }
-      document.addEventListener("mousedown", delegatedSubmitHandler);
-      document.addEventListener("touchstart", delegatedSubmitHandler);
-      document.addEventListener("keydown", delegatedSubmitHandler);
+      document.vaGovMediaPrintSubmitCandidate = function () {
+        try {
+          var candidates = typeof submitSelectorCandidates !== 'undefined' ? submitSelectorCandidates : ["button.js-form-submit.form-submit", "input.js-form-submit.form-submit", "button[type='submit']", "input[type='submit']", "button[name*='submit']"];
+          for (var i = 0; i < candidates.length; i++) {
+            var s = candidates[i];
+            var el = document.querySelector(s);
+            if (el) {
+              var _ret = function () {
+                console.log('[vaGovMedia] First matched submit selector:', s, 'element:', el);
+                var attrs = {};
+                Array.from(el.attributes).forEach(function (a) {
+                  attrs[a.name] = a.value;
+                });
+                console.log('[vaGovMedia] element attributes:', attrs);
+                return {
+                  v: el
+                };
+              }();
+              if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
+            }
+          }
+          console.log('[vaGovMedia] No submit candidate matched');
+          return null;
+        } catch (err) {
+          console.error('[vaGovMedia] Error in print helper', err);
+          return null;
+        }
+      };
+      document.vaGovMediaWhichSelectorsMatch = function (elOrSelector) {
+        try {
+          var firstMatch = function firstMatch(arr) {
+            for (var i = 0; i < arr.length; i++) {
+              try {
+                if (el.matches && el.matches(arr[i])) return arr[i];
+              } catch (e) {}
+            }
+            return null;
+          };
+          var el = null;
+          if (!elOrSelector) {
+            el = Array.from(document.querySelectorAll('input[type="submit"], button[type="submit"]')).find(function (x) {
+              return x.value && x.value.toLowerCase().indexOf('regenerate alt') !== -1;
+            });
+          } else if (typeof elOrSelector === 'string') {
+            el = document.querySelector(elOrSelector) || document.getElementById(elOrSelector);
+          } else {
+            el = elOrSelector;
+          }
+          if (!el) {
+            console.log('[vaGovMedia] No element found for', elOrSelector);
+            return null;
+          }
+          console.log('[vaGovMedia] Element to test:', el);
+          var aiCandidates = typeof aiRegenerateSelectorCandidates !== 'undefined' ? aiRegenerateSelectorCandidates : ["input[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']", "button[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']", "[data-drupal-selector*='ai-alt-text-generation']", "button[name*='ai'][name*='alt']"];
+          var submitCandidates = typeof submitSelectorCandidates !== 'undefined' ? submitSelectorCandidates : ["button.js-form-submit.form-submit", "input.js-form-submit.form-submit", "button[type='submit']", "input[type='submit']", "button[name*='submit']"];
+          var matches = {
+            ai: [],
+            submit: []
+          };
+          aiCandidates.forEach(function (s) {
+            try {
+              matches.ai.push({
+                selector: s,
+                matches: !!(el.matches && el.matches(s)),
+                qsReturns: document.querySelector(s) === el
+              });
+            } catch (e) {
+              matches.ai.push({
+                selector: s,
+                error: e.message
+              });
+            }
+          });
+          submitCandidates.forEach(function (s) {
+            try {
+              matches.submit.push({
+                selector: s,
+                matches: !!(el.matches && el.matches(s)),
+                qsReturns: document.querySelector(s) === el
+              });
+            } catch (e) {
+              matches.submit.push({
+                selector: s,
+                error: e.message
+              });
+            }
+          });
+          console.log('[vaGovMedia] AI selector match results:');
+          matches.ai.forEach(function (m) {
+            console.log(m.selector, 'matches?', m.matches, 'querySelector returns this el?', m.qsReturns, m.error ? 'error:' + m.error : '');
+          });
+          console.log('[vaGovMedia] Submit selector match results:');
+          matches.submit.forEach(function (m) {
+            console.log(m.selector, 'matches?', m.matches, 'querySelector returns this el?', m.qsReturns, m.error ? 'error:' + m.error : '');
+          });
+          console.log('[vaGovMedia] First AI match:', firstMatch(aiCandidates));
+          console.log('[vaGovMedia] First Submit match:', firstMatch(submitCandidates));
+          return matches;
+        } catch (err) {
+          console.error('[vaGovMedia] Error in which-match helper', err);
+          return null;
+        }
+      };
     }
   };
 })(jQuery, once, Drupal);
