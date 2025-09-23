@@ -4,7 +4,7 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-(function vaGovMediaIIFE($, once, Drupal) {
+(function vaGovMediaIIFE(Drupal) {
   function trackAddMediaClick() {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
@@ -90,12 +90,6 @@
             var field = e.target && e.target.closest && e.target.closest(altSelector);
             if (!field) return;
             var before = preFocusValue.get(field);
-            if (before === undefined) {
-              if (field.value && field.value.length) {
-                trackAltFieldChanged();
-              }
-              return;
-            }
             if (field.value !== before) {
               trackAltFieldChanged();
             }
@@ -130,4 +124,4 @@
       }
     }
   };
-})(jQuery, once, Drupal);
+})(Drupal);

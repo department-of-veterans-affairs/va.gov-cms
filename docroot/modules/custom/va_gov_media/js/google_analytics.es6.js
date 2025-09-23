@@ -2,7 +2,7 @@
  * Google Analytics tracking of media events.
  */
 /* global gtag */
-(function vaGovMediaIIFE($, once, Drupal) {
+(function vaGovMediaIIFE(Drupal) {
   function trackAddMediaClick() {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
@@ -132,13 +132,7 @@
                 e.target && e.target.closest && e.target.closest(altSelector);
               if (!field) return;
               const before = preFocusValue.get(field);
-              if (before === undefined) {
-                // no recorded focus value — treat change event as a potential edit
-                if (field.value && field.value.length) {
-                  trackAltFieldChanged();
-                }
-                return;
-              }
+              // If the value changed since focus, track the alt-field change.
               if (field.value !== before) {
                 trackAltFieldChanged();
               }
@@ -196,4 +190,4 @@
       }
     },
   };
-})(jQuery, once, Drupal);
+})(Drupal);
