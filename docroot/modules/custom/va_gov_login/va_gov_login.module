@@ -23,6 +23,8 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
   if (!$config->get('activate') || (!$config->get('login_link_show'))) {
     return;
   }
+  $feature_service = \Drupal::service('feature_toggle.feature_status');
+  $useEntra = $feature_service->getStatus('feature_use_entraid_for_piv_login');
 
   // Create PIV login & container.
   $form['simplesamlphp_auth_login_link'] = [
@@ -37,7 +39,7 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
   $form['simplesamlphp_auth_login_link']['link'] = [
     '#title' => 'Log in with PIV',
     '#type' => 'link',
-    '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
+    '#url' => $useEntra ? Url::fromRoute('va_gov_login.redirect') : Url::fromRoute('simplesamlphp_auth.saml_login'),
     '#attributes' => [
       'title' => 'Follow this link to login using your PIV or other smartcard.',
       'class' => ['simplesamlphp-auth-login-link', 'button', 'button--primary'],

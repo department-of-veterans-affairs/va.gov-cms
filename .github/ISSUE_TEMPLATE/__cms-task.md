@@ -2,7 +2,7 @@
 name: CMS Task
 about: A task for the CMS team.
 title: "<Insert summary of task>"
-labels: Needs refining, UX writing
+labels: Needs refining, CMS Team
 assignees: ''
 
 ---
@@ -22,3 +22,4 @@ assignees: ''
 - [ ] Testable_Outcome_Z
 - [ ] Requires design review
 - [ ] Requires accessibility review
+- [ ] Requires Stakeholder Sign-off (Stakeholder names)
