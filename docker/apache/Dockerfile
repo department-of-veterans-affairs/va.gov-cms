@@ -39,6 +39,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   python3-pip \
   rsync \
   rsyslog \
+  tini \
   unzip \
   vim \
   wget \
@@ -137,7 +138,7 @@ RUN sed -i -e '/imklog/s/^/#/' /etc/rsyslog.conf \
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 # Install PHP extensions
-RUN install-php-extensions apcu bcmath bz2 calendar csv ddtrace event exif gettext igbinary intl ldap memcached msgpack pcntl shmop sockets sysvmsg sysvsem sysvshm uploadprogress xsl
+RUN install-php-extensions apcu bcmath bz2 calendar csv event exif gettext igbinary intl ldap memcached msgpack pcntl shmop sockets sysvmsg sysvsem sysvshm uploadprogress xsl
 
 # Install Datadog APM
 RUN php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=$(basename $(realpath $(which php)))
@@ -147,7 +148,6 @@ RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/loc
 
 # --- Consolidated and Tuned Configurations ---
 
-# 1. Consolidated PHP-FPM configuration, tuned for 4 CPU / 16GB Pods
 RUN rm -f /usr/local/etc/php-fpm.d/www.conf.default && { \
     echo '[global]'; \
     echo 'error_log = /proc/1/fd/2'; \
@@ -184,7 +184,7 @@ RUN rm -f /usr/local/etc/php-fpm.d/www.conf.default && { \
 
 # 2. Consolidated PHP.ini settings, tuned for performance and stability
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
-    sed -i 's/memory_limit = 128M/memory_limit = 4G/g' /usr/local/etc/php/php.ini && \
+    sed -i 's/memory_limit = 128M/memory_limit = 512M/g' /usr/local/etc/php/php.ini && \
     sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /usr/local/etc/php/php.ini && \
     sed -i 's/max_input_time = 60/max_input_time = 300/g' /usr/local/etc/php/php.ini && \
     sed -i 's/post_max_size = 8M/post_max_size = 64M/g' /usr/local/etc/php/php.ini && \
@@ -208,7 +208,7 @@ RUN { \
 RUN { \
     echo 'extension=apcu.so'; \
     echo 'apc.enable_cli=1'; \
-    echo 'apc.shm_size=256M'; \
+    echo 'apc.shm_size=128M'; \
     echo 'apc.rfc1867=1'; \
     echo 'apc.ttl=7200'; \
 } > /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
@@ -223,13 +223,36 @@ ENV PATH=${PATH}:/opt/drupal/vendor/bin:/opt/drupal/docroot/core/scripts:/opt/dr
 EXPOSE 80 9090
 
 # Create startup script to run services
-RUN echo '#!/bin/bash\n\
-set -m\n\
-php-fpm -D\n\
-rsyslogd\n\
-/opt/prometheus/prometheus --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.retention.time=15d &\n\
-apache2-foreground' > /usr/local/bin/start-services.sh && \
-chmod +x /usr/local/bin/start-services.sh
+RUN cat > /usr/local/bin/start-services.sh <<'EOF'
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+# Trap and propagate termination to all children
+pids=()
+term() {
+  echo "[entrypoint] Terminating children..."
+  kill -TERM "${pids[@]}" 2>/dev/null || true
+  wait
+}
+trap term SIGTERM SIGINT
+
+# Start services in foreground mode
+/usr/sbin/rsyslogd -n & pids+=("$!")
+php-fpm -F & pids+=("$!")
+/opt/prometheus/prometheus --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.retention.time=15d & pids+=("$!")
+/usr/local/bin/apache2-foreground & pids+=("$!")
+
+# Exit if any child exits; then terminate the rest
+set +e
+wait -n
+status=$?
+set -e
+echo "[entrypoint] A child exited with status ${status}, shutting down the rest..."
+term
+exit "${status}"
+EOF
+
+RUN chmod +x /usr/local/bin/start-services.sh
 
 # vim:set ft=dockerfile:
 CMD ["/usr/local/bin/start-services.sh"]
