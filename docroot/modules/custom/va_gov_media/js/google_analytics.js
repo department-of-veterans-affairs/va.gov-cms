@@ -5,30 +5,11 @@
 * @preserve
 **/
 (function vaGovMediaIIFE($, once, Drupal) {
-  function trackUploadFileSelection(fileName) {
+  function trackAddMediaClick() {
     if (typeof gtag === "function") {
       gtag("event", "image_upload", {
         event_category: "Media",
-        event_label: fileName || "file_selected",
-        event_action: "file_selected"
-      });
-    }
-  }
-  function trackUploadButtonClick(label) {
-    if (typeof gtag === "function") {
-      gtag("event", "image_upload", {
-        event_category: "Media",
-        event_label: label || "upload_button",
-        event_action: "button_click"
-      });
-    }
-  }
-  function trackAddMediaClick(label) {
-    console.log("vaGovMedia: trackAddMediaClick called with label:", label);
-    if (typeof gtag === "function") {
-      gtag("event", "image_upload", {
-        event_category: "Media",
-        event_label: label || "add_media_button",
+        event_label: "add_media_button",
         event_action: "add_media_click"
       });
     }
@@ -62,14 +43,12 @@
   }
   Drupal.behaviors.vaGovMedia = {
     attach: function vaGovMediaAttach(context) {
-      console.log("vaGovMedia: attach called");
       function attachEventToAll(selector, eventType, handler, rootContext) {
         var root = rootContext && typeof rootContext.querySelector === "function" ? rootContext : document;
         function attachIfNeeded(el) {
           if (!el.dataset["vaGovMediaAttached" + eventType]) {
             el.addEventListener(eventType, handler);
             el.dataset["vaGovMediaAttached" + eventType] = "1";
-            console.log("[vaGovMedia] Attached '" + eventType + "' to", el, "with selector", selector);
           }
         }
         Array.from(root.querySelectorAll(selector)).forEach(attachIfNeeded);
@@ -92,246 +71,62 @@
           subtree: true
         });
       }
-      function handleAddMediaMouseDown(e) {
-        var label = e.target.getAttribute("aria-label") || e.target.textContent.trim();
-        trackAddMediaClick(label);
-      }
-      function handleAddMediaTouchStart(e) {
-        var label = e.target.getAttribute("aria-label") || e.target.textContent.trim();
-        trackAddMediaClick(label);
-      }
-      function handleAddMediaKeyDown(e) {
-        var label = e.target.getAttribute("aria-label") || e.target.textContent.trim();
-        trackAddMediaClick(label);
-      }
-      function handleAltFieldChanged() {
-        trackAltFieldChanged();
-      }
-      function handleAiAltGenerationClick() {
-        trackAiAltGenerationClick();
-      }
-      function handleSubmitMouseDown() {
-        trackSubmitClick();
-      }
-      function handleSubmitTouchStart() {
-        trackSubmitClick();
-      }
-      function handleSubmitKeyDown() {
-        trackSubmitClick();
-      }
-      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "mousedown", handleAddMediaMouseDown, context);
-      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "touchstart", handleAddMediaTouchStart, context);
-      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "keydown", handleAddMediaKeyDown, context);
-      var altSelectorCandidates = ['input[data-drupal-selector$="edit-media-0-fields-image-0-alt"]', 'textarea[data-drupal-selector$="edit-media-0-fields-image-0-alt"]', '[data-drupal-selector*="image-0-fields-image-0-alt"]', 'input[name*="image"][name*="alt"]'];
+      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "mousedown", trackAddMediaClick, context);
+      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "touchstart", trackAddMediaClick, context);
+      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "keydown", trackAddMediaClick, context);
       if (!document.vaGovMediaAltDelegated) {
-        var stableKeyFor = function stableKeyFor(field) {
-          try {
-            if (!field) return null;
-            if (field.dataset && field.dataset.drupalSelector) return 'ds:' + field.dataset.drupalSelector;
-            if (field.name) return 'name:' + field.name;
-            if (field.id) return 'id:' + field.id;
-            if (field.form) {
-              var formId = field.form.id || field.form.dataset && field.form.dataset.drupalSelector || null;
-              if (formId) {
-                var idx = -1;
-                if (field.form.elements) {
-                  for (var i = 0; i < field.form.elements.length; i++) {
-                    if (field.form.elements[i] === field) {
-                      idx = i;
-                      break;
-                    }
-                  }
-                }
-                return 'form:' + formId + ':' + idx;
-              }
-            }
-            return null;
-          } catch (err) {
-            return null;
-          }
-        };
-        var doTrackAltForKey = function doTrackAltForKey(field, key) {
-          var val = field.value;
-          var prev = lastValMap.get(key);
-          if (prev === val) return;
-          lastValMap.set(key, val);
-          console.log('[vaGovMedia] Delegated alt text change tracked for', field, 'key:', key, 'value:', val);
-          trackAltFieldChanged();
-        };
-        var scheduleTrack = function scheduleTrack(field) {
-          var key = stableKeyFor(field) || field;
-          var val = field.value;
-          var prev = lastValMap.get(key);
-          if (prev === val) return;
-          var t = timeoutsMap.get(key);
-          if (t) clearTimeout(t);
-          var id = setTimeout(function () {
-            timeoutsMap.delete(key);
-            var currentField = field;
-            if (typeof key === 'string') {
-              try {
-                if (key.indexOf('ds:') === 0) {
-                  currentField = document.querySelector('[data-drupal-selector="' + key.slice(3) + '"]') || field;
-                }
-              } catch (err) {
-                currentField = field;
-              }
-            }
-            doTrackAltForKey(currentField, key);
-          }, 250);
-          timeoutsMap.set(key, id);
-        };
         document.vaGovMediaAltDelegated = true;
-        var altSelector = altSelectorCandidates.join(',');
-        var lastValMap = new Map();
-        var timeoutsMap = new Map();
-        document.addEventListener('input', function (e) {
-          var field = e.target.closest(altSelector);
-          if (!field) return;
-          scheduleTrack(field);
+        var altSelector = 'input[data-drupal-selector$="edit-media-0-fields-image-0-alt"]';
+        var preFocusValue = new WeakMap();
+        document.addEventListener("focusin", function vaGovMediaAltFocusIn(e) {
+          try {
+            var field = e.target && e.target.closest && e.target.closest(altSelector);
+            if (!field) return;
+            preFocusValue.set(field, field.value);
+          } catch (err) {}
         }, true);
-        document.addEventListener('change', function (e) {
-          var field = e.target.closest(altSelector);
-          if (!field) return;
-          var key = stableKeyFor(field) || field;
-          var t = timeoutsMap.get(key);
-          if (t) {
-            clearTimeout(t);
-            timeoutsMap.delete(key);
-          }
-          doTrackAltForKey(field, key);
+        document.addEventListener("focusout", function vaGovMediaAltFocusOut(e) {
+          try {
+            var field = e.target && e.target.closest && e.target.closest(altSelector);
+            if (!field) return;
+            var before = preFocusValue.get(field);
+            if (before === undefined) {
+              if (field.value && field.value.length) {
+                trackAltFieldChanged();
+              }
+              return;
+            }
+            if (field.value !== before) {
+              trackAltFieldChanged();
+            }
+            preFocusValue.delete(field);
+          } catch (err) {}
         }, true);
       }
-      var aiRegenerateSelectorCandidates = ["input[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']", "button[data-drupal-selector$='edit-media-0-fields-image-0-ai-alt-text-generation-0']", "[data-drupal-selector*='ai-alt-text-generation']", "button[name*='ai'][name*='alt']"];
-      if (!document.vaGovMediaAiRegenerateDelegated) {
-        var delegatedAltTextRegenerateHandler = function delegatedAltTextRegenerateHandler(e) {
-          var button = e.target.closest(_aiRegenerateSelector);
-          if (button) {
-            console.log("[vaGovMedia] Delegated handler fired for", button, "event type:", e.type);
-            if (e.type === "mousedown" || e.type === "touchstart" || e.type === "keydown") {
-              handleAiAltGenerationClick();
-            }
+      function delegatedAltTextRegenerateHandler(e) {
+        var aiAltTextRegenerateSelector = "[data-drupal-selector*='ai-alt-text-generation']";
+        var button = e.target.closest(aiAltTextRegenerateSelector);
+        if (button) {
+          if (e.type === "mousedown" || e.type === "touchstart" || e.type === "keydown") {
+            trackAiAltGenerationClick();
           }
-        };
+        }
+      }
+      if (!document.vaGovMediaAiRegenerateDelegated) {
         document.vaGovMediaAiRegenerateDelegated = true;
-        var _aiRegenerateSelector = aiRegenerateSelectorCandidates.join(',');
         document.addEventListener("mousedown", delegatedAltTextRegenerateHandler);
         document.addEventListener("touchstart", delegatedAltTextRegenerateHandler);
         document.addEventListener("keydown", delegatedAltTextRegenerateHandler);
       }
-      if (!document.vaGovMediaLastActivator) {
-        document.vaGovMediaLastActivator = {
-          elem: null,
-          ts: 0
-        };
-        document.addEventListener('pointerdown', function (e) {
-          document.vaGovMediaLastActivator.elem = e.target;
-          document.vaGovMediaLastActivator.ts = Date.now();
-        }, true);
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter') {
-            document.vaGovMediaLastActivator.elem = document.activeElement;
-            document.vaGovMediaLastActivator.ts = Date.now();
-          }
-        }, true);
+      function delegatedSubmitClickHandler(e) {
+        var submitSelector = "button.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])";
+        var button = e.target.closest(submitSelector);
+        if (!button) return;
+        trackSubmitClick();
       }
       if (!document.vaGovMediaSubmitDelegated) {
-        var isAiRegenerateControl = function isAiRegenerateControl(el) {
-          if (!el || el.nodeType !== 1) return false;
-          try {
-            if (aiRegenerateSelector && el.matches && el.matches(aiRegenerateSelector)) return true;
-            if (el.classList && el.classList.contains('ai-alt-text-generation')) return true;
-            var ds = el.getAttribute && el.getAttribute('data-drupal-selector');
-            if (ds && ds.indexOf('ai-alt-text-generation') !== -1) return true;
-            var name = el.getAttribute && el.getAttribute('name');
-            if (name && name.indexOf('ai') !== -1 && name.indexOf('alt') !== -1) return true;
-            var val = el.getAttribute && el.getAttribute('value');
-            if (val && typeof val === 'string' && val.toLowerCase().indexOf('regenerate alt') !== -1) return true;
-          } catch (err) {}
-          return false;
-        };
-        var delegatedSubmitClickHandler = function delegatedSubmitClickHandler(e) {
-          var button = e.target.closest(submitSelector);
-          if (!button) return;
-          if (isAiRegenerateControl(button)) {
-            console.log('[vaGovMedia] Click on AI-regenerate control detected; not tracking as submit');
-            return;
-          }
-          var form = button.form || button.closest && button.closest('form') || null;
-          if (form) {
-            try {
-              form.dataset.vaGovMediaSubmitTracked = String(Date.now());
-            } catch (err) {}
-            console.log('[vaGovMedia] Delegated click on submit candidate inside form, tracking submit for form', form, 'button', button);
-            trackSubmitClick();
-            return;
-          }
-          console.log('[vaGovMedia] Delegated click on submit-like control outside form, tracking submit for element', button);
-          trackSubmitClick();
-        };
         document.vaGovMediaSubmitDelegated = true;
-        var submitSelectorCandidates = ["button.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "input.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "button[type='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "input[type='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])", "button[name*='submit']:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])"];
-        var submitSelector = submitSelectorCandidates.join(',');
-        var submitMarkerTTL = 2000;
-        document.addEventListener('click', delegatedSubmitClickHandler, true);
-        document.addEventListener('submit', function (e) {
-          var form = e.target;
-          if (!form || form.nodeName !== 'FORM') return;
-          console.log('[vaGovMedia] submit event for form', form, 'e.submitter:', e.submitter);
-          try {
-            var v = form.dataset && form.dataset.vaGovMediaSubmitTracked;
-            if (v && Date.now() - Number(v) < submitMarkerTTL) {
-              delete form.dataset.vaGovMediaSubmitTracked;
-              console.log('[vaGovMedia] submit already tracked via delegated click; skipping duplicate');
-              return;
-            }
-          } catch (err) {}
-          var submitButton = e.submitter || null;
-          if (!submitButton) {
-            try {
-              var candidates = Array.from(form.querySelectorAll(submitSelector));
-              if (candidates.length) {
-                submitButton = candidates.slice().reverse().find(function (c) {
-                  return !isAiRegenerateControl(c);
-                }) || candidates[candidates.length - 1] || null;
-              } else {
-                submitButton = null;
-              }
-            } catch (err) {
-              try {
-                submitButton = form.querySelector(submitSelector);
-              } catch (e) {
-                submitButton = null;
-              }
-            }
-          }
-          try {
-            if (isAiRegenerateControl(submitButton)) {
-              console.log('[vaGovMedia] Resolved submitter is an AI-regenerate control; searching for alternate submit candidate');
-              var _candidates = Array.from(form.querySelectorAll(submitSelector));
-              submitButton = _candidates.slice().reverse().find(function (c) {
-                return !isAiRegenerateControl(c);
-              }) || null;
-              if (!submitButton) {
-                console.log('[vaGovMedia] No non-AI submit candidate found; skipping submit tracking');
-                return;
-              }
-            }
-          } catch (err) {}
-          if (!submitButton) {
-            var last = document.vaGovMediaLastActivator || {};
-            if (last.elem && form.contains(last.elem) && Date.now() - last.ts < 2000) {
-              submitButton = last.elem;
-              console.log('[vaGovMedia] using last activator as submitter', submitButton);
-            } else {
-              console.log('[vaGovMedia] no submit button found for form submit');
-            }
-          }
-          if (submitButton) {
-            console.log('[vaGovMedia] Form submit tracked for', form, 'submitter', submitButton);
-            trackSubmitClick();
-          }
-        }, true);
+        document.addEventListener("click", delegatedSubmitClickHandler, true);
       }
     }
   };
