@@ -88,19 +88,22 @@ $settings['memcache']['bins'] = [
   'toolbar' => 'default',
 ];
 
+// Use a persistent ID so each FPM worker reuses the same connection pool and hash ring.
+$settings['memcache']['persistent'] = 'va_cms_dev_pool';
+
 // Memcached options for optimal performance
 $settings['memcache']['options'] = [
-  \Memcached::OPT_COMPRESSION => TRUE,
+  \Memcached::OPT_COMPRESSION => FALSE, // Less CPU, more network
   \Memcached::OPT_DISTRIBUTION => \Memcached::DISTRIBUTION_CONSISTENT,
   \Memcached::OPT_LIBKETAMA_COMPATIBLE => TRUE,
   \Memcached::OPT_HASH => \Memcached::HASH_MD5,
   \Memcached::OPT_TCP_NODELAY => TRUE,
-  \Memcached::OPT_CONNECT_TIMEOUT => 1000,
-  \Memcached::OPT_SEND_TIMEOUT => 3000000,
-  \Memcached::OPT_RECV_TIMEOUT => 3000000,
-  \Memcached::OPT_POLL_TIMEOUT => 1000,
-  \Memcached::OPT_RETRY_TIMEOUT => 5,
-  \Memcached::OPT_SERVER_FAILURE_LIMIT => 2,
+  \Memcached::OPT_CONNECT_TIMEOUT => 200,      // ms
+  \Memcached::OPT_SEND_TIMEOUT => 1000000,     // 1s in µs
+  \Memcached::OPT_RECV_TIMEOUT => 1000000,     // 1s in µs
+  \Memcached::OPT_POLL_TIMEOUT => 200,         // ms
+  \Memcached::OPT_RETRY_TIMEOUT => 2,          // seconds
+  \Memcached::OPT_SERVER_FAILURE_LIMIT => 3,   // more tolerant
 ];
 
 // Cache backend configuration
