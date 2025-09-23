@@ -2,7 +2,6 @@
  * Google Analytics tracking of media events.
  */
 /* global gtag */
-//* global gtag once */
 (function vaGovMediaIIFE($, once, Drupal) {
   function trackAddMediaClick() {
     if (typeof gtag === "function") {
