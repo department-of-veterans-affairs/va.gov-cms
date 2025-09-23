@@ -66,6 +66,8 @@ $ ddev start
 
 The `ddev start` command will include the `composer install` command. Ensure that a CMS account is created and [Step 3](#step-3-sync-your-local-site-with-production-data) is run to sync login information before logging into the local CMS environment.
 
+* Note for Apple Silicon/Mac Users: If you are having issues with ddev start, it could be the QEMU emulator. Make sure your docker settings have "VZ" as the Virtual Machine Type and "Enable Rosetta support"
+
 See [Environments: Local](./local.md) for more information on ddev.
 
 ## Step 3: Sync your local site with Production Data
