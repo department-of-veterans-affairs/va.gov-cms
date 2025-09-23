@@ -117,3 +117,6 @@ $settings['memcache']['stampede_protection'] = TRUE;
 $settings['memcache']['stampede_semaphore'] = 15;
 $settings['memcache']['stampede_wait_time'] = 5;
 $settings['memcache']['stampede_wait_limit'] = 3;
+
+$config['system.performance']['cache']['page']['max_age'] = 86400; // 24 hours
+$settings['cache_ttl_4xx'] = 3600; // 1 hour for 4xx errors

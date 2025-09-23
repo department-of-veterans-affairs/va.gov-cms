@@ -77,19 +77,29 @@ RUN a2enmod proxy proxy_fcgi rewrite mpm_event status cache headers expires
 # Configure Apache proxy and directory settings
 RUN { \
     echo '<FilesMatch \.php$>'; \
-    echo '\tSetHandler "proxy:fcgi://127.0.0.1:9000"'; \
+    echo '  SetHandler "proxy:fcgi://127.0.0.1:9000"'; \
     echo '</FilesMatch>'; \
     echo; \
-    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=150>'; \
-    echo '\tProxySet timeout=300'; \
+    echo '<Proxy "fcgi://127.0.0.1:9000" enablereuse=on max=120>'; \
+    echo '  ProxySet timeout=300'; \
     echo '</Proxy>'; \
+    echo '<Proxy "fcgi://127.0.0.1:9001" enablereuse=on max=3>'; \
+    echo '  ProxySet timeout=600'; \
+    echo '</Proxy>'; \
+    echo; \
+    echo '<LocationMatch "^/admin/content(?:/|$)">'; \
+    echo '  SetHandler "proxy:fcgi://127.0.0.1:9001"'; \
+    echo '</LocationMatch>'; \
+    echo '<LocationMatch "^/admin/(?:config/development/performance|modules|reports|structure)(?:/|$)">'; \
+    echo '  SetHandler "proxy:fcgi://127.0.0.1:9001"'; \
+    echo '</LocationMatch>'; \
     echo; \
     echo 'DirectoryIndex disabled'; \
     echo 'DirectoryIndex index.php index.html'; \
     echo; \
     echo '<Directory /var/www/>'; \
-    echo '\tOptions -Indexes'; \
-    echo '\tAllowOverride All'; \
+    echo '  Options -Indexes'; \
+    echo '  AllowOverride All'; \
     echo '</Directory>'; \
     echo; \
     echo 'ProxyTimeout 300'; \
@@ -182,6 +192,24 @@ RUN rm -f /usr/local/etc/php-fpm.d/www.conf.default && { \
     echo 'rlimit_core = unlimited'; \
 } > /usr/local/etc/php-fpm.d/www.conf
 
+# Add the high-memory FPM pool (after your existing www.conf)
+RUN { \
+    echo '[heavy]'; \
+    echo 'user = www-data'; \
+    echo 'group = www-data'; \
+    echo 'listen = 127.0.0.1:9001'; \
+    echo 'listen.allowed_clients = 127.0.0.1'; \
+    echo 'pm = static'; \
+    echo 'pm.max_children = 2'; \
+    echo 'pm.max_requests = 500'; \
+    echo 'php_admin_value[memory_limit] = 4G'; \
+    echo 'request_terminate_timeout = 600s'; \
+    echo 'access.log = /proc/1/fd/1'; \
+    echo 'slowlog = /proc/1/fd/2'; \
+    echo 'request_slowlog_timeout = 300s'; \
+    echo 'clear_env = no'; \
+} > /usr/local/etc/php-fpm.d/heavy.conf
+
 # 2. Consolidated PHP.ini settings, tuned for performance and stability
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
     sed -i 's/memory_limit = 128M/memory_limit = 512M/g' /usr/local/etc/php/php.ini && \
@@ -212,6 +240,14 @@ RUN { \
     echo 'apc.rfc1867=1'; \
     echo 'apc.ttl=7200'; \
 } > /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
+
+RUN cat > /usr/local/bin/drush-wrapper.sh <<'EOF'
+#!/usr/bin/env bash
+exec php -d memory_limit=4G /opt/drupal/vendor/bin/drush "$@"
+EOF
+
+RUN chmod +x /usr/local/bin/drush-wrapper.sh && \
+    ln -sf /usr/local/bin/drush-wrapper.sh /usr/local/bin/drush
 
 # --- Application Setup ---
 
