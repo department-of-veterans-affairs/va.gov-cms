@@ -3,41 +3,31 @@
  */
 /* global gtag */
 (function vaGovMediaIIFE(Drupal) {
-  function trackAddMediaClick() {
-    if (typeof gtag === "function") {
+  // Calls gtag for media events.
+  function sendMediaEvent(eventAction, eventLabel) {
+    if (typeof gtag !== "function") return;
+    try {
       gtag("event", "image_upload", {
         event_category: "Media",
-        event_label: "add_media_button",
-        event_action: "add_media_click",
+        event_label: eventLabel,
+        event_action: eventAction,
       });
+    } catch (err) {
+      // Swallow any gtag runtime errors to avoid breaking admin UI.
     }
+  }
+
+  function trackAddMediaClick() {
+    sendMediaEvent("add_media_click", "add_media_button");
   }
   function trackAltFieldChanged() {
-    if (typeof gtag === "function") {
-      gtag("event", "image_upload", {
-        event_category: "Media",
-        event_label: "alt_field",
-        event_action: "alt_field_changed",
-      });
-    }
+    sendMediaEvent("alt_field_changed", "alt_field");
   }
   function trackAiAltGenerationClick() {
-    if (typeof gtag === "function") {
-      gtag("event", "image_upload", {
-        event_category: "Media",
-        event_label: "ai_alt_generation",
-        event_action: "ai_generate_click",
-      });
-    }
+    sendMediaEvent("ai_generate_click", "ai_alt_generation");
   }
   function trackSubmitClick() {
-    if (typeof gtag === "function") {
-      gtag("event", "image_upload", {
-        event_category: "Media",
-        event_label: "submit",
-        event_action: "submit_click",
-      });
-    }
+    sendMediaEvent("submit_click", "submit");
   }
 
   // Attach event listeners via Drupal behaviors so this works with AJAX.
