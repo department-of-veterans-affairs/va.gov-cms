@@ -1,4 +1,4 @@
-ARG BASE_IMAGE_TAG=1.0.0
+ARG BASE_IMAGE_TAG=1.0.35
 
 FROM 008577686731.dkr.ecr.us-gov-west-1.amazonaws.com/dsva/cms-apache:${BASE_IMAGE_TAG}
 
@@ -21,6 +21,14 @@ RUN set -eux; \
   chmod +x docroot/core/scripts/drupal; \
   # delete composer cache
   rm -rf "$COMPOSER_HOME"
+
+RUN cat > /usr/local/bin/drush-wrapper <<'EOF'
+#!/usr/bin/env bash
+exec php -d memory_limit=4G /opt/drupal/bin/drush "$@"
+EOF
+
+RUN chmod +x /usr/local/bin/drush-wrapper && \
+    ln -sf /usr/local/bin/drush-wrapper /usr/local/bin/drush
 
 RUN ./scripts/install-nvm.sh
 RUN ./scripts/install_github_status_updater.sh

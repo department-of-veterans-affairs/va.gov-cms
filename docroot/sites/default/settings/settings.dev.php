@@ -86,6 +86,8 @@ $settings['memcache']['bins'] = [
   'render' => 'default',
   'data' => 'default',
   'toolbar' => 'default',
+  'dynamic_page_cache' => 'default',
+  'page' => 'default',
 ];
 
 // Use a persistent ID so each FPM worker reuses the same connection pool and hash ring.

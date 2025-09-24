@@ -75,22 +75,20 @@ RUN sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS" 
 RUN a2enmod proxy proxy_fcgi rewrite mpm_event status cache headers expires
 
 # Configure Apache proxy and directory settings
+# Configure Apache proxy and directory settings
 RUN { \
     echo '<FilesMatch \.php$>'; \
     echo '  SetHandler "proxy:fcgi://127.0.0.1:9000"'; \
     echo '</FilesMatch>'; \
     echo; \
     echo '<Proxy "fcgi://127.0.0.1:9000" enablereuse=on max=120>'; \
-    echo '  ProxySet timeout=300'; \
+    echo '  ProxySet timeout=310'; \
     echo '</Proxy>'; \
-    echo '<Proxy "fcgi://127.0.0.1:9001" enablereuse=on max=3>'; \
-    echo '  ProxySet timeout=600'; \
+    echo '<Proxy "fcgi://127.0.0.1:9001" enablereuse=on max=10>'; \
+    echo '  ProxySet timeout=610'; \
     echo '</Proxy>'; \
     echo; \
-    echo '<LocationMatch "^/admin/content(?:/|$)">'; \
-    echo '  SetHandler "proxy:fcgi://127.0.0.1:9001"'; \
-    echo '</LocationMatch>'; \
-    echo '<LocationMatch "^/admin/(?:config/development/performance|modules|reports|structure)(?:/|$)">'; \
+    echo '<LocationMatch "^/admin(?:/.*)?$">'; \
     echo '  SetHandler "proxy:fcgi://127.0.0.1:9001"'; \
     echo '</LocationMatch>'; \
     echo; \
@@ -102,8 +100,8 @@ RUN { \
     echo '  AllowOverride All'; \
     echo '</Directory>'; \
     echo; \
-    echo 'ProxyTimeout 300'; \
-    echo 'Timeout 300'; \
+    echo 'ProxyTimeout 310'; \
+    echo 'Timeout 310'; \
     echo 'KeepAlive On'; \
     echo 'KeepAliveTimeout 5'; \
     echo 'MaxKeepAliveRequests 100'; \
@@ -112,12 +110,13 @@ RUN { \
 
 # Tune Apache MPM Event settings for 4 CPU / 16GB Pods
 RUN { \
-    echo 'ServerLimit 16'; \
-    echo 'StartServers 3'; \
-    echo 'MinSpareThreads 75'; \
-    echo 'MaxSpareThreads 250'; \
+    echo '# Tuned for 12 CPU / 24GB Pods'; \
+    echo 'ServerLimit 48'; \
+    echo 'StartServers 9'; \
+    echo 'MinSpareThreads 225'; \
+    echo 'MaxSpareThreads 750'; \
     echo 'ThreadsPerChild 25'; \
-    echo 'MaxRequestWorkers 400'; \
+    echo 'MaxRequestWorkers 1200'; \
     echo 'MaxConnectionsPerChild 10000'; \
    } > "$APACHE_CONFDIR/conf-available/mpm-event.conf"
 
@@ -172,11 +171,11 @@ RUN rm -f /usr/local/etc/php-fpm.d/www.conf.default && { \
     echo; \
     echo '; Use "dynamic" for variable loads in Kubernetes to optimize memory.'; \
     echo 'pm = dynamic'; \
-    echo '; Calculation: (16GB RAM - 2GB buffer) / ~80MB per process = ~180. Capped at 150 for safety.'; \
-    echo 'pm.max_children = 150'; \
-    echo 'pm.start_servers = 40'; \
-    echo 'pm.min_spare_servers = 20'; \
-    echo 'pm.max_spare_servers = 60'; \
+    echo '; Calculation: (24GB RAM - 4GB buffer) / ~80MB per process = ~250.'; \
+    echo 'pm.max_children = 250'; \
+    echo 'pm.start_servers = 60'; \
+    echo 'pm.min_spare_servers = 40'; \
+    echo 'pm.max_spare_servers = 90'; \
     echo 'pm.max_requests = 1000'; \
     echo; \
     echo 'pm.status_path = /fpm-status'; \
@@ -192,7 +191,6 @@ RUN rm -f /usr/local/etc/php-fpm.d/www.conf.default && { \
     echo 'rlimit_core = unlimited'; \
 } > /usr/local/etc/php-fpm.d/www.conf
 
-# Add the high-memory FPM pool (after your existing www.conf)
 RUN { \
     echo '[heavy]'; \
     echo 'user = www-data'; \
@@ -200,7 +198,7 @@ RUN { \
     echo 'listen = 127.0.0.1:9001'; \
     echo 'listen.allowed_clients = 127.0.0.1'; \
     echo 'pm = static'; \
-    echo 'pm.max_children = 2'; \
+    echo 'pm.max_children = 4'; \
     echo 'pm.max_requests = 500'; \
     echo 'php_admin_value[memory_limit] = 4G'; \
     echo 'request_terminate_timeout = 600s'; \
@@ -236,18 +234,10 @@ RUN { \
 RUN { \
     echo 'extension=apcu.so'; \
     echo 'apc.enable_cli=1'; \
-    echo 'apc.shm_size=128M'; \
+    echo 'apc.shm_size=256M'; \
     echo 'apc.rfc1867=1'; \
     echo 'apc.ttl=7200'; \
 } > /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
-
-RUN cat > /usr/local/bin/drush-wrapper.sh <<'EOF'
-#!/usr/bin/env bash
-exec php -d memory_limit=4G /opt/drupal/vendor/bin/drush "$@"
-EOF
-
-RUN chmod +x /usr/local/bin/drush-wrapper.sh && \
-    ln -sf /usr/local/bin/drush-wrapper.sh /usr/local/bin/drush
 
 # --- Application Setup ---
 
