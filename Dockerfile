@@ -2,9 +2,6 @@ ARG BASE_IMAGE_TAG=1.0.38
 
 FROM 008577686731.dkr.ecr.us-gov-west-1.amazonaws.com/dsva/cms-apache:${BASE_IMAGE_TAG}
 
-# https://www.drupal.org/node/3060/release
-ENV DRUPAL_VERSION=10.4.8
-
 ARG DD_GIT_COMMIT_SHA
 ENV DD_GIT_REPOSITORY_URL=https://github.com/department-of-veterans-affairs/va.gov-cms
 ENV DD_GIT_COMMIT_SHA=${DD_GIT_COMMIT_SHA}
@@ -19,7 +16,7 @@ RUN set -eux; \
   rm -rf /var/www/html; \
   ln -sf /opt/drupal/docroot /var/www/html; \
   chmod +x docroot/core/scripts/drupal; \
-  # delete composer cache
+  # delete composer cache \
   rm -rf "$COMPOSER_HOME"
 
 RUN cat > /usr/local/bin/drush-wrapper <<'EOF'
@@ -35,7 +32,8 @@ RUN ./scripts/install_github_status_updater.sh
 RUN ./scripts/install_github_commenter.sh
 RUN composer va:theme:compile
 
-RUN printf '%s\n' "<?php header('X-FPM-Pool: '.(getenv('PHP_FPM_POOL')?:'unknown')); ?>" > /opt/drupal/docroot/pool-tag.php
+# Provide auto_prepend to always tag responses with FPM pool info.
+RUN echo 'auto_prepend_file=/opt/drupal/docroot/pool-tag.php' > /usr/local/etc/php/conf.d/00-auto-prepend-pool-tag.ini
 
 RUN chown -R www-data:www-data samlsessiondb.sq3
 RUN chmod 0664 samlsessiondb.sq3
