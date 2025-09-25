@@ -128,10 +128,15 @@ find \
   -exec sed -i "s#${assets_base_url}##g" {} \+;
 echo "Copy built files to content-build." >> ${logfile}
 shopt -s nullglob
+# Ensure the destination directories exist.
+mkdir -p /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/generated/
+mkdir -p /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/fonts/
+# Copy the built files.
 cp -rf build/vagovdev/generated/* /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/generated/ &>> ${logfile}
 cp -rf build/vagovdev/generated/*.ttf /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/fonts/ &>> ${logfile}
 cp -rf build/vagovdev/generated/*.woff2 /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/fonts/ &>> ${logfile}
 shopt -u nullglob
+popd
 echo "Finished installing and building vets-website" >> ${logfile}
 
 
