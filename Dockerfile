@@ -1,4 +1,4 @@
-ARG BASE_IMAGE_TAG=1.0.35
+ARG BASE_IMAGE_TAG=1.0.38
 
 FROM 008577686731.dkr.ecr.us-gov-west-1.amazonaws.com/dsva/cms-apache:${BASE_IMAGE_TAG}
 
@@ -34,6 +34,8 @@ RUN ./scripts/install-nvm.sh
 RUN ./scripts/install_github_status_updater.sh
 RUN ./scripts/install_github_commenter.sh
 RUN composer va:theme:compile
+
+RUN printf '%s\n' "<?php header('X-FPM-Pool: '.(getenv('PHP_FPM_POOL')?:'unknown')); ?>" > /opt/drupal/docroot/pool-tag.php
 
 RUN chown -R www-data:www-data samlsessiondb.sq3
 RUN chmod 0664 samlsessiondb.sq3

@@ -77,35 +77,39 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
   $_SERVER['SERVER_PORT'] = 443;
 }
 
+// Map important bins to Memcache; keep 'form' in DB to avoid stampedes.
 $settings['memcache']['bins'] = [
-  'default' => 'default',
   'bootstrap' => 'default',
-  'config' => 'default',
   'discovery' => 'default',
-  'menu' => 'default',
-  'render' => 'default',
-  'data' => 'default',
-  'toolbar' => 'default',
-  'dynamic_page_cache' => 'default',
-  'page' => 'default',
+  'config'    => 'default',
+  'render'    => 'default',
+  'data'      => 'default',
 ];
+$settings['cache']['bins']['form'] = 'cache.backend.database';
+$settings['cache']['bins']['cachetags'] = 'cache.backend.database';
 
 // Use a persistent ID so each FPM worker reuses the same connection pool and hash ring.
-$settings['memcache']['persistent'] = 'va_cms_dev_pool';
+$settings['memcache']['persistent'] = TRUE;
 
-// Memcached options for optimal performance
+// Memcached client options: tight timeouts, failover, consistent hashing.
 $settings['memcache']['options'] = [
-  \Memcached::OPT_COMPRESSION => FALSE, // Less CPU, more network
-  \Memcached::OPT_DISTRIBUTION => \Memcached::DISTRIBUTION_CONSISTENT,
-  \Memcached::OPT_LIBKETAMA_COMPATIBLE => TRUE,
-  \Memcached::OPT_HASH => \Memcached::HASH_MD5,
-  \Memcached::OPT_TCP_NODELAY => TRUE,
-  \Memcached::OPT_CONNECT_TIMEOUT => 200,      // ms
-  \Memcached::OPT_SEND_TIMEOUT => 1000000,     // 1s in µs
-  \Memcached::OPT_RECV_TIMEOUT => 1000000,     // 1s in µs
-  \Memcached::OPT_POLL_TIMEOUT => 200,         // ms
-  \Memcached::OPT_RETRY_TIMEOUT => 2,          // seconds
-  \Memcached::OPT_SERVER_FAILURE_LIMIT => 3,   // more tolerant
+  Memcached::OPT_BINARY_PROTOCOL   => true,
+  Memcached::OPT_COMPRESSION       => false,
+
+  // Timeouts are in milliseconds.
+  Memcached::OPT_CONNECT_TIMEOUT   => 100,  // Fast connect fail.
+  Memcached::OPT_RETRY_TIMEOUT     => 1,    // Recheck failed server quickly.
+  Memcached::OPT_SEND_TIMEOUT      => 100,
+  Memcached::OPT_RECV_TIMEOUT      => 100,
+  Memcached::OPT_POLL_TIMEOUT      => 50,
+
+  // Networking and failover.
+  Memcached::OPT_TCP_NODELAY       => true,
+  Memcached::OPT_SERVER_FAILURE_LIMIT => 2,
+
+  // Consistent hashing for stable key distribution.
+  Memcached::OPT_DISTRIBUTION      => Memcached::DISTRIBUTION_CONSISTENT,
+  Memcached::OPT_LIBKETAMA_COMPATIBLE => true,
 ];
 
 // Cache backend configuration
@@ -113,12 +117,6 @@ $settings['cache']['default'] = 'cache.backend.memcache';
 
 // Key prefix to avoid conflicts
 $settings['memcache']['key_prefix'] = 'va_cms_dev';
-
-// Memcache stampede protection
-$settings['memcache']['stampede_protection'] = TRUE;
-$settings['memcache']['stampede_semaphore'] = 15;
-$settings['memcache']['stampede_wait_time'] = 5;
-$settings['memcache']['stampede_wait_limit'] = 3;
 
 $config['system.performance']['cache']['page']['max_age'] = 86400; // 24 hours
 $settings['cache_ttl_4xx'] = 3600; // 1 hour for 4xx errors
