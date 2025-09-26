@@ -51,7 +51,7 @@ _Help desk will complete these steps or escalate to request help from CMS engine
 
 ***CASE: Renamed, but still location-based naming convention***
 
-- [ ] If the new official name matches the pattern "<city> Vet Center", update the common name to match.
+- [ ] If the new official name matches the pattern "<city> Vet Center", DO NOT update the common name.
 - [ ] Visit [bulk operations](https://prod.cms.va.gov/admin/content/bulk) page and filter by section = old vet center name
 - [ ] Update URLs for all content in that section by bulk operations
 - [ ] Resave all content in that section by bulk operations
