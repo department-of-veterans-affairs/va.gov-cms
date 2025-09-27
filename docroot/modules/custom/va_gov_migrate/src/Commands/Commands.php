@@ -306,7 +306,7 @@ class Commands extends DrushCommands {
    */
   protected function clearStatusData(NodeInterface &$facility) {
     if ($facility->hasField('field_operating_status_facility')) {
-      $facility->field_operating_status_facility->value = 'closed';
+      $facility->field_operating_status_facility->value = 'temporary_closure';
     }
     if ($facility->hasField('field_operating_status_more_info')) {
       $facility->field_operating_status_more_info->value = '';
