@@ -5031,17 +5031,17 @@
         },
         {
             "name": "drupal/devel_entity_updates",
-            "version": "4.2.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/devel_entity_updates.git",
-                "reference": "4.2.0"
+                "reference": "4.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/devel_entity_updates-4.2.0.zip",
-                "reference": "4.2.0",
-                "shasum": "bbd2a745407cd49ce158430818b17d4db05a9e9f"
+                "url": "https://ftp.drupal.org/files/projects/devel_entity_updates-4.2.1.zip",
+                "reference": "4.2.1",
+                "shasum": "4f7cdf2884fa838a8dc20dfd159b27bf68853f5e"
             },
             "require": {
                 "drupal/core": "^9.2 || ^10",
@@ -5054,8 +5054,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.2.0",
-                    "datestamp": "1728286649",
+                    "version": "4.2.1",
+                    "datestamp": "1756475373",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5450,17 +5450,17 @@
         },
         {
             "name": "drupal/eca",
-            "version": "2.1.11",
+            "version": "2.1.14",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/eca.git",
-                "reference": "2.1.11"
+                "reference": "2.1.14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/eca-2.1.11.zip",
-                "reference": "2.1.11",
-                "shasum": "851b00d8f2b2d9702c6aec8e4af44366e74ad592"
+                "url": "https://ftp.drupal.org/files/projects/eca-2.1.14.zip",
+                "reference": "2.1.14",
+                "shasum": "0cbf3a1e09d6fd4c9a68e2ca5f680d781b374d5a"
             },
             "require": {
                 "dragonmantank/cron-expression": "^3.1",
@@ -5484,8 +5484,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.1.11",
-                    "datestamp": "1753534704",
+                    "version": "2.1.14",
+                    "datestamp": "1758633835",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5519,28 +5519,27 @@
         },
         {
             "name": "drupal/eca_cm",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/eca_cm.git",
-                "reference": "1.0.10"
+                "reference": "1.0.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/eca_cm-1.0.10.zip",
-                "reference": "1.0.10",
-                "shasum": "f14dbc8b550d8ec6a118ba795b070631207f56b9"
+                "url": "https://ftp.drupal.org/files/projects/eca_cm-1.0.11.zip",
+                "reference": "1.0.11",
+                "shasum": "dd7c28ec51c6b5f9e17c2964668d6004eaa1613c"
             },
             "require": {
                 "drupal/core": "^9 || ^10 || ^11",
-                "drupal/eca": "^1 || ^2",
-                "drupal/eca_ui": "*"
+                "drupal/eca": "^1 || ^2 || ^3"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.10",
-                    "datestamp": "1722681770",
+                    "version": "1.0.11",
+                    "datestamp": "1759080741",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5561,53 +5560,11 @@
                     "homepage": "https://www.drupal.org/user/3092355"
                 }
             ],
-            "description": "A Drupal module that provides a modeller for ECA solely built on top of Drupal core and ECA core.",
+            "description": "A Drupal module that provides a user interface for ECA solely built on top of Drupal core and ECA core.",
             "homepage": "https://www.drupal.org/project/eca_cm",
             "support": {
                 "source": "https://drupal.org/project/eca_cm",
                 "issues": "https://drupal.org/project/issues/eca_cm"
-            }
-        },
-        {
-            "name": "drupal/eca_ui",
-            "version": "1.1.8",
-            "require": {
-                "drupal/core": "^9 || ^10",
-                "drupal/eca": "*"
-            },
-            "type": "metapackage",
-            "extra": {
-                "drupal": {
-                    "version": "1.1.8",
-                    "datestamp": "1721913734",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "boromino",
-                    "homepage": "https://www.drupal.org/user/859722"
-                },
-                {
-                    "name": "danielspeicher",
-                    "homepage": "https://www.drupal.org/user/3621778"
-                },
-                {
-                    "name": "jurgenhaas",
-                    "homepage": "https://www.drupal.org/user/168924"
-                }
-            ],
-            "description": "Provides a user interface for managing ECA models.",
-            "homepage": "https://www.drupal.org/project/eca",
-            "support": {
-                "source": "https://git.drupalcode.org/project/eca"
             }
         },
         {
@@ -7269,29 +7226,29 @@
         },
         {
             "name": "drupal/ga4_google_analytics",
-            "version": "1.1.7",
+            "version": "1.1.10",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ga4_google_analytics.git",
-                "reference": "1.1.7"
+                "reference": "1.1.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ga4_google_analytics-1.1.7.zip",
-                "reference": "1.1.7",
-                "shasum": "aeb0bcf31b9be6da6d46a5731ed7298fe8d4fe5f"
+                "url": "https://ftp.drupal.org/files/projects/ga4_google_analytics-1.1.10.zip",
+                "reference": "1.1.10",
+                "shasum": "ad6f18db658363d242d1139dbc0e1cbba3f355e0"
             },
             "require": {
-                "drupal/core": "^9 || ^10 || ^11"
+                "drupal/core": "^10 || ^11"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.1.7",
-                    "datestamp": "1738034903",
+                    "version": "1.1.10",
+                    "datestamp": "1758648771",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -9765,17 +9722,17 @@
         },
         {
             "name": "drupal/menu_breadcrumb",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/menu_breadcrumb.git",
-                "reference": "2.0.0"
+                "reference": "2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/menu_breadcrumb-2.0.0.zip",
-                "reference": "2.0.0",
-                "shasum": "016f2eead9cf9d4bfdf4b36fca5e3c8a8e8d0f1e"
+                "url": "https://ftp.drupal.org/files/projects/menu_breadcrumb-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "fb331f91b086a7c21eface33a398df793a81c9d9"
             },
             "require": {
                 "drupal/core": "^9 || ^10 || ^11"
@@ -9783,8 +9740,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0",
-                    "datestamp": "1736662457",
+                    "version": "2.0.1",
+                    "datestamp": "1757544077",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
