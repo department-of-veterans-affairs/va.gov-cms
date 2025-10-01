@@ -5519,28 +5519,27 @@
         },
         {
             "name": "drupal/eca_cm",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/eca_cm.git",
-                "reference": "1.0.10"
+                "reference": "1.0.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/eca_cm-1.0.10.zip",
-                "reference": "1.0.10",
-                "shasum": "f14dbc8b550d8ec6a118ba795b070631207f56b9"
+                "url": "https://ftp.drupal.org/files/projects/eca_cm-1.0.11.zip",
+                "reference": "1.0.11",
+                "shasum": "dd7c28ec51c6b5f9e17c2964668d6004eaa1613c"
             },
             "require": {
                 "drupal/core": "^9 || ^10 || ^11",
-                "drupal/eca": "^1 || ^2",
-                "drupal/eca_ui": "*"
+                "drupal/eca": "^1 || ^2 || ^3"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.10",
-                    "datestamp": "1722681770",
+                    "version": "1.0.11",
+                    "datestamp": "1759080741",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5561,53 +5560,11 @@
                     "homepage": "https://www.drupal.org/user/3092355"
                 }
             ],
-            "description": "A Drupal module that provides a modeller for ECA solely built on top of Drupal core and ECA core.",
+            "description": "A Drupal module that provides a user interface for ECA solely built on top of Drupal core and ECA core.",
             "homepage": "https://www.drupal.org/project/eca_cm",
             "support": {
                 "source": "https://drupal.org/project/eca_cm",
                 "issues": "https://drupal.org/project/issues/eca_cm"
-            }
-        },
-        {
-            "name": "drupal/eca_ui",
-            "version": "1.1.8",
-            "require": {
-                "drupal/core": "^9 || ^10",
-                "drupal/eca": "*"
-            },
-            "type": "metapackage",
-            "extra": {
-                "drupal": {
-                    "version": "1.1.8",
-                    "datestamp": "1721913734",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "boromino",
-                    "homepage": "https://www.drupal.org/user/859722"
-                },
-                {
-                    "name": "danielspeicher",
-                    "homepage": "https://www.drupal.org/user/3621778"
-                },
-                {
-                    "name": "jurgenhaas",
-                    "homepage": "https://www.drupal.org/user/168924"
-                }
-            ],
-            "description": "Provides a user interface for managing ECA models.",
-            "homepage": "https://www.drupal.org/project/eca",
-            "support": {
-                "source": "https://git.drupalcode.org/project/eca"
             }
         },
         {
