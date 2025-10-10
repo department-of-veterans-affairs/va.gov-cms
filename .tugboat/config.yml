@@ -1,5 +1,20 @@
 services:
   # What to call the service hosting the site.
+  varnish:
+    # Use the latest stable version of the official Tugboat Varnish image.
+    image: tugboatqa/varnish:8
+    expose: 80
+    checkout: true
+    depends:
+      - php
+    # A set of commands to run while building this service
+    #commands:
+      #init:
+      # Copy in a custom Varnish configuration file, if your project has one.
+      #- cp "${TUGBOAT_ROOT}"/.tugboat/default.vcl /etc/varnish/default.vcl
+      #- sed -e 's/-s malloc,256M/-s malloc,1024M/' -i /etc/service/varnish/run
+      #- sv restart varnish
+
   php:
     # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
     image: tugboatqa/php:8.1-apache-bookworm
