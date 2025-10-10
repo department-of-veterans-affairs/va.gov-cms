@@ -1,4 +1,4 @@
-ARG BASE_IMAGE_TAG=1.0.38
+ARG BASE_IMAGE_TAG=1.0.41
 
 FROM 008577686731.dkr.ecr.us-gov-west-1.amazonaws.com/dsva/cms-apache:${BASE_IMAGE_TAG}
 
@@ -35,13 +35,11 @@ RUN composer va:theme:compile
 # Provide auto_prepend to always tag responses with FPM pool info.
 RUN echo 'auto_prepend_file=/opt/drupal/docroot/pool-tag.php' > /usr/local/etc/php/conf.d/00-auto-prepend-pool-tag.ini
 
-RUN chown -R www-data:www-data samlsessiondb.sq3
-RUN chmod 0664 samlsessiondb.sq3
+RUN chown www-data:www-data samlsessiondb.sq3 && \
+    chmod 0664 samlsessiondb.sq3
 
-RUN chown -R www-data:www-data /opt/drupal/docroot
-RUN chown -R www-data:www-data /opt/drupal/scripts/composer
-RUN find /opt/drupal -type d -exec chmod g+ws {} +
-RUN find /opt/drupal -type f -exec chmod g+w {} +
+RUN chown -R www-data:www-data /opt/drupal/docroot /opt/drupal/scripts/composer && \
+    find /opt/drupal -type d -exec chmod g+ws {} + -o -type f -exec chmod g+w {} +
 
 RUN rm /opt/drupal/.env
 

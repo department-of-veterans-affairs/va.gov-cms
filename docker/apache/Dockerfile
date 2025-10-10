@@ -72,7 +72,7 @@ RUN sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS" 
     chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR"
 
 # Enable Apache modules
-RUN a2enmod proxy proxy_fcgi rewrite mpm_event status cache headers expires
+RUN a2enmod proxy proxy_fcgi rewrite mpm_event status cache headers expires remoteip
 
 # Apache configuration defaults (overridden by ConfigMaps when mounted)
 RUN cat > "$APACHE_CONFDIR/conf-available/docker-php.conf" <<'APACHECONF' && \
@@ -140,7 +140,7 @@ RUN sed -i -e '/imklog/s/^/#/' /etc/rsyslog.conf \
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 # Install PHP extensions
-RUN install-php-extensions apcu bcmath bz2 calendar csv event exif gettext igbinary intl ldap memcached msgpack pcntl shmop sockets sysvmsg sysvsem sysvshm uploadprogress xsl
+RUN install-php-extensions apcu bcmath bz2 calendar csv ddtrace event exif gettext igbinary intl ldap memcached msgpack pcntl shmop sockets sysvmsg sysvsem sysvshm uploadprogress xsl
 
 # Install Datadog APM
 RUN php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=$(basename $(realpath $(which php)))
@@ -151,8 +151,7 @@ RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/loc
 # --- Externalized Configurations (Apache vhost, MPM, PHP-FPM pools, php.ini overrides, opcache, apcu) ---
 # Provide safe defaults so container works standalone; ConfigMap mounts will override these paths.
 RUN rm -f /usr/local/etc/php-fpm.d/www.conf.default && \
-    cat > /usr/local/etc/php-fpm.d/www.conf <<'WWWCONF' && \
-    cat > /usr/local/etc/php-fpm.d/heavy.conf <<'HEAVYCONF'
+    cat > /usr/local/etc/php-fpm.d/www.conf <<'WWWCONF'
 [global]
 error_log = /proc/1/fd/2
 daemonize = no
@@ -176,7 +175,10 @@ request_slowlog_timeout = 60s
 request_terminate_timeout = 300s
 clear_env = no
 rlimit_files = 65536
+env[PHP_FPM_POOL] = www
 WWWCONF
+
+RUN cat > /usr/local/etc/php-fpm.d/heavy.conf <<'HEAVYCONF'
 [heavy]
 user = www-data
 group = www-data
@@ -191,7 +193,29 @@ access.log = /proc/1/fd/1
 slowlog = /proc/1/fd/2
 request_slowlog_timeout = 120s
 clear_env = no
+env[PHP_FPM_POOL] = heavy
 HEAVYCONF
+
+RUN cat > /usr/local/etc/php-fpm.d/api.conf <<'APICONF'
+[api]
+user = www-data
+group = www-data
+listen = 127.0.0.1:9002
+listen.allowed_clients = 127.0.0.1
+pm = dynamic
+pm.max_children = 10
+pm.start_servers = 2
+pm.min_spare_servers = 2
+pm.max_spare_servers = 5
+pm.max_requests = 300
+request_terminate_timeout = 120s
+request_slowlog_timeout = 30s
+access.log = /proc/1/fd/1
+slowlog = /proc/1/fd/2
+clear_env = no
+rlimit_files = 65536
+env[PHP_FPM_POOL] = api
+APICONF
 
 # Provide base php.ini plus empty override files; ConfigMaps will mount over these
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
