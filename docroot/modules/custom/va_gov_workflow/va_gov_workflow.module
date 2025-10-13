@@ -227,7 +227,8 @@ function va_gov_workflow_moderation_state_ajax_callback(
         // re-applied. This prevents AJAX handlers from only working once.
         if (!empty($form['#id'])) {
           try {
-            $rendered_form = \Drupal::service('renderer')->renderRoot($form);
+            $to_render = $form['moderation_state'] ?? $form;
+            $rendered_form = \Drupal::service('renderer')->renderRoot($to_render);
             // Ensure our modal library (containing scroll-restore behavior)
             // is available after the AJAX replace so behaviors re-attach.
             $attachments = !empty($form['#attached']) ? $form['#attached'] : [];
