@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - system.menu.admin
     - user.role.authenticated
     - workbench_access.access_scheme.section
   module:
@@ -1700,10 +1699,13 @@ display:
             use_serializer_encode_only: false
       defaults:
         fields: false
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/people/vacms-user-export.csv
       displays:
         page_1: page_1
+        page_2: page_2
         default: '0'
       filename: ''
       automatic_download: false
