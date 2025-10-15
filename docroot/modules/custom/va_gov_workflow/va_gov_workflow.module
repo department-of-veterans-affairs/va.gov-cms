@@ -209,18 +209,18 @@ function va_gov_workflow_moderation_state_ajax_callback(array &$form, FormStateI
   $kb_id = VaGovWorkflowInterface::KBA_ID;
   $kb_url = '/node/' . $kb_id;
 
+  $entity_type = $entity->getEntityTypeId();
+  $entity_id = $entity->id();
+
   try {
-    $entity_type = $entity->getEntityTypeId();
-    $entity_id = $entity->id();
+    $usage_service = \Drupal::service('entity_usage_addons.usage');
+    $usage_total = $usage_service->getUsageTotal($entity_type, $entity_id);
+  }
+  catch (\Throwable $e) {
+    $usage_total = 0;
+  }
 
-    try {
-      $usage_service = \Drupal::service('entity_usage_addons.usage');
-      $usage_total = $usage_service->getUsageTotal($entity_type, $entity_id);
-    }
-    catch (\Throwable $e) {
-      $usage_total = 0;
-    }
-
+  try {
     $route = "entity.{$entity_type}.entity_usage";
     $url = Url::fromRoute($route, [$entity_type => $entity_id])->setOptions([
       'attributes' => [
@@ -235,7 +235,6 @@ function va_gov_workflow_moderation_state_ajax_callback(array &$form, FormStateI
     $path = '/' . ($entity_type ?? 'node') . '/' . ($entity_id ?? 0) . '/usage';
     $usage_link_html = '<a href="' . $path . '" target="_blank" rel="noopener" class="button button--primary">' . t('View related content') . '</a>';
   }
-
   return va_gov_workflow_build_usage_modal_response($entity, $usage_total, $usage_link_html, $kb_url);
 }
 
