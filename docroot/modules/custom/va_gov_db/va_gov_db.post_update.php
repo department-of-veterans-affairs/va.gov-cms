@@ -5,6 +5,7 @@
  * Post update file for VA Gov DB.
  */
 
+use Drupal\path_alias\Entity\PathAlias;
 use Psr\Log\LogLevel;
 use Drupal\node\Entity\Node;
 use Drupal\pathauto\PathautoState;
@@ -93,6 +94,77 @@ function va_gov_db_post_update_strip_trailing_redirect_slashes() {
     ->condition('redirect_source__path', '%/', 'LIKE')
     ->expression('redirect_source__path', 'TRIM(TRAILING \'/\' FROM redirect_source__path)')
     ->execute();
+}
+
+/**
+ * Force a single alias per language for all va_form nodes.
+ *
+ * New path pattern:
+ *   /forms/[field_va_form_number].
+ */
+function va_gov_db_post_update_move_va_form_pages(&$sandbox) {
+  if (!isset($sandbox['nids'])) {
+    $sandbox['nids'] = \Drupal::entityQuery('node')
+      ->condition('type', 'va_form')
+      ->accessCheck(FALSE)
+      ->execute();
+    $sandbox['total'] = count($sandbox['nids']);
+    $sandbox['processed'] = 0;
+    if (!$sandbox['total']) {
+      return t('No va_form nodes found.');
+    }
+  }
+
+  $nids = array_splice($sandbox['nids'], 0, 100);
+  if ($nids) {
+    $etm = \Drupal::entityTypeManager();
+    $node_storage = $etm->getStorage('node');
+    $alias_storage = $etm->getStorage('path_alias');
+
+    foreach ($node_storage->loadMultiple($nids) as $node) {
+      $system_path = '/node/' . $node->id();
+
+      // Build once; used for all translations (pattern doesn't vary by lang).
+      if (!$node->hasField('field_va_form_number') || $node->get('field_va_form_number')
+        ->isEmpty()) {
+        // Skip nodes missing the source field.
+        continue;
+      }
+      $form_number = trim((string) $node->get('field_va_form_number')->value);
+      if ($form_number === '') {
+        continue;
+      }
+      $alias_value = '/forms/' . $form_number;
+
+      // Enforce "sole" alias: delete all existing aliases for this node (any
+      // lang).
+      $existing_all_langs = $alias_storage->loadByProperties(['path' => $system_path]);
+      if ($existing_all_langs) {
+        $alias_storage->delete($existing_all_langs);
+      }
+
+      // Create exactly one alias per translation language.
+      foreach ($node->getTranslationLanguages() as $langcode => $language) {
+        PathAlias::create([
+          'path' => $system_path,
+          'alias' => $alias_value,
+          'langcode' => $langcode,
+        ])->save();
+      }
+    }
+
+    $sandbox['processed'] += count($nids);
+  }
+
+  if ($sandbox['processed'] < $sandbox['total']) {
+    $sandbox['#finished'] = $sandbox['processed'] / $sandbox['total'];
+    return t('Processed @done / @total va_form nodes.', [
+      '@done' => $sandbox['processed'],
+      '@total' => $sandbox['total'],
+    ]);
+  }
+
+  return t('Finished changing va_form aliases to /forms/[field_va_form_number].');
 }
 
 /**
