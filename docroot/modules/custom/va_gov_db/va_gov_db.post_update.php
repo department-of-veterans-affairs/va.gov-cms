@@ -7,6 +7,8 @@
 
 use Drupal\path_alias\Entity\PathAlias;
 use Psr\Log\LogLevel;
+use Drupal\node\Entity\Node;
+use Drupal\pathauto\PathautoState;
 
 /**
  * Re-save all VAMC system & facility health service nodes.
@@ -100,7 +102,7 @@ function va_gov_db_post_update_strip_trailing_redirect_slashes() {
  * New path pattern:
  *   /forms/[field_va_form_number].
  */
-function va_gov_db_post_update_va_form_aliases_change(&$sandbox) {
+function va_gov_db_post_update_move_va_form_pages(&$sandbox) {
   if (!isset($sandbox['nids'])) {
     $sandbox['nids'] = \Drupal::entityQuery('node')
       ->condition('type', 'va_form')
@@ -162,7 +164,22 @@ function va_gov_db_post_update_va_form_aliases_change(&$sandbox) {
     ]);
   }
 
-  return t('Finished forcing va_form aliases to /forms/[field_va_form_number].');
+  return t('Finished changing va_form aliases to /forms/[field_va_form_number].');
+}
+
+/**
+ * Move /find-forms to /forms for Centralized Forms initiative.
+ */
+function va_gov_db_post_update_move_find_forms() {
+  require_once DRUPAL_ROOT . '/../scripts/content/script-library.php';
+  $node = Node::load(2352);
+  $node->setRevisionUserId(1317);
+  $node->set('path', [
+    'alias' => '/forms',
+    'pathauto' => PathautoState::SKIP,
+    'langcode' => 'en',
+  ]);
+  save_node_revision($node, 'Updated path alias from /find-forms to /forms for Centralized Forms initiative.', TRUE);
 }
 
 /**
