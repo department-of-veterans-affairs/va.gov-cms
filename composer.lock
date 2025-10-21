@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1bcd5e9c41ee912731fbc9c79557bc6f",
+    "content-hash": "aa7c2f81d7ed5e6771c9c2aadd0c72ed",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2663,62 +2663,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/admin_toolbar",
                 "issues": "https://www.drupal.org/project/issues/admin_toolbar"
-            }
-        },
-        {
-            "name": "drupal/adv_varnish",
-            "version": "4.0.13",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/adv_varnish.git",
-                "reference": "4.0.13"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/adv_varnish-4.0.13.zip",
-                "reference": "4.0.13",
-                "shasum": "60a88b217f821dc199d205a5b46515c0e4e79a0a"
-            },
-            "require": {
-                "drupal/core": "^9 || ^10 || ^11"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "4.0.13",
-                    "datestamp": "1732818422",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "m.krestnicov",
-                    "homepage": "https://www.drupal.org/user/3193903"
-                },
-                {
-                    "name": "miritas",
-                    "homepage": "https://www.drupal.org/user/3478563"
-                },
-                {
-                    "name": "qwaygon",
-                    "homepage": "https://www.drupal.org/user/636624"
-                },
-                {
-                    "name": "shumer",
-                    "homepage": "https://www.drupal.org/user/2297432"
-                }
-            ],
-            "description": "Provides integration with Varnish service for Drupal",
-            "homepage": "https://www.drupal.org/project/adv_varnish",
-            "support": {
-                "source": "https://git.drupalcode.org/project/adv_varnish"
             }
         },
         {
@@ -14701,6 +14645,75 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/user_history",
                 "issues": "https://www.drupal.org/project/issues/user_history"
+            }
+        },
+        {
+            "name": "drupal/varnish",
+            "version": "2.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/varnish.git",
+                "reference": "2.0.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/varnish-2.0.0-alpha1.zip",
+                "reference": "2.0.0-alpha1",
+                "shasum": "32b97448965896b20546cbe0d638ec67ebc2ef62"
+            },
+            "require": {
+                "drupal/core": "^10 || ^9",
+                "ext-sockets": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0-alpha1",
+                    "datestamp": "1714233248",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "deadbeef",
+                    "homepage": "https://www.drupal.org/user/93644"
+                },
+                {
+                    "name": "drupalfan79",
+                    "homepage": "https://www.drupal.org/user/1189154"
+                },
+                {
+                    "name": "fabsor",
+                    "homepage": "https://www.drupal.org/user/255704"
+                },
+                {
+                    "name": "JeremyFrench",
+                    "homepage": "https://www.drupal.org/user/419876"
+                },
+                {
+                    "name": "joshk",
+                    "homepage": "https://www.drupal.org/user/3313"
+                },
+                {
+                    "name": "MiSc",
+                    "homepage": "https://www.drupal.org/user/382892"
+                },
+                {
+                    "name": "Steven Jones",
+                    "homepage": "https://www.drupal.org/user/99644"
+                }
+            ],
+            "description": "Integration with varnish from Drupal.",
+            "homepage": "https://www.drupal.org/project/varnish",
+            "support": {
+                "source": "https://git.drupalcode.org/project/varnish"
             }
         },
         {
@@ -28850,6 +28863,7 @@
         "drupal/simplesamlphp_auth": 5,
         "drupal/styleguide": 10,
         "drupal/user_history": 15,
+        "drupal/varnish": 15,
         "drupal/viewfield": 10
     },
     "prefer-stable": true,

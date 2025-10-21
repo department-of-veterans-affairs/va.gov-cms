@@ -1,5 +1,26 @@
 purgers:
   -
-    instance_id: 7df93a67cd
-    plugin_id: varnishbundled
+    instance_id: fea27e4289
+    plugin_id: varnish
     order_index: 2
+processors:
+  -
+    plugin_id: drush_purge_invalidate
+    status: true
+  -
+    plugin_id: drush_purge_queue_work
+    status: true
+  -
+    plugin_id: purge_ui_block_processor
+    status: false
+  -
+    plugin_id: cron
+    status: true
+queuers:
+  -
+    plugin_id: drush_purge_queue_add
+    status: false
+  -
+    plugin_id: purge_ui_block_queuer
+    status: false
+queue: database
