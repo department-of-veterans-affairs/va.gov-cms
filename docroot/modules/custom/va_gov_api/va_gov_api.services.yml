@@ -7,3 +7,7 @@ services:
     arguments: ['@request_stack']
     tags:
     - { name: event_subscriber }
+  va_gov_api.jsonapi_access_override:
+    class: Drupal\va_gov_api\EventSubscriber\JsonApiAccessOverrideSubscriber
+    tags:
+    - { name: event_subscriber }
