@@ -17,13 +17,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      lc_categories: lc_categories
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: lc_categories
+    view:
+      view_name: resources_support_taxonomy_reference_views
+      display_name: entity_reference_rs_categories_taxonomy
+      arguments: {  }
 field_type: entity_reference
