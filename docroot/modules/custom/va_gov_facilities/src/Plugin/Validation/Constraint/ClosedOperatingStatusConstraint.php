@@ -19,6 +19,6 @@ class ClosedOperatingStatusConstraint extends Constraint {
    *
    * @var string
    */
-  public $errorMessage = 'The operating status "Closed" is deprecated and can no longer be selected directly. Please use "Temporary facility closure" instead.';
+  public $errorMessage = 'The operating status "Facility closed" is deprecated and can no longer be selected directly. Please use "Temporary facility closure" instead.';
 
 }
