@@ -54,6 +54,9 @@ dependencies:
     - node.type.vha_facility_nonclinical_service
     - taxonomy.vocabulary.health_care_service_taxonomy
     - taxonomy.vocabulary.va_benefits_taxonomy
+    - taxonomy.vocabulary.lc_categories
+    - taxonomy.vocabulary.topics
+    - taxonomy.vocabulary.audience_beneficiaries
   module:
     - content_moderation
 _core:
@@ -190,4 +193,7 @@ type_settings:
     taxonomy_term:
       - health_care_service_taxonomy
       - va_benefits_taxonomy
+      - lc_categories
+      - topics
+      - audience_beneficiaries
   default_moderation_state: draft
