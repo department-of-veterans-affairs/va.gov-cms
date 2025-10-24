@@ -6,6 +6,8 @@
  */
 
 use Psr\Log\LogLevel;
+use Drupal\node\Entity\Node;
+use Drupal\pathauto\PathautoState;
 
 /**
  * Re-save all VAMC system & facility health service nodes.
@@ -91,6 +93,21 @@ function va_gov_db_post_update_strip_trailing_redirect_slashes() {
     ->condition('redirect_source__path', '%/', 'LIKE')
     ->expression('redirect_source__path', 'TRIM(TRAILING \'/\' FROM redirect_source__path)')
     ->execute();
+}
+
+/**
+ * Move /find-forms to /forms for Centralized Forms initiative.
+ */
+function va_gov_db_post_update_move_find_forms() {
+  require_once DRUPAL_ROOT . '/../scripts/content/script-library.php';
+  $node = Node::load(2352);
+  $node->setRevisionUserId(1317);
+  $node->set('path', [
+    'alias' => '/forms',
+    'pathauto' => PathautoState::SKIP,
+    'langcode' => 'en',
+  ]);
+  save_node_revision($node, 'Updated path alias from /find-forms to /forms for Centralized Forms initiative.', TRUE);
 }
 
 /**
