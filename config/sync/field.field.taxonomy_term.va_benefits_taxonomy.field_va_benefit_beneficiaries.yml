@@ -24,13 +24,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: views
   handler_settings:
-    target_bundles:
-      audience_beneficiaries: audience_beneficiaries
-    sort:
-      field: name
-      direction: asc
-    auto_create: false
-    auto_create_bundle: ''
+    view:
+      view_name: resources_support_taxonomy_reference_views
+      display_name: entity_reference_audience_beneficiaries_taxonomy
+      arguments: {  }
 field_type: entity_reference
