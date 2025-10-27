@@ -1,4 +1,4 @@
-ARG BASE_IMAGE_TAG=1.0.41
+ARG BASE_IMAGE_TAG=1.0.0
 
 FROM 008577686731.dkr.ecr.us-gov-west-1.amazonaws.com/dsva/cms-apache:${BASE_IMAGE_TAG}
 
