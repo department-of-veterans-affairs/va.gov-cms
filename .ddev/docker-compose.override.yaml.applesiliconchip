@@ -1,0 +1,9 @@
+# Docker Compose override file for Apple Silicon chips.
+# This file ensures that the services run on the appropriate architecture.
+
+version: '3.6'
+services:
+  web:
+    platform: linux/arm64
+  db:
+    platform: linux/arm64

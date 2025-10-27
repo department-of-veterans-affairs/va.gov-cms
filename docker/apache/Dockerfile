@@ -131,13 +131,13 @@ RUN { \
   && a2enconf docker-php
 
 RUN { \
-    echo 'ServerLimit 20'; \
-    echo 'MaxRequestWorkers 400'; \
-    echo 'ThreadsPerChild 20'; \
-    echo 'ThreadLimit 20'; \
+    echo 'ServerLimit 50'; \
+    echo 'MaxRequestWorkers 3200'; \
+    echo 'ThreadsPerChild 64'; \
+    echo 'ThreadLimit 64'; \
     echo 'StartServers 5'; \
-    echo 'MinSpareThreads 40'; \
-    echo 'MaxSpareThreads 80'; \
+    echo 'MinSpareThreads 200'; \
+    echo 'MaxSpareThreads 400'; \
     echo 'MaxConnectionsPerChild 10000'; \
     echo 'MaxRequestsPerChild 1000'; \
     echo 'AsyncRequestWorkerFactor 2'; \
@@ -174,10 +174,9 @@ RUN sed -i -e '/imklog/s/^/#/' -e '/ActionFileDefaultTemplate/s/^/#/' ${RSYSLOG_
 
 # Configure PHP-FPM
 RUN sed -i 's/;listen.allowed_clients = 127.0.0.1/listen.allowed_clients = 127.0.0.1/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_children = 5/pm.max_children = 100/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.start_servers = 2/pm.start_servers = 20/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 10/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 30/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm = dynamic/pm = static/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_children = 5/pm.max_children = 250/g' /usr/local/etc/php-fpm.d/www.conf && \
+    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 20/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/;pm.max_requests = 500/pm.max_requests = 500/g' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/;clear_env = no/clear_env = no/g' /usr/local/etc/php-fpm.d/www.conf
 
@@ -188,14 +187,14 @@ RUN install-php-extensions apcu bcmath bz2 calendar csv ddtrace event exif gette
 # Install the PHP extensions for Datadog APM
 RUN php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=$(basename $(realpath $(which php)))
 
-RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
+RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
 RUN { \
     echo '[global]'; \
     echo 'error_log = /proc/1/fd/2'; \
     echo 'daemonize = no'; \
     echo '[www]'; \
-    echo 'pm = dynamic'; \
+    echo 'pm = static'; \
     echo 'access.log = /proc/1/fd/1'; \
     echo 'slowlog = /proc/1/fd/2'; \
     echo 'request_slowlog_timeout = 60s'; \
@@ -205,7 +204,6 @@ RUN { \
     echo 'pm.max_requests = 1000'; \
     echo 'rlimit_files = 131072'; \
     echo 'rlimit_core = unlimited'; \
-    echo 'php_admin_value[opcache.enable] = 1'; \
     echo 'php_admin_value[opcache.memory_consumption] = 512'; \
     echo 'php_admin_value[opcache.validate_timestamps] = 0'; \
 } >> /usr/local/etc/php-fpm.d/kubernetes.conf
@@ -216,23 +214,22 @@ RUN { \
     echo 'post_max_size = 256M'; \
     echo 'upload_max_filesize = 256M'; \
     echo 'max_file_uploads = 50'; \
-    echo 'realpath_cache_size = 16M'; \
+    echo 'realpath_cache_size = 32M'; \
     echo 'realpath_cache_ttl = 7200'; \
 } >> /usr/local/etc/php/conf.d/drupal-performance.ini
 
 # set recommended opcache settings
 RUN { \
-    echo 'zend_extension=opcache'; \
     echo 'opcache.enable=1'; \
     echo 'opcache.enable_cli=1'; \
     echo 'opcache.memory_consumption = 512'; \
     echo 'opcache.interned_strings_buffer = 64'; \
-    echo 'opcache.max_accelerated_files = 20000'; \
-    echo 'opcache.revalidate_freq = 2'; \
+    echo 'opcache.max_accelerated_files = 30000'; \
+    echo 'opcache.revalidate_freq = 0'; \
     echo 'opcache.validate_timestamps=0'; \
     echo 'opcache.save_comments=1'; \
     echo 'opcache.load_comments=1'; \
-} > /usr/local/etc/php/conf.d/99-opcache-custom.ini
+} > /usr/local/etc/php/conf.d/zz-opcache-custom.ini
 
 # set recommended apcu settings
 RUN { \
