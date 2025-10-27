@@ -1,20 +1,17 @@
-uuid: 38148e39-495f-4b40-b6c4-b45a3a2e531f
+uuid: ccc96753-2919-4d0a-b4b8-1c5107fa61fe
 langcode: en
 status: true
 dependencies: {  }
-id: fea27e4289
-name: 'Varnish Tag Purger'
-invalidationtype: tag
+id: 8c5c4fd6e0
+name: 'Varnish Purge Everything'
+invalidationtype: everything
 hostname: varnish
 port: 80
 path: /
 request_method: BAN
 scheme: http
 verify: '1'
-headers:
-  -
-    field: Cache-Tags
-    value: '[invalidations:separated_pipe]'
+headers: {  }
 body: null
 body_content_type: null
 runtime_measurement: true
