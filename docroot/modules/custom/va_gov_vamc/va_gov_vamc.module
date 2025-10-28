@@ -251,7 +251,7 @@ function va_gov_vamc_entity_bundle_field_info_alter(&$fields, EntityTypeInterfac
  */
 function va_gov_vamc_entity_presave(EntityInterface $entity) {
   // Clear data from fields that are not relevant to non-clinical services.
-  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'vha_facility_nonclinical_service') {
+  if ($entity->getEntityTypeId() === 'paragraph' && $entity->bundle() === 'service_location') {
     _va_gov_vamc_remove_service_location_data_from_non_clinical_services($entity);
   }
 }
@@ -302,11 +302,15 @@ function _va_gov_vamc_remove_service_location_fields_from_non_clinical_services(
  *   The entity being updated.
  */
 function _va_gov_vamc_remove_service_location_data_from_non_clinical_services($entity) {
-  if (!$entity->hasField('field_service_location') || $entity->get('field_service_location')->isEmpty()) {
+  if (!$entity instanceof ParagraphInterface) {
     return;
   }
 
-  $service_locations = $entity->get('field_service_location')->referencedEntities();
+  $parent = $entity->getParentEntity();
+  if (!$parent instanceof NodeInterface || $parent->bundle() !== 'vha_facility_nonclinical_service') {
+    return;
+  }
+
   $fields_to_clear = [
     'field_office_visits',
     'field_virtual_support',
@@ -317,21 +321,15 @@ function _va_gov_vamc_remove_service_location_data_from_non_clinical_services($e
     'field_online_scheduling_avail',
   ];
 
-  foreach ($service_locations as $service_location) {
-    if (!$service_location instanceof ParagraphInterface) {
+  foreach ($fields_to_clear as $field) {
+    if (!$entity->hasField($field)) {
       continue;
     }
 
-    foreach ($fields_to_clear as $field) {
-      if (!$service_location->hasField($field)) {
-        continue;
-      }
+    $field_items = $entity->get($field);
+    $field_storage = $field_items->getFieldDefinition()->getFieldStorageDefinition();
+    $empty = $field_storage->isMultiple() ? [] : NULL;
 
-      $field_items = $service_location->get($field);
-      $field_storage = $field_items->getFieldDefinition()->getFieldStorageDefinition();
-      $empty = $field_storage->isMultiple() ? [] : NULL;
-
-      $service_location->set($field, $empty);
-    }
+    $entity->set($field, $empty);
   }
 }
