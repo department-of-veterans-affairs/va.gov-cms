@@ -3,17 +3,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.field_service_type_of_care
-    - field.storage.taxonomy_term.field_vet_center_type_of_care
-    - taxonomy.vocabulary.audience_beneficiaries
-    - taxonomy.vocabulary.health_care_service_taxonomy
-    - taxonomy.vocabulary.lc_categories
-    - taxonomy.vocabulary.topics
+  - field.storage.taxonomy_term.field_service_type_of_care
+  - field.storage.taxonomy_term.field_vet_center_type_of_care
+  - taxonomy.vocabulary.audience_beneficiaries
+  - taxonomy.vocabulary.health_care_service_taxonomy
+  - taxonomy.vocabulary.lc_categories
+  - taxonomy.vocabulary.topics
   module:
-    - entity_reference_revisions
-    - options
-    - taxonomy
-    - user
+  - entity_reference_revisions
+  - options
+  - taxonomy
+  - user
 id: resources_support_taxonomy_reference_views
 label: 'Resources & Support Taxonomies Reference Views'
 module: views
@@ -85,7 +85,7 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -146,9 +146,9 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: list_default
-          settings: {  }
+          settings: {}
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -208,9 +208,9 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: list_default
-          settings: {  }
+          settings: {}
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -239,8 +239,8 @@ display:
           perm: 'access content'
       cache:
         type: tag
-        options: {  }
-      empty: {  }
+        options: {}
+      empty: {}
       sorts:
         name:
           id: name
@@ -264,7 +264,7 @@ display:
           plugin_id: standard
           expose:
             field_identifier: field_vba_friendly_name_value
-      arguments: {  }
+      arguments: {}
       filters:
         status:
           id: status
@@ -278,7 +278,7 @@ display:
           expose:
             operator: ''
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
         vid:
           id: vid
           table: taxonomy_term_field_data
@@ -290,7 +290,7 @@ display:
             health_care_service_taxonomy: health_care_service_taxonomy
           expose:
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
       style:
         type: entity_reference
         options:
@@ -313,20 +313,20 @@ display:
           disable_sql_rewrite: false
           distinct: false
           replica: false
-          query_tags: {  }
-      relationships: {  }
-      header: {  }
-      footer: {  }
-      display_extenders: {  }
+          query_tags: {}
+      relationships: {}
+      header: {}
+      footer: {}
+      display_extenders: {}
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - user.permissions
+      - 'languages:language_content'
+      - 'languages:language_interface'
+      - user.permissions
       tags:
-        - 'config:field.storage.taxonomy_term.field_service_type_of_care'
-        - 'config:field.storage.taxonomy_term.field_vet_center_type_of_care'
+      - 'config:field.storage.taxonomy_term.field_service_type_of_care'
+      - 'config:field.storage.taxonomy_term.field_vet_center_type_of_care'
   entity_reference_audience_beneficiaries_taxonomy:
     id: entity_reference_audience_beneficiaries_taxonomy
     display_title: 'Audience Beneficiaries taxonomy'
@@ -390,7 +390,7 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -434,7 +434,7 @@ display:
           expose:
             operator: ''
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
         vid:
           id: vid
           table: taxonomy_term_field_data
@@ -457,7 +457,7 @@ display:
             use_operator: false
             operator: ''
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
             identifier: ''
             required: false
             remember: false
@@ -475,8 +475,8 @@ display:
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
       filter_groups:
         operator: AND
         groups:
@@ -508,10 +508,10 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - user.permissions
-      tags: {  }
+      - 'languages:language_content'
+      - 'languages:language_interface'
+      - user.permissions
+      tags: {}
   entity_reference_rs_categories_taxonomy:
     id: entity_reference_rs_categories_taxonomy
     display_title: 'R&S Categories taxonomy'
@@ -575,7 +575,7 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -619,7 +619,7 @@ display:
           expose:
             operator: ''
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
         vid:
           id: vid
           table: taxonomy_term_field_data
@@ -642,7 +642,7 @@ display:
             use_operator: false
             operator: ''
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
             identifier: ''
             required: false
             remember: false
@@ -660,8 +660,8 @@ display:
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
       filter_groups:
         operator: AND
         groups:
@@ -693,10 +693,10 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - user.permissions
-      tags: {  }
+      - 'languages:language_content'
+      - 'languages:language_interface'
+      - user.permissions
+      tags: {}
   entity_reference_topic_taxonomy:
     id: entity_reference_topic_taxonomy
     display_title: 'Topics taxonomy'
@@ -760,7 +760,7 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -804,7 +804,7 @@ display:
           expose:
             operator: ''
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
         vid:
           id: vid
           table: taxonomy_term_field_data
@@ -827,7 +827,7 @@ display:
             use_operator: false
             operator: ''
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
             identifier: ''
             required: false
             remember: false
@@ -845,8 +845,8 @@ display:
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
       filter_groups:
         operator: AND
         groups:
@@ -878,7 +878,7 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - user.permissions
-      tags: {  }
+      - 'languages:language_content'
+      - 'languages:language_interface'
+      - user.permissions
+      tags: {}

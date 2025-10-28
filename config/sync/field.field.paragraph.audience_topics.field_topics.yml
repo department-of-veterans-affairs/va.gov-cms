@@ -3,10 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_topics
-    - paragraphs.paragraphs_type.audience_topics
+  - field.storage.paragraph.field_topics
+  - paragraphs.paragraphs_type.audience_topics
   module:
-    - entity_reference_validators
+  - entity_reference_validators
 third_party_settings:
   entity_reference_validators:
     circular_reference: false
@@ -19,7 +19,7 @@ label: Topics
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value: {}
 default_value_callback: ''
 settings:
   handler: views
@@ -27,5 +27,5 @@ settings:
     view:
       view_name: resources_support_taxonomy_reference_views
       display_name: entity_reference_topic_taxonomy
-      arguments: {  }
+      arguments: {}
 field_type: entity_reference
