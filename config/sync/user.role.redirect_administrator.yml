@@ -6,6 +6,7 @@ dependencies:
     - taxonomy.vocabulary.type_of_redirect
   module:
     - actions_permissions
+    - entity_usage
     - path
     - pathauto
     - redirect
@@ -22,6 +23,7 @@ weight: 3
 is_admin: null
 permissions:
   - 'access administration pages'
+  - 'access entity usage statistics'
   - 'administer redirect settings'
   - 'administer redirects'
   - 'administer url aliases'
