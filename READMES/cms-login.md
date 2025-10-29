@@ -4,7 +4,7 @@ More info at https://github.com/department-of-veterans-affairs/va.gov-team-sensi
 
 ## How to request a CMS user account
 
-### For developers with SOCKS/CAG access but no PIV card
+### For developers with VA Network access but no PIV card
 
 Ask another CMS developer to create a Drupal account with password authentication
 
@@ -41,9 +41,9 @@ To enable the "Login With PIV" interface in local development, do one of the fol
 
 - Change the below setting in `docroot/sites/default/settings/settings.local.php` to `TRUE`:
 
-```php
+\`\`\`php
 $config['simplesamlphp_auth.settings']['activate'] = TRUE;
-```
+\`\`\`
 
 - Set `activate` to `true` in `config/local/simplesamlphp_auth.settings.yml`, then run `ddev drush cim`.
 

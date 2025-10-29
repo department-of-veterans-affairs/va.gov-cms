@@ -1,204 +1,141 @@
-# Tugboat 101
+# Tugboat
 
-## Summary of Tugboat
-[Tugboat](https://www.tugboat.qa) (SOCKS required to access) is a fast, modern Preview Environment creation tool based on containers ([Docker Swarm](https://docs.docker.com/engine/swarm/)). Tugboat creates "Previews" which are environments that you can test proposed code changes in, login with a web shell, and view logs in the UI. Each Preview is built from a Base Preview.
+Tugboat is a development server platform where you can preview CMS code changes pre-production.
 
-At VA, Tugboat is used primarily in conjunction with the CMS and content-build. It's helpful to understand a couple of basic terms from Tugboat, to make clear how lower environments receive their data.  
+In order to access the Tugboat UI, you must have VA network access (via PIV card, CAG, or AVD).
 
-Tugboat contains **Projects**. Each Project can contain **Repositories** (not related to Github). Each Repository then has a **Base Preview**, and **Previews**. 
-* **Previews**, or PR Previews, are the built environments you interact with for a given set of Pull Request (PR) changes.
-* **Base Preview** 
-Take the term Base to mean bottom or foundation: Base Preview is a container, built from a versioned state of the CMS code, with a production database snapshot baked in. Tugboat uses Base Previews to make PR Preview creation quick and disk storage efficient. After a 30-40min build, Base Previews are ready to layer va.gov-cms code changes on top and run post-deploy operations (updatedb, config:import). 
+## Tugboat Environments
 
-## Access
-In order to access the Tugboat UI, you must have SOCKS running on your machine, or be on the VA network (via CAG/Azure, on GFE, etc). 
+Tugboat provides a complete SDLC pipeline for Drupal code:
 
-Any Github user in the department-of-veterans-affairs organization can log into Tugboat using Github credentials. Access is provided automatically, no manual steps.
+- Creates new environments when a PR is open.
+- Automatically tests the environment and passes status to GitHub to allow or block merging.
+- Destroys and rebuilds PR Environments and runs the full test suite again on every git push.
+- If the PR is merged or closed, environment is destroyed.
+- Notifies GitHub of deployment success or failure, with links to the environments.
 
-Tugboat management has been limited to [@platform-cms-devops-engineers](https://github.com/orgs/department-of-veterans-affairs/teams/platform-cms-devops-engineers) historically.
+## Accessing Tugboat
 
-### Granting Admin Access
-Admins permissions are needed to:
-- Add and remove users from a project, and change user permissions. Admin users can administer other admin users, though they cannot remove themselves from a project.
-- Add repositories to the project.
-- Manage the repository configuration interface. This includes things like changing repository settings, environment variables and SSH keys.
-- Delete repositories.
-- Delete the entire project.
-- Rename the project.
+1. Visit [https://tugboat.vfs.va.gov/](https://tugboat.vfs.va.gov/) (VA network access required)
+2. Click on the "GitHub" link to log in with GitHub.
 
+## Creating Demo Environments
 
-The following actions can be done directly on the tugboat server to add new admins.
+Demo environments can be created for demonstrations or training purposes.
 
-New users have to be added to the tugboat database. The following steps will guide how to accomplish this.
-### <a id="admin_access_steps"></a> Header
-1. Follow the readme in the devops repo to be able to start ssm sessions. Doc found [here](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session)
-2. Login to the tugboat utility server by running `ssm-session utility`
-3. Once logged in, perform `sudo su` in order to run docker commands
-4. Next, you need to find the container running the tugboat database. To do this run `docker ps | grep tugboat-mongo`. Note the ID
-5. Exec into the database instance by doing the following `docker exec -it <tugboat id> mongosh tugboat-ui /edit tugboat mongo instance`
-6. You can find the current super admin with the following: `db.users.findOne()`
-7. Find the user you want to add as an admin by using their email to look them up. `db.users.findOne({ email: “youremail” })`
-8. Once you verify the users email that you need to add as an admin, add them as an admin by doing the following: `db.users.updateOne({ email: “email” }, { $set: { admin: true }})`
+### Step-by-step Instructions
 
-The reason we found we needed to be an administrator, we made changes to `/opt/tugboat/.tugboat/config.js` and needed to reload the agent. We made our changes, then we:
-1. Logged in as an admin
-2. found the tugboat agent
-3. scrolled to the bottom of the page
-4. Clicked the restart tugboat-vfs button
+1. Visit [https://tugboat.vfs.va.gov/](https://tugboat.vfs.va.gov/) and click on the "GitHub" link to log in with GitHub.
 
-It goes without saying, only make changes if you are authorized to do so and have consulted tugboat support.  
+   ![CMS-CI Homepage](images/tugboat-home.png)
 
-## Unlock stuck previews
+2. Click the CMS link and then click the "CMS Demo Environments" to visit the Demos page.
 
-Occasionally, if tugboat runs out of disk space, its host EC2 is restarted, or something bad happens that is unexpected, Tugboat previews may become stuck. 
-In our experience the preview will say "suspending" but never stops and we are unable to start it in the UI. The fix is as follows:
+   ![Demo environments page](images/tugboat-demos.png)
 
-1. Go to the preview in the user interface. For example content-build-branch-builds.
-2. Click on the hyperlink to the preview to view settings for that preview
-3. Look in the address bar, you should notice an ID for the preview. EX: https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5
-4. Login to tugboat over ssh [steps 1-3](#admin_access_steps)
-5. Input the command reset command with the id found in step 3. EX `tugboat reset --force 6189a9af690c68dad4877ea5`
+3. Scroll down to the "Base Previews" heading and select "Clone" from the "Actions" menu.
 
+   ![Clone Preview](images/tugboat-clone-preview.png)
 
-## VA Usage
-At VA, our lower environments are each built from a Tugboat Base Preview, in some fashion. Our Tugboat configuration is relevant to the discussion:  
+4. Your demo environment has been created. It will be titled "master". Scroll to the top of the page, click on the "Settings" link for your new environment, and give it a title starting with your initials and a hyphen. Then, click the "Save Configuration" button.
 
-1. **Project**: [CMS PROD Mirrors](https://tugboat.vfs.va.gov/6042eeed6a89948104399d3c) 
-    1. **Repository**: [Mirrors](https://tugboat.vfs.va.gov/6042eeed6a89945a99399d3d) 
-        1. **Base Preview**: Built daily at 7am UTC (2am EST, 1am EDT). This data will then be used on Staging until the next time this Base Preview is refreshed.
-        2. **Previews**: [content-build-branch-builds](https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5) — This Prod mirror snapshot of code + data backups is the base for building Staging.
-1. **Project**: [CMS](https://tugboat.vfs.va.gov/5fd3b8ee7b465711575722d5)
-    1. **Repository**: [CMS Demo Environments](https://tugboat.vfs.va.gov/5ffe2f4dfa1ca136135134f6) — Is used for building Demo & Training Previews, manually triggered.
-    2. **Repository**: [CMS Pull Request Environments](https://tugboat.vfs.va.gov/5fd3b8ee7b4657022b5722d6) — Is used for managing PR Previews, automatically triggered by Pull Requests in va.gov-cms or content-build repos.
-        1. **Base Preview**: Built nightly at 10am UTC (5am EST, 4am EDT). This data will then be used for all va.gov-cms and content-build PR Preview envs until the next time this Base Preview is refreshed.
- 
-**Refresh**:
-*  .tugboat/config.ymlPHP and MySQL update commands
-* loads the latest Database and Asset file snapshot from AWS S3.
+   ![Preview Settings](images/tugboat-preview-settings.png)
 
-Each Repository's Base Preview image is refreshed on a daily schedule, which downloads and applies the previous day's Production Post Deployment Asset Files and Database backups. Then, when you launch your PR it launches from that state and doesn't have to sync the file assets or database snapshot and will only run your code updates (`drush updatedb`) and configuration import (`drush config:import`) and then posts a GitHub comment to your pull request with links to your preview environment(s).
+5. If you wish to copy [prod.cms.va.gov](http://prod.cms.va.gov) using the latest content, do not change any additional options.
 
-## Other environments' uses of Tugboat and data
-[Environments & the Content Build Process](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md) (Github)
+6. Click the "Preview" button for your environment to visit it.
 
+   ![Environment Preview](images/tugboat-preview.png)
 
-## Getting started with CMS Pull Request Preview Environments
-1. Log in to the Tugboat dashboard (internal) https://tugboat.vfs.va.gov. When you first log in with GitHub, you need to wait up to 2 minutes for your user account to be granted access to project(s) by a cron script that runs every minute (we are working on making this instant eventually). After you have waited the 2 minutes:
-1. Click the "CMS" project then click "CMS Pull Request Environments"
-1. Make a pull request
-1. A "Deployment in Progress" message will appear on your GitHub Pull Request, and you will see a new environment appear simultaneiously in the Tugboat dashboard. With the dashboard you can view the preview environment system logs or launch a "terminal" to modify code and/or run drush commands etc.
-1. Within 3 minutes a your new preview environment should be created and a GitHub comment will be posted with links to your environment(s) for testing, this includes a WEB (web-\*) link that builds the static site for testing. The WEB environment will take a while to build and will only be stable after all tests pass.
-1. After the GitHub comment is posted with your environment links, tests will start running and the checks in the GitHub status check section will switch from "Expected" to "Pending", this test run step will take closer to 30+ minutes to complete.
+**NOTE:** The WEB site for this environment will not work until you trigger a WEB Build process on the "Release Content" page.
 
-## Getting started with CMS Demo Preview Environments
+## WEB Build Process
 
-### Maintenance and retention policy
+Within each environment, the static HTML for the _WEB_ site is occasionally "rebuilt" so that the latest content from that environment's _CMS_ is used.
 
-1. Demo Preview Environments that are inactive for 30 days are subject to deletion. Run the "Lock" operation to prevent this from happening. 
-1. Demo environments must follow this naming pattern:
-   1. For VAMC Systems - `<Geographic location> health care`. E.g. Alexandria health care.
-   1. For other CMS products - `<Product name>`. E.g. Resources and support
-   1. For personal sandboxes - `<First name Last name>'s Sandbox`. E.g. Dave Conlon's Sandbox.
-   1. Avoid creating environments with duplicate names. Check the list of existing environment while sorting by title to quickly scan the list to ensure an environment you're about to create doesn't already exist.
+The _WEB_ build process is tested in the CI system to ensure compatibility with the CMS content schema.
 
+The _WEB_ build process is triggered automatically by certain actions in the CMS or manually via the command line.
 
-### Creating new CMS Demo Preview Environment:
+### Build Triggers
 
-1. Login to Tugboat using GitHub - [Tugboat Projects](https://tugboat.vfs.va.gov/projects)
-1. Navigate to CMS > CMS Demo Environments repository OR use a direct link [Tugboat CMS Demo Environments repository](https://tugboat.vfs.va.gov/5ffe2f4dfa1ca136135134f6)
-1. Locate "Base Previews" section
-   1. Scroll down to locate **Base Previews** section.
-1. Clone base preview to create a new Demo Preview Environment.
-   1. Locate **main** base preview.
-   1. Click on **Actions > Clone**. You have created a clone of base preview environment.
-1. Rename the newly created clone.
-   1. Locate "main" environment in "Preview" section at the top of the page.
-   1. Click "Settings".
-   1. Enter new environment name .
-   1. Do not change any other settings.
-   1. Click "Save Configuration", then "Back to Preview".
-   
-You have created a new CMS Demo Preview Environment.
+The _WEB_ instance of an environment is rebuilt when any of the following actions take place in the _CMS_:
 
-### Human-friendly URLs for CMS Demo Preview Environments
+- Facility Alert or Individual Facility Operating Status is created or updated.
+- The "Rebuild WEB" button is pressed.
 
-Default URL aliases for CMS and WEB UI are not readable. Alias enhancement is tracked in [#4162](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/4162).
+## Rebuilding Environments Manually
 
-Example:
-1. `https://cms-kewq6ooqnvg8hzjyzc1luyb4wm8bncmw.demo.cms.va.gov/`
-1. `https://web-kewq6ooqnvg8hzjyzc1luyb4wm8bncmw.demo.cms.va.gov/`
+There is a special button and form for rebuilding VA.gov environments. Use this to manually trigger either a WEB or CMS rebuild (or both), and optionally check out different code.
 
-Tugboat allows for manual URL customization if there is a need to share a human-redable URL with a stakeholder.
+### Step-by-step Instructions
 
-The format is {preview_type}-{custom_name}-{environment_token}.demo.cms.va.gov.
-Any alphanumeric characters can be used for {custom_name}.
+1. Find the environment you would like to build in Tugboat, and go to the preview.
+2. Hover over the "Content" admin menu, and then click "Release Content".
 
-For example, when creating the 'Wilmington health care' demo environment, these URLs could be modified as follows:
+   ![Environment Rebuild](images/tugboat-rebuild.png)
 
-1. `https://cms-wilmington-kewq6ooqnvg8hzjyzc1luyb4wm8bncmw.demo.cms.va.gov/`
-1. `https://web-wilmington-kewq6ooqnvg8hzjyzc1luyb4wm8bncmw.demo.cms.va.gov/`
+3. If you wish to just trigger a WEB rebuild with the existing content, do not change any other options.
 
+   ![Release Content Form](images/tugboat-release-content.png)
 
-## Tips
-1. Refresh, Rebuild and Reset operations.   
-    Learn more at https://docs.tugboat.qa/building-a-preview/preview-deep-dive/how-previews-work. Below is a quick summary that might help clarify
-    1. Refresh: Starts at "update" stage, then "build" stage, then "online" stage, see .tugboat/config.yml. "Refresh" is what you want to run to just get a fresh database snapshot (think (re)fresh database) and file asset import from recent production backups. ~10 minutes
-    1. Rebuild: Starts at "build" stage, then "online" stage, see .tugboat/config.yml. "Rebuild" does not sync the latests database snapshot and file assets. ~3 minutes 
-    1. Reset: Resets your database and code to the state it was when the Preview environment was created. <1 minute 
-1. Clone: Clones the Preview Environment of the database and codebase/filesystem state at the time it was created, and not the current state. <1 minute
-1. Environments are deleted on a PR merge/close by default. "Lock" the environment to prevent deletion.
-1. There should only be one "Base Preview" built on main
-    1. The base preview **refreshes** (_not_ rebuilds) daily at 4pm ET, just after our prod.cms.va.gov daily deployment
-1. You can change the prefix on any environment, all that matters is the token in the URL, e.g. https://pr165-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/ will go to the same place as https://rainboxes-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/, they are the same. The exception is that if any URL starts with `web-*` then it will be routed to the /docroot/static folder to serve out the static website (vets-website), see .htaccess).
+   **For advanced users and developers:**
 
-## Common Tugboat operations
+   1. If you wish to change the branch of the WEB project, click "Select a different frontend branch/pull request". Start typing to search by the name of the branch or pull request you wish to use.
 
-| I want to... | Then you should... |
-| :--- | :--- |
-| Re-run tests on my pull request | Run the "Rebuild" action, this will run the "BUILD" stage and then run the "ONLINE" stage, which will run the tests. |
-| Update the base preview image with latest Production DB snapshot | Go to dashboard and "rebuild" the base preview (main). Normally this happens every day automatically and you shouldn't need to do this, but if you do, that is how. |
-| Get the latest database on my pull request environment | Run the "Refresh" command to run the "Update" stage of the "mysql" service which pulls in the latest database and files snapshots (within 15 minutes of freshness) |
-| See why my deploy failed | Go to the dashboard, find your PR and click the 'php' service title, then click "build logs" |
-| Lock my environment from getting deleted, like after my PR is closed. | Use the "LOCK" action |
-| Manually create an environment from a branch, tag, or pull request | First push to upstream, then go to branches and click "Build Preview" |
-| Test a different `content_build` branch | Go to the Release Content page and select your branch in the autocomplete.  See https://prod.cms.va.gov/help/how-to-release-content-in-the-demo-environment |
+   ![Release Content Web Branch](images/tugboat-release-content-web-branch.png)
 
-## Less common Tugboat operations
+4. Press the "Release content" button. You will see the status of your build under the "Wait for the release to complete" heading. You may view the build logs by clicking the "View logs" link.
 
-| I want to... | Then you should... |
-| :--- | :--- |
-| Know why the logs are showing a previous build | Change from "current" to the latest timestamp, this is a known issue and we are working on a resolution. You can also use the Tugboat CLI tool with `tugboat log <service id>` to get the log and grep it etc. |
-| Search the logs, ctrl + F in my browser is not working | This is not possible in the browser UI, you must use the Tugboat CLI tool with `tugboat log <service id>` and grep the logs that way. |
-| Scroll the logs. | This is not possible in the Tugboat UI, use `tugboat log <service id>` to grep or scroll. |
-| Run more advanced commands with the `tugboat` tool on the proxy | See the "Tugboat's CLI tool for software engineers" section of this document. |
-| Want to get the latest .env file | Run a "Refresh" to run the "Build" stage which re-generates the .env file with latest ENV variables. |
-| Use a branch as a base preview for further PRs that will be merged into that branch | Push the base preview branch upstream, then go to branches and click "Build Preview".  From that preview, click "Preview Settings", select "Use this preview as a Base Preview", then select "Branch Base Preview".  PRs representing branches based on the base preview branch will then create previews that use that base preview.| 
-| Send an email and capture it in the Tugboat interface | Manually update the email address of the user in question.|
-| Make changes in the `init` section of `.tugboat/config.yml` | This will require a manual explicit **rebuild** of the base preview image.|
+   ![Content Release Status](images/tugboat-content-release-status.png)
 
-## Tugboat config testing operations
-| I want to... | Then you should... |
-| :--- | :--- |
-| Test out an 'init' stage change | Push your branch to upstream (can't be a fork) and go to https://tugboat.vfs.va.gov/ and click your project. Then scroll down to the "Available to Build" section, then click the "Branches" tab and then click the dropdown and click "Build with no base preview" |
-| Test out an 'update' stage change | TODO |
+5. Once the REBUILD process is complete, you can click the "Go to front end" button under the "Access the frontend environment" heading.
 
-## Tugboat's CLI tool for software engineers
-1. Download at https://tugboat.vfs.va.gov/downloads and put in your $PATH
-1. Copy the file from this repo to your home directory `cp .tugboat/.tugboat.yml $HOME/.tugboat.yml`
-1. Generate API key at https://tugboat.vfs.va.gov/access-tokens
-1. Add token to $HOME/.tugboat.yml
-1. Start SOCKS connection
-1. Test with `tugboat --help`.
-1. See more Tugboat CLI documentation [here](https://docs.tugboat.qa/tugboat-cli/)
+   ![WEB Link](images/tugboat-web-link.png)
 
-## Known issues
-1. The generated URLs have only been observed to change when the file .tugboat/config.yml is modified by changing the name of a defined service, or changes the default service.
-1. You cannot search logs with a browser right now, it is a known issue. The alternative is to use the `tugboat` CLI tool to view logs. e.g. `tugboat log 6148dc56690c680da87db5f2 | grep -i 'error'`. You can get the service ID from the URL bar in the UI. 
-1. You cannot scroll the logs while they are outputting, you can only scroll once they are done. If you want to see previous output then use the Tugboat CLI tool with `tugboat log <service id>` and scroll that way. You can get the service ID from the URL bar in the UI. 
-1. Email won't be sent to existing users as their email addresses are blanked during the database sanitization process for the developer database snapshot (see [#6100](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6100)).  Email to new users, or users whose email addresses have been updated, can be sent and will be captured in the Tugboat interface. If you need to test email in Tugboat then edit a user and add an @example.com email address.
-1. Base preview images are **refreshed** automatically, not **rebuilt**.  This means that certain changes to Tugboat config, e.g. in the `init` phase, must be followed by a manual rebuild operation.  The nightly refresh will not incorporate the new changes.
-1. Pull requests with code in the body may cause a false alarm on the TIC and be rejected silently, and thus the Tugboat environment will not build automatically.  This is not an issue we or Tugboat can solve.  The only workaround is to build the PR branch manually. See this example of the string `filter_var()` in the webhook POST body causing a firewall block > https://dsva.slack.com/archives/C01A35JDH88/p1675984628181769?thread_ts=1675868445.789729&cid=C01A35JDH88.
+6. That's it! If the process completed, you should see a site that looks like VA.gov.
 
-## 🚨 Warning 🚨
+## Testing Next Build and Content Build
 
-Note that the "training" environment (https://training.cms.va.gov/) is the source of truth for who has and who has not completed the editorial training; it should not be rebuilt or otherwise tampered with without previously discussing with Helpdesk.
+Tugboat can be used to preview changes being made in Next Build and Content Build. This can be useful if you need to check Next Build or Content Build changes together with new CMS code, or if you want to create custom content to test features of the frontend code that VA.gov content doesn't test or demonstrate well.
+
+To create your Tugboat instance, do one of the following:
+
+1. When **testing changed CMS code**, simply create a PR with your working branch. If your CMS code changes are not yet ready for review, create a draft PR. This will still create a Tugboat instance.
+2. When **testing frontend changes with no CMS code changes**, please create a Demo CMS Tugboat instance and do your frontend testing there. You should delete this demo instance once you are finished testing.
+
+### Testing Next Build
+
+Next Build is available on CMS Tugboat at the Tugboat domain with `next-` in it, for example https://next-medc0xjkxm4jmpzxl3tfbcs7qcddsivh.ci.cms.va.gov/. By default this uses the default next-build and vets-website branches.
+
+This can be changed via the form at `/admin/content/deploy/next`. At that URL, you will see a simple form that allows you to rebuild the frontend with the option of choosing a different branch for either next-build or vets-website. Choosing 'Select a different next-build branch/pull request' will reveal a text field. Entering a search term in that text field will reveal both branches and PRs that match that search term.
+
+![The form for changing Next Build branches, with the search text "update" entered and results showing.](images/tugboat-next-build-form.png)
+
+Once you've chosen the branches you want to test with, hit 'Restart Next Build Server'. You will see status information about the build at the bottom of the page. You may need to refresh the page for this information to fill in. The Log File will be the best way to observe the progress of the build.
+
+![Status Details of the Next Build Server Rebuild process.](images/tugboat-next-build-status.png)
+
+Rebuilding the Next Build Server generally takes about 5 minutes. Once complete, you can view the restarted server at the standard Next Build URL.
+
+### Testing Content Build
+
+Content Build is available on CMS Tugboat at the Tugboat domain with `web-` in it, for example https://web-medc0xjkxm4jmpzxl3tfbcs7qcddsivh.ci.cms.va.gov/. By default this uses the default content-build and vets-website branches.
+
+This can be changed via the form at `/admin/content/deploy`. At that URL, you will see a simple form that allows you to rebuild the frontend with the option of choosing a different branch for either content-build or vets-website. Choosing 'Select a different content-build branch/pull request' will reveal a text field. Entering a search term in that text field will reveal both branches and PRs that match that search term, similarly to the Next Build form described above.
+
+Once you've chosen the branches you want to test with, hit 'Release Content'. You will see status information about the build at the bottom of the page. You may need to refresh the page for this information to fill in. The Log File will be the best way to observe the progress of the build.
+
+Rebuilding the Content Build static content generally takes about 60 minutes. Once complete, you can view the restarted server at the standard Content Build URL.
+
+## SSH Access to CI Environments
+
+To access a CI environment via ssh, go to that environment's page on Tugboat and click the "Terminal" link on the line for the "php" service.
+
+## Resources
+
+- https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/103448589/VA.gov+CMS+DevOps+2.0+Architecture+Notes
+- https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/28770332/CMS+Infrastructure+CI+CD+Architecture+Proposal+3
+- More info on DEPO(OCTO) [Environments](https://depo-platform-documentation.scrollhelp.site/developer-docs/environments) and [Deployments](https://depo-platform-documentation.scrollhelp.site/developer-docs/deployments)
+
+[Table of Contents](../README.md)
