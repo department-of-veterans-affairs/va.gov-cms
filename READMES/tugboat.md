@@ -1,5 +1,8 @@
 # Tugboat
 
+**Note:** CI environments (Tugboat) are intended for automated testing, PR previews, and stakeholder demonstrations. For active development work, use a [local CMS environment](local.md) instead.
+
+
 Tugboat is a development server platform where you can preview CMS code changes pre-production.
 
 In order to access the Tugboat UI, you must have VA network access (via PIV card, CAG, or AVD).
