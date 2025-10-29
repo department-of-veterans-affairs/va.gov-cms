@@ -67,6 +67,10 @@ and common calls look like:
 
 See [JSON:API](jsonapi.md)
 
+### CI Environments
+
+CI environments mirror the CMS for automated testing and demonstrations. These require VA Network access. For active development and testing, set up a [local CMS environment](local.md) instead.
+
 ## Mirrors
 
 There are environments which exist in [Tugboat](tugboat.md) that provide a mirror of Prod.  The content and code are updated daily at 3am EST on the mirrors.  The list of mirrors can be found in the "[Mirrors (refreshed daily from PROD at 3am ET)](https://tugboat.vfs.va.gov/6042eeed6a89945a99399d3d)" project in tugboat.  Contact CMS Support in the #cms-support Slack channel to request a new mirror.

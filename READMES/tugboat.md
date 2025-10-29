@@ -1,7 +1,9 @@
 # Tugboat 101
 
-## Summary of Tugboat
-[Tugboat](https://www.tugboat.qa) (SOCKS required to access) is a fast, modern Preview Environment creation tool based on containers ([Docker Swarm](https://docs.docker.com/engine/swarm/)). Tugboat creates "Previews" which are environments that you can test proposed code changes in, login with a web shell, and view logs in the UI. Each Preview is built from a Base Preview.
+**Note:** CI environments (Tugboat) are intended for automated testing, PR previews, and stakeholder demonstrations. For active development work, use a [local CMS environment](local.md) instead.
+
+
+Tugboat is a development server platform where you can preview CMS code changes pre-production.
 
 At VA, Tugboat is used primarily in conjunction with the CMS and content-build. It's helpful to understand a couple of basic terms from Tugboat, to make clear how lower environments receive their data.  
 
