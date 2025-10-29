@@ -1,8 +1,5 @@
 # Environments & the Content Build Process
 
-To enable end to end quality analysis, from the VA.gov CMS through to the public facing website, new feature review, and stakeholder demonstrations, multiple joined CMS/WEB environments may be created by any user with access to Tugboat. (More info on [Tugboat](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/tugboat.md).)
-
-The following table lists all environments and CMS/WEB sites used in the development process for VA.gov:
 
 **For Active Development:** Use a [local CMS environment](local.md) as your primary development backend.
 
@@ -175,7 +172,7 @@ The primary environments, DEV, STAGING, and PROD, are hosted in the _BRD_ system
 
 Pull Request Environments and Ad Hoc environments are hosted in the _CMS-CI_ system.
 
-SOCKS proxy or PIV+GFE hardware is required for accessing VA internal network.
+VA network access (via PIV card, CAG, or AVD) is required for accessing VA internal network and tools.
 
 ### BRD: Jenkins
 
