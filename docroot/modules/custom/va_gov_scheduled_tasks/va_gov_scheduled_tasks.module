@@ -11,8 +11,6 @@ use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\MigrateExecutable;
 use Drupal\migrate\MigrateMessage;
-use Drush\Drush;
-use Drush\SiteAlias\SiteAliasManager;
 
 /**
  * Downloads the VA Forms data file and saves it for migration.
@@ -299,7 +297,7 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
   }
   $output = [];
   $return_var = 0;
-  exec('drush ' . $command . ' 2>&1', $output, $return_var);
+  exec(DRUPAL_ROOT . '/../bin/drush ' . $command . ' 2>&1', $output, $return_var);
   \Drupal::logger('va_gov_scheduled_tasks')->notice('Drush command return code: @code', ['@code' => $return_var]);
   if ($return_var !== 0) {
     \Drupal::logger('va_gov_scheduled_tasks')->error('Drush command failed: @command Output: @output', [
@@ -314,7 +312,6 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
     ]);
   }
 }
-
 
 /**
  * Check for outdated content.
