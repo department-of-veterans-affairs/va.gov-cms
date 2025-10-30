@@ -297,7 +297,13 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
   }
   $output = [];
   $return_var = 0;
-  exec(DRUPAL_ROOT . '/../bin/drush ' . $command . ' 2>&1', $output, $return_var);
+  // Determine a safe HOME for cron environments.
+  $home = getenv('HOME') ?: sys_get_temp_dir();
+  $env_prefix = 'HOME=' . escapeshellarg($home) . ' ';
+  $drush_bin = DRUPAL_ROOT . '/../bin/drush';
+  // Use --root so drush targets the right site and include HOME in the env.
+  $full_cmd = $env_prefix . $drush_bin . ' --root=' . escapeshellarg(DRUPAL_ROOT) . ' ' . $command . ' 2>&1';
+  exec($full_cmd, $output, $return_var);
   \Drupal::logger('va_gov_scheduled_tasks')->notice('Drush command return code: @code', ['@code' => $return_var]);
   if ($return_var !== 0) {
     \Drupal::logger('va_gov_scheduled_tasks')->error('Drush command failed: @command Output: @output', [
