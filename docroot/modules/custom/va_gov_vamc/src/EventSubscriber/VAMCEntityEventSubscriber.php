@@ -199,11 +199,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     $this->contentHardeningDeduper->removeDuplicate($entity);
-
-    // Clear data from fields that are not relevant to non-clinical services.
-    if ($entity->getEntityTypeId() === 'paragraph' && $entity->bundle() === 'service_location') {
-      $this->removeFieldDataFromNonClinicalServices($entity);
-    }
+    $this->removeFieldDataFromNonClinicalServices($entity);
   }
 
   /**
@@ -500,7 +496,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *   The entity being updated.
    */
   protected function removeFieldDataFromNonClinicalServices(EntityInterface $entity): void {
-    if (!$entity instanceof ParagraphInterface) {
+    if (!$entity instanceof ParagraphInterface || $entity->bundle() !== 'service_location') {
       return;
     }
 
