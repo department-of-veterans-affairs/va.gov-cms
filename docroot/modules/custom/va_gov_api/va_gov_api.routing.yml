@@ -7,3 +7,13 @@ va_gov_api.new_banner_alerts:
     _permission: 'access content'
   methods:
     - GET
+
+va_gov_api.system_events:
+  path: '/api/v1/system-events'
+  defaults:
+    _title: 'System Events'
+    _controller: '\Drupal\va_gov_api\Controller\SystemEventsController::systemEvents'
+  requirements:
+    _permission: 'access content'
+  methods:
+    - GET
