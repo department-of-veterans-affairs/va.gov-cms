@@ -24,7 +24,7 @@ When does this request need to be live:
 - [ ] Redirects deploy daily except Friday at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. After deploy, validate that the URL redirect is deployed. 
 - [ ] Update this ticket with a comment that the redirect has been deployed.
 - [ ] Remove the "Awaiting redirect" flag if it was added on the facility node, with a revision log message that includes a link to this ticket, preserving the node's current moderation state.
-- [ ] Notify helpdesk via comment on ticket that redirect has deployed.
+- [ ] Notify helpdesk via tagging @cms-helpdesk in the #cms-support Slack channel, updating the status of this ticket to 'In Review' on the [Flagged Facilitites board](https://github.com/orgs/department-of-veterans-affairs/projects/1194/views/28), and commenting on this ticket that redirect has deployed.
 
 #### URL Redirect
 | Current URL  |  Redirect Destination or New URL |
