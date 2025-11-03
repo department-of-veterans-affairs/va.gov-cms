@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec /usr/local/bin/docker-varnish-entrypoint -s "file,/var/lib/varnish/varnish_storage.bin,4G"
