@@ -7,10 +7,6 @@ For regular development, the DSVA team uses [ddev](https://ddev.com/) for local 
 For testing and simple development, you can use the special Composer commands and Drupal Console to launch on any system
 with PHP-CLI and SQLite.
 
-## Quickstart with Codespaces
-
-See [the Codespaces README](./codespaces.md) to get a fully functional cloud-based development environment.
-
 ## Step 1: Get Source Code / Git Setup
 
 - Clone the repo: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) (Please clone the main repo rather than forking it.)
