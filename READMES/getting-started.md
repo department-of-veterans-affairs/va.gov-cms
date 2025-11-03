@@ -13,30 +13,30 @@ See [the Codespaces README](./codespaces.md) to get a fully functional cloud-bas
 
 ## Step 1: Get Source Code / Git Setup
 
-- Clone the repo: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms)
+- Clone the repo: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) (Please clone the main repo rather than forking it.)
   ```sh
    $ git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git
    $ cd va.gov-cms
   ```
 
-* Make sure your local repo is aware of what's on the remotes.
+- Make sure your local repo is aware of what's on the remotes.
   ```sh
   $ git fetch --all
   ```
 
-* Make sure git is not tracking perms
+- Make sure git is not tracking perms
   ```sh
   $ git config core.fileMode false
   $ git config --global core.fileMode false
   ```
 
-* Make sure rebase is your default
+- Make sure rebase is your default
   ```sh
   $ git config --global branch.autosetuprebase always
   $ git config --global branch.main.rebase true
   ```
 
-*  Make changes to simplesaml storage not be tracked locally.
+-  Make changes to simplesaml storage not be tracked locally.
 
   ```sh
    git update-index --skip-worktree samlsessiondb.sq3
