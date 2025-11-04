@@ -35,13 +35,33 @@ class ClosedOperatingStatusConstraintValidatorTest extends VaGovUnitTestBase {
    */
   public function testValidate(bool $willValidate, string $testString) {
     $value = new class([['value' => $testString]]) {
+
+      /**
+       * The items being tested.
+       *
+       * @var array $items
+       */
       private array $items;
+
+      /**
+       * Constructor.
+       *
+       * @param array $items
+       */
       public function __construct(array $items) {
         $this->items = $items;
       }
+
+      /**
+       * Get the value.
+       *
+       * @return array
+       *   The items.
+       */
       public function getValue(): array {
         return $this->items;
       }
+
     };
 
     $validator = new ClosedOperatingStatusConstraintValidator();
