@@ -13,7 +13,7 @@ class VaGovUserMigrateSourceUiForm extends MigrateSourceUiForm {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $migration_group = NULL, $migration = NULL): array {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $form = parent::buildForm($form, $form_state);
 
     $options = [];
