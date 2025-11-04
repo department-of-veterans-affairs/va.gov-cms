@@ -39,7 +39,7 @@ class ClosedOperatingStatusConstraintValidatorTest extends VaGovUnitTestBase {
       /**
        * The items being tested.
        *
-       * @var array $items
+       * @var array
        */
       private array $items;
 
@@ -47,6 +47,7 @@ class ClosedOperatingStatusConstraintValidatorTest extends VaGovUnitTestBase {
        * Constructor.
        *
        * @param array $items
+       *  The items.
        */
       public function __construct(array $items) {
         $this->items = $items;
