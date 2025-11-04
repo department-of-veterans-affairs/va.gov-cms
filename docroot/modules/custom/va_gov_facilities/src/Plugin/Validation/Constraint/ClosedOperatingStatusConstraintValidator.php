@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_facilities\Plugin\Validation\Constraint;
 
+use Drupal\va_gov_backend\Plugin\Validation\Constraint\Traits\ValidatorContextAccessTrait;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -9,6 +10,8 @@ use Symfony\Component\Validator\ConstraintValidator;
  * Validates the ClosedOperatingStatus constraint.
  */
 class ClosedOperatingStatusConstraintValidator extends ConstraintValidator {
+
+  use ValidatorContextAccessTrait;
 
   /**
    * {@inheritdoc}
@@ -21,7 +24,9 @@ class ClosedOperatingStatusConstraintValidator extends ConstraintValidator {
 
     foreach ($value->getValue() as $item) {
       if (isset($item['value']) && $item['value'] === 'closed') {
-        $this->context->addViolation($constraint->errorMessage);
+        $this->getContext()
+          ->buildViolation($constraint->errorMessage, [])
+          ->addViolation();
       }
     }
   }
