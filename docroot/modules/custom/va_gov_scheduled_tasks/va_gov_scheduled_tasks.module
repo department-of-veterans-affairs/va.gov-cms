@@ -238,7 +238,6 @@ function va_gov_scheduled_tasks_0800_flag_removed_facilities() {
  * Sends Datadog metrics.
  */
 function va_gov_scheduled_tasks_send_datadog_metrics() {
-  \Drupal::logger('va_gov_scheduled_tasks')->notice('Every minute task send_datadog_metrics started');
   try {
     $datadog_service = \Drupal::service('va_gov_backend.metrics');
     $datadog_service->updateDatadog();
@@ -246,7 +245,6 @@ function va_gov_scheduled_tasks_send_datadog_metrics() {
   catch (\Exception $e) {
     \Drupal::logger('va_gov_scheduled_tasks')->error('Failed to send Datadog metrics: @message', ['@message' => $e->getMessage()]);
   }
-  \Drupal::logger('va_gov_scheduled_tasks')->notice('Every minute task send_datadog_metrics completed');
 }
 
 /**
@@ -287,7 +285,7 @@ function va_gov_scheduled_tasks_manage_content_release() {
 function va_gov_scheduled_tasks_run_drush_command($command) {
   // Some calls are made too often to log every time.
   // We only want to log the errors for those.
-  $calls_without_logging = [];
+  $calls_without_logging = ['advancedqueue:queue:process content_release'];
   $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
   if (isset($backtrace[1]['function'])) {
     $caller = $backtrace[1]['function'];
@@ -304,7 +302,6 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
   // Use --root so drush targets the right site and include HOME in the env.
   $full_cmd = $env_prefix . $drush_bin . ' --root=' . escapeshellarg(DRUPAL_ROOT) . ' ' . $command . ' 2>&1';
   exec($full_cmd, $output, $return_var);
-  \Drupal::logger('va_gov_scheduled_tasks')->notice('Drush command return code: @code', ['@code' => $return_var]);
   if ($return_var !== 0) {
     \Drupal::logger('va_gov_scheduled_tasks')->error('Drush command failed: @command Output: @output', [
       '@command' => $command,
@@ -312,11 +309,15 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
     ]);
   }
   else {
-    \Drupal::logger('va_gov_scheduled_tasks')->notice('Drush command succeeded: @command Output: @output', [
-      '@command' => $command,
-      '@output' => implode("\n", $output),
-    ]);
+    if (isset($backtrace[1]['function'])) {
+      $caller = $backtrace[1]['function'];
+      \Drupal::logger('va_gov_scheduled_tasks')->notice('Drush command succeeded: @command Output: @output', [
+        '@command' => $command,
+        '@output' => implode("\n", $output),
+      ]);
+    }
   }
+
 }
 
 /**
