@@ -426,6 +426,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form state object.
    */
   private function addModalForEntitiesWithUsage(array &$form, FormStateInterface $form_state) {
+    $is_admin = $this->userPermsService->hasAdminRole();
+    if ($is_admin) {
+      // True admins and content-admins should know what they are doing.
+      // No modal needed.
+      return;
+    }
     $formObject = $form_state->getFormObject();
     if (!($formObject instanceof EntityFormInterface)) {
       return;
