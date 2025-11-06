@@ -1,4 +1,6 @@
-# Environments: Codespaces
+# Environments: Codespaces (historical use only)
+
+Codespaces is not currently in use. This README is strictly here for historical purposes.
 
 ## About
 
