@@ -37,3 +37,11 @@ services:
   va_gov_build_trigger.build_scheduler:
     class: Drupal\va_gov_build_trigger\Service\BuildScheduler
     arguments: ['@va_gov_content_release.request', '@state', '@datetime.time', '@date.formatter']
+  va_gov_build_trigger.release_checker:
+    class: Drupal\va_gov_build_trigger\Service\ReleaseChecker
+    arguments: [
+      '@va_gov_build_trigger.release_state_manager',
+      '@va_gov_build_trigger.build_scheduler',
+      '@va_gov_content_release.request',
+      '@state',
+    ]

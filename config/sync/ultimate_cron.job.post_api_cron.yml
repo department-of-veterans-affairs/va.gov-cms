@@ -1,0 +1,17 @@
+uuid: e6ad9c92-2965-43e4-8c06-e10ef4bdce48
+langcode: en
+status: true
+dependencies:
+  module:
+    - post_api
+title: 'Default cron handler'
+id: post_api_cron
+weight: 0
+module: post_api
+callback: 'post_api#cron'
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

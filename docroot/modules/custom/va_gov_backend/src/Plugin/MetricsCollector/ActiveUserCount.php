@@ -73,7 +73,7 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
     Connection $database,
     Settings $settings,
     WorkbenchAccessManager $workbench_access_manager,
-    EntityTypeManagerInterface $entity_type_manager
+    EntityTypeManagerInterface $entity_type_manager,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->database = $database;
