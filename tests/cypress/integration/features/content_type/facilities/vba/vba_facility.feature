@@ -34,7 +34,6 @@ Feature: CMS User may effectively interact with the VBA Facility form
     Then an option with the text "Archived" from dropdown with selector "select#edit-moderation-state-0-state" should be visible
 
     When I select option "Archived" from dropdown with selector "select#edit-moderation-state-0-state"
-    And I click the button with selector ".ui-dialog-titlebar-close"
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I save the node
     Then I should see "has been updated."
