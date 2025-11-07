@@ -2,8 +2,11 @@
 
 namespace Drupal\va_gov_batch\cbo_scripts;
 
+require_once __DIR__ . '/../../../../../../scripts/content/script-library.php';
+
 use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * For VACMS-22248.
@@ -35,16 +38,8 @@ class UpdateNonClinicalServicesFields extends BatchOperations implements BatchSc
    */
   public function gatherItemsToProcess(): array {
     $items = [];
-    $fields_to_check = [
-      'field_office_visits',
-      'field_virtual_support',
-      'field_appt_intro_text_type',
-      'field_appt_intro_text_custom',
-      'field_use_facility_phone_number',
-      'field_other_phone_numbers',
-      'field_online_scheduling_avail',
-    ];
     try {
+      /** @var \Drupal\Core\Entity\RevisionableStorageInterface $storage */
       $storage = $this->entityTypeManager->getStorage('node');
       $query = $storage->getQuery();
       $query->accessCheck(FALSE)
@@ -56,24 +51,22 @@ class UpdateNonClinicalServicesFields extends BatchOperations implements BatchSc
       foreach ($nids as $nid) {
         /** @var \Drupal\node\Entity\Node $node */
         $node = $storage->load($nid);
-        /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $ref_field */
-        $ref_field = $node->get('field_service_location');
-        /** @var \Drupal\paragraphs\Entity\Paragraph[] $service_locations */
-        $service_locations = $ref_field->referencedEntities();
+        $needs_update = $this->needsUpdate($node);
 
-        foreach ($service_locations as $service_location) {
-          $needs_update = FALSE;
-          foreach ($fields_to_check as $field) {
-            if ($service_location->hasField($field) && !$service_location->get($field)->isEmpty()) {
-              $needs_update = TRUE;
-              break;
-            }
-          }
-          if ($needs_update) {
-            $items[] = $nid;
-            break;
+        if (!$needs_update) {
+          // Check if there are newer revisions than default.
+          $default_rev_id = $node->getRevisionId();
+          $latest_revision_id = $storage->getLatestRevisionId($nid);
+          if ($latest_revision_id > $default_rev_id) {
+            $latest_revision = $storage->loadRevision($latest_revision_id);
+            $needs_update = $this->needsUpdate($latest_revision);
           }
         }
+
+        if ($needs_update) {
+          $items[] = $nid;
+        }
+
       }
     }
     catch (\Exception $e) {
@@ -89,15 +82,30 @@ class UpdateNonClinicalServicesFields extends BatchOperations implements BatchSc
    */
   public function processOne(string $key, mixed $item, array &$sandbox): string {
     try {
+      /** @var \Drupal\Core\Entity\RevisionableStorageInterface $storage */
       $storage = $this->entityTypeManager->getStorage('node');
 
       /** @var \Drupal\node\Entity\Node $node */
       $node = $storage->load($item);
-      $node->setNewRevision();
-      $node->setRevisionLogMessage("Clearing hidden service location fields");
-      $node->save();
+      $revision_message = "Clearing hidden service location fields";
 
-      $message = "Non-clinical service node ID $item processed successfully.";
+      $default_rev_id = $node->getRevisionId();
+      $latest_revision_id = $storage->getLatestRevisionId($item);
+
+      $rev_batch_log_message = '';
+
+      // Save forward revisions if they exist.
+      if ($latest_revision_id > $default_rev_id) {
+        /** @var \Drupal\node\NodeInterface $revision */
+        $revision = $storage->loadRevision($latest_revision_id);
+        $existing_message = $revision->getRevisionLogMessage() ?? '';
+        save_node_revision($revision, $revision_message . ' - ' . $existing_message, FALSE);
+        $rev_batch_log_message = " (also updated latest revision ID:$latest_revision_id for this item.)";
+      }
+
+      save_node_revision($node, $revision_message, TRUE);
+
+      $message = "Non-clinical service node ID $item processed successfully." . $rev_batch_log_message;
       $this->batchOpLog->appendLog($message);
     }
     catch (\Exception $e) {
@@ -105,6 +113,41 @@ class UpdateNonClinicalServicesFields extends BatchOperations implements BatchSc
       $this->batchOpLog->appendError($message);
     }
     return "Node $item was processed.";
+  }
+
+  /**
+   * Checks if data in fields needs to be cleared.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to check.
+   *
+   * @return bool
+   *   Whether an update is needed.
+   */
+  protected function needsUpdate(EntityInterface $entity): bool {
+    $fields_to_check = [
+      'field_office_visits',
+      'field_virtual_support',
+      'field_appt_intro_text_type',
+      'field_appt_intro_text_custom',
+      'field_use_facility_phone_number',
+      'field_other_phone_numbers',
+      'field_online_scheduling_avail',
+    ];
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $ref_field */
+    $ref_field = $entity->get('field_service_location');
+    /** @var \Drupal\paragraphs\Entity\Paragraph[] $service_locations */
+    $service_locations = $ref_field->referencedEntities();
+
+    foreach ($service_locations as $service_location) {
+      foreach ($fields_to_check as $field) {
+        if ($service_location->hasField($field) && !$service_location->get($field)->isEmpty()) {
+          return TRUE;
+        }
+      }
+    }
+    return FALSE;
+
   }
 
 }
