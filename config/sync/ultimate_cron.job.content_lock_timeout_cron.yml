@@ -1,0 +1,17 @@
+uuid: 0beaf5bc-9792-4373-8d09-4e3b315a66bc
+langcode: en
+status: true
+dependencies:
+  module:
+    - content_lock_timeout
+title: 'Release stale locks'
+id: content_lock_timeout_cron
+weight: 0
+module: content_lock_timeout
+callback: 'content_lock_timeout#cron'
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database
