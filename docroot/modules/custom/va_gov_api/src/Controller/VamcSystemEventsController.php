@@ -8,7 +8,6 @@ use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Returns responses for the System Events API.
@@ -16,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Returns upcoming events for a VAMC system, handling recurring events
  * and Lovell variant pages.
  */
-class SystemEventsController extends ControllerBase {
+class VamcSystemEventsController extends ControllerBase {
 
   /**
    * Lovell administration entity IDs.
@@ -66,35 +65,34 @@ class SystemEventsController extends ControllerBase {
   }
 
   /**
-   * Get system events by system ID.
+   * Get featured events by vamc-system(health_care_region_page) NID.
    *
-   * @param \Symfony\Component\HttpFoundation\Request $request
+   * @param int $nid
    *   The request object.
    *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    *   The system events.
    */
-  public function systemEvents(Request $request) {
-    $system_id = $request->get('system_id');
-    if (!$system_id) {
-      return new JsonResponse(['error' => 'No system_id provided.'], 400);
+  public function getFeaturedEvents($nid) {
+    if (!$nid) {
+      return new JsonResponse(['error' => 'No nid provided.'], 400);
     }
 
     // Load the VAMC system node.
     $node_storage = $this->entityTypeManager->getStorage('node');
     /** @var \Drupal\node\NodeInterface|null $system_node */
-    $system_node = $node_storage->load($system_id);
+    $system_node = $node_storage->load($nid);
 
     // Validate system node.
     if (!$system_node || $system_node->getType() !== 'health_care_region_page' || !$system_node->isPublished()) {
-      return new JsonResponse(['error' => 'Invalid system_id or system not found.'], 404);
+      return new JsonResponse(['error' => 'Invalid ID or vamc-system not found.'], 404);
     }
 
     // Determine if this is a Lovell variant system.
     $is_lovell_variant = $this->isLovellVariantSystem($system_node);
 
     // Fetch events.
-    $events = $this->fetchSystemEvents($system_id, $is_lovell_variant);
+    $events = $this->fetchSystemEvents($nid, $is_lovell_variant);
 
     // Build response.
     $response = new CacheableJsonResponse([
@@ -102,7 +100,6 @@ class SystemEventsController extends ControllerBase {
     ]);
 
     // Add cache metadata.
-    $response->getCacheableMetadata()->addCacheContexts(['url.query_args:system_id']);
     $response->getCacheableMetadata()->addCacheTags(['node_list:event']);
     if ($system_node) {
       $response->getCacheableMetadata()->addCacheTags($system_node->getCacheTags());

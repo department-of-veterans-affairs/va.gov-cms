@@ -9,10 +9,10 @@ va_gov_api.new_banner_alerts:
     - GET
 
 va_gov_api.system_events:
-  path: '/api/v1/system-events'
+  path: '/api/v1/vamc-system-featured-events/{nid}'
   defaults:
-    _title: 'System Events'
-    _controller: '\Drupal\va_gov_api\Controller\SystemEventsController::systemEvents'
+    _title: 'VAMC System Events'
+    _controller: '\Drupal\va_gov_api\Controller\VamcSystemEventsController::getFeaturedEvents'
   requirements:
     _permission: 'access content'
   methods:
