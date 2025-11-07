@@ -7,55 +7,32 @@ For regular development, the DSVA team uses [DDEV](https://ddev.com/) for local 
 For testing and simple development, you can use the special Composer commands and Drupal Console to launch on any system
 with PHP-CLI and SQLite.
 
-## Quickstart with DDEV (Recommended)
+## Step 1: Get Source Code / Git Setup
 
-Follow these steps to quickly get a fully functional local CMS environment using DDEV.  
-This is the recommended approach for both Drupal and non-Drupal developers.
+- Clone the repo: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) (Please clone the main repo rather than forking it.)
+  ```sh
+   $ git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git
+   $ cd va.gov-cms
+  ```
 
-### Prerequisites
+- Make sure your local repo is aware of what's on the remotes.
+  ```sh
+  $ git fetch --all
+  ```
 
-- [Docker](https://docs.docker.com/get-docker/)
-- [DDEV](https://ddev.readthedocs.io/en/stable/#installation)
-- [mkcert](https://github.com/FiloSottile/mkcert) (run `mkcert -install` once to install HTTPS certificates)
-- [Homebrew](https://brew.sh/) (Mac only, for installing dependencies)
+- Make sure git is not tracking perms
+  ```sh
+  $ git config core.fileMode false
+  $ git config --global core.fileMode false
+  ```
 
-### Step 1: Clone the Repository
+- Make sure rebase is your default
+  ```sh
+  $ git config --global branch.autosetuprebase always
+  $ git config --global branch.main.rebase true
+  ```
 
-```bash
-$ git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git
-$ cd va.gov-cms
-```
-
-Ensure your local repo is up-to-date and configured correctly:
-
-```bash
-$ git fetch --all
-$ git config core.fileMode false
-$ git config --global core.fileMode false
-$ git config --global branch.autosetuprebase always
-$ git config --global branch.main.rebase true
-$ git update-index --skip-worktree samlsessiondb.sq3
-```
-
-To update your branch from `origin/main`:
-
-```bash
-$ git pull origin main
-```
-
-### Step 2: Configure and Start DDEV
-
-1. Copy the example environment file:
-
-   ```bash
-   $ cp .env.example .env
-   ```
-
-2. Start the DDEV environment:
-
-   ```bash
-   $ ddev start
-   ```
+-  Make changes to simplesaml storage not be tracked locally.
 
    This command starts the local containers and runs `composer install` automatically.
 
