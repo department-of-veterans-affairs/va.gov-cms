@@ -10,7 +10,17 @@ folder: ../config/local
 module:
   devel_generate: 0
   fast404: 0
+  purge: 0
+  purge_processor_cron: 0
+  purge_processor_lateruntime: 0
+  purge_queuer_coretags: 0
+  purge_tokens: 0
+  purge_ui: 0
+  varnish_purge_tags: 0
+  varnish_purger: 0
   views_ui: 0
+  raven: 0
+  syslog: 0
 theme: {  }
 blacklist:
   - devel.settings
