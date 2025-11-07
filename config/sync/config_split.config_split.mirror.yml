@@ -1,15 +1,14 @@
-uuid: e11c29a2-ef5c-4692-a5fb-d14205d0e97d
+uuid: 9409ba4e-b9f0-42b6-a9d1-dd59e7900840
 langcode: en
-status: true
+status: false
 dependencies: {  }
-id: dev
-label: Dev
-description: 'Configuration for Development environments.'
+id: mirror
+label: Mirror
+description: 'Config for Prod Mirror'
 weight: 0
-folder: ../config/dev
+folder: ../config/mirror
 module:
   devel_generate: 0
-  fast404: 0
   purge: 0
   purge_processor_cron: 0
   purge_processor_lateruntime: 0
@@ -17,17 +16,13 @@ module:
   purge_ui: 0
   varnish_purge_tags: 0
   varnish_purger: 0
-  views_ui: 0
-  raven: 0
-  syslog: 0
 theme: {  }
 blacklist:
   - devel.settings
   - devel.toolbar.settings
   - system.menu.devel
 graylist:
-  - ga4_google_analytics.config
-  - raven.settings
   - simplesamlphp_auth.settings
+  - raven.settings
 graylist_dependents: true
 graylist_skip_equal: true
