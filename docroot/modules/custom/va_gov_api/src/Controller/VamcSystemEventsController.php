@@ -92,7 +92,7 @@ class VamcSystemEventsController extends ControllerBase {
     $is_lovell_variant = $this->isLovellVariantSystem($system_node);
 
     // Fetch events.
-    $events = $this->fetchSystemEvents($nid, $is_lovell_variant);
+    $events = $this->fetchFeaturedEvents($nid, $is_lovell_variant);
 
     // Build response.
     $response = new CacheableJsonResponse([
@@ -122,7 +122,7 @@ class VamcSystemEventsController extends ControllerBase {
    * @return array
    *   Array of event data, limited to 2 featured events or 1 fallback.
    */
-  protected function fetchSystemEvents(string $system_id, bool $is_lovell_variant): array {
+  protected function fetchFeaturedEvents(string $system_id, bool $is_lovell_variant): array {
     $current_timestamp = time();
 
     // Try to get featured events first.
