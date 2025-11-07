@@ -1,7 +1,7 @@
 <?php
 
   // Canonical site host used by common settings logic; must match ingress host
-  $webhost_on_cli = 'https://eks-dev.cms.va.gov';
+  $webhost_on_cli      = 'https://eks-dev.cms.va.gov';
   $settings['webhost'] = $webhost_on_cli;
 
   // Explicitly allow expected Host headers (anchored regex patterns)
@@ -21,7 +21,7 @@
   // ———————————————————————————————————————————————
   if (
     (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https') ||
-    (!empty($_SERVER['HTTP_X_FORWARDED_SSL'])   && strtolower($_SERVER['HTTP_X_FORWARDED_SSL'])   === 'on')
+    (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) === 'on')
   ) {
     $_SERVER['HTTPS']       = 'on';
     $_SERVER['SERVER_PORT'] = 443;
@@ -30,18 +30,19 @@
   // Sanitize X-Forwarded-For to contain only valid IPs (remove tokens like "traefik")
   if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
     $xff_parts = array_map('trim', explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
-    $xff_ips = array_filter($xff_parts, function ($ip) {
+    $xff_ips   = array_filter($xff_parts, function ($ip) {
       return (bool) filter_var($ip, FILTER_VALIDATE_IP);
     });
     if (!empty($xff_ips)) {
       $_SERVER['HTTP_X_FORWARDED_FOR'] = implode(', ', $xff_ips);
-    } else {
+    }
+    else {
       unset($_SERVER['HTTP_X_FORWARDED_FOR']);
     }
   }
 
   // Increase memory limit for JSONapi requests with many includes
-  if (!empty($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/jsonapi/') !== false) {
+  if (!empty($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/jsonapi/') !== FALSE) {
     // Count the number of includes to determine resource allocation
     $include_count = 0;
     if (!empty($_GET['include'])) {
@@ -63,7 +64,7 @@
         // Use header_register_callback to intercept headers BEFORE they're sent to Apache
         // This runs earlier than shutdown functions
         if (function_exists('header_register_callback')) {
-          header_register_callback(function() {
+          header_register_callback(function () {
             $max_header_size = 8192; // 8KB - Apache's actual limit
 
             $headers = headers_list();
@@ -71,21 +72,23 @@
               // Check for cache tags header (case-insensitive)
               if (stripos($header, 'X-Drupal-Cache-Tags:') === 0 || stripos($header, 'Cache-Tags:') === 0) {
                 $header_parts = explode(':', $header, 2);
-                if (count($header_parts) !== 2) continue;
+                if (count($header_parts) !== 2) {
+                  continue;
+                }
 
-                $header_name = trim($header_parts[0]);
+                $header_name  = trim($header_parts[0]);
                 $header_value = trim($header_parts[1]);
-                $header_size = strlen($header);
+                $header_size  = strlen($header);
 
                 // Split tags
-                $tags = preg_split('/\s+/', $header_value, -1, PREG_SPLIT_NO_EMPTY);
+                $tags           = preg_split('/\s+/', $header_value, -1, PREG_SPLIT_NO_EMPTY);
                 $original_count = count($tags);
 
                 // Strip out config: and paragraph: tags - they're not useful for cache invalidation
                 // Config changes are infrequent and usually require full cache clears anyway
                 // Paragraphs are embedded in nodes, so node: tags are sufficient
-                $filtered_tags = [];
-                $config_tags_removed = 0;
+                $filtered_tags          = [];
+                $config_tags_removed    = 0;
                 $paragraph_tags_removed = 0;
 
                 foreach ($tags as $tag) {
@@ -101,7 +104,7 @@
                 }
 
                 $new_value = implode(' ', $filtered_tags);
-                $new_size = strlen($header_name . ': ' . $new_value);
+                $new_size  = strlen($header_name . ': ' . $new_value);
 
                 // If still too large after removing config and paragraph tags, limit further
                 if ($new_size > $max_header_size) {
@@ -109,19 +112,20 @@
 
                   // Prioritize node and taxonomy tags over other types
                   $priority_tags = [];
-                  $other_tags = [];
+                  $other_tags    = [];
 
                   foreach ($filtered_tags as $tag) {
                     if (strpos($tag, 'node:') === 0 || strpos($tag, 'taxonomy_term:') === 0) {
                       $priority_tags[] = $tag;
-                    } else {
+                    }
+                    else {
                       $other_tags[] = $tag;
                     }
                   }
 
                   // Build limited list that fits in the header
                   $limited_tags = $priority_tags;
-                  $new_value = implode(' ', $limited_tags);
+                  $new_value    = implode(' ', $limited_tags);
 
                   // Add other tags until we hit the size limit
                   foreach ($other_tags as $tag) {
@@ -130,12 +134,12 @@
                       break; // Stop adding tags
                     }
                     $limited_tags[] = $tag;
-                    $new_value = $test_value;
+                    $new_value      = $test_value;
                   }
 
                   $filtered_tags = $limited_tags;
-                  $new_value = implode(' ', $filtered_tags);
-                  $new_size = strlen($header_name . ': ' . $new_value);
+                  $new_value     = implode(' ', $filtered_tags);
+                  $new_size      = strlen($header_name . ': ' . $new_value);
                 }
 
                 // Replace the header if we removed tags or need to limit
@@ -157,7 +161,8 @@
           });
         }
       }
-    } else {
+    }
+    else {
       @ini_set('memory_limit', '2048M');
       @ini_set('max_execution_time', '900');
     }
@@ -172,11 +177,16 @@
     error_log('JSONapi request: ' . $_SERVER['REQUEST_URI']);
 
     // Register shutdown function to catch fatal errors
-    register_shutdown_function(function() {
+    register_shutdown_function(function () {
       $error = error_get_last();
-      if ($error !== null && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+      if ($error !== NULL && in_array($error['type'], [
+          E_ERROR,
+          E_PARSE,
+          E_CORE_ERROR,
+          E_COMPILE_ERROR
+        ])) {
         error_log('FATAL ERROR in JSONapi: ' . json_encode($error));
-        error_log('Memory usage at error: ' . memory_get_peak_usage(true) . ' bytes');
+        error_log('Memory usage at error: ' . memory_get_peak_usage(TRUE) . ' bytes');
       }
     });
   }
@@ -194,21 +204,27 @@
   // Enable render caching for JSONapi responses
   $settings['cache']['bins']['jsonapi_normalizations'] = 'cache.backend.memcache';
   $settings['cache']['bins']['jsonapi_resource_types'] = 'cache.backend.memcache';
-  $settings['cache']['bins']['entity'] = 'cache.backend.memcache';
+  $settings['cache']['bins']['entity']                 = 'cache.backend.memcache';
 
   // Database configuration for complex queries
   $databases['default']['default']['init_commands'] = [
-    'isolation_level' => 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
-    'lock_wait_timeout' => 'SET SESSION lock_wait_timeout = 60',
-    'tmp_table_size' => 'SET SESSION tmp_table_size = 536870912', // 512MB (increased from 256MB)
-    'max_heap_table_size' => 'SET SESSION max_heap_table_size = 536870912', // 512MB (increased from 256MB)
-    'join_buffer_size' => 'SET SESSION join_buffer_size = 33554432', // 32MB (increased from 16MB)
-    'sort_buffer_size' => 'SET SESSION sort_buffer_size = 33554432', // 32MB (increased from 16MB)
-    'read_buffer_size' => 'SET SESSION read_buffer_size = 8388608', // 8MB for sequential scans
-    'read_rnd_buffer_size' => 'SET SESSION read_rnd_buffer_size = 16777216', // 16MB for sorted reads
+    'isolation_level'      => 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
+    'lock_wait_timeout'    => 'SET SESSION lock_wait_timeout = 60',
+    'tmp_table_size'       => 'SET SESSION tmp_table_size = 536870912',
+    // 512MB (increased from 256MB)
+    'max_heap_table_size'  => 'SET SESSION max_heap_table_size = 536870912',
+    // 512MB (increased from 256MB)
+    'join_buffer_size'     => 'SET SESSION join_buffer_size = 33554432',
+    // 32MB (increased from 16MB)
+    'sort_buffer_size'     => 'SET SESSION sort_buffer_size = 33554432',
+    // 32MB (increased from 16MB)
+    'read_buffer_size'     => 'SET SESSION read_buffer_size = 8388608',
+    // 8MB for sequential scans
+    'read_rnd_buffer_size' => 'SET SESSION read_rnd_buffer_size = 16777216',
+    // 16MB for sorted reads
   ];
 
-  $settings['reverse_proxy'] = TRUE;
+  $settings['reverse_proxy']           = TRUE;
   $settings['reverse_proxy_addresses'] = [
     '10.199.0.0/16',
     '10.247.0.0/16',
@@ -241,82 +257,84 @@
 
   include dirname(__FILE__) . '/settings.brd_common.php';
 
-  $settings['va_gov_environment']['environment'] = 'dev';
+  $settings['va_gov_environment']['environment'] = 'mirror';
 
-  $settings['jenkins_build_job_path'] = '/job/builds/job/content-build-content-only-vagov' . $settings['jenkins_build_env'];
+  $settings['jenkins_build_job_path']   = '/job/builds/job/content-build-content-only-vagov' . $settings['jenkins_build_env'];
   $settings['jenkins_build_job_params'] = '/buildWithParameters?deploy=true';
-  $settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
+  $settings['jenkins_build_job_url']    = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
 
-  $config['config_split.config_split.dev']['status'] = TRUE;
-  $config['config_split.config_split.stg']['status'] = FALSE;
-  $config['config_split.config_split.prod']['status'] = FALSE;
-  $config['config_split.config_split.local']['status'] = FALSE;
+  $config['config_split.config_split.dev']['status']     = TRUE;
+  $config['config_split.config_split.stg']['status']     = FALSE;
+  $config['config_split.config_split.prod']['status']    = FALSE;
+  $config['config_split.config_split.local']['status']   = FALSE;
   $config['config_split.config_split.tugboat']['status'] = FALSE;
 
-  $config['system.performance']['cache']['page']['use_internal'] = FALSE;
-  $config['system.performance']['css']['preprocess'] = TRUE;
-  $config['system.performance']['css']['gzip'] = TRUE;
-  $config['system.performance']['js']['preprocess'] = TRUE;
-  $config['system.performance']['js']['gzip'] = TRUE;
-  $config['system.performance']['response']['gzip'] = TRUE;
-  $config['views.settings']['ui']['show']['sql_query']['enabled'] = TRUE;
+  $config['system.performance']['cache']['page']['use_internal']    = FALSE;
+  $config['system.performance']['css']['preprocess']                = TRUE;
+  $config['system.performance']['css']['gzip']                      = TRUE;
+  $config['system.performance']['js']['preprocess']                 = TRUE;
+  $config['system.performance']['js']['gzip']                       = TRUE;
+  $config['system.performance']['response']['gzip']                 = TRUE;
+  $config['views.settings']['ui']['show']['sql_query']['enabled']   = TRUE;
   $config['views.settings']['ui']['show']['performance_statistics'] = TRUE;
-  $config['system.logging']['error_level'] = 'all';
-  $config['environment_indicator.indicator']['bg_color'] = '#5900CA'; // Purple.
-  $config['environment_indicator.indicator']['fg_color'] = '#ffffff';
-  $config['environment_indicator.indicator']['name'] = 'Development';
+  $config['system.logging']['error_level']                          = 'all';
+  $config['environment_indicator.indicator']['bg_color']            = '#5900CA'; // Purple.
+  $config['environment_indicator.indicator']['fg_color']            = '#ffffff';
+  $config['environment_indicator.indicator']['name']                = 'Development';
 
-  $settings['va_gov_frontend_url'] = 'https://dev.va.gov';
+  $settings['va_gov_frontend_url']        = 'https://staging.va.gov';
   $settings['va_gov_frontend_build_type'] = 'brd';
-  $settings['github_actions_deploy_env'] = 'dev';
+  $settings['github_actions_deploy_env']  = 'mirror';
 
   // Public asset S3 location
   $public_asset_s3_base_url = 'https://dsva-vagov-staging-cms-files.s3.us-gov-west-1.amazonaws.com';
 
   // Entra ID settings
-  $settings['microsoft_entra_id_client_id'] = getenv('MICROSOFT_ENTRA_ID_CLIENT_ID');
+  $settings['microsoft_entra_id_client_id']     = getenv('MICROSOFT_ENTRA_ID_CLIENT_ID');
   $settings['microsoft_entra_id_client_secret'] = getenv('MICROSOFT_ENTRA_ID_CLIENT_SECRET');
-  $settings['microsoft_entra_id_tenant_id'] = getenv('MICROSOFT_ENTRA_ID_TENANT_ID');
+  $settings['microsoft_entra_id_tenant_id']     = getenv('MICROSOFT_ENTRA_ID_TENANT_ID');
 
   // Map important bins to Memcache; keep 'form' in DB to avoid stampedes.
-  $settings['memcache']['bins'] = [
+  $settings['memcache']['bins']           = [
     'bootstrap' => 'default',
     'discovery' => 'default',
     'config'    => 'default',
     'render'    => 'default',
     'data'      => 'default',
   ];
-  $settings['cache']['bins']['form'] = 'cache.backend.database';
+  $settings['cache']['bins']['form']      = 'cache.backend.database';
   $settings['cache']['bins']['cachetags'] = 'cache.backend.database';
 
   // Use a persistent ID so each FPM worker reuses the same connection pool and hash ring.
-  $settings['memcache']['persistent'] = TRUE;
+  $settings['memcache']['persistent']    = TRUE;
   $settings['memcache']['persistent_id'] = 'va_cms_dev_ring';
 
   // Memcached client options: tight timeouts, failover, consistent hashing.
   $settings['memcache']['options'] = [
-    Memcached::OPT_BINARY_PROTOCOL   => true,
-    Memcached::OPT_COMPRESSION       => false,
+    Memcached::OPT_BINARY_PROTOCOL      => TRUE,
+    Memcached::OPT_COMPRESSION          => FALSE,
 
     // Timeouts are in milliseconds.
-    Memcached::OPT_CONNECT_TIMEOUT   => 100,  // Fast connect fail.
-    Memcached::OPT_RETRY_TIMEOUT     => 1,    // Recheck failed server quickly.
-    Memcached::OPT_SEND_TIMEOUT      => 200,
-    Memcached::OPT_RECV_TIMEOUT      => 200,
-    Memcached::OPT_POLL_TIMEOUT      => 50,
+    Memcached::OPT_CONNECT_TIMEOUT      => 100,
+    // Fast connect fail.
+    Memcached::OPT_RETRY_TIMEOUT        => 1,
+    // Recheck failed server quickly.
+    Memcached::OPT_SEND_TIMEOUT         => 200,
+    Memcached::OPT_RECV_TIMEOUT         => 200,
+    Memcached::OPT_POLL_TIMEOUT         => 50,
 
     // Networking and failover.
-    Memcached::OPT_TCP_NODELAY       => true,
+    Memcached::OPT_TCP_NODELAY          => TRUE,
     Memcached::OPT_SERVER_FAILURE_LIMIT => 2,
-    Memcached::OPT_DEAD_TIMEOUT      => 15,
+    Memcached::OPT_DEAD_TIMEOUT         => 15,
 
     // Consistent hashing for stable key distribution.
-    Memcached::OPT_DISTRIBUTION      => Memcached::DISTRIBUTION_CONSISTENT,
-    Memcached::OPT_LIBKETAMA_COMPATIBLE => true,
+    Memcached::OPT_DISTRIBUTION         => Memcached::DISTRIBUTION_CONSISTENT,
+    Memcached::OPT_LIBKETAMA_COMPATIBLE => TRUE,
   ];
 
   // Cache backend configuration
   $settings['cache']['default'] = 'cache.backend.memcache';
 
   // Key prefix to avoid conflicts
-  $settings['memcache']['key_prefix'] = 'va_cms_dev';
+  $settings['memcache']['key_prefix'] = 'va_cms_mirror';
