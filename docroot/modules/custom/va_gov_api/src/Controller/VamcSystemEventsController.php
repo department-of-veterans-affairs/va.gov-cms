@@ -18,11 +18,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class VamcSystemEventsController extends ControllerBase {
 
   /**
-   * Lovell administration entity IDs.
+   * Lovell node IDs.
    */
-  const LOVELL_FEDERAL_ADMIN_ID = "347";
-  const LOVELL_TRICARE_ADMIN_ID = "1039";
-  const LOVELL_VA_ADMIN_ID = "1040";
+  const LOVELL_SYSTEM_NODE_IDS = [
+    "49011",
+    "49451",
+  ];
+  const LOVELL_FEDERAL_LISTING_ID = "36319";
 
   /**
    * The entity type manager service.
@@ -89,7 +91,7 @@ class VamcSystemEventsController extends ControllerBase {
     }
 
     // Determine if this is a Lovell variant system.
-    $is_lovell_variant = $this->isLovellVariantSystem($system_node);
+    $is_lovell_variant = in_array($nid, self::LOVELL_SYSTEM_NODE_IDS) ? TRUE : FALSE;
 
     // Fetch events.
     $events = $this->fetchFeaturedEvents($nid, $is_lovell_variant);
@@ -123,16 +125,14 @@ class VamcSystemEventsController extends ControllerBase {
    *   Array of event data, limited to 2 featured events or 1 fallback.
    */
   protected function fetchFeaturedEvents(string $system_id, bool $is_lovell_variant): array {
-    $current_timestamp = time();
-
     // Try to get featured events first.
-    $featured_events = $this->fetchEvents($system_id, TRUE, $is_lovell_variant, $current_timestamp);
+    $featured_events = $this->fetchEvents($system_id, TRUE, $is_lovell_variant);
 
     if (!empty($featured_events)) {
       return $featured_events;
     }
 
-    $non_featured_events = $this->fetchEvents($system_id, FALSE, $is_lovell_variant, $current_timestamp);
+    $non_featured_events = $this->fetchEvents($system_id, FALSE, $is_lovell_variant);
     if (!empty($non_featured_events)) {
       return $non_featured_events;
     }
@@ -149,13 +149,11 @@ class VamcSystemEventsController extends ControllerBase {
    *   Whether to fetch featured events.
    * @param bool $is_lovell_variant
    *   Whether this is a Lovell variant system.
-   * @param int $current_timestamp
-   *   Current Unix timestamp.
    *
    * @return \Drupal\node\NodeInterface[]
    *   Array of event nodes.
    */
-  protected function fetchEvents(string $system_id, bool $featured, bool $is_lovell_variant, int $current_timestamp): array {
+  protected function fetchEvents(string $system_id, bool $featured, bool $is_lovell_variant): array {
     $node_storage = $this->entityTypeManager->getStorage('node');
 
     // Query events where field_listing.field_office = system_id.
@@ -169,37 +167,12 @@ class VamcSystemEventsController extends ControllerBase {
       ->accessCheck(TRUE);
     $listing_ids = $listing_query->execute();
 
-    // If this is a Lovell variant, also query events from Lovell Federal.
-    // First, query offices that have Lovell Federal administration.
-    $lovell_federal_listing_ids = [];
     if ($is_lovell_variant) {
-      $office_storage = $this->entityTypeManager->getStorage('node');
-      $office_query = $office_storage->getQuery()
-        ->condition('type', 'office')
-        ->condition('status', 1)
-        ->condition('field_administration.target_id', self::LOVELL_FEDERAL_ADMIN_ID)
-        ->accessCheck(TRUE);
-      $lovell_federal_office_ids = $office_query->execute();
-
-      // Then, query listings that have these offices.
-      if (!empty($lovell_federal_office_ids)) {
-        $lovell_federal_listing_query = $listing_storage->getQuery()
-          ->condition('type', 'event_listing')
-          ->condition('status', 1)
-          ->condition('field_office.target_id', array_values($lovell_federal_office_ids), 'IN')
-          ->accessCheck(TRUE);
-        $lovell_federal_listing_ids = $lovell_federal_listing_query->execute();
-      }
+      array_push($listing_ids, self::LOVELL_FEDERAL_LISTING_ID);
     }
 
-    // Combine listing IDs from both sources.
-    $all_listing_ids = array_merge(
-      !empty($listing_ids) ? array_values($listing_ids) : [],
-      !empty($lovell_federal_listing_ids) ? array_values($lovell_federal_listing_ids) : []
-    );
-
     // If no listings found at all, return empty.
-    if (empty($all_listing_ids)) {
+    if (empty($listing_ids)) {
       return [];
     }
 
@@ -222,7 +195,7 @@ class VamcSystemEventsController extends ControllerBase {
 
     // Join field_listing table and filter by listing IDs.
     $query->join('node__field_listing', 'fl', 'fl.entity_id = n.nid');
-    $query->condition('fl.field_listing_target_id', $all_listing_ids, 'IN');
+    $query->condition('fl.field_listing_target_id', $listing_ids, 'IN');
 
     // Join field_datetime_range_timezone.
     $query->join('node__field_datetime_range_timezone', 'fd', 'fd.entity_id = n.nid');
@@ -231,7 +204,6 @@ class VamcSystemEventsController extends ControllerBase {
 
     // Execute the query.
     $event_ids = $query->execute()->fetchAllAssoc("nid");
-
     if (empty($event_ids)) {
       return [];
     }
@@ -263,29 +235,6 @@ class VamcSystemEventsController extends ControllerBase {
     }
 
     return $result;
-  }
-
-  /**
-   * Check if a system is a Lovell variant.
-   *
-   * @param \Drupal\node\NodeInterface $system_node
-   *   The system node.
-   *
-   * @return bool
-   *   TRUE if this is a Lovell TRICARE or VA variant.
-   */
-  protected function isLovellVariantSystem($system_node): bool {
-    if (!$system_node->hasField('field_administration')) {
-      return FALSE;
-    }
-
-    $administration = $system_node->get('field_administration')->entity;
-    if (!$administration) {
-      return FALSE;
-    }
-
-    $admin_id = $administration->id();
-    return $admin_id === self::LOVELL_TRICARE_ADMIN_ID || $admin_id === self::LOVELL_VA_ADMIN_ID;
   }
 
 }
