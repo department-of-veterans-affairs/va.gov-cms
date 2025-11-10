@@ -147,8 +147,8 @@ class VamcSystemEventsController extends ControllerBase {
    * @param bool $is_lovell_variant
    *   Whether this is a Lovell variant system.
    *
-   * @return \Drupal\node\NodeInterface[]
-   *   Array of event nodes.
+   * @return array
+   *   Array of associative arrays containing event properties.
    */
   protected function fetchEvents(string $system_id, bool $featured, bool $is_lovell_variant): array {
     $node_storage = $this->entityTypeManager->getStorage('node');
