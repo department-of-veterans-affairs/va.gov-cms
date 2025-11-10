@@ -234,7 +234,7 @@ class VamcSystemEventsController extends ControllerBase {
           'timezone' => $event_ids[$item->get('nid')->value]->field_datetime_range_timezone_timezone,
         ],
         'facilityLocation' => $facility_location,
-        'locationHumanreadable' => $item->get('field_location_humanreadable')->value,
+        'locationHumanReadable' => $item->get('field_location_humanreadable')->value,
         'featured' => $item->get('field_featured')->value,
       ]);
     }
