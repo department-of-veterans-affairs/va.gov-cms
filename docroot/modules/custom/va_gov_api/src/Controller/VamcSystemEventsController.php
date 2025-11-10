@@ -70,7 +70,7 @@ class VamcSystemEventsController extends ControllerBase {
    * Get featured events by vamc-system(health_care_region_page) NID.
    *
    * @param int $nid
-   *   The request object.
+   *   The VAMC system node ID.
    *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    *   The system events.
