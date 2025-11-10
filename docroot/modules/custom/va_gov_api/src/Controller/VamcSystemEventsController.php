@@ -224,7 +224,7 @@ class VamcSystemEventsController extends ControllerBase {
         ];
       }
       $nid = $item->get('nid')->value;
-      array_push($result, [
+      $result[] = [
         'title' => $item->get('title')->value,
         'entityUrl' => $item->toUrl()->toString(),
         'description' => $item->get('field_description')->value,
@@ -236,7 +236,7 @@ class VamcSystemEventsController extends ControllerBase {
         'facilityLocation' => $facility_location,
         'locationHumanReadable' => $item->get('field_location_humanreadable')->value,
         'featured' => $item->get('field_featured')->value,
-      ]);
+      ];
     }
 
     return $result;
