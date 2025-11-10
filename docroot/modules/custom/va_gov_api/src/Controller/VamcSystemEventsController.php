@@ -181,6 +181,7 @@ class VamcSystemEventsController extends ControllerBase {
     $featured_value = $featured ? '1' : '0';
 
     // Prepare the base query.
+    // Fetching date values here so we don't need to dig into the array later.
     $query = $database->select('node_field_data', 'n')
       ->fields('n', ['nid'])
       ->fields('fd', ['field_datetime_range_timezone_value'])
@@ -224,14 +225,15 @@ class VamcSystemEventsController extends ControllerBase {
           'entityUrl' => $facility_node->toUrl()->toString(),
         ];
       }
+      $nid = $item->get('nid')->value;
       array_push($result, [
         'title' => $item->get('title')->value,
         'entityUrl' => $item->toUrl()->toString(),
         'description' => $item->get('field_description')->value,
         'datetimeRangeTimezone' => [
-          'value' => $event_ids[$item->get('nid')->value]->field_datetime_range_timezone_value,
-          'endValue' => $event_ids[$item->get('nid')->value]->field_datetime_range_timezone_end_value,
-          'timezone' => $event_ids[$item->get('nid')->value]->field_datetime_range_timezone_timezone,
+          'value' => $event_ids[$nid]->field_datetime_range_timezone_value,
+          'endValue' => $event_ids[$nid]->field_datetime_range_timezone_end_value,
+          'timezone' => $event_ids[$nid]->field_datetime_range_timezone_timezone,
         ],
         'facilityLocation' => $facility_location,
         'locationHumanReadable' => $item->get('field_location_humanreadable')->value,
