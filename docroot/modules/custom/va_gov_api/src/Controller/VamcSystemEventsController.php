@@ -21,10 +21,10 @@ class VamcSystemEventsController extends ControllerBase {
    * Lovell node IDs.
    */
   const LOVELL_SYSTEM_NODE_IDS = [
-    "49011",
-    "49451",
+    '49011',
+    '49451',
   ];
-  const LOVELL_FEDERAL_LISTING_ID = "36319";
+  const LOVELL_FEDERAL_LISTING_ID = '36319';
 
   /**
    * The entity type manager service.
@@ -178,12 +178,14 @@ class VamcSystemEventsController extends ControllerBase {
     // Build SQL query using Drupal's database API.
     $database = $this->database;
     $current_time = strtotime('today midnight');
-    $featured_value = $featured ? "1" : "0";
+    $featured_value = $featured ? '1' : '0';
 
     // Prepare the base query.
     $query = $database->select('node_field_data', 'n')
       ->fields('n', ['nid'])
       ->fields('fd', ['field_datetime_range_timezone_value'])
+      ->fields('fd', ['field_datetime_range_timezone_end_value'])
+      ->fields('fd', ['field_datetime_range_timezone_timezone'])
       ->condition('n.type', 'event')
       ->condition('n.status', 1)
       ->range(0, $featured ? 2 : 1);
@@ -202,7 +204,7 @@ class VamcSystemEventsController extends ControllerBase {
     $query->orderBy('fd.field_datetime_range_timezone_value', 'ASC');
 
     // Execute the query.
-    $event_ids = $query->execute()->fetchAllAssoc("nid");
+    $event_ids = $query->execute()->fetchAllAssoc('nid');
     if (empty($event_ids)) {
       return [];
     }
@@ -212,7 +214,7 @@ class VamcSystemEventsController extends ControllerBase {
     $events = $node_storage->loadMultiple(array_keys($event_ids));
     $result = [];
     foreach ($events as $item) {
-      $location_nid = $item->get("field_facility_location")->getString();
+      $location_nid = $item->get('field_facility_location')->getString();
       $facility_location = NULL;
       if ($location_nid) {
         /** @var \Drupal\node\NodeInterface $facility_node */
@@ -225,11 +227,15 @@ class VamcSystemEventsController extends ControllerBase {
       array_push($result, [
         'title' => $item->get('title')->value,
         'entityUrl' => $item->toUrl()->toString(),
-        'fieldDescription' => $item->get('field_description')->value,
-        'fieldDatetimeRangeTimezone' => $event_ids[$item->get('nid')->value]->field_datetime_range_timezone_value,
-        'fieldFacilityLocation' => $facility_location,
-        'fieldLocationHumanreadable' => $item->get("field_location_humanreadable")->value,
-        'fieldFeatured' => $item->get("field_featured")->value,
+        'description' => $item->get('field_description')->value,
+        'datetimeRangeTimezone' => [
+          'value' => $event_ids[$item->get('nid')->value]->field_datetime_range_timezone_value,
+          'endValue' => $event_ids[$item->get('nid')->value]->field_datetime_range_timezone_end_value,
+          'timezone' => $event_ids[$item->get('nid')->value]->field_datetime_range_timezone_timezone,
+        ],
+        'facilityLocation' => $facility_location,
+        'locationHumanreadable' => $item->get('field_location_humanreadable')->value,
+        'featured' => $item->get('field_featured')->value,
       ]);
     }
 
