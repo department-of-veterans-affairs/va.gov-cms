@@ -103,9 +103,7 @@ class VamcSystemEventsController extends ControllerBase {
 
     // Add cache metadata.
     $response->getCacheableMetadata()->addCacheTags(['node_list:event']);
-    if ($system_node) {
-      $response->getCacheableMetadata()->addCacheTags($system_node->getCacheTags());
-    }
+    $response->getCacheableMetadata()->addCacheTags($system_node->getCacheTags());
     // Cache for 1 hour.
     $response->getCacheableMetadata()->setCacheMaxAge(3600);
 
