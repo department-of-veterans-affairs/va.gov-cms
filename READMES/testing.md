@@ -6,7 +6,7 @@ The CMS codebase is tested several times in the development lifecycle:
   individually statically analyzed and linted.
 - Commits that are part of a pull request are tested by two suites of tests:
   - linting, static analysis, and unit tests in GitHub Actions
-  - functional/behavioral tests in Tugboat previews
+- functional/behavioral tests in CI environments (requires VA Network access; use local CMS for development testing)
 - The functional/behavioral test suite is executed once more on Staging before
   being added to the final release.
 
@@ -52,6 +52,8 @@ be provided below under [Testing Tools](#testing-tools).
 
 ## Functional and Behavioral Tests
 
+**Note:** For active development and testing, use a local CMS environment (see [local.md](local.md)).
+
 The "slow" suite of tests are functional and behavioral tests.  These mostly
 depend on a full, running installation of Drupal, and furthermore rely on
 details of our content model, infrastructure, implementation details, and so
@@ -65,6 +67,9 @@ At present, these include:
 - **Cypress**, a behavioral test framework that verifies correct behavior by
   puppeteering a headless Chromium browser.  This is the preferred location for
   new behavioral tests and is extensible with JavaScript rather than PHP.
+
+   **Note:** Run Cypress tests against your local CMS environment for development.
+  
   To run a single test feature use:
   `ddev composer va:test:cypress -- --spec=tests/cypress/integration/<feature file name>`
 - **PHPUnit**, in a separate suite from the PHPUnit tests mentioned above, runs
@@ -143,12 +148,12 @@ errors that arise from this sort of use.
 This can be done by adding new expressions to the `parameters.ignoreErrors`
 array in [phpstan.neon](../phpstan.neon).
 
-```yaml
+\`\`\`yaml
 parameters:
   ...
   ignoreErrors:
     - '#Access to an undefined property Drupal\\node\\NodeInterface::\$field_address\.#'
-```
+\`\`\`
 
 This is hardly ideal, but we are optimistic that [entity bundle classes](https://www.drupal.org/node/3191609)
 will permit us to remove this sort of hack.
@@ -237,7 +242,7 @@ Find the PR that contains the links to the Tugboat environment:
 
 ![Tugboat PR Comment](https://user-images.githubusercontent.com/1318579/186016897-9c2f26fb-c395-465e-9eb2-6a77363db4cf.png)
 
-Click the link under **Dashboard** (SOCKS must be enabled to access Tugboat).
+Click the link under **Dashboard** (Use local CMS environment for development testing; CI environments require VA Network access)
 
 Once in the Tugboat instance dashboard, scroll down to the Preview Build Log
 and click "See Full Log".
@@ -289,9 +294,9 @@ This will rerun the Cypress tests one by one and may resolve any failures that w
 ## Testing JSON API
 
 As part of building a page type with [next-build](https://github.com/department-of-veterans-affairs/next-build/) tests should be added to ensure that the queries required to build those pages are functional. These tests are located in `/tests/cypress/integration/features/api/`. They can be as simple as 
-```
+\`\`\`
 I should receive status code 200 when I request "[JSON API path with required includes and filters]"
-```
+\`\`\`
 
 For some more complex pages like listing pages, they should attempt to test the full cycle of requests. For example these are the requests for an event listing page:
 
