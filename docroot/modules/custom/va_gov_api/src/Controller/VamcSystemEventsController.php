@@ -165,7 +165,7 @@ class VamcSystemEventsController extends ControllerBase {
     $listing_ids = $listing_query->execute();
 
     if ($is_lovell_variant) {
-      array_push($listing_ids, self::LOVELL_FEDERAL_LISTING_ID);
+      $listing_ids[] = self::LOVELL_FEDERAL_LISTING_ID;
     }
 
     // If no listings found at all, return empty.
