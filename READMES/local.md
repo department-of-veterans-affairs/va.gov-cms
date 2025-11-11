@@ -124,25 +124,25 @@ Helpful Composer scripts are defined in `composer.json` under `scripts` and `scr
 To view all available commands:
 
 ```bash
-$ composer list
+$ ddev composer list
 ```
 
 See [Composer Scripts Documentation](https://getcomposer.org/doc/articles/scripts.md) for more details.
 
 ## Drush
 
-Drush commands should be run using either `composer` or `ddev`:
+Drush commands should be run using `ddev drush`:
 
 ```bash
-$ composer drush uli
+$ ddev drush uli
 $ ddev drush cr
-$ composer drush sqlq "show tables"
+$ ddev drush sqlq "show tables"
 ```
 
 To see all available commands:
 
 ```bash
-$ composer drush list
+$ ddev drush list
 ```
 
 For more information, see [Drush Documentation](./drush.md).
