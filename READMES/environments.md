@@ -1,5 +1,6 @@
 # Environments & the Content Build Process
 
+To enable end to end quality analysis, from the VA.gov CMS through to the public facing website, new feature review, and stakeholder demonstrations, multiple joined CMS/WEB environments may be created by any user with access to Tugboat. (More info on [Tugboat](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/tugboat.md).)
 
 **For Active Development:** Use a [local CMS environment](local.md) as your primary development backend.
 

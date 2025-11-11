@@ -148,12 +148,12 @@ errors that arise from this sort of use.
 This can be done by adding new expressions to the `parameters.ignoreErrors`
 array in [phpstan.neon](../phpstan.neon).
 
-\`\`\`yaml
+```yaml
 parameters:
   ...
   ignoreErrors:
     - '#Access to an undefined property Drupal\\node\\NodeInterface::\$field_address\.#'
-\`\`\`
+```
 
 This is hardly ideal, but we are optimistic that [entity bundle classes](https://www.drupal.org/node/3191609)
 will permit us to remove this sort of hack.
@@ -242,7 +242,7 @@ Find the PR that contains the links to the Tugboat environment:
 
 ![Tugboat PR Comment](https://user-images.githubusercontent.com/1318579/186016897-9c2f26fb-c395-465e-9eb2-6a77363db4cf.png)
 
-Click the link under **Dashboard** (Use local CMS environment for development testing; CI environments require VA Network access)
+Click the link under **Dashboard** (VA network required to access Tugboat).
 
 Once in the Tugboat instance dashboard, scroll down to the Preview Build Log
 and click "See Full Log".
@@ -294,9 +294,9 @@ This will rerun the Cypress tests one by one and may resolve any failures that w
 ## Testing JSON API
 
 As part of building a page type with [next-build](https://github.com/department-of-veterans-affairs/next-build/) tests should be added to ensure that the queries required to build those pages are functional. These tests are located in `/tests/cypress/integration/features/api/`. They can be as simple as 
-\`\`\`
+```
 I should receive status code 200 when I request "[JSON API path with required includes and filters]"
-\`\`\`
+```
 
 For some more complex pages like listing pages, they should attempt to test the full cycle of requests. For example these are the requests for an event listing page:
 
