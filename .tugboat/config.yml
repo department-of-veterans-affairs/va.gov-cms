@@ -1,21 +1,5 @@
 services:
   # What to call the service hosting the site.
-  varnish:
-    # Use the latest stable version of the official Tugboat Varnish image.
-    image: tugboatqa/varnish:8
-    expose: 80
-    checkout: true
-    depends:
-      - php
-    environment:
-      VARNISH_BACKEND_HOST: php
-      VARNISH_BACKEND_PORT: 80
-
-    # A set of commands to run while building this service
-    commands:
-      init:
-        - cp "${TUGBOAT_ROOT}"/.tugboat/varnish-run /etc/runit/runsvdir/default/varnish/run
-
   php:
     # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
     image: tugboatqa/php:8.1-apache-bookworm

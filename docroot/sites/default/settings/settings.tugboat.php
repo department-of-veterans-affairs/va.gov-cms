@@ -25,7 +25,6 @@ $config['config_split.config_split.tugboat']['status'] = TRUE;
 
 $config['config_split.config_split.config_dev']['status'] = TRUE;
 $config['system.performance']['cache']['page']['use_internal'] = FALSE;
-$config['system.performance']['cache']['page']['max_age'] = 43200; // 12 hours.
 $config['system.performance']['css']['preprocess'] = FALSE;
 $config['system.performance']['css']['gzip'] = FALSE;
 $config['system.performance']['js']['preprocess'] = FALSE;
@@ -44,14 +43,8 @@ $config['next.next_site.next_build_preview_server']['preview_url'] = 'https://ne
 
 $settings['trusted_host_patterns'] = [
   '^localhost$',
-  '^.*' . getenv('TUGBOAT_SERVICE_CONFIG_DOMAIN') . '$',
-  '^php$',
+  '^.*' . getenv('TUGBOAT_SERVICE_TOKEN') . '.' . getenv('TUGBOAT_SERVICE_CONFIG_DOMAIN') . '$',
 ];
-
-$settings['reverse_proxy'] = TRUE;
-$settings['reverse_proxy_addresses'] = ['varnish'];
-$settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_FOR | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_HOST |
-\Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PORT | \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_PROTO;
 
 // Github token for migrations
 $settings['va_cms_bot_github_auth_token'] = getenv('GITHUB_TOKEN') ?: FALSE;
