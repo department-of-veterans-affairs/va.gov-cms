@@ -7,6 +7,7 @@
 
 use Drupal\Component\Render\FormattableMarkup;
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_facilities\EventSubscriber\FacilitiesSubscriber;
 
@@ -39,6 +40,16 @@ function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $f
     _va_gov_facilities_reduce_vamc_facility_service_options($form, $form_state);
     _va_gov_facilities_add_ajax_to_reduce_vamc_facility_service_options($form, $form_state);
 
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function va_gov_facilities_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  $field_name = 'field_operating_status_facility';
+  if (isset($fields[$field_name])) {
+    $fields[$field_name]->addConstraint('ClosedOperatingStatus', []);
   }
 }
 

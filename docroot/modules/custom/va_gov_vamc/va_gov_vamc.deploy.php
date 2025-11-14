@@ -17,3 +17,11 @@ function va_gov_vamc_deploy_build_va_police_9001(&$sandbox) {
   _va_gov_vamc_create_system_content_pages($sandbox, $build_bundle, 'draft');
   return script_library_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
 }
+
+/**
+ * Updates location services fields on VAMC Facility Non-clinical Service nodes.
+ */
+function va_gov_vamc_deploy_update_non_clinical_services_fields(&$sandbox) {
+  $script = \Drupal::classResolver('\Drupal\va_gov_batch\cbo_scripts\UpdateNonClinicalServicesFields');
+  return $script->run($sandbox, 'deploy');
+}

@@ -14,6 +14,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
@@ -198,6 +199,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     $this->contentHardeningDeduper->removeDuplicate($entity);
+    $this->removeFieldDataFromNonClinicalServices($entity);
   }
 
   /**
@@ -485,6 +487,41 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
 
+  }
+
+  /**
+   * Clear service location fields that aren't relevant to nonclinical services.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity being updated.
+   */
+  protected function removeFieldDataFromNonClinicalServices(EntityInterface $entity): void {
+    if (!$entity instanceof ParagraphInterface || $entity->bundle() !== 'service_location') {
+      return;
+    }
+
+    $parent = $entity->getParentEntity();
+    if (!$parent instanceof NodeInterface || $parent->bundle() !== 'vha_facility_nonclinical_service') {
+      return;
+    }
+
+    $fields_to_clear = [
+      'field_office_visits',
+      'field_virtual_support',
+      'field_appt_intro_text_type',
+      'field_appt_intro_text_custom',
+      'field_use_facility_phone_number',
+      'field_other_phone_numbers',
+      'field_online_scheduling_avail',
+    ];
+
+    foreach ($fields_to_clear as $field) {
+      if (!$entity->hasField($field)) {
+        continue;
+      }
+
+      $entity->set($field, NULL);
+    }
   }
 
 }
