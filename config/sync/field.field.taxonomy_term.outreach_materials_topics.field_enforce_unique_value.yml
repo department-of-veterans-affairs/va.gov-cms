@@ -1,0 +1,32 @@
+uuid: e3b769dd-36c1-421a-a29b-8bd6d0f365e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_enforce_unique_value
+    - taxonomy.vocabulary.outreach_materials_topics
+  module:
+    - allow_only_one
+    - tmgmt_content
+third_party_settings:
+  allow_only_one:
+    field_topic_id: 1
+    title: 0
+    case_sensitive: null
+    limit_validation_to_published: 0
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.outreach_materials_topics.field_enforce_unique_value
+field_name: field_enforce_unique_value
+entity_type: taxonomy_term
+bundle: outreach_materials_topics
+label: 'Enforce Unique Value'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one
