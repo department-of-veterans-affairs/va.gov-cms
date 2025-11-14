@@ -3,10 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.outreach_materials_topics.field_enforce_unique_value
     - field.field.taxonomy_term.outreach_materials_topics.field_topic_id
     - taxonomy.vocabulary.outreach_materials_topics
     - workflows.workflow.editorial
   module:
+    - allow_only_one
     - content_moderation
     - field_group
     - path
@@ -19,7 +21,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -34,9 +36,16 @@ targetEntityType: taxonomy_term
 bundle: outreach_materials_topics
 mode: default
 content:
+  field_enforce_unique_value:
+    type: allow_only_one_widget
+    weight: 1
+    region: content
+    settings:
+      size: 1
+    third_party_settings: {  }
   field_topic_id:
     type: string_textfield
-    weight: 1
+    weight: 2
     region: content
     settings:
       size: 60
