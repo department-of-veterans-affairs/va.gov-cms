@@ -4,11 +4,12 @@ namespace Drupal\Tests\va_gov_login\Unit\EventSubscriber;
 
 use Drupal\Core\Session\AccountInterface;
 use Drupal\va_gov_login\EventSubscriber\VaGovLoginSubscriber;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\DependencyInjection\Container;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * Unit test for the va_gov_login event subscriber.
@@ -18,7 +19,17 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @coversDefaultClass \Drupal\va_gov_login\EventSubscriber\VaGovLoginSubscriber
  */
-class VaGovLoginSubscriberTest extends TestCase {
+class VaGovLoginSubscriberTest extends VaGovUnitTestBase {
+
+  /**
+   * {@inheritDoc}
+   */
+  public function setUp() : void {
+    parent::setUp();
+    $container = new Container();
+    $container->set('string_translation', $this->getStringTranslationStub());
+    \Drupal::setContainer($container);
+  }
 
   /**
    * Make sure anonymous user is redirected on 403.
