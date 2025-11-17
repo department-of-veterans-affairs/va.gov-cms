@@ -17,7 +17,7 @@ jobs:
   backup:
     runs-on: self-hosted
     steps:
-      - uses: aws-actions/configure-aws-credentials@010d0da01d0b5a38af31e9c3470dbfdabdecca3a
+      - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
           aws-region: ${{ env.region }}
@@ -34,27 +34,27 @@ jobs:
           timestamp=$(date "+%Y-%m-%d-%H-%M")
           tempdir=$(mktemp -d)
           cd $tempdir
-          
-          database_host=$(aws ssm get-parameter \
-            --name "/cms/prod/db_host" \
-            --region ${{ env.region }} \
-            --query 'Parameter.Value' \
-            --output text)
-          
-          s3_backup_bucket=$(aws ssm get-parameter \
-            --name "/cms/prod/s3-db-backup-bucket" \
-            --region ${{ env.region }} \
-            --query 'Parameter.Value' \
-            --output text)
-          
+
           database_name=$(aws ssm get-parameter \
             --name "/cms/prod/mariadb/database-name" \
             --region ${{ env.region }} \
             --query 'Parameter.Value' \
             --output text)
           
+          db_host=$(aws ssm get-parameter \
+            --name "/cms/prod/db_host" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          s3-db-backup-bucket=$(aws ssm get-parameter \
+            --name "/cms/prod/s3-db-backup-bucket" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
           backup_filename_prefix=$(aws ssm get-parameter \
-            --name "/cms/prod/db-backup-filename" \
+            --name "/cms/prod/backup_filename_prefix" \
             --region ${{ env.region }} \
             --query 'Parameter.Value' \
             --output text)
@@ -66,19 +66,19 @@ jobs:
             --query 'Parameter.Value' \
             --output text)
           
-          mysqldump --default-character-set=utf8mb4 --single-transaction -h ${database_host} -u master -p"${db_password}" ${database_name} > ${backup_filename_prefix}${timestamp}.sql
+          mysqldump --default-character-set=utf8mb4 --single-transaction -h ${db_host} -u master -p"${db_password}" ${database_name} > ${backup_filename_prefix}${timestamp}.sql
           
           gzip ${backup_filename_prefix}${timestamp}.sql
           
-          echo "https://s3-${{ env.region }}.amazonaws.com/${s3_backup_bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz" > latest_url
-          echo "s3://${s3_backup_bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz" > latest_uri
+          echo "https://s3-${{ env.region }}.amazonaws.com/${s3-db-backup-bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz" > latest_url
+          echo "s3://${s3-db-backup-bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz" > latest_uri
           
-          aws s3 cp ${backup_filename_prefix}${timestamp}.sql.gz s3://${s3_backup_bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz --region ${{ env.region }}
+          aws s3 cp ${backup_filename_prefix}${timestamp}.sql.gz s3://${s3-db-backup-bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz --region ${{ env.region }}
           
-          aws s3api put-object-tagging --bucket ${s3_backup_bucket} --key ${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz --region ${{ env.region }} --tagging 'TagSet=[{Key=Env,Value=prod}]'
+          aws s3api put-object-tagging --bucket ${s3-db-backup-bucket} --key ${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz --region ${{ env.region }} --tagging 'TagSet=[{Key=Env,Value=prod}]'
           
-          aws s3 cp latest_url s3://${s3_backup_bucket}/${{ env.S3BackupPath }}/latest_url --region ${{ env.region }}
-          aws s3 cp latest_uri s3://${s3_backup_bucket}/${{ env.S3BackupPath }}/latest_uri --region ${{ env.region }}
+          aws s3 cp latest_url s3://${s3-db-backup-bucket}/${{ env.S3BackupPath }}/latest_url --region ${{ env.region }}
+          aws s3 cp latest_uri s3://${s3-db-backup-bucket}/${{ env.S3BackupPath }}/latest_uri --region ${{ env.region }}
           
           cd
           rm -rf ${tempdir}
