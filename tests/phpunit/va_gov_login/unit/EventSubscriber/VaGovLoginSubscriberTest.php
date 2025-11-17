@@ -27,7 +27,6 @@ class VaGovLoginSubscriberTest extends VaGovUnitTestBase {
   public function setUp() : void {
     parent::setUp();
     $container = new Container();
-    $container->set('string_translation', $this->getStringTranslationStub());
     \Drupal::setContainer($container);
   }
 

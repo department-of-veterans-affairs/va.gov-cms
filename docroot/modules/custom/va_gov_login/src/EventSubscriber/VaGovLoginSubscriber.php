@@ -6,7 +6,6 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableRedirectResponse;
 use Drupal\Core\EventSubscriber\HttpExceptionSubscriberBase;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Url;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
 /**
@@ -48,12 +47,7 @@ class VaGovLoginSubscriber extends HttpExceptionSubscriberBase {
   public function onException(ExceptionEvent $event) {
     if ($this->currentUser->isAnonymous()) {
 
-      // Determine the url options.
-      $options = [
-        'absolute' => TRUE,
-      ];
-
-      $redirectPath = Url::fromRoute('<front>', [], $options)->toString();
+      $redirectPath = "/";
 
       $response = new CacheableRedirectResponse($redirectPath);
       // Add caching dependencies so the cache of the redirection will be
