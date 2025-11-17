@@ -1,0 +1,74 @@
+name: CMS EFS Backup Production
+
+on:
+  schedule:
+    - cron: "*/15 * * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  region: us-gov-west-1
+  S3EfsBackupPath: files
+
+jobs:
+  backup:
+    runs-on: self-hosted
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
+          aws-region: ${{ env.region }}
+
+      - name: Install NFS client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y nfs-common
+
+      - name: Backup EFS and upload to S3
+        run: |
+          set -e
+          
+          timestamp=$(date "+%Y-%m-%d-%H-%M")
+          efs_mount_dir="/tmp/cms-files-mount"
+          
+          efs_ip=$(aws ssm get-parameter \
+            --name "/cms/prod/efs_ips" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          s3_backup_bucket=$(aws ssm get-parameter \
+            --name "/cms/prod/s3-efs-backup-bucket" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          sudo mkdir -p ${efs_mount_dir}
+          sudo chmod 755 ${efs_mount_dir}
+          
+          sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,ro ${efs_ip}:/ ${efs_mount_dir}
+          
+          sudo tar -czf /tmp/${timestamp}-cms-prod-files-latest.tgz \
+            --exclude='.htaccess' \
+            --exclude='php' \
+            --exclude='css' \
+            --exclude='js' \
+            --exclude='./export-content' \
+            --exclude='./export-files' \
+            --exclude='./xmlsitemap' \
+            -C ${efs_mount_dir} .
+          
+          aws s3 cp --acl public-read /tmp/${timestamp}-cms-prod-files-latest.tgz s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/prod_cmsapp_files_${timestamp}.tgz --region ${{ env.region }}
+          
+          aws s3 cp --acl public-read s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/prod_cmsapp_files_${timestamp}.tgz s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/cms-prod-files-latest.tgz --region ${{ env.region }}
+          
+          echo "s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/cms-prod-files-latest.tgz" > latest_uri
+          
+          aws s3 cp --acl public-read latest_uri s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/latest_uri --region ${{ env.region }}
+          
+          sudo rm -f /tmp/${timestamp}-cms-prod-files-latest.tgz
+          sudo umount ${efs_mount_dir}
+          sudo rm -rf ${efs_mount_dir}
