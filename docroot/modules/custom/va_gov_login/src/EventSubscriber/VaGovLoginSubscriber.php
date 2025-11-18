@@ -44,7 +44,7 @@ class VaGovLoginSubscriber extends HttpExceptionSubscriberBase {
    * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
    *   The Event to process.
    */
-  public function onException(ExceptionEvent $event) {
+  public function on403(ExceptionEvent $event) {
     if ($this->currentUser->isAnonymous()) {
 
       $redirectPath = "/";
