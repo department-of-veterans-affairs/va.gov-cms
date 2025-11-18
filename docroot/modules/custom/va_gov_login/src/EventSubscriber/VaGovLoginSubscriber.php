@@ -56,7 +56,7 @@ class VaGovLoginSubscriber extends HttpExceptionSubscriberBase {
       // Add original 403 response cache metadata.
       $cacheableMetadata->addCacheableDependency($event->getThrowable());
       // We still need to add the client error tag manually since the core
-      // wil not recognize our redirection as an error.
+      // will not recognize our redirection as an error.
       $cacheableMetadata->addCacheTags(['4xx-response']);
       // Attach cache metadata to the response.
       $response->addCacheableDependency($cacheableMetadata);
