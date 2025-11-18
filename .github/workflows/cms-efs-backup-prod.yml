@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "*/15 * * * 1-5"
   workflow_dispatch:
+  push:
+    branches:
+      - efs-backup-prod
 
 permissions:
   id-token: write
