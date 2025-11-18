@@ -33,7 +33,7 @@ class VaGovLoginSubscriberTest extends VaGovUnitTestBase {
   /**
    * Make sure anonymous user is redirected on 403.
    */
-  public function testOnExceptionRedirectsAnonymousUser() {
+  public function testOn403RedirectsAnonymousUser() {
     // Mock AccountInterface to simulate anonymous user.
     $account = $this->createMock(AccountInterface::class);
     $account->method('isAnonymous')->willReturn(TRUE);
@@ -47,7 +47,7 @@ class VaGovLoginSubscriberTest extends VaGovUnitTestBase {
     $event = new ExceptionEvent($kernel, $request, HttpKernelInterface::MAIN_REQUEST, $exception);
 
     // Call the method.
-    $subscriber->onException($event);
+    $subscriber->on403($event);
 
     // Assert that the response is a redirect to <front>.
     $response = $event->getResponse();
@@ -59,7 +59,7 @@ class VaGovLoginSubscriberTest extends VaGovUnitTestBase {
   /**
    * Make sure authenticated user is not redirected on 403.
    */
-  public function testOnExceptionDoesNotRedirectAuthenticatedUser() {
+  public function testOn403DoesNotRedirectAuthenticatedUser() {
     // Mock AccountInterface to simulate authenticated user.
     $account = $this->createMock(AccountInterface::class);
     $account->method('isAnonymous')->willReturn(FALSE);
@@ -73,7 +73,7 @@ class VaGovLoginSubscriberTest extends VaGovUnitTestBase {
     $event = new ExceptionEvent($kernel, $request, HttpKernelInterface::MAIN_REQUEST, $exception);
 
     // Call the method.
-    $subscriber->onException($event);
+    $subscriber->on403($event);
 
     // Assert that the response is still null (no redirect).
     $this->assertNull($event->getResponse());
