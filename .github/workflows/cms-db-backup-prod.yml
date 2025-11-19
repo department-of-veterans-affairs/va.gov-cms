@@ -57,7 +57,7 @@ jobs:
             --output text)
           
           backup_filename_prefix=$(aws ssm get-parameter \
-            --name "/cms/prod/backup_filename_prefix" \
+            --name "/cms/prod/db-backup-filename" \
             --region ${{ env.region }} \
             --query 'Parameter.Value' \
             --output text)
