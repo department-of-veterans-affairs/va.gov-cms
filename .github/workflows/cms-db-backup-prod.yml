@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "*/15 * * * *"
   workflow_dispatch:
+push:
+  branches:
+  - gha-db-backup
 
 permissions:
   id-token: write
