@@ -1,0 +1,103 @@
+diff --git a/src/Form/MigrationExecuteForm.php b/src/Form/MigrationExecuteForm.php
+index 623d639b4..e254827cc 100644
+--- a/src/Form/MigrationExecuteForm.php
++++ b/src/Form/MigrationExecuteForm.php
+@@ -157,13 +157,16 @@ protected function buildFormOptions(array $form, FormStateInterface $form_state)
+       '#min' => 1,
+     ];
+ 
++    $form['options']['use_line_endings'] = [
++      '#type' => 'checkbox',
++      '#title' => $this->t('Use line endings'),
++      '#description' => $this->t('Check this box to ignore regular demarcartions and instead add one id per line for your list.'),
++    ];
++
+     $form['options']['idlist'] = [
+-      '#type' => 'textfield',
++      '#type' => 'textarea',
+       '#title' => $this->t('ID List'),
+-      '#maxlength' => 255,
+-      '#size' => 60,
+-      '#pattern' => '^[0-9]+(' . MigrateTools::DEFAULT_ID_LIST_DELIMITER . '[0-9]+)?(,?[0-9]+(' . MigrateTools::DEFAULT_ID_LIST_DELIMITER . '[0-9]+)?)*$',
+-      '#description' => $this->t('Comma-separated list of IDs to process.'),
++      '#description' => $this->t('List of IDs to process. Defaults to using comma <code>,</code> and colon <code>:</code> for demarcation unless "Use line endings" option is selected.'),
+       '#states' => [
+         'enabled' => [
+           ':input[name="operation"]' => [['value' => 'import'], 'or', ['value' => 'rollback']],
+@@ -253,6 +256,7 @@ protected function buildOptions(FormStateInterface $form_state) {
+       'limit' => $form_state->getValue('limit') ?: 0,
+       'update' => $form_state->getValue('update') ?: 0,
+       'force' => $form_state->getValue('force') ?: 0,
++      'use_line_endings' => $form_state->getValue('use_line_endings') ?: 0,
+     ];
+ 
+     if ($idlist = $form_state->getValue('idlist')) {
+diff --git a/src/MigrateBatchExecutable.php b/src/MigrateBatchExecutable.php
+index 863afb875..e936c0501 100644
+--- a/src/MigrateBatchExecutable.php
++++ b/src/MigrateBatchExecutable.php
+@@ -33,6 +33,13 @@ class MigrateBatchExecutable extends MigrateExecutable {
+    */
+   protected int $checkDependencies = 0;
+ 
++  /**
++   * Indicates if we need ignore normal de-marcations and use line endings.
++   *
++   * @var int
++   */
++  protected int $useLineEndings = 0;
++
+   /**
+    * The ID list as single string expression.
+    *
+@@ -62,6 +69,10 @@ public function __construct(MigrationInterface $migration, MigrateMessageInterfa
+       $this->syncSource = $options['sync'];
+     }
+ 
++    if (isset($options['use_line_endings'])) {
++      $this->useLineEndings = $options['use_line_endings'];
++    }
++
+     if (isset($options['configuration'])) {
+       $this->configuration = $options['configuration'];
+     }
+@@ -106,6 +117,7 @@ public function batchImport(): void {
+       'update' => $this->updateExistingRows,
+       'force' => $this->checkDependencies,
+       'sync' => $this->syncSource,
++      'use_line_endings' => $this->useLineEndings,
+       'idlist' => $this->idlistExpression ?: NULL,
+       'configuration' => $this->configuration,
+     ]);
+diff --git a/src/MigrateTools.php b/src/MigrateTools.php
+index d766f475b..544991c5b 100644
+--- a/src/MigrateTools.php
++++ b/src/MigrateTools.php
+@@ -29,10 +29,23 @@ public static function buildIdList(array $options): array {
+     ];
+     $id_list = [];
+     if (is_scalar($options['idlist'])) {
+-      $id_list = explode(',', (string) $options['idlist']);
+-      array_walk($id_list, function (&$value) use ($options): void {
+-        $value = str_getcsv($value, $options['idlist-delimiter']);
+-      });
++      if ($options['use_line_endings']) {
++        $id_list = preg_split("/\r\n|\n|\r/", (string) $options['idlist']);
++        // Restructure array so it becomes array or arrays
++        // e.g. [0 => value, 1 => value]
++        // becomes [0][0 => value], [1][0 => value] etc.
++        $id_list_temp = [];
++        foreach ($id_list as $key => $value) {
++          $array = [0 => $value];
++          $id_list_temp[$key] = $array;
++        }
++        $id_list = $id_list_temp;
++      } else {
++        $id_list = explode(',', (string) $options['idlist']);
++        array_walk($id_list, function (&$value) use ($options): void {
++          $value = str_getcsv($value, $options['idlist-delimiter']);
++        });
++      }
+     }
+     return $id_list;
+   }
