@@ -76,7 +76,7 @@ If the help desk is waiting on info or action from facility editor(s), please ad
 ## Additional guidance
 
 **If this is a false "new facility" report, i.e. a duplication of an existing homepage, or one that simply doesn't exist.**
-This is a rare case, but there are examples of it happening -- for example, a new facility was once reported that turned out to be a private, non-VA dental clinic unaffiliated with any VAMC system. If this happens, please let the editor know to contact their VAST administrator to make a correction.
+This is a rare case, but if this happens, please let the editor know to contact their VAST administrator to make a correction.
 
 **If editor has trouble editing the draft homepage:** 
 Make sure they’re logged in properly and that the editor and the facility are assigned to the same section.
