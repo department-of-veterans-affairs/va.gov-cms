@@ -1,0 +1,34 @@
+uuid: 65ea86d2-1b88-4182-b62c-be6fa9cd93fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.outreach_materials_topics.field_topic_id
+    - taxonomy.vocabulary.outreach_materials_topics
+  module:
+    - text
+id: taxonomy_term.outreach_materials_topics.default
+targetEntityType: taxonomy_term
+bundle: outreach_materials_topics
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_topic_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  breadcrumbs: true
+  content_moderation_control: true
+  langcode: true
+  search_api_excerpt: true
