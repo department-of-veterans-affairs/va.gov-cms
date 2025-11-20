@@ -18,8 +18,6 @@ Feature: CMS User may effectively interact with the VBA Facility form
     And my workbench access sections are set to "1065"
     And I unlock node 4063
     When I am at "/node/4063/edit"
-    # Make sure deprecated closed status is not selected.
-    And I select the radio button with the value "temporary_closure"
     And I scroll to element "select#edit-moderation-state-0-state"
     Then an option with the text "Archived" from dropdown with selector "select#edit-moderation-state-0-state" should not be visible
 
@@ -28,8 +26,6 @@ Feature: CMS User may effectively interact with the VBA Facility form
     And I unlock node 4063
     # Columbia VA Regional Benefit Office
     When I am at "/node/4063/edit"
-    # Make sure deprecated closed status is not selected.
-    And I select the radio button with the value "temporary_closure"
     And I scroll to element "select#edit-moderation-state-0-state"
     Then an option with the text "Archived" from dropdown with selector "select#edit-moderation-state-0-state" should be visible
 
@@ -53,8 +49,6 @@ Feature: CMS User may effectively interact with the VBA Facility form
     And I unlock node 4063
     # Columbia VA Regional Benefit Office
     When I am at "/node/4063/edit"
-    # Make sure deprecated closed status is not selected.
-    And I select the radio button with the value "temporary_closure"
     # Banner related fields should not be visible.
     And I scroll to element '#edit-field-show-banner-value'
     And I uncheck the "Display a banner alert on this facility" checkbox
