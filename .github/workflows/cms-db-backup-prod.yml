@@ -68,15 +68,9 @@ jobs:
           
           gzip ${backup_filename_prefix}${timestamp}.sql
           
-          echo "https://s3-${{ env.region }}.amazonaws.com/${s3_db_backup_bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz" > latest_url
-          echo "s3://${s3_db_backup_bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz" > latest_uri
-          
           aws s3 cp ${backup_filename_prefix}${timestamp}.sql.gz s3://${s3_db_backup_bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz --region ${{ env.region }}
           
           aws s3api put-object-tagging --bucket ${s3_db_backup_bucket} --key ${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz --region ${{ env.region }} --tagging 'TagSet=[{Key=Env,Value=prod}]'
-          
-          aws s3 cp latest_url s3://${s3_db_backup_bucket}/${{ env.S3BackupPath }}/latest_url --region ${{ env.region }}
-          aws s3 cp latest_uri s3://${s3_db_backup_bucket}/${{ env.S3BackupPath }}/latest_uri --region ${{ env.region }}
-          
+           
           cd
           rm -rf ${tempdir}
