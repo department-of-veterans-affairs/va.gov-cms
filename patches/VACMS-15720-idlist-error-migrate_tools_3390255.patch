@@ -5,11 +5,11 @@ index 623d639b4..e254827cc 100644
 @@ -157,13 +157,16 @@ protected function buildFormOptions(array $form, FormStateInterface $form_state)
        '#min' => 1,
      ];
- 
+
 +    $form['options']['use_line_endings'] = [
 +      '#type' => 'checkbox',
 +      '#title' => $this->t('Use line endings'),
-+      '#description' => $this->t('Check this box to ignore regular demarcartions and instead add one id per line for your list.'),
++      '#description' => $this->t('Check this box to ignore regular demarcations and instead add one id per line for your list.'),
 +    ];
 +
      $form['options']['idlist'] = [
@@ -30,7 +30,7 @@ index 623d639b4..e254827cc 100644
        'force' => $form_state->getValue('force') ?: 0,
 +      'use_line_endings' => $form_state->getValue('use_line_endings') ?: 0,
      ];
- 
+
      if ($idlist = $form_state->getValue('idlist')) {
 diff --git a/src/MigrateBatchExecutable.php b/src/MigrateBatchExecutable.php
 index 863afb875..e936c0501 100644
@@ -39,9 +39,9 @@ index 863afb875..e936c0501 100644
 @@ -33,6 +33,13 @@ class MigrateBatchExecutable extends MigrateExecutable {
     */
    protected int $checkDependencies = 0;
- 
+
 +  /**
-+   * Indicates if we need ignore normal de-marcations and use line endings.
++   * Indicates if we need to ignore normal de-marcations and use line endings.
 +   *
 +   * @var int
 +   */
@@ -53,7 +53,7 @@ index 863afb875..e936c0501 100644
 @@ -62,6 +69,10 @@ public function __construct(MigrationInterface $migration, MigrateMessageInterfa
        $this->syncSource = $options['sync'];
      }
- 
+
 +    if (isset($options['use_line_endings'])) {
 +      $this->useLineEndings = $options['use_line_endings'];
 +    }
@@ -83,7 +83,7 @@ index d766f475b..544991c5b 100644
 -      });
 +      if ($options['use_line_endings']) {
 +        $id_list = preg_split("/\r\n|\n|\r/", (string) $options['idlist']);
-+        // Restructure array so it becomes array or arrays
++        // Restructure array so it becomes an array of arrays
 +        // e.g. [0 => value, 1 => value]
 +        // becomes [0][0 => value], [1][0 => value] etc.
 +        $id_list_temp = [];
