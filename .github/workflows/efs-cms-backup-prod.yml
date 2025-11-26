@@ -68,13 +68,13 @@ jobs:
             --exclude='./xmlsitemap' \
             -C ${efs_mount_dir} .
 
-          aws s3 cp /tmp/${timestamp}-cms-prod-files-latest.tgz s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/prod_cmsapp_files_${timestamp}.tgz --region ${{ env.region }} --quiet
+          aws s3 cp /tmp/${timestamp}-cms-prod-files-latest.tgz s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/prod_cmsapp_files_${timestamp}.tgz --region ${{ env.region }}
 
-          aws s3 cp s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/prod_cmsapp_files_${timestamp}.tgz s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/cms-prod-files-latest.tgz --region ${{ env.region }} --quiet
+          aws s3 cp s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/prod_cmsapp_files_${timestamp}.tgz s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/cms-prod-files-latest.tgz --region ${{ env.region }}
 
           echo "s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/cms-prod-files-latest.tgz" > latest_uri
 
-          aws s3 cp latest_uri s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/latest_uri --region ${{ env.region }} --quiet
+          aws s3 cp latest_uri s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/latest_uri --region ${{ env.region }}
 
           rm -f /tmp/${timestamp}-cms-prod-files-latest.tgz
           umount ${efs_mount_dir}
