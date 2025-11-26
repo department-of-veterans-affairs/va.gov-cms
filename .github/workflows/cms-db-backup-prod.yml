@@ -20,13 +20,18 @@ jobs:
   backup:
     runs-on: self-hosted
     container:
-      image: 008577686731.dkr.ecr.us-gov-west-1.amazonaws.com/dsva/cms-runner-packages:v1
+      image: ubuntu:22.04
     steps:
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
           aws-region: ${{ env.region }}
 
+      - name: Install required packages
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update
+          apt-get install -y mysql-client awscli gzip ca-certificates
 
       - name: Backup database and upload to S3
         run: |
