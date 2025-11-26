@@ -49,6 +49,7 @@ jobs:
           
           db_host=$(aws ssm get-parameter \
             --name "/cms/prod/db_host" \
+            --with-decryption \
             --region ${{ env.region }} \
             --query 'Parameter.Value' \
             --output text)
