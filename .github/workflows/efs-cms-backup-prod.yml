@@ -34,22 +34,18 @@ jobs:
           apt-get update
           apt-get install -y nfs-common awscli ca-certificates
 
-      - name: Backup EFS and upload to S3
+      - name: Mount EFS and create backup
         run: |
           set -e
 
           timestamp=$(date "+%Y-%m-%d-%H-%M")
           efs_mount_dir="/tmp/cms-files-mount"
+          
+          echo "TIMESTAMP=${timestamp}" >> $GITHUB_ENV
 
           efs_ip=$(aws ssm get-parameter \
             --name "/cms/prod/efs_ips" \
             --with-decryption \
-            --region ${{ env.region }} \
-            --query 'Parameter.Value' \
-            --output text)
-
-          s3_backup_bucket=$(aws ssm get-parameter \
-            --name "/cms/prod/s3-efs-backup-bucket" \
             --region ${{ env.region }} \
             --query 'Parameter.Value' \
             --output text)
@@ -70,6 +66,27 @@ jobs:
             --exclude='./xmlsitemap' \
             -C ${efs_mount_dir} . || ([ $? -eq 1 ] && echo "Tar completed with warnings (files changed during backup)" && exit 0)
 
+          umount ${efs_mount_dir}
+          rm -rf ${efs_mount_dir}
+
+      - name: Refresh AWS credentials before upload
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
+          aws-region: ${{ env.region }}
+
+      - name: Upload backup to S3
+        run: |
+          set -e
+          
+          timestamp=${{ env.TIMESTAMP }}
+
+          s3_backup_bucket=$(aws ssm get-parameter \
+            --name "/cms/prod/s3-efs-backup-bucket" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+
           aws s3 cp /tmp/${timestamp}-cms-prod-files-latest.tgz s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/prod_cmsapp_files_${timestamp}.tgz --region ${{ env.region }}
 
           aws s3 cp s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/prod_cmsapp_files_${timestamp}.tgz s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/cms-prod-files-latest.tgz --region ${{ env.region }}
@@ -79,5 +96,3 @@ jobs:
           aws s3 cp latest_uri s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/latest_uri --region ${{ env.region }}
 
           rm -f /tmp/${timestamp}-cms-prod-files-latest.tgz
-          umount ${efs_mount_dir}
-          rm -rf ${efs_mount_dir}
