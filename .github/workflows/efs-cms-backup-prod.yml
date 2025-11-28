@@ -4,9 +4,9 @@ on:
   schedule:
     - cron: "0 */3 * * 1-5"
   workflow_dispatch:
-  push:
-    branches:
-      - efs-backup-branch
+  # push:
+  #   branches:
+  #     - efs-backup-branch
 
 permissions:
   id-token: write
@@ -41,7 +41,7 @@ jobs:
           timestamp=$(date "+%Y-%m-%d-%H-%M")
           efs_mount_dir="/tmp/cms-files-mount"
           
-          echo "TIMESTAMP=${timestamp}" >> $GITHUB_ENV
+          # echo "TIMESTAMP=${timestamp}" >> $GITHUB_ENV
 
           efs_ip=$(aws ssm get-parameter \
             --name "/cms/prod/efs_ips" \
@@ -90,8 +90,8 @@ jobs:
           aws s3 cp /tmp/${timestamp}-cms-prod-files-latest.tgz s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/prod_cmsapp_files_${timestamp}.tgz --region ${{ env.region }}
 
           aws s3 cp s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/prod_cmsapp_files_${timestamp}.tgz s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/cms-prod-files-latest.tgz --region ${{ env.region }}
-
-          echo "s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/cms-prod-files-latest.tgz" > latest_uri
+                    
+          # echo "s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/cms-prod-files-latest.tgz" > latest_uri
 
           aws s3 cp latest_uri s3://${s3_backup_bucket}/${{ env.S3EfsBackupPath }}/latest_uri --region ${{ env.region }}
 
