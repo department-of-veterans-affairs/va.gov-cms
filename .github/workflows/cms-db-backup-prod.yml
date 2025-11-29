@@ -1,0 +1,85 @@
+name: CMS Database Backup Production
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - gha-db-backup
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  region: us-gov-west-1
+  S3BackupPath: database
+
+jobs:
+  backup:
+    runs-on: self-hosted
+    container:
+      image: 008577686731.dkr.ecr.us-gov-west-1.amazonaws.com/dsva/cms-runner-packages:v1
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
+          aws-region: ${{ env.region }}
+
+
+      - name: Backup database and upload to S3
+        run: |
+          set -e
+          
+          timestamp=$(date "+%Y-%m-%d-%H-%M")
+          tempdir=$(mktemp -d)
+          cd $tempdir
+
+          database_name=$(aws ssm get-parameter \
+            --name "/cms/prod/mariadb/database-name" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          db_host=$(aws ssm get-parameter \
+            --name "/cms/prod/db_host" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          s3_db_backup_bucket=$(aws ssm get-parameter \
+            --name "/cms/prod/s3-db-backup-bucket" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          backup_filename_prefix=$(aws ssm get-parameter \
+            --name "/cms/prod/db-backup-filename" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          db_password=$(aws ssm get-parameter \
+            --name "/cms/prod/mariadb/master_password" \
+            --with-decryption \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          mysqldump --default-character-set=utf8mb4 --single-transaction -h ${db_host} -u master -p"${db_password}" ${database_name} > ${backup_filename_prefix}${timestamp}.sql
+          
+          gzip ${backup_filename_prefix}${timestamp}.sql
+          
+          echo "https://s3-${{ env.region }}.amazonaws.com/${s3_db_backup_bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz" > latest_url
+          echo "s3://${s3_db_backup_bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz" > latest_uri
+          
+          aws s3 cp ${backup_filename_prefix}${timestamp}.sql.gz s3://${s3_db_backup_bucket}/${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz --region ${{ env.region }}
+          
+          aws s3api put-object-tagging --bucket ${s3_db_backup_bucket} --key ${{ env.S3BackupPath }}/${backup_filename_prefix}${timestamp}.sql.gz --region ${{ env.region }} --tagging 'TagSet=[{Key=Env,Value=prod}]'
+          
+          aws s3 cp latest_url s3://${s3_db_backup_bucket}/${{ env.S3BackupPath }}/latest_url --region ${{ env.region }}
+          aws s3 cp latest_uri s3://${s3_db_backup_bucket}/${{ env.S3BackupPath }}/latest_uri --region ${{ env.region }}
+          
+          cd
+          rm -rf ${tempdir}
