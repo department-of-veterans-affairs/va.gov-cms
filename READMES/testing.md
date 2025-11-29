@@ -6,7 +6,7 @@ The CMS codebase is tested several times in the development lifecycle:
   individually statically analyzed and linted.
 - Commits that are part of a pull request are tested by two suites of tests:
   - linting, static analysis, and unit tests in GitHub Actions
-  - functional/behavioral tests in Tugboat previews
+- functional/behavioral tests in CI environments (requires VA Network access; use local CMS for development testing)
 - The functional/behavioral test suite is executed once more on Staging before
   being added to the final release.
 
@@ -52,6 +52,8 @@ be provided below under [Testing Tools](#testing-tools).
 
 ## Functional and Behavioral Tests
 
+**Note:** For active development and testing, use a local CMS environment (see [local.md](local.md)).
+
 The "slow" suite of tests are functional and behavioral tests.  These mostly
 depend on a full, running installation of Drupal, and furthermore rely on
 details of our content model, infrastructure, implementation details, and so
@@ -65,6 +67,9 @@ At present, these include:
 - **Cypress**, a behavioral test framework that verifies correct behavior by
   puppeteering a headless Chromium browser.  This is the preferred location for
   new behavioral tests and is extensible with JavaScript rather than PHP.
+
+   **Note:** Run Cypress tests against your local CMS environment for development.
+  
   To run a single test feature use:
   `ddev composer va:test:cypress -- --spec=tests/cypress/integration/<feature file name>`
 - **PHPUnit**, in a separate suite from the PHPUnit tests mentioned above, runs
@@ -237,7 +242,7 @@ Find the PR that contains the links to the Tugboat environment:
 
 ![Tugboat PR Comment](https://user-images.githubusercontent.com/1318579/186016897-9c2f26fb-c395-465e-9eb2-6a77363db4cf.png)
 
-Click the link under **Dashboard** (SOCKS must be enabled to access Tugboat).
+Click the link under **Dashboard** (VA network required to access Tugboat).
 
 Once in the Tugboat instance dashboard, scroll down to the Preview Build Log
 and click "See Full Log".
