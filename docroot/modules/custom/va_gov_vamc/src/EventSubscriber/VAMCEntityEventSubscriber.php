@@ -377,6 +377,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterRegionalHealthCareServiceDesNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
+    $form_state = $event->getFormState();
+
     $vamc_field_options = $form['field_region_page']['widget']['#options'];
     foreach ($vamc_field_options as $nid => $node_option_string) {
       $perms = $this->userPermsService->userAccess($nid, 'node', $this->currentUser, 'field_office');
@@ -385,6 +387,11 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
     $form['#attached']['library'][] = 'va_gov_vamc/limit_vamcs_to_workbench';
+
+    $is_admin = $this->userPermsService->hasAdminRole(TRUE);
+    if (!$is_admin) {
+      $this->disableSystemHealthServiceChange($form, $form_state);
+    }
   }
 
   /**
@@ -418,6 +425,24 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     if (!$node->isNew()) {
       $form['field_facility_location']['#disabled'] = TRUE;
       $form['field_regional_health_service']['#disabled'] = TRUE;
+    }
+  }
+
+  /**
+   * Disables the Service name field on existing nodes.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The state of the form.
+   */
+  public function disableSystemHealthServiceChange(array &$form, FormStateInterface $form_state): void {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $form_object->getEntity();
+    if (!$node->isNew()) {
+      $form['field_service_name_and_descripti']['#disabled'] = TRUE;
     }
   }
 
