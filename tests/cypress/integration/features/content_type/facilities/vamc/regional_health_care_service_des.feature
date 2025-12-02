@@ -55,3 +55,19 @@ Feature: CMS Users may effectively interact with the VAMC System Health Service 
     Then I select option "VA Alaska health care" from dropdown with selector "#edit-field-region-page"
     Then I should see an option with the text "VA Alaska health care" from dropdown with selector "#edit-field-region-page"
     Then I should see an option with the text "Women Veteran care" from dropdown with selector "#edit-field-service-name-and-descripti"
+
+  Scenario: Editors should not be able to rename a VAMC System Health Service
+    When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
+    And my workbench access sections are set to "372"
+    And I unlock node 53057
+    Then I am at "node/53057/edit"
+    Then an element with the selector 'select[data-drupal-selector^="edit-field-service-name-and-descripti"]' should be disabled
+
+  Scenario: Administrators should be able to rename a VAMC System Health Service
+    When I am logged in as a user with the roles "administrator"
+    And I unlock node 53057
+    Then I am at "node/53057/edit"
+    Then an element with the selector 'select[data-drupal-selector^="edit-field-service-name-and-descripti"]' should not be disabled
+    Then I scroll to position "bottom"
+    And I click the "Unlock" link
+    And I click the "Confirm break lock" button
