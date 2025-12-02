@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
@@ -25,6 +26,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * VA.gov VAMC Entity Event Subscriber.
  */
 class VAMCEntityEventSubscriber implements EventSubscriberInterface {
+
+  use StringTranslationTrait;
 
   // The UID of the CMS Help Desk account subscribing to facility messages.
   const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
@@ -443,6 +446,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $node = $form_object->getEntity();
     if (!$node->isNew()) {
       $form['field_service_name_and_descripti']['#disabled'] = TRUE;
+      $form['field_service_name_and_descripti']['widget']['#description'] =
+        $this->t('This field cannot be changed after creation. Please contact an administrator if you need to update it.');
     }
   }
 
