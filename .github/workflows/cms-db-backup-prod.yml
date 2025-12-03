@@ -17,7 +17,7 @@ jobs:
   backup:
     runs-on: self-hosted
     container:
-      image: ubuntu:22.04
+      image: ubuntu:24.04
     steps:
       - uses: aws-actions/configure-aws-credentials@v4
         with:
