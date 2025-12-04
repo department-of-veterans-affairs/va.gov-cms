@@ -289,7 +289,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
     $result = $cloner->cloneEntity($paragraph, $clone, $properties);
     $cloned_parent_id = $result->get('parent_id')->value;
     // Make sure that the new paragraph targets the correct parent.
-    if ($cloned_parent_id !== (string) $parent_id) {
+    if ((string) $cloned_parent_id !== (string) $parent_id) {
       $result->set('parent_id', (string) $parent_id);
       $result->save();
     }
