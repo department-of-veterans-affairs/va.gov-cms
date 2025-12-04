@@ -73,7 +73,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
       $this->batchOpLog->appendLog($message);
       return $message;
     }
-    $rows = $this->getMultiplyParentedParagraphFieldRows($parent_type, $parent_field_name);
+    $rows = $this->getMultiParentedParagraphFieldRows($parent_type, $parent_field_name);
     if (count($rows) > 0) {
       foreach ($rows as $target_id => $row) {
         $parent_ids = $row->parent_ids;
@@ -94,7 +94,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
   }
 
   /**
-   * Retrieve multiply parented paragraph fields with parent type and field.
+   * Retrieve multi-parented paragraph fields with parent type and field.
    *
    * Given a parent type and parent field name,
    * we should fetch all of the paragraphs entities
@@ -115,7 +115,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
    *     - parent_type (string): an entity type machine name.
    *     - parent_field_name (string): a field machine name.
    */
-  protected function getMultiplyParentedParagraphFieldRows(string $parent_type, string $parent_field_name): array {
+  protected function getMultiParentedParagraphFieldRows(string $parent_type, string $parent_field_name): array {
     $database = \Drupal::database();
     $query = $database->select('paragraphs_item_revision_field_data', 'revision');
     $query->condition('parent_type', $parent_type);
