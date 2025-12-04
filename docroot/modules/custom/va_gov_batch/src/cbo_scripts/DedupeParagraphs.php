@@ -1,15 +1,19 @@
 <?php
+
 namespace Drupal\va_gov_batch\cbo_scripts;
+
 use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;
 use Drupal\entity_clone\EntityClone\EntityCloneInterface;
 use Drupal\entity_clone\EntityClone\Content\ContentEntityCloneBase;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\paragraphs\ParagraphInterface;
+
 /**
- * Find and dedupe paragraphs with multi parents
+ * Find and dedupe paragraphs with multi parents.
  */
 class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
+
   /**
    * {@inheritdoc}
    */
@@ -19,6 +23,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
       - VACMS-22602: https://github.com/department-of-veterans-affairs/va.gov-cms/issues/22602.
     TITLE;
   }
+
   /**
    * {@inheritdoc}
    */
@@ -28,18 +33,21 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
     sets the new paragraph for every revision, then deletes the original.
     ENDHERE;
   }
+
   /**
    * {@inheritdoc}
    */
   public function getCompletedMessage(): string {
     return 'Paragraph de-duping complete.';
   }
+
   /**
    * {@inheritDoc}
    */
   public function getItemType(): string {
     return 'paragraph parent type and field';
   }
+
   /**
    * {@inheritdoc}
    */
@@ -51,6 +59,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
     $result = $query->distinct()->execute()->fetchAll();
     return $result;
   }
+
   /**
    * {@inheritdoc}
    */
@@ -86,14 +95,16 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
 
     return 'Finished processing parent_type ' . $parent_type . ', field ' . $parent_field_name;
   }
+
   /**
-   * Retrieve a list of multiply parented paragraph fields with a given parent type and field.
+   * Retrieve multiply parented paragraph fields with parent type and field.
    *
-   * Given a parent type and parent field name, we should fetch all of the paragraphs entities
+   * Given a parent type and parent field name,
+   * we should fetch all of the paragraphs entities
    * whose revisions do not share a common parent_id.
    *
-   * If a paragraph's parent_id changes from revision to revision, it may be the result of an
-   * improper clone.
+   * If a paragraph's parent_id changes from revision to revision,
+   * it may be the result of an improper clone.
    *
    * @param string $parent_type
    *   The machine name of the parent entity type.
@@ -119,7 +130,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
     foreach ($statement as $item) {
       $target_id = $item->target_id;
       if (empty($result[$target_id])) {
-        $result[$target_id] = (object)[
+        $result[$target_id] = (object) [
           'target_id' => $target_id,
           'parent_ids' => [
             $item->parent_id,
@@ -138,6 +149,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
     });
     return $result;
   }
+
   /**
    * Process an improperly cloned paragraph.
    *
@@ -145,7 +157,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
    *   The type of entity parenting this paragraph.
    * @param string $parent_field_name
    *   The machine name of the parent entity.
-   * @param int $id
+   * @param int $target_id
    *   The paragraph entity ID.
    * @param int[] $parent_ids
    *   The parents with improper references to this paragraph.
@@ -167,28 +179,29 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
       $this->batchOpLog->appendLog($message);
       $this->replaceParagraph($cloner, $parent, $parent_field_name, $target_id, $properties, $already_cloned);
     }
-    // Clean up now orphaned paragraphs
+    // Clean up now orphaned paragraphs.
     $paragraph_storage = \Drupal::entityTypeManager()->getStorage('paragraph');
     $paragraph = $paragraph_storage->load($target_id);
     if ($paragraph) {
       $paragraph->delete();
     }
   }
+
   /**
    * Replace a paragraph with its clone.
    *
    * @param \Drupal\entity_clone\EntityClone\EntityCloneInterface $cloner
-   *  A cloner object.
+   *   A cloner object.
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
-   *  The host entity.
+   *   The host entity.
    * @param string $field_name
-   *  The name of the paragraph field.
+   *   The name of the paragraph field.
    * @param int $pid
-   *  The paragraph entity ID to clone and replace.
+   *   The paragraph entity ID to clone and replace.
    * @param array $properties
-   *  Properties used to create the clone paragraph.
+   *   Properties used to create the clone paragraph.
    * @param array &$already_cloned
-   *  Tracking of already cloned paragraph IDs to avoid duplicating clones for the same paragraph.
+   *   Tracking of already cloned paragraph IDs.
    */
   protected function replaceParagraph(EntityCloneInterface $cloner, ContentEntityInterface $entity, string $field_name, int $pid, array $properties, array &$already_cloned = []): void {
     if ($entity->hasField($field_name)) {
@@ -204,7 +217,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
         if (intval($field_item['target_id']) === $pid) {
           $referenced_entity = $referenced_entities[$key] ?? NULL;
           if ($referenced_entity) {
-            // Avoid cloning the same paragraph multiple times for the same parent.
+            // Avoid cloning the same paragraph multiple times.
             if (!isset($already_cloned[$pid])) {
               $clone = $this->cloneParagraph($cloner, $referenced_entity, $entity->id(), $properties);
               $already_cloned[$pid] = $clone;
@@ -244,17 +257,18 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
       }
     }
   }
+
   /**
    * Clone a paragraph and prepare it for insertion into the original node.
    *
    * @param \Drupal\entity_clone\EntityClone\EntityCloneInterface $cloner
-   *  A cloner object.
+   *   A cloner object.
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   The paragraph to clone.
    * @param int $parent_id
    *   The parent ID, used to strip unwanted revisions.
    * @param array $properties
-   *  Properties used to create the clone paragraph.
+   *   Properties used to create the clone paragraph.
    *
    * @return \Drupal\paragraphs\ParagraphInterface
    *   The cloned paragraph.
@@ -271,4 +285,5 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
     }
     return $result;
   }
+
 }
