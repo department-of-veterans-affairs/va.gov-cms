@@ -153,7 +153,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
    * @param string $parent_type
    *   The type of entity parenting this paragraph.
    * @param string $parent_field_name
-   *   The machine name of the parent entity.
+   *   The machine name of the parent entity field.
    * @param int $target_id
    *   The paragraph entity ID.
    * @param int[] $parent_ids
