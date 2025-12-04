@@ -10,7 +10,7 @@
     if ([8, 9, 13, 37, 39, 46].includes(key)) {
       return;
     }
-    if (key >= 48 && key <= 57) {
+    if (key >= 48 && key <= 57 || key >= 96 && key <= 105) {
       return;
     }
     e.preventDefault();
