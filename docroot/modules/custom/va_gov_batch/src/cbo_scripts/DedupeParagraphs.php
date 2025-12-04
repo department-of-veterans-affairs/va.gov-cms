@@ -84,9 +84,6 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
           $this->batchOpLog->appendLog($message);
           $this->processParagraph($parent_type, $parent_field_name, $target_id, $parent_ids);
         }
-        else {
-          return 'No multiple parented paragraphs found for ' . $parent_type . '-> field: ' . $parent_field_name;
-        }
       }
     }
     else {
@@ -214,6 +211,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
       $referenced_entities = $field_value->referencedEntities();
       $revision_ids = $storage->revisionIds($entity);
       $database = \Drupal::database();
+      $replace_count = 0;
       foreach ($field_items as $key => $field_item) {
         if (intval($field_item['target_id']) === $pid) {
           $referenced_entity = $referenced_entities[$key] ?? NULL;
@@ -247,14 +245,15 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
             $title = method_exists($entity, 'getTitle') ? $entity->getTitle() : '';
             $message = 'Updated ' . $entity->bundle() . ' node #' . $entity->id() . ' - "' . $title . '" value #' . $key . ' with new paragraph (was ' . $pid . ', now ' . $clone->id() . ').';
             $this->batchOpLog->appendLog($message);
+            $replace_count++;
             break;
           }
           break;
         }
-        else {
-          $message = 'no replacement for orphaned paragraph #' . $pid . ' for node #' . $entity->id();
-          $this->batchOpLog->appendLog($message);
-        }
+      }
+      if ($replace_count === 0) {
+        $message = 'no replacement for orphaned paragraph #' . $pid . ' for node #' . $entity->id();
+        $this->batchOpLog->appendLog($message);
       }
     }
   }
