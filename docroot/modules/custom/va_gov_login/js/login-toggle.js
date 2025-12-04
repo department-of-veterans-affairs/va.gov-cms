@@ -24,8 +24,8 @@
           loginToggle.value = "Developer log in";
         }
 
-        if (loginForm.classList.contains("piv-login-link")) {
-          document.querySelector("a.piv-login-link").focus();
+        if (loginForm.classList.contains("piv-login")) {
+          document.querySelector("a.simplesamlphp-auth-login-link").focus();
         } else {
           document.querySelector(".js-login-username input").focus();
         }
