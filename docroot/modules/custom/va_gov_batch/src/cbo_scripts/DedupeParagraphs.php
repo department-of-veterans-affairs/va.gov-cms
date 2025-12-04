@@ -248,7 +248,6 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
             $replace_count++;
             break;
           }
-          break;
         }
       }
       if ($replace_count === 0) {
