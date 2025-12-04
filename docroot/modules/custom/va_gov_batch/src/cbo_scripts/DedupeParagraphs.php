@@ -206,11 +206,12 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
   protected function replaceParagraph(EntityCloneInterface $cloner, ContentEntityInterface $entity, string $field_name, int $pid, array $properties, array &$already_cloned = []): void {
     if ($entity->hasField($field_name)) {
       $entity_type_manager = \Drupal::entityTypeManager();
+      /** @var \Drupal\node\NodeStorageInterface $storage */
+      $storage = $entity_type_manager->getStorage($entity->getEntityTypeId());
       /** @var \Drupal\Core\Field\EntityReferenceFieldItemList  $field_value */
       $field_value = $entity->get($field_name);
       $field_items = $field_value->getValue();
       $referenced_entities = $field_value->referencedEntities();
-      $storage = $entity_type_manager->getStorage($entity->getEntityTypeId());
       $revision_ids = $storage->revisionIds($entity);
       $database = \Drupal::database();
       foreach ($field_items as $key => $field_item) {
@@ -275,7 +276,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
    */
   protected function cloneParagraph(EntityCloneInterface $cloner, ParagraphInterface $paragraph, int $parent_id, array $properties): ParagraphInterface {
     $clone = $paragraph->createDuplicate();
-    /** @var \Drupal\Paragraphs\Entity\Paragraph $result */
+    /** @var \Drupal\paragraphs\Entity\Paragraph $result */
     $result = $cloner->cloneEntity($paragraph, $clone, $properties);
     $cloned_parent_id = $result->get('parent_id')->value;
     // Make sure that the new paragraph targets the correct parent.
