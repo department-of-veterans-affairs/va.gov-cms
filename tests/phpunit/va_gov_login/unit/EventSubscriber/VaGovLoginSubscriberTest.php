@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\va_gov_login\Unit\EventSubscriber;
+namespace tests\phpunit\va_gov_login\unit\EventSubscriber;
 
 use Drupal\Core\Session\AccountInterface;
 use Drupal\va_gov_login\EventSubscriber\VaGovLoginSubscriber;
