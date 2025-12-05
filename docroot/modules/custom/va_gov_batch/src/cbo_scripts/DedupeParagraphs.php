@@ -167,14 +167,13 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
     $cloner = new ContentEntityCloneBase($entity_type_manager, $parent_type, $time_service, $current_user, $clonable_field);
     $parent_storage = $entity_type_manager->getStorage($parent_type);
     $parents = $parent_storage->loadMultiple($parent_ids);
-    $already_cloned = [];
     $properties = [
       'children' => [],
     ];
     foreach ($parents as $parent_id => $parent) {
       $message = 'attempt to replace old paragraph #' . $target_id . ' for node #' . $parent_id . '.';
       $this->batchOpLog->appendLog($message);
-      $this->replaceParagraph($cloner, $parent, $parent_field_name, $target_id, $properties, $already_cloned);
+      $this->replaceParagraph($cloner, $parent, $parent_field_name, $target_id, $properties);
     }
     // Clean up now orphaned paragraphs.
     $paragraph_storage = \Drupal::entityTypeManager()->getStorage('paragraph');
@@ -198,10 +197,8 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
    *   The paragraph entity ID to clone and replace.
    * @param array $properties
    *   Properties used to create the clone paragraph.
-   * @param array &$already_cloned
-   *   Tracking of already cloned paragraph IDs.
    */
-  protected function replaceParagraph(EntityCloneInterface $cloner, ContentEntityInterface $entity, string $field_name, int $pid, array $properties, array &$already_cloned = []): void {
+  protected function replaceParagraph(EntityCloneInterface $cloner, ContentEntityInterface $entity, string $field_name, int $pid, array $properties): void {
     if ($entity->hasField($field_name)) {
       $entity_type_manager = \Drupal::entityTypeManager();
       /** @var \Drupal\node\NodeStorageInterface $storage */
@@ -217,14 +214,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
         if (intval($field_item['target_id']) === $pid) {
           $referenced_entity = $referenced_entities[$key] ?? NULL;
           if ($referenced_entity) {
-            // Avoid cloning the same paragraph multiple times.
-            if (!isset($already_cloned[$pid])) {
-              $clone = $this->cloneParagraph($cloner, $referenced_entity, $entity->id(), $properties);
-              $already_cloned[$pid] = $clone;
-            }
-            else {
-              $clone = $already_cloned[$pid];
-            }
+            $clone = $this->cloneParagraph($cloner, $referenced_entity, $entity->id(), $properties);
             $query = $database->update("{$entity->getEntityTypeId()}__{$field_name}");
             $query->fields([
               "{$field_name}_target_id" => $clone->id(),
