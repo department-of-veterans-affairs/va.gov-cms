@@ -181,20 +181,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
     /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
     $paragraph = $paragraph_storage->load($target_id);
     if ($paragraph) {
-      $paragraph_parent_id = $paragraph->get('parent_id')->value;
-      /** @var \Drupal\node\NodeInterface $parent */
-      $parent = $paragraph_storage->load($paragraph_parent_id);
-      if ($parent) {
-        $parent_field_items = $parent->get($parent_field_name)->getValue();
-        $referenced_ids = array_column($parent_field_items, 'target_id');
-        if (in_array($target_id, $referenced_ids)) {
-          $message = 'Paragraph #' . $target_id . ' is still referenced by node #' . $paragraph_parent_id . '.';
-          $this->batchOpLog->appendLog($message);
-        }
-        else {
-          $paragraph->delete();
-        }
-      }
+      $paragraph->delete();
     }
   }
 
