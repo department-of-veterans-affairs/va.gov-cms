@@ -1,0 +1,195 @@
+name: CMS Database Sanitize Production
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - sanitize-db-backup
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  region: us-gov-west-1
+  S3BackupPath: database
+  MYSQL_SANITIZE_DB_NAME: sanitize
+
+jobs:
+  sanitize:
+    runs-on: self-hosted
+    container:
+      image: ubuntu:24.04
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
+          aws-region: ${{ env.region }}
+
+      - name: Install required packages
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update
+          apt-get install -y mysql-client gzip ca-certificates python3-pip
+          pip3 install --break-system-packages awscli
+
+      - name: Download and sanitize database
+        run: |
+          set -e
+          
+          timestamp=$(date "+%Y-%m-%d-%H-%M")
+          tempdir=$(mktemp -d)
+          cd $tempdir
+
+          # Get parameters from SSM
+          s3_backup_bucket_priv=$(aws ssm get-parameter \
+            --name "/cms/prod/s3-db-backup-bucket" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          s3_backup_bucket_pub=$(aws ssm get-parameter \
+            --name "/cms/prod/s3-db-backup-bucket-sanitized" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          sanitize_filename_prefix=$(aws ssm get-parameter \
+            --name "/cms/prod/db-sanitize-filename" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          database_host=$(aws ssm get-parameter \
+            --name "/cms/staging/db_host" \
+            --with-decryption \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          db_password=$(aws ssm get-parameter \
+            --name "/cms/staging/mariadb/master_password" \
+            --with-decryption \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+
+          # Download latest prod backup
+          aws s3 cp \
+            --region ${{ env.region }} \
+            s3://${s3_backup_bucket_priv}/${{ env.S3BackupPath }}/latest_uri latest_uri 
+          
+          DB_FILENAME=$(awk -F'/' '{ print $NF }' latest_uri)
+          DB_FILENAME_NO_EXT=$(echo "${DB_FILENAME}" | awk -F'.' '{ print $1 }')
+
+          aws s3 cp \
+            --region ${{ env.region }} \
+            "$(cat latest_uri)" . 
+
+          # Unzip database
+          gunzip "${DB_FILENAME}"
+
+          echo "File stats pre-sanitize: $(ls -lh ${DB_FILENAME_NO_EXT}.sql)"
+
+          # Remove DEFINER statements for MySQL compatibility
+          sed 's/\sDEFINER="[^`]*"@"[^`]*"//g' --in-place ${DB_FILENAME_NO_EXT}.sql
+
+          # Create temporary sanitize database on staging RDS
+          mysql \
+            --host=${database_host} \
+            --user=master \
+            --password="${db_password}" \
+            --execute "CREATE DATABASE IF NOT EXISTS ${{ env.MYSQL_SANITIZE_DB_NAME }}"
+
+          # Import prod backup into sanitize database
+          mysql \
+            --host=${database_host} \
+            --user=master \
+            --password="${db_password}" \
+            --database="${{ env.MYSQL_SANITIZE_DB_NAME }}" \
+            < "${DB_FILENAME_NO_EXT}.sql"
+
+          # Sanitize email addresses
+          mysql \
+            --host=${database_host} \
+            --user=master \
+            --password="${db_password}" \
+            --execute "UPDATE users_field_data SET mail=CONCAT('user', users_field_data.uid, '@example.com');" \
+            ${{ env.MYSQL_SANITIZE_DB_NAME }}
+
+          # Sanitize passwords to 'drupal8'
+          mysql \
+            --host=${database_host} \
+            --user=master \
+            --password="${db_password}" \
+            --execute 'UPDATE users_field_data SET pass="$S$E8dx2r5lD6QEnlL.DHf4Jj/1ipnNkwkK90giLgQLqIOP33teiY8x" WHERE uid>0;' \
+            ${{ env.MYSQL_SANITIZE_DB_NAME }}
+
+          # Set all users to active
+          mysql \
+            --host=${database_host} \
+            --user=master \
+            --password="${db_password}" \
+            --execute "UPDATE users_field_data SET status=1 WHERE uid>0 AND status=0;" \
+            ${{ env.MYSQL_SANITIZE_DB_NAME }}
+
+          # Remove deploy-alert sitewide alerts
+          mysql \
+            --host=${database_host} \
+            --user=master \
+            --password="${db_password}" \
+            --execute "DELETE FROM sitewide_alert WHERE id IN (SELECT id FROM sitewide_alert_field_data WHERE name = 'deploy-alert');" \
+            ${{ env.MYSQL_SANITIZE_DB_NAME }}
+
+          # Truncate cache_* tables
+          echo "SHOW TABLES LIKE 'cache\_%'" \
+            | mysql --host=${database_host} --user=master --password="${db_password}" --database=${{ env.MYSQL_SANITIZE_DB_NAME }} \
+            | tail --lines +2 \
+            | xargs -L1 -I% echo "TRUNCATE TABLE %;" \
+            | mysql --host=${database_host} --user=master --password="${db_password}" --database=${{ env.MYSQL_SANITIZE_DB_NAME }} --verbose
+
+          # Truncate specific tables
+          echo "TRUNCATE TABLE batch; TRUNCATE TABLE flood; TRUNCATE TABLE queue; TRUNCATE TABLE sessions; TRUNCATE TABLE watchdog; TRUNCATE TABLE content_lock; TRUNCATE TABLE user_history;" \
+            | mysql --host=${database_host} --user=master --password="${db_password}" --database=${{ env.MYSQL_SANITIZE_DB_NAME }} --verbose
+
+          # Dump sanitized database
+          mysqldump \
+            --host=${database_host} \
+            --user=master \
+            --password="${db_password}" \
+            --single-transaction \
+            --default-character-set=utf8mb4 \
+            ${{ env.MYSQL_SANITIZE_DB_NAME }} > ${sanitize_filename_prefix}.sql
+
+          echo "File stats post-sanitize: $(ls -lh ${sanitize_filename_prefix}.sql)"
+
+          # Remove DEFINER statements again after export
+          sed 's/\sDEFINER="[^`]*"@"[^`]*"//g' --in-place ${sanitize_filename_prefix}.sql
+
+          # Gzip the sanitized dump
+          gzip ${sanitize_filename_prefix}.sql
+
+          # Upload to public sanitized bucket with timestamp
+          aws s3 cp \
+            --region ${{ env.region }} \
+            --acl public-read \
+            ${sanitize_filename_prefix}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz 
+
+          # Copy to latest version
+          aws s3 cp \
+            --region ${{ env.region }} \
+            --acl public-read \
+            s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}latest.sql.gz 
+
+          # Drop the temporary sanitize database
+          mysql \
+            --host=${database_host} \
+            --user=master \
+            --password="${db_password}" \
+            --execute "DROP DATABASE ${{ env.MYSQL_SANITIZE_DB_NAME }};"
+
+          # Cleanup
+          cd
+          rm -rf ${tempdir}
