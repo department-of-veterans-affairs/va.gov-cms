@@ -79,6 +79,24 @@ function vagovclaro_preprocess_form_element(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for text_format_wrapper.
+ *
+ * Removes the aria-describedby attribute that Claro adds, which points to a
+ * description ID that doesn't exist in the DOM. This is due to a conflict
+ * between the patch from Drupal.org #2421445 (which moves description
+ * ownership to the form element layer) and Claro's preprocessing (which
+ * re-adds aria-describedby after core removes it).
+ *
+ * @see https://www.drupal.org/project/drupal/issues/2421445
+ * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7033
+ */
+function vagovclaro_preprocess_text_format_wrapper(&$variables) {
+  if (isset($variables['attributes']['aria-describedby'])) {
+    unset($variables['attributes']['aria-describedby']);
+  }
+}
+
+/**
  * Implements hook_preprocess_container().
  */
 function vagovclaro_preprocess_container(&$variables) {

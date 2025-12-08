@@ -593,22 +593,6 @@ function va_gov_backend_field_widget_single_element_form_alter(array &$element, 
 }
 
 /**
- * Implements hook_preprocess_HOOK() for field_multiple_value_form.
- */
-function va_gov_backend_preprocess_field_multiple_value_form(&$variables) {
-  // Remove aria-describedby from these fields since they point to invalid ids.
-  // Drupal generates aria-describedby references to description IDs that are
-  // not rendered in the DOM.
-  if (!$variables['multiple'] && isset($variables['elements'][0]['#type']) && $variables['elements'][0]['#type'] === 'text_format') {
-    unset($variables['elements'][0]['#attributes']['aria-describedby']);
-  }
-  if (!empty($variables['table']['#header']) && isset($variables['table']['#attributes']['aria-describedby'])) {
-    unset($variables['attributes']['aria-describedby']);
-    unset($variables['table']['#attributes']['aria-describedby']);
-  }
-}
-
-/**
  * Implements hook_entity_view_alter().
  *
  * Changes entity view display based on trigger field.
