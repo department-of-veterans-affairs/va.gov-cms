@@ -342,6 +342,11 @@ function vagovclaro_preprocess_field_multiple_value_form(&$variables) {
       '#attributes' => $attributes,
     ];
     unset($variables['description']);
+    // Avoid redundant aria-describedby attributes for UX purposes--we don't
+    // want screen readers to read the description twice.
+    if (!empty($variables["attributes"]["aria-describedby"]) && !empty($variables['table']['#attributes']['aria-describedby'])) {
+      unset($variables["attributes"]["aria-describedby"]);
+    }
   }
 }
 
