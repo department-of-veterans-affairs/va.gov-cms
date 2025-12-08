@@ -8,6 +8,7 @@
 use Drupal\block\Entity\Block;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
@@ -331,14 +332,14 @@ function vagovclaro_preprocess_field_multiple_value_form(&$variables) {
   if (!empty($variables['table']['#header']) && isset($variables['description']['content'])) {
     // Find description (help text) and move to header.
     // Div because some help text prints as multiple <p> tags.
-    // @see paragraphs_preprocess_field_multiple_value_form()
+    // @see paragraphs_preprocess_field_multiple_value_form().
+    $attributes = $variables['description']['attributes'] ?? new Attribute();
+    $attributes->addClass('form-item__description');
     $variables['table']['#header'][0]['data']['description'] = [
       '#type' => 'html_tag',
       '#tag' => 'div',
       '#value' => $variables['description']['content'],
-      '#attributes' => [
-        'class' => ['form-item__description'],
-      ],
+      '#attributes' => $attributes,
     ];
     unset($variables['description']);
   }
