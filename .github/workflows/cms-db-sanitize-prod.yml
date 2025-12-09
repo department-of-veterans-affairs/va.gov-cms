@@ -79,14 +79,14 @@ jobs:
           # Download latest prod backup
           aws s3 cp \
             --region ${{ env.region }} \
-            s3://${s3_backup_bucket_priv}/${{ env.S3BackupPath }}/latest_uri latest_uri 
+            s3://${s3_backup_bucket_priv}/${{ env.S3BackupPath }}/latest_uri latest_uri
           
           DB_FILENAME=$(awk -F'/' '{ print $NF }' latest_uri)
           DB_FILENAME_NO_EXT=$(echo "${DB_FILENAME}" | awk -F'.' '{ print $1 }')
 
           aws s3 cp \
             --region ${{ env.region }} \
-            "$(cat latest_uri)" . 
+            "$(cat latest_uri)" .
 
           # Unzip database
           gunzip "${DB_FILENAME}"
@@ -96,19 +96,19 @@ jobs:
           # Remove DEFINER statements for MySQL compatibility
           sed 's/\sDEFINER="[^`]*"@"[^`]*"//g' --in-place ${DB_FILENAME_NO_EXT}.sql
 
-          # Create temporary sanitize database on staging RDS
+          # Drop sanitize database if exists and create new one
           mysql \
             --host=${database_host} \
             --user=master \
             --password="${db_password}" \
-            --execute "CREATE DATABASE IF NOT EXISTS ${{ env.MYSQL_SANITIZE_DB_NAME }}"
+            --execute "DROP DATABASE IF EXISTS ${{ env.MYSQL_SANITIZE_DB_NAME }}; CREATE DATABASE ${{ env.MYSQL_SANITIZE_DB_NAME }}"
 
           # Import prod backup into sanitize database
           mysql \
             --host=${database_host} \
             --user=master \
             --password="${db_password}" \
-            --database="${{ env.MYSQL_SANITIZE_DB_NAME }}" \
+            ${{ env.MYSQL_SANITIZE_DB_NAME }} \
             < "${DB_FILENAME_NO_EXT}.sql"
 
           # Sanitize email addresses
@@ -175,13 +175,13 @@ jobs:
           aws s3 cp \
             --region ${{ env.region }} \
             --acl public-read \
-            ${sanitize_filename_prefix}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz 
+            ${sanitize_filename_prefix}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz
 
           # Copy to latest version
           aws s3 cp \
             --region ${{ env.region }} \
             --acl public-read \
-            s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}latest.sql.gz 
+            s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}latest.sql.gz
 
           # Drop the temporary sanitize database
           mysql \
