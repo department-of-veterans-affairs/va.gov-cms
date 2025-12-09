@@ -94,7 +94,7 @@ class UserImport implements EventSubscriberInterface {
     MessengerInterface $messenger,
     HookEventDispatcherModuleHandler $moduleHandler,
     TranslationInterface $string_translation,
-    UserSectionStorageInterface $user_section_storage
+    UserSectionStorageInterface $user_section_storage,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->environmentDiscovery = $environmentDiscovery;
@@ -237,18 +237,6 @@ class UserImport implements EventSubscriberInterface {
       $user_section_scheme = $this->entityTypeManager->getStorage('access_scheme')->load('section');
       $this->userSectionStorage->addUser($user_section_scheme, $user, $section_ids);
     }
-  }
-
-  /**
-   * Enable SSO for a user.
-   *
-   * @param \Drupal\user\UserInterface $user
-   *   The user object.
-   */
-  private function enableSamlAuth(UserInterface $user) {
-    $authname = $user->getAccountName();
-    $this->moduleHandler->alter('simplesamlphp_auth_account_authname', $authname, $user);
-    $this->externalAuth->linkExistingAccount($authname, 'simplesamlphp_auth', $user);
   }
 
   /**
