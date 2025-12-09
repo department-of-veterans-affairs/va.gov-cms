@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
 
 /**
@@ -18,9 +19,9 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
   unset($form['pass']['description']);
 
   // Bail from any further login changes if PIV is disabled.
-  $config = \Drupal::config('simplesamlphp_auth.settings');
-  \Drupal::service('renderer')->addCacheableDependency($form, $config);
-  if (!$config->get('activate') || (!$config->get('login_link_show'))) {
+  $entra_id_client = Settings::get('microsoft_entra_id_client_id');
+  $entra_id_tenant = Settings::get('microsoft_entra_id_tenant_id');
+  if (empty($entra_id_client) && empty($entra_id_tenant)) {
     return;
   }
 
