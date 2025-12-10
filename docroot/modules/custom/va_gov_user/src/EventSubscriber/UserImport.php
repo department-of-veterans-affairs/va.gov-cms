@@ -6,7 +6,6 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\externalauth\ExternalAuth;
 use Drupal\hook_event_dispatcher\HookEventDispatcherModuleHandler;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
@@ -42,13 +41,6 @@ class UserImport implements EventSubscriberInterface {
   protected $environmentDiscovery;
 
   /**
-   * External Auth Service.
-   *
-   * @var \Drupal\externalauth\ExternalAuth
-   */
-  protected $externalAuth;
-
-  /**
    * The Messenger service.
    *
    * @var \Drupal\Core\Messenger\MessengerInterface
@@ -76,8 +68,6 @@ class UserImport implements EventSubscriberInterface {
    *   The entity type manager service.
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
    *   Environment Discovery service.
-   * @param \Drupal\externalauth\ExternalAuth $externalAuth
-   *   External Authentication service.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
    * @param \Drupal\hook_event_dispatcher\HookEventDispatcherModuleHandler $moduleHandler
@@ -90,18 +80,16 @@ class UserImport implements EventSubscriberInterface {
   public function __construct(
     EntityTypeManager $entity_type_manager,
     EnvironmentDiscovery $environmentDiscovery,
-    ExternalAuth $externalAuth,
     MessengerInterface $messenger,
     HookEventDispatcherModuleHandler $moduleHandler,
     TranslationInterface $string_translation,
-    UserSectionStorageInterface $user_section_storage
+    UserSectionStorageInterface $user_section_storage,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->environmentDiscovery = $environmentDiscovery;
-    $this->externalAuth = $externalAuth;
     $this->messenger = $messenger;
     $this->moduleHandler = $moduleHandler;
-    $this->string_translation = $string_translation;
+    $this->stringTranslation = $string_translation;
     $this->userSectionStorage = $user_section_storage;
   }
 
@@ -237,18 +225,6 @@ class UserImport implements EventSubscriberInterface {
       $user_section_scheme = $this->entityTypeManager->getStorage('access_scheme')->load('section');
       $this->userSectionStorage->addUser($user_section_scheme, $user, $section_ids);
     }
-  }
-
-  /**
-   * Enable SSO for a user.
-   *
-   * @param \Drupal\user\UserInterface $user
-   *   The user object.
-   */
-  private function enableSamlAuth(UserInterface $user) {
-    $authname = $user->getAccountName();
-    $this->moduleHandler->alter('simplesamlphp_auth_account_authname', $authname, $user);
-    $this->externalAuth->linkExistingAccount($authname, 'simplesamlphp_auth', $user);
   }
 
   /**
