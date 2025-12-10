@@ -154,6 +154,9 @@ jobs:
           echo "TRUNCATE TABLE batch; TRUNCATE TABLE flood; TRUNCATE TABLE queue; TRUNCATE TABLE sessions; TRUNCATE TABLE watchdog; TRUNCATE TABLE content_lock; TRUNCATE TABLE user_history;" \
             | mysql --host=${database_host} --user=master --password="${db_password}" --database=${{ env.MYSQL_SANITIZE_DB_NAME }} --verbose
 
+          # Wait for truncate operations to complete
+          sleep 5
+
           # Dump sanitized database
           mysqldump \
             --host=${database_host} \
