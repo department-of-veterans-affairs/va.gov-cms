@@ -160,6 +160,8 @@ jobs:
             --user=master \
             --password="${db_password}" \
             --single-transaction \
+            --skip-lock-tables \
+            --quick \
             --default-character-set=utf8mb4 \
             ${{ env.MYSQL_SANITIZE_DB_NAME }} > ${sanitize_filename_prefix}.sql
 
