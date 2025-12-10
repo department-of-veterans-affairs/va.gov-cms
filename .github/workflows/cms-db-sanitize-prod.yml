@@ -96,20 +96,20 @@ jobs:
           # Remove DEFINER statements for MySQL compatibility
           sed 's/\sDEFINER="[^`]*"@"[^`]*"//g' --in-place ${DB_FILENAME_NO_EXT}.sql
 
-          # Drop sanitize database if exists and create new one
+          # Create sanitize database if it doesn't exist
           mysql \
             --host=${database_host} \
             --user=master \
             --password="${db_password}" \
-            --execute "DROP DATABASE IF EXISTS ${{ env.MYSQL_SANITIZE_DB_NAME }}; CREATE DATABASE ${{ env.MYSQL_SANITIZE_DB_NAME }}"
+            --execute "CREATE DATABASE IF NOT EXISTS ${{ env.MYSQL_SANITIZE_DB_NAME }}"
 
           # Import prod backup into sanitize database
           mysql \
             --host=${database_host} \
             --user=master \
             --password="${db_password}" \
-            ${{ env.MYSQL_SANITIZE_DB_NAME }} \
-            < "${DB_FILENAME_NO_EXT}.sql"
+            --database=${{ env.MYSQL_SANITIZE_DB_NAME }} \
+            ${{ env.MYSQL_SANITIZE_DB_NAME }} < "${DB_FILENAME_NO_EXT}.sql"
 
           # Sanitize email addresses
           mysql \
@@ -154,17 +154,12 @@ jobs:
           echo "TRUNCATE TABLE batch; TRUNCATE TABLE flood; TRUNCATE TABLE queue; TRUNCATE TABLE sessions; TRUNCATE TABLE watchdog; TRUNCATE TABLE content_lock; TRUNCATE TABLE user_history;" \
             | mysql --host=${database_host} --user=master --password="${db_password}" --database=${{ env.MYSQL_SANITIZE_DB_NAME }} --verbose
 
-          # Wait for truncate operations to complete
-          sleep 5
-
           # Dump sanitized database
           mysqldump \
             --host=${database_host} \
             --user=master \
             --password="${db_password}" \
             --single-transaction \
-            --skip-lock-tables \
-            --quick \
             --default-character-set=utf8mb4 \
             ${{ env.MYSQL_SANITIZE_DB_NAME }} > ${sanitize_filename_prefix}.sql
 
