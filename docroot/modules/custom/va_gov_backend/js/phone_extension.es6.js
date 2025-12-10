@@ -15,8 +15,8 @@
       return;
     }
 
-    // Allow: numbers (0-9).
-    if (key >= 48 && key <= 57) {
+    // Allow: numbers (0-9) from main keyboard and numpad.
+    if ((key >= 48 && key <= 57) || (key >= 96 && key <= 105)) {
       return;
     }
 
