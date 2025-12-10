@@ -89,7 +89,6 @@ $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
 // and disable it everywhere else.
 $tugboat_preview_type = getenv('TUGBOAT_PREVIEW_TYPE');
 $is_pull_request = $tugboat_preview_type === 'pullrequest';
-$config['simplesamlphp_auth.settings']['activate'] = $is_pull_request;
 
 // Settings supporting broken link report import.
 $settings['broken_link_report_import_enabled'] = TRUE;
