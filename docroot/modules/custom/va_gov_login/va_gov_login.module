@@ -6,7 +6,6 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
 
 /**
@@ -17,14 +16,6 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
   $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
   unset($form['pass']['#description']);
   unset($form['pass']['description']);
-
-  // Bail from any further login changes if PIV is disabled.
-  $entra_id_client = Settings::get('microsoft_entra_id_client_id');
-  $entra_id_tenant = Settings::get('microsoft_entra_id_tenant_id');
-  $entra_id_client_secret = Settings::get('microsoft_entra_id_client_secret');
-  if (empty($entra_id_client) || empty($entra_id_tenant) || empty($entra_id_client_secret)) {
-    return;
-  }
 
   // Create PIV login & container.
   $form['piv_login_link'] = [
