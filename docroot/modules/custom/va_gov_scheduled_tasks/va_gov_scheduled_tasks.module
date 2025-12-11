@@ -304,7 +304,7 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
       '@output' => implode("\n", $output),
     ]);
   }
-  else {
+  elseif (!in_array($command, $calls_without_logging)) {
     \Drupal::logger('va_gov_scheduled_tasks')->notice('Drush command succeeded: @command Output: @output', [
       '@command' => $command,
       '@output' => implode("\n", $output),
