@@ -288,8 +288,7 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
   $calls_without_logging = ['advancedqueue:queue:process content_release'];
   $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
   if (isset($backtrace[1]['function'])) {
-    $caller = $backtrace[1]['function'];
-    if (!in_array($caller, $calls_without_logging)) {
+    if (!in_array($command, $calls_without_logging)) {
       \Drupal::logger('va_gov_scheduled_tasks')->notice('Running Drush command: @command', ['@command' => $command]);
     }
   }
@@ -310,7 +309,6 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
   }
   else {
     if (isset($backtrace[1]['function'])) {
-      $caller = $backtrace[1]['function'];
       \Drupal::logger('va_gov_scheduled_tasks')->notice('Drush command succeeded: @command Output: @output', [
         '@command' => $command,
         '@output' => implode("\n", $output),
