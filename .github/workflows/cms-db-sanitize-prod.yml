@@ -4,9 +4,6 @@ on:
   schedule:
     - cron: "*/30 * * * *"
   workflow_dispatch:
-  push:
-    branches:
-      - sanitize-db-backup
 
 permissions:
   id-token: write
@@ -80,6 +77,7 @@ jobs:
 
           aws s3 cp \
             --region ${{ env.region }} \
+            --quiet \
             s3://${s3_backup_bucket_priv}/${{ env.S3BackupPath }}/latest_uri latest_uri
           
           DB_FILENAME=$(awk -F'/' '{ print $NF }' latest_uri)
@@ -87,6 +85,7 @@ jobs:
 
           aws s3 cp \
             --region ${{ env.region }} \
+            --quiet \
             "$(cat latest_uri)" .
 
           gunzip "${DB_FILENAME}"
@@ -162,10 +161,12 @@ jobs:
 
           aws s3 cp \
             --region ${{ env.region }} \
+            --quiet \
             ${sanitize_filename_prefix}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz
 
           aws s3 cp \
             --region ${{ env.region }} \
+            --quiet \
             s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}latest.sql.gz
 
           mysql \
