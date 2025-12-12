@@ -1,5 +1,5 @@
 diff --git a/src/Service/Fetcher.php b/src/Service/Fetcher.php
-index 8913894be7f1934bdbbc7410448e75e8d7ef0fcd..893119f29c0708b29a8974d0634a11b839099e10 100644
+index 8913894be7f1934bdbbc7410448e75e8d7ef0fcd..c4af3b96878c6ef3f103c70678152cbbded93e71 100644
 --- a/src/Service/Fetcher.php
 +++ b/src/Service/Fetcher.php
 @@ -10,6 +10,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
@@ -18,7 +18,7 @@ index 8913894be7f1934bdbbc7410448e75e8d7ef0fcd..893119f29c0708b29a8974d0634a11b8
          $this->extractEntityReference($data, $source, $fieldname, $level);
        }
      }
-@@ -341,6 +343,29 @@ class Fetcher {
+@@ -341,6 +343,30 @@ class Fetcher {
      }
    }
  
@@ -39,7 +39,8 @@ index 8913894be7f1934bdbbc7410448e75e8d7ef0fcd..893119f29c0708b29a8974d0634a11b8
 +      foreach ($values as $index => $instanceValues) {
 +        if (!empty($instanceValues['uri'])) {
 +          $field = $source->get($fieldname)->get($index);
-+          $data[$fieldname][$index]['url'] = Url::fromUri($field->uri)->toString();
++          $url = Url::fromUri($field->uri)->toString();
++          $data[$fieldname][$index]['url'] = !empty($url) ? $url : NULL;
 +        }
 +      }
 +    }
