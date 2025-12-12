@@ -2,8 +2,11 @@ name: CMS Database Sanitize Production
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0 * * * *"
   workflow_dispatch:
+   push:
+    branches:
+      - sanitize-db-backup
 
 permissions:
   id-token: write
@@ -75,9 +78,15 @@ jobs:
             --query 'Parameter.Value' \
             --output text)
 
+          replacement_password=$(aws ssm get-parameter \
+            --name "/cms/prod/db-sanitize-replacement-password" \
+            --with-decryption \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+
           aws s3 cp \
             --region ${{ env.region }} \
-            --quiet \
             s3://${s3_backup_bucket_priv}/${{ env.S3BackupPath }}/latest_uri latest_uri
           
           DB_FILENAME=$(awk -F'/' '{ print $NF }' latest_uri)
@@ -85,7 +94,6 @@ jobs:
 
           aws s3 cp \
             --region ${{ env.region }} \
-            --quiet \
             "$(cat latest_uri)" .
 
           gunzip "${DB_FILENAME}"
@@ -118,7 +126,7 @@ jobs:
             --host=${database_host} \
             --user=master \
             --password="${db_password}" \
-            --execute 'UPDATE users_field_data SET pass="$S$E8dx2r5lD6QEnlL.DHf4Jj/1ipnNkwkK90giLgQLqIOP33teiY8x" WHERE uid>0;' \
+            --execute "UPDATE users_field_data SET pass='${replacement_password}' WHERE uid>0;" \
             ${{ env.MYSQL_SANITIZE_DB_NAME }}
 
           mysql \
@@ -161,12 +169,10 @@ jobs:
 
           aws s3 cp \
             --region ${{ env.region }} \
-            --quiet \
             ${sanitize_filename_prefix}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz
 
           aws s3 cp \
             --region ${{ env.region }} \
-            --quiet \
             s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}latest.sql.gz
 
           mysql \
