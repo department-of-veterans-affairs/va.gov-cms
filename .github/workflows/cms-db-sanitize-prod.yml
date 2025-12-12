@@ -15,7 +15,7 @@ permissions:
 env:
   region: us-gov-west-1
   S3BackupPath: database
-  MYSQL_SANITIZE_DB_NAME: sanitize
+  MYSQL_SANITIZE_DB_NAME: sanitize_gha
 
 jobs:
   sanitize:
@@ -162,12 +162,10 @@ jobs:
 
           aws s3 cp \
             --region ${{ env.region }} \
-            --acl public-read \
             ${sanitize_filename_prefix}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz
 
           aws s3 cp \
             --region ${{ env.region }} \
-            --acl public-read \
             s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}${timestamp}.sql.gz s3://${s3_backup_bucket_pub}/${{ env.S3BackupPath }}/${sanitize_filename_prefix}latest.sql.gz
 
           mysql \
