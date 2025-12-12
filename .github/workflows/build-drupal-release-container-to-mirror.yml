@@ -144,6 +144,12 @@ jobs:
             BUILDKIT_INLINE_CACHE=1
             BASE_IMAGE_TAG=${{ env.LAST_TAG }}
             DD_GIT_COMMIT_SHA=${{ github.sha }}
+      # Fail the job if the tag is invalid, to avoid silent skipping of deployment
+      - name: Fail if tag is invalid
+        if: steps.select_tag.outputs.is_valid != 'true'
+        run: |
+          echo "ERROR: The provided tag is invalid. Failing the build-and-push job."
+          exit 1
   deploy-to-staging:
     needs: build-and-push
     if: needs.build-and-push.outputs.IS_VALID == 'true' && needs.build-and-push.outputs.IMAGE_TAG != ''
