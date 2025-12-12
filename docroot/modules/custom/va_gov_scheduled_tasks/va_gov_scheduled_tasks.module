@@ -286,12 +286,8 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
   // Some calls are made too often to log every time.
   // We only want to log the errors for those.
   $calls_without_logging = ['advancedqueue:queue:process content_release'];
-  $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
-  if (isset($backtrace[1]['function'])) {
-    $caller = $backtrace[1]['function'];
-    if (!in_array($caller, $calls_without_logging)) {
-      \Drupal::logger('va_gov_scheduled_tasks')->notice('Running Drush command: @command', ['@command' => $command]);
-    }
+  if (!in_array($command, $calls_without_logging)) {
+    \Drupal::logger('va_gov_scheduled_tasks')->notice('Running Drush command: @command', ['@command' => $command]);
   }
   $output = [];
   $return_var = 0;
@@ -308,14 +304,11 @@ function va_gov_scheduled_tasks_run_drush_command($command) {
       '@output' => implode("\n", $output),
     ]);
   }
-  else {
-    if (isset($backtrace[1]['function'])) {
-      $caller = $backtrace[1]['function'];
-      \Drupal::logger('va_gov_scheduled_tasks')->notice('Drush command succeeded: @command Output: @output', [
-        '@command' => $command,
-        '@output' => implode("\n", $output),
-      ]);
-    }
+  elseif (!in_array($command, $calls_without_logging)) {
+    \Drupal::logger('va_gov_scheduled_tasks')->notice('Drush command succeeded: @command Output: @output', [
+      '@command' => $command,
+      '@output' => implode("\n", $output),
+    ]);
   }
 
 }
