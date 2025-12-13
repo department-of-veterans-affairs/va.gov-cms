@@ -25,5 +25,5 @@ echo "NPM $(npm -v)"
 echo "Yarn $(yarn -v)"
 
 export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
-yarn install
+yarn install-safe
 yarn build
