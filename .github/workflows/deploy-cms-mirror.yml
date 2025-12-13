@@ -1,0 +1,116 @@
+name: Deploy to CMS Mirror M - F at 3am ET
+on:
+  workflow_dispatch:
+  schedule:
+    # 08:00 UTC -> 3 a.m. Eastern during standard time, 4 a.m. during daylight saving
+    - cron: '0 8 * * 1-5'
+
+env:
+  CMS_NOTIFICATIONS_SLACK: CJT90C0UT # cms-notifications
+
+jobs:
+  get-tag:
+    runs-on: ubuntu-latest
+    outputs:
+      IMAGE_TAG: ${{ steps.set-outputs.outputs.IMAGE_TAG }}
+      IS_VALID: ${{ steps.set-outputs.outputs.IS_VALID }}
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5.0.0
+        with:
+          aws-region: us-gov-west-1
+          role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
+          role-duration-seconds: 900
+          role-session-name: vsp-vagov-next-build-githubaction
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Select latest Drupal semantic tag
+        id: select-tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          REPO_NAME="dsva/cms-drupal"
+          IMAGES_JSON=$(aws ecr describe-images --repository-name "$REPO_NAME" --query 'imageDetails' --output json)
+          SEMVER_TAG=$(echo "$IMAGES_JSON" | jq -r '
+            sort_by(.imagePushedAt) | reverse |
+            map(select(.imageTags != null) | .imageTags[]) |
+            map(select(test("^v[0-9]+\\.[0-9]+\\.[0-9]+$"))) |
+            first // ""
+          ')
+          echo "LAST_TAG=$SEMVER_TAG" >> "$GITHUB_ENV"
+
+      - name: Set outputs
+        id: set-outputs
+        shell: bash
+        run: |
+          IMAGE_TAG="${LAST_TAG:-}"
+          echo "IMAGE_TAG=$IMAGE_TAG" >> "$GITHUB_OUTPUT"
+          if [[ "$IMAGE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "IS_VALID=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "IS_VALID=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy-to-staging:
+    needs: get-tag
+    if: needs.get-tag.outputs.IS_VALID == 'true' && needs.get-tag.outputs.IMAGE_TAG != ''
+    uses: department-of-veterans-affairs/va.gov-cms/.github/workflows/update-manifest.yml@main
+    with:
+      image_tag: ${{ needs.get-tag.outputs.IMAGE_TAG }}
+      app_name: cms-mirror
+      environment: staging
+
+  notify-success-slack:
+    name: Notify Success (Slack)
+    runs-on: ubuntu-latest
+    needs:
+      - deploy-to-staging
+      - get-tag
+    if: needs.deploy-to-staging.result == 'success'
+
+    steps:
+      - name: Notify Slack
+        uses: department-of-veterans-affairs/platform-release-tools-actions/slack-notify@8c496a4b0c9158d18edcd9be8722ed0f79e8c5b4 #
+        continue-on-error: true
+        with:
+          payload: '{"attachments": [{"color": "#2EB67D","blocks": [{"type": "section","text": {"type": "mrkdwn","text": "Deployment to CMS Mirror for tag ${{ needs.get-tag.outputs.IMAGE_TAG }} is complete."}}]}]}'
+          channel_id: ${{ env.CMS_NOTIFICATIONS_SLACK }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  notify-failure-slack:
+    name: Notify Failure (Slack)
+    runs-on: ubuntu-latest
+    needs:
+      - deploy-to-staging
+      - get-tag
+    if: needs.deploy-to-staging.result == 'failure'
+
+    steps:
+      - name: Notify Slack
+        uses: department-of-veterans-affairs/platform-release-tools-actions/slack-notify@8c496a4b0c9158d18edcd9be8722ed0f79e8c5b4
+        continue-on-error: true
+        with:
+          payload: >
+            {
+              "attachments": [
+                {
+                  "color": "#E01E5A",
+                  "blocks": [
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": ":bangbang: <!subteam^S01JXBLLMJL|cms-devops-engineers> Deployment of CMS Mirror using ${{ needs.get-tag.outputs.IMAGE_TAG || 'an unknown version' }} has failed."
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          channel_id: ${{ env.CMS_NOTIFICATIONS_SLACK }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
