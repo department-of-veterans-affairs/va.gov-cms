@@ -15,6 +15,10 @@ fi
 
 pushd next
 
+# Ensure we have the latest code for the given branch.
+git fetch origin
+git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
+
 nvm install
 nvm use
 corepack enable
