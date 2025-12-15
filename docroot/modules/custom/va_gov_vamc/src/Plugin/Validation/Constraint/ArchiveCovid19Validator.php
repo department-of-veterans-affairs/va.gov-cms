@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_vamc\Plugin\Validation\Constraint;
 
+use Drupal\va_gov_backend\Plugin\Validation\Constraint\Traits\ValidatorContextAccessTrait;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -9,6 +10,8 @@ use Symfony\Component\Validator\ConstraintValidator;
  * Validates the ArchiveCovid19 constraint.
  */
 class ArchiveCovid19Validator extends ConstraintValidator {
+
+  use ValidatorContextAccessTrait;
 
   /**
    * {@inheritdoc}
@@ -25,7 +28,9 @@ class ArchiveCovid19Validator extends ConstraintValidator {
         $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid);
         if ($term && str_contains($term->label(), 'COVID-19 vaccines') !== FALSE) {
           /** @var \Drupal\va_gov_vamc\Plugin\Validation\Constraint\ArchiveCovid19 $constraint */
-          $this->context->addViolation($constraint->covid19Archived);
+          $this->getContext()
+            ->buildViolation($constraint->covid19Archived, [])
+            ->addViolation();
         }
       }
       elseif ($bundle === 'health_care_local_health_service') {
@@ -33,7 +38,9 @@ class ArchiveCovid19Validator extends ConstraintValidator {
         $referencedNode = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
         if ($referencedNode && str_contains($referencedNode->label(), 'COVID-19 vaccines') !== FALSE) {
           /** @var \Drupal\va_gov_vamc\Plugin\Validation\Constraint\ArchiveCovid19 $constraint */
-          $this->context->addViolation($constraint->covid19Archived);
+          $this->getContext()
+            ->buildViolation($constraint->covid19Archived, [])
+            ->addViolation();
         }
       }
     }

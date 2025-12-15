@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Constraint;
  * @Constraint(
  *   id = "ArchiveCovid19",
  *   label = @Translation("Archive COVID-19 Health Services", context = "Validation"),
- *   type = "string"
  * )
  */
 class ArchiveCovid19 extends Constraint {
