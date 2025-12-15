@@ -77,7 +77,7 @@ jobs:
           temp_extract_dir=$(mktemp -d)
           
           # Extract files using pigz for parallel decompression
-          tar -xzf ${{ env.CmsFilesName }} -C ${temp_extract_dir} --use-compress-program=pigz
+          tar -xf ${{ env.CmsFilesName }} -C ${temp_extract_dir} --use-compress-program=pigz
 
           # Parallel rsync files to staging EFS
           cd ${temp_extract_dir}
