@@ -102,7 +102,7 @@ class RollbackMoveVaFormPages extends BatchOperations implements BatchScriptInte
         return "Node $item skipped - empty field_va_form_number.";
       }
 
-      $alias_value = 'find-forms/about-form-' . $form_number;
+      $alias_value = '/find-forms/about-form-' . $form_number;
 
       $node->setRevisionUserId(1317);
 
