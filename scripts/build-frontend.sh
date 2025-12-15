@@ -116,7 +116,7 @@ composer va:web:build &>> ${logfile}
 echo "==> Installing and building vets-website" >> ${logfile}
 pushd ${reporoot}/docroot/vendor/va-gov/vets-website
 nvm use  >> ${logfile}
-yarn install  >> ${logfile}
+yarn install-safe  >> ${logfile}
 # Build vagovdev on Tugboat.
 echo "==> Building vets-website for vagovdev" >> ${logfile}
 yarn build --buildtype=vagovdev
