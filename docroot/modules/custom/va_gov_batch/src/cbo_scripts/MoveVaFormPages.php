@@ -68,7 +68,8 @@ class MoveVaFormPages extends BatchOperations implements BatchScriptInterface {
       foreach ($nids as $nid) {
         $items[] = $nid;
       }
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       $message = "Error gathering va_form nodes: " . $e->getMessage();
       $this->batchOpLog->appendError($message);
     }
@@ -89,8 +90,7 @@ class MoveVaFormPages extends BatchOperations implements BatchScriptInterface {
       }
 
       // Build once; used for all translations (pattern doesn't vary by lang).
-      if (!$node->hasField('field_va_form_number') || $node->get('field_va_form_number')
-          ->isEmpty()) {
+      if (!$node->hasField('field_va_form_number') || $node->get('field_va_form_number')->isEmpty()) {
         // Skip nodes missing the source field.
         return "Node $item skipped - missing field_va_form_number.";
       }
@@ -119,7 +119,8 @@ class MoveVaFormPages extends BatchOperations implements BatchScriptInterface {
       $message = "Node $item processed - alias set to $alias_value for all languages.";
       $this->batchOpLog->appendLog($message);
       return "Node $item processed successfully.";
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       $message = "Error processing va_form node ID $item: " . $e->getMessage();
       $this->batchOpLog->appendError($message);
       return "Error processing node $item.";
@@ -133,6 +134,12 @@ class MoveVaFormPages extends BatchOperations implements BatchScriptInterface {
     // Change the /find-forms path to /forms on the landing page.
     /** @var \Drupal\node\Entity\Node $node */
     $node = Node::load(2352);
+
+    if (!$node) {
+      $message = "Node 2352 not found, skipped.";
+      $this->batchOpLog->appendError($message);
+      return "Node 2352 not found, skipped.";
+    }
 
     $node->setRevisionUserId(1317);
     $node->set('path', [

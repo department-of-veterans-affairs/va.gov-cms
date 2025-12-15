@@ -129,14 +129,31 @@ class RollbackMoveVaFormPages extends BatchOperations implements BatchScriptInte
     }
   }
 
+  /**
+   * Post-run processing: Update landing page path alias.
+   *
+   * Updates the path alias for node 2352 from /find-forms to /forms.
+   *
+   * @param array $sandbox
+   *   The batch operation sandbox array.
+   *
+   * @return string
+   *   Status message indicating success or failure.
+   */
   public function postRun(&$sandbox): string {
-    // Change the /find-forms path to /forms on the landing page.
+    // Change the /forms path to /find-forms on the landing page.
     /** @var \Drupal\node\Entity\Node $node */
     $node = Node::load(2352);
 
+    if (!$node) {
+      $message = "Node 2352 not found, skipped.";
+      $this->batchOpLog->appendError($message);
+      return "Node 2352 not found, skipped.";
+    }
+
     $node->setRevisionUserId(1317);
     $node->set('path', [
-      'alias' => '/forms',
+      'alias' => '/find-forms',
       'pathauto' => PathautoState::SKIP,
       'langcode' => 'en',
     ]);
@@ -155,4 +172,3 @@ class RollbackMoveVaFormPages extends BatchOperations implements BatchScriptInte
   }
 
 }
-
