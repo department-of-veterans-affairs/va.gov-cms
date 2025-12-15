@@ -1,0 +1,98 @@
+name: CMS Daily 0200 Files Sync
+
+on:
+  schedule:
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - cms-daily-0200
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  region: us-gov-west-1
+  S3Key: files
+  CmsFilesName: cms-prod-files-latest.tgz
+
+jobs:
+  sync-files:
+    runs-on: self-hosted
+    container:
+      image: ubuntu:24.04
+      options: --privileged
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
+          aws-region: ${{ env.region }}
+
+      - name: Install required packages
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update
+          apt-get install -y nfs-common ca-certificates python3-pip rsync parallel pigz
+          pip3 install --break-system-packages awscli
+
+      - name: Mount staging EFS and sync files
+        run: |
+          set -e
+
+          # Get parameters from SSM
+          s3_backup_bucket_pub=$(aws ssm get-parameter \
+            --name "/cms/prod/s3-db-backup-bucket-sanitized" \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+          
+          staging_efs_ip=$(aws ssm get-parameter \
+            --name "/cms/staging/efs_ips" \
+            --with-decryption \
+            --region ${{ env.region }} \
+            --query 'Parameter.Value' \
+            --output text)
+
+          # Mount staging EFS
+          efs_mount_dir="/mnt/staging-efs"
+          cms_files_dir="${efs_mount_dir}/docroot/sites/default/files"
+          
+          mkdir -p ${efs_mount_dir}
+          chmod 755 ${efs_mount_dir}
+
+          mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${staging_efs_ip}:/ ${efs_mount_dir}
+
+          # Ensure files directory exists
+          mkdir -p ${cms_files_dir}
+          chmod 755 ${cms_files_dir}
+
+          # Download sanitized files backup from S3
+          cd /tmp
+          aws s3 cp \
+            --region ${{ env.region }} \
+            s3://${s3_backup_bucket_pub}/${{ env.S3Key }}/${{ env.CmsFilesName }} .
+
+          # Create temp directory for extraction
+          temp_extract_dir=$(mktemp -d)
+          
+          # Extract files using pigz for parallel decompression
+          tar -xzf ${{ env.CmsFilesName }} -C ${temp_extract_dir} --use-compress-program=pigz
+
+          # Parallel rsync files to staging EFS
+          cd ${temp_extract_dir}
+          find -L . -type d | parallel rsync --archive --relative --ignore-existing --inplace --update --delete {} ${cms_files_dir}
+
+          # Set final permissions on files directory
+          chmod 2755 ${cms_files_dir}
+
+          # Cleanup
+          cd /tmp
+          rm -f ${{ env.CmsFilesName }}
+          rm -rf ${temp_extract_dir}
+
+          # Unmount EFS
+          umount ${efs_mount_dir}
+          rm -rf ${efs_mount_dir}
+
+          echo "Files sync completed successfully"
