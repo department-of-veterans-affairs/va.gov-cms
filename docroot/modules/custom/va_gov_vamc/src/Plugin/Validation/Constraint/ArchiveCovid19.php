@@ -20,6 +20,6 @@ class ArchiveCovid19 extends Constraint {
    * @var string
    * @see \Drupal\va_gov_vamc\Plugin\Validation\Constraint\ArchiveCovid19Validator
    */
-  public $covid19Archived = 'COVID-19 vaccines health services must be archived. Please set the moderation status to \'Archived\'.';
+  public $covid19Archived = 'COVID-19 vaccines health services must be archived. Please set the moderation state to \'Archived\'.';
 
 }

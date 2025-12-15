@@ -44,8 +44,6 @@ class ArchiveCovid19ValidatorTest extends VaGovUnitTestBase {
    *   - [2]: The title/label of the referenced entity.
    *
    * @covers ::validate
-   * @covers ::validateText
-   * @covers ::validateHtml
    * @dataProvider validateDataProvider
    */
   public function testValidate(bool $willValidate, string $moderationState, string $bundle, array $referencedEntity): void {
@@ -84,7 +82,6 @@ class ArchiveCovid19ValidatorTest extends VaGovUnitTestBase {
 
     if ($bundle === 'regional_health_care_service_des') {
       $entity->field_service_name_and_descripti = $refField;
-
     }
     elseif ($bundle === 'health_care_local_health_service') {
       $entity->field_regional_health_service = $refField;
