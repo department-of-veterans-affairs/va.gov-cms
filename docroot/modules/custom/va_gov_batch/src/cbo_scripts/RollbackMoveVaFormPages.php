@@ -130,13 +130,13 @@ class RollbackMoveVaFormPages extends BatchOperations implements BatchScriptInte
   }
 
   public function postRun(&$sandbox): string {
-    // Change the /find-forms path to /forms on the landing page.
+    // Change the /forms path back to /find-forms on the landing page.
     /** @var \Drupal\node\Entity\Node $node */
     $node = Node::load(2352);
 
     $node->setRevisionUserId(1317);
     $node->set('path', [
-      'alias' => '/forms',
+      'alias' => '/find-forms',
       'pathauto' => PathautoState::SKIP,
       'langcode' => 'en',
     ]);
