@@ -11,7 +11,7 @@ if [ ! -d vets-website ]; then
   git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
 else
   echo "Repo vets-website already cloned. Updating..."
-  git pull
+  git pull origin main
 fi
 
 #cd docroot/vendor/va-gov/vets-website
