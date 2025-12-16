@@ -89,7 +89,7 @@ jobs:
           exit 1
       - name: Configure AWS Credentials
         if: steps.select_tag.outputs.is_valid == 'true'
-        uses: aws-actions/configure-aws-credentials@v5.0.0
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           aws-region: us-gov-west-1
           role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}

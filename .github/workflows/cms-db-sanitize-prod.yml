@@ -22,7 +22,7 @@ jobs:
       volumes:
         - /home/runner:/home/runner
     steps:
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
           aws-region: ${{ env.region }}
