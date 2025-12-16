@@ -39,47 +39,69 @@ jobs:
         id: select_tag
         run: |
           set -e
+          TAG_PREFIX='cms/'
+          SEMVER_REGEX='^v[0-9]+\.[0-9]+\.[0-9]+$'
+
+          normalize_input() {
+            local raw="$1"
+            if [[ "$raw" == ${TAG_PREFIX}* ]]; then
+              echo "${raw#${TAG_PREFIX}}"
+            else
+              echo "$raw"
+            fi
+          }
+
+          ensure_tag_exists() {
+            local semver="$1"
+            git rev-parse -q --verify "refs/tags/${TAG_PREFIX}${semver}" >/dev/null
+          }
+
           EVENT='${{ github.event_name }}'
           INPUT_TAG='${{ github.event.inputs.tag }}'
           if [ "$EVENT" = "workflow_dispatch" ]; then
             if [ -n "$INPUT_TAG" ]; then
-              TAG="$INPUT_TAG"
-              if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-                if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
-                  echo "IMAGE_TAG=$TAG" >> $GITHUB_OUTPUT
+              SEMVER_TAG=$(normalize_input "$INPUT_TAG")
+              if [[ "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
+                if ensure_tag_exists "$SEMVER_TAG"; then
+                  echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
                   echo "is_valid=true" >> $GITHUB_OUTPUT
                   exit 0
                 else
-                  echo "::error title=Invalid Tag::Provided tag $TAG does not exist in repository." >&2
+                  echo "::error title=Invalid Tag::Provided tag ${TAG_PREFIX}$SEMVER_TAG does not exist in repository." >&2
                   echo "is_valid=false" >> $GITHUB_OUTPUT
                   exit 1
                 fi
               else
-                echo "::error title=Invalid Semver::Provided tag $TAG is not strict semver vX.Y.Z." >&2
+                echo "::error title=Invalid Semver::Provided tag $INPUT_TAG is not strict semver vX.Y.Z (prefix ${TAG_PREFIX} optional)." >&2
                 echo "is_valid=false" >> $GITHUB_OUTPUT
                 exit 1
               fi
             else
-              # No input tag; pick latest semver
-              LATEST_TAG=$(git tag --list 'v*.*.*' --sort=-version:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n1)
+              LATEST_TAG=$(git tag --list "${TAG_PREFIX}v*.*.*" --sort=-version:refname | head -n1)
               if [ -z "$LATEST_TAG" ]; then
-                echo "::error title=No Tags Found::No semver tags (vX.Y.Z) found in repository." >&2
+                echo "::error title=No Tags Found::No prefixed semver tags (${TAG_PREFIX}vX.Y.Z) found in repository." >&2
                 echo "is_valid=false" >> $GITHUB_OUTPUT
                 exit 1
               fi
-              echo "Using latest semver tag: $LATEST_TAG"
-              echo "IMAGE_TAG=$LATEST_TAG" >> $GITHUB_OUTPUT
+              SEMVER_TAG="${LATEST_TAG#${TAG_PREFIX}}"
+              if [[ ! "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
+                echo "::error title=Invalid Tag Format::Latest tag $LATEST_TAG does not match expected semver pattern after removing prefix." >&2
+                echo "is_valid=false" >> $GITHUB_OUTPUT
+                exit 1
+              fi
+              echo "Using latest semver tag: $SEMVER_TAG (repo tag $LATEST_TAG)"
+              echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
               echo "is_valid=true" >> $GITHUB_OUTPUT
               exit 0
             fi
           else
-            # Push tag event
-            TAG="$GITHUB_REF_NAME"
-            if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-              echo "IMAGE_TAG=$TAG" >> $GITHUB_OUTPUT
+            RAW_TAG="$GITHUB_REF_NAME"
+            SEMVER_TAG=$(normalize_input "$RAW_TAG")
+            if [[ "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
+              echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
               echo "is_valid=true" >> $GITHUB_OUTPUT
             else
-              echo "::error title=Invalid Pushed Tag::Pushed tag $TAG failed semver validation." >&2
+              echo "::error title=Invalid Pushed Tag::Pushed tag $RAW_TAG failed semver validation after removing prefix." >&2
               echo "is_valid=false" >> $GITHUB_OUTPUT
             fi
           fi
