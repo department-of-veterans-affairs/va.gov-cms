@@ -23,6 +23,8 @@ jobs:
     container:
       image: ubuntu:24.04
       options: --privileged
+      volumes:
+        - /home/runner:/home/runner
     steps:
       - uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -68,13 +70,13 @@ jobs:
           chmod 755 ${cms_files_dir}
 
           # Download sanitized files backup from S3
-          cd /tmp
+          cd $RUNNER_TEMP
           aws s3 cp \
             --region ${{ env.region }} \
             s3://${s3_backup_bucket_pub}/${{ env.S3Key }}/${{ env.CmsFilesName }} .
 
           # Create temp directory for extraction
-          temp_extract_dir=$(mktemp -d)
+          temp_extract_dir=$(mktemp -d -p $RUNNER_TEMP)
           
           # Extract files using pigz for parallel decompression
           tar -xf ${{ env.CmsFilesName }} -C ${temp_extract_dir} --use-compress-program=pigz
@@ -87,7 +89,7 @@ jobs:
           chmod 2755 ${cms_files_dir}
 
           # Cleanup
-          cd /tmp
+          cd $RUNNER_TEMP
           rm -f ${{ env.CmsFilesName }}
           rm -rf ${temp_extract_dir}
 
