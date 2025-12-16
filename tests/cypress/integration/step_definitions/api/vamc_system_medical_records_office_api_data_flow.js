@@ -66,27 +66,13 @@ function fetchServices(facilityIds) {
 }
 
 /**
- * Helper function to process the node response and fetch related services.
- * @param {string} uuid - The UUID of the vamc_system_medical_records_office node.
+ * Helper function to fetch facilities and then services.
+ * @param {string} regionPageId - The UUID of the region page.
+ * @return {Cypress.Chainable<void>} - Returns the Cypress promise
  */
-function processNodeAndFetchServices(uuid) {
-  cy.request(
-    `/jsonapi/node/vamc_system_medical_records_offi/${uuid}?include=field_office`
-  ).then((nodeResponse) => {
-    expect(nodeResponse.status).to.eq(200);
-    expect(nodeResponse.body.data.id).to.eq(uuid);
-    const regionPageId =
-      nodeResponse.body.data.relationships.field_office.data.id;
-    // eslint-disable-next-line no-unused-expressions
-    expect(
-      regionPageId,
-      `Expected to find a field_office.id for vamc_system_medical_records_offi: ${uuid}`
-    ).to.not.be.undefined;
-
-    // Fetch facilities for this region page, then fetch services
-    fetchFacilities(regionPageId).then((facilityIds) => {
-      fetchServices(facilityIds);
-    });
+function fetchFacilitiesAndServices(regionPageId) {
+  return fetchFacilities(regionPageId).then((facilityIds) => {
+    fetchServices(facilityIds);
   });
 }
 
@@ -102,7 +88,22 @@ Given(
         .undefined;
 
       // Process the node and fetch services
-      processNodeAndFetchServices(uuid);
+      cy.request(
+        `/jsonapi/node/vamc_system_medical_records_offi/${uuid}?include=field_office`
+      ).then((nodeResponse) => {
+        expect(nodeResponse.status).to.eq(200);
+        expect(nodeResponse.body.data.id).to.eq(uuid);
+        const regionPageId =
+          nodeResponse.body.data.relationships.field_office.data.id;
+        // eslint-disable-next-line no-unused-expressions
+        expect(
+          regionPageId,
+          `Expected to find a field_office.id for vamc_system_medical_records_offi: ${uuid}`
+        ).to.not.be.undefined;
+
+        // Fetch facilities for this region page, then fetch services
+        fetchFacilitiesAndServices(regionPageId);
+      });
     });
   }
 );
