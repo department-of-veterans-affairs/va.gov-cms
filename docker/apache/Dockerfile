@@ -1,12 +1,11 @@
 FROM drupal:php8.4-fpm-bookworm
 
-ARG RSYSLOG_CONF_FILE=/etc/rsyslog.conf
-ARG RSYSLOG_CONF_DIR=/etc/rsyslog.d
-
-RUN apt update && apt install -y \
+# Consolidate package installation into a single layer
+RUN apt-get update && apt-get install -y --no-install-recommends \
   apt-utils \
   awscli \
   build-essential \
+  ca-certificates \
   chromium \
   default-mysql-client \
   gconf2 \
@@ -16,6 +15,9 @@ RUN apt update && apt install -y \
   inetutils-tools \
   jq \
   less \
+  libapache2-mod-fcgid \
+  apache2 \
+  apache2-bin \
   libasound2 \
   libasound2-plugins \
   libgtk-3-dev \
@@ -37,237 +39,227 @@ RUN apt update && apt install -y \
   python3-pip \
   rsync \
   rsyslog \
+  tini \
   unzip \
   vim \
   wget \
-  xvfb
+  xvfb \
+  && rm -rf /var/lib/apt/lists/*
 
-RUN set -eux; \
-# allow running as an arbitrary user (https://github.com/docker-library/php/issues/743) \
-	mkdir -p /var/www/html; \
-	chown www-data:www-data /var/www/html; \
-	chmod 1777 /var/www/html
+# Set up user, permissions, and clean default web content
+RUN mkdir -p /var/www/html && \
+    chown www-data:www-data /var/www/html && \
+    chmod 1777 /var/www/html && \
+    rm -rvf /var/www/html/*
 
+# Configure Apache
 ENV APACHE_CONFDIR=/etc/apache2
 ENV APACHE_ENVVARS=$APACHE_CONFDIR/envvars
 ENV APACHE_LOG_DIR=/var/log/apache2
 
-RUN set -eux; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends apache2 libapache2-mod-fcgid apache2-bin; \
-	rm -rf /var/lib/apt/lists/*; \
-	\
-# generically convert lines like \
-#   export APACHE_RUN_USER=www-data \
-# into \
-#   : ${APACHE_RUN_USER:=www-data} \
-#   export APACHE_RUN_USER \
-# so that they can be overridden at runtime ("-e APACHE_RUN_USER=...") \
-	sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS"; \
-	\
-# setup directories and permissions \
-	. "$APACHE_ENVVARS"; \
-	for dir in \
-		"$APACHE_LOCK_DIR" \
-		"$APACHE_RUN_DIR" \
-		"$APACHE_LOG_DIR" \
-# https://salsa.debian.org/apache-team/apache2/-/commit/b97ca8714890ead1ba6c095699dde752e8433205 \
-		"$APACHE_RUN_DIR/socks" \
-	; do \
-		rm -rvf "$dir"; \
-		mkdir -p "$dir"; \
-		chown "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$dir"; \
-# allow running as an arbitrary user (https://github.com/docker-library/php/issues/743) \
-		chmod 1777 "$dir"; \
-	done; \
-	\
-# delete the "index.html" that installing Apache drops in here \
-	rm -rvf /var/www/html/*; \
-	\
-# logs should go to stdout / stderr \
-	ln -sfT /dev/stderr "$APACHE_LOG_DIR/error.log"; \
-	ln -sfT /dev/stdout "$APACHE_LOG_DIR/access.log"; \
-	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
-	chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR"
+# Configure Apache environment, directories, and logging
+RUN sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS" && \
+    . "$APACHE_ENVVARS" && \
+    for dir in "$APACHE_LOCK_DIR" "$APACHE_RUN_DIR" "$APACHE_LOG_DIR" "$APACHE_RUN_DIR/socks"; do \
+        rm -rvf "$dir"; \
+        mkdir -p "$dir"; \
+        chown "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$dir"; \
+        chmod 1777 "$dir"; \
+    done && \
+    ln -sfT /dev/stderr "$APACHE_LOG_DIR/error.log" && \
+    ln -sfT /dev/stdout "$APACHE_LOG_DIR/access.log" && \
+    ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log" && \
+    chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR"
+
 # Enable Apache modules
-RUN a2enmod proxy proxy_fcgi rewrite mpm_event status cache headers expires
+RUN a2enmod proxy proxy_fcgi rewrite mpm_event status cache headers expires remoteip
 
-RUN { \
-    echo '<FilesMatch \.php$>'; \
-    echo '\tSetHandler "proxy:fcgi://127.0.0.1:9000"'; \
-    echo '</FilesMatch>'; \
-    echo; \
-    echo '<Proxy "fcgi://127.0.0.1/" enablereuse=on max=75>'; \
-    echo '\tProxySet timeout=310'; \
-    echo '\tProxySet retry=30'; \
-    echo '\tProxySet connectiontimeout=30'; \
-    echo '\tProxySet ttl=300'; \
-    echo '</Proxy>'; \
-    echo; \
-    echo 'DirectoryIndex disabled'; \
-    echo 'DirectoryIndex index.php index.html'; \
-    echo; \
-    echo '<Directory /var/www/>'; \
-    echo '\tOptions -Indexes'; \
-    echo '\tAllowOverride All'; \
-    echo '</Directory>'; \
-    echo; \
-    echo '# Performance settings'; \
-    echo 'ProxyTimeout 310'; \
-    echo 'Timeout 310'; \
-    echo 'KeepAlive On'; \
-    echo 'KeepAliveTimeout 5'; \
-    echo 'MaxKeepAliveRequests 100'; \
-    echo; \
-    echo '# Health check endpoint'; \
-    echo '<Location "/pod-health">'; \
-    echo '\tSetHandler server-status'; \
-    echo '\tRequire ip 127.0.0.1'; \
-    echo '\tRequire ip 10.0.0.0/8'; \
-    echo '\tRequire ip 172.16.0.0/12'; \
-    echo '\tRequire ip 192.168.0.0/16'; \
-    echo '</Location>'; \
-  } | tee "$APACHE_CONFDIR/conf-available/docker-php.conf" \
-  && a2enconf docker-php
+# Apache configuration defaults (overridden by ConfigMaps when mounted)
+RUN cat > "$APACHE_CONFDIR/conf-available/docker-php.conf" <<'APACHECONF' && \
+    cat > "$APACHE_CONFDIR/conf-available/mpm-event.conf" <<'MPMCONF' && \
+    a2enconf docker-php && a2enconf mpm-event
+<FilesMatch \.php$>
+  SetHandler "proxy:fcgi://127.0.0.1:9000"
+</FilesMatch>
 
-RUN { \
-    echo 'ServerLimit 50'; \
-    echo 'MaxRequestWorkers 3200'; \
-    echo 'ThreadsPerChild 64'; \
-    echo 'ThreadLimit 64'; \
-    echo 'StartServers 5'; \
-    echo 'MinSpareThreads 200'; \
-    echo 'MaxSpareThreads 400'; \
-    echo 'MaxConnectionsPerChild 10000'; \
-    echo 'MaxRequestsPerChild 1000'; \
-    echo 'AsyncRequestWorkerFactor 2'; \
-   } | tee "$APACHE_CONFDIR/conf-available/mpm-event.conf" \
-   && a2enconf mpm-event
+<Proxy "fcgi://127.0.0.1:9000" enablereuse=on max=80>
+  ProxySet timeout=240
+</Proxy>
+<Proxy "fcgi://127.0.0.1:9001" enablereuse=on max=6>
+  ProxySet timeout=620
+</Proxy>
+<LocationMatch "^/admin(?:/.*)?$">
+  SetHandler "proxy:fcgi://127.0.0.1:9001"
+</LocationMatch>
+DirectoryIndex disabled
+DirectoryIndex index.php index.html
+<Directory /var/www/>
+  Options -Indexes
+  AllowOverride All
+</Directory>
+ProxyTimeout 240
+Timeout 240
+KeepAlive On
+KeepAliveTimeout 5
+MaxKeepAliveRequests 100
+APACHECONF
+ServerLimit 16
+StartServers 4
+MinSpareThreads 100
+MaxSpareThreads 250
+ThreadsPerChild 25
+MaxRequestWorkers 400
+MaxConnectionsPerChild 10000
+MPMCONF
 
 COPY ./docker-conf-files/apache2-foreground /usr/local/bin/
 RUN chmod uga+x /usr/local/bin/apache2-foreground
 
 # Add the install-va-certs script to install VA certificates
 ADD --chmod=0755 ./docker-conf-files/install-va-certs.sh /usr/local/bin/
-RUN install-va-certs.sh
-RUN apt update && apt install -y ca-certificates
-RUN update-ca-certificates
+RUN install-va-certs.sh && update-ca-certificates
 
-# Install and configure prometheus
+# Install and configure Prometheus (config retained in image; NOT externalized per requirement)
 RUN mkdir -p /opt/prometheus && \
     cd /opt/prometheus && \
     wget https://github.com/prometheus/prometheus/releases/download/v2.47.0/prometheus-2.47.0.linux-amd64.tar.gz && \
     tar -xvf prometheus-2.47.0.linux-amd64.tar.gz --strip-components=1 && \
-    rm prometheus-2.47.0.linux-amd64.tar.gz
-
-# Create Prometheus config
-RUN mkdir -p /etc/prometheus
+    rm prometheus-2.47.0.linux-amd64.tar.gz && \
+    mkdir -p /etc/prometheus
 COPY ./docker-conf-files/prometheus.yml /etc/prometheus/prometheus.yml
 
-# Configure rsyslog
-COPY ./docker-conf-files/drupal.conf ${RSYSLOG_CONF_DIR}/drupal.conf
-RUN sed -i -e '/imklog/s/^/#/' -e '/ActionFileDefaultTemplate/s/^/#/' ${RSYSLOG_CONF_FILE} \
-    && echo "local6.* /var/log/drupal.log" >> ${RSYSLOG_CONF_FILE} \
+# Configure rsyslog to forward logs to stdout (kept in image; NOT externalized per requirement)
+COPY ./docker-conf-files/drupal.conf /etc/rsyslog.d/drupal.conf
+RUN sed -i -e '/imklog/s/^/#/' /etc/rsyslog.conf \
+    && echo "local6.* /var/log/drupal.log" >> /etc/rsyslog.conf \
     && ln -sfT /proc/1/fd/1 /var/log/drupal.log \
     && unlink ${APACHE_LOG_DIR}/access.log \
-    && unlink ${APACHE_LOG_DIR}/other_vhosts_access.log
+    && unlink ${APACHE_LOG_DIR}/other_vhosts_access.log || true
 
-# Configure PHP-FPM
-RUN sed -i 's/;listen.allowed_clients = 127.0.0.1/listen.allowed_clients = 127.0.0.1/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm = dynamic/pm = static/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_children = 5/pm.max_children = 250/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 20/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/;pm.max_requests = 500/pm.max_requests = 500/g' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/;clear_env = no/clear_env = no/g' /usr/local/etc/php-fpm.d/www.conf
-
-# Helper from this repo: https://github.com/mlocati/docker-php-extension-installer
+# Helper to install PHP extensions
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+# Install PHP extensions
 RUN install-php-extensions apcu bcmath bz2 calendar csv ddtrace event exif gettext igbinary intl ldap memcached msgpack pcntl shmop sockets sysvmsg sysvsem sysvshm uploadprogress xsl
 
-# Install the PHP extensions for Datadog APM
+# Install Datadog APM
 RUN php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=$(basename $(realpath $(which php)))
 
+# Install Taskfile
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
-RUN { \
-    echo '[global]'; \
-    echo 'error_log = /proc/1/fd/2'; \
-    echo 'daemonize = no'; \
-    echo '[www]'; \
-    echo 'pm = static'; \
-    echo 'access.log = /proc/1/fd/1'; \
-    echo 'slowlog = /proc/1/fd/2'; \
-    echo 'request_slowlog_timeout = 60s'; \
-    echo 'request_terminate_timeout = 300s'; \
-    echo 'pm.status_path = /fpm-status'; \
-    echo 'ping.path = /fpm-ping'; \
-    echo 'pm.max_requests = 1000'; \
-    echo 'rlimit_files = 131072'; \
-    echo 'rlimit_core = unlimited'; \
-    echo 'php_admin_value[opcache.memory_consumption] = 512'; \
-    echo 'php_admin_value[opcache.validate_timestamps] = 0'; \
-} >> /usr/local/etc/php-fpm.d/kubernetes.conf
+# --- Externalized Configurations (Apache vhost, MPM, PHP-FPM pools, php.ini overrides, opcache, apcu) ---
+# Provide safe defaults so container works standalone; ConfigMap mounts will override these paths.
+RUN rm -f /usr/local/etc/php-fpm.d/www.conf.default && \
+    cat > /usr/local/etc/php-fpm.d/www.conf <<'WWWCONF'
+[global]
+error_log = /proc/1/fd/2
+daemonize = no
 
-RUN { \
-    echo 'max_execution_time = 300'; \
-    echo 'max_input_time = 300'; \
-    echo 'post_max_size = 256M'; \
-    echo 'upload_max_filesize = 256M'; \
-    echo 'max_file_uploads = 50'; \
-    echo 'realpath_cache_size = 32M'; \
-    echo 'realpath_cache_ttl = 7200'; \
-} >> /usr/local/etc/php/conf.d/drupal-performance.ini
+[www]
+user = www-data
+group = www-data
+listen = 127.0.0.1:9000
+listen.allowed_clients = 127.0.0.1
+pm = dynamic
+pm.max_children = 50
+pm.start_servers = 10
+pm.min_spare_servers = 5
+pm.max_spare_servers = 20
+pm.max_requests = 500
+pm.status_path = /fpm-status
+ping.path = /fpm-ping
+access.log = /proc/1/fd/1
+slowlog = /proc/1/fd/2
+request_slowlog_timeout = 60s
+request_terminate_timeout = 300s
+clear_env = no
+rlimit_files = 65536
+env[PHP_FPM_POOL] = www
+WWWCONF
 
-# set recommended opcache settings
-RUN { \
-    echo 'opcache.enable=1'; \
-    echo 'opcache.enable_cli=1'; \
-    echo 'opcache.memory_consumption = 512'; \
-    echo 'opcache.interned_strings_buffer = 64'; \
-    echo 'opcache.max_accelerated_files = 30000'; \
-    echo 'opcache.revalidate_freq = 0'; \
-    echo 'opcache.validate_timestamps=0'; \
-    echo 'opcache.save_comments=1'; \
-    echo 'opcache.load_comments=1'; \
-} > /usr/local/etc/php/conf.d/zz-opcache-custom.ini
+RUN cat > /usr/local/etc/php-fpm.d/heavy.conf <<'HEAVYCONF'
+[heavy]
+user = www-data
+group = www-data
+listen = 127.0.0.1:9001
+listen.allowed_clients = 127.0.0.1
+pm = static
+pm.max_children = 2
+pm.max_requests = 200
+php_admin_value[memory_limit] = 1G
+request_terminate_timeout = 600s
+access.log = /proc/1/fd/1
+slowlog = /proc/1/fd/2
+request_slowlog_timeout = 120s
+clear_env = no
+env[PHP_FPM_POOL] = heavy
+HEAVYCONF
 
-# set recommended apcu settings
-RUN { \
-    echo 'extension=apcu.so'; \
-    echo 'apc.enable_cli=1'; \
-    echo 'apc.shm_size=256M'; \
-    echo 'apc.rfc1867=1'; \
-    echo 'apc.ttl=7200'; \
-    echo 'apc.user_ttl=7200'; \
-    echo 'apc.gc_ttl=3600'; \
-} > /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
+RUN cat > /usr/local/etc/php-fpm.d/api.conf <<'APICONF'
+[api]
+user = www-data
+group = www-data
+listen = 127.0.0.1:9002
+listen.allowed_clients = 127.0.0.1
+pm = dynamic
+pm.max_children = 10
+pm.start_servers = 2
+pm.min_spare_servers = 2
+pm.max_spare_servers = 5
+pm.max_requests = 300
+request_terminate_timeout = 120s
+request_slowlog_timeout = 30s
+access.log = /proc/1/fd/1
+slowlog = /proc/1/fd/2
+clear_env = no
+rlimit_files = 65536
+env[PHP_FPM_POOL] = api
+APICONF
 
-COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
-# set recommended PHP.ini settings
+# Provide base php.ini plus empty override files; ConfigMaps will mount over these
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini && \
-    sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 64M/g' /usr/local/etc/php/php.ini && \
-    sed -i 's/;max_input_vars = 1000/max_input_vars = 10000/g' /usr/local/etc/php/php.ini && \
-    sed -i 's/memory_limit = 128M/memory_limit = 4G/g' /usr/local/etc/php/php.ini && \
-    sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /usr/local/etc/php/php.ini && \
-    sed -i 's/max_execution_time = 30/max_execution_time = 1800/g' /usr/local/etc/php/php.ini
+    touch /usr/local/etc/php/conf.d/zz-opcache-custom.ini /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini /usr/local/etc/php/conf.d/z-overrides.ini
 
+# --- Application Setup ---
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/
 RUN rm -rf /opt/drupal
-
 ENV BUILD_ENV=eks
+ENV PATH=${PATH}:/opt/drupal/vendor/bin:/opt/drupal/docroot/core/scripts:/opt/drupal/bin
 
 EXPOSE 80 9090
 
-# Create startup script to run both Apache and PHP-FPM
-RUN echo '#!/bin/bash\n\
-php-fpm -D\n\
-# Start rsyslog\n\
-rsyslogd\n\
-# Start Prometheus\n\
-/opt/prometheus/prometheus --config.file=/etc/prometheus/prometheus.yml &\n\
-# Start Apache in the foreground\n\
-apache2-foreground' > /usr/local/bin/start-services.sh && \
-chmod +x /usr/local/bin/start-services.sh
+# Create startup script to run services
+RUN cat > /usr/local/bin/start-services.sh <<'EOF'
+#!/usr/bin/env bash
+set -Eeuo pipefail
 
-ENV PATH=${PATH}:/opt/drupal/vendor/bin:/opt/drupal/docroot/core/scripts:/opt/drupal/bin
+# Trap and propagate termination to all children
+pids=()
+term() {
+  echo "[entrypoint] Terminating children..."
+  kill -TERM "${pids[@]}" 2>/dev/null || true
+  wait
+}
+trap term SIGTERM SIGINT
+
+# Start services in foreground mode
+/usr/sbin/rsyslogd -n & pids+=("$!")
+php-fpm -F & pids+=("$!")
+/opt/prometheus/prometheus --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.retention.time=15d & pids+=("$!")
+/usr/local/bin/apache2-foreground & pids+=("$!")
+
+# Exit if any child exits; then terminate the rest
+set +e
+wait -n
+status=$?
+set -e
+echo "[entrypoint] A child exited with status ${status}, shutting down the rest..."
+term
+exit "${status}"
+EOF
+
+RUN chmod +x /usr/local/bin/start-services.sh
+
 # vim:set ft=dockerfile:
 CMD ["/usr/local/bin/start-services.sh"]

@@ -15,3 +15,9 @@ services:
     arguments: ['@state', '@file_url_generator']
     tags:
       - { name: event_subscriber }
+  va_gov_migrate.archive_intranet_only_forms:
+    class: 'Drupal\va_gov_migrate\Service\ArchiveIntranetOnlyFormsService'
+    arguments: ['@database', '@entity_type.manager', '@va_gov_workflow.flagger', '@plugin.manager.migrate_plus.data_fetcher', '@logger.channel.va_gov_migrate']
+  va_gov_migrate.va_gov_migrate_service:
+    class: Drupal\va_gov_migrate\Service\VaGovMigrateService
+    arguments: ['@database', '@entity_type.manager', '@va_gov_workflow.flagger', '@plugin.manager.migrate_plus.data_fetcher', '@logger.channel.va_gov_migrate', '@va_gov_notifications.notifications_manager']

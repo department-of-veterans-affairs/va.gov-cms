@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Update functions for the va_gov_scheduled_tasks module.
+ */
+
+/**
+ * Import new config after module is already installed.
+ */
+function va_gov_scheduled_tasks_update_10001() {
+  // Import a specific config file.
+  \Drupal::service('config.installer')->installDefaultConfig('module', 'va_gov_scheduled_tasks');
+}

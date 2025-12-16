@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
@@ -14,6 +15,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
@@ -24,6 +26,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * VA.gov VAMC Entity Event Subscriber.
  */
 class VAMCEntityEventSubscriber implements EventSubscriberInterface {
+
+  use StringTranslationTrait;
 
   // The UID of the CMS Help Desk account subscribing to facility messages.
   const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
@@ -198,6 +202,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     $this->contentHardeningDeduper->removeDuplicate($entity);
+    $this->removeFieldDataFromNonClinicalServices($entity);
   }
 
   /**
@@ -340,7 +345,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Alter the VAMC System and Billing Insurance node form..
+   * Alter the VAMC System and Billing Insurance node form.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
@@ -375,6 +380,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterRegionalHealthCareServiceDesNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
+    $form_state = $event->getFormState();
+
     $vamc_field_options = $form['field_region_page']['widget']['#options'];
     foreach ($vamc_field_options as $nid => $node_option_string) {
       $perms = $this->userPermsService->userAccess($nid, 'node', $this->currentUser, 'field_office');
@@ -383,6 +390,11 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
     $form['#attached']['library'][] = 'va_gov_vamc/limit_vamcs_to_workbench';
+
+    $is_admin = $this->userPermsService->hasAdminRole(TRUE);
+    if (!$is_admin) {
+      $this->disableSystemHealthServiceChange($form, $form_state);
+    }
   }
 
   /**
@@ -416,6 +428,26 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     if (!$node->isNew()) {
       $form['field_facility_location']['#disabled'] = TRUE;
       $form['field_regional_health_service']['#disabled'] = TRUE;
+    }
+  }
+
+  /**
+   * Disables the Service name field on existing nodes.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The state of the form.
+   */
+  public function disableSystemHealthServiceChange(array &$form, FormStateInterface $form_state): void {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $form_object->getEntity();
+    if (!$node->isNew()) {
+      $form['field_service_name_and_descripti']['#disabled'] = TRUE;
+      $form['field_service_name_and_descripti']['widget']['#description'] =
+        $this->t('This field cannot be changed after creation. Please contact an administrator if you need to update it.');
     }
   }
 
@@ -485,6 +517,41 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
 
+  }
+
+  /**
+   * Clear service location fields that aren't relevant to nonclinical services.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity being updated.
+   */
+  protected function removeFieldDataFromNonClinicalServices(EntityInterface $entity): void {
+    if (!$entity instanceof ParagraphInterface || $entity->bundle() !== 'service_location') {
+      return;
+    }
+
+    $parent = $entity->getParentEntity();
+    if (!$parent instanceof NodeInterface || $parent->bundle() !== 'vha_facility_nonclinical_service') {
+      return;
+    }
+
+    $fields_to_clear = [
+      'field_office_visits',
+      'field_virtual_support',
+      'field_appt_intro_text_type',
+      'field_appt_intro_text_custom',
+      'field_use_facility_phone_number',
+      'field_other_phone_numbers',
+      'field_online_scheduling_avail',
+    ];
+
+    foreach ($fields_to_clear as $field) {
+      if (!$entity->hasField($field)) {
+        continue;
+      }
+
+      $entity->set($field, NULL);
+    }
   }
 
 }

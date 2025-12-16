@@ -1,109 +1,93 @@
 ---
 name: Runbook - VAMC Facility closed
-about: Steps for archiving a VAMC facility in VA.gov CMS.
+about: Steps for fully archiving a VAMC facility from the VA.gov CMS.
 title: 'VAMC Facility closed: <insert_name>'
 labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support,
   VAMC, sitewide
-assignees: ''
 
 ---
+#### Preliminary Info
 
-## Intake
-- [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
-Trigger: <insert_trigger>
+Facility closure tickets are unique because they can be created _before_ the closed facility has been listed on the [Flagged Facilities page](https://prod.cms.va.gov/admin/content/facilities/flagged). 
 
-- [ ] Link to associated JIRA help desk ticket (if applicable)
-Help desk ticket: <insert_help_desk_link>
+This is because VAST updates may take up to 75 days, and we don't want anyone seeking care to drive to a closed location in the meantime. Fortunately, there are steps editors can take within the CMS to inform Veterans that the facility is closed.
 
-- [ ] Name of submitter (if applicable)
-Submitter: <insert_name>
+**If flagged, but editor has not confirmed the facility closure:** 
+Please send all active editors within the facility's section the "Facility Closure Confirmation" email template (see below) before proceeding.
 
-- [ ] If the submitter is an editor, send them a link to the KB article: [How to archive a closed facility](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-to-archive-a-closed-facility)
+**If notified via Jira or VA stakeholders, but closed facility has not been flagged yet:**
+Confirm with editor whether facility closure has been reported to VAST.  For more information, please see the Knowledge Base article titled [How to Archive a Closed VAMC Facility](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-to-archive-a-closed-vamc-facility) and send to editor if needed.
 
-- [ ] Link to facility in production:
-Facility CMS link: <insert_facility_link>
-Facility API ID: <insert_facility_API_ID>
+----------
 
-## Acceptance criteria
+# Facility and ticket info
+- [ ] **Link to facility on production site:** `<insert_facility_link>`
+- [ ] **Facility API ID:** `<insert_facility_API_ID>`
+- [ ] **VAMC System/Section:** `<insert_vamc_section_name>`
+- [ ] **Link to Jira ticket(s):** `<insert_jira_ticket_link>`
+     - Embedded Support: Please search Jira and add links to any relevant tickets. If none found, please link once created.
+- [ ] **Has the facility been added to the internal Flagged Facilities listing yet?** 
+     - If no, please add it to the appropriate tab with the prod link, facility ID, and any relevant ticket links or details. ([Current spreadsheet.](https://docs.google.com/spreadsheets/d/1mqTRGkrnfysFMjC8xTHdFzQOMIQ7WrD2CLX83io5Z74/edit?gid=1358772674#gid=1358772674))
 
-### VAMC facility closure
+If the help desk is waiting on info or action from facility editor(s), please add the "Awaiting editor" flag to the facility node with a log message including any relevant Jira or Github ticket numbers. Please do not change the moderation state of the node (e.g. "Draft", "Published") when adding or removing flags unless otherwise noted.
 
-#### CMS Help desk steps
-**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
-- [ ] 1. CMS team becomes aware that the facility is no longer on the Facility API.
-- [ ] 2. If we don't already have context (say, via a HD ticket submitted by an editor), check with editor to find out more about the status of the facility
-- [ ] 3. Find out if there are any services or events tied to the facility to be archived that should be moved to a new facility or otherwise preserved and updated
+----------
 
-[@TODO: Update email template]
+# Acceptance criteria for VAMC Facility closures
 
-<details><summary>Email template </summary>
+## Embedded Support team steps:
 
+- [ ] **Step 1:** If facility was flagged as closed but there is no Jira correspondence confirming the closure, send editor "Facility Closure Confirmation" email to verify (See template below).
+- [ ] **Step 2:** Ask editor(s) whether the closure has been reported to VAST. If not, please ask them to do so, and send a link to the following KB article: [How do I update my VAMC Facility's Basic Location Data?
+](https://prod.cms.va.gov/help/vamc/how-do-i-update-my-vamc-facilitys-basic-location-data)
+- [ ] **Step 3:** Whether or not the closure has been reported to VAST, if the closure is confirmed, please send the editor a link to the following KB article and ask them to complete the steps listed: [How to archive a closed VAMC facility](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-to-archive-a-closed-facility)
+- [ ] **Step 4:** Verify that the editor has completed the steps listed in the closed facility KB article before proceeding. 
+- [ ] **Step 5:** Open the following link in a new tab to create a URL redirect request ticket: [Create a URL change ticket for the Facilities team](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E).
+- [ ] **Step 6:** After creating the URL redirect ticket, please add the link to the top of this ticket and save your changes.
+
+**Note:** Please make sure that the homepage was not archived by the editor, and is still saved as "Published." Otherwise, Veterans who've bookmarked the URL will encounter a "Page Not Found" error. The homepage must stay published until the URL redirect is complete.
+
+## Facilities team steps:
+- [ ] **Step 7:**  Execute the URL change request ticket linked above, and notify the Embedded Support team once completed.
+
+## Drupal Administrator steps (Embedded Support team or Facilities team):
+- [ ] **Step 8:** Go to the closed homepage's URL on the live site. If the redirect is complete, you'll be taken to the VAMC System's main "Locations" page.
+- [ ] **Step 9:** Go to the VAMC Facility node on production (linked above). Click "Edit" and:
+     - At the bottom of the page, remove the flag `Removed from source` and any others listed.
+     - When adding a revision log message, please link to both Github tickets.
+     - Save the facility homepage as "Archived."
+- [ ] **Step 10:** The location should disappear from the corresponding VAMC system's "Locations" menu automatically. 
+     - If not, please go to Content -> Menu, find the VAMC System the facility is assigned to, and disable the left-nav menu link: https://prod.cms.va.gov/admin/structure/menu
+
+## Embedded Support team wrap-up:
+- [ ] **Step 11:** CMS Help Desk team notifies editor and any other stakeholders that the facility closure and archival process is complete -- see "Facility Closure Complete" template below.
+
+----------
+
+# Email templates
+
+## Facility Closure Confirmation
+Send if facility closure was flagged but hasn't been confirmed by section editor(s):
+```Hello,
+
+The [FACILITY NAME] has been flagged as “closed” on VAST and the Facilities API: [LINK TO PROD HOMEPAGE]
+
+Please confirm whether this location is closed or will be closing soon, or if this is mistaken info. Thank you!
+
+**If the clinic is closed or closing soon:** Please keep Veterans informed by completing the steps listed in the following Knowledge Base article: https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-to-archive-a-closed-facility
+
+**If this is a false report:** Please notify our team, and please contact your VAST administrator as soon as possible. For information on how to do so, please see the following KB article: https://prod.cms.va.gov/help/vamc/how-do-i-update-my-vamc-facilitys-basic-location-data
+
+Once the steps listed in the above Knowledge Base article have been completed, please let us know, and our engineers will finish the archival process from our end. Thank you! 
 ```
-SUBJECT: <facility name> removed from VAST
 
-Hi [VAMC editor(s) who own the node in CMS]
+## Facility Closure Complete
 
-We see that [name of facility] has been removed from VAST. If this facility has been permanently closed or moved, you can work with us to unpublish the facility from the CMS and remove it from VA.gov.
+```Hello,
 
-Because some Veterans may have bookmarked this facility, external sites may have linked to it, and because it can take a little time for search engines to catch up to web content, we want prevent errors and bad web experiences for our Veterans.
+The [CLINIC NAME] is now fully archived from [VA.gov](http://va.gov/) and is no longer listed on the Facility Locator.
 
-In order to do that we have some questions about the nature of this closure so that we can help redirect Veterans to the right place and understand this change.
+Site visitors who bookmarked the previous clinic homepage URL will now be re-directed back to the main [SYSTEM NAME] “Locations” page.
 
-1. Was this facility replaced with another facility?
-   If yes, which one?
-2. Is there a news release or story about this published on your VAMC website?
-3. Anything else we should know about this facility closure?
-
-If this facility has been removed from VAST in error, please notify the VA Drupal CMS Help Desk Support Team by writing to support@va-gov.atlassian.net, and please also notify your VAST coordinator.
-
-[outro]
-
-[CMS helpdesk signature]
-
-Alternative, for "Removed From Source" flag follow-up:
------------------------
-During a site-wide review, our team found a location within the [INSERT SYSTEM NAME] health care system that is no longer listed within the Facilities API, but still exists within Drupal.
-
-Can you please tell us more about the status of the [CLINIC NAME]?  Thanks!
-
-Here is a link to the clinic homepage, which is still published on the live site: [INSERT CLINIC HOMEPAGE LINK FROM LIVE SITE]
-
-Here is a link to this page on the production site:  [INSERT CLINIC HOMEPAGE LINK FROM PRODUCTION SITE]
-
-IF THIS FACILITY IS CLOSED:
-Please follow the steps listed in the following Knowledge Base article in order to fully archive it from VA.gov: https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-to-archive-a-closed-facility
-
-Important: Once these steps have been followed, please reach back out to the VA Drupal CMS Help Desk by replying to this email or by writing to support@va-gov.atlassian.net.
-
-From there, our engineering team will proceed with next steps for archiving this facility.
-
-If the clinic has not been closed, please also let our team know as soon as possible.
-
-Thank you for your help!
-
-[Signature]
-
+Please let us know if you have any questions or concerns, and thank you for your assistance.
 ```
-</details>
-
-- [ ] 4. Are any of the services or upcoming events for the facility to be closed moving to a different facility?
-  - [ ] 4a. If so, note the facility picking up the services and events here: <insert_target_facility>
-  - [ ] 4b. If so, note the services and events here: <insert_services_to_be_moved>
-- [ ] 5. Create a [URL change](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E) to redirect the from the URL of the facility to be closed to the URL of its parent system and to remove the old canonical link.
-
-<insert_redirect_request_link>
-
-#### CMS Engineer steps
-- [ ] 6. Execute the steps of the URL change request ticket from step 5 above.
-
-(Redirects deploy daily except Friday at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
-
-#### Drupal Admin steps (CMS Engineer or Helpdesk)
-_Help desk will complete these steps or escalate to request help from CMS engineering._
-- [ ] 7. When redirect has been deployed, make these changes. Practice first on staging or a demo environment.
-  - [ ] 7a. Drupal Admin bulk moves any content identified **4b** to new facility **4a**.
-  - [ ] 7b. Drupal Admin edits the facility node, removes flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive. (Note: any remaining health services, non-clinical services and events for the given facility will be archived automatically when these changes are saved.)
-  - [ ] 7c. Drupal Admin finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the facility being closed.
-
-#### CMS Help desk (wrap up)
-- [ ] 8. Help desk notifies editor and any other stakeholders.

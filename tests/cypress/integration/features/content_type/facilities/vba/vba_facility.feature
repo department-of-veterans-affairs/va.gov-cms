@@ -16,15 +16,14 @@ Feature: CMS User may effectively interact with the VBA Facility form
   Scenario: Test restricted_archive workflow prevents archiving a VBA Facility as a VBA editor.
     When I am logged in as a user with the roles "content_creator_vba, content_publisher"
     And my workbench access sections are set to "1065"
+    And I unlock node 4063
     When I am at "/node/4063/edit"
     And I scroll to element "select#edit-moderation-state-0-state"
     Then an option with the text "Archived" from dropdown with selector "select#edit-moderation-state-0-state" should not be visible
-    And I scroll to position "bottom"
-    And I click the "Unlock" link
-    And I click the "Confirm break lock" button
 
   Scenario: Test restricted_archive workflow allows archiving a VBA Facility as a content_admin.
     Given I am logged in as a user with the "content_admin" role
+    And I unlock node 4063
     # Columbia VA Regional Benefit Office
     When I am at "/node/4063/edit"
     And I scroll to element "select#edit-moderation-state-0-state"
@@ -47,6 +46,7 @@ Feature: CMS User may effectively interact with the VBA Facility form
   Scenario: Enable banner segment and ensure expected fields are present
     Given I am logged in as a user with the "content_admin" role
     And my workbench access sections are set to "1065"
+    And I unlock node 4063
     # Columbia VA Regional Benefit Office
     When I am at "/node/4063/edit"
     # Banner related fields should not be visible.

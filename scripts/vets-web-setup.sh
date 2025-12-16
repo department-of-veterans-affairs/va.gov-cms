@@ -10,7 +10,8 @@ source ~/.bashrc
 if [ ! -d vets-website ]; then
   git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
 else
-  echo "Repo vets-website already cloned."
+  echo "Repo vets-website already cloned. Updating..."
+  git pull origin main
 fi
 
 #cd docroot/vendor/va-gov/vets-website
@@ -25,5 +26,5 @@ echo "NPM $(npm -v)"
 echo "Yarn $(yarn -v)"
 
 export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
-yarn install
+yarn install-safe
 yarn build

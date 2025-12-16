@@ -1,0 +1,409 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_scheduled_tasks.module.
+ */
+
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\File\FileExists;
+use Drupal\Core\StreamWrapper\PublicStream;
+use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\MigrateExecutable;
+use Drupal\migrate\MigrateMessage;
+
+/**
+ * Downloads the VA Forms data file and saves it for migration.
+ */
+function va_gov_scheduled_tasks_download_forms_csv() {
+  \Drupal::logger('va_gov_scheduled_tasks')->info('Starting "Download VA Forms to va_forms_data.csv."');
+  $source_url = 'https://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt';
+  $destination_dir_uri = PublicStream::basePath() . "/migrate_source";
+  $destination_file_uri = $destination_dir_uri . '/va_forms_data.csv';
+
+  /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+  $file_system = \Drupal::service('file_system');
+  /** @var \GuzzleHttp\ClientInterface $http_client */
+  $http_client = \Drupal::httpClient();
+
+  // Ensure the destination directory exists, creating it if necessary.
+  if (!$file_system->prepareDirectory($destination_dir_uri, FileSystemInterface::CREATE_DIRECTORY)) {
+    // More detailed logging to find the root cause.
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Could not create or access the destination directory: @dir.', [
+      '@dir' => $destination_dir_uri,
+    ]);
+    return;
+  }
+
+  try {
+    // Make the HTTP GET request. Guzzle follows redirects by default,
+    // which handles the -L option from the curl command.
+    $response = $http_client->request('GET', $source_url);
+
+    if ($response->getStatusCode() === 200) {
+      // Get the file contents from the response body.
+      $file_contents = (string) $response->getBody();
+
+      // Save the data to the destination file, replacing it if it exists.
+      $file_system->saveData($file_contents, $destination_file_uri, FileExists::Replace);
+      // Corrected logger channel for consistency.
+      \Drupal::logger('va_gov_scheduled_tasks')->notice('Successfully downloaded and saved VA Forms data to @uri.', ['@uri' => $destination_file_uri]);
+    }
+    else {
+      // Corrected logger channel for consistency.
+      \Drupal::logger('va_gov_scheduled_tasks')->error('Failed to download VA Forms data. Received HTTP status: @status', ['@status' => $response->getStatusCode()]);
+    }
+  }
+  catch (\Exception $e) {
+    // Corrected logger channel for consistency.
+    \Drupal::logger('va_gov_scheduled_tasks')->error('An exception occurred while trying to download VA Forms data: @message', ['@message' => $e->getMessage()]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->info('"Download VA Forms to va_forms_data.csv" completed.');
+}
+
+/**
+ * Validate VA Forms CSV migration data scheduled task.
+ *
+ * Copied from scripts/tasks/VACMS-10735-Forms-CSV-migration-validation.php.
+ *
+ * @todo Remove the script file when this is running daily.
+ */
+function va_gov_scheduled_tasks_validate_forms_csv() {
+  \Drupal::logger('va_gov_scheduled_tasks')->info('"Validate VA Forms CSV migration data" started.');
+  $exitMessageBaseText = 'Find-a-form: CSV validation failed;';
+  $csv = va_gov_scheduled_tasks_get_csv_headers();
+  va_gov_scheduled_tasks_validate_csv_has_content($csv, $exitMessageBaseText);
+  va_gov_scheduled_tasks_validate_csv_headers($csv, $exitMessageBaseText);
+  \Drupal::logger('va_gov_scheduled_tasks')->info('"Validate VA Forms CSV migration data" completed.');
+  // @todo add a date check on the file to see if it is not more than 3 days
+  // old (to allow for weekends).
+}
+
+/**
+ * Gets the csv headers from the known forms data csv.
+ *
+ * @return array
+ *   An array of headers from the csv
+ */
+function va_gov_scheduled_tasks_get_csv_headers() {
+  /** @var \Drupal\Core\StreamWrapper\StreamWrapperManager $wrapper */
+  $wrapper = \Drupal::service('stream_wrapper_manager');
+  $basePath = $wrapper->getViaScheme('public')->realpath();
+  $filePath = "{$basePath}/migrate_source/va_forms_data.csv";
+  $handle = fopen($filePath, 'r');
+  return fgetcsv($handle, NULL);
+}
+
+/**
+ * Validates the VA Form CSV contains the expected headers.
+ *
+ * @param array $headers
+ *   The VA forms headers.
+ * @param string $exitMessage
+ *   The exit message base text.
+ */
+function va_gov_scheduled_tasks_validate_csv_headers(array $headers, string $exitMessage) {
+  // Validate the headers against the VA forms migration config fields.
+  $config = \Drupal::config('migrate_plus.migration.va_node_form');
+  $data = $config->getRawData();
+  $fields = $data['source']['fields'];
+  $fieldNames = array_column($fields, 'name');
+  $diff = array_diff($headers, $fieldNames);
+  if (!empty($diff)) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('@exitMessage Failed matching headers in va_gov_scheduled_tasks_validate_csv_headers(). Expected: @expected, Found: @found', [
+      '@exitMessage' => $exitMessage,
+      '@expected' => implode(', ', $fieldNames),
+      '@found' => implode(', ', $headers),
+    ]);
+  }
+}
+
+/**
+ * Validates the csv file has content (is not zero bytes).
+ *
+ * When fgetcsv() returns a value, it is either an associative array, or FALSE.
+ * Checking for FALSE allows us to quickly determine if the CSV was parsed
+ * correctly.
+ *
+ * @param bool|array $csv
+ *   The current csv row as an array, or false if not a valid csv.
+ * @param string $exitMessage
+ *   The exit message base text.
+ */
+function va_gov_scheduled_tasks_validate_csv_has_content(bool|array $csv, string $exitMessage) {
+  if ($csv === FALSE) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('@exitMessage Empty or invalid CSV in va_gov_scheduled_tasks_validate_csv_has_content()', [
+      '@exitMessage' => $exitMessage,
+    ]);
+  }
+}
+
+/**
+ * Archives IntranetOnly VA forms.
+ */
+function va_gov_scheduled_tasks_archive_intranet_only_forms() {
+  \Drupal::logger('va_gov_scheduled_tasks')->info('"Archive IntranetOnly forms" started.');
+  try {
+    $archive_service = \Drupal::service('va_gov_migrate.va_gov_migrate_service');
+    $archive_service->archiveIntranetOnlyForms();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('An error occurred while archiving IntranetOnly forms: @message', ['@message' => $e->getMessage()]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->info('"Archive IntranetOnly forms" completed.');
+}
+
+/**
+ * Runs the specified migration and logs its status.
+ *
+ * @param string $migration_id
+ *   The ID of the migration to run.
+ */
+function va_gov_scheduled_tasks_run_migration($migration_id, $time) {
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('@time task @migration started', [
+    '@time' => $time,
+    '@migration' => $migration_id,
+  ]);
+  try {
+    $migration = \Drupal::service('plugin.manager.migration')->createInstance($migration_id);
+    $status = $migration->getStatus();
+    if ($status !== MigrationInterface::STATUS_IDLE) {
+      $migration->setStatus(MigrationInterface::STATUS_IDLE);
+    }
+    $executable = new MigrateExecutable($migration, new MigrateMessage());
+    $executable->import();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('@time task @migration failed: @message', [
+      '@time' => $time,
+      '@migration' => $migration_id,
+      '@message' => $e->getMessage(),
+    ]);
+  }
+
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('@time task @migration complete', [
+    '@time' => $time,
+    '@migration' => $migration_id,
+  ]);
+}
+
+/**
+ * Scheduled task to run the health_care_local_facility migration.
+ */
+function va_gov_scheduled_tasks_0800_health_care_local_facility() {
+  va_gov_scheduled_tasks_run_migration('va_node_health_care_local_facility', '0800');
+}
+
+/**
+ * Scheduled task to run the vet_centers_facility migration.
+ */
+function va_gov_scheduled_tasks_0800_vet_centers_facility() {
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers', '0800');
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers_mvc', '0800');
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vet_centers_os', '0800');
+}
+
+/**
+ * Scheduled task to run the vba_facility migration.
+ */
+function va_gov_scheduled_tasks_0800_vba_facility() {
+  va_gov_scheduled_tasks_run_migration('va_node_facility_vba', '0800');
+}
+
+/**
+ * Scheduled task to run the nca_facility migration.
+ */
+function va_gov_scheduled_tasks_0800_nca_facility() {
+  va_gov_scheduled_tasks_run_migration('va_node_facility_nca', '0800');
+}
+
+/**
+ * Scheduled task to run the flag_removed_facilities.
+ */
+function va_gov_scheduled_tasks_0800_flag_removed_facilities() {
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('0800 task flag_removed_facilities started');
+  try {
+    $service = \Drupal::service('va_gov_migrate.va_gov_migrate_service');
+    $service->flagMissingFacilities();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('0800 task flag_removed_facilities failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('0800 task flag_removed_facilities complete');
+}
+
+/**
+ * Sends Datadog metrics.
+ */
+function va_gov_scheduled_tasks_send_datadog_metrics() {
+  try {
+    $datadog_service = \Drupal::service('va_gov_backend.metrics');
+    $datadog_service->updateDatadog();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Failed to send Datadog metrics: @message', ['@message' => $e->getMessage()]);
+  }
+}
+
+/**
+ * Check content release state and run scheduled tasks.
+ */
+function va_gov_scheduled_tasks_manage_content_release() {
+  // Check for stale content releases and reset the state if necessary.
+  $release_checker = \Drupal::service('va_gov_build_trigger.release_checker');
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Periodic task checkStale started');
+  try {
+    $release_checker->checkStale();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Periodic task checkStale failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Periodic task checkStale complete');
+  // Check for scheduled builds and run them if necessary.
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Periodic task checkScheduledBuild started');
+  try {
+    $release_checker->checkScheduledBuild();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Periodic task checkScheduledBuild failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Periodic task checkScheduledBuild complete');
+}
+
+/**
+ * Runs a Drush command and logs its status.
+ *
+ * @param string $command
+ *   The Drush command to run.
+ */
+function va_gov_scheduled_tasks_run_drush_command($command) {
+  // Some calls are made too often to log every time.
+  // We only want to log the errors for those.
+  $calls_without_logging = ['advancedqueue:queue:process content_release'];
+  if (!in_array($command, $calls_without_logging)) {
+    \Drupal::logger('va_gov_scheduled_tasks')->notice('Running Drush command: @command', ['@command' => $command]);
+  }
+  $output = [];
+  $return_var = 0;
+  // Determine a safe HOME for cron environments.
+  $home = getenv('HOME') ?: sys_get_temp_dir();
+  $env_prefix = 'HOME=' . escapeshellarg($home) . ' ';
+  $drush_bin = DRUPAL_ROOT . '/../bin/drush';
+  // Use --root so drush targets the right site and include HOME in the env.
+  $full_cmd = $env_prefix . $drush_bin . ' --root=' . escapeshellarg(DRUPAL_ROOT) . ' ' . $command . ' 2>&1';
+  exec($full_cmd, $output, $return_var);
+  if ($return_var !== 0) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Drush command failed: @command Output: @output', [
+      '@command' => $command,
+      '@output' => implode("\n", $output),
+    ]);
+  }
+  elseif (!in_array($command, $calls_without_logging)) {
+    \Drupal::logger('va_gov_scheduled_tasks')->notice('Drush command succeeded: @command Output: @output', [
+      '@command' => $command,
+      '@output' => implode("\n", $output),
+    ]);
+  }
+
+}
+
+/**
+ * Check for outdated content.
+ */
+function va_gov_scheduled_tasks_check_outdated_content() {
+  // Check for outdated VAMC content.
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_outdated_content started');
+  try {
+    \Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vamc', 'vamc_outdated_content');
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Monthly task vamc_outdated_content failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_outdated_content completed');
+
+  // Check for outdated Vet Center content.
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vet_center_outdated_content started');
+  try {
+    \Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vet_center', 'vet_center_outdated_content');
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Monthly task vet_center_outdated_content failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vet_center_outdated_content completed');
+
+}
+
+/**
+ * Delete unattached PDFs.
+ */
+function va_gov_scheduled_tasks_delete_unattached_pdfs() {
+  // Delete unattached VAMC PDF files.
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_pdf_delete started');
+  try {
+    \Drupal::service('va_gov_media.pdf_delete')->vamcPdfDelete();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('va_gov_scheduled_tasks')->error('Monthly task vamc_pdf_delete failed: @message', [
+      '@message' => $e->getMessage(),
+    ]);
+  }
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly task vamc_pdf_delete completed');
+
+}
+
+/**
+ * Tasks to run at 0800.
+ */
+function va_gov_scheduled_tasks_0800() {
+  va_gov_scheduled_tasks_0800_health_care_local_facility();
+  va_gov_scheduled_tasks_0800_vet_centers_facility();
+  va_gov_scheduled_tasks_0800_vba_facility();
+  va_gov_scheduled_tasks_0800_nca_facility();
+  va_gov_scheduled_tasks_0800_flag_removed_facilities();
+}
+
+/**
+ * Tasks to run daily.
+ */
+function va_gov_scheduled_tasks_daily() {
+  va_gov_scheduled_tasks_download_forms_csv();
+  va_gov_scheduled_tasks_validate_forms_csv();
+  va_gov_scheduled_tasks_run_migration('va_node_form', 'daily');
+  va_gov_scheduled_tasks_archive_intranet_only_forms();
+  va_gov_scheduled_tasks_run_drush_command('taxonomy_entity_index:rebuild');
+}
+
+/**
+ * Tasks to run periodically.
+ */
+function va_gov_scheduled_tasks_periodic() {
+  va_gov_scheduled_tasks_manage_content_release();
+}
+
+/**
+ * Tasks to run every minute.
+ */
+function va_gov_scheduled_tasks_every_minute() {
+  va_gov_scheduled_tasks_send_datadog_metrics();
+  va_gov_scheduled_tasks_run_drush_command('advancedqueue:queue:process content_release');
+}
+
+/**
+ * Tasks to run each month.
+ */
+function va_gov_scheduled_tasks_monthly() {
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly tasks started');
+  va_gov_scheduled_tasks_check_outdated_content();
+  va_gov_scheduled_tasks_delete_unattached_pdfs();
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly tasks completed');
+}
