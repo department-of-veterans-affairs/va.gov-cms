@@ -227,6 +227,11 @@ function va_gov_vamc_entity_bundle_field_info_alter(&$fields, EntityTypeInterfac
   $list_item_bundles = [
     'health_care_local_health_service',
   ];
+  $health_service_bundles = [
+    'regional_health_care_service_des',
+    'health_care_local_health_service',
+  ];
+
   if (($entity_type->id() === 'node')
   && (in_array($bundle, $list_item_bundles))) {
     // Focused on VAMC facility health services.
@@ -239,6 +244,16 @@ function va_gov_vamc_entity_bundle_field_info_alter(&$fields, EntityTypeInterfac
     && isset($fields['field_regional_health_service'])) {
       // Validate the VAMC system health service selection based on Section.
       $fields['field_regional_health_service']->addConstraint('SectionMatcher');
+    }
+  }
+
+  // Ensure that all COVID-19 health services can only be archived.
+  if ($entity_type->id() === 'node' && in_array($bundle, $health_service_bundles)) {
+    if (isset($fields['field_service_name_and_descripti'])) {
+      $fields['field_service_name_and_descripti']->addConstraint('ArchiveCovid19');
+    }
+    if (isset($fields['field_regional_health_service'])) {
+      $fields['field_regional_health_service']->addConstraint('ArchiveCovid19');
     }
   }
 

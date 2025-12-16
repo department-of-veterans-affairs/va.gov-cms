@@ -1,0 +1,212 @@
+uuid: 320797a9-8b87-4e51-81de-01919a98daaf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_va_form_react_widget
+    - node.type.va_form
+    - paragraphs.paragraphs_type.react_widget
+  module:
+    - entity_reference_revisions
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.va_form.field_va_form_react_widget
+field_name: field_va_form_react_widget
+entity_type: node
+bundle: va_form
+label: 'Staged rollout widget'
+description: 'Add a React Widget for a staged rollout of an online tool'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      react_widget: react_widget
+    negate: 0
+    target_bundles_drag_drop:
+      address:
+        weight: 61
+        enabled: false
+      alert:
+        weight: 62
+        enabled: false
+      alert_single:
+        weight: 63
+        enabled: false
+      audience_topics:
+        weight: 64
+        enabled: false
+      basic_accordion:
+        weight: 65
+        enabled: false
+      button:
+        weight: 66
+        enabled: false
+      centralized_content_descriptor:
+        weight: 67
+        enabled: false
+      checklist:
+        weight: 68
+        enabled: false
+      checklist_item:
+        weight: 69
+        enabled: false
+      collapsible_panel:
+        weight: 70
+        enabled: false
+      collapsible_panel_item:
+        weight: 71
+        enabled: false
+      contact_information:
+        weight: 72
+        enabled: false
+      digital_form_address:
+        weight: 73
+        enabled: false
+      digital_form_checkbox:
+        weight: 74
+        enabled: false
+      digital_form_custom_step:
+        weight: 75
+        enabled: false
+      digital_form_date_component:
+        weight: 76
+        enabled: false
+      digital_form_identification_info:
+        weight: 77
+        enabled: false
+      digital_form_list_loop:
+        weight: 78
+        enabled: false
+      digital_form_name_and_date_of_bi:
+        weight: 79
+        enabled: false
+      digital_form_page:
+        weight: 80
+        enabled: false
+      digital_form_phone_and_email:
+        weight: 81
+        enabled: false
+      digital_form_radio_button:
+        weight: 82
+        enabled: false
+      digital_form_response_option:
+        weight: 83
+        enabled: false
+      digital_form_text_area:
+        weight: 84
+        enabled: false
+      digital_form_text_input:
+        weight: 85
+        enabled: false
+      digital_form_your_personal_info:
+        weight: 86
+        enabled: false
+      downloadable_file:
+        weight: 87
+        enabled: false
+      email_contact:
+        weight: 88
+        enabled: false
+      embedded_video:
+        weight: 89
+        enabled: false
+      expandable_text:
+        weight: 90
+        enabled: false
+      featured_content:
+        weight: 91
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 92
+        enabled: false
+      link_teaser:
+        weight: 93
+        enabled: false
+      link_teaser_with_image:
+        weight: 94
+        enabled: false
+      list_loop_employment_history:
+        weight: 96
+        enabled: false
+      list_of_link_teasers:
+        weight: 98
+        enabled: false
+      list_of_links:
+        weight: 97
+        enabled: false
+      lists_of_links:
+        weight: 95
+        enabled: false
+      magichead_group:
+        weight: 99
+        enabled: false
+      media:
+        weight: 100
+        enabled: false
+      media_list_images:
+        weight: 101
+        enabled: false
+      media_list_videos:
+        weight: 102
+        enabled: false
+      non_reusable_alert:
+        weight: 103
+        enabled: false
+      number_callout:
+        weight: 104
+        enabled: false
+      phone_number:
+        weight: 105
+        enabled: false
+      process:
+        weight: 106
+        enabled: false
+      q_a:
+        weight: 107
+        enabled: false
+      q_a_group:
+        weight: 108
+        enabled: false
+      q_a_section:
+        weight: 109
+        enabled: false
+      react_widget:
+        weight: 110
+        enabled: true
+      rich_text_char_limit_1000:
+        weight: 111
+        enabled: false
+      service_location:
+        weight: 112
+        enabled: false
+      service_location_address:
+        weight: 113
+        enabled: false
+      situation_update:
+        weight: 114
+        enabled: false
+      spanish_translation_summary:
+        weight: 115
+        enabled: false
+      staff_profile:
+        weight: 116
+        enabled: false
+      step:
+        weight: 117
+        enabled: false
+      step_by_step:
+        weight: 118
+        enabled: false
+      table:
+        weight: 119
+        enabled: false
+      wysiwyg:
+        weight: 120
+        enabled: false
+field_type: entity_reference_revisions

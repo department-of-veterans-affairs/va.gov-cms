@@ -8,6 +8,7 @@
 use Drupal\block\Entity\Block;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
@@ -75,6 +76,24 @@ function vagovclaro_preprocess_form_element(&$variables) {
     else {
       $variables['description_display'] = 'before';
     }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for text_format_wrapper.
+ *
+ * Removes the aria-describedby attribute that Claro adds, which points to a
+ * description ID that doesn't exist in the DOM. This is due to a conflict
+ * between the patch from Drupal.org #2421445 (which moves description
+ * ownership to the form element layer) and Claro's preprocessing (which
+ * re-adds aria-describedby after core removes it).
+ *
+ * @see https://www.drupal.org/project/drupal/issues/2421445
+ * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7033
+ */
+function vagovclaro_preprocess_text_format_wrapper(&$variables) {
+  if (isset($variables['attributes']['aria-describedby'])) {
+    unset($variables['attributes']['aria-describedby']);
   }
 }
 
@@ -313,16 +332,21 @@ function vagovclaro_preprocess_field_multiple_value_form(&$variables) {
   if (!empty($variables['table']['#header']) && isset($variables['description']['content'])) {
     // Find description (help text) and move to header.
     // Div because some help text prints as multiple <p> tags.
-    // @see paragraphs_preprocess_field_multiple_value_form()
+    // @see paragraphs_preprocess_field_multiple_value_form().
+    $attributes = $variables['description']['attributes'] ?? new Attribute();
+    $attributes->addClass('form-item__description');
     $variables['table']['#header'][0]['data']['description'] = [
       '#type' => 'html_tag',
       '#tag' => 'div',
       '#value' => $variables['description']['content'],
-      '#attributes' => [
-        'class' => ['form-item__description'],
-      ],
+      '#attributes' => $attributes,
     ];
     unset($variables['description']);
+    // Avoid redundant aria-describedby attributes for UX purposes--we don't
+    // want screen readers to read the description twice.
+    if (!empty($variables["attributes"]["aria-describedby"]) && !empty($variables['table']['#attributes']['aria-describedby'])) {
+      unset($variables["attributes"]["aria-describedby"]);
+    }
   }
 }
 

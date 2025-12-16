@@ -52,11 +52,12 @@ dependencies:
     - node.type.vet_center_mobile_vet_center
     - node.type.vet_center_outstation
     - node.type.vha_facility_nonclinical_service
-    - taxonomy.vocabulary.health_care_service_taxonomy
-    - taxonomy.vocabulary.va_benefits_taxonomy
-    - taxonomy.vocabulary.lc_categories
-    - taxonomy.vocabulary.topics
     - taxonomy.vocabulary.audience_beneficiaries
+    - taxonomy.vocabulary.health_care_service_taxonomy
+    - taxonomy.vocabulary.lc_categories
+    - taxonomy.vocabulary.outreach_materials_topics
+    - taxonomy.vocabulary.topics
+    - taxonomy.vocabulary.va_benefits_taxonomy
   module:
     - content_moderation
 _core:
@@ -191,9 +192,10 @@ type_settings:
       - vet_center_outstation
       - vha_facility_nonclinical_service
     taxonomy_term:
-      - health_care_service_taxonomy
-      - va_benefits_taxonomy
-      - lc_categories
-      - topics
       - audience_beneficiaries
+      - health_care_service_taxonomy
+      - lc_categories
+      - outreach_materials_topics
+      - topics
+      - va_benefits_taxonomy
   default_moderation_state: draft
