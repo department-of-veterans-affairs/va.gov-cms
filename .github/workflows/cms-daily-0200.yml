@@ -70,13 +70,14 @@ jobs:
           chmod 755 ${cms_files_dir}
 
           # Download sanitized files backup from S3
-          cd $RUNNER_TEMP
+          cd /home/runner
           aws s3 cp \
+            --quiet \
             --region ${{ env.region }} \
             s3://${s3_backup_bucket_pub}/${{ env.S3Key }}/${{ env.CmsFilesName }} .
 
           # Create temp directory for extraction
-          temp_extract_dir=$(mktemp -d -p $RUNNER_TEMP)
+          temp_extract_dir=$(mktemp -d -p /home/runner)
           
           # Extract files using pigz for parallel decompression
           tar -xf ${{ env.CmsFilesName }} -C ${temp_extract_dir} --use-compress-program=pigz
@@ -89,7 +90,7 @@ jobs:
           chmod 2755 ${cms_files_dir}
 
           # Cleanup
-          cd $RUNNER_TEMP
+          cd /home/runner
           rm -f ${{ env.CmsFilesName }}
           rm -rf ${temp_extract_dir}
 
