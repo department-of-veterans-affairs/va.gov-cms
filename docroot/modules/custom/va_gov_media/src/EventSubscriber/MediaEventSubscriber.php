@@ -6,7 +6,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
+use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
 use Drupal\field_event_dispatcher\FieldHookEvents;
+use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -49,6 +51,20 @@ class MediaEventSubscriber implements EventSubscriberInterface {
     if ($form_id === 'media-image-add-form') {
       $form['name']['widget'][0]['value']['#description'] = $this->t('Provide a name that will help other users of the CMS find and reuse this image. The name is not visible to end users.');
       unset($form['field_media_submission_guideline']);
+    }
+  }
+
+  /**
+   * Widget form alter Event call.
+   *
+   * @param \Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent $event
+   *   The event.
+   */
+  public function formWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
+    $context = $event->getContext();
+    // If this is an image field type of instance.
+    if ($context['widget'] instanceof ImageWidget) {
+      // Removed alter now that AI is handling things.
     }
   }
 
