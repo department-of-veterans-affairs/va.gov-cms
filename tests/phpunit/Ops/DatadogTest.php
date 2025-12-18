@@ -50,7 +50,10 @@ class DatadogTest extends VaGovExistingSiteBase {
   public function setUp() : void {
     parent::setUp();
     $this->mockClient = HttpClient::create();
-    $this->config = ['cms_datadog_api_key' => 'faketestkey'];
+    $this->config = [
+      'cms_datadog_api_key' => 'faketestkey',
+      'config_sync_directory' => '../config/sync',
+    ];
     $this->settings = new Settings($this->config);
     $this->datadog = new Datadog($this->mockClient, $this->settings);
   }
