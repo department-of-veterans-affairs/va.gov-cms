@@ -10,7 +10,7 @@ on:
         type: string
   push:
     tags:
-      - 'v*.*.*'  # Only tags starting with v and containing two dots
+      - 'cms/v*.*.*'  # Only tags starting with cms/v and containing two dots
 env:
   CMS_NOTIFICATIONS_SLACK: CJT90C0UT # cms-notifications
 
@@ -34,51 +34,74 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0  # Needed to list all tags for manual runs
+          fetch-tags: true  # Ensure semver tags are available for selection
       - name: Select and validate tag
         id: select_tag
         run: |
           set -e
+          TAG_PREFIX='cms/'
+          SEMVER_REGEX='^v[0-9]+\.[0-9]+\.[0-9]+$'
+
+          normalize_input() {
+            local raw="$1"
+            if [[ "$raw" == ${TAG_PREFIX}* ]]; then
+              echo "${raw#${TAG_PREFIX}}"
+            else
+              echo "$raw"
+            fi
+          }
+
+          ensure_tag_exists() {
+            local semver="$1"
+            git rev-parse -q --verify "refs/tags/${TAG_PREFIX}${semver}" >/dev/null
+          }
+
           EVENT='${{ github.event_name }}'
           INPUT_TAG='${{ github.event.inputs.tag }}'
           if [ "$EVENT" = "workflow_dispatch" ]; then
             if [ -n "$INPUT_TAG" ]; then
-              TAG="$INPUT_TAG"
-              if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-                if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
-                  echo "IMAGE_TAG=$TAG" >> $GITHUB_OUTPUT
+              SEMVER_TAG=$(normalize_input "$INPUT_TAG")
+              if [[ "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
+                if ensure_tag_exists "$SEMVER_TAG"; then
+                  echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
                   echo "is_valid=true" >> $GITHUB_OUTPUT
                   exit 0
                 else
-                  echo "::error title=Invalid Tag::Provided tag $TAG does not exist in repository." >&2
+                  echo "::error title=Invalid Tag::Provided tag ${TAG_PREFIX}$SEMVER_TAG does not exist in repository." >&2
                   echo "is_valid=false" >> $GITHUB_OUTPUT
                   exit 1
                 fi
               else
-                echo "::error title=Invalid Semver::Provided tag $TAG is not strict semver vX.Y.Z." >&2
+                echo "::error title=Invalid Semver::Provided tag $INPUT_TAG is not strict semver vX.Y.Z (prefix ${TAG_PREFIX} optional)." >&2
                 echo "is_valid=false" >> $GITHUB_OUTPUT
                 exit 1
               fi
             else
-              # No input tag; pick latest semver
-              LATEST_TAG=$(git tag --list 'v*.*.*' --sort=-version:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n1)
+              LATEST_TAG=$(git tag --list "${TAG_PREFIX}v*.*.*" --sort=-version:refname | head -n1)
               if [ -z "$LATEST_TAG" ]; then
-                echo "::error title=No Tags Found::No semver tags (vX.Y.Z) found in repository." >&2
+                echo "::error title=No Tags Found::No prefixed semver tags (${TAG_PREFIX}vX.Y.Z) found in repository." >&2
                 echo "is_valid=false" >> $GITHUB_OUTPUT
                 exit 1
               fi
-              echo "Using latest semver tag: $LATEST_TAG"
-              echo "IMAGE_TAG=$LATEST_TAG" >> $GITHUB_OUTPUT
+              SEMVER_TAG="${LATEST_TAG#${TAG_PREFIX}}"
+              if [[ ! "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
+                echo "::error title=Invalid Tag Format::Latest tag $LATEST_TAG does not match expected semver pattern after removing prefix." >&2
+                echo "is_valid=false" >> $GITHUB_OUTPUT
+                exit 1
+              fi
+              echo "Using latest semver tag: $SEMVER_TAG (repo tag $LATEST_TAG)"
+              echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
               echo "is_valid=true" >> $GITHUB_OUTPUT
               exit 0
             fi
           else
-            # Push tag event
-            TAG="$GITHUB_REF_NAME"
-            if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-              echo "IMAGE_TAG=$TAG" >> $GITHUB_OUTPUT
+            RAW_TAG="$GITHUB_REF_NAME"
+            SEMVER_TAG=$(normalize_input "$RAW_TAG")
+            if [[ "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
+              echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
               echo "is_valid=true" >> $GITHUB_OUTPUT
             else
-              echo "::error title=Invalid Pushed Tag::Pushed tag $TAG failed semver validation." >&2
+              echo "::error title=Invalid Pushed Tag::Pushed tag $RAW_TAG failed semver validation after removing prefix." >&2
               echo "is_valid=false" >> $GITHUB_OUTPUT
             fi
           fi
@@ -100,33 +123,21 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
       - name: Get last Apache image tag
-        if: steps.select_tag.outputs.is_valid == 'true'
         id: get_last_apache_tag
         run: |
-          set -e
           REPO_NAME="dsva/cms-apache"
-          echo "Retrieving semver tags from ECR repository $REPO_NAME..."
-          IMAGES_JSON=$(aws ecr describe-images --repository-name "$REPO_NAME" --query 'imageDetails' --output json || echo '[]')
+          # Get all images sorted by push date (newest first)
+          LAST_TAG="1.0.0"  # Default fallback
+          IMAGES_JSON=$(aws ecr describe-images --repository-name $REPO_NAME --query 'sort_by(reverse(imageDetails),& imagePushedAt)' --output json)
           SEMVER_TAG=$(echo "$IMAGES_JSON" | jq -r '
-            [ .[]
-              | .imageTags? // []
-              | .[]
-              | select(test("^[0-9]+\.[0-9]+\.[0-9]+$")) ]
-            | map({raw: ., parts: (split(".") | map(tonumber))})
-            | sort_by(.parts[0], .parts[1], .parts[2])
-            | last.raw // empty
+            [.[] | select(.imageTags != null) |
+             .imageTags[] | select(test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))] |
+            last
           ')
-          if [ -z "$SEMVER_TAG" ]; then
-            echo "::error title=No Base Image Found::No semver Apache base image tags found in ECR repository $REPO_NAME." >&2
-            exit 1
-          fi
-          # Double-check the tag is retrievable
-          if ! aws ecr batch-get-image --repository-name "$REPO_NAME" --image-ids imageTag="$SEMVER_TAG" --query 'images[0].imageId.imageTag' --output text >/dev/null 2>&1; then
-            echo "::error title=Base Image Missing::Tag $SEMVER_TAG could not be retrieved from $REPO_NAME." >&2
-            exit 1
-          fi
-          echo "Selected Apache base semver tag: $SEMVER_TAG"
-          echo "LAST_TAG=$SEMVER_TAG" >> $GITHUB_ENV
+
+          LAST_TAG="$SEMVER_TAG"
+
+          echo "LAST_TAG=$LAST_TAG" >> $GITHUB_ENV
       - name: Set up Docker Buildx
         if: steps.select_tag.outputs.is_valid == 'true'
         uses: docker/setup-buildx-action@v3

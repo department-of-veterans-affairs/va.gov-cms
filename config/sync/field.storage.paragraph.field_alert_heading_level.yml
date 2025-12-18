@@ -1,0 +1,37 @@
+uuid: 7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_alert_heading_level
+field_name: field_alert_heading_level
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '2'
+      label: H2
+    -
+      value: '3'
+      label: H3
+    -
+      value: '4'
+      label: H4
+    -
+      value: '5'
+      label: H5
+    -
+      value: '6'
+      label: H6
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: { }
+persist_with_no_fields: false
+custom_storage: false
+
