@@ -20,7 +20,7 @@ jobs:
       image: ubuntu:24.04
       options: --privileged
     steps:
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
           aws-region: ${{ env.region }}
@@ -68,7 +68,7 @@ jobs:
           rm -rf ${efs_mount_dir}
 
       - name: Refresh AWS credentials before upload
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ vars.AWS_ASSUME_ROLE }}
           aws-region: ${{ env.region }}
