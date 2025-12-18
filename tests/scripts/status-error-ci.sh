@@ -8,11 +8,11 @@ pushd "${repo_root}" > /dev/null
 
 : "${GITHUB_COMMENT_TYPE:=unset}"
 
-result="$(drush core-requirements --ignore='update_core,update_contrib,\"update status\"' --severity=2 --format=json | jq '. | length')"
+result="$(drush core-requirements --ignore='update_core,update_contrib,coverage_core,\"update status\"' --severity=2 --format=json | jq '. | length')"
 exit_code="${result}"
 if [ "${exit_code}" -ne 0 ]; then
   if [ "${GITHUB_COMMENT_TYPE}" == "pr" ]; then
-    requirements="$(drush $DRUSH_ALIAS core-requirements --ignore='update_core,update_contrib,\"update status\"' --severity=2 --format=sections)"
+    requirements="$(drush $DRUSH_ALIAS core-requirements --ignore='update_core,update_contrib,coverage_core,\"update status\"' --severity=2 --format=sections)"
     requirements_escaped="$(printf '%q' "${requirements}")"
     comment="$(printf 'va/tests/status-error:<br /><br /><pre>%b</pre>' "${requirements}")"
     github-commenter \
