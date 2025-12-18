@@ -98,7 +98,7 @@ services:
       - echo "export DD_TAGS=pr:$TUGBOAT_GITHUB_PR,branch:$TUGBOAT_GITHUB_HEAD" >> /etc/apache2/envvars
 
       # Install VA Root CA
-      - cp "${TUGBOAT_ROOT}"/.tugboat/*.crt /usr/local/share/ca-certificates
+      - cp "${TUGBOAT_ROOT}"/.tugboat/certs/*.crt /usr/local/share/ca-certificates
       - update-ca-certificates
 
       # Write OAuth keys to files for next-build Preview Server validation
