@@ -54,7 +54,7 @@ const creators = {
     });
     cy.window().then((window) => {
       window.jQuery('details[data-drupal-iwc-id="2_1"] > summary').click();
-      cy.wait(1000);
+      cy.wait(3000);
       cy.get("span.cropper-face.cropper-move").scrollIntoView();
     });
     cy.window().then((window) => {

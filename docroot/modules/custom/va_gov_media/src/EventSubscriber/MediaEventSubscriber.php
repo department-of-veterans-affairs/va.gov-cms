@@ -61,11 +61,10 @@ class MediaEventSubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function formWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
-    $element = &$event->getElement();
     $context = $event->getContext();
     // If this is an image field type of instance.
     if ($context['widget'] instanceof ImageWidget) {
-      $element['#process'][] = [static::class, 'imageFieldWidgetProcess'];
+      // Removed alter now that AI is handling things.
     }
   }
 

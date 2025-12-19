@@ -1,0 +1,262 @@
+Index: src/Entity/ProfileInterface.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Entity/ProfileInterface.php b/src/Entity/ProfileInterface.php
+--- a/src/Entity/ProfileInterface.php	(revision 8189f4bf5967349815fdac013fe6c331a956b24b)
++++ b/src/Entity/ProfileInterface.php	(date 1745876306372)
+@@ -160,4 +160,20 @@
+    */
+   public function getTemporaryCredentials(string$roleArn, string $version = 'latest');
+
++  /**
++   * Check if the access key is set.
++   *
++   * @return bool
++   *   TRUE if the access key is set.
++   */
++  public function accessKeyCheck(): bool;
++
++  /**
++   * Check if the secret access key is set.
++   *
++   * @return bool
++   *   TRUE if the secret access key is set.
++   */
++  public function secretKeyCheck(): bool;
++
+ }
+Index: README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/README.md b/README.md
+--- a/README.md	(revision 8189f4bf5967349815fdac013fe6c331a956b24b)
++++ b/README.md	(date 1745960964663)
+@@ -45,6 +45,13 @@
+ Configure profiles and service overrides at Administration » Configuration »
+ Web Services » Amazon Web Services.
+
++You can also store the AWS credentials in the settings.php file. This is useful for environments where you do not want to store the credentials in the database.
++
++```php
++$settings['aws_access_key_id'] = 'your-access-key-id';
++$settings['aws_secret_access_key'] = 'your-secret-access-key';
++```
++This will allow you to use `getenv() ` to retrieve the credentials from ENV variables and access them in the application.
+
+ ## Maintainers
+
+Index: aws.routing.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/aws.routing.yml b/aws.routing.yml
+--- a/aws.routing.yml	(revision 8189f4bf5967349815fdac013fe6c331a956b24b)
++++ b/aws.routing.yml	(date 1745958064969)
+@@ -29,3 +29,43 @@
+     _title_callback: '\Drupal\aws\Controller\AwsController::getTitle'
+   requirements:
+     _permission: 'administer aws'
++
++entity.aws_profile.collection:
++  path: '/admin/config/services/aws/profiles'
++  defaults:
++    _entity_list: 'aws_profile'
++    _title: 'AWS Profiles'
++  requirements:
++    _permission: 'administer aws'
++  options:
++    _admin_route: TRUE
++
++entity.aws_profile.add_form:
++  path: '/admin/config/services/aws/add-profile'
++  defaults:
++    _entity_form: 'aws_profile.add'
++    _title: 'Add AWS profile'
++  requirements:
++    _permission: 'administer aws'
++  options:
++    _admin_route: TRUE
++
++entity.aws_profile.edit_form:
++  path: '/admin/config/services/aws/profile/{aws_profile}/edit'
++  defaults:
++    _entity_form: 'aws_profile.edit'
++    _title: 'Edit AWS profile'
++  requirements:
++    _permission: 'administer aws'
++  options:
++    _admin_route: TRUE
++
++entity.aws_profile.delete_form:
++  path: '/admin/config/services/aws/profile/{aws_profile}/delete'
++  defaults:
++    _entity_form: 'aws_profile.delete'
++    _title: 'Delete AWS profile'
++  requirements:
++    _permission: 'administer aws'
++  options:
++    _admin_route: TRUE
+Index: src/Entity/Form/ProfileForm.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Entity/Form/ProfileForm.php b/src/Entity/Form/ProfileForm.php
+--- a/src/Entity/Form/ProfileForm.php	(revision 8189f4bf5967349815fdac013fe6c331a956b24b)
++++ b/src/Entity/Form/ProfileForm.php	(date 1745876117947)
+@@ -126,18 +126,38 @@
+       '#default_value' => $this->entity->getRoleSessionName(),
+     ];
+
++    if ($this->entity->accessKeyCheck()) {
++      $form['aws_key_warning'] = [
++        '#type' => 'markup',
++        '#markup' => $this->t('The access key is not required when it is set in settings.php.'),
++        '#prefix' => '<div id="access-key-warning" class="messages warning">',
++        '#suffix' => '</div>',
++      ];
++    }
++
+     $form['aws_access_key_id'] = [
+       '#type' => 'textfield',
+       '#title' => $this->t('Access Key'),
+       '#description' => $this->t('AWS access key.'),
+       '#default_value' => $this->entity->getAccessKey(),
++      '#disabled' => $this->entity->accessKeyCheck(),
+     ];
++
++    if ($this->entity->secretKeyCheck()) {
++      $form['secret_key_warning'] = [
++        '#type' => 'markup',
++        '#markup' => $this->t('The secret key is not required when it is set in settings.php.'),
++        '#prefix' => '<div id="secret-key-warning" class="messages warning">',
++        '#suffix' => '</div>',
++      ];
++    }
+
+     $form['aws_secret_access_key'] = [
+       '#type' => 'textfield',
+       '#title' => $this->t('Secret Access Key'),
+       '#description' => $this->t('AWS secret key.'),
+       '#default_value' => $this->entity->getSecretAccessKey(),
++      '#disabled' => $this->entity->secretKeyCheck(),
+     ];
+
+     $form['region'] = [
+Index: src/Entity/Profile.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Entity/Profile.php b/src/Entity/Profile.php
+--- a/src/Entity/Profile.php	(revision 8189f4bf5967349815fdac013fe6c331a956b24b)
++++ b/src/Entity/Profile.php	(date 1745960947322)
+@@ -8,6 +8,7 @@
+ use Aws\Sts\StsClient;
+ use Drupal\Core\Config\Entity\ConfigEntityBase;
+ use Drupal\encrypt\EncryptServiceInterface;
++use Drupal\Core\Site\Settings;
+
+ /**
+  * Defines the AWS Profile entity.
+@@ -27,12 +28,10 @@
+  *     "list_builder" = "Drupal\aws\Entity\ListBuilder\ProfileListBuilder",
+  *     "form" = {
+  *       "default" = "Drupal\aws\Entity\Form\ProfileForm",
++ *       "add" = "Drupal\aws\Entity\Form\ProfileForm",
+  *       "edit" = "Drupal\aws\Entity\Form\ProfileForm",
+  *       "delete" = "Drupal\aws\Entity\Form\ProfileDeleteConfirmForm",
+  *     },
+- *     "route_provider" = {
+- *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
+- *     },
+  *   },
+  *   admin_permission = "administer aws",
+  *   config_prefix = "profile",
+@@ -53,7 +52,6 @@
+  *     "encryption_profile"
+  *   },
+  *   links = {
+- *     "canonical" = "/admin/config/services/aws/profile/{aws_profile}",
+  *     "add-form" = "/admin/config/services/aws/add-profile",
+  *     "edit-form" = "/admin/config/services/aws/profile/{aws_profile}/edit",
+  *     "delete-form" = "/admin/config/services/aws/profile/{aws_profile}/delete",
+@@ -197,6 +195,9 @@
+    * {@inheritdoc}
+    */
+   public function getAccessKey() {
++    if ($this->accessKeyCheck()) {
++      return Settings::get('aws_access_key_id');
++    }
+     return $this->aws_access_key_id;
+   }
+
+@@ -204,6 +205,9 @@
+    * {@inheritdoc}
+    */
+   public function setAccessKey(string $aws_access_key_id) {
++    if ($this->accessKeyCheck()) {
++      return $this;
++    }
+     $this->aws_access_key_id = $aws_access_key_id;
+     return $this;
+   }
+@@ -212,6 +216,9 @@
+    * {@inheritdoc}
+    */
+   public function getSecretAccessKey() {
++    if ($this->secretKeyCheck()) {
++      return Settings::get('aws_secret_access_key');
++    }
+     if (empty($this->aws_secret_access_key)) {
+       return '';
+     }
+@@ -222,6 +229,9 @@
+    * {@inheritdoc}
+    */
+   public function setSecretAccessKey(string $aws_secret_access_key) {
++    if ($this->secretKeyCheck()) {
++      return $this;
++    }
+     $this->aws_secret_access_key = $this->encryptSecret($aws_secret_access_key);
+     return $this;
+   }
+@@ -368,4 +378,33 @@
+     // Return non-encrypted credentials for use.
+     return $credentials;
+   }
++
++  /**
++   * Checks if access key is set in settings.
++   *
++   * @return bool
++   *  TRUE if an access key is set.
++   */
++  public function accessKeyCheck(): bool {
++    $accessKey = Settings::get('aws_access_key_id');
++    if (empty($accessKey)) {
++      return FALSE;
++    }
++    return TRUE;
++  }
++
++  /**
++   * Checks if secret key is set in settings.
++   *
++   * @return bool
++   *  TRUE if a secret key is set.
++   */
++  public function secretKeyCheck(): bool {
++    $secretKey = Settings::get('aws_secret_access_key');
++    if (empty($secretKey)) {
++      return FALSE;
++    }
++    return TRUE;
++  }
++
+ }
