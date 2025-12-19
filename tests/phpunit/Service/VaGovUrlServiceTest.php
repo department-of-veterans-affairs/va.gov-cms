@@ -68,6 +68,7 @@ class VaGovUrlServiceTest extends VaGovExistingSiteBase {
       'va_gov_environment' => [
         'environment' => 'staging',
       ],
+      'config_sync_directory' => __DIR__ . '/../config/sync',
     ];
     $this->settings = new Settings($this->config);
   }
