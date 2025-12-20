@@ -3646,30 +3646,31 @@
         },
         {
             "name": "drupal/ckeditor_ai_agent",
-            "version": "1.0.0-beta10",
+            "version": "1.0.0-rc2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ckeditor_ai_agent.git",
-                "reference": "1.0.0-beta10"
+                "reference": "1.0.0-rc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ckeditor_ai_agent-1.0.0-beta10.zip",
-                "reference": "1.0.0-beta10",
-                "shasum": "d401986368f9a005bb8467713542f2cffebcdad2"
+                "url": "https://ftp.drupal.org/files/projects/ckeditor_ai_agent-1.0.0-rc2.zip",
+                "reference": "1.0.0-rc2",
+                "shasum": "1827fa998a2b31ebfb4a7611a759ad75ccd9230a"
             },
             "require": {
                 "drupal/core": "^10.3 || ^11",
-                "drupal/key": "^1.16"
+                "drupal/key": "^1.16",
+                "drupal/markdownify": "^1"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.0-beta10",
-                    "datestamp": "1745055856",
+                    "version": "1.0.0-rc2",
+                    "datestamp": "1758095542",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -9457,20 +9458,20 @@
         },
         {
             "name": "drupal/key",
-            "version": "1.20.0",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/key.git",
-                "reference": "8.x-1.20"
+                "reference": "8.x-1.21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/key-8.x-1.20.zip",
-                "reference": "8.x-1.20",
-                "shasum": "f45415552de129e9976af72224393cd1d1f2ea65"
+                "url": "https://ftp.drupal.org/files/projects/key-8.x-1.21.zip",
+                "reference": "8.x-1.21",
+                "shasum": "1e493e73bd41e70831821929b97bfb43818202fe"
             },
             "require": {
-                "drupal/core": ">=8.9 <12"
+                "drupal/core": "^9.1 || ^10 || ^11"
             },
             "require-dev": {
                 "drush/drush": ">=9"
@@ -9481,8 +9482,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.20",
-                    "datestamp": "1744582168",
+                    "version": "8.x-1.21",
+                    "datestamp": "1766088922",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9979,6 +9980,83 @@
             "homepage": "https://www.drupal.org/project/mailsystem",
             "support": {
                 "source": "https://git.drupalcode.org/project/mailsystem"
+            }
+        },
+        {
+            "name": "drupal/markdownify",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/markdownify.git",
+                "reference": "1.1.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/markdownify-1.1.3.zip",
+                "reference": "1.1.3",
+                "shasum": "03378bf847dd80177d35b35e6da3c918a674fdf5"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10 || ^11",
+                "league/html-to-markdown": "^5.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5 || ^10.0"
+            },
+            "suggest": {
+                "league/commonmark": "For extended Markdown formatting capabilities."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.3",
+                    "datestamp": "1760209276",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\markdownify\\": "src/"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Adrian Morelos",
+                    "homepage": "https://www.drupal.org/user/3235287",
+                    "email": "adrian.tech.enthusiast@gmail.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Christoph Weber",
+                    "homepage": "https://www.drupal.org/user/135619",
+                    "email": "webersd@gmail.com",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "christophweber",
+                    "homepage": "https://www.drupal.org/user/281751"
+                },
+                {
+                    "name": "imbatman",
+                    "homepage": "https://www.drupal.org/user/2966261"
+                },
+                {
+                    "name": "pronovix",
+                    "homepage": "https://www.drupal.org/user/3834019"
+                }
+            ],
+            "description": "Markdownify module for Drupal - Provides Markdown versions of content.",
+            "homepage": "https://www.drupal.org/project/markdownify",
+            "support": {
+                "source": "https://www.drupal.org/project/markdownify",
+                "issues": "https://www.drupal.org/project/issues/markdownify"
             }
         },
         {
@@ -29630,7 +29708,6 @@
         "drupal/cer": 10,
         "drupal/change_labels": 20,
         "drupal/ckeditor_abbreviation": 15,
-        "drupal/ckeditor_ai_agent": 10,
         "drupal/codit_menu_tools": 15,
         "drupal/components": 10,
         "drupal/entity_clone": 15,
@@ -29674,5 +29751,5 @@
     "platform-overrides": {
         "php": "8.1.30"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }
