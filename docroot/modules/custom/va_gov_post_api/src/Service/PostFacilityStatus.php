@@ -339,9 +339,9 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
     $statusChanged = FALSE;
     // Check if operating status field has changed.
     if ($nodeFacility->hasField('field_operating_status_facility')) {
-      $current_status = $nodeFacility->get('field_operating_status_facility')->value;
-      $original_status = $defaultRevision->get('field_operating_status_facility')->value;
-      $statusChanged = $current_status !== $original_status;
+      $currentStatus = $nodeFacility->get('field_operating_status_facility')->value;
+      $originalStatus = $defaultRevision->get('field_operating_status_facility')->value;
+      $statusChanged = $currentStatus !== $originalStatus;
     }
 
     // Case race. First to evaluate to TRUE wins.
