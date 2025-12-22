@@ -336,6 +336,14 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
     $isNew = $nodeFacility->isNew();
     $defaultRevisionIsPublished = $defaultRevision->isPublished();
 
+    $statusChanged = FALSE;
+    // Check if operating status field has changed.
+    if ($nodeFacility->hasField('field_operating_status_facility')) {
+      $current_status = $nodeFacility->get('field_operating_status_facility')->value;
+      $original_status = $defaultRevision->get('field_operating_status_facility')->value;
+      $statusChanged = $current_status !== $original_status;
+    }
+
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
       case LovellOps::isLovellTricareSection($nodeFacility):
@@ -349,12 +357,12 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
         // Forced push from updates to referenced entity.
       case $isNew:
         // A new node, should be pushed to initiate the value.
-      case $thisRevisionIsPublished && $moderationState === self::STATE_PUBLISHED:
-        // This revision is published, should be pushed.
+      case $thisRevisionIsPublished && $moderationState === self::STATE_PUBLISHED && $statusChanged:
+        // This revision is published, should be pushed if status changed.
       case $isArchived:
         // This node has been archived, got to push to remove it.
-      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished):
-        // Draft on an unpublished node, should be pushed.
+      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished && $statusChanged):
+        // Draft on an unpublished node, should be pushed if status changed.
       case ($thisRevisionIsPublished && !$defaultRevisionIsPublished):
         // To be the source of truth for urls, we need to push url on newly
         // published, because we use different urls.
@@ -363,6 +371,8 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
 
       case ($defaultRevisionIsPublished && !$thisRevisionIsPublished && $moderationState === self::STATE_DRAFT):
         // Draft revision on published node, should not push, even w/bypass.
+      case ($defaultRevisionIsPublished && !$thisRevisionIsPublished && $moderationState === self::STATE_PUBLISHED && !$statusChanged):
+        // Publishing draft revision on published node, but no status change.
         $push = FALSE;
         break;
 
