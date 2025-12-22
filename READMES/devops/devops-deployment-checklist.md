@@ -4,10 +4,17 @@ This checklist documents the standardized test scripts for CMS DevOps team membe
 
 ## Overview
 
-All tests in this checklist must pass before deployment to production. Tests are organized into two categories:
+This checklist documents test procedures to support Drupal upgrades and EKS migrations. Tests are organized into two categories:
 
-1. **Automated CI/CD Tests** - Run automatically on all pull requests via GitHub Actions and Tugboat
-2. **Manual Validation Tests** - Run manually post-deployment to verify critical functionality
+**Automated Tests (Pre-Deployment):** These tests run automatically on every pull request via GitHub Actions CI/CD pipeline. All automated tests must pass before code can be merged and deployed.
+
+**Manual Validation Tests (Post-Deployment):** These tests are performed after deployment to validate system functionality. Manual validation is required for:
+- Drupal version upgrades (e.g., Drupal 10 → Drupal 11)
+- PHP version upgrades (e.g., PHP 8.1 → PHP 8.3)
+- Infrastructure changes (e.g., EKS migrations, Amazon Linux upgrades)
+- Major database migrations or schema changes
+
+Manual validation is NOT required for routine code deployments or minor updates.
 
 ---
 
@@ -19,14 +26,17 @@ These tests run automatically when a PR is created and must all pass before merg
 
 | Test | Purpose | Command | Runs On |
 |------|---------|---------|---------|
-| **PHP Lint** | Verify PHP syntax | `composer va:test:php-lint` | GitHub Actions |
-| **PHP_CodeSniffer** | Check coding standards | `composer va:test:phpcs` | GitHub Actions |
+| **PHP Lint** | Verify PHP syntax | `composer va:test:lint-php` | GitHub Actions |
+| **PHP_CodeSniffer** | Check coding standards | `composer va:test:php_codesniffer` | GitHub Actions |
 | **PHPStan** | Static analysis for type safety | `composer va:test:phpstan` | GitHub Actions |
 | **ESLint** | JavaScript linting | `composer va:test:eslint` | GitHub Actions |
-| **Stylelint** | CSS/SCSS linting | `composer va:test:stylelint` | GitHub Actions |
+| **Stylelint (Modules)** | CSS/SCSS linting for modules | `composer va:test:stylelint-modules` | GitHub Actions |
+| **Stylelint (Themes)** | CSS/SCSS linting for themes | `composer va:test:stylelint-themes` | GitHub Actions |
 | **CodeQL** | Security vulnerability scanning | Auto-configured | GitHub Actions |
 | **Composer Validate** | Validate composer.json/lock | `composer validate` | GitHub Actions |
-| **Check Fields** | Validate field configurations | `composer va:test:check-fields` | GitHub Actions |
+| **Check CER** | Validate Corresponding Entity References | `composer va:test:check-cer` | GitHub Actions |
+| **Check Node Revision Logs** | Validate node revision log fields | `composer va:test:check-node-revision-logs` | GitHub Actions |
+| **Check Taxonomy Revision Logs** | Validate taxonomy revision log fields | `composer va:test:check-taxonomy-revision-logs` | GitHub Actions |
 
 ### Functional Tests
 
@@ -54,7 +64,7 @@ These tests must be performed manually after deployment to staging or production
 
 1. Navigate to login page: `https://[environment].cms.va.gov/user/login`
 2. Click SSO login button
-3. Enter valid PIV/CAC or other configured credentials
+3. Enter valid PIV/CAG or other configured credentials
 4. Verify successful authentication and redirect to dashboard
 5. Check user profile loads with correct name and email
 6. Test user permissions and roles (create content, admin access, etc.)
@@ -169,18 +179,22 @@ drush config:get workflows.workflow.editorial
 
 **Test Steps:**
 
+**For content-build (Metalsmith):**
 1. Navigate to Content Release dashboard: `/admin/content/deploy`
-2. Trigger a content release:
-   - Click "Release Content" button
-   - Monitor build progress
-   - Wait for completion (typically 45-60 minutes)
-3. Verify release success:
-   - Check build logs for errors
-   - Verify "Last successful build" timestamp updated
-4. Test frontend:
-   - Visit corresponding web URL (staging.va.gov or www.va.gov)
-   - Verify recent content changes appear
-   - Check for broken links or images
+2. Click "Release Content" button and monitor build progress (typically 45-60 minutes)
+3. Check GitHub Actions in content-build repo for build status
+4. Verify "Last successful build" timestamp updated
+
+**For next-build (Next.js):**
+1. Content automatically syncs via GraphQL
+2. Check build status in next-build repo GitHub Actions
+3. Verify preview deployments complete successfully
+
+**Verify on frontend:**
+- Visit corresponding web URL (staging.va.gov or www.va.gov)
+- Verify recent content changes appear
+- Check for broken links or images
+- Confirm workflow states: `drush config:get workflows.workflow.editorial`
 
 **Expected Result:** Content release completes successfully, changes visible on frontend
 
