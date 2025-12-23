@@ -1,0 +1,283 @@
+<?php
+
+namespace Drupal\va_gov_resources_and_support\Service;
+
+use Drupal\Core\Entity\EntityFieldManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\node\NodeInterface;
+use Drupal\taxonomy\TermInterface;
+
+/**
+ * Service for migrating R&S taxonomy tags.
+ */
+class RsTagMigrationService {
+
+  /**
+   * The CMS Migrator user ID.
+   */
+  const CMS_MIGRATOR_ID = 1317;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The logger factory.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $loggerFactory;
+
+  /**
+   * The entity field manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
+   */
+  protected EntityFieldManagerInterface $entityFieldManager;
+
+  /**
+   * Constructs a RsTagMigrationService object.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
+   *   The logger factory.
+   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
+   *   The entity field manager.
+   */
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    LoggerChannelFactoryInterface $logger_factory,
+    EntityFieldManagerInterface $entity_field_manager,
+  ) {
+    $this->entityTypeManager = $entity_type_manager;
+    $this->loggerFactory = $logger_factory;
+    $this->entityFieldManager = $entity_field_manager;
+  }
+
+  /**
+   * Get field definition for a content type.
+   *
+   * @param string $entity_type
+   *   The entity type (e.g., 'node').
+   * @param string $bundle
+   *   The bundle (content type).
+   * @param string $field_name
+   *   The field name.
+   *
+   * @return \Drupal\Core\Field\FieldDefinitionInterface|null
+   *   The field definition or NULL if not found.
+   */
+  public function getFieldDefinition(string $entity_type, string $bundle, string $field_name): ?FieldDefinitionInterface {
+    $field_definitions = $this->entityFieldManager->getFieldDefinitions($entity_type, $bundle);
+    return $field_definitions[$field_name] ?? NULL;
+  }
+
+  /**
+   * Get field cardinality.
+   *
+   * @param string $entity_type
+   *   The entity type.
+   * @param string $bundle
+   *   The bundle.
+   * @param string $field_name
+   *   The field name.
+   *
+   * @return int
+   *   The field cardinality (-1 for unlimited).
+   */
+  public function getFieldCardinality(string $entity_type, string $bundle, string $field_name): int {
+    $field_definition = $this->getFieldDefinition($entity_type, $bundle, $field_name);
+    if ($field_definition) {
+      return $field_definition->getFieldStorageDefinition()->getCardinality();
+    }
+    return 1;
+  }
+
+  /**
+   * Get taxonomy vocabulary ID from a field.
+   *
+   * @param string $entity_type
+   *   The entity type.
+   * @param string $bundle
+   *   The bundle.
+   * @param string $field_name
+   *   The field name.
+   *
+   * @return string|null
+   *   The vocabulary ID or NULL if not found.
+   */
+  public function getFieldTaxonomyVocabulary(string $entity_type, string $bundle, string $field_name): ?string {
+    $field_definition = $this->getFieldDefinition($entity_type, $bundle, $field_name);
+    if (!$field_definition) {
+      return NULL;
+    }
+
+    $settings = $field_definition->getSettings();
+    if (isset($settings['handler_settings']['target_bundles'])) {
+      // Direct target bundles setting.
+      $target_bundles = $settings['handler_settings']['target_bundles'];
+      if (count($target_bundles) === 1) {
+        return reset($target_bundles);
+      }
+    }
+
+    // For views-based handlers, we need to check the view configuration.
+    // This is a simplified approach - in practice, you might need to
+    // load the view and check its configuration.
+    return NULL;
+  }
+
+  /**
+   * Find a taxonomy term by name in a vocabulary.
+   *
+   * @param string $vocabulary_id
+   *   The vocabulary ID.
+   * @param string $term_name
+   *   The term name.
+   *
+   * @return \Drupal\taxonomy\TermInterface|null
+   *   The term or NULL if not found.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function findTermByName(string $vocabulary_id, string $term_name): ?TermInterface {
+    $terms = $this->entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->loadByProperties([
+        'vid' => $vocabulary_id,
+        'name' => $term_name,
+      ]);
+
+    return !empty($terms) ? reset($terms) : NULL;
+  }
+
+  /**
+   * Get all terms from a node field.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node.
+   * @param string $field_name
+   *   The field name.
+   *
+   * @return \Drupal\taxonomy\TermInterface[]
+   *   Array of terms.
+   */
+  public function getNodeFieldTerms(NodeInterface $node, string $field_name): array {
+    $terms = [];
+    if ($node->hasField($field_name)) {
+      foreach ($node->get($field_name)->referencedEntities() as $term) {
+        if ($term instanceof TermInterface) {
+          $terms[] = $term;
+        }
+      }
+    }
+    return $terms;
+  }
+
+  /**
+   * Add terms to a node field (additive, not overwriting).
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node.
+   * @param string $field_name
+   *   The field name.
+   * @param \Drupal\taxonomy\TermInterface[] $terms_to_add
+   *   Terms to add.
+   *
+   * @return bool
+   *   TRUE if terms were added, FALSE otherwise.
+   */
+  public function addTermsToNodeField(NodeInterface $node, string $field_name, array $terms_to_add): bool {
+    if (!$node->hasField($field_name)) {
+      $this->loggerFactory->get('va_gov_resources_and_support')
+        ->error('Field @field does not exist on node @nid', [
+          '@field' => $field_name,
+          '@nid' => $node->id(),
+        ]);
+      return FALSE;
+    }
+
+    $existing_terms = $this->getNodeFieldTerms($node, $field_name);
+    $existing_tids = array_map(function (TermInterface $term) {
+      return $term->id();
+    }, $existing_terms);
+
+    $new_terms = [];
+    foreach ($terms_to_add as $term) {
+      if (!in_array($term->id(), $existing_tids)) {
+        $new_terms[] = $term;
+      }
+    }
+
+    if (empty($new_terms)) {
+      return FALSE;
+    }
+
+    // Get current field values.
+    $field_values = $node->get($field_name)->getValue();
+    foreach ($new_terms as $term) {
+      $field_values[] = ['target_id' => $term->id()];
+    }
+
+    // Check cardinality limit.
+    $cardinality = $this->getFieldCardinality('node', $node->bundle(), $field_name);
+    if ($cardinality > 0 && count($field_values) > $cardinality) {
+      $this->loggerFactory->get('va_gov_resources_and_support')
+        ->warning('Field @field on node @nid exceeds cardinality limit. Current: @current, Limit: @limit', [
+          '@field' => $field_name,
+          '@nid' => $node->id(),
+          '@current' => count($field_values),
+          '@limit' => $cardinality,
+        ]);
+      // Truncate to cardinality limit.
+      $field_values = array_slice($field_values, 0, $cardinality);
+    }
+
+    $node->set($field_name, $field_values);
+    return TRUE;
+  }
+
+  /**
+   * Log an error message.
+   *
+   * @param string $message
+   *   The error message.
+   * @param array $context
+   *   Context variables.
+   */
+  public function logError(string $message, array $context = []): void {
+    $this->loggerFactory->get('va_gov_resources_and_support')->error($message, $context);
+  }
+
+  /**
+   * Log a warning message.
+   *
+   * @param string $message
+   *   The warning message.
+   * @param array $context
+   *   Context variables.
+   */
+  public function logWarning(string $message, array $context = []): void {
+    $this->loggerFactory->get('va_gov_resources_and_support')->warning($message, $context);
+  }
+
+  /**
+   * Log an info message.
+   *
+   * @param string $message
+   *   The info message.
+   * @param array $context
+   *   Context variables.
+   */
+  public function logInfo(string $message, array $context = []): void {
+    $this->loggerFactory->get('va_gov_resources_and_support')->info($message, $context);
+  }
+
+}
