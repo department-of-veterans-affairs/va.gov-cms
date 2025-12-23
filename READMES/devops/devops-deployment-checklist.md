@@ -73,18 +73,6 @@ These tests must be performed manually after deployment to staging or production
 
 **Expected Result:** All SSO operations complete without errors
 
-**Troubleshooting:**
-```bash
-# Check SSO configuration
-drush config:get samlauth.authentication
-
-# Check for authentication errors
-drush watchdog:show --severity=Error --filter="saml"
-
-# Verify SSO certificates are valid
-drush config:get samlauth.authentication idp_cert_folder
-```
-
 ### 2. Smoke Test Environment
 
 **Purpose:** Quick validation of critical system functionality
@@ -316,7 +304,6 @@ If critical issues are found during or after deployment:
 
 | Issue | Symptoms | Solution |
 |-------|----------|----------|
-| **SSO Login Fails** | Users cannot authenticate | Check certificate expiration: `drush config:get samlauth.authentication idp_cert_folder` and verify cert validity |
 | **Slow Page Loads** | Pages take >5 seconds to load | Clear cache: `drush cache:rebuild` and check for slow queries |
 | **Content Not Publishing** | Content changes not visible on frontend | Check moderation workflow state and trigger content release |
 | **Database Connection Errors** | "Database connection failed" messages | Verify database credentials in settings.php and check database server status |
