@@ -1,5 +1,5 @@
 diff --git a/config/schema/entity_browser.schema.yml b/config/schema/entity_browser.schema.yml
-index 67a1d79cc7c9a07dd5db72908cfefb46584d9a9a..ccb446d739903d5ff5dde6dce8357aa67bc1c195 100644
+index 67a1d79..ccb446d 100644
 --- a/config/schema/entity_browser.schema.yml
 +++ b/config/schema/entity_browser.schema.yml
 @@ -190,6 +190,9 @@ field.widget.settings.entity_browser_entity_reference:
@@ -9,14 +9,14 @@ index 67a1d79cc7c9a07dd5db72908cfefb46584d9a9a..ccb446d739903d5ff5dde6dce8357aa6
 +    show_latest_revision:
 +      type: boolean
 +      label: 'Show latest revision'
-
+ 
  entity_browser.field_widget_display.label:
    type: mapping
 diff --git a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
-index 13df19e50ae44393a651c46a0524065d0c29c921..89d6776e3e287c0338622e467fd06e4985b0aea6 100644
+index fff1b32..406043e 100644
 --- a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
 +++ b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserWidget.php
-@@ -96,21 +96,23 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+@@ -97,21 +97,23 @@ class EntityReferenceBrowserWidget extends WidgetBase {
     */
    public static function defaultSettings() {
      return [
@@ -40,7 +40,7 @@ index 13df19e50ae44393a651c46a0524065d0c29c921..89d6776e3e287c0338622e467fd06e49
 +        'show_latest_revision' => FALSE,
 +      ] + parent::defaultSettings();
    }
-
+ 
    /**
     * {@inheritdoc}
     */
@@ -48,12 +48,12 @@ index 13df19e50ae44393a651c46a0524065d0c29c921..89d6776e3e287c0338622e467fd06e49
 +  public function settingsForm(array $form, FormStateInterface $form_state)
 +  {
      $element = parent::settingsForm($form, $form_state);
-
+ 
      $browsers = [];
-@@ -220,6 +222,13 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+@@ -221,6 +223,13 @@ class EntityReferenceBrowserWidget extends WidgetBase {
        '#default_value' => $this->getSetting('open'),
      ];
-
+ 
 +    $element['show_latest_revision'] = [
 +      '#title' => $this->t('Show the latest revision of the entity.'),
 +      '#description' => $this->t('If marked, latest revision will be shown in the edit form.'),
@@ -64,15 +64,15 @@ index 13df19e50ae44393a651c46a0524065d0c29c921..89d6776e3e287c0338622e467fd06e49
      $element['selection_mode'] = [
        '#title' => $this->t('Selection mode'),
        '#description' => $this->t('Determines how selection in entity browser will be handled. Will selection be appended/prepended or it will be replaced in case of editing.'),
-@@ -270,6 +279,7 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+@@ -271,6 +280,7 @@ class EntityReferenceBrowserWidget extends WidgetBase {
    public function settingsSummary() {
      $summary = $this->summaryBase();
      $field_widget_display = $this->getSetting('field_widget_display');
 +    $show_latest_revision = $this->getSetting('show_latest_revision');
-
+ 
      if (!empty($field_widget_display)) {
        $pluginDefinition = $this->fieldDisplayManager->getDefinition($field_widget_display);
-@@ -283,6 +293,8 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+@@ -284,6 +294,8 @@ class EntityReferenceBrowserWidget extends WidgetBase {
          $view_mode_label = $plugin->getViewModeLabel();
          $summary[] = $this->t('View Mode: @view_mode', ['@view_mode' => $view_mode_label]);
        }
@@ -81,7 +81,7 @@ index 13df19e50ae44393a651c46a0524065d0c29c921..89d6776e3e287c0338622e467fd06e49
      }
      return $summary;
    }
-@@ -750,13 +762,14 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+@@ -756,13 +768,14 @@ class EntityReferenceBrowserWidget extends WidgetBase {
     * @param \Drupal\Core\Form\FormStateInterface $form_state
     *   The form state.
     *
@@ -94,22 +94,13 @@ index 13df19e50ae44393a651c46a0524065d0c29c921..89d6776e3e287c0338622e467fd06e49
      $entity_type = $this->fieldDefinition->getFieldStorageDefinition()->getSetting('target_type');
      $entity_storage = $this->entityTypeManager->getStorage($entity_type);
 +    $show_latest_revision = $this->getSetting('show_latest_revision');
-
+ 
      // Find IDs from target_id element (it stores selected entities in form).
      // This was added to help solve a really edge casey bug in IEF.
-@@ -780,7 +793,7 @@ class EntityReferenceBrowserWidget extends WidgetBase {
-           (array_slice($trigger['#parents'], 0, count($element['#field_parents'])) == $element['#field_parents']) &&
-           (array_slice($trigger['#parents'], 0, $field_name_key) == $element['#field_parents']);
-       }
--    };
-+    }
-
-     if ($is_relevant_submit) {
-       // Submit was triggered by hidden "target_id" element when entities were
-@@ -794,9 +807,23 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+@@ -801,9 +814,23 @@ class EntityReferenceBrowserWidget extends WidgetBase {
          $parents = array_merge(array_slice($trigger['#parents'], 0, -static::$deleteDepth), ['target_id']);
        }
-
+ 
 -      if (isset($parents) && $value = $form_state->getValue($parents)) {
 -        $entities = EntityBrowserElement::processEntityIds($value);
 -        return $entities;
@@ -133,7 +124,7 @@ index 13df19e50ae44393a651c46a0524065d0c29c921..89d6776e3e287c0338622e467fd06e49
        }
        return $entities;
      }
-@@ -822,7 +849,11 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+@@ -829,7 +856,11 @@ class EntityReferenceBrowserWidget extends WidgetBase {
        }
        return $entities;
      }
@@ -146,10 +137,10 @@ index 13df19e50ae44393a651c46a0524065d0c29c921..89d6776e3e287c0338622e467fd06e49
      // values that might already exist on the entity. Also, remove any leftover
      // data from removed entity references.
      else {
-@@ -838,6 +869,35 @@ class EntityReferenceBrowserWidget extends WidgetBase {
+@@ -845,6 +876,35 @@ class EntityReferenceBrowserWidget extends WidgetBase {
      }
    }
-
+ 
 +  /**
 +   * Get the latest revision of the referenced entities.
 +   *
