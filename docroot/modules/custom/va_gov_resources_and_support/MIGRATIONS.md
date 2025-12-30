@@ -143,7 +143,6 @@ After running migrations:
 
 ## Notes
 
-- Migrations will not run until after Shutdown as they need to run on Prod (per issue #22615).
 - Migrations preserve existing tagging data - they only add new tags, never remove existing ones.
 - Moderation state is preserved during migration.
 
