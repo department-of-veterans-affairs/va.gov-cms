@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\node\Entity\Node;
+use Drupal\taxonomy\TermInterface;
 use Drupal\va_gov_resources_and_support\Service\RsTagMigrationService;
 
 /**
@@ -25,6 +26,25 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
    * Audience & Topics paragraph field for audience.
    */
   const AUDIENCE_FIELD = 'field_audience_beneficiares';
+
+  /**
+   * Check if a term is a Veteran subtype (not "All Veterans").
+   *
+   * @param \Drupal\taxonomy\TermInterface $term
+   *   The term to check.
+   *
+   * @return bool
+   *   TRUE if the term is a Veteran subtype, FALSE otherwise.
+   */
+  protected function isVeteranSubtype(TermInterface $term): bool {
+    $term_name = $term->getName();
+    // Exclude "All Veterans" itself.
+    if ($term_name === self::ALL_VETERANS_TERM) {
+      return FALSE;
+    }
+    // Check if the term name contains "Veteran" (case-insensitive).
+    return stripos($term_name, 'Veteran') !== FALSE;
+  }
 
   /**
    * {@inheritdoc}
@@ -99,15 +119,18 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
 
       // Check if "All Veterans" already exists.
       $has_all_veterans = FALSE;
+      $has_veteran_subtype = FALSE;
       foreach ($audience_terms as $term) {
         if ($term->getName() === self::ALL_VETERANS_TERM) {
           $has_all_veterans = TRUE;
-          break;
+        }
+        elseif ($this->isVeteranSubtype($term)) {
+          $has_veteran_subtype = TRUE;
         }
       }
 
-      // If not present and we have other Veteran subtypes, add "All Veterans".
-      if (!$has_all_veterans && count($audience_terms) > 0) {
+      // If not present and we have Veteran subtypes, add "All Veterans".
+      if (!$has_all_veterans && $has_veteran_subtype) {
         $all_veterans_term = $migration_service->findTermByName(
           self::AUDIENCE_VOCABULARY,
           self::ALL_VETERANS_TERM
@@ -143,7 +166,7 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
       );
     }
 
-    return "Node {$node_info['nid']} ({$node_info['title']}): No updates needed (All Veterans already present or no audience terms).";
+    return "Node {$node_info['nid']} ({$node_info['title']}): No updates needed (All Veterans already present or no Veteran subtypes found).";
   }
 
 }
