@@ -220,24 +220,63 @@ class RsTagMigrationService {
       return FALSE;
     }
 
-    // Get current field values.
+    // Get cardinality limit.
+    $cardinality = $this->getFieldCardinality('node', $node->bundle(), $field_name);
+    $existing_count = count($existing_terms);
+
+    // Calculate how many new terms can fit.
+    $terms_to_add_count = count($new_terms);
+    $terms_added = [];
+    $terms_excluded = [];
+
+    if ($cardinality > 0) {
+      $available_slots = $cardinality - $existing_count;
+      if ($available_slots <= 0) {
+        // No room for new terms.
+        $terms_excluded = $new_terms;
+        $this->loggerFactory->get('va_gov_resources_and_support')
+          ->warning('Field @field on node @nid is at cardinality limit (@limit). Cannot add @count new term(s). Excluded terms: @terms', [
+            '@field' => $field_name,
+            '@nid' => $node->id(),
+            '@limit' => $cardinality,
+            '@count' => $terms_to_add_count,
+            '@terms' => implode(', ', array_map(function (TermInterface $term) {
+              return $term->getName();
+            }, $terms_excluded)),
+          ]);
+        return FALSE;
+      }
+
+      // Only add as many new terms as fit.
+      $terms_to_add_final = array_slice($new_terms, 0, $available_slots);
+      $terms_added = $terms_to_add_final;
+      $terms_excluded = array_slice($new_terms, $available_slots);
+    }
+    else {
+      // Unlimited cardinality, add all terms.
+      $terms_added = $new_terms;
+    }
+
+    // Get current field values and add the terms that fit.
     $field_values = $node->get($field_name)->getValue();
-    foreach ($new_terms as $term) {
+    foreach ($terms_added as $term) {
       $field_values[] = ['target_id' => $term->id()];
     }
 
-    // Check cardinality limit.
-    $cardinality = $this->getFieldCardinality('node', $node->bundle(), $field_name);
-    if ($cardinality > 0 && count($field_values) > $cardinality) {
+    // Log warning if some terms were excluded.
+    if (!empty($terms_excluded)) {
       $this->loggerFactory->get('va_gov_resources_and_support')
-        ->warning('Field @field on node @nid exceeds cardinality limit. Current: @current, Limit: @limit', [
+        ->warning('Field @field on node @nid: Added @added of @total new term(s) due to cardinality limit (@limit). Excluded @excluded term(s): @terms', [
           '@field' => $field_name,
           '@nid' => $node->id(),
-          '@current' => count($field_values),
+          '@added' => count($terms_added),
+          '@total' => $terms_to_add_count,
           '@limit' => $cardinality,
+          '@excluded' => count($terms_excluded),
+          '@terms' => implode(', ', array_map(function (TermInterface $term) {
+            return $term->getName();
+          }, $terms_excluded)),
         ]);
-      // Truncate to cardinality limit.
-      $field_values = array_slice($field_values, 0, $cardinality);
     }
 
     $node->set($field_name, $field_values);
