@@ -102,6 +102,9 @@ class RsTagMigrationService {
   /**
    * Get taxonomy vocabulary ID from a field.
    *
+   * When multiple vocabularies are configured, only the first vocabulary
+   * is returned. A warning is logged to indicate this behavior.
+   *
    * @param string $entity_type
    *   The entity type.
    * @param string $bundle
@@ -110,7 +113,8 @@ class RsTagMigrationService {
    *   The field name.
    *
    * @return string|null
-   *   The vocabulary ID or NULL if not found.
+   *   The vocabulary ID or NULL if not found. When multiple vocabularies
+   *   are configured, returns the first vocabulary ID.
    */
   public function getFieldTaxonomyVocabulary(string $entity_type, string $bundle, string $field_name): ?string {
     $field_definition = $this->getFieldDefinition($entity_type, $bundle, $field_name);
@@ -120,10 +124,25 @@ class RsTagMigrationService {
 
     $settings = $field_definition->getSettings();
     if (isset($settings['handler_settings']['target_bundles'])) {
-      // Direct target bundles setting.
       $target_bundles = $settings['handler_settings']['target_bundles'];
-      if (count($target_bundles) === 1) {
+      $target_bundles_count = count($target_bundles);
+
+      if ($target_bundles_count === 1) {
         return reset($target_bundles);
+      }
+      elseif ($target_bundles_count > 1) {
+        // Multiple vocabularies configured - return first and log warning.
+        $first_vocabulary = reset($target_bundles);
+        $all_vocabularies = implode(', ', $target_bundles);
+        $this->loggerFactory->get('va_gov_resources_and_support')
+          ->warning('Field @field on @entity_type:@bundle has multiple target vocabularies (@vocabularies). Returning only the first: @first', [
+            '@field' => $field_name,
+            '@entity_type' => $entity_type,
+            '@bundle' => $bundle,
+            '@vocabularies' => $all_vocabularies,
+            '@first' => $first_vocabulary,
+          ]);
+        return $first_vocabulary;
       }
     }
 
