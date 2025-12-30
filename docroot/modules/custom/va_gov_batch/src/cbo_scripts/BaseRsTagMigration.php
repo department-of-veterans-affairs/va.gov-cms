@@ -6,6 +6,7 @@ require_once __DIR__ . '/../../../../../../scripts/content/script-library.php';
 
 use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;
+use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\paragraphs\ParagraphInterface;
@@ -104,16 +105,18 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
   /**
    * Save node revision with logging, preserving moderation state.
    *
-   * @param \Drupal\node\Entity\Node $node
+   * @param \Drupal\node\NodeInterface $node
    *   The node to save.
-   * @param string $log_message
+   * @param string $message
    *   The log message.
+   * @param bool $new
+   *   TRUE if the revision is new, FALSE to overwrite the latest.
    *
    * @return int
    *   The revision ID.
    */
-  protected function saveNodeRevision(Node $node, string $log_message): int {
-    return save_node_revision($node, $log_message, TRUE);
+  public function saveNodeRevision(NodeInterface $node, string $message = '', $new = TRUE): int {
+    return save_node_revision($node, $message, $new);
   }
 
   /**
