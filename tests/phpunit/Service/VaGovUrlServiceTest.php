@@ -62,14 +62,17 @@ class VaGovUrlServiceTest extends VaGovExistingSiteBase {
     parent::setUp();
 
     $this->newContainer = new ContainerBuilder();
-    $this->config = [
+    // Merge test-specific settings with existing settings to preserve
+    // system-required values like config_sync_directory.
+    $this->config = array_merge(Settings::getAll(), [
       'hash_salt' => 'SCVSPZNSKKK5XCRJ1WLE',
       // This is temporary. See #14338.
       'va_gov_environment' => [
         'environment' => 'staging',
       ],
-      'config_sync_directory' => __DIR__ . '/../config/sync',
-    ];
+      // Clear frontend URL to use the default (https://www.va.gov).
+      'va_gov_frontend_url' => NULL,
+    ]);
     $this->settings = new Settings($this->config);
   }
 
@@ -87,7 +90,11 @@ class VaGovUrlServiceTest extends VaGovExistingSiteBase {
    */
   public function testOverrideVaGovFrontEndUrl() {
     $this->mockClient();
-    $this->config = ['va_gov_frontend_url' => 'https://other.va.gov'];
+    // Merge test-specific settings with existing settings to preserve
+    // system-required values like config_sync_directory.
+    $this->config = array_merge(Settings::getAll(), [
+      'va_gov_frontend_url' => 'https://other.va.gov',
+    ]);
     $this->settings = new Settings($this->config);
     $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings, $this->container->get('va_gov.build_trigger.environment_discovery'));
     $this->assertNotEquals('https://www.va.gov', $vaGovUrl->getVaGovFrontEndUrl());
