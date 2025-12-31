@@ -206,6 +206,87 @@ class JsonApiRequestTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Test that node entity links get trailing slashes.
+   *
+   * VA.gov canonical URLs use trailing slashes. When a link field references
+   * a node using entity:node/XXX, the resolved URL should have a trailing slash.
+   *
+   * @group services
+   * @group all
+   */
+  public function testNodeEntityLinksHaveTrailingSlash() {
+    // Create a node to link to.
+    $node = $this->createNode([
+      'type' => 'page',
+      'title' => 'Test Page for Trailing Slash',
+      'status' => 1,
+      'moderation_state' => 'published',
+    ]);
+    $node->save();
+
+    // Create a paragraph with a link to the node using entity:node/XXX format.
+    $paragraph = Paragraph::create([
+      'type' => 'link_teaser',
+      'field_link' => [
+        'uri' => 'entity:node/' . $node->id(),
+        'title' => 'Link to Test Page',
+        'options' => [],
+      ],
+      'field_link_summary' => 'A test link summary.',
+    ]);
+    $paragraph->save();
+
+    // Get the JSON:API response for the paragraph.
+    $uuid = $paragraph->uuid();
+    $json_string = $this->getBodyFromPath("/jsonapi/paragraph/link_teaser/$uuid", $this->userInfo);
+    $paragraphData = json_decode($json_string, TRUE);
+
+    // Assert that the URL ends with a trailing slash.
+    $url = $paragraphData['data']['attributes']['field_link']['url'];
+    $this->assertStringEndsWith('/', $url, 'Node entity link URL should end with a trailing slash');
+  }
+
+  /**
+   * Test that non-node entity links do NOT get trailing slashes.
+   *
+   * To be conservative, we only add trailing slashes to entity:node/ URIs.
+   * Other internal URIs should remain unchanged.
+   *
+   * @group services
+   * @group all
+   */
+  public function testInternalLinksDoNotGetTrailingSlash() {
+    // Create a paragraph with an internal link (not entity:node/).
+    $paragraph = Paragraph::create([
+      'type' => 'react_widget',
+      'field_cta_widget' => FALSE,
+      'field_default_link' => [
+        'uri' => 'internal:/pension/application/527EZ',
+        'title' => 'Apply for Veterans Pension Benefits',
+        'options' => [],
+      ],
+      'field_error_message' => [
+        'value' => 'Error message',
+        'format' => 'rich_text',
+      ],
+      'field_loading_message' => 'Loading.',
+      'field_timeout' => 20,
+      'field_widget_type' => 'health-care-app-status',
+    ]);
+    $paragraph->save();
+
+    // Get the JSON:API response for the paragraph.
+    $uuid = $paragraph->uuid();
+    $json_string = $this->getBodyFromPath("/jsonapi/paragraph/react_widget/$uuid", $this->userInfo);
+    $paragraphData = json_decode($json_string, TRUE);
+
+    // Assert that the URL does NOT end with a trailing slash.
+    // (internal: URIs are not modified by our patch)
+    $url = $paragraphData['data']['attributes']['field_default_link']['url'];
+    $this->assertStringEndsWith('527EZ', $url, 'Internal link URL should NOT have a trailing slash added');
+  }
+
+  /**
    * Helper function to retrieve JSON:API response from a path.
    */
   public function getBodyFromPath(string $path, array $user): string {
