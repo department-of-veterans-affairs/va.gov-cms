@@ -35,10 +35,6 @@ source:
   ids:
     id:
       type: string
-  # Define any constants that are needed to pass in as data.
-  constants:
-    # Vet Centers section is Term ID 190.
-    vet_centers_tid: 190
   # All the fields that are used from the source.
   fields:
     -
@@ -181,7 +177,7 @@ process:
   field_timezone: time_zone
   field_administration:
     plugin: default_value
-    default_value: constants/vet_centers_tid
+    default_value: 190
   langcode:
     plugin: default_value
     default_value: en
