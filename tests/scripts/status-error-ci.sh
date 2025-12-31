@@ -8,7 +8,7 @@ pushd "${repo_root}" > /dev/null
 
 : "${GITHUB_COMMENT_TYPE:=unset}"
 # TODO Remove 'php' from ignore list after PHP upgrade.
-result="$(drush core-requirements --ignore='update_core,update_contrib,coverage_core,\"update status\"' --severity=2 --format=json | jq '. | length')"
+result="$(drush core-requirements --ignore='php,update_core,update_contrib,coverage_core,\"update status\"' --severity=2 --format=json | jq '. | length')"
 exit_code="${result}"
 if [ "${exit_code}" -ne 0 ]; then
   if [ "${GITHUB_COMMENT_TYPE}" == "pr" ]; then
