@@ -123,6 +123,7 @@ class RsRecordsToTopicsMigration extends BaseRsTagMigration {
       // Add "Records" to existing paragraphs.
       $updated = FALSE;
       foreach ($field as $delta => $field_item) {
+        /** @var \Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem $field_item */
         $paragraph = $field_item->entity;
         if (!$paragraph instanceof ParagraphInterface || !$paragraph->hasField(self::TOPICS_FIELD)) {
           continue;

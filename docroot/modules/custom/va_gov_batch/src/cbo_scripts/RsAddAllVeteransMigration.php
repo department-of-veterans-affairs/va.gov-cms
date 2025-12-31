@@ -112,6 +112,7 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
     // Work directly with the node's field items instead of extracting
     // paragraphs.
     foreach ($field as $delta => $field_item) {
+      /** @var \Drupal\entity_reference_revisions\Plugin\Field\FieldType\EntityReferenceRevisionsItem $field_item */
       $paragraph = $field_item->entity;
       if (!$paragraph instanceof ParagraphInterface || !$paragraph->hasField(self::AUDIENCE_FIELD)) {
         continue;
