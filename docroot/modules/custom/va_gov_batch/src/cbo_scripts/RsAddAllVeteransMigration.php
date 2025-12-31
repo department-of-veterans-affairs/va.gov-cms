@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\node\Entity\Node;
+use Drupal\paragraphs\ParagraphInterface;
 use Drupal\taxonomy\TermInterface;
 use Drupal\va_gov_resources_and_support\Service\RsTagMigrationService;
 
@@ -87,6 +88,12 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+   * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
    */
   protected function processNode(
     Node $node,
@@ -98,12 +105,15 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
       return "Node {$node_info['nid']} ({$node_info['title']}): No Audience & Topics field.";
     }
 
-    $paragraphs = $this->getParagraphs($node, self::AUDIENCE_TOPICS_FIELD);
+    $field = $node->get(self::AUDIENCE_TOPICS_FIELD);
     $updated = FALSE;
     $terms_added = 0;
 
-    foreach ($paragraphs as $paragraph) {
-      if (!$paragraph->hasField(self::AUDIENCE_FIELD)) {
+    // Work directly with the node's field items instead of extracting
+    // paragraphs.
+    foreach ($field as $delta => $field_item) {
+      $paragraph = $field_item->entity;
+      if (!$paragraph instanceof ParagraphInterface || !$paragraph->hasField(self::AUDIENCE_FIELD)) {
         continue;
       }
 
@@ -138,6 +148,9 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
 
         if ($all_veterans_term) {
           if ($this->addTermToParagraphField($paragraph, self::AUDIENCE_FIELD, $all_veterans_term)) {
+            // Update the node's field reference to point to the new paragraph
+            // revision.
+            $this->updateParagraphFieldRevision($node, self::AUDIENCE_TOPICS_FIELD, $delta, $paragraph);
             $updated = TRUE;
             $terms_added++;
           }

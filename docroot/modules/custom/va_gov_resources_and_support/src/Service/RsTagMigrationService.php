@@ -146,9 +146,6 @@ class RsTagMigrationService {
       }
     }
 
-    // For views-based handlers, we need to check the view configuration.
-    // This is a simplified approach - in practice, you might need to
-    // load the view and check its configuration.
     return NULL;
   }
 

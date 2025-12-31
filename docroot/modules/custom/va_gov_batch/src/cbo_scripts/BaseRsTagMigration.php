@@ -269,6 +269,9 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *
    * @return array
    *   Array with 'success' => bool, 'message' => string, 'terms_count' => int.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function mapTermsBetweenFields(
     Node $node,
@@ -401,6 +404,10 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
   /**
    * Add a term to a paragraph field if it doesn't already exist.
    *
+   * This method modifies the paragraph and saves it (creating a new revision).
+   * The caller is responsible for updating the parent node's field reference
+   * to point to the new revision before saving the node.
+   *
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   The paragraph.
    * @param string $field_name
@@ -428,9 +435,44 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
     $field_values = $paragraph->get($field_name)->getValue();
     $field_values[] = ['target_id' => $term->id()];
     $paragraph->set($field_name, $field_values);
+
+    // Save the paragraph to persist changes and create a new revision.
     $paragraph->save();
 
     return TRUE;
+  }
+
+  /**
+   * Update a node's paragraph field to reference a paragraph's new revision.
+   *
+   * @param \Drupal\node\Entity\Node $node
+   *   The node.
+   * @param string $field_name
+   *   The paragraph field name on the node.
+   * @param int $delta
+   *   The delta (index) of the field item to update.
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph whose new revision should be referenced.
+   *
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+   * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
+   */
+  protected function updateParagraphFieldRevision(
+    Node $node,
+    string $field_name,
+    int $delta,
+    ParagraphInterface $paragraph,
+  ): void {
+    if (!$node->hasField($field_name)) {
+      return;
+    }
+
+    $field = $node->get($field_name);
+    $field_item = $field->get($delta);
+    $field_item->setValue([
+      'target_id' => $paragraph->id(),
+      'target_revision_id' => $paragraph->getRevisionId(),
+    ]);
   }
 
   /**
@@ -443,6 +485,8 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *
    * @return \Drupal\paragraphs\ParagraphInterface
    *   The created paragraph.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function createAudienceTopicsParagraph(
     string $paragraph_type,

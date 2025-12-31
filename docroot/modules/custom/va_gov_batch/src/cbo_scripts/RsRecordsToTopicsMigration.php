@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\node\Entity\Node;
+use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_resources_and_support\Service\RsTagMigrationService;
 
 /**
@@ -71,6 +72,12 @@ class RsRecordsToTopicsMigration extends BaseRsTagMigration {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+   * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
    */
   protected function processNode(
     Node $node,
@@ -103,8 +110,9 @@ class RsRecordsToTopicsMigration extends BaseRsTagMigration {
       return "Node {$node_info['nid']} ({$node_info['title']}): No Audience & Topics field.";
     }
 
-    $paragraphs = $this->getParagraphs($node, self::AUDIENCE_TOPICS_FIELD);
-    if (empty($paragraphs)) {
+    $field = $node->get(self::AUDIENCE_TOPICS_FIELD);
+
+    if ($field->isEmpty()) {
       // Create a new Audience & Topics paragraph if none exists.
       $paragraph = $this->createAudienceTopicsParagraph('audience_topics', [
         self::TOPICS_FIELD => [['target_id' => $records_topic_term->id()]],
@@ -114,12 +122,16 @@ class RsRecordsToTopicsMigration extends BaseRsTagMigration {
     else {
       // Add "Records" to existing paragraphs.
       $updated = FALSE;
-      foreach ($paragraphs as $paragraph) {
-        if (!$paragraph->hasField(self::TOPICS_FIELD)) {
+      foreach ($field as $delta => $field_item) {
+        $paragraph = $field_item->entity;
+        if (!$paragraph instanceof ParagraphInterface || !$paragraph->hasField(self::TOPICS_FIELD)) {
           continue;
         }
 
         if ($this->addTermToParagraphField($paragraph, self::TOPICS_FIELD, $records_topic_term)) {
+          // Update the node's field reference to point to the new paragraph
+          // revision.
+          $this->updateParagraphFieldRevision($node, self::AUDIENCE_TOPICS_FIELD, $delta, $paragraph);
           $updated = TRUE;
         }
       }
