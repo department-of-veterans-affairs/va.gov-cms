@@ -39,7 +39,9 @@ class MetricsTest extends VaGovExistingSiteBase {
    */
   protected function protectedMethodTest($method, $settings_values, $expected_result) {
     $metrics_collector_manager = $this->createMock(MetricsCollectorManager::class);
-    $settings = new Settings($settings_values);
+    // Merge test-specific settings with existing settings to preserve
+    // system-required values like config_sync_directory.
+    $settings = new Settings(array_merge(Settings::getAll(), $settings_values));
     $datadog = $this->createMock(Datadog::class);
 
     $metrics = new Metrics($metrics_collector_manager, $settings, $datadog);
@@ -57,7 +59,11 @@ class MetricsTest extends VaGovExistingSiteBase {
   public function getEnvironmentDataProvider() {
     return [
       'Nothing configured' => [
-        [],
+        [
+          // Explicitly clear settings that affect getEnvironment.
+          'va_gov_frontend_build_type' => NULL,
+          'github_actions_deploy_env' => NULL,
+        ],
         "unknown",
       ],
       'BRD build type, but no deploy env' => [
@@ -101,7 +107,11 @@ class MetricsTest extends VaGovExistingSiteBase {
   public function shouldSendMetricsDataProvider() {
     return [
       'Nothing configured' => [
-        [],
+        [
+          // Explicitly clear settings that affect shouldSendMetrics.
+          'va_gov_frontend_build_type' => NULL,
+          'va_gov_force_sending_metrics' => NULL,
+        ],
         FALSE,
       ],
       'BRD environment' => [
