@@ -1,5 +1,5 @@
---- a/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php	2025-12-31 14:01:57
-+++ b/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php	2025-12-31 14:02:15
+--- a/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php	2026-01-02 12:24:25
++++ b/src/Plugin/jsonapi/FieldEnhancer/UrlLinkEnhancer.php	2026-01-02 12:23:17
 @@ -107,15 +107,17 @@
    protected function doUndoTransform($data, Context $context) {
      if (isset($data['uri'])) {
@@ -21,7 +21,7 @@
        }
        catch (\Exception $e) {
          $this->logger->error('Failed to create a URL from uri @uri. Error: @error', [
-@@ -129,6 +131,39 @@
+@@ -129,6 +131,86 @@
    }
  
    /**
@@ -49,12 +49,59 @@
 +      return $url;
 +    }
 +
-+    // Skip if URL already ends with a slash.
-+    if (str_ends_with($url, '/')) {
++    // Parse the URL so we can safely modify only the path component.
++    $parts = parse_url($url);
++    if ($parts === FALSE || !isset($parts['path'])) {
++      // If parsing fails or there is no path, leave the URL unchanged.
 +      return $url;
 +    }
 +
-+    return $url . '/';
++    // If the path already ends with a slash, do nothing.
++    if (str_ends_with($parts['path'], '/')) {
++      return $url;
++    }
++
++    // Add a trailing slash to the path only.
++    $parts['path'] = $parts['path'] . '/';
++
++    // Rebuild the URL from its components, preserving query and fragment.
++    $rebuilt = '';
++
++    if (isset($parts['scheme'])) {
++      $rebuilt .= $parts['scheme'] . '://';
++    }
++
++    if (isset($parts['user'])) {
++      $rebuilt .= $parts['user'];
++      if (isset($parts['pass'])) {
++        $rebuilt .= ':' . $parts['pass'];
++      }
++      $rebuilt .= '@';
++    }
++
++    if (isset($parts['host'])) {
++      $rebuilt .= $parts['host'];
++    }
++
++    if (isset($parts['port'])) {
++      $rebuilt .= ':' . $parts['port'];
++    }
++
++    if (isset($parts['path'])) {
++      $rebuilt .= $parts['path'];
++    }
++
++    if (isset($parts['query'])) {
++      $rebuilt .= '?' . $parts['query'];
++    }
++
++    if (isset($parts['fragment'])) {
++      $rebuilt .= '#' . $parts['fragment'];
++    }
++
++    // Fallback to the original URL if reconstruction somehow yields an
++    // empty string.
++    return $rebuilt !== '' ? $rebuilt : $url;
 +  }
 +
 +  /**
