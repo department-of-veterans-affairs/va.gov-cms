@@ -69,6 +69,7 @@ class MetricsTest extends VaGovExistingSiteBase {
       'BRD build type, but no deploy env' => [
         [
           "va_gov_frontend_build_type" => "brd",
+          "github_actions_deploy_env" => NULL,
         ],
         "unknown",
       ],
