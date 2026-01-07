@@ -2,6 +2,7 @@
 
 namespace Tests\Migration;
 
+use Drupal\node\Entity\Node;
 use Tests\Support\Classes\VaGovExistingSiteBase;
 use Tests\Support\Entity\Storage as EntityStorage;
 use Tests\Support\Migration\Migrator;
@@ -29,10 +30,11 @@ class VaVetCentersFacilityMigrationTest extends VaGovExistingSiteBase {
       'field_facility_locator_api_id' => 'vc_0000Z',
       'field_official_name' => 'Test Vet Center Facility',
     ];
-    $entities = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties($conditions);
+    $entities = EntityStorage::getMatchingEntities('node', $bundle, $conditions);
     $this->assertCount(1, $entities);
 
-    $node = reset($entities);
+    $nid = reset($entities);
+    $node = Node::load($nid);
     $term_ref = $node->get('field_administration')->getValue();
     $this->assertEquals([['target_id' => 190]], $term_ref);
 

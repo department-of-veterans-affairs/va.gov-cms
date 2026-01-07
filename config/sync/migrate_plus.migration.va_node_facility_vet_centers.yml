@@ -1,4 +1,5 @@
-# Migration meta data.
+uuid: 0099e8f7-4307-4db2-98fe-caa8ecc1e990
+langcode: en
 status: true
 dependencies:
   enforced:
@@ -14,7 +15,6 @@ migration_tags:
   - Node
 migration_group: facility
 label: 'Node - Vet Centers Facility'
-# Defines the source of the migration.
 source:
   track_changes: true
   cache_counts: true
@@ -22,20 +22,16 @@ source:
   data_fetcher_plugin: http
   data_parser_plugin: json
   urls:
-    # This gets overridden in settings.php.
     - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000'
     - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=2'
     - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=3'
   headers:
     Accept: application/json
     apikey: 'DEFINED IN settings.php'
-  # This is the main data wrapper in the JSON.
   item_selector: data/
-  # The unique identifiers that are used to map the source to the destination.
   ids:
     id:
       type: string
-  # All the fields that are used from the source.
   fields:
     -
       name: facility_type
@@ -97,10 +93,7 @@ source:
       name: time_zone
       label: time_zone
       selector: attributes/timeZone
-# The destination fields mapped and processed from source fields.
 process:
-  # We have no destination of facility type, but we need to skip the migration
-  # if it is not a va_health_facility
   non_field1:
     plugin: skip_on_value
     not_equals: true
@@ -108,7 +101,6 @@ process:
     method: row
     value:
       - vet_center
-  # Exclusion of MVC, OS and CAP if substring found in source id.
   non_field2:
     plugin: skip_on_substr
     case_sensitive: false
@@ -138,7 +130,6 @@ process:
     plugin: callback
     callable: trim
     source: address1
-  # We have two lines that have to become one.
   field_address/address_line2:
     -
       plugin: get
@@ -146,7 +137,6 @@ process:
         - address2
         - address3
     -
-      # This gets rid of any empty elements.
       plugin: callback
       callable: array_filter
     -
@@ -166,10 +156,27 @@ process:
       - latitude
       - longitude
   field_phone_number:
-    # Covert all ext variants to x and then replace it with, ', ext. ' last.
     plugin: str_replace
-    search: ['(', ')', 'X', ' ', 'ext', 'Ext', '.', ',', 'x']
-    replace: ['', '-', 'x', '', 'x', 'x', '', '', ', ext. ']
+    search:
+      - (
+      - )
+      - X
+      - ' '
+      - ext
+      - Ext
+      - .
+      - ','
+      - x
+    replace:
+      - ''
+      - '-'
+      - x
+      - ''
+      - x
+      - x
+      - ''
+      - ''
+      - ', ext. ']
     source: phone-main
   field_office_hours:
     plugin: va_field_office_hours
@@ -181,7 +188,6 @@ process:
   langcode:
     plugin: default_value
     default_value: en
-  # Bring these in as unpublished.
   status:
     plugin: default_value
     default_value: 0
@@ -194,7 +200,6 @@ process:
   path/pathauto:
     plugin: default_value
     default_value: 1
-  # Bring these in as unpublished.
   published_status:
     plugin: default_value
     default_value: 0
@@ -212,7 +217,7 @@ process:
     default_value: true
   revision_log:
     plugin: default_value
-    default_value: "Update of Facility API data by migration."
+    default_value: 'Update of Facility API data by migration.'
   revision_timestamp:
     plugin: callback
     callable: va_gov_migrate_time
@@ -225,20 +230,18 @@ process:
   type:
     plugin: default_value
     default_value: vet_center
-# Sets the destination for the migration.
 destination:
   plugin: 'entity:node'
   default_bundle: vet_center
-  # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
     - changed
-    - 'field_address/address_line1'
-    - 'field_address/address_line2'
-    - 'field_address/administrative_area'
-    - 'field_address/country_code'
-    - 'field_address/locality'
-    - 'field_address/postal_code'
-    - 'field_geolocation'
+    - field_address/address_line1
+    - field_address/address_line2
+    - field_address/administrative_area
+    - field_address/country_code
+    - field_address/locality
+    - field_address/postal_code
+    - field_geolocation
     - field_administration
     - field_office_hours
     - field_timezone
@@ -250,6 +253,5 @@ destination:
     - revision_timestamp
     - revision_uid
     - uid
-# Dependency on other migrations.
 migration_dependencies:
   required: {  }
