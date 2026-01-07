@@ -242,7 +242,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
               $query->execute();
             }
             $title = method_exists($entity, 'getTitle') ? $entity->getTitle() : '';
-            $message = 'Updated ' . $entity->bundle() . ' node #' . $entity->id() . ' - "' . $title . '" value #' . $key . ' with new paragraph (was ' . $pid . ', now ' . $clone->id() . ').';
+            $message = 'Updated ' . $entity->bundle() . ' ' . $entity_type . ' #' . $entity->id() . ' - "' . $title . '" value #' . $key . ' with new paragraph (was ' . $pid . ', now ' . $clone->id() . ').';
             $this->batchOpLog->appendLog($message);
             $replace_count++;
             break;
