@@ -237,7 +237,7 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    * @param int $nid
    *   The node ID.
    *
-   * @return \Drupal\node\NodeInterface|null
+   * @return \Drupal\node\Entity\Node|null
    *   The default revision of that node, or NULL if not found.
    */
   protected function loadNode(int $nid): ?Node {
@@ -403,9 +403,6 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *
    * @return array
    *   Array with 'success' => bool, 'message' => string, 'terms_count' => int.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function mapTermsBetweenFields(
     Node $node,
