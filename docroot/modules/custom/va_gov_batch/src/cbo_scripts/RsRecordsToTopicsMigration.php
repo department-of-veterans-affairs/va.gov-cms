@@ -4,7 +4,6 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\ParagraphInterface;
-use Drupal\va_gov_resources_and_support\Service\RsTagMigrationService;
 
 /**
  * Migration: Add "Records" in Topics when "Records" exists in R&S Categories.
@@ -72,35 +71,6 @@ class RsRecordsToTopicsMigration extends BaseRsTagMigration {
 
   /**
    * {@inheritdoc}
-   */
-  protected function getFieldValidations(): array {
-    $validations = [];
-
-    // Validate Primary Category field on R&S content types.
-    // Note: We validate for the first content type as a representative check.
-    // All R&S content types should have the same field configuration.
-    $validations[] = [
-      'entity_type' => 'node',
-      'bundle' => self::RS_CONTENT_TYPES[0],
-      'field_name' => self::PRIMARY_CATEGORY_FIELD,
-      'expected_vocabulary' => self::RS_CATEGORIES_VOCABULARY,
-      'field_label' => 'Primary Category',
-    ];
-
-    // Validate Topics field on audience_topics paragraph type.
-    $validations[] = [
-      'entity_type' => 'paragraph',
-      'bundle' => 'audience_topics',
-      'field_name' => self::TOPICS_FIELD,
-      'expected_vocabulary' => self::TOPICS_VOCABULARY,
-      'field_label' => 'Topics (paragraph field)',
-    ];
-
-    return $validations;
-  }
-
-  /**
-   * {@inheritdoc}
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
@@ -108,35 +78,23 @@ class RsRecordsToTopicsMigration extends BaseRsTagMigration {
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
    */
-  protected function processNode(
-    Node $node,
-    array $node_info,
-    RsTagMigrationService $migration_service,
-    array &$sandbox,
-  ): string {
+  protected function processNode(Node $node, array &$sandbox): string {
     // Check if node has "Records" in primary category.
     if (!$this->termExistsInField($node, self::PRIMARY_CATEGORY_FIELD, self::RS_CATEGORIES_VOCABULARY, self::RECORDS_TERM)) {
-      return "Node {$node_info['nid']} ({$node_info['title']}): No \"Records\" term in R&S Categories.";
+      return sprintf('Node %d (%s): No "Records" term in R&S Categories.', $node->id(), $node->getTitle());
     }
 
     // Find "Records" term in Topics taxonomy.
-    $records_topic_term = $migration_service->findTermByName(
-      self::TOPICS_VOCABULARY,
-      self::RECORDS_TERM
-    );
+    $records_topic_term = find_term_by_name(self::TOPICS_VOCABULARY, self::RECORDS_TERM);
 
     if (!$records_topic_term) {
-      $migration_service->logWarning('Term "@term" not found in vocabulary @vocab for node @nid', [
-        '@term' => self::RECORDS_TERM,
-        '@vocab' => self::TOPICS_VOCABULARY,
-        '@nid' => $node_info['nid'],
-      ]);
-      return "Node {$node_info['nid']} ({$node_info['title']}): \"Records\" term not found in Topics taxonomy.";
+      $this->batchOpLog->appendLog(sprintf('Term "%s" not found in vocabulary %s for node %d', self::RECORDS_TERM, self::TOPICS_VOCABULARY, $node->id()));
+      return sprintf('Node %d (%s): "Records" term not found in Topics taxonomy.', $node->id(), $node->getTitle());
     }
 
     // Check if node has Audience & Topics paragraphs.
     if (!$node->hasField(self::AUDIENCE_TOPICS_FIELD)) {
-      return "Node {$node_info['nid']} ({$node_info['title']}): No Audience & Topics field.";
+      return sprintf('Node %d (%s): No Audience & Topics field.', $node->id(), $node->getTitle());
     }
 
     $field = $node->get(self::AUDIENCE_TOPICS_FIELD);
@@ -167,7 +125,7 @@ class RsRecordsToTopicsMigration extends BaseRsTagMigration {
       }
 
       if (!$updated) {
-        return "Node {$node_info['nid']} ({$node_info['title']}): \"Records\" already present in Topics.";
+        return sprintf('Node %d (%s): "Records" already present in Topics.', $node->id(), $node->getTitle());
       }
     }
 
@@ -177,7 +135,7 @@ class RsRecordsToTopicsMigration extends BaseRsTagMigration {
     );
     $this->saveNodeRevision($node, $log_message);
 
-    return $this->logSuccess($node_info['nid'], $node_info['title'], 'Successfully added "Records" to Topics.');
+    return $this->logSuccess($node->id(), $node->getTitle(), 'Successfully added "Records" to Topics.');
   }
 
 }

@@ -6,12 +6,12 @@ require_once __DIR__ . '/../../../../../../scripts/content/script-library.php';
 
 use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\taxonomy\TermInterface;
-use Drupal\va_gov_resources_and_support\Service\RsTagMigrationService;
 
 /**
  * Base class for R&S tag migration scripts.
@@ -64,13 +64,171 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
   const AUDIENCE_TOPICS_FIELD = 'field_audience_topics';
 
   /**
-   * Get the migration service.
+   * Get field definition for a content type.
    *
-   * @return \Drupal\va_gov_resources_and_support\Service\RsTagMigrationService
-   *   The migration service.
+   * @param string $entity_type
+   *   The entity type (e.g., 'node').
+   * @param string $bundle
+   *   The bundle (content type).
+   * @param string $field_name
+   *   The field name.
+   *
+   * @return \Drupal\Core\Field\FieldDefinitionInterface|null
+   *   The field definition or NULL if not found.
    */
-  protected function getMigrationService(): RsTagMigrationService {
-    return \Drupal::service('va_gov_resources_and_support.rs_tag_migration');
+  protected function getFieldDefinition(string $entity_type, string $bundle, string $field_name): ?FieldDefinitionInterface {
+    $field_definitions = $this->entityFieldManager->getFieldDefinitions($entity_type, $bundle);
+    return $field_definitions[$field_name] ?? NULL;
+  }
+
+  /**
+   * Get field cardinality.
+   *
+   * @param string $entity_type
+   *   The entity type.
+   * @param string $bundle
+   *   The bundle.
+   * @param string $field_name
+   *   The field name.
+   *
+   * @return int
+   *   The field cardinality (-1 for unlimited).
+   */
+  protected function getFieldCardinality(string $entity_type, string $bundle, string $field_name): int {
+    $field_definition = $this->getFieldDefinition($entity_type, $bundle, $field_name);
+    if ($field_definition) {
+      return $field_definition->getFieldStorageDefinition()->getCardinality();
+    }
+    return 1;
+  }
+
+  /**
+   * Get taxonomy vocabulary ID from a field.
+   *
+   * When multiple vocabularies are configured, only the first vocabulary
+   * is returned. A warning is logged to indicate this behavior.
+   *
+   * @param string $entity_type
+   *   The entity type.
+   * @param string $bundle
+   *   The bundle.
+   * @param string $field_name
+   *   The field name.
+   *
+   * @return string|null
+   *   The vocabulary ID or NULL if not found. When multiple vocabularies
+   *   are configured, returns the first vocabulary ID.
+   */
+  protected function getFieldTaxonomyVocabulary(string $entity_type, string $bundle, string $field_name): ?string {
+    $field_definition = $this->getFieldDefinition($entity_type, $bundle, $field_name);
+    if (!$field_definition) {
+      return NULL;
+    }
+
+    $settings = $field_definition->getSettings();
+    if (isset($settings['handler_settings']['target_bundles'])) {
+      $target_bundles = $settings['handler_settings']['target_bundles'];
+      $target_bundles_count = count($target_bundles);
+
+      if ($target_bundles_count === 1) {
+        return reset($target_bundles);
+      }
+      elseif ($target_bundles_count > 1) {
+        // Multiple vocabularies configured - return first and log warning.
+        $first_vocabulary = reset($target_bundles);
+        $all_vocabularies = implode(', ', $target_bundles);
+        $this->batchOpLog->appendLog(sprintf('Field %s on %s:%s has multiple target vocabularies (%s). Returning only the first: %s', $field_name, $entity_type, $bundle, $all_vocabularies, $first_vocabulary));
+        return $first_vocabulary;
+      }
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Add terms to a node field (additive, not overwriting).
+   *
+   * @param \Drupal\node\Entity\Node $node
+   *   The node.
+   * @param string $field_name
+   *   The field name.
+   * @param \Drupal\taxonomy\TermInterface[] $terms_to_add
+   *   Terms to add.
+   *
+   * @return bool
+   *   TRUE if terms were added, FALSE otherwise.
+   */
+  protected function addTermsToNodeField(Node $node, string $field_name, array $terms_to_add): bool {
+    if (!$node->hasField($field_name)) {
+      $this->batchOpLog->appendError(sprintf('Field %s does not exist on node %d', $field_name, $node->id()));
+      return FALSE;
+    }
+
+    $existing_terms = get_node_field_terms($node, $field_name);
+    $existing_tids = array_map(function (TermInterface $term) {
+      return $term->id();
+    }, $existing_terms);
+
+    $new_terms = [];
+    foreach ($terms_to_add as $term) {
+      if (!in_array($term->id(), $existing_tids)) {
+        $new_terms[] = $term;
+      }
+    }
+
+    if (empty($new_terms)) {
+      return FALSE;
+    }
+
+    // Get cardinality limit.
+    $cardinality = $this->getFieldCardinality('node', $node->bundle(), $field_name);
+    $existing_count = count($existing_terms);
+
+    // Calculate how many new terms can fit.
+    $terms_to_add_count = count($new_terms);
+    $terms_added = [];
+    $terms_excluded = [];
+
+    if ($cardinality > 0) {
+      $available_slots = $cardinality - $existing_count;
+      if ($available_slots <= 0) {
+        // No room for new terms.
+        $terms_excluded = $new_terms;
+        $excluded_terms_list = implode(', ', array_map(function (TermInterface $term) {
+          return $term->getName();
+        }, $terms_excluded));
+        $this->batchOpLog->appendLog(sprintf('Field %s on node %d is at cardinality limit (%d). Cannot add %d new term(s). Excluded terms: %s', $field_name, $node->id(), $cardinality, $terms_to_add_count, $excluded_terms_list));
+        return FALSE;
+      }
+
+      // Only add as many new terms as fit.
+      $terms_to_add_final = array_slice($new_terms, 0, $available_slots);
+      $terms_added = $terms_to_add_final;
+      $terms_excluded = array_slice($new_terms, $available_slots);
+    }
+    else {
+      // Unlimited cardinality, add all terms.
+      $terms_added = $new_terms;
+    }
+
+    // Get current field values and add the terms that fit.
+    $field_values = $node->get($field_name)->getValue();
+    foreach ($terms_added as $term) {
+      $field_values[] = ['target_id' => $term->id()];
+    }
+
+    // Log warning if some terms were excluded.
+    if (!empty($terms_excluded)) {
+      $excluded_terms_list = implode(', ', array_map(function (TermInterface $term) {
+        return $term->getName();
+      }, $terms_excluded));
+      $added_count = count($terms_added);
+      $excluded_count = count($terms_excluded);
+      $this->batchOpLog->appendLog(sprintf('Field %s on node %d: Added %d of %d new term(s) due to cardinality limit (%d). Excluded %d term(s): %s', $field_name, $node->id(), $added_count, $terms_to_add_count, $cardinality, $excluded_count, $excluded_terms_list));
+    }
+
+    $node->set($field_name, $field_values);
+    return TRUE;
   }
 
   /**
@@ -79,27 +237,11 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    * @param int $nid
    *   The node ID.
    *
-   * @return \Drupal\node\Entity\Node|null
-   *   The loaded node (default revision), or NULL if not found.
+   * @return \Drupal\node\NodeInterface|null
+   *   The default revision of that node, or NULL if not found.
    */
   protected function loadNode(int $nid): ?Node {
     return get_node_at_default_revision($nid);
-  }
-
-  /**
-   * Get node ID and title for logging.
-   *
-   * @param \Drupal\node\Entity\Node $node
-   *   The node.
-   *
-   * @return array
-   *   Array with 'nid' and 'title' keys.
-   */
-  protected function getNodeInfo(Node $node): array {
-    return [
-      'nid' => $node->id(),
-      'title' => $node->getTitle(),
-    ];
   }
 
   /**
@@ -121,9 +263,9 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *   Error message string.
    */
   protected function handleProcessingError(mixed $item, \Exception $e): string {
-    $message = "Error processing node ID $item: " . $e->getMessage();
+    $message = sprintf('Error processing node ID %s: %s', $item, $e->getMessage());
     $this->batchOpLog->appendError($message);
-    return "Error processing node $item.";
+    return sprintf('Error processing node %s.', $item);
   }
 
   /**
@@ -132,14 +274,14 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    * @param mixed $item
    *   The item being processed (usually node ID).
    * @param \Drupal\node\Entity\Node|null $node
-   *   The loaded node.
+   *   The loaded node or NULL if not found.
    *
    * @return string|null
    *   Error message if node not found, NULL otherwise.
    */
   protected function checkNodeExists(mixed $item, ?Node $node): ?string {
     if (!$node) {
-      return "Node $item not found, skipped.";
+      return sprintf('Node %s not found, skipped.', $item);
     }
     return NULL;
   }
@@ -158,7 +300,6 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *   Array of node IDs.
    */
   protected function gatherNodesByType(string|array $content_types, ?string $field_name = NULL, string $error_context = 'nodes'): array {
-    $items = [];
     try {
       $query = $this->entityTypeManager->getStorage('node')
         ->getQuery()
@@ -169,18 +310,13 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
         $query->condition($field_name, NULL, 'IS NOT NULL');
       }
 
-      $nids = $query->execute();
-
-      foreach ($nids as $nid) {
-        $items[] = $nid;
-      }
+      return $query->execute();
     }
     catch (\Exception $e) {
-      $message = "Error gathering $error_context: " . $e->getMessage();
+      $message = sprintf('Error gathering %s: %s', $error_context, $e->getMessage());
       $this->batchOpLog->appendError($message);
+      return [];
     }
-
-    return $items;
   }
 
   /**
@@ -197,9 +333,9 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *   Formatted success message.
    */
   protected function logSuccess(int $nid, string $node_title, string $success_message): string {
-    $message = "Node $nid ($node_title): $success_message";
+    $message = sprintf('Node %d (%s): %s', $nid, $node_title, $success_message);
     $this->batchOpLog->appendLog($message);
-    return "Node $nid processed successfully.";
+    return sprintf('Node %d processed successfully.', $nid);
   }
 
   /**
@@ -213,23 +349,20 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
         return $error;
       }
 
-      $node_info = $this->getNodeInfo($node);
-      $migration_service = $this->getMigrationService();
-
       // Check for forward revision BEFORE processing, because after save the
       // current node will always be the latest revision. If we don't update
       // forward revisions, they will overwrite our changes when published.
       $forward_revision = get_forward_revision($node);
 
       // Process the default revision.
-      $result = $this->processNode($node, $node_info, $migration_service, $sandbox);
+      $result = $this->processNode($node, $sandbox);
       $status_msg = $result;
 
-      // If there's a forward revision, process it with the same migration logic.
-      // This ensures that when the draft is published, it includes our changes.
+      // If there's a forward revision, process it with the same migration
+      // logic. This ensures that when the draft is published, it includes
+      // our changes.
       if ($forward_revision) {
-        $forward_node_info = $this->getNodeInfo($forward_revision);
-        $forward_result = $this->processNode($forward_revision, $forward_node_info, $migration_service, $sandbox);
+        $this->processNode($forward_revision, $sandbox);
         $sandbox['forward_revisions_count'] = (isset($sandbox['forward_revisions_count'])) ? ++$sandbox['forward_revisions_count'] : 1;
         $status_msg .= " Forward revision also updated.";
       }
@@ -246,30 +379,19 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *
    * @param \Drupal\node\Entity\Node $node
    *   The node to process.
-   * @param array $node_info
-   *   Node info array with 'nid' and 'title' keys.
-   * @param \Drupal\va_gov_resources_and_support\Service\RsTagMigrationService $migration_service
-   *   The migration service.
    * @param array $sandbox
    *   The sandbox array.
    *
    * @return string
    *   Result message.
    */
-  abstract protected function processNode(
-    Node $node,
-    array $node_info,
-    RsTagMigrationService $migration_service,
-    array &$sandbox
-  ): string;
+  abstract protected function processNode(Node $node, array &$sandbox): string;
 
   /**
    * Map terms from source field to destination field by name.
    *
    * @param \Drupal\node\Entity\Node $node
    *   The node.
-   * @param \Drupal\va_gov_resources_and_support\Service\RsTagMigrationService $migration_service
-   *   The migration service.
    * @param string $source_field
    *   Source field name.
    * @param string $source_vocabulary
@@ -278,8 +400,6 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *   Destination field name.
    * @param string $destination_vocabulary
    *   Destination vocabulary ID.
-   * @param array $node_info
-   *   Node info array with 'nid' and 'title' keys.
    *
    * @return array
    *   Array with 'success' => bool, 'message' => string, 'terms_count' => int.
@@ -289,19 +409,17 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    */
   protected function mapTermsBetweenFields(
     Node $node,
-    RsTagMigrationService $migration_service,
     string $source_field,
     string $source_vocabulary,
     string $destination_field,
     string $destination_vocabulary,
-    array $node_info,
   ): array {
     // Get source terms.
-    $source_terms = $migration_service->getNodeFieldTerms($node, $source_field);
+    $source_terms = get_node_field_terms($node, $source_field);
     if (empty($source_terms)) {
       return [
         'success' => FALSE,
-        'message' => "Node {$node_info['nid']} ({$node_info['title']}): No source terms found.",
+        'message' => sprintf('Node %d (%s): No source terms found.', $node->id(), $node->getTitle()),
         'terms_count' => 0,
       ];
     }
@@ -314,42 +432,31 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
       }
 
       $term_name = $source_term->getName();
-      $destination_term = $migration_service->findTermByName(
-        $destination_vocabulary,
-        $term_name
-      );
+      $destination_term = find_term_by_name($destination_vocabulary, $term_name);
 
       if ($destination_term) {
         $destination_terms[] = $destination_term;
       }
       else {
-        $migration_service->logWarning('Term "@term" not found in destination vocabulary @vocab for node @nid', [
-          '@term' => $term_name,
-          '@vocab' => $destination_vocabulary,
-          '@nid' => $node_info['nid'],
-        ]);
+        $this->batchOpLog->appendLog(sprintf('Term "%s" not found in destination vocabulary %s for node %d', $term_name, $destination_vocabulary, $node->id()));
       }
     }
 
     if (empty($destination_terms)) {
       return [
         'success' => FALSE,
-        'message' => "Node {$node_info['nid']} ({$node_info['title']}): No matching destination terms found.",
+        'message' => sprintf('Node %d (%s): No matching destination terms found.', $node->id(), $node->getTitle()),
         'terms_count' => 0,
       ];
     }
 
     // Add terms to destination field.
-    $added = $migration_service->addTermsToNodeField(
-      $node,
-      $destination_field,
-      $destination_terms
-    );
+    $added = $this->addTermsToNodeField($node, $destination_field, $destination_terms);
 
     if (!$added) {
       return [
         'success' => FALSE,
-        'message' => "Node {$node_info['nid']} ({$node_info['title']}): Failed to add terms to destination field.",
+        'message' => sprintf('Node %d (%s): Failed to add terms to destination field.', $node->id(), $node->getTitle()),
         'terms_count' => 0,
       ];
     }
@@ -538,13 +645,8 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    * @return bool
    *   TRUE if term exists, FALSE otherwise.
    */
-  protected function termExistsInField(
-    Node $node,
-    string $field_name,
-    string $vocabulary,
-    string $term_name,
-  ): bool {
-    $terms = $this->getMigrationService()->getNodeFieldTerms($node, $field_name);
+  protected function termExistsInField(Node $node, string $field_name, string $vocabulary, string $term_name): bool {
+    $terms = get_node_field_terms($node, $field_name);
     foreach ($terms as $term) {
       if ($term->bundle() === $vocabulary && $term->getName() === $term_name) {
         return TRUE;
@@ -572,150 +674,6 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
       }
     }
     return $filtered;
-  }
-
-  /**
-   * Validate that a field references the expected vocabulary.
-   *
-   * @param string $entity_type
-   *   The entity type (e.g., 'node' or 'paragraph').
-   * @param string $bundle
-   *   The bundle (content type or paragraph type).
-   * @param string $field_name
-   *   The field name.
-   * @param string $expected_vocabulary
-   *   The expected vocabulary ID.
-   * @param string $field_label
-   *   Optional label for the field (for error messages).
-   *
-   * @return bool
-   *   TRUE if validation passes, FALSE otherwise.
-   */
-  protected function validateFieldVocabulary(
-    string $entity_type,
-    string $bundle,
-    string $field_name,
-    string $expected_vocabulary,
-    string $field_label = '',
-  ): bool {
-    $migration_service = $this->getMigrationService();
-    $actual_vocabulary = $migration_service->getFieldTaxonomyVocabulary(
-      $entity_type,
-      $bundle,
-      $field_name
-    );
-
-    if ($actual_vocabulary === NULL) {
-      $label = $field_label ?: $field_name;
-      $message = sprintf(
-        'Validation failed: Field "%s" on %s:%s does not reference any taxonomy vocabulary.',
-        $label,
-        $entity_type,
-        $bundle
-      );
-      $this->batchOpLog->appendError($message);
-      $migration_service->logError($message);
-      return FALSE;
-    }
-
-    if ($actual_vocabulary !== $expected_vocabulary) {
-      $label = $field_label ?: $field_name;
-      $message = sprintf(
-        'Validation failed: Field "%s" on %s:%s references vocabulary "%s", but migration expects "%s".',
-        $label,
-        $entity_type,
-        $bundle,
-        $actual_vocabulary,
-        $expected_vocabulary
-      );
-      $this->batchOpLog->appendError($message);
-      $migration_service->logError($message);
-      return FALSE;
-    }
-
-    return TRUE;
-  }
-
-  /**
-   * Validate migration field configurations.
-   *
-   * Override this method in child classes to define which fields should be
-   * validated. Return an array of validation configurations, each containing:
-   * - 'entity_type': The entity type (e.g., 'node', 'paragraph')
-   * - 'bundle': The bundle name
-   * - 'field_name': The field name
-   * - 'expected_vocabulary': The expected vocabulary ID
-   * - 'field_label': Optional human-readable label for error messages
-   *
-   * @return array
-   *   Array of validation configurations. Each config should have keys:
-   *   entity_type, bundle, field_name, expected_vocabulary, field_label (optional).
-   */
-  protected function getFieldValidations(): array {
-    // Default: no validations. Child classes should override.
-    return [];
-  }
-
-  /**
-   * Run field vocabulary validations.
-   *
-   * @return bool
-   *   TRUE if all validations pass, FALSE otherwise.
-   */
-  protected function validateMigrationFields(): bool {
-    $validations = $this->getFieldValidations();
-    if (empty($validations)) {
-      // No validations defined, skip.
-      return TRUE;
-    }
-
-    $all_valid = TRUE;
-    foreach ($validations as $config) {
-      $entity_type = $config['entity_type'] ?? 'node';
-      $bundle = $config['bundle'] ?? '';
-      $field_name = $config['field_name'] ?? '';
-      $expected_vocabulary = $config['expected_vocabulary'] ?? '';
-      $field_label = $config['field_label'] ?? '';
-
-      if (empty($bundle) || empty($field_name) || empty($expected_vocabulary)) {
-        $message = sprintf(
-          'Invalid validation configuration: missing required keys (bundle, field_name, or expected_vocabulary)'
-        );
-        $this->batchOpLog->appendError($message);
-        $all_valid = FALSE;
-        continue;
-      }
-
-      $is_valid = $this->validateFieldVocabulary(
-        $entity_type,
-        $bundle,
-        $field_name,
-        $expected_vocabulary,
-        $field_label
-      );
-
-      if (!$is_valid) {
-        $all_valid = FALSE;
-      }
-    }
-
-    return $all_valid;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function preRun(&$sandbox): string {
-    // Run field vocabulary validations before migration starts.
-    $validation_passed = $this->validateMigrationFields();
-
-    if (!$validation_passed) {
-      $message = 'Field vocabulary validation failed. Please review errors above before proceeding.';
-      $this->batchOpLog->appendError($message);
-      return $message;
-    }
-
-    return 'Field vocabulary validation passed.';
   }
 
 }

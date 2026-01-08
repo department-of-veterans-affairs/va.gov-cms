@@ -16,6 +16,8 @@ use Drupal\Core\Utility\UpdateException;
 use Drupal\node\NodeInterface;
 use Drupal\node\NodeStorageInterface;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\taxonomy\TermInterface;
+use Drupal\taxonomy\TermStorageInterface;
 use Drupal\user\UserStorageInterface;
 use Psr\Log\LogLevel;
 
@@ -75,7 +77,7 @@ function get_node_storage(): NodeStorageInterface {
  * @return \Drupal\taxonomy\TermStorageInterface
  *   Term storage.
  */
-function get_term_storage(): NodeStorageInterface {
+function get_term_storage(): TermStorageInterface {
   return entity_type_manager()->getStorage('taxonomy_term');
 }
 
@@ -237,9 +239,9 @@ function get_nids_of_type($node_bundle, $published_only = FALSE): array {
  * Saves a node revision with log messaging.
  *
  * Optionally handles forward revisions (draft revisions newer than default).
- * If a forward revision exists and $apply_to_forward_revision callback is provided,
- * the callback will be called to apply the same changes to the forward revision,
- * then both revisions will be saved.
+ * If a forward revision exists and $apply_to_forward_revision callback is
+ * provided, the callback will be called to apply the same changes to the
+ * forward revision, then both revisions will be saved.
  *
  * @param \Drupal\node\NodeInterface $node
  *   The node to serialize (typically the default revision).
@@ -300,8 +302,8 @@ function save_node_revision(NodeInterface $node, $message = '', $new = TRUE, ?ca
     // Append note about forward revision to log message.
     $forward_message = $forward_revision->getRevisionLogMessage();
     $forward_message = $forward_message ? "$forward_message - Draft revision carried forward." : "Draft revision carried forward.";
-    // Save the forward revision (recursively, but without forward revision handling
-    // to avoid infinite loops).
+    // Save the forward revision (recursively, but without forward revision
+    // handling to avoid infinite loops).
     save_node_revision($forward_revision, $forward_message, $new, NULL);
   }
 
@@ -478,7 +480,7 @@ function script_libary_map_to_value(string|null $lookup, array $map, bool $stric
     return $map[$lookup] ?? NULL;
   }
   else {
-    // Not strict, so pass back what given it its not in the map.
+    // Not strict, so pass back what was given if it is not in the map.
     return $map[$lookup] ?? $lookup;
   }
 }
@@ -537,4 +539,47 @@ function _va_gov_stringifynid($nid) {
  */
 function _va_gov_stringifypid($pid) {
   return "paragraph_$pid";
+}
+
+/**
+ * Find a taxonomy term by name in a vocabulary.
+ *
+ * @param string $vocabulary_id
+ *   The vocabulary ID.
+ * @param string $term_name
+ *   The term name.
+ *
+ * @return \Drupal\taxonomy\TermInterface|null
+ *   The term or NULL if not found.
+ */
+function find_term_by_name(string $vocabulary_id, string $term_name): ?TermInterface {
+  $terms = get_term_storage()->loadByProperties([
+    'vid' => $vocabulary_id,
+    'name' => $term_name,
+  ]);
+
+  return !empty($terms) ? reset($terms) : NULL;
+}
+
+/**
+ * Get all taxonomy terms from a node field.
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   The node.
+ * @param string $field_name
+ *   The field name.
+ *
+ * @return \Drupal\taxonomy\TermInterface[]
+ *   Array of taxonomy term entities.
+ */
+function get_node_field_terms(NodeInterface $node, string $field_name): array {
+  $terms = [];
+  if ($node->hasField($field_name)) {
+    foreach ($node->get($field_name)->referencedEntities() as $term) {
+      if ($term instanceof TermInterface) {
+        $terms[] = $term;
+      }
+    }
+  }
+  return $terms;
 }

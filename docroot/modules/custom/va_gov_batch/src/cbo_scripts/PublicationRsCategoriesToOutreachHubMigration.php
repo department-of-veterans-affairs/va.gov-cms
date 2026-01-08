@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\node\Entity\Node;
-use Drupal\va_gov_resources_and_support\Service\RsTagMigrationService;
 
 /**
  * Migration: Publication content type - R&S Categories → Outreach Hub taxonomy.
@@ -76,42 +75,13 @@ class PublicationRsCategoriesToOutreachHubMigration extends BaseRsTagMigration {
   /**
    * {@inheritdoc}
    */
-  protected function getFieldValidations(): array {
-    return [
-      [
-        'entity_type' => 'node',
-        'bundle' => 'outreach_asset',
-        'field_name' => self::SOURCE_FIELD,
-        'expected_vocabulary' => self::SOURCE_VOCABULARY,
-        'field_label' => 'R&S Categories (source)',
-      ],
-      [
-        'entity_type' => 'node',
-        'bundle' => 'outreach_asset',
-        'field_name' => self::DESTINATION_FIELD,
-        'expected_vocabulary' => self::DESTINATION_VOCABULARY,
-        'field_label' => 'Outreach Materials Topics (destination)',
-      ],
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function processNode(
-    Node $node,
-    array $node_info,
-    RsTagMigrationService $migration_service,
-    array &$sandbox,
-  ): string {
+  protected function processNode(Node $node, array &$sandbox): string {
     $result = $this->mapTermsBetweenFields(
       $node,
-      $migration_service,
       self::SOURCE_FIELD,
       self::SOURCE_VOCABULARY,
       self::DESTINATION_FIELD,
-      self::DESTINATION_VOCABULARY,
-      $node_info
+      self::DESTINATION_VOCABULARY
     );
 
     if (!$result['success']) {
@@ -127,9 +97,9 @@ class PublicationRsCategoriesToOutreachHubMigration extends BaseRsTagMigration {
     $this->saveNodeRevision($node, $log_message);
 
     return $this->logSuccess(
-      $node_info['nid'],
-      $node_info['title'],
-      'Successfully migrated ' . $result['terms_count'] . ' term(s).'
+      $node->id(),
+      $node->getTitle(),
+      sprintf('Successfully migrated %d term(s).', $result['terms_count'])
     );
   }
 

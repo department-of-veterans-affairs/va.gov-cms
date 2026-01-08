@@ -5,7 +5,6 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\taxonomy\TermInterface;
-use Drupal\va_gov_resources_and_support\Service\RsTagMigrationService;
 
 /**
  * Migration: Add "All Veterans" when specific Veteran subtype exists.
@@ -88,24 +87,6 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
 
   /**
    * {@inheritdoc}
-   */
-  protected function getFieldValidations(): array {
-    $validations = [];
-
-    // Validate Audience - Beneficiaries field on audience_topics paragraph type.
-    $validations[] = [
-      'entity_type' => 'paragraph',
-      'bundle' => 'audience_topics',
-      'field_name' => self::AUDIENCE_FIELD,
-      'expected_vocabulary' => self::AUDIENCE_VOCABULARY,
-      'field_label' => 'Audience - Beneficiaries (paragraph field)',
-    ];
-
-    return $validations;
-  }
-
-  /**
-   * {@inheritdoc}
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
@@ -113,14 +94,9 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
    */
-  protected function processNode(
-    Node $node,
-    array $node_info,
-    RsTagMigrationService $migration_service,
-    array &$sandbox,
-  ): string {
+  protected function processNode(Node $node, array &$sandbox): string {
     if (!$node->hasField(self::AUDIENCE_TOPICS_FIELD)) {
-      return "Node {$node_info['nid']} ({$node_info['title']}): No Audience & Topics field.";
+      return sprintf('Node %d (%s): No Audience & Topics field.', $node->id(), $node->getTitle());
     }
 
     $field = $node->get(self::AUDIENCE_TOPICS_FIELD);
@@ -160,10 +136,7 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
 
       // If not present and we have Veteran subtypes, add "All Veterans".
       if (!$has_all_veterans && $has_veteran_subtype) {
-        $all_veterans_term = $migration_service->findTermByName(
-          self::AUDIENCE_VOCABULARY,
-          self::ALL_VETERANS_TERM
-        );
+        $all_veterans_term = find_term_by_name(self::AUDIENCE_VOCABULARY, self::ALL_VETERANS_TERM);
 
         if ($all_veterans_term) {
           if ($this->addTermToParagraphField($paragraph, self::AUDIENCE_FIELD, $all_veterans_term)) {
@@ -175,10 +148,7 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
           }
         }
         else {
-          $migration_service->logWarning('Term "@term" not found in vocabulary @vocab', [
-            '@term' => self::ALL_VETERANS_TERM,
-            '@vocab' => self::AUDIENCE_VOCABULARY,
-          ]);
+          $this->batchOpLog->appendLog(sprintf('Term "%s" not found in vocabulary %s', self::ALL_VETERANS_TERM, self::AUDIENCE_VOCABULARY));
         }
       }
     }
@@ -192,13 +162,13 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
       $this->saveNodeRevision($node, $log_message);
 
       return $this->logSuccess(
-        $node_info['nid'],
-        $node_info['title'],
-        "Successfully added \"All Veterans\" to $terms_added paragraph(s)."
+        $node->id(),
+        $node->getTitle(),
+        sprintf('Successfully added "All Veterans" to %d paragraph(s).', $terms_added)
       );
     }
 
-    return "Node {$node_info['nid']} ({$node_info['title']}): No updates needed (All Veterans already present or no Veteran subtypes found).";
+    return sprintf('Node %d (%s): No updates needed (All Veterans already present or no Veteran subtypes found).', $node->id(), $node->getTitle());
   }
 
 }

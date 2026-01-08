@@ -4,7 +4,6 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\TermInterface;
-use Drupal\va_gov_resources_and_support\Service\RsTagMigrationService;
 
 /**
  * Migration: CLP - Add "All Veterans" when specific Veteran subtype exists.
@@ -84,35 +83,19 @@ class ClpVaBenefitsMigration extends BaseRsTagMigration {
   /**
    * {@inheritdoc}
    */
-  protected function getFieldValidations(): array {
-    // Skip validation for field_clp_audience since it references multiple
-    // vocabularies (audience_beneficiaries and audience_non_beneficiaries).
-    // We handle this correctly in processNode() by filtering to only
-    // audience_beneficiaries terms.
-    return [];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function processNode(
-    Node $node,
-    array $node_info,
-    RsTagMigrationService $migration_service,
-    array &$sandbox
-  ): string {
+  protected function processNode(Node $node, array &$sandbox): string {
     if (!$node->hasField(self::CLP_AUDIENCE_FIELD)) {
-      return "Node {$node_info['nid']} ({$node_info['title']}): No Select Audience field.";
+      return sprintf('Node %d (%s): No Select Audience field.', $node->id(), $node->getTitle());
     }
 
     // Get current audience terms from the field.
-    $all_terms = $migration_service->getNodeFieldTerms($node, self::CLP_AUDIENCE_FIELD);
+    $all_terms = get_node_field_terms($node, self::CLP_AUDIENCE_FIELD);
 
     // Filter to only Beneficiaries taxonomy terms.
     $beneficiary_terms = $this->getTermsByVocabulary($all_terms, self::AUDIENCE_VOCABULARY);
 
     if (empty($beneficiary_terms)) {
-      return "Node {$node_info['nid']} ({$node_info['title']}): No Beneficiaries taxonomy terms found.";
+      return sprintf('Node %d (%s): No Beneficiaries taxonomy terms found.', $node->id(), $node->getTitle());
     }
 
     // Check if "All Veterans" already exists and if we have Veteran subtypes.
@@ -130,17 +113,10 @@ class ClpVaBenefitsMigration extends BaseRsTagMigration {
 
     // If "All Veterans" is not present and we have Veteran subtypes, add it.
     if (!$has_all_veterans && $has_veteran_subtype) {
-      $all_veterans_term = $migration_service->findTermByName(
-        self::AUDIENCE_VOCABULARY,
-        self::ALL_VETERANS_TERM
-      );
+      $all_veterans_term = find_term_by_name(self::AUDIENCE_VOCABULARY, self::ALL_VETERANS_TERM);
 
       if ($all_veterans_term) {
-        $added = $migration_service->addTermsToNodeField(
-          $node,
-          self::CLP_AUDIENCE_FIELD,
-          [$all_veterans_term]
-        );
+        $added = $this->addTermsToNodeField($node, self::CLP_AUDIENCE_FIELD, [$all_veterans_term]);
 
         if ($added) {
           $log_message = sprintf(
@@ -150,26 +126,22 @@ class ClpVaBenefitsMigration extends BaseRsTagMigration {
           $this->saveNodeRevision($node, $log_message);
 
           return $this->logSuccess(
-            $node_info['nid'],
-            $node_info['title'],
+            $node->id(),
+            $node->getTitle(),
             sprintf('Successfully added "%s" to Select Audience field.', self::ALL_VETERANS_TERM)
           );
         }
         else {
-          return "Node {$node_info['nid']} ({$node_info['title']}): Failed to add \"All Veterans\" (field may be at cardinality limit).";
+          return sprintf('Node %d (%s): Failed to add "All Veterans" (field may be at cardinality limit).', $node->id(), $node->getTitle());
         }
       }
       else {
-        $migration_service->logWarning('Term "@term" not found in vocabulary @vocab for node @nid', [
-          '@term' => self::ALL_VETERANS_TERM,
-          '@vocab' => self::AUDIENCE_VOCABULARY,
-          '@nid' => $node_info['nid'],
-        ]);
-        return "Node {$node_info['nid']} ({$node_info['title']}): \"All Veterans\" term not found in vocabulary.";
+        $this->batchOpLog->appendLog(sprintf('Term "%s" not found in vocabulary %s for node %d', self::ALL_VETERANS_TERM, self::AUDIENCE_VOCABULARY, $node->id()));
+        return sprintf('Node %d (%s): "All Veterans" term not found in vocabulary.', $node->id(), $node->getTitle());
       }
     }
 
-    return "Node {$node_info['nid']} ({$node_info['title']}): No updates needed (All Veterans already present or no Veteran subtypes found).";
+    return sprintf('Node %d (%s): No updates needed (All Veterans already present or no Veteran subtypes found).', $node->id(), $node->getTitle());
   }
 
 }

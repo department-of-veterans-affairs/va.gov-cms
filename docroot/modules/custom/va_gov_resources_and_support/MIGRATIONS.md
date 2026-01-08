@@ -100,10 +100,6 @@ Migration activities are logged through multiple channels:
 
 ## Architecture
 
-### Service Layer
-
-- **RsTagMigrationService:** Core service providing helper methods for taxonomy operations, field manipulation, and node revision management.
-
 ### Migration Classes
 
 All migration classes extend `BatchOperations` and implement `BatchScriptInterface` from the `codit_batch_operations` module. They are located in `va_gov_batch/src/cbo_scripts/` to be discovered by the batch operations system:
