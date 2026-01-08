@@ -76,6 +76,28 @@ class PublicationRsCategoriesToOutreachHubMigration extends BaseRsTagMigration {
   /**
    * {@inheritdoc}
    */
+  protected function getFieldValidations(): array {
+    return [
+      [
+        'entity_type' => 'node',
+        'bundle' => 'outreach_asset',
+        'field_name' => self::SOURCE_FIELD,
+        'expected_vocabulary' => self::SOURCE_VOCABULARY,
+        'field_label' => 'R&S Categories (source)',
+      ],
+      [
+        'entity_type' => 'node',
+        'bundle' => 'outreach_asset',
+        'field_name' => self::DESTINATION_FIELD,
+        'expected_vocabulary' => self::DESTINATION_VOCABULARY,
+        'field_label' => 'Outreach Materials Topics (destination)',
+      ],
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function processNode(
     Node $node,
     array $node_info,

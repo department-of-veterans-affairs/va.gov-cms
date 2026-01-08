@@ -15,23 +15,18 @@ use Drupal\taxonomy\TermInterface;
 class RsTagMigrationService {
 
   /**
-   * The CMS Migrator user ID.
-   */
-  const CMS_MIGRATOR_ID = 1317;
-
-  /**
    * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * The logger factory.
    *
    * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
    */
-  protected $loggerFactory;
+  protected LoggerChannelFactoryInterface $loggerFactory;
 
   /**
    * The entity field manager service.
@@ -50,11 +45,7 @@ class RsTagMigrationService {
    * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
    *   The entity field manager.
    */
-  public function __construct(
-    EntityTypeManagerInterface $entity_type_manager,
-    LoggerChannelFactoryInterface $logger_factory,
-    EntityFieldManagerInterface $entity_field_manager,
-  ) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, EntityFieldManagerInterface $entity_field_manager,) {
     $this->entityTypeManager = $entity_type_manager;
     $this->loggerFactory = $logger_factory;
     $this->entityFieldManager = $entity_field_manager;

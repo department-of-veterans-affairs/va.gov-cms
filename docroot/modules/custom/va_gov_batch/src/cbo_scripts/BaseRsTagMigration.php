@@ -80,10 +80,10 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *   The node ID.
    *
    * @return \Drupal\node\Entity\Node|null
-   *   The loaded node, or NULL if not found.
+   *   The loaded node (default revision), or NULL if not found.
    */
   protected function loadNode(int $nid): ?Node {
-    return Node::load($nid);
+    return get_node_at_default_revision($nid);
   }
 
   /**
@@ -105,8 +105,8 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
   /**
    * {@inheritdoc}
    */
-  public function saveNodeRevision(NodeInterface $node, $message = '', $new = TRUE): int {
-    return save_node_revision($node, $message, $new);
+  public function saveNodeRevision(NodeInterface $node, $message = '', $new = TRUE, ?callable $apply_to_forward_revision = NULL): int {
+    return save_node_revision($node, $message, $new, $apply_to_forward_revision);
   }
 
   /**
@@ -157,11 +157,7 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    * @return array
    *   Array of node IDs.
    */
-  protected function gatherNodesByType(
-    string|array $content_types,
-    ?string $field_name = NULL,
-    string $error_context = 'nodes',
-  ): array {
+  protected function gatherNodesByType(string|array $content_types, ?string $field_name = NULL, string $error_context = 'nodes'): array {
     $items = [];
     try {
       $query = $this->entityTypeManager->getStorage('node')
@@ -220,7 +216,25 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
       $node_info = $this->getNodeInfo($node);
       $migration_service = $this->getMigrationService();
 
-      return $this->processNode($node, $node_info, $migration_service, $sandbox);
+      // Check for forward revision BEFORE processing, because after save the
+      // current node will always be the latest revision. If we don't update
+      // forward revisions, they will overwrite our changes when published.
+      $forward_revision = get_forward_revision($node);
+
+      // Process the default revision.
+      $result = $this->processNode($node, $node_info, $migration_service, $sandbox);
+      $status_msg = $result;
+
+      // If there's a forward revision, process it with the same migration logic.
+      // This ensures that when the draft is published, it includes our changes.
+      if ($forward_revision) {
+        $forward_node_info = $this->getNodeInfo($forward_revision);
+        $forward_result = $this->processNode($forward_revision, $forward_node_info, $migration_service, $sandbox);
+        $sandbox['forward_revisions_count'] = (isset($sandbox['forward_revisions_count'])) ? ++$sandbox['forward_revisions_count'] : 1;
+        $status_msg .= " Forward revision also updated.";
+      }
+
+      return $status_msg;
     }
     catch (\Exception $e) {
       return $this->handleProcessingError($item, $e);
@@ -246,7 +260,7 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
     Node $node,
     array $node_info,
     RsTagMigrationService $migration_service,
-    array &$sandbox,
+    array &$sandbox
   ): string;
 
   /**
@@ -383,11 +397,7 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    * @return bool
    *   TRUE if term exists, FALSE otherwise.
    */
-  protected function termExistsInParagraphField(
-    ParagraphInterface $paragraph,
-    string $field_name,
-    TermInterface $term,
-  ): bool {
+  protected function termExistsInParagraphField(ParagraphInterface $paragraph, string $field_name, TermInterface $term): bool {
     if (!$paragraph->hasField($field_name)) {
       return FALSE;
     }
@@ -419,11 +429,7 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *   TRUE if term was added, FALSE if it already existed or field
    *   doesn't exist.
    */
-  protected function addTermToParagraphField(
-    ParagraphInterface $paragraph,
-    string $field_name,
-    TermInterface $term,
-  ): bool {
+  protected function addTermToParagraphField(ParagraphInterface $paragraph, string $field_name, TermInterface $term): bool {
     if (!$paragraph->hasField($field_name)) {
       return FALSE;
     }
@@ -488,10 +494,7 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function createAudienceTopicsParagraph(
-    string $paragraph_type,
-    array $initial_field_values = [],
-  ): ParagraphInterface {
+  protected function createAudienceTopicsParagraph(string $paragraph_type, array $initial_field_values = []): ParagraphInterface {
     $paragraph_data = ['type' => $paragraph_type];
     foreach ($initial_field_values as $field_name => $values) {
       $paragraph_data[$field_name] = $values;
@@ -511,11 +514,7 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   The paragraph to add.
    */
-  protected function addParagraphToNode(
-    Node $node,
-    string $field_name,
-    ParagraphInterface $paragraph,
-  ): void {
+  protected function addParagraphToNode(Node $node, string $field_name, ParagraphInterface $paragraph): void {
     $field_values = $node->get($field_name)->getValue();
     $field_values[] = [
       'target_id' => $paragraph->id(),
@@ -573,6 +572,150 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
       }
     }
     return $filtered;
+  }
+
+  /**
+   * Validate that a field references the expected vocabulary.
+   *
+   * @param string $entity_type
+   *   The entity type (e.g., 'node' or 'paragraph').
+   * @param string $bundle
+   *   The bundle (content type or paragraph type).
+   * @param string $field_name
+   *   The field name.
+   * @param string $expected_vocabulary
+   *   The expected vocabulary ID.
+   * @param string $field_label
+   *   Optional label for the field (for error messages).
+   *
+   * @return bool
+   *   TRUE if validation passes, FALSE otherwise.
+   */
+  protected function validateFieldVocabulary(
+    string $entity_type,
+    string $bundle,
+    string $field_name,
+    string $expected_vocabulary,
+    string $field_label = '',
+  ): bool {
+    $migration_service = $this->getMigrationService();
+    $actual_vocabulary = $migration_service->getFieldTaxonomyVocabulary(
+      $entity_type,
+      $bundle,
+      $field_name
+    );
+
+    if ($actual_vocabulary === NULL) {
+      $label = $field_label ?: $field_name;
+      $message = sprintf(
+        'Validation failed: Field "%s" on %s:%s does not reference any taxonomy vocabulary.',
+        $label,
+        $entity_type,
+        $bundle
+      );
+      $this->batchOpLog->appendError($message);
+      $migration_service->logError($message);
+      return FALSE;
+    }
+
+    if ($actual_vocabulary !== $expected_vocabulary) {
+      $label = $field_label ?: $field_name;
+      $message = sprintf(
+        'Validation failed: Field "%s" on %s:%s references vocabulary "%s", but migration expects "%s".',
+        $label,
+        $entity_type,
+        $bundle,
+        $actual_vocabulary,
+        $expected_vocabulary
+      );
+      $this->batchOpLog->appendError($message);
+      $migration_service->logError($message);
+      return FALSE;
+    }
+
+    return TRUE;
+  }
+
+  /**
+   * Validate migration field configurations.
+   *
+   * Override this method in child classes to define which fields should be
+   * validated. Return an array of validation configurations, each containing:
+   * - 'entity_type': The entity type (e.g., 'node', 'paragraph')
+   * - 'bundle': The bundle name
+   * - 'field_name': The field name
+   * - 'expected_vocabulary': The expected vocabulary ID
+   * - 'field_label': Optional human-readable label for error messages
+   *
+   * @return array
+   *   Array of validation configurations. Each config should have keys:
+   *   entity_type, bundle, field_name, expected_vocabulary, field_label (optional).
+   */
+  protected function getFieldValidations(): array {
+    // Default: no validations. Child classes should override.
+    return [];
+  }
+
+  /**
+   * Run field vocabulary validations.
+   *
+   * @return bool
+   *   TRUE if all validations pass, FALSE otherwise.
+   */
+  protected function validateMigrationFields(): bool {
+    $validations = $this->getFieldValidations();
+    if (empty($validations)) {
+      // No validations defined, skip.
+      return TRUE;
+    }
+
+    $all_valid = TRUE;
+    foreach ($validations as $config) {
+      $entity_type = $config['entity_type'] ?? 'node';
+      $bundle = $config['bundle'] ?? '';
+      $field_name = $config['field_name'] ?? '';
+      $expected_vocabulary = $config['expected_vocabulary'] ?? '';
+      $field_label = $config['field_label'] ?? '';
+
+      if (empty($bundle) || empty($field_name) || empty($expected_vocabulary)) {
+        $message = sprintf(
+          'Invalid validation configuration: missing required keys (bundle, field_name, or expected_vocabulary)'
+        );
+        $this->batchOpLog->appendError($message);
+        $all_valid = FALSE;
+        continue;
+      }
+
+      $is_valid = $this->validateFieldVocabulary(
+        $entity_type,
+        $bundle,
+        $field_name,
+        $expected_vocabulary,
+        $field_label
+      );
+
+      if (!$is_valid) {
+        $all_valid = FALSE;
+      }
+    }
+
+    return $all_valid;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preRun(&$sandbox): string {
+    // Run field vocabulary validations before migration starts.
+    $validation_passed = $this->validateMigrationFields();
+
+    if (!$validation_passed) {
+      $message = 'Field vocabulary validation failed. Please review errors above before proceeding.';
+      $this->batchOpLog->appendError($message);
+      return $message;
+    }
+
+    return 'Field vocabulary validation passed.';
   }
 
 }

@@ -72,6 +72,35 @@ class RsRecordsToTopicsMigration extends BaseRsTagMigration {
 
   /**
    * {@inheritdoc}
+   */
+  protected function getFieldValidations(): array {
+    $validations = [];
+
+    // Validate Primary Category field on R&S content types.
+    // Note: We validate for the first content type as a representative check.
+    // All R&S content types should have the same field configuration.
+    $validations[] = [
+      'entity_type' => 'node',
+      'bundle' => self::RS_CONTENT_TYPES[0],
+      'field_name' => self::PRIMARY_CATEGORY_FIELD,
+      'expected_vocabulary' => self::RS_CATEGORIES_VOCABULARY,
+      'field_label' => 'Primary Category',
+    ];
+
+    // Validate Topics field on audience_topics paragraph type.
+    $validations[] = [
+      'entity_type' => 'paragraph',
+      'bundle' => 'audience_topics',
+      'field_name' => self::TOPICS_FIELD,
+      'expected_vocabulary' => self::TOPICS_VOCABULARY,
+      'field_label' => 'Topics (paragraph field)',
+    ];
+
+    return $validations;
+  }
+
+  /**
+   * {@inheritdoc}
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException

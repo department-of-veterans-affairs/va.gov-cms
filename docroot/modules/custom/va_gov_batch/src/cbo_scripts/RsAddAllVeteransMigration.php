@@ -88,6 +88,24 @@ class RsAddAllVeteransMigration extends BaseRsTagMigration {
 
   /**
    * {@inheritdoc}
+   */
+  protected function getFieldValidations(): array {
+    $validations = [];
+
+    // Validate Audience - Beneficiaries field on audience_topics paragraph type.
+    $validations[] = [
+      'entity_type' => 'paragraph',
+      'bundle' => 'audience_topics',
+      'field_name' => self::AUDIENCE_FIELD,
+      'expected_vocabulary' => self::AUDIENCE_VOCABULARY,
+      'field_label' => 'Audience - Beneficiaries (paragraph field)',
+    ];
+
+    return $validations;
+  }
+
+  /**
+   * {@inheritdoc}
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException

@@ -120,11 +120,40 @@ function get_node_at_latest_revision(int $nid): NodeInterface {
  * @param int $nid
  *   The node ID.
  *
- * @return \Drupal\node\NodeInterface
- *   The latest revision of that node.
+ * @return \Drupal\node\NodeInterface|null
+ *   The default revision of that node, or NULL if not found.
  */
-function get_node_at_default_revision(int $nid): NodeInterface {
+function get_node_at_default_revision(int $nid): ?NodeInterface {
   return get_node_storage()->load($nid);
+}
+
+/**
+ * Check if a node has a forward revision (draft newer than default).
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   The node to check (typically the default revision).
+ *
+ * @return bool
+ *   TRUE if there's a forward revision, FALSE otherwise.
+ */
+function node_has_forward_revision(NodeInterface $node): bool {
+  return !$node->isLatestRevision();
+}
+
+/**
+ * Get the forward revision of a node if it exists.
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   The node to check (typically the default revision).
+ *
+ * @return \Drupal\node\NodeInterface|null
+ *   The forward revision if it exists, NULL otherwise.
+ */
+function get_forward_revision(NodeInterface $node): ?NodeInterface {
+  if (node_has_forward_revision($node)) {
+    return get_node_at_latest_revision($node->id());
+  }
+  return NULL;
 }
 
 /**
@@ -207,17 +236,34 @@ function get_nids_of_type($node_bundle, $published_only = FALSE): array {
 /**
  * Saves a node revision with log messaging.
  *
+ * Optionally handles forward revisions (draft revisions newer than default).
+ * If a forward revision exists and $apply_to_forward_revision callback is provided,
+ * the callback will be called to apply the same changes to the forward revision,
+ * then both revisions will be saved.
+ *
  * @param \Drupal\node\NodeInterface $node
- *   The node to serialize.
+ *   The node to serialize (typically the default revision).
  * @param string $message
  *   The log message for the new revision.
  * @param bool $new
  *   Whether the revision should be created or updated.
+ * @param callable|null $apply_to_forward_revision
+ *   Optional callback function(NodeInterface $forward_node): void to apply
+ *   the same changes to a forward revision. If provided and a forward revision
+ *   exists, this callback will be called before saving the forward revision.
+ *   The callback should modify the forward revision node in place.
  *
  * @return int
  *   Either SAVED_NEW or SAVED_UPDATED, depending on the operation performed.
  */
-function save_node_revision(NodeInterface $node, $message = '', $new = TRUE): int {
+function save_node_revision(NodeInterface $node, $message = '', $new = TRUE, ?callable $apply_to_forward_revision = NULL): int {
+  // Check for forward revision BEFORE saving, because after save the current
+  // node will always be the latest revision.
+  $forward_revision = NULL;
+  if ($apply_to_forward_revision !== NULL && node_has_forward_revision($node)) {
+    $forward_revision = get_forward_revision($node);
+  }
+
   $moderation_state = $node->get('moderation_state')->value;
   $node->setNewRevision($new);
   $node->setSyncing(TRUE);
@@ -245,7 +291,21 @@ function save_node_revision(NodeInterface $node, $message = '', $new = TRUE): in
   $node->setRevisionLogMessage($message);
   $node->set('moderation_state', $moderation_state);
 
-  return $node->save();
+  $result = $node->save();
+
+  // Handle forward revision if callback provided and forward revision exists.
+  if ($forward_revision && $apply_to_forward_revision !== NULL) {
+    // Apply the same changes to the forward revision.
+    $apply_to_forward_revision($forward_revision);
+    // Append note about forward revision to log message.
+    $forward_message = $forward_revision->getRevisionLogMessage();
+    $forward_message = $forward_message ? "$forward_message - Draft revision carried forward." : "Draft revision carried forward.";
+    // Save the forward revision (recursively, but without forward revision handling
+    // to avoid infinite loops).
+    save_node_revision($forward_revision, $forward_message, $new, NULL);
+  }
+
+  return $result;
 }
 
 /**
