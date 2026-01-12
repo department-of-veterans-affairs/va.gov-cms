@@ -286,7 +286,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
    * {@inheritdoc}
    */
   public function postRun(&$sandbox): string {
-    \Drupal::service('cache.render')->invalidateAll();
+    drupal_flush_all_caches();
     return "Dedupe done, caches clear";
   }
 
