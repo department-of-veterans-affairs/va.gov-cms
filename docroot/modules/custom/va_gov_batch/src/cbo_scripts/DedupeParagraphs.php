@@ -66,8 +66,6 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
   public function processOne(string $key, mixed $item, array &$sandbox): string {
     $parent_type = $item->parent_type;
     $parent_field_name = $item->parent_field_name;
-    // We only care about cloned nodes right now, because nested paragraphs
-    // should clone cleanly by default.
     if ($parent_type !== 'node' && $parent_type !== 'paragraph') {
       $message = 'Not processing parent_type ' . $parent_type . ', field ' . $parent_field_name;
       $this->batchOpLog->appendLog($message);
@@ -224,7 +222,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
           if ($referenced_entity) {
             $clone = $this->cloneParagraph($cloner, $referenced_entity, $entity->id(), $properties);
             foreach ($tables_to_update as $table_to_update) {
-              $message = 'Updating table:' . $table_to_update . ' with new paragraph.';
+              $message = 'Updating table: ' . $table_to_update . ' with new paragraph.';
               $this->batchOpLog->appendLog($message);
               $query = $database->update($table_to_update);
               $query->fields([
@@ -282,6 +280,14 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
       $result->save();
     }
     return $result;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function postRun(&$sandbox): string {
+    \Drupal::service('cache.render')->invalidateAll();
+    return "Dedupe done, caches clear";
   }
 
 }
