@@ -141,6 +141,12 @@ function vagovclaro_preprocess_paragraph(&$variables) {
       }
     }
   }
+
+  if ($paragraph->getType() === 'health_care_local_facility_servi') {
+    if (isset($variables['content']['field_title'])) {
+      $variables['content']['field_title']['#access'] = FALSE;
+    }
+  }
 }
 
 /**
@@ -180,6 +186,21 @@ function vagovclaro_preprocess_field(&$variables) {
   $field_def = $field_defs[$element['#field_name']];
   $description = $field_def->getDescription() ?? '';
   $variables['description'] = str_replace('"', "'", $description);
+}
+
+/**
+ * Implements hook_preprocess_fieldset().
+ */
+function vagovclaro_preprocess_fieldset(&$variables) {
+  // Move the title to the legend of the fieldset for A11y.
+  if ($variables['element']['#bundle'] === 'health_care_local_facility_servi'
+    && $variables['element']['#title'] === ''
+    && !empty($variables['element']['field_title'])
+  ) {
+    $label = $variables['element']['field_title']['#items']->value;
+    $variables['element']['#title'] = $label;
+    $variables['legend']['title']['#markup'] = '<h3>' . $label . '</h3>';
+  }
 }
 
 /**
