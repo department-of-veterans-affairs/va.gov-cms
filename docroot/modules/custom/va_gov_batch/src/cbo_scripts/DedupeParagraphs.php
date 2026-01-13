@@ -66,9 +66,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
   public function processOne(string $key, mixed $item, array &$sandbox): string {
     $parent_type = $item->parent_type;
     $parent_field_name = $item->parent_field_name;
-    // We only care about cloned nodes right now, because nested paragraphs
-    // should clone cleanly by default.
-    if ($parent_type !== 'node') {
+    if ($parent_type !== 'node' && $parent_type !== 'paragraph') {
       $message = 'Not processing parent_type ' . $parent_type . ', field ' . $parent_field_name;
       $this->batchOpLog->appendLog($message);
       return $message;
@@ -171,7 +169,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
       'children' => [],
     ];
     foreach ($parents as $parent_id => $parent) {
-      $message = 'attempt to replace old paragraph #' . $target_id . ' for node #' . $parent_id . '.';
+      $message = 'attempt to replace old paragraph #' . $target_id . ' for ' . $parent_type . ' #' . $parent_id . '.';
       $this->batchOpLog->appendLog($message);
       $this->replaceParagraph($cloner, $parent, $parent_field_name, $target_id, $properties);
     }
@@ -200,41 +198,49 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
    */
   protected function replaceParagraph(EntityCloneInterface $cloner, ContentEntityInterface $entity, string $field_name, int $pid, array $properties): void {
     if ($entity->hasField($field_name)) {
-      $entity_type_manager = \Drupal::entityTypeManager();
-      /** @var \Drupal\node\NodeStorageInterface $storage */
-      $storage = $entity_type_manager->getStorage($entity->getEntityTypeId());
       /** @var \Drupal\Core\Field\EntityReferenceFieldItemList  $field_value */
       $field_value = $entity->get($field_name);
       $field_items = $field_value->getValue();
       $referenced_entities = $field_value->referencedEntities();
-      $revision_ids = $storage->revisionIds($entity);
+      $entity_type = $entity->getEntityTypeId();
+      $id = $entity_type === 'node' ? 'nid' : 'id';
+      $revision_query = \Drupal::entityQuery($entity_type)
+        ->allRevisions()
+        ->condition($id, $entity->id())
+        ->accessCheck(FALSE);
+      $revision_ids = array_keys($revision_query->execute());
       $database = \Drupal::database();
       $replace_count = 0;
       foreach ($field_items as $key => $field_item) {
         if (intval($field_item['target_id']) === $pid) {
           $referenced_entity = $referenced_entities[$key] ?? NULL;
+          $entity_type_manager = \Drupal::entityTypeManager();
+          /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $storage */
+          $storage = $entity_type_manager->getStorage($entity_type);
+          $table_mapping = $storage->getTableMapping();
+          $tables_to_update = $table_mapping->getAllFieldTableNames($field_name);
           if ($referenced_entity) {
             $clone = $this->cloneParagraph($cloner, $referenced_entity, $entity->id(), $properties);
-            $query = $database->update("{$entity->getEntityTypeId()}__{$field_name}");
-            $query->fields([
-              "{$field_name}_target_id" => $clone->id(),
-              "{$field_name}_target_revision_id" => $clone->getRevisionId(),
-            ]);
-            $query->condition('entity_id', $entity->id());
-            $query->condition('revision_id', $entity->getRevisionId());
-            $query->condition('delta', $key);
-            $query->execute();
-            $query = $database->update("{$entity->getEntityTypeId()}_revision__{$field_name}");
-            $query->fields([
-              "{$field_name}_target_id" => $clone->id(),
-              "{$field_name}_target_revision_id" => $clone->getRevisionId(),
-            ]);
-            $query->condition('entity_id', $entity->id());
-            $query->condition('revision_id', $revision_ids, 'IN');
-            $query->condition('delta', $key);
-            $query->execute();
+            foreach ($tables_to_update as $table_to_update) {
+              $message = 'Updating table: ' . $table_to_update . ' with new paragraph.';
+              $this->batchOpLog->appendLog($message);
+              $query = $database->update($table_to_update);
+              $query->fields([
+                "{$field_name}_target_id" => $clone->id(),
+                "{$field_name}_target_revision_id" => $clone->getRevisionId(),
+              ]);
+              $query->condition('entity_id', $entity->id());
+              if (str_contains($table_to_update, 'revision')) {
+                $query->condition('revision_id', $revision_ids, 'IN');
+              }
+              else {
+                $query->condition('revision_id', $entity->getRevisionId());
+              }
+              $query->condition('delta', $key);
+              $query->execute();
+            }
             $title = method_exists($entity, 'getTitle') ? $entity->getTitle() : '';
-            $message = 'Updated ' . $entity->bundle() . ' node #' . $entity->id() . ' - "' . $title . '" value #' . $key . ' with new paragraph (was ' . $pid . ', now ' . $clone->id() . ').';
+            $message = 'Updated ' . $entity->bundle() . ' ' . $entity_type . ' #' . $entity->id() . ' - "' . $title . '" value #' . $key . ' with new paragraph (was ' . $pid . ', now ' . $clone->id() . ').';
             $this->batchOpLog->appendLog($message);
             $replace_count++;
             break;
@@ -242,7 +248,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
         }
       }
       if ($replace_count === 0) {
-        $message = 'no replacement for orphaned paragraph #' . $pid . ' for node #' . $entity->id();
+        $message = 'no replacement for orphaned paragraph #' . $pid . ' for ' . $entity->getEntityTypeId() . ' #' . $entity->id();
         $this->batchOpLog->appendLog($message);
       }
     }
@@ -274,6 +280,14 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
       $result->save();
     }
     return $result;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function postRun(&$sandbox): string {
+    drupal_flush_all_caches();
+    return "Dedupe done, caches clear";
   }
 
 }
