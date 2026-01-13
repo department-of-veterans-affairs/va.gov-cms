@@ -61,7 +61,7 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
    *
    * @var string
    */
-  const AUDIENCE_TOPICS_FIELD = 'field_audience_topics';
+  const AUDIENCE_TOPICS_FIELD = 'field_tags';
 
   /**
    * Get field definition for a content type.

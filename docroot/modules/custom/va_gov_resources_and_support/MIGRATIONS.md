@@ -31,7 +31,7 @@ The migration framework supports multiple use cases for migrating taxonomy tags 
 
 **Requirements:**
 - Content types: checklist, faq_multiple_q_a, media_list_images, support_resources_detail_page, q_a, step_by_step, media_list_videos
-- Field: `field_audience_topics` (Audience & Topics paragraphs)
+- Field: `field_tags` (Audience & Topics paragraphs)
 - Paragraph field: `field_audience_beneficiares` (Audience - Beneficiaries taxonomy)
 - The "All Veterans" term must exist in the `audience_beneficiaries` taxonomy.
 
@@ -46,7 +46,7 @@ The migration framework supports multiple use cases for migrating taxonomy tags 
 **Requirements:**
 - Content types: checklist, faq_multiple_q_a, media_list_images, support_resources_detail_page, q_a, step_by_step, media_list_videos
 - Source field: `field_primary_category` (R&S Categories taxonomy)
-- Field: `field_audience_topics` (Audience & Topics paragraphs)
+- Field: `field_tags` (Audience & Topics paragraphs)
 - Paragraph field: `field_topics` (Topics taxonomy)
 - The "Records" term must exist in both `lc_categories` and `topics` taxonomies.
 
