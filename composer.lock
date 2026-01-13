@@ -6962,26 +6962,30 @@
         },
         {
             "name": "drupal/environment_indicator",
-            "version": "4.0.21",
+            "version": "4.0.25",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/environment_indicator.git",
-                "reference": "4.0.21"
+                "reference": "4.0.25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/environment_indicator-4.0.21.zip",
-                "reference": "4.0.21",
-                "shasum": "e4d4de7060fb10156c44d27a3b9ec80929eb17b3"
+                "url": "https://ftp.drupal.org/files/projects/environment_indicator-4.0.25.zip",
+                "reference": "4.0.25",
+                "shasum": "1bb58f759644efea79a44de2af5986eee9c1966e"
             },
             "require": {
                 "drupal/core": "^9.3 || ^10 || ^11"
             },
+            "require-dev": {
+                "drupal/gin": "^4.0",
+                "drupal/gin_toolbar": "^2.0"
+            },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.21",
-                    "datestamp": "1734428244",
+                    "version": "4.0.25",
+                    "datestamp": "1753296518",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6994,28 +6998,37 @@
             ],
             "authors": [
                 {
-                    "name": "Mateu Aguiló Bosch",
-                    "homepage": "https://www.drupal.org/user/550110",
-                    "email": "mateu@mateuaguilo.com"
+                    "name": "Tom Kirkpatrick (mrfelton)",
+                    "homepage": "https://www.drupal.org/u/mrfelton",
+                    "role": "Original author"
                 },
                 {
-                    "name": "Ignacio Sánchez",
-                    "homepage": "https://www.drupal.org/user/733162",
-                    "email": "nacho@isholgueras.com"
+                    "name": "Mateu Aguiló Bosch (e0ipso)",
+                    "homepage": "https://www.drupal.org/u/e0ipso",
+                    "email": "mateu@mateuaguilo.com",
+                    "role": "Maintainer"
                 },
                 {
-                    "name": "lullabot",
-                    "homepage": "https://www.drupal.org/user/3815489"
+                    "name": "Ignacio Sánchez (isholgueras)",
+                    "homepage": "https://www.drupal.org/u/isholgueras",
+                    "email": "nacho@isholgueras.com",
+                    "role": "Co-maintainer"
                 },
                 {
-                    "name": "mrfelton",
-                    "homepage": "https://www.drupal.org/user/305669"
+                    "name": "Chris Green (trackleft2)",
+                    "homepage": "https://www.drupal.org/u/trackleft2",
+                    "role": "Co-maintainer"
+                },
+                {
+                    "name": "trackleft2",
+                    "homepage": "https://www.drupal.org/user/2860655"
                 }
             ],
-            "description": "Environment Indicator adds some visual cuest to indicate which copy of the site are you interacting with",
+            "description": "Environment Indicator adds some visual cues to indicate which copy of the site are you interacting with",
             "homepage": "https://www.drupal.org/project/environment_indicator",
             "support": {
-                "source": "https://git.drupalcode.org/project/environment_indicator"
+                "source": "https://git.drupal.org/project/environment_indicator.git",
+                "issues": "https://www.drupal.org/project/issues/environment_indicator"
             }
         },
         {
