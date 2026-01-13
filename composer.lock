@@ -118,16 +118,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.352.1",
+            "version": "3.369.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d25aec970dbf6af823b30d11d5c8cd73ef8a0a4c"
+                "reference": "014c521eae8eeb1f9562cb512523b17cd6c1bec7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d25aec970dbf6af823b30d11d5c8cd73ef8a0a4c",
-                "reference": "d25aec970dbf6af823b30d11d5c8cd73ef8a0a4c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/014c521eae8eeb1f9562cb512523b17cd6c1bec7",
+                "reference": "014c521eae8eeb1f9562cb512523b17cd6c1bec7",
                 "shasum": ""
             },
             "require": {
@@ -140,7 +140,8 @@
                 "guzzlehttp/psr7": "^2.4.5",
                 "mtdowling/jmespath.php": "^2.8.0",
                 "php": ">=8.1",
-                "psr/http-message": "^2.0"
+                "psr/http-message": "^1.0 || ^2.0",
+                "symfony/filesystem": "^v5.4.45 || ^v6.4.3 || ^v7.1.0 || ^v8.0.0"
             },
             "require-dev": {
                 "andrewsville/php-token-reflection": "^1.4",
@@ -151,13 +152,11 @@
                 "doctrine/cache": "~1.4",
                 "ext-dom": "*",
                 "ext-openssl": "*",
-                "ext-pcntl": "*",
                 "ext-sockets": "*",
-                "phpunit/phpunit": "^5.6.3 || ^8.5 || ^9.5",
+                "phpunit/phpunit": "^9.6",
                 "psr/cache": "^2.0 || ^3.0",
                 "psr/simple-cache": "^2.0 || ^3.0",
                 "sebastian/comparator": "^1.2.3 || ^4.0 || ^5.0",
-                "symfony/filesystem": "^v6.4.0 || ^v7.1.0",
                 "yoast/phpunit-polyfills": "^2.0"
             },
             "suggest": {
@@ -165,6 +164,7 @@
                 "doctrine/cache": "To use the DoctrineCacheAdapter",
                 "ext-curl": "To send requests using cURL",
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
+                "ext-pcntl": "To use client-side monitoring",
                 "ext-sockets": "To use client-side monitoring"
             },
             "type": "library",
@@ -209,9 +209,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.352.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.369.11"
             },
-            "time": "2025-08-04T18:19:17+00:00"
+            "time": "2026-01-12T19:14:19+00:00"
         },
         {
             "name": "bjeavons/zxcvbn-php",
@@ -3014,21 +3014,21 @@
         },
         {
             "name": "drupal/ai_provider_aws_bedrock",
-            "version": "1.0.0-beta1",
+            "version": "1.1.0-beta3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ai_provider_aws_bedrock.git",
-                "reference": "1.0.0-beta1"
+                "reference": "1.1.0-beta3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ai_provider_aws_bedrock-1.0.0-beta1.zip",
-                "reference": "1.0.0-beta1",
-                "shasum": "f6c3d468ad233a56e10e0d67752c456e3307fc9e"
+                "url": "https://ftp.drupal.org/files/projects/ai_provider_aws_bedrock-1.1.0-beta3.zip",
+                "reference": "1.1.0-beta3",
+                "shasum": "9eb6546c3a36284c60b6d6addede3c169d80b5ab"
             },
             "require": {
                 "aws/aws-sdk-php": "^3.316",
-                "drupal/ai": "^1.0.0-alpha7",
+                "drupal/ai": "^1.1.0-beta1",
                 "drupal/aws": "*",
                 "drupal/core": "^10.3 || ^11",
                 "drupal/key": "^1.18"
@@ -3036,8 +3036,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.0-beta1",
-                    "datestamp": "1726653420",
+                    "version": "1.1.0-beta3",
+                    "datestamp": "1749558608",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -3052,6 +3052,14 @@
                 {
                     "name": "andrewbelcher",
                     "homepage": "https://www.drupal.org/user/655282"
+                },
+                {
+                    "name": "danielveza",
+                    "homepage": "https://www.drupal.org/user/3362504"
+                },
+                {
+                    "name": "kim.pepper",
+                    "homepage": "https://www.drupal.org/user/370574"
                 },
                 {
                     "name": "marcus_johansson",
