@@ -6,6 +6,7 @@
  */
 
 use Drupal\block\Entity\Block;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
@@ -193,16 +194,16 @@ function vagovclaro_preprocess_field(&$variables) {
  * Implements hook_preprocess_fieldset().
  */
 function vagovclaro_preprocess_fieldset(&$variables) {
-  // Move the title to the legend of the fieldset for A11y.
+  // Move the field_title to the legend of the fieldset for A11y.
   if (
     isset($variables['element']['#bundle']) &&
     $variables['element']['#bundle'] === 'health_care_local_facility_servi' &&
-    $variables['element']['#title'] === '' &&
+    empty($variables['element']['#title']) &&
     !empty($variables['element']['field_title'])
   ) {
     $label = $variables['element']['field_title']['#items']->value;
     $variables['element']['#title'] = $label;
-    $variables['legend']['title']['#markup'] = '<h3>' . $label . '</h3>';
+    $variables['legend']['title']['#markup'] = '<h3>' . Html::escape($label) . '</h3>';
   }
 }
 
