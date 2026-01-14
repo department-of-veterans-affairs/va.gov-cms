@@ -142,8 +142,9 @@ function vagovclaro_preprocess_paragraph(&$variables) {
     }
   }
 
+  // The title is moved to a legend in the fieldset preprocess, so hide here.
   if ($paragraph->getType() === 'health_care_local_facility_servi') {
-    if (isset($variables['content']['field_title'])) {
+    if (isset($variables['content']['field_title']) && is_array($variables['content']['field_title'])) {
       $variables['content']['field_title']['#access'] = FALSE;
     }
   }
@@ -193,9 +194,11 @@ function vagovclaro_preprocess_field(&$variables) {
  */
 function vagovclaro_preprocess_fieldset(&$variables) {
   // Move the title to the legend of the fieldset for A11y.
-  if ($variables['element']['#bundle'] === 'health_care_local_facility_servi'
-    && $variables['element']['#title'] === ''
-    && !empty($variables['element']['field_title'])
+  if (
+    isset($variables['element']['#bundle']) &&
+    $variables['element']['#bundle'] === 'health_care_local_facility_servi' &&
+    $variables['element']['#title'] === '' &&
+    !empty($variables['element']['field_title'])
   ) {
     $label = $variables['element']['field_title']['#items']->value;
     $variables['element']['#title'] = $label;
