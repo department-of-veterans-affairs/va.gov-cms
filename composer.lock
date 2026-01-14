@@ -11289,36 +11289,36 @@
         },
         {
             "name": "drupal/migrate_tools",
-            "version": "6.1.2",
+            "version": "6.1.3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/migrate_tools.git",
-                "reference": "6.1.2"
+                "reference": "6.1.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/migrate_tools-6.1.2.zip",
-                "reference": "6.1.2",
-                "shasum": "839f561a6d81ea1b5e0b74990f69401e1fb7a379"
+                "url": "https://ftp.drupal.org/files/projects/migrate_tools-6.1.3.zip",
+                "reference": "6.1.3",
+                "shasum": "1bb5b07575dfdd35d01362f30081853458c56cd7"
             },
             "require": {
-                "drupal/core": ">=9.1",
-                "php": ">=8.1"
+                "drupal/core": "^9.1 || ^10 || ^11",
+                "php": ">=8.0"
             },
             "require-dev": {
-                "drupal/migrate_plus": ">=5",
-                "drupal/migrate_source_csv": ">=3",
-                "drush/drush": ">=11"
+                "drupal/migrate_plus": "^5 || ^6",
+                "drupal/migrate_source_csv": "^3",
+                "drush/drush": "^11 || ^12 || ^13"
             },
             "suggest": {
-                "drupal/migrate_plus": ">=5",
-                "drush/drush": ">=11"
+                "drupal/migrate_plus": "^5 || ^6",
+                "drush/drush": "^11 || ^12 || ^13"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "6.1.2",
-                    "datestamp": "1753365392",
+                    "version": "6.1.3",
+                    "datestamp": "1767203937",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -11326,7 +11326,7 @@
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": ">=9"
+                        "drush.services.yml": "^11 || ^12 || ^13"
                     }
                 }
             },
