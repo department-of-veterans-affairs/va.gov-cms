@@ -28,7 +28,7 @@ function va_gov_consumers_module_implements_alter(&$implementations, $hook) {
 /**
  * Implements hook_form_alter().
  */
-function va_gov_consumers_form_alter(&$form) {
+function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['#pre_render'][] = [VaConsumersFormAlterBuilder::class, 'preRender'];
 }
 
