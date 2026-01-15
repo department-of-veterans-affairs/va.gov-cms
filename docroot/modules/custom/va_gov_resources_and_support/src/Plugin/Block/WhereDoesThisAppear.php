@@ -41,7 +41,7 @@ class WhereDoesThisAppear extends BlockBase implements ContainerFactoryPluginInt
     $plugin_id,
     $plugin_definition,
     RouteMatchInterface $route_match,
-    EntityTypeManagerInterface $entity_type_manager
+    EntityTypeManagerInterface $entity_type_manager,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
