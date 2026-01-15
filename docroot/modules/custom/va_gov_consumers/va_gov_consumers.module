@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\va_gov_consumers\VaConsumersFormAlterBuilder;
 
 /**
  * Implements hook_module_implements_alter().
@@ -27,12 +28,8 @@ function va_gov_consumers_module_implements_alter(&$implementations, $hook) {
 /**
  * Implements hook_form_alter().
  */
-function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  _va_gov_consumers_modify_va_form_fields($form, $form_id, $form_state);
-  _va_gov_consumers_modify_vamc_system_related_fields($form, $form_id, $form_state);
-  _va_gov_consumers_modify_facility_fields($form, $form_id, $form_state);
-  _va_gov_consumers_disable_vha_api_form_fields($form, $form_id);
-  _va_gov_consumers_disable_non_vha_facilities_api_form_fields($form, $form_id);
+function va_gov_consumers_form_alter(&$form) {
+  $form['#pre_render'][] = [VaConsumersFormAlterBuilder::class, 'preRender'];
 }
 
 /**
