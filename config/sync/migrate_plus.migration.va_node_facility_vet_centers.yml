@@ -32,8 +32,6 @@ source:
   ids:
     id:
       type: string
-  constants:
-    vet_centers_tid: 190
   fields:
     -
       name: facility_type
@@ -185,19 +183,8 @@ process:
     source: hours
   field_timezone: time_zone
   field_administration:
-    -
-      plugin: callback
-      callable: trim
-      source: name
-    -
-      plugin: entity_generate
-      entity_type: taxonomy_term
-      ignore_case: true
-      value_key: name
-      bundle_key: vid
-      bundle: administration
-      values:
-        parent: constants/vet_centers_tid
+    plugin: default_value
+    default_value: 190
   langcode:
     plugin: default_value
     default_value: en
@@ -255,7 +242,6 @@ destination:
     - field_address/locality
     - field_address/postal_code
     - field_geolocation
-    - field_administration
     - field_office_hours
     - field_timezone
     - field_official_name
