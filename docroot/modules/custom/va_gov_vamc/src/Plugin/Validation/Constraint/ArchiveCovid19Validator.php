@@ -32,22 +32,26 @@ class ArchiveCovid19Validator extends ConstraintValidator {
     if ($moderationState !== 'archived') {
       if ($bundle === 'regional_health_care_service_des') {
         $tid = $entity->field_service_name_and_descripti->target_id;
-        $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid);
-        if ($term && str_contains($term->label(), $this->covid19Title) !== FALSE) {
-          /** @var \Drupal\va_gov_vamc\Plugin\Validation\Constraint\ArchiveCovid19 $constraint */
-          $this->getContext()
-            ->buildViolation($constraint->covid19Archived, [])
-            ->addViolation();
+        if (!empty($tid)) {
+          $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid);
+          if ($term && str_contains($term->label(), $this->covid19Title) !== FALSE) {
+            /** @var \Drupal\va_gov_vamc\Plugin\Validation\Constraint\ArchiveCovid19 $constraint */
+            $this->getContext()
+              ->buildViolation($constraint->covid19Archived, [])
+              ->addViolation();
+          }
         }
       }
       elseif ($bundle === 'health_care_local_health_service') {
         $nid = $entity->field_regional_health_service->target_id;
-        $referencedNode = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
-        if ($referencedNode && str_contains($referencedNode->label(), $this->covid19Title) !== FALSE) {
-          /** @var \Drupal\va_gov_vamc\Plugin\Validation\Constraint\ArchiveCovid19 $constraint */
-          $this->getContext()
-            ->buildViolation($constraint->covid19Archived, [])
-            ->addViolation();
+        if (!empty($nid)) {
+          $referencedNode = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
+          if ($referencedNode && str_contains($referencedNode->label(), $this->covid19Title) !== FALSE) {
+            /** @var \Drupal\va_gov_vamc\Plugin\Validation\Constraint\ArchiveCovid19 $constraint */
+            $this->getContext()
+              ->buildViolation($constraint->covid19Archived, [])
+              ->addViolation();
+          }
         }
       }
     }
