@@ -23,6 +23,7 @@ Please do not create this ticket until the new VAMC Facility name change has bot
 - [ ] **Facility API ID:** `<insert_facility_API_ID>`
 - [ ] **VAMC System/Section:** `<insert_vamc_section_name>`
 - [ ] **Link to Jira ticket(s):** `<insert_jira_ticket_link>`
+     
      Embedded Support: Please search Jira and add links to any relevant tickets. If none found, please link once created.
 - [ ] **Has the facility been added to the internal Flagged Facilities listing yet?** 
      If no, please add it to the appropriate tab with the prod link, facility ID, and any relevant ticket links or details. ([Current spreadsheet.](https://docs.google.com/spreadsheets/d/1mqTRGkrnfysFMjC8xTHdFzQOMIQ7WrD2CLX83io5Z74/edit?gid=1358772674#gid=1358772674))
