@@ -1,0 +1,222 @@
+---
+########################################################################
+# New VAMC Facility Runbook #
+########################################################################
+# Runbook for adding new VAMC Facilities tickets.
+# Created and last edited by Stefanie Gray - stefanie.gray@va.gov
+########################################################################
+name: New VAMC Facility Runbook
+description: Ticket template form for new VAMC Facilities tickets.
+title: New VAMC Facility [INSERT FACILITY NAME]
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, VAMC, sitewide
+projects: projects/1859
+body:
+  # YOUR YAML HERE, INDENTED BY 2 SPACES SO THAT IT'S PART OF THE BODY.
+  
+  ########################################################################
+  # Preliminary info #
+  ########################################################################
+  # INPUT:
+  - type: input
+    id: vamc_facility
+    attributes:
+      label: VAMC facility name
+      description: "What is the name of the VAMC facility?"
+      placeholder: "Example: Pike County VA Clinic"
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: facility_prod_link
+    attributes:
+      label: Link to facility on production site
+      description: "Please provide a link to the facility on the VA CMS production site."
+      placeholder: "https://prod.cms.va.gov..."
+    validations:
+      required: true
+      
+  # INPUT:
+  - type: input
+    id: facility_api_id
+    attributes:
+      label: Link to facility on production site
+      description: "What is the facility's API ID? This is listed on the VAMC Facility's homepage node on the production site."
+      placeholder: "e.g. vha_123AZ"
+    validations:
+      required: true
+      
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    id: how_to_find_section
+    value: |
+      ## Finding the new VAMC Facility's system and section assignment
+      - Copy this URL into a new tab, then replace the last 3 characters with the numerical portion of the facility ID: `https://www.va.gov/find-locations/facility/vha_###`
+      - This will direct you to the Facility Locator entry for the section's primary location. 
+      - Go to the production node or VA.gov homepage for this location, where the VAMC system / section will be listed.
+    validations:
+      required: false   
+      
+  # INPUT:
+  - type: input
+    id: vamc_system
+    attributes:
+      label: VAMC System / Section
+      description: "Which VAMC system does this facility belong to?"
+      placeholder: "Example: VA Atlanta health care."
+    validations:
+      required: true
+      
+  # TEXTAREA:
+  - type: textarea
+    id: jira_ticket_links
+    attributes:
+      label: Embedded Support - Please link Jira ticket(s) associated with facility.
+      description: "Paste one or more links to relevant VA CMS tickets in Jira. If none found, please link any new Jira tickets once created."
+      placeholder: |
+        1. https://jira.example.com/browse/ABC-123
+        2. https://jira.example.com/browse/ABC-456
+    validations:
+      required: false
+      
+  # CHECKBOX:
+  - type: checkboxes
+    id: spreadsheet
+    attributes:
+      label: Has the facility been added to the internal Flagged Facilities spreadsheet yet?
+      description: If no, please add it to the appropriate tab with the prod link, facility ID, and any relevant ticket links or details.
+      options:
+        - label: Yes
+        - label: No
+    validations:
+      required: false
+      
+  ########################################################################
+  # Acceptance criteria for new VAMC facilities #
+  ########################################################################
+      
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    id: markdown_with_multiline_content_1
+    value: |
+      # Acceptance criteria for new VAMC facilities
+      ## Embedded Support Team steps on the VAMC Facility homepage (production site):
+      ### STEP 1: Section assignment
+      Note that VAMC Facility homepages cannot be updated by content editors until they've been assigned to a section.
+      - [ ] While editing the homepage, scroll down to the field "What health care system does the facility belong to?" and assign the facility's VAMC system from the dropdown menu.
+      - [ ] You will need to assign the VAMC system once more on the right-side menu beneath "Section settings," which governs the VAMC menu location. Facility homepages cannot be updated by content editors until they've been assigned to a section.
+      ### STEP 2: Menu settings
+      - [ ] On the right-side menu under "Menu settings" make sure the "Menu link title" field contains the name of the VAMC Facility.
+      - [ ] Use the dropdown titled "Parent link" to select the "Locations" menu for the associated VAMC section. NOTE THAT THIS IS AN EXTREMELY LONG DROPDOWN MENU AND IT IS EASY TO SELECT THE WRONG SECTION!
+      ### STEP 3: Meta text
+      - [ ] Add the following text to the "meta description" field: `Get address and hours, parking and transportation information, and health services offered at [CLINIC NAME]`
+      ### STEP 4: Save as "Draft"
+      - [ ] Save as "Draft," then double-check to ensure the node was assigned to the current section.
+      ### STEP 5: Update menu link location (but do not enable link yet)
+      - [ ] From `admin/structure/menu` find the associated VAMC section and click "Edit menu." Scroll down to "Locations" and use the four-pointed arrow to move the facility to the correct location in the menu. After editing the menu, click "Save."
+           - Note: Per VA system design standards, medical centers are listed first, then clinics, both in alphabetical order.
+      ### STEP 6: Update menu link location (but do not enable link yet)
+      - [ ] Let the editor(s) know they can now edit the draft facility homepage and add health services. (Email template: "Editor next steps")
+    validations:
+      required: false
+      
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    id: markdown_with_multiline_content_2
+    value: |
+      ## After editor says homepage is ready for publishing:
+      ### STEP 7: Make sure the facility homepage has the following:
+      - [ ] An introduction
+      - [ ] A facility photo
+      - [ ] "Prepare For Your Visit" info
+      - [ ] VAMC Facility Health Services
+      
+      Health services will be listed at the bottom of the facility homepage on the production site. If there is nothing listed beneath the "Health Services" header at the bottom of the homepage, please send the "Missing VAMC Facility Health Services" email template below.
+    validations:
+      required: false
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    id: markdown_with_multiline_content_3
+    value: |
+      ## Drupal Administrator steps (Embedded Support team or Facilities team):
+      ### STEP 8: Enable left-nav menu link
+      - [ ] From `admin/structure/menu` find the associated VAMC section and click "Edit menu." Scroll down to "Locations" and click "Edit" next to the location in question. From there, enable the menu link, and click "Save."
+      ### STEP 9: Bulk publishing facility homepage and all linked nodes:
+      - [ ] Go to the Bulk Edit page (`admin/content/bulk`), filter by section, moderation state = "Any", and search for the facility name.
+      - [ ] Select all relevant nodes, then scroll to the "Action" menu at the bottom of the Bulk Edit page.
+      - [ ] Click "Publish latest revision" then click "Apply to selected items."
+      - [ ] After bulk-publishing, double-check all linked VAMC Facility Health Services to ensure that they've successfully published.
+      
+      #### After the next content release goes out:
+      ### STEP 10: Facility Locator check ( https://www.va.gov/find-locations/ )
+      - [ ] **Step 12:** Validate that the change has deployed by checking that the Facility Locator directs to the newly published homepage.
+      ### STEP 11: Remove flag
+      - [ ] Edit facility node and remove `New facility` flag with a revision log message that includes a link to this ticket.
+      
+      ## Embedded Support team:
+      ### STEP 12: Wrap-up editor comms.
+      - [ ] Notify editor and any other stakeholders that the new homepage is now live.
+    validations:
+      required: false
+      
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    id: markdown_with_multiline_content_4
+    value: |
+      ## Additional guidance
+
+      **If this is a false "new facility" report, i.e. a duplication of an existing homepage, or one that simply doesn't exist.**
+      Please let the editor know to contact their VAST administrator to make a correction.
+
+      **If editor has trouble editing the draft homepage:** 
+      Make sure they’re logged in properly and that the editor and the facility are assigned to the same section.
+
+      **If the editor publishes draft homepage without health services added:** 
+      Send "Missing VAMC Facility Health Services" email template below. If the editor does not add them after the CMS Help Desk team has reached out two or more times, CC VHA Digital Media and add 'escalation' label in Jira.
+    validations:
+      required: false
+      
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    id: markdown_with_multiline_content_5
+    value: |
+      # Email templates:
+      ## New VAMC facility editor confirmation email 
+      Send if facility spotted on Flagged Facilities page but details haven't been confirmed
+      
+      ```
+      The [CLINIC NAME] has been flagged as a “new” location by the Facilities API.
+      
+      Questions: What is the status of this facility? Should the homepage for this location be added to the live site?
+      
+      If so, great! We can proceed with next steps. If not, is this an existing location that was previously closed, renamed, or relocated? Was it previously known by any other name?
+      
+      Please provide details for this location as well as an opening date if one has been determined – thank you!
+      ```
+      ## New VAMC facility editor next steps email:
+      
+      ```
+      Hello! You should now be able to edit the draft page for this facility, located at [LINK TO NEW FACILITY DRAFT PAGE ON PROD]
+      
+      Important: Please make sure that all relevant steps listed within the “How do I add a facility to my health care system?” Knowledge Base article have been completed: https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system
+      
+      The facility will also need VAMC Facility Health Services, otherwise Veterans will not be able to view what types of care are available. For more info, please see the associated Knowledge Base article: https://prod.cms.va.gov/help/vamc/about-vamc-health-services
+      
+      Once finished, please save this page (and all related VAMC Facility Health Service pages) in the moderation state “Draft." Please do not save them as “Published.”
+      
+      Please let us know when your draft content is complete, so that we can wrap up the technical process from our end before publishing the new facility to VA.gov. Thanks!
+      ```
+      ## Missing VAMC Facility Health Services email:
+      
+      ```
+      Thank you for your team's help updating the homepage for this facility; however, you have not added any VAMC Facility Health Services for this location.
+      
+      Please add Facility Health Services as soon as possible since this may impact Veteran health care and patient safety. Thank you!
+      
+      For more information on how to add VAMC Facility Health Services for this location, please see the related Knowledge Base article: https://prod.cms.va.gov/help/vamc/about-vamc-health-services
+      
+      Please let us know as soon as health services have been added for this location. Thank you!
+      ```
+    validations:
+      required: false
