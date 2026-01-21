@@ -4,9 +4,9 @@ More info at https://github.com/department-of-veterans-affairs/va.gov-team-sensi
 
 ## How to request a CMS user account
 
-### For developers with SOCKS/CAG access but no PIV card
+### For developers with VA Network access but no PIV card
 
-Ask another CMS developer to create a Drupal account with password authentication
+Developers are able to self-serve and create a Drupal account with password authentication
 
 ### For Editors
 
