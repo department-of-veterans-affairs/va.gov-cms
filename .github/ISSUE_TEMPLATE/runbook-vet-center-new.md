@@ -1,73 +1,166 @@
 ---
-name: Runbook - New Vet Center Facility
+name: Runbook - New Vet Center Facility (and Section)
 about: changing facility information in the CMS for Vet Center facilities
-title: 'New Vet Center Facility: <insert_name_of_facility>'
+title: 'New Vet Center Facility/Section: <new_vet_center_name>'
 labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support,
   Vet Center, sitewide
 assignees: ''
 
 ---
+**Before you begin:** Please do not create this ticket until the new Vet Center has appeared on the CMS [Flagged Facilities page](https://prod.cms.va.gov/admin/content/facilities/flagged) or until either the Facilities team or VA Leadership have instructed us to create the new Vet Center homepage and section.
 
-## Description
-Use this runbook if: a Vet Center, Mobile Vet Center, or Vet Center Outstation is flagged as New, OR if an existing facility is flagged as New with a new Facility API ID.  
-- This may also occur when an Outstation is promoted to main Vet Center or if an existing Mobile Vet Center is reallocated to a different Vet Center 
+**If notified via Jira but not flagged in the CMS:**
+Confirm with the editor that they reported the new facility to VAST. Please refer to the KB article "[How do I update my Vet Center facility's basic location data?](https://prod.cms.va.gov/help/vet-centers/how-do-i-update-my-vet-center-facilitys-basic-location-data)" for more info and send to editor if needed.
 
-## Intake
-- [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
-Trigger: <insert_trigger>
+**If reported to VAST but not listed yet:** Changes made within VAST can take up to 75 days to appear within the Facilities API.
 
-- [ ] Link to associated help desk ticket (if applicable)
-Help desk ticket: <insert_help_desk_link>
+**If the help desk is waiting on info or actions from facility editor(s):** Please add the "Awaiting editor" flag to the facility node with a revision log message that includes Jira or Github ticket numbers. 
 
-- [ ] Name of submitter (if applicable)
-Submitter: <insert_name>
+Do not change the moderation state of the node (e.g. "Draft", "Published") when adding or removing flags unless otherwise noted.
 
-- [ ] If the submitter is an editor, send them links to any relevant KB articles for the Vet Center product.
-KB articles: <insert_kb_article_links>
+----------
 
-- [ ] Link to facility in production:
-Facility CMS link: <insert_facility_link>
-Facility API ID: <insert_facility_API_ID>
+## Facility and Ticket Info
+- [ ] **Vet Center facility name:** `<vet_center_facility>`
+- [ ] **New Vet Center section name:** `<new_vet_center_section>`
+- [ ] **Link to facility on production site:** `<facility_prod_link>`
+- [ ] **Facility API ID:** `<facility_API_ID>`     
+- [ ] **Has the new Vet Center been added to the internal Flagged Facilities listing yet?** 
+     
+     If no, please add it to the appropriate tab with the prod link, facility ID, and any relevant ticket links or details. ([Current spreadsheet.](https://docs.google.com/spreadsheets/d/1mqTRGkrnfysFMjC8xTHdFzQOMIQ7WrD2CLX83io5Z74/edit?gid=1358772674#gid=1358772674))
+- [ ] **Link to Jira ticket(s):** `<jira_ticket_links>`
+     
+     **Embedded Support:** Please search Jira and add links to any relevant tickets. If none found, please link once created.
 
-## Acceptance criteria
+To find out which content editors should be assigned to this Vet Center, contact Barb Kuhn or the current Vet Centers VA point of contact once the new section has been created.
 
-### New Vet Center
-[@TODO: KB ARTICLE FOR ADDING VET CENTERS - SEE runbook-vamc-facility-new]
+----
 
-#### CMS help desk steps
-**Note: If the help desk is waiting on information from the facility staff or editor, add the `Awaiting editor` flag to the facility** with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. **Be sure to preserve the current moderation state of the node when adding or removing the flag.**
+## Acceptance criteria for new Vet Center facilities
 
-**If a Mobile Vet Center:**
-- [ ] Confirm the Vet Center to which it belongs and and set the "Main Vet Center location" field. The parent location may be derived by the Facility ID.
-- [ ] Follow up with Barb Kuhn/RCS Central office to let her know we've identified this new Mobile unit and confirm the District, Vet Center Director, and Outreach Specialist (names/email addresses) who will be responsible for updates
-- [ ] Contact the Vet Center editor to remind them to (1) add a photo of the Mobile Vet Center and then they can publish when ready and (2) remind them that if this Mobile Vet Center is used by any other facilities to communicate with those Vet Center editors
+### Drupal Administrator steps (Embedded Support team or Facilities team):
 
-**If a Outstation:**
-- [ ] Become aware that the new facility is now on the Facility API (typically, via a Flag).
-- [ ] Confirm the Vet Center to which it belongs and set the "Main Vet Center location" field. The parent location may be derived by the Facility ID.
-- [ ] Follow up with Barb Kuhn/RCS Central office to let her know we've identified the new Outstation and confirm the District, Vet Center Director, and Outreach Specialist (names/email addresses) who will be responsible for updates
-- [ ] Contact the Vet Center editor to remind them to (1) add a photo of the Outstation
-- [ ] If the new Outstation replaces a CAP, the editor should consider updating the operating status for the CAP to direct Veterans to the new location with “as of” date and set a reminder on the calendar to archive the CAP 30 days after the new location has opened   
+#### STEP 1: Verify new section approval
+- [ ] Please verify with the Facilities Team and/or VA Leadership that the new Vet Center is approved to become a new section within the CMS. 
 
-**If a Vet Center:**
-- [ ] Become aware that the new facility is now on the Facility API (typically, via a Flag).
-- [ ] Check with Readjustment Counseling Services to (1) confirm what district the Vet Center belongs, (2) identify the Vet Center Director and Outreach Specialist (names/email addresses), (3) confirm the new location isn't a replacement for an existing Outstation
-- [ ] Create a Vet Center - Locations List node for the Vet Center and save as Draft
-- [ ] In [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), move the Vet Center Section to the appropriate district.
-- [ ] Create account access as directed by RCS. If editors are new to Drupal, create accounts with editor rights only for Vet Center Director and Outreach Specialist so that they cannot publish on their own.
-- [ ] Contact Vet Center Director and Outreach specialist to onboard for training [@TODO write sample email - SEE runbook-vamc-facility-new] **Note: this should include instructions for adding content, updating the Locations list, and preparing for publishing and RCS Central Office should be included as CC**
-- [ ] Add flag `Awaiting editor` to this facility. Note: This is now blocked until RCS Central office approves.
-- [ ] **Once approved by RCS Central Office as complete, proceed to Drupal Admin publishing steps**
+     - Information may be provided within existing Jira tickets. Please compile all information and cross-link all tickets. You may also link to Slack threads within the comments of this ticket.
 
+#### STEP 2: Verify new Vet Center district and points of contact
+- [ ] Confirm the new Vet Center's district (1, 2, 3, 4, 5) and log the name and email address of the Vet Center Director and Outreach Specialist, if applicable, within internal notes.
 
-**Drupal Admin steps**
-- [ ] Bulk publish the nodes, Locations list and facility.
+------
 
-#### After next nightly Facilities migration to Lighthouse
-- [ ] Validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
-- [ ] Edit facility node and remove `New facility` flag with a revision log message that includes a link to this ticket.
-- [ ] Let Help desk know this has been done, if not done by Help desk.
+### Facilities team steps:
 
-#### CMS Help desk (wrap up)
-- [ ] Upgrade the Vet Center Director and Outreach Specialist accounts to the publisher role for that Vet Center.
-- [ ] Notify editor and any other stakeholders.
+#### STEP 3: Add new section
+- [ ] Complete the following steps to add the new Vet Center section to the Sections taxonomy and assign it to the correct district. 
+
+	Path: `/admin/structure/taxonomy/manage/administration/overview`
+
+	- Product: "Vet Center." 
+	- The name of the Vet Center is required but the "Description" field can be left blank.
+	- Under "Relations" the parent term should be the District (i.e. District 1).
+	- Click "Save."
+
+#### STEP 4: Create new "Locations List" node
+- [ ] From "Content -> Add Content" create a new "Vet Center - Locations List" node, assign it to the newly created Section, and save it as a Draft.
+
+------
+
+### Embedded Support team steps:
+ 
+#### STEP 5: Review new homepage and section
+- [ ] Double-check all URL aliases, breadcrumbs, and menu links for new Vet Center and section and report any issues to Facilities engineers.
+
+#### STEP 6: Create Vet Center editor accounts
+- [ ] Create new CMS accounts assigned to the new Vet Center section for the associated editors. If you do not know who should be assigned to this facility, please contact Barb Kuhn, Vet Centers VA leadership, or the Facilities team.
+
+#### STEP 7: Ask editor to add necessary homepage elements
+Link to Vet Center Editor Guide, if needed for content editors: `https://prod.cms.va.gov/help/vet-centers/vet-center-editor-guide`
+
+- [ ] Send "Vet Center homepage edits needed" email to associated content editors (see Email Templates section at bottom of ticket).
+
+#### STEP 8: Verify homepage elements
+Please make sure the new Vet Center homepage has the following list added before publishing day:
+
+   - [ ] A facility photo
+   - [ ] Vet Center services
+   - [ ] "Prepare For Your Visit" information
+   - [ ] Satellite locations, if applicable (optional)
+     
+You may need to follow up with the associated editor(s) using the "Vet Center follow-up reminder" email template provided below.
+
+#### STEP 9: Publishing day -- bulk publishing all linked nodes
+- [ ] Go to the Bulk Edit page (`admin/content/bulk`), filter by the new Vet Center section name, moderation state = "Any".
+- [ ] Select all nodes, then scroll to the "Action" menu at the bottom of the Bulk Edit page.
+- [ ] Click "Publish latest revision" then click "Apply to selected items."
+- [ ] After bulk-publishing, double-check all linked Vet Center nodes to ensure that they've successfully published.
+
+#### STEP 10: After the next content release goes out
+- [ ] Verify that the URL for the new Vet Center is working on the live site and that associated nodes such as the "Locations" page and any satellite locations are linked properly.
+
+------
+
+### Embedded Support team steps:
+
+#### STEP 11: Remove flag
+- [ ] Go to the main Vet Center homepage, click "Edit," then scroll to bottom to remove the `New facility` flag and any other flags. Click Save.
+
+#### STEP 12: Wrap-up editor comms
+- [ ] Help Desk team informs content editors and/or Barb Kuhn that process is complete.
+     
+------
+
+## Email templates:
+
+### New Vet Center reported
+Send if a new Vet Center has been reported via the Flagged Facilities page but there is no existing communication confirming that this Vet Center vehicle is in use:
+
+```
+A new Vet Center, [NAME OF VET CENTER], has been added to the VA.gov CMS. 
+
+The Facility ID associated with it is: [INSERT VET CENTER ID]
+
+For your convenience, here is a direct link to this node: [INSERT PRODUCTION URL FOR Vet Center NODE]
+
+Please confirm whether this information is correct, and please let our team know whether an opening date has been determined. Thank you!
+
+This node is currently saved as a “Draft” and the info is not yet visible on the live site. Before the new Vet Center homepage is published, it will need Vet Center services, "Prepare For Your Visit" info, and a facility info.
+
+For more information about required details, please see the following Knowledge Base article: https://prod.cms.va.gov/help/vet-centers/vet-center-editor-guide
+```
+### Vet Center homepage edits needed
+Send if the Vet Center's content editors have not added Vet Center Services, a photo, "Prepare For Your Visit" info, and/or satellite locations (optional) to the homepage before opening day.
+
+```
+
+Hello! Before the new [INSERT NAME OF VET CENTER] homepage can be published to the live site, there is information that must be added within the CMS:
+
+Please add:
+- Vet Center Services
+- A facility photo
+- "Prepare For Your Visit" information
+- Satellite locations such as Mobile Vet Centers or Outstations, if applicable (Optional)
+
+For assistance, please refer to the Vet Center Editor Guide in the CMS Knowledge Base (We recommend bookmarking this page for future reference!): https://prod.cms.va.gov/help/vet-centers/vet-center-editor-guide
+
+For your convenience, here is a direct link to this node: [INSERT PRODUCTION URL FOR Vet Center NODE]
+```
+
+### Vet Center follow-up reminder
+Send if the Vet Center's content editors require a second reminder to add Vet Center Services, a photo, "Prepare For Your Visit" info, and/or satellite locations (optional) to the homepage before opening day.
+
+```
+
+Hello! The new [INSERT NAME OF VET CENTER] will be opening on [OPENING DATE]. However, the homepage is still missing some crucial components that are necessary for Veterans accessing care at this location.
+
+Please add:
+- Vet Center Services
+- A facility photo
+- "Prepare For Your Visit" information
+- Satellite locations such as Mobile Vet Centers or Outstations, if applicable (Optional)
+
+For assistance, please refer to the Vet Center Editor Guide in the CMS Knowledge Base (We recommend bookmarking this page for future reference!): https://prod.cms.va.gov/help/vet-centers/vet-center-editor-guide
+
+For your convenience, here is a direct link to this node: [INSERT PRODUCTION URL FOR Vet Center NODE]
+```
