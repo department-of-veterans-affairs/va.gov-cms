@@ -42,7 +42,7 @@ For any Vet Center sections lacking active editors, please contact Barb Kuhn or 
      
 - [ ] **Link to Jira ticket(s):** `<jira_ticket_links>`
      
-     **Embedded Support:** Please search Jira and add links to any relevant tickets. If none found, please link once created. 
+  **Embedded Support:** Please search Jira and add links to any relevant tickets. If none found, please link once created. 
 
 URL redirects are not needed for Mobile Vet Center and Vet Center Outstation tickets because they do not have outward-facing URLs. 
 
