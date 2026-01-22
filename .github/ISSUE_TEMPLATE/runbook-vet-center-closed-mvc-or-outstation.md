@@ -32,7 +32,7 @@ For any Vet Center sections lacking active editors, please contact Barb Kuhn or 
 
 - [ ] **Link to Jira ticket(s):** `<jira_ticket_links>`
      
-     **Embedded Support:** Please search Jira and add links to any relevant tickets. If none found, please link once created.
+ **Embedded Support:** Please search Jira and add links to any relevant tickets. If none found, please link once created.
      
 You do not need to create any redirect tickets for Mobile Vet Center nodes, because they do not have direct URLs -- these nodes are nested within the linked Vet Center's "Locations" page.
 
