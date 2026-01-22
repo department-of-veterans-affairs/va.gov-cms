@@ -32,7 +32,7 @@ Do not change the moderation state of the node (e.g. "Draft", "Published") when 
      If no, please add it to the appropriate tab with the prod link, facility ID, and any relevant ticket links or details. ([Current spreadsheet.](https://docs.google.com/spreadsheets/d/1mqTRGkrnfysFMjC8xTHdFzQOMIQ7WrD2CLX83io5Z74/edit?gid=1358772674#gid=1358772674))
 - [ ] **Link to Jira ticket(s):** `<jira_ticket_links>`
      
-     **Embedded Support:** Please search Jira and add links to any relevant tickets. If none found, please link once created.
+  **Embedded Support:** Please search Jira and add links to any relevant tickets. If none found, please link once created.
      
 - [ ] **Link to URL redirect ticket:** `<url_redirect_link>`
      
