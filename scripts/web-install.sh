@@ -28,7 +28,7 @@ if [[ "${BUILD_ENV}" == "eks" ]]; then
   export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
 fi
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE
-yarn install
+yarn install-safe
 popd
 
 popd > /dev/null
