@@ -41,7 +41,7 @@ body:
       placeholder: "e.g. vha_123AZ"
     validations:
       required: true
-      
+
   # INPUT:
   - type: input
     id: vamc_system
@@ -51,7 +51,7 @@ body:
       placeholder: "Example: VA Atlanta health care."
     validations:
       required: true
-      
+
   # MARKDOWN WITH MULTI-LINE CONTENT:
   - type: markdown
     attributes:
@@ -120,7 +120,7 @@ body:
         - [ ] On the right-side menu under "Menu settings" add the full name of the VAMC Facility to the "Menu link title" field.
 
         - [ ] Use the dropdown titled "Parent link" to select the "Locations" menu for the associated VAMC section. _(Be careful! This is an extremely long dropdown menu, and it is easy to select the wrong section.)_
-              
+
         #### STEP 3: Meta text
 
         - [ ] Add the following text to the "meta description" field: `Get address and hours, parking and transportation information, and health services offered at [CLINIC NAME]`
@@ -139,13 +139,13 @@ body:
         - [ ] Let the VAMC section's assigned editor(s) know they can now edit the draft facility homepage and add health services. (Email template: "Editor next steps")
 
         ### After editor says homepage is ready for publishing:
-              
+
         #### STEP 7: Make sure the facility homepage has the following:
         - [ ] An introduction
         - [ ] A facility photo
         - [ ] "Prepare For Your Visit" info
         - [ ] VAMC Facility Health Services
-              
+
         Health services will be listed at the bottom of the facility homepage on the production site. If there is nothing listed beneath the "Health Services" header at the bottom of the homepage, please send the "Missing VAMC Facility Health Services" email template below.
 
         ### Drupal Administrator steps (Embedded Support team or Facilities team):
@@ -158,7 +158,7 @@ body:
         - [ ] Select all relevant nodes, then scroll to the "Action" menu at the bottom of the Bulk Edit page.
         - [ ] Click "Publish latest revision" then click "Apply to selected items."
         - [ ] After bulk-publishing, double-check all linked VAMC Facility Health Services to ensure that they've successfully published.
-              
+
         ### After the next content release goes out:
 
         #### STEP 10: Facility Locator check ( https://www.va.gov/find-locations/ )
@@ -167,7 +167,7 @@ body:
 
         #### STEP 11: Remove flag
         - [ ] Edit facility node and remove `New facility` flag with a revision log message that includes a link to this ticket.
-              
+
         ### Embedded Support team:
 
         #### STEP 12: Wrap-up editor comms.
@@ -176,8 +176,8 @@ body:
         ------
     validations:
       required: true
-    
-  # ADDITIONAL GUIDANCE: 
+
+  # ADDITIONAL GUIDANCE:
   - type: textarea
     id: additional_guidance
     attributes:
@@ -197,12 +197,12 @@ body:
 
     validations:
       required: true
-      
-  # ADDITIONAL GUIDANCE: 
+
+  # ADDITIONAL GUIDANCE:
   - type: textarea
     id: email_templates
     attributes:
-      label: email_templates
+      label: Email templates
       description: Leave this section as-is. Assignees will copy email templates from here.
       value: |
         ## Email templates
