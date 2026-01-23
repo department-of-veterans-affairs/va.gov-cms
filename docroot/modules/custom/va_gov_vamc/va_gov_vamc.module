@@ -245,6 +245,10 @@ function va_gov_vamc_entity_bundle_field_info_alter(&$fields, EntityTypeInterfac
       // Validate the VAMC system health service selection based on Section.
       $fields['field_regional_health_service']->addConstraint('SectionMatcher');
     }
+
+    if (isset($fields['field_referral_required'])) {
+      $fields['field_referral_required']->addConstraint('ReferralRequired');
+    }
   }
 
   // Ensure that all COVID-19 health services can only be archived.
