@@ -29,6 +29,20 @@ class JsonApiRequestTest extends VaGovExistingSiteBase {
   protected $configFactory;
 
   /**
+   * Original enhancer plugin id.
+   *
+   * @var string|null
+   */
+  protected $originalLinkEnhancerId;
+
+  /**
+   * Original absolute_url setting.
+   *
+   * @var mixed
+   */
+  protected $originalLinkEnhancerAbsoluteUrl;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp(): void {
@@ -45,8 +59,19 @@ class JsonApiRequestTest extends VaGovExistingSiteBase {
     ];
 
     // Load config for jsonapi_extras.jsonapi_field_type_config.
-    /** @var \Drupal\Core\Config\Config $config */
+    /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
     $this->configFactory = \Drupal::service('config.factory');
+
+    // Ensure our custom link enhancer is active for this test suite.
+    // Existing-site tests may not have imported config/sync.
+    $config = $this->configFactory->getEditable('jsonapi_extras.jsonapi_field_type_config');
+
+    // Store original values so we can restore them in tearDown().
+    $this->originalLinkEnhancerId = $config->get('resourceFields.link.enhancer.id');
+    $this->originalLinkEnhancerAbsoluteUrl = $config->get('resourceFields.link.enhancer.settings.absolute_url');
+
+    $config->set('resourceFields.link.enhancer.id', 'va_gov_url_link');
+    $config->save();
   }
 
   /**
@@ -55,10 +80,20 @@ class JsonApiRequestTest extends VaGovExistingSiteBase {
   public function tearDown(): void {
     parent::tearDown();
 
-    // Reset the absolute URL setting.
-    $config = $this->configFactory->getEditable('jsonapi_extras.jsonapi_field_type_config');
-    $config->set('resourceFields.link.enhancer.settings.absolute_url', 0);
-    $config->save();
+    // Reset JSON:API link field enhancer configuration.
+    if ($this->configFactory) {
+      $config = $this->configFactory->getEditable('jsonapi_extras.jsonapi_field_type_config');
+
+      if ($this->originalLinkEnhancerId !== NULL) {
+        $config->set('resourceFields.link.enhancer.id', $this->originalLinkEnhancerId);
+      }
+
+      if ($this->originalLinkEnhancerAbsoluteUrl !== NULL) {
+        $config->set('resourceFields.link.enhancer.settings.absolute_url', $this->originalLinkEnhancerAbsoluteUrl);
+      }
+
+      $config->save();
+    }
   }
 
   /**
@@ -185,8 +220,29 @@ class JsonApiRequestTest extends VaGovExistingSiteBase {
     $config->set('resourceFields.link.enhancer.settings.absolute_url', TRUE);
     $config->save();
 
-    // Get the JSON:API response for the paragraph again.
-    $json_string = $this->getBodyFromPath("/jsonapi/paragraph/react_widget/$uuid", $this->userInfo);
+    // Create a new paragraph to avoid any response caching.
+    $paragraph_absolute = Paragraph::create([
+      'type' => 'react_widget',
+      'field_cta_widget' => FALSE,
+      'field_default_link' => [
+        'uri' => 'internal:/pension/application/527EZ',
+        'title' => 'Apply for Veterans Pension Benefits',
+        'options' => [],
+      ],
+      'field_error_message' => [
+        'value' => '<strong>We’re sorry. Something went wrong when we tried to load your saved application.</strong><br/>Please try refreshing your browser in a few minutes.',
+        'format' => 'rich_text',
+        'processed' => '<strong>We’re sorry. Something went wrong when we tried to load your saved application.</strong><br>Please try refreshing your browser in a few minutes.',
+      ],
+      'field_loading_message' => 'Checking your application status.',
+      'field_timeout' => 20,
+      'field_widget_type' => 'health-care-app-status',
+    ]);
+    $paragraph_absolute->save();
+
+    // Get the JSON:API response for the new paragraph.
+    $uuid_absolute = $paragraph_absolute->uuid();
+    $json_string = $this->getBodyFromPath("/jsonapi/paragraph/react_widget/$uuid_absolute", $this->userInfo);
 
     // Decode the JSON:API response.
     $paragraphData = json_decode($json_string, TRUE);
@@ -203,6 +259,77 @@ class JsonApiRequestTest extends VaGovExistingSiteBase {
         $this->stringContains('https://')
       )
     );
+  }
+
+  /**
+   * Test that node entity links get trailing slashes.
+   *
+   * VA.gov canonical URLs use trailing slashes. When a link field references a
+   * node using `entity:node/{nid}`, the resolved URL should have a trailing
+   * slash.
+   *
+   * @group services
+   * @group all
+   */
+  public function testNodeEntityLinksHaveTrailingSlash() {
+    $node = $this->createNode([
+      'type' => 'page',
+      'title' => 'Test Page for Trailing Slash',
+      'status' => 1,
+      'moderation_state' => 'published',
+    ]);
+    $node->setPublished()->save();
+
+    $paragraph = Paragraph::create([
+      'type' => 'link_teaser',
+      'field_link' => [
+        'uri' => 'entity:node/' . $node->id(),
+        'title' => 'Link to Test Page',
+        'options' => [],
+      ],
+      'field_link_summary' => 'A test link summary.',
+    ]);
+    $paragraph->save();
+
+    $uuid = $paragraph->uuid();
+    $json_string = $this->getBodyFromPath("/jsonapi/paragraph/link_teaser/$uuid", $this->userInfo);
+    $paragraphData = json_decode($json_string, TRUE);
+
+    $url = $paragraphData['data']['attributes']['field_link']['url'];
+    $this->assertStringEndsWith('/', $url, 'Node entity link URL should end with a trailing slash');
+  }
+
+  /**
+   * Test that non-node URIs do not get trailing slashes added.
+   *
+   * @group services
+   * @group all
+   */
+  public function testInternalLinksDoNotGetTrailingSlashAdded() {
+    $paragraph = Paragraph::create([
+      'type' => 'react_widget',
+      'field_cta_widget' => FALSE,
+      'field_default_link' => [
+        'uri' => 'internal:/pension/application/527EZ',
+        'title' => 'Apply for Veterans Pension Benefits',
+        'options' => [],
+      ],
+      'field_error_message' => [
+        'value' => 'Error message',
+        'format' => 'rich_text',
+      ],
+      'field_loading_message' => 'Loading.',
+      'field_timeout' => 20,
+      'field_widget_type' => 'health-care-app-status',
+    ]);
+    $paragraph->save();
+
+    $uuid = $paragraph->uuid();
+    $json_string = $this->getBodyFromPath("/jsonapi/paragraph/react_widget/$uuid", $this->userInfo);
+    $paragraphData = json_decode($json_string, TRUE);
+
+    $url = $paragraphData['data']['attributes']['field_default_link']['url'];
+    $this->assertStringEndsWith('527EZ', $url, 'Internal link URL should NOT have a trailing slash added');
   }
 
   /**

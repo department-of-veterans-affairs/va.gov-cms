@@ -6,6 +6,7 @@ dependencies:
     - field.field.block_content.alert.field_owner
     - field.field.block_content.benefit_promo.field_administration
     - field.field.block_content.connect_with_us.field_administration
+    - field.field.block_content.cta_with_link.field_administration
     - field.field.block_content.news_promo.field_administration
     - field.field.block_content.promo.field_owner
     - field.field.media.document.field_owner
@@ -90,6 +91,10 @@ scheme_settings:
     -
       entity_type: block_content
       bundle: benefit_promo
+      field: field_administration
+    -
+      entity_type: block_content
+      bundle: cta_with_link
       field: field_administration
     -
       entity_type: block_content
