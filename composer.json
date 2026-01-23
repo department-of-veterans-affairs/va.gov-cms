@@ -402,6 +402,7 @@
         "va:test:check-node-revision-logs": "Check the node revision log fields.",
         "va:test:check-taxonomy-revision-logs": "Check the taxonomy revision log fields.",
         "va:test:content-build-gql": "Run GraphQL export to test content-build.",
+        "va:test:next-build": "Test Next Build's use of JSON:API and Decoupled Router.",
         "va:test:cypress": "Run Cypress tests.",
         "va:test:cypress-ci": "Run Cypress tests with CI-specific functionality.",
         "va:test:cypress-interactive": "Run Cypress tests interactively (on host web browser).",
@@ -554,6 +555,12 @@
             "# Run GraphQL export to test content-build.",
             "! ./scripts/should-run-directly.sh || ./tests/scripts/content-build-gql.sh",
             "./scripts/should-run-directly.sh || ddev composer va:test:content-build-gql --"
+        ],
+        "va:test:next-build": [
+            "# Test Next Build's use of JSON:API and Decoupled Router.",
+            "# Auto-detects env from CMS_ENVIRONMENT_TYPE, or pass env name to override (e.g., tugboat)",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/next-build.sh \"$@\"",
+            "./scripts/should-run-directly.sh || ddev composer va:test:next-build -- \"$@\""
         ],
         "va:test:cypress": [
             "# Run Cypress tests.",
