@@ -82,7 +82,7 @@ else
   git checkout main &>> ${logfile}
 fi
 if [ "${APP_ENV}" == "tugboat" ]; then
-    echo "Setting up Tugboat environment variables for Next.js..."
+    echo "Setting up Tugboat environment variables for Next.js..." >> ${logfile}
     ${ROOT}/scripts/next-set-tugboat-env-vars.sh
 fi
 popd
