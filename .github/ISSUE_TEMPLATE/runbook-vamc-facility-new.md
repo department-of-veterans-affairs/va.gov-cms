@@ -19,10 +19,12 @@ Do not change the moderation state of the node (e.g. "Draft", "Published") when 
 ----------
 
 ## Facility and Ticket Info
-- [ ] **VAMC facility name:** `<vamc_facility>`
-- [ ] **VAMC System/Section:** `<vamc_system>`
-- [ ] **Link to facility on production site:** `<facility_prod_link>`
-- [ ] **Facility API ID:** `<facility_API_ID>`     
+- [ ] **Link to facility on production site:** `<insert_facility_link>`
+- [ ] **Facility API ID:** `<insert_facility_API_ID>`
+- [ ] **VAMC System/Section:** `<insert_vamc_section_name>`
+- [ ] **Link to Jira ticket(s):** `<insert_jira_ticket_link>`
+     
+     Embedded Support: Please search Jira and add links to any relevant tickets. If none found, please link once created.
 - [ ] **Has the facility been added to the internal Flagged Facilities listing yet?** 
      If no, please add it to the appropriate tab with the prod link, facility ID, and any relevant ticket links or details. ([Current spreadsheet.](https://docs.google.com/spreadsheets/d/1mqTRGkrnfysFMjC8xTHdFzQOMIQ7WrD2CLX83io5Z74/edit?gid=1358772674#gid=1358772674))
 - [ ] **Link to Jira ticket(s):** `<jira_ticket_links>`
