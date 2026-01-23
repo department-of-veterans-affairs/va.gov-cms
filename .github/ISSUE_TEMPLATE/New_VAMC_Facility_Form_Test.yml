@@ -45,15 +45,12 @@ body:
 
   # MARKDOWN WITH MULTI-LINE CONTENT:
   - type: markdown
-    id: how_to_find_section
     attributes:
       value: |
         ## Finding the new VAMC Facility's system and section assignment
         - Copy this URL into a new tab, then replace the last 3 characters with the numerical portion of the facility ID: `https://www.va.gov/find-locations/facility/vha_###`
         - This will direct you to the Facility Locator entry for the section's primary location.
         - Go to the production node or VA.gov homepage for this location, where the VAMC system / section will be listed.
-    validations:
-      required: false
 
   # INPUT:
   - type: input
@@ -95,7 +92,6 @@ body:
 
   # MARKDOWN WITH MULTI-LINE CONTENT:
   - type: markdown
-    id: markdown_with_multiline_content_1
     attributes:
       value: |
         # Acceptance criteria for new VAMC facilities
@@ -113,11 +109,9 @@ body:
         - [ ] Save as "Draft," then double-check to ensure the node was assigned to the current section.
         ### STEP 5: Update menu link location (but do not enable link yet)
         - [ ] From `admin/structure/menu` find the associated VAMC section and click "Edit menu." Scroll down to "Locations" and use the four-pointed arrow to move the facility to the correct location in the menu. After editing the menu, click "Save."
-              - Note: Per VA system design standards, medical centers are listed first, then clinics, both in alphabetical order.
-        ### STEP 6: Update menu link location (but do not enable link yet)
+          - Note: Per VA system design standards, medical centers are listed first, then clinics, both in alphabetical order.
+        ### STEP 6: Notify editors
         - [ ] Let the editor(s) know they can now edit the draft facility homepage and add health services. (Email template: "Editor next steps")
-    validations:
-      required: false
 
   # MARKDOWN WITH MULTI-LINE CONTENT:
   - type: markdown
@@ -156,7 +150,6 @@ body:
         - [ ] Notify editor and any other stakeholders that the new homepage is now live.
   # MARKDOWN WITH MULTI-LINE CONTENT:
   - type: markdown
-    id: markdown_with_multiline_content_4
     attributes:
       value: |
         ## Additional guidance
@@ -169,12 +162,9 @@ body:
 
         **If the editor publishes draft homepage without health services added:**
         Send "Missing VAMC Facility Health Services" email template below. If the editor does not add them after the CMS Help Desk team has reached out two or more times, CC VHA Digital Media and add 'escalation' label in Jira.
-    validations:
-      required: false
 
   # MARKDOWN WITH MULTI-LINE CONTENT:
   - type: markdown
-    id: markdown_with_multiline_content_5
     attributes:
       value: |
         # Email templates:
@@ -214,5 +204,4 @@ body:
 
         Please let us know as soon as health services have been added for this location. Thank you!
         ```
-    validations:
-      required: false
+
