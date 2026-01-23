@@ -119,44 +119,40 @@ body:
 
 # MARKDOWN WITH MULTI-LINE CONTENT:
 - type: markdown
-  id: markdown_with_multiline_content_2
-  value: |
-    ## After editor says homepage is ready for publishing:
-    ### STEP 7: Make sure the facility homepage has the following:
-    - [ ] An introduction
-    - [ ] A facility photo
-    - [ ] "Prepare For Your Visit" info
-    - [ ] VAMC Facility Health Services
+  attributes:
+    value: |
+      ## After editor says homepage is ready for publishing:
+      ### STEP 7: Make sure the facility homepage has the following:
+      - [ ] An introduction
+      - [ ] A facility photo
+      - [ ] "Prepare For Your Visit" info
+      - [ ] VAMC Facility Health Services
 
-    Health services will be listed at the bottom of the facility homepage on the production site. If there is nothing listed beneath the "Health Services" header at the bottom of the homepage, please send the "Missing VAMC Facility Health Services" email template below.
-  validations:
-    required: false
+      Health services will be listed at the bottom of the facility homepage on the production site. If there is nothing listed beneath the "Health Services" header at the bottom of the homepage, please send the "Missing VAMC Facility Health Services" email template below.
+
 
 # MARKDOWN WITH MULTI-LINE CONTENT:
 - type: markdown
-  id: markdown_with_multiline_content_3
-  value: |
-    ## Drupal Administrator steps (Embedded Support team or Facilities team):
-    ### STEP 8: Enable left-nav menu link
-    - [ ] From `admin/structure/menu` find the associated VAMC section and click "Edit menu." Scroll down to "Locations" and click "Edit" next to the location in question. From there, enable the menu link, and click "Save."
-    ### STEP 9: Bulk publishing facility homepage and all linked nodes:
-    - [ ] Go to the Bulk Edit page (`admin/content/bulk`), filter by section, moderation state = "Any", and search for the facility name.
-    - [ ] Select all relevant nodes, then scroll to the "Action" menu at the bottom of the Bulk Edit page.
-    - [ ] Click "Publish latest revision" then click "Apply to selected items."
-    - [ ] After bulk-publishing, double-check all linked VAMC Facility Health Services to ensure that they've successfully published.
+  attributes:
+    value: |
+      ## Drupal Administrator steps (Embedded Support team or Facilities team):
+      ### STEP 8: Enable left-nav menu link
+      - [ ] From `admin/structure/menu` find the associated VAMC section and click "Edit menu." Scroll down to "Locations" and click "Edit" next to the location in question. From there, enable the menu link, and click "Save."
+      ### STEP 9: Bulk publishing facility homepage and all linked nodes:
+      - [ ] Go to the Bulk Edit page (`admin/content/bulk`), filter by section, moderation state = "Any", and search for the facility name.
+      - [ ] Select all relevant nodes, then scroll to the "Action" menu at the bottom of the Bulk Edit page.
+      - [ ] Click "Publish latest revision" then click "Apply to selected items."
+      - [ ] After bulk-publishing, double-check all linked VAMC Facility Health Services to ensure that they've successfully published.
 
-    #### After the next content release goes out:
-    ### STEP 10: Facility Locator check ( https://www.va.gov/find-locations/ )
-    - [ ] **Step 12:** Validate that the change has deployed by checking that the Facility Locator directs to the newly published homepage.
-    ### STEP 11: Remove flag
-    - [ ] Edit facility node and remove `New facility` flag with a revision log message that includes a link to this ticket.
+      #### After the next content release goes out:
+      ### STEP 10: Facility Locator check ( https://www.va.gov/find-locations/ )
+      - [ ] **Step 12:** Validate that the change has deployed by checking that the Facility Locator directs to the newly published homepage.
+      ### STEP 11: Remove flag
+      - [ ] Edit facility node and remove `New facility` flag with a revision log message that includes a link to this ticket.
 
-    ## Embedded Support team:
-    ### STEP 12: Wrap-up editor comms.
-    - [ ] Notify editor and any other stakeholders that the new homepage is now live.
-  validations:
-    required: false
-
+      ## Embedded Support team:
+      ### STEP 12: Wrap-up editor comms.
+      - [ ] Notify editor and any other stakeholders that the new homepage is now live.
 # MARKDOWN WITH MULTI-LINE CONTENT:
 - type: markdown
   id: markdown_with_multiline_content_4
