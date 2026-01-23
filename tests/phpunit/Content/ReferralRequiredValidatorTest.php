@@ -27,17 +27,17 @@ class ReferralRequiredValidatorTest extends VaGovUnitTestBase {
    *
    * @param bool $willValidate
    *   TRUE if the test string should validate, FALSE otherwise.
-   * @param string $refReqd
+   * @param string $referralRequired
    *   The value of the 'field_referral_required' field.
    *
    * @covers ::validate
    * @dataProvider validateDataProvider
    */
-  public function testValidate(bool $willValidate, string $refReqd): void {
+  public function testValidate(bool $willValidate, string $referralRequired): void {
     $entity = $this->prophesize(NodeInterface::class);
-    $refReqdField = new \stdClass();
-    $refReqdField->value = $refReqd;
-    $entity->field_referral_required = $refReqdField;
+
+    $referralRequireddField = $this->fieldItemListMock($referralRequired);
+    $entity->get('field_referral_required')->willReturn($referralRequireddField);
 
     $value = $this->prophesize(FieldItemListInterface::class);
     $value->getEntity()->willReturn($entity->reveal());
@@ -46,6 +46,35 @@ class ReferralRequiredValidatorTest extends VaGovUnitTestBase {
     $validator = new ReferralRequiredValidator();
     $this->prepareValidator($validator, $willValidate);
     $validator->validate($fieldItem, new ReferralRequired());
+  }
+
+  /**
+   * Mocks a FieldItemListInterface object for 'field_referral_required'.
+   *
+   * @param string $value
+   *   The value to set for the field.
+   *
+   * @return object
+   *   A mock object representing the field item list.
+   */
+  public function fieldItemListMock(string $value): object {
+
+    $refReqdField = new class {
+
+      /**
+       * Stub for isEmpty() method.
+       *
+       * @return bool
+       *   Always returns FALSE to indicate the field is not empty.
+       */
+      public function isEmpty(): bool {
+        return FALSE;
+      }
+
+    };
+    $refReqdField->value = $value;
+
+    return $refReqdField;
   }
 
   /**

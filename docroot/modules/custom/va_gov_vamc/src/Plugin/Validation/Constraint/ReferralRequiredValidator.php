@@ -19,7 +19,8 @@ class ReferralRequiredValidator extends ConstraintValidator {
   public function validate(mixed $value, Constraint $constraint) {
     $entity = $value->getEntity();
 
-    $referralRequired = $entity->field_referral_required->value;
+    $field = $entity->get('field_referral_required');
+    $referralRequired = $field && !$field->isEmpty() ? $field->value : NULL;
     if ($referralRequired === 'not_applicable') {
       /** @var \Drupal\va_gov_vamc\Plugin\Validation\Constraint\ReferralRequired $constraint */
       $this->getContext()
