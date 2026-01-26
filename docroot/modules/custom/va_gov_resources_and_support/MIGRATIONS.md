@@ -6,6 +6,27 @@ This module provides a migration framework for migrating taxonomy tags on Resour
 
 The migration framework supports multiple use cases for migrating taxonomy tags between different taxonomies and fields while preserving existing data.
 
+## Context
+
+These migrations are part of the broader [R&S Tagging and Searching Iteration Epic](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/19492), which aims to:
+
+- Improve findability of R&S content through enhanced taxonomy and tagging
+- Support the growth of R&S content (from 137 articles in September 2024, with 50% of Benefit Hubs content expected to migrate)
+- Address accessibility defects and improve the editorial experience
+- Enhance search functionality and landing page design
+
+The migrations in this framework support the taxonomy enhancements:
+
+- **PublicationRsCategoriesToOutreachHubMigration:** Decouples Outreach Materials from R&S by migrating tags to a dedicated Outreach Hub taxonomy
+- **RsAddAllVeteransMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to R&S content types when specific Veteran subtypes exist
+- **ClpVaBenefitsMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to Campaign Landing Pages when specific Veteran subtypes exist
+- **VaBenefitsTaxonomyMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to VA Benefits taxonomy terms when specific Veteran subtypes exist
+- **RsRecordsToTopicsMigration:** Adds "Records" in Topics taxonomy when present in R&S Categories
+
+These migrations prepare for potential retirement of granular Veteran subtype tags by ensuring "All Veterans" is present wherever specific subtypes exist.
+
+For more details on the overall initiative, see the [Initiative Brief](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/resources-and-support/initiatives/2024-search-experience-enhancements-Phase-1).
+
 ## Available Migrations
 
 ### 1. Publication: R&S Categories → Outreach Hub Taxonomy
@@ -173,10 +194,10 @@ After running migrations:
 
 ## Migration Groups
 
-### Story 1: Outreach Materials goes solo
+### Outreach Materials Migration
 - **PublicationRsCategoriesToOutreachHubMigration:** Migrates R&S Categories to Outreach Hub taxonomy
 
-### Story 2: Simplifying Veteran tags
+### All Veterans Tagging Migrations
 - **RsAddAllVeteransMigration:** Adds "All Veterans" to R&S content types
 - **ClpVaBenefitsMigration:** Adds "All Veterans" to Campaign Landing Pages
 - **VaBenefitsTaxonomyMigration:** Adds "All Veterans" to VA Benefits taxonomy terms
