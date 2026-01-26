@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_batch\cbo_scripts;
 
+use Drupal\node\Entity\Node;
 use Drupal\taxonomy\TermInterface;
 
 require_once __DIR__ . '/../../../../../../scripts/content/script-library.php';
@@ -165,6 +166,20 @@ class VaBenefitsTaxonomyMigration extends BaseRsTagMigration {
       $this->batchOpLog->appendError($message);
       return [];
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * This migration processes taxonomy terms, not nodes, so this method
+   * should never be called. It's required because the base class defines
+   * processNode() as abstract.
+   *
+   * @throws \BadMethodCallException
+   *   Always throws, as this migration doesn't process nodes.
+   */
+  protected function processNode(Node $node, array &$sandbox): string {
+    throw new \BadMethodCallException('VaBenefitsTaxonomyMigration processes taxonomy terms, not nodes. Use processOne() instead.');
   }
 
   /**
