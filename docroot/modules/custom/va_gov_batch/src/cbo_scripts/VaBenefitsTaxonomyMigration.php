@@ -19,11 +19,6 @@ require_once __DIR__ . '/../../../../../../scripts/content/script-library.php';
 class VaBenefitsTaxonomyMigration extends BaseRsTagMigration {
 
   /**
-   * The "All Veterans" term name.
-   */
-  const ALL_VETERANS_TERM = 'All Veterans';
-
-  /**
    * VA Benefits Beneficiaries field name.
    */
   const BENEFICIARIES_FIELD = 'field_va_benefit_beneficiaries';
@@ -32,25 +27,6 @@ class VaBenefitsTaxonomyMigration extends BaseRsTagMigration {
    * VA Benefits taxonomy vocabulary ID.
    */
   const VA_BENEFITS_VOCABULARY = 'va_benefits_taxonomy';
-
-  /**
-   * Check if a term is a Veteran subtype (not "All Veterans").
-   *
-   * @param \Drupal\taxonomy\TermInterface $term
-   *   The term to check.
-   *
-   * @return bool
-   *   TRUE if the term is a Veteran subtype, FALSE otherwise.
-   */
-  protected function isVeteranSubtype(TermInterface $term): bool {
-    $term_name = $term->getName();
-    // Exclude "All Veterans" itself.
-    if ($term_name === self::ALL_VETERANS_TERM) {
-      return FALSE;
-    }
-    // Check if the term name contains "Veteran" (case-insensitive).
-    return stripos($term_name, 'Veteran') !== FALSE;
-  }
 
   /**
    * Get all taxonomy terms from a taxonomy term field.
