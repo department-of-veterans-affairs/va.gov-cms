@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a6c23beac8d0275fd0a8972f807c1d6",
+    "content-hash": "4ee19c5b0cc65a9932af428af5bf4ebd",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6242,30 +6242,27 @@
         },
         {
             "name": "drupal/entity_browser_table",
-            "version": "1.4.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_browser_table.git",
-                "reference": "8.x-1.4"
+                "reference": "2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_browser_table-8.x-1.4.zip",
-                "reference": "8.x-1.4",
-                "shasum": "9272f52b015f5ca0d532e111926bfd71f826c5cf"
+                "url": "https://ftp.drupal.org/files/projects/entity_browser_table-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "bd177193b5f923930839684e9833ea4d72b54aa9"
             },
             "require": {
-                "drupal/core": "^8 || ^9 || ^10",
-                "drupal/entity_browser": "~2.9"
-            },
-            "require-dev": {
-                "drupal/media": "*"
+                "drupal/core": "^10.3 || ^11",
+                "drupal/entity_browser": "^2.15"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.4",
-                    "datestamp": "1678795945",
+                    "version": "2.0.0",
+                    "datestamp": "1762559389",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6278,14 +6275,18 @@
             ],
             "authors": [
                 {
-                    "name": "James Byng",
+                    "name": "james hawthorn-byng",
                     "homepage": "https://www.drupal.org/user/3071193"
+                },
+                {
+                    "name": "smustgrave",
+                    "homepage": "https://www.drupal.org/user/3252890"
                 }
             ],
             "description": "Creates a new Entity Browser display widget to display referenced content as a table.",
             "homepage": "https://www.drupal.org/project/entity_browser_table",
             "support": {
-                "source": "http://cgit.drupalcode.org/entity_browser_table",
+                "source": "https://cgit.drupalcode.org/entity_browser_table",
                 "issues": "https://www.drupal.org/project/issues/entity_browser_table"
             }
         },
