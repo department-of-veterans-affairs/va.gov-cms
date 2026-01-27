@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Claro's theme implementation for maintenance page.
+ *
+ * This template is used for rendering non-frontpage maintenance pages. An
+ * example of this is /update.php.
+ *
+ * All available variables are mirrored in page.html.twig.
+ * Some may be blank but they are provided for consistency.
+ *
+ * @see template_preprocess_maintenance_page()
+ * @see maintenance-page--front.html.twig
+ */
+#}
+<!-- DEBUG: maintenance-page.html.twig is being used -->
+<div class="layout-container maintenance-page-template">
+
+  <header role="banner">
+    {% if site_name %}
+      <h2 class="site-name">{{ site_name }}</h2>
+    {% endif %}
+  </header>
+
+  {% if page.sidebar_first %}
+    <aside class="layout-sidebar-first" role="complementary">
+      {{ page.sidebar_first }}
+    </aside>{# /.layout-sidebar-first #}
+  {% endif %}
+
+  <main role="main" class="main-content">
+    <div class="va-site-alert">
+      <p><strong>System update in progress</strong><br><br>Sit tight! Stay on this page to avoid losing unsaved changes. <br>We will let you know when it is ok to resume working again.</p>
+    </div>
+  </main>
+
+  {% if page.page_bottom %}
+    <footer role="contentinfo">
+      {{ page.page_bottom }}
+    </footer>
+  {% endif %}
+
+</div>{# /.layout-container #}
