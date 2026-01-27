@@ -1,0 +1,40 @@
+diff --git a/js/autosave_form.js b/js/autosave_form.js
+index 664b55b301d320b736280d0a3a42d8a9bc74a0c8..3550786cc7f8312d3313024c3a02d02aab037b1b 100644
+--- a/js/autosave_form.js
++++ b/js/autosave_form.js
+@@ -222,30 +222,13 @@
+             Drupal.Ajax.prototype.success.call(this, response, status);
+           }
+           ajax.options.error = function (xmlhttprequest, text_status, error_thrown) {
++            // Log the error for debugging purposes but don't stop autosave.
++            // Autosave will retry on the next interval automatically.
+             if (xmlhttprequest.status === 0 || xmlhttprequest.status >= 400) {
+-              Drupal.autosaveForm.autosaveFormRunning = false;
+-              clearInterval(Drupal.autosaveForm.timer);
+-              Drupal.autosaveForm.timer = null;
+-
+-              if (!Drupal.autosaveForm.beforeUnloadCalled) {
+-                var dialogOptions = {
+-                  buttons: {
+-                    button_confirm: {
+-                      text: Drupal.t('Ok'),
+-                      primary: true,
+-                      click: function () {
+-                        $(this).dialog('close');
+-                      }
+-                    }
+-                  }
+-                };
+-                $.extend(true, dialogOptions, Drupal.autosaveForm.defaultDialogOptions);
+-
+-                $('<div></div>').appendTo('body')
+-                  .html('<div>' + Drupal.t('A server error occurred during autosaving the current page. As a result autosave is disabled. To activate it please revisit the page and continue the editing from the last autosaved state of the current page.') + '</div>')
+-                  .dialog(dialogOptions);
+-              }
++              console.warn('Autosave: Server error occurred (status: ' + xmlhttprequest.status + '). Will retry on next interval.');
+             }
++            // Reset the ajaxing flag so future autosave attempts are not blocked.
++            ajax.ajaxing = false;
+           };
+           // Disable progress indication.
+           ajax.progress = false;
