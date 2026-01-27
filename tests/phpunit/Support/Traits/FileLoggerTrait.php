@@ -16,7 +16,7 @@ trait FileLoggerTrait {
    *   An absolute path to the log file.
    */
   public function getLogFilePath(): string {
-    $rootPath = getenv('DDEV_APPROOT') ?: getenv('TUGBOAT_ROOT') ?: getenv('RUNNER_TEMP') ?: '/var/www/cms';
+    $rootPath = getenv('DDEV_APPROOT') ?: getenv('TUGBOAT_ROOT') ?: getenv('RUNNER_TEMP') ?: getenv('EKS_APP_ROOT') ?:'/var/www/cms';
     return "$rootPath/phpunit.log";
   }
 
