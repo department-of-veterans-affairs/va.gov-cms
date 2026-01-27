@@ -23,6 +23,7 @@ async function setupNodeEvents(on, config) {
 
   await cypressFailedLog(on, config);
 
+
   on("task", {
     log(message) {
       console.log(message);
@@ -84,17 +85,23 @@ module.exports = defineConfig({
   videoUploadOnPasses: false,
   videosFolder: "docroot/cypress/videos",
   viewportHeight: 900,
-  chromium: {
-    args: [
-      "--disable-dev-shm-usage",
-      "--no-sandbox",
-      "--disable-setuid-sandbox"
-    ]
-  },
   e2e: {
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
-    setupNodeEvents,
+    setupNodeEvents(on, config) {
+      // Configure browser launch args to suppress Chrome warnings
+      on('before:browser:launch', (browser = {}, launchOptions) => {
+        if (browser.family === 'chromium' && browser.name !== 'electron') {
+          launchOptions.args.push('--disable-dev-shm-usage');
+          launchOptions.args.push('--no-sandbox');
+          launchOptions.args.push('--disable-setuid-sandbox');
+        }
+        return launchOptions;
+      });
+
+      // Call the main setup function with all other configurations
+      return setupNodeEvents(on, config);
+    },
     baseUrl: BASE_URL,
     specPattern: "tests/cypress/integration/features/**/*.{feature,features}",
     supportFile: "tests/cypress/support/index.js",
