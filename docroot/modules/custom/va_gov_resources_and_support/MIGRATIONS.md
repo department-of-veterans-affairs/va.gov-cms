@@ -6,6 +6,27 @@ This module provides a migration framework for migrating taxonomy tags on Resour
 
 The migration framework supports multiple use cases for migrating taxonomy tags between different taxonomies and fields while preserving existing data.
 
+## Context
+
+These migrations are part of the broader [R&S Tagging and Searching Iteration Epic](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/19492), which aims to:
+
+- Improve findability of R&S content through enhanced taxonomy and tagging
+- Support the growth of R&S content (from 137 articles in September 2024, with 50% of Benefit Hubs content expected to migrate)
+- Address accessibility defects and improve the editorial experience
+- Enhance search functionality and landing page design
+
+The migrations in this framework support the taxonomy enhancements:
+
+- **PublicationRsCategoriesToOutreachHubMigration:** Decouples Outreach Materials from R&S by migrating tags to a dedicated Outreach Hub taxonomy
+- **RsAddAllVeteransMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to R&S content types when specific Veteran subtypes exist
+- **ClpVaBenefitsMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to Campaign Landing Pages when specific Veteran subtypes exist
+- **VaBenefitsTaxonomyMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to VA Benefits taxonomy terms when specific Veteran subtypes exist
+- **RsRecordsToTopicsMigration:** Adds "Records" in Topics taxonomy when present in R&S Categories
+
+These migrations prepare for potential retirement of granular Veteran subtype tags by ensuring "All Veterans" is present wherever specific subtypes exist.
+
+For more details on the overall initiative, see the [Initiative Brief](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/resources-and-support/initiatives/2024-search-experience-enhancements-Phase-1).
+
 ## Available Migrations
 
 ### 1. Publication: R&S Categories → Outreach Hub Taxonomy
@@ -50,13 +71,32 @@ The migration framework supports multiple use cases for migrating taxonomy tags 
 - Paragraph field: `field_topics` (Topics taxonomy)
 - The "Records" term must exist in both `lc_categories` and `topics` taxonomies.
 
-### 4. CLP and VA Benefits Taxonomy Migrations
+### 4. Campaign Landing Pages: Add "All Veterans" when Veteran Subtype Exists
 
 **Migration Class:** `ClpVaBenefitsMigration`
 
-**Description:** Placeholder migration for CLP content type and VA Benefits taxonomy migrations.
+**Description:** For Campaign Landing Page content types, if tagged with a specific Veteran subtype in the Select Audience field, also add "All Veterans".
 
-**Status:** Placeholder - specific use cases to be implemented.
+**Use Case:** A Campaign Landing Page is tagged with a specific Veteran subtype in Select Audience (Beneficiaries Taxonomy) and should now also be tagged "All Veterans".
+
+**Requirements:**
+- Content type: `campaign_landing_page`
+- Field: `field_clp_audience` (Audience - Beneficiaries taxonomy)
+- The "All Veterans" term must exist in the `audience_beneficiaries` taxonomy.
+
+### 5. VA Benefits Taxonomy: Add "All Veterans" when Veteran Subtype Exists
+
+**Migration Class:** `VaBenefitsTaxonomyMigration`
+
+**Description:** For VA Benefits taxonomy terms, if tagged with a specific Veteran subtype in the Beneficiaries field, also add "All Veterans".
+
+**Use Case:** A VA Benefits taxonomy term is tagged with a specific Veteran subtype in Beneficiaries (Audience - Beneficiaries Taxonomy) and should now also be tagged "All Veterans".
+
+**Requirements:**
+- Entity type: Taxonomy term
+- Vocabulary: `va_benefits_taxonomy`
+- Field: `field_va_benefit_beneficiaries` (Audience - Beneficiaries taxonomy)
+- The "All Veterans" term must exist in the `audience_beneficiaries` taxonomy.
 
 ## Usage
 
@@ -74,6 +114,7 @@ drush codit-batch-operations:run PublicationRsCategoriesToOutreachHubMigration
 drush codit-batch-operations:run RsAddAllVeteransMigration
 drush codit-batch-operations:run RsRecordsToTopicsMigration
 drush codit-batch-operations:run ClpVaBenefitsMigration
+drush codit-batch-operations:run VaBenefitsTaxonomyMigration
 ```
 
 ### List All Available Batch Operations
@@ -85,11 +126,13 @@ drush codit-batch-operations:list
 ## Migration Behavior
 
 - **Additive:** Migrations add tags to destination fields without removing existing tags.
-- **Revision Creation:** All changes create new node revisions with the CMS Migrator user (UID: 1317) using `save_node_revision()` from script-library.php.
+- **Revision Creation:** All changes create new entity revisions with the CMS Migrator user (UID: 1317). Nodes use `save_node_revision()` from script-library.php; taxonomy terms create revisions directly.
+- **Forward Revisions:** Node migrations automatically process forward (draft) revisions to ensure changes are preserved when published.
 - **Moderation State:** Migrations preserve the current moderation state of nodes.
-- **Error Handling:** Migrations log errors and warnings but continue processing remaining nodes.
+- **Error Handling:** Migrations log errors and warnings but continue processing remaining entities.
 - **Cardinality:** Migrations respect field cardinality limits and log warnings if limits are exceeded.
 - **Batching:** Migrations use codit_batch_operations for automatic batching and progress tracking.
+- **Idempotent:** Migrations can be run multiple times safely - they check for existing tags before adding.
 
 ## Logging
 
@@ -100,22 +143,32 @@ Migration activities are logged through multiple channels:
 
 ## Architecture
 
+### Base Class
+
+All migration classes extend `BaseRsTagMigration`, which extends `BatchOperations` and implements `BatchScriptInterface` from the `codit_batch_operations` module. The base class provides:
+
+- Common constants (vocabulary IDs, field names)
+- Shared helper methods (`getTermsByVocabulary()`, `addTermsToNodeField()`, etc.)
+- Standard node processing workflow with forward revision handling
+- Common logging and error handling patterns
+
 ### Migration Classes
 
-All migration classes extend `BatchOperations` and implement `BatchScriptInterface` from the `codit_batch_operations` module. They are located in `va_gov_batch/src/cbo_scripts/` to be discovered by the batch operations system:
+All migration classes are located in `va_gov_batch/src/cbo_scripts/` to be discovered by the batch operations system:
 
-- **PublicationRsCategoriesToOutreachHubMigration:** Use case 1 implementation.
-- **RsAddAllVeteransMigration:** Use case 2 implementation.
-- **RsRecordsToTopicsMigration:** Use case 3 implementation.
-- **ClpVaBenefitsMigration:** Use case 4 placeholder.
+- **PublicationRsCategoriesToOutreachHubMigration:** Migrates R&S Categories to Outreach Hub taxonomy for Publication content type.
+- **RsAddAllVeteransMigration:** Adds "All Veterans" to R&S content types when Veteran subtypes exist.
+- **RsRecordsToTopicsMigration:** Adds "Records" in Topics when present in R&S Categories.
+- **ClpVaBenefitsMigration:** Adds "All Veterans" to Campaign Landing Pages when Veteran subtypes exist.
+- **VaBenefitsTaxonomyMigration:** Adds "All Veterans" to VA Benefits taxonomy terms when Veteran subtypes exist.
 
 Each migration class implements:
 - `getTitle()`: Human-readable title
 - `getDescription()`: Detailed description
 - `getCompletedMessage()`: Message template for completion
 - `getItemType()`: Type of items being processed
-- `gatherItemsToProcess()`: Collects nodes to process
-- `processOne()`: Processes a single node
+- `gatherItemsToProcess()`: Collects entities to process
+- `processOne()` or `processNode()`: Processes a single entity
 
 **Note:** The scripts are located in `va_gov_batch/src/cbo_scripts/` because the `codit_batch_operations` module is configured to look for scripts in the `va_gov_batch` module (see `config/sync/codit_batch_operations.settings.yml`).
 
@@ -134,11 +187,28 @@ After running migrations:
 
 1. Check migration output for success/failure counts.
 2. Review log messages at `/admin/reports/dblog`.
-3. Spot-check a sample of migrated nodes to verify tags were added correctly.
-4. Verify that node revisions were created with appropriate log messages.
+3. Spot-check a sample of migrated entities (nodes or taxonomy terms) to verify tags were added correctly.
+4. Verify that entity revisions were created with appropriate log messages.
+5. For node migrations, verify that forward revisions were also updated.
+6. Confirm that original tags were preserved (migrations are additive, not replacing).
+
+## Migration Groups
+
+### Outreach Materials Migration
+- **PublicationRsCategoriesToOutreachHubMigration:** Migrates R&S Categories to Outreach Hub taxonomy
+
+### All Veterans Tagging Migrations
+- **RsAddAllVeteransMigration:** Adds "All Veterans" to R&S content types
+- **ClpVaBenefitsMigration:** Adds "All Veterans" to Campaign Landing Pages
+- **VaBenefitsTaxonomyMigration:** Adds "All Veterans" to VA Benefits taxonomy terms
+
+### Other Migrations
+- **RsRecordsToTopicsMigration:** Adds "Records" in Topics when present in R&S Categories
 
 ## Notes
 
 - Migrations preserve existing tagging data - they only add new tags, never remove existing ones.
 - Moderation state is preserved during migration.
+- All Story 2 migrations are independent and can be run in any order.
+- Migrations that process nodes automatically handle forward revisions to prevent data loss.
 

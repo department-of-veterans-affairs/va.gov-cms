@@ -64,6 +64,47 @@ abstract class BaseRsTagMigration extends BatchOperations implements BatchScript
   const AUDIENCE_TOPICS_FIELD = 'field_tags';
 
   /**
+   * The "All Veterans" Audience - Beneficiaries term name.
+   *
+   * @var string
+   */
+  const ALL_VETERANS_TERM = 'All Veterans';
+
+  /**
+   * Veteran subtype term names (Audience - Beneficiaries).
+   *
+   * Only these terms are treated as veteran subtypes when deciding to add
+   * "All Veterans". Other audience terms are not veteran subtypes.
+   *
+   * @var array
+   */
+  protected const VETERAN_SUBTYPE_TERMS = [
+    'Former prisoners of war',
+    'Gulf War Veterans',
+    'Incarcerated Veterans',
+    'Korean War Veterans',
+    'LGBTQ+ Veterans',
+    'Minority Veterans',
+    'Native American Veterans',
+    'Vietnam War Veterans',
+    'Women Veterans',
+    'World War II Veterans',
+  ];
+
+  /**
+   * Check if a term is a Veteran subtype (not "All Veterans").
+   *
+   * @param \Drupal\taxonomy\TermInterface $term
+   *   The term to check.
+   *
+   * @return bool
+   *   TRUE if the term is a Veteran subtype, FALSE otherwise.
+   */
+  protected function isVeteranSubtype(TermInterface $term): bool {
+    return in_array($term->getName(), self::VETERAN_SUBTYPE_TERMS, TRUE);
+  }
+
+  /**
    * Get field definition for a content type.
    *
    * @param string $entity_type
