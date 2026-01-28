@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28e82c4c90403460994b8995e9dfa5e3",
+    "content-hash": "b5bd8e949263b4de45567acb07279d3f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -14337,6 +14337,50 @@
                 "source": "https://git.drupalcode.org/project/smart_date",
                 "issues": "https://www.drupal.org/project/issues/smart_date",
                 "documentation": "https://www.drupal.org/docs/contributed-modules/smart-date"
+            }
+        },
+        {
+            "name": "drupal/social_auth_entra_id",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/social_auth_entra_id.git",
+                "reference": "2.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/social_auth_entra_id-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "f8eaf75980adc8392c9cf394e789500cf396fe6f"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0",
+                    "datestamp": "1768413143",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "jaseerkinangattil",
+                    "homepage": "https://www.drupal.org/user/760034"
+                }
+            ],
+            "description": "Social authentication with Microsoft Entra ID.",
+            "homepage": "https://www.drupal.org/project/social_auth_entra_id",
+            "support": {
+                "source": "https://git.drupalcode.org/project/social_auth_entra_id"
             }
         },
         {
@@ -29845,5 +29889,5 @@
     "platform-overrides": {
         "php": "8.1.30"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
