@@ -125,7 +125,7 @@ $settings['va_gov_path_to_composer'] = '/usr/local/bin/composer';
 // The default project root locations. These settings are currently only used on Tugboat and local environments.
 $settings['va_gov_web_root'] = getenv('DDEV_APPROOT') . '/web' ?: getenv('TUGBOAT_ROOT') . '/web' ?: getenv('RUNNER_TEMP') . '/web' ?: getenv('EKS_APP_ROOT') . '/web' ?: '/var/www/cms/web';
 $settings['va_gov_app_root'] = getenv('DDEV_APPROOT') ?: getenv('TUGBOAT_ROOT') ?: getenv('RUNNER_TEMP') ?: getenv('EKS_APP_ROOT') ?: '/var/www/cms';
-$settings['va_gov_vets_website_root'] = '/var/www/cms/docroot/vendor/va-gov/vets-website';
+$settings['va_gov_vets_website_root'] = getenv('DDEV_APPROOT') . '/docroot/vendor/va-gov/vets-website' ?: getenv('TUGBOAT_ROOT') . '/docroot/vendor/va-gov/vets-website' ?: getenv('RUNNER_TEMP') . '/docroot/vendor/va-gov/vets-website' ?: getenv('EKS_APP_ROOT') . '/docroot/vendor/va-gov/vets-website' ?: '/var/www/cms/docroot/vendor/va-gov/vets-website';
 $settings['va_gov_next_build_root'] = getenv('TUGBOAT_ROOT')  . '/var/www/cms/next';
 $settings['va_gov_next_build_vets_website_root'] = getenv('TUGBOAT_ROOT') . '/var/www/cms/vets-website';
 
