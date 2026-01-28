@@ -111,8 +111,14 @@ function vagovclaro_theme_suggestions_page_alter(&$suggestions, $variables) {
     // Clear existing page suggestions and replace with maintenance_page.
     $new_suggestions = [];
     foreach ($suggestions as $suggestion) {
-      // Convert page__ suggestions to maintenance_page__ suggestions.
-      $new_suggestions[] = str_replace('page__', 'maintenance_page__', $suggestion);
+      // Convert page suggestions to maintenance_page suggestions.
+      if ($suggestion === 'page') {
+        $new_suggestions[] = 'maintenance_page';
+      }
+      elseif (strpos($suggestion, 'page__') === 0) {
+        // Convert page__front to maintenance_page__front, etc.
+        $new_suggestions[] = str_replace('page__', 'maintenance_page__', $suggestion);
+      }
     }
 
     // Check if we're on the front page.
@@ -125,11 +131,13 @@ function vagovclaro_theme_suggestions_page_alter(&$suggestions, $variables) {
       $is_front = ($current_path === '/' || $current_path === '' || $current_path === '/index.php');
     }
 
-    // Add the base maintenance_page suggestion.
-    array_unshift($new_suggestions, 'maintenance_page');
+    // Ensure base maintenance_page is first.
+    if (!in_array('maintenance_page', $new_suggestions)) {
+      array_unshift($new_suggestions, 'maintenance_page');
+    }
 
-    // Add front page suggestion if applicable.
-    if ($is_front) {
+    // Add front page suggestion if applicable and not already present.
+    if ($is_front && !in_array('maintenance_page__front', $new_suggestions)) {
       $new_suggestions[] = 'maintenance_page__front';
     }
 
