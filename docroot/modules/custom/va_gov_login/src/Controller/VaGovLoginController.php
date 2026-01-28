@@ -102,6 +102,16 @@ class VaGovLoginController extends ControllerBase {
       return $this->redirect('<front>');
     }
 
+    // Generate CSRF state token (64 char hex) for OAuth flow protection.
+    // This prevents attackers from initiating unauthorized authentication.
+    $state = bin2hex(random_bytes(32));
+    $_SESSION['entra_id_oauth_state'] = $state;
+
+    // Generate nonce (64 char hex) for ID token replay protection.
+    // Microsoft will include this in the ID token for validation.
+    $nonce = bin2hex(random_bytes(32));
+    $_SESSION['entra_id_oauth_nonce'] = $nonce;
+
     // Use Url::fromRoute() to generate the redirect URI.
     $redirect_uri = Url::fromRoute('va_gov_login.callback', [], ['absolute' => TRUE])->toString();
     $scopes = 'openid profile email User.Read';
@@ -112,10 +122,22 @@ class VaGovLoginController extends ControllerBase {
       'response_type' => 'code',
       'redirect_uri' => $redirect_uri,
       'scope' => $scopes,
+      'state' => $state,
+      'nonce' => $nonce,
     ]);
 
-    // Redirect the user to Microsoft login using TrustedRedirectResponse.
-    return new TrustedRedirectResponse($url);
+    // Use TrustedRedirectResponse to allow external Microsoft domain.
+    $response = new TrustedRedirectResponse($url);
+
+    // Ensure this response is never cached.
+    // OAuth flows require fresh session state on every request.
+    $response->setMaxAge(0);
+    $response->setSharedMaxAge(0);
+    $response->headers->addCacheControlDirective('no-cache', TRUE);
+    $response->headers->addCacheControlDirective('no-store', TRUE);
+    $response->headers->addCacheControlDirective('must-revalidate', TRUE);
+
+    return $response;
   }
 
   /**
@@ -129,6 +151,31 @@ class VaGovLoginController extends ControllerBase {
    */
   public function handleMicrosoftCallback(Request $request) {
     $code = $request->query->get('code');
+    $state = $request->query->get('state');
+
+    // SECURITY: Validate state parameter to prevent CSRF attacks.
+    // The state must match what we stored in session during redirect.
+    if (empty($_SESSION['entra_id_oauth_state']) || $state !== $_SESSION['entra_id_oauth_state']) {
+      $this->messenger->addError($this->t('Invalid state parameter. Possible CSRF attack.'));
+      $this->loggerFactory
+        ->get('social_auth_entra_id')
+        ->warning('CSRF attempt detected: State parameter mismatch');
+      unset($_SESSION['entra_id_oauth_state']);
+      $response = new RedirectResponse(Url::fromRoute('user.login')->toString());
+      $response->setMaxAge(0);
+      $response->headers->addCacheControlDirective('no-cache', TRUE);
+      return $response;
+    }
+
+    // Nonce must match what we sent in authorization request.
+    if (!empty($_SESSION['entra_id_oauth_nonce'])) {
+      if (empty($id_token_payload['nonce']) || $id_token_payload['nonce'] !== $_SESSION['entra_id_oauth_nonce']) {
+        unset($_SESSION['entra_id_oauth_nonce']);
+        throw new \Exception('ID token nonce mismatch.');
+      }
+      // Clear nonce after validation (one-time use).
+      unset($_SESSION['entra_id_oauth_nonce']);
+    }
 
     if ($code) {
       // Retrieve settings from environment variables.
@@ -150,7 +197,7 @@ class VaGovLoginController extends ControllerBase {
         ]);
         $data = json_decode($response->getBody()->getContents(), TRUE);
         // Check if access_token exists in response.
-        if (isset($data['access_token'])) {
+        if (isset($data['access_token']) && isset($data['id_token'])) {
           $profile_response = $this->httpClient->request('GET', 'https://graph.microsoft.com/v1.0/me', [
             'headers' => ['Authorization' => 'Bearer ' . $data['access_token']],
           ]);
@@ -162,6 +209,22 @@ class VaGovLoginController extends ControllerBase {
             $existing_user = user_load_by_name($user_email);
 
             if ($existing_user) {
+
+              // Block user 1 from logging in via Entra ID.
+              if ($existing_user->id() == 1) {
+                $this->messenger->addError($this->t('The root administrator account cannot log in via Entra ID.'));
+                $this->loggerFactory
+                  ->get('social_auth_entra_id')
+                  ->warning('Blocked user 1 login attempt via Entra ID for email: @email, IP: @ip', [
+                    '@email' => $user_email,
+                    '@ip' => $request->getClientIp(),
+                  ]);
+                $response = new RedirectResponse(Url::fromRoute('user.login')->toString());
+                $response->setMaxAge(0);
+                $response->headers->addCacheControlDirective('no-cache', TRUE);
+                return $response;
+              }
+
               user_login_finalize($existing_user);
               $this->messenger->addStatus($this->t('Logged in successfully.'));
             }
