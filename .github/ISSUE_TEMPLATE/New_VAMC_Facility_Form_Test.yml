@@ -12,6 +12,31 @@ projects: projects/1859
 
 body:
 
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+       ## Before you begin 
+       Please do not create this ticket until the new VAMC Facility has appeared on the CMS [Flagged Facilities page](https://prod.cms.va.gov/admin/content/facilities/flagged) **and** has been confirmed by an editor or VA stakeholder.
+       
+       #### If notified via Jira but not flagged in the CMS:
+       Confirm with the editor that they have reported the new facility to VAST. Please refer to the KB article "[How do I add a facility to my health care system?](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system)" for more info.
+       
+       #### If reported to VAST but not listed yet:
+       Changes made in VAST may take up to 75 days to appear on the Facilities API.
+       
+       #### If the help desk is waiting on info or actions from facility editor(s):
+       Please add the "Awaiting editor" flag to the facility node with a revision log message that includes Jira or Github ticket numbers. 
+       
+       Do not change the moderation state of the node (e.g. "Draft", "Published") when adding or removing flags unless otherwise noted.
+       ----------
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+        ## Drupal Administrator steps (Embedded Support team or Facilities team):
+        
   # INPUT:
   - type: input
     id: vamc_facility
@@ -52,7 +77,7 @@ body:
     validations:
       required: true
 
-  # MARKDOWN WITH MULTI-LINE CONTENT:
+  # MARKDOWN:
   - type: markdown
     attributes:
       value: |
@@ -60,6 +85,10 @@ body:
         - Copy this URL into a new tab, then replace the last 3 characters with the numerical portion of the facility ID: `https://www.va.gov/find-locations/facility/vha_###`
         - This will direct you to the Facility Locator entry for the section's primary location.
         - From there, you can go to VA.gov homepage for this location, where the VAMC system / section will be listed.
+
+        ------     
+    validations:
+      required: true
 
   # CHECKBOX:
   - type: checkboxes
@@ -96,15 +125,24 @@ body:
     validations:
       required: false
 
+ # STEPS:
+  - type: textarea
+    id: horizontal_line
+    attributes:
+      label: Runbook steps
+      description: DO NOT MODIFY ANYTHING LISTED BELOW. You can skip ahead to clicking "Create."
+      value: |
+        ------
+    validations:
+      required: true
+
   # STEPS:
   - type: textarea
     id: acceptance_criteria_runbook
     attributes:
-      label: Acceptance criteria runbook for new VAMC Facility nodes in Drupal
+      label: Acceptance criteria for new VAMC Facility nodes in Drupal
       description: Leave this section as-is. Assignees will check off the boxes below as they complete the work.
       value: |
-        ## Acceptance criteria for new VAMC facilities
-
         ### Embedded Support Team steps on the VAMC Facility homepage:
 
         #### STEP 1: Section assignment
@@ -198,15 +236,13 @@ body:
     validations:
       required: true
 
-  # ADDITIONAL GUIDANCE:
+  # EMAIL TEMPLATES:
   - type: textarea
     id: email_templates
     attributes:
       label: Email templates
       description: Leave this section as-is. Assignees will copy email templates from here.
       value: |
-        ## Email templates
-
         ### New VAMC facility editor confirmation email
         Send if facility spotted on Flagged Facilities page but details haven't been confirmed
         ```
