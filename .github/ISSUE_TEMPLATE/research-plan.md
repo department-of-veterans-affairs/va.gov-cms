@@ -21,6 +21,7 @@ Use the appropriate template for the group you're conducting research with:
 
 ## Suggested workflow/tasks:
 - [ ] Brainstorm ideas for research
+- [ ] Identify recruitment criteria for participants
 - [ ] Create initial draft of research plan
 - [ ] Solicit review/feedback from Sitewide UX Lead
 - [ ] Solicit review/feedback from PO, PM, and/or other team members in a public slack post
