@@ -187,7 +187,7 @@ class VaGovLoginController extends ControllerBase {
         ]);
         $data = json_decode($response->getBody()->getContents(), TRUE);
 
-        // Check if access_token exists in response.
+        // Check if access_token and id_token exist in response.
         if (isset($data['access_token']) && isset($data['id_token'])) {
           // Parse and validate JWT ID token structure.
           // JWT format: base64(header).base64(payload).base64(signature)
