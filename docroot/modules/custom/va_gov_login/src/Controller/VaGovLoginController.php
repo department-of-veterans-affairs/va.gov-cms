@@ -201,7 +201,7 @@ class VaGovLoginController extends ControllerBase {
         ]);
         $data = json_decode($response->getBody()->getContents(), TRUE);
 
-        // Check if access_token exists in response.
+        // Check if access_token and id_token exist in response.
         if (isset($data['access_token']) && isset($data['id_token'])) {
           // Parse and validate JWT ID token structure.
           // JWT format: base64(header).base64(payload).base64(signature)
@@ -220,7 +220,7 @@ class VaGovLoginController extends ControllerBase {
 
           // Validate critical ID token claims for security.
           // SECURITY: These validations prevent token forgery and misuse.
-          // 1. Verify audience (aud) claim matches our client_id.
+          // Verify audience (aud) claim matches our client_id.
           // Prevents tokens issued for other apps from being accepted.
           if (empty($id_token_payload['aud']) || $id_token_payload['aud'] !== $client_id) {
             throw new \Exception('ID token audience mismatch.');
