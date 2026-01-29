@@ -1,7 +1,7 @@
 services:
   va_gov_login.controller:
     class: Drupal\va_gov_login\Controller\VaGovLoginController
-    arguments: ['@http_client', '@messenger', '@logger.factory', '@settings']
+    arguments: ['@http_client', '@messenger', '@logger.factory', '@settings', '@tempstore.private']
   va_gov_login.subscriber:
     class: Drupal\va_gov_login\EventSubscriber\VaGovLoginSubscriber
     arguments: ['@current_user']
