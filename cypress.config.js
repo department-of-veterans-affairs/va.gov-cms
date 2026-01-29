@@ -66,6 +66,7 @@ async function setupNodeEvents(on, config) {
 }
 
 module.exports = defineConfig({
+  chromeWebSecurity: false,
   defaultCommandTimeout: 10000,
   downloadsFolder: "tests/cypress/downloads",
   env: {
@@ -86,7 +87,39 @@ module.exports = defineConfig({
   e2e: {
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
-    setupNodeEvents,
+    setupNodeEvents(on, config) {
+      // Configure browser launch args for Kubernetes/container environments
+      on('before:browser:launch', (browser = {}, launchOptions) => {
+        if (browser.family === 'chromium' && browser.name !== 'electron') {
+          // Essential flags for containerized environments
+          launchOptions.args.push('--disable-dev-shm-usage');
+          launchOptions.args.push('--no-sandbox');
+          launchOptions.args.push('--disable-setuid-sandbox');
+          launchOptions.args.push('--disable-gpu');
+          
+          // Additional stability flags for Kubernetes
+          launchOptions.args.push('--disable-software-rasterizer');
+          launchOptions.args.push('--disable-extensions');
+          launchOptions.args.push('--disable-background-timer-throttling');
+          launchOptions.args.push('--disable-backgrounding-occluded-windows');
+          launchOptions.args.push('--disable-renderer-backgrounding');
+          launchOptions.args.push('--disable-features=IsolateOrigins,site-per-process');
+          
+          // Memory and performance optimizations
+          launchOptions.args.push('--disable-ipc-flooding-protection');
+          launchOptions.args.push('--js-flags=--expose-gc');
+          launchOptions.args.push('--force-color-profile=srgb');
+          
+          // Prevent Chrome from showing error dialogs
+          launchOptions.args.push('--disable-breakpad');
+          launchOptions.args.push('--disable-component-extensions-with-background-pages');
+        }
+        return launchOptions;
+      });
+
+      // Call the main setup function with all other configurations
+      return setupNodeEvents(on, config);
+    },
     baseUrl: BASE_URL,
     specPattern: "tests/cypress/integration/features/**/*.{feature,features}",
     supportFile: "tests/cypress/support/index.js",
