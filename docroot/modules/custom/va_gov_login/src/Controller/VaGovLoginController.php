@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\Core\Url;
 use GuzzleHttp\ClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -49,6 +50,13 @@ class VaGovLoginController extends ControllerBase {
   protected $settings;
 
   /**
+   * The private tempstore.
+   *
+   * @var \Drupal\Core\TempStore\PrivateTempStore
+   */
+  protected $tempStore;
+
+  /**
    * Constructs a VaGovLoginController object.
    *
    * @param \GuzzleHttp\ClientInterface $http_client
@@ -59,17 +67,21 @@ class VaGovLoginController extends ControllerBase {
    *   Logger factory service.
    * @param \Drupal\Core\Site\Settings $settings
    *   The settings service.
+   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
+   *   The private tempstore factory.
    */
   public function __construct(
     ClientInterface $http_client,
     MessengerInterface $messenger,
     LoggerChannelFactoryInterface $logger_factory,
     Settings $settings,
+    PrivateTempStoreFactory $temp_store_factory,
   ) {
     $this->httpClient = $http_client;
     $this->messenger = $messenger;
     $this->loggerFactory = $logger_factory;
     $this->settings = $settings;
+    $this->tempStore = $temp_store_factory->get('va_gov_login');
   }
 
   /**
@@ -80,7 +92,8 @@ class VaGovLoginController extends ControllerBase {
       $container->get('http_client'),
       $container->get('messenger'),
       $container->get('logger.factory'),
-      $container->get('settings')
+      $container->get('settings'),
+      $container->get('tempstore.private'),
     );
   }
 
@@ -105,12 +118,12 @@ class VaGovLoginController extends ControllerBase {
     // Generate CSRF state token (64 char hex) for OAuth flow protection.
     // This prevents attackers from initiating unauthorized authentication.
     $state = bin2hex(random_bytes(32));
-    $_SESSION['entra_id_oauth_state'] = $state;
+    $this->tempStore->set('entra_id_oauth_state', $state);
 
     // Generate nonce (64 char hex) for ID token replay protection.
     // Microsoft will include this in the ID token for validation.
     $nonce = bin2hex(random_bytes(32));
-    $_SESSION['entra_id_oauth_nonce'] = $nonce;
+    $this->tempStore->set('entra_id_oauth_nonce', $nonce);
 
     // Use Url::fromRoute() to generate the redirect URI.
     $redirect_uri = Url::fromRoute('va_gov_login.callback', [], ['absolute' => TRUE])->toString();
@@ -155,12 +168,13 @@ class VaGovLoginController extends ControllerBase {
 
     // SECURITY: Validate state parameter to prevent CSRF attacks.
     // The state must match what we stored in session during redirect.
-    if (empty($_SESSION['entra_id_oauth_state']) || $state !== $_SESSION['entra_id_oauth_state']) {
+    $stored_state = $this->tempStore->get('entra_id_oauth_state');
+    if (empty($stored_state) || $state !== $stored_state) {
       $this->messenger->addError($this->t('Invalid state parameter. Possible CSRF attack.'));
       $this->loggerFactory
         ->get('social_auth_entra_id')
         ->warning('CSRF attempt detected: State parameter mismatch');
-      unset($_SESSION['entra_id_oauth_state']);
+      $this->tempStore->delete('entra_id_oauth_state');
       $response = new RedirectResponse(Url::fromRoute('user.login')->toString());
       $response->setMaxAge(0);
       $response->headers->addCacheControlDirective('no-cache', TRUE);
@@ -233,13 +247,14 @@ class VaGovLoginController extends ControllerBase {
 
           // Verify nonce to prevent token replay attacks.
           // Nonce must match what we sent in authorization request.
-          if (!empty($_SESSION['entra_id_oauth_nonce'])) {
-            if (empty($id_token_payload['nonce']) || $id_token_payload['nonce'] !== $_SESSION['entra_id_oauth_nonce']) {
-              unset($_SESSION['entra_id_oauth_nonce']);
+          $stored_nonce = $this->tempStore->get('entra_id_oauth_nonce');
+          if (!empty($stored_nonce)) {
+            if (empty($id_token_payload['nonce']) || $id_token_payload['nonce'] !== $stored_nonce) {
+              $this->tempStore->delete('entra_id_oauth_nonce');
               throw new \Exception('ID token nonce mismatch.');
             }
             // Clear nonce after validation (one-time use).
-            unset($_SESSION['entra_id_oauth_nonce']);
+            $this->tempStore->delete('entra_id_oauth_nonce');
           }
 
           $profile_response = $this->httpClient->request('GET', 'https://graph.microsoft.com/v1.0/me', [
