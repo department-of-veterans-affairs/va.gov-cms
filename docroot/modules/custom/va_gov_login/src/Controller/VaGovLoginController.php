@@ -189,6 +189,49 @@ class VaGovLoginController extends ControllerBase {
 
         // Check if access_token exists in response.
         if (isset($data['access_token']) && isset($data['id_token'])) {
+          // Parse and validate JWT ID token structure.
+          // JWT format: base64(header).base64(payload).base64(signature)
+          $id_token_parts = explode('.', $data['id_token']);
+          if (count($id_token_parts) !== 3) {
+            throw new \Exception('Invalid ID token format.');
+          }
+
+          // Decode the JWT payload (middle section).
+          // Uses URL-safe base64 decoding (-_ instead of +/).
+          $id_token_payload = json_decode(base64_decode(strtr($id_token_parts[1], '-_', '+/')), TRUE);
+
+          if (!$id_token_payload) {
+            throw new \Exception('Failed to decode ID token payload.');
+          }
+
+          // Validate critical ID token claims for security.
+          // SECURITY: These validations prevent token forgery and misuse.
+          // 1. Verify audience (aud) claim matches our client_id.
+          // Prevents tokens issued for other apps from being accepted.
+          if (empty($id_token_payload['aud']) || $id_token_payload['aud'] !== $client_id) {
+            throw new \Exception('ID token audience mismatch.');
+          }
+
+          // Verify issuer (iss) claim is from Microsoft.
+          // Prevents tokens from malicious issuers.
+          // Expected issuer for an organization account:
+          // microsoft.com/{tenant_id}/v2.0 .
+          if (empty($id_token_payload['iss'])) {
+            throw new \Exception('ID token issuer missing.');
+          }
+          // For organization accounts, validate exact tenant match.
+          $expected_issuer = "https://login.microsoftonline.com/$tenant_id/v2.0";
+          if ($id_token_payload['iss'] !== $expected_issuer) {
+            throw new \Exception('ID token issuer mismatch.');
+          }
+
+          // Verify token expiration (exp) claim.
+          // Prevents use of old/expired tokens.
+          if (empty($id_token_payload['exp']) || $id_token_payload['exp'] < time()) {
+            throw new \Exception('ID token has expired.');
+          }
+
+          // Verify nonce to prevent token replay attacks.
           // Nonce must match what we sent in authorization request.
           if (!empty($_SESSION['entra_id_oauth_nonce'])) {
             if (empty($id_token_payload['nonce']) || $id_token_payload['nonce'] !== $_SESSION['entra_id_oauth_nonce']) {
@@ -197,49 +240,49 @@ class VaGovLoginController extends ControllerBase {
             }
             // Clear nonce after validation (one-time use).
             unset($_SESSION['entra_id_oauth_nonce']);
+          }
 
-            $profile_response = $this->httpClient->request('GET', 'https://graph.microsoft.com/v1.0/me', [
-              'headers' => ['Authorization' => 'Bearer ' . $data['access_token']],
-            ]);
-            $profile_data = json_decode($profile_response->getBody()->getContents(), TRUE);
+          $profile_response = $this->httpClient->request('GET', 'https://graph.microsoft.com/v1.0/me', [
+            'headers' => ['Authorization' => 'Bearer ' . $data['access_token']],
+          ]);
+          $profile_data = json_decode($profile_response->getBody()->getContents(), TRUE);
 
-            if (isset($profile_data['mail'])) {
-              $user_email = $profile_data['mail'];
+          if (isset($profile_data['mail'])) {
+            $user_email = $profile_data['mail'];
 
-              $existing_user = user_load_by_name($user_email);
+            $existing_user = user_load_by_name($user_email);
 
-              if ($existing_user) {
+            if ($existing_user) {
 
-                // Block user 1 from logging in via Entra ID.
-                if ($existing_user->id() == 1) {
-                  $this->messenger->addError($this->t('The root administrator account cannot log in via Entra ID.'));
-                  $this->loggerFactory
-                    ->get('social_auth_entra_id')
-                    ->warning('Blocked user 1 login attempt via Entra ID for email: @email, IP: @ip', [
-                      '@email' => $user_email,
-                      '@ip' => $request->getClientIp(),
-                    ]);
-                  $response = new RedirectResponse(Url::fromRoute('user.login')->toString());
-                  $response->setMaxAge(0);
-                  $response->headers->addCacheControlDirective('no-cache', TRUE);
-                  return $response;
-                }
-
-                user_login_finalize($existing_user);
-                $this->messenger->addStatus($this->t('Logged in successfully.'));
+              // Block user 1 from logging in via Entra ID.
+              if ($existing_user->id() == 1) {
+                $this->messenger->addError($this->t('The root administrator account cannot log in via Entra ID.'));
+                $this->loggerFactory
+                  ->get('social_auth_entra_id')
+                  ->warning('Blocked user 1 login attempt via Entra ID for email: @email, IP: @ip', [
+                    '@email' => $user_email,
+                    '@ip' => $request->getClientIp(),
+                  ]);
+                $response = new RedirectResponse(Url::fromRoute('user.login')->toString());
+                $response->setMaxAge(0);
+                $response->headers->addCacheControlDirective('no-cache', TRUE);
+                return $response;
               }
-              else {
-                $this->messenger->addError($this->t('Login failed. The account does not exist.'));
-                return new RedirectResponse(Url::fromRoute('<front>')->toString());
-              }
+
+              user_login_finalize($existing_user);
+              $this->messenger->addStatus($this->t('Logged in successfully.'));
             }
             else {
-              throw new \Exception('User email not found.');
+              $this->messenger->addError($this->t('Login failed. The account does not exist.'));
+              return new RedirectResponse(Url::fromRoute('<front>')->toString());
             }
           }
           else {
-            throw new \Exception('Access token missing.');
+            throw new \Exception('User email not found.');
           }
+        }
+        else {
+          throw new \Exception('Access token missing.');
         }
       }
       catch (\Exception $e) {
