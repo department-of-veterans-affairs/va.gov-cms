@@ -206,7 +206,7 @@ class VaGovLoginController extends ControllerBase {
 
           // Validate critical ID token claims for security.
           // SECURITY: These validations prevent token forgery and misuse.
-          // 1. Verify audience (aud) claim matches our client_id.
+          // Verify audience (aud) claim matches our client_id.
           // Prevents tokens issued for other apps from being accepted.
           if (empty($id_token_payload['aud']) || $id_token_payload['aud'] !== $client_id) {
             throw new \Exception('ID token audience mismatch.');
