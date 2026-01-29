@@ -167,16 +167,6 @@ class VaGovLoginController extends ControllerBase {
       return $response;
     }
 
-    // Nonce must match what we sent in authorization request.
-    if (!empty($_SESSION['entra_id_oauth_nonce'])) {
-      if (empty($id_token_payload['nonce']) || $id_token_payload['nonce'] !== $_SESSION['entra_id_oauth_nonce']) {
-        unset($_SESSION['entra_id_oauth_nonce']);
-        throw new \Exception('ID token nonce mismatch.');
-      }
-      // Clear nonce after validation (one-time use).
-      unset($_SESSION['entra_id_oauth_nonce']);
-    }
-
     if ($code) {
       // Retrieve settings from environment variables.
       $client_id = $this->settings->get('microsoft_entra_id_client_id');
@@ -196,49 +186,60 @@ class VaGovLoginController extends ControllerBase {
           ],
         ]);
         $data = json_decode($response->getBody()->getContents(), TRUE);
+
         // Check if access_token exists in response.
         if (isset($data['access_token']) && isset($data['id_token'])) {
-          $profile_response = $this->httpClient->request('GET', 'https://graph.microsoft.com/v1.0/me', [
-            'headers' => ['Authorization' => 'Bearer ' . $data['access_token']],
-          ]);
-          $profile_data = json_decode($profile_response->getBody()->getContents(), TRUE);
+          // Nonce must match what we sent in authorization request.
+          if (!empty($_SESSION['entra_id_oauth_nonce'])) {
+            if (empty($id_token_payload['nonce']) || $id_token_payload['nonce'] !== $_SESSION['entra_id_oauth_nonce']) {
+              unset($_SESSION['entra_id_oauth_nonce']);
+              throw new \Exception('ID token nonce mismatch.');
+            }
+            // Clear nonce after validation (one-time use).
+            unset($_SESSION['entra_id_oauth_nonce']);
 
-          if (isset($profile_data['mail'])) {
-            $user_email = $profile_data['mail'];
+            $profile_response = $this->httpClient->request('GET', 'https://graph.microsoft.com/v1.0/me', [
+              'headers' => ['Authorization' => 'Bearer ' . $data['access_token']],
+            ]);
+            $profile_data = json_decode($profile_response->getBody()->getContents(), TRUE);
 
-            $existing_user = user_load_by_name($user_email);
+            if (isset($profile_data['mail'])) {
+              $user_email = $profile_data['mail'];
 
-            if ($existing_user) {
+              $existing_user = user_load_by_name($user_email);
 
-              // Block user 1 from logging in via Entra ID.
-              if ($existing_user->id() == 1) {
-                $this->messenger->addError($this->t('The root administrator account cannot log in via Entra ID.'));
-                $this->loggerFactory
-                  ->get('social_auth_entra_id')
-                  ->warning('Blocked user 1 login attempt via Entra ID for email: @email, IP: @ip', [
-                    '@email' => $user_email,
-                    '@ip' => $request->getClientIp(),
-                  ]);
-                $response = new RedirectResponse(Url::fromRoute('user.login')->toString());
-                $response->setMaxAge(0);
-                $response->headers->addCacheControlDirective('no-cache', TRUE);
-                return $response;
+              if ($existing_user) {
+
+                // Block user 1 from logging in via Entra ID.
+                if ($existing_user->id() == 1) {
+                  $this->messenger->addError($this->t('The root administrator account cannot log in via Entra ID.'));
+                  $this->loggerFactory
+                    ->get('social_auth_entra_id')
+                    ->warning('Blocked user 1 login attempt via Entra ID for email: @email, IP: @ip', [
+                      '@email' => $user_email,
+                      '@ip' => $request->getClientIp(),
+                    ]);
+                  $response = new RedirectResponse(Url::fromRoute('user.login')->toString());
+                  $response->setMaxAge(0);
+                  $response->headers->addCacheControlDirective('no-cache', TRUE);
+                  return $response;
+                }
+
+                user_login_finalize($existing_user);
+                $this->messenger->addStatus($this->t('Logged in successfully.'));
               }
-
-              user_login_finalize($existing_user);
-              $this->messenger->addStatus($this->t('Logged in successfully.'));
+              else {
+                $this->messenger->addError($this->t('Login failed. The account does not exist.'));
+                return new RedirectResponse(Url::fromRoute('<front>')->toString());
+              }
             }
             else {
-              $this->messenger->addError($this->t('Login failed. The account does not exist.'));
-              return new RedirectResponse(Url::fromRoute('<front>')->toString());
+              throw new \Exception('User email not found.');
             }
           }
           else {
-            throw new \Exception('User email not found.');
+            throw new \Exception('Access token missing.');
           }
-        }
-        else {
-          throw new \Exception('Access token missing.');
         }
       }
       catch (\Exception $e) {
