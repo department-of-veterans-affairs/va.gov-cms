@@ -4,11 +4,11 @@ namespace Drupal\va_gov_login\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Session\AccountProxyInterface;
-use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
 use GuzzleHttp\ClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -52,11 +52,11 @@ class VaGovLoginController extends ControllerBase {
   protected $settings;
 
   /**
-   * The state service.
+   * The key-value store for OAuth state.
    *
-   * @var \Drupal\Core\State\StateInterface
+   * @var \Drupal\Core\KeyValueStore\KeyValueStoreInterface
    */
-  protected $state;
+  protected $keyValueStore;
 
   /**
    * The current user service.
@@ -83,8 +83,8 @@ class VaGovLoginController extends ControllerBase {
    *   Logger factory service.
    * @param \Drupal\Core\Site\Settings $settings
    *   The settings service.
-   * @param \Drupal\Core\State\StateInterface $state
-   *   The state service.
+   * @param \Drupal\Core\KeyValueStore\KeyValueFactoryInterface $key_value_factory
+   *   The key-value factory service.
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   The current user service.
    * @param \Drupal\Core\Database\Connection $database
@@ -95,7 +95,7 @@ class VaGovLoginController extends ControllerBase {
     MessengerInterface $messenger,
     LoggerChannelFactoryInterface $logger_factory,
     Settings $settings,
-    StateInterface $state,
+    KeyValueFactoryInterface $key_value_factory,
     AccountProxyInterface $current_user,
     Connection $database,
   ) {
@@ -103,7 +103,7 @@ class VaGovLoginController extends ControllerBase {
     $this->messenger = $messenger;
     $this->loggerFactory = $logger_factory;
     $this->settings = $settings;
-    $this->state = $state;
+    $this->keyValueStore = $key_value_factory->get('va_gov_oauth_state');
     $this->currentUser = $current_user;
     $this->database = $database;
   }
@@ -117,7 +117,7 @@ class VaGovLoginController extends ControllerBase {
       $container->get('messenger'),
       $container->get('logger.factory'),
       $container->get('settings'),
-      $container->get('state'),
+      $container->get('keyvalue.database'),
       $container->get('current_user'),
       $container->get('database'),
     );
@@ -163,15 +163,15 @@ class VaGovLoginController extends ControllerBase {
     // Microsoft will include this in the ID token for validation.
     $nonce = bin2hex(random_bytes(32));
 
-    // Store state and nonce in State API with timestamp for expiration.
-    // Using state token as key so it's not user-dependent.
-    $this->state->set('oauth_state_' . $state, [
+    // Store state and nonce in KeyValue store with timestamp for expiration.
+    // Using direct database storage for immediate persistence.
+    $this->keyValueStore->set($state, [
       'nonce' => $nonce,
       'timestamp' => time(),
     ]);
 
-    // Verify State API write by reading back immediately.
-    $verify_data = $this->state->get('oauth_state_' . $state);
+    // Verify KeyValue write by reading back immediately.
+    $verify_data = $this->keyValueStore->get($state);
     $logger->info('REDIRECT: Generated state: @state, nonce: @nonce | Stored and verified: @verify | Match: @match', [
       '@state' => $state,
       '@nonce' => $nonce,
@@ -255,11 +255,11 @@ class VaGovLoginController extends ControllerBase {
 
     // SECURITY: Validate state parameter to prevent CSRF attacks.
     // Use state token from URL as key to retrieve stored OAuth data.
-    $stored_data = $this->state->get('oauth_state_' . $state);
+    $stored_data = $this->keyValueStore->get($state);
 
-    // Check database for State API entries to verify persistence.
+    // Check database for KeyValue entries to verify persistence.
     $db_check = $this->database->query(
-      "SELECT COUNT(*) FROM {key_value} WHERE collection = 'state' AND name LIKE 'oauth_state_%'"
+      "SELECT COUNT(*) FROM {key_value} WHERE collection = 'va_gov_oauth_state'"
     )->fetchField();
 
     $logger->info('CALLBACK: State from URL: @state | Stored data found: @found | State DB entries: @count | Timestamp: @ts', [
@@ -283,7 +283,7 @@ class VaGovLoginController extends ControllerBase {
       ]);
       $this->messenger->addError($this->t('Invalid or expired state parameter. Please try logging in again.'));
       if ($stored_data) {
-        $this->state->delete('oauth_state_' . $state);
+        $this->keyValueStore->delete($state);
       }
       $response = new RedirectResponse(Url::fromRoute('user.login')->toString());
       $response->setMaxAge(0);
@@ -299,7 +299,7 @@ class VaGovLoginController extends ControllerBase {
     $stored_nonce = $stored_data['nonce'];
 
     // Delete state immediately after validation (one-time use).
-    $this->state->delete('oauth_state_' . $state);
+    $this->keyValueStore->delete($state);
 
     if ($code) {
       $logger->info('CALLBACK: Authorization code present, exchanging for tokens');
