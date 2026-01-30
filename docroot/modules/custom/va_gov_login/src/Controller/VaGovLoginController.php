@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_login\Controller;
 
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
@@ -231,10 +230,6 @@ class VaGovLoginController extends ControllerBase {
       $response->headers->addCacheControlDirective('no-store', TRUE);
       $response->headers->addCacheControlDirective('must-revalidate', TRUE);
       $response->headers->addCacheControlDirective('max-age', 0);
-
-      $cacheable_metadata = new CacheableMetadata();
-      $cacheable_metadata->setCacheMaxAge(0);
-      $cacheable_metadata->applyTo($response);
 
       return $response;
     }
