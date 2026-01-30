@@ -2,11 +2,13 @@
 
 namespace Drupal\va_gov_login\Controller;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\PageCache\ResponsePolicy\KillSwitch;
 use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Url;
@@ -73,6 +75,13 @@ class VaGovLoginController extends ControllerBase {
   protected $database;
 
   /**
+   * Disables page caching for sensitive requests.
+   *
+   * @var \Drupal\Core\PageCache\ResponsePolicy\KillSwitch
+   */
+  protected $pageCacheKillSwitch;
+
+  /**
    * Constructs a VaGovLoginController object.
    *
    * @param \GuzzleHttp\ClientInterface $http_client
@@ -89,6 +98,8 @@ class VaGovLoginController extends ControllerBase {
    *   The current user service.
    * @param \Drupal\Core\Database\Connection $database
    *   The database connection.
+   * @param \Drupal\Core\PageCache\ResponsePolicy\KillSwitch $page_cache_kill_switch
+   *   The page cache kill switch.
    */
   public function __construct(
     ClientInterface $http_client,
@@ -98,6 +109,7 @@ class VaGovLoginController extends ControllerBase {
     KeyValueFactoryInterface $key_value_factory,
     AccountProxyInterface $current_user,
     Connection $database,
+    KillSwitch $page_cache_kill_switch,
   ) {
     $this->httpClient = $http_client;
     $this->messenger = $messenger;
@@ -106,6 +118,7 @@ class VaGovLoginController extends ControllerBase {
     $this->keyValueStore = $key_value_factory->get('va_gov_oauth_state');
     $this->currentUser = $current_user;
     $this->database = $database;
+    $this->pageCacheKillSwitch = $page_cache_kill_switch;
   }
 
   /**
@@ -120,6 +133,7 @@ class VaGovLoginController extends ControllerBase {
       $container->get('keyvalue.database'),
       $container->get('current_user'),
       $container->get('database'),
+      $container->get('page_cache_kill_switch'),
     );
   }
 
@@ -132,6 +146,9 @@ class VaGovLoginController extends ControllerBase {
   public function redirectToMicrosoft() {
     try {
       $logger = $this->loggerFactory->get('va_gov_login');
+
+      // Ensure this request is never cached at any layer.
+      $this->pageCacheKillSwitch->trigger();
 
       // Log immediately to verify method execution.
       $logger->info('REDIRECT: METHOD CALLED - redirectToMicrosoft() executing');
@@ -206,13 +223,18 @@ class VaGovLoginController extends ControllerBase {
       $response = new TrustedRedirectResponse($url);
 
       // Ensure this response is never cached.
-      // OAuth flows require fresh session state on every request.
-      // @todo Maybe remove.
+      // OAuth flows require fresh state on every request.
       $response->setMaxAge(0);
       $response->setSharedMaxAge(0);
+      $response->setPrivate();
       $response->headers->addCacheControlDirective('no-cache', TRUE);
       $response->headers->addCacheControlDirective('no-store', TRUE);
       $response->headers->addCacheControlDirective('must-revalidate', TRUE);
+      $response->headers->addCacheControlDirective('max-age', 0);
+
+      $cacheable_metadata = new CacheableMetadata();
+      $cacheable_metadata->setCacheMaxAge(0);
+      $cacheable_metadata->applyTo($response);
 
       return $response;
     }
