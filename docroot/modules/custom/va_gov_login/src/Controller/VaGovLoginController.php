@@ -3,10 +3,12 @@
 namespace Drupal\va_gov_login\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\TrustedRedirectResponse;
-use Drupal\Core\TempStore\PrivateTempStoreFactory;
+use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
 use GuzzleHttp\ClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -50,11 +52,25 @@ class VaGovLoginController extends ControllerBase {
   protected $settings;
 
   /**
-   * The private tempstore.
+   * The state service.
    *
-   * @var \Drupal\Core\TempStore\PrivateTempStore
+   * @var \Drupal\Core\State\StateInterface
    */
-  protected $tempStore;
+  protected $state;
+
+  /**
+   * The current user service.
+   *
+   * @var \Drupal\Core\Session\AccountProxyInterface
+   */
+  protected $currentUser;
+
+  /**
+   * The database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $database;
 
   /**
    * Constructs a VaGovLoginController object.
@@ -67,21 +83,29 @@ class VaGovLoginController extends ControllerBase {
    *   Logger factory service.
    * @param \Drupal\Core\Site\Settings $settings
    *   The settings service.
-   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
-   *   The private tempstore factory.
+   * @param \Drupal\Core\State\StateInterface $state
+   *   The state service.
+   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
+   *   The current user service.
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
    */
   public function __construct(
     ClientInterface $http_client,
     MessengerInterface $messenger,
     LoggerChannelFactoryInterface $logger_factory,
     Settings $settings,
-    PrivateTempStoreFactory $temp_store_factory,
+    StateInterface $state,
+    AccountProxyInterface $current_user,
+    Connection $database,
   ) {
     $this->httpClient = $http_client;
     $this->messenger = $messenger;
     $this->loggerFactory = $logger_factory;
     $this->settings = $settings;
-    $this->tempStore = $temp_store_factory->get('va_gov_login');
+    $this->state = $state;
+    $this->currentUser = $current_user;
+    $this->database = $database;
   }
 
   /**
@@ -93,7 +117,9 @@ class VaGovLoginController extends ControllerBase {
       $container->get('messenger'),
       $container->get('logger.factory'),
       $container->get('settings'),
-      $container->get('tempstore.private'),
+      $container->get('state'),
+      $container->get('current_user'),
+      $container->get('database'),
     );
   }
 
@@ -104,30 +130,60 @@ class VaGovLoginController extends ControllerBase {
    *   A trusted redirect response to the Microsoft Entra ID login URL.
    */
   public function redirectToMicrosoft() {
+    $logger = $this->loggerFactory->get('va_gov_login');
+    $session_id = session_id();
+
+    $logger->info('REDIRECT: OAuth flow initiated - User ID: @uid, Session ID: @sid, Session status: @status', [
+      '@uid' => $this->currentUser->id(),
+      '@sid' => $session_id ?: 'NO SESSION',
+      '@status' => session_status() === PHP_SESSION_ACTIVE ? 'ACTIVE' : 'NONE',
+    ]);
+
     $client_id = $this->settings->get('microsoft_entra_id_client_id');
     $tenant_id = $this->settings->get('microsoft_entra_id_tenant_id');
 
     // Validate required Entra ID settings.
     if (empty($client_id) || empty($tenant_id)) {
-      $this->loggerFactory->get('va_gov_login')->error('Missing required Microsoft Entra ID configuration: client_id or tenant_id.');
+      $logger->error('REDIRECT: Missing required Microsoft Entra ID configuration: client_id or tenant_id.');
       $this->messenger->addError($this->t('Login is currently unavailable. Please contact CMS helpdesk.'));
       // Redirect to front page or another safe location.
       return $this->redirect('<front>');
     }
 
+    $logger->info('REDIRECT: Settings validated - client_id: @client_id, tenant_id: @tenant_id', [
+      '@client_id' => substr($client_id, 0, 8) . '...',
+      '@tenant_id' => substr($tenant_id, 0, 8) . '...',
+    ]);
+
     // Generate CSRF state token (64 char hex) for OAuth flow protection.
     // This prevents attackers from initiating unauthorized authentication.
     $state = bin2hex(random_bytes(32));
-    $this->tempStore->set('entra_id_oauth_state', $state);
 
     // Generate nonce (64 char hex) for ID token replay protection.
     // Microsoft will include this in the ID token for validation.
     $nonce = bin2hex(random_bytes(32));
-    $this->tempStore->set('entra_id_oauth_nonce', $nonce);
+
+    // Store state and nonce in State API with timestamp for expiration.
+    // Using state token as key so it's not user-dependent.
+    $this->state->set('oauth_state_' . $state, [
+      'nonce' => $nonce,
+      'timestamp' => time(),
+    ]);
+
+    // Verify State API write by reading back immediately.
+    $verify_data = $this->state->get('oauth_state_' . $state);
+    $logger->info('REDIRECT: Generated state: @state, nonce: @nonce | Stored and verified: @verify | Match: @match', [
+      '@state' => $state,
+      '@nonce' => $nonce,
+      '@verify' => $verify_data ? 'YES' : 'NULL',
+      '@match' => ($verify_data && $verify_data['nonce'] === $nonce) ? 'YES' : 'NO',
+    ]);
 
     // Use Url::fromRoute() to generate the redirect URI.
     $redirect_uri = Url::fromRoute('va_gov_login.callback', [], ['absolute' => TRUE])->toString();
     $scopes = 'openid profile email User.Read';
+
+    $logger->info('REDIRECT: Redirect URI: @uri', ['@uri' => $redirect_uri]);
 
     // Construct the URL for the Microsoft login.
     $url = "https://login.microsoftonline.com/$tenant_id/oauth2/v2.0/authorize?" . http_build_query([
@@ -139,11 +195,14 @@ class VaGovLoginController extends ControllerBase {
       'nonce' => $nonce,
     ]);
 
+    $logger->info('REDIRECT: Redirecting to Microsoft Entra ID');
+
     // Use TrustedRedirectResponse to allow external Microsoft domain.
     $response = new TrustedRedirectResponse($url);
 
     // Ensure this response is never cached.
     // OAuth flows require fresh session state on every request.
+    // @todo Maybe remove.
     $response->setMaxAge(0);
     $response->setSharedMaxAge(0);
     $response->headers->addCacheControlDirective('no-cache', TRUE);
@@ -163,25 +222,88 @@ class VaGovLoginController extends ControllerBase {
    *   A redirect response to the front page after processing the callback.
    */
   public function handleMicrosoftCallback(Request $request) {
+    $logger = $this->loggerFactory->get('va_gov_login');
+    $session_id = session_id();
+    $cookies = $request->cookies->all();
+
+    $logger->info('CALLBACK: OAuth callback initiated - User ID: @uid, Session ID: @sid, Session status: @status, Has cookies: @cookies', [
+      '@uid' => $this->currentUser->id(),
+      '@sid' => $session_id ?: 'NO SESSION',
+      '@status' => session_status() === PHP_SESSION_ACTIVE ? 'ACTIVE' : 'NONE',
+      '@cookies' => !empty($cookies) ? implode(', ', array_keys($cookies)) : 'NONE',
+    ]);
+
     $code = $request->query->get('code');
     $state = $request->query->get('state');
+    $error = $request->query->get('error');
+    $error_description = $request->query->get('error_description');
+
+    if ($error) {
+      $logger->error('CALLBACK: Microsoft returned error: @error - @desc', [
+        '@error' => $error,
+        '@desc' => $error_description ?? 'No description',
+      ]);
+      $this->messenger->addError($this->t('Authentication failed: @error', ['@error' => $error_description ?? $error]));
+      return new RedirectResponse(Url::fromRoute('user.login')->toString());
+    }
+
+    $logger->info('CALLBACK: Received code: @code (length: @len), state: @state', [
+      '@code' => substr($code, 0, 10) . '...',
+      '@len' => strlen($code ?? ''),
+      '@state' => $state ?? 'NULL',
+    ]);
 
     // SECURITY: Validate state parameter to prevent CSRF attacks.
-    // The state must match what we stored in session during redirect.
-    $stored_state = $this->tempStore->get('entra_id_oauth_state');
-    if (empty($stored_state) || $state !== $stored_state) {
-      $this->messenger->addError($this->t('Invalid state parameter. Possible CSRF attack.'));
-      $this->loggerFactory
-        ->get('social_auth_entra_id')
-        ->warning('CSRF attempt detected: State parameter mismatch');
-      $this->tempStore->delete('entra_id_oauth_state');
+    // Use state token from URL as key to retrieve stored OAuth data.
+    $stored_data = $this->state->get('oauth_state_' . $state);
+
+    // Check database for State API entries to verify persistence.
+    $db_check = $this->database->query(
+      "SELECT COUNT(*) FROM {key_value} WHERE collection = 'state' AND name LIKE 'oauth_state_%'"
+    )->fetchField();
+
+    $logger->info('CALLBACK: State from URL: @state | Stored data found: @found | State DB entries: @count | Timestamp: @ts', [
+      '@state' => $state ?? 'NULL',
+      '@found' => $stored_data ? 'YES' : 'NO',
+      '@count' => $db_check,
+      '@ts' => $stored_data['timestamp'] ?? 'N/A',
+    ]);
+
+    // Validate state exists and hasn't expired (10 minute window).
+    $state_valid = !empty($stored_data) &&
+                   !empty($stored_data['timestamp']) &&
+                   ($stored_data['timestamp'] > time() - 600);
+
+    if (!$state_valid) {
+      $age = !empty($stored_data['timestamp']) ? (time() - $stored_data['timestamp']) : 'N/A';
+      $logger->warning('CALLBACK: CSRF/expired state detected - State: @state, Found: @found, Age: @age seconds', [
+        '@state' => $state ?? 'NULL',
+        '@found' => $stored_data ? 'YES (expired)' : 'NO',
+        '@age' => $age,
+      ]);
+      $this->messenger->addError($this->t('Invalid or expired state parameter. Please try logging in again.'));
+      if ($stored_data) {
+        $this->state->delete('oauth_state_' . $state);
+      }
       $response = new RedirectResponse(Url::fromRoute('user.login')->toString());
       $response->setMaxAge(0);
       $response->headers->addCacheControlDirective('no-cache', TRUE);
       return $response;
     }
 
+    $logger->info('CALLBACK: State validation PASSED - Age: @age seconds', [
+      '@age' => time() - $stored_data['timestamp'],
+    ]);
+
+    // Store nonce for later validation.
+    $stored_nonce = $stored_data['nonce'];
+
+    // Delete state immediately after validation (one-time use).
+    $this->state->delete('oauth_state_' . $state);
+
     if ($code) {
+      $logger->info('CALLBACK: Authorization code present, exchanging for tokens');
+
       // Retrieve settings from environment variables.
       $client_id = $this->settings->get('microsoft_entra_id_client_id');
       $client_secret = $this->settings->get('microsoft_entra_id_client_secret');
@@ -189,6 +311,8 @@ class VaGovLoginController extends ControllerBase {
       $redirect_uri = Url::fromRoute('va_gov_login.callback', [], ['absolute' => TRUE])->toString();
 
       try {
+        $logger->info('CALLBACK: Requesting tokens from Microsoft');
+
         // Exchange the code for an access token.
         $response = $this->httpClient->request('POST', "https://login.microsoftonline.com/$tenant_id/oauth2/v2.0/token", [
           'form_params' => [
@@ -201,8 +325,14 @@ class VaGovLoginController extends ControllerBase {
         ]);
         $data = json_decode($response->getBody()->getContents(), TRUE);
 
+        $logger->info('CALLBACK: Token response received - has_access_token: @access, has_id_token: @id', [
+          '@access' => isset($data['access_token']) ? 'YES' : 'NO',
+          '@id' => isset($data['id_token']) ? 'YES' : 'NO',
+        ]);
+
         // Check if access_token and id_token exist in response.
         if (isset($data['access_token']) && isset($data['id_token'])) {
+          $logger->info('CALLBACK: Validating ID token');
           // Parse and validate JWT ID token structure.
           // JWT format: base64(header).base64(payload).base64(signature)
           $id_token_parts = explode('.', $data['id_token']);
@@ -247,15 +377,18 @@ class VaGovLoginController extends ControllerBase {
 
           // Verify nonce to prevent token replay attacks.
           // Nonce must match what we sent in authorization request.
-          $stored_nonce = $this->tempStore->get('entra_id_oauth_nonce');
           if (!empty($stored_nonce)) {
             if (empty($id_token_payload['nonce']) || $id_token_payload['nonce'] !== $stored_nonce) {
-              $this->tempStore->delete('entra_id_oauth_nonce');
+              $logger->error('CALLBACK: Nonce mismatch - Expected: @expected, Received: @received', [
+                '@expected' => $stored_nonce,
+                '@received' => $id_token_payload['nonce'] ?? 'NULL',
+              ]);
               throw new \Exception('ID token nonce mismatch.');
             }
-            // Clear nonce after validation (one-time use).
-            $this->tempStore->delete('entra_id_oauth_nonce');
+            $logger->info('CALLBACK: Nonce validation PASSED');
           }
+
+          $logger->info('CALLBACK: ID token validated, fetching user profile from Microsoft Graph');
 
           $profile_response = $this->httpClient->request('GET', 'https://graph.microsoft.com/v1.0/me', [
             'headers' => ['Authorization' => 'Bearer ' . $data['access_token']],
@@ -264,30 +397,38 @@ class VaGovLoginController extends ControllerBase {
 
           if (isset($profile_data['mail'])) {
             $user_email = $profile_data['mail'];
+            $logger->info('CALLBACK: Retrieved user email: @email', ['@email' => $user_email]);
 
             $existing_user = user_load_by_name($user_email);
+            $logger->info('CALLBACK: User lookup result: @found', [
+              '@found' => $existing_user ? 'FOUND (uid: ' . $existing_user->id() . ')' : 'NOT FOUND',
+            ]);
 
             if ($existing_user) {
 
               // Block user 1 from logging in via Entra ID.
               if ($existing_user->id() == 1) {
+                $logger->warning('CALLBACK: Blocked user 1 login attempt for email: @email, IP: @ip', [
+                  '@email' => $user_email,
+                  '@ip' => $request->getClientIp(),
+                ]);
                 $this->messenger->addError($this->t('The root administrator account cannot log in via Entra ID.'));
-                $this->loggerFactory
-                  ->get('social_auth_entra_id')
-                  ->warning('Blocked user 1 login attempt via Entra ID for email: @email, IP: @ip', [
-                    '@email' => $user_email,
-                    '@ip' => $request->getClientIp(),
-                  ]);
                 $response = new RedirectResponse(Url::fromRoute('user.login')->toString());
                 $response->setMaxAge(0);
                 $response->headers->addCacheControlDirective('no-cache', TRUE);
                 return $response;
               }
 
+              $logger->info('CALLBACK: Logging in user: @email (uid: @uid)', [
+                '@email' => $user_email,
+                '@uid' => $existing_user->id(),
+              ]);
               user_login_finalize($existing_user);
+              $logger->info('CALLBACK: Login successful for @email', ['@email' => $user_email]);
               $this->messenger->addStatus($this->t('Logged in successfully.'));
             }
             else {
+              $logger->error('CALLBACK: User account does not exist for email: @email', ['@email' => $user_email]);
               $this->messenger->addError($this->t('Login failed. The account does not exist.'));
               return new RedirectResponse(Url::fromRoute('<front>')->toString());
             }
@@ -301,11 +442,15 @@ class VaGovLoginController extends ControllerBase {
         }
       }
       catch (\Exception $e) {
+        $logger->error('CALLBACK: Exception during OAuth flow: @message | Trace: @trace', [
+          '@message' => $e->getMessage(),
+          '@trace' => $e->getTraceAsString(),
+        ]);
         $this->messenger->addError($this->t('Login failed. Please try again or contact support if the problem persists.'));
-        $this->loggerFactory->get('va_gov_login')->error($e->getMessage());
       }
     }
     else {
+      $logger->error('CALLBACK: Authorization code missing from request');
       $this->messenger->addError($this->t('Authorization code missing.'));
     }
 
