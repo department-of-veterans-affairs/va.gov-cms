@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_login\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Database\Connection;
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
@@ -67,13 +66,6 @@ class VaGovLoginController extends ControllerBase {
   protected $currentUser;
 
   /**
-   * The database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected $database;
-
-  /**
    * Disables page caching for sensitive requests.
    *
    * @var \Drupal\Core\PageCache\ResponsePolicy\KillSwitch
@@ -95,8 +87,6 @@ class VaGovLoginController extends ControllerBase {
    *   The key-value factory service.
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   The current user service.
-   * @param \Drupal\Core\Database\Connection $database
-   *   The database connection.
    * @param \Drupal\Core\PageCache\ResponsePolicy\KillSwitch $page_cache_kill_switch
    *   The page cache kill switch.
    */
@@ -107,7 +97,6 @@ class VaGovLoginController extends ControllerBase {
     Settings $settings,
     KeyValueFactoryInterface $key_value_factory,
     AccountProxyInterface $current_user,
-    Connection $database,
     KillSwitch $page_cache_kill_switch,
   ) {
     $this->httpClient = $http_client;
@@ -116,7 +105,6 @@ class VaGovLoginController extends ControllerBase {
     $this->settings = $settings;
     $this->keyValueStore = $key_value_factory->get('va_gov_oauth_state');
     $this->currentUser = $current_user;
-    $this->database = $database;
     $this->pageCacheKillSwitch = $page_cache_kill_switch;
   }
 
@@ -131,7 +119,6 @@ class VaGovLoginController extends ControllerBase {
       $container->get('settings'),
       $container->get('keyvalue.database'),
       $container->get('current_user'),
-      $container->get('database'),
       $container->get('page_cache_kill_switch'),
     );
   }
@@ -149,17 +136,6 @@ class VaGovLoginController extends ControllerBase {
       // Ensure this request is never cached at any layer.
       $this->pageCacheKillSwitch->trigger();
 
-      // Log immediately to verify method execution.
-      $logger->info('REDIRECT: METHOD CALLED - redirectToMicrosoft() executing');
-
-      $session_id = session_id();
-
-      $logger->info('REDIRECT: OAuth flow initiated - User ID: @uid, Session ID: @sid, Session status: @status', [
-        '@uid' => $this->currentUser->id(),
-        '@sid' => $session_id ?: 'NO SESSION',
-        '@status' => session_status() === PHP_SESSION_ACTIVE ? 'ACTIVE' : 'NONE',
-      ]);
-
       $client_id = $this->settings->get('microsoft_entra_id_client_id');
       $tenant_id = $this->settings->get('microsoft_entra_id_tenant_id');
 
@@ -170,11 +146,6 @@ class VaGovLoginController extends ControllerBase {
         // Redirect to front page or another safe location.
         return $this->redirect('<front>');
       }
-
-      $logger->info('REDIRECT: Settings validated - client_id: @client_id, tenant_id: @tenant_id', [
-        '@client_id' => substr($client_id, 0, 8) . '...',
-        '@tenant_id' => substr($tenant_id, 0, 8) . '...',
-      ]);
 
       // Generate CSRF state token (64 char hex) for OAuth flow protection.
       // This prevents attackers from initiating unauthorized authentication.
@@ -191,20 +162,9 @@ class VaGovLoginController extends ControllerBase {
         'timestamp' => time(),
       ]);
 
-      // Verify KeyValue write by reading back immediately.
-      $verify_data = $this->keyValueStore->get($state);
-      $logger->info('REDIRECT: Generated state: @state, nonce: @nonce | Stored and verified: @verify | Match: @match', [
-        '@state' => $state,
-        '@nonce' => $nonce,
-        '@verify' => $verify_data ? 'YES' : 'NULL',
-        '@match' => ($verify_data && $verify_data['nonce'] === $nonce) ? 'YES' : 'NO',
-      ]);
-
       // Use Url::fromRoute() to generate the redirect URI.
       $redirect_uri = Url::fromRoute('va_gov_login.callback', [], ['absolute' => TRUE])->toString();
       $scopes = 'openid profile email User.Read';
-
-      $logger->info('REDIRECT: Redirect URI: @uri', ['@uri' => $redirect_uri]);
 
       // Construct the URL for the Microsoft login.
       $url = "https://login.microsoftonline.com/$tenant_id/oauth2/v2.0/authorize?" . http_build_query([
@@ -215,8 +175,6 @@ class VaGovLoginController extends ControllerBase {
         'state' => $state,
         'nonce' => $nonce,
       ]);
-
-      $logger->info('REDIRECT: Redirecting to Microsoft Entra ID');
 
       // Use TrustedRedirectResponse to allow external Microsoft domain.
       $response = new TrustedRedirectResponse($url);
@@ -256,16 +214,6 @@ class VaGovLoginController extends ControllerBase {
    */
   public function handleMicrosoftCallback(Request $request) {
     $logger = $this->loggerFactory->get('va_gov_login');
-    $session_id = session_id();
-    $cookies = $request->cookies->all();
-
-    $logger->info('CALLBACK: OAuth callback initiated - User ID: @uid, Session ID: @sid, Session status: @status, Has cookies: @cookies', [
-      '@uid' => $this->currentUser->id(),
-      '@sid' => $session_id ?: 'NO SESSION',
-      '@status' => session_status() === PHP_SESSION_ACTIVE ? 'ACTIVE' : 'NONE',
-      '@cookies' => !empty($cookies) ? implode(', ', array_keys($cookies)) : 'NONE',
-    ]);
-
     $code = $request->query->get('code');
     $state = $request->query->get('state');
     $error = $request->query->get('error');
@@ -280,27 +228,9 @@ class VaGovLoginController extends ControllerBase {
       return new RedirectResponse(Url::fromRoute('user.login')->toString());
     }
 
-    $logger->info('CALLBACK: Received code: @code (length: @len), state: @state', [
-      '@code' => substr($code, 0, 10) . '...',
-      '@len' => strlen($code ?? ''),
-      '@state' => $state ?? 'NULL',
-    ]);
-
     // SECURITY: Validate state parameter to prevent CSRF attacks.
     // Use state token from URL as key to retrieve stored OAuth data.
     $stored_data = $this->keyValueStore->get($state);
-
-    // Check database for KeyValue entries to verify persistence.
-    $db_check = $this->database->query(
-      "SELECT COUNT(*) FROM {key_value} WHERE collection = 'va_gov_oauth_state'"
-    )->fetchField();
-
-    $logger->info('CALLBACK: State from URL: @state | Stored data found: @found | State DB entries: @count | Timestamp: @ts', [
-      '@state' => $state ?? 'NULL',
-      '@found' => $stored_data ? 'YES' : 'NO',
-      '@count' => $db_check,
-      '@ts' => $stored_data['timestamp'] ?? 'N/A',
-    ]);
 
     // Validate state exists and hasn't expired (10 minute window).
     $state_valid = !empty($stored_data) &&
@@ -324,10 +254,6 @@ class VaGovLoginController extends ControllerBase {
       return $response;
     }
 
-    $logger->info('CALLBACK: State validation PASSED - Age: @age seconds', [
-      '@age' => time() - $stored_data['timestamp'],
-    ]);
-
     // Store nonce for later validation.
     $stored_nonce = $stored_data['nonce'];
 
@@ -335,8 +261,6 @@ class VaGovLoginController extends ControllerBase {
     $this->keyValueStore->delete($state);
 
     if ($code) {
-      $logger->info('CALLBACK: Authorization code present, exchanging for tokens');
-
       // Retrieve settings from environment variables.
       $client_id = $this->settings->get('microsoft_entra_id_client_id');
       $client_secret = $this->settings->get('microsoft_entra_id_client_secret');
@@ -344,8 +268,6 @@ class VaGovLoginController extends ControllerBase {
       $redirect_uri = Url::fromRoute('va_gov_login.callback', [], ['absolute' => TRUE])->toString();
 
       try {
-        $logger->info('CALLBACK: Requesting tokens from Microsoft');
-
         // Exchange the code for an access token.
         $response = $this->httpClient->request('POST', "https://login.microsoftonline.com/$tenant_id/oauth2/v2.0/token", [
           'form_params' => [
@@ -358,14 +280,8 @@ class VaGovLoginController extends ControllerBase {
         ]);
         $data = json_decode($response->getBody()->getContents(), TRUE);
 
-        $logger->info('CALLBACK: Token response received - has_access_token: @access, has_id_token: @id', [
-          '@access' => isset($data['access_token']) ? 'YES' : 'NO',
-          '@id' => isset($data['id_token']) ? 'YES' : 'NO',
-        ]);
-
         // Check if access_token and id_token exist in response.
         if (isset($data['access_token']) && isset($data['id_token'])) {
-          $logger->info('CALLBACK: Validating ID token');
           // Parse and validate JWT ID token structure.
           // JWT format: base64(header).base64(payload).base64(signature)
           $id_token_parts = explode('.', $data['id_token']);
@@ -418,10 +334,7 @@ class VaGovLoginController extends ControllerBase {
               ]);
               throw new \Exception('ID token nonce mismatch.');
             }
-            $logger->info('CALLBACK: Nonce validation PASSED');
           }
-
-          $logger->info('CALLBACK: ID token validated, fetching user profile from Microsoft Graph');
 
           $profile_response = $this->httpClient->request('GET', 'https://graph.microsoft.com/v1.0/me', [
             'headers' => ['Authorization' => 'Bearer ' . $data['access_token']],
@@ -430,12 +343,7 @@ class VaGovLoginController extends ControllerBase {
 
           if (isset($profile_data['mail'])) {
             $user_email = $profile_data['mail'];
-            $logger->info('CALLBACK: Retrieved user email: @email', ['@email' => $user_email]);
-
             $existing_user = user_load_by_name($user_email);
-            $logger->info('CALLBACK: User lookup result: @found', [
-              '@found' => $existing_user ? 'FOUND (uid: ' . $existing_user->id() . ')' : 'NOT FOUND',
-            ]);
 
             if ($existing_user) {
 
@@ -452,12 +360,7 @@ class VaGovLoginController extends ControllerBase {
                 return $response;
               }
 
-              $logger->info('CALLBACK: Logging in user: @email (uid: @uid)', [
-                '@email' => $user_email,
-                '@uid' => $existing_user->id(),
-              ]);
               user_login_finalize($existing_user);
-              $logger->info('CALLBACK: Login successful for @email', ['@email' => $user_email]);
               $this->messenger->addStatus($this->t('Logged in successfully.'));
             }
             else {
