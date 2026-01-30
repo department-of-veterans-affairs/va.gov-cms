@@ -130,86 +130,102 @@ class VaGovLoginController extends ControllerBase {
    *   A trusted redirect response to the Microsoft Entra ID login URL.
    */
   public function redirectToMicrosoft() {
-    $logger = $this->loggerFactory->get('va_gov_login');
-    $session_id = session_id();
+    try {
+      $logger = $this->loggerFactory->get('va_gov_login');
 
-    $logger->info('REDIRECT: OAuth flow initiated - User ID: @uid, Session ID: @sid, Session status: @status', [
-      '@uid' => $this->currentUser->id(),
-      '@sid' => $session_id ?: 'NO SESSION',
-      '@status' => session_status() === PHP_SESSION_ACTIVE ? 'ACTIVE' : 'NONE',
-    ]);
+      // Log immediately to verify method execution.
+      $logger->info('REDIRECT: METHOD CALLED - redirectToMicrosoft() executing');
 
-    $client_id = $this->settings->get('microsoft_entra_id_client_id');
-    $tenant_id = $this->settings->get('microsoft_entra_id_tenant_id');
+      $session_id = session_id();
 
-    // Validate required Entra ID settings.
-    if (empty($client_id) || empty($tenant_id)) {
-      $logger->error('REDIRECT: Missing required Microsoft Entra ID configuration: client_id or tenant_id.');
-      $this->messenger->addError($this->t('Login is currently unavailable. Please contact CMS helpdesk.'));
-      // Redirect to front page or another safe location.
-      return $this->redirect('<front>');
+      $logger->info('REDIRECT: OAuth flow initiated - User ID: @uid, Session ID: @sid, Session status: @status', [
+        '@uid' => $this->currentUser->id(),
+        '@sid' => $session_id ?: 'NO SESSION',
+        '@status' => session_status() === PHP_SESSION_ACTIVE ? 'ACTIVE' : 'NONE',
+      ]);
+
+      $client_id = $this->settings->get('microsoft_entra_id_client_id');
+      $tenant_id = $this->settings->get('microsoft_entra_id_tenant_id');
+
+      // Validate required Entra ID settings.
+      if (empty($client_id) || empty($tenant_id)) {
+        $logger->error('REDIRECT: Missing required Microsoft Entra ID configuration: client_id or tenant_id.');
+        $this->messenger->addError($this->t('Login is currently unavailable. Please contact CMS helpdesk.'));
+        // Redirect to front page or another safe location.
+        return $this->redirect('<front>');
+      }
+
+      $logger->info('REDIRECT: Settings validated - client_id: @client_id, tenant_id: @tenant_id', [
+        '@client_id' => substr($client_id, 0, 8) . '...',
+        '@tenant_id' => substr($tenant_id, 0, 8) . '...',
+      ]);
+
+      // Generate CSRF state token (64 char hex) for OAuth flow protection.
+      // This prevents attackers from initiating unauthorized authentication.
+      $state = bin2hex(random_bytes(32));
+
+      // Generate nonce (64 char hex) for ID token replay protection.
+      // Microsoft will include this in the ID token for validation.
+      $nonce = bin2hex(random_bytes(32));
+
+      // Store state and nonce in KeyValue store with timestamp for expiration.
+      // Using direct database storage for immediate persistence.
+      $this->keyValueStore->set($state, [
+        'nonce' => $nonce,
+        'timestamp' => time(),
+      ]);
+
+      // Verify KeyValue write by reading back immediately.
+      $verify_data = $this->keyValueStore->get($state);
+      $logger->info('REDIRECT: Generated state: @state, nonce: @nonce | Stored and verified: @verify | Match: @match', [
+        '@state' => $state,
+        '@nonce' => $nonce,
+        '@verify' => $verify_data ? 'YES' : 'NULL',
+        '@match' => ($verify_data && $verify_data['nonce'] === $nonce) ? 'YES' : 'NO',
+      ]);
+
+      // Use Url::fromRoute() to generate the redirect URI.
+      $redirect_uri = Url::fromRoute('va_gov_login.callback', [], ['absolute' => TRUE])->toString();
+      $scopes = 'openid profile email User.Read';
+
+      $logger->info('REDIRECT: Redirect URI: @uri', ['@uri' => $redirect_uri]);
+
+      // Construct the URL for the Microsoft login.
+      $url = "https://login.microsoftonline.com/$tenant_id/oauth2/v2.0/authorize?" . http_build_query([
+        'client_id' => $client_id,
+        'response_type' => 'code',
+        'redirect_uri' => $redirect_uri,
+        'scope' => $scopes,
+        'state' => $state,
+        'nonce' => $nonce,
+      ]);
+
+      $logger->info('REDIRECT: Redirecting to Microsoft Entra ID');
+
+      // Use TrustedRedirectResponse to allow external Microsoft domain.
+      $response = new TrustedRedirectResponse($url);
+
+      // Ensure this response is never cached.
+      // OAuth flows require fresh session state on every request.
+      // @todo Maybe remove.
+      $response->setMaxAge(0);
+      $response->setSharedMaxAge(0);
+      $response->headers->addCacheControlDirective('no-cache', TRUE);
+      $response->headers->addCacheControlDirective('no-store', TRUE);
+      $response->headers->addCacheControlDirective('must-revalidate', TRUE);
+
+      return $response;
     }
-
-    $logger->info('REDIRECT: Settings validated - client_id: @client_id, tenant_id: @tenant_id', [
-      '@client_id' => substr($client_id, 0, 8) . '...',
-      '@tenant_id' => substr($tenant_id, 0, 8) . '...',
-    ]);
-
-    // Generate CSRF state token (64 char hex) for OAuth flow protection.
-    // This prevents attackers from initiating unauthorized authentication.
-    $state = bin2hex(random_bytes(32));
-
-    // Generate nonce (64 char hex) for ID token replay protection.
-    // Microsoft will include this in the ID token for validation.
-    $nonce = bin2hex(random_bytes(32));
-
-    // Store state and nonce in KeyValue store with timestamp for expiration.
-    // Using direct database storage for immediate persistence.
-    $this->keyValueStore->set($state, [
-      'nonce' => $nonce,
-      'timestamp' => time(),
-    ]);
-
-    // Verify KeyValue write by reading back immediately.
-    $verify_data = $this->keyValueStore->get($state);
-    $logger->info('REDIRECT: Generated state: @state, nonce: @nonce | Stored and verified: @verify | Match: @match', [
-      '@state' => $state,
-      '@nonce' => $nonce,
-      '@verify' => $verify_data ? 'YES' : 'NULL',
-      '@match' => ($verify_data && $verify_data['nonce'] === $nonce) ? 'YES' : 'NO',
-    ]);
-
-    // Use Url::fromRoute() to generate the redirect URI.
-    $redirect_uri = Url::fromRoute('va_gov_login.callback', [], ['absolute' => TRUE])->toString();
-    $scopes = 'openid profile email User.Read';
-
-    $logger->info('REDIRECT: Redirect URI: @uri', ['@uri' => $redirect_uri]);
-
-    // Construct the URL for the Microsoft login.
-    $url = "https://login.microsoftonline.com/$tenant_id/oauth2/v2.0/authorize?" . http_build_query([
-      'client_id' => $client_id,
-      'response_type' => 'code',
-      'redirect_uri' => $redirect_uri,
-      'scope' => $scopes,
-      'state' => $state,
-      'nonce' => $nonce,
-    ]);
-
-    $logger->info('REDIRECT: Redirecting to Microsoft Entra ID');
-
-    // Use TrustedRedirectResponse to allow external Microsoft domain.
-    $response = new TrustedRedirectResponse($url);
-
-    // Ensure this response is never cached.
-    // OAuth flows require fresh session state on every request.
-    // @todo Maybe remove.
-    $response->setMaxAge(0);
-    $response->setSharedMaxAge(0);
-    $response->headers->addCacheControlDirective('no-cache', TRUE);
-    $response->headers->addCacheControlDirective('no-store', TRUE);
-    $response->headers->addCacheControlDirective('must-revalidate', TRUE);
-
-    return $response;
+    catch (\Exception $e) {
+      // Catch any exception and log it before failing.
+      $logger = $this->loggerFactory->get('va_gov_login');
+      $logger->error('REDIRECT: FATAL EXCEPTION - @message | Trace: @trace', [
+        '@message' => $e->getMessage(),
+        '@trace' => $e->getTraceAsString(),
+      ]);
+      $this->messenger->addError($this->t('Login initialization failed. Please try again or contact support.'));
+      return new RedirectResponse(Url::fromRoute('user.login')->toString());
+    }
   }
 
   /**
