@@ -28,9 +28,124 @@ function vagovclaro_preprocess_html(&$variables) {
 }
 
 /**
+ * Implements hook_theme_suggestions_html_alter().
+ */
+function vagovclaro_theme_suggestions_html_alter(array &$suggestions, array $variables) {
+  // Add template suggestion for maintenance page.
+  // Check both the state and if db_offline is set in variables.
+  if (\Drupal::state()->get('system.maintenance_mode') || !empty($variables['db_offline'])) {
+    $suggestions[] = 'html__maintenance_page';
+  }
+}
+
+/**
+ * Implements hook_preprocess_html__maintenance_page().
+ */
+function vagovclaro_preprocess_html__maintenance_page(&$variables) {
+  // Add debug class to verify this hook is running.
+  $variables['attributes']['class'][] = 'preprocess-maintenance-page-ran';
+
+  // Determine admin role status, handling anonymous users gracefully.
+  $is_admin = 'not-admin';
+  try {
+    if (\Drupal::currentUser()->isAuthenticated()) {
+      $is_admin = \Drupal::service('va_gov_user.user_perms')->hasAdminRole(TRUE) ? 'admin' : 'not-admin';
+    }
+  }
+  catch (\Exception $e) {
+    // If service is unavailable, default to not-admin.
+    $is_admin = 'not-admin';
+  }
+
+  $variables['attributes']['class'][] = 'role-' . $is_admin;
+
+  // For css that is different per environment (admin toolbar color, etc.)
+  $environment_name = getenv('CMS_ENVIRONMENT_TYPE');
+  $variables['attributes']['class'][] = 'cms-' . $environment_name;
+  $variables['attributes']['class'][] = 'vagovclaro';
+}
+
+/**
+ * Implements hook_theme_suggestions_maintenance_page_alter().
+ */
+function vagovclaro_theme_suggestions_maintenance_page_alter(array &$suggestions, array $variables) {
+  // Add template suggestion for maintenance page on front page.
+  // During maintenance mode, we need to check if we're on the front page.
+  $is_front = FALSE;
+
+  try {
+    // Try to use the path matcher service.
+    $is_front = \Drupal::service('path.matcher')->isFrontPage();
+  }
+  catch (\Exception $e) {
+    // If path matcher fails, check the current path manually.
+    $current_path = \Drupal::request()->getRequestUri();
+    // Front page is typically '/' or empty path.
+    $is_front = ($current_path === '/' || $current_path === '' || $current_path === '/index.php');
+  }
+
+  if ($is_front) {
+    $suggestions[] = 'maintenance_page__front';
+  }
+}
+
+/**
+ * Implements hook_preprocess_maintenance_page().
+ */
+function vagovclaro_preprocess_maintenance_page(&$variables) {
+  // Add debug class to help verify this hook runs.
+  $variables['attributes']['class'][] = 'maintenance-page-preprocess-ran';
+
+  // Ensure we have the site name available.
+  if (empty($variables['site_name'])) {
+    $variables['site_name'] = \Drupal::config('system.site')->get('name');
+  }
+}
+
+/**
  * Implements hook_theme_suggestions_page_alter().
  */
 function vagovclaro_theme_suggestions_page_alter(&$suggestions, $variables) {
+  // During maintenance mode, replace page templates with maintenance_page templates.
+  if (\Drupal::state()->get('system.maintenance_mode') || !empty($variables['db_offline'])) {
+    // Clear existing page suggestions and replace with maintenance_page.
+    $new_suggestions = [];
+    foreach ($suggestions as $suggestion) {
+      // Convert page suggestions to maintenance_page suggestions.
+      if ($suggestion === 'page') {
+        $new_suggestions[] = 'maintenance_page';
+      }
+      elseif (strpos($suggestion, 'page__') === 0) {
+        // Convert page__front to maintenance_page__front, etc.
+        $new_suggestions[] = str_replace('page__', 'maintenance_page__', $suggestion);
+      }
+    }
+
+    // Check if we're on the front page.
+    $is_front = FALSE;
+    try {
+      $is_front = \Drupal::service('path.matcher')->isFrontPage();
+    }
+    catch (\Exception $e) {
+      $current_path = \Drupal::request()->getRequestUri();
+      $is_front = ($current_path === '/' || $current_path === '' || $current_path === '/index.php');
+    }
+
+    // Ensure base maintenance_page is first.
+    if (!in_array('maintenance_page', $new_suggestions)) {
+      array_unshift($new_suggestions, 'maintenance_page');
+    }
+
+    // Add front page suggestion if applicable and not already present.
+    if ($is_front && !in_array('maintenance_page__front', $new_suggestions)) {
+      $new_suggestions[] = 'maintenance_page__front';
+    }
+
+    $suggestions = $new_suggestions;
+    return;
+  }
+
+  // Normal page processing when not in maintenance mode.
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
     // Revisions pages load $node as a nid string instead of a node entity.
     if (!is_object($node)) {

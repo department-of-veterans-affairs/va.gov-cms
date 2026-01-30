@@ -96,7 +96,7 @@ module.exports = defineConfig({
           launchOptions.args.push('--no-sandbox');
           launchOptions.args.push('--disable-setuid-sandbox');
           launchOptions.args.push('--disable-gpu');
-          
+
           // Additional stability flags for Kubernetes
           launchOptions.args.push('--disable-software-rasterizer');
           launchOptions.args.push('--disable-extensions');
@@ -104,12 +104,12 @@ module.exports = defineConfig({
           launchOptions.args.push('--disable-backgrounding-occluded-windows');
           launchOptions.args.push('--disable-renderer-backgrounding');
           launchOptions.args.push('--disable-features=IsolateOrigins,site-per-process');
-          
+
           // Memory and performance optimizations
           launchOptions.args.push('--disable-ipc-flooding-protection');
           launchOptions.args.push('--js-flags=--expose-gc');
           launchOptions.args.push('--force-color-profile=srgb');
-          
+
           // Prevent Chrome from showing error dialogs
           launchOptions.args.push('--disable-breakpad');
           launchOptions.args.push('--disable-component-extensions-with-background-pages');
