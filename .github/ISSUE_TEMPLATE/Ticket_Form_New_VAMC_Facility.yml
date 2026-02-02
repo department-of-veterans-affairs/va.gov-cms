@@ -4,8 +4,8 @@
 # Runbook for adding new VAMC Facilities tickets.
 # Created and last edited by Stefanie Gray - stefanie.gray@va.gov
 # #######################################################################
-name: New VAMC Facility Runbook
-description: Ticket template form for new VAMC Facilities tickets.
+name: Flagged Facilities ticket form - New VAMC Facility
+description: Use this form to create a new ticket listing the runbook steps for publishing new VAMC Facilities to the CMS.
 title: New VAMC Facility - [INSERT FACILITY NAME]
 labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, VAMC, sitewide
 projects: projects/1859
@@ -16,26 +16,23 @@ body:
   - type: markdown
     attributes:
       value: |
-       ## Before you begin 
-       Please do not create this ticket until the new VAMC Facility has appeared on the CMS [Flagged Facilities page](https://prod.cms.va.gov/admin/content/facilities/flagged) **and** has been confirmed by an editor or VA stakeholder.
+       **Before you begin:** Please do not create this ticket until the new VAMC Facility has appeared on the CMS [Flagged Facilities page](https://prod.cms.va.gov/admin/content/facilities/flagged) _and_ has been confirmed by an editor or VA stakeholder.
        
-       #### If notified via Jira but not flagged in the CMS:
-       Confirm with the editor that they have reported the new facility to VAST. Please refer to the KB article "[How do I add a facility to my health care system?](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system)" for more info.
+       **If notified via Jira but not flagged in the CMS:** Confirm with the editor that they have reported the new facility to VAST. Please refer to the KB article "[How do I add a facility to my health care system?](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system)" for more info.
        
-       #### If reported to VAST but not listed yet:
-       Changes made in VAST may take up to 75 days to appear on the Facilities API.
+       **If reported to VAST but not listed yet:** Changes made in VAST may take up to 75 days to appear on the Facilities API.
        
-       #### If the help desk is waiting on info or actions from facility editor(s):
-       Please add the "Awaiting editor" flag to the facility node with a revision log message that includes Jira or Github ticket numbers. 
+       **If the help desk is waiting on info or actions from facility editor(s):** Please add the "Awaiting editor" flag to the facility node with a revision log message that includes Jira or Github ticket numbers. 
        
        Do not change the moderation state of the node (e.g. "Draft", "Published") when adding or removing flags unless otherwise noted.
+       
        ----------
 
   # MARKDOWN WITH MULTI-LINE CONTENT:
   - type: markdown
     attributes:
       value: |
-        ## Drupal Administrator steps (Embedded Support team or Facilities team):
+        ### Facility and ticket information
         
   # INPUT:
   - type: input
@@ -81,12 +78,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        **How to find the new VAMC Facility's system and section assignment:**
-        - Copy this URL into a new tab, then replace the last 3 characters with the numerical portion of the facility ID: `https://www.va.gov/find-locations/facility/vha_###`
+        **To find the new VAMC facility's system/section assignment:** 
+        - Copy this URL into a new tab, then replace the last 3 characters with the numerical portion of the facility ID: 
+            `https://www.va.gov/find-locations/facility/vha_###`
         - This will direct you to the Facility Locator entry for the section's primary location.
-        - From there, you can go to VA.gov homepage for this location, where the VAMC system / section will be listed.
-
-        ------     
+        - From there, you can go to VA.gov homepage for this location, where the VAMC system / section will be listed.     
     validations:
       required: true
 
@@ -125,24 +121,15 @@ body:
     validations:
       required: false
 
- # STEPS:
-  - type: textarea
-    id: horizontal_line
-    attributes:
-      label: Runbook steps
-      description: DO NOT MODIFY ANYTHING LISTED BELOW. You can skip ahead to clicking "Create."
-      value: |
-        ------
-    validations:
-      required: true
-
   # STEPS:
   - type: textarea
     id: acceptance_criteria_runbook
     attributes:
-      label: Acceptance criteria for new VAMC Facility nodes in Drupal
-      description: Leave this section as-is. Assignees will check off the boxes below as they complete the work.
+      label: Acceptance criteria for new VAMC Facility nodes in Drupal (Runbook steps)
+      description: LEAVE AS-IS, SKIP TO "CREATE." Assignees will check off the boxes below as they complete the work.
       value: |
+        ## New VAMC Facility Runbook Steps
+                
         ### Embedded Support Team steps on the VAMC Facility homepage:
 
         #### STEP 1: Section assignment
@@ -157,7 +144,7 @@ body:
 
         - [ ] On the right-side menu under "Menu settings" add the full name of the VAMC Facility to the "Menu link title" field.
 
-        - [ ] Use the dropdown titled "Parent link" to select the "Locations" menu for the associated VAMC section. _(Be careful! This is an extremely long dropdown menu, and it is easy to select the wrong section.)_
+        - [ ] Use the dropdown titled "Parent link" to select the "Locations" menu for the associated VAMC section. (Be careful! This is an extremely long dropdown menu, and it is easy to select the wrong section.)
 
         #### STEP 3: Meta text
 
