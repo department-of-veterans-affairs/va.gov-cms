@@ -18,7 +18,7 @@ class MenuParentLinkValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate(mixed $value, Constraint $constraint): void {
-    if ($value instanceof NodeInterface && $value->bundle() == 'health_care_local_facility') {
+    if ($value instanceof NodeInterface && $value->bundle() === 'health_care_local_facility') {
       $moderationState = $value->moderation_state->value;
       $menuParent = $value->menu['menu_parent'];
 
