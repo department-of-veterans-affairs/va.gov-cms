@@ -8,6 +8,9 @@
 
 set -eo pipefail
 
+# Number of pages to test per content type during export test
+EXPORT_TEST_PAGES_PER_CONTENT_TYPE=1
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -61,7 +64,7 @@ run_test() {
   local name="$1"; shift
   printf 'Testing: %s... ' "$name"
   set +e
-  out=$("$@" 2>&1)
+  out=$("$@" > next/test.log 2>&1)
   exit_code=$?
   set -e
   if [ "$exit_code" = "0" ]; then
@@ -78,14 +81,14 @@ assert_json_path() {
   jq -e "$path" <<<"$body" >/dev/null
 }
 
-# Get one sample path from a content type via JSON:API
-# Returns the path alias on stdout, or empty string if not found
-get_sample_path() {
+# Get sample paths from a content type via JSON:API
+# Returns path aliases (one per line) on stdout
+get_sample_paths() {
   local content_type="$1"
-  local body path_alias
-  body=$(http_get "${DRUPAL_ADDRESS}/jsonapi/node/${content_type}?page[limit]=1&filter[status]=1" 2>/dev/null) || return 0
-  path_alias=$(jq -r '.data[0].attributes.path.alias // empty' <<<"$body" 2>/dev/null)
-  [[ -n "$path_alias" ]] && printf '%s' "$path_alias"
+  local limit="${EXPORT_TEST_PAGES_PER_CONTENT_TYPE:-1}"
+  local body
+  body=$(http_get "${DRUPAL_ADDRESS}/jsonapi/node/${content_type}?page[limit]=${limit}&filter[status]=1" 2>/dev/null) || return 0
+  jq -r '.data[].attributes.path.alias // empty' <<<"$body" 2>/dev/null
 }
 
 # Get enabled content types from the env file
@@ -101,23 +104,25 @@ get_enabled_content_types() {
     | tr '[:upper:]' '[:lower:]'
 }
 
-# Build sample paths for all enabled content types (1 per type)
+# Build sample paths for all enabled content types
 build_sample_paths() {
   local paths=()
   local content_types
   mapfile -t content_types < <(get_enabled_content_types)
 
-  echo "Gathering sample paths for ${#content_types[@]} content types from .env.${APP_ENV:-example}..." >&2
+  echo "Gathering ${EXPORT_TEST_PAGES_PER_CONTENT_TYPE} sample path(s) for ${#content_types[@]} content types from .env.${APP_ENV:-example}..." >&2
   for ct in "${content_types[@]}"; do
-    local path
-    path=$(get_sample_path "$ct")
-    if [[ -n "$path" ]]; then
-      paths+=("$path")
-      echo "  ${ct}: ${path}" >&2
+    local ct_paths
+    mapfile -t ct_paths < <(get_sample_paths "$ct")
+    if [[ ${#ct_paths[@]} -gt 0 ]]; then
+      paths+=("${ct_paths[@]}")
+      echo "  ${ct}: ${#ct_paths[@]} path(s)" >&2
     else
       echo "  ${ct}: (no content found)" >&2
     fi
   done
+
+  echo "Total paths to build: ${#paths[@]}" >&2
 
   # Join with semicolons
   local IFS=';'
@@ -170,12 +175,15 @@ next_build() (
   nvm install 2>/dev/null
   nvm use
 
-  # Build one sample page per content type (avoids OOM on full 23k+ page build)
+  # Build sample pages per content type (configurable via EXPORT_TEST_PAGES_PER_CONTENT_TYPE)
   export SSG_CHERRY_PICKED_PATHS
   SSG_CHERRY_PICKED_PATHS=$(build_sample_paths)
-  echo "Building paths: ${SSG_CHERRY_PICKED_PATHS}" > next-export.log
-  APP_ENV="${APP_ENV}" BUILD_OPTION=static yarn export --no-USE_REDIS >> next-export.log
+  echo "Building paths: ${SSG_CHERRY_PICKED_PATHS}"
+  APP_ENV="${APP_ENV}" BUILD_OPTION=static yarn export --no-USE_REDIS
 )
+
+# Clear existing log
+[ -f "next/test.log" ] && rm next/test.log
 
 echo "Testing against: ${DRUPAL_ADDRESS}"
 echo ""
