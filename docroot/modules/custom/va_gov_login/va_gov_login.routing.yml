@@ -6,6 +6,8 @@ va_gov_login.redirect:
   requirements:
    # Note: Explicitly allow access to all users, This route must be accessible to anonymous users to initiate the Microsoft Entra ID login process.
     _access: 'TRUE'
+  options:
+    no_cache: 'TRUE'
 
 va_gov_login.callback:
   path: '/user/login/entra-id/callback'
@@ -15,3 +17,5 @@ va_gov_login.callback:
   requirements:
    # Note: Explicitly allow access to all users, This route must be accessible to anonymous users to initiate the Microsoft Entra ID login process.
     _access: 'TRUE'
+  options:
+    no_cache: 'TRUE'

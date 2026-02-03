@@ -1,0 +1,88 @@
+{#
+/**
+ * @file
+ * VA.gov Claro's theme implementation for the HTML structure during maintenance.
+ *
+ * This template is used specifically for maintenance pages to provide a
+ * simplified HTML structure without unnecessary scripts and styles.
+ *
+ * This template is automatically selected when the site is in maintenance mode
+ * via hook_theme_suggestions_html_alter() in vagovclaro.theme.
+ *
+ * Variables:
+ * - logged_in: A flag indicating if user is logged in.
+ * - root_path: The root path of the current page (e.g., node, admin, user).
+ * - node_type: The content type for the current node, if the page is a node.
+ * - head_title: List of text elements that make up the head_title variable.
+ *   May contain one or more of the following:
+ *   - title: The title of the page.
+ *   - name: The name of the site.
+ *   - slogan: The slogan of the site.
+ * - page_top: Initial rendered markup. This should be printed before 'page'.
+ * - page: The rendered page markup.
+ * - page_bottom: Closing rendered markup. This variable should be printed after
+ *   'page'.
+ * - db_offline: A flag indicating if the database is offline.
+ * - placeholder_token: The token for generating head, css, js and js-bottom
+ *   placeholders.
+ *
+ * @see template_preprocess_html()
+ * @see html.html.twig
+ * @see vagovclaro_theme_suggestions_html_alter()
+ *
+ * @ingroup themeable
+ */
+#}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+  <head>
+    <head-placeholder token="{{ placeholder_token }}">
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    <css-placeholder token="{{ placeholder_token }}">
+    <js-placeholder token="{{ placeholder_token }}">
+    <style>
+      .maintenance-page {
+          font-family: "Lucida Grande", "Lucida Sans Unicode", "DejaVu Sans", "Lucida Sans", sans-serif;
+          background-color: rgba(255, 241, 210, 0.9); /* va-gold-lightest 90% */
+          border-top: 16px solid #fdb81e; /* var(--va-gold-med) */
+          margin: 0;
+      }
+
+      .maintenance-mode-alert {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 18px;
+        font-weight: bold;
+
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100vh;
+        z-index: 800;
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  {%
+    set body_classes = [
+      'maintenance-page',
+      'html-maintenance-template-used',
+    ]
+  %}
+  <body{{ attributes.addClass(body_classes) }}>
+    {#
+      Keyboard navigation/accessibility link to main content section in
+      maintenance-page.html.twig.
+    #}
+    <a href="#main-content" class="visually-hidden focusable">
+      {{ 'Skip to main content'|t }}
+    </a>
+    {{ page_top }}
+    {{ page }}
+    {{ page_bottom }}
+    <js-bottom-placeholder token="{{ placeholder_token }}">
+  </body>
+</html>
