@@ -11,6 +11,11 @@ set -eo pipefail
 # Number of pages to test per content type during export test
 EXPORT_TEST_PAGES_PER_CONTENT_TYPE=1
 
+# Pages that should always be tested (e.g., known edge cases, previously failing pages)
+ALWAYS_TEST_PAGES=(
+  /salt-lake-city-health-care/news-releases/new-data-shows-veterans-increased-use-of-online-va
+)
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -64,7 +69,7 @@ run_test() {
   local name="$1"; shift
   printf 'Testing: %s... ' "$name"
   set +e
-  out=$("$@" > next/test.log 2>&1)
+  out=$("$@" >> next/test.log 2>&1)
   exit_code=$?
   set -e
   if [ "$exit_code" = "0" ]; then
@@ -109,6 +114,12 @@ build_sample_paths() {
   local paths=()
   local content_types
   mapfile -t content_types < <(get_enabled_content_types)
+
+  # Include always-test pages first
+  if [[ ${#ALWAYS_TEST_PAGES[@]} -gt 0 ]]; then
+    echo "Adding ${#ALWAYS_TEST_PAGES[@]} always-test page(s)..."
+    paths+=("${ALWAYS_TEST_PAGES[@]}")
+  fi
 
   echo "Gathering ${EXPORT_TEST_PAGES_PER_CONTENT_TYPE} sample path(s) for ${#content_types[@]} content types from .env.${APP_ENV:-example}..." >&2
   for ct in "${content_types[@]}"; do
@@ -181,9 +192,6 @@ next_build() (
   echo "Building paths: ${SSG_CHERRY_PICKED_PATHS}"
   APP_ENV="${APP_ENV}" BUILD_OPTION=static yarn export --no-USE_REDIS
 )
-
-# Clear existing log
-[ -f "next/test.log" ] && rm next/test.log
 
 echo "Testing against: ${DRUPAL_ADDRESS}"
 echo ""
