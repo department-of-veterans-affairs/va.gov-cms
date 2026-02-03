@@ -116,13 +116,16 @@ router_to_jsonapi_flow() {
   [[ "$(jq -r '.data.id' <<<"$jsonapi_body")" == "$uuid" ]]
 }
 
-next_build() {
-  cd ./next || return 1
-  # silence npm install stderr which outputs when the node version is already installed
-  nvm install 2>/dev/null && nvm use || return 1
-  APP_ENV="${APP_ENV}" BUILD_OPTION=static yarn export || return 1
-  cd ..
-}
+next_build() (
+  set -e
+
+  cd ./next
+  # silence nvm install stderr which outputs when the node version is already installed
+  nvm install 2>/dev/null
+  nvm use
+
+  APP_ENV="${APP_ENV}" BUILD_OPTION=static yarn export --no-USE_REDIS
+)
 
 echo "Testing against: ${DRUPAL_ADDRESS}"
 echo ""
