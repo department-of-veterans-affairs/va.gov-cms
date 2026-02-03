@@ -124,6 +124,9 @@ next_build() (
   nvm install 2>/dev/null
   nvm use
 
+  # Build only a few test pages to verify the build works (avoids OOM on full 23k+ page build)
+  # Uses the same paths tested above for consistency
+  export SSG_CHERRY_PICKED_PATHS="/boston-health-care;/boston-health-care/events;/central-iowa-health-care/events"
   APP_ENV="${APP_ENV}" BUILD_OPTION=static yarn export --no-USE_REDIS
 )
 
