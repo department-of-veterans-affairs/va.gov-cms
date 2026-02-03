@@ -88,29 +88,26 @@ get_sample_path() {
   [[ -n "$path_alias" ]] && printf '%s' "$path_alias"
 }
 
+# Get enabled content types from the env file
+get_enabled_content_types() {
+  local env_file="${repo_root}/next/envs/.env.${APP_ENV:-example}"
+  if [[ ! -f "$env_file" ]]; then
+    echo "Warning: env file not found: $env_file" >&2
+    return
+  fi
+  # Parse FEATURE_NEXT_BUILD_CONTENT_*=true, extract content type, convert to lowercase
+  grep -E '^FEATURE_NEXT_BUILD_CONTENT_[A-Z_]+=true' "$env_file" \
+    | sed 's/^FEATURE_NEXT_BUILD_CONTENT_//; s/=true$//' \
+    | tr '[:upper:]' '[:lower:]'
+}
+
 # Build sample paths for all enabled content types (1 per type)
 build_sample_paths() {
   local paths=()
-  # Content types enabled in .env.tugboat (map to JSON:API bundle names)
-  local content_types=(
-    health_care_region_page
-    event_listing
-    story_listing
-    event
-    news_story
-    health_care_local_facility
-    vet_center
-    va_form
-    person_profile
-    press_release
-    office
-    vba_facility
-    landing_page
-    locations_listing
-    leadership_listing
-  )
+  local content_types
+  mapfile -t content_types < <(get_enabled_content_types)
 
-  echo "Gathering sample paths for ${#content_types[@]} content types..." >&2
+  echo "Gathering sample paths for ${#content_types[@]} content types from .env.${APP_ENV:-example}..." >&2
   for ct in "${content_types[@]}"; do
     local path
     path=$(get_sample_path "$ct")
