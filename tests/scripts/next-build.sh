@@ -78,6 +78,55 @@ assert_json_path() {
   jq -e "$path" <<<"$body" >/dev/null
 }
 
+# Get one sample path from a content type via JSON:API
+# Returns the path alias on stdout, or empty string if not found
+get_sample_path() {
+  local content_type="$1"
+  local body path_alias
+  body=$(http_get "${DRUPAL_ADDRESS}/jsonapi/node/${content_type}?page[limit]=1&filter[status]=1" 2>/dev/null) || return 0
+  path_alias=$(jq -r '.data[0].attributes.path.alias // empty' <<<"$body" 2>/dev/null)
+  [[ -n "$path_alias" ]] && printf '%s' "$path_alias"
+}
+
+# Build sample paths for all enabled content types (1 per type)
+build_sample_paths() {
+  local paths=()
+  # Content types enabled in .env.tugboat (map to JSON:API bundle names)
+  local content_types=(
+    health_care_region_page
+    event_listing
+    story_listing
+    event
+    news_story
+    health_care_local_facility
+    vet_center
+    va_form
+    person_profile
+    press_release
+    office
+    vba_facility
+    landing_page
+    locations_listing
+    leadership_listing
+  )
+
+  echo "Gathering sample paths for ${#content_types[@]} content types..." >&2
+  for ct in "${content_types[@]}"; do
+    local path
+    path=$(get_sample_path "$ct")
+    if [[ -n "$path" ]]; then
+      paths+=("$path")
+      echo "  ${ct}: ${path}" >&2
+    else
+      echo "  ${ct}: (no content found)" >&2
+    fi
+  done
+
+  # Join with semicolons
+  local IFS=';'
+  echo "${paths[*]}"
+}
+
 router_get_uuid() {
   local path="$1"
   local body
@@ -124,10 +173,11 @@ next_build() (
   nvm install 2>/dev/null
   nvm use
 
-  # Build only a few test pages to verify the build works (avoids OOM on full 23k+ page build)
-  # Uses the same paths tested above for consistency
-  export SSG_CHERRY_PICKED_PATHS="/boston-health-care;/boston-health-care/events;/central-iowa-health-care/events"
-  APP_ENV="${APP_ENV}" BUILD_OPTION=static yarn export --no-USE_REDIS
+  # Build one sample page per content type (avoids OOM on full 23k+ page build)
+  export SSG_CHERRY_PICKED_PATHS
+  SSG_CHERRY_PICKED_PATHS=$(build_sample_paths)
+  echo "Building paths: ${SSG_CHERRY_PICKED_PATHS}" > next-export.log
+  APP_ENV="${APP_ENV}" BUILD_OPTION=static yarn export --no-USE_REDIS >> next-export.log
 )
 
 echo "Testing against: ${DRUPAL_ADDRESS}"
