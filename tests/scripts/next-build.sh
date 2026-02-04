@@ -9,7 +9,7 @@
 set -eo pipefail
 
 # Number of pages to test per content type during export test
-EXPORT_TEST_PAGES_PER_CONTENT_TYPE=1
+EXPORT_TEST_PAGES_PER_CONTENT_TYPE=3
 
 # Pages that should always be tested (e.g., known edge cases, previously failing pages)
 ALWAYS_TEST_PAGES=(
@@ -67,16 +67,21 @@ http_get() {
 
 run_test() {
   local name="$1"; shift
-  printf 'Testing: %s... ' "$name"
-  set +e
-  out=$("$@" >> next/test.log 2>&1)
+  echo
+  echo "Test: $name starting..."
+
+  $@
   exit_code=$?
-  set -e
+
+  echo
+
   if [ "$exit_code" = "0" ]; then
-    echo "PASSED"
+    echo "[PASSED $name]"
+    return 0
   else
-    echo "FAILED: Test '$name' failed with output: $out"
-    ((FAILURES++)) || true
+    echo "[FAILED $name]"
+    ((FAILURES++))
+    return 1
   fi
 }
 
@@ -117,7 +122,7 @@ build_sample_paths() {
 
   # Include always-test pages first
   if [[ ${#ALWAYS_TEST_PAGES[@]} -gt 0 ]]; then
-    echo "Adding ${#ALWAYS_TEST_PAGES[@]} always-test page(s)..."
+    echo "Adding ${#ALWAYS_TEST_PAGES[@]} always-test page(s)..." >&2
     paths+=("${ALWAYS_TEST_PAGES[@]}")
   fi
 
