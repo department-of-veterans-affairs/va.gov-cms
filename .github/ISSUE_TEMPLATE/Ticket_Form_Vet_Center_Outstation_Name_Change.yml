@@ -1,0 +1,222 @@
+# #######################################################################
+# Vet Center Outstation name change Runbook #
+# #######################################################################
+# Runbook for updating Vet Center Outstation names and linked CMS fields.
+# Created and last edited by Stefanie Gray - stefanie.gray@va.gov
+# #######################################################################
+name: Flagged Facilities ticket form - Vet Center Outstation name change
+description: Use this form to create a ticket listing the runbook steps for updating a Vet Center Outstation name and any associated section or URL alias changes in the CMS.
+title: Vet Center Outstation name change - From [FORMER OUTSTATION NAME] to [NEW OUTSTATION NAME]
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, Vet Center, sitewide
+projects: projects/1859
+
+body:
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+       ### Before creating a Vet Center Outstation name change ticket
+       - Please do not create this ticket until the Vet Center Outstation name change has appeared on the CMS [Flagged Facilities page](https://prod.cms.va.gov/admin/content/facilities/flagged).
+
+       - **If notified via Jira but not flagged in the CMS:** Confirm with the editor that they reported the Outstation name change to VAST. Please refer to the KB article "[How do I update my Vet Center facility's basic location data?](https://prod.cms.va.gov/help/vet-centers/how-do-i-update-my-vet-center-facilitys-basic-location-data)" for more info and send to editor if needed.
+
+       - **If reported to VAST but not listed yet:** Changes made within VAST can take up to 75 days to appear within the Facilities API.
+
+       - **If the help desk is waiting on info or actions from facility editor(s):** Please add the "Awaiting editor" flag to the facility node with a revision log message that includes Jira or Github ticket numbers. Do not change the moderation state of the node (e.g. "Draft", "Published") when adding or removing flags unless otherwise noted.
+
+       - **For any Vet Center sections lacking active editors:** Please contact Barb Kuhn or the current VA leadership point of contact.
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+        # Facility and ticket information
+
+  # INPUT:
+  - type: input
+    id: former_outstation_name
+    attributes:
+      label: Former Outstation name
+      placeholder: "Example: Old City Vet Center Outstation"
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: new_outstation_name
+    attributes:
+      label: New Outstation name
+      placeholder: "Example: New City Vet Center Outstation"
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: facility_prod_link
+    attributes:
+      label: Link to Outstation node on production site
+      placeholder: "https://prod.cms.va.gov..."
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: facility_api_id
+    attributes:
+      label: Facility API ID (Outstation)
+      placeholder: "e.g. vc_0123OS"
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: former_vet_center_section
+    attributes:
+      label: Former Vet Center section name (if updating section)
+      placeholder: "Example: Old City Vet Center"
+    validations:
+      required: false
+
+  # INPUT:
+  - type: input
+    id: new_vet_center_section
+    attributes:
+      label: New Vet Center section name (if updating section)
+      placeholder: "Example: New City Vet Center"
+    validations:
+      required: false
+
+  # INPUT:
+  - type: input
+    id: parent_vet_center_ticket
+    attributes:
+      label: Link to parent Vet Center name change ticket (if applicable)
+      placeholder: "https://github.com/department-of-veterans-affairs/va.gov-cms/issues/#####"
+    validations:
+      required: false
+
+  # CHECKBOX:
+  - type: checkboxes
+    id: spreadsheet
+    attributes:
+      label: Has the Outstation name change been added to the internal Flagged Facilities listing yet?
+      description: If no, please add it to the appropriate tab with the prod link, facility ID, and any relevant ticket links or details.
+      options:
+        - label: "Yes"
+        - label: "No"
+    validations:
+      required: false
+
+  # TEXTAREA:
+  - type: textarea
+    id: jira_ticket_links
+    attributes:
+      label: Link to Jira ticket(s)
+      description: Embedded Support - Please search Jira and add links to any relevant tickets. If none found, please link once created.
+    validations:
+      required: false
+      
+  # TEXTAREA:
+  - type: textarea
+    id: url_redirect_link
+    attributes:
+      label: Links to any related GitHub tickets
+      description: Can add link to the parent Vet Center's name change ticket, if applicable
+      placeholder: |
+        https://github.com/department-of-veterans-affairs/va.gov-cms/issues/#####
+    validations:
+      required: false
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+        URL redirects are not needed for Vet Center Outstation tickets because they do not have outward-facing URLs.
+
+        However, you **must** update and re-save the URL alias for this Outstation node, or it will not appear correctly on the parent Vet Center's "Locations" page.
+
+  # TEXTAREA:
+  - type: textarea
+    id: runbook_steps
+    attributes:
+      label: Acceptance criteria for Outstation name changes
+      description: LEAVE AS-IS, SKIP TO "CREATE." Assignees will check off the boxes below as they complete the work.
+      value: |
+        ### Embedded Support team steps:
+
+        #### STEP 1: Confirm name and section alignment
+        Inspect the Outstation node’s H1 title, URL, and the **Main Vet Center** and **Section** fields.
+
+        - [ ] **Yes, all match:** Proceed.
+        - [ ] **No, due to active Vet Center name change:** STOP. Do not proceed until parent ticket is complete.
+        - [ ] **No, Outstation appears reassigned to a new Vet Center:** Send the "Outstation section change verification" email below.
+
+        **If the URL ends in `-0`:** Verify whether this node is a duplicate by removing `-0`. If duplicates exist, send the "Duplicate Outstation" email.
+
+        ### Drupal Administrator steps:
+
+        #### STEP 2: Update section fields
+        - [ ] Update **Common name**, **Main Vet Center**, and **Section** fields on the Outstation node. Save.
+
+        #### STEP 3: Bulk Edit updates
+        Use the [Bulk Edit](https://prod.cms.va.gov/admin/content/bulk) page to:
+        - [ ] Modify Values (section)
+        - [ ] Update URL alias
+        - [ ] Re-save content
+
+        #### STEP 4: Update media
+        - [ ] Verify associated Media items reflect the new name and section.
+
+        #### STEP 5: Acceptance check
+        - [ ] Confirm Outstation appears correctly on the new Vet Center’s "Locations" page after next release.
+
+        ### Embedded Support wrap-up:
+
+        #### STEP 6: Editor comms
+        - [ ] Send the "Section change completed" email.
+
+        #### STEP 7: Remove flags
+        - [ ] Remove the `Changed name` flag and save the node.
+    validations:
+      required: true
+
+  # EMAIL TEMPLATES:
+  - type: textarea
+    id: email_templates
+    attributes:
+      label: Email templates
+      description: Leave this section as-is. Assignees will copy email templates from here.
+      value: |
+        ### Outstation section change verification email
+        ```
+        The VA Drupal CMS Help Desk Support team received a notification that the former [OLD NAME OF OUTSTATION] has been renamed to the [NEW NAME OF OUTSTATION].
+
+        The facility ID for this Outstation is vc_####OS.
+
+        Here is a direct link to this node: [INSERT PRODUCTION LINK]
+
+        Please confirm whether this Outstation was reassigned to a new Vet Center section.
+        ```
+
+        ### Section change completed email
+        ```
+        Thank you for confirming the Outstation reassignment.
+
+        This Outstation is now assigned to your Vet Center section within the CMS:
+        [INSERT PRODUCTION LINK]
+        ```
+
+        ### Duplicate Outstation email
+        ```
+        Hello,
+
+        It appears there may be duplicate Outstation entries associated with your location:
+
+        vc_####OS  
+        vc_####OS  
+
+        Can you please confirm which Outstation ID is currently in use?
+        ```
+    validations:
+      required: false

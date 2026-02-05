@@ -11,6 +11,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
@@ -60,6 +61,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      EntityHookEvents::ENTITY_TYPE_ALTER => 'entityTypeAlter',
     ];
   }
 
@@ -247,6 +249,20 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Entity Type Alter Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent $event
+   *   The event.
+   */
+  public function entityTypeAlter(EntityTypeAlterEvent $event): void {
+    $entity_types = $event->getEntityTypes();
+    if (!empty($entity_types['node'])) {
+      $entity = $entity_types['node'];
+      $entity->addConstraint('MenuParentLink');
+    }
+  }
+
+  /**
    * Tests to see if an object is a flaggable facility.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -345,7 +361,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Alter the VAMC System and Billing Insurance node form..
+   * Alter the VAMC System and Billing Insurance node form.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.

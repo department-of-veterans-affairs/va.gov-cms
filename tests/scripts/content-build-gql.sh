@@ -40,7 +40,7 @@ popd
 pushd "${web_path}"
 export INSTALL_HOOKS=no
 export NODE_ENV=production
-nvm use
+nvm install && nvm use
 yarn build \
   --pull-drupal \
   --gql-queries-only \

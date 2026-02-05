@@ -23,6 +23,45 @@ async function setupNodeEvents(on, config) {
 
   await cypressFailedLog(on, config);
 
+  // Configure browser launch args for Kubernetes/container environments
+  on('before:browser:launch', (browser = {}, launchOptions) => {
+    console.log(`Launching browser: ${browser.name} (${browser.family})`);
+    
+    if (browser.name === 'electron') {
+      // Electron is optimized for Cypress and works well in Kubernetes
+      // No special flags needed - it's the recommended browser for CI/CD
+      launchOptions.preferences = launchOptions.preferences || {};
+      launchOptions.preferences.devTools = false;
+    } else if (browser.family === 'chromium') {
+      // Chrome/Chromium flags for containerized environments (when explicitly testing Chrome)
+      console.log('Adding Chrome flags for containerized environment');
+      
+      // Essential flags for containerized environments
+      launchOptions.args.push('--disable-dev-shm-usage');
+      launchOptions.args.push('--no-sandbox');
+      launchOptions.args.push('--disable-setuid-sandbox');
+      launchOptions.args.push('--disable-gpu');
+      
+      // Additional stability flags for Kubernetes
+      launchOptions.args.push('--disable-software-rasterizer');
+      launchOptions.args.push('--disable-extensions');
+      launchOptions.args.push('--disable-background-timer-throttling');
+      launchOptions.args.push('--disable-backgrounding-occluded-windows');
+      launchOptions.args.push('--disable-renderer-backgrounding');
+      launchOptions.args.push('--disable-features=IsolateOrigins,site-per-process');
+      
+      // Memory and performance optimizations
+      launchOptions.args.push('--disable-ipc-flooding-protection');
+      launchOptions.args.push('--js-flags=--expose-gc');
+      launchOptions.args.push('--force-color-profile=srgb');
+      
+      // Prevent Chrome from showing error dialogs
+      launchOptions.args.push('--disable-breakpad');
+      launchOptions.args.push('--disable-component-extensions-with-background-pages');
+    }
+    return launchOptions;
+  });
+
   on("task", {
     log(message) {
       console.log(message);
@@ -66,6 +105,7 @@ async function setupNodeEvents(on, config) {
 }
 
 module.exports = defineConfig({
+  chromeWebSecurity: false,
   defaultCommandTimeout: 10000,
   downloadsFolder: "tests/cypress/downloads",
   env: {

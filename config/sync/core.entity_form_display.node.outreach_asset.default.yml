@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.outreach_asset.field_listing
     - field.field.node.outreach_asset.field_media
     - field.field.node.outreach_asset.field_meta_tags
+    - field.field.node.outreach_asset.field_outreach_materials_topics
     - node.type.outreach_asset
     - workflows.workflow.editorial
   module:
@@ -95,6 +96,12 @@ content:
   field_lc_categories:
     type: options_select
     weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_outreach_materials_topics:
+    type: options_select
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
