@@ -1,6 +1,11 @@
 name: Deploy to CMS Mirror M - F at 3am ET
 on:
   workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Optional: tag to deploy (e.g., v0.0.1247)'
+        required: false
+        type: string
   schedule:
     # 08:00 UTC -> 3 a.m. Eastern during standard time, 4 a.m. during daylight saving
     - cron: '0 8 * * 1-5'
@@ -36,6 +41,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          REQUESTED_TAG="${{ inputs.image_tag }}"
+          if [[ -n "$REQUESTED_TAG" ]]; then
+            echo "LAST_TAG=$REQUESTED_TAG" >> "$GITHUB_ENV"
+            exit 0
+          fi
           REPO_NAME="dsva/cms-drupal"
           IMAGES_JSON=$(aws ecr describe-images --repository-name "$REPO_NAME" --query 'imageDetails' --output json)
           SEMVER_TAG=$(echo "$IMAGES_JSON" | jq -r '
