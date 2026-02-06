@@ -10,5 +10,5 @@ Feature: Content Type: Benefits Detail Page
     When I am logged in as a user with the "content_admin" role
     And I create a "page" node and continue
     And I click the button with selector "#field-featured-content-q-a-add-more"
-    Then I should not see "Add Accordion group"
+    Then "Add Accordion group" should not exist
     
