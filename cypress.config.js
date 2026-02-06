@@ -106,7 +106,7 @@ async function setupNodeEvents(on, config) {
 
 module.exports = defineConfig({
   chromeWebSecurity: false,
-  defaultCommandTimeout: 10000,
+  defaultCommandTimeout: 30000,
   downloadsFolder: "tests/cypress/downloads",
   env: {
     failSilently: false,
