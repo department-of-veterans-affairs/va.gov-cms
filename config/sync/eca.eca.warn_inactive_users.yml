@@ -8,6 +8,7 @@ dependencies:
     - eca_base
     - eca_content
     - eca_views
+    - va_gov_eca
 id: warn_inactive_users
 modeller: core
 label: 'Warn Inactive Users'
@@ -30,7 +31,7 @@ events:
       event_id: queue_results
     successors:
       -
-        id: action_message_action
+        id: queue_notification
         condition: null
 conditions: {  }
 gateways: {  }
@@ -61,4 +62,13 @@ actions:
       event_id: queue_results
       tokens: ''
       object: results
+    successors: {  }
+  queue_notification:
+    plugin: create_advancedqueue_job
+    label: 'Queue notification'
+    configuration:
+      token_name: ''
+      type: va_gov_warn_inactive_users_notification
+      payload: "template_values:\r\n  uid: \"[entity:uid]\"\r\n  template: warn_inactive_users\r\nvalues:\r\n  field_user_name: \"[entity:name]\"\r\n  field_last_login: \"[entity:login]\""
+      queue: warn_inactive_users
     successors: {  }

@@ -1,0 +1,23 @@
+uuid: 83f00e4d-567a-47fb-8189-7c6bbbce7cbb
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_subject
+    - message.template.warn_inactive_users
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.warn_inactive_users.mail_subject
+targetEntityType: message
+bundle: warn_inactive_users
+mode: mail_subject
+content:
+  partial_0:
+    weight: 0
+    region: content
+hidden:
+  partial_1: true
