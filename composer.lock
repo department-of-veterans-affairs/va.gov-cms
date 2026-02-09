@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95ec2ca9636cac3d0f43cd895572d7cd",
+    "content-hash": "89a63f4f6b86dc2881c1b915fd586c41",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7403,17 +7403,17 @@
         },
         {
             "name": "drupal/flag",
-            "version": "4.0.0-beta7",
+            "version": "5.0.3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/flag.git",
-                "reference": "8.x-4.0-beta7"
+                "reference": "5.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/flag-8.x-4.0-beta7.zip",
-                "reference": "8.x-4.0-beta7",
-                "shasum": "6f74fcaec0db3c54934cdf8f25acb67c0c2d7f07"
+                "url": "https://ftp.drupal.org/files/projects/flag-5.0.3.zip",
+                "reference": "5.0.3",
+                "shasum": "4b7af7e9d6091038bad02db4e414115f2208e46d"
             },
             "require": {
                 "drupal/core": "^10.3 || ^11"
@@ -7421,11 +7421,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-4.0-beta7",
-                    "datestamp": "1743851261",
+                    "version": "5.0.3",
+                    "datestamp": "1761563276",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -10762,7 +10762,7 @@
                     "homepage": "https://www.drupal.org/user/208732"
                 },
                 {
-                    "name": "RoySegall",
+                    "name": "roysegall",
                     "homepage": "https://www.drupal.org/user/1812910"
                 }
             ],
@@ -10837,21 +10837,21 @@
         },
         {
             "name": "drupal/message_subscribe",
-            "version": "2.0.1",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/message_subscribe.git",
-                "reference": "2.0.1"
+                "reference": "2.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/message_subscribe-2.0.1.zip",
-                "reference": "2.0.1",
-                "shasum": "4384350a89fec48b53bc7aafe42c93973198049c"
+                "url": "https://ftp.drupal.org/files/projects/message_subscribe-2.1.0.zip",
+                "reference": "2.1.0",
+                "shasum": "bcb7f9a9f070abdd8d7ee50db6dfaa1106338736"
             },
             "require": {
-                "drupal/core": "^10.2 || ^11",
-                "drupal/flag": "^4.0",
+                "drupal/core": "^10.2 || ^11 || ^12",
+                "drupal/flag": "^4.0 || ^5.0",
                 "drupal/message": "^1.0",
                 "drupal/message_notify": "^1.0"
             },
@@ -10867,8 +10867,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.1",
-                    "datestamp": "1747771053",
+                    "version": "2.1.0",
+                    "datestamp": "1768443552",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10897,7 +10897,11 @@
                     "homepage": "https://www.drupal.org/user/208732"
                 },
                 {
-                    "name": "RoySegall",
+                    "name": "joelpittet",
+                    "homepage": "https://www.drupal.org/user/160302"
+                },
+                {
+                    "name": "roysegall",
                     "homepage": "https://www.drupal.org/user/1812910"
                 }
             ],
@@ -29764,7 +29768,6 @@
         "drupal/entity_usage": 10,
         "drupal/expirable_content": 15,
         "drupal/fieldhelptext": 10,
-        "drupal/flag": 10,
         "drupal/graphql_menu": 15,
         "drupal/html_tag_usage": 10,
         "drupal/image_style_warmer": 5,
