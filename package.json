@@ -19,7 +19,6 @@
     "test:cypress:verify": "cypress verify",
     "test:cypress:interactive": "cypress open -e \"TAGS=not @piv,VAGOV_INTERACTIVE=true\"",
     "test:cypress:parallel": "cypress-parallel -v --reporter 'spec' --script test:cypress --threads 3 --strictMode false --specsDir tests/cypress/integration --weightsJson tests/cypress/integration/weights.json",
-    "test:cypress:shard": "node scripts/cypress/run-sharded.js",
     "test:cypress:shard:sh": "bash scripts/cypress/run-sharded.sh"
   },
   "repository": {

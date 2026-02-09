@@ -80,7 +80,7 @@ if (process.env.CYPRESS_TAGS && !hasTags) {
 cypressArgs.push(...args);
 
 if (dryRun) {
-  console.log(`Shard ${shardIndex}/${shardTotal} (${shardSpecs.length} specs)`);
+  console.log(`Shard ${shardIndex + 1}/${shardTotal} (${shardSpecs.length} specs)`);
   shardSpecs.forEach((spec) => console.log(spec));
   process.exit(0);
 }
