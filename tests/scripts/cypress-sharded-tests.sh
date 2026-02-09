@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
 set -x
 
 # This runs the Cypress test suites in shards with CI-friendly setup.
@@ -13,10 +14,12 @@ pushd "${repo_root}" > /dev/null
 export CYPRESS_VERIFY_TIMEOUT=100000
 npm run test:cypress:verify
 
+set +e
 npm run test:cypress:shard:sh -- "${@}"
 exit_code=$?
 
 node tests/report_cypress_accessibility_errors.js
+set -e
 
 popd > /dev/null
 
