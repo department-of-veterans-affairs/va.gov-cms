@@ -89,4 +89,8 @@ const localBin = path.join(process.cwd(), "node_modules", ".bin", "cypress");
 const cypressBin = fs.existsSync(localBin) ? localBin : "cypress";
 
 const child = spawn(cypressBin, cypressArgs, { stdio: "inherit" });
+child.on("error", (error) => {
+  console.error(`Failed to start Cypress: ${error.message}`);
+  process.exit(1);
+});
 child.on("exit", (code) => process.exit(code ?? 1));
