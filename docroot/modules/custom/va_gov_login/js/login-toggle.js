@@ -4,30 +4,30 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-
 (function (Drupal) {
   Drupal.behaviors.loginFormToggle = {
     attach: function attach() {
       document.querySelector(".js-va-login-toggle").addEventListener("click", function (e) {
         e.preventDefault();
-
         var loginForm = document.getElementById("user-login-form");
-
-        loginForm.classList.toggle('piv-login');
-        loginForm.classList.toggle('form-login');
-
+        loginForm.classList.toggle("piv-login");
+        loginForm.classList.toggle("form-login");
         var loginToggle = document.getElementById("edit-toggle");
-
-        if (loginToggle.value === 'Developer log in') {
+        if (loginToggle.value === "Developer log in") {
           loginToggle.value = "Log in with PIV";
         } else {
           loginToggle.value = "Developer log in";
         }
-
         if (loginForm.classList.contains("piv-login")) {
-          document.querySelector("a.simplesamlphp-auth-login-link").focus();
+          var pivLoginLink = document.querySelector("a.piv-login-link");
+          if (pivLoginLink) {
+            pivLoginLink.focus();
+          }
         } else {
-          document.querySelector(".js-login-username input").focus();
+          var usernameInput = document.querySelector(".js-login-username input");
+          if (usernameInput) {
+            usernameInput.focus();
+          }
         }
       });
     }
