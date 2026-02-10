@@ -71,11 +71,9 @@ A migration should not be considered complete if there are ANY migrate messages 
 
 ### VBA Facilities VBA Database Migration
 The VBA database maintained by Dave Conlon contains unique data that updates VBA Facility content type through the "Node - Veterans Benefits Administration Facility (Database extract)" (`va_node_facility_vba_db_extract`) migration. The fields updated are
-- "Non-VA location official name" (`field_non_va official_name`)
 - "Non-VA location URL" (`field_non_va_location_external_url`)
 - "Parent office" (`field_office`)
 - "Section" (`field_administration`)
-- "Shared VHA location" (`field_shared_vha_location`)
 
 The CSV export is provided in the VBA Modernization Microsoft Teams channel. To prepare the data for import, follow these steps (_Note: columns letters are reset after each removal._):
 - Remove columns C (Facility_Type) - AL (Website_URL).
