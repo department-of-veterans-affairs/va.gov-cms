@@ -78,7 +78,7 @@ The VBA database maintained by Dave Conlon contains unique data that updates VBA
 The CSV export is provided in the VBA Modernization Microsoft Teams channel. To prepare the data for import, follow these steps (_Note: columns letters are reset after each removal._):
 - Remove columns C (Facility_Type) - AL (Website_URL).
 - Remove columns D (ro_facility_url) and E (Country)
-- Remove column G (Phone)
+- Remove columns G (Phone) and H (Shared_VHA_Location_ID)
 - Export as CSV with comma field delimiters and double quotes enclosures/text delimiters.
 - Save the file as `vba_facility_db_export_current.csv` in `docroot/modules/custom/va_gov_migrate/data/`, replacing the document already there.
 
