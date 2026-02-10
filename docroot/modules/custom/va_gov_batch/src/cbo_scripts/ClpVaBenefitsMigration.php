@@ -4,6 +4,7 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\TermInterface;
+use Drupal\va_gov_batch\BaseRsTagMigration;
 
 /**
  * Migration: CLP - Add "All Veterans" when specific Veteran subtype exists.

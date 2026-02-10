@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\va_gov_batch\cbo_scripts;
+namespace Drupal\va_gov_batch;
 
-require_once __DIR__ . '/../../../../../../scripts/content/script-library.php';
+require_once __DIR__ . '/../../../../../scripts/content/script-library.php';
 
 use Drupal\codit_batch_operations\BatchOperations;
 use Drupal\codit_batch_operations\BatchScriptInterface;

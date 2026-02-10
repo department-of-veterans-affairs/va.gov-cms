@@ -5,6 +5,7 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\taxonomy\TermInterface;
+use Drupal\va_gov_batch\BaseRsTagMigration;
 
 /**
  * Migration: Add Topics from R&S Categories (Primary and Additional).
