@@ -36,9 +36,6 @@ source:
     -
       name: field_district
       label: District
-    -
-      name: non_va_location_url
-      label: 'Non-VA location URL'
 process:
   pseudo_field_vba_facility_api_id:
     -
@@ -114,18 +111,6 @@ process:
       entity_type: node
       bundle_key: type
       bundle: vba_facility
-  field_non_va_location_url/uri:
-    -
-      plugin: str_replace
-      source: non_va_location_url
-      search: 'NULL'
-      replace: ''
-  field_non_va_location_url/title:
-    -
-      plugin: str_replace
-      source: non_va_location_name
-      search: 'NULL'
-      replace: ''
   field_administration:
     -
       plugin: entity_generate
@@ -167,7 +152,6 @@ destination:
   default_bundle: vba_facility
   overwrite_properties:
     - field_administration
-    - field_non_va_location_url
     - field_office
     - changed
     - new_revision
