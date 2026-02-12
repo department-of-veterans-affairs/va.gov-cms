@@ -69,6 +69,6 @@ actions:
     configuration:
       token_name: ''
       type: va_gov_warn_inactive_users_notification
-      payload: "template_values:\r\n  uid: \"[entity:uid]\"\r\n  template: warn_inactive_users\r\nvalues:\r\n  user_name: \"[entity:name]\"\r\n  field_last_login: \"[entity:login]\""
+      payload: "template_values:\r\n  template: warn_inactive_users\r\n  uid: \"[entity:uid]\""
       queue: warn_inactive_users
     successors: {  }
