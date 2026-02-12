@@ -12,7 +12,7 @@ text:
     value: '<p>Warning: you have not accessed your account recently</p>'
     format: rich_text
   -
-    value: "<p>Hi,&nbsp;</p><p>Because you (username: [message:uid:entity:name]) haven't accessed your account since [message:uid:entity:login], which is at least 60 days ago.&nbsp;</p><p>If you don't log after 90 days, your account could be deactivated.</p><p>Sincerely,</p><p>VA</p>"
+    value: "<p>Hi,&nbsp;</p><p>Because you (username: [message:uid:entity:name]) haven't accessed your account since [message:uid:entity:access:date:custom:Y-m-d], which is at least 60 days ago.&nbsp;</p><p>If you don't log after 90 days, your account could be deactivated.</p><p>Sincerely,</p><p>VA</p>"
     format: rich_text
 settings:
   'token options':
