@@ -55,31 +55,6 @@ process:
     -
       plugin: callback
       callable: trim
-  pseudo_field_regional_office_nid:
-    -
-      plugin: migration_lookup
-      migration: va_node_facility_vba
-      source: '@pseudo_field_regional_office_api_id'
-  pseudo_field_regional_office_name:
-    -
-      plugin: entity_value
-      source: '@pseudo_field_regional_office_nid'
-      entity_type: node
-      langcode: en
-      field_name: title
-
-  pseudo_field_district_tid:
-    -
-      plugin: entity_lookup
-      entity_type: taxonomy_term
-      source: field_district
-      value_key: name
-      bundle_key: vid
-      parent: constants/vba_facilities_section
-      bundle: administration
-    -
-      plugin: skip_on_empty
-      method: process
   nid:
     -
       plugin: migration_lookup
@@ -112,21 +87,8 @@ process:
       bundle_key: type
       bundle: vba_facility
   field_administration:
-    -
-      plugin: entity_generate
-      source: '@pseudo_field_regional_office_name'
-      entity_type: taxonomy_term
-      ignore_case: true
-      value_key: name
-      bundle_key: vid
-      bundle: administration
-      values:
-        name: '@pseudo_field_regional_office_name'
-        parent: '@pseudo_field_district_tid'
-        field_product: constants/product_term_tid
-    -
-      plugin: callback
-      callable: va_gov_migrate_optional_unwrap_array
+    plugin: default_value
+    default_value: 191
   changed:
     plugin: callback
     callable: va_gov_migrate_time
@@ -151,7 +113,6 @@ destination:
   plugin: 'entity:node'
   default_bundle: vba_facility
   overwrite_properties:
-    - field_administration
     - field_office
     - changed
     - new_revision
