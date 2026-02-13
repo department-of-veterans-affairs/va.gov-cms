@@ -5,18 +5,16 @@ dependencies:
   config:
     - filter.format.rich_text
 template: warn_inactive_users
-label: 'Warn inactive users'
-description: 'Warning users who have not activated their account that it will be deactivated'
+label: "Warn inactive users"
+description: "Warning users who have not activated their account that it will be deactivated"
 text:
-  -
-    value: '<p>Warning: you have not accessed your account recently</p>'
+  - value: "<p>Warning: you have not accessed your account recently</p>"
     format: rich_text
-  -
-    value: "<p>Hi,&nbsp;</p><p>Because you (username: [entity:name]) haven't accessed your account since [entity:login], which is at least 60 days ago.&nbsp;</p><p>If you don't log after 90 days, your account could be deactivated.</p><p>Sincerely,</p><p>VA</p>"
+  - value: "<p>Hi,&nbsp;</p><p>Because you (username: [message:uid:entity:name]) haven't accessed your account since [message:uid:entity:login:date:custom:Y-m-d], which is at least 60 days ago.&nbsp;</p><p>If you don't log after 90 days, your account could be deactivated.</p><p>Sincerely,</p><p>VA</p>"
     format: rich_text
 settings:
-  'token options':
+  "token options":
     clear: false
-    'token replace': true
+    "token replace": true
   purge_override: false
-  purge_methods: {  }
+  purge_methods: {}
