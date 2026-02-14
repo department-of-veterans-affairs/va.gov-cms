@@ -48,6 +48,12 @@ tasks:
           CONTEXT: va/tests/content-build-gql
           DESCRIPTION: 'Ensure that the content build graphql queries succeed'
 
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/next-build
+          DESCRIPTION: 'Ensure that Next Build JSON:API and Decoupled Router queries succeed'
+
   va/tests/cypress:
     desc: Accessibility and Behavioral tests with Cypress
     # See also `composer va:test:cypress-parallel` in composer.json
@@ -75,6 +81,12 @@ tasks:
     cmds:
       - ./tests/scripts/ci-wrapper.sh content-build-gql 'va:test:content-build-gql'
 
+  va/tests/next-build:
+    desc: Ensure that Next Build JSON:API and Decoupled Router queries succeed
+    # See also `composer va:test:next-build` in composer.json
+    cmds:
+      - ./tests/scripts/ci-wrapper.sh next-build 'va:test:next-build'
+
   set-check-status:
     cmds:
       - |
@@ -88,4 +100,5 @@ tasks:
       - va/tests/cypress
       - va/tests/phpunit
       - va/tests/content-build-gql
+      - va/tests/next-build
       - va/tests/status-error

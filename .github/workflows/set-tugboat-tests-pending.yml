@@ -1,6 +1,6 @@
 name: Set Tugboat Tests Pending
 on:
-  - pull_request_target
+  - pull_request
 permissions:
   pull-requests: write
   checks: write
@@ -28,6 +28,7 @@ jobs:
             va/tests/cypress
             va/tests/phpunit
             va/tests/content-build-gql
+            va/tests/next-build
             va/tests/status-error
           )
           for test_name in "${test_names[@]}"; do
