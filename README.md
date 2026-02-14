@@ -1,4 +1,5 @@
 # VA.gov CMS
+[![DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/department-of-veterans-affairs/va.gov-cms)
 
 This is the public/open documentation for the VA.gov Content Management System (CMS) for development, QA and DevOps topics. For product, design, support, research and cross-team documentation, visit the [platform/cms docs](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms). For private/sensitive documentation, visit the [private docs repo](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms). See [sensitive-guidance.md](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md) to read about what should be public vs. private. We follow the U.S. Digital Services Playbook and [default to open/public](https://playbook.cio.gov/#play13)).
 
