@@ -115,6 +115,7 @@ composer va:web:build &>> ${logfile}
 # and then copy it to our output location.
 echo "==> Installing and building vets-website" >> ${logfile}
 pushd ${reporoot}/docroot/vendor/va-gov/vets-website
+nvm install  >> ${logfile}
 nvm use  >> ${logfile}
 yarn install-safe  >> ${logfile}
 # Build vagovdev on Tugboat.

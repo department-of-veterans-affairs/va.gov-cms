@@ -17,8 +17,8 @@ fi
 #cd docroot/vendor/va-gov/vets-website
 cd vets-website
 
-nvm install 14.15.1
-nvm use 14.15.1
+nvm install
+nvm use 
 npm install -g yarn
 
 echo "Node $(node -v)"
