@@ -1,0 +1,17 @@
+uuid: a9025522-3989-43ea-bd94-5fcfceebaa37
+langcode: en
+status: true
+dependencies: {  }
+id: warn_inactive_users
+label: 'Warn Inactive Users'
+backend: database
+backend_configuration:
+  lease_time: 30
+processor: cron
+processing_time: 10
+locked: false
+stop_when_empty: true
+threshold:
+  type: 2
+  limit: 30
+  state: all
