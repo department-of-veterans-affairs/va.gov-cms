@@ -6,6 +6,9 @@ id: local
 label: Local
 description: 'Configuration for Local environments.'
 weight: 0
+stackable: false
+no_patching: false
+storage: folder
 folder: ../config/local
 module:
   devel_generate: 0
@@ -14,12 +17,10 @@ module:
   raven: 0
   syslog: 0
 theme: {  }
-blacklist:
+complete_list:
   - devel.settings
   - devel.toolbar.settings
   - system.menu.devel
-graylist:
+partial_list:
   - ga4_google_analytics.config
   - raven.settings
-graylist_dependents: true
-graylist_skip_equal: true

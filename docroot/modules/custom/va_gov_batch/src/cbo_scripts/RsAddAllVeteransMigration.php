@@ -4,6 +4,7 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\ParagraphInterface;
+use Drupal\va_gov_batch\BaseRsTagMigration;
 
 /**
  * Migration: Add "All Veterans" when specific Veteran subtype exists.

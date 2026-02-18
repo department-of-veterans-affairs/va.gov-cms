@@ -21,7 +21,7 @@ The migrations in this framework support the taxonomy enhancements:
 - **RsAddAllVeteransMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to R&S content types when specific Veteran subtypes exist
 - **ClpVaBenefitsMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to Campaign Landing Pages when specific Veteran subtypes exist
 - **VaBenefitsTaxonomyMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to VA Benefits taxonomy terms when specific Veteran subtypes exist
-- **RsRecordsToTopicsMigration:** Adds "Records" in Topics taxonomy when present in R&S Categories
+- **RsCategoriesToTopicsMigration:** Adds Topics in Audience & Topics when R&S Categories (Primary or Additional) are present, using a fixed category-to-topic mapping
 
 These migrations prepare for potential retirement of granular Veteran subtype tags by ensuring "All Veterans" is present wherever specific subtypes exist.
 
@@ -56,20 +56,29 @@ For more details on the overall initiative, see the [Initiative Brief](https://g
 - Paragraph field: `field_audience_beneficiares` (Audience - Beneficiaries taxonomy)
 - The "All Veterans" term must exist in the `audience_beneficiaries` taxonomy.
 
-### 3. R&S Content: Add "Records" in Topics when in Categories
+### 3. R&S Content: Add Topics from Primary and Additional Categories
 
-**Migration Class:** `RsRecordsToTopicsMigration`
+**Migration Class:** `RsCategoriesToTopicsMigration`
 
-**Description:** For R&S content types, if tagged with "Records" in R&S Categories taxonomy, also add "Records" in Topics taxonomy.
+**Description:** For all 7 R&S content types, articles tagged in Primary Category or Additional Category with specific R&S Categories terms are also tagged with the corresponding Topics term in Audience & Topics paragraphs.
 
-**Use Case:** An R&S content type is tagged with "Records" in the R&S Categories Taxonomy and should now also be tagged with "Records" in the Topics Taxonomy.
+**Acceptance criteria (after a successful run):**
+
+| Primary or Additional Category (R&S) | Topics field (Audience & Topics)   |
+|-------------------------------------|------------------------------------|
+| Decision reviews and appeals        | Claims and appeals status           |
+| General benefits information        | General benefits information        |
+| PACT Act                            | PACT Act                           |
+| Records                             | Records                            |
+| VA account and profile              | Account and profile                |
+| Other topics and questions          | Other topics and questions         |
 
 **Requirements:**
 - Content types: checklist, faq_multiple_q_a, media_list_images, support_resources_detail_page, q_a, step_by_step, media_list_videos
-- Source field: `field_primary_category` (R&S Categories taxonomy)
+- Source fields: `field_primary_category`, `field_other_categories` (R&S Categories taxonomy, `lc_categories`)
 - Field: `field_tags` (Audience & Topics paragraphs)
 - Paragraph field: `field_topics` (Topics taxonomy)
-- The "Records" term must exist in both `lc_categories` and `topics` taxonomies.
+- All mapped topic term names must exist in the `topics` vocabulary.
 
 ### 4. Campaign Landing Pages: Add "All Veterans" when Veteran Subtype Exists
 
@@ -112,7 +121,7 @@ Examples:
 ```bash
 drush codit-batch-operations:run PublicationRsCategoriesToOutreachHubMigration
 drush codit-batch-operations:run RsAddAllVeteransMigration
-drush codit-batch-operations:run RsRecordsToTopicsMigration
+drush codit-batch-operations:run RsCategoriesToTopicsMigration
 drush codit-batch-operations:run ClpVaBenefitsMigration
 drush codit-batch-operations:run VaBenefitsTaxonomyMigration
 ```
@@ -158,7 +167,7 @@ All migration classes are located in `va_gov_batch/src/cbo_scripts/` to be disco
 
 - **PublicationRsCategoriesToOutreachHubMigration:** Migrates R&S Categories to Outreach Hub taxonomy for Publication content type.
 - **RsAddAllVeteransMigration:** Adds "All Veterans" to R&S content types when Veteran subtypes exist.
-- **RsRecordsToTopicsMigration:** Adds "Records" in Topics when present in R&S Categories.
+- **RsCategoriesToTopicsMigration:** Adds Topics from Primary/Additional R&S Categories per category-to-topic mapping.
 - **ClpVaBenefitsMigration:** Adds "All Veterans" to Campaign Landing Pages when Veteran subtypes exist.
 - **VaBenefitsTaxonomyMigration:** Adds "All Veterans" to VA Benefits taxonomy terms when Veteran subtypes exist.
 
@@ -203,7 +212,7 @@ After running migrations:
 - **VaBenefitsTaxonomyMigration:** Adds "All Veterans" to VA Benefits taxonomy terms
 
 ### Other Migrations
-- **RsRecordsToTopicsMigration:** Adds "Records" in Topics when present in R&S Categories
+- **RsCategoriesToTopicsMigration:** Adds Topics from Primary and Additional R&S Categories (category-to-topic mapping)
 
 ## Notes
 

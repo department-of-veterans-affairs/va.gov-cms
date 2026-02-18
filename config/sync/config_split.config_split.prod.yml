@@ -6,16 +6,17 @@ id: prod
 label: Prod
 description: 'Configuration for Production environment.'
 weight: 0
+stackable: false
+no_patching: false
+storage: folder
 folder: ../config/prod
 module:
   fast404: 0
   raven: 0
   syslog: 0
 theme: {  }
-blacklist: {  }
-graylist:
+complete_list: {  }
+partial_list:
   - ga4_google_analytics.config
   - password_policy.password_policy.va_gov_cms
   - raven.settings.yml
-graylist_dependents: true
-graylist_skip_equal: true
