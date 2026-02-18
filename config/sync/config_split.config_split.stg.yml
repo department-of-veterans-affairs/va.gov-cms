@@ -6,15 +6,16 @@ id: stg
 label: Stg
 description: 'Configuration for Staging environment.'
 weight: 0
+stackable: false
+no_patching: false
+storage: folder
 folder: ../config/stg
 module:
   fast404: 0
   raven: 0
   syslog: 0
 theme: {  }
-blacklist: {  }
-graylist:
+complete_list: {  }
+partial_list:
   - ga4_google_analytics.config
   - raven.settings
-graylist_dependents: true
-graylist_skip_equal: true

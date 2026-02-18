@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\node\Entity\Node;
+use Drupal\va_gov_batch\BaseRsTagMigration;
 
 /**
  * Migration: Publication content type - R&S Categories → Outreach Hub taxonomy.

@@ -4,6 +4,7 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\TermInterface;
+use Drupal\va_gov_batch\BaseRsTagMigration;
 
 require_once __DIR__ . '/../../../../../../scripts/content/script-library.php';
 
