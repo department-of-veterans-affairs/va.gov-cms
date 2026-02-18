@@ -1,0 +1,23 @@
+diff --git a/src/Entity/Flagging.php b/src/Entity/Flagging.php
+index f7187f1920522241d406a7928c8cb48842706645..12e7c55ba683ed62ce365d1882a748238360df8e 100644
+--- a/src/Entity/Flagging.php
++++ b/src/Entity/Flagging.php
+@@ -245,7 +245,6 @@ class Flagging extends ContentEntityBase implements FlaggingInterface {
+
+     $tags[] = 'flagging:' . $this->bundle() . ':' . $this->getFlaggableType() . ':' . $this->getFlaggableId();
+     $tags[] = 'flagging:' . $this->bundle() . ':' . $this->getFlaggableType() . ':' . $this->getFlaggableId() . ':' . $this->getOwnerId();
+-    $tags[] = 'flagging:' . $this->bundle() . ':' . $this->getFlaggableType() . ':*:' . $this->getOwnerId();
+
+     return $tags;
+   }
+diff --git a/tests/src/Kernel/FlagCacheTagsTest.php b/tests/src/Kernel/FlagCacheTagsTest.php
+index 89fc60d107e282bddb9a0bd213fa8be4ba95ec37..2ef79a6806c2d51678922bf243f757771d792b36 100644
+--- a/tests/src/Kernel/FlagCacheTagsTest.php
++++ b/tests/src/Kernel/FlagCacheTagsTest.php
+@@ -82,7 +82,6 @@ class FlagCacheTagsTest extends FlagKernelTestBase {
+     $tags_to_invalidate = [
+       'flagging:test_flag:node:' . $this->node->id(),
+       'flagging:test_flag:node:' . $this->node->id() . ':1',
+-      'flagging:test_flag:node:*:1',
+     ];
+     Cache::invalidateTags($tags_to_invalidate);
