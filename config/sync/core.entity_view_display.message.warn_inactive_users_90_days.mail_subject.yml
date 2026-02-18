@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.message.mail_subject
+    - field.field.message.warn_inactive_users_90_days.field_warning_days
     - message.template.warn_inactive_users
   module:
     - layout_builder
@@ -11,13 +12,16 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
-id: message.warn_inactive_users.mail_subject
+id: message.warn_inactive_users_90_days.mail_subject
 targetEntityType: message
-bundle: warn_inactive_users
+bundle: warn_inactive_users_90_days
 mode: mail_subject
 content:
   partial_0:
     weight: 0
     region: content
 hidden:
+  breadcrumbs: true
   partial_1: true
+  field_warning_days: true
+  search_api_excerpt: true

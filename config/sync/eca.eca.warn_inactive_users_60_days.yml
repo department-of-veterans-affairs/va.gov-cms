@@ -1,4 +1,4 @@
-uuid: 6c14f46b-9a5e-4ed7-814b-5211496ccf99
+uuid: a4d5b6c7-1234-4bcd-9e8f-60a1b2c3d4e5
 langcode: en
 status: true
 dependencies:
@@ -9,9 +9,9 @@ dependencies:
     - eca_content
     - eca_views
     - va_gov_eca
-id: warn_inactive_users
+id: warn_inactive_users_60_days
 modeller: core
-label: 'Warn Inactive Users'
+label: 'Warn Inactive Users after 60 days'
 version: ''
 weight: 0
 events:
@@ -19,7 +19,7 @@ events:
     plugin: 'eca_base:eca_custom'
     label: 'ECA custom event'
     configuration:
-      event_id: inactive_users_warn
+      event_id: inactive_users_warn_60_days
     successors:
       -
         id: eca_views_query
@@ -28,7 +28,7 @@ events:
     plugin: 'content_entity:custom'
     label: 'ECA custom event (entity-aware)'
     configuration:
-      event_id: queue_results
+      event_id: queue_results_60
     successors:
       -
         id: queue_notification
@@ -42,7 +42,7 @@ actions:
     configuration:
       token_name: results
       view_id: inactive_users
-      display_id: default
+      display_id: inactive_60_days
       arguments: ''
     successors:
       -
@@ -59,7 +59,7 @@ actions:
     plugin: eca_trigger_content_entity_custom_event
     label: 'Trigger a custom event (entity-aware)'
     configuration:
-      event_id: queue_results
+      event_id: queue_results_60
       tokens: ''
       object: results
     successors: {  }
@@ -69,6 +69,6 @@ actions:
     configuration:
       token_name: ''
       type: va_gov_warn_inactive_users_notification
-      payload: "template_values:\r\n  template: warn_inactive_users\r\n  uid: \"[entity:uid]\""
+      payload: "template_values:\r\n  template: warn_inactive_users\r\n  uid: \"[entity:uid]\"\r\nvalues:\r\n  days: \"60\""
       queue: warn_inactive_users
     successors: {  }
