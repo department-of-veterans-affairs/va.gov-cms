@@ -1,0 +1,22 @@
+uuid: ccc96753-2919-4d0a-b4b8-1c5107fa61fe
+langcode: en
+status: true
+dependencies: {  }
+id: 8c5c4fd6e0
+name: 'Varnish Purge Everything'
+invalidationtype: everything
+hostname: varnish
+port: 80
+path: /
+request_method: BAN
+scheme: http
+verify: '1'
+headers: {  }
+body: null
+body_content_type: null
+runtime_measurement: true
+timeout: 1.0
+connect_timeout: 1.0
+cooldown_time: 0.0
+max_requests: 100
+http_errors: true
