@@ -1,0 +1,31 @@
+uuid: 3c1f6b3f-7f37-4b4c-9b5c-2c522b0a1f7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.warn_inactive_users.field_warning_days
+    - message.template.warn_inactive_users
+id: message.warn_inactive_users.default
+targetEntityType: message
+bundle: warn_inactive_users
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    '#group': advanced
+hidden:
+  field_warning_days: true

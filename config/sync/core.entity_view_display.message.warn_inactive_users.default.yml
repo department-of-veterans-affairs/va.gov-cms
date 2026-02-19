@@ -1,0 +1,28 @@
+uuid: 5b8a3e3e-2f8d-4d1b-9e66-9d6c1f1f0c2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.warn_inactive_users.field_warning_days
+    - message.template.warn_inactive_users
+  module:
+    - user
+id: message.warn_inactive_users.default
+targetEntityType: message
+bundle: warn_inactive_users
+mode: default
+content:
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_1:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  breadcrumbs: true
+  field_warning_days: true
+  search_api_excerpt: true
