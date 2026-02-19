@@ -67,8 +67,11 @@ actions:
     plugin: create_advancedqueue_job
     label: 'Queue notification'
     configuration:
-      token_name: ''
+      token_name: 'job'
       type: va_gov_warn_inactive_users_notification
       payload: "template_values:\r\n  template: warn_inactive_users\r\n  uid: \"[entity:uid]\"\r\nvalues:\r\n  field_warning_days: \"90\""
       queue: warn_inactive_users
-    successors: {  }
+    successors:
+      -
+        id: action_message_action
+        condition: null

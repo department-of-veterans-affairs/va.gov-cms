@@ -12,7 +12,7 @@ text:
     value: '<p>Warning: At least [message:field_warning_days] days since last VA Drupal log in</p>'
     format: rich_text
   -
-    value: "<p>Hi,&nbsp;</p><p>It appears you have not accessed <a href='https://prod.va.cms.gov'>the VA Drupal site</a> since [message:uid:entity:login:date:custom:F j, Y, g: i a], which is at least [message:field_warning_days] days ago.&nbsp;</p><p>If you do not log in at least every 180 days, your account will be deactivated.</p>"
+    value: "<p>Hi,&nbsp;</p><p>It appears you have not accessed <a href='https://prod.va.cms.gov'>the VA Drupal site</a> since [message:uid:entity:login:date:custom:F j, Y], which is [message:field_warning_days] or more days ago.&nbsp;</p><p>If you do not log in at least every 180 days, your account will be deactivated.</p>"
     format: rich_text
 settings:
   'token options':
