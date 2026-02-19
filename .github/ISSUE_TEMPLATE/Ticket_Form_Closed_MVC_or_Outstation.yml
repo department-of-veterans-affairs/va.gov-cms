@@ -1,0 +1,159 @@
+# #######################################################################
+# Closed Mobile Vet Center or Outstation Runbook #
+# #######################################################################
+# Runbook for archiving closed Mobile Vet Center (MVC) and Vet Center Outstation nodes.
+# Created and last edited by Stefanie Gray - stefanie.gray@va.gov
+# #######################################################################
+name: Flagged Facilities ticket form - Closed Mobile Vet Center or Outstation
+description: Use this form to create a ticket listing the runbook steps for archiving a closed Mobile Vet Center (MVC) or Vet Center Outstation in the CMS.
+title: Closed Vet Center MVC/Outstation - [CLOSED FACILITY NAME]
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, Vet Center, sitewide
+projects: projects/1859
+
+body:
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+       ### STOP! Do not create this ticket if the linked Vet Center has closed
+       - Simply archive the MVC or Outstation homepage node and remove the flag.
+       - Afterward, note this in the main Vet Center closure ticket.
+
+       ### Before creating a closed Mobile Vet Center or Outstation ticket
+       - If the linked Vet Center is still open, please do not create this ticket until the Mobile Vet Center or Vet Center Outstation closure has appeared on the CMS [Flagged Facilities page](https://prod.cms.va.gov/admin/content/facilities/flagged).
+
+       - **If notified via Jira but not flagged in the CMS:** Confirm with the editor that they reported the closure to VAST. Please refer to the KB article "[How do I update my Vet Center facility's basic location data?](https://prod.cms.va.gov/help/vet-centers/how-do-i-update-my-vet-center-facilitys-basic-location-data)" for more info and send to editor if needed.
+
+       - **If reported to VAST but not listed yet:** Changes made within VAST can take up to 75 days to appear within the Facilities API.
+
+       - **If the help desk is waiting on info or actions from facility editor(s):** Please add the "Awaiting editor" flag to the facility node with a revision log message that includes Jira or Github ticket numbers. Do not change the moderation state of the node (e.g. "Draft", "Published") when adding or removing flags unless otherwise noted.
+
+       - **For any Vet Center sections lacking active editors:** Please contact Barb Kuhn or the current VA leadership point of contact.
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+        # Facility and ticket information
+      
+  # CHECKBOX:
+  - type: checkboxes
+    id: closed_facility_type
+    attributes:
+      label: Facility type (MVC or Outstation)
+      description: Which Vet Center satellite location type is closing?
+      options:
+        - label: "Mobile Vet Center"
+        - label: "Vet Center Outstation"
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: mvc_or_outstation_name
+    attributes:
+      label: MVC or Outstation name
+      placeholder: "Example: Cityname Mobile Vet Center / Cityname Vet Center Outstation"
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: vet_center_section
+    attributes:
+      label: Vet Center section name
+      placeholder: "Example: Cityname Vet Center"
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: facility_prod_link
+    attributes:
+      label: Link to facility node on production site
+      placeholder: "https://prod.cms.va.gov..."
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: facility_api_id
+    attributes:
+      label: Facility API ID
+      placeholder: "e.g. vc_0123MVC or vc_0123OS"
+    validations:
+      required: true
+
+  # TEXTAREA:
+  - type: textarea
+    id: jira_ticket_links
+    attributes:
+      label: Link to Jira ticket(s)
+      description: Embedded Support - Please search Jira and add links to any relevant tickets. If none found, please link once created.
+    validations:
+      required: false
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+        You do not need to create any redirect tickets for Mobile Vet Center or Outstation nodes, because they do not have direct URLs -- these nodes are nested within the linked Vet Center's "Locations" page.
+
+  # TEXTAREA:
+  - type: textarea
+    id: runbook_steps
+    attributes:
+      label: Acceptance criteria for closed Mobile Vet Center or Outstation facilities
+      description: LEAVE AS-IS, SKIP TO "CREATE." Assignees will check off the boxes below as they complete the work.
+      value: |
+        ## Acceptance criteria for closed Mobile Vet Center or Vet Center Outstation facilities
+
+        ### Drupal Administrator steps (Embedded Support team or Facilities team):
+
+        #### STEP 1: Confirm closure
+        - [ ] Confirm with the main Vet Center's editor(s) or with Barb Kuhn/VA Leadership that the MVC or Outstation is now closed. (See "Facility closure confirmation" email template below.)
+
+        #### STEP 2: Archive node
+        - [ ] When editing the facility node, select the moderation state "Archived." Click "Save."
+
+        #### STEP 3: Verify archival
+        - [ ] After the next content release goes out, go to the main Vet Center's "Locations" page to ensure that the archived location is no longer displayed beneath the "Satellite Locations" header.
+
+        #### STEP 4: Remove flag
+        - [ ] Go back to the Mobile Vet Center or Outstation node, click "Edit," then scroll to bottom to remove the `Removed from source` flag and any other flags. Click Save.
+
+        ### Embedded Support team wrap-up:
+        #### STEP 5: Editor comms
+        - [ ] CMS Help Desk team notifies editor and any other stakeholders that the facility closure and archival process is complete -- see "Facility Closure Complete" template below.
+    validations:
+      required: true
+
+  # EMAIL TEMPLATES:
+  - type: textarea
+    id: email_templates
+    attributes:
+      label: Email templates
+      description: Leave this section as-is. Assignees will copy email templates from here.
+      value: |
+        ### Facility closure confirmation
+        Send if facility closure was flagged but hasn't been confirmed by section editor(s):
+
+        ```
+        The [MVC OR OUTSTATION NAME] has been flagged as “closed” on VAST and the Facilities API: [LINK TO PROD HOMEPAGE]
+
+        Please confirm whether this location is closed, or if this is incorrect. Thank you!
+        ```
+
+        ### Facility closure complete
+        ```
+        Hello,
+
+        The [MVC OR OUTSTATION NAME] is now fully archived from VA.gov.
+
+        Site visitors will no longer see this facility listed on your Vet Center's “Locations” page.
+
+        Please let us know if you have any questions or concerns, and thank you for your assistance.
+        ```
+    validations:
+      required: false

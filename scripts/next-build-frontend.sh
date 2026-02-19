@@ -77,14 +77,13 @@ if [ "${next_build_version}" != "__default" ]; then
     git fetch origin ${next_build_version} &>> ${logfile}
   fi
   git checkout FETCH_HEAD &>> ${logfile}
-
-  if [ "${APP_ENV}" == "tugboat" ]; then
-      echo "Setting up Tugboat environment variables for Next.js..."
-      ${ROOT}/scripts/next-set-tugboat-env-vars.sh
-  fi
 else
   echo "==> Using default next-build version" &>> ${logfile}
   git checkout main &>> ${logfile}
+fi
+if [ "${APP_ENV}" == "tugboat" ]; then
+    echo "Setting up Tugboat environment variables for Next.js..." >> ${logfile}
+    ${ROOT}/scripts/next-set-tugboat-env-vars.sh
 fi
 popd
 

@@ -6,6 +6,9 @@ id: mirror
 label: Mirror
 description: 'Config for Prod Mirror'
 weight: 0
+stackable: false
+no_patching: false
+storage: folder
 folder: ../config/mirror
 module:
   devel_generate: 0
@@ -22,11 +25,9 @@ module:
   raven: 0
   syslog: 0
 theme: {  }
-blacklist:
+complete_list:
   - devel.settings
   - devel.toolbar.settings
   - system.menu.devel
-graylist:
+partial_list:
   - raven.settings
-graylist_dependents: true
-graylist_skip_equal: true

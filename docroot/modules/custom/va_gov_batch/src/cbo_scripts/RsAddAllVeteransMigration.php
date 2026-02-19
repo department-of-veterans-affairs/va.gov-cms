@@ -4,7 +4,7 @@ namespace Drupal\va_gov_batch\cbo_scripts;
 
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\ParagraphInterface;
-use Drupal\taxonomy\TermInterface;
+use Drupal\va_gov_batch\BaseRsTagMigration;
 
 /**
  * Migration: Add "All Veterans" when specific Veteran subtype exists.
@@ -18,33 +18,9 @@ use Drupal\taxonomy\TermInterface;
 class RsAddAllVeteransMigration extends BaseRsTagMigration {
 
   /**
-   * The "All Veterans" term name.
-   */
-  const ALL_VETERANS_TERM = 'All Veterans';
-
-  /**
    * Audience & Topics paragraph field for audience.
    */
   const AUDIENCE_FIELD = 'field_audience_beneficiares';
-
-  /**
-   * Check if a term is a Veteran subtype (not "All Veterans").
-   *
-   * @param \Drupal\taxonomy\TermInterface $term
-   *   The term to check.
-   *
-   * @return bool
-   *   TRUE if the term is a Veteran subtype, FALSE otherwise.
-   */
-  protected function isVeteranSubtype(TermInterface $term): bool {
-    $term_name = $term->getName();
-    // Exclude "All Veterans" itself.
-    if ($term_name === self::ALL_VETERANS_TERM) {
-      return FALSE;
-    }
-    // Check if the term name contains "Veteran" (case-insensitive).
-    return stripos($term_name, 'Veteran') !== FALSE;
-  }
 
   /**
    * {@inheritdoc}
