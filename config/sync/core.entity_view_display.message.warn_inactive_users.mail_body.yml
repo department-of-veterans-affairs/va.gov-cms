@@ -1,0 +1,27 @@
+uuid: 7b8c9d0e-1f2a-3b4c-5d6e-7f8a9b0c1d2e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_body
+    - field.field.message.warn_inactive_users.field_warning_days
+    - message.template.warn_inactive_users
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.warn_inactive_users.mail_body
+targetEntityType: message
+bundle: warn_inactive_users
+mode: mail_body
+content:
+  partial_1:
+    weight: 1
+    region: content
+hidden:
+  breadcrumbs: true
+  partial_0: true
+  field_warning_days: true
+  search_api_excerpt: true
