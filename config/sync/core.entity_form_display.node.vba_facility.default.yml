@@ -56,6 +56,7 @@ dependencies:
     - telephone
     - textfield_counter
     - tzfield
+    - va_gov_backend
 third_party_settings:
   field_group:
     group_operating_status:
@@ -80,7 +81,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 9
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -96,7 +97,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: ''
@@ -106,6 +107,8 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_operating_status
+        - field_official_name
+        - title
         - field_media
         - group_facility_data
       label: 'Location and contact information'
@@ -122,7 +125,6 @@ third_party_settings:
         required_fields: true
     group_facility_data:
       children:
-        - field_official_name
         - field_phone_number
         - field_address
         - field_office_hours
@@ -139,7 +141,7 @@ third_party_settings:
       label: 'Facility data'
       region: content
       parent_name: group_locations_and_contact_info
-      weight: 7
+      weight: 8
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -192,7 +194,7 @@ third_party_settings:
       label: 'Benefits hotline'
       region: content
       parent_name: group_facility_data
-      weight: 17
+      weight: 18
       format_type: tooltip
       format_settings:
         show_label: '1'
@@ -249,7 +251,7 @@ third_party_settings:
       label: "Can't find benefits"
       region: content
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -268,7 +270,7 @@ third_party_settings:
       label: 'Get updates from VBA'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 8
       format_type: tooltip
       format_settings:
         show_label: '1'
@@ -310,7 +312,7 @@ third_party_settings:
       label: 'Spotlight content'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -325,7 +327,7 @@ third_party_settings:
       label: 'Meta tags'
       region: content
       parent_name: ''
-      weight: 14
+      weight: 13
       format_type: fieldset
       format_settings:
         classes: hidden
@@ -339,7 +341,7 @@ third_party_settings:
       label: 'Facility services'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: tooltip
       format_settings:
         show_empty_fields: '1'
@@ -357,7 +359,7 @@ third_party_settings:
       label: 'Other VA locations'
       region: content
       parent_name: ''
-      weight: 11
+      weight: 10
       format_type: tooltip
       format_settings:
         show_empty_fields: '1'
@@ -375,7 +377,7 @@ third_party_settings:
       label: 'Facility image'
       region: hidden
       parent_name: ''
-      weight: 25
+      weight: 24
       format_type: fieldset
       format_settings:
         classes: ''
@@ -484,7 +486,7 @@ content:
     third_party_settings: {  }
   field_cc_meta_tags:
     type: entity_field_fetch_widget
-    weight: 0
+    weight: 1
     region: content
     settings:
       show_field_label: '1'
@@ -517,7 +519,7 @@ content:
     third_party_settings: {  }
   field_facility_locator_api_id:
     type: string_textfield
-    weight: 18
+    weight: 19
     region: content
     settings:
       size: 60
@@ -525,20 +527,20 @@ content:
     third_party_settings: {  }
   field_facility_vba_classificatio:
     type: options_select
-    weight: 19
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
   field_geolocation:
     type: geofield_latlon
-    weight: 20
+    weight: 21
     region: content
     settings:
       html5_geolocation: false
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 13
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -586,14 +588,14 @@ content:
         add_another: ''
   field_media:
     type: media_library_widget
-    weight: 6
+    weight: 7
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_non_va_location_url:
     type: link_default
-    weight: 22
+    weight: 23
     region: content
     settings:
       placeholder_url: ''
@@ -601,7 +603,7 @@ content:
     third_party_settings: {  }
   field_non_va_official_name:
     type: string_textfield
-    weight: 21
+    weight: 22
     region: content
     settings:
       size: 60
@@ -609,7 +611,7 @@ content:
     third_party_settings: {  }
   field_office:
     type: options_select
-    weight: 23
+    weight: 24
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -622,7 +624,7 @@ content:
     third_party_settings: {  }
   field_official_name:
     type: tooltip_textfield
-    weight: 11
+    weight: 5
     region: content
     settings:
       tooltip_text: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
@@ -686,7 +688,7 @@ content:
         add_another: ''
   field_shared_vha_location:
     type: entity_reference_autocomplete
-    weight: 24
+    weight: 25
     region: content
     settings:
       match_operator: CONTAINS
@@ -724,6 +726,15 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  title:
+    type: tooltip_textfield
+    weight: 6
+    region: content
+    settings:
+      tooltip_text: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+      size: '60'
+      placeholder: ''
+    third_party_settings: {  }
 hidden:
   created: true
   field_intro_text: true
@@ -732,6 +743,5 @@ hidden:
   promote: true
   status: true
   sticky: true
-  title: true
   uid: true
   url_redirects: true

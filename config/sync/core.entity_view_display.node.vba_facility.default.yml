@@ -57,7 +57,7 @@ third_party_settings:
       label: 'Operating status'
       parent_name: ''
       region: content
-      weight: 0
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
@@ -71,7 +71,7 @@ third_party_settings:
       label: 'Locations and contact information'
       parent_name: ''
       region: content
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -108,7 +108,7 @@ third_party_settings:
       label: 'Facility Intro and Photo'
       parent_name: ''
       region: content
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -125,7 +125,7 @@ third_party_settings:
       label: 'Facility CMS data'
       parent_name: group_facility_data
       region: content
-      weight: 11
+      weight: 9
       format_type: fieldset
       format_settings:
         classes: not-editable
@@ -139,7 +139,7 @@ third_party_settings:
       label: 'Benefit office overview'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 3
       format_type: tooltip
       format_settings:
         show_empty_fields: '1'
@@ -157,7 +157,7 @@ third_party_settings:
       label: 'Benefits hotline'
       parent_name: ''
       region: content
-      weight: 6
+      weight: 7
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -177,7 +177,7 @@ third_party_settings:
       label: 'Benefit office hours may vary'
       parent_name: ''
       region: content
-      weight: 5
+      weight: 6
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -197,7 +197,7 @@ third_party_settings:
       label: 'National spotlight'
       parent_name: ''
       region: content
-      weight: 8
+      weight: 9
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -217,7 +217,7 @@ third_party_settings:
       label: "Can't find benefits"
       parent_name: ''
       region: content
-      weight: 10
+      weight: 11
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -237,7 +237,7 @@ third_party_settings:
       label: 'Get updates from VBA'
       parent_name: ''
       region: content
-      weight: 11
+      weight: 12
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -257,7 +257,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       parent_name: ''
       region: content
-      weight: 7
+      weight: 8
       format_type: fieldset
       format_settings:
         classes: ''
@@ -275,7 +275,7 @@ third_party_settings:
       label: Banner
       parent_name: ''
       region: content
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -293,7 +293,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_alert_type:
     type: list_default
@@ -381,7 +381,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: content
   field_location_services:
     type: entity_reference_revisions_entity_view
@@ -477,14 +477,14 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 5
     region: content
   field_operating_status_more_info:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 6
     region: content
   field_phone_number:
     type: telephone_link
@@ -492,7 +492,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   field_prepare_for_visit:
     type: entity_reference_revisions_entity_view
@@ -526,7 +526,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 8
     region: content
 hidden:
   breadcrumbs: true
