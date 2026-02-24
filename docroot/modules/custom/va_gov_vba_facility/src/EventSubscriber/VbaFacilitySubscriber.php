@@ -63,7 +63,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     TranslationInterface $string_translation,
     UserPermsService $user_perms_service,
     EntityTypeManagerInterface $entity_type_manager,
-    RendererInterface $renderer
+    RendererInterface $renderer,
   ) {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
@@ -134,10 +134,12 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function alterVbaFacilityNodeForm(FormIdAlterEvent $event): void {
+    $form = $event->getForm();
     $this->addStateManagementToBannerFields($event);
     $this->changeBannerType($event);
     $this->changeDismissibleOption($event);
     $this->createLinksFacilityServices($event);
+    $this->disableNameFieldForNonAdmins($form);
   }
 
   /**
@@ -309,6 +311,18 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
           $entity->field_banner_content->value = '';
         }
       }
+    }
+  }
+
+  /**
+   * Disable the official name field on VBA Facility nodes.
+   *
+   * @param array $form
+   *   The node form.
+   */
+  protected function disableNameFieldForNonAdmins(array &$form): void {
+    if (isset($form['field_official_name']) && !$this->userPermsService->hasAdminRole(TRUE)) {
+      $form['field_official_name']['#disabled'] = TRUE;
     }
   }
 
