@@ -1,0 +1,24 @@
+uuid: 8a7c5d4e-2d9f-4b1e-94a4-3b6f9c2d5e34
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_warning_days
+    - message.template.warn_inactive_users
+  module: {  }
+id: message.warn_inactive_users_90_days.field_warning_days
+field_name: field_warning_days
+entity_type: message
+bundle: warn_inactive_users_90_days
+label: 'Warning Days'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
