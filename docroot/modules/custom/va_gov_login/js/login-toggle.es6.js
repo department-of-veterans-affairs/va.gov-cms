@@ -3,49 +3,50 @@
  * Login form helpers.
  */
 
-((Drupal) => {
+((Drupal, once) => {
   /**
    * Handles switching between PIV card & CMS user/pass login flows.
    *
    * @type {Drupal~behavior}
    */
   Drupal.behaviors.loginFormToggle = {
-    attach() {
-      document
-        .querySelector(".js-va-login-toggle")
-        .addEventListener("click", (e) => {
-          e.preventDefault();
+    attach(context) {
+      once("login-form-toggle", ".js-va-login-toggle", context).forEach(
+        (toggle) => {
+          toggle.addEventListener("click", (e) => {
+            e.preventDefault();
 
-          // Toggle class on form to control which inputs are shown.
-          const loginForm = document.getElementById("user-login-form");
-          // loginForm.toggleClass("piv-login form-login");
-          loginForm.classList.toggle("piv-login");
-          loginForm.classList.toggle("form-login");
+            // Toggle class on form to control which inputs are shown.
+            const loginForm = document.getElementById("user-login-form");
+            loginForm.classList.toggle("piv-login");
+            loginForm.classList.toggle("form-login");
 
-          // Change text of toggle button based on which is shown.
-          const loginToggle = document.getElementById("edit-toggle");
+            // Change text of toggle button based on which is shown.
+            const loginToggle = document.getElementById("edit-toggle");
 
-          if (loginToggle.value === "Developer log in") {
-            loginToggle.value = "Log in with PIV";
-          } else {
-            loginToggle.value = "Developer log in";
-          }
-
-          // Move focus back to top of form when toggled.
-          if (loginForm.classList.contains("piv-login")) {
-            const pivLoginLink = document.querySelector("a.piv-login-link");
-            if (pivLoginLink) {
-              pivLoginLink.focus();
+            if (loginToggle.value === "Developer log in") {
+              loginToggle.value = "Log in with PIV";
+            } else {
+              loginToggle.value = "Developer log in";
             }
-          } else {
-            const usernameInput = document.querySelector(
-              ".js-login-username input"
-            );
-            if (usernameInput) {
-              usernameInput.focus();
+
+            // Move focus back to top of form when toggled.
+            if (loginForm.classList.contains("piv-login")) {
+              const pivLoginLink = document.querySelector("a.piv-login-link");
+              if (pivLoginLink) {
+                pivLoginLink.focus();
+              }
+            } else {
+              const usernameInput = document.querySelector(
+                ".js-login-username input"
+              );
+              if (usernameInput) {
+                usernameInput.focus();
+              }
             }
-          }
-        });
+          });
+        }
+      );
     },
   };
-})(Drupal);
+})(Drupal, once);
