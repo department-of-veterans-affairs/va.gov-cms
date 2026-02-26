@@ -28,7 +28,7 @@ class VaVbaFacilityMigrationTest extends VaGovExistingSiteBase {
 
     $bundle = 'vba_facility';
     $conditions = [
-      'field_facility_locator_api_id' => 'vba_000z',
+      'field_facility_locator_api_id' => 'vba_000Z',
       'field_official_name' => 'Test VBA Facility',
     ];
     $entities = EntityStorage::getMatchingEntities('node', $bundle, $conditions);
