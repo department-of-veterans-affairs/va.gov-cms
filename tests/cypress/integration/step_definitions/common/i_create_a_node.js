@@ -558,7 +558,9 @@ Given("I create a {string} node", (contentType) => {
     cy.checkAccessibility();
     cy.getDrupalSettings().then((drupalSettings) => {
       const { currentPath } = drupalSettings.path;
-      cy.wrap(currentPath.split("/").pop()).as("nodeId");
+      const nodeId = currentPath.split("/").pop();
+      cy.wrap(nodeId).as("nodeId");
+      cy.trackEntity("nodes", nodeId, { type: contentType });
       cy.window().then((window) => {
         const pagePath = window.location.pathname;
         cy.wrap(pagePath).as("pagePath");
@@ -593,7 +595,9 @@ Given("I create a {string} node and continue", (contentType) => {
       const { currentPath } = drupalSettings.path;
       const pathComponents = currentPath.split("/");
       pathComponents.pop();
-      cy.wrap(pathComponents.pop()).as("nodeId");
+      const nodeId = pathComponents.pop();
+      cy.wrap(nodeId).as("nodeId");
+      cy.trackEntity("nodes", nodeId, { type: contentType });
       cy.window().then((window) => {
         const pagePath = window.location.pathname;
         cy.wrap(pagePath).as("pagePath");
