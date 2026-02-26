@@ -134,7 +134,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function alterVbaFacilityNodeForm(FormIdAlterEvent $event): void {
-    $form = $event->getForm();
+    $form = &$event->getForm();
     $this->addStateManagementToBannerFields($event);
     $this->changeBannerType($event);
     $this->changeDismissibleOption($event);
