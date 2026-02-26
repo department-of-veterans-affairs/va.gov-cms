@@ -4,32 +4,34 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-(function (Drupal) {
+(function (Drupal, once) {
   Drupal.behaviors.loginFormToggle = {
-    attach: function attach() {
-      document.querySelector(".js-va-login-toggle").addEventListener("click", function (e) {
-        e.preventDefault();
-        var loginForm = document.getElementById("user-login-form");
-        loginForm.classList.toggle("piv-login");
-        loginForm.classList.toggle("form-login");
-        var loginToggle = document.getElementById("edit-toggle");
-        if (loginToggle.value === "Developer log in") {
-          loginToggle.value = "Log in with PIV";
-        } else {
-          loginToggle.value = "Developer log in";
-        }
-        if (loginForm.classList.contains("piv-login")) {
-          var pivLoginLink = document.querySelector("a.piv-login-link");
-          if (pivLoginLink) {
-            pivLoginLink.focus();
+    attach: function attach(context) {
+      once("login-form-toggle", ".js-va-login-toggle", context).forEach(function (toggle) {
+        toggle.addEventListener("click", function (e) {
+          e.preventDefault();
+          var loginForm = document.getElementById("user-login-form");
+          loginForm.classList.toggle("piv-login");
+          loginForm.classList.toggle("form-login");
+          var loginToggle = document.getElementById("edit-toggle");
+          if (loginToggle.value === "Developer log in") {
+            loginToggle.value = "Log in with PIV";
+          } else {
+            loginToggle.value = "Developer log in";
           }
-        } else {
-          var usernameInput = document.querySelector(".js-login-username input");
-          if (usernameInput) {
-            usernameInput.focus();
+          if (loginForm.classList.contains("piv-login")) {
+            var pivLoginLink = document.querySelector("a.piv-login-link");
+            if (pivLoginLink) {
+              pivLoginLink.focus();
+            }
+          } else {
+            var usernameInput = document.querySelector(".js-login-username input");
+            if (usernameInput) {
+              usernameInput.focus();
+            }
           }
-        }
+        });
       });
     }
   };
-})(Drupal);
+})(Drupal, once);
