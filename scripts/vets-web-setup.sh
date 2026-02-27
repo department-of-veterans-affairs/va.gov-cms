@@ -9,13 +9,12 @@ source ~/.bashrc
 #if [ ! -d docroot/vendor/va-gov/vets-website ]; then
 if [ ! -d vets-website ]; then
   git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
+  cd vets-website
 else
+  cd vets-website
   echo "Repo vets-website already cloned. Updating..."
   git pull origin main
 fi
-
-#cd docroot/vendor/va-gov/vets-website
-cd vets-website
 
 nvm install
 nvm use 
