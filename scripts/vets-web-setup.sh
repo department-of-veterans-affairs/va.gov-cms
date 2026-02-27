@@ -16,8 +16,7 @@ else
   git pull origin $(git rev-parse --abbrev-ref HEAD)
 fi
 
-nvm install
-nvm use 
+nvm install && nvm use
 npm install -g yarn
 
 echo "Node $(node -v)"
