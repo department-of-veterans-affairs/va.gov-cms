@@ -13,7 +13,7 @@ if [ ! -d vets-website ]; then
 else
   cd vets-website
   echo "Repo vets-website already cloned. Updating..."
-  git pull origin main
+  git pull origin $(git rev-parse --abbrev-ref HEAD)
 fi
 
 nvm install
