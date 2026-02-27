@@ -6,14 +6,13 @@ export NVM_DIR="$HOME/.nvm"
 source ~/.bashrc
 
 # Installs & builds vets-website dependencies for next-build preview.
-#if [ ! -d docroot/vendor/va-gov/vets-website ]; then
 if [ ! -d vets-website ]; then
   git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
   cd vets-website
 else
   cd vets-website
   echo "Repo vets-website already cloned. Updating..."
-  git pull origin $(git rev-parse --abbrev-ref HEAD)
+  git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
 fi
 
 nvm install
