@@ -35,7 +35,7 @@ Scenario: Log in and create a Person Profile with attention to conditional field
 
   # Create the page with intention of using biography but only providing First sentence.
   Given I fill in field with selector "#edit-field-intro-text-0-value" with value "[Test Data] First sentence."
-  And I click the "Save draft and continue editing" button
+  And I click the button to create node
   Then I should see "1 error has been found: Body text"
 
   # Create the page with intention of using biography providing required fields.

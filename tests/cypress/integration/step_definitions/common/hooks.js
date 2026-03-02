@@ -1,9 +1,4 @@
-import { Before, After } from "@badeball/cypress-cucumber-preprocessor";
-
-Before(() => {
-  // Optional: Log test start
-  cy.log(`Starting test: ${(this.pickle && this.pickle.name) || "Unknown"}`);
-});
+import { After } from "@badeball/cypress-cucumber-preprocessor";
 
 After(() => {
   // Clean up all entities created during this test

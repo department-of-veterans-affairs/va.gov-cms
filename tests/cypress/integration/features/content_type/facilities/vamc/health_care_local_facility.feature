@@ -19,5 +19,5 @@ Feature: CMS Users may effectively interact with the VAMC Facility form
     Then an element with the selector '[data-drupal-selector="edit-group-covid-19-safety-guidelines"]' should not exist
     And I scroll to position "bottom"
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
-    And I click the "Save draft and continue editing" button
+    And I click the button to create node
     Then "[Test Data] Facility Name" should exist
