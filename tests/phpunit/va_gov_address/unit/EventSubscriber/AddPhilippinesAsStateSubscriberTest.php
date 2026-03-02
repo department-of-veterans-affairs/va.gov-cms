@@ -5,13 +5,13 @@ namespace tests\phpunit\va_gov_address\unit\EventSubscriber;
 use Drupal\address\Event\AddressEvents;
 use Drupal\address\Event\SubdivisionsEvent;
 use Drupal\Tests\UnitTestCase;
-use Drupal\va_gov_address\EventSubscriber\AddPhilippinesAsStateSubscriber;
+use Drupal\va_gov_address\EventSubscriber\AddCountriesAsStatesSubscriber;
 use Prophecy\Argument;
 
 /**
  * Tests custom US address group.
  *
- * @coversDefaultClass \Drupal\va_gov_address\EventSubscriber\AddPhilippinesAsStateSubscriber
+ * @coversDefaultClass \Drupal\va_gov_address\EventSubscriber\AddCountriesAsStatesSubscriber
  *
  * @group va_gov_address
  */
@@ -20,16 +20,16 @@ class AddPhilippinesAsStateSubscriberTest extends UnitTestCase {
   /**
    * The event subscriber under test.
    *
-   * @var \Drupal\va_gov_address\EventSubscriber\AddPhilippinesAsStateSubscriber
+   * @var \Drupal\va_gov_address\EventSubscriber\AddCountriesAsStatesSubscriber
    */
-  protected AddPhilippinesAsStateSubscriber $subscriber;
+  protected AddCountriesAsStatesSubscriber $subscriber;
 
   /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->subscriber = new AddPhilippinesAsStateSubscriber();
+    $this->subscriber = new AddCountriesAsStatesSubscriber();
   }
 
   /**
@@ -38,7 +38,7 @@ class AddPhilippinesAsStateSubscriberTest extends UnitTestCase {
    * @covers ::getSubscribedEvents
    */
   public function testGetSubscribedEvents() {
-    $events = AddPhilippinesAsStateSubscriber::getSubscribedEvents();
+    $events = AddCountriesAsStatesSubscriber::getSubscribedEvents();
     $this->assertArrayHasKey(AddressEvents::SUBDIVISIONS, $events);
     $this->assertIsArray($events[AddressEvents::SUBDIVISIONS]);
     $this->assertEquals(['onSubdivisions'], array_column($events[AddressEvents::SUBDIVISIONS], 0));
