@@ -5,6 +5,7 @@ let createdEntities = {
   paragraphs: [],
   taxonomyTerms: [],
   files: [],
+  users: [],
 };
 
 // Track any entity type
@@ -55,6 +56,14 @@ Cypress.Commands.add("cleanupTestContent", () => {
     });
   }
 
+  if (createdEntities.users.length > 0) {
+    createdEntities.users.reverse().forEach(({ id }) => {
+      cy.drupalDrushCommand(`entity:delete user ${id} --yes`, {
+        failOnNonZeroExit: false,
+      });
+    });
+  }
+
   // Reset tracking
   createdEntities = {
     nodes: [],
@@ -62,6 +71,7 @@ Cypress.Commands.add("cleanupTestContent", () => {
     paragraphs: [],
     taxonomyTerms: [],
     files: [],
+    users: [],
   };
 
   cy.log("Test cleanup complete");

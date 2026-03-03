@@ -20,7 +20,7 @@ Feature: Content Type: VAMC Operating Status
     And I click the "Create banner alert" button
     And I wait "5" seconds
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
-    And I click the button to create node
+    And I click the button to create node and continue
     Then "Pages for the following VAMC systems" should exist
     And "[Test Data] Alert Title" should exist
     And I scroll to position "bottom"

@@ -8,4 +8,8 @@ Then(`I am logged in as a user with the {string} role`, (text) => {
   cy.wrap(password).as("password");
   cy.drupalAddUserWithRole(text, username, password);
   cy.drupalLogin(username, password);
+  cy.drupalGetUserIdByUsername(username).then((userId) => {
+    cy.log(`Tracking user with user ID: ${userId}`);
+    cy.trackEntity("users", userId, {});
+  });
 });

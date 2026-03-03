@@ -47,6 +47,7 @@ class TestCleanupCommands extends DrushCommands {
       'node' => 'title',
       'media' => 'name',
       'taxonomy_term' => 'name',
+      'user' => 'name',
     ];
 
     foreach ($entity_configs as $entity_type => $title_field) {
@@ -56,7 +57,11 @@ class TestCleanupCommands extends DrushCommands {
       $query = $storage->getQuery()
         ->condition($title_field, '[Test Data]%', 'LIKE')
         ->accessCheck(FALSE);
-
+      if ($entity_type === 'user') {
+        $query = $storage->getQuery()
+          ->condition($title_field, 'test__%', 'LIKE')
+          ->accessCheck(FALSE);
+      }
       $ids = $query->execute();
 
       if (empty($ids)) {
