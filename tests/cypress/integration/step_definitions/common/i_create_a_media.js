@@ -134,6 +134,7 @@ Given("I create a {string} media", (mediaType) => {
         cy.wrap(mediaPath).as("mediaPath");
         cy.wrap(mediaId).as("mediaId");
         cy.wrap(mediaPath).as("pagePath");
+        cy.trackEntity("media", mediaId, { type: mediaType });
         return cy.visit(mediaPath);
       });
   });
