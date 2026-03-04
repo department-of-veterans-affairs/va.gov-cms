@@ -46,27 +46,10 @@
           }
         }
 
-        // Attach to all currently-present nodes.
-        Array.from(root.querySelectorAll(selector)).forEach(attachIfNeeded);
-
-        // Helper to process a node and its descendants.
-        function processNode(node) {
-          if (node.nodeType !== 1) return;
-          if (node.matches && node.matches(selector)) {
-            attachIfNeeded(node);
-          }
-          if (node.querySelectorAll) {
-            Array.from(node.querySelectorAll(selector)).forEach(attachIfNeeded);
-          }
+        // Attach to all currently-present nodes within the provided root.
+        if (root && typeof root.querySelectorAll === "function") {
+          Array.from(root.querySelectorAll(selector)).forEach(attachIfNeeded);
         }
-
-        // Observe future nodes and attach when they appear.
-        const mo = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            Array.from(mutation.addedNodes).forEach(processNode);
-          });
-        });
-        mo.observe(root, { childList: true, subtree: true });
       }
 
       // Add media button delegation (mousedown/touchstart/keydown based).
