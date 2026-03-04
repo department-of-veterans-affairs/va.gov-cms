@@ -82,10 +82,24 @@
         trackAddMediaClick,
         context
       );
+      // Only treat Enter/Space keydown as an activation for analytics.
+      function handleAddMediaKeydown(event) {
+        const key = event && event.key;
+        const keyCode = event && event.keyCode;
+        if (
+          key === "Enter" ||
+          key === " " ||
+          key === "Spacebar" ||
+          keyCode === 13 ||
+          keyCode === 32
+        ) {
+          trackAddMediaClick();
+        }
+      }
       attachEventToAll(
         "input[data-drupal-selector$='field-media-open-button']",
         "keydown",
-        trackAddMediaClick,
+        handleAddMediaKeydown,
         context
       );
 
