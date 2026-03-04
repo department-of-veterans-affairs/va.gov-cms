@@ -37,25 +37,9 @@
             el.dataset["vaGovMediaAttached" + eventType] = "1";
           }
         }
-        Array.from(root.querySelectorAll(selector)).forEach(attachIfNeeded);
-        function processNode(node) {
-          if (node.nodeType !== 1) return;
-          if (node.matches && node.matches(selector)) {
-            attachIfNeeded(node);
-          }
-          if (node.querySelectorAll) {
-            Array.from(node.querySelectorAll(selector)).forEach(attachIfNeeded);
-          }
+        if (root && typeof root.querySelectorAll === "function") {
+          Array.from(root.querySelectorAll(selector)).forEach(attachIfNeeded);
         }
-        var mo = new MutationObserver(function (mutations) {
-          mutations.forEach(function (mutation) {
-            Array.from(mutation.addedNodes).forEach(processNode);
-          });
-        });
-        mo.observe(root, {
-          childList: true,
-          subtree: true
-        });
       }
       attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "mousedown", trackAddMediaClick, context);
       attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "touchstart", trackAddMediaClick, context);
