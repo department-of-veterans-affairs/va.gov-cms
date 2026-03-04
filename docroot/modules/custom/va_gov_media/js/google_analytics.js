@@ -59,7 +59,14 @@
       }
       attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "mousedown", trackAddMediaClick, context);
       attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "touchstart", trackAddMediaClick, context);
-      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "keydown", trackAddMediaClick, context);
+      function handleAddMediaKeydown(event) {
+        var key = event && event.key;
+        var keyCode = event && event.keyCode;
+        if (key === "Enter" || key === " " || key === "Spacebar" || keyCode === 13 || keyCode === 32) {
+          trackAddMediaClick();
+        }
+      }
+      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "keydown", handleAddMediaKeydown, context);
       if (!document.vaGovMediaAltDelegated) {
         document.vaGovMediaAltDelegated = true;
         var altSelector = 'input[data-drupal-selector$="edit-media-0-fields-image-0-alt"]';
