@@ -76,7 +76,9 @@ const creators = {
         cy.get("button").contains("Save and insert").click({ force: true });
       });
     cy.contains("Hero banner").click({ force: true });
-
+    cy.get(".media-library-item > input[type=hidden]").then((input) => {
+      cy.trackEntity("media", input[0].value, { type: "image" });
+    });
     // Why this matters
     cy.contains("Why this matters").scrollIntoView();
     cy.contains("Why this matters").click({ force: true });
@@ -164,6 +166,9 @@ const creators = {
       .within(() => {
         cy.get("button").contains("Save and insert").click({ force: true });
         cy.wait(5000);
+        cy.get(".media-library-item > input[type=hidden]").then((input) => {
+          cy.trackEntity("media", input[0].value, { type: "image" });
+        });
       });
     cy.get("iframe.entity-browser-modal-iframe")
       .iframe()
@@ -325,6 +330,9 @@ const creators = {
         timeout: 20000,
       }
     ).should("exist");
+    cy.get(".media-library-item > input[type=hidden]").then((input) => {
+      cy.trackEntity("media", input[0].value, { type: "image" });
+    });
     cy.findAllByLabelText("At a non-VA location").check({ force: true });
     cy.findAllByLabelText("Street address").type(
       faker.address.streetAddress(),
