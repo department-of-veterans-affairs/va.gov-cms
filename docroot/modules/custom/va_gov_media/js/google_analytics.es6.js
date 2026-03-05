@@ -136,12 +136,21 @@
       function delegatedAltTextRegenerateHandler(e) {
         const aiAltTextRegenerateSelector =
           "[data-drupal-selector*='ai-alt-text-generation']";
-        const button = e.target.closest(aiAltTextRegenerateSelector);
+        const button =
+          e.target &&
+          e.target.closest &&
+          e.target.closest(aiAltTextRegenerateSelector);
         if (button) {
+          const key = e && e.key;
+          const keyCode = e && e.keyCode;
           if (
+            key === "Enter" ||
+            key === " " ||
+            key === "Spacebar" ||
+            keyCode === 13 ||
+            keyCode === 32 ||
             e.type === "mousedown" ||
-            e.type === "touchstart" ||
-            e.type === "keydown"
+            e.type === "touchstart"
           ) {
             trackAiAltGenerationClick();
           }
@@ -166,7 +175,8 @@
       function delegatedSubmitClickHandler(e) {
         const submitSelector =
           "button.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])";
-        const button = e.target.closest(submitSelector);
+        const button =
+          e.target && e.target.closest && e.target.closest(submitSelector);
         if (!button) return;
         trackSubmitClick();
       }

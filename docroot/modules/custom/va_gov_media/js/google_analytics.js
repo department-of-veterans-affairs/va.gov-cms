@@ -76,9 +76,11 @@
       }
       function delegatedAltTextRegenerateHandler(e) {
         var aiAltTextRegenerateSelector = "[data-drupal-selector*='ai-alt-text-generation']";
-        var button = e.target.closest(aiAltTextRegenerateSelector);
+        var button = e.target && e.target.closest && e.target.closest(aiAltTextRegenerateSelector);
         if (button) {
-          if (e.type === "mousedown" || e.type === "touchstart" || e.type === "keydown") {
+          var key = e && e.key;
+          var keyCode = e && e.keyCode;
+          if (key === "Enter" || key === " " || key === "Spacebar" || keyCode === 13 || keyCode === 32 || e.type === "mousedown" || e.type === "touchstart") {
             trackAiAltGenerationClick();
           }
         }
@@ -91,7 +93,7 @@
       }
       function delegatedSubmitClickHandler(e) {
         var submitSelector = "button.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])";
-        var button = e.target.closest(submitSelector);
+        var button = e.target && e.target.closest && e.target.closest(submitSelector);
         if (!button) return;
         trackSubmitClick();
       }
