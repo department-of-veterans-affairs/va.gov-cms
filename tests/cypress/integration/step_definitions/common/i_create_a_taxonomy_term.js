@@ -81,17 +81,11 @@ Given("I create a {string} taxonomy term", (vocabulary) => {
     cy.getLastCreatedTaxonomyTerm().then((tidCommand) => {
       cy.log(tidCommand);
       cy.wrap(tidCommand.stdout).as("termId");
+      cy.trackEntity("taxonomyTerms", tidCommand.stdout, { vocabulary });
     });
     cy.window().then((window) => {
       const pagePath = window.location.pathname;
       cy.wrap(pagePath).as("pagePath");
-    });
-    cy.getDrupalSettings().then((drupalSettings) => {
-      const { currentPath } = drupalSettings.path;
-      const termId = currentPath.split("/").pop();
-      cy.wrap(termId).as("termId");
-      // Track the created taxonomy term for cleanup
-      cy.trackEntity("taxonomyTerms", termId, { vocabulary });
     });
   });
 });
