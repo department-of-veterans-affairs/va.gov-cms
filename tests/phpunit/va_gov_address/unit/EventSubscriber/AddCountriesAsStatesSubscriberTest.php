@@ -15,7 +15,7 @@ use Prophecy\Argument;
  *
  * @group va_gov_address
  */
-class AddPhilippinesAsStateSubscriberTest extends UnitTestCase {
+class AddCountriesAsStatesSubscriberTest extends UnitTestCase {
 
   /**
    * The event subscriber under test.
@@ -72,7 +72,11 @@ class AddPhilippinesAsStateSubscriberTest extends UnitTestCase {
     $event->setDefinitions(Argument::that(function ($definitions) {
       // Validate that Philippines (PH) is added as a subdivision.
       return isset($definitions['subdivisions']['PH'])
-        && $definitions['subdivisions']['PH']['name'] === 'Philippines';
+        && isset($definitions['subdivisions']['DE'])
+        && isset($definitions['subdivisions']['KR'])
+        && $definitions['subdivisions']['PH']['name'] === 'Philippines'
+        && $definitions['subdivisions']['DE']['name'] === 'Germany'
+        && $definitions['subdivisions']['KR']['name'] === 'South Korea';
     }))->shouldBeCalled();
 
     // Call the onSubdivisions method.
