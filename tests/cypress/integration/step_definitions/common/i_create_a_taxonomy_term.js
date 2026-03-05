@@ -86,5 +86,12 @@ Given("I create a {string} taxonomy term", (vocabulary) => {
       const pagePath = window.location.pathname;
       cy.wrap(pagePath).as("pagePath");
     });
+    cy.getDrupalSettings().then((drupalSettings) => {
+      const { currentPath } = drupalSettings.path;
+      const termId = currentPath.split("/").pop();
+      cy.wrap(termId).as("termId");
+      // Track the created taxonomy term for cleanup
+      cy.trackEntity("taxonomyTerms", termId, { vocabulary });
+    });
   });
 });
