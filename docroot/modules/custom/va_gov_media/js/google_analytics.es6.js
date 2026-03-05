@@ -32,59 +32,37 @@
 
   // Attach event listeners via Drupal behaviors so this works with AJAX.
   Drupal.behaviors.vaGovMedia = {
-    attach: function vaGovMediaAttach(context) {
-      function attachEventToAll(selector, eventType, handler, rootContext) {
-        const root =
-          rootContext && typeof rootContext.querySelector === "function"
-            ? rootContext
-            : document;
-
-        function attachIfNeeded(el) {
-          if (!el.dataset[`vaGovMediaAttached${eventType}`]) {
-            el.addEventListener(eventType, handler);
-            el.dataset[`vaGovMediaAttached${eventType}`] = "1";
-          }
-        }
-
-        // Attach to all currently-present nodes within the provided root.
-        if (root && typeof root.querySelectorAll === "function") {
-          Array.from(root.querySelectorAll(selector)).forEach(attachIfNeeded);
-        }
-      }
-
-      // Add media button delegation (mousedown/touchstart/keydown based).
-      attachEventToAll(
-        "input[data-drupal-selector$='field-media-open-button']",
-        "mousedown",
-        trackAddMediaClick,
-        context
-      );
-      attachEventToAll(
-        "input[data-drupal-selector$='field-media-open-button']",
-        "touchstart",
-        trackAddMediaClick,
-        context
-      );
-      // Only treat Enter/Space keydown as an activation for analytics.
-      function handleAddMediaKeydown(event) {
-        const key = event && event.key;
-        const keyCode = event && event.keyCode;
-        if (
+    attach: function vaGovMediaAttach() {
+      function isActivationEvent(e) {
+        const key = e && e.key;
+        const keyCode = e && e.keyCode;
+        return (
+          e.type === "mousedown" ||
+          e.type === "touchstart" ||
           key === "Enter" ||
           key === " " ||
           key === "Spacebar" ||
           keyCode === 13 ||
           keyCode === 32
-        ) {
-          trackAddMediaClick();
-        }
+        );
       }
-      attachEventToAll(
-        "input[data-drupal-selector$='field-media-open-button']",
-        "keydown",
-        handleAddMediaKeydown,
-        context
-      );
+
+      // Add media open button: pure delegated handling attached once.
+      function delegatedAddMediaHandler(e) {
+        const addMediaSelector =
+          "input[data-drupal-selector$='field-media-open-button']";
+        const button =
+          e.target && e.target.closest && e.target.closest(addMediaSelector);
+        if (!button || !isActivationEvent(e)) return;
+        trackAddMediaClick();
+      }
+
+      if (!document.vaGovMediaAddDelegated) {
+        document.vaGovMediaAddDelegated = true;
+        document.addEventListener("mousedown", delegatedAddMediaHandler, true);
+        document.addEventListener("touchstart", delegatedAddMediaHandler, true);
+        document.addEventListener("keydown", delegatedAddMediaHandler, true);
+      }
 
       // Alt text field delegation (focus/blur based).
       if (!document.vaGovMediaAltDelegated) {
@@ -140,21 +118,8 @@
           e.target &&
           e.target.closest &&
           e.target.closest(aiAltTextRegenerateSelector);
-        if (button) {
-          const key = e && e.key;
-          const keyCode = e && e.keyCode;
-          if (
-            key === "Enter" ||
-            key === " " ||
-            key === "Spacebar" ||
-            keyCode === 13 ||
-            keyCode === 32 ||
-            e.type === "mousedown" ||
-            e.type === "touchstart"
-          ) {
-            trackAiAltGenerationClick();
-          }
-        }
+        if (!button || !isActivationEvent(e)) return;
+        trackAiAltGenerationClick();
       }
 
       if (!document.vaGovMediaAiRegenerateDelegated) {
@@ -162,13 +127,19 @@
 
         document.addEventListener(
           "mousedown",
-          delegatedAltTextRegenerateHandler
+          delegatedAltTextRegenerateHandler,
+          true
         );
         document.addEventListener(
           "touchstart",
-          delegatedAltTextRegenerateHandler
+          delegatedAltTextRegenerateHandler,
+          true
         );
-        document.addEventListener("keydown", delegatedAltTextRegenerateHandler);
+        document.addEventListener(
+          "keydown",
+          delegatedAltTextRegenerateHandler,
+          true
+        );
       }
 
       // Submit tracking: listen for form submit

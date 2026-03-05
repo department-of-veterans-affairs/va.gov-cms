@@ -28,29 +28,24 @@
     sendMediaEvent("submit_click", "submit");
   }
   Drupal.behaviors.vaGovMedia = {
-    attach: function vaGovMediaAttach(context) {
-      function attachEventToAll(selector, eventType, handler, rootContext) {
-        var root = rootContext && typeof rootContext.querySelector === "function" ? rootContext : document;
-        function attachIfNeeded(el) {
-          if (!el.dataset["vaGovMediaAttached" + eventType]) {
-            el.addEventListener(eventType, handler);
-            el.dataset["vaGovMediaAttached" + eventType] = "1";
-          }
-        }
-        if (root && typeof root.querySelectorAll === "function") {
-          Array.from(root.querySelectorAll(selector)).forEach(attachIfNeeded);
-        }
+    attach: function vaGovMediaAttach() {
+      function isActivationEvent(e) {
+        var key = e && e.key;
+        var keyCode = e && e.keyCode;
+        return e.type === "mousedown" || e.type === "touchstart" || key === "Enter" || key === " " || key === "Spacebar" || keyCode === 13 || keyCode === 32;
       }
-      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "mousedown", trackAddMediaClick, context);
-      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "touchstart", trackAddMediaClick, context);
-      function handleAddMediaKeydown(event) {
-        var key = event && event.key;
-        var keyCode = event && event.keyCode;
-        if (key === "Enter" || key === " " || key === "Spacebar" || keyCode === 13 || keyCode === 32) {
-          trackAddMediaClick();
-        }
+      function delegatedAddMediaHandler(e) {
+        var addMediaSelector = "input[data-drupal-selector$='field-media-open-button']";
+        var button = e.target && e.target.closest && e.target.closest(addMediaSelector);
+        if (!button || !isActivationEvent(e)) return;
+        trackAddMediaClick();
       }
-      attachEventToAll("input[data-drupal-selector$='field-media-open-button']", "keydown", handleAddMediaKeydown, context);
+      if (!document.vaGovMediaAddDelegated) {
+        document.vaGovMediaAddDelegated = true;
+        document.addEventListener("mousedown", delegatedAddMediaHandler, true);
+        document.addEventListener("touchstart", delegatedAddMediaHandler, true);
+        document.addEventListener("keydown", delegatedAddMediaHandler, true);
+      }
       if (!document.vaGovMediaAltDelegated) {
         document.vaGovMediaAltDelegated = true;
         var altSelector = 'input[data-drupal-selector$="edit-media-0-fields-image-0-alt"]';
@@ -77,19 +72,14 @@
       function delegatedAltTextRegenerateHandler(e) {
         var aiAltTextRegenerateSelector = "[data-drupal-selector*='ai-alt-text-generation']";
         var button = e.target && e.target.closest && e.target.closest(aiAltTextRegenerateSelector);
-        if (button) {
-          var key = e && e.key;
-          var keyCode = e && e.keyCode;
-          if (key === "Enter" || key === " " || key === "Spacebar" || keyCode === 13 || keyCode === 32 || e.type === "mousedown" || e.type === "touchstart") {
-            trackAiAltGenerationClick();
-          }
-        }
+        if (!button || !isActivationEvent(e)) return;
+        trackAiAltGenerationClick();
       }
       if (!document.vaGovMediaAiRegenerateDelegated) {
         document.vaGovMediaAiRegenerateDelegated = true;
-        document.addEventListener("mousedown", delegatedAltTextRegenerateHandler);
-        document.addEventListener("touchstart", delegatedAltTextRegenerateHandler);
-        document.addEventListener("keydown", delegatedAltTextRegenerateHandler);
+        document.addEventListener("mousedown", delegatedAltTextRegenerateHandler, true);
+        document.addEventListener("touchstart", delegatedAltTextRegenerateHandler, true);
+        document.addEventListener("keydown", delegatedAltTextRegenerateHandler, true);
       }
       function delegatedSubmitClickHandler(e) {
         var submitSelector = "button.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])";
