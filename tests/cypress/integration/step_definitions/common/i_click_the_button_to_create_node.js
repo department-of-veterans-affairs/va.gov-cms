@@ -23,7 +23,7 @@ Given(`I click the button to create node and continue`, () => {
 });
 
 Given(`I click the button to create node`, () => {
-  cy.contains("input", "Save").click({
+  cy.get("input#edit-submit").click({
     force: true,
   });
   cy.location("pathname", { timeout: 10000 }).should(

@@ -2,9 +2,7 @@
 let createdEntities = {
   nodes: [],
   media: [],
-  paragraphs: [],
   taxonomyTerms: [],
-  files: [],
   users: [],
 };
 
@@ -20,17 +18,6 @@ Cypress.Commands.add("trackEntity", (type, id, metadata = {}) => {
 // Main cleanup command
 Cypress.Commands.add("cleanupTestContent", () => {
   cy.log("Starting test cleanup...");
-
-  // Delete in reverse order of creation to handle dependencies
-  // Order: paragraphs -> media -> nodes -> taxonomy terms
-
-  if (createdEntities.paragraphs.length > 0) {
-    createdEntities.paragraphs.reverse().forEach(({ id }) => {
-      cy.drupalDrushCommand(`entity:delete paragraph ${id} --yes`, {
-        failOnNonZeroExit: false,
-      });
-    });
-  }
 
   if (createdEntities.media.length > 0) {
     createdEntities.media.reverse().forEach(({ id }) => {
