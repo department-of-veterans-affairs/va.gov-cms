@@ -54,13 +54,17 @@ class TestCleanupCommands extends DrushCommands {
       $storage = $this->entityTypeManager->getStorage($entity_type);
 
       // Query for entities with [Test Data] prefix.
-      $query = $storage->getQuery()
-        ->condition($title_field, '[Test Data]%', 'LIKE')
-        ->accessCheck(FALSE);
+      $query = $storage->getQuery()->accessCheck(FALSE);
       if ($entity_type === 'user') {
         $query = $storage->getQuery()
           ->condition($title_field, 'test__%', 'LIKE')
           ->accessCheck(FALSE);
+      }
+      else {
+        $or = $query->orConditionGroup()
+          ->condition($title_field, '[Test Data]%', 'LIKE')
+          ->condition($title_field, 'polygon_image.png', '=');
+        $query->condition($or);
       }
       $ids = $query->execute();
 
