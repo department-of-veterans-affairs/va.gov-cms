@@ -83,6 +83,7 @@ Given("I create a {string} taxonomy term", (vocabulary) => {
       { force: true }
     );
     cy.get("form.taxonomy-term-form").find("input#edit-submit").click();
+    cy.contains("Created new term").should("exist");
     cy.getLastCreatedTaxonomyTerm().then((tidCommand) => {
       cy.log(tidCommand);
       cy.wrap(tidCommand.stdout).as("termId");
