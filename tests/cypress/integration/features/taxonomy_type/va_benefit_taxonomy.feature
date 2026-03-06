@@ -10,6 +10,7 @@ Feature: Taxonomy: VA Benefits
     And an element with the selector "#edit-field-va-benefit-api-id-0-value" should exist
     And an element with the selector "#edit-relations" should not exist
 
-  Scenario: Log in and create a va benefit.
+  @skip
+  Scenario: Log in and create a va benefit. (skipped since these can't be created on tugboat)
     Given I am logged in as a user with the "administrator" role
     Then I create a "va_benefits_taxonomy" taxonomy term

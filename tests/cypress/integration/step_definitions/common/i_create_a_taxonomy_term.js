@@ -57,7 +57,12 @@ const creators = {
       faker.datatype.number(),
       { force: true }
     );
-
+    cy.findAllByLabelText("Teaser summary").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.findAllByLabelText("Introduction").type(faker.lorem.sentence(), {
+      force: true,
+    });
     cy.get("#edit-moderation-state-0-state").select("published", {
       force: true,
     });
