@@ -258,3 +258,13 @@ body:not(.role-admin) {
 #edit-field-publish-to-outreach-cal-wrapper label {
   margin-left: var(--spacing-xs);
 }
+
+// Prevent long unbroken pasted text from overflowing node edit forms.
+.layout--edit {
+  .ck-editor__editable,
+  .ck-content,
+  .text-formatted {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
