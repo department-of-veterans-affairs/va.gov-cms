@@ -55,9 +55,7 @@ Cypress.Commands.add("cleanupTestContent", () => {
   createdEntities = {
     nodes: [],
     media: [],
-    paragraphs: [],
     taxonomyTerms: [],
-    files: [],
     users: [],
   };
 
