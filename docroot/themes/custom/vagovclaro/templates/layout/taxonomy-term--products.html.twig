@@ -29,9 +29,14 @@
     'vocabulary-' ~ term.bundle|clean_class,
   ]
 %}
+{%
+  set hide_contextual_links = term.bundle == 'health_care_service_taxonomy' and view_mode in ['vamc_facility_service', 'vba_facility_service', 'vet_center_service']
+%}
 <div{{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
-  {{ title_prefix }}
-  {{ title_suffix }}
+  {% if not hide_contextual_links %}
+    {{ title_prefix }}
+    {{ title_suffix }}
+  {% endif %}
   <div class="content">
     {# {% if content.field_kb_landing_page.0 is not empty %} Commenting out linked terms for future implementation
       <a href="/node/{{content.field_kb_landing_page.0}}" >
