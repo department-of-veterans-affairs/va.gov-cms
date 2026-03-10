@@ -5,31 +5,31 @@ namespace tests\phpunit\va_gov_address\unit\EventSubscriber;
 use Drupal\address\Event\AddressEvents;
 use Drupal\address\Event\SubdivisionsEvent;
 use Drupal\Tests\UnitTestCase;
-use Drupal\va_gov_address\EventSubscriber\AddCountriesAsStatesSubscriber;
+use Drupal\va_gov_address\EventSubscriber\AddPhilippinesAsStateSubscriber;
 use Prophecy\Argument;
 
 /**
  * Tests custom US address group.
  *
- * @coversDefaultClass \Drupal\va_gov_address\EventSubscriber\AddCountriesAsStatesSubscriber
+ * @coversDefaultClass \Drupal\va_gov_address\EventSubscriber\AddPhilippinesAsStateSubscriber
  *
  * @group va_gov_address
  */
-class AddCountriesAsStatesSubscriberTest extends UnitTestCase {
+class AddPhilippinesAsStateSubscriberTest extends UnitTestCase {
 
   /**
    * The event subscriber under test.
    *
-   * @var \Drupal\va_gov_address\EventSubscriber\AddCountriesAsStatesSubscriber
+   * @var \Drupal\va_gov_address\EventSubscriber\AddPhilippinesAsStateSubscriber
    */
-  protected AddCountriesAsStatesSubscriber $subscriber;
+  protected AddPhilippinesAsStateSubscriber $subscriber;
 
   /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->subscriber = new AddCountriesAsStatesSubscriber();
+    $this->subscriber = new AddPhilippinesAsStateSubscriber();
   }
 
   /**
@@ -38,7 +38,7 @@ class AddCountriesAsStatesSubscriberTest extends UnitTestCase {
    * @covers ::getSubscribedEvents
    */
   public function testGetSubscribedEvents() {
-    $events = AddCountriesAsStatesSubscriber::getSubscribedEvents();
+    $events = AddPhilippinesAsStateSubscriber::getSubscribedEvents();
     $this->assertArrayHasKey(AddressEvents::SUBDIVISIONS, $events);
     $this->assertIsArray($events[AddressEvents::SUBDIVISIONS]);
     $this->assertEquals(['onSubdivisions'], array_column($events[AddressEvents::SUBDIVISIONS], 0));
@@ -70,14 +70,9 @@ class AddCountriesAsStatesSubscriberTest extends UnitTestCase {
     // Set up expected calls for getParents() and setDefinitions().
     $event->getParents()->willReturn(['US']);
     $event->setDefinitions(Argument::that(function ($definitions) {
-      // Validate that Philippines (PH), Germany (DE), and South Korea (KR)
-      // are added as subdivisions.
+      // Validate that Philippines (PH) is added as a subdivision.
       return isset($definitions['subdivisions']['PH'])
-        && isset($definitions['subdivisions']['DE'])
-        && isset($definitions['subdivisions']['KR'])
-        && $definitions['subdivisions']['PH']['name'] === 'Philippines'
-        && $definitions['subdivisions']['DE']['name'] === 'Germany'
-        && $definitions['subdivisions']['KR']['name'] === 'South Korea';
+        && $definitions['subdivisions']['PH']['name'] === 'Philippines';
     }))->shouldBeCalled();
 
     // Call the onSubdivisions method.
