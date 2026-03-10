@@ -8,5 +8,9 @@ Then(
     cy.wrap(username).as("username");
     cy.drupalAddUserWithRole(role, username, password);
     cy.drupalLogin(username, password);
+    cy.drupalGetUserIdByUsername(username).then((userId) => {
+      cy.log(`Tracking user with user ID: ${userId}`);
+      cy.trackEntity("users", userId, {});
+    });
   }
 );

@@ -111,6 +111,27 @@ Cypress.Commands.add("drupalDrushUserRoleAdd", (username, role) => {
   return cy.drupalDrushCommand(["user:role:add", role, username]);
 });
 
+Cypress.Commands.add("drupalGetUserIdByUsername", (username) => {
+  const escapedUsername = username.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+  const command = `
+    $users = \\Drupal::entityTypeManager()->getStorage('user')->loadByProperties(['name' => '${escapedUsername}']);
+    $user = reset($users);
+    echo $user ? $user->id() : '';
+  `;
+
+  return cy.drupalDrushEval(command).then((output) => {
+    const userId = Number((output.stdout || "").trim());
+
+    if (!userId) {
+      throw new Error(
+        `Could not find Drupal user ID for username: ${username}`
+      );
+    }
+
+    return userId;
+  });
+});
+
 Cypress.Commands.add("drupalAddUserWithRole", (role, username, password) => {
   cy.drupalDrushUserCreate(username, password);
   return cy.drupalDrushUserRoleAdd(username, role);
