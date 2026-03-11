@@ -29,9 +29,6 @@
     'vocabulary-' ~ term.bundle|clean_class,
   ]
 %}
-{%
-  set hide_contextual_links = term.bundle == 'health_care_service_taxonomy' and view_mode in ['vamc_facility_service', 'vba_facility_service', 'vet_center_service']
-%}
 <div{{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
   {% if not hide_contextual_links %}
     {{ title_prefix }}
