@@ -43,11 +43,11 @@ class AddCountriesAsStatesSubscriber implements EventSubscriberInterface {
       'id' => 'PH',
     ];
     // Add Germany as a state.
-    $definitions['subdivisions']['DE'] = [
-      'code' => 'DE',
+    $definitions['subdivisions']['DEU'] = [
+      'code' => 'DEU',
       'name' => 'Germany',
       'country_code' => 'US',
-      'id' => 'DE',
+      'id' => 'DEU',
     ];
     // Add South Korea as a state.
     $definitions['subdivisions']['KR'] = [
