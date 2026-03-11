@@ -1871,6 +1871,7 @@ function _va_gov_backend_has_suspicious_nbsp_density(FieldableEntityInterface $e
 
       $nbsp_count = substr_count($value, '&nbsp;') + substr_count($value, "\xC2\xA0");
       if ($nbsp_count < 5) {
+        // Less than 5 nbsp is very few. Present assumption: This amount is more likely deliberate.
         continue;
       }
 
@@ -1882,6 +1883,11 @@ function _va_gov_backend_has_suspicious_nbsp_density(FieldableEntityInterface $e
 
       $nbsp_ratio = $nbsp_count / $space_like_count;
       if ($nbsp_ratio >= 0.2) {
+        /*
+         * 20% is a rough guess for what threshold constitutes suspiscious nbps:space density.
+         * This value is erring on the side of "only surface warning if it's unreasonable to think this isn't suspiscious"
+         * Tweak as needed.
+         */
         return TRUE;
       }
     }
