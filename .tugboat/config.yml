@@ -85,13 +85,11 @@ services:
       - echo "opcache.validate_timestamps = 1" >> /usr/local/etc/php/conf.d/my-php.ini
 
       # .tugboat/.env.j2 Jinja2 template file support
-      - apt-get install python3-apt python3-distutils python3
-      - curl -O https://bootstrap.pypa.io/get-pip.py
-      # Remove externally managed script causing error in bookworm when python3 tries to install packages
-      - rm /usr/lib/python3.11/EXTERNALLY-MANAGED
-      - python3 get-pip.py
+      # Remove externally managed marker causing error in bookworm when python3 tries to install packages
+      - rm -f /usr/lib/python3.11/EXTERNALLY-MANAGED
+      - apt-get install python3-apt python3-pip python3-setuptools python3
       - echo "export PATH=/var/lib/tugboat/bin:~/.local/bin:$PATH" >> ~/.bashrc
-      - pip3 install setuptools j2cli
+      - pip3 install --break-system-packages j2cli
 
       # Set Datadog agent config defaults
       - j2 "${TUGBOAT_ROOT}/.tugboat/datadog.yaml.j2" -o "/etc/datadog-agent/datadog.yaml"
