@@ -73,10 +73,10 @@ class AddCountriesAsStatesSubscriberTest extends UnitTestCase {
       // Validate that Philippines (PH), Germany (DE), and South Korea (KR)
       // are added as subdivisions.
       return isset($definitions['subdivisions']['PH'])
-        && isset($definitions['subdivisions']['DE'])
+        && isset($definitions['subdivisions']['DEU'])
         && isset($definitions['subdivisions']['KR'])
         && $definitions['subdivisions']['PH']['name'] === 'Philippines'
-        && $definitions['subdivisions']['DE']['name'] === 'Germany'
+        && $definitions['subdivisions']['DEU']['name'] === 'Germany'
         && $definitions['subdivisions']['KR']['name'] === 'South Korea';
     }))->shouldBeCalled();
 
