@@ -1081,8 +1081,16 @@ function va_gov_backend_field_widget_single_element_paragraphs_form_alter(&$elem
   if (in_array($paragraph_entity_reference_field_name, $target_paragraph_ref_fields)) {
     $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
 
-    $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
-    $paragraph_type = $paragraph_instance->bundle();
+    $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'] ?? NULL;
+    if ($paragraph_instance instanceof EntityInterface) {
+      $paragraph_type = $paragraph_instance->bundle();
+    }
+    elseif (!empty($element['#paragraph_type'])) {
+      $paragraph_type = $element['#paragraph_type'];
+    }
+    else {
+      return;
+    }
 
     if ($paragraph_type === 'q_a') {
       _va_gov_backend_restrict_qa_answer_types($element);
