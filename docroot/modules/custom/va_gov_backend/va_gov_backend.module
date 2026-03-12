@@ -1782,7 +1782,118 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
     }
 
     _va_gov_backend_apply_filter_to_tablefield_cells($entity);
+    _va_gov_backend_warn_about_non_breaking_spaces($entity);
   }
+}
+
+/**
+ * Warn editors when rich text appears to be mostly non-breaking spaces.
+ *
+ * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
+ *   The entity being saved.
+ */
+function _va_gov_backend_warn_about_non_breaking_spaces(FieldableEntityInterface $entity): void {
+  $request = \Drupal::requestStack()->getCurrentRequest();
+  if (!$request) {
+    return;
+  }
+
+  // Avoid warning during CLI saves and non-editorial execution contexts.
+  if (PHP_SAPI === 'cli') {
+    return;
+  }
+
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $is_node_form_route = in_array($route_name, ['entity.node.edit_form', 'entity.node.add_form'], TRUE)
+    || strpos($route_name, 'node.add') === 0;
+  if (!$is_node_form_route) {
+    return;
+  }
+
+  $entity_type_id = $entity->getEntityTypeId();
+  if (!in_array($entity_type_id, ['node', 'paragraph'], TRUE)) {
+    return;
+  }
+
+  static $warning_sent = FALSE;
+  if ($warning_sent) {
+    return;
+  }
+
+  if (!_va_gov_backend_has_suspicious_nbsp_density($entity)) {
+    return;
+  }
+
+  \Drupal::messenger()->addWarning(t('Some pasted content appears to contain many non-breaking spaces (@nbsp). This can prevent wrapping and cause layout issues. Consider replacing those with normal spaces.', [
+    '@nbsp' => '&nbsp;',
+  ]));
+  $warning_sent = TRUE;
+}
+
+/**
+ * Determine whether an entity has fields with suspicious NBSP density.
+ *
+ * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
+ *   The entity being saved.
+ *
+ * @return bool
+ *   TRUE when field content looks like bulk-pasted NBSP text.
+ */
+function _va_gov_backend_has_suspicious_nbsp_density(FieldableEntityInterface $entity): bool {
+  $candidate_field_types = [
+    'text',
+    'text_long',
+    'text_with_summary',
+    'string_long',
+  ];
+
+  $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions($entity->getEntityTypeId(), $entity->bundle());
+  foreach ($field_definitions as $field_name => $field_definition) {
+    if (!in_array($field_definition->getType(), $candidate_field_types, TRUE)) {
+      continue;
+    }
+
+    $items = $entity->get($field_name);
+    if ($items->isEmpty()) {
+      continue;
+    }
+
+    foreach ($items as $item) {
+      $value = $item->value ?? '';
+      if (!is_string($value) || trim($value) === '') {
+        continue;
+      }
+
+      $decoded_text = html_entity_decode(strip_tags($value), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+      if (strlen(trim($decoded_text)) < 120) {
+        continue;
+      }
+
+      $nbsp_count = substr_count($value, '&nbsp;') + substr_count($value, "\xC2\xA0");
+      if ($nbsp_count < 5) {
+        // Less than 5 nbsp is very few. Present assumption: This amount is more likely deliberate.
+        continue;
+      }
+
+      $space_count = substr_count($value, ' ');
+      $space_like_count = $space_count + $nbsp_count;
+      if ($space_like_count === 0) {
+        continue;
+      }
+
+      $nbsp_ratio = $nbsp_count / $space_like_count;
+      if ($nbsp_ratio >= 0.2) {
+        /*
+         * 20% is a rough guess for what threshold constitutes suspiscious nbps:space density.
+         * This value is erring on the side of "only surface warning if it's unreasonable to think this isn't suspiscious"
+         * Tweak as needed.
+         */
+        return TRUE;
+      }
+    }
+  }
+
+  return FALSE;
 }
 
 /**

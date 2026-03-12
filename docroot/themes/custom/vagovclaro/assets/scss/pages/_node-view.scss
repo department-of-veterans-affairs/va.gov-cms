@@ -21,6 +21,10 @@
     aside {
       flex: 1 0 0;
     }
+
+    main {
+      min-width: 0;
+    }
   }
 
   /* Three column layout on larger devices. */
@@ -42,6 +46,18 @@
     .layout-sidebar-second {
       order: 3;
       padding-left: 1em;
+    }
+  }
+}
+
+/* Keep pasted content from forcing horizontal overflow in preview/view. */
+.node-columns {
+  main {
+    .text-formatted,
+    .field--type-text-long,
+    .field--type-text-with-summary,
+    .field--type-string-long {
+      overflow-wrap: anywhere;
     }
   }
 }
