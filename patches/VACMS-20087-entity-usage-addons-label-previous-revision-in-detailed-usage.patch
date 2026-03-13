@@ -1,0 +1,124 @@
+diff --git a/src/Service/Usage.php b/src/Service/Usage.php
+--- a/src/Service/Usage.php
++++ b/src/Service/Usage.php
+@@ -4,6 +4,7 @@
+ 
+ use Drupal\block_content\BlockContentInterface;
+ use Drupal\Core\Entity\EntityInterface;
++use Drupal\Core\Entity\RevisionableInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+ use Drupal\entity_usage\EntityUsage;
+@@ -139,7 +140,7 @@
+     $rows = [];
+     $header = [];
+ 
+-    $allUsages = $this->getUsage($entityType, $entityId);
++    $allUsages = $this->getDetailedUsage($entityType, $entityId);
+     // If there is no usage.
+     if (empty($allUsages)) {
+       return 0;
+@@ -147,8 +148,8 @@
+ 
+     foreach ($allUsages as $sourceType => $ids) {
+       // Loop over every usage entry for this entity.
+-      foreach ($ids as $key => $value) {
+-        $sourceEntity = $this->entityTypeManager->getStorage($sourceType)->load($key);
++      foreach ($ids as $usage) {
++        $sourceEntity = $usage['source_entity'];
+         $row = [];
+ 
+         // Show Entity field.
+@@ -164,7 +165,10 @@
+ 
+         // Show Status field.
+         if (in_array('status', $showFields)) {
+-          if (isset($sourceEntity->status)) {
++          if ($this->isPreviousRevisionUsage($usage)) {
++            $published = $this->t('Previous revision');
++          }
++          elseif (isset($sourceEntity->status)) {
+             $published = !empty($sourceEntity->status->value) ? $this->t('Published') : $this->t('Unpublished');
+           }
+           else {
+@@ -232,6 +236,80 @@
+ 
+     return $itemCount;
+   }
++
++  /**
++   * Retrieve revision-aware usage data for detailed usage output.
++   *
++   * @param string $entityType
++   *   Entity type.
++   * @param int $entityId
++   *   Entity ID.
++   *
++   * @return array
++   *   Usage rows keyed by source entity type and source entity ID.
++   */
++  protected function getDetailedUsage($entityType, $entityId) {
++    $entity = $this->entityTypeManager->getStorage($entityType)->load($entityId);
++    if (!$entity) {
++      return [];
++    }
++
++    $allUsages = $this->entityUsage->listSources($entity);
++    $detailedUsage = [];
++
++    foreach ($allUsages as $sourceType => $ids) {
++      foreach ($ids as $sourceId => $records) {
++        $sourceEntity = $this->entityTypeManager->getStorage($sourceType)->load($sourceId);
++        if (!$sourceEntity) {
++          continue;
++        }
++
++        $usage = [
++          'source_entity' => $sourceEntity,
++          'has_default_revision' => TRUE,
++          'has_old_revision' => FALSE,
++        ];
++
++        if ($sourceEntity instanceof RevisionableInterface) {
++          $usage['has_default_revision'] = FALSE;
++          $defaultRevisionId = (int) $sourceEntity->getRevisionId();
++
++          foreach ($records as $record) {
++            if (!array_key_exists('source_vid', $record) || $record['source_vid'] === NULL) {
++              $usage['has_default_revision'] = TRUE;
++              continue;
++            }
++
++            $sourceVid = (int) $record['source_vid'];
++            if ($sourceVid === $defaultRevisionId) {
++              $usage['has_default_revision'] = TRUE;
++            }
++            elseif ($sourceVid < $defaultRevisionId) {
++              $usage['has_old_revision'] = TRUE;
++            }
++          }
++        }
++
++        $detailedUsage[$sourceType][$sourceId] = $usage;
++      }
++    }
++
++    return $detailedUsage;
++  }
++
++  /**
++   * Determine if usage exists only on previous revisions.
++   *
++   * @param array $usage
++   *   Usage metadata for a source entity.
++   *
++   * @return bool
++   *   TRUE when usage is from previous revisions only.
++   */
++  protected function isPreviousRevisionUsage(array $usage): bool {
++    return !empty($usage['has_old_revision']) && empty($usage['has_default_revision']);
++  }
++
+   /**
+    * Retrieve a link to the source entity.
+    *
