@@ -9,4 +9,8 @@ Then(`I am logged in as a user with the roles {string}`, (text) => {
   const roles = text.split(", ");
   cy.drupalAddUserWithRoles(roles, username, password);
   cy.drupalLogin(username, password);
+  cy.drupalGetUserIdByUsername(username).then((userId) => {
+    cy.log(`Tracking user with user ID: ${userId}`);
+    cy.trackEntity("users", userId, {});
+  });
 });

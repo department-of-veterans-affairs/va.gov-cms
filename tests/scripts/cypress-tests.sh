@@ -16,4 +16,6 @@ npm run test:cypress:verify
 
 npm run test:cypress -- "${@}"
 
+drush va-test-cleanup
+
 popd > /dev/null
