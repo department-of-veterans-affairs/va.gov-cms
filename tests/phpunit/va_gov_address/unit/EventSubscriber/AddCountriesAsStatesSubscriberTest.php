@@ -70,7 +70,7 @@ class AddCountriesAsStatesSubscriberTest extends UnitTestCase {
     // Set up expected calls for getParents() and setDefinitions().
     $event->getParents()->willReturn(['US']);
     $event->setDefinitions(Argument::that(function ($definitions) {
-      // Validate that Philippines (PH), Germany (DE), and South Korea (KR)
+      // Validate that Philippines (PH), Germany (DEU), and South Korea (KR)
       // are added as subdivisions.
       return isset($definitions['subdivisions']['PH'])
         && isset($definitions['subdivisions']['DEU'])
