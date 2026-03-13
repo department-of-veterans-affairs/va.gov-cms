@@ -1,0 +1,114 @@
+--- a/src/Service/Usage.php
++++ b/src/Service/Usage.php
+@@ -4,6 +4,8 @@
+ 
+ use Drupal\block_content\BlockContentInterface;
+ use Drupal\Core\Entity\EntityInterface;
++use Drupal\Core\Entity\RevisionableInterface;
++use Drupal\Core\Entity\RevisionableStorageInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+ use Drupal\entity_usage\EntityUsage;
+@@ -140,20 +142,31 @@
+     $header = [];
+ 
+     $allUsages = $this->getUsage($entityType, $entityId);
++    $usageRecords = $this->getUsageRecords($entityType, $entityId);
+     // If there is no usage.
+     if (empty($allUsages)) {
+       return 0;
+     }
+ 
+     foreach ($allUsages as $sourceType => $ids) {
++      $storage = $this->entityTypeManager->getStorage($sourceType);
+       // Loop over every usage entry for this entity.
+-      foreach ($ids as $key => $value) {
+-        $sourceEntity = $this->entityTypeManager->getStorage($sourceType)->load($key);
++      foreach ($ids as $sourceId => $value) {
++        $sourceEntity = $storage->load($sourceId);
++        if (!$sourceEntity) {
++          continue;
++        }
++
++        $displayEntity = $sourceEntity;
++        if ($sourceType === 'paragraph' && $sourceEntity instanceof RevisionableInterface && $storage instanceof RevisionableStorageInterface) {
++          $displayEntity = $this->getDisplayParagraphEntity($sourceEntity, $storage, $usageRecords[$sourceType][$sourceId] ?? []);
++        }
++
+         $row = [];
+ 
+         // Show Entity field.
+         if (in_array('entity', $showFields)) {
+-          $link = $this->getSourceEntityLink($sourceEntity);
++          $link = $this->getSourceEntityLink($displayEntity);
+ 
+           $row[] = $link;
+ 
+@@ -232,6 +245,67 @@
+ 
+     return $itemCount;
+   }
++
++  /**
++   * Retrieve raw usage records for detailed usage output.
++   *
++   * @param string $entityType
++   *   Entity type.
++   * @param int $entityId
++   *   Entity ID.
++   *
++   * @return array
++   *   Usage records keyed by source entity type and source entity ID.
++   */
++  protected function getUsageRecords($entityType, $entityId) {
++    $entity = $this->entityTypeManager->getStorage($entityType)->load($entityId);
++    if (!$entity) {
++      return [];
++    }
++
++    return $this->entityUsage->listSources($entity);
++  }
++
++  /**
++   * Gets the paragraph entity to display on the detailed usage row.
++   *
++   * @param \Drupal\Core\Entity\RevisionableInterface $source_entity
++   *   The source paragraph entity.
++   * @param \Drupal\Core\Entity\RevisionableStorageInterface $storage
++   *   The paragraph storage.
++   * @param array $records
++   *   Usage records for the paragraph entity.
++   *
++   * @return \Drupal\Core\Entity\EntityInterface
++   *   The entity to use when building the displayed label.
++   */
++  protected function getDisplayParagraphEntity(RevisionableInterface $source_entity, RevisionableStorageInterface $storage, array $records) {
++    $defaultRevisionId = (int) $source_entity->getRevisionId();
++    $previousRevisionId = NULL;
++
++    foreach ($records as $record) {
++      if (!is_array($record) || !array_key_exists('source_vid', $record) || $record['source_vid'] === NULL) {
++        return $source_entity;
++      }
++
++      $sourceVid = (int) $record['source_vid'];
++      if ($sourceVid === $defaultRevisionId) {
++        return $source_entity;
++      }
++
++      if ($sourceVid < $defaultRevisionId && ($previousRevisionId === NULL || $sourceVid > $previousRevisionId)) {
++        $previousRevisionId = $sourceVid;
++      }
++    }
++
++    if ($previousRevisionId === NULL) {
++      return $source_entity;
++    }
++
++    $sourceRevision = $storage->loadRevision($previousRevisionId);
++    return $sourceRevision instanceof EntityInterface ? $sourceRevision : $source_entity;
++  }
++
+   /**
+    * Retrieve a link to the source entity.
+    *
