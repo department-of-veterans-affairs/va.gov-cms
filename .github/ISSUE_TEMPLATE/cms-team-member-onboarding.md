@@ -144,8 +144,7 @@ The goal for this week is to get you set up with the tools you need to be succes
 - [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/raw/master/platform/cms/VA-CMS-Product-Sheets.pdf) (PDF download).
 
 ### Access & Delivery
-- [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of Google Analytics collection on VA.gov.
-    - [ ] More information: https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/google-analytics-opt-out
+- [ ] [Opt out](https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/google-analytics-opt-out) of Google Analytics collection on VA.gov.
 - [ ] Opt out of analytics for Platform's website by clicking https://depo-platform-documentation.scrollhelp.site/?internal-user-opt-out=true. **You will not get a confirmation message** and will have to do this for every browser and every time you clear cookies. 
 
 #### Github for issue tracking and document sharing
