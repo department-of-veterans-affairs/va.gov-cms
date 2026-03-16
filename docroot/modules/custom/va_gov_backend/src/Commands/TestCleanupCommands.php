@@ -87,6 +87,9 @@ class TestCleanupCommands extends DrushCommands {
         $entities = $storage->loadMultiple($ids);
         foreach ($entities as $entity) {
           try {
+            // This is not a clean way to break any locks that could exist.
+            // This will still print a warning if any content is locked,
+            // But it will delete the entity still.
             if (isset($entity->_contentModerationState)) {
               $entity->_contentModerationState->delete();
             }
