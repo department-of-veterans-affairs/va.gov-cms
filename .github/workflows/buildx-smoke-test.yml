@@ -1,7 +1,9 @@
 name: Buildx Smoke Test
 
 on:
-  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/buildx-smoke-test.yml"
 
 permissions:
   contents: read
