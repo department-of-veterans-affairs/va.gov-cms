@@ -23,6 +23,7 @@ If you're an engineer, you probably need the SOCKS proxy or VTK.
 ### VFS Toolkit Setup
 
 See [here](https://github.com/department-of-veterans-affairs/vtk#socks) for instructions.
+
 ### SOCKS Proxy Setup
 
 Add the following to `~/.ssh/config`:
@@ -60,7 +61,7 @@ $ composer va:proxy:socks:test
 ## SSH access to CMS Production, Staging
 
 The three primary environments are hosted in the VAEC and managed by VFS's BRD
-System.  Access is controlled and limited to DevOps personnel.
+System. Access is controlled and limited to DevOps personnel.
 
 For more information on how to access these servers via SSH, see [BRD Login docs](./brd-login.md).
 
@@ -69,14 +70,14 @@ For more information on how to access these servers via SSH, see [BRD Login docs
 Going forward the following will apply to anyone working on a VA.gov team
 (including anyone on the platform team):
 
-1. To gain SOCKS access to our tooling (jenkins, grafana, sentry), SAC
-adjudication will need to be completed and returned as "favorable". This should
-take <=8 days from the time a person joins the team.
+1. To gain SOCKS access to our tooling (jenkins, grafana), SAC
+   adjudication will need to be completed and returned as "favorable". This should
+   take <=8 days from the time a person joins the team.
 
 2. To gain access to our AWS environments (console and/or programmatic), eQIP
-adjudication will need to be initiated. this should take <=30 days from the
-time the person joins the team.
+   adjudication will need to be initiated. this should take <=30 days from the
+   time the person joins the team.
 
-----
+---
 
 [Table of Contents](../README.md)
