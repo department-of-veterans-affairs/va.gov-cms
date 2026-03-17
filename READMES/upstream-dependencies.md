@@ -21,10 +21,9 @@ Other points of contact for some services are listed on [DSVA Slack](https://dsv
 **Monitoring**
 
 * Alerting
-   * Slack notifications via Sentry from Drupal errors.
+   * Slack notifications via [Datadog](https://vagov.ddog-gov.com/monitors/88908) from Drupal errors.
 * Error logs
    * `/admin/reports/dblog?type%5B%5D=govdelivery_bulletins` (ephemeral)
-   * https://sentry.vfs.va.gov/organizations/vsp/issues/?query=logger%3Agovdelivery_bulletins
 * Internal
    * (pending) https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6189
 * External
