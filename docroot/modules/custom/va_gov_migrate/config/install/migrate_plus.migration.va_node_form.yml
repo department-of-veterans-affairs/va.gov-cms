@@ -297,6 +297,19 @@ process:
 destination:
   plugin: 'entity:node'
   default_bundle: va_form
+  # These migration-owned fields should also be copied onto any forward draft.
+  forward_revision_overwrite_properties:
+    - field_va_form_administration
+    - field_va_form_deleted
+    - field_va_form_deleted_date
+    - field_va_form_issue_date
+    - field_va_form_num_pages
+    - field_va_form_number
+    - field_va_form_revision_date
+    - field_va_form_row_id
+    - field_va_form_title
+    - field_va_form_url
+    - title
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
     - changed
