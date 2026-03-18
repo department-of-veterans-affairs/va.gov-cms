@@ -130,10 +130,11 @@ const creators = {
       .within(() => {
         cy.findByDisplayValue("Add media").click({ force: true });
       });
+    cy.wait(3000);
     cy.get("iframe.entity-browser-modal-iframe")
       .iframe()
       .within(() => {
-        cy.get('div[role="dialog"]').within(() => {
+        cy.get('div[role="dialog"]', { timeout: 60000 }).within(() => {
           cy.get(".dropzone", {
             timeout: 60000,
           });
