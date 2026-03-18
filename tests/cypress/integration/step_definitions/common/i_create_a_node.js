@@ -307,19 +307,21 @@ const creators = {
     cy.findAllByLabelText("Section").select("--Outreach Hub", { force: true });
     cy.scrollToSelector("#edit-field-media-open-button");
     cy.get("#edit-field-media-open-button").click({ force: true });
-    cy.get(".dropzone", {
-      timeout: 60000,
-    }).should("exist");
-    cy.get(".dropzone").attachFile("images/polygon_image.png", {
-      subjectType: "drag-n-drop",
+    cy.get('div[role="dialog"]', { timeout: 60000 }).within(() => {
+      cy.get(".dropzone", {
+        timeout: 60000,
+      }).should("exist");
+      cy.get(".dropzone").attachFile("images/polygon_image.png", {
+        subjectType: "drag-n-drop",
+      });
+      cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
+        force: true,
+      });
+      cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
+        "VACO",
+        { force: true }
+      );
     });
-    cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
-      force: true,
-    });
-    cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
-      "VACO",
-      { force: true }
-    );
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log 1]${faker.lorem.sentence()}`,
       { force: true }
