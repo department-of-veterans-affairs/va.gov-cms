@@ -51,7 +51,6 @@ The VA.gov CMS Team
    1. [Comparing GraphQL Output](READMES/comparing-graphql-output.md)
    1. [Dependabot Alerts](READMES/dependabot-alerts.md)
    1. [Dependabot Updates](READMES/dependabot-updates.md)
-   1. [Sentry](READMES/sentry.md)
    1. [Profiling with Blackfire](READMES/blackfire.md)
    1. [Scalability Testing](READMES/scalability-testing.md)
 1. **Release & Deployment**
