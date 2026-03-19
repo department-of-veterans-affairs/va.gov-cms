@@ -9,7 +9,7 @@
  use Drupal\Core\Entity\EntityTypeManagerInterface;
  use Drupal\Core\Logger\LoggerChannelFactoryInterface;
  use Drupal\entity_usage\EntityUsage;
-@@ -140,20 +142,31 @@
+@@ -140,20 +142,36 @@
      $header = [];
  
      $allUsages = $this->getUsage($entityType, $entityId);
@@ -30,9 +30,14 @@
 +          continue;
 +        }
 +
++        $records = $usageRecords[$sourceType][$sourceId] ?? [];
 +        $displayEntity = $sourceEntity;
-+        if ($sourceType === 'paragraph' && $sourceEntity instanceof RevisionableInterface && $storage instanceof RevisionableStorageInterface) {
-+          $displayEntity = $this->getDisplayParagraphEntity($sourceEntity, $storage, $usageRecords[$sourceType][$sourceId] ?? []);
++        $displayText = NULL;
++        if ($sourceEntity instanceof RevisionableInterface && $this->isPreviousRevisionOnlyUsage($sourceEntity, $records)) {
++          if ($storage instanceof RevisionableStorageInterface) {
++            $displayEntity = $this->getDisplayRevisionEntity($sourceEntity, $storage, $records);
++          }
++          $displayText = $this->getPreviousRevisionLabel($displayEntity);
 +        }
 +
          $row = [];
@@ -40,11 +45,11 @@
          // Show Entity field.
          if (in_array('entity', $showFields)) {
 -          $link = $this->getSourceEntityLink($sourceEntity);
-+          $link = $this->getSourceEntityLink($displayEntity);
++          $link = $this->getSourceEntityLink($displayEntity, $displayText);
  
            $row[] = $link;
  
-@@ -232,6 +245,67 @@
+@@ -232,6 +250,110 @@
  
      return $itemCount;
    }
@@ -70,33 +75,76 @@
 +  }
 +
 +  /**
-+   * Gets the paragraph entity to display on the detailed usage row.
++   * Determines if usage exists only on previous revisions.
 +   *
 +   * @param \Drupal\Core\Entity\RevisionableInterface $source_entity
-+   *   The source paragraph entity.
-+   * @param \Drupal\Core\Entity\RevisionableStorageInterface $storage
-+   *   The paragraph storage.
++   *   The source entity.
 +   * @param array $records
-+   *   Usage records for the paragraph entity.
++   *   Usage records for the source entity.
++   *
++   * @return bool
++   *   TRUE when all usage records point to old revisions only.
++   */
++  protected function isPreviousRevisionOnlyUsage(RevisionableInterface $source_entity, array $records): bool {
++    $defaultRevisionId = (int) $source_entity->getRevisionId();
++    $hasOldRevision = FALSE;
++
++    foreach ($records as $record) {
++      if (!is_array($record) || !array_key_exists('source_vid', $record) || empty($record['source_vid'])) {
++        return FALSE;
++      }
++
++      $sourceVid = (int) $record['source_vid'];
++      if ($sourceVid >= $defaultRevisionId) {
++        return FALSE;
++      }
++
++      $hasOldRevision = TRUE;
++    }
++
++    return $hasOldRevision;
++  }
++
++  /**
++   * Builds a previous-revision label for source entities.
++   *
++   * @param \Drupal\Core\Entity\EntityInterface $source_entity
++   *   The source entity.
++   *
++   * @return \Drupal\Core\StringTranslation\TranslatableMarkup|string
++   *   The entity label with previous revision suffix.
++   */
++  protected function getPreviousRevisionLabel(EntityInterface $source_entity) {
++    $label = $source_entity->access('view label') ? $source_entity->label() : $this->t('- Restricted access -');
++    if (str_contains((string) $label, ' (previous revision)')) {
++      return $label;
++    }
++
++    return $this->t('@label (previous revision)', ['@label' => $label]);
++  }
++
++  /**
++   * Gets the source revision entity to display on the detailed usage row.
++   *
++   * @param \Drupal\Core\Entity\RevisionableInterface $source_entity
++   *   The source entity.
++   * @param \Drupal\Core\Entity\RevisionableStorageInterface $storage
++   *   The source entity storage.
++   * @param array $records
++   *   Usage records for the source entity.
 +   *
 +   * @return \Drupal\Core\Entity\EntityInterface
 +   *   The entity to use when building the displayed label.
 +   */
-+  protected function getDisplayParagraphEntity(RevisionableInterface $source_entity, RevisionableStorageInterface $storage, array $records) {
-+    $defaultRevisionId = (int) $source_entity->getRevisionId();
++  protected function getDisplayRevisionEntity(RevisionableInterface $source_entity, RevisionableStorageInterface $storage, array $records) {
 +    $previousRevisionId = NULL;
-+
 +    foreach ($records as $record) {
-+      if (!is_array($record) || !array_key_exists('source_vid', $record) || $record['source_vid'] === NULL) {
-+        return $source_entity;
++      if (!is_array($record) || !array_key_exists('source_vid', $record) || empty($record['source_vid'])) {
++        continue;
 +      }
 +
 +      $sourceVid = (int) $record['source_vid'];
-+      if ($sourceVid === $defaultRevisionId) {
-+        return $source_entity;
-+      }
-+
-+      if ($sourceVid < $defaultRevisionId && ($previousRevisionId === NULL || $sourceVid > $previousRevisionId)) {
++      if ($previousRevisionId === NULL || $sourceVid > $previousRevisionId) {
 +        $previousRevisionId = $sourceVid;
 +      }
 +    }
