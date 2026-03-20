@@ -1,0 +1,283 @@
+--- a/src/Element/Tablefield.php
++++ b/src/Element/Tablefield.php
+@@ -131,6 +131,38 @@
+           'effect' => 'fade',
+         ],
+       ];
++
++      // Hidden insert index and trigger — JS creates the visible "+" buttons
++      // and sets insert_index before clicking the trigger.
++      $element['tablefield']['insertrow']['insert_index'] = [
++        '#type' => 'hidden',
++        '#default_value' => -1,
++        '#attributes' => ['class' => ['tablefield-insert-index']],
++      ];
++      $element['tablefield']['insertrow']['trigger'] = [
++        '#type' => 'submit',
++        '#value' => t('Insert row'),
++        '#name' => 'tablefield-insertrow-' . $id,
++        '#attributes' => [
++          'class' => ['tablefield-insert-trigger', 'visually-hidden'],
++        ],
++        '#submit' => [[static::class, 'submitCallbackRebuild']],
++        '#limit_validation_errors' => [
++          array_merge($parents, ['tablefield', 'table']),
++          array_merge($parents, ['tablefield', 'insertrow', 'insert_index']),
++          array_merge($parents, ['tablefield', 'rebuild', 'cols']),
++          array_merge($parents, ['tablefield', 'rebuild', 'rows']),
++        ],
++        '#ajax' => [
++          'callback' => [static::class, 'ajaxCallbackRebuild'],
++          'progress' => FALSE,
++          'wrapper' => 'tablefield-' . $id . '-wrapper',
++          'effect' => 'fade',
++          'disable-refocus' => TRUE,
++        ],
++      ];
++
++      $element['#attached']['library'][] = 'tablefield/insertrow';
+     }
+ 
+     // If no rebuild, we pass along the rows/cols as a value. Otherwise, we will
+@@ -310,9 +342,9 @@
+     unset($rebuild['format']);
+     unset($rebuild['_weight']);
+ 
+-    // Set row value to default only if there is Add Row button clicked.
++    // Set row value to default when Add Row or Insert Row button is clicked.
+     $op = (string) $triggering_element['#value'];
+-    if ($op === 'Add Row') {
++    if ($op === 'Add Row' || $op === 'Insert row') {
+       $rebuild['rebuild']['rows']['#value'] = $rebuild['rebuild']['rows']['#default_value'];
+     }
+ 
+@@ -344,6 +376,41 @@
+ 
+       \Drupal::messenger()->addStatus(t('Table structure rebuilt.'), FALSE);
+     }
++    elseif (isset($triggering_element['#name']) && $triggering_element['#name'] == 'tablefield-insertrow-' . $id) {
++      $insert_index = (int) ($value['insertrow']['insert_index'] ?? -1);
++
++      // Get current table data from form values.
++      $table_data = $value['table'] ?? [];
++
++      // Build blank row matching column count.
++      $cols_count = $value['rebuild']['cols'];
++      $blank_row = array_fill(0, $cols_count, '');
++
++      // Splice blank row at the target index, shifting subsequent rows.
++      array_splice($table_data, $insert_index, 0, [$blank_row]);
++
++      // Re-key to clean 0-based numeric indices.
++      $table_data = array_values($table_data);
++
++      // Increment row count.
++      $value['rebuild']['rows']++;
++
++      // Store updated rebuild info.
++      $parents[] = 'rebuild';
++      NestedArray::setValue($form_state->getStorage(), $parents, $value['rebuild']);
++
++      // Write spliced data back to form values AND user input so the rebuilt
++      // form displays cells at their new shifted positions.
++      $table_parents = array_slice($triggering_element['#parents'], 0, -2, TRUE);
++      $value['table'] = $table_data;
++      $form_state->setValue($table_parents, $value);
++
++      $input = $form_state->getUserInput();
++      NestedArray::setValue($input, $table_parents, $value);
++      $form_state->setUserInput($input);
++
++      \Drupal::messenger()->addStatus(t('Row inserted.'), FALSE);
++    }
+     elseif (isset($triggering_element['#name']) && $triggering_element['#name'] == 'tablefield-import-' . $id) {
+       // Import CSV.
+       $imported_tablefield = static::importCsv($id);
+
+--- /dev/null
++++ b/tablefield.libraries.yml
+@@ -0,0 +1,9 @@
++insertrow:
++  css:
++    component:
++      css/tablefield-insertrow.css: {}
++  js:
++    js/tablefield-insertrow.js: {}
++  dependencies:
++    - core/drupal
++    - core/once
+
+--- /dev/null
++++ b/css/tablefield-insertrow.css
+@@ -0,0 +1,86 @@
++/**
++ * @file
++ * Styles for tablefield row insertion controls.
++ */
++
++/* Wrapper that JS creates around the table for positioning context. */
++.tablefield-insert-wrapper {
++  position: relative;
++}
++
++/* Hover zone spanning the full table width at each row boundary. */
++.tablefield-insert-zone {
++  position: absolute;
++  left: 0;
++  right: 0;
++  height: 16px;
++  margin-top: -10px;
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  z-index: 10;
++  cursor: pointer;
++  opacity: 0;
++  transition: opacity 0.15s ease;
++}
++
++.tablefield-insert-zone:hover {
++  opacity: 1;
++}
++
++/* The line that appears on hover. */
++.tablefield-insert-zone::before {
++  content: "";
++  position: absolute;
++  left: 0;
++  right: 0;
++  top: 50%;
++  height: 2px;
++  background: #0071bc;
++  pointer-events: none;
++}
++
++/* The "+" circle button. */
++.tablefield-insert-zone .tablefield-insertrow {
++  position: relative;
++  z-index: 1;
++  width: 24px;
++  height: 24px;
++  min-width: 24px;
++  padding: 0;
++  margin: 0;
++  border: 2px solid #0071bc;
++  border-radius: 50%;
++  background: #fff;
++  color: #0071bc;
++  font-size: 18px;
++  font-weight: bold;
++  line-height: 20px;
++  cursor: pointer;
++  text-align: center;
++  font-family: Arial, sans-serif;
++}
++
++.tablefield-insert-zone .tablefield-insertrow:hover {
++  background: #0071bc;
++  color: #fff;
++}
++
++/* When showing the throbber, center it and keep button white. */
++.tablefield-insert-zone .tablefield-insertrow:has(.ajax-progress) {
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  background: #fff;
++  color: #0071bc;
++}
++
++.tablefield-insert-zone .tablefield-insertrow .ajax-progress {
++  display: inline-flex;
++  padding: 0;
++  margin: 0;
++}
++
++.tablefield-insert-zone .tablefield-insertrow .ajax-progress .message {
++  display: none;
++}
+
+--- /dev/null
++++ b/js/tablefield-insertrow.js
+@@ -0,0 +1,81 @@
++/**
++ * @file
++ * Creates insert-row "+" buttons between table rows as hover overlays.
++ */
++
++(function (Drupal, once) {
++  'use strict';
++
++  Drupal.behaviors.tablefieldInsertRow = {
++    attach: function (context) {
++      once('tablefield-insertrow', '.form-tablefield', context).forEach(function (fieldset) {
++        var table = fieldset.querySelector('table');
++        var indexInput = fieldset.querySelector('.tablefield-insert-index');
++        var trigger = fieldset.querySelector('.tablefield-insert-trigger');
++        if (!table || !indexInput || !trigger) {
++          return;
++        }
++
++        // Wrap the table in a relative container for absolute positioning.
++        var wrapper = document.createElement('div');
++        wrapper.className = 'tablefield-insert-wrapper';
++        table.parentNode.insertBefore(wrapper, table);
++        wrapper.appendChild(table);
++
++        // Get all rows from the table body.
++        var tbody = table.querySelector('tbody') || table;
++        var rows = tbody.querySelectorAll('tr');
++        var rowCount = rows.length;
++
++        // Create a hover zone with a "+" button at each row boundary.
++        for (var i = 0; i <= rowCount; i++) {
++          (function (index) {
++            var zone = document.createElement('div');
++            zone.className = 'tablefield-insert-zone';
++
++            // Calculate vertical position.
++            var top;
++            if (rowCount === 0) {
++              top = 0;
++            }
++            else if (index === 0) {
++              top = rows[0].offsetTop;
++            }
++            else if (index >= rowCount) {
++              var lastRow = rows[rowCount - 1];
++              top = lastRow.offsetTop + lastRow.offsetHeight;
++            }
++            else {
++              var prevRow = rows[index - 1];
++              top = prevRow.offsetTop + prevRow.offsetHeight;
++            }
++            zone.style.top = top + 'px';
++
++            // Create the "+" button (purely frontend, not a form submit).
++            var btn = document.createElement('button');
++            btn.type = 'button';
++            btn.className = 'tablefield-insertrow';
++            btn.textContent = '+';
++            btn.setAttribute('aria-label', index === 0
++              ? Drupal.t('Insert row at top')
++              : (index >= rowCount
++                ? Drupal.t('Insert row at bottom')
++                : Drupal.t('Insert row after row @n', {'@n': index})));
++
++            btn.addEventListener('click', function () {
++              // Replace "+" with Drupal's standard throbber.
++              btn.textContent = '';
++              btn.innerHTML = Drupal.theme('ajaxProgressThrobber');
++              indexInput.value = index;
++              trigger.dispatchEvent(new MouseEvent('mousedown'));
++            });
++
++            zone.appendChild(btn);
++            wrapper.appendChild(zone);
++          })(i);
++        }
++      });
++    }
++  };
++
++})(Drupal, once);
