@@ -135,7 +135,8 @@ source:
   constants:
     administration_section: 196
     idprefix: vha_
-    title_prefix: 'VA Form '
+    title_prefix: 'About VA Form '
+    page_title_prefix: 'VA Form '
 process:
   non_field1:
     plugin: skip_on_value
@@ -170,7 +171,7 @@ process:
     -
       plugin: concat
       source:
-        - constants/title_prefix
+        - constants/page_title_prefix
         - displayName
   field_va_form_administration:
     plugin: static_map

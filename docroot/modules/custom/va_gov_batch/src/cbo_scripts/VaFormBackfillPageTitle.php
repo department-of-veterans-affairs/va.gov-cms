@@ -10,8 +10,9 @@ use Drupal\codit_batch_operations\BatchScriptInterface;
  *
  * The Forms DB migration seeds this field on first import only; it is not in
  * overwrite_properties, so existing nodes keep an empty Page title until this
- * runs. Values match the migration: title_prefix + displayName (same as node
- * title). field_va_form_number stands in for CSV displayName when they match.
+ * runs. Values match the migration: page_title_prefix + displayName (node title
+ * still uses title_prefix + displayName). field_va_form_number stands in for
+ * CSV displayName when they match.
  *
  * To run manually:
  * drush codit-batch-operations:run VaFormBackfillPageTitle
@@ -35,11 +36,11 @@ class VaFormBackfillPageTitle extends BatchOperations implements BatchScriptInte
   }
 
   /**
-   * Gets title_prefix from va_node_form migration config (same as node title).
+   * Gets page_title_prefix from va_node_form migration config.
    */
   protected function getPageTitlePrefix(): string {
     $config = $this->configFactory->get('migrate_plus.migration.va_node_form');
-    $prefix = $config->get('source.constants.title_prefix');
+    $prefix = $config->get('source.constants.page_title_prefix');
     return is_string($prefix) && $prefix !== '' ? $prefix : 'VA Form ';
   }
 

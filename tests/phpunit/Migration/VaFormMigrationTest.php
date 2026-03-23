@@ -57,7 +57,7 @@ class VaFormMigrationTest extends VaGovExistingSiteBase {
       [
         'field_va_form_row_id' => 999999,
         'field_va_form_title' => 'Test VA Form',
-        'title' => 'VA Form 99-9999',
+        'title' => 'About VA Form 99-9999',
         'field_va_form_page_title' => 'VA Form 99-9999',
       ],
       1,
@@ -70,7 +70,7 @@ class VaFormMigrationTest extends VaGovExistingSiteBase {
       [
         'field_va_form_row_id' => 999999,
         'field_va_form_title' => 'Test VA Form - Updated',
-        'title' => 'VA Form 99-9999',
+        'title' => 'About VA Form 99-9999',
         'field_va_form_page_title' => 'VA Form 99-9999',
       ],
       1,
