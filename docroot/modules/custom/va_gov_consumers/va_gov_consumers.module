@@ -5,6 +5,7 @@
  * Contains va_gov_consumers.module.
  */
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
@@ -140,15 +141,29 @@ function _va_gov_consumers_modify_va_form_fields(array &$form, $form_id, FormSta
     // We want the form name in a different location, so remove it from here.
     unset($form['field_va_form_name']);
 
+    $node_type = $node->type->entity;
+    $title_help = $node_type ? $node_type->getThirdPartySetting('node_title_help_text', 'title_help') : '';
+    $header_description = $title_help
+      ? '<div class="description">' . nl2br(Html::escape($title_help)) . '</div>'
+      : '<div class="description">' . t("This non-editable title is automatically set from the Forms DB. It doesn't show on the front end.") . '</div>';
+
     $form['header'] = [
       '#type' => 'fieldset',
       '#weight' => 0,
       '#collapsible' => FALSE,
       'title' => [
-        '#markup' => $title . '<div class="description">This non-editable page title is automatically set by the VA forms database.</div>',
+        '#markup' => $title . $header_description,
       ],
       'field_va_form_name' => $form_name,
     ];
+
+    // Match the node title widget label to the base field override (e.g. "Forms
+    // DB Title") so it is not confused with field_va_form_page_title ("Page
+    // title"). Form alters run in unpredictable order relative to field labels.
+    $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', 'va_form');
+    if (isset($form['title']['widget'][0]['value'], $field_definitions['title'])) {
+      $form['title']['widget'][0]['value']['#title'] = $field_definitions['title']->getLabel();
+    }
 
     _va_gov_consumers_disable_external_content_editing($form, $form_state, 'field_va_form_number');
 

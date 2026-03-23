@@ -30,7 +30,7 @@ class VaFormMigrationTest extends VaGovExistingSiteBase {
     string $csv,
     array $conditions,
     int $count,
-    bool $cleanup
+    bool $cleanup,
   ) : void {
     $mockClient = MockHttpClient::create('200', ['Content-Type' => 'text/csv'], $csv);
     $this->container->set('http_client', $mockClient);
@@ -57,17 +57,21 @@ class VaFormMigrationTest extends VaGovExistingSiteBase {
       [
         'field_va_form_row_id' => 999999,
         'field_va_form_title' => 'Test VA Form',
+        'title' => 'VA Form 99-9999',
+        'field_va_form_page_title' => 'VA Form 99-9999',
       ],
       1,
       FALSE,
     ];
-    yield 'Updated migration completes successfully' => [
+    yield 'Updated migration overwrites DB fields but preserves page title' => [
       'va_node_form',
       'va_form',
       file_get_contents(__DIR__ . '/fixtures/forms_updated.csv'),
       [
         'field_va_form_row_id' => 999999,
         'field_va_form_title' => 'Test VA Form - Updated',
+        'title' => 'VA Form 99-9999',
+        'field_va_form_page_title' => 'VA Form 99-9999',
       ],
       1,
       TRUE,

@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.base_field_override.node.va_form.title
     - entity_browser.browser.alert_blocks
     - field.field.node.va_form.field_administration
     - field.field.node.va_form.field_alert
@@ -15,6 +16,7 @@ dependencies:
     - field.field.node.va_form.field_va_form_language
     - field.field.node.va_form.field_va_form_link_teasers
     - field.field.node.va_form.field_va_form_name
+    - field.field.node.va_form.field_va_form_page_title
     - field.field.node.va_form.field_va_form_num_pages
     - field.field.node.va_form.field_va_form_number
     - field.field.node.va_form.field_va_form_react_widget
@@ -219,6 +221,14 @@ content:
       add_mode: dropdown
       form_display_mode: default
       default_paragraph_type: ''
+    third_party_settings: {  }
+  field_va_form_page_title:
+    type: string_textfield
+    weight: -1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_va_form_name:
     type: string_textfield
