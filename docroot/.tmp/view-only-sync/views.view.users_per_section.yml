@@ -8,12 +8,6 @@ dependencies:
     - taxonomy.vocabulary.products
     - user.role.administrator
     - workbench_access.access_scheme.section
-  content:
-    - 'taxonomy_term:products:2fe1cb98-c03e-49fe-bb09-d73b66b99c8d'
-    - 'taxonomy_term:products:91c09f6f-1580-45bf-9a78-3d98d8ff41ae'
-    - 'taxonomy_term:products:b154be38-a248-4a37-a183-f3bba193f58e'
-    - 'taxonomy_term:products:c3328fe8-46c6-4af4-8bc8-b947a8040781'
-    - 'taxonomy_term:products:df97467b-47dc-4a33-8e75-a0639e49566f'
   module:
     - csv_serialization
     - rest
@@ -379,7 +373,7 @@ display:
         type: basic
         options:
           submit_button: Apply
-          reset_button: true
+          reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -568,8 +562,8 @@ display:
       path: admin/people/users_per_section_csv
       displays:
         page_1: page_1
+        page_2: page_2
         default: '0'
-        page_2: '0'
       filename: users_per_section.csv
       automatic_download: true
       export_method: standard
@@ -1108,18 +1102,17 @@ display:
       display_extenders:
         jsonapi_views:
           enabled: true
-      path: admin/people/sections_without_active_users_csv
+      path: admin/people/users_per_section_csv
       displays:
-        page_2: page_2
+        page_1: page_1
         default: '0'
-        page_1: '0'
-      filename: sections_without_active_users.csv
+      filename: users_per_section.csv
       automatic_download: true
       export_method: standard
       export_batch_size: 1000
       store_in_public_file_directory: null
       custom_redirect_path: false
-      redirect_to_display: page_2
+      redirect_to_display: page_1
       include_query_params: false
     cache_metadata:
       max-age: -1
@@ -1131,46 +1124,12 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.taxonomy_term.field_product'
-  page_1:
-    id: page_1
-    display_title: Page
-    display_plugin: page
-    position: 1
-    display_options:
-      display_description: ''
-      display_extenders:
-        jsonapi_views:
-          enabled: true
-      path: admin/people/users_per_section
-      menu:
-        type: normal
-        title: 'Users per section'
-        description: ''
-        weight: 10
-        expanded: false
-        menu_name: admin
-        parent: entity.user.collection
-        context: '0'
-        as_local_task: true
-        local_task_link_title: ''
-        local_task_parent: 'views_view:view.users_per_section.section_member_page'
-        local_task_weight: 0
-        local_task_custom_parent_route: ''
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url.query_args
-        - user.roles
-      tags: {  }
   page_2:
     id: page_2
-    display_title: 'Sections with no active users'
+    display_title: 'Sections no active users page'
     display_plugin: page
     position: 2
     display_options:
-      title: 'Sections with no active users'
       fields:
         status:
           id: status
@@ -1574,17 +1533,12 @@ display:
           admin_label: ''
           plugin_id: taxonomy_index_tid
           operator: or
-          value:
-            288: 288
-            998: 998
-            284: 284
-            1050: 1050
-            289: 289
+          value: {  }
           group: 1
           exposed: true
           expose:
             operator_id: field_product_target_id_op
-            label: Product
+            label: 'Product (field_product)'
             description: ''
             use_operator: false
             operator: field_product_target_id_op
@@ -1616,7 +1570,7 @@ display:
               translation_manager: '0'
               rates_editor: '0'
               form_builder_user: '0'
-            reduce: true
+            reduce: false
           is_grouped: false
           group_info:
             label: ''
@@ -1687,13 +1641,12 @@ display:
           caption: ''
           description: ''
       defaults:
-        title: false
-        style: false
         relationships: false
         fields: false
         arguments: false
         filters: false
         filter_groups: false
+        style: false
       relationships:
         user_id_target_id:
           id: user_id_target_id
@@ -1724,7 +1677,7 @@ display:
       path: admin/people/users_per_section/no-active-users
       menu:
         type: normal
-        title: 'Sections with no active users'
+        title: 'Sections no active users'
         description: 'Sections with no active users, with product filtering.'
         weight: 11
         expanded: false
@@ -1733,7 +1686,7 @@ display:
         context: '0'
         as_local_task: true
         local_task_link_title: ''
-        local_task_parent: 'views_view:view.advancedqueue_jobs.page_1'
+        local_task_parent: 'views_view:view.users_per_section.section_member_page'
         local_task_weight: 1
         local_task_custom_parent_route: ''
     cache_metadata:
@@ -1741,8 +1694,40 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
         - user.roles
       tags:
         - 'config:field.storage.taxonomy_term.field_product'
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_description: ''
+      display_extenders:
+        jsonapi_views:
+          enabled: true
+      path: admin/people/users_per_section
+      menu:
+        type: normal
+        title: 'Users per section'
+        description: ''
+        weight: 10
+        expanded: false
+        menu_name: admin
+        parent: entity.user.collection
+        context: '0'
+        as_local_task: true
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.users_per_section.section_member_page'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - user.roles
+      tags: {  }

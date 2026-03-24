@@ -85,16 +85,28 @@ function va_gov_notifications_help($route_name, RouteMatchInterface $route_match
  * Implements hook_views_query_alter().
  */
 function va_gov_notifications_views_query_alter(\Drupal\views\ViewExecutable $view, \Drupal\views\Plugin\views\query\QueryPluginBase $query) {
-  if ($view->id() !== 'users_per_section' || $view->current_display !== 'data_export_2') {
+  if ($view->id() !== 'users_per_section') {
     return;
   }
+
   if (!($query instanceof \Drupal\views\Plugin\views\query\Sql)) {
     return;
   }
+
+  // Exclude orphaned section_association rows whose section_id no longer
+  // corresponds to a live taxonomy term (deleted sections, special strings
+  // like "administration", etc.). Without this filter those rows show up as
+  // N/A in the Section name column.
+  $query->addWhereExpression(0, "section_association.section_id IN (SELECT tid FROM taxonomy_term_data)");
+
+  if (!in_array($view->current_display, ['data_export_2', 'page_2'], TRUE)) {
+    return;
+  }
+
   // Views does not support OR logic between HAVING-clause (aggregate) filters
   // via filter_groups. Add the condition directly: sections with no active
   // users covers both "all blocked" (SUM = 0) and "no users at all"
-  // (SUM IS NULL). COALESCE normalises both to 0 for a single comparison.
+  // (SUM IS NULL). COALESCE normalizes both to 0 for a single comparison.
   // The alias is deterministic: Views names joined tables as
   // {table}_{relationship_alias}, so users_field_data joined through the
   // user_id_target_id relationship always gets this alias.
