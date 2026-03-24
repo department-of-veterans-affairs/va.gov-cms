@@ -2,26 +2,26 @@
 
 namespace Drupal\va_gov_notifications\Commands;
 
-use Drupal\va_gov_notifications\Service\NoActiveUsersRecipients;
+use Drupal\va_gov_notifications\Service\NoActiveUsersNotificationService;
 use Drush\Commands\DrushCommands;
 
 /**
  * Drush commands for missing active-user section reporting.
  */
-class NoActiveUsersRecipientsCommands extends DrushCommands {
+class NoActiveUsersNotificationCommands extends DrushCommands {
 
   /**
    * Recipient resolver service.
    *
-   * @var \Drupal\va_gov_notifications\Service\NoActiveUsersRecipients
+   * @var \Drupal\va_gov_notifications\Service\NoActiveUsersNotificationService
    */
-  protected NoActiveUsersRecipients $noActiveUsersRecipients;
+  protected NoActiveUsersNotificationService $noActiveUsersNotificationService;
 
   /**
    * Constructor.
    */
-  public function __construct(NoActiveUsersRecipients $no_active_users_recipients) {
-    $this->noActiveUsersRecipients = $no_active_users_recipients;
+  public function __construct(NoActiveUsersNotificationService $no_active_users_notification_service) {
+    $this->noActiveUsersNotificationService = $no_active_users_notification_service;
   }
 
   /**
@@ -32,7 +32,7 @@ class NoActiveUsersRecipientsCommands extends DrushCommands {
    * @option dry-run Output recipient mapping without queueing or sending.
    */
   public function report(array $options = ['dry-run' => FALSE]): void {
-    $recipients = $this->noActiveUsersRecipients->getRecipientsForSectionsWithoutActiveUsers();
+    $recipients = $this->noActiveUsersNotificationService->getRecipientsForSectionsWithoutActiveUsers();
 
     if (empty($recipients)) {
       $this->io()->warning('No recipients found for sections without active users.');

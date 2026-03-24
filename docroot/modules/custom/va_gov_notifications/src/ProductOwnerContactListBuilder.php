@@ -4,13 +4,13 @@ namespace Drupal\va_gov_notifications;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\va_gov_notifications\Entity\NoActiveUsersRecipient;
-use Drupal\va_gov_notifications\Entity\NoActiveUsersRecipientInterface;
+use Drupal\va_gov_notifications\Entity\ProductOwnerContact;
+use Drupal\va_gov_notifications\Entity\ProductOwnerContactInterface;
 
 /**
- * Lists ad hoc recipient config entities.
+ * Lists product owner contact config entities.
  */
-class NoActiveUsersRecipientListBuilder extends ConfigEntityListBuilder {
+class ProductOwnerContactListBuilder extends ConfigEntityListBuilder {
 
   /**
    * {@inheritdoc}
@@ -28,7 +28,7 @@ class NoActiveUsersRecipientListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity): array {
-    if (!$entity instanceof NoActiveUsersRecipientInterface) {
+    if (!$entity instanceof ProductOwnerContactInterface) {
       return parent::buildRow($entity);
     }
 
@@ -41,7 +41,7 @@ class NoActiveUsersRecipientListBuilder extends ConfigEntityListBuilder {
     else {
       $labels = [];
       foreach ($products as $product_id) {
-        $labels[] = NoActiveUsersRecipient::PRODUCT_OPTIONS[$product_id] ?? $product_id;
+        $labels[] = ProductOwnerContact::PRODUCT_OPTIONS[$product_id] ?? $product_id;
       }
       $row['products'] = implode(', ', $labels);
     }

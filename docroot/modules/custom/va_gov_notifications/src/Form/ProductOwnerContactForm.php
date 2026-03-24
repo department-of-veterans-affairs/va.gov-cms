@@ -4,12 +4,12 @@ namespace Drupal\va_gov_notifications\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\va_gov_notifications\Entity\NoActiveUsersRecipient;
+use Drupal\va_gov_notifications\Entity\ProductOwnerContact;
 
 /**
- * Form controller for ad hoc recipient add/edit forms.
+ * Form controller for product owner contact add/edit forms.
  */
-class NoActiveUsersRecipientForm extends EntityForm {
+class ProductOwnerContactForm extends EntityForm {
 
   /**
    * {@inheritdoc}
@@ -17,7 +17,7 @@ class NoActiveUsersRecipientForm extends EntityForm {
   public function form(array $form, FormStateInterface $form_state): array {
     $form = parent::form($form, $form_state);
 
-    /** @var \Drupal\va_gov_notifications\Entity\NoActiveUsersRecipient $recipient */
+    /** @var \Drupal\va_gov_notifications\Entity\ProductOwnerContact $recipient */
     $recipient = $this->entity;
 
     $form['label'] = [
@@ -33,7 +33,7 @@ class NoActiveUsersRecipientForm extends EntityForm {
       '#type' => 'machine_name',
       '#default_value' => $recipient->id(),
       '#machine_name' => [
-        'exists' => '\\Drupal\\va_gov_notifications\\Entity\\NoActiveUsersRecipient::load',
+        'exists' => '\\Drupal\\va_gov_notifications\\Entity\\ProductOwnerContact::load',
       ],
       '#disabled' => !$recipient->isNew(),
     ];
@@ -59,7 +59,7 @@ class NoActiveUsersRecipientForm extends EntityForm {
       '#title' => $this->t('Product'),
       '#description' => $this->t('Limit this recipient to selected products. Leave empty to receive notifications for all products.'),
       '#multiple' => TRUE,
-      '#options' => NoActiveUsersRecipient::PRODUCT_OPTIONS,
+      '#options' => ProductOwnerContact::PRODUCT_OPTIONS,
       '#default_value' => $recipient->getProducts(),
     ];
 

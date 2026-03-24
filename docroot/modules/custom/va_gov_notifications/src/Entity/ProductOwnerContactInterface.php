@@ -5,9 +5,9 @@ namespace Drupal\va_gov_notifications\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 
 /**
- * Provides an interface for ad hoc missing-editor recipients.
+ * Provides an interface for product owner contacts.
  */
-interface NoActiveUsersRecipientInterface extends ConfigEntityInterface {
+interface ProductOwnerContactInterface extends ConfigEntityInterface {
 
   /**
    * Gets the recipient label.

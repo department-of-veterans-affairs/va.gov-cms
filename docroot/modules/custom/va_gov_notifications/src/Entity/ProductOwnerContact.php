@@ -5,25 +5,25 @@ namespace Drupal\va_gov_notifications\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 
 /**
- * Defines ad hoc recipients for no-active-users notifications.
+ * Defines product owner contacts for VA.gov notifications.
  *
  * @ConfigEntityType(
- *   id = "no_active_users_recipient",
- *   label = @Translation("No active users ad hoc recipient"),
- *   label_collection = @Translation("No active users ad hoc recipients"),
+ *   id = "product_owner_contact",
+ *   label = @Translation("Product owner contact"),
+ *   label_collection = @Translation("Product owner contacts"),
  *   handlers = {
- *     "list_builder" = "Drupal\va_gov_notifications\NoActiveUsersRecipientListBuilder",
+ *     "list_builder" = "Drupal\va_gov_notifications\ProductOwnerContactListBuilder",
  *     "form" = {
- *       "add" = "Drupal\va_gov_notifications\Form\NoActiveUsersRecipientForm",
- *       "edit" = "Drupal\va_gov_notifications\Form\NoActiveUsersRecipientForm",
- *       "delete" = "Drupal\va_gov_notifications\Form\NoActiveUsersRecipientDeleteForm"
+ *       "add" = "Drupal\va_gov_notifications\Form\ProductOwnerContactForm",
+ *       "edit" = "Drupal\va_gov_notifications\Form\ProductOwnerContactForm",
+ *       "delete" = "Drupal\va_gov_notifications\Form\ProductOwnerContactDeleteForm"
  *     },
  *     "route_provider" = {
  *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider"
  *     }
  *   },
  *   admin_permission = "administer site configuration",
- *   config_prefix = "no_active_users_recipient",
+ *   config_prefix = "product_owner_contact",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
@@ -40,14 +40,14 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "products"
  *   },
  *   links = {
- *     "collection" = "/admin/config/system/va-gov-notifications/no-active-users-recipients",
- *     "add-form" = "/admin/config/system/va-gov-notifications/no-active-users-recipients/add",
- *     "edit-form" = "/admin/config/system/va-gov-notifications/no-active-users-recipients/{no_active_users_recipient}",
- *     "delete-form" = "/admin/config/system/va-gov-notifications/no-active-users-recipients/{no_active_users_recipient}/delete"
+ *     "collection" = "/admin/config/system/va-gov-notifications/product-owner-contacts",
+ *     "add-form" = "/admin/config/system/va-gov-notifications/product-owner-contacts/add",
+ *     "edit-form" = "/admin/config/system/va-gov-notifications/product-owner-contacts/{product_owner_contact}",
+ *     "delete-form" = "/admin/config/system/va-gov-notifications/product-owner-contacts/{product_owner_contact}/delete"
  *   }
  * )
  */
-class NoActiveUsersRecipient extends ConfigEntityBase implements NoActiveUsersRecipientInterface {
+class ProductOwnerContact extends ConfigEntityBase implements ProductOwnerContactInterface {
 
   /**
    * Product options keyed by product term ID.

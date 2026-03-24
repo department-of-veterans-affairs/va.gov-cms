@@ -4,12 +4,12 @@ namespace Drupal\va_gov_notifications\Service;
 
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\va_gov_notifications\Entity\NoActiveUsersRecipientInterface;
+use Drupal\va_gov_notifications\Entity\ProductOwnerContactInterface;
 
 /**
  * Builds recipient lists for sections missing active users.
  */
-class NoActiveUsersRecipients {
+class NoActiveUsersNotificationService {
 
   /**
    * The database connection.
@@ -55,23 +55,23 @@ class NoActiveUsersRecipients {
     }
 
     $recipients = [];
-    foreach ($this->getAdHocRecipients() as $ad_hoc) {
-      $key = $this->normalizeRecipientKey($ad_hoc['recipient_email']);
-      $sections_for_recipient = $this->filterSectionsByProducts($sections_by_id, $ad_hoc['product_ids']);
+    foreach ($this->getProductOwnerContacts() as $product_owner_contact) {
+      $key = $this->normalizeRecipientKey($product_owner_contact['recipient_email']);
+      $sections_for_recipient = $this->filterSectionsByProducts($sections_by_id, $product_owner_contact['product_ids']);
       if (empty($sections_for_recipient)) {
         continue;
       }
 
       if (!isset($recipients[$key])) {
         $recipients[$key] = [
-          'recipient_email' => $ad_hoc['recipient_email'],
+          'recipient_email' => $product_owner_contact['recipient_email'],
           'recipient_uid' => NULL,
-          'recipient_name' => $ad_hoc['recipient_name'],
+          'recipient_name' => $product_owner_contact['recipient_name'],
           'recipient_sources' => [],
           'sections' => [],
         ];
       }
-      $recipients[$key]['recipient_sources'][] = 'ad_hoc';
+      $recipients[$key]['recipient_sources'][] = 'product_owner_contact';
       $recipients[$key]['sections'] = array_merge($recipients[$key]['sections'], $sections_for_recipient);
     }
 
@@ -131,18 +131,18 @@ class NoActiveUsersRecipients {
   }
 
   /**
-   * Gets enabled ad hoc recipients from config entities.
+   * Gets enabled product owner contacts from config entities.
    *
    * @return array<int, array{recipient_email:string, recipient_name:string, product_ids:string[]}>
-   *   Enabled ad hoc recipients.
+   *   Enabled product owner contacts.
    */
-  protected function getAdHocRecipients(): array {
-    $storage = $this->entityTypeManager->getStorage('no_active_users_recipient');
+  protected function getProductOwnerContacts(): array {
+    $storage = $this->entityTypeManager->getStorage('product_owner_contact');
     $entities = $storage->loadMultiple();
     $recipients = [];
 
     foreach ($entities as $entity) {
-      if (!$entity instanceof NoActiveUsersRecipientInterface || !$entity->isEnabled()) {
+      if (!$entity instanceof ProductOwnerContactInterface || !$entity->isEnabled()) {
         continue;
       }
 
