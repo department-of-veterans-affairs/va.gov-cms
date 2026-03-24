@@ -45,9 +45,15 @@
  
 -    // Set row value to default only if there is Add Row button clicked.
 +    // Set row value to default when Add Row or Insert Row button is clicked.
-     $op = (string) $triggering_element['#value'];
+-    $op = (string) $triggering_element['#value'];
 -    if ($op === 'Add Row') {
-+    if ($op === 'Add Row' || $op === 'Insert row') {
++    // Prefer the non-translated #name over the translated #value so this works
++    // correctly on multilingual sites and with customized button labels.
++    $op = isset($triggering_element['#name'])
++      ? (string) $triggering_element['#name']
++      : (string) $triggering_element['#value'];
++
++    if ($op === 'tablefield-addrow-' . $id || $op === 'tablefield-insertrow-' . $id) {
        $rebuild['rebuild']['rows']['#value'] = $rebuild['rebuild']['rows']['#default_value'];
      }
  
