@@ -184,7 +184,6 @@ class PostRowSave implements EventSubscriberInterface {
 
     $draft_revision->setNewRevision(TRUE);
     $draft_revision->enforceIsNew(FALSE);
-    $draft_revision->setSyncing(TRUE);
     $draft_revision->setValidationRequired(FALSE);
     $draft_revision->isDefaultRevision(FALSE);
     $draft_revision->setRevisionLogMessage('Draft revision carried forward after Forms DB migration.');
