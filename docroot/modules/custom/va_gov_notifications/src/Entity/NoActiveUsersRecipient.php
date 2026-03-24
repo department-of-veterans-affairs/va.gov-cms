@@ -36,7 +36,8 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "uuid",
  *     "status",
  *     "email",
- *     "notes"
+ *     "notes",
+ *     "products"
  *   },
  *   links = {
  *     "collection" = "/admin/config/system/va-gov-notifications/no-active-users-recipients",
@@ -47,6 +48,16 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  * )
  */
 class NoActiveUsersRecipient extends ConfigEntityBase implements NoActiveUsersRecipientInterface {
+
+  /**
+   * Product options keyed by product term ID.
+   */
+  public const PRODUCT_OPTIONS = [
+    '284' => 'VAMC',
+    '289' => 'Vet Center',
+    '1050' => 'VBA',
+    '1000' => 'NCA',
+  ];
 
   /**
    * The recipient machine ID.
@@ -77,6 +88,15 @@ class NoActiveUsersRecipient extends ConfigEntityBase implements NoActiveUsersRe
   protected $notes = '';
 
   /**
+   * Product term IDs this recipient applies to.
+   *
+   * Empty means all products.
+   *
+   * @var string[]
+   */
+  protected $products = [];
+
+  /**
    * Whether this recipient is enabled.
    *
    * @var bool
@@ -95,6 +115,13 @@ class NoActiveUsersRecipient extends ConfigEntityBase implements NoActiveUsersRe
    */
   public function getNotes(): string {
     return (string) $this->notes;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getProducts(): array {
+    return array_values(array_filter(array_map('strval', (array) $this->products)));
   }
 
   /**

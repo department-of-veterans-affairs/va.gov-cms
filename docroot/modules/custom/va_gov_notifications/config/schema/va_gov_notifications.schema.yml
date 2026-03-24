@@ -1,17 +1,3 @@
-va_gov_notifications.settings:
-  type: config_object
-  label: 'VA.gov Notifications settings'
-  mapping:
-    no_active_users_recipient_roles:
-      type: sequence
-      label: 'No-active-users recipient roles'
-      sequence:
-        type: string
-        label: 'Role machine name'
-    no_active_users_live_report_path:
-      type: string
-      label: 'No-active-users live report path'
-
 va_gov_notifications.no_active_users_recipient.*:
   type: config_entity
   label: 'No active users ad hoc recipient'
@@ -34,3 +20,9 @@ va_gov_notifications.no_active_users_recipient.*:
     notes:
       type: text
       label: 'Notes'
+    products:
+      type: sequence
+      label: 'Product term IDs'
+      sequence:
+        type: string
+        label: 'Product term ID'

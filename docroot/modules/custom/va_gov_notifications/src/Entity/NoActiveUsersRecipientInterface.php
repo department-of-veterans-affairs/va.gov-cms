@@ -25,6 +25,16 @@ interface NoActiveUsersRecipientInterface extends ConfigEntityInterface {
   public function getNotes(): string;
 
   /**
+   * Gets product IDs this recipient applies to.
+   *
+   * Empty means all products.
+   *
+   * @return string[]
+   *   Product term IDs.
+   */
+  public function getProducts(): array;
+
+  /**
    * Checks if the recipient is enabled.
    */
   public function isEnabled(): bool;

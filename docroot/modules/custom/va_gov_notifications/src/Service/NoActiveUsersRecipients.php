@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_notifications\Service;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\va_gov_notifications\Entity\NoActiveUsersRecipientInterface;
@@ -27,19 +26,11 @@ class NoActiveUsersRecipients {
   protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
-   * Config factory service.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected ConfigFactoryInterface $configFactory;
-
-  /**
    * Constructor.
    */
-  public function __construct(Connection $database, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory) {
+  public function __construct(Connection $database, EntityTypeManagerInterface $entity_type_manager) {
     $this->database = $database;
     $this->entityTypeManager = $entity_type_manager;
-    $this->configFactory = $config_factory;
   }
 
   /**
@@ -59,14 +50,18 @@ class NoActiveUsersRecipients {
       $sections_by_id[(int) $section['section_id']] = [
         'section_id' => (int) $section['section_id'],
         'section_name' => (string) $section['section_name'],
+        'product_ids' => array_values(array_unique(array_filter(array_map('strval', $section['product_ids'] ?? [])))),
       ];
     }
 
-    $recipients = $this->getRoleDerivedRecipients($sections_by_id);
-
-    // Ad hoc recipients receive the full report, regardless of section mapping.
+    $recipients = [];
     foreach ($this->getAdHocRecipients() as $ad_hoc) {
       $key = $this->normalizeRecipientKey($ad_hoc['recipient_email']);
+      $sections_for_recipient = $this->filterSectionsByProducts($sections_by_id, $ad_hoc['product_ids']);
+      if (empty($sections_for_recipient)) {
+        continue;
+      }
+
       if (!isset($recipients[$key])) {
         $recipients[$key] = [
           'recipient_email' => $ad_hoc['recipient_email'],
@@ -77,7 +72,7 @@ class NoActiveUsersRecipients {
         ];
       }
       $recipients[$key]['recipient_sources'][] = 'ad_hoc';
-      $recipients[$key]['sections'] = array_values($sections_by_id);
+      $recipients[$key]['sections'] = array_merge($recipients[$key]['sections'], $sections_for_recipient);
     }
 
     foreach ($recipients as &$recipient) {
@@ -91,7 +86,7 @@ class NoActiveUsersRecipients {
   /**
    * Returns sections that currently have no active users.
    *
-   * @return array<int, array{section_id:int, section_name:string}>
+   * @return array<int, array{section_id:int, section_name:string, product_ids:string[]}>
    *   Section rows.
    */
   protected function getSectionsWithoutActiveUsers(): array {
@@ -111,83 +106,34 @@ class NoActiveUsersRecipients {
 
     $query->orderBy('ttfd.name');
     $result = $query->execute()->fetchAllAssoc('section_id');
+    $section_ids = array_map('intval', array_keys($result));
 
-    return array_values(array_map(static function ($row): array {
+    $product_ids_by_section = [];
+    if (!empty($section_ids)) {
+      $product_query = $this->database->select('taxonomy_term__field_product', 'tfp');
+      $product_query->fields('tfp', ['entity_id', 'field_product_target_id']);
+      $product_query->condition('tfp.entity_id', $section_ids, 'IN');
+      $product_query->condition('tfp.deleted', 0);
+      foreach ($product_query->execute()->fetchAll() as $row) {
+        $section_id = (int) $row->entity_id;
+        $product_ids_by_section[$section_id][] = (string) $row->field_product_target_id;
+      }
+    }
+
+    return array_values(array_map(static function ($row) use ($product_ids_by_section): array {
+      $section_id = (int) $row->section_id;
       return [
-        'section_id' => (int) $row->section_id,
+        'section_id' => $section_id,
         'section_name' => (string) $row->section_name,
+        'product_ids' => array_values(array_unique($product_ids_by_section[$section_id] ?? [])),
       ];
     }, $result));
   }
 
   /**
-   * Gets role-derived recipients by section assignment.
-   *
-   * @param array<int, array{section_id:int, section_name:string}> $sections_by_id
-   *   Indexed by section_id.
-   *
-   * @return array<string, array>
-   *   Array keyed by email.
-   */
-  protected function getRoleDerivedRecipients(array $sections_by_id): array {
-    $roles = $this->getConfiguredRecipientRoles();
-    if (empty($roles)) {
-      return [];
-    }
-
-    $section_ids = array_keys($sections_by_id);
-    if (empty($section_ids)) {
-      return [];
-    }
-
-    $query = $this->database->select('section_association', 'sa');
-    $query->join('section_association__user_id', 'sau', 'sau.entity_id = sa.id');
-    $query->join('users_field_data', 'u', 'u.uid = sau.user_id_target_id');
-    $query->join('user__roles', 'ur', 'ur.entity_id = u.uid');
-
-    $query->addField('sa', 'section_id', 'section_id');
-    $query->addField('u', 'uid', 'uid');
-    $query->addField('u', 'mail', 'mail');
-    $query->addField('u', 'name', 'name');
-
-    $query->condition('sa.section_id', $section_ids, 'IN');
-    $query->condition('u.status', 1);
-    $query->condition('ur.roles_target_id', $roles, 'IN');
-    $query->isNotNull('u.mail');
-    $query->orderBy('u.mail');
-
-    $rows = $query->execute()->fetchAll();
-    $recipients = [];
-
-    foreach ($rows as $row) {
-      $email = strtolower(trim((string) $row->mail));
-      if ($email === '') {
-        continue;
-      }
-      $key = $this->normalizeRecipientKey($email);
-      if (!isset($recipients[$key])) {
-        $recipients[$key] = [
-          'recipient_email' => $email,
-          'recipient_uid' => (int) $row->uid,
-          'recipient_name' => (string) $row->name,
-          'recipient_sources' => ['role_derived'],
-          'sections' => [],
-        ];
-      }
-
-      $section_id = (int) $row->section_id;
-      if (isset($sections_by_id[$section_id])) {
-        $recipients[$key]['sections'][] = $sections_by_id[$section_id];
-      }
-    }
-
-    return $recipients;
-  }
-
-  /**
    * Gets enabled ad hoc recipients from config entities.
    *
-   * @return array<int, array{recipient_email:string, recipient_name:string}>
+   * @return array<int, array{recipient_email:string, recipient_name:string, product_ids:string[]}>
    *   Enabled ad hoc recipients.
    */
   protected function getAdHocRecipients(): array {
@@ -208,6 +154,7 @@ class NoActiveUsersRecipients {
       $recipients[] = [
         'recipient_email' => $email,
         'recipient_name' => (string) $entity->label(),
+        'product_ids' => $entity->getProducts(),
       ];
     }
 
@@ -215,26 +162,38 @@ class NoActiveUsersRecipients {
   }
 
   /**
-   * Gets the configured recipient roles.
+   * Filters sections by product IDs.
    *
-   * @return string[]
-   *   Role machine names.
+   * @param array<int, array{section_id:int, section_name:string, product_ids:string[]}> $sections_by_id
+   *   Indexed by section id.
+   * @param string[] $recipient_product_ids
+   *   Product IDs assigned to the recipient.
+   *
+   * @return array<int, array{section_id:int, section_name:string, product_ids:string[]}>
+   *   Matching sections.
    */
-  protected function getConfiguredRecipientRoles(): array {
-    $roles = $this->configFactory
-      ->get('va_gov_notifications.settings')
-      ->get('no_active_users_recipient_roles') ?: [];
+  protected function filterSectionsByProducts(array $sections_by_id, array $recipient_product_ids): array {
+    $recipient_product_ids = array_values(array_unique(array_filter(array_map('strval', $recipient_product_ids))));
+    if (empty($recipient_product_ids)) {
+      return array_values($sections_by_id);
+    }
 
-    return array_values(array_filter(array_map('strval', $roles)));
+    $matches = [];
+    foreach ($sections_by_id as $section) {
+      if (array_intersect($recipient_product_ids, $section['product_ids'])) {
+        $matches[] = $section;
+      }
+    }
+    return $matches;
   }
 
   /**
    * Dedupe sections by section id.
    *
-   * @param array<int, array{section_id:int, section_name:string}> $sections
+   * @param array<int, array{section_id:int, section_name:string, product_ids:string[]}> $sections
    *   Sections list.
    *
-   * @return array<int, array{section_id:int, section_name:string}>
+   * @return array<int, array{section_id:int, section_name:string, product_ids:string[]}>
    *   Dedupe sections list.
    */
   protected function dedupeSections(array $sections): array {

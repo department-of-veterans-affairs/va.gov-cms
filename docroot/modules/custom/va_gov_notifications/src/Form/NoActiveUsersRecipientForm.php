@@ -4,6 +4,7 @@ namespace Drupal\va_gov_notifications\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\va_gov_notifications\Entity\NoActiveUsersRecipient;
 
 /**
  * Form controller for ad hoc recipient add/edit forms.
@@ -51,6 +52,15 @@ class NoActiveUsersRecipientForm extends EntityForm {
       '#required' => FALSE,
       '#default_value' => $recipient->getNotes(),
       '#description' => $this->t('Optional context for why this recipient is included.'),
+    ];
+
+    $form['products'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Product'),
+      '#description' => $this->t('Limit this recipient to selected products. Leave empty to receive notifications for all products.'),
+      '#multiple' => TRUE,
+      '#options' => NoActiveUsersRecipient::PRODUCT_OPTIONS,
+      '#default_value' => $recipient->getProducts(),
     ];
 
     $form['status'] = [
