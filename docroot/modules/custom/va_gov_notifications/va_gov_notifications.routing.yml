@@ -1,0 +1,9 @@
+va_gov_notifications.no_active_users_settings:
+  path: '/admin/config/system/va-gov-notifications/no-active-users-settings'
+  defaults:
+    _form: '\Drupal\va_gov_notifications\Form\NoActiveUsersNotificationSettingsForm'
+    _title: 'No Active Users Notification Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

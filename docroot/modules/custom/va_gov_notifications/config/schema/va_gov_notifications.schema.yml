@@ -1,0 +1,36 @@
+va_gov_notifications.settings:
+  type: config_object
+  label: 'VA.gov Notifications settings'
+  mapping:
+    no_active_users_recipient_roles:
+      type: sequence
+      label: 'No-active-users recipient roles'
+      sequence:
+        type: string
+        label: 'Role machine name'
+    no_active_users_live_report_path:
+      type: string
+      label: 'No-active-users live report path'
+
+va_gov_notifications.no_active_users_recipient.*:
+  type: config_entity
+  label: 'No active users ad hoc recipient'
+  mapping:
+    id:
+      type: string
+      label: 'Machine name'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+      label: 'UUID'
+    status:
+      type: boolean
+      label: 'Enabled'
+    email:
+      type: string
+      label: 'Email'
+    notes:
+      type: text
+      label: 'Notes'

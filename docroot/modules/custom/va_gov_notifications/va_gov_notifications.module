@@ -80,3 +80,41 @@ function va_gov_notifications_help($route_name, RouteMatchInterface $route_match
   }
   return NULL;
 }
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function va_gov_notifications_views_query_alter(\Drupal\views\ViewExecutable $view, \Drupal\views\Plugin\views\query\QueryPluginBase $query) {
+  if ($view->id() !== 'users_per_section' || $view->current_display !== 'data_export_2') {
+    return;
+  }
+  if (!($query instanceof \Drupal\views\Plugin\views\query\Sql)) {
+    return;
+  }
+  // Views does not support OR logic between HAVING-clause (aggregate) filters
+  // via filter_groups. Add the condition directly: sections with no active
+  // users covers both "all blocked" (SUM = 0) and "no users at all"
+  // (SUM IS NULL). COALESCE normalises both to 0 for a single comparison.
+  // The alias is deterministic: Views names joined tables as
+  // {table}_{relationship_alias}, so users_field_data joined through the
+  // user_id_target_id relationship always gets this alias.
+  $query->addHavingExpression(0, "COALESCE(SUM(users_field_data_section_association__user_id.status), 0) = :active_count", [':active_count' => 0]);
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function va_gov_notifications_views_data_alter(array &$data) {
+  if (empty($data['section_association']['section_id'])) {
+    return;
+  }
+
+  $data['section_association']['section_id']['relationship'] = [
+    'title' => 'Section term',
+    'help' => 'Relate a section association to its Section taxonomy term.',
+    'id' => 'standard',
+    'base' => 'taxonomy_term_field_data',
+    'base field' => 'tid',
+    'label' => 'Section term',
+  ];
+}
