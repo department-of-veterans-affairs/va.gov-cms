@@ -39,7 +39,7 @@
      }
  
      // If no rebuild, we pass along the rows/cols as a value. Otherwise, we will
-@@ -310,9 +342,9 @@
+@@ -310,9 +342,14 @@
      unset($rebuild['format']);
      unset($rebuild['_weight']);
  
@@ -57,7 +57,7 @@
        $rebuild['rebuild']['rows']['#value'] = $rebuild['rebuild']['rows']['#default_value'];
      }
  
-@@ -344,6 +376,41 @@
+@@ -344,6 +381,41 @@
  
        \Drupal::messenger()->addStatus(t('Table structure rebuilt.'), FALSE);
      }
