@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_administration
     - field.field.node.health_care_region_page.field_appointments_online
     - field.field.node.health_care_region_page.field_clinical_health_services
+    - field.field.node.health_care_region_page.field_default_mental_health_phon
     - field.field.node.health_care_region_page.field_description
     - field.field.node.health_care_region_page.field_facebook
     - field.field.node.health_care_region_page.field_flickr
@@ -44,7 +45,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -59,7 +60,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         classes: ''
@@ -189,7 +190,7 @@ third_party_settings:
       label: 'VA Health Connect and Health Records System'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: fieldset
       format_settings:
         classes: admin-editable
@@ -223,7 +224,7 @@ third_party_settings:
       label: 'System Menu'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -233,6 +234,22 @@ third_party_settings:
         description: ''
         required_fields: true
         weight: 0
+    group_default_mental_health_phon:
+      children:
+        - field_default_mental_health_phon
+      label: 'Default mental health phone number'
+      region: content
+      parent_name: ''
+      weight: 9
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+        description_display: after
 id: node.health_care_region_page.default
 targetEntityType: node
 bundle: health_care_region_page
@@ -250,6 +267,18 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_default_mental_health_phon:
+    type: entity_reference_paragraphs
+    weight: 40
+    region: content
+    settings:
+      title: 'phone number'
+      title_plural: 'phone numbers'
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: phone_number
     third_party_settings: {  }
   field_description:
     type: string_textfield_with_counter
@@ -328,7 +357,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 40
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -359,7 +388,7 @@ content:
     third_party_settings: {  }
   field_related_links:
     type: paragraphs
-    weight: 22
+    weight: 21
     region: content
     settings:
       title: Link
