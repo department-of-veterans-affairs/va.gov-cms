@@ -217,7 +217,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $entity = $event->getEntity();
 
     if ($this->isFlaggableFacility($entity)) {
-      if ($entity->bundle() === 'vet_center' || $entity->bundle() === 'vet_center_outstation') {
+      if ($entity->bundle() === 'vet_center' || $entity->bundle() === 'vet_center_outstation' || $entity->bundle() === 'vba_facility') {
         $this->flagger->flagFieldChanged('field_official_name', 'changed_name', $entity, "The Official name of this facility changed from '@old' to '@new'.");
         $this->notificationsManager->sendMessageOnFieldChange('field_official_name', $entity, 'Vet Center Official Name Change:', 'vet_center_official_name_change', self::USER_CMS_HELP_DESK_NOTIFICATIONS);
       }

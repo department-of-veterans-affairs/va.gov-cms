@@ -1,0 +1,76 @@
+display:
+  default:
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Filtro
+          reset_button_label: Restablecer
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          tags:
+            previous: '‹ anterior'
+            next: 'siguiente ›'
+            first: '« primero'
+            last: 'último »'
+      fields:
+        node_bulk_form:
+          action_title: Acción
+        title:
+          label: Título
+          separator: ', '
+        type:
+          separator: ', '
+        name:
+          label: Autor
+          separator: ', '
+        status:
+          label: Estado
+          settings:
+            format_custom_true: Publicado
+            format_custom_false: 'Sin publicar'
+          separator: ', '
+        publish_on:
+          label: 'Publicar en'
+          separator: ', '
+        unpublish_on:
+          label: 'Quitar publicación en'
+          separator: ', '
+        operations:
+          label: Operaciones
+      filters:
+        title:
+          expose:
+            label: Título
+        type:
+          expose:
+            label: 'Tipo de contenido'
+        status:
+          expose:
+            label: Estado
+          group_info:
+            label: 'Estado de publicación'
+            group_items:
+              1:
+                title: Publicado
+              2:
+                title: 'Sin publicar'
+        langcode:
+          expose:
+            label: Idioma
+    display_title: Máster
+  overview:
+    display_options:
+      tab_options:
+        title: Contenido
+  user_page:
+    display_options:
+      tab_options:
+        title: Contenido
+      arguments:
+        uid:
+          exception:
+            title: Todo(s)
+    display_title: Usuario

@@ -22,7 +22,7 @@ Feature: Content Type: Checklist
     And I fill in "Page title" with "[Test Data] Save and Continue Test"
     And I fill in field with selector "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" with value "[Test Items Value] Some item"
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
-    And I click the "Save draft and continue editing" button
+    And I click the button to create node and continue
 
     # Confirm that the correct values are shown on preview.
     Then I visit the node

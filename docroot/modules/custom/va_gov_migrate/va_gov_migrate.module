@@ -14,7 +14,7 @@ use Drupal\node\NodeInterface;
  */
 function va_gov_migrate_entity_presave(EntityInterface $entity) {
   _va_gov_migrate_process_va_form($entity);
-  _va_gov_migrate_set_default_vet_center_title($entity);
+  _va_gov_migrate_set_default_title_from_official_name($entity);
 }
 
 /**
@@ -54,13 +54,13 @@ function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
 }
 
 /**
- * Set default Vet Center or Vet Center - Outstation title.
+ * Set default VBA Facility, Vet Center or Vet Center - Outstation title.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Entity.
  */
-function _va_gov_migrate_set_default_vet_center_title(EntityInterface &$entity) {
-  $bundles = ['vet_center', 'vet_center_outstation'];
+function _va_gov_migrate_set_default_title_from_official_name(EntityInterface &$entity) {
+  $bundles = ['vet_center', 'vet_center_outstation', 'vba_facility'];
   if (!in_array($entity->bundle(), $bundles) || (!$entity instanceof NodeInterface)) {
     return;
   }

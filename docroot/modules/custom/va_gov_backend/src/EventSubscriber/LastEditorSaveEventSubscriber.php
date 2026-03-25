@@ -48,7 +48,7 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
   public function __construct(
     TranslationInterface $string_translation,
     EntityTypeManager $entity_type_manager,
-    DateFormatter $date_formatter
+    DateFormatter $date_formatter,
   ) {
     $this->stringTranslation = $string_translation;
     $this->entityTypeManager = $entity_type_manager;
@@ -89,10 +89,12 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
         '#suffix' => '<p class="helper-text helper-text-saved">' . $this->t('This is the last time this content was saved either by a human or an automated process.') . '</p>',
         '#wrapper_attributes' => ['class' => ['entity-meta__last-saved']],
       ];
+      $revision_user = $node->getRevisionUser();
+      $revision_user_name = $revision_user ? $revision_user->getAccountName() : NULL;
       $form['meta']['author'] = [
         '#type' => 'item',
         '#title' => $this->t('Updated by'),
-        '#markup' => !$node->isNew() ? $node->getRevisionUser()->getAccountName() : $this->t('Not saved yet'),
+        '#markup' => !$node->isNew() ? ($revision_user_name ?: $this->t('Unknown')) : $this->t('Not saved yet'),
         '#wrapper_attributes' => ['class' => ['entity-meta__author']],
       ];
     }

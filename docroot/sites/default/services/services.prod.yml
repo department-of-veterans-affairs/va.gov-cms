@@ -2,11 +2,9 @@ parameters:
   monolog.channel_handlers:
     default:
       - 'drupal.dblog'
-      - 'drupal.raven'
       - 'drupal.syslog'
     php:
       - 'drupal.dblog'
-      - 'drupal.raven'
       - 'drupal.syslog'
       - 'error_log'
   monolog.processors:
