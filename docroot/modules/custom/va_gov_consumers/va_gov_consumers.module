@@ -136,23 +136,30 @@ function _va_gov_consumers_disable_non_vha_facilities_api_form_fields(array &$fo
 function _va_gov_consumers_modify_va_form_fields(array &$form, $form_id, FormStateInterface &$form_state) {
   if ($form_id === 'node_va_form_edit_form' || $form_id === 'node_va_form_form') {
     $node = $form_state->getformObject()->getEntity();
-    $title = "<h1>{$node->getTitle()}</h1>";
     $form_name = $form['field_va_form_name'];
     // We want the form name in a different location, so remove it from here.
     unset($form['field_va_form_name']);
 
     $node_type = $node->type->entity;
     $title_help = $node_type ? $node_type->getThirdPartySetting('node_title_help_text', 'title_help') : '';
-    $header_description = $title_help
-      ? '<div class="description">' . nl2br(Html::escape($title_help)) . '</div>'
-      : '<div class="description">' . t("This non-editable title is automatically set from the Forms DB. It doesn't show on the front end.") . '</div>';
+    $description_content = $title_help
+      ? ['#markup' => nl2br(Html::escape($title_help))]
+      : ['#markup' => t("This non-editable title is automatically set from the Forms DB. It doesn't show on the front end.")];
 
     $form['header'] = [
       '#type' => 'fieldset',
       '#weight' => 0,
       '#collapsible' => FALSE,
       'title' => [
-        '#markup' => $title . $header_description,
+        '#type' => 'html_tag',
+        '#tag' => 'h1',
+        '#value' => Html::escape($node->getTitle()),
+      ],
+      'header_description' => [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#attributes' => ['class' => ['description']],
+        'content' => $description_content,
       ],
       'field_va_form_name' => $form_name,
     ];

@@ -12,7 +12,7 @@ use Drupal\codit_batch_operations\BatchScriptInterface;
  * overwrite_properties, so existing nodes keep an empty Page title until this
  * runs. Values match the migration: page_title_prefix + displayName (node title
  * still uses title_prefix + displayName). field_va_form_number stands in for
- * CSV displayName when they match.
+ * CSV displayName as the migration maps field_va_form_number:displayName.
  *
  * To run manually:
  * drush codit-batch-operations:run VaFormBackfillPageTitle
