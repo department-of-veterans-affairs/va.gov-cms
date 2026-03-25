@@ -16,6 +16,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -226,6 +227,13 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
         $this->notificationsManager->sendMessageOnFieldChange('title', $entity, 'Facility title changed:', 'va_facility_title_change', self::USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
     }
+
+    if ($entity->bundle() === 'health_care_local_facility') {
+      $use_default_checked = $entity->get('field_use_default_mental_health')[0]->value;
+      if ($use_default_checked) {
+        $this->setMentalHealthNumberToDefault($entity);
+      }
+    }
   }
 
   /**
@@ -287,6 +295,45 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Sets the facility's mental health number to the default system number.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function setMentalHealthNumberToDefault($entity) {
+    // Get system mental health paragraph.
+    $region_page = $entity->get('field_region_page')->entity;
+    $system_paragraph = $region_page->get('field_default_mental_health_phon')->entity;
+
+    $phone_number = $system_paragraph->get('field_phone_number')->value;
+    $phone_extension = $system_paragraph->get('field_phone_extension')->value;
+    $phone_type = 'tel';
+
+    $facility_paragraph = $entity->get('field_telephone')->entity;
+    if ($facility_paragraph) {
+      // Update existing mental health phone number to match system default.
+      $facility_paragraph->set('field_phone_number', $phone_number);
+      $facility_paragraph->set('field_phone_extension', $phone_extension);
+      $facility_paragraph->set('field_phone_number_type', $phone_type);
+      $facility_paragraph->save();
+    }
+    else {
+      // Create new paragraph to match system default.
+      $values = [
+        'type' => 'phone_number',
+        'field_phone_number' => $phone_number,
+        'field_phone_extension' => $phone_extension,
+        'field_phone_number_type' => $phone_type,
+      ];
+      $new_paragraph = Paragraph::create($values);
+      $new_paragraph->save();
+      $entity->set('field_telephone', [
+        'target_id' => $new_paragraph->id(),
+        'target_revision_id' => $new_paragraph->getRevisionId(),
+      ]);
+    }
+  }
+
+  /**
    * Adds COVID status information to form and js library.
    *
    * @param array $form
@@ -335,6 +382,34 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $this->addCovidStatusData($form, $form_state);
+    $this->conditionalMentalHealthNumber($form, $form_state);
+  }
+
+  /**
+   * Hides the telephone field based on the default mental health checkbox.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function conditionalMentalHealthNumber(array &$form, FormStateInterface $form_state): void {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    $node = $form_object->getEntity();
+    if ($node instanceof NodeInterface
+      && $node->hasField('field_use_default_mental_health')
+      && $node->hasField('field_telephone')
+    ) {
+      $form['field_telephone']['#states'] = [
+        'visible' => [
+          ':input[name="field_use_default_mental_health[value]"]' => ['checked' => FALSE],
+        ],
+        'invisible' => [
+          ':input[name="field_use_default_mental_health[0][value]"]' => ['checked' => TRUE],
+        ],
+      ];
+    }
   }
 
   /**

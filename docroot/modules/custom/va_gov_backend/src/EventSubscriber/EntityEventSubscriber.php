@@ -265,7 +265,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form_state.
    */
   public function removePhoneLabel(array &$form, FormStateInterface $form_state): void {
-    if (!empty($form['#field_parents']) && in_array('field_telephone', $form['#field_parents'])) {
+    if (!empty($form['#field_parents'])
+      && (in_array('field_telephone', $form['#field_parents'])
+      || in_array('field_default_mental_health_phon', $form['#field_parents']))) {
 
       if ($form['#title'] === 'Label') {
         $form_id = $form_state->getFormObject()->getFormId();
@@ -278,6 +280,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
           'node_health_care_local_facility_edit_form',
           'node_vamc_system_billing_insurance_form',
           'node_vamc_system_billing_insurance_edit_form',
+          'node_health_care_region_page_form',
+          'node_health_care_region_page_edit_form',
         ];
 
         if (in_array($form_id, $forms_without_phone_labels)) {
@@ -288,6 +292,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
           switch ($form_id) {
             case 'node_health_care_local_facility_form':
             case 'node_health_care_local_facility_edit_form':
+            case 'node_health_care_region_page_form':
+            case 'node_health_care_region_page_edit_form':
               $form['value']['#default_value'] = 'Mental health phone';
               break;
 
