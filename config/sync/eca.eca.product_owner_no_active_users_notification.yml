@@ -1,0 +1,44 @@
+uuid: 4d113db1-e80f-4e81-b3e4-37b0e71c40b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - advancedqueue.advancedqueue_queue.product_owner_no_active_users_notification
+    - message.template.product_owner_no_active_users_notification
+  module:
+    - eca_base
+    - va_gov_eca
+id: product_owner_no_active_users_notification
+modeller: core
+label: 'Product owner notification: Sections without active editors'
+version: ''
+weight: 0
+events:
+  eca_base_eca_custom:
+    plugin: 'eca_base:eca_custom'
+    label: 'ECA custom event'
+    configuration:
+      event_id: product_owner_no_active_users_notification
+    successors:
+      -
+        id: queue_product_owner_notifications
+        condition: null
+conditions: {  }
+gateways: {  }
+actions:
+  queue_product_owner_notifications:
+    plugin: queue_no_active_users_product_owner_notifications
+    label: 'Queue product owner notifications for sections without active editors.'
+    configuration:
+      token_name: no_active_users_notification_summary
+      job_type: va_gov_product_owner_no_active_users_notification
+      queue: product_owner_no_active_users_notification
+      template: product_owner_no_active_users_notification
+      owner_uid: 1
+      subject: '[ACTION REQUIRED] Sections without active editors'
+      subject_field: field_subject
+      webhost_field: field_webhost
+      recipient_name_field: field_editor_username
+      sections_field: field_inactive_sections
+      sections_separator: ', '
+    successors: {  }
