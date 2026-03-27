@@ -18,8 +18,7 @@ class MaxDepthTest extends VaGovExistingSiteBase {
   public function testMaxDepthDefaultValue() {
     $user = $this->createUser([], 'Admin', TRUE);
     $this->drupalLogin($user);
-    $this->drupalGet('/admin/structure/taxonomy/manage/va_benefits_taxonomy/overview/fields');
-    $this->click('#field-va-benefit-eligibility-ov li.edit a');
+    $this->drupalGet('/admin/structure/taxonomy/manage/va_benefits_taxonomy/overview/fields/taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility_ov');
     $this->assertSession()->pageTextContains('The maximum depth of a magichead item.');
     $elements = $this->cssSelect('#edit-settings-max-depth');
     $this->assertCount(1, $elements);
