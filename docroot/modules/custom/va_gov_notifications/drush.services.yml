@@ -1,6 +1,7 @@
 services:
   va_gov_notifications.no_active_users_notification_commands:
     class: Drupal\va_gov_notifications\Commands\NoActiveUsersNotificationCommands
-    arguments: ['@va_gov_notifications.no_active_users_notification']
+    arguments:
+      - '@va_gov_notifications.no_active_users_notification'
     tags:
       - { name: drush.command }

@@ -40,10 +40,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "products"
  *   },
  *   links = {
- *     "collection" = "/admin/config/system/va-gov-notifications/product-owner-contacts",
- *     "add-form" = "/admin/config/system/va-gov-notifications/product-owner-contacts/add",
- *     "edit-form" = "/admin/config/system/va-gov-notifications/product-owner-contacts/{product_owner_contact}",
- *     "delete-form" = "/admin/config/system/va-gov-notifications/product-owner-contacts/{product_owner_contact}/delete"
+ *     "collection" = "/admin/people/product-owner-contacts",
+ *     "add-form" = "/admin/people/product-owner-contacts/add",
+ *     "edit-form" = "/admin/people/product-owner-contacts/{product_owner_contact}",
+ *     "delete-form" = "/admin/people/product-owner-contacts/{product_owner_contact}/delete"
  *   }
  * )
  */

@@ -62,3 +62,4 @@ Once email notifications have been queued, The queue can be processed. To proces
 - Message variable tokens can not be used in a link url because CKE editor will mangle tokens in href.
 - H1 can not be used in the message content because the "Rich Text" filter does not allow it, so it has to go on the twig template.
 - To test html on va.gov email (Outlook) while running locally, you can copy the html displayed in MailPit, paste it into gmail, then send it to your VA.gov email. Formatting is preserved.
+- Product owner recipient entities are intentionally excluded from config synchronization via `config_ignore.settings` (`va_gov_notifications.product_owner_contact.*`) so environment-specific contact lists are not overwritten by config import.
