@@ -58,7 +58,7 @@ class OutdatedContentNotification extends JobTypeBase implements ContainerFactor
     $pluginId,
     $pluginDefinition,
     LoggerChannelFactoryInterface $loggerFactory,
-    MessageNotifier $messageNotifier
+    MessageNotifier $messageNotifier,
   ) {
     parent::__construct($configuration, $pluginId, $pluginDefinition);
 

@@ -30,7 +30,7 @@ class Flagging implements FlaggingInterface {
    */
   public function __construct(
     FlagServiceInterface $flagService,
-    EntityTypeManagerInterface $entityTypeManager
+    EntityTypeManagerInterface $entityTypeManager,
   ) {
     $this->flagService = $flagService;
     $this->entityTypeManager = $entityTypeManager;

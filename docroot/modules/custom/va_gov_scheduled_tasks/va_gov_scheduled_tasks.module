@@ -404,6 +404,7 @@ function va_gov_scheduled_tasks_every_minute() {
 function va_gov_scheduled_tasks_monthly() {
   \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly tasks started');
   va_gov_scheduled_tasks_check_outdated_content();
+  va_gov_scheduled_tasks_run_drush_command('va-gov-notifications:no-active-users:trigger');
   va_gov_scheduled_tasks_delete_unattached_pdfs();
   \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly tasks completed');
 }

@@ -51,7 +51,7 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
     LoggerChannelInterface $va_gov_notifications_logger,
-    UserSectionStorageInterface $user_section_storage
+    UserSectionStorageInterface $user_section_storage,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->vaGovNotificationsLogger = $va_gov_notifications_logger;
