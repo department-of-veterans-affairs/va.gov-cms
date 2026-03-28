@@ -5,8 +5,10 @@ namespace Drupal\va_gov_migrate\EventSubscriber;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigratePostRowSaveEvent;
+use Drupal\migrate\Event\MigratePreRowSaveEvent;
 use Drupal\migration_tools\Message;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\va_gov_migrate\ParagraphMigrator;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -18,11 +20,72 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PostRowSave implements EventSubscriberInterface {
 
   /**
+   * The forms migration id.
+   */
+  private const VA_FORM_MIGRATION_ID = 'va_node_form';
+
+  /**
+   * Destination config key for fields copied onto carried draft revisions.
+   */
+  private const FORWARD_REVISION_OVERWRITE_PROPERTIES = 'forward_revision_overwrite_properties';
+
+  /**
+   * Forward revision context captured before row save.
+   *
+   * @var array<int, array<string, int>>
+   */
+  protected array $forwardRevisionContext = [];
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[MigrateEvents::POST_ROW_SAVE] = 'onMigratePostRowSave';
+    $events[MigrateEvents::PRE_ROW_SAVE] = ['onMigratePreRowSave', 100];
+    $events[MigrateEvents::POST_ROW_SAVE] = ['onMigratePostRowSave', 100];
     return $events;
+  }
+
+  /**
+   * Capture forward revision context before the destination save occurs.
+   *
+   * @param \Drupal\migrate\Event\MigratePreRowSaveEvent $event
+   *   Information about the event that triggered this function.
+   */
+  public function onMigratePreRowSave(MigratePreRowSaveEvent $event) {
+    if (!$this->isVaFormMigration($event->getMigration()->id())) {
+      return;
+    }
+
+    $source_id = $event->getRow()->getSourceProperty('rowid');
+    if (empty($source_id)) {
+      return;
+    }
+
+    $destination_ids = $event->getMigration()->getIdMap()->lookupDestinationIds([$source_id]);
+    $nid = (int) ($destination_ids[0][0] ?? 0);
+    if (empty($nid)) {
+      return;
+    }
+
+    $default_revision = Node::load($nid);
+    if (!$default_revision instanceof NodeInterface) {
+      return;
+    }
+
+    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    $latest_revision_id = (int) $node_storage->getLatestRevisionId($nid);
+    if (empty($latest_revision_id) || $latest_revision_id === (int) $default_revision->getRevisionId()) {
+      return;
+    }
+
+    $latest_revision = $node_storage->loadRevision($latest_revision_id);
+    if (!$latest_revision instanceof NodeInterface || $latest_revision->isDefaultRevision()) {
+      return;
+    }
+
+    $this->forwardRevisionContext[$nid] = [
+      'revision_id' => $latest_revision_id,
+    ];
   }
 
   /**
@@ -70,9 +133,74 @@ class PostRowSave implements EventSubscriberInterface {
         }
     }
 
+    $this->carryForwardVaFormDraftRevision($event);
+
     // va_gov_migrate.anomaly is an array of reported anomalies so we don't
     // report the same anomaly twice for the same page.
     \Drupal::state()->delete('va_gov_migrate.anomaly');
+  }
+
+  /**
+   * Carry migration-owned form fields onto the latest draft lineage.
+   *
+   * @param \Drupal\migrate\Event\MigratePostRowSaveEvent $event
+   *   Information about the event that triggered this function.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function carryForwardVaFormDraftRevision(MigratePostRowSaveEvent $event) {
+    if (!$this->isVaFormMigration($event->getMigration()->id())) {
+      return;
+    }
+
+    $nid = (int) ($event->getDestinationIdValues()[0] ?? 0);
+    if (empty($nid)) {
+      return;
+    }
+
+    $forward_revision_context = $this->forwardRevisionContext[$nid] ?? NULL;
+    unset($this->forwardRevisionContext[$nid]);
+    if (empty($forward_revision_context['revision_id'])) {
+      return;
+    }
+
+    $overwrite_properties = $event->getMigration()->getDestinationConfiguration()[self::FORWARD_REVISION_OVERWRITE_PROPERTIES] ?? [];
+    if (empty($overwrite_properties)) {
+      return;
+    }
+
+    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    $default_revision = $node_storage->load($nid);
+    $draft_revision = $node_storage->loadRevision($forward_revision_context['revision_id']);
+    if (!$default_revision instanceof NodeInterface || !$draft_revision instanceof NodeInterface) {
+      return;
+    }
+
+    foreach ($overwrite_properties as $property) {
+      if ($default_revision->hasField($property) && $draft_revision->hasField($property)) {
+        $draft_revision->set($property, $default_revision->get($property)->getValue());
+      }
+    }
+
+    $draft_revision->setNewRevision(TRUE);
+    $draft_revision->enforceIsNew(FALSE);
+    $draft_revision->setValidationRequired(FALSE);
+    $draft_revision->isDefaultRevision(FALSE);
+    $draft_revision->setRevisionLogMessage('Draft revision carried forward after Forms DB migration.');
+    $draft_revision->save();
+  }
+
+  /**
+   * Determine whether the event belongs to the forms migration.
+   *
+   * @param string $migration_id
+   *   The migration id.
+   *
+   * @return bool
+   *   TRUE when the forms migration is running.
+   */
+  protected function isVaFormMigration(string $migration_id): bool {
+    return $migration_id === self::VA_FORM_MIGRATION_ID;
   }
 
   /**
