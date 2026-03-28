@@ -144,6 +144,7 @@ source:
     administration_section: 196
     idprefix: vha_
     title_prefix: 'About VA Form '
+    page_title_prefix: 'VA Form '
   # All the fields that are used from the source.
 # The destination fields mapped and processed from source fields.
 process:
@@ -178,6 +179,12 @@ process:
       plugin: concat
       source:
         - constants/title_prefix
+        - displayName
+  field_va_form_page_title:
+    -
+      plugin: concat
+      source:
+        - constants/page_title_prefix
         - displayName
   # field_benefit_categories:
   field_va_form_administration:

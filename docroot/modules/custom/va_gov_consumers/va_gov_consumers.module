@@ -5,6 +5,7 @@
  * Contains va_gov_consumers.module.
  */
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
@@ -135,20 +136,41 @@ function _va_gov_consumers_disable_non_vha_facilities_api_form_fields(array &$fo
 function _va_gov_consumers_modify_va_form_fields(array &$form, $form_id, FormStateInterface &$form_state) {
   if ($form_id === 'node_va_form_edit_form' || $form_id === 'node_va_form_form') {
     $node = $form_state->getformObject()->getEntity();
-    $title = "<h1>{$node->getTitle()}</h1>";
     $form_name = $form['field_va_form_name'];
     // We want the form name in a different location, so remove it from here.
     unset($form['field_va_form_name']);
+
+    $node_type = $node->type->entity;
+    $title_help = $node_type ? $node_type->getThirdPartySetting('node_title_help_text', 'title_help') : '';
+    $description_content = $title_help
+      ? ['#markup' => nl2br(Html::escape($title_help))]
+      : ['#markup' => t("This non-editable title is automatically set from the Forms DB. It doesn't show on the front end.")];
 
     $form['header'] = [
       '#type' => 'fieldset',
       '#weight' => 0,
       '#collapsible' => FALSE,
       'title' => [
-        '#markup' => $title . '<div class="description">This non-editable page title is automatically set by the VA forms database.</div>',
+        '#type' => 'html_tag',
+        '#tag' => 'h1',
+        '#value' => Html::escape($node->getTitle()),
+      ],
+      'header_description' => [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#attributes' => ['class' => ['description']],
+        'content' => $description_content,
       ],
       'field_va_form_name' => $form_name,
     ];
+
+    // Match the node title widget label to the base field override (e.g. "Forms
+    // DB Title") so it is not confused with field_va_form_page_title ("Page
+    // title"). Form alters run in unpredictable order relative to field labels.
+    $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', 'va_form');
+    if (isset($form['title']['widget'][0]['value'], $field_definitions['title'])) {
+      $form['title']['widget'][0]['value']['#title'] = $field_definitions['title']->getLabel();
+    }
 
     _va_gov_consumers_disable_external_content_editing($form, $form_state, 'field_va_form_number');
 
