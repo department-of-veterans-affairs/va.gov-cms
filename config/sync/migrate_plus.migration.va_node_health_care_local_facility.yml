@@ -197,6 +197,9 @@ process:
   field_mobile:
     plugin: convert_boolean
     source: mobile
+  field_use_default_mental_health:
+    plugin: default_value
+    default_value: false
   status:
     plugin: default_value
     default_value: 0
@@ -264,3 +267,4 @@ destination:
     - uid
 migration_dependencies:
   required: {  }
+include: null

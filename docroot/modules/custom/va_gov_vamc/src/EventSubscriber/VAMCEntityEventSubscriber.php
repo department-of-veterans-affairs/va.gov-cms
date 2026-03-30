@@ -406,7 +406,13 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
           ':input[name="field_use_default_mental_health[value]"]' => ['checked' => FALSE],
         ],
         'invisible' => [
-          ':input[name="field_use_default_mental_health[0][value]"]' => ['checked' => TRUE],
+          ':input[name="field_use_default_mental_health[value]"]' => ['checked' => TRUE],
+        ],
+        'enabled' => [
+          ':input[name="field_use_default_mental_health[value]"]' => ['checked' => FALSE],
+        ],
+        'disabled' => [
+          ':input[name="field_use_default_mental_health[value]"]' => ['checked' => TRUE],
         ],
       ];
     }
