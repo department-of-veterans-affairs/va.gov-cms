@@ -329,15 +329,15 @@ function _va_gov_backend_toggle_field_states(array &$form, array $toggle_group) 
           ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => $paragraph_field['required']]],
         ],
         'visible' => [
-         ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
+          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
         ],
         'disabled' => [
-         ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => FALSE]],
+          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => FALSE]],
         ],
       ];
       if (!empty($paragraph_field['show-indicator'])) {
         $form[$paragraph_key]['#states']['show-indicator'] = [
-         ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
+          ['input[name="' . $toggle_group['trigger'] . '[value]"]' => ['checked' => TRUE]],
         ];
       }
     }
@@ -571,7 +571,7 @@ function va_gov_backend_form_media_library_add_form_upload_alter(&$form, FormSta
 function va_gov_backend_field_widget_single_element_boolean_checkbox_form_alter(&$element, FormStateInterface $form_state, $context) {
   $field_definition = $context['items']->getFieldDefinition();
   if ($field_definition instanceof FieldConfig) {
-    [$entity_type, , $field_name] = explode('.', $field_definition->id());
+    [$entity_type,, $field_name] = explode('.', $field_definition->id());
     if ($entity_type === 'media' && $field_name === 'field_media_in_library') {
       $element['value']['#attributes']['class'][] = 'field_media_in_library';
     }
@@ -584,7 +584,7 @@ function va_gov_backend_field_widget_single_element_boolean_checkbox_form_alter(
 function va_gov_backend_field_widget_single_element_form_alter(array &$element, FormStateInterface $form_state, array $context) {
   $field_definition = $context['items']->getFieldDefinition();
   if ($field_definition instanceof FieldConfig) {
-    [$entity_type, , $field_name] = explode('.', $field_definition->id());
+    [$entity_type,, $field_name] = explode('.', $field_definition->id());
     // Add input mask js to field_phone_extension.
     if ($entity_type === 'paragraph' && $field_name === 'field_phone_extension') {
       $element['#attached']['library'][] = 'va_gov_backend/phone_extension_mask';
@@ -616,7 +616,6 @@ function va_gov_backend_entity_view_alter(array &$build, EntityInterface $entity
       }
     }
   }
-
 }
 
 /**
@@ -654,8 +653,10 @@ function _va_gov_backend_disable_alias_widget(array &$form, FormStateInterface $
   // If entity is not ignored and entity is published
   // and entity is not new then unchecked the generate automatic URL alias
   // to disallow auto path updating.
-  if (!in_array($entity->bundle(), _va_gov_backend_get_unlocked_alias_bundles()) &&
-    $entity->isPublished() && !$entity->isNew()) {
+  if (
+    !in_array($entity->bundle(), _va_gov_backend_get_unlocked_alias_bundles()) &&
+    $entity->isPublished() && !$entity->isNew()
+  ) {
     $form['#after_build'][] = '_va_gov_backend_node_after_build_uncheck_auto_alias';
   }
 }
@@ -1311,7 +1312,6 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
         'max' => 1,
       ]);
     }
-
   }
 }
 
@@ -1414,7 +1414,6 @@ function _va_gov_backend_gtm_settings() {
         $sections['contentOwner'] = $owners[0]->getName();
       }
     }
-
   }
   $user = \Drupal::currentUser();
   $user_roles = $user->getRoles() ?? ['anonymous'];
@@ -1552,7 +1551,6 @@ function va_gov_backend_rebuild() {
     case 'local':
       $environment_label = 'Local Environment';
       break;
-
   }
 
   \Drupal::state()->set("environment_indicator.environment_label", $environment_label);
@@ -1879,7 +1877,8 @@ function _va_gov_backend_has_suspicious_nbsp_density(FieldableEntityInterface $e
 
       $nbsp_count = substr_count($value, '&nbsp;') + substr_count($value, "\xC2\xA0");
       if ($nbsp_count < 5) {
-        // Less than 5 nbsp is very few. Present assumption: This amount is more likely deliberate.
+        // Less than 5 nbsp is very few.
+        // Present assumption: This amount is more likely deliberate.
         continue;
       }
 
@@ -1892,8 +1891,7 @@ function _va_gov_backend_has_suspicious_nbsp_density(FieldableEntityInterface $e
       $nbsp_ratio = $nbsp_count / $space_like_count;
       if ($nbsp_ratio >= 0.2) {
         /*
-         * 20% is a rough guess for what threshold constitutes suspiscious nbps:space density.
-         * This value is erring on the side of "only surface warning if it's unreasonable to think this isn't suspiscious"
+         * 20% is a rough guess for suspicious nbsp density.
          * Tweak as needed.
          */
         return TRUE;
@@ -1984,8 +1982,10 @@ function va_gov_backend_field_widget_single_element_tablefield_form_alter(&$elem
 function _va_gov_backend_disable_autopath_alias(FieldableEntityInterface $entity) {
   if (!$entity->isNew()) {
     // Get original values of the node for comparison.
-    $original_use_alias_pattern = !empty($entity->original) ? $entity->original->get('path')->pathauto : '';
-    $current_use_alias_pattern = $entity->get('path')->pathauto;
+    $original_path = !empty($entity->original) ? $entity->original->get('path')->getValue() : [];
+    $current_path = $entity->get('path')->getValue();
+    $original_use_alias_pattern = (int) ($original_path[0]['pathauto'] ?? 0);
+    $current_use_alias_pattern = (int) ($current_path[0]['pathauto'] ?? 0);
     // Decide if this was an intentional toggle on of using the alias pattern.
     $toggled_on_this_save = $current_use_alias_pattern && !$original_use_alias_pattern;
     $active_entity = \Drupal::entityTypeManager()->getStorage('node')->load($entity->id());
@@ -2000,13 +2000,15 @@ function _va_gov_backend_disable_autopath_alias(FieldableEntityInterface $entity
       // This has a path alias, was published,
       // and was not an intentional toggle on.
       // Disable the pathauto pattern.
-      $entity->path->pathauto = 0;
+      $current_path[0]['pathauto'] = 0;
+      $entity->set('path', $current_path);
     }
     elseif (!$path_alias_set) {
       // If this is not set pathauto already is 0,
       // so we need to explicitly set it to 1
       // to get an alias generated.
-      $entity->path->pathauto = 1;
+      $current_path[0]['pathauto'] = 1;
+      $entity->set('path', $current_path);
     }
   }
 }
@@ -2030,7 +2032,7 @@ function _va_gov_backend_feature_bump(EntityInterface $entity) {
       $select = \Drupal::database()->select('node__field_featured', 'nff');
       $select->join('node__field_listing', 'nfl', 'nfl.entity_id = nff.entity_id');
       $select->fields('nff', ['entity_id', 'field_featured_value'])
-      // We don't want to operate on current node.
+        // We don't want to operate on current node.
         ->condition('nff.entity_id', $entity->id(), '!=')
         ->condition('nff.field_featured_value', 1)
         ->condition('nfl.field_listing_target_id', $target)

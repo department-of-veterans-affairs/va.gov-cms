@@ -26,6 +26,8 @@ function va_gov_eca_form_eca_cm_alter(array &$form, FormStateInterface $form_sta
   /** @var \Drupal\eca\Service\Actions $action_service */
   $action_service = \Drupal::service('eca.service.action');
   $module_handler = \Drupal::moduleHandler();
+  /** @var \Drupal\Core\Extension\ModuleExtensionList $module_extension_list */
+  $module_extension_list = \Drupal::service('extension.list.module');
 
   $action_options_label = [];
   $action_options_provider = [];
@@ -50,7 +52,7 @@ function va_gov_eca_form_eca_cm_alter(array &$form, FormStateInterface $form_sta
       $module_name = (string) t('Unknown provider');
     }
     else {
-      $module_name = (string) $module_handler->getName((string) $definition['provider']);
+      $module_name = (string) $module_extension_list->getName((string) $definition['provider']);
     }
 
     $action_options_label[$id] = (string) $definition['label'] . ' (' . $module_name . ')';

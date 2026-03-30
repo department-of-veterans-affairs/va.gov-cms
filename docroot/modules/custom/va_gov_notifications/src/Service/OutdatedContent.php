@@ -176,6 +176,7 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
         $outdated_content = $this->getOutdatedContentForSection($section, $exempt_types);
         if (!empty($outdated_content) && $product === $product_id) {
           $editorId = $editor->id();
+          $editorName = $editor->getAccountName();
           $sectionName = $this->getSectionName($section);
           $this->vaGovNotificationsLogger
             ->info('Outdated content found for @sectionName editor: @editor',
