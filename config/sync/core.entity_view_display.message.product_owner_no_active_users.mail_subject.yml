@@ -1,14 +1,14 @@
-uuid: 6ea207f6-6d3f-4d32-8c83-c7db815fb25b
+uuid: 5dd3a6d3-a324-415f-bd7b-bf05c79b8c43
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.message.mail_subject
-    - field.field.message.product_owner_no_active_users_notification.field_editor_username
-    - field.field.message.product_owner_no_active_users_notification.field_inactive_sections
-    - field.field.message.product_owner_no_active_users_notification.field_subject
-    - field.field.message.product_owner_no_active_users_notification.field_webhost
-    - message.template.product_owner_no_active_users_notification
+    - field.field.message.product_owner_no_active_users.field_editor_username
+    - field.field.message.product_owner_no_active_users.field_inactive_sections
+    - field.field.message.product_owner_no_active_users.field_subject
+    - field.field.message.product_owner_no_active_users.field_webhost
+    - message.template.product_owner_no_active_users
   module:
     - layout_builder
     - user
@@ -16,9 +16,9 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
-id: message.product_owner_no_active_users_notification.mail_subject
+id: message.product_owner_no_active_users.mail_subject
 targetEntityType: message
-bundle: product_owner_no_active_users_notification
+bundle: product_owner_no_active_users
 mode: mail_subject
 content:
   field_subject:

@@ -73,7 +73,7 @@ class QueueNoActiveUsersProductOwnerNotifications extends ConfigurableActionBase
       'token_name' => 'no_active_users_notification_summary',
       'job_type' => 'va_gov_product_owner_no_active_users_notification',
       'queue' => 'product_owner_no_active_users_notification',
-      'template' => 'product_owner_no_active_users_notification',
+      'template' => 'product_owner_no_active_users',
       'owner_uid' => 1,
       'subject' => '[ACTION REQUIRED] Sections without active editors',
       'subject_field' => 'field_subject',

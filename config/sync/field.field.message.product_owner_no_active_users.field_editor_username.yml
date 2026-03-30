@@ -1,19 +1,19 @@
-uuid: 0f67ecef-f612-43cb-88df-ccdcdd4a6c88
+uuid: f7288b39-a15a-48b4-86e0-9b1fe529e56b
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.message.field_editor_username
-    - message.template.product_owner_no_active_users_notification
+    - message.template.product_owner_no_active_users
   module:
     - tmgmt_content
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: message.product_owner_no_active_users_notification.field_editor_username
+id: message.product_owner_no_active_users.field_editor_username
 field_name: field_editor_username
 entity_type: message
-bundle: product_owner_no_active_users_notification
+bundle: product_owner_no_active_users
 label: 'Recipient name'
 description: ''
 required: false

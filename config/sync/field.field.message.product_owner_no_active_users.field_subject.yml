@@ -1,19 +1,19 @@
-uuid: 66411377-a962-4bfa-aa5d-3bf56d873d3b
+uuid: 7a330591-1a6a-4da1-871f-655826d4a3a4
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.message.field_subject
-    - message.template.product_owner_no_active_users_notification
+    - message.template.product_owner_no_active_users
   module:
     - tmgmt_content
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: message.product_owner_no_active_users_notification.field_subject
+id: message.product_owner_no_active_users.field_subject
 field_name: field_subject
 entity_type: message
-bundle: product_owner_no_active_users_notification
+bundle: product_owner_no_active_users
 label: Subject
 description: ''
 required: false

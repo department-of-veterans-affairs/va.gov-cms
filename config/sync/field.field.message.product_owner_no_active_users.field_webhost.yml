@@ -1,19 +1,19 @@
-uuid: 091cc704-d52d-44ca-a4d4-58fb2490c0b9
+uuid: 7fe656ca-a313-4175-b39b-192a6dc62572
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.message.field_webhost
-    - message.template.product_owner_no_active_users_notification
+    - message.template.product_owner_no_active_users
   module:
     - tmgmt_content
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: message.product_owner_no_active_users_notification.field_webhost
+id: message.product_owner_no_active_users.field_webhost
 field_name: field_webhost
 entity_type: message
-bundle: product_owner_no_active_users_notification
+bundle: product_owner_no_active_users
 label: Webhost
 description: ''
 required: false

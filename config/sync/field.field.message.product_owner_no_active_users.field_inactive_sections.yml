@@ -1,19 +1,19 @@
-uuid: 4a846d8a-7765-4961-acff-7b124493e5b5
+uuid: 1b75cb03-89f0-4de9-9a99-984e614a5d14
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.message.field_inactive_sections
-    - message.template.product_owner_no_active_users_notification
+    - message.template.product_owner_no_active_users
   module:
     - tmgmt_content
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: message.product_owner_no_active_users_notification.field_inactive_sections
+id: message.product_owner_no_active_users.field_inactive_sections
 field_name: field_inactive_sections
 entity_type: message
-bundle: product_owner_no_active_users_notification
+bundle: product_owner_no_active_users
 label: 'Inactive sections'
 description: ''
 required: false

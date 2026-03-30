@@ -1,18 +1,18 @@
-uuid: 77f2cc08-2778-4e52-b2c5-4a4038d3c225
+uuid: 8e526ad1-e8ee-428e-9e72-01aebd71b2c5
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.message.product_owner_no_active_users_notification.field_editor_username
-    - field.field.message.product_owner_no_active_users_notification.field_inactive_sections
-    - field.field.message.product_owner_no_active_users_notification.field_subject
-    - field.field.message.product_owner_no_active_users_notification.field_webhost
-    - message.template.product_owner_no_active_users_notification
+    - field.field.message.product_owner_no_active_users.field_editor_username
+    - field.field.message.product_owner_no_active_users.field_inactive_sections
+    - field.field.message.product_owner_no_active_users.field_subject
+    - field.field.message.product_owner_no_active_users.field_webhost
+    - message.template.product_owner_no_active_users
   module:
     - user
-id: message.product_owner_no_active_users_notification.default
+id: message.product_owner_no_active_users.default
 targetEntityType: message
-bundle: product_owner_no_active_users_notification
+bundle: product_owner_no_active_users
 mode: default
 content:
   field_editor_username:
