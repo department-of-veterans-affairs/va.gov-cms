@@ -100,7 +100,7 @@ function va_gov_notifications_views_query_alter(ViewExecutable $view, QueryPlugi
   // corresponds to a live taxonomy term (deleted sections, special strings
   // like "administration", etc.). Without this filter those rows show up as
   // N/A in the Section name column.
-  $query->addWhereExpression(0, "section_association.section_id IN (SELECT tid FROM taxonomy_term_data)");
+  $query->addWhereExpression(0, "section_association.section_id IN (SELECT tid FROM taxonomy_term_field_data)");
 
   if (!in_array($view->current_display, ['data_export_2', 'page_2'], TRUE)) {
     return;
