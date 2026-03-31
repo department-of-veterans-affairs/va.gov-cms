@@ -10,6 +10,7 @@ use Drupal\va_gov_notifications\Service\NoActiveUsersNotificationService;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Tests command behavior for no-active-users reporting.
@@ -68,14 +69,15 @@ final class NoActiveUsersNotificationCommandsTest extends UnitTestCase {
     $input = new ArrayInput([]);
     $output = new BufferedOutput();
     $io = new SymfonyStyle($input, $output);
+    $dispatcher = $this->createMock(EventDispatcherInterface::class);
 
-    $command = new class($service, $io) extends NoActiveUsersNotificationCommands {
+    $command = new class($service, $dispatcher, $io) extends NoActiveUsersNotificationCommands {
 
       /**
        * Constructor.
        */
-      public function __construct(NoActiveUsersNotificationService $no_active_users_notification_service, private SymfonyStyle $testIo) {
-        parent::__construct($no_active_users_notification_service);
+      public function __construct(NoActiveUsersNotificationService $no_active_users_notification_service, EventDispatcherInterface $event_dispatcher, private SymfonyStyle $testIo) {
+        parent::__construct($no_active_users_notification_service, $event_dispatcher);
       }
 
       /**
