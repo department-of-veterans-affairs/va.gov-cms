@@ -364,11 +364,6 @@ class QueueNoActiveUsersProductOwnerNotifications extends ConfigurableActionBase
     if (empty($section_names)) {
       return '';
     }
-
-    if (count($section_names) === 1) {
-      return $section_names[0] . '.';
-    }
-
     return '- ' . implode("\n- ", $section_names);
   }
 
