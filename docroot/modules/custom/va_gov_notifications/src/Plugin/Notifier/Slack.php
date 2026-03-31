@@ -73,8 +73,8 @@ class Slack extends MessageNotifierBase {
     EntityTypeManagerInterface $entity_type_manager,
     RendererInterface $render,
     SlackService $slack_service,
-    ?MessageInterface $message = NULL,
-  ) {
+    MessageInterface $message = NULL
+    ) {
     // Set configuration defaults.
     $configuration += [
       'mail' => FALSE,
@@ -91,7 +91,7 @@ class Slack extends MessageNotifierBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, ?MessageInterface $message = NULL) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, MessageInterface $message = NULL) {
     return new static(
       $configuration,
       $plugin_id,
