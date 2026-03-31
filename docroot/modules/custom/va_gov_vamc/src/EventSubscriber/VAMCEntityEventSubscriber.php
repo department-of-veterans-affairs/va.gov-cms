@@ -299,13 +299,13 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function setMentalHealthNumberToDefault($entity) {
+  protected function setMentalHealthNumberToDefault($entity) {
     // Get system mental health paragraph.
     $region_page = $entity->get('field_region_page')->entity;
-    $system_paragraph = $region_page->get('field_default_mental_health_phon')->entity;
+    $system_paragraph = $region_page?->get('field_default_mental_health_phon')->entity;
 
-    $phone_number = $system_paragraph->get('field_phone_number')->value;
-    $phone_extension = $system_paragraph->get('field_phone_extension')->value;
+    $phone_number = $system_paragraph?->get('field_phone_number')->value;
+    $phone_extension = $system_paragraph?->get('field_phone_extension')->value;
     $phone_type = 'tel';
 
     $facility_paragraph = $entity->get('field_telephone')->entity;
@@ -393,7 +393,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public function conditionalMentalHealthNumber(array &$form, FormStateInterface $form_state): void {
+  protected function conditionalMentalHealthNumber(array &$form, FormStateInterface $form_state): void {
     /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
     $form_object = $form_state->getFormObject();
     $node = $form_object->getEntity();
@@ -401,6 +401,12 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       && $node->hasField('field_use_default_mental_health')
       && $node->hasField('field_telephone')
     ) {
+      $region_page = $node->get('field_region_page')->entity;
+      $system_paragraph = $region_page?->get('field_default_mental_health_phon')->entity;
+      if (empty($system_paragraph)) {
+        $form['field_use_default_mental_health']['#access'] = FALSE;
+        return;
+      }
       $form['field_telephone']['#states'] = [
         'visible' => [
           ':input[name="field_use_default_mental_health[value]"]' => ['checked' => FALSE],
