@@ -345,22 +345,31 @@ class QueueNoActiveUsersProductOwnerNotifications extends ConfigurableActionBase
   }
 
   /**
-   * Builds a joined section-name summary for a recipient.
+   * Builds a plain-text section-name summary for a recipient.
    *
    * @param array<int, array<string, mixed>> $sections
    *   Sections belonging to the recipient.
    *
    * @return string
-   *   Section names joined with the configured separator.
+   *   Section names formatted as either a sentence or a bullet list.
    */
   protected function buildSectionSummary(array $sections): string {
     $section_names = [];
     foreach ($sections as $section) {
       if (!empty($section['section_name'])) {
-        $section_names[] = (string) $section['section_name'];
+        $section_names[] = trim((string) $section['section_name']);
       }
     }
-    return implode((string) $this->configuration['sections_separator'], $section_names);
+
+    if (empty($section_names)) {
+      return '';
+    }
+
+    if (count($section_names) === 1) {
+      return $section_names[0] . '.';
+    }
+
+    return '- ' . implode("\n- ", $section_names);
   }
 
   /**

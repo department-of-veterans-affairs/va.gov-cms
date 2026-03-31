@@ -9,7 +9,7 @@ label: 'Product Owner No Active Users Notification'
 description: 'Email to product owners when sections in their product have no active editors assigned.'
 text:
   -
-    value: '<p>Hi [message:field_editor_username],</p><p>The following sections in your product area do not currently have any active editors assigned:</p><p>[message:field_inactive_sections]</p><p>Please review coverage and work with the relevant teams to restore editor access where needed.</p><p>You can review all affected sections in the <a href="[message:field_webhost]">Sections with no active users</a> report.</p>'
+    value: '<p>Hi [message:field_editor_username],</p><p>The following sections in your product area do not currently have any active editors assigned:</p><p>[message:field_inactive_sections]</p><p>Please review coverage and work with the relevant teams to restore editor access where needed.</p><p>You can review all affected sections in the Sections with no active users report: [message:field_webhost:value]</p>'
     format: rich_text
 settings:
   'token options':
