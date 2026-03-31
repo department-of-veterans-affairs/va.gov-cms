@@ -213,6 +213,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function entityUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
@@ -229,7 +231,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     }
 
     if ($entity->bundle() === 'health_care_local_facility') {
-      $use_default_checked = $entity->get('field_use_default_mental_health')[0]->value;
+      $use_default_checked = $entity->get('field_use_default_mental_health')[0]?->value;
       if ($use_default_checked) {
         $this->setMentalHealthNumberToDefault($entity);
       }
@@ -299,7 +301,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function setMentalHealthNumberToDefault($entity) {
+  protected function setMentalHealthNumberToDefault($entity): void {
     // Get system mental health paragraph.
     $region_page = $entity->get('field_region_page')->entity;
     $system_paragraph = $region_page?->get('field_default_mental_health_phon')->entity;
