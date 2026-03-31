@@ -351,7 +351,7 @@ class QueueNoActiveUsersProductOwnerNotifications extends ConfigurableActionBase
    *   Sections belonging to the recipient.
    *
    * @return string
-   *   Section names formatted as either a sentence or a bullet list.
+   *   Section names formatted as either a sentence or dash-bulleted text.
    */
   protected function buildSectionSummary(array $sections): string {
     $section_names = [];
