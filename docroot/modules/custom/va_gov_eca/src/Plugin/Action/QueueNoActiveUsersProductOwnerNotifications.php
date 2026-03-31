@@ -281,7 +281,7 @@ class QueueNoActiveUsersProductOwnerNotifications extends ConfigurableActionBase
       $values[$this->configuration['subject_field']] = $this->configuration['subject'];
     }
     if ($this->configuration['webhost_field'] !== '') {
-      $values[$this->configuration['webhost_field']] = Settings::get('webhost', 'https://prod.cms.va.gov');
+      $values[$this->configuration['webhost_field']] = $this->buildSectionsWithoutActiveUsersReportUrl((array) ($recipient['sections'] ?? []));
     }
     if ($this->configuration['recipient_name_field'] !== '') {
       $values[$this->configuration['recipient_name_field']] = (string) ($recipient['recipient_name'] ?? '');
@@ -298,6 +298,50 @@ class QueueNoActiveUsersProductOwnerNotifications extends ConfigurableActionBase
       'values' => $values,
       'mail' => (string) ($recipient['recipient_email'] ?? ''),
     ];
+  }
+
+  /**
+   * Builds a full report URL and appends one product ID when unambiguous.
+   *
+   * @param array<int, array<string, mixed>> $sections
+   *   Sections belonging to the recipient.
+   *
+   * @return string
+   *   Full URL for the no-active-users report.
+   */
+  protected function buildSectionsWithoutActiveUsersReportUrl(array $sections): string {
+    $base_url = rtrim((string) Settings::get('webhost', 'https://prod.cms.va.gov'), '/');
+    $path = '/admin/people/users_per_section/no-active-users';
+
+    $product_ids = $this->extractRecipientProductIds($sections);
+    if (count($product_ids) === 1) {
+      $path .= '/' . $product_ids[0];
+    }
+
+    return $base_url . $path;
+  }
+
+  /**
+   * Extracts unique product IDs represented by a recipient's sections.
+   *
+   * @param array<int, array<string, mixed>> $sections
+   *   Sections belonging to the recipient.
+   *
+   * @return string[]
+   *   Unique product IDs.
+   */
+  protected function extractRecipientProductIds(array $sections): array {
+    $product_ids = [];
+    foreach ($sections as $section) {
+      foreach ((array) ($section['product_ids'] ?? []) as $product_id) {
+        $product_id = trim((string) $product_id);
+        if ($product_id !== '') {
+          $product_ids[] = $product_id;
+        }
+      }
+    }
+
+    return array_values(array_unique($product_ids));
   }
 
   /**
