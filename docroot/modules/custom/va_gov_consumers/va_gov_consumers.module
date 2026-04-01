@@ -93,13 +93,20 @@ function _va_gov_consumers_disable_non_vha_facilities_api_form_fields(array &$fo
     'node_vet_center_outstation_edit_form',
   ];
 
+  $vba_facility_form_ids = [
+    'node_vba_facility_edit_form',
+    'node_vba_facility_form',
+  ];
+  // Merge arrays for forms with official name field.
+  $vc_vba_form_ids = array_merge(_va_gov_consumers_return_vet_center_form_names(), $vba_facility_form_ids);
+
   if (in_array($form_id, $target_forms)) {
     if (empty($form['title']['widget'][0]['value']['#default_value'])) {
       // Prepoulate the title to warn it will be overwritten by api data.
       $form['title']['widget'][0]['value']['#default_value'] = t('May be overwritten by Facility API Data');
     }
-    // Only allow admins to alter vc titles.
-    elseif (Drupal::service('va_gov_user.user_perms')->hasAdminRole() && in_array($form_id, _va_gov_consumers_return_vet_center_form_names())) {
+    // Only allow admins to alter vc and vba titles.
+    elseif (Drupal::service('va_gov_user.user_perms')->hasAdminRole() && in_array($form_id, $vc_vba_form_ids)) {
       $form['title']['widget'][0]['value']['#attributes']['disabled'] = FALSE;
     }
     // Lockdown titles for all roles for all other types.
@@ -214,8 +221,15 @@ function _va_gov_consumers_modify_facility_fields(array &$form, $form_id, FormSt
     _va_gov_consumers_disable_external_content_editing($form, $form_state, 'field_facility_locator_api_id');
   }
 
-  if (in_array($form_id, _va_gov_consumers_return_vet_center_form_names())) {
+  $vba_facility_form_ids = [
+    'node_vba_facility_edit_form',
+    'node_vba_facility_form',
+  ];
+  // Merge arrays for forms with official name field.
+  $official_name_field_form_ids = array_merge(_va_gov_consumers_return_vet_center_form_names(), $vba_facility_form_ids);
+  if (in_array($form_id, $official_name_field_form_ids)) {
     $form['#attached']['library'][] = 'va_gov_consumers/text_field_tooltips';
+    $form['#attached']['library'][] = 'va_gov_facilities/display_service_descriptions';
     $form['field_official_name']['#disabled'] = TRUE;
     // If common name and title are the same, don't show both unless admin.
     if (!\Drupal::service('va_gov_user.user_perms')->hasAdminRole() && strcmp($form['field_official_name']['widget'][0]['value']['#default_value'], $form['title']['widget'][0]['value']['#default_value']) === 0) {

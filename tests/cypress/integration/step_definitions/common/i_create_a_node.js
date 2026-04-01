@@ -76,7 +76,9 @@ const creators = {
         cy.get("button").contains("Save and insert").click({ force: true });
       });
     cy.contains("Hero banner").click({ force: true });
-
+    cy.get(".media-library-item > input[type=hidden]").then((input) => {
+      cy.trackEntity("media", input[0].value, { type: "image" });
+    });
     // Why this matters
     cy.contains("Why this matters").scrollIntoView();
     cy.contains("Why this matters").click({ force: true });
@@ -128,10 +130,11 @@ const creators = {
       .within(() => {
         cy.findByDisplayValue("Add media").click({ force: true });
       });
+    cy.wait(3000);
     cy.get("iframe.entity-browser-modal-iframe")
       .iframe()
       .within(() => {
-        cy.get('div[role="dialog"]').within(() => {
+        cy.get('div[role="dialog"]', { timeout: 60000 }).within(() => {
           cy.get(".dropzone", {
             timeout: 60000,
           });
@@ -164,6 +167,9 @@ const creators = {
       .within(() => {
         cy.get("button").contains("Save and insert").click({ force: true });
         cy.wait(5000);
+        cy.get(".media-library-item > input[type=hidden]").then((input) => {
+          cy.trackEntity("media", input[0].value, { type: "image" });
+        });
       });
     cy.get("iframe.entity-browser-modal-iframe")
       .iframe()
@@ -301,19 +307,21 @@ const creators = {
     cy.findAllByLabelText("Section").select("--Outreach Hub", { force: true });
     cy.scrollToSelector("#edit-field-media-open-button");
     cy.get("#edit-field-media-open-button").click({ force: true });
-    cy.get(".dropzone", {
-      timeout: 60000,
-    }).should("exist");
-    cy.get(".dropzone").attachFile("images/polygon_image.png", {
-      subjectType: "drag-n-drop",
+    cy.get('div[role="dialog"]', { timeout: 60000 }).within(() => {
+      cy.get(".dropzone", {
+        timeout: 60000,
+      }).should("exist");
+      cy.get(".dropzone").attachFile("images/polygon_image.png", {
+        subjectType: "drag-n-drop",
+      });
+      cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
+        force: true,
+      });
+      cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
+        "VACO",
+        { force: true }
+      );
     });
-    cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
-      force: true,
-    });
-    cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
-      "VACO",
-      { force: true }
-    );
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log 1]${faker.lorem.sentence()}`,
       { force: true }
@@ -325,6 +333,9 @@ const creators = {
         timeout: 20000,
       }
     ).should("exist");
+    cy.get(".media-library-item > input[type=hidden]").then((input) => {
+      cy.trackEntity("media", input[0].value, { type: "image" });
+    });
     cy.findAllByLabelText("At a non-VA location").check({ force: true });
     cy.findAllByLabelText("Street address").type(
       faker.address.streetAddress(),
@@ -558,7 +569,9 @@ Given("I create a {string} node", (contentType) => {
     cy.checkAccessibility();
     cy.getDrupalSettings().then((drupalSettings) => {
       const { currentPath } = drupalSettings.path;
-      cy.wrap(currentPath.split("/").pop()).as("nodeId");
+      const nodeId = currentPath.split("/").pop();
+      cy.wrap(nodeId).as("nodeId");
+      cy.trackEntity("nodes", nodeId, { type: contentType });
       cy.window().then((window) => {
         const pagePath = window.location.pathname;
         cy.wrap(pagePath).as("pagePath");
@@ -593,7 +606,9 @@ Given("I create a {string} node and continue", (contentType) => {
       const { currentPath } = drupalSettings.path;
       const pathComponents = currentPath.split("/");
       pathComponents.pop();
-      cy.wrap(pathComponents.pop()).as("nodeId");
+      const nodeId = pathComponents.pop();
+      cy.wrap(nodeId).as("nodeId");
+      cy.trackEntity("nodes", nodeId, { type: contentType });
       cy.window().then((window) => {
         const pagePath = window.location.pathname;
         cy.wrap(pagePath).as("pagePath");

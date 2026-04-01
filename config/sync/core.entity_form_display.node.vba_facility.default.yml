@@ -27,6 +27,7 @@ dependencies:
     - field.field.node.vba_facility.field_non_va_official_name
     - field.field.node.vba_facility.field_office
     - field.field.node.vba_facility.field_office_hours
+    - field.field.node.vba_facility.field_official_name
     - field.field.node.vba_facility.field_operating_status_facility
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
@@ -55,6 +56,7 @@ dependencies:
     - telephone
     - textfield_counter
     - tzfield
+    - va_gov_backend
 third_party_settings:
   field_group:
     group_operating_status:
@@ -106,6 +108,8 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_operating_status
+        - field_official_name
+        - title
         - field_media
         - group_facility_data
       label: 'Location and contact information'
@@ -138,7 +142,7 @@ third_party_settings:
       label: 'Facility data'
       region: content
       parent_name: group_locations_and_contact_info
-      weight: 7
+      weight: 8
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -191,7 +195,7 @@ third_party_settings:
       label: 'Benefits hotline'
       region: content
       parent_name: group_facility_data
-      weight: 15
+      weight: 18
       format_type: tooltip
       format_settings:
         show_label: '1'
@@ -210,7 +214,7 @@ third_party_settings:
       label: 'Benefit office hours may vary'
       region: content
       parent_name: group_facility_data
-      weight: 14
+      weight: 16
       format_type: tooltip
       format_settings:
         show_label: '1'
@@ -374,7 +378,7 @@ third_party_settings:
       label: 'Facility image'
       region: hidden
       parent_name: ''
-      weight: 14
+      weight: 24
       format_type: fieldset
       format_settings:
         classes: ''
@@ -390,7 +394,7 @@ mode: default
 content:
   field_address:
     type: address_default
-    weight: 11
+    weight: 13
     region: content
     settings:
       wrapper_type: fieldset
@@ -447,7 +451,7 @@ content:
     third_party_settings: {  }
   field_cc_benefit_office_hours_va:
     type: entity_field_fetch_widget
-    weight: 13
+    weight: 19
     region: content
     settings:
       show_link_to_source: '1'
@@ -483,7 +487,7 @@ content:
     third_party_settings: {  }
   field_cc_meta_tags:
     type: entity_field_fetch_widget
-    weight: 0
+    weight: 1
     region: content
     settings:
       show_field_label: '1'
@@ -516,7 +520,7 @@ content:
     third_party_settings: {  }
   field_facility_locator_api_id:
     type: string_textfield
-    weight: 16
+    weight: 19
     region: content
     settings:
       size: 60
@@ -524,13 +528,13 @@ content:
     third_party_settings: {  }
   field_facility_vba_classificatio:
     type: options_select
-    weight: 17
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
   field_geolocation:
     type: geofield_latlon
-    weight: 18
+    weight: 21
     region: content
     settings:
       html5_geolocation: false
@@ -543,7 +547,7 @@ content:
     third_party_settings: {  }
   field_local_spotlight:
     type: paragraphs
-    weight: 10
+    weight: 11
     region: content
     settings:
       title: spotlight
@@ -585,14 +589,14 @@ content:
         add_another: ''
   field_media:
     type: media_library_widget
-    weight: 6
+    weight: 7
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_non_va_location_url:
     type: link_default
-    weight: 20
+    weight: 23
     region: content
     settings:
       placeholder_url: ''
@@ -600,7 +604,7 @@ content:
     third_party_settings: {  }
   field_non_va_official_name:
     type: string_textfield
-    weight: 19
+    weight: 22
     region: content
     settings:
       size: 60
@@ -608,16 +612,25 @@ content:
     third_party_settings: {  }
   field_office:
     type: options_select
-    weight: 21
+    weight: 24
     region: content
     settings: {  }
     third_party_settings: {  }
   field_office_hours:
     type: office_hours_default
-    weight: 12
+    weight: 14
     region: content
     settings:
       collapsed: false
+    third_party_settings: {  }
+  field_official_name:
+    type: tooltip_textfield
+    weight: 5
+    region: content
+    settings:
+      tooltip_text: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+      size: '60'
+      placeholder: ''
     third_party_settings: {  }
   field_operating_status_facility:
     type: options_buttons
@@ -641,7 +654,7 @@ content:
     third_party_settings: {  }
   field_phone_number:
     type: telephone_default
-    weight: 10
+    weight: 12
     region: content
     settings:
       placeholder: ''
@@ -676,7 +689,7 @@ content:
         add_another: ''
   field_shared_vha_location:
     type: entity_reference_autocomplete
-    weight: 22
+    weight: 25
     region: content
     settings:
       match_operator: CONTAINS
@@ -699,7 +712,7 @@ content:
     third_party_settings: {  }
   field_timezone:
     type: tzfield_default
-    weight: 13
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -714,6 +727,15 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  title:
+    type: tooltip_textfield
+    weight: 6
+    region: content
+    settings:
+      tooltip_text: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+      size: '60'
+      placeholder: ''
+    third_party_settings: {  }
 hidden:
   created: true
   field_intro_text: true
@@ -722,6 +744,5 @@ hidden:
   promote: true
   status: true
   sticky: true
-  title: true
   uid: true
   url_redirects: true

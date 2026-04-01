@@ -16,9 +16,9 @@ Scenario: Log in and create a Person Profile with attention to conditional field
   And I wait "5" seconds
   And I fill in field with selector "[data-drupal-selector*='subform-field-phone-number-0-value']" with value "402-867-5309"
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
-  And I click the "Remove" button
-  And I wait "5" seconds
-  And I click the "Confirm removal" button
+  And I click the button with selector "[data-drupal-selector='edit-field-telephone-0-top-links-remove-button']"
+  And I wait for an element with the selector "[data-drupal-selector='edit-field-telephone-0-top-links-confirm-remove-button']" to exist
+  And I click the button with selector "[data-drupal-selector='edit-field-telephone-0-top-links-confirm-remove-button']"
   And I wait "5" seconds
   And I click the "Add Phone number" button
   And I wait "5" seconds
@@ -35,7 +35,7 @@ Scenario: Log in and create a Person Profile with attention to conditional field
 
   # Create the page with intention of using biography but only providing First sentence.
   Given I fill in field with selector "#edit-field-intro-text-0-value" with value "[Test Data] First sentence."
-  And I click the "Save draft and continue editing" button
+  And I click the button to create node and continue
   Then I should see "1 error has been found: Body text"
 
   # Create the page with intention of using biography providing required fields.
@@ -69,4 +69,3 @@ Scenario: Log in and create a Person Profile with attention to conditional field
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
   And I click the "Save" button
   Then I should see "Staff Profile James Smith has been created."
-
