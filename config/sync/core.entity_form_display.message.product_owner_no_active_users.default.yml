@@ -1,0 +1,45 @@
+uuid: 7312fc3d-31ae-48c3-99da-00f1de75027d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.product_owner_no_active_users.field_editor_username
+    - field.field.message.product_owner_no_active_users.field_inactive_sections
+    - field.field.message.product_owner_no_active_users.field_subject
+    - field.field.message.product_owner_no_active_users.field_webhost
+    - message.template.product_owner_no_active_users
+id: message.product_owner_no_active_users.default
+targetEntityType: message
+bundle: product_owner_no_active_users
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_subject:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    field_name: field_subject
+  uid:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    '#group': advanced
+hidden:
+  field_editor_username: true
+  field_inactive_sections: true
+  field_webhost: true
