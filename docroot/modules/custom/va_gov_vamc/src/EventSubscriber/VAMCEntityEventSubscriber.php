@@ -214,7 +214,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       && $entity->bundle() === 'health_care_local_facility'
       && $entity->hasField('field_use_default_mental_health')
     ) {
-      $use_default_checked = $entity->get('field_use_default_mental_health')->first()?->getValue();
+      $use_default_checked = $entity->get('field_use_default_mental_health')->first()?->getValue()['value'];
       if ($use_default_checked) {
         $this->setMentalHealthNumberToDefault($entity);
       }
