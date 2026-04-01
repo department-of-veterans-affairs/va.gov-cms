@@ -203,6 +203,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *   The event.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
@@ -213,7 +214,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       && $entity->bundle() === 'health_care_local_facility'
       && $entity->hasField('field_use_default_mental_health')
     ) {
-      $use_default_checked = $entity->get('field_use_default_mental_health')[0]?->value;
+      $use_default_checked = $entity->get('field_use_default_mental_health')->first()?->getValue();
       if ($use_default_checked) {
         $this->setMentalHealthNumberToDefault($entity);
       }
