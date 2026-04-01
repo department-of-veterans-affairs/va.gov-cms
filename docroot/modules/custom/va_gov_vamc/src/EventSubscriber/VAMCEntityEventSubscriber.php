@@ -201,11 +201,23 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     $this->contentHardeningDeduper->removeDuplicate($entity);
     $this->removeFieldDataFromNonClinicalServices($entity);
+
+    if ($entity instanceof NodeInterface
+      && $entity->bundle() === 'health_care_local_facility'
+      && $entity->hasField('field_use_default_mental_health')
+    ) {
+      $use_default_checked = $entity->get('field_use_default_mental_health')[0]?->value;
+      if ($use_default_checked) {
+        $this->setMentalHealthNumberToDefault($entity);
+      }
+    }
   }
 
   /**
@@ -213,8 +225,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function entityUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
@@ -227,13 +237,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       else {
         $this->flagger->flagFieldChanged('title', 'changed_name', $entity, "The title of this facility changed from '@old' to '@new'.");
         $this->notificationsManager->sendMessageOnFieldChange('title', $entity, 'Facility title changed:', 'va_facility_title_change', self::USER_CMS_HELP_DESK_NOTIFICATIONS);
-      }
-    }
-
-    if ($entity->bundle() === 'health_care_local_facility') {
-      $use_default_checked = $entity->get('field_use_default_mental_health')[0]?->value;
-      if ($use_default_checked) {
-        $this->setMentalHealthNumberToDefault($entity);
       }
     }
   }
@@ -305,6 +308,9 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     // Get system mental health paragraph.
     $region_page = $entity->get('field_region_page')->entity;
     $system_paragraph = $region_page?->get('field_default_mental_health_phon')->entity;
+    if (empty($system_paragraph)) {
+      return;
+    }
 
     $phone_number = $system_paragraph?->get('field_phone_number')->value;
     $phone_extension = $system_paragraph?->get('field_phone_extension')->value;
