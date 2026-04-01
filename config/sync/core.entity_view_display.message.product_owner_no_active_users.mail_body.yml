@@ -1,0 +1,37 @@
+uuid: 1cfdd3a4-0574-4a30-9141-11b242b2db3c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_body
+    - field.field.message.product_owner_no_active_users.field_editor_username
+    - field.field.message.product_owner_no_active_users.field_inactive_sections
+    - field.field.message.product_owner_no_active_users.field_subject
+    - field.field.message.product_owner_no_active_users.field_webhost
+    - message.template.product_owner_no_active_users
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.product_owner_no_active_users.mail_body
+targetEntityType: message
+bundle: product_owner_no_active_users
+mode: mail_body
+content:
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_1:
+    weight: 0
+    region: content
+hidden:
+  field_editor_username: true
+  field_inactive_sections: true
+  field_subject: true
+  field_webhost: true
+  search_api_excerpt: true

@@ -1,0 +1,42 @@
+<?php
+
+namespace Drupal\va_gov_notifications\Entity;
+
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
+
+/**
+ * Provides an interface for product owner contacts.
+ */
+interface ProductOwnerContactInterface extends ConfigEntityInterface {
+
+  /**
+   * Gets the recipient label.
+   */
+  public function label();
+
+  /**
+   * Gets the recipient email address.
+   */
+  public function getEmail(): string;
+
+  /**
+   * Gets optional notes for the recipient.
+   */
+  public function getNotes(): string;
+
+  /**
+   * Gets product IDs this recipient applies to.
+   *
+   * Empty means all products.
+   *
+   * @return string[]
+   *   Product term IDs.
+   */
+  public function getProducts(): array;
+
+  /**
+   * Checks if the recipient is enabled.
+   */
+  public function isEnabled(): bool;
+
+}
