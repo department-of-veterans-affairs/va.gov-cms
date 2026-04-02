@@ -23,5 +23,5 @@ echo "Node $(node -v)"
 echo "NPM $(npm -v)"
 echo "Yarn $(yarn -v)"
 
-yarn install
+yarn install-safe --immutable
 popd > /dev/null
