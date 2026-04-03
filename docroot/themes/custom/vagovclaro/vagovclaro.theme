@@ -320,6 +320,13 @@ function vagovclaro_preprocess_fieldset(&$variables) {
     $variables['element']['#title'] = $label;
     $variables['legend']['title']['#markup'] = '<h3>' . Html::escape($label) . '</h3>';
   }
+  // Add the page title to template variables for use in the fieldset templates.
+  $node = \Drupal::routeMatch()->getParameter('node');
+
+  // Check for specific group and ensure node exists
+  if ($node instanceof NodeInterface) {
+    $variables['page_title'] = $node->getTitle();
+  }
 }
 
 /**
