@@ -11,8 +11,8 @@ use Drupal\codit_batch_operations\BatchScriptInterface;
  * This script updates the title of all VA Form nodes that still have the old
  * "About VA Form " prefix, replacing it with the new "VA Form " prefix. This
  * is needed because the migration previously overwrote the title on every run
- * and used the old prefix. Now that title is editable and no longer overwritten,
- * existing nodes need a one-time backfill to use the new prefix.
+ * and used the old prefix. Now that title is editable and no longer
+ * overwritten, existing nodes need a one-time backfill to use the new prefix.
  *
  * To run: drush codit-batch-operations:run VaFormBackfillPageTitle .
  */
