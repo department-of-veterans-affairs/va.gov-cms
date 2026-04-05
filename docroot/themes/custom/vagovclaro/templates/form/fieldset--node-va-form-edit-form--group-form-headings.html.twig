@@ -5,8 +5,10 @@
  *
  * @see template_preprocess_fieldset()
  * @see claro_preprocess_fieldset()
+ * @see vagovclaro_preprocess_fieldset()
  */
 #}
+
 {%
   set classes = [
   'fieldset',
@@ -25,6 +27,7 @@
 %}
 {%
   set legend_span_classes = [
+  'fieldset__label',
   attributes.hasClass('fieldgroup') ? 'fieldset__label--group',
   required ? 'js-form-required',
   required ? 'form-required',
@@ -33,9 +36,10 @@
 {%
   set legend_classes = [
   'fieldset__legend',
+  'fieldset__legend--form-headings',
   attributes.hasClass('fieldgroup') and not attributes.hasClass('form-composite') ? 'fieldset__legend--group',
   attributes.hasClass('form-composite') ? 'fieldset__legend--composite',
-  'fieldset__legend--invisible'
+  title_display == 'invisible' ? 'fieldset__legend--invisible' : 'fieldset__legend--visible',
 ]
 %}
 {%
@@ -49,14 +53,14 @@
 %}
 
 <fieldset{{ attributes.addClass(classes) }}>
+  {% if legend.title %}
+    <legend{{ legend.attributes.addClass(legend_classes) }}>
+      <span{{ legend_span.attributes.addClass(legend_span_classes).addClass('page-title-heading') }}>{{ title }}</span>
+    </legend>
+  {% endif %}
   <div{{ content_attributes.addClass(wrapper_classes) }}>
     {% if inline_items %}
     <div class="container-inline">
-      {% endif %}
-      {% if title %}
-        <legend{{ legend.attributes.addClass(legend_classes) }}>
-          <h1{{ legend_span.attributes.addClass(legend_span_classes) }}>{{ title }}</h1>
-        </legend>
       {% endif %}
       {% if description.content %}
         <div{{ description.attributes.addClass(description_classes) }}>{{ description.content }}</div>
