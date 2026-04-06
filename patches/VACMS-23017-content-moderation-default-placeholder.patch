@@ -1,6 +1,6 @@
-diff --git a/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php b/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
---- a/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
-+++ b/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
+diff --git a/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php b/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
+--- a/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
++++ b/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
 @@ -153,6 +153,8 @@ class ModerationStateWidget extends OptionsSelectWidget {
        }
      }
@@ -22,13 +22,12 @@ diff --git a/core/modules/content_moderation/src/Plugin/Field/FieldWidget/Modera
          '#access' => !empty($transition_labels),
          '#wrapper_attributes' => [
            'class' => ['container-inline'],
-@@ -184,6 +187,12 @@ class ModerationStateWidget extends OptionsSelectWidget {
+@@ -184,6 +187,11 @@ class ModerationStateWidget extends OptionsSelectWidget {
     * {@inheritdoc}
     */
    public static function validateElement(array $element, FormStateInterface $form_state) {
 +    if ($element['state']['#value'] === '') {
 +      $form_state->setError($element['state'], t('Choose a moderation state.'));
-+      $form_state->setValueForElement($element, [$element['state']['#key_column'] => $element['state']['#original_state']]);
 +      return;
 +    }
 +
