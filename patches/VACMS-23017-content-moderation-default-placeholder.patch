@@ -1,0 +1,36 @@
+diff --git a/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php b/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
+--- a/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
++++ b/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
+@@ -153,6 +153,8 @@ class ModerationStateWidget extends OptionsSelectWidget {
+       }
+     }
+ 
++    $transition_options = ['' => $this->t('- Choose a moderation state -')] + $transition_labels;
++
+     $element += [
+       '#type' => 'container',
+       'current' => [
+@@ -168,8 +170,9 @@ class ModerationStateWidget extends OptionsSelectWidget {
+         '#type' => 'select',
+         '#title' => $entity->isNew() ? $this->t('Save as') : $this->t('Change to'),
+         '#key_column' => $this->column,
+-        '#options' => $transition_labels,
+-        '#default_value' => $default_value,
++        '#options' => $transition_options,
++        '#default_value' => '',
++        '#original_state' => $default_value,
+         '#access' => !empty($transition_labels),
+         '#wrapper_attributes' => [
+           'class' => ['container-inline'],
+@@ -184,6 +187,12 @@ class ModerationStateWidget extends OptionsSelectWidget {
+    * {@inheritdoc}
+    */
+   public static function validateElement(array $element, FormStateInterface $form_state) {
++    if ($element['state']['#value'] === '') {
++      $form_state->setError($element['state'], t('Choose a moderation state.'));
++      $form_state->setValueForElement($element, [$element['state']['#key_column'] => $element['state']['#original_state']]);
++      return;
++    }
++
+     $form_state->setValueForElement($element, [$element['state']['#key_column'] => $element['state']['#value']]);
+   }
