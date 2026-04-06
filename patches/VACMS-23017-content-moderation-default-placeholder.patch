@@ -1,10 +1,10 @@
-diff --git a/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php b/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
---- a/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
-+++ b/docroot/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
+diff --git a/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php b/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
+--- a/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
++++ b/core/modules/content_moderation/src/Plugin/Field/FieldWidget/ModerationStateWidget.php
 @@ -153,6 +153,8 @@ class ModerationStateWidget extends OptionsSelectWidget {
        }
      }
- 
+
 +    $transition_options = ['' => $this->t('- Choose a moderation state -')] + $transition_labels;
 +
      $element += [
