@@ -326,6 +326,7 @@ const creators = {
       `[Test revision log 1]${faker.lorem.sentence()}`,
       { force: true }
     );
+    cy.get("#edit-moderation-state-0-state").select("Draft", { force: true });
     cy.get("button").contains("Save and insert").click({ force: true });
     cy.get(
       'div.media-library-item[data-drupal-selector="edit-field-media-selection-0"]',
@@ -590,6 +591,7 @@ Given("I create a {string} node and continue", (contentType) => {
   cy.injectAxe();
   cy.scrollTo("top");
   cy.checkAccessibility();
+  cy.get("#edit-moderation-state-0-state").select("Draft", { force: true });
   creator().then(() => {
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
