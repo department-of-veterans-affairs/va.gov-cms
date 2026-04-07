@@ -11,6 +11,7 @@ Scenario: Login and confirm that saving a VAMC Nonclinical Service works as expe
   # Billing and insurance - Buffalo VA Medical Center
 
   When I am at "node/52453/edit"
+  And I select option "Draft" from dropdown with selector "edit-moderation-state-0-state"
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
   And I save the node
   Then I should see "Address"

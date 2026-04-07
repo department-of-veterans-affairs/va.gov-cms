@@ -67,6 +67,7 @@ Feature: CMS User may effectively interact with the VBA Facility form
     And I select the "Allow site visitors to dismiss banner" radio button
     And I fill in field with selector "#edit-field-banner-title-0-value" with value "[Test Data] Test banner title."
     And I fill in ckeditor "edit-field-banner-content-0-value" with "[Test Data] Banner Body"
+    And I select option "Draft" from dropdown with selector "edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I uncheck the "Display a banner alert on this facility" checkbox
     And I save the node
