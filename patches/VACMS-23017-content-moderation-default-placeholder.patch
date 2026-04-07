@@ -10,7 +10,7 @@ diff --git a/core/modules/content_moderation/src/Plugin/Field/FieldWidget/Modera
      $element += [
        '#type' => 'container',
        'current' => [
-@@ -168,8 +170,9 @@ class ModerationStateWidget extends OptionsSelectWidget {
+@@ -168,8 +170,10 @@
          '#type' => 'select',
          '#title' => $entity->isNew() ? $this->t('Save as') : $this->t('Change to'),
          '#key_column' => $this->column,
@@ -18,11 +18,12 @@ diff --git a/core/modules/content_moderation/src/Plugin/Field/FieldWidget/Modera
 -        '#default_value' => $default_value,
 +        '#options' => $transition_options,
 +        '#default_value' => '',
++        '#required' => TRUE,
 +        '#original_state' => $default_value,
          '#access' => !empty($transition_labels),
          '#wrapper_attributes' => [
            'class' => ['container-inline'],
-@@ -184,6 +187,11 @@ class ModerationStateWidget extends OptionsSelectWidget {
+@@ -185,6 +189,11 @@
     * {@inheritdoc}
     */
    public static function validateElement(array $element, FormStateInterface $form_state) {
@@ -33,3 +34,4 @@ diff --git a/core/modules/content_moderation/src/Plugin/Field/FieldWidget/Modera
 +
      $form_state->setValueForElement($element, [$element['state']['#key_column'] => $element['state']['#value']]);
    }
+
