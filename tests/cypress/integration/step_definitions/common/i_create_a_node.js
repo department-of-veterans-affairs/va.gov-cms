@@ -556,6 +556,7 @@ Given("I create a {string} node", (contentType) => {
   cy.injectAxe();
   cy.scrollTo("top");
   cy.checkAccessibility();
+  cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
   creator().then(() => {
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
@@ -591,7 +592,7 @@ Given("I create a {string} node and continue", (contentType) => {
   cy.injectAxe();
   cy.scrollTo("top");
   cy.checkAccessibility();
-  cy.get("#edit-moderation-state-0-state").select("Draft", { force: true });
+  cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
   creator().then(() => {
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,

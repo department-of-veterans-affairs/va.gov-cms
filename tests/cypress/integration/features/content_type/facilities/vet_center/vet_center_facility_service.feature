@@ -63,7 +63,7 @@ Scenario: Administrators should be able to rename a Vet Center - Facility Servic
   Then I select option '3751' from dropdown with selector 'select[data-drupal-selector^="edit-field-office"]'
   # Women Veteran Care
   And I select option '57' from dropdown with selector 'select[data-drupal-selector^="edit-field-service-name-and-descripti"]'
-  And I select option "Draft" from dropdown with selector "edit-moderation-state-0-state"
+  And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
   And I save the node
   Then I should see "Duluth Vet Center - Women Veteran care"

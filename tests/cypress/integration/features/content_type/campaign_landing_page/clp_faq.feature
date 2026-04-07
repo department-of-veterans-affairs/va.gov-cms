@@ -27,7 +27,7 @@ Feature: Content Type: Campaign Landing Page
     And I click to expand "Q&As"
     And I select 10 items from the "Add Reusable Q&As" Entity Browser modal
     And I wait "2" seconds
-    And I select option "Draft" from dropdown with selector "edit-moderation-state-0-state"
+    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with fake text
     And I save the node
     Then I should see an element with the selector "#edit-field-clp-faq-paragraphs-0-subform-field-question-0-value.error"
@@ -36,7 +36,7 @@ Feature: Content Type: Campaign Landing Page
     # Test fewer than minimum FAQs cannot be added.
     When I click the button with selector "[data-drupal-selector='edit-field-clp-reusable-q-a-0-top'] .paragraphs-dropdown-toggle"
     And I click the button with selector "[name='field_clp_reusable_q_a_0_remove']"
-    And I select option "Draft" from dropdown with selector "edit-moderation-state-0-state"
+    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with fake text
     And I save the node
     Then I should see an element with the selector "#edit-field-clp-faq-paragraphs-0-subform-field-question-0-value.error"
@@ -45,7 +45,7 @@ Feature: Content Type: Campaign Landing Page
     # Test required Q&As if FAQ segment is enabled
     When I click the button with selector "[data-drupal-selector='edit-field-clp-faq-paragraphs-0-top'] .paragraphs-dropdown-toggle"
     And I click the button with selector "[name='field_clp_faq_paragraphs_0_remove']"
-    And I select option "Draft" from dropdown with selector "edit-moderation-state-0-state"
+    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with fake text
     And I save the node
     Then I should see "A minimum of 3 Q&As is required when the FAQ page segment is enabled. Disable the FAQs page segment if there are no Q&As to add."
@@ -53,7 +53,7 @@ Feature: Content Type: Campaign Landing Page
     # Test that no Q&A is required if the FAQ page segment is disabled
     When I click to expand "FAQs"
     And I disable the page segment
-    And I select option "Draft" from dropdown with selector "edit-moderation-state-0-state"
+    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with fake text
     And I save the node
     Then the element with selector ".messages__content" should contain "Campaign Landing Page"
