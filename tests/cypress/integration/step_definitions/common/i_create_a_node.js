@@ -326,7 +326,7 @@ const creators = {
       `[Test revision log 1]${faker.lorem.sentence()}`,
       { force: true }
     );
-    cy.get("#edit-moderation-state-0-state").select("Draft", { force: true });
+    cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     cy.get("button").contains("Save and insert").click({ force: true });
     cy.get(
       'div.media-library-item[data-drupal-selector="edit-field-media-selection-0"]',
