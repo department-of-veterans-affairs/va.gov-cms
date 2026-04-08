@@ -21,6 +21,7 @@ Feature: Text fields are validated
     And I create a "health_care_region_detail_page" node
     And I click the edit tab
     And I fill in 'Page introduction' with "https://prod.cms.va.gov/"
+    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I save the node
     Then I should see "1 error has been found: Page introduction"
