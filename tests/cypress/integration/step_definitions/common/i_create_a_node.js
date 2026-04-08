@@ -192,6 +192,15 @@ const creators = {
           '[data-drupal-selector="edit-inline-entity-form-field-owner"]'
         ).select("VACO", { force: true });
       });
+    /** Set moderation state */
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get("#edit-inline-entity-form-moderation-state-0-state").select(
+          "draft",
+          { force: true }
+        );
+      });
     cy.get("iframe.entity-browser-modal-iframe")
       .iframe()
       .within(() => {

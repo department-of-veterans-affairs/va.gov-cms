@@ -20,6 +20,7 @@ Feature: Translation functionality testing.
     And I click the "Translate" link
     And I click the button with selector "ul.dropbutton a[hreflang=es]"
     And I fill in field with selector "#edit-field-intro-text-wrapper textarea" with value "This is not Spanish."
+    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-wrapper textarea" with value "This is a revision message."
     And I click the button with selector "form#node-landing-page-form input#edit-submit"
     Then I should see "This is not Spanish."
