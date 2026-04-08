@@ -295,22 +295,12 @@ process:
     default_value: va_form
 # Sets the destination for the migration.
 destination:
-  plugin: 'entity:node'
+  plugin: 'entity_preserve_draft:node'
   default_bundle: va_form
-  # These migration-owned fields should also be copied onto any forward draft.
-  forward_revision_overwrite_properties:
-    - field_va_form_administration
-    - field_va_form_deleted
-    - field_va_form_deleted_date
-    - field_va_form_issue_date
-    - field_va_form_num_pages
-    - field_va_form_number
-    - field_va_form_revision_date
-    - field_va_form_row_id
-    - field_va_form_title
-    - field_va_form_url
-    - title
   # Only these fields will be overwritten if the content changes in the API.
+  # Content fields from this list are also carried forward onto any existing
+  # non-default draft revision; revision metadata properties are excluded
+  # automatically by the destination plugin.
   overwrite_properties:
     - changed
     - field_va_form_administration
