@@ -21,7 +21,7 @@ class PostRowSave implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[MigrateEvents::POST_ROW_SAVE] = ['onMigratePostRowSave', 100];
+    $events[MigrateEvents::POST_ROW_SAVE] = 'onMigratePostRowSave';
     return $events;
   }
 
