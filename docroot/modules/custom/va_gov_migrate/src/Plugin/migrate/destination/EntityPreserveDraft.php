@@ -5,6 +5,7 @@ namespace Drupal\va_gov_migrate\Plugin\migrate\destination;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\RevisionableStorageInterface;
+use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\migrate\Attribute\MigrateDestination;
 use Drupal\migrate\Plugin\migrate\destination\EntityContentBase;
 use Drupal\migrate\Row;
@@ -144,7 +145,9 @@ class EntityPreserveDraft extends EntityContentBase {
     $draft_revision->enforceIsNew(FALSE);
     $draft_revision->setValidationRequired(FALSE);
     $draft_revision->isDefaultRevision(FALSE);
-    $draft_revision->setRevisionLogMessage('Draft revision carried forward after migration.');
+    if ($draft_revision instanceof RevisionLogInterface) {
+      $draft_revision->setRevisionLogMessage('Draft revision carried forward after migration.');
+    }
     $draft_revision->save();
   }
 
