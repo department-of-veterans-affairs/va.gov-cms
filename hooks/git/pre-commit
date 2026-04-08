@@ -43,3 +43,14 @@ else
   echo 'ddev is not running or is not available.'
   echo 'Ensure that ddev is installed and running to run pre-commit hooks.'
 fi
+
+# Check for CRLF in staged files
+staged_files=$(git diff --cached --name-only --diff-filter=ACM)
+
+for file in $staged_files; do
+    if grep -q $'\r' "$file"; then
+        echo "Error: $file contains CRLF line endings."
+        exit 1
+    fi
+done
+
