@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_migrate\Plugin\migrate\destination;
 
-use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\RevisionableStorageInterface;
 use Drupal\migrate\Attribute\MigrateDestination;
@@ -125,11 +125,12 @@ class EntityPreserveDraft extends EntityContentBase {
     }
 
     $entity_id = $ids[0];
+    assert($this->storage instanceof RevisionableStorageInterface);
     $this->storage->resetCache([$entity_id]);
     $default_revision = $this->storage->load($entity_id);
     $draft_revision = $this->storage->loadRevision($forward_draft_context['revision_id']);
 
-    if (!$default_revision instanceof FieldableEntityInterface || !$draft_revision instanceof FieldableEntityInterface) {
+    if (!$default_revision instanceof ContentEntityInterface || !$draft_revision instanceof ContentEntityInterface) {
       return;
     }
 
