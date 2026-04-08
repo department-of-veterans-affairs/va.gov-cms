@@ -331,11 +331,11 @@ const creators = {
         { force: true }
       );
     });
+    cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log 1]${faker.lorem.sentence()}`,
       { force: true }
     );
-    cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     cy.get("button").contains("Save and insert").click({ force: true });
     cy.get(
       'div.media-library-item[data-drupal-selector="edit-field-media-selection-0"]',
@@ -354,6 +354,7 @@ const creators = {
 
     cy.findAllByLabelText("City").type(faker.address.city(), { force: true });
     cy.findAllByLabelText("State").select("Alabama", { force: true });
+    cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
       { force: true }
@@ -372,6 +373,7 @@ const creators = {
     cy.get("#manage-instances form").find("input.form-submit").click();
     cy.get("#manage-instances form").should("not.exist");
     cy.get("button.ui-dialog-titlebar-close").click();
+    cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     return cy.wait(1000);
   },
   health_care_region_detail_page: () => {
