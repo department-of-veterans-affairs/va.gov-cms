@@ -33,7 +33,7 @@ Feature: Media entities
     When I create a "document" media
     And I create a "documentation_page" node and continue
     And I add a main content block with a link to a "Document" file
-    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
+    And I select option "Draft" from dropdown "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I save the node
     Then I should see a "document" downloadable file link
@@ -44,7 +44,7 @@ Feature: Media entities
     Then I create a "image" media
     And I create a "documentation_page" node and continue
     And I add a main content block with a link to a "Image" file
-    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
+    And I select option "Draft" from dropdown "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I save the node
     Then I should see a "image" downloadable file link
@@ -55,7 +55,7 @@ Feature: Media entities
     Then I create a "video" media
     And I create a "documentation_page" node and continue
     And I add a main content block with a link to a "Video" file
-    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
+    And I select option "Draft" from dropdown "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I save the node
     Then I should see a "video" file link

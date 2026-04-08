@@ -151,7 +151,7 @@ Feature: Content Type: Event
   Scenario: Confirm creating "Featured" Events is possible.
     Given I am logged in as a user with the "content_admin" role
     And I create a "event" node and continue
-    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
+    And I select option "Draft" from dropdown "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with fake text
     And I feature the content
     When I save the node
