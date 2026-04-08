@@ -44,13 +44,16 @@ else
   echo 'Ensure that ddev is installed and running to run pre-commit hooks.'
 fi
 
-# Check for CRLF in staged files
-staged_files=$(git diff --cached --name-only --diff-filter=ACM)
-
-for file in $staged_files; do
-    if grep -q $'\r' "$file"; then
-        echo "Error: $file contains CRLF line endings."
-        exit 1
+# Check for CRLF in staged text files.
+# Use NUL-delimited paths so files with spaces are handled correctly.
+while IFS= read -r -d '' file; do
+  # Read from the staged blob (not the working tree) and skip binary files.
+  if git show ":$file" | grep -Iq .; then
+    if git show ":$file" | grep -q $'\r'; then
+      echo "Error: $file contains CRLF line endings."
+      echo "Please convert to LF before committing."
+      exit 1
     fi
-done
+  fi
+done < <(git diff --cached --name-only -z --diff-filter=ACM)
 
