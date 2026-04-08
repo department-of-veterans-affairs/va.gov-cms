@@ -47,6 +47,15 @@ fi
 # Check for CRLF in staged text files.
 # Use NUL-delimited paths so files with spaces are handled correctly.
 while IFS= read -r -d '' file; do
+  # Ask Git for detected line endings so normalized index content doesn't mask
+  # CRLF in the working tree.
+  eol_info="$(git ls-files --eol -- "$file" 2>/dev/null || true)"
+  if printf '%s\n' "$eol_info" | grep -Eq '(^| )i/crlf( |$)|(^| )w/crlf( |$)'; then
+    echo "Error: $file contains CRLF line endings."
+    echo "Please convert to LF before committing."
+    exit 1
+  fi
+
   # Read from the staged blob (not the working tree) and skip binary files.
   if git show ":$file" | grep -Iq .; then
     if git show ":$file" | grep -q $'\r'; then
