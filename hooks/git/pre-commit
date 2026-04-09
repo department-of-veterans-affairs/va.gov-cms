@@ -65,7 +65,7 @@ while IFS= read -r -d '' file; do
     fi
   fi
   rm -f "$staged_blob"
-done < <(git diff --cached --name-only -z --diff-filter=ACM)
+done < <(git diff --cached --name-only -z --diff-filter=ACMR)
 
 if [ ${#crlf_files[@]} -gt 0 ]; then
   echo "Error: the following staged files contain CRLF line endings:"
