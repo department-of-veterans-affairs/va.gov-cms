@@ -192,6 +192,15 @@ const creators = {
           '[data-drupal-selector="edit-inline-entity-form-field-owner"]'
         ).select("VACO", { force: true });
       });
+    /** Set moderation state */
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get("#edit-inline-entity-form-moderation-state-0-state").select(
+          "draft",
+          { force: true }
+        );
+      });
     cy.get("iframe.entity-browser-modal-iframe")
       .iframe()
       .within(() => {
@@ -322,6 +331,7 @@ const creators = {
         { force: true }
       );
     });
+    cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log 1]${faker.lorem.sentence()}`,
       { force: true }
@@ -344,6 +354,7 @@ const creators = {
 
     cy.findAllByLabelText("City").type(faker.address.city(), { force: true });
     cy.findAllByLabelText("State").select("Alabama", { force: true });
+    cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
       { force: true }
@@ -362,6 +373,7 @@ const creators = {
     cy.get("#manage-instances form").find("input.form-submit").click();
     cy.get("#manage-instances form").should("not.exist");
     cy.get("button.ui-dialog-titlebar-close").click();
+    cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     return cy.wait(1000);
   },
   health_care_region_detail_page: () => {
@@ -555,6 +567,7 @@ Given("I create a {string} node", (contentType) => {
   cy.injectAxe();
   cy.scrollTo("top");
   cy.checkAccessibility();
+  cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
   creator().then(() => {
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
@@ -590,6 +603,7 @@ Given("I create a {string} node and continue", (contentType) => {
   cy.injectAxe();
   cy.scrollTo("top");
   cy.checkAccessibility();
+  cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
   creator().then(() => {
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
