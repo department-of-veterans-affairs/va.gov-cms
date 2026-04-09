@@ -43,3 +43,34 @@ else
   echo 'ddev is not running or is not available.'
   echo 'Ensure that ddev is installed and running to run pre-commit hooks.'
 fi
+
+# Check for CRLF in staged text files.
+# Use NUL-delimited paths so files with spaces are handled correctly.
+crlf_files=()
+
+while IFS= read -r -d '' file; do
+  # Ask Git for detected line endings in the index so the hook validates what
+  # will actually be committed, not platform-specific working tree line endings.
+  eol_info="$(git ls-files --eol -- "$file" 2>/dev/null || true)"
+  if printf '%s\n' "$eol_info" | grep -Eq '(^| )i/crlf( |$)'; then
+    crlf_files+=("$file")
+    continue
+  fi
+
+  # Read from the staged blob (not the working tree) once and skip binary files.
+  staged_blob="$(mktemp)"
+  if git show ":$file" > "$staged_blob"; then
+    if grep -Iq . "$staged_blob" && grep -q $'\r' "$staged_blob"; then
+      crlf_files+=("$file")
+    fi
+  fi
+  rm -f "$staged_blob"
+done < <(git diff --cached --name-only -z --diff-filter=ACMR)
+
+if [ ${#crlf_files[@]} -gt 0 ]; then
+  echo "Error: the following staged files contain CRLF line endings:"
+  printf '  - %s\n' "${crlf_files[@]}"
+  echo "Please convert them to LF before committing."
+  exit 1
+fi
+
