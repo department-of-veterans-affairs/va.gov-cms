@@ -49,10 +49,10 @@ fi
 crlf_files=()
 
 while IFS= read -r -d '' file; do
-  # Ask Git for detected line endings so normalized index content doesn't mask
-  # CRLF in the working tree.
+  # Ask Git for detected line endings in the index so the hook validates what
+  # will actually be committed, not platform-specific working tree line endings.
   eol_info="$(git ls-files --eol -- "$file" 2>/dev/null || true)"
-  if printf '%s\n' "$eol_info" | grep -Eq '(^| )i/crlf( |$)|(^| )w/crlf( |$)'; then
+  if printf '%s\n' "$eol_info" | grep -Eq '(^| )i/crlf( |$)'; then
     crlf_files+=("$file")
     continue
   fi
