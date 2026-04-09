@@ -7,6 +7,10 @@ source ~/.bashrc
 
 # Installs & builds vets-website dependencies for next-build preview.
 git config pull.rebase true
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+REPO_ROOT="$(cd "$(dirname "$SCRIPT_DIR/../..")" &> /dev/null && pwd)"
+
 if [ ! -d vets-website ]; then
   git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
   cd vets-website
@@ -26,3 +30,93 @@ echo "Yarn $(yarn -v)"
 export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
 yarn install-safe
 yarn build
+
+# Gather vets-website assets based on build type
+cd "$REPO_ROOT"
+
+BUILD_TYPE="tugboat"
+PROD_BUCKET="http://prod-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
+STAGING_BUCKET="http://staging-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
+DEV_BUCKET="http://dev-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
+LOCAL_BUCKET="$REPO_ROOT/vets-website/build/localhost/generated"
+
+# Determine bucket based on build type
+case "$BUILD_TYPE" in
+  localhost)
+    BUCKET="$LOCAL_BUCKET"
+    ;;
+  tugboat|vagovdev)
+    BUCKET="$DEV_BUCKET"
+    ;;
+  vagovstaging)
+    BUCKET="$STAGING_BUCKET"
+    ;;
+  vagovprod|*)
+    BUCKET="$PROD_BUCKET"
+    ;;
+esac
+
+FILE_MANIFEST_PATH="generated/file-manifest.json"
+VETS_WEBSITE_ASSET_PATH="$REPO_ROOT/vets-website/src/site/assets"
+DESTINATION_PATH="$REPO_ROOT/public/generated"
+
+echo "Gathering vets-website assets from $BUILD_TYPE build..."
+
+# Clean any existing assets or symlinks
+if [ -d "$DESTINATION_PATH" ]; then
+  echo "Removing existing vets-website assets..."
+  rm -rf "$DESTINATION_PATH"
+fi
+
+# Handle asset gathering based on build type
+if [ "$BUILD_TYPE" = "localhost" ]; then
+  echo "Attempting to symlink assets from local vets-website repo..."
+  if mkdir -p "$(dirname "$DESTINATION_PATH")" && ln -s "$LOCAL_BUCKET" "$DESTINATION_PATH"; then
+    echo "Symlink created successfully!"
+  else
+    echo "Error creating symlink. Ensure your local vets-website assets are built."
+    exit 1
+  fi
+else
+  echo "Downloading assets from $BUCKET..."
+  mkdir -p "$DESTINATION_PATH"
+  
+  # Fetch manifest and download all assets
+  if ! MANIFEST=$(curl -s "$BUCKET/$FILE_MANIFEST_PATH"); then
+    echo "Error: Failed to fetch file manifest from $BUCKET"
+    exit 1
+  fi
+  
+  # Parse JSON and download each asset
+  echo "$MANIFEST" | grep -o '"[^"]*"' | grep -v "generated/../" | while read -r entry; do
+    entry=$(echo "$entry" | sed 's/"//g')
+    BUNDLE_URL="$BUCKET$entry"
+    
+    # Remove leading slash if present
+    BUNDLE_FILE=$(echo "$entry" | sed 's/^\///')
+    BUNDLE_PATH="$REPO_ROOT/public/$BUNDLE_FILE"
+    
+    echo "Downloading: $BUNDLE_URL"
+    if curl -s -o "$BUNDLE_PATH" "$BUNDLE_URL"; then
+      mkdir -p "$(dirname "$BUNDLE_PATH")"
+      curl -s -o "$BUNDLE_PATH" "$BUNDLE_URL"
+    else
+      echo "Warning: Failed to download $BUNDLE_URL"
+    fi
+  done
+fi
+
+# Move additional assets (images and fonts) from vets-website
+echo "Copying additional assets from vets-website..."
+if [ -d "$VETS_WEBSITE_ASSET_PATH/img" ]; then
+  cp -r "$VETS_WEBSITE_ASSET_PATH/img" "$REPO_ROOT/public/" && echo "Copied image assets."
+fi
+
+if [ -d "$VETS_WEBSITE_ASSET_PATH/fonts" ]; then
+  mkdir -p "$DESTINATION_PATH"
+  for font in "$VETS_WEBSITE_ASSET_PATH/fonts"/*; do
+    cp -r "$font" "$DESTINATION_PATH/" && echo "Copied font: $(basename "$font")"
+  done
+fi
+
+echo "All vets-website assets gathered successfully!"
