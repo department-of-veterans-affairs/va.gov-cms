@@ -87,20 +87,17 @@ else
     exit 1
   fi
   
-  # Parse JSON and download each asset
-  echo "$MANIFEST" | grep -o '"[^"]*"' | grep -v "generated/../" | while read -r entry; do
-    entry=$(echo "$entry" | sed 's/"//g')
-    BUNDLE_URL="$BUCKET$entry"
-    
+  # Parse JSON values
+  echo "$MANIFEST" | jq -r '.[]' | while read -r bundleFileName; do
+    BUNDLE_URL="${BUCKET}${bundleFileName}"
+
     # Remove leading slash if present
-    BUNDLE_FILE=$(echo "$entry" | sed 's/^\///')
+    BUNDLE_FILE="${bundleFileName#/}"
     BUNDLE_PATH="$REPO_ROOT/public/$BUNDLE_FILE"
-    
+
     echo "Downloading: $BUNDLE_URL"
-    if curl -s -o "$BUNDLE_PATH" "$BUNDLE_URL"; then
-      mkdir -p "$(dirname "$BUNDLE_PATH")"
-      curl -s -o "$BUNDLE_PATH" "$BUNDLE_URL"
-    else
+    mkdir -p "$(dirname "$BUNDLE_PATH")"
+    if ! curl -s -f -o "$BUNDLE_PATH" "$BUNDLE_URL"; then
       echo "Warning: Failed to download $BUNDLE_URL"
     fi
   done
