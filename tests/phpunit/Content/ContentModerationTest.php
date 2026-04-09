@@ -20,7 +20,7 @@ class ContentModerationTest extends VaGovExistingSiteBase {
    * Prevent accidental publication of un-proofed nodes.
    *
    * When a "Published" node is being edited, the default moderation state
-   * should be set to "Draft".
+   * should be set to "null".
    *
    * @dataProvider preventPublishingUnproofedNodesDataProvider
    */
@@ -29,7 +29,7 @@ class ContentModerationTest extends VaGovExistingSiteBase {
     string $baseFormId,
     array $expectedElement,
     bool $formEntityIsPublishable = FALSE,
-    bool $formEntityIsPublished = FALSE
+    bool $formEntityIsPublished = FALSE,
   ) {
     $context = [];
     $formStateProphecy = $this->prophesize(FormStateInterface::CLASS);
@@ -125,7 +125,7 @@ class ContentModerationTest extends VaGovExistingSiteBase {
         'node_form',
         [
           'state' => [
-            '#default_value' => 'draft',
+            '#default_value' => 'null',
             '#title' => 'Save as',
           ],
         ],
