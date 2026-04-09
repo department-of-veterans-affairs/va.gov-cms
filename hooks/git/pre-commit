@@ -57,12 +57,14 @@ while IFS= read -r -d '' file; do
     continue
   fi
 
-  # Read from the staged blob (not the working tree) and skip binary files.
-  if git show ":$file" | grep -Iq .; then
-    if git show ":$file" | grep -q $'\r'; then
+  # Read from the staged blob (not the working tree) once and skip binary files.
+  staged_blob="$(mktemp)"
+  if git show ":$file" > "$staged_blob"; then
+    if grep -Iq . "$staged_blob" && grep -q $'\r' "$staged_blob"; then
       crlf_files+=("$file")
     fi
   fi
+  rm -f "$staged_blob"
 done < <(git diff --cached --name-only -z --diff-filter=ACM)
 
 if [ ${#crlf_files[@]} -gt 0 ]; then
