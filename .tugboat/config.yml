@@ -196,7 +196,8 @@ services:
       - bash -lc 'composer va:theme:compile'
       - bash -lc 'composer va:web:install'
       - bash -lc 'composer va:next:install'
-
+        # Get vets-website assets in the right place
+      - BUILD_TYPE=tugboat node ./scripts/next/vets-website-assets.js
       # Create symlink between vets-website assets and next-build
       #        - ln -snf "${DOCROOT}/vendor/va-gov/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
       - mkdir -p "${TUGBOAT_ROOT}/next/public"
