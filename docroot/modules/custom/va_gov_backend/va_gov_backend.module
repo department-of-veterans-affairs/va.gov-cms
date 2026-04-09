@@ -11,7 +11,6 @@ use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -464,7 +463,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       '#ief_submit_trigger_all' => TRUE,
       '#type' => 'submit',
       '#weight' => 10,
-      '#value' => 'Save draft and continue editing',
+      '#value' => 'Save and continue editing',
       '#submit' => [
         '::submitForm',
         '::save',
@@ -544,16 +543,9 @@ function va_gov_backend_form_field_config_edit_form_alter(&$form, FormStateInter
 function va_gov_backend_field_widget_single_element_moderation_state_default_form_alter(&$element, FormStateInterface $form_state, $context) {
   $base_form_id = $form_state->getBuildInfo()['base_form_id'] ?? '';
   if ($base_form_id === 'node_form') {
-
-    // Set default new state to "Draft" when node is in "Published" state
-    // to help prevent accidentally publishing un-proofed edits.
-    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
-    $form_object = $form_state->getFormObject();
-    $entity = $form_object->getEntity();
-    if ($entity instanceof EntityPublishedInterface && $entity->isPublished()) {
-      $element['state']['#default_value'] = 'draft';
-    }
-
+    // Update the title to indicate the dropdown is for saving state.
+    // The moderation state widget now uses a placeholder that requires explicit
+    // selection per VACMS-23017, so we no longer set a default value.
     $element['state']['#title'] = t('Save as');
   }
 }
@@ -893,7 +885,9 @@ function va_gov_backend_form_alter_submit(array &$form, FormStateInterface $form
 
   // Save it and associate with user.
   $node->setRevisionUserId($uid);
-  $node->set('moderation_state', 'draft');
+  // $node->set('moderation_state', 'draft');
+  $moderation_state = $node->get('moderation_state')->getString();
+  $node->set('moderation_state', $moderation_state);
   $node->save();
 
   $nid = $node->id();
@@ -1879,7 +1873,8 @@ function _va_gov_backend_has_suspicious_nbsp_density(FieldableEntityInterface $e
 
       $nbsp_count = substr_count($value, '&nbsp;') + substr_count($value, "\xC2\xA0");
       if ($nbsp_count < 5) {
-        // Less than 5 nbsp is very few. Present assumption: This amount is more likely deliberate.
+        // Less than 5 nbsp is very few.
+        // Present assumption: This amount is more likely deliberate.
         continue;
       }
 
@@ -1892,8 +1887,9 @@ function _va_gov_backend_has_suspicious_nbsp_density(FieldableEntityInterface $e
       $nbsp_ratio = $nbsp_count / $space_like_count;
       if ($nbsp_ratio >= 0.2) {
         /*
-         * 20% is a rough guess for what threshold constitutes suspiscious nbps:space density.
-         * This value is erring on the side of "only surface warning if it's unreasonable to think this isn't suspiscious"
+         * 20% is a rough guess for the threshold.
+         * This value is erring on the side of "only surface warning if it's
+         * unreasonable to think this isn't suspiscious."
          * Tweak as needed.
          */
         return TRUE;
