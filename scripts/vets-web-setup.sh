@@ -9,7 +9,7 @@ source ~/.bashrc
 git config pull.rebase true
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
-REPO_ROOT="$(cd "$(dirname "$SCRIPT_DIR/../..")" &> /dev/null && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." &> /dev/null && pwd)"
 
 if [ ! -d vets-website ]; then
   git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
@@ -87,7 +87,7 @@ BUNDLE_URL="${BUCKET}${bundleFileName}"
 BUNDLE_FILE="${bundleFileName#/}"
 BUNDLE_PATH="$REPO_ROOT/next/public/$BUNDLE_FILE"
 
-echo "Downloading: $BUNDLE_URL"
+echo "Downloading: $BUNDLE_URL to $BUNDLE_PATH"
 mkdir -p "$(dirname "$BUNDLE_PATH")"
 if ! curl -s -f -o "$BUNDLE_PATH" "$BUNDLE_URL"; then
   echo "Warning: Failed to download $BUNDLE_URL"
