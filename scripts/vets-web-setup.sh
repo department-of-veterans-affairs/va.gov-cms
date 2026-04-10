@@ -34,33 +34,13 @@ yarn build
 # Gather vets-website assets based on build type
 cd "$REPO_ROOT"
 
-BUILD_TYPE="tugboat"
-PROD_BUCKET="http://prod-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
-STAGING_BUCKET="http://staging-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
 DEV_BUCKET="http://dev-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
-LOCAL_BUCKET="$REPO_ROOT/vets-website/build/localhost/generated"
-
-# Determine bucket based on build type
-case "$BUILD_TYPE" in
-  localhost)
-    BUCKET="$LOCAL_BUCKET"
-    ;;
-  tugboat|vagovdev)
-    BUCKET="$DEV_BUCKET"
-    ;;
-  vagovstaging)
-    BUCKET="$STAGING_BUCKET"
-    ;;
-  vagovprod|*)
-    BUCKET="$PROD_BUCKET"
-    ;;
-esac
 
 FILE_MANIFEST_PATH="generated/file-manifest.json"
 VETS_WEBSITE_ASSET_PATH="$REPO_ROOT/vets-website/src/site/assets"
 DESTINATION_PATH="$REPO_ROOT/next/public/generated"
 
-echo "Gathering vets-website assets from $BUILD_TYPE build..."
+echo "Gathering vets-website assets from DEV build..."
 
 # Clean any existing assets or symlinks
 if [ -d "$DESTINATION_PATH" ]; then
@@ -70,18 +50,18 @@ fi
 
 # Handle asset gathering based on build type
 
-echo "Downloading assets from $BUCKET..."
+echo "Downloading assets from $DEV_BUCKET..."
 mkdir -p "$DESTINATION_PATH"
 
 # Fetch manifest and download all assets
-if ! MANIFEST=$(curl -s "$BUCKET/$FILE_MANIFEST_PATH"); then
-  echo "Error: Failed to fetch file manifest from $BUCKET"
+if ! MANIFEST=$(curl -s "$DEV_BUCKET/$FILE_MANIFEST_PATH"); then
+  echo "Error: Failed to fetch file manifest from $DEV_BUCKET"
   exit 1
 fi
 
 # Parse JSON values
 echo "$MANIFEST" | jq -r '.[]' | while read -r bundleFileName; do
-BUNDLE_URL="${BUCKET}${bundleFileName}"
+BUNDLE_URL="${DEV_BUCKET}${bundleFileName}"
 
 # Remove leading slash if present
 BUNDLE_FILE="${bundleFileName#/}"
