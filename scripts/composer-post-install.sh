@@ -8,8 +8,11 @@
 repo_root="$(git rev-parse --show-toplevel)"
 pushd "${repo_root}" > /dev/null
 
-cp -r ./hooks/git/. ./.git/hooks/
-chmod 0777 .git/hooks/pre-commit
+git config core.hooksPath hooks/git
+chmod 0755 ./hooks/git/pre-commit
+
+# Remove the stale .git/hooks copy now that core.hooksPath is used.
+rm -f .git/hooks/pre-commit
 
 ln -snf docroot/vendor/simplesamlphp/simplesamlphp/ simplesamlphp
 ln -snf docroot/vendor/simplesamlphp/saml2/ ./saml2

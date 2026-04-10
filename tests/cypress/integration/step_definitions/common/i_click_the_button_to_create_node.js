@@ -1,7 +1,7 @@
 import { Given } from "@badeball/cypress-cucumber-preprocessor";
 
 Given(`I click the button to create node and continue`, () => {
-  cy.contains("input", "Save draft and continue editing").click({
+  cy.contains("input", "Save and continue editing").click({
     force: true,
   });
   cy.location("pathname", { timeout: 10000 }).should(
