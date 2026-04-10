@@ -12,3 +12,22 @@ function va_gov_scheduled_tasks_update_10001() {
   // Import a specific config file.
   \Drupal::service('config.installer')->installDefaultConfig('module', 'va_gov_scheduled_tasks');
 }
+
+/**
+ * Import quarterly task config from module config directory.
+ */
+function va_gov_scheduled_tasks_update_10002() {
+  $config_name = 'ultimate_cron.job.va_gov_scheduled_tasks_quarterly';
+  $source = new \Drupal\Core\Config\FileStorage(__DIR__ . '/config');
+  $active = \Drupal::service('config.storage');
+
+  if ($active->exists($config_name)) {
+    return;
+  }
+
+  $data = $source->read($config_name);
+  if ($data) {
+    $active->write($config_name, $data);
+  }
+}
+
