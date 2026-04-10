@@ -89,7 +89,7 @@ BUNDLE_PATH="$REPO_ROOT/next/public/$BUNDLE_FILE"
 
 echo "Downloading: $BUNDLE_URL to $BUNDLE_PATH"
 mkdir -p "$(dirname "$BUNDLE_PATH")"
-if ! curl -s -f -o "$BUNDLE_PATH" "$BUNDLE_URL"; then
+if ! curl -s -f --compressed -o "$BUNDLE_PATH" "$BUNDLE_URL"; then
   echo "Warning: Failed to download $BUNDLE_URL"
 fi
 done
