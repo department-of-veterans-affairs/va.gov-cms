@@ -58,7 +58,7 @@ esac
 
 FILE_MANIFEST_PATH="generated/file-manifest.json"
 VETS_WEBSITE_ASSET_PATH="$REPO_ROOT/vets-website/src/site/assets"
-DESTINATION_PATH="$REPO_ROOT/public/generated"
+DESTINATION_PATH="$REPO_ROOT/next/public/generated"
 
 echo "Gathering vets-website assets from $BUILD_TYPE build..."
 
