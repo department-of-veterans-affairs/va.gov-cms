@@ -1,10 +1,10 @@
+uuid: 17633dad-53c7-4706-9aff-fe0b2f1bedb9
 langcode: en
 status: true
 dependencies:
   module:
     - va_gov_scheduled_tasks
 title: 'Do scheduled tasks quarterly'
-description: 'Checking for outdated content and other quarterly tasks'
 id: va_gov_scheduled_tasks_quarterly
 weight: 0
 module: va_gov_scheduled_tasks
@@ -14,3 +14,7 @@ scheduler:
   configuration:
     rules:
       - '0 0 15 1,4,7,10 *'
+launcher:
+  id: serial
+logger:
+  id: database
