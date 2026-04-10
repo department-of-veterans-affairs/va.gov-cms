@@ -92,6 +92,7 @@ mkdir -p "$(dirname "$BUNDLE_PATH")"
 if ! curl -s -f -o "$BUNDLE_PATH" "$BUNDLE_URL"; then
   echo "Warning: Failed to download $BUNDLE_URL"
 fi
+done
 
 # Move additional assets (images and fonts) from vets-website
 echo "Copying additional assets from vets-website..."
