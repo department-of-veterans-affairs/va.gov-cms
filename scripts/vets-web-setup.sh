@@ -97,7 +97,7 @@ done
 # Move additional assets (images and fonts) from vets-website
 echo "Copying additional assets from vets-website..."
 if [ -d "$VETS_WEBSITE_ASSET_PATH/img" ]; then
-  cp -r "$VETS_WEBSITE_ASSET_PATH/img" "$REPO_ROOT/public/" && echo "Copied image assets."
+  cp -r "$VETS_WEBSITE_ASSET_PATH/img" "$REPO_ROOT/next/public/" && echo "Copied image assets."
 fi
 
 if [ -d "$VETS_WEBSITE_ASSET_PATH/fonts" ]; then
