@@ -31,7 +31,7 @@ export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
 yarn install-safe
 yarn build
 
-# Gather vets-website assets based on build type
+# Gather vets-website assets
 cd "$REPO_ROOT"
 
 DEV_BUCKET="http://dev-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
@@ -48,7 +48,7 @@ if [ -d "$DESTINATION_PATH" ]; then
   rm -rf "$DESTINATION_PATH"
 fi
 
-# Handle asset gathering based on build type
+# Handle asset gathering
 
 echo "Downloading assets from $DEV_BUCKET..."
 mkdir -p "$DESTINATION_PATH"
