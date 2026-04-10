@@ -69,38 +69,28 @@ if [ -d "$DESTINATION_PATH" ]; then
 fi
 
 # Handle asset gathering based on build type
-if [ "$BUILD_TYPE" = "localhost" ]; then
-  echo "Attempting to symlink assets from local vets-website repo..."
-  if mkdir -p "$(dirname "$DESTINATION_PATH")" && ln -s "$LOCAL_BUCKET" "$DESTINATION_PATH"; then
-    echo "Symlink created successfully!"
-  else
-    echo "Error creating symlink. Ensure your local vets-website assets are built."
-    exit 1
-  fi
-else
-  echo "Downloading assets from $BUCKET..."
-  mkdir -p "$DESTINATION_PATH"
-  
-  # Fetch manifest and download all assets
-  if ! MANIFEST=$(curl -s "$BUCKET/$FILE_MANIFEST_PATH"); then
-    echo "Error: Failed to fetch file manifest from $BUCKET"
-    exit 1
-  fi
-  
-  # Parse JSON values
-  echo "$MANIFEST" | jq -r '.[]' | while read -r bundleFileName; do
-    BUNDLE_URL="${BUCKET}${bundleFileName}"
 
-    # Remove leading slash if present
-    BUNDLE_FILE="${bundleFileName#/}"
-    BUNDLE_PATH="$REPO_ROOT/public/$BUNDLE_FILE"
+echo "Downloading assets from $BUCKET..."
+mkdir -p "$DESTINATION_PATH"
 
-    echo "Downloading: $BUNDLE_URL"
-    mkdir -p "$(dirname "$BUNDLE_PATH")"
-    if ! curl -s -f -o "$BUNDLE_PATH" "$BUNDLE_URL"; then
-      echo "Warning: Failed to download $BUNDLE_URL"
-    fi
-  done
+# Fetch manifest and download all assets
+if ! MANIFEST=$(curl -s "$BUCKET/$FILE_MANIFEST_PATH"); then
+  echo "Error: Failed to fetch file manifest from $BUCKET"
+  exit 1
+fi
+
+# Parse JSON values
+echo "$MANIFEST" | jq -r '.[]' | while read -r bundleFileName; do
+BUNDLE_URL="${BUCKET}${bundleFileName}"
+
+# Remove leading slash if present
+BUNDLE_FILE="${bundleFileName#/}"
+BUNDLE_PATH="$REPO_ROOT/next/public/$BUNDLE_FILE"
+
+echo "Downloading: $BUNDLE_URL"
+mkdir -p "$(dirname "$BUNDLE_PATH")"
+if ! curl -s -f -o "$BUNDLE_PATH" "$BUNDLE_URL"; then
+  echo "Warning: Failed to download $BUNDLE_URL"
 fi
 
 # Move additional assets (images and fonts) from vets-website
