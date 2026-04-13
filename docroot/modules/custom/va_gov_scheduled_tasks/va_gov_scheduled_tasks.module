@@ -408,3 +408,12 @@ function va_gov_scheduled_tasks_monthly() {
   va_gov_scheduled_tasks_delete_unattached_pdfs();
   \Drupal::logger('va_gov_scheduled_tasks')->notice('Monthly tasks completed');
 }
+
+/**
+ * Tasks to run each quarter.
+ */
+function va_gov_scheduled_tasks_quarterly() {
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Quarterly tasks started');
+  va_gov_scheduled_tasks_run_drush_command('eca:trigger:custom_event inactive_users_warn_155_days');
+  \Drupal::logger('va_gov_scheduled_tasks')->notice('Quarterly tasks completed');
+}
