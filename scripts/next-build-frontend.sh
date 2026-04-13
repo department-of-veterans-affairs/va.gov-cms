@@ -115,9 +115,9 @@ popd
 echo "==> Re-building Vets Website" >> ${logfile}
 ${ROOT}/scripts/vets-web-setup.sh &>> ${logfile}
 
-# Copy assets.
+# Link assets.
 rm -rf "${ROOT}/next/public"
-cp -r "${ROOT}/next-assets/public" "${ROOT}/next/public"
+ln -snf "${ROOT}/next-assets/public" "${ROOT}/next/public"
 
 # Run the build.
 echo "==> Starting build" >> ${logfile}
