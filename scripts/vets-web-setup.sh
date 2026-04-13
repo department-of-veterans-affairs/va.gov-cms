@@ -38,7 +38,7 @@ DEV_BUCKET="http://dev-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
 
 FILE_MANIFEST_PATH="generated/file-manifest.json"
 VETS_WEBSITE_ASSET_PATH="$REPO_ROOT/vets-website/src/site/assets"
-DESTINATION_PATH="$REPO_ROOT/next/public/generated"
+DESTINATION_PATH="$REPO_ROOT/next-assets/public/generated"
 
 echo "Gathering vets-website assets from DEV build..."
 
@@ -65,7 +65,7 @@ BUNDLE_URL="${DEV_BUCKET}${bundleFileName}"
 
 # Remove leading slash if present
 BUNDLE_FILE="${bundleFileName#/}"
-BUNDLE_PATH="$REPO_ROOT/next/public/$BUNDLE_FILE"
+BUNDLE_PATH="$REPO_ROOT/next-assets/public/$BUNDLE_FILE"
 
 echo "Downloading: $BUNDLE_URL to $BUNDLE_PATH"
 mkdir -p "$(dirname "$BUNDLE_PATH")"
@@ -77,7 +77,7 @@ done
 # Move additional assets (images and fonts) from vets-website
 echo "Copying additional assets from vets-website..."
 if [ -d "$VETS_WEBSITE_ASSET_PATH/img" ]; then
-  cp -r "$VETS_WEBSITE_ASSET_PATH/img" "$REPO_ROOT/next/public/" && echo "Copied image assets."
+  cp -r "$VETS_WEBSITE_ASSET_PATH/img" "$REPO_ROOT/next-assets/public/" && echo "Copied image assets."
 fi
 
 if [ -d "$VETS_WEBSITE_ASSET_PATH/fonts" ]; then
