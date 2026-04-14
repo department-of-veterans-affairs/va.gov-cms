@@ -14,6 +14,7 @@ This module orchestrates the [messages stack](https://www.drupal.org/node/218014
   - Email notifications to helpdesk for specific changes to the facilities.
   - [Monthly email to VAMC facility editors](#vamc-facility-editor-email) to check their outdated content list.
   - [Monthly email to Vet Center facility editors](#vet-center-facility-editor-email) to refresh their content.
+  - Monthly product owner email for sections that have no active editors, triggered by the scheduled monthly task callback.
 
 
 ## VAMC facility editor email
@@ -62,3 +63,5 @@ Once email notifications have been queued, The queue can be processed. To proces
 - Message variable tokens can not be used in a link url because CKE editor will mangle tokens in href.
 - H1 can not be used in the message content because the "Rich Text" filter does not allow it, so it has to go on the twig template.
 - To test html on va.gov email (Outlook) while running locally, you can copy the html displayed in MailPit, paste it into gmail, then send it to your VA.gov email. Formatting is preserved.
+- Product owner recipient entities are intentionally excluded from config synchronization via `config_ignore.settings` (`va_gov_notifications.product_owner_contact.*`) so environment-specific contact lists are not overwritten by config import.
+- The no-active-users product owner workflow is dispatched by the monthly scheduled tasks callback via `va-gov-notifications:no-active-users:trigger`.

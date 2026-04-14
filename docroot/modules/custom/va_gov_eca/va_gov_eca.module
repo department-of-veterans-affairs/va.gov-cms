@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for the VA.gov ECA module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the eca_cm form.
+ *
+ * The ECA Classic Modeler's action selector iterates the decorated action
+ * plugin manager, which excludes ECA-internal action plugins such as those
+ * provided by eca_views. This replaces the options list using the ECA action
+ * service, which correctly exposes all ECA action plugins.
+ *
+ * @see \Drupal\eca_cm\Form\EcaForm
+ * @see \Drupal\eca\Service\Actions::actions()
+ */
+function va_gov_eca_form_eca_cm_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  if (!isset($form['add_action']['table'][0]['plugin'])) {
+    return;
+  }
+
+  /** @var \Drupal\eca\Service\Actions $action_service */
+  $action_service = \Drupal::service('eca.service.action');
+  $module_handler = \Drupal::moduleHandler();
+  /** @var \Drupal\Core\Extension\ModuleExtensionList $module_extension_list */
+  $module_extension_list = \Drupal::service('extension.list.module');
+
+  $action_options_label = [];
+  $action_options_provider = [];
+  foreach ($action_service->actions() as $action) {
+    $id = $action->getPluginId();
+    $definition = $action->getPluginDefinition();
+
+    if (!empty($definition['confirm_form_route_name'])) {
+      // Skip actions that redirect to a confirmation form.
+      // @see https://www.drupal.org/project/eca/issues/3279483
+      continue;
+    }
+    if (($definition['id'] ?? NULL) === 'entity:save_action') {
+      // ECA Base replaces all entity save actions with a generic one.
+      continue;
+    }
+
+    if (($definition['provider'] ?? NULL) === 'core') {
+      $module_name = 'Drupal core';
+    }
+    elseif (empty($definition['provider']) || !$module_handler->moduleExists($definition['provider'])) {
+      $module_name = (string) t('Unknown provider');
+    }
+    else {
+      $module_name = (string) $module_extension_list->getName((string) $definition['provider']);
+    }
+
+    $action_options_label[$id] = (string) $definition['label'] . ' (' . $module_name . ')';
+    $action_options_provider[$id] = $module_name . ' ' . (string) $definition['label'];
+  }
+
+  asort($action_options_provider, SORT_NATURAL);
+  $action_options = ['_none' => t('- Select -')];
+  foreach (array_keys($action_options_provider) as $id) {
+    $action_options[$id] = $action_options_label[$id];
+  }
+
+  $form['add_action']['table'][0]['plugin']['#options'] = $action_options;
+}

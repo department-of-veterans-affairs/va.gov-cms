@@ -1,0 +1,28 @@
+va_gov_notifications.product_owner_contact.*:
+  type: config_entity
+  label: 'Product owner contact'
+  mapping:
+    id:
+      type: string
+      label: 'Machine name'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+      label: 'UUID'
+    status:
+      type: boolean
+      label: 'Enabled'
+    email:
+      type: string
+      label: 'Email'
+    notes:
+      type: text
+      label: 'Notes'
+    products:
+      type: sequence
+      label: 'Product term IDs'
+      sequence:
+        type: string
+        label: 'Product term ID'

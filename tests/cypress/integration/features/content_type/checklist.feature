@@ -9,6 +9,7 @@ Feature: Content Type: Checklist
   Scenario: Log in, edit, and save nodes with save and continue button and confirm revision saves changes.
     When I am logged in as a user with the "administrator" role
     And I create a "checklist" node and continue
+    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     # Verify data has been saved
     Then "error has been found:" should not exist
@@ -36,4 +37,5 @@ Feature: Content Type: Checklist
 
     # Make sure we are in draft state
     Then I edit the node
+    Then I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
     And the option "Draft" from dropdown with selector "#edit-moderation-state-0-state" should be selected

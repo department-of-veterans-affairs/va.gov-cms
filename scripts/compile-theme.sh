@@ -21,7 +21,7 @@ export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE
 
 pushd ./docroot/core
 nvm install 18
-yarn install
+yarn install --ignore-scripts
 yarn build:css
 popd
 
@@ -29,7 +29,7 @@ if [[ "${CMS_ENVIRONMENT_TYPE}" == "tugboat" ]]; then
 
 pushd ./docroot/themes/custom/vagovclaro
 nvm install
-npm install
+npm install --ignore-scripts
 npm run test
 popd
 
@@ -37,7 +37,7 @@ else
 
 pushd ./docroot/themes/custom/vagovclaro
 nvm install
-npm install
+npm install --ignore-scripts
 npm run prod
 popd
 

@@ -34,7 +34,8 @@
             "3285657 - The content has either been modified by another user, or you have already submitted modifications error": "patches/3285657-node-lock-translations.patch",
             "VACMS-19177 remove username form logging in user module": "patches/VACMS-19177-patch-for-user-module-to-log-uid.patch",
             "3082011 - Fix for orphaned label tags": "patches/3082011-19-do-not-use-label-HTML-tag-in-item-form-element.patch",
-            "3397718 - 'To log in to this site, your browser must accept cookies from the domain' error message displayed when user goes back and reload the page": "patches/3397718-must-accept-cookies.patch"
+            "3397718 - 'To log in to this site, your browser must accept cookies from the domain' error message displayed when user goes back and reload the page": "patches/3397718-must-accept-cookies.patch",
+            "VACMS-23017 - Force user to choose moderation state": "patches/VACMS-23017-content-moderation-default-placeholder.patch"
         },
         "drupal/decoupled_router": {
             "3111456 - Unable to resolve path on node in other language than default": "patches/3111456-resolve-language-issues.patch"
@@ -68,7 +69,8 @@
         },
         "drupal/entity_usage_addons": {
             "3000184 - In detailed usage, resolve the paragraph URL to parent entity": "patches/3000184-resolve-the-paragraph-URL-to-parent-entity.patch",
-            "3443270 - Check Access entity usage statistics perms in linkedUsage() method": "patches/3443270-check-access-entity-usage-statistics-perms-in-linked-usage-method.patch"
+            "3443270 - Check Access entity usage statistics perms in linkedUsage() method": "patches/3443270-check-access-entity-usage-statistics-perms-in-linked-usage-method.patch",
+            "VACMS-20087 - Label old-revision-only references in detailed usage": "patches/VACMS-20087-entity-usage-addons-label-previous-revision-in-detailed-usage.patch"
         },
         "drupal/environment_indicator": {
             "VACMS-23048 - Environment indicator styles fix for 4.0.x": "patches/VACMS-23048-update-drupal-modules-environmental-indicator.patch"
@@ -128,9 +130,6 @@
         "drupal/prometheus_exporter": {
             "3214628 - Add published/unpublished node statistics to NodeCount.": "patches/3214628-prometheus-exporter-add-status-metrics-to-node-count.patch"
         },
-        "drupal/raven": {
-            "Sentry/Dsn throws a TypeError, blowing up everything.": "patches/VACMS-0000-PR-11436-raven-catch-typeerror.patch"
-        },
         "drupal/redirect_options": {
             "3335893 - form_alter hook check on classes fails in some cases": "patches/3335893-redirect-options-form-alter-array-check.patch"
         },
@@ -151,7 +150,8 @@
         "drupal/tablefield": {
             "3176982 - Tablefield input elements have no title or label": "patches/3176982-tablefield-add-title-to-input-elements.patch",
             "3195203 - Copying caption to value breaks some data exports 3195203": "patches/3195203-tablefield-caption-copied-to-value.patch",
-            "3341971 - Drag & drop addition adds meaningless numbers to table data, could break integrating code": "patches/3341971-tablefield-disable-drag-drop-controls.patch"
+            "3341971 - Drag & drop addition adds meaningless numbers to table data, could break integrating code": "patches/3341971-tablefield-disable-drag-drop-controls.patch",
+            "3580596 - Add row insertion controls to insert rows at any position": "patches/3580596-tablefield-row-insert-controls.patch"
         },
         "drupal/taxonomy_entity_index" : {
             "3504104 - Support for excluding field names in views argument": "patches/3504104-support-for-excluding-field-names-4.patch"
@@ -167,9 +167,6 @@
         },
         "drupal/views_bulk_operations": {
             "3272580 - Fix bulk publishing and archiving": "patches/call-to-member-3272580-10.patch"
-        },
-        "drupal/node_link_report": {
-            "3575859 - minor fix for missing array index in path_parts": "patches/3575859-make-sure-array-key-exists-in-path.patch"
         }
     }
 }
