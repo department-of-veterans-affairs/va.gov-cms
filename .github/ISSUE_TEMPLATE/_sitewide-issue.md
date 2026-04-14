@@ -1,3 +1,10 @@
+---
+name: "(Sitewide) Issue template"
+about: Issue template for Sitewide team
+title: ''
+labels: Needs refining, sitewide
+assignees: ''
+
 ## Short Description
 
 
