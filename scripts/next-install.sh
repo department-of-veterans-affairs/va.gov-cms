@@ -7,10 +7,12 @@ source ~/.bashrc
 
 # Installs the content-build dependencies.
 
-if [ ! -d next ]; then
+if [ ! -d next/src ]; then
   git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/next-build.git next
 else
-  echo "Repo next-build already cloned."
+  echo "Repo next-build already cloned. Updating..."
+  git -C next reset --hard
+  git -C next pull origin $(git -C next rev-parse --abbrev-ref HEAD)
 fi
 
 pushd next
