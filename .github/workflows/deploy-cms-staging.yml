@@ -80,7 +80,7 @@ jobs:
         uses: department-of-veterans-affairs/platform-release-tools-actions/slack-notify@8c496a4b0c9158d18edcd9be8722ed0f79e8c5b4 #
         continue-on-error: true
         with:
-          payload: '{"attachments": [{"color": "#2EB67D","blocks": [{"type": "section","text": {"type": "mrkdwn","text": "Deployment to CMS Mirror for tag ${{ needs.get-tag.outputs.IMAGE_TAG }} is complete."}}]}]}'
+          payload: '{"attachments": [{"color": "#2EB67D","blocks": [{"type": "section","text": {"type": "mrkdwn","text": "Deployment to CMS Staging for tag ${{ needs.get-tag.outputs.IMAGE_TAG }} has been initiated."}}]}]}'
           channel_id: ${{ env.CMS_NOTIFICATIONS_SLACK }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -108,7 +108,7 @@ jobs:
                       "type": "section",
                       "text": {
                         "type": "mrkdwn",
-                        "text": ":bangbang: <!subteam^S01JXBLLMJL|cms-devops-engineers> Deployment of CMS Mirror using ${{ needs.get-tag.outputs.IMAGE_TAG || 'an unknown version' }} has failed."
+                        "text": ":bangbang: <!subteam^S01JXBLLMJL|cms-devops-engineers> Deployment of CMS Staging using ${{ needs.get-tag.outputs.IMAGE_TAG || 'an unknown version' }} has not been initiated."
                       }
                     }
                   ]
