@@ -130,10 +130,11 @@ const creators = {
       .within(() => {
         cy.findByDisplayValue("Add media").click({ force: true });
       });
+    cy.wait(3000);
     cy.get("iframe.entity-browser-modal-iframe")
       .iframe()
       .within(() => {
-        cy.get('div[role="dialog"]').within(() => {
+        cy.get('div[role="dialog"]', { timeout: 60000 }).within(() => {
           cy.get(".dropzone", {
             timeout: 60000,
           });
@@ -190,6 +191,15 @@ const creators = {
         cy.get(
           '[data-drupal-selector="edit-inline-entity-form-field-owner"]'
         ).select("VACO", { force: true });
+      });
+    /** Set moderation state */
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get("#edit-inline-entity-form-moderation-state-0-state").select(
+          "draft",
+          { force: true }
+        );
       });
     cy.get("iframe.entity-browser-modal-iframe")
       .iframe()
@@ -306,19 +316,22 @@ const creators = {
     cy.findAllByLabelText("Section").select("--Outreach Hub", { force: true });
     cy.scrollToSelector("#edit-field-media-open-button");
     cy.get("#edit-field-media-open-button").click({ force: true });
-    cy.get(".dropzone", {
-      timeout: 60000,
-    }).should("exist");
-    cy.get(".dropzone").attachFile("images/polygon_image.png", {
-      subjectType: "drag-n-drop",
+    cy.get('div[role="dialog"]', { timeout: 60000 }).within(() => {
+      cy.get(".dropzone", {
+        timeout: 60000,
+      }).should("exist");
+      cy.get(".dropzone").attachFile("images/polygon_image.png", {
+        subjectType: "drag-n-drop",
+      });
+      cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
+        force: true,
+      });
+      cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
+        "VACO",
+        { force: true }
+      );
     });
-    cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
-      force: true,
-    });
-    cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
-      "VACO",
-      { force: true }
-    );
+    cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log 1]${faker.lorem.sentence()}`,
       { force: true }
@@ -341,6 +354,7 @@ const creators = {
 
     cy.findAllByLabelText("City").type(faker.address.city(), { force: true });
     cy.findAllByLabelText("State").select("Alabama", { force: true });
+    cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
       { force: true }
@@ -359,6 +373,7 @@ const creators = {
     cy.get("#manage-instances form").find("input.form-submit").click();
     cy.get("#manage-instances form").should("not.exist");
     cy.get("button.ui-dialog-titlebar-close").click();
+    cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     return cy.wait(1000);
   },
   health_care_region_detail_page: () => {
@@ -552,6 +567,7 @@ Given("I create a {string} node", (contentType) => {
   cy.injectAxe();
   cy.scrollTo("top");
   cy.checkAccessibility();
+  cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
   creator().then(() => {
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
@@ -587,6 +603,7 @@ Given("I create a {string} node and continue", (contentType) => {
   cy.injectAxe();
   cy.scrollTo("top");
   cy.checkAccessibility();
+  cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
   creator().then(() => {
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,

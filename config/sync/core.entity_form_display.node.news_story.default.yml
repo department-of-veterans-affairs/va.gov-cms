@@ -21,6 +21,7 @@ dependencies:
     - field_group
     - media_library
     - path
+    - scheduler
     - text
     - textfield_counter
 third_party_settings:
@@ -202,6 +203,17 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 52
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  scheduler_settings:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   title:
     type: string_textfield_with_counter
     weight: 14
@@ -230,3 +242,4 @@ hidden:
   status: true
   sticky: true
   uid: true
+  unpublish_on: true

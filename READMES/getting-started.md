@@ -32,6 +32,12 @@ with PHP-CLI and SQLite.
   $ git config --global branch.main.rebase true
   ```
 
+- Configure Git to use the tracked repository hooks.
+  ```sh
+  $ git config core.hooksPath hooks/git
+  ```
+  This is also configured automatically during Composer install and update.
+
 -  Make changes to simplesaml storage not be tracked locally.
 
   ```sh

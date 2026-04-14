@@ -624,3 +624,28 @@ function vagovclaro_preprocess_page(&$variables) {
   // Creating a url variable to track if we are on the landing page for KB.
   $variables['url'] = $_SERVER['REQUEST_URI'];
 }
+
+/**
+ * Implements hook_preprocess_taxonomy_term().
+ */
+function vagovclaro_preprocess_taxonomy_term(&$variables) {
+  $variables['hide_contextual_links'] = FALSE;
+
+  if (empty($variables['term']) || empty($variables['view_mode'])) {
+    return;
+  }
+
+  $is_health_service_term = $variables['term']->bundle() === 'health_care_service_taxonomy';
+  $target_view_modes = ['vamc_facility_service', 'vba_facility_service', 'vet_center_service'];
+  $is_target_view_mode = in_array($variables['view_mode'], $target_view_modes, TRUE);
+
+  if (!$is_health_service_term || !$is_target_view_mode) {
+    return;
+  }
+
+  $roles = \Drupal::currentUser()->getRoles();
+  $is_content_admin = in_array('content_admin', $roles, TRUE);
+  $is_administrator = in_array('administrator', $roles, TRUE);
+
+  $variables['hide_contextual_links'] = $is_content_admin && !$is_administrator;
+}

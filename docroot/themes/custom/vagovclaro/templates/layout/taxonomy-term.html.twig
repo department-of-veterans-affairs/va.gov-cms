@@ -30,8 +30,10 @@
   ]
 %}
 <div{{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
-  {{ title_prefix }}
-  {{ title_suffix }}
+  {% if not hide_contextual_links %}
+    {{ title_prefix }}
+    {{ title_suffix }}
+  {% endif %}
   <div class="content">
     {{ content }}
   </div>
