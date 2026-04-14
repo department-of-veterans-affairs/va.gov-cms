@@ -2,8 +2,8 @@ name: Deploy to CMS Staging M - F at 3:30pm ET
 on:
   workflow_dispatch:
   schedule:
-    # 20:30 UTC -> 3:30 p.m. Eastern during standard time, 4:30 p.m. during daylight saving
-    - cron: '30 20 * * 1-5'
+    # 19:30 UTC -> 3:30 p.m. Eastern during daylight saving, 2:30 p.m. during standard time
+    - cron: '30 19 * * 1-5'
 
 env:
   CMS_NOTIFICATIONS_SLACK: CJT90C0UT # cms-notifications
