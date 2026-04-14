@@ -3,7 +3,8 @@ on:
   workflow_dispatch:
   schedule:
     # 19:30 UTC -> 3:30 p.m. Eastern during daylight saving, 2:30 p.m. during standard time
-    - cron: '30 19 * * 1-5'
+    - cron: '30 20 * * 1-5'
+      timezone: 'America/New_York'
 
 env:
   CMS_NOTIFICATIONS_SLACK: CJT90C0UT # cms-notifications
@@ -91,7 +92,7 @@ jobs:
     needs:
       - deploy-to-staging
       - get-tag
-    if: needs.deploy-to-staging.result == 'failure'
+    if: ${{ always() && needs.deploy-to-staging.result == 'failure' }}
 
     steps:
       - name: Notify Slack
