@@ -198,8 +198,8 @@ services:
       - bash -lc 'composer va:next:install'
 
       # Link dev assets
-      - rm -rf "${TUGBOAT_ROOT}/next/public"
-      - ln -snf "${TUGBOAT_ROOT}/next-assets/public" "${TUGBOAT_ROOT}/next/public"
+      - rm -rf "${TUGBOAT_ROOT}/next/public/generated"
+      - ln -snf "${TUGBOAT_ROOT}/next-assets/public/generated" "${TUGBOAT_ROOT}/next/public/generated"
 
       # Update the .env file for the next build preview server
       - sed -i "s|https://mirror.cms.va.gov|${TUGBOAT_DEFAULT_SERVICE_URL}|g" "${TUGBOAT_ROOT}/next/envs/.env.tugboat"

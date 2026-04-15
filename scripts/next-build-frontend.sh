@@ -111,13 +111,13 @@ else
 fi
 popd
 
-# Build vets-website again.
-echo "==> Re-building Vets Website" >> ${logfile}
+# Fetch vets-website assets again.
+echo "==> Fetching Vets Website assets" >> ${logfile}
 ${ROOT}/scripts/vets-web-setup.sh &>> ${logfile}
 
 # Link assets.
-rm -rf "${ROOT}/next/public"
-ln -snf "${ROOT}/next-assets/public" "${ROOT}/next/public"
+rm -rf "${ROOT}/next/public/generated"
+ln -snf "${ROOT}/next-assets/public/generated" "${ROOT}/next/public/generated"
 
 # Run the build.
 echo "==> Starting build" >> ${logfile}

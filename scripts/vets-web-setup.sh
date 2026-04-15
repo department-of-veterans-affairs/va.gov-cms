@@ -5,31 +5,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 source ~/.bashrc
 
-# Installs & builds vets-website dependencies for next-build preview.
-git config pull.rebase true
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." &> /dev/null && pwd)"
-
-if [ ! -d vets-website ]; then
-  git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
-  cd vets-website
-else
-  cd vets-website
-  echo "Repo vets-website already cloned. Updating..."
-  git pull origin $(git rev-parse --abbrev-ref HEAD)
-fi
-
-nvm install && nvm use
-npm install -g yarn
-
-echo "Node $(node -v)"
-echo "NPM $(npm -v)"
-echo "Yarn $(yarn -v)"
-
-export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
-yarn install-safe
-yarn build
 
 # Gather vets-website assets
 cd "$REPO_ROOT"
@@ -37,7 +14,6 @@ cd "$REPO_ROOT"
 DEV_BUCKET="https://dev-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
 
 FILE_MANIFEST_PATH="generated/file-manifest.json"
-VETS_WEBSITE_ASSET_PATH="$REPO_ROOT/vets-website/src/site/assets"
 DESTINATION_PATH="$REPO_ROOT/next-assets/public/generated"
 
 echo "Gathering vets-website assets from DEV build..."
@@ -79,18 +55,5 @@ if ! curl -s -f --compressed -o "$BUNDLE_PATH" "$BUNDLE_URL"; then
   echo "Warning: Failed to download $BUNDLE_URL"
 fi
 done
-
-# Move additional assets (images and fonts) from vets-website
-echo "Copying additional assets from vets-website..."
-if [ -d "$VETS_WEBSITE_ASSET_PATH/img" ]; then
-  cp -r "$VETS_WEBSITE_ASSET_PATH/img" "$REPO_ROOT/next-assets/public/" && echo "Copied image assets."
-fi
-
-if [ -d "$VETS_WEBSITE_ASSET_PATH/fonts" ]; then
-  mkdir -p "$DESTINATION_PATH"
-  for font in "$VETS_WEBSITE_ASSET_PATH/fonts"/*; do
-    cp -r "$font" "$DESTINATION_PATH/" && echo "Copied font: $(basename "$font")"
-  done
-fi
 
 echo "All vets-website assets gathered successfully!"
