@@ -134,22 +134,6 @@ function _va_gov_consumers_disable_non_vha_facilities_api_form_fields(array &$fo
  */
 function _va_gov_consumers_modify_va_form_fields(array &$form, $form_id, FormStateInterface &$form_state) {
   if ($form_id === 'node_va_form_edit_form' || $form_id === 'node_va_form_form') {
-    $node = $form_state->getformObject()->getEntity();
-    $title = "<h1>{$node->getTitle()}</h1>";
-    $form_name = $form['field_va_form_name'];
-    // We want the form name in a different location, so remove it from here.
-    unset($form['field_va_form_name']);
-
-    $form['header'] = [
-      '#type' => 'fieldset',
-      '#weight' => 0,
-      '#collapsible' => FALSE,
-      'title' => [
-        '#markup' => $title . '<div class="description">This non-editable page title is automatically set by the VA forms database.</div>',
-      ],
-      'field_va_form_name' => $form_name,
-    ];
-
     _va_gov_consumers_disable_external_content_editing($form, $form_state, 'field_va_form_number');
 
     // Show benefit categories only if benefit is selected.

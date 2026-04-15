@@ -106,7 +106,8 @@ function vagovclaro_preprocess_maintenance_page(&$variables) {
  * Implements hook_theme_suggestions_page_alter().
  */
 function vagovclaro_theme_suggestions_page_alter(&$suggestions, $variables) {
-  // During maintenance mode, replace page templates with maintenance_page templates.
+  // During maintenance mode, replace page templates with maintenance_page
+  // templates.
   if (\Drupal::state()->get('system.maintenance_mode') || !empty($variables['db_offline'])) {
     // Clear existing page suggestions and replace with maintenance_page.
     $new_suggestions = [];
