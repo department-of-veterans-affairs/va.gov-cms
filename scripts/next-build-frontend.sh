@@ -111,13 +111,13 @@ else
 fi
 popd
 
-# Fetch vets-website assets again.
-echo "==> Fetching Vets Website assets" >> ${logfile}
-${ROOT}/scripts/vets-web-setup.sh &>> ${logfile}
+# Create symlink between vets-website assets and next-build.
+mkdir -p "${ROOT}/next/public"
+ln -snf "${ROOT}/vets-website/build/localhost/generated" "${ROOT}/next/public/generated"
 
-# Link assets.
-rm -rf "${ROOT}/next/public/generated"
-ln -snf "${ROOT}/next-assets/public/generated" "${ROOT}/next/public/generated"
+# Build vets-website again.
+echo "==> Re-building Vets Website" >> ${logfile}
+${ROOT}/scripts/vets-web-setup.sh &>> ${logfile}
 
 # Run the build.
 echo "==> Starting build" >> ${logfile}
