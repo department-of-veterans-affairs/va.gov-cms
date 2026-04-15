@@ -34,7 +34,7 @@ yarn build
 # Gather vets-website assets
 cd "$REPO_ROOT"
 
-DEV_BUCKET="http://dev-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
+DEV_BUCKET="https://dev-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
 
 FILE_MANIFEST_PATH="generated/file-manifest.json"
 VETS_WEBSITE_ASSET_PATH="$REPO_ROOT/vets-website/src/site/assets"
@@ -54,8 +54,14 @@ echo "Downloading assets from $DEV_BUCKET..."
 mkdir -p "$DESTINATION_PATH"
 
 # Fetch manifest and download all assets
-if ! MANIFEST=$(curl -s "$DEV_BUCKET/$FILE_MANIFEST_PATH"); then
+FULL_MANIFEST_URL="$DEV_BUCKET/$FILE_MANIFEST_PATH"
+echo "DEBUG: Fetching manifest from: $FULL_MANIFEST_URL"
+MANIFEST=$(curl -sf --compressed "$FULL_MANIFEST_URL" | tr -d '\0')
+CURL_EXIT=$?
+if [ $CURL_EXIT -ne 0 ]; then
   echo "Error: Failed to fetch file manifest from $DEV_BUCKET"
+  echo "DEBUG: URL was: $FULL_MANIFEST_URL"
+  echo "DEBUG: curl exit code: $CURL_EXIT"
   exit 1
 fi
 
