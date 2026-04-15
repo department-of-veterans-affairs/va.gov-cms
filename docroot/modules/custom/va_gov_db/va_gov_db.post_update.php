@@ -105,3 +105,11 @@ function va_gov_db_post_update_strip_trailing_redirect_slashes() {
 function _va_gov_db_stringifynid($nid) {
   return "node_$nid";
 }
+
+/**
+ * Backfill VA Form node titles from "About VA Form " to "VA Form " prefix.
+ */
+function va_gov_db_post_update_backfill_va_form_page_title(&$sandbox) {
+  $script = \Drupal::classResolver('\Drupal\va_gov_batch\cbo_scripts\VaFormBackfillPageTitle');
+  return $script->run($sandbox, 'post_update');
+}
