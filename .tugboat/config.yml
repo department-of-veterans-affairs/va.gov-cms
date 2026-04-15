@@ -200,7 +200,7 @@ services:
       # Create symlink between vets-website assets and next-build
       #        - ln -snf "${DOCROOT}/vendor/va-gov/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
       - mkdir -p "${TUGBOAT_ROOT}/next/public"
-      - ln -snf "${TUGBOAT_ROOT}/vets-website/build/localhost/generated" "${TUGBOAT_ROOT}/next/public/generated"
+      - ln -snf "${TUGBOAT_ROOT}/vets-website/build/vagovdev/generated" "${TUGBOAT_ROOT}/next/public/generated"
 
       # Update the .env file for the next build preview server
       - sed -i "s|https://mirror.cms.va.gov|${TUGBOAT_DEFAULT_SERVICE_URL}|g" "${TUGBOAT_ROOT}/next/envs/.env.tugboat"
