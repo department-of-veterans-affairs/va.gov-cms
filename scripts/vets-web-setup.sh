@@ -7,10 +7,6 @@ source ~/.bashrc
 
 # Installs & builds vets-website dependencies for next-build preview.
 git config pull.rebase true
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/.." &> /dev/null && pwd)"
-
 if [ ! -d vets-website ]; then
   git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
   cd vets-website
@@ -30,61 +26,3 @@ echo "Yarn $(yarn -v)"
 export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
 yarn install-safe
 yarn build
-
-# Gather vets-website assets
-cd "$REPO_ROOT"
-
-DEV_BUCKET="http://dev-va-gov-assets.s3-us-gov-west-1.amazonaws.com"
-
-FILE_MANIFEST_PATH="generated/file-manifest.json"
-VETS_WEBSITE_ASSET_PATH="$REPO_ROOT/vets-website/src/site/assets"
-DESTINATION_PATH="$REPO_ROOT/next-assets/public/generated"
-
-echo "Gathering vets-website assets from DEV build..."
-
-# Clean any existing assets or symlinks
-if [ -d "$DESTINATION_PATH" ]; then
-  echo "Removing existing vets-website assets..."
-  rm -rf "$DESTINATION_PATH"
-fi
-
-# Handle asset gathering
-
-echo "Downloading assets from $DEV_BUCKET..."
-mkdir -p "$DESTINATION_PATH"
-
-# Fetch manifest and download all assets
-if ! MANIFEST=$(curl -s "$DEV_BUCKET/$FILE_MANIFEST_PATH"); then
-  echo "Error: Failed to fetch file manifest from $DEV_BUCKET"
-  exit 1
-fi
-
-# Parse JSON values
-echo "$MANIFEST" | jq -r '.[]' | while read -r bundleFileName; do
-BUNDLE_URL="${DEV_BUCKET}${bundleFileName}"
-
-# Remove leading slash if present
-BUNDLE_FILE="${bundleFileName#/}"
-BUNDLE_PATH="$REPO_ROOT/next-assets/public/$BUNDLE_FILE"
-
-echo "Downloading: $BUNDLE_URL to $BUNDLE_PATH"
-mkdir -p "$(dirname "$BUNDLE_PATH")"
-if ! curl -s -f --compressed -o "$BUNDLE_PATH" "$BUNDLE_URL"; then
-  echo "Warning: Failed to download $BUNDLE_URL"
-fi
-done
-
-# Move additional assets (images and fonts) from vets-website
-echo "Copying additional assets from vets-website..."
-if [ -d "$VETS_WEBSITE_ASSET_PATH/img" ]; then
-  cp -r "$VETS_WEBSITE_ASSET_PATH/img" "$REPO_ROOT/next-assets/public/" && echo "Copied image assets."
-fi
-
-if [ -d "$VETS_WEBSITE_ASSET_PATH/fonts" ]; then
-  mkdir -p "$DESTINATION_PATH"
-  for font in "$VETS_WEBSITE_ASSET_PATH/fonts"/*; do
-    cp -r "$font" "$DESTINATION_PATH/" && echo "Copied font: $(basename "$font")"
-  done
-fi
-
-echo "All vets-website assets gathered successfully!"
