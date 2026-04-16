@@ -113,7 +113,7 @@ popd
 
 # Create symlink between vets-website assets and next-build.
 mkdir -p "${ROOT}/next/public"
-ln -snf "${ROOT}/vets-website/build/localhost/generated" "${ROOT}/next/public/generated"
+ln -snf "${ROOT}/vets-website/build/vagovdev/generated" "${ROOT}/next/public/generated"
 
 # Build vets-website again.
 echo "==> Re-building Vets Website" >> ${logfile}
