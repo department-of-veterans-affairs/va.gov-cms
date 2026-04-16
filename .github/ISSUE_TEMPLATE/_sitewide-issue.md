@@ -5,45 +5,43 @@ title: ''
 labels: Needs refining, sitewide
 assignees: ''
 
----
-
-## Description
-
-### User story
-> _Describe the audience/user, enhancement or fix, and value / outcome desired._
-
-**AS A**
-**I WANT**
-**SO THAT**
+## Short Description
 
 
-### Engineering notes / background
+## Background
 
 
-### Analytics considerations
+
+### Problems to solve
 
 
-## Testing & QA
 
-### Scope / Impact analysis
-_What, if anything, could break as a result of this change?_
-_Engineer should assess this when approaching PR._
-
-
-### Roles / assignments
-_After functional testing, code review, accessibility review, and design review can happen in parallel._
-- [ ] **Functional testing:** 
-- [ ] **Code review:** 
-- [ ] **Design review:** 
-- [ ] **Accessibility review:** 
-- [ ] **Product acceptance:** 
+## User Story
+AS A(N)
+I WANT
+SO THAT
 
 ## Acceptance criteria
-_ACs should capture expected behavior, to inform test plans. Consider devices, documentation updates including KBs, change management, and [content model](https://prod.cms.va.gov/admin/structure/cm_document) when applicable._
-
-
 - [ ] 
-- [ ] Impact analysis is filled out and QA test plan is updated accordingly
-- [ ] Does this product have an existing regression test plan?
-	- [ ] Yes, link: 
-	- [ ] No, regression test plan will be created as part of the work / points in this ticket
+
+
+#### Implementation consideration(s)
+- 
+
+## Definition of done
+- [ ] Development
+   - [ ] Code completed 
+   - [ ] PR write up complete
+   - [ ] Automated tests passed 
+   - [ ] Code review requested 
+   - [ ] PR approved (meets established quality and security standards)
+- [ ] Review instance created/available
+  - [ ] Team members notified to start QA process
+- [ ] QA Process
+  - [ ] A11y review (meets accessibility standards)
+  - [ ] Design Review (meets design & UX requirements)
+  - [ ] Functional/feature review (meets acceptance criteria)
+- [ ] QA feedback reviewed/addressed, if any
+- [ ] Testing completed; dev team notified to deploy
+- [ ] PO/PM/external verify in prod
+- [ ] Documentation updated
