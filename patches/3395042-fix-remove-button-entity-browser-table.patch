@@ -1,0 +1,89 @@
+diff --git a/js/entity_browser.table.js b/js/entity_browser.table.js
+index 9bc5479b270ea1f79f54b7a38e2bc81cbc3c2305..c2603a3d8709f2fcd7c65fc9dbfcf1c545cb6f44 100644
+--- a/js/entity_browser.table.js
++++ b/js/entity_browser.table.js
+@@ -34,6 +34,15 @@
+           }
+         });
+       });
++
++      $(context).find('[data-entity-browser-entities-list] .remove-button').each(function () {
++        $(once('entity-browser-remove', $(this))).on('mousedown', function(e) {
++          var $currentItems = $(this).parents('[data-entity-browser-entities-list]:first');
++          $(this).parents('.item-container:first').remove();
++          Drupal.entityBrowserEntityReferenceTable.updateTargetId($currentItems);
++        })
++      });
++
+       // The AJAX callback will give us a flag when we need to re-open the
+       // browser, most likely due to a "Replace" button being clicked.
+       if (typeof drupalSettings.entity_browser_reopen_browser !== 'undefined' && drupalSettings.entity_browser_reopen_browser) {
+@@ -76,15 +85,25 @@
+    *   Object with the sortable area.
+    */
+   Drupal.entityBrowserEntityReferenceTable.entitiesReordered = function (widget) {
+-    var items = $(widget).find('.item-container');
++    Drupal.entityBrowserEntityReferenceTable.updateTargetId($(widget));
++  };
++
++  /**
++   * Updates the 'target_id' element.
++   *
++   * @param {object} $currentItems
++   *   Object with '.entities-list.sortable' element.
++   */
++  Drupal.entityBrowserEntityReferenceTable.updateTargetId = function (widget) {
++    var items = widget.find('.item-container');
+     var ids = [];
+     for (var i = 0; i < items.length; i++) {
+       ids[i] = $(items[i]).attr('data-entity-id');
+     }
+-    let currenItems = $(widget).parent().parent();
+-    if ($(widget).parents('.field--widget-entity_reference_browser_table_widget').length > 0) {
+-      currenItems = $(widget).parents('.field--widget-entity_reference_browser_table_widget');
++    let currenItems = widget.parent().parent();
++    if (widget.parents('.field--widget-entity_reference_browser_table_widget').length > 0) {
++      currenItems = widget.parents('.field--widget-entity_reference_browser_table_widget');
+     }
+     currenItems.find('input[type*=hidden][name*="[target_id]"]').val(ids.join(' '));
+-  };
++  }
+ }(jQuery, Drupal, Sortable));
+diff --git a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserTableWidget.php b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserTableWidget.php
+index 177fda745f27e21d6377025e50b2caee9f28894a..8d3a64e230518cde15b87a866551841e71e374dc 100644
+--- a/src/Plugin/Field/FieldWidget/EntityReferenceBrowserTableWidget.php
++++ b/src/Plugin/Field/FieldWidget/EntityReferenceBrowserTableWidget.php
+@@ -131,7 +131,8 @@ class EntityReferenceBrowserTableWidget extends EntityReferenceBrowserWidget {
+     $element['#attributes']['class'] = [
+       'field--widget-entity_reference_browser_table_widget',
+     ];
+-    $element['#attached']['library'][] = 'entity_browser_table/entity_browser_table';
++    // Override the entity_browser/entity_reference library.
++    $element['#attached']['library'] = ['entity_browser_table/entity_browser_table'];
+
+     return $element;
+   }
+@@ -154,7 +155,10 @@ class EntityReferenceBrowserTableWidget extends EntityReferenceBrowserWidget {
+       $table = [
+         '#type' => 'table',
+         '#header' => $this->buildTableHeaders(),
+-        '#attributes' => ['class' => ['table--widget-' . $this->getPluginId()]],
++        '#attributes' => [
++          'class' => ['table--widget-' . $this->getPluginId()],
++          'data-entity-browser-entities-list' => 1,
++        ],
+         '#empty' => $this->t('Use the buttons above to add content to this area.'),
+       ];
+       return array_merge($table, $this->buildTableRows($entities, $details_id, $field_parents));
+@@ -277,11 +281,6 @@ class EntityReferenceBrowserTableWidget extends EntityReferenceBrowserWidget {
+     return [
+       '#type' => 'submit',
+       '#value' => $this->t('Remove'),
+-      '#ajax' => [
+-        'callback' => [get_class($this), 'updateWidgetCallback'],
+-        'wrapper' => $details_id,
+-      ],
+-      '#submit' => [[get_class($this), 'removeItemSubmit']],
+       '#name' => $this->fieldDefinition->getName() . '_remove_' . $entity->id() . '_' . $row_id . '_' . md5(json_encode($field_parents)),
+       '#limit_validation_errors' => [array_merge($field_parents, [$this->fieldDefinition->getName()])],
+       '#attributes' => [

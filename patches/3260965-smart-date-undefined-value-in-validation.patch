@@ -1,0 +1,18 @@
+diff --git a/src/Plugin/Field/FieldWidget/SmartDateWidgetBase.php b/src/Plugin/Field/FieldWidget/SmartDateWidgetBase.php
+index 1968f30..cc4eae2 100644
+--- a/src/Plugin/Field/FieldWidget/SmartDateWidgetBase.php
++++ b/src/Plugin/Field/FieldWidget/SmartDateWidgetBase.php
+@@ -450,11 +450,11 @@ class SmartDateWidgetBase extends DateTimeWidgetBase {
+    *   The complete form structure.
+    */
+   public static function validateStartEnd(array &$element, FormStateInterface $form_state, array &$complete_form) {
+-    if (isset($element['time_wrapper']['value']) && empty($element['value'])) {
++    if (isset($element['time_wrapper']['value'])) {
+       $start_time = $element['time_wrapper']['value']['#value']['object'];
+     }
+     else {
+-      $start_time = $element['value']['#value']['object'] ?? NULL;
++      $start_time = $element['time_wrapper']['value']['#default_value'];
+     }
+     if (isset($element['time_wrapper']['end_value']) && empty($element['end_value'])) {
+       $end_time = $element['time_wrapper']['end_value']['#value']['object'];

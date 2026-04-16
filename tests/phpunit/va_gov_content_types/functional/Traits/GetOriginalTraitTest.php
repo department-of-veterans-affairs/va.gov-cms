@@ -23,7 +23,7 @@ class GetOriginalTraitTest extends VaGovExistingSiteBase {
       'bundle' => 'page',
     ]);
     $this->expectException(NoOriginalExistsException::class);
-    $node->getOriginal();
+    $node->getOriginalVersion();
   }
 
   /**
@@ -37,7 +37,7 @@ class GetOriginalTraitTest extends VaGovExistingSiteBase {
     $revision = \Drupal::entityTypeManager()->getStorage('node')->loadRevision($node->getLoadedRevisionId());
     $node->save();
     $node->original = $revision;
-    $original = $node->getOriginal();
+    $original = $node->getOriginalVersion();
     $this->assertEquals($node->id(), $original->id());
   }
 
@@ -52,7 +52,7 @@ class GetOriginalTraitTest extends VaGovExistingSiteBase {
     $revision = \Drupal::entityTypeManager()->getStorage('node')->loadRevision($node->getLoadedRevisionId());
     $node->save();
     $node->original = $revision;
-    $original = $node->getOriginal();
+    $original = $node->getOriginalVersion();
     $this->assertEquals($node->id(), $original->id());
   }
 
@@ -68,7 +68,7 @@ class GetOriginalTraitTest extends VaGovExistingSiteBase {
     $node->setNewRevision(TRUE);
     $node->save();
     $node->original = $revision;
-    $original = $node->getOriginal();
+    $original = $node->getOriginalVersion();
     $this->assertEquals($node->getOriginalField('nid')->value, $original->id());
     $this->assertEquals($node->getOriginalField('title')->value, $original->get('title')->value);
   }

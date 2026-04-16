@@ -2,7 +2,7 @@
 name: Research Discovery
 about: Use this template when exploring if research is needed/viable
 title: Discovery for [PRODUCT/INITIATIVE] research
-labels: UX, Research
+labels: Research, UX
 assignees: ''
 
 ---
@@ -35,4 +35,3 @@ Research Discovery is a time to establish the fundamental approach for a researc
 - [ ] Findings from research review are documented and shared with Sitewide UX Lead, Product Manager, and Product Owner
 - [ ] High-level scope of research is drafted and agreed upon
 - [ ] Subsequent tickets are created
-

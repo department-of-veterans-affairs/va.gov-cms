@@ -22,7 +22,7 @@ trait GetOriginalTrait {
    * @return bool
    *   TRUE if the node has an original version.  FALSE otherwise.
    */
-  public function hasOriginal(): bool {
+  public function hasOriginalVersion(): bool {
     /** @var mixed $node */
     $node = $this;
     return isset($node->original) && $node->original instanceof VaNodeInterface;
@@ -37,8 +37,8 @@ trait GetOriginalTrait {
    * @throws \Drupal\va_gov_content_types\Exception\NoOriginalExistsException
    *   Thrown when the node has no original version.
    */
-  public function getOriginal(): VaNodeInterface {
-    if (!$this->hasOriginal()) {
+  public function getOriginalVersion(): VaNodeInterface {
+    if (!$this->hasOriginalVersion()) {
       throw new NoOriginalExistsException('No original version exists for this node.');
     }
     /** @var mixed $node */
@@ -58,7 +58,7 @@ trait GetOriginalTrait {
    *   The fieldItemList of the field.
    */
   public function getOriginalField(string $fieldName): FieldItemListInterface {
-    $original = $this->getOriginal();
+    $original = $this->getOriginalVersion();
     return $original->get($fieldName);
   }
 

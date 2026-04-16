@@ -1,0 +1,19 @@
+diff --git a/content_lock.module b/content_lock.module
+index 0565669..cfd6fad 100644
+--- a/content_lock.module
++++ b/content_lock.module
+@@ -196,9 +196,13 @@ function content_lock_entity_predelete(EntityInterface $entity) {
+ 
+       $url = Url::fromRoute('entity.' . $entity_type . '.canonical', [$entity_type => $entity_id])->toString();
+ 
++      if (PHP_SAPI == 'cli') {
++        // Avoid any redirect from CLI, e.g. on drush migrate-rollback.
++        return;
++      }
++
+       $redirect = new LocalRedirectResponse($url);
+       $redirect->send();
+-      exit(0);
+     }
+   }
+ }

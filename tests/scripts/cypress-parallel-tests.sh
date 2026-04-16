@@ -16,6 +16,10 @@ npm run test:cypress:verify
 npm run test:cypress:parallel -- "${@}"
 exit_code=$?
 
+node tests/report_cypress_accessibility_errors.js
+
+drush va-test-cleanup
+
 popd > /dev/null
 
 exit "${exit_code}"

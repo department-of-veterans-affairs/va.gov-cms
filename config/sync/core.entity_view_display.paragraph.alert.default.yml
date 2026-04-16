@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.alert.field_alert_block_reference
     - field.field.paragraph.alert.field_alert_heading
+    - field.field.paragraph.alert.field_alert_heading_level
     - field.field.paragraph.alert.field_alert_type
     - field.field.paragraph.alert.field_va_paragraphs
     - paragraphs.paragraphs_type.alert
@@ -48,6 +49,13 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_alert_heading_level:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
     region: content
 hidden:
   search_api_excerpt: true

@@ -1,0 +1,35 @@
+uuid: 308a29bc-1020-4018-86da-3e527f991c73
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_outreach_materials_topics
+    - node.type.outreach_asset
+    - taxonomy.vocabulary.outreach_materials_topics
+  module:
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 0
+id: node.outreach_asset.field_outreach_materials_topics
+field_name: field_outreach_materials_topics
+entity_type: node
+bundle: outreach_asset
+label: 'Outreach Topics'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default:taxonomy_term
+  handler_settings:
+    target_bundles:
+      outreach_materials_topics: outreach_materials_topics
+field_type: entity_reference

@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Date type
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/single-column-with-buttons.html.twig' %}
+
+{% set page_id = 'date-type' %}
+{% set page_heading = 'Date type' %}
+
+{% block main_content %}
+  {{ form.date_type }}
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'date_type',
+    'actions',
+  )}}
+{% endblock %}

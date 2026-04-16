@@ -1,0 +1,24 @@
+uuid: a3db254f-b881-48e0-b21f-def5ebe21351
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_digital_form_label
+    - paragraphs.paragraphs_type.digital_form_date_component
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_date_component.field_digital_form_label
+field_name: field_digital_form_label
+entity_type: paragraph
+bundle: digital_form_date_component
+label: Label
+description: 'Labels associate a descriptive title with each form input used to collect information from the user.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

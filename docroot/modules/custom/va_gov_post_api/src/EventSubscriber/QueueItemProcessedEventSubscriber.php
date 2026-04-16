@@ -116,6 +116,14 @@ class QueueItemProcessedEventSubscriber implements EventSubscriberInterface, Con
         // The response might have been 200 from the TIC not the Facility API.
         $message = sprintf('Item %s Posted with a 200, but had an unexpected response with a size: %F phrase: %s', $item_data['uid'], $size, $response_phrase);
         $this->logger->get('va_gov_post_api')->warning($message);
+
+        if ($this->moduleHandler->moduleExists('slack')) {
+          $slack_config = $this->config->get('slack.settings');
+          if ($slack_config->get('slack_webhook_url')) {
+            $this->slack->sendMessage(':warning: ' . $message);
+          }
+        }
+
         // Add the item that might not have been processed back to the queue.
         $this->postQueue->addToQueue($item_data);
       }

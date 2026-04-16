@@ -2,10 +2,11 @@ diff --git a/core/modules/views/src/Plugin/views/pager/SqlBase.php b/core/module
 index 11cbaf44901be7c0e09ba1206fa5def80a92956a..135d32644c038a9bff7f494b89e9685aed9c592f 100644
 --- a/core/modules/views/src/Plugin/views/pager/SqlBase.php
 +++ b/core/modules/views/src/Plugin/views/pager/SqlBase.php
-@@ -68,6 +68,7 @@ abstract class SqlBase extends PagerPluginBase implements CacheableDependencyInt
+@@ -68,7 +68,7 @@ abstract class SqlBase extends PagerPluginBase implements CacheableDependencyInterface, ContainerFactoryPluginInterface {
      $options['offset'] = ['default' => 0];
      $options['id'] = ['default' => 0];
      $options['total_pages'] = ['default' => ''];
+-    $options['pagination_heading_level'] = ['default' => 'h4'];
 +    $options['pagination_heading_level'] = ['default' => 'h2'];
      $options['expose'] = [
        'contains' => [
@@ -14,7 +15,7 @@ diff --git a/core/modules/views/src/Plugin/views/display/DisplayPluginBase.php b
 index 11cbaf44901be7c0e09ba1206fa5def80a92956a..135d32644c038a9bff7f494b89e9685aed9c592f 100644
 --- a/core/modules/views/src/Plugin/views/display/DisplayPluginBase.php
 +++ b/core/modules/views/src/Plugin/views/display/DisplayPluginBase.php
-@@ -780,6 +780,38 @@ public function isDefaulted($option) {
+@@ -778,6 +778,38 @@ public function isDefaulted($option) {
      return !$this->isDefaultDisplay() && !empty($this->default_display) && !empty($this->options['defaults'][$option]);
    }
  
@@ -53,7 +54,7 @@ index 11cbaf44901be7c0e09ba1206fa5def80a92956a..135d32644c038a9bff7f494b89e9685a
    /**
     * {@inheritdoc}
     */
-@@ -1871,6 +1887,14 @@ public function buildOptionsForm(&$form, FormStateInterface $form_state) {
+@@ -1869,6 +1901,14 @@ public function buildOptionsForm(&$form, FormStateInterface $form_state) {
            $form['pager_options'] = [
              '#tree' => TRUE,
            ];
@@ -72,74 +73,65 @@ diff --git a/core/modules/views/src/Plugin/views/pager/PagerPluginBase.php b/cor
 index d02f67034417598829cf41ee2f144092df29bac4..1675f09ab978cb23f296d98c0ba02521fe5c6157 100644
 --- a/core/modules/views/src/Plugin/views/pager/PagerPluginBase.php
 +++ b/core/modules/views/src/Plugin/views/pager/PagerPluginBase.php
-@@ -72,6 +72,20 @@ public function setOffset($offset) {
-     $this->options['offset'] = $offset;
+@@ -93,7 +93,7 @@ public function setOffset($offset) {
+    *   Heading level for the pager.
+    */
+   public function getHeadingLevel(): string {
+-    return $this->options['pagination_heading_level'] ?? 'h4';
++    return $this->options['pagination_heading_level'] ?? 'h2';
    }
  
-+  /**
-+   * Get the pager heading tag.
-+   */
-+  public function getHeadingLevel() {
-+    return $this->options['pagination_heading_level'] ?? 'h2';
-+  }
-+
-+  /**
-+   * Set the pager heading.
-+   */
-+  public function setHeadingLevel($headingLevel) {
-+    $this->options['pagination_heading_level'] = $headingLevel;
-+  }
-+
    /**
-    * Get the current page.
-    *
 diff --git a/core/modules/views/src/Plugin/views/pager/Full.php b/core/modules/views/src/Plugin/views/pager/Full.php
 index d02f67034417598829cf41ee2f144092df29bac4..1675f09ab978cb23f296d98c0ba02521fe5c6157 100644
 --- a/core/modules/views/src/Plugin/views/pager/Full.php
 +++ b/core/modules/views/src/Plugin/views/pager/Full.php
-@@ -86,10 +86,14 @@ public function render($input) {
-       3 => $this->options['tags']['next'],
+@@ -88,10 +88,15 @@ public function render($input) {
        4 => $this->options['tags']['last'],
      ];
+ 
 +    $heading_options = [
 +      'pagination_heading_level' => parent::getHeadingLevel(),
 +    ];
++
      return [
        '#theme' => $this->themeFunctions(),
        '#tags' => $tags,
        '#element' => $this->options['id'],
 +      '#options' => $heading_options,
+       '#pagination_heading_level' => parent::getHeadingLevel(),
        '#parameters' => $input,
        '#quantity' => $this->options['quantity'],
-       '#route_name' => !empty($this->view->live_preview) ? '<current>' : '<none>',
 diff --git a/core/modules/views/src/Plugin/views/pager/Mini.php b/core/modules/views/src/Plugin/views/pager/Mini.php
 index d02f67034417598829cf41ee2f144092df29bac4..1675f09ab978cb23f296d98c0ba02521fe5c6157 100644
 --- a/core/modules/views/src/Plugin/views/pager/Mini.php
 +++ b/core/modules/views/src/Plugin/views/pager/Mini.php
-@@ -93,10 +93,14 @@ public function render($input) {
+@@ -95,11 +95,16 @@ public function render($input) {
        1 => $this->options['tags']['previous'],
        3 => $this->options['tags']['next'],
      ];
++
 +    $heading_options = [
 +      'pagination_heading_level' => parent::getHeadingLevel(),
 +    ];
+ 
      return [
        '#theme' => $this->themeFunctions(),
        '#tags' => $tags,
        '#element' => $this->options['id'],
 +      '#options' => $heading_options,
+       '#pagination_heading_level' => parent::getHeadingLevel(),
        '#parameters' => $input,
        '#route_name' => !empty($this->view->live_preview) ? '<current>' : '<none>',
-     ];
 diff --git a/core/themes/claro/templates/pager.html.twig b/core/themes/claro/templates/pager.html.twig
 index d02f67034417598829cf41ee2f144092df29bac4..1675f09ab978cb23f296d98c0ba02521fe5c6157 100644
 --- a/core/themes/claro/templates/pager.html.twig
 +++ b/core/themes/claro/templates/pager.html.twig
-@@ -36,7 +36,8 @@
+@@ -37,7 +37,8 @@
  #}
  {% if items %}
    <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
--    <h4 id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</h4>
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
 +    {% set hx = pager['#options']['pagination_heading_level'] ?: 'h2' %}
 +    <{{ hx }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ hx }}>
      <ul class="pager__items js-pager__items">
@@ -149,11 +141,11 @@ diff --git a/core/themes/claro/templates/views/views-mini-pager.html.twig b/core
 index d02f67034417598829cf41ee2f144092df29bac4..1675f09ab978cb23f296d98c0ba02521fe5c6157 100644
 --- a/core/themes/claro/templates/views/views-mini-pager.html.twig
 +++ b/core/themes/claro/templates/views/views-mini-pager.html.twig
-@@ -19,7 +19,8 @@
+@@ -20,7 +20,8 @@
  %}
  {% if items.previous or items.next %}
    <nav{{ attributes.addClass('pager').setAttribute('role', 'navigation').setAttribute('aria-labelledby', heading_id) }}>
--    <h4{{ title_attributes.addClass('visually-hidden').setAttribute('id', heading_id) }}>{{ 'Pagination'|t }}</h4>
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
 +    {% set hx = options['pagination_heading_level'] ?: 'h2' %}
 +    <{{ hx }}{{ title_attributes.addClass('visually-hidden').setAttribute('id', heading_id) }}>{{ 'Pagination'|t }}</{{ hx }}>
      <ul{{ content_attributes.addClass('pager__items', 'js-pager__items') }}>
@@ -163,11 +155,11 @@ diff --git a/core/themes/olivero/templates/navigation/pager.html.twig b/core/the
 index d02f67034417598829cf41ee2f144092df29bac4..1675f09ab978cb23f296d98c0ba02521fe5c6157 100644
 --- a/core/themes/olivero/templates/navigation/pager.html.twig
 +++ b/core/themes/olivero/templates/navigation/pager.html.twig
-@@ -32,7 +32,8 @@
+@@ -33,7 +33,8 @@
  #}
  {% if items %}
    <nav class="pager layout--content-medium" role="navigation" aria-labelledby="{{ heading_id }}">
--    <h4 id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</h4>
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
 +    {% set hx = pager['#options']['pagination_heading_level'] ?: 'h2' %}
 +    <{{ hx }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ hx }}>
      <ul class="pager__items js-pager__items">
@@ -177,11 +169,11 @@ diff --git a/core/themes/olivero/templates/views/views-mini-pager.html.twig b/co
 index d02f67034417598829cf41ee2f144092df29bac4..1675f09ab978cb23f296d98c0ba02521fe5c6157 100644
 --- a/core/themes/olivero/templates/views/views-mini-pager.html.twig
 +++ b/core/themes/olivero/templates/views/views-mini-pager.html.twig
-@@ -12,7 +12,8 @@
+@@ -13,7 +13,8 @@
  #}
  {% if items.previous or items.next %}
    <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
--    <h4 id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</h4>
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
 +    {% set hx = options['pagination_heading_level'] ?: 'h2' %}
 +    <{{ hx }}{{ title_attributes.addClass('visually-hidden').setAttribute('id', heading_id) }}>{{ 'Pagination'|t }}</{{ hx }}>
      <ul class="pager__items js-pager__items">
@@ -191,11 +183,11 @@ diff --git a/core/themes/stable9/templates/navigation/pager.html.twig b/core/the
 index 6f863faaf9..9616577558 100644
 --- a/core/themes/stable9/templates/navigation/pager.html.twig
 +++ b/core/themes/stable9/templates/navigation/pager.html.twig
-@@ -32,7 +32,8 @@
+@@ -33,7 +33,8 @@
  #}
  {% if items %}
    <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
--    <h4 id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</h4>
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
 +    {% set hx = pager['#options']['pagination_heading_level'] ?: 'h2' %}
 +    <{{ hx }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ hx }}>
      <ul class="pager__items js-pager__items">
@@ -205,11 +197,11 @@ diff --git a/core/themes/stable9/templates/views/views-mini-pager.html.twig b/co
 index 24f8f7aa99..12eb5b2353 100644
 --- a/core/themes/stable9/templates/views/views-mini-pager.html.twig
 +++ b/core/themes/stable9/templates/views/views-mini-pager.html.twig
-@@ -12,7 +12,8 @@
+@@ -13,7 +13,8 @@
  #}
  {% if items.previous or items.next %}
    <nav role="navigation" aria-labelledby="{{ heading_id }}">
--    <h4 id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</h4>
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
 +    {% set hx = options['pagination_heading_level'] ?: 'h2' %}
 +    <{{ hx }}{{ title_attributes.addClass('visually-hidden').setAttribute('id', heading_id) }}>{{ 'Pagination'|t }}</{{ hx }}>
      <ul class="js-pager__items">
@@ -219,11 +211,11 @@ diff --git a/core/themes/starterkit_theme/templates/navigation/pager.html.twig b
 index 6f863faaf9..9616577558 100644
 --- a/core/themes/starterkit_theme/templates/navigation/pager.html.twig
 +++ b/core/themes/starterkit_theme/templates/navigation/pager.html.twig
-@@ -32,7 +32,8 @@
+@@ -33,7 +33,8 @@
  #}
  {% if items %}
    <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
--    <h4 id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</h4>
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
 +    {% set hx = pager['#options']['pagination_heading_level'] ?: 'h2' %}
 +    <{{ hx }} id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</{{ hx }}>
      <ul class="pager__items js-pager__items">
@@ -233,11 +225,11 @@ diff --git a/core/themes/starterkit_theme/templates/views/views-mini-pager.html.
 index 4b46f2bb1f..585fe7242a 100644
 --- a/core/themes/starterkit_theme/templates/views/views-mini-pager.html.twig
 +++ b/core/themes/starterkit_theme/templates/views/views-mini-pager.html.twig
-@@ -12,7 +12,8 @@
+@@ -13,7 +13,8 @@
  #}
  {% if items.previous or items.next %}
    <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
--    <h4 id="{{ heading_id }}" class="pager__heading visually-hidden">{{ 'Pagination'|t }}</h4>
+-    <{{ pagination_heading_level }} id="{{ heading_id }}" class="pager__heading visually-hidden">{{ 'Pagination'|t }}</{{ pagination_heading_level }}>
 +    {% set hx = options['pagination_heading_level'] ?: 'h2' %}
 +    <{{ hx }}{{ title_attributes.addClass('visually-hidden').setAttribute('id', heading_id) }}>{{ 'Pagination'|t }}</{{ hx }}>
      <ul class="pager__items js-pager__items">

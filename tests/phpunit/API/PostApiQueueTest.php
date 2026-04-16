@@ -30,7 +30,7 @@ class PostApiQueueTest extends VaGovExistingSiteBase {
   public static $mockData = [
     'nid' => 1546,
     'uid' => 'facility_status_vha_568A4',
-    'endpoint_path' => '/services/va_facilities/v0/facilities/vha_568A4/cms-overlay',
+    'endpoint_path' => '/services/va_facilities/v1/facilities/vha_568A4/cms-overlay',
     'payload' => [
       'operating_status' => [
         'code' => 'CLOSED',

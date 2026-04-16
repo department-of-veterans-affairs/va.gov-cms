@@ -1,0 +1,24 @@
+uuid: 022b1404-6e7d-41d4-aae6-e6cf87a2f931
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_digital_form_description
+    - paragraphs.paragraphs_type.digital_form_response_option
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_response_option.field_digital_form_description
+field_name: field_digital_form_description
+entity_type: paragraph
+bundle: digital_form_response_option
+label: Description
+description: 'Used to provide additional details about a response option.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

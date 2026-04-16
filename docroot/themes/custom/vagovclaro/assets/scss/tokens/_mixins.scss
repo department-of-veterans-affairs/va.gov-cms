@@ -1,16 +1,21 @@
 //Claro buttons as mixins
 
-@mixin button($background: var(--button-bg-color), $color: var(--button-fg-color), $hover:var(--button--hover-bg-color), $active: var(--button--active-bg-color)) {
+@mixin button(
+  $background: var(--button-bg-color),
+  $color: var(--button-fg-color),
+  $hover: var(--button--hover-bg-color),
+  $active: var(--button--active-bg-color)
+) {
   -webkit-appearance: none;
   appearance: none;
   background-color: $background;
-  border: 1px solid transparent !important;  /* 2 */
+  border: 1px solid transparent !important; /* 2 */
   border-radius: var(--button-border-radius-size);
   color: $color;
   cursor: pointer;
   display: inline-block;
   font-size: var(--font-size-base);
-  -webkit-font-smoothing: antialiased;  /* 3 */
+  -webkit-font-smoothing: antialiased; /* 3 */
   font-weight: 700;
   line-height: 1rem;
   margin: var(--space-m) var(--space-s) var(--space-m) 0; /* LTR */
@@ -38,14 +43,18 @@
   }
 }
 
-@mixin va-buttons($background: var(--va-blue-med), $hover: var(--va-blue-darker), $ghost: false) {
+@mixin va-buttons(
+  $background: var(--va-blue-dark),
+  $hover: var(--va-blue-darkest),
+  $ghost: false
+) {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   background-color: $background;
   border: 0;
   border-radius: 5px;
-  color: var(--color-white);
+  color: var(--va-white);
   display: inline-block;
   font-family: var(--font-family-sans);
   font-size: 1em;
@@ -63,43 +72,43 @@
 
   &:hover {
     background-color: $hover;
-    color: var(--color-white);
+    color: var(--va-white);
     text-decoration: none;
   }
 
   @if $ghost {
     background: transparent;
-    box-shadow: inset 0 0 0 2px var(--va-blue-med);
-    color: var(--va-blue-med);
+    box-shadow: inset 0 0 0 2px var(--va-blue-dark);
+    color: var(--va-blue-dark);
 
     &:hover {
       background: transparent;
-      box-shadow: inset 0 0 0 2px var(--va-blue-darker);
-      color: var(--va-blue-darker)3;
+      box-shadow: inset 0 0 0 2px var(--va-blue-darkest);
+      color: var(--va-blue-darkest) 3;
     }
   }
 }
 
 @mixin button-outline {
-  background-color: var(--color-white);
-  border: 2px solid var(--va-blue-med) !important;
+  background-color: var(--va-white);
+  border: 2px solid var(--va-blue-dark) !important;
   box-shadow: none;
-  color: var(--va-blue-med);
+  color: var(--va-blue-dark);
   padding: calc(var(--space-m) - 2px) calc(var(--space-l) - 2px); //2px offset for border
 
   &:hover {
-    background-color: var(--va-blue-light);
-    border: 2px solid var(--va-blue-darker);
-    color: var(--va-blue-darker);
+    background-color: var(--va-blue-lightest);
+    border: 2px solid var(--va-blue-darkest);
+    color: var(--va-blue-darkest);
   }
 }
 
-@mixin wysiwyg-va-action-links($color:var(--va-green)) {
+@mixin wysiwyg-va-action-links($color: var(--va-green-dark)) {
   &::before {
     //    content: '\F138'; hide until FA support added
     color: $color;
     display: inline-block;
-    font-family: 'Font Awesome 5 Free';
+    font-family: "Font Awesome 5 Free";
     font-size: 175%;
     font-weight: 900;
     height: 0;
@@ -114,7 +123,7 @@
 }
 
 @mixin wysiwyg-va-body-font {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 1em;
@@ -127,8 +136,8 @@
   margin-bottom: 1em;
 }
 
-
-@mixin input-reset { //reset input styles incase we need to style a parent div as a button
+@mixin input-reset {
+  //reset input styles incase we need to style a parent div as a button
   background: none;
   border: 0;
   box-shadow: none !important;
@@ -183,7 +192,6 @@
     font-size: 1rem;
   }
 
-
   /* Lists */
 
   ol {
@@ -204,9 +212,11 @@
   }
 
   /* Abbreviations */
-  abbr[title] {/* stylelint-disable-line */
+  /* stylelint-disable */
+  abbr[title] {
     text-decoration: underline dotted;
   }
+  /* stylelint-enable */
 
   /* Links */
 
@@ -214,13 +224,13 @@
     color: var(--va-blue-dark);
     text-decoration: underline;
     transition-duration: 0.3s;
-    transition-property: color,background-color,border-color;
+    transition-property: color, background-color, border-color;
     transition-timing-function: ease-in-out;
   }
 
   a:hover {
-    background-color: var(--va-blue-lighter);
-    color: var(--va-blue-darker);
+    background-color: var(--va-blue-lightest);
+    color: var(--va-blue-darkest);
     text-decoration: none;
   }
 
@@ -229,24 +239,23 @@
     max-width: 700px;
   }
 
-
   /* Block styles */
 
   .va-address-block {
-    border-left: 3px solid var(--va-blue-med);
+    border-left: 3px solid var(--va-blue-dark);
     margin-left: 5rem;
     padding-left: 1rem;
   }
 
   /* Default button (blue) */
   .usa-button {
-    @include va-buttons(var(--va-blue-med), var(--va-blue-darker));
+    @include va-buttons(var(--va-blue-dark), var(--va-blue-darkest));
   }
 
   /* Primary button (green) */
   .usa-button-primary,
   .va-button-primary {
-    @include va-buttons(var(--va-green), var(--va-green-dark));
+    @include va-buttons(var(--va-green-lightest), var(--va-green-dark));
   }
 
   /* Secondary button (blue 'ghost') */
@@ -255,10 +264,10 @@
   }
 
   a.vads-c-action-link--green {
-    @include wysiwyg-va-action-links(var(--va-green));
+    @include wysiwyg-va-action-links(var(--va-green-dark));
 
     &::before {
-      content: url('/themes/custom/vagovclaro/images/icons/2e8540/chevron-circle-right-solid.svg') //needed until FA support added
+      content: url("/themes/custom/vagovclaro/images/icons/2e8540/chevron-circle-right-solid.svg"); //needed until FA support added
     }
   }
 
@@ -266,20 +275,18 @@
     @include wysiwyg-va-action-links(var(--va-blue-dark));
 
     &::before {
-      content: url('/themes/custom/vagovclaro/images/icons/004795/chevron-circle-right-solid.svg') //needed until FA support added
+      content: url("/themes/custom/vagovclaro/images/icons/004795/chevron-circle-right-solid.svg"); //needed until FA support added
     }
   }
 
   a.vads-c-action-link--white {
-    @include wysiwyg-va-action-links(#fff);
+    @include wysiwyg-va-action-links(var(--va-white));
 
-    color: #fff;
+    color: var(--va-white);
 
     &::before {
       transition-duration: 0.3s;
-      transition-property: color,
-        background-color,
-        border-color;
+      transition-property: color, background-color, border-color;
       transition-timing-function: ease-in-out;
     }
 
@@ -309,11 +316,11 @@
   &::before {
     background-image: url($url);
     background-size: contain;
-    content: '';
+    content: "";
     display: inline-block;
     height: var(--space-m);
     left: var(--space-l);
-    margin-top: calc(var(--space-m)/-2);
+    margin-top: calc(var(--space-m) / -2);
     position: absolute;
     text-align: center;
     top: 50%;
@@ -323,11 +330,12 @@
 
 // placeholder map until design tokens are defined... breakpoint values likely to change
 $breakpoints: (
-  'sm': 767px,
-  'md': 992px,
-  'lg': 1200px,
-  'xl': 1440px,
-  'tabs': 48em // see: docroot/core/themes/claro/css/components/tabs.css line 203.
+  "sm": 767px,
+  "md": 992px,
+  "lg": 1200px,
+  "xl": 1440px,
+  "tabs": 48em
+    // see: docroot/core/themes/claro/css/components/tabs.css line 203.,,,,,,
 );
 
 @mixin breakpoint($breakpoint) {
@@ -335,8 +343,7 @@ $breakpoints: (
     @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
       @content;
     }
-  }
-  @else {
+  } @else {
     @warn 'No breakpoint with name `#{$breakpoint}`. '
       + 'Available breakpoints are: #{map-keys($breakpoints)}.';
   }

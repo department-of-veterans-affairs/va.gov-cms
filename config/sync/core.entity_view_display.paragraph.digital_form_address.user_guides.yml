@@ -1,0 +1,26 @@
+uuid: 9c0520b1-d6ae-4f32-a85e-154212709a0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.digital_form_address.field_military_address_checkbox
+    - field.field.paragraph.digital_form_address.field_title
+    - paragraphs.paragraphs_type.digital_form_address
+id: paragraph.digital_form_address.user_guides
+targetEntityType: paragraph
+bundle: digital_form_address
+mode: user_guides
+content:
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  breadcrumbs: true
+  field_military_address_checkbox: true
+  search_api_excerpt: true

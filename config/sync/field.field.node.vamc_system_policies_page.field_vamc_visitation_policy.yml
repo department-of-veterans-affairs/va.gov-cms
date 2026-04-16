@@ -8,10 +8,6 @@ dependencies:
   module:
     - allowed_formats
     - text
-third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - rich_text
 id: node.vamc_system_policies_page.field_vamc_visitation_policy
 field_name: field_vamc_visitation_policy
 entity_type: node
@@ -22,5 +18,7 @@ required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats:
+    - rich_text
 field_type: text_long

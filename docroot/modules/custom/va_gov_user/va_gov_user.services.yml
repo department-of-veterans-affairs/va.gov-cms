@@ -4,7 +4,6 @@ services:
     arguments:
       - '@entity_type.manager'
       - '@va_gov.build_trigger.environment_discovery'
-      - '@externalauth.externalauth'
       - '@messenger'
       - '@module_handler'
       - '@string_translation'
@@ -18,3 +17,6 @@ services:
   va_gov_user.user_perms:
     class: Drupal\va_gov_user\Service\UserPermsService
     arguments: ['@current_user', '@entity_type.manager', '@database']
+  monolog.processor.va_gov_current_user:
+    class: Drupal\va_gov_user\Logger\Processor\VaGovUserCurrentUserProcessor
+    arguments: ['@current_user']

@@ -1,0 +1,217 @@
+uuid: 65781696-7800-4b9f-b3da-e4ac7c0c19c8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_digital_form_components
+    - paragraphs.paragraphs_type.digital_form_checkbox
+    - paragraphs.paragraphs_type.digital_form_date_component
+    - paragraphs.paragraphs_type.digital_form_page
+    - paragraphs.paragraphs_type.digital_form_radio_button
+    - paragraphs.paragraphs_type.digital_form_text_area
+    - paragraphs.paragraphs_type.digital_form_text_input
+  module:
+    - entity_reference_revisions
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_page.field_digital_form_components
+field_name: field_digital_form_components
+entity_type: paragraph
+bundle: digital_form_page
+label: Components
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      digital_form_checkbox: digital_form_checkbox
+      digital_form_date_component: digital_form_date_component
+      digital_form_radio_button: digital_form_radio_button
+      digital_form_text_area: digital_form_text_area
+      digital_form_text_input: digital_form_text_input
+    negate: 0
+    target_bundles_drag_drop:
+      address:
+        weight: 65
+        enabled: false
+      alert:
+        weight: 66
+        enabled: false
+      alert_single:
+        weight: 67
+        enabled: false
+      audience_topics:
+        weight: 68
+        enabled: false
+      basic_accordion:
+        weight: 69
+        enabled: false
+      button:
+        weight: 70
+        enabled: false
+      centralized_content_descriptor:
+        weight: 71
+        enabled: false
+      checklist:
+        weight: 72
+        enabled: false
+      checklist_item:
+        weight: 73
+        enabled: false
+      collapsible_panel:
+        weight: 74
+        enabled: false
+      collapsible_panel_item:
+        weight: 75
+        enabled: false
+      contact_information:
+        weight: 76
+        enabled: false
+      digital_form_address:
+        weight: 77
+        enabled: false
+      digital_form_checkbox:
+        weight: 60
+        enabled: true
+      digital_form_custom_step:
+        weight: 78
+        enabled: false
+      digital_form_date_component:
+        weight: 61
+        enabled: true
+      digital_form_identification_info:
+        weight: 79
+        enabled: false
+      digital_form_list_loop:
+        weight: 80
+        enabled: false
+      digital_form_name_and_date_of_bi:
+        weight: 81
+        enabled: false
+      digital_form_page:
+        weight: 82
+        enabled: false
+      digital_form_phone_and_email:
+        weight: 83
+        enabled: false
+      digital_form_radio_button:
+        weight: 62
+        enabled: true
+      digital_form_response_option:
+        weight: 87
+        enabled: false
+      digital_form_text_area:
+        weight: 63
+        enabled: true
+      digital_form_text_input:
+        weight: 64
+        enabled: true
+      digital_form_your_personal_info:
+        weight: 84
+        enabled: false
+      downloadable_file:
+        weight: 85
+        enabled: false
+      email_contact:
+        weight: 86
+        enabled: false
+      embedded_video:
+        weight: 88
+        enabled: false
+      expandable_text:
+        weight: 89
+        enabled: false
+      featured_content:
+        weight: 90
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 91
+        enabled: false
+      link_teaser:
+        weight: 92
+        enabled: false
+      link_teaser_with_image:
+        weight: 93
+        enabled: false
+      list_of_link_teasers:
+        weight: 96
+        enabled: false
+      list_of_links:
+        weight: 95
+        enabled: false
+      lists_of_links:
+        weight: 94
+        enabled: false
+      magichead_group:
+        weight: 97
+        enabled: false
+      media:
+        weight: 98
+        enabled: false
+      media_list_images:
+        weight: 99
+        enabled: false
+      media_list_videos:
+        weight: 100
+        enabled: false
+      non_reusable_alert:
+        weight: 101
+        enabled: false
+      number_callout:
+        weight: 102
+        enabled: false
+      phone_number:
+        weight: 103
+        enabled: false
+      process:
+        weight: 104
+        enabled: false
+      q_a:
+        weight: 105
+        enabled: false
+      q_a_group:
+        weight: 106
+        enabled: false
+      q_a_section:
+        weight: 107
+        enabled: false
+      react_widget:
+        weight: 108
+        enabled: false
+      rich_text_char_limit_1000:
+        weight: 109
+        enabled: false
+      service_location:
+        weight: 110
+        enabled: false
+      service_location_address:
+        weight: 111
+        enabled: false
+      situation_update:
+        weight: 112
+        enabled: false
+      spanish_translation_summary:
+        weight: 113
+        enabled: false
+      staff_profile:
+        weight: 114
+        enabled: false
+      step:
+        weight: 115
+        enabled: false
+      step_by_step:
+        weight: 116
+        enabled: false
+      table:
+        weight: 117
+        enabled: false
+      wysiwyg:
+        weight: 118
+        enabled: false
+field_type: entity_reference_revisions

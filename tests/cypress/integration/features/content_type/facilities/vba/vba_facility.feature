@@ -16,15 +16,14 @@ Feature: CMS User may effectively interact with the VBA Facility form
   Scenario: Test restricted_archive workflow prevents archiving a VBA Facility as a VBA editor.
     When I am logged in as a user with the roles "content_creator_vba, content_publisher"
     And my workbench access sections are set to "1065"
+    And I unlock node 4063
     When I am at "/node/4063/edit"
     And I scroll to element "select#edit-moderation-state-0-state"
     Then an option with the text "Archived" from dropdown with selector "select#edit-moderation-state-0-state" should not be visible
-    And I scroll to position "bottom"
-    And I click the "Unlock" link
-    And I click the "Confirm break lock" button
 
   Scenario: Test restricted_archive workflow allows archiving a VBA Facility as a content_admin.
     Given I am logged in as a user with the "content_admin" role
+    And I unlock node 4063
     # Columbia VA Regional Benefit Office
     When I am at "/node/4063/edit"
     And I scroll to element "select#edit-moderation-state-0-state"
@@ -47,6 +46,7 @@ Feature: CMS User may effectively interact with the VBA Facility form
   Scenario: Enable banner segment and ensure expected fields are present
     Given I am logged in as a user with the "content_admin" role
     And my workbench access sections are set to "1065"
+    And I unlock node 4063
     # Columbia VA Regional Benefit Office
     When I am at "/node/4063/edit"
     # Banner related fields should not be visible.
@@ -67,6 +67,7 @@ Feature: CMS User may effectively interact with the VBA Facility form
     And I select the "Allow site visitors to dismiss banner" radio button
     And I fill in field with selector "#edit-field-banner-title-0-value" with value "[Test Data] Test banner title."
     And I fill in ckeditor "edit-field-banner-content-0-value" with "[Test Data] Banner Body"
+    And I select option "Draft" from dropdown with selector "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I uncheck the "Display a banner alert on this facility" checkbox
     And I save the node
@@ -76,3 +77,6 @@ Feature: CMS User may effectively interact with the VBA Facility form
     And I check the "Display a banner alert on this facility" checkbox
     Then an element with the selector "#edit-field-banner-title-0-value" should be empty
     And the option "- Select a value -" from dropdown with selector "#edit-field-alert-type" should be selected
+    And I scroll to position "bottom"
+    And I click the "Unlock" link
+    And I click the "Confirm break lock" button

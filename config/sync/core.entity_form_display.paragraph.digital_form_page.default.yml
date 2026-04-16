@@ -1,0 +1,79 @@
+uuid: 4638e41e-d5a7-499e-9ecd-06dec3075515
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_page.field_digital_form_body_text
+    - field.field.paragraph.digital_form_page.field_digital_form_components
+    - field.field.paragraph.digital_form_page.field_title
+    - paragraphs.paragraphs_type.digital_form_page
+  module:
+    - change_labels
+    - limited_field_widgets
+    - no_table_drag
+    - paragraphs
+    - paragraphs_features
+    - textfield_counter
+id: paragraph.digital_form_page.default
+targetEntityType: paragraph
+bundle: digital_form_page
+mode: default
+content:
+  field_digital_form_body_text:
+    type: string_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_digital_form_components:
+    type: paragraphs
+    weight: 3
+    region: content
+    settings:
+      title: Component
+      title_plural: Components
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: all
+      closed_mode_threshold: 0
+      add_mode: modal
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        convert: '0'
+        duplicate: duplicate
+    third_party_settings:
+      paragraphs_features:
+        add_in_between: false
+        add_in_between_link_count: 3
+        delete_confirmation: false
+        show_drag_and_drop: true
+        show_collapse_all: true
+      limited_field_widgets:
+        limit_values: 0
+      change_labels:
+        add_another: ''
+      no_table_drag:
+        no_table_drag: false
+  field_title:
+    type: string_textfield_with_counter
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 255
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

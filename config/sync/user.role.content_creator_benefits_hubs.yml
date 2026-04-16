@@ -8,7 +8,9 @@ dependencies:
     - node.type.page
     - node.type.support_service
   module:
+    - ai_image_alt_text
     - block_content
+    - entity_usage
     - file
     - node
     - node_link_report
@@ -22,9 +24,11 @@ weight: -7
 is_admin: null
 permissions:
   - 'access block library'
+  - 'access entity usage statistics'
   - 'access files overview'
   - 'create landing_page content'
   - 'create page content'
   - 'create promo block content'
   - 'create support_service content'
+  - 'generate ai alt tags'
   - 'view node link report'

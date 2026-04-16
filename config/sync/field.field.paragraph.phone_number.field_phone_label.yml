@@ -7,16 +7,19 @@ dependencies:
     - paragraphs.paragraphs_type.phone_number
   module:
     - epp
+    - tmgmt_content
 third_party_settings:
   epp:
     value: ''
     on_update: 1
+  tmgmt_content:
+    excluded: false
 id: paragraph.phone_number.field_phone_label
 field_name: field_phone_label
 entity_type: paragraph
 bundle: phone_number
 label: Label
-description: 'Use a label to indicate what office, department, or program can be reached here.'
+description: 'Enter what office, department, or program can be reached with this number.'
 required: true
 translatable: true
 default_value: {  }

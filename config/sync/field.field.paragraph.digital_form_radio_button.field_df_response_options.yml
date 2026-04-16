@@ -1,0 +1,206 @@
+uuid: 10e56832-1b06-4726-b6e1-a5b2cbd1c260
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_df_response_options
+    - paragraphs.paragraphs_type.digital_form_radio_button
+    - paragraphs.paragraphs_type.digital_form_response_option
+  module:
+    - entity_reference_revisions
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_radio_button.field_df_response_options
+field_name: field_df_response_options
+entity_type: paragraph
+bundle: digital_form_radio_button
+label: 'Response Options'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      digital_form_response_option: digital_form_response_option
+    negate: 0
+    target_bundles_drag_drop:
+      address:
+        weight: 59
+        enabled: false
+      alert:
+        weight: 60
+        enabled: false
+      alert_single:
+        weight: 61
+        enabled: false
+      audience_topics:
+        weight: 62
+        enabled: false
+      basic_accordion:
+        weight: 63
+        enabled: false
+      button:
+        weight: 64
+        enabled: false
+      centralized_content_descriptor:
+        weight: 65
+        enabled: false
+      checklist:
+        weight: 66
+        enabled: false
+      checklist_item:
+        weight: 67
+        enabled: false
+      collapsible_panel:
+        weight: 68
+        enabled: false
+      collapsible_panel_item:
+        weight: 69
+        enabled: false
+      contact_information:
+        weight: 70
+        enabled: false
+      digital_form_address:
+        weight: 71
+        enabled: false
+      digital_form_custom_step:
+        weight: 72
+        enabled: false
+      digital_form_date_component:
+        weight: 73
+        enabled: false
+      digital_form_identification_info:
+        weight: 74
+        enabled: false
+      digital_form_list_loop:
+        weight: 75
+        enabled: false
+      digital_form_name_and_date_of_bi:
+        weight: 76
+        enabled: false
+      digital_form_page:
+        weight: 77
+        enabled: false
+      digital_form_phone_and_email:
+        weight: 78
+        enabled: false
+      digital_form_radio_button:
+        weight: 79
+        enabled: false
+      digital_form_response_option:
+        weight: 80
+        enabled: true
+      digital_form_text_area:
+        weight: 81
+        enabled: false
+      digital_form_text_input:
+        weight: 82
+        enabled: false
+      digital_form_your_personal_info:
+        weight: 83
+        enabled: false
+      downloadable_file:
+        weight: 84
+        enabled: false
+      email_contact:
+        weight: 85
+        enabled: false
+      embedded_video:
+        weight: 86
+        enabled: false
+      expandable_text:
+        weight: 87
+        enabled: false
+      featured_content:
+        weight: 88
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 89
+        enabled: false
+      link_teaser:
+        weight: 90
+        enabled: false
+      link_teaser_with_image:
+        weight: 91
+        enabled: false
+      list_of_link_teasers:
+        weight: 94
+        enabled: false
+      list_of_links:
+        weight: 93
+        enabled: false
+      lists_of_links:
+        weight: 92
+        enabled: false
+      magichead_group:
+        weight: 95
+        enabled: false
+      media:
+        weight: 96
+        enabled: false
+      media_list_images:
+        weight: 97
+        enabled: false
+      media_list_videos:
+        weight: 98
+        enabled: false
+      non_reusable_alert:
+        weight: 99
+        enabled: false
+      number_callout:
+        weight: 100
+        enabled: false
+      phone_number:
+        weight: 101
+        enabled: false
+      process:
+        weight: 102
+        enabled: false
+      q_a:
+        weight: 103
+        enabled: false
+      q_a_group:
+        weight: 104
+        enabled: false
+      q_a_section:
+        weight: 105
+        enabled: false
+      react_widget:
+        weight: 106
+        enabled: false
+      rich_text_char_limit_1000:
+        weight: 107
+        enabled: false
+      service_location:
+        weight: 108
+        enabled: false
+      service_location_address:
+        weight: 109
+        enabled: false
+      situation_update:
+        weight: 110
+        enabled: false
+      spanish_translation_summary:
+        weight: 111
+        enabled: false
+      staff_profile:
+        weight: 112
+        enabled: false
+      step:
+        weight: 113
+        enabled: false
+      step_by_step:
+        weight: 114
+        enabled: false
+      table:
+        weight: 115
+        enabled: false
+      wysiwyg:
+        weight: 116
+        enabled: false
+field_type: entity_reference_revisions

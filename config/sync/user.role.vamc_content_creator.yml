@@ -14,7 +14,9 @@ dependencies:
     - node.type.regional_health_care_service_des
     - node.type.vha_facility_nonclinical_service
   module:
+    - ai_image_alt_text
     - block_content
+    - entity_usage
     - file
     - node
     - node_link_report
@@ -28,6 +30,7 @@ weight: -4
 is_admin: null
 permissions:
   - 'access block library'
+  - 'access entity usage statistics'
   - 'access files overview'
   - 'create event content'
   - 'create full_width_banner_alert content'
@@ -39,4 +42,5 @@ permissions:
   - 'create promo block content'
   - 'create regional_health_care_service_des content'
   - 'create vha_facility_nonclinical_service content'
+  - 'generate ai alt tags'
   - 'view node link report'

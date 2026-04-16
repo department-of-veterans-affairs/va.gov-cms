@@ -1,0 +1,27 @@
+diff --git a/src/Plugin/Field/FieldWidget/InlineEntityFormComplex.php b/src/Plugin/Field/FieldWidget/InlineEntityFormComplex.php
+index 0535cf7..46f255e 100644
+--- a/src/Plugin/Field/FieldWidget/InlineEntityFormComplex.php
++++ b/src/Plugin/Field/FieldWidget/InlineEntityFormComplex.php
+@@ -1021,8 +1021,20 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
+    *   The form state of the parent form.
+    */
+   public static function closeChildForms(array $form, FormStateInterface &$form_state) {
+-    $element = inline_entity_form_get_element($form, $form_state);
+-    inline_entity_form_close_all_forms($element, $form_state);
++    // Get the button triggering this action.
++    $triggering_element = $form_state->getTriggeringElement();
++    // Slice  off 'ief_edit_cancel' and 'actions' keys from it's array parents to get to the inline_entity_form.
++    $array_parents = array_slice($triggering_element['#array_parents'], 0, -2);
++    // Get the parent IEF form element of the triggering button.
++    $element = NestedArray::getValue($form, $array_parents);
++
++    // Find and close all nested IEF forms of the triggering element.
++    foreach (Element::children($element) as $key) {
++      $iefId = NestedArray::getValue($element[$key], ['widget', '#ief_id']);
++      if(!empty($iefId)) {
++        inline_entity_form_close_all_forms($element[$key], $form_state);
++      }
++    }
+   }
+ 
+ }

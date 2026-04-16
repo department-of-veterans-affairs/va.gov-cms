@@ -8,10 +8,6 @@ dependencies:
   module:
     - allowed_formats
     - text
-third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - rich_text
 id: node.centralized_content.body
 field_name: body
 entity_type: node
@@ -25,4 +21,6 @@ default_value_callback: ''
 settings:
   display_summary: false
   required_summary: false
+  allowed_formats:
+    - rich_text
 field_type: text_with_summary

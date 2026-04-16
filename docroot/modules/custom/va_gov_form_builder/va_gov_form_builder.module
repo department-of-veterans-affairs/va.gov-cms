@@ -1,0 +1,277 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_form_builder.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\va_gov_form_builder\Entity\Paragraph\CustomStepParagraph;
+use Drupal\va_gov_form_builder\Entity\Paragraph\EmploymentHistoryParagraph;
+use Drupal\va_gov_form_builder\Entity\Paragraph\ListLoopParagraph;
+use Drupal\va_gov_form_builder\Entity\Paragraph\PageParagraph;
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function va_gov_form_builder_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  if ($entity_type->id() === 'node' && $bundle === 'digital_form') {
+    $fields['field_va_form_number']->addConstraint('FormBuilder_UniqueField');
+  }
+
+  return $fields;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function va_gov_form_builder_theme($_existing, $_type, $_theme, $path) {
+  $theme = [];
+
+  // Add page-wrapper theme.
+  $theme['page__va_gov_form_builder'] = [
+    'base hook' => 'page',
+    'path' => $path . '/templates/page',
+  ];
+
+  // Add page-content themes.
+  $page_content_theme_prefix = 'page_content__va_gov_form_builder__';
+  $page_content_theme_path = $path . '/templates/page-content';
+  // 1. Home page.
+  $theme[$page_content_theme_prefix . 'home'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'home',
+    'variables' => [
+      'recent_forms' => [],
+      'build_form_url' => '',
+    ],
+  ];
+  // 2. Layout page.
+  $theme[$page_content_theme_prefix . 'layout'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'layout',
+    'variables' => [
+      'form_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'intro' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'your_personal_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'address_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'contact_info' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'additional_steps' => [
+        'steps' => [],
+        'add_step' => [
+          'url' => '',
+        ],
+        'messages' => [],
+      ],
+      'review_and_sign' => [
+        'status' => '',
+        'url' => '',
+      ],
+      'view_form' => [
+        'url' => '',
+      ],
+    ],
+  ];
+  // 3. Non-editable-pattern steps.
+  $nonEditablePatternVariables = [
+    'preview' => [],
+    'buttons' => [],
+  ];
+  // 3a. Name-and-Date-of-birth page.
+  $theme[$page_content_theme_prefix . 'name_and_dob'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'name-and-dob',
+    'variables' => $nonEditablePatternVariables,
+  ];
+  // 3b. Identification-information page.
+  $theme[$page_content_theme_prefix . 'identification_info'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'identification-info',
+    'variables' => $nonEditablePatternVariables,
+  ];
+  // 3c. Address-information page.
+  $theme[$page_content_theme_prefix . 'address_info'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'address-info',
+    'variables' => $nonEditablePatternVariables,
+  ];
+  // 3d. Contact-information page.
+  $theme[$page_content_theme_prefix . 'contact_info'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'contact-info',
+    'variables' => $nonEditablePatternVariables,
+  ];
+  // 3e. Employment-history page.
+  $theme[$page_content_theme_prefix . 'employment_history'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'employment-history',
+    'variables' => $nonEditablePatternVariables,
+  ];
+  // 3f. Review-and-Sign page.
+  $theme[$page_content_theme_prefix . 'review_and_sign'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'review-and-sign',
+    'variables' => $nonEditablePatternVariables,
+  ];
+  // 4. View-form page.
+  $viewFormPageVariables = [
+    'buttons' => [],
+  ];
+  // 4a. View-form page when viewing form is available.
+  $theme[$page_content_theme_prefix . 'view_form__available'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'view-form--available',
+    'variables' => $viewFormPageVariables,
+  ];
+  // 4b. View-form page when viewing form is unavailable.
+  $theme[$page_content_theme_prefix . 'view_form__unavailable'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'view-form--unavailable',
+    'variables' => $viewFormPageVariables,
+  ];
+  // 5. Step-layout page.
+  $stepLayoutVariables = [
+    'step_label' => [],
+    'pages' => [],
+    'messages' => [],
+    'buttons' => [],
+  ];
+  // 5a. Step-layout page for single question.
+  $theme[$page_content_theme_prefix . 'step_layout__single_question'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'step-layout--single-question',
+    'variables' => $stepLayoutVariables,
+  ];
+  // 5b. Step-layout page for repeating set.
+  $theme[$page_content_theme_prefix . 'step_layout__repeating_set'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'step-layout--repeating-set',
+    'variables' => $stepLayoutVariables,
+  ];
+  // 6. Step-style page.
+  $theme[$page_content_theme_prefix . 'step_style'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'step-style',
+    'variables' => [
+      'step_label' => [],
+      'preview' => [],
+      'buttons' => [],
+    ],
+  ];
+  // 7. Custom-or-predefined-question page.
+  $customOrPredefinedQuestionVariables = [
+    'predefined_questions' => [],
+    'buttons' => [],
+  ];
+  // 7a. Custom-or-predefined-question page for single question.
+  $theme[$page_content_theme_prefix . 'custom_or_predefined_question__single_question'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'custom-or-predefined-question--single-question',
+    'variables' => $customOrPredefinedQuestionVariables,
+  ];
+  // 7b. Custom-or-predefined-question page for repeating set.
+  $theme[$page_content_theme_prefix . 'custom_or_predefined_question__repeating_set'] = [
+    'path' => $page_content_theme_path,
+    'template' => 'custom-or-predefined-question--repeating-set',
+    'variables' => $customOrPredefinedQuestionVariables,
+  ];
+
+  // Add form themes.
+  $forms = [
+    'form_info',
+    'intro',
+    'step_label',
+    'custom_or_predefined__single_question',
+    'custom_or_predefined__repeating_set',
+    'response_kind',
+    'date_type',
+    'choice_type',
+    'custom_single_question_page_title',
+    'custom_single_question_single_date_response',
+    'custom_single_question_date_range_response',
+    'custom_single_question_radio_response',
+    'custom_single_question_checkbox_response',
+    'text_type',
+    'custom_single_question_text_input_response',
+    'custom_single_question_text_area_response',
+  ];
+  foreach ($forms as $form) {
+    $kebab_case_form = str_replace('_', '-', $form);
+    $theme['form__va_gov_form_builder__' . $form] = [
+      'path' => $path . '/templates/form',
+      'template' => $kebab_case_form,
+      'render element' => 'form',
+    ];
+  }
+
+  // Add form-element themes.
+  $form_element_theme_prefix = 'form_element__va_gov_form_builder__';
+  // 1. Expanded radio.
+  $theme[$form_element_theme_prefix . 'expanded_radio'] = [
+    'base hook' => 'radio',
+    'path' => $path . '/templates/form-elements',
+    'template' => 'expanded-radio',
+  ];
+
+  // Add page-element themes.
+  $page_element_theme_prefix = 'page_element__va_gov_form_builder__';
+  // 1. Expanded-radio -- Help text and optional image.
+  $theme[$page_element_theme_prefix . 'expanded_radio__help_text_optional_image'] = [
+    'path' => $path . '/templates/page-elements',
+    'template' => 'expanded-radio--help-text-optional-image',
+    'variables' => [
+      'help_text' => '',
+      'image' => [],
+    ],
+  ];
+
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK() for page.
+ */
+function va_gov_form_builder_theme_suggestions_page(array &$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $suggestions = [];
+
+  // Apply custom page template for all Form Builder routes.
+  if (strpos($route_name, 'va_gov_form_builder.') === 0) {
+    $suggestions[] = 'page__va_gov_form_builder';
+  }
+
+  return $suggestions;
+}
+
+/**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function va_gov_form_builder_entity_bundle_info_alter(array &$bundles): void {
+  if (isset($bundles['paragraph']['digital_form_custom_step'])) {
+    $bundles['paragraph']['digital_form_custom_step']['class'] = CustomStepParagraph::class;
+  }
+  if (isset($bundles['paragraph']['digital_form_page'])) {
+    $bundles['paragraph']['digital_form_page']['class'] = PageParagraph::class;
+  }
+  if (isset($bundles['paragraph']['digital_form_list_loop'])) {
+    $bundles['paragraph']['digital_form_list_loop']['class'] = ListLoopParagraph::class;
+  }
+  if (isset($bundles['paragraph']['list_loop_employment_history'])) {
+    $bundles['paragraph']['list_loop_employment_history']['class'] = EmploymentHistoryParagraph::class;
+  }
+}

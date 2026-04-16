@@ -1,3 +1,8 @@
+parameters:
+  memcache.settings:
+    consistent_hash: true
+    binary_protocol: true
+
 services:
   lock:
     class: Drupal\Core\Lock\LockBackendInterface

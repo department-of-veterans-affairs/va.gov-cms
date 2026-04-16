@@ -1,0 +1,28 @@
+uuid: 84e6b6e5-56e6-4f90-8402-e549c0cd9030
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vamc_nonclin_appt_default
+    - node.type.vha_facility_nonclinical_service
+  module:
+    - markup
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vha_facility_nonclinical_service.field_vamc_nonclin_appt_default
+field_name: field_vamc_nonclin_appt_default
+entity_type: node
+bundle: vha_facility_nonclinical_service
+label: 'Appointment lead-in default'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  markup:
+    value: '<p>Contact us to schedule, reschedule, or cancel your appointment.</p>'
+    format: rich_text
+field_type: markup

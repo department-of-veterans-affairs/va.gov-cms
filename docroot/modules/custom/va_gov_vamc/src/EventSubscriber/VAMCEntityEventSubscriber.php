@@ -7,9 +7,11 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
@@ -25,6 +27,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * VA.gov VAMC Entity Event Subscriber.
  */
 class VAMCEntityEventSubscriber implements EventSubscriberInterface {
+
+  use StringTranslationTrait;
 
   // The UID of the CMS Help Desk account subscribing to facility messages.
   const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
@@ -42,8 +46,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_regional_health_care_service_des_edit_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
       'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_edit_form.alter' => 'alterTopTaskNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_edit_form.alter' => 'alterVamcSystemBillingAndInsuranceForm',
+      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_form.alter' => 'alterVamcSystemBillingAndInsuranceForm',
       'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_policies_page_edit_form.alter' => 'alterTopTaskNodeForm',
@@ -52,10 +56,12 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vamc_system_register_for_care_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_va_police_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_va_police_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_health_care_local_health_service_edit_form.alter' => 'alterFacilityServiceNodeForm',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      EntityHookEvents::ENTITY_TYPE_ALTER => 'entityTypeAlter',
     ];
   }
 
@@ -127,7 +133,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     Flagger $flagger,
     UserPermsService $user_perms_service,
     ContentHardeningDeduper $content_hardening_deduper,
-    NotificationsManager $notifications_manager
+    NotificationsManager $notifications_manager,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->currentUser = $currentUser;
@@ -145,6 +151,48 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
+    $this->alterAppendedSystemHealthServices($event);
+  }
+
+  /**
+   * Alters health service titles appended to VAMC system view page.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function alterAppendedSystemHealthServices(EntityViewAlterEvent $event):void {
+    $display = $event->getDisplay();
+    if (($display->getTargetBundle() === 'health_care_region_page') && ($display->getOriginalMode() === 'full')) {
+      $build = &$event->getBuild();
+      $services = $build['field_clinical_health_services'] ?? [];
+
+      $services_copy = [];
+      foreach ($services as $key => $service) {
+        // If there are services (because their keys are numeric).
+        if (is_numeric($key) && !empty($service['#options']['entity'])) {
+          // Copy build array.
+          $services_copy[] = $build['field_clinical_health_services'][$key];
+          unset($build['field_clinical_health_services'][$key]);
+          $service_node = $services_copy[$key]['#options']['entity'];
+          $moderationState = $service_node->get('moderation_state')->value;
+          // Identify archive and draft in temp array.
+          if ($moderationState === 'archived' || $moderationState === 'draft') {
+            $services_copy[$key]['#attributes'] = ['class' => 'node--unpublished'];
+            $services_copy[$key]['#title'] .= ' (' . ucfirst($moderationState) . ')';
+          }
+        }
+      }
+      // Sort temp array.
+      usort($services_copy, function ($x, $y) {
+        return strcasecmp($x['#title'], $y['#title']);
+      });
+      // Copy temporary array back to build array.
+      foreach ($services_copy as $key => $temp) {
+        $build['field_clinical_health_services'][$key] = $services_copy[$key];
+      }
+      $build['field_clinical_health_services']['#attached']['library'][] = 'va_gov_vamc/set_vamc_system_health_service';
+    }
+
   }
 
   /**
@@ -156,8 +204,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     $this->contentHardeningDeduper->removeDuplicate($entity);
-    $this->clearCustomAppointmentIntroText($entity);
-    $this->clearUnusedServiceLocationHours($entity);
+    $this->removeFieldDataFromNonClinicalServices($entity);
   }
 
   /**
@@ -170,7 +217,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $entity = $event->getEntity();
 
     if ($this->isFlaggableFacility($entity)) {
-      if ($entity->bundle() === 'vet_center') {
+      if ($entity->bundle() === 'vet_center' || $entity->bundle() === 'vet_center_outstation' || $entity->bundle() === 'vba_facility') {
         $this->flagger->flagFieldChanged('field_official_name', 'changed_name', $entity, "The Official name of this facility changed from '@old' to '@new'.");
         $this->notificationsManager->sendMessageOnFieldChange('field_official_name', $entity, 'Vet Center Official Name Change:', 'vet_center_official_name_change', self::USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
@@ -198,6 +245,20 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
         $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New facility:');
         $this->notificationsManager->send('va_facility_new_facility', self::USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
       }
+    }
+  }
+
+  /**
+   * Entity Type Alter Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent $event
+   *   The event.
+   */
+  public function entityTypeAlter(EntityTypeAlterEvent $event): void {
+    $entity_types = $event->getEntityTypes();
+    if (!empty($entity_types['node'])) {
+      $entity = $entity_types['node'];
+      $entity->addConstraint('MenuParentLink');
     }
   }
 
@@ -300,6 +361,16 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Alter the VAMC System and Billing Insurance node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVamcSystemBillingAndInsuranceForm(FormIdAlterEvent $event) {
+    $this->alterTopTaskNodeForm($event);
+  }
+
+  /**
    * Add js script and disallowed nids to Full Width Banner node form.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
@@ -325,6 +396,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterRegionalHealthCareServiceDesNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
+    $form_state = $event->getFormState();
+
     $vamc_field_options = $form['field_region_page']['widget']['#options'];
     foreach ($vamc_field_options as $nid => $node_option_string) {
       $perms = $this->userPermsService->userAccess($nid, 'node', $this->currentUser, 'field_office');
@@ -333,6 +406,65 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
     $form['#attached']['library'][] = 'va_gov_vamc/limit_vamcs_to_workbench';
+
+    $is_admin = $this->userPermsService->hasAdminRole(TRUE);
+    if (!$is_admin) {
+      $this->disableSystemHealthServiceChange($form, $form_state);
+    }
+  }
+
+  /**
+   * Alter the VAMC Facility Service node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterFacilityServiceNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    $is_admin = $this->userPermsService->hasAdminRole(TRUE);
+    if (!$is_admin) {
+      $this->disableFacilityServiceChange($form, $form_state);
+    }
+  }
+
+  /**
+   * Disables basic info fields on existing nodes for editors.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The state of the form.
+   */
+  public function disableFacilityServiceChange(array &$form, FormStateInterface $form_state): void {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $form_object->getEntity();
+    if (!$node->isNew()) {
+      $form['field_facility_location']['#disabled'] = TRUE;
+      $form['field_regional_health_service']['#disabled'] = TRUE;
+    }
+  }
+
+  /**
+   * Disables the Service name field on existing nodes.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The state of the form.
+   */
+  public function disableSystemHealthServiceChange(array &$form, FormStateInterface $form_state): void {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $form_object->getEntity();
+    if (!$node->isNew()) {
+      $form['field_service_name_and_descripti']['#disabled'] = TRUE;
+      $form['field_service_name_and_descripti']['widget']['#description'] =
+        $this->t('This field cannot be changed after creation. Please contact an administrator if you need to update it.');
+    }
   }
 
   /**
@@ -401,6 +533,41 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
 
+  }
+
+  /**
+   * Clear service location fields that aren't relevant to nonclinical services.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity being updated.
+   */
+  protected function removeFieldDataFromNonClinicalServices(EntityInterface $entity): void {
+    if (!$entity instanceof ParagraphInterface || $entity->bundle() !== 'service_location') {
+      return;
+    }
+
+    $parent = $entity->getParentEntity();
+    if (!$parent instanceof NodeInterface || $parent->bundle() !== 'vha_facility_nonclinical_service') {
+      return;
+    }
+
+    $fields_to_clear = [
+      'field_office_visits',
+      'field_virtual_support',
+      'field_appt_intro_text_type',
+      'field_appt_intro_text_custom',
+      'field_use_facility_phone_number',
+      'field_other_phone_numbers',
+      'field_online_scheduling_avail',
+    ];
+
+    foreach ($fields_to_clear as $field) {
+      if (!$entity->hasField($field)) {
+        continue;
+      }
+
+      $entity->set($field, NULL);
+    }
   }
 
 }

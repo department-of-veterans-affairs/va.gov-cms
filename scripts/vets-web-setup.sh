@@ -6,18 +6,17 @@ export NVM_DIR="$HOME/.nvm"
 source ~/.bashrc
 
 # Installs & builds vets-website dependencies for next-build preview.
-#if [ ! -d docroot/vendor/va-gov/vets-website ]; then
+git config pull.rebase true
 if [ ! -d vets-website ]; then
-  git clone --single-branch --depth 1 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
+  git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
+  cd vets-website
 else
-  echo "Repo vets-website already cloned."
+  cd vets-website
+  echo "Repo vets-website already cloned. Updating..."
+  git pull origin $(git rev-parse --abbrev-ref HEAD)
 fi
 
-#cd docroot/vendor/va-gov/vets-website
-cd vets-website
-
-nvm install 14.15.1
-nvm use 14.15.1
+nvm install && nvm use
 npm install -g yarn
 
 echo "Node $(node -v)"
@@ -25,5 +24,5 @@ echo "NPM $(npm -v)"
 echo "Yarn $(yarn -v)"
 
 export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
-yarn install
-yarn build
+yarn install-safe
+yarn build:webpack --env buildtype=vagovdev

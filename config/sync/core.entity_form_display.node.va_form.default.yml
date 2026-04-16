@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.va_form.field_alert
     - field.field.node.va_form.field_benefit_categories
     - field.field.node.va_form.field_last_saved_by_an_editor
-    - field.field.node.va_form.field_meta_tags
     - field.field.node.va_form.field_va_form_administration
     - field.field.node.va_form.field_va_form_deleted
     - field.field.node.va_form.field_va_form_deleted_date
@@ -18,6 +17,7 @@ dependencies:
     - field.field.node.va_form.field_va_form_name
     - field.field.node.va_form.field_va_form_num_pages
     - field.field.node.va_form.field_va_form_number
+    - field.field.node.va_form.field_va_form_react_widget
     - field.field.node.va_form.field_va_form_related_forms
     - field.field.node.va_form.field_va_form_revision_date
     - field.field.node.va_form.field_va_form_row_id
@@ -25,6 +25,7 @@ dependencies:
     - field.field.node.va_form.field_va_form_tool_intro
     - field.field.node.va_form.field_va_form_tool_url
     - field.field.node.va_form.field_va_form_type
+    - field.field.node.va_form.field_va_form_upload
     - field.field.node.va_form.field_va_form_url
     - field.field.node.va_form.field_va_form_usage
     - node.type.va_form
@@ -36,6 +37,7 @@ dependencies:
     - field_group
     - linkit
     - paragraphs
+    - paragraphs_features
     - path
     - text
 third_party_settings:
@@ -46,7 +48,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -59,10 +61,11 @@ third_party_settings:
       children:
         - field_va_form_tool_url
         - field_va_form_tool_intro
+        - field_va_form_react_widget
       label: 'Online tool'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -91,7 +94,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: ''
@@ -100,7 +103,6 @@ third_party_settings:
         required_fields: true
     group_editable_forms_data:
       children:
-        - title
         - field_va_form_row_id
         - field_va_form_url
         - field_va_form_number
@@ -135,6 +137,23 @@ third_party_settings:
         id: ''
         description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
         required_fields: true
+    group_form_headings:
+      children:
+        - title
+        - field_va_form_name
+      label: 'Form Headings'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: edit-header
+        label_as_html: false
+        description: ''
+        required_fields: true
+        description_display: after
 id: node.va_form.default
 targetEntityType: node
 bundle: va_form
@@ -142,7 +161,7 @@ mode: default
 content:
   field_administration:
     type: options_select
-    weight: 10
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -160,6 +179,7 @@ content:
       field_widget_display_settings:
         view_mode: default
       selection_mode: selection_append
+      show_latest_revision: false
     third_party_settings: {  }
   field_benefit_categories:
     type: options_buttons
@@ -169,32 +189,32 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 28
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_va_form_administration:
     type: options_select
-    weight: 24
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
   field_va_form_deleted:
     type: boolean_checkbox
-    weight: 26
+    weight: 12
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_va_form_deleted_date:
     type: datetime_default
-    weight: 27
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
   field_va_form_issue_date:
     type: datetime_default
-    weight: 22
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -206,7 +226,7 @@ content:
     third_party_settings: {  }
   field_va_form_link_teasers:
     type: entity_reference_paragraphs
-    weight: 8
+    weight: 9
     region: content
     settings:
       title: Paragraph
@@ -218,7 +238,7 @@ content:
     third_party_settings: {  }
   field_va_form_name:
     type: string_textfield
-    weight: 0
+    weight: 4
     region: content
     settings:
       size: 60
@@ -226,22 +246,48 @@ content:
     third_party_settings: {  }
   field_va_form_num_pages:
     type: number
-    weight: 25
+    weight: 11
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_va_form_number:
     type: string_textfield
-    weight: 20
+    weight: 6
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_va_form_react_widget:
+    type: paragraphs
+    weight: 13
+    region: content
+    settings:
+      title: 'React widget'
+      title_plural: 'React widgets'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: '0'
+        convert: '0'
+        duplicate: '0'
+    third_party_settings:
+      paragraphs_features:
+        add_in_between: false
+        add_in_between_link_count: 3
+        delete_confirmation: false
+        show_drag_and_drop: false
+        show_collapse_all: false
   field_va_form_related_forms:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 8
     region: content
     settings:
       match_operator: CONTAINS
@@ -251,20 +297,20 @@ content:
     third_party_settings: {  }
   field_va_form_revision_date:
     type: datetime_default
-    weight: 23
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   field_va_form_row_id:
     type: number
-    weight: 18
+    weight: 4
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_va_form_title:
     type: string_textfield
-    weight: 21
+    weight: 7
     region: content
     settings:
       size: 60
@@ -272,7 +318,7 @@ content:
     third_party_settings: {  }
   field_va_form_tool_intro:
     type: string_textarea
-    weight: 11
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -294,9 +340,16 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_va_form_upload:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_va_form_url:
     type: linkit
-    weight: 19
+    weight: 5
     region: content
     settings:
       placeholder_url: ''
@@ -313,40 +366,41 @@ content:
       placeholder: ''
     third_party_settings: {  }
   flag:
-    weight: 7
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 6
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 17
+    weight: 3
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 12
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
-  field_meta_tags: true
   langcode: true
   promote: true
+  publish_on: true
   status: true
   sticky: true
   uid: true
+  unpublish_on: true

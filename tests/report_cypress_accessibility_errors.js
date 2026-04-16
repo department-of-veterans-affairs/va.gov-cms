@@ -101,7 +101,7 @@ const getText = (violations) => {
     })
     .join("\n");
   return `${token}
-## Cypress Accessibility Test Failures
+## Cypress Accessibility Violations
 
 ${text}
 

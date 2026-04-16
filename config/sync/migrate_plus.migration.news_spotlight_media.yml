@@ -1,0 +1,60 @@
+uuid: 59f60d5a-7e8a-4e52-b1a4-35ac38ccb904
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate
+      - migrate_plus
+id: news_spotlight_media
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: homepage
+label: 'Homepage image media for news_spotlight_blocks migration.'
+source:
+  track_changes: true
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls:
+    - 'https://news.va.gov/wp-json/wp/v2/posts?categories=18505'
+  item_selector: ''
+  fields:
+    -
+      name: id
+      label: 'Unique identifier'
+      selector: id
+    -
+      name: changed
+      label: 'Last changed date in the GMT timezone represented in ISO 8601 format'
+      selector: modified_gmt
+    -
+      name: filename
+      label: Filename
+      selector: meta_box/vagov_featured_image/name
+    -
+      name: image_alt_text
+      label: 'Image alt text'
+      selector: meta_box/featured_image_alt_text
+  ids:
+    id:
+      type: string
+  constants:
+    media_section: 1109
+process:
+  name: filename
+  field_owner: constants/media_section
+  image/target_id:
+    plugin: migration_lookup
+    migration: news_spotlight_images
+    source: id
+    no_stub: true
+  image/alt: image_alt_text
+destination:
+  plugin: 'entity:media'
+  default_bundle: image
+migration_dependencies:
+  required:
+    - news_spotlight_images

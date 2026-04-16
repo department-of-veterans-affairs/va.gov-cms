@@ -1,0 +1,80 @@
+Subject: [PATCH] patch for user module to log uid
+---
+Index: modules/user/user.module
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/modules/user/user.module b/modules/user/user.module
+--- a/modules/user/user.module	(revision 65b03ce802b202577c4074fb78196b93d9fcaa40)
++++ b/modules/user/user.module	(date 1726256604320)
+@@ -450,7 +450,7 @@
+  */
+ function user_login_finalize(UserInterface $account) {
+   \Drupal::currentUser()->setAccount($account);
+-  \Drupal::logger('user')->info('Session opened for %name.', ['%name' => $account->getAccountName()]);
++  \Drupal::logger('user')->info('Session opened for %id.', ['%id' => $account->id()]);
+   // Update the user table timestamp noting user has logged in.
+   // This is also used to invalidate one-time login links.
+   $account->setLastLoginTime(\Drupal::time()->getRequestTime());
+@@ -673,7 +673,7 @@
+       $account->block();
+       $account->save();
+       \Drupal::messenger()->addStatus(t('Account %name has been disabled.', ['%name' => $account->getDisplayName()]));
+-      $logger->notice('Blocked user: %name %email.', ['%name' => $account->getAccountName(), '%email' => '<' . $account->getEmail() . '>']);
++      $logger->notice('Blocked user: %id.', ['%id' => $account->id()]);
+       break;
+ 
+     case 'user_cancel_reassign':
+@@ -684,7 +684,7 @@
+       }
+       $account->delete();
+       \Drupal::messenger()->addStatus(t('Account %name has been deleted.', ['%name' => $account->getDisplayName()]));
+-      $logger->notice('Deleted user: %name %email.', ['%name' => $account->getAccountName(), '%email' => '<' . $account->getEmail() . '>']);
++      $logger->notice('Deleted user: %id.', ['%id' => $account->id()]);
+       break;
+   }
+ 
+@@ -1218,7 +1218,7 @@
+ function user_logout() {
+   $user = \Drupal::currentUser();
+ 
+-  \Drupal::logger('user')->info('Session closed for %name.', ['%name' => $user->getAccountName()]);
++  \Drupal::logger('user')->info('Session closed for %id.', ['%id' => $user->id()]);
+ 
+   \Drupal::moduleHandler()->invokeAll('user_logout', [$user]);
+ 
+Index: modules/user/src/RegisterForm.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/modules/user/src/RegisterForm.php b/modules/user/src/RegisterForm.php
+--- a/modules/user/src/RegisterForm.php	(revision 65b03ce802b202577c4074fb78196b93d9fcaa40)
++++ b/modules/user/src/RegisterForm.php	(date 1726256203028)
+@@ -102,7 +102,7 @@
+     $form_state->set('user', $account);
+     $form_state->setValue('uid', $account->id());
+ 
+-    $this->logger('user')->info('New user: %name %email.', ['%name' => $form_state->getValue('name'), '%email' => '<' . $form_state->getValue('mail') . '>', 'type' => $account->toLink($this->t('Edit'), 'edit-form')->toString()]);
++    $this->logger('user')->info('New user: %id.', ['%id' => $account->id(), 'type' => $account->toLink($this->t('Edit'), 'edit-form')->toString()]);
+ 
+     // Add plain text password into user account to generate mail tokens.
+     $account->password = $pass;
+Index: modules/user/src/Form/UserLoginForm.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/modules/user/src/Form/UserLoginForm.php b/modules/user/src/Form/UserLoginForm.php
+--- a/modules/user/src/Form/UserLoginForm.php	(revision 65b03ce802b202577c4074fb78196b93d9fcaa40)
++++ b/modules/user/src/Form/UserLoginForm.php	(date 1726263720339)
+@@ -258,7 +258,7 @@
+         $form_state->setErrorByName('name', $this->t('Unrecognized username or password. <a href=":password">Forgot your password?</a>', [':password' => Url::fromRoute('user.pass', [], ['query' => $query])->toString()]));
+         $accounts = $this->userStorage->loadByProperties(['name' => $form_state->getValue('name')]);
+         if (!empty($accounts)) {
+-          $this->logger('user')->notice('Login attempt failed for %user.', ['%user' => $form_state->getValue('name')]);
++          $this->logger('user')->notice('Login attempt failed for %id.', ['%id' => array_values($accounts)[0]->id()]);
+         }
+         else {
+           // If the username entered is not a valid user,

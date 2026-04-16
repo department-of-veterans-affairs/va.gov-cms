@@ -3,7 +3,7 @@
 namespace Drupal\va_gov_flags\Export;
 
 use Drupal\Component\Serialization\SerializationInterface;
-use Drupal\Core\File\FileSystem;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_flags\FeatureFlagDataBuilderInterface;
 
@@ -20,9 +20,9 @@ class ExportFeature implements ExportFeatureInterface {
   protected $featureFlagDataBuilder;
 
   /**
-   * FileSystem service.
+   * File systems should implement FileSystemInterface.
    *
-   * @var \Drupal\Core\File\FileSystem
+   * @var \Drupal\Core\File\FileSystemInterface
    */
   protected $fileSystem;
 
@@ -38,15 +38,15 @@ class ExportFeature implements ExportFeatureInterface {
    *
    * @param \Drupal\va_gov_flags\FeatureFlagDataBuilderInterface $featureFlagDataBuilder
    *   THe feature data builder class.
-   * @param \Drupal\Core\File\FileSystem $fileSystem
+   * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   The file system class.
    * @param \Drupal\Component\Serialization\SerializationInterface $serializer
    *   The serialization class to use.
    */
   public function __construct(
     FeatureFlagDataBuilderInterface $featureFlagDataBuilder,
-    FileSystem $fileSystem,
-    SerializationInterface $serializer
+    FileSystemInterface $fileSystem,
+    SerializationInterface $serializer,
   ) {
     $this->featureFlagDataBuilder = $featureFlagDataBuilder;
     $this->fileSystem = $fileSystem;

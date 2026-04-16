@@ -3,6 +3,11 @@
 # Exit if a command fails with a non-zero status code.
 set -ex
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+source ~/.bashrc
+
 # Find repo root -> $reporoot
 reporoot="unknown"
 if [ ! -z "$IS_DDEV_PROJECT" ]; then
@@ -105,6 +110,37 @@ fi
 echo "==> Starting build" >> ${logfile}
 drush va-gov:content-release:advance-state inprogress
 composer va:web:build &>> ${logfile}
+
+# We need to install & build vets-website at the chosen branch
+# and then copy it to our output location.
+echo "==> Installing and building vets-website" >> ${logfile}
+pushd ${reporoot}/docroot/vendor/va-gov/vets-website
+nvm install  &>> ${logfile}
+nvm use  &>> ${logfile}
+yarn install-safe  &>> ${logfile}
+# Build vagovdev on Tugboat.
+echo "==> Building vets-website for vagovdev" >> ${logfile}
+yarn build --buildtype=vagovdev
+echo "Replacing s3 address with local in vets-website generated files." >> ${logfile}
+assets_base_url="https://dev-va-gov-assets\.s3-us-gov-west-1\.amazonaws\.com"
+find \
+  "build/vagovdev/generated" \
+  -type f \
+  -exec sed -i "s#${assets_base_url}##g" {} \+;
+echo "Copy built files to content-build." >> ${logfile}
+shopt -s nullglob
+# Ensure the destination directories exist.
+mkdir -p /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/generated/
+mkdir -p /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/fonts/
+# Copy the built files.
+cp -rf build/vagovdev/generated/* /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/generated/ &>> ${logfile}
+cp -rf build/vagovdev/generated/*.ttf /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/fonts/ &>> ${logfile}
+cp -rf build/vagovdev/generated/*.woff2 /var/lib/tugboat/docroot/vendor/va-gov/content-build/build/vagovdev/fonts/ &>> ${logfile}
+shopt -u nullglob
+popd
+echo "Finished installing and building vets-website" >> ${logfile}
+
+
 
 # Advance the state in the frontend so another build can start.
 echo "==> Build complete" >> ${logfile}

@@ -82,3 +82,22 @@ function va_gov_media_clientside_validation_validator_info_alter(&$validators) {
   }
   unset($validator);
 }
+
+/**
+ * Implements hook_field_widget_single_element_form_alter().
+ */
+function va_gov_media_field_widget_single_element_form_alter(&$element, &$form_state, $context) {
+  // Make sure the button exists before changing its value.
+  if (isset($element['ai_alt_text_generation'][$context['delta']])) {
+    // Change the button text to indicate it regenerates alt text.
+    $element['ai_alt_text_generation'][$context['delta']]['#value'] = 'Regenerate alt text';
+  }
+
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function va_gov_media_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'va_gov_media/google_analytics';
+}

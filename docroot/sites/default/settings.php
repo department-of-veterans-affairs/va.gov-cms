@@ -123,9 +123,12 @@ $settings['va_cms_bot_github_auth_token'] = getenv('CMS_GITHUB_VA_CMS_BOT_TOKEN'
 $settings['va_gov_composer_home'] = getenv('COMPOSER_HOME');
 $settings['va_gov_path_to_composer'] = '/usr/local/bin/composer';
 // The default project root locations. These settings are currently only used on Tugboat and local environments.
-$settings['va_gov_web_root'] = '/var/www/cms/web';
-$settings['va_gov_app_root'] = '/var/www/cms';
-$settings['va_gov_vets_website_root'] = '/var/www/cms/docroot/vendor/va-gov/vets-website';
+$app_root_base = getenv('DDEV_APPROOT') ?: getenv('TUGBOAT_ROOT') ?: getenv('RUNNER_TEMP') ?: getenv('EKS_APP_ROOT') ?: '/var/www/cms';
+$settings['va_gov_app_root'] = $app_root_base;
+$settings['va_gov_web_root'] = $app_root_base . '/web';
+$settings['va_gov_vets_website_root'] = $app_root_base . '/docroot/vendor/va-gov/vets-website';
+$settings['va_gov_next_build_root'] = getenv('TUGBOAT_ROOT') ? getenv('TUGBOAT_ROOT') . '/var/www/cms/next' : '/var/www/cms/next';
+$settings['va_gov_next_build_vets_website_root'] = getenv('TUGBOAT_ROOT') ? getenv('TUGBOAT_ROOT') . '/var/www/cms/vets-website' : '/var/www/cms/vets-website';
 
 // Defaults (should only be local that doesn't set these), default to dev for config_split
 $config['config_split.config_split.dev']['status'] = TRUE;
@@ -146,6 +149,9 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 
 $settings['config_sync_directory'] = '../config/sync';
 
+// Setting the directory for default content sync
+$settings['default_content_deploy_content_directory'] = '../content';
+
 $env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 
 /**
@@ -164,7 +170,12 @@ $config['govdelivery_bulletins.settings']['govdelivery_password'] = getenv('CMS_
 $config['geocoder.geocoder_provider.mapbox']['configuration']['accessToken'] = getenv('MAPBOX_TOKEN_CMS');
 
 // Set migration settings from environment variables.
-$facility_api_urls = [getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v0/facilities/all'];
+$facility_api_urls = [
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000',
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000&page=2',
+  getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v1/facilities?per_page=1000&page=3',
+];
+
 $facility_api_key = getenv('CMS_VAGOV_API_KEY');
 $facility_migrations = [
   'va_node_health_care_local_facility',
@@ -190,6 +201,10 @@ $settings['http_client_config']['timeout'] = 60;
 // Variables for post_api.
 $settings['post_api_endpoint_host'] = getenv('CMS_VAGOV_API_URL') ?: FALSE;
 $settings['post_api_apikey'] = getenv('CMS_VAGOV_API_KEY') ?: FALSE;
+
+// AWS Module settings
+$settings['aws_access_key_id'] = getenv('AWS_ACCESS_KEY_ID') ?: FALSE;
+$settings['aws_secret_access_key'] = getenv('AWS_SECRET_ACCESS_KEY') ?: FALSE;
 
 // Slack Webhook URL for csm-notifications channel.
 $settings['slack_webhook_url'] = getenv('CMS_VAGOV_SLACK_WEBHOOK_URL') ?: FALSE;
@@ -256,6 +271,19 @@ if (!empty($webhost_on_cli)) {
   $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
 }
 
+// Look for an incoming request header to indicate we should use the public
+// asset S3 location for file rather than the Drupal-internal location.
+if (!empty($public_asset_s3_base_url)) {
+  $headerArray = function_exists('apache_request_headers') ? apache_request_headers() : [];
+  $targetHeader = 'File-Public-Base-Url-Check';
+  foreach ($headerArray as $header => $value) {
+    if (strtolower($header) == strtolower($targetHeader) && $value === 'true') {
+      // Point the file base url to the public asset S3 bucket.
+      $settings['file_public_base_url'] = $public_asset_s3_base_url;
+    }
+  }
+ }
+
 // Monolog
 $settings['container_yamls'][] = __DIR__ . '/services/services.monolog.yml';
 
@@ -279,3 +307,11 @@ if (file_exists($env_services_path)) {
 // This is intended to prevent deadlocks in the course of normal operation.
 // @see https://www.drupal.org/project/drupal/issues/2733675
 $databases['default']['default']['init_commands']['isolation_level'] = 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED';
+
+
+$settings['state_cache'] = TRUE;
+
+// Disable the use of insecure uploads.
+$config['system.file']['allow_insecure_uploads'] = FALSE;
+
+$settings['session_write_interval'] = 30;

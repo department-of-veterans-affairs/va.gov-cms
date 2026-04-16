@@ -1,0 +1,26 @@
+uuid: 9a3ddd52-2510-4e3b-a2d1-d889662e24bd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.digital_form_phone_and_email
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.digital_form_phone_and_email.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: digital_form_phone_and_email
+label: Title
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'Contact information'
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -6,9 +6,10 @@ parameters:
       - 'drupal.dblog'
       - 'error_log'
   monolog.processors:
-      - 'current_user'
+      - 'va_gov_current_user'
       - 'filter_backtrace'
       - 'ip'
       - 'message_placeholder'
       - 'referer'
       - 'request_uri'
+      - 'va_gov_datadog_severity'

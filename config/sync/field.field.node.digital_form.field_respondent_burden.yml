@@ -1,0 +1,28 @@
+uuid: a8a630a0-e849-49b6-8a8b-799a1e85012f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_respondent_burden
+    - node.type.digital_form
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.digital_form.field_respondent_burden
+field_name: field_respondent_burden
+entity_type: node
+bundle: digital_form
+label: 'Respondent burden'
+description: 'How many minutes the form is expected to take.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ' minute| minutes'
+field_type: integer

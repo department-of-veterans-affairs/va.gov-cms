@@ -45,7 +45,8 @@ class BannerAlertsController extends ControllerBase {
     SerializerInterface $serializer,
     PathMatcherInterface $path_matcher,
     PathValidatorInterface $path_validator,
-    EntityTypeManagerInterface $entity_type_manager) {
+    EntityTypeManagerInterface $entity_type_manager,
+  ) {
     $this->serializer = $serializer;
     $this->pathMatcher = $path_matcher;
     $this->pathValidator = $path_validator;
@@ -134,7 +135,7 @@ class BannerAlertsController extends ControllerBase {
 
     // Add the banners to the response.
     $banner_data = [];
-    $cache_tags = [];
+    $cache_tags = ['node_list:banner'];
     foreach ($banners as $entity) {
       $banner_data[] = $this->serializer->normalize($entity);
       $cache_tags = array_merge($cache_tags, $entity->getCacheTags());
@@ -178,7 +179,7 @@ class BannerAlertsController extends ControllerBase {
 
     // Add the promo_banners to the response.
     $promo_banner_data = [];
-    $cache_tags = [];
+    $cache_tags = ['node_list:promo_banner'];
     foreach ($promo_banners as $entity) {
       $promo_banner_data[] = $this->serializer->normalize($entity);
       $cache_tags = array_merge($cache_tags, $entity->getCacheTags());
@@ -250,7 +251,7 @@ class BannerAlertsController extends ControllerBase {
 
     // Add the banners to the response.
     $full_width_banner_alert_data = [];
-    $cache_tags = [];
+    $cache_tags = ['node_list:full_width_banner_alert'];
     foreach ($facility_banners as $entity) {
       $normalized_data = $this->serializer->normalize($entity);
 

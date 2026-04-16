@@ -1,3 +1,7 @@
+---
+layout: default
+title: Blackfire Support
+---
 # Blackfire Support
 
 Blackfire is a performance tool used for gathering and reporting how resources

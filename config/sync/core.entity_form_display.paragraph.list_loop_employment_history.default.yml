@@ -1,0 +1,32 @@
+uuid: 1bad6fa4-cd25-4ff4-a4ea-e1a46eb0bb05
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.list_loop_employment_history.field_title
+    - paragraphs.paragraphs_type.list_loop_employment_history
+  module:
+    - textfield_counter
+id: paragraph.list_loop_employment_history.default
+targetEntityType: paragraph
+bundle: list_loop_employment_history
+mode: default
+content:
+  field_title:
+    type: string_textfield_with_counter
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

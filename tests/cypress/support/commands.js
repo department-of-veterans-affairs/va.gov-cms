@@ -39,6 +39,26 @@ Cypress.Commands.add("saveHtmlSnapshot", (testName) => {
 });
 
 Cypress.Commands.add("drupalLogin", (username, password) => {
+  cy.request({
+    method: "POST",
+    url: "/user/login",
+    form: true,
+    body: {
+      name: username,
+      pass: password,
+      form_id: "user_login_form",
+      op: "Log in",
+    },
+  });
+  cy.visit("/");
+  cy.window().then((window) => {
+    cy.wrap(window.drupalSettings.user.uid).as("uid");
+  });
+  cy.injectAxe();
+  cy.checkAccessibility();
+});
+
+Cypress.Commands.add("drupalLoginViaUi", (username, password) => {
   cy.visit("/user/login");
 
   cy.get("#user-login-form").then(($form) => {
@@ -60,6 +80,7 @@ Cypress.Commands.add("drupalLogin", (username, password) => {
 
 Cypress.Commands.add("drupalLogout", () => {
   cy.visit("/user/logout");
+  cy.get("#edit-submit").click();
 });
 
 Cypress.Commands.add("drupalDrushCommand", (command) => {
@@ -88,6 +109,27 @@ Cypress.Commands.add("drupalDrushUserCreate", (username, password) => {
 
 Cypress.Commands.add("drupalDrushUserRoleAdd", (username, role) => {
   return cy.drupalDrushCommand(["user:role:add", role, username]);
+});
+
+Cypress.Commands.add("drupalGetUserIdByUsername", (username) => {
+  const escapedUsername = username.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+  const command = `
+    $users = \\Drupal::entityTypeManager()->getStorage('user')->loadByProperties(['name' => '${escapedUsername}']);
+    $user = reset($users);
+    echo $user ? $user->id() : '';
+  `;
+
+  return cy.drupalDrushEval(command).then((output) => {
+    const userId = Number((output.stdout || "").trim());
+
+    if (!userId) {
+      throw new Error(
+        `Could not find Drupal user ID for username: ${username}`
+      );
+    }
+
+    return userId;
+  });
 });
 
 Cypress.Commands.add("drupalAddUserWithRole", (role, username, password) => {

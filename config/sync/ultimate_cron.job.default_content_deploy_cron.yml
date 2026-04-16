@@ -1,0 +1,17 @@
+uuid: 88c44066-4f2e-412d-a713-5e82a83aff7f
+langcode: en
+status: true
+dependencies:
+  module:
+    - default_content_deploy
+title: 'Default cron handler'
+id: default_content_deploy_cron
+weight: 0
+module: default_content_deploy
+callback: 'default_content_deploy#cron'
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

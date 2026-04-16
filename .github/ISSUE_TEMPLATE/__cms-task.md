@@ -1,8 +1,9 @@
 ---
-name: Task
+name: CMS Task
 about: A task for the CMS team.
 title: "<Insert summary of task>"
-labels: Needs refining
+labels: Needs refining, CMS Team
+type: task
 assignees: ''
 
 ---
@@ -11,6 +12,9 @@ assignees: ''
 
 
 ## Description or Additional Context 
+
+
+### Why is this work important? How does it serve Veterans or people who serve them?
 
 
 ## Steps for Implementation
@@ -22,11 +26,4 @@ assignees: ''
 - [ ] Testable_Outcome_Z
 - [ ] Requires design review
 - [ ] Requires accessibility review
-
-## Team
-Please check the team(s) that will do this work.
-
-- [ ] CMS Team
-- [ ] Public Websites
-- [ ] Facilities
-- [ ] Accelerated Publishing
+- [ ] Requires Stakeholder Sign-off (Stakeholder names)

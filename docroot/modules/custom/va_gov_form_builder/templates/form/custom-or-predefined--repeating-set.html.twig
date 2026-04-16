@@ -1,0 +1,66 @@
+{% extends '@va_gov_form_builder/form/base/single-column-with-buttons.html.twig' %}
+
+{% set page_id = 'custom-or-predefined-repeating-set' %}
+
+{% if predefined_questions|length == 0 %}
+  {% set page_heading = 'Customize a question set' %}
+{% else %}
+  {% set page_heading = 'Use a pre-defined question set, or customize a set' %}
+{% endif %}
+
+{% block main_content %}
+  <div class="form-builder-custom-or-predefined form-builder-custom-or-predefined__repeating-set">
+    {% if form.predefined_options|length == 0 %}
+      {# No predefined options #}
+      {# Do nothing. Custom repeating sets are not yet supported in Form Builder. #}
+    {% else %}
+      {# Predefined options exist #}
+      <section class="form-builder-custom-or-predefined__predefined">
+        <h3 class="form-builder-custom-or-predefined__predefined-title">
+          Is your question set one of these commonly asked ones?
+        </h3>
+        <p>
+          If it is, simply select the appropriate Add button and this question will
+          be added to this step in the form.
+        </p>
+
+        <ul class="form-builder-custom-or-predefined__predefined-list">
+          {% for option in form.predefined_options %}
+            {% if option.label is defined and option.button is defined and option.description is defined %}
+              <li class="form-builder-custom-or-predefined__predefined-item">
+                <div class="form-builder-custom-or-predefined__predefined-option">
+                  <div class="form-builder-custom-or-predefined__predefined-label">
+                    {{ option.label }}
+                  </div>
+                  <div class="form-builder-custom-or-predefined__predefined-description">
+                    {{ option.description }}
+                  </div>
+                  <div class="form-builder-custom-or-predefined__predefined-add-button">
+                    {{ option.button }}
+                  </div>
+                </div>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </section>
+      <section class="form-builder-custom-or-predefined__custom">
+        <h3 class="form-builder-custom-or-predefined__custom-title">
+          Need to customize your question and response?
+        </h3>
+        <p>
+          Custom repeating sets are not currently supported in Form Builder. To configure a custom
+          repeating set, please contact an admin.
+        </p>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'predefined_options',
+    'actions',
+  )}}
+{% endblock %}

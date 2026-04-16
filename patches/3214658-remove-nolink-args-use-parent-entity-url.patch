@@ -1,0 +1,137 @@
+diff --git a/config/install/pathauto.settings.yml b/config/install/pathauto.settings.yml
+index 03004aa1d..8b2764d2f 100644
+--- a/config/install/pathauto.settings.yml
++++ b/config/install/pathauto.settings.yml
+@@ -15,6 +15,8 @@ safe_tokens:
+  - alias
+  - path
+  - join-path
++ - join-path-exclude-no-links,
+  - login-url
++ - menu-path-use-parent-url
+  - url
+  - url-brief
+diff --git a/pathauto.install b/pathauto.install
+index ae91fdbc1..35f258043 100644
+--- a/pathauto.install
++++ b/pathauto.install
+@@ -288,7 +288,9 @@ function pathauto_update_8107() {
+     'alias',
+     'path',
+     'join-path',
++    'join-path-exclude-no-links',
+     'login-url',
++    'menu-path-use-parent-url',
+     'url',
+     'url-brief',
+   ];
+diff --git a/pathauto.tokens.inc b/pathauto.tokens.inc
+index ab80f5409..b69d74746 100644
+--- a/pathauto.tokens.inc
++++ b/pathauto.tokens.inc
+@@ -6,6 +6,7 @@
+  */
+ 
+ use Drupal\Core\Render\BubbleableMetadata;
++use Drupal\Core\Url;
+ 
+ /**
+  * Implements hook_token_info().
+@@ -29,6 +30,7 @@ function pathauto_tokens($type, $tokens, array $data, array $options, Bubbleable
+ 
+   if ($type == 'array' && !empty($data['array'])) {
+     $array = $data['array'];
++    $cleaner = \Drupal::service('pathauto.alias_cleaner');
+ 
+     foreach ($tokens as $name => $original) {
+       switch ($name) {
+@@ -36,11 +38,88 @@ function pathauto_tokens($type, $tokens, array $data, array $options, Bubbleable
+           $values = [];
+           foreach (token_element_children($array) as $key) {
+             $value = is_array($array[$key]) ? \Drupal::service('renderer')->render($array[$key]) : (string) $array[$key];
+-            $value = \Drupal::service('pathauto.alias_cleaner')->cleanString($value, $options);
++            $value = $cleaner->cleanString($value, $options);
+             $values[] = $value;
+           }
+           $replacements[$original] = implode('/', $values);
+           break;
++
++        case 'join-path-exclude-no-links':
++          $values = [];
++          foreach (token_element_children($array) as $key) {
++            $value = is_array($array[$key]) ? \Drupal::service('renderer')->render($array[$key]) : (string) $array[$key];
++            $value = $cleaner->cleanString($value, $options);
++            $values[] = $value;
++          }
++
++          $db = \Drupal::database();
++          // Get all the <nolink> link titles from our
++          // current menu (first in values array).
++          $query = $db->select('menu_link_content_data', 'mlcd')
++            ->fields('mlcd', ['title']);
++          $or = $query->orConditionGroup()
++            ->condition('link__uri', '%' . $db->escapeLike('internal:/nolink') . '%', 'LIKE')
++            ->condition('link__uri', $db->escapeLike('route:') . '%', 'LIKE');
++          $query->condition($or)
++            ->condition('menu_name', $values[0]);
++          $no_links = $query->execute()->fetchCol();
++
++          // If there are <nolink>s defined.
++          if (!empty($no_links)) {
++            $clean_no_links_raw = [];
++            // Make our no link titles match url string pattern.
++            foreach ($no_links as $no_link) {
++              $title = $cleaner->cleanString($no_link);
++              $clean_no_links_raw[] = '/' . $title;
++            }
++          }
++          // Eliminate dupes to prevent unnecessary looping.
++          $clean_no_links = array_unique($clean_no_links_raw);
++          $alias_raw = implode('/', $values);
++          // Replace the offending string with a slash
++          // to prevent empty double slash.
++          $alias = str_replace($clean_no_links, '/', $alias_raw);
++          $replacements[$original] = $alias;
++          break;
++
++        case 'menu-path-use-parent-url':
++          $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
++          $entity_type_manager = \Drupal::entityTypeManager();
++          $parent_link = NULL;
++          // Getting node from route doesn't work in bulk operations, and the
++          // Node tag will always be there, so use it.
++          $cache_tags = $bubbleable_metadata->getCacheTags();
++          $node = array_filter($cache_tags, function ($tag) {
++            if (substr($tag, 0, 4) === 'node') {
++              return $tag;
++            }
++          });
++          $nid = explode(':', current($node))[1];
++          // First thing is to get our menu item from the node.
++          $menu_link_raw = $menu_link_manager->loadLinksByRoute('entity.node.canonical', ['node' => $nid]);
++          $menu_link = reset($menu_link_raw);
++          // Now we can get it's parent menu item for our token.
++          $parent = $menu_link->getParent();
++          $parent_link = $menu_link_manager->createInstance($parent)->getUrlObject()->toString();
++          // If the link is a dud, move up the chain.
++          if (empty($parent_link) && !empty($parent)) {
++            $parent_uuid = str_replace('menu_link_content:', '', $parent);
++            $parent_menu_content = current($entity_type_manager
++              ->getStorage('menu_link_content')
++              ->loadByProperties(['uuid' => $parent_uuid]));
++            // Load the link from the parent of the parent.
++            $grandparent_uuid = str_replace('menu_link_content:', '', $parent_menu_content->get('parent')->getString());
++            $grandparent_menu_content = current($entity_type_manager
++              ->getStorage('menu_link_content')
++              ->loadByProperties(['uuid' => $grandparent_uuid]));
++            // We can call it quits, here.
++            // If there are multiple nested parents
++            // without links, there is a content modeling problem.
++            $parent_link = is_bool($grandparent_menu_content) ? NULL : Url::fromUri($grandparent_menu_content->get('link')->getString())->toString();
++          }
++
++          $replacements[$original] = $parent_link;
++          break;
+       }
+     }
+   }

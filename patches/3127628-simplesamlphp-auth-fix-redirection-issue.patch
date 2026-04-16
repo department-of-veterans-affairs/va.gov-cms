@@ -1,0 +1,381 @@
+diff --git a/src/Controller/SimplesamlphpAuthController.php b/src/Controller/SimplesamlphpAuthController.php
+index 8a084f2..3a30c52 100644
+--- a/src/Controller/SimplesamlphpAuthController.php
++++ b/src/Controller/SimplesamlphpAuthController.php
+@@ -2,80 +2,89 @@
+
+ namespace Drupal\simplesamlphp_auth\Controller;
+
++use Drupal\Component\Datetime\TimeInterface;
+ use Drupal\Component\Utility\UrlHelper;
++use Drupal\Core\Cache\CacheableResponseInterface;
++use Drupal\Core\Config\ConfigFactoryInterface;
+ use Drupal\Core\Controller\ControllerBase;
+-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+ use Drupal\Core\Path\PathValidatorInterface;
+-use Drupal\Core\Routing\UrlGeneratorInterface;
+ use Drupal\Core\Session\AccountInterface;
++use Drupal\Core\Session\SessionConfigurationInterface;
++use Drupal\Core\Url;
+ use Drupal\simplesamlphp_auth\Service\SimplesamlphpAuthManager;
+ use Drupal\simplesamlphp_auth\Service\SimplesamlphpDrupalAuth;
+ use Psr\Log\LoggerInterface;
+-use Symfony\Component\HttpFoundation\RedirectResponse;
+-use Symfony\Component\HttpFoundation\RequestStack;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
+-use Drupal\Core\Config\ConfigFactoryInterface;
++use Symfony\Component\HttpFoundation\Request;
++use Symfony\Component\HttpKernel\HttpKernelInterface;
+
+ /**
+  * Controller routines for simplesamlphp_auth routes.
+  */
+-class SimplesamlphpAuthController extends ControllerBase implements ContainerInjectionInterface {
++class SimplesamlphpAuthController extends ControllerBase {
+
+   /**
+    * The SimpleSAML Authentication helper service.
+    *
+    * @var \Drupal\simplesamlphp_auth\Service\SimplesamlphpAuthManager
+    */
+-  public $simplesaml;
++  protected $simpleSaml;
+
+   /**
+    * The SimpleSAML Drupal Authentication service.
+    *
+    * @var \Drupal\simplesamlphp_auth\Service\SimplesamlphpDrupalAuth
+    */
+-  public $simplesamlDrupalauth;
++  protected $simpleSamlDrupalAuth;
+
+   /**
+-   * The url generator service.
++   * The current account.
+    *
+-   * @var \Drupal\Core\Routing\UrlGeneratorInterface
++   * @var \Drupal\Core\Session\AccountInterface
+    */
+-  protected $urlGenerator;
++  protected $account;
+
+   /**
+-   * The request stack.
++   * The path validator.
+    *
+-   * @var \Symfony\Component\HttpFoundation\RequestStack
++   * @var \Drupal\Core\Path\PathValidatorInterface
+    */
+-  public $requestStack;
++  protected $pathValidator;
+
+   /**
+-   * The current account.
++   * A configuration object.
+    *
+-   * @var \Drupal\Core\Session\AccountInterface
++   * @var \Drupal\Core\Config\ImmutableConfig
+    */
+-  protected $account;
++  protected $config;
+
+   /**
+-   * The path validator.
++   * The HTTP kernel.
+    *
+-   * @var \Drupal\Core\Path\PathValidatorInterface
++   * @var \Symfony\Component\HttpKernel\HttpKernelInterface
+    */
+-  protected $pathValidator;
++  protected $httpKernel;
+
+   /**
+-   * A logger instance.
++   * Session configuration provider.
+    *
+-   * @var \Psr\Log\LoggerInterface
++   * @var \Drupal\Core\Session\SessionConfigurationInterface
+    */
+-  protected $logger;
++  protected $sessionConfiguration;
+
+   /**
+-   * A configuration object.
++   * The system time.
+    *
+-   * @var \Drupal\Core\Config\ImmutableConfig
++   * @var \Drupal\Component\Datetime\TimeInterface
+    */
+-  protected $config;
++  protected $time;
++
++  /**
++   * A logger instance.
++   *
++   * @var \Psr\Log\LoggerInterface
++   */
++  protected $logger;
+
+   /**
+    * {@inheritdoc}
+@@ -84,28 +93,31 @@ class SimplesamlphpAuthController extends ControllerBase implements ContainerInj
+    *   The SimpleSAML Authentication helper service.
+    * @param \Drupal\simplesamlphp_auth\Service\SimplesamlphpDrupalAuth $simplesaml_drupalauth
+    *   The SimpleSAML Drupal Authentication service.
+-   * @param \Drupal\Core\Routing\UrlGeneratorInterface $url_generator
+-   *   The url generator service.
+-   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+-   *   The request stack.
+    * @param \Drupal\Core\Session\AccountInterface $account
+    *   The current account.
+    * @param \Drupal\Core\Path\PathValidatorInterface $path_validator
+    *   The path validator.
+-   * @param \Psr\Log\LoggerInterface $logger
+-   *   A logger instance.
+    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+    *   The configuration factory.
++   * @param \Symfony\Component\HttpKernel\HttpKernelInterface $http_kernel
++   *   The HTTP kernel.
++   * @param \Drupal\Core\Session\SessionConfigurationInterface $session_configuration
++   *   The session configuration provider.
++   * @param \Drupal\Component\Datetime\TimeInterface $time
++   *   The system time.
++   * @param \Psr\Log\LoggerInterface $logger
++   *   A logger instance.
+    */
+-  public function __construct(SimplesamlphpAuthManager $simplesaml, SimplesamlphpDrupalAuth $simplesaml_drupalauth, UrlGeneratorInterface $url_generator, RequestStack $request_stack, AccountInterface $account, PathValidatorInterface $path_validator, LoggerInterface $logger, ConfigFactoryInterface $config_factory) {
+-    $this->simplesaml = $simplesaml;
+-    $this->simplesamlDrupalauth = $simplesaml_drupalauth;
+-    $this->urlGenerator = $url_generator;
+-    $this->requestStack = $request_stack;
++  public function __construct(SimplesamlphpAuthManager $simplesaml, SimplesamlphpDrupalAuth $simplesaml_drupalauth, AccountInterface $account, PathValidatorInterface $path_validator, ConfigFactoryInterface $config_factory, HttpKernelInterface $http_kernel, SessionConfigurationInterface $session_configuration, TimeInterface $time, LoggerInterface $logger) {
++    $this->simpleSaml = $simplesaml;
++    $this->simpleSamlDrupalAuth = $simplesaml_drupalauth;
+     $this->account = $account;
+     $this->pathValidator = $path_validator;
+-    $this->logger = $logger;
+     $this->config = $config_factory->get('simplesamlphp_auth.settings');
++    $this->httpKernel = $http_kernel;
++    $this->sessionConfiguration = $session_configuration;
++    $this->time = $time;
++    $this->logger = $logger;
+   }
+
+   /**
+@@ -115,112 +127,146 @@ class SimplesamlphpAuthController extends ControllerBase implements ContainerInj
+     return new static(
+       $container->get('simplesamlphp_auth.manager'),
+       $container->get('simplesamlphp_auth.drupalauth'),
+-      $container->get('url_generator'),
+-      $container->get('request_stack'),
+       $container->get('current_user'),
+       $container->get('path.validator'),
+-      $container->get('logger.factory')->get('simplesamlphp_auth'),
+-      $container->get('config.factory')
++      $container->get('config.factory'),
++      $container->get('http_kernel'),
++      $container->get('session_configuration'),
++      $container->get('datetime.time'),
++      $container->get('logger.factory')->get('simplesamlphp_auth')
+     );
+   }
+
+   /**
+    * Logs the user in via SimpleSAML federation.
+    *
+-   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+-   *   A redirection to either a designated page or the user login page.
++   * @param \Symfony\Component\HttpFoundation\Request $request
++   *   The request of the page.
++   *
++   * @return \Symfony\Component\HttpFoundation\Response|array
++   *   A redirection to either a designated page or the user login page or
++   *   a render array.
+    */
+-  public function authenticate() {
+-    global $base_url;
++  public function authenticate(Request $request) {
++    /** @var \Drupal\Core\GeneratedUrl|null $destination */
++    $destination = NULL;
++    $session_options = $this->sessionConfiguration->getOptions($request);
+
+     // Ensure the module has been turned on before continuing with the request.
+-    if (!$this->simplesaml->isActivated()) {
+-      return $this->redirect('user.login');
++    if (!$this->simpleSaml->isActivated()) {
++      return $this->defaultReponse();
+     }
+
+     // Ensure phpsession isn't the session storage location.
+-    if ($this->simplesaml->getStorage() === 'phpsession') {
+-      return $this->redirect('user.login');
++    if ($this->simpleSaml->getStorage() === 'phpsession') {
++      return $this->defaultReponse();
+     }
+
+-    // See if a URL has been explicitly provided in ReturnTo. If so, use it
+-    // otherwise, use the HTTP_REFERER. Each must point to the site to be valid.
+-    $request = $this->requestStack->getCurrentRequest();
+-
+     if (($return_to = $request->query->get('ReturnTo')) ||
+-        ($return_to = $request->request->get('ReturnTo')) ||
+-        ($return_to = $request->server->get('HTTP_REFERER'))) {
+-      if ($this->pathValidator->isValid($return_to) && UrlHelper::externalIsLocal($return_to, $base_url)) {
+-        $redirect = $return_to;
++      ($return_to = $request->request->get('ReturnTo')) ||
++      ($return_to = $request->server->get('HTTP_REFERER')) ||
++      ($return_to = $request->cookies->get('simplesamlphp_auth_returnto'))) {
++      if (UrlHelper::externalIsLocal($return_to, $request->getSchemeAndHttpHost()) && $this->pathValidator->isValid($return_to)) {
++        $destination = Url::fromUri($return_to)->toString(TRUE);
+       }
+     }
+
+-    // The user is not logged into Drupal.
+-    if ($this->account->isAnonymous()) {
++    if (!isset($destination)) {
++      $destination = Url::fromRoute('<front>')->toString(TRUE);
++    }
+
+-      if (isset($redirect)) {
+-        // Set the cookie so we can deliver the user to the place they started.
+-        // @TODO probably a more symfony way of doing this
+-        $cookie_secure = $this->config->get('secure');
+-        $cookie_httponly = $this->config->get('httponly');
+-        setrawcookie('simplesamlphp_auth_returnto', $redirect, time() + 60 * 60, "", "", $cookie_secure, $cookie_httponly);
++    // User is logged in to the SimpleSAMLphp IdP, but not to Drupal.
++    if ($this->simpleSaml->isAuthenticated()) {
++
++      if (!$this->simpleSaml->allowUserByAttribute()) {
++        return [
++          '#markup' => $this->t('You are not allowed to login via this service.'),
++        ];
+       }
+
+-      // User is logged in to the SimpleSAMLphp IdP, but not to Drupal.
+-      if ($this->simplesaml->isAuthenticated()) {
++      // Get unique identifier from SAML attributes.
++      $authname = $this->simpleSaml->getAuthname();
++      if (!empty($authname)) {
++        if ($this->config->get('debug')) {
++          $this->logger->debug('Trying to login SAML-authenticated user with authname %authname', [
++            '%authname' => $authname,
++          ]);
++        }
++        // User is logged in with SAML authentication and we got the unique
++        // identifier, so try to log into Drupal.
++        // Check to see whether the external user exists in Drupal. If they
++        // do not exist, create them.
++        // Also log in the user.
++        $this->simpleSamlDrupalAuth->externalLoginRegister($authname);
+
+-        if (!$this->simplesaml->allowUserByAttribute()) {
+-          return [
+-            '#markup' => $this->t('You are not allowed to login via this service.'),
+-          ];
++        // A simple redirection would not be enough here. We have to carry over
++        // the session initiated by external auth to the sub-request.  Without
++        // that the screen would look like as if the user would not have been
++        // logged in successfully, although it did.
++        $redirect_request = Request::create($destination->getGeneratedUrl(), 'GET', $request->query->all(), $request->cookies->all(), [], $request->server->all());
++        if ($request->hasSession()) {
++          $redirect_request->setSession($request->getSession());
++        }
++        $response = $this->httpKernel->handle($redirect_request, HttpKernelInterface::SUB_REQUEST);
++        if ($response instanceof CacheableResponseInterface) {
++          $response->addCacheableDependency($destination);
+         }
+
+-        // Get unique identifier from saml attributes.
+-        $authname = $this->simplesaml->getAuthname();
+-
+-        if (!empty($authname)) {
+-          if ($this->config->get('debug')) {
+-            $this->logger->debug('Trying to login SAML-authenticated user with authname %authname', [
+-              '%authname' => $authname,
+-            ]);
+-          }
+-          // User is logged in with SAML authentication and we got the unique
+-          // identifier, so try to log into Drupal.
+-          // Check to see whether the external user exists in Drupal. If they
+-          // do not exist, create them.
+-          // Also log in the user.
+-          $this->simplesamlDrupalauth->externalLoginRegister($authname);
++        // In case of a successful response perform a cleanup.
++        if ($request->cookies->has('simplesamlphp_auth_returnto')) {
++          $this->setRawCookie('simplesamlphp_auth_returnto', '', $this->time->getRequestTime() - 60 * 60);
+         }
+-      }
+
+-      if (\Drupal::config('simplesamlphp_auth.settings')->get('header_no_cache')) {
+-        header('Cache-Control: no-cache');
++        return $response;
+       }
+
+-      $this->simplesaml->externalAuthenticate();
++      // TODO Identify what should we display in this case.
++      return $this->defaultReponse();
+     }
+
+-    // Check to see if we've set a cookie. If there is one, give it priority.
+-    if ($request->cookies->has('simplesamlphp_auth_returnto')) {
+-      $redirect = $request->cookies->get('simplesamlphp_auth_returnto');
+-
+-      // Unset the cookie.
+-      setrawcookie('simplesamlphp_auth_returnto', '');
+-    }
++    // Set the cookie so we can deliver the user to the place they started.
++    // TODO Deprecate this configuration in favor of
++    // $session_options['cookie_secure']?
++    $cookie_secure = $this->config->get('secure');
++    $cookie_httponly = $this->config->get('httponly');
++    // Since $this->simplesaml->externalAuthenticate(); does not do the
++    // redirection in the Symfony way, probably it is impossible to solve this
++    // in the Symfony way.
++    $this->setRawCookie('simplesamlphp_auth_returnto', $destination->getGeneratedUrl(), $this->time->getRequestTime() + 60 * 60, "", $session_options['cookie_domain'] ?? '', $cookie_secure, $cookie_httponly);
+
+-    if (isset($redirect)) {
+-      // Avoid caching of redirect response object.
+-      \Drupal::service('page_cache_kill_switch')->trigger();
+-      if ($this->config->get('debug')) {
+-        $this->logger->debug('Redirecting user to %redirect', [
+-          '%redirect' => $redirect,
+-        ]);
+-      }
+-      $response = new RedirectResponse($redirect, RedirectResponse::HTTP_FOUND);
+-      return $response;
++    // Let SAML to redirect the user to the IDP.
++    if ($this->config->get('header_no_cache')) {
++      header('Cache-Control: no-cache');
+     }
++    $this->simpleSaml->externalAuthenticate();
++  }
+
++  /**
++   * The default response returned by the authentication controller.
++   *
++   * @return \Symfony\Component\HttpFoundation\Response
++   *   The response.
++   */
++  private function defaultReponse() {
+     return $this->redirect('user.login');
+   }
+
++  /**
++   * Compatibility bridge between PHP >= 7.3 and older versions.
++   */
++  private function setRawCookie(string $name, string $value, int $expires = 0, string $path = '', string $domain = '', bool $secure = FALSE, bool $http_only = FALSE) {
++    if (version_compare(phpversion(), '7.3', '>=')) {
++      setrawcookie($name, $value, [
++        'expires' => $expires,
++        'path' => $path,
++        'domain' => $domain,
++        'secure' => $secure,
++        'httponly' => $http_only,
++      ]);
++    }
++    else {
++      setrawcookie($name, $value, $expires, $path, $domain, $secure, $http_only);
++    }
++  }
++
+ }

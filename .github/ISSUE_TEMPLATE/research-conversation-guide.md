@@ -2,7 +2,7 @@
 name: Research Conversation Guide
 about: Use this template when you are drafting a conversation guide
 title: Draft [PRODUCT/INITIATIVE] conversation guide
-labels: UX, Research
+labels: Research, UX
 assignees: ''
 
 ---

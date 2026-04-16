@@ -17,7 +17,7 @@ interface ContentReleaseTriggerInterface {
   const CONTENT_RELEASE_DETAILS = [
     'isFacility',
     'isModerated',
-    'hasOriginal',
+    'hasOriginalVersion',
     'didChangeOperatingStatus',
     'alwaysTriggersContentRelease',
     'isModeratedAndPublished',

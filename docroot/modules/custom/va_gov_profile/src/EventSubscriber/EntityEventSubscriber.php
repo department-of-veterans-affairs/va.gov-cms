@@ -28,7 +28,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * The entity manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManager
-   *  The entity manager.
    */
   private $entityTypeManager;
 

@@ -1,0 +1,21 @@
+diff --git a/src/EntityClone/Content/ContentEntityCloneFormBase.php b/src/EntityClone/Content/ContentEntityCloneFormBase.php
+index 1a830993..6438b837 100644
+--- a/src/EntityClone/Content/ContentEntityCloneFormBase.php
++++ b/src/EntityClone/Content/ContentEntityCloneFormBase.php
+@@ -214,7 +214,10 @@ protected function getRecursiveFormElement(FieldConfigInterface $field_definitio
+    */
+   protected function getChildren(ContentEntityInterface $referenced_entity, array &$discovered_entities) {
+     /** @var \Drupal\entity_clone\EntityClone\EntityCloneFormInterface $entity_clone_handler */
+-    if ($this->entityTypeManager->hasHandler($referenced_entity->getEntityTypeId(), 'entity_clone_form')) {
++    // We don't want to clone child node references.
++    // Doing so is undesirable for VA use case, and a huge memory drain.
++    if ($this->entityTypeManager->hasHandler($referenced_entity->getEntityTypeId(), 'entity_clone_form')
++      && $referenced_entity->getEntityTypeId() !== 'node') {
+       // Record that we've found this entity.
+       $discovered_entities[$referenced_entity->getEntityTypeId()][$referenced_entity->id()] = $referenced_entity;
+ 
+@@ -290,3 +293,4 @@ protected function getFormDescription(array $form, EntityInterface $entity) {
+   }
+ 
+ }
++

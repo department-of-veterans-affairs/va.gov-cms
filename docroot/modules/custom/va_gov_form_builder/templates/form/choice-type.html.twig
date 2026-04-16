@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Choice type
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/single-column-with-buttons.html.twig' %}
+
+{% set page_id = 'choice-type' %}
+{% set page_heading = 'Select style of choice' %}
+
+{% block main_content %}
+  {{ form.choice_type }}
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'choice_type',
+    'actions',
+  )}}
+{% endblock %}

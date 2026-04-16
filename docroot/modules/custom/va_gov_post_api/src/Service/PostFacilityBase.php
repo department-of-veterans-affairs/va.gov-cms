@@ -355,13 +355,13 @@ abstract class PostFacilityBase {
    *   The node.
    */
   public static function getDefaultRevision(NodeInterface $entity) : NodeInterface {
-    $hasOriginal = isset($entity->original) && ($entity->original instanceof EntityInterface);
+    $hasOriginalVersion = isset($entity->original) && ($entity->original instanceof EntityInterface);
     if ($entity->isNew()) {
       // There is no previous revision but to make comparison easier, set
       // the current node as the default.
       $defaultRevision = $entity;
     }
-    elseif (($entity->get('moderation_state')->value === self::STATE_PUBLISHED || !$entity->isPublished()) && $hasOriginal) {
+    elseif (($entity->get('moderation_state')->value === self::STATE_PUBLISHED || !$entity->isPublished()) && $hasOriginalVersion) {
       // If it has never been published we just want the last save.
       // If the node is published, loading the default is an exact copy,
       // because the save already happened. Switch to using original.

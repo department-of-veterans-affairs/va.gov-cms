@@ -28,6 +28,7 @@ dependencies:
     - field.field.node.vba_facility.field_non_va_official_name
     - field.field.node.vba_facility.field_office
     - field.field.node.vba_facility.field_office_hours
+    - field.field.node.vba_facility.field_official_name
     - field.field.node.vba_facility.field_operating_status_facility
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
@@ -130,6 +131,7 @@ content:
       time_format: g
       compress: false
       grouped: false
+      show_empty: true
       show_closed: all
       closed_format: Closed
       all_day_format: 'All day open'
@@ -145,6 +147,7 @@ content:
         closed_text: 'Currently closed'
       exceptions:
         title: 'Exception hours'
+        replace_exceptions: false
         restrict_exceptions_to_num_days: 7
         date_format: long
         all_day_format: 'All day open'
@@ -195,6 +198,7 @@ hidden:
   field_dismissible_option: true
   field_facility_vba_classificatio: true
   field_geolocation: true
+  field_intro_text: true
   field_last_saved_by_an_editor: true
   field_local_spotlight: true
   field_location_services: true
@@ -202,6 +206,7 @@ hidden:
   field_non_va_location_url: true
   field_non_va_official_name: true
   field_office: true
+  field_official_name: true
   field_prepare_for_visit: true
   field_shared_vha_location: true
   field_show_banner: true

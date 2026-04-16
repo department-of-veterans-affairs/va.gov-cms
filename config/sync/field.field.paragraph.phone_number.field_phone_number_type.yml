@@ -7,12 +7,16 @@ dependencies:
     - paragraphs.paragraphs_type.phone_number
   module:
     - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: paragraph.phone_number.field_phone_number_type
 field_name: field_phone_number_type
 entity_type: paragraph
 bundle: phone_number
 label: Type
-description: ''
+description: 'Choose a phone number type.'
 required: true
 translatable: false
 default_value:

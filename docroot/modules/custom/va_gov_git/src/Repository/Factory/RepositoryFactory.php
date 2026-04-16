@@ -12,10 +12,14 @@ use Drupal\va_gov_git\Repository\Settings\RepositorySettingsInterface;
  * This service provides a way to create services corresponding to specific Git
  * repositories.
  *
- * At this time, we're primarily interested in three repositories:
+ * At this time, we're primarily interested in four repositories:
  * - The `va.gov-cms` repository.
  * - The `content-build` repository.
  * - The `vets-website` repository.
+ * - The `next-build` repository.
+ *
+ * Additionally, we have `next-build-vets-website` key which is a duplicate of
+ * `vets-website` repository used exclusively with the `next-build` repository.
  */
 class RepositoryFactory implements RepositoryFactoryInterface {
 
@@ -63,6 +67,20 @@ class RepositoryFactory implements RepositoryFactoryInterface {
    */
   public function getVetsWebsite(): RepositoryInterface {
     return $this->get(RepositorySettingsInterface::VETS_WEBSITE);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getNextBuild(): RepositoryInterface {
+    return $this->get(RepositorySettingsInterface::NEXT_BUILD);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getNextBuildVetsWebsite(): RepositoryInterface {
+    return $this->get(RepositorySettingsInterface::NEXT_BUILD_VETS_WEBSITE);
   }
 
 }

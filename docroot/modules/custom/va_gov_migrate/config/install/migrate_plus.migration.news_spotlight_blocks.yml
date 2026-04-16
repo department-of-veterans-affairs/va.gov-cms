@@ -1,0 +1,90 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - va_gov_migrate
+      - migrate_plus
+id: news_spotlight_blocks
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: homepage
+label: 'Homepage News Spotlight blocks from https://news.va.gov'
+source:
+  track_changes: true
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: json
+  urls:
+    - 'https://news.va.gov/wp-json/wp/v2/posts?categories=18505'
+  item_selector: ''
+  fields:
+    -
+      name: id
+      label: 'Unique identifier'
+      selector: id
+    -
+      name: changed
+      label: 'Last changed date in the GMT timezone represented in ISO 8601 format'
+      selector: modified_gmt
+    -
+      name: headline
+      label: 'Promo headline'
+      selector: title/rendered
+    -
+      name: excerpt
+      label: 'Promo text'
+      selector: meta_box/standfirst
+    -
+      name: link
+      label: Link
+      selector: link
+  ids:
+    id:
+      type: string
+  constants:
+    link_text: 'Read the full article'
+    promo_section: 6
+process:
+  info: headline
+  field_promo_headline: headline
+  field_promo_text:
+    plugin: callback
+    callable: strip_tags
+    source: excerpt
+  field_link: link
+  field_administration: constants/promo_section
+  field_image:
+    plugin: migration_lookup
+    migration: news_spotlight_media
+    source: id
+  type:
+    plugin: default_value
+    default_value: news_promo
+  moderation_state:
+    plugin: default_value
+    default_value: published
+  status:
+    plugin: default_value
+    default_value: 0
+  changed:
+    plugin: format_date
+    source: changed
+    from_format: 'Y-m-d\TH:i:s'
+    to_format: U
+  reusable:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: 'Block created from news_spotlight_blocks migration'
+  revision_user:
+    plugin: default_value
+    default_value: 1317
+destination:
+  plugin: 'entity:block_content'
+migration_dependencies:
+  required:
+    - news_spotlight_media

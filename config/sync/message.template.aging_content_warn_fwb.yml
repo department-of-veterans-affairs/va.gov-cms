@@ -1,0 +1,22 @@
+uuid: 9f3e59b6-1a8b-43f4-aef6-01736f4710b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: aging_content_warn_fwb
+label: 'Aging Content: Warn Full Width Alerts'
+description: 'Messages for warning Full Width Alert nodes (aka Full Width Banner/FWB)'
+text:
+  -
+    value: '<p>Full-width Banner Alert content expiring soon</p>'
+    format: rich_text
+  -
+    value: '<p>As a reminder, Full-width Banners Alerts should be used for emergency or urgent communications that prompt a Veteran or other user to take action. Unless there is a compelling reason, Full-width Banner Alerts should not promote the same content for longer than seven (7) days.</p><p>Your published Full-width Banner Alert titled ''[message:field_target_node_title]'' will soon expire. Please plan to refresh this content by [message:field_expired_date].</p><p>To extend the display of the content, log in to Drupal and edit the banner, resaving it with a comment to that effect. The 7-day countdown window will reset.</p><p>For more information, you can read this <a href="https://prod.cms.va.gov/help/homepage-alerts-and-promo-banners/how-to-do-i-create-a-full-width-alert-banner">Knowledge Base article</a> for tips and best practices to manage compliance.</p><p><strong>Need help?</strong><br>Contact VA.gov Drupal CMS support at <a href="mailto:support@va-gov.atlassian.net">support@va-gov.atlassian.net</a></p>'
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

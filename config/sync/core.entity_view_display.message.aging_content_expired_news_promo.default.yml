@@ -1,0 +1,37 @@
+uuid: ea0e707d-42d1-46d2-80b5-db72be0b8f80
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.aging_content_expired_news_promo.field_expired_date
+    - field.field.message.aging_content_expired_news_promo.field_title
+    - message.template.aging_content_expired_news_promo
+  module:
+    - user
+id: message.aging_content_expired_news_promo.default
+targetEntityType: message
+bundle: aging_content_expired_news_promo
+mode: default
+content:
+  field_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_1:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  breadcrumbs: true
+  field_expired_date: true
+  search_api_excerpt: true

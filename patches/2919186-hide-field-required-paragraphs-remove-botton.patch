@@ -1,0 +1,20 @@
+diff --git a/src/Plugin/Field/FieldWidget/InlineParagraphsWidget.php b/src/Plugin/Field/FieldWidget/InlineParagraphsWidget.php
+index 4fe506f93..8473b371b 100644
+--- a/src/Plugin/Field/FieldWidget/InlineParagraphsWidget.php
++++ b/src/Plugin/Field/FieldWidget/InlineParagraphsWidget.php
+@@ -400,6 +400,15 @@ public function formElement(FieldItemListInterface $items, $delta, array $elemen
+         $delete_access = $paragraphs_entity->isNew() || $paragraphs_entity->access('delete');
+         // Hide the button when translating.
+         $button_access = $delete_access && !$this->isTranslating;
++
++        $field_required = $this->fieldDefinition->isRequired();
++        $allowed_types = $this->getAllowedTypes();
++        $cardinality = $this->fieldDefinition->getFieldStorageDefinition()->getCardinality();
++
++        // Hide the button if field is required, cardinality is one and just one
++        // paragraph type is allowed.
++        $button_access = $button_access && !($field_required && $cardinality == 1 && (count($allowed_types) == 1));
++
+         if ($item_mode != 'remove') {
+           $links['remove_button'] = [
+             '#type' => 'submit',

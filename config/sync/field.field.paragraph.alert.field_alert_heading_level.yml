@@ -1,0 +1,22 @@
+uuid: 8b9c0d1e-2f3a-4b5c-6d7e-8f9a0b1c2d3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_alert_heading_level
+    - paragraphs.paragraphs_type.alert
+  module:
+    - options
+id: paragraph.alert.field_alert_heading_level
+field_name: field_alert_heading_level
+entity_type: paragraph
+bundle: alert
+label: 'Alert Heading Level'
+description: 'Optional field for specifying the heading level (H2-H6) for the alert heading.'
+required: false
+translatable: false
+default_value: { }
+default_value_callback: ''
+settings: { }
+field_type: list_string
+

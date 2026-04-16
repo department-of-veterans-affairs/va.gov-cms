@@ -7,3 +7,13 @@ va_gov_api.new_banner_alerts:
     _permission: 'access content'
   methods:
     - GET
+
+va_gov_api.system_events:
+  path: '/api/v1/vamc-system-featured-events/{nid}'
+  defaults:
+    _title: 'VAMC System Events'
+    _controller: '\Drupal\va_gov_api\Controller\VamcSystemEventsController::getFeaturedEvents'
+  requirements:
+    _permission: 'access content'
+  methods:
+    - GET

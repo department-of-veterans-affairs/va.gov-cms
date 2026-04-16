@@ -1,0 +1,24 @@
+uuid: 4c6dc881-2737-4cf5-b280-b1a97b35e254
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_title
+    - message.template.aging_content_expired_news_promo
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: message.aging_content_expired_news_promo.field_title
+field_name: field_title
+entity_type: message
+bundle: aging_content_expired_news_promo
+label: Title
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -5,6 +5,7 @@ dependencies:
   config:
     - views.view.custom_block_entity_browsers
   module:
+    - entity_browser_entity_form
     - views
 name: promo_blocks_browser
 label: 'Promo blocks browser'
@@ -16,16 +17,26 @@ display_configuration:
   auto_open: false
 selection_display: no_display
 selection_display_configuration: {  }
-widget_selector: single
+widget_selector: tabs
 widget_selector_configuration: {  }
 widgets:
   03832723-7601-4ed8-82e3-09617277e3bb:
     id: view
     uuid: 03832723-7601-4ed8-82e3-09617277e3bb
-    label: ''
+    label: 'Add existing promo'
     weight: 1
     settings:
       submit_text: 'Select promo'
       auto_select: false
       view: custom_block_entity_browsers
       view_display: entity_browser_2
+  0fd08d3a-6f12-4949-8672-19dd8d928877:
+    id: entity_form
+    uuid: 0fd08d3a-6f12-4949-8672-19dd8d928877
+    label: 'Add new promo'
+    weight: 2
+    settings:
+      submit_text: 'Save promo'
+      entity_type: block_content
+      bundle: promo
+      form_mode: default

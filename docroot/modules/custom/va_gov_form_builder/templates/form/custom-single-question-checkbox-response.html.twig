@@ -1,0 +1,73 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Checkbox response.
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/two-column-with-buttons.html.twig' %}
+
+{% set page_id = 'custom-single-question-choice-checkbox-response' %}
+{% set page_heading = 'Customize the responses available for the submitter' %}
+
+{% block left_content %}
+  <section class="form-builder-single-question-response">
+
+    <div class="form-builder-single-question-response__page-title">
+      <label for="page-title">For the single-response question:</label>
+      <div id="page-title">{{ form['#page_title'] ?: 'None provided' }}</div>
+    </div>
+
+    {{ form.checkbox_fields.0.required }}
+
+    <div class="form-builder-single-question-response__page-body">
+      <label for="page-body">Body content:</label>
+      <div id="page-body">{{ form['#page_body'] ?: 'None provided' }}</div>
+    </div>
+
+    <div class="form-builder-single-question-response__type">
+      <p id="response-type">Checkbox</p>
+    </div>
+
+    <div class="form-builder-single-question-response__components">
+      {{ form.checkbox_fields.0|without('required') }}
+    </div>
+
+    <div class="form-builder-single-question-response__guidance">
+      <label for="guidance-details">Provide labels for Checkbox items</label>
+      <div id="guidance-details" class="form-builder-single-question-response__guidance-details">
+        <p>If more choices are needed, add Checkbox items.</p>
+        <p>The minimum number of choices is 1.</p>
+        <p>The maximum recommended number of Checkbox items per list is 5.</p>
+      </div>
+    </div>
+
+    <div class="form-builder-single-question-response__components">
+      {{ form.existing_checkbox_option_fields }}
+      {{ form.dynamic_checkbox_options_fields_fieldset }}
+    </div>
+
+  </section>
+{% endblock %}
+
+{% block right_content %}
+  <div class="form-builder-single-question-response__preview">
+    <label for="no-descriptors-preview">Example without descriptors</label>
+    <div id="no-descriptors-preview">{{ form.preview.no_descriptors }}</div>
+    <label for="no-descriptors-preview">Example with descriptors</label>
+    <div id="with-descriptors-preview">{{ form.preview.descriptors }}</div>
+  </div>
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'page_title',
+    'page_body',
+    'checkbox_fields',
+    'existing_checkbox_option_fields',
+    'dynamic_checkbox_options_fields_fieldset',
+    'preview',
+    'actions',
+  )}}
+{% endblock %}

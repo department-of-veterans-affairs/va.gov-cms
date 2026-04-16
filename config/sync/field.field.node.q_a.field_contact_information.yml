@@ -8,13 +8,17 @@ dependencies:
     - paragraphs.paragraphs_type.contact_information
   module:
     - entity_reference_revisions
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: node.q_a.field_contact_information
 field_name: field_contact_information
 entity_type: node
 bundle: q_a
 label: 'Need more help?'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
@@ -34,8 +38,17 @@ settings:
       alert_single:
         weight: 41
         enabled: false
+      audience_topics:
+        weight: 55
+        enabled: false
+      basic_accordion:
+        weight: 56
+        enabled: false
       button:
         weight: 42
+        enabled: false
+      centralized_content_descriptor:
+        weight: 58
         enabled: false
       checklist:
         weight: 43
@@ -52,20 +65,47 @@ settings:
       contact_information:
         weight: 47
         enabled: true
+      digital_form_address:
+        weight: 64
+        enabled: false
+      digital_form_identification_info:
+        weight: 65
+        enabled: false
+      digital_form_list_loop:
+        weight: 66
+        enabled: false
+      digital_form_name_and_date_of_bi:
+        weight: 67
+        enabled: false
+      digital_form_phone_and_email:
+        weight: 68
+        enabled: false
+      digital_form_your_personal_info:
+        weight: 69
+        enabled: false
       downloadable_file:
         weight: 48
         enabled: false
       email_contact:
         weight: 49
         enabled: false
+      embedded_video:
+        weight: 72
+        enabled: false
       expandable_text:
         weight: 50
+        enabled: false
+      featured_content:
+        weight: 74
         enabled: false
       health_care_local_facility_servi:
         weight: 51
         enabled: false
       link_teaser:
         weight: 52
+        enabled: false
+      link_teaser_with_image:
+        weight: 77
         enabled: false
       list_of_link_teasers:
         weight: 53
@@ -75,6 +115,9 @@ settings:
         enabled: false
       lists_of_links:
         weight: 55
+        enabled: false
+      magichead_group:
+        weight: 81
         enabled: false
       media:
         weight: 56
@@ -109,6 +152,9 @@ settings:
       react_widget:
         weight: 66
         enabled: false
+      rich_text_char_limit_1000:
+        weight: 93
+        enabled: false
       service_location:
         weight: 67
         enabled: false
@@ -123,9 +169,6 @@ settings:
         enabled: false
       staff_profile:
         weight: 71
-        enabled: false
-      starred_horizontal_rule:
-        weight: 72
         enabled: false
       step:
         weight: 73

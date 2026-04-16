@@ -1,0 +1,33 @@
+uuid: 3433e42f-28e4-480e-86a0-07deeb024617
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.aging_content_warn_news_promo.field_expired_date
+    - field.field.message.aging_content_warn_news_promo.field_title
+    - message.template.aging_content_warn_news_promo
+id: message.aging_content_warn_news_promo.default
+targetEntityType: message
+bundle: aging_content_warn_news_promo
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    '#group': advanced
+hidden:
+  field_expired_date: true
+  field_title: true

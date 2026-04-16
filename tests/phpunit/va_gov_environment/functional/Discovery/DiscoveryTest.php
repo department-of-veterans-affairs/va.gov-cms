@@ -27,6 +27,7 @@ class DiscoveryTest extends VaGovExistingSiteBase {
     $rawEnvironments = [
       'local',
       'tugboat',
+      'dev',
       'staging',
       'prod',
     ];

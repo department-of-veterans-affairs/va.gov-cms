@@ -9,7 +9,7 @@
     attach: function attach(context) {
       var loadingText = "<div style='height: 20px; width: 40px;' class='claro-spinner'></div>";
       $(once("content-release-status-icon", "body", context)).each(function () {
-        Tippy("#content-release-status-icon", {
+        Tippy("#content-release-status-icon, #content-release-status-icon-prod", {
           content: function content(reference) {
             reference.removeAttribute("title");
             return loadingText;

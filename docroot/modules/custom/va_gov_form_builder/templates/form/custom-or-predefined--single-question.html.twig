@@ -1,0 +1,55 @@
+{% extends '@va_gov_form_builder/form/base/single-column-with-buttons.html.twig' %}
+
+{% set page_id = 'custom-or-predefined-single-question' %}
+
+{% if predefined_questions|length == 0 %}
+  {% set page_heading = 'Customize a question and response' %}
+{% else %}
+  {% set page_heading = 'Use a pre-defined question, or customize the question and responses' %}
+{% endif %}
+
+{% block main_content %}
+  <div class="form-builder-custom-or-predefined form-builder-custom-or-predefined__single_response">
+    {% if form.predefined_options|length == 0 %}
+      {# No predefined options #}
+      <section class="form-buiilder-custom-or-predefined__custom">
+        <h3 class="form-builder-custom-or-predefined__custom-title">
+          If there were additional ready-to-use patterns for this form,
+          they would be listed on this page.
+        </h3>
+        <p>However, you can create your own question and responses by selecting the Customize option below.</p>
+      </section>
+    {% else %}
+      {# Predefined options exist #}
+      <section class="form-builder-custom-or-predefined__predefined">
+        <h3 class="form-builder-custom-or-predefined__predefined-title">
+          Is your question one of these commonly asked ones?
+        </h3>
+        <p>
+          If it is, simply select the appropriate Add button and this question will
+          be added to the form.
+        </p>
+
+        {#
+          Eventually, render the predefined-option list here
+          by looping over the predefined_options variable.
+        #}
+      </section>
+      <section class="form-builder-custom-or-predefined__custom">
+        <h3 class="form-builder-custom-or-predefined__custom-title">
+          Need to customize your question and response?
+        </h3>
+        <p>
+          Begin by selecting the Customize option below.
+        </p>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'actions',
+  )}}
+{% endblock %}

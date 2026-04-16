@@ -7,10 +7,12 @@ dependencies:
     - menu_ui
     - node_revision_delete
     - node_title_help_text
+    - scheduler
 third_party_settings:
   menu_ui:
     available_menus:
       - lovell-federal-health-care
+      - manila-va-clinic
       - va-alaska-health-care
       - va-albany-health-care
       - va-alexandria-health-care
@@ -74,7 +76,6 @@ third_party_settings:
       - va-iron-mountain-health-care
       - va-jackson-health-care
       - va-kansas-city-health-care
-      - va-leavenworth-health-care
       - va-lebanon
       - va-lexington-health-care
       - va-loma-linda-health-care
@@ -83,6 +84,7 @@ third_party_settings:
       - va-madison-health-care
       - va-maine-health-care
       - va-manchester-health-care
+      - va-manila-health-care
       - va-marion-health-care
       - va-martinsburg-health-care
       - va-maryland-health-care
@@ -139,7 +141,6 @@ third_party_settings:
       - va-tennessee-valley-health-care
       - va-texas-valley-health-care
       - va-tomah-health-care
-      - va-topeka-health-care
       - va-tuscaloosa-health-care
       - va-walla-walla-health-care
       - va-washington-dc-health-care
@@ -155,16 +156,45 @@ third_party_settings:
   node_title_help_text:
     title_help: 'Add a story title using sentence case capitalization.'
   node_revision_delete:
-    minimum_revisions_to_keep: 50
+    amount:
+      status: false
+      settings:
+        amount: 0
+    created:
+      status: false
+      settings:
+        age: 1
+    drafts:
+      status: false
+      settings:
+        age: 1
     minimum_age_to_delete: 0
+    minimum_revisions_to_keep: 50
+    only_drafts:
+      status: false
+      settings:
+        age: 0
     when_to_delete: 0
   menu_force:
-    menu_force: 0
-    menu_force_parent: 0
+    menu_force: false
+    menu_force_parent: false
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: true
+    publish_past_date: schedule
+    publish_past_date_created: false
+    publish_required: false
+    publish_revision: true
+    publish_touch: false
+    show_message_after_update: true
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
 name: Story
 type: news_story
 description: "Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story."
-help: ''
+help: null
 new_revision: true
 preview_mode: 0
 display_submitted: false

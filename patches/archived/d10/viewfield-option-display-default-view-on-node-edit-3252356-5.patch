@@ -1,0 +1,361 @@
+diff --git a/src/Plugin/Field/FieldWidget/ViewfieldWidgetSelect.php b/src/Plugin/Field/FieldWidget/ViewfieldWidgetSelect.php
+--- a/src/Plugin/Field/FieldWidget/ViewfieldWidgetSelect.php	(revision 57f583aa6ca650f20532c70acde4239a8a56b0e2)
++++ b/src/Plugin/Field/FieldWidget/ViewfieldWidgetSelect.php	(date 1675800115009)
+@@ -9,6 +9,9 @@
+ use Drupal\Core\Form\FormStateInterface;
+ use Drupal\Core\Ajax\AjaxResponse;
+ use Drupal\Core\Ajax\HtmlCommand;
++use Drupal\Core\Cache\CacheableMetadata;
++use Drupal\views\Views;
++use Drupal\viewfield\Traits\ViewFieldProcessorTrait;
+ 
+ /**
+  * Plugin implementation of the 'viewfield_select' widget.
+@@ -20,11 +23,23 @@
+  * )
+  */
+ class ViewfieldWidgetSelect extends OptionsSelectWidget {
++  use ViewFieldProcessorTrait;
+ 
+   /**
+    * {@inheritdoc}
+    */
+   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
++    $view_visibility = FALSE;
++    $form_visibility = TRUE;
++
++    if (!$this->isDefaultValueWidget($form_state)
++      && $this->getFieldSetting('force_default')
++      && $this->getFieldSetting('display_on_edit')) {
++      // We are editing a node and should display the default view.
++      $view_visibility = TRUE;
++      $form_visibility = FALSE;
++    }
++
+     $field_type = $this->fieldDefinition->getType();
+     $item = $items[$delta];
+ 
+@@ -47,6 +62,7 @@
+     $none_option = (!$this->fieldDefinition->isRequired() || $delta > 0) ? ['_none' => $empty_label] : [];
+     $element['target_id']['#options'] = array_merge($none_option, $item->getViewOptions());
+     $element['target_id']['#multiple'] = FALSE;
++    $element['target_id']['#access'] = $form_visibility;
+ 
+     // Build an array of keys to retrieve values from $form_state.
+     $form_state_keys = [$this->fieldDefinition->getName(), $delta];
+@@ -102,6 +118,7 @@
+       '#attributes' => ['class' => [$display_id_class]],
+       '#weight' => 10,
+       '#states' => ['visible' => $primary_field_visible_test],
++      '#access' => $form_visibility,
+     ];
+ 
+     $element['view_options'] = [
+@@ -117,6 +134,7 @@
+         ],
+         'visible' => $primary_field_visible_test,
+       ],
++      '#access' => $form_visibility,
+     ];
+ 
+     $element['view_options']['arguments'] = [
+@@ -130,7 +148,8 @@
+     ];
+ 
+     // Get entity types from the $items.
+-    $entity_type = $items->getEntity()->getEntityTypeId();
++    $entity = $items->getEntity();
++    $entity_type = $entity->getEntityTypeId();
+ 
+     // Token expects the value "term" for taxonomy_term entities.
+     if ($entity_type == 'taxonomy_term') {
+@@ -158,9 +177,61 @@
+ 
+     $element['#attached']['library'][] = 'viewfield/viewfield';
+ 
++    if ($view_visibility && !empty($default_target_id) && !empty($default_display_id)) {
++      if (!empty($default_arguments)) {
++        $arguments = $this->processArguments($default_arguments, $entity);
++      }
++      else {
++        $arguments = [];
++      }
++
++      $view = Views::getView($default_target_id);
++      if ($view && $view->access($default_display_id)) {
++        $cacheability = new CacheableMetadata();
++
++        // Set arguments if they exist.
++        if (!empty($default_arguments)) {
++          $view->setArguments($arguments);
++        }
++
++        $view->setDisplay($default_display_id);
++
++        $view->preExecute();
++        $view->execute();
++
++        $rendered_view = $view->buildRenderable($default_display_id, $arguments);
++
++        // Get cache metadata from view and merge.
++        $view_cacheability = CacheableMetadata::createFromRenderArray($view->element);
++        $cacheability = $cacheability->merge($view_cacheability);
++
++        // TODO: we could add conditions for display as additional config options.
++        $element['html_markup'] = [
++          '#theme' => 'viewfield_item',
++          '#content' => $rendered_view,
++          '#title' => $view->getTitle(),
++          '#label_display' => 'above',
++          '#delta' => 0,
++          '#field_name' => $this->fieldDefinition->getName(),
++          '#view_id' => $default_target_id,
++          '#display_id' => $default_display_id,
++        ];
++
++        // Add arguments to view cache keys to allow multiple viewfields with
++        // same view but different arguments per page.
++        $cache_keys = array_merge($rendered_view['#cache']['keys'], $arguments);
++        $element['html_markup']['#content']['#cache']['keys'] = $cache_keys;
++
++        // Apply merged cache metadata to $elements.
++        $cacheability->applyTo($element);
++
++      }
++
++    }
++
+     return $element;
+   }
+-  
++
+   /**
+    * {@inheritdoc}
+    */
+@@ -168,7 +239,9 @@
+     $elements = parent::formMultipleElements($items, $form, $form_state);
+     // Must always show fields on configuration form.
+     if (!$this->isDefaultValueWidget($form_state) && $this->getFieldSetting('force_default')) {
+-      $elements['#access'] = FALSE;
++      if (!$this->getFieldSetting('display_on_edit')) {
++        $elements['#access'] = FALSE;
++      }
+     }
+ 
+     $max_delta = $elements['#max_delta'];
+Index: config/schema/viewfield.schema.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/schema/viewfield.schema.yml b/config/schema/viewfield.schema.yml
+--- a/config/schema/viewfield.schema.yml	(revision 57f583aa6ca650f20532c70acde4239a8a56b0e2)
++++ b/config/schema/viewfield.schema.yml	(date 1675799903975)
+@@ -30,6 +30,9 @@
+     force_default:
+       type: boolean
+       label: 'Always use default value'
++    display_on_edit:
++      type: boolean
++      label: 'Display the default value on node edit'
+     allowed_views:
+       type: sequence
+       label: 'Allowed views'
+Index: src/Plugin/Field/FieldType/ViewfieldItem.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Plugin/Field/FieldType/ViewfieldItem.php b/src/Plugin/Field/FieldType/ViewfieldItem.php
+--- a/src/Plugin/Field/FieldType/ViewfieldItem.php	(revision 57f583aa6ca650f20532c70acde4239a8a56b0e2)
++++ b/src/Plugin/Field/FieldType/ViewfieldItem.php	(date 1675800114998)
+@@ -41,6 +41,7 @@
+   public static function defaultFieldSettings() {
+     return [
+       'force_default' => 0,
++      'display_on_edit' => 0,
+       'allowed_views' => [],
+       'allowed_display_types' => ['block' => 'block'],
+     ] + parent::defaultFieldSettings();
+@@ -119,6 +120,18 @@
+       '#description' => $this->t('Hides this field in entity edit forms and enforces the configured default value for all entities in the bundle, making it unnecessary to assign values individually to each one.<br>If this is checked, you must provide a default value.'),
+     ];
+ 
++    $form['display_on_edit'] = [
++      '#type' => 'checkbox',
++      '#title' => $this->t('Display the default value on node edit'),
++      '#default_value' => $this->getSetting('display_on_edit'),
++      '#description' => $this->t('Render and display the view specified as the default on node edit pages using the default display settings used for node view.'),
++      '#states' => [
++        'visible' => [
++          ':input[name="settings[force_default]"]' => ['checked' => TRUE],
++        ],
++      ],
++    ];
++
+     $form['allowed_views'] = [
+       '#type' => 'checkboxes',
+       '#options' => $this->getViewOptions(FALSE),
+Index: src/Plugin/Field/FieldFormatter/ViewfieldFormatterDefault.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Plugin/Field/FieldFormatter/ViewfieldFormatterDefault.php b/src/Plugin/Field/FieldFormatter/ViewfieldFormatterDefault.php
+--- a/src/Plugin/Field/FieldFormatter/ViewfieldFormatterDefault.php	(revision 57f583aa6ca650f20532c70acde4239a8a56b0e2)
++++ b/src/Plugin/Field/FieldFormatter/ViewfieldFormatterDefault.php	(date 1675800324519)
+@@ -3,12 +3,12 @@
+ namespace Drupal\viewfield\Plugin\Field\FieldFormatter;
+ 
+ use Drupal\views\Plugin\views\pager\None;
+-use Drupal\Core\Entity\FieldableEntityInterface;
+ use Drupal\Core\Field\FieldItemListInterface;
+ use Drupal\Core\Form\FormStateInterface;
+ use Drupal\Core\Field\FormatterBase;
+ use Drupal\Core\Cache\CacheableMetadata;
+ use Drupal\views\Views;
++use Drupal\viewfield\Traits\ViewFieldProcessorTrait;
+ 
+ /**
+  * Viewfield Default Formatter plugin definition.
+@@ -20,6 +20,7 @@
+  * )
+  */
+ class ViewfieldFormatterDefault extends FormatterBase {
++  use ViewFieldProcessorTrait;
+ 
+   /**
+    * {@inheritdoc}
+@@ -204,58 +205,6 @@
+     return $elements;
+   }
+ 
+-  /**
+-   * Perform argument parsing and token replacement.
+-   *
+-   * @param string $argument_string
+-   *   The raw argument string.
+-   * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
+-   *   The entity containing this field.
+-   *
+-   * @return array
+-   *   The array of processed arguments.
+-   */
+-  protected function processArguments($argument_string, FieldableEntityInterface $entity) {
+-    $arguments = [];
+-
+-    if (!empty($argument_string)) {
+-      $pos = 0;
+-      while ($pos < strlen($argument_string)) {
+-        $found = FALSE;
+-        // If string starts with a quote, start after quote and get everything
+-        // before next quote.
+-        if (strpos($argument_string, '"', $pos) === $pos) {
+-          if (($quote = strpos($argument_string, '"', ++$pos)) !== FALSE) {
+-            // Skip pairs of quotes.
+-            while (!(($ql = strspn($argument_string, '"', $quote)) & 1)) {
+-              $quote = strpos($argument_string, '"', $quote + $ql);
+-            }
+-            $arguments[] = str_replace('""', '"', substr($argument_string, $pos, $quote + $ql - $pos - 1));
+-            $pos = $quote + $ql + 1;
+-            $found = TRUE;
+-          }
+-        }
+-        else {
+-          $arguments = explode('/', $argument_string);
+-          $pos = strlen($argument_string) + 1;
+-          $found = TRUE;
+-        }
+-        if (!$found) {
+-          $arguments[] = substr($argument_string, $pos);
+-          $pos = strlen($argument_string);
+-        }
+-      }
+-
+-      $token_service = \Drupal::token();
+-      $token_data = [$entity->getEntityTypeId() => $entity];
+-      foreach ($arguments as $key => $value) {
+-        $arguments[$key] = $token_service->replace($value, $token_data);
+-      }
+-    }
+-
+-    return $arguments;
+-  }
+-
+   /**
+    * Get a printable label for a checkbox value.
+    *
+Index: src/Traits/ViewFieldProcessorTrait.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Traits/ViewFieldProcessorTrait.php b/src/Traits/ViewFieldProcessorTrait.php
+new file mode 100644
+--- /dev/null	(date 1675800023442)
++++ b/src/Traits/ViewFieldProcessorTrait.php	(date 1675800023442)
+@@ -0,0 +1,64 @@
++<?php
++
++namespace Drupal\viewfield\Traits;
++
++use Drupal\Core\Entity\FieldableEntityInterface;
++
++/**
++ * Helper methods for translating supplied tokens into views arguments.
++ */
++trait ViewFieldProcessorTrait {
++
++  /**
++   * Perform argument parsing and token replacement.
++   *
++   * @param string $argument_string
++   *   The raw argument string.
++   * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
++   *   The entity containing this field.
++   *
++   * @return array
++   *   The array of processed arguments.
++   */
++  protected function processArguments($argument_string, FieldableEntityInterface $entity) {
++    $arguments = [];
++
++    if (!empty($argument_string)) {
++      $pos = 0;
++      while ($pos < strlen($argument_string)) {
++        $found = FALSE;
++        // If string starts with a quote, start after quote and get everything
++        // before next quote.
++        if (strpos($argument_string, '"', $pos) === $pos) {
++          if (($quote = strpos($argument_string, '"', ++$pos)) !== FALSE) {
++            // Skip pairs of quotes.
++            while (!(($ql = strspn($argument_string, '"', $quote)) & 1)) {
++              $quote = strpos($argument_string, '"', $quote + $ql);
++            }
++            $arguments[] = str_replace('""', '"', substr($argument_string, $pos, $quote + $ql - $pos - 1));
++            $pos = $quote + $ql + 1;
++            $found = TRUE;
++          }
++        }
++        else {
++          $arguments = explode('/', $argument_string);
++          $pos = strlen($argument_string) + 1;
++          $found = TRUE;
++        }
++        if (!$found) {
++          $arguments[] = substr($argument_string, $pos);
++          $pos = strlen($argument_string);
++        }
++      }
++
++      $token_service = \Drupal::token();
++      $token_data = [$entity->getEntityTypeId() => $entity];
++      foreach ($arguments as $key => $value) {
++        $arguments[$key] = $token_service->replace($value, $token_data);
++      }
++    }
++
++    return $arguments;
++  }
++
++}

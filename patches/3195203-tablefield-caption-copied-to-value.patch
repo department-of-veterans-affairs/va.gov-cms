@@ -1,0 +1,15 @@
+diff --git a/src/Plugin/Field/FieldType/TablefieldItem.php b/src/Plugin/Field/FieldType/TablefieldItem.php
+index 6252297..19654df 100644
+--- a/src/Plugin/Field/FieldType/TablefieldItem.php
++++ b/src/Plugin/Field/FieldType/TablefieldItem.php
+@@ -179,10 +179,6 @@ class TablefieldItem extends FieldItemBase {
+       $values['rebuild']['cols'] = isset($values['value'][0]) ? count($values['value'][0]) : 0;
+     }
+ 
+-    if (isset($values['caption'])) {
+-      $values['value']['caption'] = $values['caption'];
+-    }
+-
+     // If "Lock defaults" is enabled the table needs sorting.
+     $lock = $this->getFieldDefinition()->getSetting('lock_values');
+     if ($lock) {

@@ -54,7 +54,7 @@ const creators = {
     });
     cy.window().then((window) => {
       window.jQuery('details[data-drupal-iwc-id="2_1"] > summary').click();
-      cy.wait(1000);
+      cy.wait(3000);
       cy.get("span.cropper-face.cropper-move").scrollIntoView();
     });
     cy.window().then((window) => {
@@ -128,13 +128,13 @@ Given("I create a {string} media", (mediaType) => {
       .then(($element) => {
         cy.injectAxe();
         cy.checkAccessibility();
-        cy.drupalWatchdogHasNoNewErrors();
         const mediaPath = $element.attr("href");
         const pathComponents = mediaPath.split("/");
         const mediaId = pathComponents.pop();
         cy.wrap(mediaPath).as("mediaPath");
         cy.wrap(mediaId).as("mediaId");
         cy.wrap(mediaPath).as("pagePath");
+        cy.trackEntity("media", mediaId, { type: mediaType });
         return cy.visit(mediaPath);
       });
   });

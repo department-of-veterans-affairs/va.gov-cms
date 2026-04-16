@@ -1,0 +1,88 @@
+From c6e380a47cf178ecce26e3072608a57b5e8d7ede Mon Sep 17 00:00:00 2001
+From: Daniel Sasser <221539+dsasser@users.noreply.github.com>
+Date: Mon, 3 Feb 2025 11:16:44 -0800
+Subject: [PATCH 1/2] Issue 3504104: Adds support to exclude field names from
+ Views argument query.
+
+---
+ .../argument/TaxonomyEntityIndexDepth.php     | 32 +++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+
+diff --git a/src/Plugin/views/argument/TaxonomyEntityIndexDepth.php b/src/Plugin/views/argument/TaxonomyEntityIndexDepth.php
+index 4741581..f581401 100644
+--- a/src/Plugin/views/argument/TaxonomyEntityIndexDepth.php
++++ b/src/Plugin/views/argument/TaxonomyEntityIndexDepth.php
+@@ -57,6 +57,28 @@ abstract class TaxonomyEntityIndexDepth extends IndexTidDepth {
+     $this->baseTableInfo = $this->viewsData->get($this->table);
+   }
+ 
++  /**
++   * {@inhritdoc}
++   */
++  protected function defineOptions() {
++    $options = parent::defineOptions();
++    $options['field_names'] = ['default' => ''];
++    return $options;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function buildOptionsForm(&$form, FormStateInterface $form_state) {
++    $form['field_names'] = [
++      '#type' => 'textfield',
++      '#title' => $this->t('Excluded Field Names'),
++      '#default_value' => $this->options['field_names'],
++      '#description' => $this->t("Enter field names, separated by commas, that should be excluded from results. If content references taxonomy by the provided field name(s) they will be filtered out of the results. This is useful to ignore certain fields, particularly if content references the same Vocabulary using more than one field."),
++    ];
++    parent::buildOptionsForm($form, $form_state);
++  }
++
+   /**
+    * {@inheritdoc}
+    */
+@@ -106,6 +128,16 @@ abstract class TaxonomyEntityIndexDepth extends IndexTidDepth {
+ 
+     $subquery->condition($where);
+ 
++    // Add conditional for field_names if configured.
++    if (!empty($this->options['field_names'])) {
++      $field_names = array_filter(array_map('trim', explode(',', $this->options['field_names'])));
++      $andFieldNames = new Condition('AND');
++      foreach ($field_names as $field_name) {
++        $andFieldNames->condition('tn.field_name', $field_name, '!=');
++      }
++      $subquery->condition($andFieldNames);
++    }
++
+     $this->query->addWhere(0, "$this->tableAlias.$real_field", $subquery, 'IN');
+   }
+ 
+-- 
+GitLab
+
+
+From 851d8f47dce1c2bf45ca2ca92a17456c1e73cf94 Mon Sep 17 00:00:00 2001
+From: Daniel Sasser <221539+dsasser@users.noreply.github.com>
+Date: Mon, 3 Feb 2025 11:29:36 -0800
+Subject: [PATCH 2/2] Correct missing use statement for FormStateInterface.
+
+---
+ src/Plugin/views/argument/TaxonomyEntityIndexDepth.php | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/Plugin/views/argument/TaxonomyEntityIndexDepth.php b/src/Plugin/views/argument/TaxonomyEntityIndexDepth.php
+index f581401..00f96fb 100644
+--- a/src/Plugin/views/argument/TaxonomyEntityIndexDepth.php
++++ b/src/Plugin/views/argument/TaxonomyEntityIndexDepth.php
+@@ -9,6 +9,7 @@ use Drupal\Core\Database\Query\Condition;
+ use Drupal\Core\Entity\EntityRepositoryInterface;
+ use Drupal\Core\Entity\EntityStorageInterface;
+ use Drupal\taxonomy\Plugin\views\argument\IndexTidDepth;
++use Drupal\Core\Form\FormStateInterface;
+ use Drupal\views\Plugin\views\display\DisplayPluginBase;
+ use Drupal\views\ViewExecutable;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
+-- 
+GitLab
+

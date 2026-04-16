@@ -1,0 +1,18 @@
+diff --git a/cer.module b/cer.module
+index 791b72e..bbd8bcd 100644
+--- a/cer.module
++++ b/cer.module
+@@ -22,13 +22,6 @@ function cer_entity_update(EntityInterface $entity) {
+   cer_sync_corresponding_references($entity);
+ }
+ 
+-/**
+- * Implements hook_entity_delete().
+- */
+-function cer_entity_delete(EntityInterface $entity) {
+-  cer_sync_corresponding_references($entity, TRUE);
+-}
+-
+ /**
+  * Synchronize corresponding references for an entity.
+  *

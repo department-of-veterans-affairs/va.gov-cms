@@ -1,0 +1,29 @@
+{% extends '@va_gov_form_builder/page-content/base/single-column-with-buttons.html.twig' %}
+
+{% set page_id = 'step-layout' %}
+
+{% if pages|length == 0 %}
+  {% set page_heading = 'Edit this step' %}
+{% else %}
+  {% set page_heading = 'Review or edit this step' %}
+{% endif %}
+
+
+{% block main_content %}
+  <div class="form-builder-step-layout__step_label"><strong>Step label:</strong> <a href="{{ step_label.url }}">{{ step_label.label }}</a></div>
+  {{ messages }}
+  {% for page in pages %}
+    <div class="form-builder-step-layout__page">
+      <a class="form-builder-step-layout__page_title" href="{{ page.url }}">{{ page.title }}</a>
+      {% if page.actions %}
+        {{ include('@va_gov_form_builder/components/step-actions.html.twig', page) }}
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  {% if pages|length == 0 %}
+    <p>There are no questions or responses added to this step.</p>
+  {% endif %}
+  <p>If you want to add a question to this step, select Add question.</p>
+  <p>If you are done with this step, select return to steps.</p>
+{% endblock %}

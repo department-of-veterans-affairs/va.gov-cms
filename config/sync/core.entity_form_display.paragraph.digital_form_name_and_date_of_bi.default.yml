@@ -1,0 +1,40 @@
+uuid: 7a85e837-9879-4f7f-9e0b-ebad0066e521
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_name_and_date_of_bi.field_include_date_of_birth
+    - field.field.paragraph.digital_form_name_and_date_of_bi.field_title
+    - paragraphs.paragraphs_type.digital_form_name_and_date_of_bi
+  module:
+    - textfield_counter
+id: paragraph.digital_form_name_and_date_of_bi.default
+targetEntityType: paragraph
+bundle: digital_form_name_and_date_of_bi
+mode: default
+content:
+  field_include_date_of_birth:
+    type: boolean_checkbox
+    weight: 1
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield_with_counter
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,72 @@
+//drupal CMS announcement block styles
+.block-cms-announcement {
+  box-sizing: border-box;
+  color: var(--color-text);
+
+  line-height: var(--va-display-s);
+  margin: var(--space-l) 0;
+  padding: 32px 50px 32px 90px;
+  vertical-align: middle;
+  width: 100%;
+
+  &.information {
+    background: var(--va-blue-lightest);
+
+    .title svg {
+      color: var(--va-blue-lightest);
+      fill: var(--va-blue-lightest);
+    }
+  }
+
+  &.warning {
+    background: var(--va-gold-lightest);
+
+    .title svg {
+      color: var(--va-gold-med);
+      fill: var(--va-gold-med);
+    }
+  }
+
+  &.emergency {
+    background: var(--va-red-lightest);
+
+    .title svg {
+      color: var(--va-red-dark);
+      fill: var(--va-red-dark);
+    }
+  }
+
+  &.new {
+    background: var(--va-green-lightest);
+
+    .title svg {
+      color: var(--va-green-dark);
+      fill: var(--va-green-dark);
+    }
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    position: relative;
+
+    svg {
+      display: inline-block;
+      position: absolute;
+      right: calc(100% + 1rem);
+      height: 23px;
+      vertical-align: -22%;
+    }
+  }
+
+  .text {
+    p {
+      margin: 0;
+
+      a {
+        color: var(--va-blue-darkest);
+      }
+    }
+  }
+}

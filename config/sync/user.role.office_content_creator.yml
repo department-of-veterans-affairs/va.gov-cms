@@ -7,7 +7,9 @@ dependencies:
     - node.type.event
     - node.type.outreach_asset
   module:
+    - ai_image_alt_text
     - block_content
+    - entity_usage
     - file
     - node
     - node_link_report
@@ -21,8 +23,10 @@ weight: -5
 is_admin: null
 permissions:
   - 'access block library'
+  - 'access entity usage statistics'
   - 'access files overview'
   - 'create event content'
   - 'create outreach_asset content'
   - 'create promo block content'
+  - 'generate ai alt tags'
   - 'view node link report'

@@ -6,13 +6,19 @@ dependencies:
     - block_content.type.benefit_promo
     - block_content.type.cta_with_link
     - block_content.type.news_promo
+    - entityqueue.entity_queue.home_page_hero
+    - entityqueue.entity_queue.home_page_news_spotlight
+    - entityqueue.entity_queue.v2_home_page_create_account
+    - node.type.banner
     - workflows.workflow.editorial
     - workflows.workflow.restricted_archive
   module:
     - block_content
     - block_diff_ui
     - content_moderation
+    - entity_usage
     - entityqueue
+    - node
     - system
     - va_gov_backend
 third_party_settings:
@@ -24,6 +30,8 @@ weight: 6
 is_admin: null
 permissions:
   - 'access block library'
+  - 'access entity usage statistics'
+  - 'create banner content'
   - 'create benefit_promo block content'
   - 'create cta_with_link block content'
   - 'create news_promo block content'

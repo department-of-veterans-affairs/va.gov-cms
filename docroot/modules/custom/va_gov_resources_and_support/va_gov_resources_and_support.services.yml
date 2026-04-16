@@ -1,0 +1,6 @@
+services:
+  va_gov_resources_and_support.entity_event_subscriber:
+    class: Drupal\va_gov_resources_and_support\EventSubscriber\EntityEventSubscriber
+    arguments: ['@feature_toggle.feature_status']
+    tags:
+      - { name: event_subscriber }

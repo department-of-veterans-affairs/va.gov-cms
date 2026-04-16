@@ -16,7 +16,7 @@ interface GetOriginalInterface {
    * @return bool
    *   TRUE if the node has an original version.  FALSE otherwise.
    */
-  public function hasOriginal(): bool;
+  public function hasOriginalVersion(): bool;
 
   /**
    * Retrieve the original version of this node.
@@ -27,7 +27,7 @@ interface GetOriginalInterface {
    * @throws \Drupal\va_gov_content_types\Exception\NoOriginalExistsException
    *   Thrown when the node has no original version.
    */
-  public function getOriginal(): VaNodeInterface;
+  public function getOriginalVersion(): VaNodeInterface;
 
   /**
    * Get the previously saved value of a field.

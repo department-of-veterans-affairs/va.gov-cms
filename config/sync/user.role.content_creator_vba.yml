@@ -5,6 +5,8 @@ dependencies:
   config:
     - node.type.vba_facility_service
   module:
+    - ai_image_alt_text
+    - entity_usage
     - node
     - va_gov_backend
 third_party_settings:
@@ -15,5 +17,7 @@ label: 'Content creator - VBA'
 weight: -3
 is_admin: null
 permissions:
+  - 'access entity usage statistics'
   - 'create vba_facility_service content'
+  - 'generate ai alt tags'
   - 'view node link report'

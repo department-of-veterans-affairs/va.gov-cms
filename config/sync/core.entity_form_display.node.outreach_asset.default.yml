@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.outreach_asset.field_listing
     - field.field.node.outreach_asset.field_media
     - field.field.node.outreach_asset.field_meta_tags
+    - field.field.node.outreach_asset.field_outreach_materials_topics
     - node.type.outreach_asset
     - workflows.workflow.editorial
   module:
@@ -26,7 +27,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 13
+      weight: 12
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -41,7 +42,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: ''
@@ -54,7 +55,7 @@ third_party_settings:
       label: 'Meta Tags'
       region: content
       parent_name: ''
-      weight: 11
+      weight: 10
       format_type: fieldset
       format_settings:
         classes: ''
@@ -88,13 +89,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 26
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_lc_categories:
-    type: options_select
-    weight: 10
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -110,6 +105,18 @@ content:
     region: content
     settings:
       media_types: {  }
+    third_party_settings: {  }
+  field_lc_categories:
+    type: options_select
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_outreach_materials_topics:
+    type: options_select
+    weight: 9
+    region: content
+    settings: {  }
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default

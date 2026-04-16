@@ -1,0 +1,25 @@
+uuid: 2e7310b9-e834-4060-a2b3-8f141cc6c612
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_online_scheduling_avail
+    - paragraphs.paragraphs_type.service_location
+  module:
+    - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.service_location.field_online_scheduling_avail
+field_name: field_online_scheduling_avail
+entity_type: paragraph
+bundle: service_location
+label: 'Is online scheduling available for this service?'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

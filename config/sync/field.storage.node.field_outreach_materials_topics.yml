@@ -1,0 +1,20 @@
+uuid: e6741bf8-faf1-46dc-9dde-cd07f377665b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_outreach_materials_topics
+field_name: field_outreach_materials_topics
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

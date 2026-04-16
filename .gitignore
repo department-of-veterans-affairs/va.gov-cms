@@ -81,10 +81,6 @@ node_modules/
 # Ignore compiled Drupal theme files
 /docroot/themes/custom/*/dist/
 
-# Ignore compiled design system & Storybook files
-/docroot/design-system/storybook-static
-/docroot/design-system/dist/
-
 # Ignore accessibility test reports
 /tests/accessibility/axeReport/*.csv
 # Ignore accessibility test screenshots & videos
@@ -102,8 +98,9 @@ datadog-setup.php
 # web
 # @TODO: Installer paths is not working. Leaving symlink for now.
 
-# Ignore Next (next-build)
+# Ignore Next (next-build) and vets-website installed for Next.
 next
+vets-website
 # Ignore oauth keys used for validating next-build preview api requests
 public.key
 private.key
@@ -114,3 +111,5 @@ private.key
 # DDEV files.
 .ddev/providers/platform.yaml
 .ddev/docker-compose.datadog.yaml
+# DDEV sometimes creates this file.
+core

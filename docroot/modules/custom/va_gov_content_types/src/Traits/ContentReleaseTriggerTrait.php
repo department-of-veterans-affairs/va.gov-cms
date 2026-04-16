@@ -63,12 +63,12 @@ trait ContentReleaseTriggerTrait {
   /**
    * {@inheritDoc}
    */
-  abstract public function getOriginal(): VaNodeInterface;
+  abstract public function getOriginalVersion(): VaNodeInterface;
 
   /**
    * {@inheritDoc}
    */
-  abstract public function hasOriginal(): bool;
+  abstract public function hasOriginalVersion(): bool;
 
   /**
    * Indicate whether this node should trigger a content release event.
@@ -97,7 +97,7 @@ trait ContentReleaseTriggerTrait {
     if (!$this->isFacility()) {
       return FALSE;
     }
-    if (!$this->hasOriginal()) {
+    if (!$this->hasOriginalVersion()) {
       return FALSE;
     }
     if ($this->isModeratedAndPublished()) {
@@ -181,7 +181,7 @@ trait ContentReleaseTriggerTrait {
     if ($this->isModerated()) {
       return FALSE;
     }
-    return $this->hasOriginal() && $this->getOriginal()->isPublished();
+    return $this->hasOriginalVersion() && $this->getOriginalVersion()->isPublished();
   }
 
   /**

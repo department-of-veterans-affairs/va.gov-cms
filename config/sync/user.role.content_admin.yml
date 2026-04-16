@@ -5,6 +5,7 @@ dependencies:
   config:
     - block_content.type.alert
     - block_content.type.benefit_promo
+    - block_content.type.connect_with_us
     - block_content.type.cta_with_link
     - block_content.type.news_promo
     - block_content.type.promo
@@ -21,12 +22,14 @@ dependencies:
     - workflows.workflow.restricted_archive
   module:
     - actions_permissions
+    - ai_image_alt_text
     - block_content
     - block_diff_ui
     - content_lock
     - content_moderation
     - content_translation
     - entity_clone
+    - entity_usage
     - entityqueue
     - file
     - filter
@@ -39,6 +42,7 @@ dependencies:
     - paragraphs
     - path
     - pathauto
+    - scheduler
     - smart_date_recur
     - system
     - tablefield
@@ -60,6 +64,7 @@ permissions:
   - 'accept translation jobs'
   - 'access administration pages'
   - 'access block library'
+  - 'access entity usage statistics'
   - 'access files overview'
   - 'access media overview'
   - 'access taxonomy overview'
@@ -80,6 +85,7 @@ permissions:
   - 'clone node entity'
   - 'clone paragraph entity'
   - 'create alert block content'
+  - 'create connect_with_us block content'
   - 'create content translations'
   - 'create cta_with_link block content'
   - 'create document media'
@@ -102,6 +108,7 @@ permissions:
   - 'delete video revisions'
   - 'edit any alert block content'
   - 'edit any benefit_promo block content'
+  - 'edit any connect_with_us block content'
   - 'edit any cta_with_link block content'
   - 'edit any document media'
   - 'edit any document_external media'
@@ -118,6 +125,7 @@ permissions:
   - 'execute publish_latest_revision_action node'
   - 'execute views_bulk_edit all'
   - 'export tablefield'
+  - 'generate ai alt tags'
   - 'import tablefield'
   - 'link to any page'
   - 'make smart dates recur'
@@ -134,6 +142,7 @@ permissions:
   - 'revert image revisions'
   - 'revert promo revisions'
   - 'revert video revisions'
+  - 'schedule publishing of nodes'
   - 'translate any entity'
   - 'unflag changed_filename'
   - 'unflag changed_name'
@@ -173,6 +182,7 @@ permissions:
   - 'view latest version'
   - 'view node link report'
   - 'view promo revisions'
+  - 'view scheduled content'
   - 'view sections in toolbar'
   - 'view the administration theme'
   - 'view unpublished paragraphs'

@@ -1,0 +1,28 @@
+uuid: d6af1a31-8bc6-49c1-89c4-72ecf28bd423
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_application_process
+    - filter.format.rich_text_limited
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - text
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.va_benefits_taxonomy.field_application_process
+field_name: field_application_process
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'Application process'
+description: 'Briefly describe the benefit application process, including which form(s) are required or optional.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - rich_text_limited
+field_type: text_long

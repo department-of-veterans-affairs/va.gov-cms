@@ -1,0 +1,32 @@
+diff --git a/redirect_options.module b/redirect_options.module
+index aa05474..2271278 100644
+--- a/redirect_options.module
++++ b/redirect_options.module
+@@ -8,6 +8,15 @@
+ use Drupal\Core\Routing\RouteMatchInterface;
+ use Drupal\Core\Form\FormStateInterface;
+ 
++/**
++ * The specific forms we want to modify.
++ */
++const TARGET_FORMS = [
++  'redirect_redirect_form',
++  'redirect_redirect_edit_form',
++  'redirect_redirect_delete_form',
++];
++
+ /**
+  * Implements hook_help().
+  */
+@@ -27,8 +36,9 @@ function redirect_options_help($route_name, RouteMatchInterface $route_match) {
+ /**
+  * Implements hook_form_form_alter().
+  */
+-function redirect_options_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+-  if (is_array($form['#attributes']) && array_key_exists('class', $form['#attributes']) && in_array('redirect-form', $form['#attributes']['class'])) {
++function redirect_options_form_alter(&$form, FormStateInterface $form_state, $form_id)
++{
++  if (in_array($form['#form_id'], TARGET_FORMS)) {
+     $vid = 'type_of_redirect';
+     $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
+     foreach ($terms as $term) {

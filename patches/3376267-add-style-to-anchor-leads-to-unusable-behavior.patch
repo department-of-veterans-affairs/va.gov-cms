@@ -1,0 +1,15 @@
+diff --git a/core/modules/ckeditor5/js/ckeditor5.js b/core/modules/ckeditor5/js/ckeditor5.js
+index 3fbb9043b2..8089f4efe0 100644
+--- a/core/modules/ckeditor5/js/ckeditor5.js
++++ b/core/modules/ckeditor5/js/ckeditor5.js
+@@ -425,6 +425,10 @@
+             element.removeAttribute('required');
+           }
+ 
++          // Fix anchor scheme to not copyOnEnter until fixed upstream.
++          // @see https://www.drupal.org/project/drupal/issues/3376167
++          editor.model.schema.setAttributeProperties('htmlA', {copyOnEnter: false});
++
+           // Integrate CKEditor 5 viewport offset with Drupal displace.
+           // @see \Drupal\Tests\ckeditor5\FunctionalJavascript\CKEditor5ToolbarTest
+           // @see https://ckeditor.com/docs/ckeditor5/latest/api/module_core_editor_editorui-EditorUI.html#member-viewportOffset

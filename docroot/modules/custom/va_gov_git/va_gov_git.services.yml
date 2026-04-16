@@ -1,35 +1,41 @@
 services:
   va_gov_git.repository_factory:
     class: Drupal\va_gov_git\Repository\Factory\RepositoryFactory
-    arguments: ['@va_gov_git.repository_settings']
+    arguments: [ '@va_gov_git.repository_settings' ]
   va_gov_git.repository_settings:
     class: Drupal\va_gov_git\Repository\Settings\RepositorySettings
-    arguments: ['@settings']
+    arguments: [ '@settings' ]
   va_gov_git.repository.va_gov_cms:
     class: Drupal\va_gov_git\Repository\Repository
-    factory: ['@va_gov_git.repository_factory', 'getCms']
+    factory: [ '@va_gov_git.repository_factory', 'getCms' ]
     arguments: []
   va_gov_git.repository.content_build:
     class: Drupal\va_gov_git\Repository\Repository
-    factory: ['@va_gov_git.repository_factory', 'getContentBuild']
+    factory: [ '@va_gov_git.repository_factory', 'getContentBuild' ]
     arguments: []
   va_gov_git.repository.vets_website:
     class: Drupal\va_gov_git\Repository\Repository
-    factory: ['@va_gov_git.repository_factory', 'getVetsWebsite']
+    factory: [ '@va_gov_git.repository_factory', 'getVetsWebsite' ]
     arguments: []
   va_gov_git.branch_search_factory:
     class: Drupal\va_gov_git\BranchSearch\Factory\BranchSearchFactory
-    arguments: ['@va_gov_git.repository_factory', '@logger.factory']
+    arguments: [ '@va_gov_git.repository_factory', '@logger.factory' ]
   va_gov_git.branch_search.va_gov_cms:
     class: Drupal\va_gov_git\BranchSearch\BranchSearch
-    factory: ['@va_gov_git.branch_search_factory', 'getCms']
+    factory: [ '@va_gov_git.branch_search_factory', 'getCms' ]
     arguments: []
   va_gov_git.branch_search.content_build:
     class: Drupal\va_gov_git\BranchSearch\BranchSearch
-    factory: ['@va_gov_git.branch_search_factory', 'getContentBuild']
+    factory: [ '@va_gov_git.branch_search_factory', 'getContentBuild' ]
     arguments: []
   va_gov_git.branch_search.vets_website:
     class: Drupal\va_gov_git\BranchSearch\BranchSearch
-    factory: ['@va_gov_git.branch_search_factory', 'getVetsWebsite']
+    factory: [ '@va_gov_git.branch_search_factory', 'getVetsWebsite' ]
     arguments: []
-
+  va_gov_git.branch_search.next_build:
+    class: Drupal\va_gov_git\BranchSearch\BranchSearch
+    factory: [ '@va_gov_git.branch_search_factory', 'getNextBuild' ]
+    arguments: []
+  va_gov_git.branch_search.next_build_vets_website:
+    class: Drupal\va_gov_git\BranchSearch\BranchSearch
+    factory: [ '@va_gov_git.branch_search_factory', 'getNextBuildVetsWebsite' ]

@@ -1,0 +1,27 @@
+uuid: 42f3aabe-e0c0-4b78-bb66-2d4e743de42d
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_digital_form_date_format
+field_name: field_digital_form_date_format
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: month_day_year
+      label: Month/Day/Year
+    -
+      value: month_year
+      label: Month/Year
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

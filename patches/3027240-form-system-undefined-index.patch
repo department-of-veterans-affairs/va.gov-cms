@@ -1,0 +1,23 @@
+diff --git a/core/lib/Drupal/Core/Form/FormState.php b/core/lib/Drupal/Core/Form/FormState.php
+index 8264371c..d2f8cafb 100644
+--- a/core/lib/Drupal/Core/Form/FormState.php
++++ b/core/lib/Drupal/Core/Form/FormState.php
+@@ -1109,11 +1109,13 @@ public function clearErrors() {
+   public function getError(array $element) {
+     if ($errors = $this->getErrors()) {
+       $parents = [];
+-      foreach ($element['#parents'] as $parent) {
+-        $parents[] = $parent;
+-        $key = implode('][', $parents);
+-        if (isset($errors[$key])) {
+-          return $errors[$key];
++      if (!empty($element['#parents'])) {
++        foreach ($element['#parents'] as $parent) {
++          $parents[] = $parent;
++          $key = implode('][', $parents);
++          if (isset($errors[$key])) {
++            return $errors[$key];
++          }
+         }
+       }
+     }

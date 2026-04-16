@@ -1,0 +1,213 @@
+diff --git a/README.md b/README.md
+index 5b33ce556795b3bd515f46312b5eddc410c21d66..fc65f47d1a9adccb6bf762ceea98ff76ba5a35ad 100644
+--- a/README.md
++++ b/README.md
+@@ -151,6 +151,24 @@ the default in this case but could be set using:
+     Memcached::OPT_DISTRIBUTION => Memcached::DISTRIBUTION_CONSISTENT,
+   ];
+ ```
++
++### Persistent connections
++
++Memcache and Memcached both support persistent connections.
++
++To enable persistent connections, use:
++```
++  $settings['memcache']['persistent'] = TRUE;
++```
++
++You can also set a persistent ID for Memcached (visit
++https://www.php.net/manual/de/memcached.construct.php to learn more):
++```
++  $settings['memcache']['persistent_id'] = 'YOUR_CONNECTION_ID';
++```
++If you do not specify persistent_id, the key_prefix is used. If no key_prefix
++is set, a hash from base_url is used.
++
+ ## LOCKS
+
+ Memcache locks can be enabled through the services.yml file.
+diff --git a/memcache_admin/src/EventSubscriber/MemcacheServerStatsSubscriber.php b/memcache_admin/src/EventSubscriber/MemcacheServerStatsSubscriber.php
+index 5298f4c9a0b6da009877e2f7b426dbc620f8f61b..e7b5a9fc331a9e46688e2726cf2b04955c2ca045 100644
+--- a/memcache_admin/src/EventSubscriber/MemcacheServerStatsSubscriber.php
++++ b/memcache_admin/src/EventSubscriber/MemcacheServerStatsSubscriber.php
+@@ -107,6 +107,7 @@ class MemcacheServerStatsSubscriber implements EventSubscriberInterface {
+         ]);
+         $data['server_time'][$server] = $statistics->getServerTime();
+         $data['server_connections'][$server] = $statistics->getConnections();
++        $data['is_persistent_connection'][$server] = $event->getMemcache()->getMemcache()->isPersistent() ? $this->t('Yes') : $this->t('No');
+         $data['cache_sets'][$server] = $statistics->getSets();
+         $data['cache_gets'][$server] = $statistics->getGets();
+         $data['cache_counters'][$server] = $statistics->getCounters();
+@@ -132,6 +133,10 @@ class MemcacheServerStatsSubscriber implements EventSubscriberInterface {
+           'label' => $this->t('Connections'),
+           'servers' => $data['server_connections'],
+         ],
++        'is_persistent_connection' => [
++          'label' => $this->t('Persistent connection'),
++          'servers' => $data['is_persistent_connection'],
++        ],
+       ],
+       'stats' => [
+         'sets' => [
+diff --git a/src/Connection/MemcachedConnection.php b/src/Connection/MemcachedConnection.php
+index 63ce2442afc646ba3a37197c83ca8625a85ef71a..0e48ec9a70dba696cae1ae71782bca74567b2198 100755
+--- a/src/Connection/MemcachedConnection.php
++++ b/src/Connection/MemcachedConnection.php
+@@ -16,6 +16,13 @@ class MemcachedConnection implements MemcacheConnectionInterface {
+    */
+   protected $memcache;
+
++  /**
++   * Persistent connection ID to be used for the memcached library.
++   *
++   * @var string
++   */
++  protected $persistentId;
++
+   /**
+    * Constructs a MemcachedConnection object.
+    *
+@@ -23,7 +30,22 @@ class MemcachedConnection implements MemcacheConnectionInterface {
+    *   The memcache config object.
+    */
+   public function __construct(MemcacheSettings $settings) {
+-    $this->memcache = new \Memcached();
++    global $base_url;
++
++    if ($settings->get('persistent')) {
++      // Read or generate persistentId.
++      $this->persistentId = $settings->get('persistent_id') ?? $settings->get('key_prefix') ?? md5($base_url);
++      $this->memcache = new \Memcached($this->persistentId);
++    }
++    else {
++      $this->memcache = new \Memcached();
++    }
++
++    // Add options only the first time instance is created.
++    if ($this->getExistingServers()) {
++      // Persistent connections are coming pre-configured.
++      return;
++    }
+
+     $default_opts = [
+       \Memcached::OPT_COMPRESSION => TRUE,
+@@ -32,7 +54,7 @@ class MemcachedConnection implements MemcacheConnectionInterface {
+     foreach ($default_opts as $key => $value) {
+       $this->memcache->setOption($key, $value);
+     }
+-    // See README.txt for setting custom Memcache options when using the
++    // See README.md for setting custom Memcache options when using the
+     // memcached PECL extension.
+     foreach ($settings->get('options', []) as $key => $value) {
+       $this->memcache->setOption($key, $value);
+@@ -45,6 +67,25 @@ class MemcachedConnection implements MemcacheConnectionInterface {
+     }
+   }
+
++  /**
++   * Fetches the list of existing servers present on the memcache client.
++   *
++   * @return array
++   *   Keyed map of servers that are already used on the server.
++   */
++  private function getExistingServers() {
++    if (!$this->persistentId) {
++      return [];
++    }
++
++    $existingServers = [];
++    foreach ($this->memcache->getServerList() as $server) {
++      $existingServers["{$server['host']}:{$server['port']}"] = TRUE;
++    }
++
++    return $existingServers;
++  }
++
+   /**
+    * {@inheritdoc}
+    */
+@@ -58,7 +99,18 @@ class MemcachedConnection implements MemcacheConnectionInterface {
+       $port = 0;
+     }
+
+-    return $this->memcache->addServer($host, $port, $persistent);
++    // Check if server was already added as persistent connection.
++    if ($persistent) {
++      $existingServers = $this->getExistingServers();
++      if (isset($existingServers["$host:$port"])) {
++        // We are connected to that server already.
++        return TRUE;
++      }
++    }
++
++    // We follow the equal distribution.
++    // @todo Consider exposing having a config for the server weights as well.
++    return $this->memcache->addServer($host, $port);
+   }
+
+   /**
+diff --git a/src/Driver/MemcacheDriverFactory.php b/src/Driver/MemcacheDriverFactory.php
+index 3730376a76705e28540981927c180bc72b81f47e..d8c24b1f289b942418114845ff3b5111e0cb266e 100644
+--- a/src/Driver/MemcacheDriverFactory.php
++++ b/src/Driver/MemcacheDriverFactory.php
+@@ -194,9 +194,8 @@ class MemcacheDriverFactory {
+     $this->bins = $this->settings->get('bins', ['default' => 'default']);
+
+     // Indicate whether to connect to memcache using a persistent connection.
+-    // Note: this only affects the Memcache PECL extension, and does not affect
+-    // the Memcached PECL extension.  For a detailed explanation see:
+-    // http://drupal.org/node/822316#comment-4427676
++    // The persistent connection for Memcache is set with addServer and for
++    // Memcached the persistent connection is set in the constructor.
+     $this->persistent = $this->settings->get('persistent', FALSE);
+   }
+
+diff --git a/src/Driver/MemcachedDriver.php b/src/Driver/MemcachedDriver.php
+index 9f8f97fd8d64e4b398d5546e26f1c460da0d4b01..55cf8f6ff68881bcd7f1c27ed070f56d7ca1bed4 100755
+--- a/src/Driver/MemcachedDriver.php
++++ b/src/Driver/MemcachedDriver.php
+@@ -27,6 +27,11 @@ class MemcachedDriver extends DriverBase {
+       );
+     }
+
++    if ($this->shouldRecalcKeyDistribution($this->memcache->getResultCode())) {
++      $this->memcache->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, TRUE);
++      $this->memcache->set($full_key, $value, $exp);
++    }
++
+     if ($collect_stats) {
+       $this->statsWrite('set', 'cache', [$full_key => (int) $result]);
+     }
+@@ -96,4 +101,31 @@ class MemcachedDriver extends DriverBase {
+     return $cid_results;
+   }
+
++  /**
++   * Check if we use Libketama option and the result code of memcached.
++   *
++   * After a set() we can get error codes with $memcache->getResultCode()
++   *
++   * @param int $result_code
++   *   The memcached result code.
++   *
++   * @return bool
++   *   True if we should recalculate.
++   */
++  private function shouldRecalcKeyDistribution($result_code) {
++    $error_codes = [
++      \Memcached::RES_ERRNO,
++      \Memcached::RES_TIMEOUT,
++      \Memcached::RES_HOST_LOOKUP_FAILURE,
++      \Memcached::RES_CONNECTION_SOCKET_CREATE_FAILURE,
++      \Memcached::RES_SERVER_MARKED_DEAD,
++      // \Memcached::RES_CONNECTION_FAILURE not available.
++      3,
++      // \Memcached::RES_SERVER_TEMPORARILY_DISABLED not available.
++      47,
++    ];
++    $has_ketama = ($this->settings->get(\Memcached::OPT_LIBKETAMA_COMPATIBLE) === TRUE);
++    return (in_array($result_code, $error_codes) && $has_ketama);
++  }
++
+ }

@@ -1,0 +1,11 @@
+{% extends '@va_gov_form_builder/base/two-column-with-buttons.html.twig' %}
+
+{% set page_type = 'form' %}
+
+{% block messages %}
+  {{ form.status_messages }}
+{% endblock %}
+
+{% block buttons %}
+  {{ form.actions }}
+{% endblock %}

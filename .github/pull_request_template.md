@@ -2,6 +2,9 @@
 
 Relates to #_issueid_. (or closes?)
 
+### Generated description
+(Select this text, hit the Copilot button, and select "Generate".)
+
 ## Testing done
 
 
@@ -9,6 +12,10 @@ Relates to #_issueid_. (or closes?)
 
 
 ## QA steps
+
+<!--
+Note: GitHub Copilot will be added as a PR reviewer automatically. Please pay attention to its suggestions, but use your judgement when deciding whether to incorporate them.
+-->
 
 What needs to be checked to prove this works?
 What needs to be checked to prove it didn't break any related things?

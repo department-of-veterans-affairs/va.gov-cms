@@ -1,0 +1,135 @@
+uuid: ba7d481a-3a13-4a24-822a-27269e14b4af
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.news_spotlight_blocks
+  module:
+    - eca_base
+    - eca_content
+    - eca_migrate
+    - eca_views
+    - entityqueue
+    - va_gov_eca
+id: home_page_news_spotlight_block
+modeller: core
+label: 'Home page: News Spotlight Block'
+version: ''
+weight: 0
+events:
+  migrate_post_import:
+    plugin: 'migrate:post_import'
+    label: 'Migration import finished'
+    configuration: {  }
+    successors:
+      -
+        id: eca_views_query_news_block
+        condition: news_spotlight_block_migration
+  home_page_news_block_event:
+    plugin: 'content_entity:custom'
+    label: 'Content  Aware Event: News Spotlight Block'
+    configuration:
+      event_id: home_page_news_spotlight_block_event
+    successors:
+      -
+        id: entityqueue_add_item
+        condition: entityqueue_entity_is_in_subqueu
+  migrate_post_rollback:
+    plugin: 'migrate:post_rollback'
+    label: 'Migration rollback finished'
+    configuration: {  }
+    successors:
+      -
+        id: eca_views_query_news_block
+        condition: news_spotlight_block_migration
+  eca_base_eca_cron:
+    plugin: 'eca_base:eca_cron'
+    label: 'ECA cron event'
+    configuration:
+      frequency: '15 0 * * *'
+    successors:
+      -
+        id: execute_news_spotlight_images_mi
+        condition: null
+      -
+        id: execute_news_spotlight_media_mi
+        condition: null
+      -
+        id: execute_news_spotlight_blocks_mi
+        condition: null
+conditions:
+  news_spotlight_block_migration:
+    plugin: eca_scalar
+    configuration:
+      left: '[migration_id]'
+      right: news_spotlight_blocks
+      operator: equal
+      type: value
+      case: false
+      negate: false
+  entityqueue_entity_is_in_subqueu:
+    plugin: entityqueue_entity_is_in_subqueue
+    configuration:
+      subqueue: home_page_news_spotlight
+      negate: true
+      entity: entity
+gateways: {  }
+actions:
+  eca_views_query_news_block:
+    plugin: eca_views_query
+    label: 'Views: Home page news spotlight block'
+    configuration:
+      token_name: results
+      view_id: news_spotlight_blocks
+      display_id: default
+      arguments: ''
+    successors:
+      -
+        id: home_page_news_block_eca_trigger
+        condition: null
+  home_page_news_block_eca_trigger:
+    plugin: eca_trigger_content_entity_custom_event
+    label: 'Trigger Custom Event: News Spotlight Block'
+    configuration:
+      event_id: home_page_news_spotlight_block_event
+      tokens: ''
+      object: results
+    successors: {  }
+  entityqueue_add_item:
+    plugin: entityqueue_add_item
+    label: 'Add Item to a Subqueue'
+    configuration:
+      subqueue: home_page_news_spotlight
+      object: entity
+      replace_tokens: false
+    successors: {  }
+  execute_news_spotlight_images_mi:
+    plugin: execute_migration_import
+    label: 'Execute news_spotlight_images migration'
+    configuration:
+      migration: news_spotlight_images
+      update: false
+      force: false
+      limit: ''
+      idlist: ''
+    successors: {  }
+  execute_news_spotlight_media_mi:
+    plugin: execute_migration_import
+    label: 'Execute news_spotlight_media migration'
+    configuration:
+      migration: news_spotlight_media
+      update: false
+      force: false
+      limit: ''
+      idlist: ''
+    successors: {  }
+  execute_news_spotlight_blocks_mi:
+    plugin: execute_migration_import
+    label: 'Execute news_spotlight_blocks migration'
+    configuration:
+      migration: news_spotlight_blocks
+      update: false
+      force: false
+      limit: ''
+      idlist: ''
+    successors: {  }

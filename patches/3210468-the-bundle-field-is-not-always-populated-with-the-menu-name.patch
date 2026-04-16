@@ -1,0 +1,14 @@
+diff --git a/menu_item_extras.module b/menu_item_extras.module
+index 3177adc..c589865 100644
+--- a/menu_item_extras.module
++++ b/menu_item_extras.module
+@@ -100,8 +100,8 @@ function menu_item_extras_menu_link_content_presave(EntityInterface $entity) {
+     /** @var \Drupal\menu_item_extras\Service\MenuLinkContentServiceInterface $menu_links_helper */
+     $menu_links_helper = \Drupal::service('menu_item_extras.menu_link_content_helper');
+     $menu_links_helper->cleanupFields($entity);
+-    $entity->set('bundle', $entity->getMenuName());
+   }
++  $entity->set('bundle', $entity->getMenuName());
+ }
+ 
+ /**

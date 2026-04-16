@@ -1,6 +1,6 @@
 <?php
 
-namespace test\phpunit\Deploy;
+namespace Tests\Logging;
 
 use Drupal\va_gov_backend\Logger\Processor\DatadogApmProcessor;
 use Drupal\va_gov_backend\Service\DatadogContextProviderInterface;

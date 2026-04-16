@@ -47,7 +47,7 @@ class IsFacilityTraitTest extends VaGovUnitTestBase {
       ],
       'health_care_local_facility' => ['health_care_local_facility', TRUE],
       'nca_facility' => ['nca_facility', FALSE],
-      'vba_facility' => ['vba_facility', FALSE],
+      'vba_facility' => ['vba_facility', TRUE],
       'vet_center_cap' => ['vet_center_cap', TRUE],
       'vet_center_outstation' => ['vet_center_outstation', TRUE],
       'vet_center' => ['vet_center', TRUE],

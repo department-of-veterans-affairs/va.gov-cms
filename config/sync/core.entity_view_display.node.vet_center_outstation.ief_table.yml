@@ -1,0 +1,113 @@
+uuid: d069fb03-a773-4a7f-a72a-7e5bed98155b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.ief_table
+    - field.field.node.vet_center_outstation.field_address
+    - field.field.node.vet_center_outstation.field_administration
+    - field.field.node.vet_center_outstation.field_cc_non_traditional_hours
+    - field.field.node.vet_center_outstation.field_cc_vet_center_call_center
+    - field.field.node.vet_center_outstation.field_cc_vet_center_faqs
+    - field.field.node.vet_center_outstation.field_cc_vet_center_featured_con
+    - field.field.node.vet_center_outstation.field_facility_locator_api_id
+    - field.field.node.vet_center_outstation.field_geolocation
+    - field.field.node.vet_center_outstation.field_health_services
+    - field.field.node.vet_center_outstation.field_intro_text
+    - field.field.node.vet_center_outstation.field_last_saved_by_an_editor
+    - field.field.node.vet_center_outstation.field_media
+    - field.field.node.vet_center_outstation.field_mission_explainer
+    - field.field.node.vet_center_outstation.field_office
+    - field.field.node.vet_center_outstation.field_office_hours
+    - field.field.node.vet_center_outstation.field_official_name
+    - field.field.node.vet_center_outstation.field_operating_status_facility
+    - field.field.node.vet_center_outstation.field_operating_status_more_info
+    - field.field.node.vet_center_outstation.field_phone_number
+    - field.field.node.vet_center_outstation.field_prepare_for_visit
+    - field.field.node.vet_center_outstation.field_table_of_contents
+    - field.field.node.vet_center_outstation.field_timezone
+    - field.field.node.vet_center_outstation.field_vet_center_banner_image
+    - field.field.node.vet_center_outstation.field_vet_center_feature_content
+    - node.type.vet_center_outstation
+  module:
+    - user
+id: node.vet_center_outstation.ief_table
+targetEntityType: node
+bundle: vet_center_outstation
+mode: ief_table
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  field_health_services:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  flag_awaiting_csv:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_awaiting_editor:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_awaiting_redirect:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_changed_name:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_new:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_removed_from_source:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  breadcrumbs: true
+  field_address: true
+  field_administration: true
+  field_cc_non_traditional_hours: true
+  field_cc_vet_center_call_center: true
+  field_cc_vet_center_faqs: true
+  field_cc_vet_center_featured_con: true
+  field_facility_locator_api_id: true
+  field_geolocation: true
+  field_intro_text: true
+  field_last_saved_by_an_editor: true
+  field_media: true
+  field_mission_explainer: true
+  field_office: true
+  field_office_hours: true
+  field_official_name: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
+  field_phone_number: true
+  field_prepare_for_visit: true
+  field_table_of_contents: true
+  field_timezone: true
+  field_vet_center_banner_image: true
+  field_vet_center_feature_content: true
+  langcode: true
+  search_api_excerpt: true

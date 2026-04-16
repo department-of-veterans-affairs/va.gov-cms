@@ -1,0 +1,220 @@
+# #######################################################################
+# New Mobile Vet Center Runbook #
+# #######################################################################
+# Runbook for adding new Mobile Vet Center (MVC) tickets.
+# Created and last edited by Stefanie Gray - stefanie.gray@va.gov
+# #######################################################################
+name: Flagged Facilities ticket form - New Mobile Vet Center (Satellite Location)
+description: Use this form to create a new ticket listing the runbook steps for verifying and publishing a new Mobile Vet Center (MVC) node in the CMS and ensuring it is linked to the parent Vet Center section.
+title: New Mobile Vet Center - [INSERT MOBILE VET CENTER NAME]
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, Vet Center, sitewide
+projects: projects/1859
+
+body:
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+       ### Before creating a New Mobile Vet Center ticket
+       - Please do not create this ticket until the new Mobile Vet Center has appeared on the CMS [Flagged Facilities page](https://prod.cms.va.gov/admin/content/facilities/flagged).
+
+       - **If notified via Jira but not flagged in the CMS:** Confirm with the editor that they reported the new facility to VAST. Please refer to the KB article "[How do I update my Vet Center facility's basic location data?](https://prod.cms.va.gov/help/vet-centers/how-do-i-update-my-vet-center-facilitys-basic-location-data)" for more info and send to editor if needed.
+
+       - **If reported to VAST but not listed yet:** Changes made within VAST can take up to 75 days to appear within the Facilities API.
+
+       - **If the help desk is waiting on info or actions from facility editor(s):** Please add the "Awaiting editor" flag to the facility node with a revision log message that includes Jira or Github ticket numbers. Do not change the moderation state of the node (e.g. "Draft", "Published") when adding or removing flags unless otherwise noted.
+       
+       - **For any Vet Center sections lacking active editors:** Please contact Barb Kuhn or the current VA leadership point of contact.
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+        # Facility and ticket information
+
+  # INPUT:
+  - type: input
+    id: mobile_vet_center_name
+    attributes:
+      label: Mobile Vet Center name
+      description: "What is the full, official name of the new Mobile Vet Center?"
+      placeholder: "Example: Cityname Mobile Vet Center"
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: vet_center_section
+    attributes:
+      label: Vet Center section name
+      description: "What is the name of the parent Vet Center section that this Mobile Vet Center should be linked to?"
+      placeholder: "Example: Cityname Vet Center"
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: facility_prod_link
+    attributes:
+      label: Link to Mobile Vet Center node on production site
+      description: "Please provide a link to the Mobile Vet Center node on the VA CMS production site."
+      placeholder: "https://prod.cms.va.gov..."
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: facility_api_id
+    attributes:
+      label: Facility API ID (Mobile Vet Center)
+      description: "What is the Mobile Vet Center's Facility API ID?"
+      placeholder: "e.g. vc_0123MVC"
+    validations:
+      required: true
+
+  # CHECKBOX:
+  - type: checkboxes
+    id: spreadsheet
+    attributes:
+      label: Has the new Mobile Vet Center been added to the internal Flagged Facilities listing yet?
+      description: If no, please add it to the appropriate tab with the prod link, facility ID, and any relevant ticket links or details. ([Current spreadsheet](https://docs.google.com/spreadsheets/d/1mqTRGkrnfysFMjC8xTHdFzQOMIQ7WrD2CLX83io5Z74/edit?gid=1358772674#gid=1358772674))
+      options:
+        - label: "Yes"
+        - label: "No"
+    validations:
+      required: false
+
+  # TEXTAREA:
+  - type: textarea
+    id: jira_ticket_links
+    attributes:
+      label: Embedded Support - Please link Jira ticket(s) associated with facility.
+      description: "Paste one or more links to relevant VA CMS tickets in Jira. If none found, please link any new Jira tickets once created."
+      placeholder: |
+        1. https://jira.example.com/browse/ABC-123
+        2. https://jira.example.com/browse/ABC-456
+    validations:
+      required: false
+      
+  # TEXTAREA:
+  - type: textarea
+    id: url_redirect_link
+    attributes:
+      label: Links to any related GitHub tickets
+      description: You do not need to create any redirect tickets for Mobile Vet Center nodes, because they do not have direct URLs on the live site. These nodes are nested within the linked Vet Center's Locations page.
+      placeholder: |
+        https://github.com/department-of-veterans-affairs/va.gov-cms/issues/#####
+    validations:
+      required: false
+
+  # TEXTAREA:
+  - type: textarea
+    id: runbook_steps
+    attributes:
+      label: Acceptance criteria for new Mobile Vet Center (Runbook steps)
+      description: LEAVE AS-IS, SKIP TO "CREATE." Assignees will check off the boxes below as they complete the work.
+      value: |
+        ### Drupal Administrator steps (Embedded Support team or Facilities team):
+
+        #### STEP 1: Inspect URL
+        - [ ] First, please inspect the new Mobile Vet Center URL. Does it end in `-0`?
+
+              - [ ] **No**: No work needed, proceed to next steps.
+
+              - [ ] **Yes**: This node may be a duplicate of an existing MVC. In this case, please go to the original MVC URL by removing the `-0`.
+
+                    - **If there are two MVCs listed under the same name with two different nodes:** Embedded Support will need to email the associated Vet Center Section editor(s) to confirm which one has the correct ID (see "Duplicate Mobile Vet Center email" below).
+
+                    - **Context:** Duplicate node creation may happen when MVC vehicles are swapped between Vet Centers, or a new vehicle is put into use. This is because each MVC ID within the CMS is associated with a specific vehicle, not a specific section or node.
+
+        #### STEP 2: URL check
+        - [ ] Does the section listed in the URL match the main Vet Center listed in the Mobile Vet Center's H1 title?
+
+              - [ ] **Yes**: No work needed, proceed to next steps.
+
+              - [ ] **No**: You will need to use the Bulk Edit page to re-save the URL alias for this MVC node. Otherwise, it will not be linked to the main Vet Center properly, and will not show up on the Vet Center's "Locations" page. Instructions listed below.
+
+        #### STEP 3: Section check
+        - [ ] Inspect the "Main Vet Center" and "Section" fields. Does the H1 title of the Mobile Vet Center node match the name of the Vet Center section listed in these fields?
+
+              - [ ] **Yes**: No work needed, proceed to next steps.
+
+              - [ ] **No**: Please edit the node and update the incorrect field(s) after confirming the correct Vet Center section assignment.
+
+        #### STEP 4: URL alias update and re-saving the node
+        (This step is only necessary if you made section or URL changes in Steps 1, 2, or 3. Otherwise, skip.)
+
+        Go to the [Bulk Edit](https://prod.cms.va.gov/admin/content/bulk) page, filter by section, moderation state = "Any", and search for the Mobile Vet Center.
+
+        Select the node, then use the "Action" menu at the bottom of the Bulk Edit page to perform the steps listed below. You must click "Apply to selected items" after each action listed, or it will not be executed or saved.
+
+           - [ ] If the MVC node is currently listed under an incorrect section, please use the "Modify Values" action to update the assigned section, then click "Apply to selected items."
+
+           - [ ] **Update the node's URL alias:** Click "Update URL alias" then "Apply to selected items."
+
+           - [ ] **Re-save the node:** Select "Re-save content" then click "Apply to selected items."
+
+        #### STEP 5: Verify URL alias update and section linking
+        (This step is only necessary if you made section or URL changes in Steps 1, 2, or 3. Otherwise, skip.)
+
+           - [ ] Refresh the MVC node to verify that the URL alias matches the associated Vet Center section.
+
+           - [ ] Visit the associated Vet Center's "Locations" page on the production site to ensure that the MVC is properly linked.
+
+        The MVC should be listed under the "Main and Satellite Locations" header on the Vet Center "Locations" node on the production site. If published, it will be listed beneath the "Satellite Locations" header on the live site.
+
+        ------
+
+        ### Embedded Support team steps:
+
+        #### STEP 6: Notify the associated Vet Center editor(s)
+        - [ ] Reach out to the associated Vet Center editor(s) via Jira and send the "New Mobile Vet Center reported" email template available below.
+
+              - **If the Mobile Vet Center lacks a photo:** Please ask the editor to add a photo as soon as possible. (Included within the "New Mobile Vet Center reported" email template.)
+
+              - **If the Mobile Vet Center node is unpublished:** Please remind the editor that the MVC will not be listed on their Vet Center's "Locations" page on the live site unless this node is saved as "Published." (Also included within the "New Mobile Vet Center reported" email template.)
+
+        #### STEP 7: Remove flags
+        - [ ] Once the editor has finished adding a photo and publishing the node, go to the MVC node, click "Edit," then scroll to bottom to remove the `New facility` flag and any other flags. Click Save.
+    validations:
+      required: true
+
+  # EMAIL TEMPLATES:
+  - type: textarea
+    id: email_templates
+    attributes:
+      label: Email templates
+      description: Leave this section as-is. Assignees will copy email templates from here.
+      value: |
+        ### New Mobile Vet Center reported
+        Send if a new MVC has been reported via the Flagged Facilities page but there is no existing communication confirming that this Mobile Vet Center vehicle is in use:
+
+        ```
+        A new Mobile Vet Center, [NAME OF MOBILE VET CENTER], has been added to the section [MAIN VET CENTER].
+
+        Please review the information listed for this location, and please add a photo at your earliest convenience: [INSERT PRODUCTION URL FOR MOBILE VET CENTER NODE]
+
+        If there is any incorrect information listed on this page, please let us know. Thank you!
+
+        This node is currently saved as a “Draft” and the info is not yet visible on the live site. Once it is saved as “Published,” it will be visible from the "Locations" page on your Vet Center site beneath the “Satellite Locations” header.
+        ```
+
+        ### Duplicate Mobile Vet Center email
+        Send if there is a new MVC that has been added to the VA.gov CMS that is a potential duplicate (i.e. same name/section as a different MVC node and has `-0` at the end of the URL).
+
+        ```
+        Hello,
+
+        We hope you’re doing well!
+
+        It looks like there are two entries within our system for the Mobile Vet Center associated with your location:
+
+        vc_####MVC (Mobile Vet Center #___)
+
+        vc_####MVC (Mobile Vet Center #___)
+
+        Can you please verify which of these two IDs matches the MVC currently in use? Thank you!
+        ```
+    validations:
+      required: false

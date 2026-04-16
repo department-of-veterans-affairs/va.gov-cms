@@ -1,0 +1,24 @@
+uuid: d5d4235f-6776-4ee9-bd0c-ecce20449e51
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_digital_form_what_to_know
+    - node.type.digital_form
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.digital_form.field_digital_form_what_to_know
+field_name: field_digital_form_what_to_know
+entity_type: node
+bundle: digital_form
+label: 'Digital Form: What to Know Bullets'
+description: 'Use a short bulleted list (2 to 5 bullets) to explain the most important things people need to know related to the form, like who can submit this form, when submitting this form is unnecessary, or time limits to be aware of'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,24 @@
+From afa95db47d0ff797222b23176cce2d828ae57454 Mon Sep 17 00:00:00 2001
+From: Gordon Heydon <gordon@heydon.com.au>
+Date: Mon, 27 Feb 2017 10:14:29 +1100
+Subject: [PATCH] Issue #2856138 by gordon: Error messages are not being
+ displayed correctly in modal windows
+
+---
+ src/Form/EntityBrowserForm.php | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/Form/EntityBrowserForm.php b/src/Form/EntityBrowserForm.php
+index 8f3c1e2..d5c0ce1 100644
+--- a/src/Form/EntityBrowserForm.php
++++ b/src/Form/EntityBrowserForm.php
+@@ -143,6 +143,7 @@ class EntityBrowserForm extends FormBase implements EntityBrowserFormInterface {
+     }
+ 
+     $form['#attached']['library'][] = 'entity_browser/entity_browser';
++    $form['widget']['#title'] = '';
+ 
+     return $form;
+   }
+-- 
+2.9.3

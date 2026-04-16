@@ -71,10 +71,12 @@ dependencies:
     - workflows.workflow.restricted_archive
   module:
     - actions_permissions
+    - ai_image_alt_text
     - block_content
     - block_diff_ui
     - content_lock
     - content_moderation
+    - entity_usage
     - file
     - filter
     - flag
@@ -84,6 +86,7 @@ dependencies:
     - node_link_report
     - paragraphs
     - pathauto
+    - scheduler
     - smart_date_recur
     - system
     - tablefield
@@ -101,6 +104,7 @@ permissions:
   - 'access administration pages'
   - 'access block library'
   - 'access content overview'
+  - 'access entity usage statistics'
   - 'access files overview'
   - 'access media overview'
   - 'access user profiles'
@@ -178,6 +182,7 @@ permissions:
   - 'edit any video media'
   - 'execute entity:break_lock node'
   - 'execute publish_latest_revision_action node'
+  - 'generate ai alt tags'
   - 'make smart dates recur'
   - 'notify of path changes'
   - 'rebuild tablefield'
@@ -244,6 +249,7 @@ permissions:
   - 'revert vet_center_outstation revisions'
   - 'revert vha_facility_nonclinical_service revisions'
   - 'revert video revisions'
+  - 'schedule publishing of nodes'
   - 'unflag changed_filename'
   - 'unflag changed_title'
   - 'unflag deleted'
@@ -305,6 +311,7 @@ permissions:
   - 'view publication_listing revisions'
   - 'view q_a revisions'
   - 'view regional_health_care_service_des revisions'
+  - 'view scheduled content'
   - 'view sections in toolbar'
   - 'view service_region revisions'
   - 'view step_by_step revisions'

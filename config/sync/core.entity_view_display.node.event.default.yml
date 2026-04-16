@@ -106,7 +106,6 @@ third_party_settings:
     group_curation:
       children:
         - field_featured
-        - field_order
       label: Curation
       parent_name: ''
       region: content
@@ -293,13 +292,6 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  field_order:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 31
-    region: content
   field_url_of_an_online_event:
     type: link
     label: above
@@ -318,6 +310,7 @@ hidden:
   field_administration: true
   field_last_saved_by_an_editor: true
   field_meta_tags: true
+  field_order: true
   field_publish_to_outreach_cal: true
   langcode: true
   links: true

@@ -1,0 +1,84 @@
+diff --git a/src/Plugin/Linkit/Matcher/NodeMatcher.php b/src/Plugin/Linkit/Matcher/NodeMatcher.php
+index b098546..daf278e 100644
+--- a/src/Plugin/Linkit/Matcher/NodeMatcher.php
++++ b/src/Plugin/Linkit/Matcher/NodeMatcher.php
+@@ -85,30 +85,60 @@ class NodeMatcher extends EntityMatcher {
+   protected function buildEntityQuery($search_string) {
+     $query = parent::buildEntityQuery($search_string);
+ 
+-    if ($this->configuration['include_unpublished'] == FALSE) {
+-      $query->condition('status', NodeInterface::PUBLISHED);
++    // Default case: Users can only see published nodes.
++    $condition = $query
++      ->andConditionGroup()
++      ->condition('status', NodeInterface::PUBLISHED);
++    // We can skip filtering for these cases.
++    if ($this->currentUserCanViewAllContent() || $this->currentUserHasNodeGrants()) {
++      $condition = NULL;
+     }
+-    elseif (!$this->moduleHandler->hasImplementations('node_grants')) {
+-      if (($this->currentUser->hasPermission('bypass node access') || $this->currentUser->hasPermission('view any unpublished content'))) {
+-        // User can see all content, no check necessary.
+-      }
+-      elseif ($this->currentUser->hasPermission('view own unpublished content')) {
+-        // Users with "view own unpublished content" can see only their own.
+-        if ($this->configuration['include_unpublished'] == TRUE) {
+-          $or_condition = $query
+-            ->orConditionGroup()
+-            ->condition('status', NodeInterface::PUBLISHED)
+-            ->condition('uid', $this->currentUser->id());
+-          $query->condition($or_condition);
+-        }
+-      }
++    // OR-based filtering for holders of 'view own unpublished content'.
++    elseif ($this->currentUserCanViewOwnUnpublishedContent()) {
++      $condition = $query
++        ->orConditionGroup()
++        ->condition('status', NodeInterface::PUBLISHED)
++        ->condition('uid', $this->currentUser->id());
+     }
+-    else {
+-      // All other users should only get published results.
+-      $query->condition('status', NodeInterface::PUBLISHED);
++    // Add the generated condition, if one is set.
++    if ($condition) {
++      $query->condition($condition);
+     }
+ 
+     return $query;
+   }
+ 
++  /**
++   * Checks whether the current user is allowed to view all content.
++   *
++   * This check takes 'include_unpublished' into account.
++   */
++  protected function currentUserCanViewAllContent() {
++    // Some users can see all content.
++    return $this->configuration['include_unpublished'] &&
++      ($this->currentUser->hasPermission('bypass node access') ||
++      $this->currentUser->hasPermission('view any unpublished content'));
++  }
++
++  /**
++   * Checks whether any module grants global 'view' access to the current user.
++   *
++   * This check takes 'include_unpublished' into account.
++   */
++  protected function currentUserHasNodeGrants() {
++    return $this->configuration['include_unpublished'] &&
++      $this->moduleHandler->hasImplementations('node_grants') &&
++      $this->entityTypeManager->getAccessControlHandler('node')->checkAllGrants($this->currentUser);
++  }
++
++  /**
++   * Checks whether the user is allowed to view own nodes.
++   *
++   * This check takes 'include_unpublished' into account.
++   */
++  protected function currentUserCanViewOwnUnpublishedContent() {
++    return $this->configuration['include_unpublished'] &&
++      $this->currentUser->hasPermission('view own unpublished content');
++  }
++
+ }

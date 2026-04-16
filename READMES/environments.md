@@ -10,7 +10,7 @@ The following table lists all environments and CMS/WEB sites used in the develop
 | **STAGING** <br> Pre-release testing. | [staging.cms.va.gov](https://staging.cms.va.gov)<br/>va.gov-cms: main<br/><br/>Staging CMS uses Tugboat Preview [content-build-branch-build (CMS PROD Mirror)](https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5) as its data source. This Preview is refreshed daily at 7am UTC (2am EST, 1am EDT), using the latest Database and Asset file snapshot from AWS S3 at that time.<br/><br/> * Staging CMS database edits will be overwritten the next time code is merged.<br/>* Staging CMS is not the source of data for the Staging front-end, meaning: edits you make in the Staging CMS will not cause the Staging front-end to be re-built, and your changes will not appear in the Staging.va.gov front-end. | [staging.va.gov](http://staging.va.gov)<br/>content-build: main<br/>vets-website: main | Tugboat Preview [content-build-branch-build (CMS PROD Mirror)](https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5) refreshed daily at 7am UTC (2am EST, 1am EDT), using the latest Database and Asset file snapshot from AWS S3 at that time.  | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Staging/job/cms-vagov-staging/) |
 | [LOCAL](http://va-gov-cms.ddev.site) <br> Local development | [va-gov-cms.ddev.site](http://va-gov-cms.ddev.site) | [va-gov-cms.ddev.site](http://va-gov-cms.ddev.site) <br> [va-gov-cms.ddev.site/static](http://va-gov-cms.ddev.site) <br> [va-gov-cms.ddev.site/$URL?\_format=static_html](http://va-gov-cms.ddev.site/$URL) | |
 | [CI / PR](1) <br> Pull Requests & Automated Testing | pr###-{hash}.ci.cms.va.gov<br/><br/>va.gov-cms: specified branch | web-{hash}.ci.cms.va.gov <br> pr###-{hash}.ci.cms.va.gov/static <br> pr###-{hash}.ci.cms.va.gov/$URL?\_format=static_html<br/><br/>content-build: main, unless another branch is specified in the CMS<br/>vets-website: main<br/><br/>It is not possible to specify an alternate vets-website branch until [#6434](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6434) is complete | Tugboat: CMS > [CMS Pull Request Environments](https://tugboat.vfs.va.gov/5fd3b8ee7b4657022b5722d6#RepoBasePreviews__heading-h2--3rTIH) > Base Preview, including Database and Asset files, refreshed daily at 10am UTC (5am EST, 4am EDT).<br/><br/>Tugboat PR Previews need to be rebuilt (after 5am EST), or refreshed, for the database to stay up-to-date with Prod. | [CMS-CI: Tugboat](1) |
-| [Demos](2) <br> Demos & Training | cms-{hash}.demo.cms.va.gov | web-{hash}.demo.ci.cms.va.gov <br> cms-{hash}.demo.cms.va.gov/static <br> cms-{hash}.demo.cms.va.gov/$URL?\_format=static_html | Tugboat: CMS > [CMS Demo Environments](https://tugboat.vfs.va.gov/5ffe2f4dfa1ca136135134f6) > Base Preview, including Database and Asset files, refreshed daily at 9am UTC (4am EST, 3am EDT).<br/><br/>Demo Previews need to be rebuilt (after 4am EST), or refreshed, for the database to stay up-to-date with Prod. | [CMS-CI: Tugboat](1) | 
+| [Demos](2) <br> Demos & Training | cms-{hash}.demo.cms.va.gov | web-{hash}.demo.ci.cms.va.gov <br> cms-{hash}.demo.cms.va.gov/static <br> cms-{hash}.demo.cms.va.gov/$URL?\_format=static_html | Tugboat: CMS > [CMS Demo Environments](https://tugboat.vfs.va.gov/5ffe2f4dfa1ca136135134f6) > Base Preview, including Database and Asset files, refreshed daily at 9am UTC (4am EST, 3am EDT).<br/><br/>Demo Previews need to be rebuilt (after 4am EST), or refreshed, for the database to stay up-to-date with Prod. | [CMS-CI: Tugboat](1) |
 
 ### Review Instances
 **NOTE**: [Review Instances](https://depo-platform-documentation.scrollhelp.site/developer-docs/review-instances) are another system that provides test environments, for CI PRs in vets-website and vets-api repos. RIs are managed by the Platform team. (Feb 2023: Platform has an active project underway to replace Review Instances; Ray Messina, POC.) That's not a CMS concern, other than to note: Tugboat does also indirectly act as the Content Data Source for RIs.
@@ -18,13 +18,39 @@ The following table lists all environments and CMS/WEB sites used in the develop
 | -- | -- | -- | -- | -- |
 | CI / PR for vets-website & vets-api<br> Pull Requests & Automated Testing | None provided | {hash}.review.vetsgov-internal<br/><br/>* vets-website or vets-api: specified branch<br/>* content-build: main<br/>| Review instances can't pull data directly from Tugboat. To work around this, when content-build merges to main, a process captures the data + files from CI (effectively, Tugboat Preview [content-build-branch-build (CMS PROD Mirror)](https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5) 7am UTC or latest refreshed data/assets) and pushes them to S3 to a different location than the every 15mins data + asset backup. Review Instances then pull and use the new S3 snapshot archive file. Therefore: the freshness of the data on a Review Instance will line up with timing for the last time content-build had a merge to main.  | NA |
 
-### Other
-* [Access](./access.md): how to access these environments  
+### Using Tugboat to preview Next Build and Content Build changes
 
-* **To preview CMS non-prod data**: Publish the content in Tugboat PR Preview's CMS, then trigger a content release in the CMS (via `/admin/content/deploy`). You will see the content built from that Tugboat's CMS data. This will not include any changes to vets-website that are not in main.
-* **To preview vets-website changes along with CMS / content-build changes**: 
-  * **Staging [Dark launch](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/public-websites#shadow--dark-launches-of-content)** (for new content only). Allows preview of combined changes. Uses Staging CMS data & Frontend built from content-build main and vets-website main, so vets-website code changes must be merged to main. If vets-website changes are referenced by any existing CMS content, they should be placed behind a feature flag that can then be enabled on Staging.
-  * **In Tugboat**: you must merge to vets-website main with your changes behind a feature flag. Then, enable the feature flag within the Tugboat instance. (TODO: is this a real thing? Tugboat runs vets-api?)
+Tugboat can be used to preview changes being made in Next Build and Content Build. This can be useful if you need to check Next Build or Content Build changes together with new CMS code, or if you want to create custom content to test features of the frontend code that VA.gov content doesn't test or demonstrate well.
+
+To create your Tugboat instance, do one of the following:
+
+1. When **testing changed CMS code**, simply create a PR with your working branch. If your CMS code changes are not yet ready for review, create a draft PR. This will still create a Tugboat instance.
+2. When **testing frontend changes with no CMS code changes**, please create a Demo CMS Tugboat instance and do your frontend testing there. You should delete this demo instance once you are finished testing.
+
+#### Testing Next Build
+Next Build is available on CMS Tugboat at the Tugboat domain with `next-` in it, for example https://next-medc0xjkxm4jmpzxl3tfbcs7qcddsivh.ci.cms.va.gov/. By default this uses the default next-build and vets-website branches.
+
+This can be changed via the form at `/admin/content/deploy/next`. At that URL, you will see a simple form that allows you to rebuild the frontend with the option of choosing a different branch for either next-build or vets-website. Choosing 'Select a different next-build branch/pull request' will reveal a text field. Entering a search term in that text field will reveal both branches and PRs that match that search term.
+
+![The form for changing Next Build branches, with the search text "update" entered and results showing.](images/tugboat-next-build-form.png)
+
+Once you've chosen the branches you want to test with, hit 'Restart Next Build Server'. You will see status information about the build at the bottom of the page. You may need to refresh the page for this information to fill in. The Log File will be the best way to observe the progress of the build.
+
+![Status Details of the Next Build Server Rebuild process.](images/tugboat-next-build-status.png)
+
+Rebuilding the Next Build Server generally takes about 5 minutes. Once complete, you can view the restarted server at the standard Next Build URL.
+
+#### Testing Content Build
+Next Build is available on CMS Tugboat at the Tugboat domain with `web-` in it, for example https://web-medc0xjkxm4jmpzxl3tfbcs7qcddsivh.ci.cms.va.gov/. By default this uses the default content-build and vets-website branches.
+
+This can be changed via the form at `/admin/content/deploy`. At that URL, you will see a simple form that allows you to rebuild the frontend with the option of choosing a different branch for either content-build or vets-website. Choosing 'Select a different content-build branch/pull request' will reveal a text field. Entering a search term in that text field will reveal both branches and PRs that match that search term, similarly to the Next Build form described above.
+
+Once you've chosen the branches you want to test with, hit 'Release Content'. You will see status information about the build at the bottom of the page. You may need to refresh the page for this information to fill in. The Log File will be the best way to observe the progress of the build.
+
+Rebuilding the Content Build static content generally takes about 60 minutes. Once complete, you can view the restarted server at the standard Content Build URL.
+
+### Other
+* [Access](./access.md): how to access these environments
 
 ## What is an Environment?
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace test\phpunit\Deploy;
+namespace Tests\Deploy;
 
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_backend\Deploy\DeployService;

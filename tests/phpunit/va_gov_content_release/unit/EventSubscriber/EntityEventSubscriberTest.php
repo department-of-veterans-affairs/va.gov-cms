@@ -137,7 +137,7 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
           $nodeProphecy->id()->willReturn('12345');
 
           $originalNode = $originalNodeProphecy->reveal();
-          $nodeProphecy->getOriginal()->willReturn($originalNode);
+          $nodeProphecy->getOriginalVersion()->willReturn($originalNode);
           $node = $nodeProphecy->reveal();
 
           $description = $content_type . ' node: ';
@@ -307,7 +307,7 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
               }
 
               $originalNode = $originalNodeProphecy->reveal();
-              $nodeProphecy->getOriginal()->willReturn($originalNode);
+              $nodeProphecy->getOriginalVersion()->willReturn($originalNode);
               $node = $nodeProphecy->reveal();
               $description .= $event_name;
 
@@ -489,7 +489,7 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
     string $strategyId,
     EntityInterface $entity,
     bool $shouldTriggerContentRelease,
-    string $eventName
+    string $eventName,
   ) {
 
     $strategyPluginProphecy = $this->prophesize(StrategyPluginInterface::class);

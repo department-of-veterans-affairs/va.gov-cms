@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Template for Form Builder step page: Text type
+ */
+#}
+{% extends '@va_gov_form_builder/form/base/single-column-with-buttons.html.twig' %}
+
+{% set page_id = 'text-type' %}
+{% set page_heading = 'Text type' %}
+
+{% block main_content %}
+  {{ form.text_type }}
+{% endblock %}
+
+{% block after_buttons %}
+  {# render rest of form so it functions properly #}
+  {{ form|without(
+    'status_messages',
+    'text_type',
+    'actions',
+  )}}
+{% endblock %}

@@ -10,9 +10,6 @@ dependencies:
     - epp
     - text
 third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - rich_text_limited
   epp:
     value: ''
     on_update: 0
@@ -26,5 +23,7 @@ required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats:
+    - rich_text_limited
 field_type: text_long

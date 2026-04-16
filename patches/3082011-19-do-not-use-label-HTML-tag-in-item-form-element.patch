@@ -1,0 +1,90 @@
+diff --git a/core/includes/form.inc b/core/includes/form.inc
+index 4f353d0..950f185 100644
+--- a/core/includes/form.inc
++++ b/core/includes/form.inc
+@@ -497,6 +497,7 @@ function template_preprocess_form_element(&$variables) {
+   $variables['label'] = ['#theme' => 'form_element_label'];
+   $variables['label'] += array_intersect_key($element, array_flip(['#id', '#required', '#title', '#title_display']));
+   $variables['label']['#attributes'] = $element['#label_attributes'];
++  $variables['label']['#tag'] = $element['#title_tag'] ?? ($element['#type'] === 'item' ? 'span' : 'label');
+   if (!empty($element['#label_for'])) {
+     $variables['label']['#for'] = $element['#label_for'];
+     if (!empty($element['#id'])) {
+@@ -541,18 +542,22 @@ function template_preprocess_form_element_label(&$variables) {
+   // Pass elements title_display to template.
+   $variables['title_display'] = $element['#title_display'];
+
+-  // A #for property of a dedicated #type 'label' element as precedence.
+-  if (!empty($element['#for'])) {
+-    $variables['attributes']['for'] = $element['#for'];
+-    // A custom #id allows the referenced form input element to refer back to
+-    // the label element; e.g., in the 'aria-labelledby' attribute.
+-    if (!empty($element['#id'])) {
+-      $variables['attributes']['id'] = $element['#id'];
++  $variables['tag'] = $element['#tag'];
++
++  if ($variables['tag'] === 'label') {
++    // A #for property of a dedicated #type 'label' element as precedence.
++    if (!empty($element['#for'])) {
++      $variables['attributes']['for'] = $element['#for'];
++      // A custom #id allows the referenced form input element to refer back to
++      // the label element; e.g., in the 'aria-labelledby' attribute.
++      if (!empty($element['#id'])) {
++        $variables['attributes']['id'] = $element['#id'];
++      }
++    }
++    // Otherwise, point to the #id of the form input element.
++    elseif (!empty($element['#id'])) {
++      $variables['attributes']['for'] = $element['#id'];
+     }
+-  }
+-  // Otherwise, point to the #id of the form input element.
+-  elseif (!empty($element['#id'])) {
+-    $variables['attributes']['for'] = $element['#id'];
+   }
+
+   // Pass elements required to template.
+diff --git a/core/modules/system/templates/form-element-label.html.twig b/core/modules/system/templates/form-element-label.html.twig
+index 7696609..90dd02b 100644
+--- a/core/modules/system/templates/form-element-label.html.twig
++++ b/core/modules/system/templates/form-element-label.html.twig
+@@ -23,5 +23,5 @@
+   ]
+ %}
+ {% if title is not empty or required -%}
+-  <label{{ attributes.addClass(classes) }}>{{ title }}</label>
++  <{{ tag }}{{ attributes.addClass(classes) }}>{{ title }}</{{ tag }}>
+ {%- endif %}
+diff --git a/core/themes/claro/templates/form-element-label.html.twig b/core/themes/claro/templates/form-element-label.html.twig
+index d0ec8a3..2424e5f 100644
+--- a/core/themes/claro/templates/form-element-label.html.twig
++++ b/core/themes/claro/templates/form-element-label.html.twig
+@@ -22,5 +22,5 @@
+   ]
+ %}
+ {% if title is not empty or required -%}
+-  <label{{ attributes.addClass(classes) }}>{{ title }}</label>
++  <{{ tag }}{{ attributes.addClass(classes) }}>{{ title }}</{{ tag }}>
+ {%- endif %}
+diff --git a/core/themes/stable9/templates/form/form-element-label.html.twig b/core/themes/stable9/templates/form/form-element-label.html.twig
+index 7c2f8f2..3d51b32 100644
+--- a/core/themes/stable9/templates/form/form-element-label.html.twig
++++ b/core/themes/stable9/templates/form/form-element-label.html.twig
+@@ -21,5 +21,5 @@
+   ]
+ %}
+ {% if title is not empty or required -%}
+-  <label{{ attributes.addClass(classes) }}>{{ title }}</label>
++  <{{ tag }}{{ attributes.addClass(classes) }}>{{ title }}</{{ tag }}>
+ {%- endif %}
+diff --git a/core/themes/starterkit_theme/templates/form/form-element-label.html.twig b/core/themes/starterkit_theme/templates/form/form-element-label.html.twig
+index 7c2f8f2..3d51b32 100644
+--- a/core/themes/starterkit_theme/templates/form/form-element-label.html.twig
++++ b/core/themes/starterkit_theme/templates/form/form-element-label.html.twig
+@@ -21,5 +21,5 @@
+   ]
+ %}
+ {% if title is not empty or required -%}
+-  <label{{ attributes.addClass(classes) }}>{{ title }}</label>
++  <{{ tag }}{{ attributes.addClass(classes) }}>{{ title }}</{{ tag }}>
+ {%- endif %}

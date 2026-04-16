@@ -3,18 +3,17 @@
 1. Enable, then run the database backup job here http://jenkins.vfs.va.gov/job/cms-test/job/cms-test-db-backup-prod/, then disable it again.
 1. Enable, then run the sanitize DB job here > http://jenkins.vfs.va.gov/job/cms-test/job/cms-test-db-sanitize/, then disable it again. This will sanitize the newly synced PROD DB in CMS-TEST (not CMS) and make available for downstream CMS-TEST environments.
 
-## To deploy the CMS to the CMS-TEST environment from the `main` branch, follow these steps:
+## To deploy the CMS to the CMS-TEST environment, follow these steps:
 1. Ensure that you have a git remote set up for the `va.gov-cms-test` branch (e.g. `git remote add upstream-test git@github.com:department-of-veterans-affairs/va.gov-cms-test.git`).
-1. Enable the http://jenkins.vfs.va.gov/job/testing/job/cms-test/ job so that webhooks trigger the build and deploy to STAGING.
-1. (BE VERY CAREFUL HERE) `git pull --rebase upstream main` then  `git push --force upstream-test main`.
+1. `git pull --rebase origin main` - this will update your local `main` branch from CMS (not CMS-TEST)
+1. Create a new branch off of `main`, i.e. `git checkout -b cms-test-branch-20260203`
+1. `git push upstream-test cms-test-branch-20260203` (or whatever your branch name in the previous step is) - remember to use `upstream-test` in order to push the branch to the CMS-TEST repo.
+1. Use `git log` to get the SHA of the branch above.
+1. Go to http://jenkins.vfs.va.gov/job/builds/job/cms-test/. Start a new job, using the SHA from the previous step. Allow this to run. This creates an AMI that we will use to deploy to CMS-TEST prod and/or staging.
+1. Once the above is complete, go to the deploy job page and use the same SHA from previous steps:
+   - Staging: http://jenkins.vfs.va.gov/job/deploys/job/cms-test-vagov-staging/
+   - Prod: http://jenkins.vfs.va.gov/job/deploys/job/cms-test-vagov-prod/
 
-This will trigger a webhook to run this job: http://jenkins.vfs.va.gov/job/testing/job/cms-test/ and will automatically trigger a build and then deploy it to CMS-TEST STAGING with the appropriate database state to allow tests to pass. 
-
-If the job was disabled or the webhook never made it Jenkins (the firewall/TIC) blocks it sometimes), you need to trigger the [build](http://jenkins.vfs.va.gov/job/builds/job/cms-test/) and run the deploy jobs by yourself. 
-
-Remember that only the CMS-TEST STAGING deploy runs the tests that send the commit status to GitHub. We need a passing commit status for the auto-deploy job to run, if you are testing that job for instance. 
-
-Once the build is done, you can manually trigger the CMS-TEST PROD deploy job here as well http://jenkins.vfs.va.gov/job/deploys/job/cms-test-vagov-prod/.
 
 ## Sync file assets to CMS-TEST PROD
 1. `ssm-session vagov-prod cms-test auto`

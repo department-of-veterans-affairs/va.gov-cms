@@ -1,13 +1,18 @@
-@import 'tokens/variables';
-@import 'tokens/typography';
-@import 'tokens/mixins';
-@import '../../../design-system/components/tokens/variables';
+@import "tokens/variables";
+@import "tokens/typography";
+@import "tokens/mixins";
+@import "../scss/tokens/variables";
 
-.ck-editor__editable {
-  background: #fff;
+.cke_editable {
+  background: var(--va-white);
   color: #323a45;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 15px;
+  overflow-wrap: anywhere;
 
   @include va-basic-styling;
+}
+
+.ck-content {
+  overflow-wrap: anywhere;
 }

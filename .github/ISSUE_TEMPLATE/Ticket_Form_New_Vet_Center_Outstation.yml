@@ -1,0 +1,216 @@
+# #######################################################################
+# New Vet Center Outstation Runbook #
+# #######################################################################
+# Runbook for adding new Vet Center Outstation tickets.
+# Created and last edited by Stefanie Gray - stefanie.gray@va.gov
+# #######################################################################
+name: Flagged Facilities ticket form - New Vet Center Outstation
+description: Use this form to create a new ticket listing the runbook steps for verifying and publishing a new Vet Center Outstation node in the CMS and ensuring it is linked to the parent Vet Center section.
+title: New Vet Center Outstation - [INSERT OUTSTATION NAME]
+labels: Change request, Drupal engineering, Facilities, Flagged Facilities, User support, Vet Center, sitewide
+projects: projects/1859
+
+body:
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+       ### Before creating a New Vet Center Outstation ticket
+       - Please do not create this ticket until the new Outstation has appeared on the CMS [Flagged Facilities page](https://prod.cms.va.gov/admin/content/facilities/flagged).
+
+       - **If notified via Jira but not flagged in the CMS:** Confirm with the editor that they reported the new facility to VAST. Please refer to the KB article "[How do I update my Vet Center facility's basic location data?](https://prod.cms.va.gov/help/vet-centers/how-do-i-update-my-vet-center-facilitys-basic-location-data)" for more info and send to editor if needed.
+
+       - **If reported to VAST but not listed yet:** Changes made within VAST can take up to 75 days to appear within the Facilities API. 
+       
+       - **If the help desk is waiting on info or actions from facility editor(s):** Please add the "Awaiting editor" flag to the facility node with a revision log message that includes Jira or Github ticket numbers. Do not change the moderation state of the node (e.g. "Draft", "Published") when adding or removing flags unless otherwise noted.
+       
+       - **For any Vet Center sections lacking active editors:** Please contact Barb Kuhn or the current VA leadership point of contact.
+
+  # MARKDOWN WITH MULTI-LINE CONTENT:
+  - type: markdown
+    attributes:
+      value: |
+        # Facility and ticket information
+
+  # INPUT:
+  - type: input
+    id: outstation_name
+    attributes:
+      label: Vet Center Outstation name
+      description: "What is the full name of the new Vet Center Outstation?"
+      placeholder: "Example: Cityname Vet Center Outstation"
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: vet_center_section
+    attributes:
+      label: Vet Center section name
+      description: "What is the name of the parent Vet Center section that this Outstation should be linked to?"
+      placeholder: "Example: Cityname Vet Center"
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: facility_prod_link
+    attributes:
+      label: Link to Outstation node on production site
+      description: "Please provide a link to the Outstation node on the VA CMS production site."
+      placeholder: "https://prod.cms.va.gov..."
+    validations:
+      required: true
+
+  # INPUT:
+  - type: input
+    id: facility_api_id
+    attributes:
+      label: Facility API ID (Outstation)
+      description: "What is the Outstation's Facility API ID?"
+      placeholder: "e.g. vc_1234OS"
+    validations:
+      required: true
+
+  # CHECKBOX:
+  - type: checkboxes
+    id: spreadsheet
+    attributes:
+      label: Has the new Outstation been added to the internal Flagged Facilities listing yet?
+      description: If no, please add it to the appropriate tab with the prod link, facility ID, and any relevant ticket links or details.
+      options:
+        - label: "Yes"
+        - label: "No"
+    validations:
+      required: false
+
+  # TEXTAREA:
+  - type: textarea
+    id: jira_ticket_links
+    attributes:
+      label: Embedded Support - Please link Jira ticket(s) associated with facility.
+      description: "Paste one or more links to relevant VA CMS tickets in Jira. If none found, please link any new Jira tickets once created."
+      placeholder: |
+        1. https://jira.example.com/browse/ABC-123
+        2. https://jira.example.com/browse/ABC-456
+    validations:
+      required: false
+      
+  # TEXTAREA:
+  - type: textarea
+    id: url_redirect_link
+    attributes:
+      label: Links to any related GitHub tickets
+      description: You do not need to create any redirect tickets for Outstation nodes, because they do not have direct URLs on the live site. These nodes are nested within the linked Vet Center's Locations page.
+      placeholder: |
+        https://github.com/department-of-veterans-affairs/va.gov-cms/issues/#####
+    validations:
+      required: false
+
+  # TEXTAREA:
+  - type: textarea
+    id: runbook_steps
+    attributes:
+      label: Acceptance criteria for new Outstation (Runbook steps)
+      description: LEAVE AS-IS, SKIP TO "CREATE." Assignees will check off the boxes below as they complete the work.
+      value: |
+        ### Drupal Administrator steps (Embedded Support team or Facilities team):
+
+        #### STEP 1: Inspect URL
+        - [ ] First, please inspect the new Outstation URL. Does it end in `-0`?
+
+              - [ ] **No**: No work needed, proceed to next steps.
+
+              - [ ] **Yes**: This node may be a duplicate of an existing Outstation. In this case, please go to the original Outstation URL by removing the `-0`.
+
+                    - **If there are two Outstations listed under the same name with two different nodes:** Embedded Support will need to email the associated Vet Center Section editor(s) to confirm which one has the correct ID (see "Duplicate Outstation email" below).
+
+        #### STEP 2: URL check
+        - [ ] Does the section listed in the URL match the main Vet Center listed in the Outstation's H1 title?
+
+              - [ ] **Yes**: No work needed, proceed to next steps.
+
+              - [ ] **No**: You will need to use the Bulk Edit page to re-save the URL alias for this Outstation node. Otherwise, it will not be linked to the main Vet Center properly, and will not show up on the Vet Center's "Locations" page. Instructions listed below.
+
+        #### STEP 3: Section and naming check
+        - [ ] Inspect the "Common Name," "Main Vet Center" and "Section" fields. Does the H1 title of the Outstation node match the name of the Vet Center section listed in these fields?
+
+              - [ ] **Yes**: No work needed, proceed to next steps.
+
+              - [ ] **No**: Please edit the node and update the incorrect field(s) after confirming the correct Vet Center section assignment.
+
+        #### STEP 4: URL alias update and re-saving the node
+        (This step is only necessary if you made section or URL changes in Steps 1, 2, or 3. Otherwise, skip.)
+
+        Go to the [Bulk Edit](https://prod.cms.va.gov/admin/content/bulk) page, filter by section, moderation state = "Any", and search for the Outstation.
+
+        Select the node, then use the "Action" menu at the bottom of the Bulk Edit page to perform the steps listed below. You must click "Apply to selected items" after each action listed, or it will not be executed or saved.
+
+           - [ ] If the Outstation is listed under an incorrect section, please use the "Modify Values" action to update the assigned section, then click "Apply to selected items."
+
+           - [ ] **Update the node's URL alias:** Click "Update URL alias" then "Apply to selected items."
+
+           - [ ] **Re-save the node:** Select "Re-save content" then click "Apply to selected items."
+
+        #### STEP 5: Verify URL alias update and section linking
+        (This step is only necessary if you made section or URL changes in Steps 1, 2, or 3. Otherwise, skip.)
+
+           - [ ] Refresh the Outstation node to verify the URL update, and go to the main Vet Center's "Locations" page to ensure that the Outstation is properly linked.
+
+        The Outstation should be listed under the "Main and Satellite Locations" header on the Vet Center "Locations" node on the production site. If published, it will also be listed beneath the "Satellite Locations" header on the live site.
+
+        ------
+
+        ### Embedded Support team steps:
+
+        #### STEP 6: Editor wrap-up
+        - [ ] Reach out to the associated Vet Center editor(s) via Jira and send the "New Outstation reported" email template available below.
+
+              - **If the Outstation lacks a photo:** Please ask the editor to add a photo as soon as possible. (Included within the "New Outstation reported" email template.)
+
+              - **If the Outstation node is unpublished:** Please remind the editor that the Outstation will not be listed on their Vet Center's "Locations" page on the live site unless this node is saved as "Published." (Also included within the "New Outstation reported" email template.)
+
+        #### STEP 7: Remove flags
+        - [ ] Once the editor has finished adding a photo and publishing the node, go to the Outstation node, click "Edit," then scroll to bottom to remove the `New facility` flag and any other flags. Click Save.
+    validations:
+      required: true
+
+  # EMAIL TEMPLATES:
+  - type: textarea
+    id: email_templates
+    attributes:
+      label: Email templates
+      description: Leave this section as-is. Assignees will copy email templates from here.
+      value: |
+        ### New Outstation reported
+        Send if a new Outstation has been reported via the Flagged Facilities page but there is no existing communication confirming that this Outstation is in use:
+
+        ```
+        A new Outstation, [NAME OF OUTSTATION], has been added to the section [MAIN VET CENTER].
+
+        Please review the information listed for this location, and please add a photo at your earliest convenience: [INSERT PRODUCTION URL FOR OUTSTATION NODE]
+
+        If there is any incorrect information listed on this page, please let us know. Thank you!
+
+        This node is currently saved as a “Draft” and the info is not yet visible on the live site. Once it is saved as “Published,” it will be visible from the "Locations" page on your Vet Center site beneath the “Satellite Locations” header.
+        ```
+
+        ### Duplicate Outstation email
+        Send if there is a new Outstation that has been added to the VA.gov CMS that is a potential duplicate (i.e. same name/section as a different Outstation node and has `-0` at the end of the URL).
+
+        ```
+        Hello,
+
+        We hope you’re doing well!
+
+        It looks like there are two entries within our system for the Outstation associated with your location:
+
+        - vc_####OS (Outstation #___)
+
+        - vc_####OS (Outstation #___)
+
+        Can you please verify which of these two IDs matches the [NAME OF OUTSTATION]? Thank you!
+        ```
+    validations:
+      required: false

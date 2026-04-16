@@ -33,8 +33,8 @@ class ContentModerationTransitionsTraitTest extends VaGovUnitTestBase {
     $originalProphecy = $this->prophesize(VaNodeInterface::class);
     $originalProphecy->getModerationState()->willReturn($originalModerationState);
     $original = $originalProphecy->reveal();
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(TRUE));
-    $node->expects($this->any())->method('getOriginal')->will($this->returnValue($original));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(TRUE));
+    $node->expects($this->any())->method('getOriginalVersion')->will($this->returnValue($original));
     $this->assertEquals($originalModerationState, $node->getOriginalModerationState());
   }
 
@@ -67,7 +67,7 @@ class ContentModerationTransitionsTraitTest extends VaGovUnitTestBase {
    */
   public function testGetOriginalModerationStateNotModerated() : void {
     $node = $this->getMockForTrait(ContentModerationTransitionsTrait::class);
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(TRUE));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(TRUE));
     $node->expects($this->any())->method('isModerated')->will($this->returnValue(FALSE));
     $this->expectException(UnmoderatedContentTypeException::class);
     $node->getOriginalModerationState();
@@ -79,7 +79,7 @@ class ContentModerationTransitionsTraitTest extends VaGovUnitTestBase {
   public function testWasPublishedNoOriginal() {
     $node = $this->getMockForTrait(ContentModerationTransitionsTrait::class);
     $node->expects($this->any())->method('isModerated')->will($this->returnValue(TRUE));
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(FALSE));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(FALSE));
     $this->assertFalse($node->wasPublished());
   }
 
@@ -89,7 +89,7 @@ class ContentModerationTransitionsTraitTest extends VaGovUnitTestBase {
   public function testWasArchivedNoOriginal() {
     $node = $this->getMockForTrait(ContentModerationTransitionsTrait::class);
     $node->expects($this->any())->method('isModerated')->will($this->returnValue(TRUE));
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(FALSE));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(FALSE));
     $this->assertFalse($node->wasArchived());
   }
 
@@ -99,7 +99,7 @@ class ContentModerationTransitionsTraitTest extends VaGovUnitTestBase {
   public function testWasDraftNoOriginal() {
     $node = $this->getMockForTrait(ContentModerationTransitionsTrait::class);
     $node->expects($this->any())->method('isModerated')->will($this->returnValue(TRUE));
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(FALSE));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(FALSE));
     $this->assertFalse($node->wasDraft());
   }
 
@@ -109,7 +109,7 @@ class ContentModerationTransitionsTraitTest extends VaGovUnitTestBase {
   public function testDidTransitionFromPublishedToArchivedNoOriginal() {
     $node = $this->getMockForTrait(ContentModerationTransitionsTrait::class);
     $node->expects($this->any())->method('isModerated')->will($this->returnValue(TRUE));
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(FALSE));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(FALSE));
     $this->assertFalse($node->didTransitionFromPublishedToArchived());
   }
 
@@ -130,8 +130,8 @@ class ContentModerationTransitionsTraitTest extends VaGovUnitTestBase {
     $originalProphecy = $this->prophesize(VaNodeInterface::class);
     $originalProphecy->getModerationState()->willReturn($originalModerationState);
     $original = $originalProphecy->reveal();
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(TRUE));
-    $node->expects($this->any())->method('getOriginal')->will($this->returnValue($original));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(TRUE));
+    $node->expects($this->any())->method('getOriginalVersion')->will($this->returnValue($original));
     $this->assertEquals($expected, $node->wasPublished());
   }
 
@@ -171,8 +171,8 @@ class ContentModerationTransitionsTraitTest extends VaGovUnitTestBase {
     $originalProphecy = $this->prophesize(VaNodeInterface::class);
     $originalProphecy->getModerationState()->willReturn($originalModerationState);
     $original = $originalProphecy->reveal();
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(TRUE));
-    $node->expects($this->any())->method('getOriginal')->will($this->returnValue($original));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(TRUE));
+    $node->expects($this->any())->method('getOriginalVersion')->will($this->returnValue($original));
     $this->assertEquals($expected, $node->wasArchived());
   }
 
@@ -212,8 +212,8 @@ class ContentModerationTransitionsTraitTest extends VaGovUnitTestBase {
     $originalProphecy = $this->prophesize(VaNodeInterface::class);
     $originalProphecy->getModerationState()->willReturn($originalModerationState);
     $original = $originalProphecy->reveal();
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(TRUE));
-    $node->expects($this->any())->method('getOriginal')->will($this->returnValue($original));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(TRUE));
+    $node->expects($this->any())->method('getOriginalVersion')->will($this->returnValue($original));
     $this->assertEquals($expected, $node->wasDraft());
   }
 
@@ -257,8 +257,8 @@ class ContentModerationTransitionsTraitTest extends VaGovUnitTestBase {
     $original = $originalProphecy->reveal();
     $node->expects($this->any())->method('isCmPublished')->will($this->returnValue($moderationState === 'published'));
     $node->expects($this->any())->method('isArchived')->will($this->returnValue($moderationState === 'archived'));
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(TRUE));
-    $node->expects($this->any())->method('getOriginal')->will($this->returnValue($original));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(TRUE));
+    $node->expects($this->any())->method('getOriginalVersion')->will($this->returnValue($original));
     $node->expects($this->any())->method('get')->will($this->returnValue((object) [
       'value' => $moderationState,
     ]));
@@ -317,8 +317,8 @@ class ContentModerationTransitionsTraitTest extends VaGovUnitTestBase {
     $original = $originalProphecy->reveal();
     $node->expects($this->any())->method('isCmPublished')->will($this->returnValue($moderationState === 'published'));
     $node->expects($this->any())->method('isArchived')->will($this->returnValue($moderationState === 'archived'));
-    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(TRUE));
-    $node->expects($this->any())->method('getOriginal')->will($this->returnValue($original));
+    $node->expects($this->any())->method('hasOriginalVersion')->will($this->returnValue(TRUE));
+    $node->expects($this->any())->method('getOriginalVersion')->will($this->returnValue($original));
     $node->expects($this->any())->method('get')->will($this->returnValue((object) [
       'value' => $moderationState,
     ]));

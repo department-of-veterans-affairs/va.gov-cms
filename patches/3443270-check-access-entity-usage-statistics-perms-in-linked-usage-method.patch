@@ -1,0 +1,95 @@
+Subject: [PATCH] Check "Access entity usage statistics" perms in linkedUsage() method
+---
+Index: entity_usage_addons.services.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/entity_usage_addons.services.yml b/entity_usage_addons.services.yml
+--- a/entity_usage_addons.services.yml	(revision 9f577f285c1ae248b86d78dd049cb0d33ecb9b1e)
++++ b/entity_usage_addons.services.yml	(date 1713985466708)
+@@ -1,4 +1,4 @@
+ services:
+   entity_usage_addons.usage:
+     class: Drupal\entity_usage_addons\Service\Usage
+-    arguments: ["@entity_usage.usage", "@entity_type.manager", "@logger.factory"]
++    arguments: ["@entity_usage.usage", "@entity_type.manager", "@logger.factory", "@current_user"]
+Index: src/Service/Usage.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Service/Usage.php b/src/Service/Usage.php
+--- a/src/Service/Usage.php	(revision 9f577f285c1ae248b86d78dd049cb0d33ecb9b1e)
++++ b/src/Service/Usage.php	(date 1713987879197)
+@@ -8,6 +8,7 @@
+ use Drupal\Core\Url;
+ use Drupal\Core\Link;
+ use Drupal\Core\StringTranslation\StringTranslationTrait;
++use Drupal\Core\Session\AccountInterface;
+ 
+ /**
+  * Entity Usage Addons Usage.
+@@ -25,6 +26,14 @@
+    */
+   protected $loggerFactory;
+ 
++  /**
++   * The current user.
++   *
++   * @var \Drupal\Core\Session\AccountInterface
++   */
++  protected $currentUser;
++
++
+   private $entityUsage;
+   private $entityTypeManager;
+ 
+@@ -37,10 +46,15 @@
+    *   Entity Type Manager.
+    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
+    *   LoggerChannelFactory.
++   * @param \Drupal\Core\Session\AccountInterface $currentUser
++   *   Current User.
+    */
+-  public function __construct(EntityUsage $entityUsage,
+-                              EntityTypeManagerInterface $entityTypeManager,
+-                              LoggerChannelFactoryInterface $loggerFactory) {
++  public function __construct(
++    EntityUsage $entityUsage,
++    EntityTypeManagerInterface $entityTypeManager,
++    LoggerChannelFactoryInterface $loggerFactory,
++    AccountInterface $currentUser
++  ) {
+ 
+     // Entity Usage.
+     $this->entityUsage = $entityUsage;
+@@ -51,6 +65,9 @@
+     // Logger Factory.
+     $this->loggerFactory = $loggerFactory;
+ 
++    // Current User.
++    $this->currentUser = $currentUser;
++
+   }
+ 
+   /**
+@@ -83,10 +100,16 @@
+    * @param int $entityId
+    *   Entity ID.
+    *
+-   * @return \Drupal\Core\GeneratedLink
+-   *   Link.
++   * @return int|\Drupal\Core\GeneratedLink
++   *   Link or count.
+    */
+   public function linkedUsage($entityType, $entityId) {
++    $currentUser = $this->currentUser;
++    // This is a simple check to see if the user has the permission to
++    // access the entity usage statistics.
++    if (!$currentUser->hasPermission('access entity usage statistics')) {
++      return $this->getUsageTotal($entityType, $entityId);
++    }
+     $route = "entity.{$entityType}.entity_usage";
+     $url = Url::fromRoute($route, [$entityType => $entityId]);
+     $itemCount = $this->getUsageTotal($entityType, $entityId);

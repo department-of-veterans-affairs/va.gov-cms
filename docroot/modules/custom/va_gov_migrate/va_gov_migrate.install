@@ -236,3 +236,11 @@ function va_gov_migrate_update_9003() {
   $strict = TRUE;
   return CmDocumentImport::import($cm_documents_to_import, $strict);
 }
+
+/**
+ * Create directory for news_spotlight_images migration.
+ */
+function va_gov_migrate_update_9004() {
+  $directory = 'public://news_promos';
+  \Drupal::service('file_system')->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
+}

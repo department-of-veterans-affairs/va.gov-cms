@@ -1,0 +1,26 @@
+uuid: 448512af-8f93-4853-90bd-3a8fd05351c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_va_form_upload
+    - node.type.va_form
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.va_form.field_va_form_upload
+field_name: field_va_form_upload
+entity_type: node
+bundle: va_form
+label: 'Form Upload'
+description: 'Indicates that there is a form upload widget for this form.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

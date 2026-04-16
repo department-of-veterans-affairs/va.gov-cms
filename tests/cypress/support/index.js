@@ -14,5 +14,6 @@
 // ***********************************************************
 
 import "./commands";
+import "./cleanup";
 import "./accessibility";
 import "./log";

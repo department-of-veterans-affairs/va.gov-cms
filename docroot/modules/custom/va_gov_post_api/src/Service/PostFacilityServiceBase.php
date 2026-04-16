@@ -73,7 +73,6 @@ abstract class PostFacilityServiceBase extends PostFacilityBase {
   protected $servicesToWithhold = [
       // Key: service name (not used) => Value: TID.
     'Caregiver support' => 48,
-    'Mental health care' => 43,
   ];
 
   /**

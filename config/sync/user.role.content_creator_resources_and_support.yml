@@ -12,7 +12,9 @@ dependencies:
     - node.type.step_by_step
     - node.type.support_resources_detail_page
   module:
+    - ai_image_alt_text
     - block_content
+    - entity_usage
     - file
     - node
     - node_link_report
@@ -26,6 +28,7 @@ weight: -6
 is_admin: null
 permissions:
   - 'access block library'
+  - 'access entity usage statistics'
   - 'access files overview'
   - 'create checklist content'
   - 'create faq_multiple_q_a content'
@@ -35,4 +38,5 @@ permissions:
   - 'create q_a content'
   - 'create step_by_step content'
   - 'create support_resources_detail_page content'
+  - 'generate ai alt tags'
   - 'view node link report'

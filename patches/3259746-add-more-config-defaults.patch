@@ -1,0 +1,19 @@
+diff --git a/js/swagger.js b/js/swagger.js
+index 96c532b..8a85677 100644
+--- a/js/swagger.js
++++ b/js/swagger.js
+@@ -48,7 +48,13 @@
+           SwaggerUIBundle.plugins.DownloadUrl,
+           SwaggerUIHideTopbarPlugin
+         ],
+-        layout: "StandaloneLayout"
++        layout: "StandaloneLayout",
++        filter: true,
++        deepLinking: true,
++        docExpansion: 'none',
++        displayRequestDuration: true,
++        showExtensions: true,
++        showCommonExtensions: true,
+       }
+       var url = $container.data('openapi-ui-url');
+       if (url === undefined) {

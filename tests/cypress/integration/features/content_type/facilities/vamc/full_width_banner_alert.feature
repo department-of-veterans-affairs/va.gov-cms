@@ -1,6 +1,7 @@
 @content_type__full_width_banner_alert
 Feature: VAMC full_width_banner_alert editors should not be able to reuse banners.
 
+@critical_path
 Scenario: Log in and create VAMC Full Width Banner Alert
   When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
   And my workbench access sections are set to "205"
@@ -11,7 +12,7 @@ Scenario: Log in and create VAMC Full Width Banner Alert
   And I fill in "Title" with "[Test Data] Banner alert title"
   And I fill in ckeditor "edit-field-body-0-value" with "[Test Data] Banner alert Body"
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
-  And I save the node
+  And I click the button to create node
   Then the primary tab "Edit" should exist
   And the primary tab "Revisions" should exist
   Given I click the edit tab

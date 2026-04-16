@@ -3,6 +3,7 @@
 namespace tests\phpunit\FrontendBuild;
 
 use Drupal\Core\Datetime\DateFormatter;
+use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -16,7 +17,6 @@ use Drupal\va_gov_build_trigger\EventSubscriber\ContinuousReleaseSubscriber;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseInterval;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Drupal\va_gov_content_release\Request\RequestInterface;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Tests\Support\Classes\VaGovUnitTestBase;
 use Tests\Support\Mock\SpecifiedTime;
@@ -49,7 +49,15 @@ class BuildStateEventSubscriberTest extends VaGovUnitTestBase {
   public function setUp() : void {
     parent::setUp();
 
-    $this->state = new State(new KeyValueMemoryFactory());
+    \Drupal::unsetContainer();
+    $container = new ContainerBuilder();
+
+    $state = $this->getMockBuilder('Drupal\Core\State\StateInterface')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $container->set('state', $state);
+    $container->set('cache.bootstrap', $this->getMockBuilder('Drupal\Core\Cache\CacheBackendInterface')->getMock());
+    $container->set('lock', $this->getMockBuilder('Drupal\Core\Lock\LockBackendInterface')->getMock());
 
     $this->dateFormatter = new DateFormatter(
       $this->getMockBuilder(EntityTypeManagerInterface::class)->disableOriginalConstructor()->getMock(),
@@ -61,7 +69,6 @@ class BuildStateEventSubscriberTest extends VaGovUnitTestBase {
 
     // Override the config factory service because DateFormatter gets it
     // directly from \Drupal 🙁 .
-    $container = new Container();
     $container->set(
       'config.factory',
       $this->getConfigFactoryStub([
@@ -71,6 +78,8 @@ class BuildStateEventSubscriberTest extends VaGovUnitTestBase {
       ]),
     );
     \Drupal::setContainer($container);
+
+    $this->state = new State(new KeyValueMemoryFactory());
   }
 
   /**

@@ -1,0 +1,18 @@
+diff --git a/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php b/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php
+index 0aec98069c..0ec5dae4f9 100644
+--- a/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php
++++ b/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php
+@@ -223,7 +223,12 @@ public function updateLink(array $new_definition_values, $persist) {
+     if ($persist) {
+       $entity = $this->getEntity();
+       foreach ($overrides as $key => $value) {
+-        $entity->{$key}->value = $value;
++        if (!isset($entity->{$key})) {
++          $entity->{$key} = new \stdClass();
++        }
++        if (isset($entity->{$key}->value)) {
++          $entity->{$key}->value = $value;
++        }
+       }
+       $entity->save();
+     }

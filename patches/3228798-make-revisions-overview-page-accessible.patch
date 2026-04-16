@@ -1,0 +1,80 @@
+diff --git a/js/diff.js b/js/diff.js
+index 04d405c..b4e4b60 100644
+--- a/js/diff.js
++++ b/js/diff.js
+@@ -28,32 +28,32 @@
+           }
+           if ($oldRadio.prop('checked')) {
+             oldTd = true;
+-            $oldRadio.css('visibility', 'visible');
+-            $newRadio.css('visibility', 'hidden');
++            $oldRadio.parent().css('visibility', 'visible');
++            $newRadio.parent().css('visibility', 'hidden');
+           }
+           else if ($newRadio.prop('checked')) {
+             newTd = true;
+-            $oldRadio.css('visibility', 'hidden');
+-            $newRadio.css('visibility', 'visible');
++            $oldRadio.parent().css('visibility', 'hidden');
++            $newRadio.parent().css('visibility', 'visible');
+           }
+           else {
+             if (drupalSettings.diffRevisionRadios === 'linear') {
+               if (newTd && oldTd) {
+-                $oldRadio.css('visibility', 'visible');
+-                $newRadio.css('visibility', 'hidden');
++                $oldRadio.parent().css('visibility', 'visible');
++                $newRadio.parent().css('visibility', 'hidden');
+               }
+               else if (newTd) {
+-                $newRadio.css('visibility', 'visible');
+-                $oldRadio.css('visibility', 'visible');
++                $newRadio.parent().css('visibility', 'visible');
++                $oldRadio.parent().css('visibility', 'visible');
+               }
+               else {
+-                $newRadio.css('visibility', 'visible');
+-                $oldRadio.css('visibility', 'hidden');
++                $newRadio.parent().css('visibility', 'visible');
++                $oldRadio.parent().css('visibility', 'hidden');
+               }
+             }
+             else {
+-              $newRadio.css('visibility', 'visible');
+-              $oldRadio.css('visibility', 'visible');
++              $newRadio.parent().css('visibility', 'visible');
++              $oldRadio.parent().css('visibility', 'visible');
+             }
+           }
+         });
+diff --git a/src/Form/RevisionOverviewForm.php b/src/Form/RevisionOverviewForm.php
+index 6ae5e1a..edb4eca 100755
+--- a/src/Form/RevisionOverviewForm.php
++++ b/src/Form/RevisionOverviewForm.php
+@@ -281,7 +281,7 @@ class RevisionOverviewForm extends FormBase {
+             $links = [];
+             if ($revert_permission) {
+               $links['revert'] = [
+-                'title' => $vid < $node->getRevisionId() ? $this->t('Revert') : $this->t('Set as current revision'),
++                'title' => $vid < $node->getRevisionId() ? $this->t('Revert <span class="visually-hidden">revision @vid</span>', ['@vid' => $vid]) : $this->t('Set as current revision'),
+                 'url' => $has_translations ?
+                 Url::fromRoute('node.revision_revert_translation_confirm', ['node' => $node->id(), 'node_revision' => $vid, 'langcode' => $langcode]) :
+                 Url::fromRoute('node.revision_revert_confirm', ['node' => $node->id(), 'node_revision' => $vid]),
+@@ -289,7 +289,7 @@ class RevisionOverviewForm extends FormBase {
+             }
+             if ($delete_permission) {
+               $links['delete'] = [
+-                'title' => $this->t('Delete'),
++                'title' => $this->t('Delete <span class="visually-hidden">revision @vid</span>', ['@vid' => $vid]),
+                 'url' => Url::fromRoute('node.revision_delete_confirm', $route_params),
+               ];
+             }
+@@ -341,7 +341,7 @@ class RevisionOverviewForm extends FormBase {
+   protected function buildSelectColumn($name, $return_val, $default_val) {
+     return [
+       '#type' => 'radio',
+-      '#title_display' => 'invisible',
++      '#title' => $this->t('Revision #@vid', ['@vid' => $return_val]),
+       '#name' => $name,
+       '#return_value' => $return_val,
+       '#default_value' => $default_val,

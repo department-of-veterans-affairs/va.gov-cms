@@ -4,18 +4,22 @@ status: true
 dependencies:
   config:
     - taxonomy.vocabulary.topics
+    - workflows.workflow.editorial
   module:
+    - content_moderation
+    - field_group
     - path
     - text
 third_party_settings:
   field_group:
     group_workflow:
       children:
+        - moderation_state
         - revision_log_message
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 20
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -29,14 +33,12 @@ targetEntityType: taxonomy_term
 bundle: topics
 mode: default
 content:
-  description:
-    type: text_textarea
-    weight: 1
+  moderation_state:
+    type: moderation_state_default
+    weight: 7
     region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
+    settings: { }
+    third_party_settings: { }
   name:
     type: string_textfield
     weight: 0
@@ -58,5 +60,5 @@ content:
     third_party_settings: {  }
 hidden:
   langcode: true
-  moderation_state: true
   status: true
+  description: true

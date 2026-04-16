@@ -63,7 +63,7 @@ class VcDashboardsBlock extends DeriverBase implements ContainerDeriverInterface
         'description' => 'List the services that Veterans can receive at your facility.',
         'action' => 'Go to services',
         'nid' => NULL,
-        'anchor' => '#edit-field-health-services',
+        'anchor' => '#edit-group-vet-center-services',
         'image' => 'services.svg',
       ],
       'featured_content' => [

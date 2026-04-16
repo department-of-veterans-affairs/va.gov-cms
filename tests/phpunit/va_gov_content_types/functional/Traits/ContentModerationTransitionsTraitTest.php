@@ -30,7 +30,7 @@ class ContentModerationTransitionsTraitTest extends VaGovExistingSiteBase {
     $node->save();
     $node->set('moderation_state', 'published');
     $node->original = $revision;
-    $original = $node->getOriginal();
+    $original = $node->getOriginalVersion();
     $this->assertEquals($node->id(), $original->id());
     $this->assertEquals($node->getOriginalModerationState(), 'draft');
   }
@@ -59,7 +59,7 @@ class ContentModerationTransitionsTraitTest extends VaGovExistingSiteBase {
     $node->save();
     $node->set('moderation_state', $newModerationState);
     $node->original = $revision;
-    $original = $node->getOriginal();
+    $original = $node->getOriginalVersion();
     $this->assertEquals($node->id(), $original->id());
     $this->assertEquals($node->getOriginalModerationState(), $initialModerationState);
     $this->assertEquals($expected, $node->isPublishedOrWasJustArchived());
@@ -108,7 +108,7 @@ class ContentModerationTransitionsTraitTest extends VaGovExistingSiteBase {
     $node->save();
     $node->set('moderation_state', $newModerationState);
     $node->original = $revision;
-    $original = $node->getOriginal();
+    $original = $node->getOriginalVersion();
     $this->assertEquals($node->id(), $original->id());
     $this->assertEquals($node->getOriginalModerationState(), $initialModerationState);
     $this->assertEquals($expected, $node->didTransitionFromPublishedToArchived());

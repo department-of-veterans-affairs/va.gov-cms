@@ -1,0 +1,19 @@
+diff --git a/core/lib/Drupal/Core/Entity/Plugin/Validation/Constraint/EntityChangedConstraintValidator.php b/core/lib/Drupal/Core/Entity/Plugin/Validation/Constraint/EntityChangedConstraintValidator.php
+index 5a7b4b90c6..14e8f8b4a5 100644
+--- a/core/lib/Drupal/Core/Entity/Plugin/Validation/Constraint/EntityChangedConstraintValidator.php
++++ b/core/lib/Drupal/Core/Entity/Plugin/Validation/Constraint/EntityChangedConstraintValidator.php
+@@ -31,8 +31,12 @@ public function validate($entity, Constraint $constraint) {
+             // been edited and saved in the meanwhile. Therefore, compare the
+             // changed timestamps of each entity translation individually.
+             if ($saved_entity->getTranslation($langcode)->getChangedTime() > $entity->getTranslation($langcode)->getChangedTime()) {
+-              $this->context->addViolation($constraint->message);
+-              break;
++              $a = $saved_entity->getLoadedRevisionId();
++              $b = $entity->getLoadedRevisionId();
++              if ($a == $b) {
++                $this->context->addViolation($constraint->message);
++                break;
++              }
+             }
+           }
+         }

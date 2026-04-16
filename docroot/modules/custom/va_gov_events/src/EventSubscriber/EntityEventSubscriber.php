@@ -117,6 +117,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
     // Remove states management now handled by custom js.
     unset($form['field_datetime_range_timezone']['widget'][0]['interval']['#states']);
+    unset($form['field_datetime_range_timezone']['widget'][0]['repeat-end']['#states']);
     unset($form['field_datetime_range_timezone']['widget'][0]['repeat-end-date']['#states']);
     unset($form['field_datetime_range_timezone']['widget'][0]['repeat-advanced']['#states']);
     unset($form['field_datetime_range_timezone']['widget'][0]['repeat-advanced']['by-day']['#states']);

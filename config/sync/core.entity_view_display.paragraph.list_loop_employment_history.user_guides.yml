@@ -1,0 +1,24 @@
+uuid: 6e1eccfb-4c40-42fa-94dd-17ee6ebe9303
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.user_guides
+    - field.field.paragraph.list_loop_employment_history.field_title
+    - paragraphs.paragraphs_type.list_loop_employment_history
+id: paragraph.list_loop_employment_history.user_guides
+targetEntityType: paragraph
+bundle: list_loop_employment_history
+mode: user_guides
+content:
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  breadcrumbs: true
+  search_api_excerpt: true

@@ -1,8 +1,9 @@
 ---
 name: Content Model Specification
-about: Use this template when you are specifying proposed changes to the CMS Content Model
-title: "Content model specification for [PRODUCT/FEATURE]"
-labels: Content Model
+about: Use this template when you are specifying proposed changes to the CMS Content
+  Model
+title: Content model specification for [PRODUCT/FEATURE]
+labels: ''
 assignees: ''
 
 ---
@@ -23,12 +24,3 @@ SO THAT I can implement it in Drupal
 - [ ] Proposed entities, fields, and field properties are documented using the [content model spec template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/content-model/drupal_content_model_spec_template.xlsx)
 - [ ] Reviewed with engineering & product
 - [ ] Send to CMS Collab Cycle
-
-
-## Team
-Please check the team(s) that will do this work.
-
-- [ ] CMS Team
-- [ ] Public Websites
-- [ ] Facilities
-- [ ] Accelerated Publishing

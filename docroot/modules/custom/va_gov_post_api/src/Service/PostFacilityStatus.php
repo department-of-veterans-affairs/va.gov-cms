@@ -66,7 +66,7 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
 
       // Set a key based on which the endpoint will be
       // defined during queue execution.
-      $data['endpoint_path'] = ($facility_id) ? "/services/va_facilities/v0/facilities/{$facility_id}/cms-overlay" : NULL;
+      $data['endpoint_path'] = ($facility_id) ? "/services/va_facilities/v1/facilities/{$facility_id}/cms-overlay" : NULL;
 
       // Set payload. Default payload provided by this module is empty.
       // See README.md
@@ -280,13 +280,6 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
         $payload['system']['url'] = 'https://www.va.gov/lovell-federal-health-care-va/';
         $payload['system']['covid_url'] = 'https://www.va.gov/lovell-federal-health-care-va/programs/covid-19-vaccines-and-testing/';
       }
-      // Facility url overrides.
-      $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
-
-      // Manila VA Clinic - vha_358.  Manila is a one facility system.
-      if ($facility_id === 'vha_358') {
-        $payload['core']['facility_url'] = 'https://www.visn21.va.gov/locations/manila.asp';
-      }
     }
   }
 
@@ -343,6 +336,14 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
     $isNew = $nodeFacility->isNew();
     $defaultRevisionIsPublished = $defaultRevision->isPublished();
 
+    $statusChanged = FALSE;
+    // Check if operating status field has changed.
+    if ($nodeFacility->hasField('field_operating_status_facility')) {
+      $currentStatus = $nodeFacility->get('field_operating_status_facility')->value;
+      $originalStatus = $defaultRevision->get('field_operating_status_facility')->value;
+      $statusChanged = $currentStatus !== $originalStatus;
+    }
+
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
       case LovellOps::isLovellTricareSection($nodeFacility):
@@ -356,12 +357,12 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
         // Forced push from updates to referenced entity.
       case $isNew:
         // A new node, should be pushed to initiate the value.
-      case $thisRevisionIsPublished && $moderationState === self::STATE_PUBLISHED:
-        // This revision is published, should be pushed.
+      case $thisRevisionIsPublished && $moderationState === self::STATE_PUBLISHED && $statusChanged:
+        // This revision is published, should be pushed if status changed.
       case $isArchived:
         // This node has been archived, got to push to remove it.
-      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished):
-        // Draft on an unpublished node, should be pushed.
+      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished && $statusChanged):
+        // Draft on an unpublished node, should be pushed if status changed.
       case ($thisRevisionIsPublished && !$defaultRevisionIsPublished):
         // To be the source of truth for urls, we need to push url on newly
         // published, because we use different urls.
@@ -370,6 +371,8 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
 
       case ($defaultRevisionIsPublished && !$thisRevisionIsPublished && $moderationState === self::STATE_DRAFT):
         // Draft revision on published node, should not push, even w/bypass.
+      case ($defaultRevisionIsPublished && !$thisRevisionIsPublished && $moderationState === self::STATE_PUBLISHED && !$statusChanged):
+        // Publishing draft revision on published node, but no status change.
         $push = FALSE;
         break;
 
@@ -407,17 +410,27 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
    * Gathers the mental health phone number from the facility.
    *
    * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/15686
+   * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/17862
    *
    * @return string
    *   The mental health phone number.
    */
   protected function getFacilityMentalHealthPhone(): string {
-    // This is the original and life-long field.
-    $mental_health_phone = $this->getFieldSafe('field_mental_health_phone');
-    // This is the temporary shuffle field that will be removed once conversion
-    // to fully edited is complete.
-    $mental_health_contact = $this->getFieldSafe('field_mental_health_contact_phon');
-    return (!empty($mental_health_contact)) ? $mental_health_contact : $mental_health_phone;
+    if (!$this->facilityNode->hasField('field_telephone')) {
+      return '';
+    }
+    $telephone_paragraph_id = $this->facilityNode->get('field_telephone')->target_id;
+    if (empty($telephone_paragraph_id)) {
+      return '';
+    }
+    $telephone_paragraph = $this->entityTypeManager->getStorage('paragraph')->load($telephone_paragraph_id);
+    $mental_health_phone = $telephone_paragraph->get('field_phone_number')->value ?? '';
+    $mental_health_extension = $telephone_paragraph->get('field_phone_extension')->value ?? '';
+    if (!empty($mental_health_extension)) {
+      $mental_health_phone .= ', ext. ' . $mental_health_extension;
+    }
+
+    return $mental_health_phone;
   }
 
   /**

@@ -1,0 +1,157 @@
+From 17070f1ef70ff89f732619a11c29730107a2083e Mon Sep 17 00:00:00 2001
+From: Brad Jones <brad.jones@fruition.net>
+Date: Tue, 6 Jul 2021 22:34:05 -0600
+Subject: [PATCH] Handle altered resource names
+
+---
+ .../OpenApiGenerator/JsonApiGenerator.php     | 63 ++++++++++++-------
+ 1 file changed, 39 insertions(+), 24 deletions(-)
+
+diff --git a/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php b/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php
+index 587d9bd..67ea460 100644
+--- a/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php
++++ b/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php
+@@ -85,6 +85,13 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+    */
+   private $entityTypeBundleInfo;
+ 
++  /**
++   * Map of normalized resource names.
++   *
++   * @var array
++   */
++  protected $resource_names = [];
++
+   /**
+    * JsonApiGenerator constructor.
+    *
+@@ -126,10 +133,13 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+     $this->paramConverterManager = $param_converter_manager;
+     $this->entityTypeBundleInfo = $entity_type_bundle_info;
+ 
++    $this->resource_names = static::retrieveResourceNames(
++      $resource_type_repository
++    );
+     // Remove the disabled resource types from the output.
+     $this->options['exclude'] = static::findDisabledMethods(
+-      $entity_type_manager,
+-      $resource_type_repository
++      $resource_type_repository,
++      $this->resource_names
+     );
+   }
+ 
+@@ -156,6 +166,23 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+     );
+   }
+ 
++  /**
++   * Retrieve all resource names, including any which have been altered.
++   *
++   * @param \Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface $resource_type_repository
++   *   Resource type repository.
++   *
++   * @return array
++   *   Keyed array mapping "[entity type]/[bundle]" to resource name.
++   */
++  protected static function retrieveResourceNames(ResourceTypeRepositoryInterface $resource_type_repository) {
++    $map = [];
++    foreach ($resource_type_repository->all() as $resourceType) {
++      $map[$resourceType->getEntityTypeId() . '/' . $resourceType->getBundle()] = $resourceType->getTypeName();
++    }
++    return $map;
++  }
++
+   /**
+    * Introspects all the JSON API resource types and outputs the disabled ones.
+    *
+@@ -167,21 +194,9 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+    * @return string[]
+    *   A list of resource keys to disable.
+    */
+-  protected static function findDisabledMethods(
+-    EntityTypeManagerInterface $entity_type_manager,
+-    ResourceTypeRepositoryInterface $resource_type_repository
+-  ) {
+-    $extract_resource_type_id = function (ResourceType $resource_type) use ($entity_type_manager) {
+-      $entity_type = $entity_type_manager->getDefinition($resource_type->getEntityTypeId());
+-      if (empty($entity_type->getKey('bundle'))) {
+-        return $resource_type->getEntityTypeId();
+-      }
+-      return sprintf(
+-        '%s%s%s',
+-        $resource_type->getEntityTypeId(),
+-        static::$DEFINITION_SEPARATOR,
+-        $resource_type->getBundle()
+-      );
++  protected static function findDisabledMethods(ResourceTypeRepositoryInterface $resource_type_repository, array $resource_map) {
++    $extract_resource_type_id = function (ResourceType $resource_type) use ($resource_map) {
++      return $resource_map[$resource_type->getEntityTypeId() . '/' . ($resource_type->getBundle() ?? $resource_type->getEntityTypeId())];
+     };
+     $filter_disabled = function (ResourceType $resourceType) {
+       // If there is an isInternal method and the resource is marked as internal
+@@ -296,7 +311,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+     $entity_type_id = $resource_type->getEntityTypeId();
+     $bundle = $resource_type->getBundle();
+     $tag = $this->getBundleTag($entity_type_id, $bundle);
+-    $route_type = $this->getRoutTypeFromName($route_name);
++    $route_type = $this->getRouteTypeByName($route_name);
+     if (in_array($route_type, ['related', 'relationship'])) {
+       $target_resource_type = $this->relatedResourceType($route_name, $route);
+       $target_tag = $this->getBundleTag(
+@@ -351,7 +366,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+    *   The method description.
+    */
+   protected function getRouteMethodDescription($route, $route_name, $method, $resource_type_name) {
+-    $route_type = $this->getRoutTypeFromName($route_name);
++    $route_type = $this->getRouteTypeByName($route_name);
+     if (!$route_type || $method !== 'get') {
+       return NULL;
+     }
+@@ -439,7 +454,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+    * @return string
+    *   The route type.
+    */
+-  protected function getRoutTypeFromName($route_name) {
++  protected function getRouteTypeByName($route_name) {
+     if (strpos($route_name, '.related') !== FALSE) {
+       return 'related';
+     }
+@@ -463,7 +478,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+    */
+   protected function relatedResourceType($route_name, $route) {
+     if (!in_array(
+-      $this->getRoutTypeFromName($route_name),
++      $this->getRouteTypeByName($route_name),
+       ['related', 'relationship'])
+     ) {
+       return NULL;
+@@ -543,7 +558,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+         ];
+       }
+     }
+-    $route_type = $this->getRoutTypeFromName($route_name);
++    $route_type = $this->getRouteTypeByName($route_name);
+     if ($method == 'get' && $route_type === 'collection' && $resource_type->isLocatable()) {
+       // If no route parameters and GET then this is collection route.
+       // @todo Add descriptions or link to documentation.
+@@ -642,7 +657,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+    * {@inheritdoc}
+    */
+   protected function getEntityResponsesJsonApi($entity_type_id, $method, $bundle_name, $route_name, Route $route = NULL) {
+-    $route_type = $this->getRoutTypeFromName($route_name);
++    $route_type = $this->getRouteTypeByName($route_name);
+     if ($route_type === 'collection') {
+       if ($method === 'get') {
+         $schema_response = [];
+@@ -901,7 +916,7 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+     if (!$bundle_name) {
+       $bundle_name = $entity_type_id;
+     }
+-    return parent::getEntityDefinitionKey($entity_type_id, $bundle_name);
++    return $this->resource_names["$entity_type_id/$bundle_name"];
+   }
+ 
+   /**
+-- 
+GitLab

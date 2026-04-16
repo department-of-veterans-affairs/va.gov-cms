@@ -1,0 +1,22 @@
+uuid: 28792eb5-d8cc-4650-9efd-c7a25a556bf8
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vba_facility
+label: 'VBA facility'
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  46fc0659-79b6-40ab-887c-8563f00d8e47:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 46fc0659-79b6-40ab-887c-8563f00d8e47
+    context_mapping:
+      node: node
+    bundles:
+      vba_facility: vba_facility
+selection_logic: and
+weight: -5
+relationships: {  }

@@ -8,10 +8,6 @@ dependencies:
   module:
     - allowed_formats
     - text
-third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - rich_text_limited
 id: node.banner.body
 field_name: body
 entity_type: node
@@ -25,4 +21,6 @@ default_value_callback: ''
 settings:
   display_summary: true
   required_summary: false
+  allowed_formats:
+    - rich_text_limited
 field_type: text_with_summary

@@ -55,4 +55,20 @@ interface BranchSearchFactoryInterface {
    */
   public function getVetsWebsite(): BranchSearchInterface;
 
+  /**
+   * Get the next-build branch search service.
+   *
+   * @return \Drupal\va_gov_git\BranchSearch\BranchSearchInterface
+   *   The next-build branch search object.
+   */
+  public function getNextBuild(): BranchSearchInterface;
+
+  /**
+   * Get the next-build-vets-website branch search service.
+   *
+   * @return \Drupal\va_gov_git\BranchSearch\BranchSearchInterface
+   *   The next-build-vets-website branch search object.
+   */
+  public function getNextBuildVetsWebsite(): BranchSearchInterface;
+
 }

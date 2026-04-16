@@ -7,27 +7,23 @@ source ~/.bashrc
 
 # Installs the content-build dependencies.
 
-if [ ! -d next ]; then
-  git clone --single-branch --depth 1 https://github.com/department-of-veterans-affairs/next-build.git next
+if [ ! -d next/src ]; then
+  git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/next-build.git next
 else
-  echo "Repo next-build already cloned."
+  echo "Repo next-build already cloned. Updating..."
+  git -C next reset --hard
+  git -C next pull origin $(git -C next rev-parse --abbrev-ref HEAD)
 fi
 
-cd next
-#repo_root="$(git rev-parse --show-toplevel)"
-#pushd "${repo_root}" > /dev/null
+pushd next
 
-nvm install 18.17.0 
-nvm use 18.17.0
+nvm install
+nvm use
 corepack enable
 corepack prepare yarn@stable --activate
 echo "Node $(node -v)"
 echo "NPM $(npm -v)"
 echo "Yarn $(yarn -v)"
 
-#not sure how popd works
-#pushd "./next"
-yarn install
-#popd
-
-#popd > /dev/null
+yarn install-safe --immutable
+popd > /dev/null

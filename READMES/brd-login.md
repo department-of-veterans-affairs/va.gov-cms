@@ -1,3 +1,8 @@
+---
+layout: default
+title: Logging into Running BRD Instances
+---
+
 # Logging into Running BRD Instances
 
 _If you need to log in to production or staging, for instance to run a script
@@ -90,7 +95,7 @@ which the Apache web server has access.
 In some cases, though, operations you attempt to execute as the `cms` user
 might fail, e.g. due to improperly specified file permissions or similar. In
 those cases, you can switch to the Apache user and configure the environment
-manually.  
+manually.
 
 ```bash
 $ sudo su - apache -s /bin/bash
@@ -110,7 +115,7 @@ Certain important environment variables (for instance, database credentials,
 GitHub API keys, etc) are stored within the above file.  `source` imports them
 into the current environment.  Without this step, `drush` and other commands
 that bootstrap Drupal directly or otherwise depend on environment variables
-will fail.  
+will fail.
 
 ```bash
 $ cd /var/www/cms

@@ -1,0 +1,6 @@
+<section class="form-builder-banner form-builder-banner--{{ type|default('info') }}" aria-label="{{ aria_label|default('Info banner')}}" role="region">
+  <div class="form-builder-banner__content">
+    <h{{ heading_level|default(3) }} class="form-builder-banner__heading">{{ heading }}</h{{ heading_level|default(3) }}>
+    <div class="fom-builder-banner__body">{{ body|raw }}</div>
+  </div>
+</section>

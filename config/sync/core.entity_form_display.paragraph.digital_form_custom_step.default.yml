@@ -1,0 +1,52 @@
+uuid: 7fab53aa-aa40-44c5-b542-8169ab0a7563
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.digital_form_custom_step.field_digital_form_pages
+    - field.field.paragraph.digital_form_custom_step.field_title
+    - paragraphs.paragraphs_type.digital_form_custom_step
+  module:
+    - paragraphs
+    - textfield_counter
+id: paragraph.digital_form_custom_step.default
+targetEntityType: paragraph
+bundle: digital_form_custom_step
+mode: default
+content:
+  field_digital_form_pages:
+    type: paragraphs
+    weight: 2
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield_with_counter
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 255
+      counter_position: after
+      js_prevent_submit: true
+      count_only_mode: false
+      count_html_characters: true
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

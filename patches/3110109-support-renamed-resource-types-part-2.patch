@@ -1,0 +1,26 @@
+From 9b02c70521c499152c915e481aaf4925992bc8f9 Mon Sep 17 00:00:00 2001
+From: Brad Jones <brad.jones@fruition.net>
+Date: Sat, 21 Aug 2021 16:07:16 -0600
+Subject: [PATCH] Fix edge case with tags generation
+
+---
+ src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php b/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php
+index 67ea460..5241ce1 100644
+--- a/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php
++++ b/src/Plugin/openapi/OpenApiGenerator/JsonApiGenerator.php
+@@ -916,7 +916,9 @@ class JsonApiGenerator extends OpenApiGeneratorBase {
+     if (!$bundle_name) {
+       $bundle_name = $entity_type_id;
+     }
+-    return $this->resource_names["$entity_type_id/$bundle_name"];
++    // We must return something here, since tags generation attempts to
++    // match against candidate resource names for bundle-less entities.
++    return $this->resource_names["$entity_type_id/$bundle_name"] ?? "$entity_type_id/$bundle_name";
+   }
+ 
+   /**
+-- 
+GitLab

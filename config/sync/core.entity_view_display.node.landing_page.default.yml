@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.landing_page.field_administration
     - field.field.node.landing_page.field_alert
+    - field.field.node.landing_page.field_connect_with_us
     - field.field.node.landing_page.field_description
     - field.field.node.landing_page.field_home_page_hub_label
     - field.field.node.landing_page.field_intro_text
@@ -14,7 +15,6 @@ dependencies:
     - field.field.node.landing_page.field_plainlanguage_date
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
-    - field.field.node.landing_page.field_related_office
     - field.field.node.landing_page.field_spokes
     - field.field.node.landing_page.field_support_services
     - field.field.node.landing_page.field_teaser_text
@@ -114,6 +114,15 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
+  field_connect_with_us:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
   field_description:
     type: string
     label: above
@@ -165,15 +174,6 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 7
-    region: content
-  field_related_office:
-    type: entity_reference_entity_view
-    label: above
-    settings:
-      view_mode: connect_with_us
-      link: false
-    third_party_settings: {  }
-    weight: 4
     region: content
   field_spokes:
     type: entity_reference_revisions_entity_view

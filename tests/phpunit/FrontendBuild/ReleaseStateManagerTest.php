@@ -2,12 +2,13 @@
 
 namespace tests\phpunit\FrontendBuild;
 
-use Drupal\Core\Http\RequestStack;
+use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\State\State;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Tests\Support\Classes\VaGovUnitTestBase;
 use Tests\Support\Mock\SpecifiedTime;
 
@@ -66,6 +67,17 @@ class ReleaseStateManagerTest extends VaGovUnitTestBase {
    */
   public function setUp() : void {
     parent::setUp();
+    \Drupal::unsetContainer();
+    $container = new ContainerBuilder();
+
+    $state = $this->getMockBuilder('Drupal\Core\State\StateInterface')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $container->set('state', $state);
+    $container->set('cache.bootstrap', $this->getMockBuilder('Drupal\Core\Cache\CacheBackendInterface')->getMock());
+    $container->set('lock', $this->getMockBuilder('Drupal\Core\Lock\LockBackendInterface')->getMock());
+
+    \Drupal::setContainer($container);
 
     $this->state = new State(new KeyValueMemoryFactory());
     $this->eventDispatcher = new EventDispatcher();

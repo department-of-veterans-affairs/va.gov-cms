@@ -8,5 +8,6 @@ services:
       - '@messenger'
       - '@string_translation'
       - '@va_gov_user.user_perms'
+      - '@renderer'
     tags:
       - { name: event_subscriber }

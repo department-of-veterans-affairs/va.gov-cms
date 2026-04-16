@@ -7,6 +7,9 @@
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\views\Plugin\views\query\Sql;
+use Drupal\views\ViewExecutable;
 
 /**
  * Sets up twig template fore Outdated Content notifications.
@@ -19,6 +22,24 @@ function va_gov_notifications_theme() {
     'message__vet_center_outdated_content__mail_body' => [
       'base hook' => 'message',
     ],
+    'message__aging_content_expired_fwb__mail_body' => [
+      'base hook' => 'message',
+    ],
+    'message__aging_content_warn_fwb__mail_body' => [
+      'base hook' => 'message',
+    ],
+    'message__aging_content_expired_news_promo__mail_body' => [
+      'base hook' => 'message',
+    ],
+    'message__aging_content_warn_news_promo__mail_body' => [
+      'base hook' => 'message',
+    ],
+    'message__vba_facility_draft_content__mail_body' => [
+      'base hook' => 'message',
+    ],
+    'message__warn_inactive_users__mail_body' => [
+      'base hook' => 'message',
+    ],
   ];
 }
 
@@ -29,6 +50,12 @@ function va_gov_notifications_mail_alter(&$message) {
   $types = [
     'vamc_outdated_content',
     'vet_center_outdated_content',
+    'aging_content_expired_fwb',
+    'aging_content_warn_fwb',
+    'aging_content_warn_news_promo',
+    'aging_content_expired_news_promo',
+    'vba_facility_draft_content',
+    'warn_inactive_users',
   ];
   if (in_array($message['key'], $types) && !empty($message['params']['message_entity'])) {
     $message['headers']['Content-Type'] = 'multipart/related; charset=UTF-8; format=flowed; delsp=yes';
@@ -55,4 +82,53 @@ function va_gov_notifications_help($route_name, RouteMatchInterface $route_match
       }
   }
   return NULL;
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function va_gov_notifications_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  if ($view->id() !== 'users_per_section') {
+    return;
+  }
+
+  if (!($query instanceof Sql)) {
+    return;
+  }
+
+  // Exclude orphaned section_association rows whose section_id no longer
+  // corresponds to a live taxonomy term (deleted sections, special strings
+  // like "administration", etc.). Without this filter those rows show up as
+  // N/A in the Section name column.
+  $query->addWhereExpression(0, "section_association.section_id IN (SELECT tid FROM taxonomy_term_field_data)");
+
+  if (!in_array($view->current_display, ['data_export_2', 'page_2'], TRUE)) {
+    return;
+  }
+
+  // Add HAVING directly: Views filter_groups can't express COALESCE on an
+  // aggregate. Alias comes from the relationship handler to avoid hard-coding.
+  $users_alias = $view->relationship['user_id_target_id']->alias ?? NULL;
+  if (empty($users_alias)) {
+    return;
+  }
+  $query->addHavingExpression(0, "COALESCE(SUM($users_alias.status), 0) = :active_count", [':active_count' => 0]);
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function va_gov_notifications_views_data_alter(array &$data) {
+  if (empty($data['section_association']['section_id'])) {
+    return;
+  }
+
+  $data['section_association']['section_id']['relationship'] = [
+    'title' => 'Section term',
+    'help' => 'Relate a section association to its Section taxonomy term.',
+    'id' => 'standard',
+    'base' => 'taxonomy_term_field_data',
+    'base field' => 'tid',
+    'label' => 'Section term',
+  ];
 }
