@@ -1,6 +1,8 @@
 # Migration meta data.
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - migrate_forward_draft
 id: va_node_form
 class: null
 field_plugin_method: null
@@ -295,8 +297,9 @@ process:
     default_value: va_form
 # Sets the destination for the migration.
 destination:
-  plugin: 'entity:node'
+  plugin: 'entity_with_forward_draft:node'
   default_bundle: va_form
+  migration_sync: true
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
     - changed
@@ -316,6 +319,18 @@ destination:
     - revision_timestamp
     - revision_uid
     - uid
+  forward_revision_overwrite_properties:
+    - field_va_form_administration
+    - field_va_form_deleted
+    - field_va_form_deleted_date
+    - field_va_form_issue_date
+    - field_va_form_num_pages
+    - field_va_form_number
+    - field_va_form_revision_date
+    - field_va_form_row_id
+    - field_va_form_title
+    - field_va_form_url
+    - title
 # Dependency on other migrations.
 migration_dependencies:
   required: {  }
