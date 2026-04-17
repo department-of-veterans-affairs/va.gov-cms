@@ -11,6 +11,8 @@ on:
 permissions:
   id-token: write
   contents: write
+  checks: read
+  statuses: read
 
 env:
   CMS_NOTIFICATIONS_SLACK: CJT90C0UT # cms-notifications
@@ -39,8 +41,9 @@ jobs:
           for SHA in $(git log --first-parent --format='%H' -n 50 main); do
             echo "Checking commit $SHA ..."
             STATUS=$(gh api "repos/${{ github.repository }}/commits/${SHA}/status" --jq '.state')
-            CHECK_RUNS=$(gh api "repos/${{ github.repository }}/commits/${SHA}/check-runs" --jq '[.check_runs[] | select(.conclusion == "success" or .conclusion == "skipped")] | length')
-            TOTAL_CHECK_RUNS=$(gh api "repos/${{ github.repository }}/commits/${SHA}/check-runs" --jq '.total_count')
+            CHECK_RUNS_RESPONSE=$(gh api --paginate "repos/${{ github.repository }}/commits/${SHA}/check-runs?per_page=100")
+            CHECK_RUNS=$(printf '%s\n' "$CHECK_RUNS_RESPONSE" | jq -s '[.[].check_runs[] | select(.conclusion == "success" or .conclusion == "skipped")] | length')
+            TOTAL_CHECK_RUNS=$(printf '%s\n' "$CHECK_RUNS_RESPONSE" | jq -s '[.[].check_runs[]] | length')
 
             if [[ "$STATUS" == "success" && "$TOTAL_CHECK_RUNS" -gt 0 && "$CHECK_RUNS" -eq "$TOTAL_CHECK_RUNS" ]]; then
               echo "Found passing commit: $SHA"

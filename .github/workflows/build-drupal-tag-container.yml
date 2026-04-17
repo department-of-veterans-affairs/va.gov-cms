@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Semver tag (cms/vX.Y.Z or vX.Y.Z(EKS)) to build. Leave blank to use latest.'
+        description: 'Semver tag (cms/vX.Y.Z or vX.Y.Z (EKS)) to build. Leave blank to use latest.'
         required: false
         type: string
   push:
@@ -64,7 +64,7 @@ jobs:
             {
               git tag --list "${TAG_PREFIX}v*.*.*" | sed "s|^${TAG_PREFIX}||"
               git tag --list "v*.*.*" | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$'
-            } | sort -t. -k1,1rn -k2,2rn -k3,3rn | head -n1
+            } | sort -V -r | head -n1
           }
 
           EVENT='${{ github.event_name }}'
@@ -96,7 +96,7 @@ jobs:
               fi
               SEMVER_TAG="$LATEST_TAG"
               if [[ ! "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
-                echo "::error title=Invalid Tag Format::Latest tag $LATEST_TAG does not match expected semver pattern after removing prefix." >&2
+                echo "::error title=Invalid Tag Format::Latest tag $LATEST_TAG does not match expected semver pattern." >&2
                 echo "is_valid=false" >> $GITHUB_OUTPUT
                 exit 1
               fi
