@@ -222,7 +222,7 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
- */
+   */
   protected function setUrlAlias(bool $tricare, NodeInterface $node): void {
     $fac_type = ($tricare ? 'tricare' : 'va');
     $url_title = rawurlencode(strtr(strtolower($node->getTitle()), ' ', '_'));
@@ -254,7 +254,7 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
- */
+   */
   protected function setMenuLinks(bool $tricare, NodeInterface $node): void {
     $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
     $section_value = $tricare ? 'tricare' : 'va';
