@@ -199,12 +199,12 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
       }
       save_node_revision($node, $revision_message);
       $this->batchOpLog->appendLog('Saving original node for: ' . $node->getTitle());
-    } else {
+    }
+    else {
       // Always save the duplicate node first.
       $node->save();
       $this->batchOpLog->appendLog('Saving duplicate node for: ' . $node->getTitle());
     }
-
 
     $this->setMenuLinks($tricare, $node);
     $this->setUrlAlias($tricare, $node);
@@ -216,13 +216,13 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
    *
    * @param bool $tricare
    *   Whether its a tricare node or not.
-   * @param NodeInterface $node
-   *   The node to update
+   * @param \Drupal\node\NodeInterface $node
+   *   The node to update.
    *
-   * @throws EntityStorageException
-   * @throws InvalidPluginDefinitionException
-   * @throws PluginNotFoundException
-   */
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+ */
   protected function setUrlAlias(bool $tricare, NodeInterface $node): void {
     $fac_type = ($tricare ? 'tricare' : 'va');
     $url_title = rawurlencode(strtr(strtolower($node->getTitle()), ' ', '_'));
@@ -248,13 +248,13 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
    *
    * @param bool $tricare
    *   Whether the node is Tricare or not.
-   * @param NodeInterface $node
+   * @param \Drupal\node\NodeInterface $node
    *   The node being updated.
    *
-   * @throws EntityStorageException
-   * @throws InvalidPluginDefinitionException
-   * @throws PluginNotFoundException
-   */
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+ */
   protected function setMenuLinks(bool $tricare, NodeInterface $node): void {
     $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
     $section_value = $tricare ? 'tricare' : 'va';
@@ -262,14 +262,14 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
     // Update menu link for this node.
     $parent_uuids = $this->getParentLinkUuids();
     $this->batchOpLog->appendLog('Got parent link uuids of: ' . implode(', ', $parent_uuids));
-    $parent_uuid = $tricare ? ($parent_uuids['Programs - Tricare'] ?? null) : ($parent_uuids['Programs - VA'] ?? null);
+    $parent_uuid = $tricare ? ($parent_uuids['Programs - Tricare'] ?? NULL) : ($parent_uuids['Programs - VA'] ?? NULL);
 
     $menu_link_entities = $menu_link_storage->loadByProperties([
       'link__uri' => 'entity:node/' . $node->id(),
     ]);
     $this->batchOpLog->appendLog('Found ' . count($menu_link_entities) . ' menu links for node ID ' . $node->id());
 
-    // Always ensure a menu link exists for the duplicate node (or for any node if needed).
+    // Always ensure a menu link exists for the duplicate node.
     // Only create a menu link if one does not already exist for this node.
     if (empty($menu_link_entities) && $parent_uuid) {
       // Use the entity_field.manager service to check for field_menu_section.
@@ -291,7 +291,8 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
 
       $menu_link->save();
       $this->batchOpLog->appendLog('Saving new menu link for: ' . $node->getTitle());
-    } else {
+    }
+    else {
       // If a menu link exists, update its parent to ensure correctness.
       foreach ($menu_link_entities as $menu_link) {
         if ($parent_uuid) {
