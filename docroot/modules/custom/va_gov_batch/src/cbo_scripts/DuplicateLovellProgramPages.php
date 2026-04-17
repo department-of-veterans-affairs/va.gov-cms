@@ -78,9 +78,8 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
 
     if (!empty($nids)) {
       foreach ($nids as $nid) {
-        /** @var \Drupal\node\NodeInterface $node */
         $node = $node_storage->load($nid);
-        if (empty($node)) {
+        if (!$node instanceof NodeInterface) {
           continue;
         }
         // Check if node matches criteria.
