@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
@@ -116,6 +117,13 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
+   * The messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -138,6 +146,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     UserPermsService $user_perms_service,
     ContentHardeningDeduper $content_hardening_deduper,
     NotificationsManager $notifications_manager,
+    MessengerInterface $messenger,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->currentUser = $currentUser;
@@ -145,6 +154,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
     $this->notificationsManager = $notifications_manager;
+    $this->messenger = $messenger;
   }
 
   /**
@@ -346,7 +356,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
     catch (EntityStorageException $e) {
-      \Drupal::messenger()->addError($this->t('An error occurred while updating the mental health phone number. %error',
+      $this->messenger->addError($this->t('An error occurred while updating the mental health phone number. %error',
         ['%error' => $e->getMessage()]
       ));
     }
@@ -427,8 +437,9 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
           $region_page = $this->entityTypeManager
             ->getStorage('node')
             ->loadUnchanged($target_id);
-        } catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
-          \Drupal::messenger()->addError($this->t('An error occurred while trying to load the target region page. %error',
+        }
+        catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
+          $this->messenger->addError($this->t('An error occurred while trying to load the target region page. %error',
             ['%error' => $e->getMessage()]
           ));
         }

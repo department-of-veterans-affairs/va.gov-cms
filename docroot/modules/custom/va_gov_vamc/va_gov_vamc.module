@@ -10,6 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_facilities\FacilityOps;
 use Drupal\va_gov_vamc\EventSubscriber\VAMCEntityPreventReuse;
 
@@ -93,7 +94,7 @@ function va_gov_vamc_entity_load(array &$entities, $entity_type) {
         $field = $entity->get('field_default_mental_health_phon');
         if ($field->isEmpty()) {
           // Create a new unsaved phone_number paragraph entity.
-          $paragraph = \Drupal\paragraphs\Entity\Paragraph::create(['type' => 'phone_number']);
+          $paragraph = Paragraph::create(['type' => 'phone_number']);
           // Attach the paragraph to the field. This does not save it yet.
           $field->appendItem($paragraph);
         }
