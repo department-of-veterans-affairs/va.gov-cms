@@ -2,8 +2,11 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -214,7 +217,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       && $entity->bundle() === 'health_care_local_facility'
       && $entity->hasField('field_use_default_mental_health')
     ) {
-      $use_default_checked = $entity->get('field_use_default_mental_health')->first()?->getValue()['value'];
+      $use_default_checked = $entity->get('field_use_default_mental_health')->value;
       if ($use_default_checked) {
         $this->setMentalHealthNumberToDefault($entity);
       }
@@ -317,28 +320,35 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $phone_extension = $system_paragraph?->get('field_phone_extension')->value;
     $phone_type = 'tel';
 
-    $facility_paragraph = $entity->get('field_telephone')->entity;
-    if ($facility_paragraph) {
-      // Update existing mental health phone number to match system default.
-      $facility_paragraph->set('field_phone_number', $phone_number);
-      $facility_paragraph->set('field_phone_extension', $phone_extension);
-      $facility_paragraph->set('field_phone_number_type', $phone_type);
-      $facility_paragraph->save();
+    try {
+      $facility_paragraph = $entity->get('field_telephone')->entity;
+      if ($facility_paragraph) {
+        // Update existing mental health phone number to match system default.
+        $facility_paragraph->set('field_phone_number', $phone_number);
+        $facility_paragraph->set('field_phone_extension', $phone_extension);
+        $facility_paragraph->set('field_phone_number_type', $phone_type);
+        $facility_paragraph->save();
+      }
+      else {
+        // Create new paragraph to match system default.
+        $values = [
+          'type' => 'phone_number',
+          'field_phone_number' => $phone_number,
+          'field_phone_extension' => $phone_extension,
+          'field_phone_number_type' => $phone_type,
+        ];
+        $new_paragraph = Paragraph::create($values);
+        $new_paragraph->save();
+        $entity->set('field_telephone', [
+          'target_id' => $new_paragraph->id(),
+          'target_revision_id' => $new_paragraph->getRevisionId(),
+        ]);
+      }
     }
-    else {
-      // Create new paragraph to match system default.
-      $values = [
-        'type' => 'phone_number',
-        'field_phone_number' => $phone_number,
-        'field_phone_extension' => $phone_extension,
-        'field_phone_number_type' => $phone_type,
-      ];
-      $new_paragraph = Paragraph::create($values);
-      $new_paragraph->save();
-      $entity->set('field_telephone', [
-        'target_id' => $new_paragraph->id(),
-        'target_revision_id' => $new_paragraph->getRevisionId(),
-      ]);
+    catch (EntityStorageException $e) {
+      \Drupal::messenger()->addError($this->t('An error occurred while updating the mental health phone number. %error',
+        ['%error' => $e->getMessage()]
+      ));
     }
   }
 
@@ -410,9 +420,21 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       && $node->hasField('field_use_default_mental_health')
       && $node->hasField('field_telephone')
     ) {
-      $region_page = $node->get('field_region_page')->entity;
+      $target_id = $node->get('field_region_page')->target_id;
+      $region_page = NULL;
+      if ($target_id) {
+        try {
+          $region_page = $this->entityTypeManager
+            ->getStorage('node')
+            ->loadUnchanged($target_id);
+        } catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
+          \Drupal::messenger()->addError($this->t('An error occurred while trying to load the target region page. %error',
+            ['%error' => $e->getMessage()]
+          ));
+        }
+      }
       $system_paragraph = $region_page?->get('field_default_mental_health_phon')->entity;
-      if (empty($system_paragraph)) {
+      if ($system_paragraph->get('field_phone_number')->isEmpty()) {
         $form['field_use_default_mental_health']['#access'] = FALSE;
         return;
       }
