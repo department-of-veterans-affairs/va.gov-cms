@@ -2,7 +2,7 @@ services:
   # What to call the service hosting the site.
   php:
     # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
-    image: tugboatqa/php:8.1-apache-bookworm
+    image: tugboatqa/php:8.4-apache-bookworm
 
     aliases:
     - cms
@@ -273,7 +273,7 @@ services:
   mysql:
     # Match with terraform-aws-vsp-cms/rds.tf (another repo)
     # Match with .lando.yml (this repo)
-    image: tugboatqa/mariadb:10.5
+    image: tugboatqa/mariadb:10.11
 
     # A set of commands to run while building this service
     commands:
