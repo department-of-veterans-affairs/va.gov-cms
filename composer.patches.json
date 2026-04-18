@@ -14,31 +14,20 @@
         },
         "drupal/core": {
             "3057267 - User logout during maintenance mode": "patches/3057267-maintenance-forced-logout-experimental.patch",
-            "2893933 - claimItem in the database and memory queues does not use expire correctly": "patches/2893933-queue-lease-time.patch",
             "3025164 - Make moderation_state available to field queries": "patches/3025164-make-moderation-state-available-to-field-queries.patch",
-            "3229493 - TextareaWidget::errorElement() does not consult violation property path.": "patches/3229493-textarea-does-not-consult-violation-property-path.patch",
             "3027240 - Undefined index: #parents FormState.php": "patches/3027240-form-system-undefined-index.patch",
-            "2915792 - MenuLinkContentAccessControlHandler does not allow \"view\" access without admin permission": "patches/2915792-drupal-core-menu-link-perm-mr-339.patch",
             "2421445 - Text format wrapper does not take description_display into account": "patches/2421445-text-format-wrapper-does-not-take-description-display-into-account.patch",
             "Internal Claro tweaks": "patches/VACMS-16018-claro-css-tweaks.patch",
-            "2767243 - Create a theme suggestion for taxonomy terms by view mode": "patches/2767243-core-theme-suggestion-for-taxonomy-view-modes.patch",
             "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "patches/2775665-menulinkcontent-updatelink-function-generates-misleading-php-warning.patch",
             "Claro claro_preprocess_input()": "patches/VACMS-12054-drupal-core-claro-preprocess-input.patch",
-            "1156338 - Fixed maximum number of field values, but use «add more» similar to when cardinality «unlimited» is used": "patches/1156338-fixed-maximum-number-of-field-values.patch",
             "2942404 - Contentinfo landmark": "patches/2942404-contentinfo-landmark.patch",
-            "3106205 - Length of menu_tree.url and menu_tree.route_param_key are too short (255 characters)": "patches/3106205-length-menu-tree-too-short.patch",
-            "3333401 - Pager h4 cause accessibility flag on many pages": "patches/3333401-configurable-pager-heading-default-h2.patch",
-            "3382759 - Add multiple workflow content moderation filter to Views.": "patches/3382759-add-multiple-workflow-content-moderation-filter-to-views.patch",
             "3241295 - CKEditor 5 isn't respecting field widgets row settings": "patches/3241295-ckeditor-5-not-respecting-field-widgets-row-settings.patch",
             "3376267 - [upstream] Add style to anchor leads to unusable behavior": "patches/3376267-add-style-to-anchor-leads-to-unusable-behavior.patch",
             "3285657 - The content has either been modified by another user, or you have already submitted modifications error": "patches/3285657-node-lock-translations.patch",
             "VACMS-19177 remove username form logging in user module": "patches/VACMS-19177-patch-for-user-module-to-log-uid.patch",
-            "3082011 - Fix for orphaned label tags": "patches/3082011-19-do-not-use-label-HTML-tag-in-item-form-element.patch",
             "3397718 - 'To log in to this site, your browser must accept cookies from the domain' error message displayed when user goes back and reload the page": "patches/3397718-must-accept-cookies.patch",
-            "VACMS-23017 - Force user to choose moderation state": "patches/VACMS-23017-content-moderation-default-placeholder.patch"
-        },
-        "drupal/decoupled_router": {
-            "3111456 - Unable to resolve path on node in other language than default": "patches/3111456-resolve-language-issues.patch"
+            "VACMS-23017 - Force user to choose moderation state": "patches/VACMS-23017-content-moderation-default-placeholder.patch",
+            "3523317 - fix type error null text": "patches/3523317-fix-type-error-null-text-3523317-21.patch"
         },
         "drupal/diff": {
             "3228798 - Make revisions overview page accessible": "patches/3228798-make-revisions-overview-page-accessible.patch"
@@ -105,6 +94,10 @@
         "drupal/memcache": {
             "3058121 - Use persistent connections": "patches/3058121-memcache-persistent-connections-memcached.patch"
         },
+        "drupal/menu_normalizer": {
+            "3584180 - Symfony 7 normalize() signature compatibility": "patches/3584180-menu-normalizer-symfony7-signature-compatibility.patch"
+        },
+
         "drupal/menu_item_extras": {
             "3210468 - The 'bundle' field is not always populated with the menu name": "patches/3210468-the-bundle-field-is-not-always-populated-with-the-menu-name.patch"
         },

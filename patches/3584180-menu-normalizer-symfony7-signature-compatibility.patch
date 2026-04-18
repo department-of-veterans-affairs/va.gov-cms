@@ -1,0 +1,99 @@
+diff --git a/src/Normalizer/MenuLinkNormalizer.php b/src/Normalizer/MenuLinkNormalizer.php
+index 6eeea63e4d249163554aa976b8d58c79d2c86c99..fb119816f81e03c538ad40f5821afdc14e1db3fd 100644
+--- a/src/Normalizer/MenuLinkNormalizer.php
++++ b/src/Normalizer/MenuLinkNormalizer.php
+@@ -20,7 +20,7 @@ class MenuLinkNormalizer extends NormalizerBase {
+   /**
+    * {@inheritdoc}
+    */
+-  public function normalize($object, $format = NULL, array $context = []) {
++  public function normalize(mixed $object, ?string $format = NULL, array $context = []): array {
+     /** @var \Drupal\Core\Menu\MenuLinkInterface $object */
+     return [
+       'id' => $object->getPluginId(),
+@@ -39,10 +39,19 @@ class MenuLinkNormalizer extends NormalizerBase {
+       'route_parameters' => $object->getRouteParameters(),
+       'url' => $object->getUrlObject()->toString(),
+       'options' => $object->getOptions(),
+-      'meta_data' => $this->serializer->normalize($object->getMetaData(), $format, $context),
++      'metadata' => $this->serializer->normalize($object->getMetaData(), $format, $context),
+       'delete_route' => $object->getDeleteRoute(),
+       'edit_route' => $object->getEditRoute(),
+     ];
+   }
+ 
++  /**
++   * {@inheritdoc}
++   */
++  public function getSupportedTypes(?string $format): array {
++    return [
++      MenuLinkInterface::class => TRUE,
++    ];
++  }
++
+ }
+diff --git a/src/Normalizer/MenuLinkTreeNormalizer.php b/src/Normalizer/MenuLinkTreeNormalizer.php
+index 87350cfe411a4902532a2f5be1980d90a151de51..a79dc34677e55887d92bfca68508bc43437cee85 100644
+--- a/src/Normalizer/MenuLinkTreeNormalizer.php
++++ b/src/Normalizer/MenuLinkTreeNormalizer.php
+@@ -20,7 +20,7 @@ class MenuLinkTreeNormalizer extends NormalizerBase {
+   /**
+    * {@inheritdoc}
+    */
+-  public function normalize($object, $format = NULL, array $context = []) {
++  public function normalize(mixed $object, ?string $format = NULL, array $context = []): array {
+     /** @var \Drupal\Core\Menu\MenuLinkTreeElement $object */
+     return [
+       'link' => $this->serializer->normalize($object->link, $format, $context),
+@@ -32,4 +32,13 @@ class MenuLinkTreeNormalizer extends NormalizerBase {
+     ];
+   }
+ 
++  /**
++   * {@inheritdoc}
++   */
++  public function getSupportedTypes(?string $format): array {
++    return [
++      MenuLinkTreeElement::class => TRUE,
++    ];
++  }
++
+ }
+diff --git a/tests/src/Unit/MenuLinkNormalizerTest.php b/tests/src/Unit/MenuLinkNormalizerTest.php
+index e96be9c65deb07eaf762a55353af0a12c7824968..f8086495ec945ece2a53ce36d10ed7811dc6cce6 100644
+--- a/tests/src/Unit/MenuLinkNormalizerTest.php
++++ b/tests/src/Unit/MenuLinkNormalizerTest.php
+@@ -45,9 +45,16 @@ class MenuLinkNormalizerTest extends MenuNormalizerTestBase {
+       'route_name' => 'example1',
+       'title' => 'foo',
+       'parent' => '',
+-      'weight' => 0
++      'weight' => 0,
++      'description' => '',
++      'menu_name' => 'main',
++      'provider' => 'menu_normalizer',
++      'enabled' => 1,
++      'expanded' => 0,
++      'options' => [],
++      'metadata' => NULL,
+     ];
+-    $menu_link = MenuLinkMock::create($definition);
++    $menu_link = new MenuLinkMock([], $definition['id'], $definition);
+     $normalized = $this->menuLinkNormalizer->normalize($menu_link);
+     $this->assertIsArray($normalized);
+     foreach ($definition as $key => $value) {
+diff --git a/tests/src/Unit/MenuLinkTreeNormalizerTest.php b/tests/src/Unit/MenuLinkTreeNormalizerTest.php
+index e564bafd7ae887405eea2d248c8ea2bbb3a25300..85c382de244dff71c3d85938548c288c1bb4e9bf 100644
+--- a/tests/src/Unit/MenuLinkTreeNormalizerTest.php
++++ b/tests/src/Unit/MenuLinkTreeNormalizerTest.php
+@@ -41,8 +41,8 @@ class MenuLinkTreeNormalizerTest extends MenuNormalizerTestBase {
+    * @covers ::normalize
+    */
+   public function testNormalize() {
+-    $link_1 = MenuLinkMock::create(['id' => 'test_1']);
+-    $link_2 = MenuLinkMock::create(['id' => 'test_2']);
++    $link_1 = new MenuLinkMock([], 'test_1', ['id' => 'test_1']);
++    $link_2 = new MenuLinkMock([], 'test_2', ['id' => 'test_2']);
+     $child_item = new MenuLinkTreeElement($link_2, FALSE, 3, FALSE, []);
+     $parent_item = new MenuLinkTreeElement($link_1, TRUE, 2, FALSE, [$child_item]);
+     $child_normalized = $this->menuLinkTreeNormalizer->normalize($child_item);
