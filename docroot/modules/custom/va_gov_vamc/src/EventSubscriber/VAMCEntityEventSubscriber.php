@@ -320,13 +320,13 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   protected function setMentalHealthNumberToDefault($entity): void {
     $node_storage = $this->entityTypeManager->getStorage('node');
-    // Get system mental health paragraph from the region page node.
+
     $region_page = $entity->get('field_region_page')->entity;
     if (empty($region_page)) {
       return;
     }
 
-    // Check for forward revisions of the region_page node (any moderation state).
+    // Check for forward revisions.
     $revision_ids = $node_storage->revisionIds($region_page);
     $latest_forward_revision = NULL;
     foreach (array_reverse($revision_ids) as $revision_id) {
@@ -350,14 +350,12 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     try {
       $facility_paragraph = $entity->get('field_telephone')->entity;
       if ($facility_paragraph) {
-        // Update existing mental health phone number to match system default.
         $facility_paragraph->set('field_phone_number', $phone_number);
         $facility_paragraph->set('field_phone_extension', $phone_extension);
         $facility_paragraph->set('field_phone_number_type', $phone_type);
         $facility_paragraph->save();
       }
       else {
-        // Create new paragraph to match system default.
         $values = [
           'type' => 'phone_number',
           'field_phone_number' => $phone_number,
