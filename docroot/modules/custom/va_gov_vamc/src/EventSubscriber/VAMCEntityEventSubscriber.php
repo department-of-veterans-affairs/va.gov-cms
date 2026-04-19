@@ -319,15 +319,32 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function setMentalHealthNumberToDefault($entity): void {
-    // Get system mental health paragraph.
+    $node_storage = $this->entityTypeManager->getStorage('node');
+    // Get system mental health paragraph from the region page node.
     $region_page = $entity->get('field_region_page')->entity;
-    $system_paragraph = $region_page?->get('field_default_mental_health_phon')->entity;
-    if (empty($system_paragraph)) {
+    if (empty($region_page)) {
       return;
     }
 
-    $phone_number = $system_paragraph?->get('field_phone_number')->value;
-    $phone_extension = $system_paragraph?->get('field_phone_extension')->value;
+    // Check for forward revisions of the region_page node (any moderation state).
+    $revision_ids = $node_storage->revisionIds($region_page);
+    $latest_forward_revision = NULL;
+    foreach (array_reverse($revision_ids) as $revision_id) {
+      if ($revision_id > $region_page->getRevisionId()) {
+        $revision = $node_storage->loadRevision($revision_id);
+        if ($revision) {
+          $latest_forward_revision = $revision;
+          break;
+        }
+      }
+    }
+    $region_page_to_check = $latest_forward_revision ?: $region_page;
+    $system_paragraph = $region_page_to_check?->get('field_default_mental_health_phon')->entity;
+    if (empty($system_paragraph)) {
+      return;
+    }
+    $phone_number = $system_paragraph->get('field_phone_number')->value;
+    $phone_extension = $system_paragraph->get('field_phone_extension')->value;
     $phone_type = 'tel';
 
     try {
