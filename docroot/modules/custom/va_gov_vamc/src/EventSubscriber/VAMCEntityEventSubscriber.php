@@ -460,7 +460,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
         }
       }
       $system_paragraph = $region_page?->get('field_default_mental_health_phon')->entity;
-      if ($system_paragraph->get('field_phone_number')->isEmpty()) {
+      if (!$system_paragraph || $system_paragraph->get('field_phone_number')->isEmpty()) {
         $form['field_use_default_mental_health']['#access'] = FALSE;
         return;
       }

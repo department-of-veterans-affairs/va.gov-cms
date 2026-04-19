@@ -84,26 +84,6 @@ function va_gov_vamc_node_grants(AccountInterface $account, $operation) {
 }
 
 /**
- * Implements hook_entity_load().
- */
-function va_gov_vamc_entity_load(array &$entities, $entity_type) {
-  if ($entity_type === 'node') {
-    foreach ($entities as $entity) {
-      // Only target health_care_region_page nodes with the field.
-      if ($entity->bundle() === 'health_care_region_page' && $entity->hasField('field_default_mental_health_phon')) {
-        $field = $entity->get('field_default_mental_health_phon');
-        if ($field->isEmpty()) {
-          // Create a new unsaved phone_number paragraph entity.
-          $paragraph = Paragraph::create(['type' => 'phone_number']);
-          // Attach the paragraph to the field. This does not save it yet.
-          $field->appendItem($paragraph);
-        }
-      }
-    }
-  }
-}
-
-/**
  * Modifies UI of the Facility Status VBO Modify Field Values form.
  *
  * The form that allows the user to modify field values contains too many
