@@ -1,0 +1,27 @@
+uuid: 98ddd61e-e789-4772-8301-908db3d7813d
+langcode: en
+status: false
+dependencies: {  }
+id: eks_staging
+label: 'EKS Staging'
+description: 'Configuration for EKS Staging environment.'
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/eks-staging
+module:
+  fast404: 0
+  purge: 0
+  purge_processor_cron: 0
+  purge_processor_lateruntime: 0
+  purge_queuer_coretags: 0
+  purge_tokens: 0
+  purge_ui: 0
+  varnish_purge_tags: 0
+  varnish_purger: 0
+  syslog: 0
+theme: {  }
+complete_list: {  }
+partial_list:
+  - ga4_google_analytics.config

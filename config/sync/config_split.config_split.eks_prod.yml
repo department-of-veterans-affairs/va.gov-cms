@@ -1,0 +1,28 @@
+uuid: 0adf6e5e-dbf9-4905-b16f-16aeae64ea1d
+langcode: en
+status: false
+dependencies: {  }
+id: eks_prod
+label: 'EKS Prod'
+description: 'Configuration for EKS Production environment.'
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/eks-prod
+module:
+  fast404: 0
+  purge: 0
+  purge_processor_cron: 0
+  purge_processor_lateruntime: 0
+  purge_queuer_coretags: 0
+  purge_tokens: 0
+  purge_ui: 0
+  varnish_purge_tags: 0
+  varnish_purger: 0
+  syslog: 0
+theme: {  }
+complete_list: {  }
+partial_list:
+  - ga4_google_analytics.config
+  - password_policy.password_policy.va_gov_cms
