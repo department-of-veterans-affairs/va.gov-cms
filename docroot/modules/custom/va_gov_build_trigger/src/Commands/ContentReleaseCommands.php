@@ -68,7 +68,6 @@ class ContentReleaseCommands extends DrushCommands {
     $this->buildScheduler = $buildScheduler;
     $this->requestService = $requestService;
     $this->state = $state;
-    $this->logger = $this->getLogger('va_gov_build_trigger');
   }
 
   /**

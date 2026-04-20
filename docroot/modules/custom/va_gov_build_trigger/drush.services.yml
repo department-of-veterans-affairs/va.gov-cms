@@ -11,6 +11,5 @@ services:
       - '@va_gov_build_trigger.build_scheduler'
       - '@va_gov_content_release.request'
       - '@state'
-      - '@logger.factory'
     tags:
       - { name: drush.command }
