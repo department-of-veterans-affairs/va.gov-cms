@@ -2,8 +2,11 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -205,6 +208,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $entity = $event->getEntity();
     $this->contentHardeningDeduper->removeDuplicate($entity);
     $this->removeFieldDataFromNonClinicalServices($entity);
+    $this->archiveFacilityServices($entity);
+
   }
 
   /**
@@ -411,6 +416,13 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     if (!$is_admin) {
       $this->disableSystemHealthServiceChange($form, $form_state);
     }
+
+    try {
+      $form = $this->confirmArchive($form_state, $form);
+    }
+    catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
+      \Drupal::logger('va_gov_vamc')->error('Failed to confirm archiving facility health service: @message', ['@message' => $e->getMessage()]);
+    }
   }
 
   /**
@@ -465,6 +477,89 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       $form['field_service_name_and_descripti']['widget']['#description'] =
         $this->t('This field cannot be changed after creation. Please contact an administrator if you need to update it.');
     }
+  }
+
+  /**
+   * @param EntityInterface $entity
+   * @return void
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function archiveFacilityServices(EntityInterface $entity): void {
+    if (
+      $entity instanceof NodeInterface &&
+      $entity->bundle() === 'regional_health_care_service_des' &&
+      !$entity->isNew() &&
+      $entity->hasField('moderation_state') &&
+      $entity->get('moderation_state')->value === 'archived'
+    ) {
+      // Only run if the previous state was not already archived.
+      $original = $entity->original ?? NULL;
+      $was_archived = $original && $original->hasField('moderation_state') && $original->get('moderation_state')->value === 'archived';
+      if (!$was_archived) {
+        $facility_storage = $this->entityTypeManager->getStorage('node');
+        $facility_nids = $facility_storage->getQuery()
+          ->condition('type', 'health_care_local_health_service')
+          ->condition('status', 1)
+          ->condition('field_regional_health_service', $entity->id())
+          ->execute();
+        if (!empty($facility_nids)) {
+          $facility_nodes = $facility_storage->loadMultiple($facility_nids);
+          foreach ($facility_nodes as $facility_node) {
+            try {
+              if ($facility_node->hasField('moderation_state')) {
+                $facility_node->set('moderation_state', 'archived');
+              }
+              $facility_node->setUnpublished();
+              $facility_node->save();
+            }
+            catch (InvalidPluginDefinitionException | PluginNotFoundException | EntityStorageException $e) {
+              \Drupal::logger('va_gov_vamc')->error('Failed to archive facility health service node with ID @nid: @message', ['@nid' => $facility_node->id(), '@message' => $e->getMessage()]);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * @param FormStateInterface $form_state
+   * @param array $form
+   * @return array
+   * @throws InvalidPluginDefinitionException
+   * @throws PluginNotFoundException
+   */
+  public function confirmArchive(FormStateInterface $form_state, array $form): array {
+    $form_object = $form_state->getFormObject();
+    if (method_exists($form_object, 'getEntity')) {
+      /** @var \Drupal\node\NodeInterface $node */
+      $node = $form_object->getEntity();
+      if ($node instanceof NodeInterface && !$node->isNew()) {
+        // Query for published Facility health service nodes referencing this System service.
+        $facility_count = $this->entityTypeManager->getStorage('node')
+          ->getQuery()
+          ->condition('type', 'health_care_local_health_service')
+          ->condition('status', 1)
+          ->condition('field_regional_health_service', $node->id())
+          ->accessCheck(FALSE)
+          ->count()
+          ->execute();
+
+        if ($facility_count > 0) {
+          // Attach the archive_confirm JS library.
+          $form['#attached']['library'][] = 'va_gov_vamc/archive_confirm';
+          // Build the confirmation message.
+          $archive_message = $this->t('There are @count published VAMC Facility health services associated to this System health service. By saving this System service as archived, all the associated Facility health services will be automatically archived as well.', ['@count' => $facility_count]);
+          // Pass data to JS via drupalSettings.
+          $form['#attached']['drupalSettings']['va_gov_vamc']['archiveConfirm'] = [
+            'facilityCount' => $facility_count,
+            'message' => $archive_message,
+          ];
+        }
+      }
+    }
+    return $form;
   }
 
   /**
