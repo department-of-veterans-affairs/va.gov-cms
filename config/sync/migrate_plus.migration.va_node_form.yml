@@ -1,7 +1,9 @@
 uuid: 3e53c582-e360-4118-9cb5-a9c6f7a6e3fc
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - migrate_forward_draft
 id: va_node_form
 class: null
 field_plugin_method: null
@@ -310,8 +312,9 @@ process:
     plugin: default_value
     default_value: va_form
 destination:
-  plugin: 'entity:node'
+  plugin: 'entity_with_forward_draft:node'
   default_bundle: va_form
+  migration_sync: true
   overwrite_properties:
     - changed
     - field_va_form_administration
@@ -330,5 +333,17 @@ destination:
     - revision_timestamp
     - revision_uid
     - uid
+  forward_revision_overwrite_properties:
+    - field_va_form_administration
+    - field_va_form_deleted
+    - field_va_form_deleted_date
+    - field_va_form_issue_date
+    - field_va_form_num_pages
+    - field_va_form_number
+    - field_va_form_revision_date
+    - field_va_form_row_id
+    - field_va_form_title
+    - field_va_form_url
+    - title
 migration_dependencies:
   required: {  }

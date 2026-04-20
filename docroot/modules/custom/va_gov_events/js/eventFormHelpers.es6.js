@@ -2,12 +2,15 @@
  * @file
  */
 
-((Drupal) => {
+((Drupal, once) => {
   const registrationRequiredBool = document.getElementById(
     "edit-field-event-registrationrequired-value"
   );
   const includeRegistrationsBool = document.getElementById(
     "edit-field-include-registration-info-value"
+  );
+  const fieldAdditionalRegistrationInfo = document.getElementById(
+    "edit-field-additional-information-abo-0-value"
   );
   const ctaSelect = document.getElementById("edit-field-event-cta");
   const fieldLinkWrapper = document.getElementById("edit-field-link-wrapper");
@@ -97,6 +100,38 @@
     ".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper"
   );
 
+  const safeValue = (el, val = "") => {
+    if (el) {
+      el.value = val;
+    }
+  };
+
+  const safeDisplay = (el, display) => {
+    if (el) {
+      el.style.display = display;
+    }
+  };
+
+  const clearAdditionalRegistrationInfo = () => {
+    const el = fieldAdditionalRegistrationInfo;
+    if (!el) {
+      return;
+    }
+    const ckId = el.getAttribute("data-ckeditor5-id");
+    if (
+      ckId &&
+      Drupal.CKEditor5Instances &&
+      typeof Drupal.CKEditor5Instances.get === "function"
+    ) {
+      const editor = Drupal.CKEditor5Instances.get(ckId);
+      if (editor && typeof editor.setData === "function") {
+        editor.setData("");
+        return;
+      }
+    }
+    el.value = "";
+  };
+
   const toggleCtaInputRequired = (label, wrapper, input, required = true) => {
     const addRemove = required ? "add" : "remove";
     wrapper.style.display = required ? "block" : "none";
@@ -126,20 +161,23 @@
   };
 
   const emptyAllCtaInputs = () => {
-    fieldCtaEmailInput.value = "";
-    fieldLinkInput.value = "";
-    fieldCtaHowToSignUp.value = "_none";
+    safeValue(fieldCtaEmailInput, "");
+    safeValue(fieldLinkInput, "");
+    safeValue(fieldCtaHowToSignUp, "_none");
   };
 
   const toggleRegistrationElements = () => {
     const toggleVal = !!includeRegistrationsBool.checked;
     let elementDisplayStyle = "block";
     if (!toggleVal) {
-      fieldLinkInput.value = "";
-      fieldCtaEmailInput.value = "";
-      ctaSelect.value = "_none";
+      safeValue(fieldLinkInput, "");
+      safeValue(fieldCtaEmailInput, "");
+      safeValue(ctaSelect, "_none");
+      clearAdditionalRegistrationInfo();
       elementDisplayStyle = "none";
-      registrationRequiredBool.checked = false;
+      if (registrationRequiredBool) {
+        registrationRequiredBool.checked = false;
+      }
       toggleAllCtaInputsRequired(false);
     }
     targetRegistrationElements.forEach((element) => {
@@ -311,31 +349,31 @@
     });
     toggleAddressRequiredFields(false, "remove");
     toggleFacilityLocationRequiredFields(false, "remove");
-    if (fieldLocationTypeFacility.checked) {
-      fieldFacilityLocationWrapper.style.display = "block";
-      fieldLocationHumanreadableWrapper.style.display = "block";
-      fieldUrlOfOnlineEvent.value = "";
-      fieldAddressLine1.value = "";
-      fieldAddressLine2.value = "";
-      fieldAddressLocality.value = "";
-      fieldAddressAdminArea.value = "";
+    if (fieldLocationTypeFacility && fieldLocationTypeFacility.checked) {
+      safeDisplay(fieldFacilityLocationWrapper, "block");
+      safeDisplay(fieldLocationHumanreadableWrapper, "block");
+      safeValue(fieldUrlOfOnlineEvent, "");
+      safeValue(fieldAddressLine1, "");
+      safeValue(fieldAddressLine2, "");
+      safeValue(fieldAddressLocality, "");
+      safeValue(fieldAddressAdminArea, "");
       toggleFacilityLocationRequiredFields(true, "add");
     }
-    if (fieldLocationTypeNonFacility.checked) {
-      fieldLocationHumanreadableWrapper.style.display = "block";
-      fieldAddressWrapper.style.display = "block";
+    if (fieldLocationTypeNonFacility && fieldLocationTypeNonFacility.checked) {
+      safeDisplay(fieldLocationHumanreadableWrapper, "block");
+      safeDisplay(fieldAddressWrapper, "block");
       toggleAddressRequiredFields(true, "add");
-      fieldUrlOfOnlineEvent.value = "";
-      fieldFacilityLocation.value = "";
+      safeValue(fieldUrlOfOnlineEvent, "");
+      safeValue(fieldFacilityLocation, "");
     }
-    if (fieldLocationTypeOnline.checked) {
-      fieldUrlOfOnlineEventWrapper.style.display = "block";
-      fieldAddressLine1.value = "";
-      fieldAddressLine2.value = "";
-      fieldAddressLocality.value = "";
-      fieldAddressAdminArea.value = "";
-      fieldFacilityLocation.value = "";
-      fieldLocationHumanreadable.value = "";
+    if (fieldLocationTypeOnline && fieldLocationTypeOnline.checked) {
+      safeDisplay(fieldUrlOfOnlineEventWrapper, "block");
+      safeValue(fieldAddressLine1, "");
+      safeValue(fieldAddressLine2, "");
+      safeValue(fieldAddressLocality, "");
+      safeValue(fieldAddressAdminArea, "");
+      safeValue(fieldFacilityLocation, "");
+      safeValue(fieldLocationHumanreadable, "");
     }
   };
 
@@ -353,8 +391,14 @@
   };
 
   Drupal.behaviors.vaGovEventFormHelpers = {
-    attach() {
-      operate();
+    attach(context) {
+      once(
+        "vaGovEventFormHelpers",
+        "#edit-field-include-registration-info-value",
+        context
+      ).forEach(() => {
+        operate();
+      });
     },
   };
-})(Drupal);
+})(Drupal, once);
