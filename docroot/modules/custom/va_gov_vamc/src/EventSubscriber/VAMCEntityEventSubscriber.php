@@ -25,6 +25,7 @@ use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
  * VA.gov VAMC Entity Event Subscriber.
@@ -115,6 +116,13 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
+   * Logger channel factory.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $loggerFactory;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -129,6 +137,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *   The deduper service.
    * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
    *   VA gov NotificationsManager service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
+   *   The Drupal logger service.
    */
   public function __construct(
     EntityTypeManager $entity_type_manager,
@@ -137,6 +147,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     UserPermsService $user_perms_service,
     ContentHardeningDeduper $content_hardening_deduper,
     NotificationsManager $notifications_manager,
+    LoggerChannelFactoryInterface $loggerFactory,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->currentUser = $currentUser;
@@ -144,6 +155,22 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
     $this->notificationsManager = $notifications_manager;
+    $this->loggerFactory = $loggerFactory;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create($container) {
+    return new static(
+      $container->get('entity_type.manager'),
+      $container->get('current_user'),
+      $container->get('va_gov_workflow.flagger'),
+      $container->get('va_gov_user.user_perms'),
+      $container->get('va_gov_vamc.content_hardening_deduper'),
+      $container->get('va_gov_notifications.notifications_manager'),
+      $container->get('logger.factory')
+    );
   }
 
   /**
@@ -421,7 +448,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       $form = $this->confirmArchive($form_state, $form);
     }
     catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
-      \Drupal::logger('va_gov_vamc')->error('Failed to confirm archiving facility health service: @message', ['@message' => $e->getMessage()]);
+      $this->loggerFactory->get('va_gov_vamc')->error('Failed to confirm archiving facility health service: @message', ['@message' => $e->getMessage()]);
     }
   }
 
@@ -480,8 +507,11 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * @param EntityInterface $entity
-   * @return void
+   * Archives all related facility services.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The system service node.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
@@ -515,7 +545,10 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
               $facility_node->save();
             }
             catch (InvalidPluginDefinitionException | PluginNotFoundException | EntityStorageException $e) {
-              \Drupal::logger('va_gov_vamc')->error('Failed to archive facility health service node with ID @nid: @message', ['@nid' => $facility_node->id(), '@message' => $e->getMessage()]);
+              $this->loggerFactory->get('va_gov_vamc')->error('Failed to archive facility health service node with ID @nid: @message', [
+                '@nid' => $facility_node->id(),
+                '@message' => $e->getMessage(),
+              ]);
             }
           }
         }
@@ -524,11 +557,18 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * @param FormStateInterface $form_state
+   * Confirms with the user that they really want to archive.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    * @param array $form
+   *   The form.
+   *
    * @return array
-   * @throws InvalidPluginDefinitionException
-   * @throws PluginNotFoundException
+   *   The updated form array.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function confirmArchive(FormStateInterface $form_state, array $form): array {
     $form_object = $form_state->getFormObject();
@@ -536,7 +576,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       /** @var \Drupal\node\NodeInterface $node */
       $node = $form_object->getEntity();
       if ($node instanceof NodeInterface && !$node->isNew()) {
-        // Query for published Facility health service nodes referencing this System service.
         $facility_count = $this->entityTypeManager->getStorage('node')
           ->getQuery()
           ->condition('type', 'health_care_local_health_service')
