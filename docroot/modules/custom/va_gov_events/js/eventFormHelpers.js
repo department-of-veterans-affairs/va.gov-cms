@@ -4,9 +4,10 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-(function (Drupal) {
+(function (Drupal, once) {
   var registrationRequiredBool = document.getElementById("edit-field-event-registrationrequired-value");
   var includeRegistrationsBool = document.getElementById("edit-field-include-registration-info-value");
+  var fieldAdditionalRegistrationInfo = document.getElementById("edit-field-additional-information-abo-0-value");
   var ctaSelect = document.getElementById("edit-field-event-cta");
   var fieldLinkWrapper = document.getElementById("edit-field-link-wrapper");
   var fieldLinkInput = document.getElementById("edit-field-link-0-uri");
@@ -38,6 +39,32 @@
   var fieldAddressAdminArea = document.getElementById("edit-field-address-0-address-administrative-area");
   var fieldAddressAdminAreaLabel = document.querySelector("label[for='edit-field-address-0-address-administrative-area']");
   var targetRegistrationElements = document.querySelectorAll(".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper");
+  var safeValue = function safeValue(el) {
+    var val = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    if (el) {
+      el.value = val;
+    }
+  };
+  var safeDisplay = function safeDisplay(el, display) {
+    if (el) {
+      el.style.display = display;
+    }
+  };
+  var clearAdditionalRegistrationInfo = function clearAdditionalRegistrationInfo() {
+    var el = fieldAdditionalRegistrationInfo;
+    if (!el) {
+      return;
+    }
+    var ckId = el.getAttribute("data-ckeditor5-id");
+    if (ckId && Drupal.CKEditor5Instances && typeof Drupal.CKEditor5Instances.get === "function") {
+      var editor = Drupal.CKEditor5Instances.get(ckId);
+      if (editor && typeof editor.setData === "function") {
+        editor.setData("");
+        return;
+      }
+    }
+    el.value = "";
+  };
   var toggleCtaInputRequired = function toggleCtaInputRequired(label, wrapper, input) {
     var required = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
     var addRemove = required ? "add" : "remove";
@@ -52,19 +79,22 @@
     toggleCtaInputRequired(fieldCtaHowToSignUpLabel, fieldCtaHowToSignUpWrapper, fieldCtaHowToSignUp, required);
   };
   var emptyAllCtaInputs = function emptyAllCtaInputs() {
-    fieldCtaEmailInput.value = "";
-    fieldLinkInput.value = "";
-    fieldCtaHowToSignUp.value = "_none";
+    safeValue(fieldCtaEmailInput, "");
+    safeValue(fieldLinkInput, "");
+    safeValue(fieldCtaHowToSignUp, "_none");
   };
   var toggleRegistrationElements = function toggleRegistrationElements() {
     var toggleVal = !!includeRegistrationsBool.checked;
     var elementDisplayStyle = "block";
     if (!toggleVal) {
-      fieldLinkInput.value = "";
-      fieldCtaEmailInput.value = "";
-      ctaSelect.value = "_none";
+      safeValue(fieldLinkInput, "");
+      safeValue(fieldCtaEmailInput, "");
+      safeValue(ctaSelect, "_none");
+      clearAdditionalRegistrationInfo();
       elementDisplayStyle = "none";
-      registrationRequiredBool.checked = false;
+      if (registrationRequiredBool) {
+        registrationRequiredBool.checked = false;
+      }
       toggleAllCtaInputsRequired(false);
     }
     targetRegistrationElements.forEach(function (element) {
@@ -150,31 +180,31 @@
     });
     toggleAddressRequiredFields(false, "remove");
     toggleFacilityLocationRequiredFields(false, "remove");
-    if (fieldLocationTypeFacility.checked) {
-      fieldFacilityLocationWrapper.style.display = "block";
-      fieldLocationHumanreadableWrapper.style.display = "block";
-      fieldUrlOfOnlineEvent.value = "";
-      fieldAddressLine1.value = "";
-      fieldAddressLine2.value = "";
-      fieldAddressLocality.value = "";
-      fieldAddressAdminArea.value = "";
+    if (fieldLocationTypeFacility && fieldLocationTypeFacility.checked) {
+      safeDisplay(fieldFacilityLocationWrapper, "block");
+      safeDisplay(fieldLocationHumanreadableWrapper, "block");
+      safeValue(fieldUrlOfOnlineEvent, "");
+      safeValue(fieldAddressLine1, "");
+      safeValue(fieldAddressLine2, "");
+      safeValue(fieldAddressLocality, "");
+      safeValue(fieldAddressAdminArea, "");
       toggleFacilityLocationRequiredFields(true, "add");
     }
-    if (fieldLocationTypeNonFacility.checked) {
-      fieldLocationHumanreadableWrapper.style.display = "block";
-      fieldAddressWrapper.style.display = "block";
+    if (fieldLocationTypeNonFacility && fieldLocationTypeNonFacility.checked) {
+      safeDisplay(fieldLocationHumanreadableWrapper, "block");
+      safeDisplay(fieldAddressWrapper, "block");
       toggleAddressRequiredFields(true, "add");
-      fieldUrlOfOnlineEvent.value = "";
-      fieldFacilityLocation.value = "";
+      safeValue(fieldUrlOfOnlineEvent, "");
+      safeValue(fieldFacilityLocation, "");
     }
-    if (fieldLocationTypeOnline.checked) {
-      fieldUrlOfOnlineEventWrapper.style.display = "block";
-      fieldAddressLine1.value = "";
-      fieldAddressLine2.value = "";
-      fieldAddressLocality.value = "";
-      fieldAddressAdminArea.value = "";
-      fieldFacilityLocation.value = "";
-      fieldLocationHumanreadable.value = "";
+    if (fieldLocationTypeOnline && fieldLocationTypeOnline.checked) {
+      safeDisplay(fieldUrlOfOnlineEventWrapper, "block");
+      safeValue(fieldAddressLine1, "");
+      safeValue(fieldAddressLine2, "");
+      safeValue(fieldAddressLocality, "");
+      safeValue(fieldAddressAdminArea, "");
+      safeValue(fieldFacilityLocation, "");
+      safeValue(fieldLocationHumanreadable, "");
     }
   };
   var operate = function operate() {
@@ -189,8 +219,10 @@
     toggleLocationElements();
   };
   Drupal.behaviors.vaGovEventFormHelpers = {
-    attach: function attach() {
-      operate();
+    attach: function attach(context) {
+      once("vaGovEventFormHelpers", "#edit-field-include-registration-info-value", context).forEach(function () {
+        operate();
+      });
     }
   };
-})(Drupal);
+})(Drupal, once);
