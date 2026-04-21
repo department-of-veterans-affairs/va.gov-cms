@@ -17,7 +17,7 @@ function is_ddev_running() {
   [ "$processes" -ge 1 ]
 }
 
-Indicate an error with the branch name.
+# Indicate an error with the branch name.
 function branch_name_error() {
   cat <<-EOF >&2
     Aborting commit. Your branch name must be prefixed with one of the following:
