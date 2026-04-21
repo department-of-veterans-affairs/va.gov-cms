@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
@@ -117,11 +117,11 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
-   * The messenger service.
+   * Logger channel factory.
    *
-   * @var \Drupal\Core\Messenger\MessengerInterface
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
    */
-  protected $messenger;
+  protected $loggerFactory;
 
   /**
    * Constructs the EventSubscriber object.
@@ -138,6 +138,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *   The deduper service.
    * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
    *   VA gov NotificationsManager service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
+   *   The Drupal logger service.
    */
   public function __construct(
     EntityTypeManager $entity_type_manager,
@@ -146,7 +148,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     UserPermsService $user_perms_service,
     ContentHardeningDeduper $content_hardening_deduper,
     NotificationsManager $notifications_manager,
-    MessengerInterface $messenger,
+    LoggerChannelFactoryInterface $loggerFactory,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->currentUser = $currentUser;
@@ -154,7 +156,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
     $this->notificationsManager = $notifications_manager;
-    $this->messenger = $messenger;
+    $this->loggerFactory = $loggerFactory;
   }
 
   /**
@@ -371,7 +373,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
     catch (EntityStorageException $e) {
-      $this->messenger->addError($this->t('An error occurred while updating the mental health phone number. %error',
+      $this->loggerFactory->get('va_gov_vamc')->error($this->t('An error occurred while updating the mental health phone number. %error',
         ['%error' => $e->getMessage()]
       ));
     }
@@ -454,7 +456,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
             ->loadUnchanged($target_id);
         }
         catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
-          $this->messenger->addError($this->t('An error occurred while trying to load the target region page. %error',
+          $this->loggerFactory->get('va_gov_vamc')->error($this->t('An error occurred while trying to load the target region page. %error',
             ['%error' => $e->getMessage()]
           ));
         }
