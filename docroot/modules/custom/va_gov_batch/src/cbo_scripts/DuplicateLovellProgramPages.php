@@ -11,7 +11,6 @@ use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\NodeInterface;
-use Exception;
 
 /**
  * For VACMS-23756.
@@ -25,6 +24,12 @@ use Exception;
  * To run: drush codit-batch-operations:run DuplicateLovellProgramPages.
  */
 class DuplicateLovellProgramPages extends BatchOperations implements BatchScriptInterface {
+  /**
+   * Cache for parent link UUIDs to avoid repeated DB queries per instance.
+   *
+   * @var array|null
+   */
+  protected ?array $parentLinkUuids = NULL;
 
   const LOVELL_FEDERAL_SYSTEM_ID = '15007';
   const VA_SYSTEM_ID = '49451';
@@ -51,16 +56,17 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
    * {@inheritdoc}
    */
   public function gatherItemsToProcess(): array {
-    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    $node_storage = $this->entityTypeManager->getStorage('node');
     $items = [];
     $parent_uuids = $this->getParentLinkUuids();
 
     if (empty($parent_uuids)) {
+      $this->batchOpLog->appendError("Didn't find any parent link UUIDs.");
       return $items;
     }
 
     // Query for VAMC Detail Pages with the correct menu parent.
-    $menu_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+    $menu_storage = $this->entityTypeManager->getStorage('menu_link_content');
     $menu_query = $menu_storage->getQuery()
       ->condition('parent', $parent_uuids, 'IN')
       ->accessCheck(FALSE);
@@ -69,28 +75,28 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
     $nids = [];
     $menu_links = MenuLinkContent::loadMultiple($mids);
     foreach ($menu_links as $link) {
-      $link_field = $link->get('link')->getValue();
-      $uri = !empty($link_field[0]['uri']) ? $link_field[0]['uri'] : '';
-      if (preg_match('/entity:node\/(\d+)/', $uri, $matches)) {
-        $nids[] = $matches[1];
+      // Only process enabled menu links pointing to canonical node routes.
+      if (
+        $link->isEnabled() &&
+        $link->getUrlObject()->getRouteName() === 'entity.node.canonical'
+      ) {
+        $params = $link->getUrlObject()->getRouteParameters();
+        if (!empty($params['node'])) {
+          $nids[] = $params['node'];
+        }
       }
     }
 
     if (!empty($nids)) {
       foreach ($nids as $nid) {
-        $node = $node_storage->load($nid);
-        if (!$node instanceof NodeInterface) {
-          continue;
-        }
-        // Check if node matches criteria.
-        $office = $node->get('field_office')->target_id;
-        $admin = $node->get('field_administration')->target_id;
-        $published = $node->isPublished();
-        if ($published
-          && $office == self::LOVELL_FEDERAL_SYSTEM_ID
-          && $admin == self::BOTH_ID
-          && !in_array($nid, $items)
-        ) {
+        $nodes = $node_storage->loadByProperties([
+          'nid' => $nid,
+          'field_office' => self::LOVELL_FEDERAL_SYSTEM_ID,
+          'field_administration' => self::BOTH_ID,
+          'status' => 1,
+        ]);
+        $node = reset($nodes);
+        if ($node && !in_array($nid, $items)) {
           $items[] = $nid;
         }
       }
@@ -102,7 +108,7 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
    * {@inheritdoc}
    */
   public function processOne(string $key, mixed $item, array &$sandbox): string {
-    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    $node_storage = $this->entityTypeManager->getStorage('node');
     /** @var \Drupal\node\NodeInterface $node */
     $node = $node_storage->load($item);
     if (!$node) {
@@ -120,7 +126,7 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
         "Updating node {$duplicate->getTitle()} (ID: {$duplicate->id()}) for Tricare values.");
 
     }
-    catch (InvalidPluginDefinitionException | PluginNotFoundException | EntityStorageException | Exception $e) {
+    catch (InvalidPluginDefinitionException | PluginNotFoundException | EntityStorageException $e) {
       $message = $e->getMessage();
       $this->batchOpLog->appendError('Could not update/duplicate node: ' . $message);
     }
@@ -138,7 +144,11 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function getParentLinkUuids(): array {
-    $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+    if (isset($this->parentLinkUuids)) {
+      return $this->parentLinkUuids;
+    }
+
+    $menu_link_storage = $this->entityTypeManager->getStorage('menu_link_content');
 
     // Get menu parent UUIDs.
     $target_titles = ['Programs - Tricare', 'Programs - VA'];
@@ -153,10 +163,12 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
       $links = $menu_link_storage->loadMultiple($ids);
       /** @var \Drupal\menu_link_content\Entity\MenuLinkContent $link */
       foreach ($links as $link) {
-        $parent_uuids[$link->get('title')->value] = 'menu_link_content:' . $link->uuid();
+        // Key by title for VA/Tricare parent lookup later.
+        $parent_uuids[$link->getTitle()] = $link->getEntityTypeId() . ':' . $link->uuid();
       }
     }
-    return $parent_uuids;
+    $this->parentLinkUuids = $parent_uuids;
+    return $this->parentLinkUuids;
   }
 
   /**
@@ -174,7 +186,7 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
   protected function updateNode(NodeInterface $node, bool $tricare): void {
 
     /** @var \Drupal\node\NodeStorageInterface $node_storage */
-    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    $node_storage = $this->entityTypeManager->getStorage('node');
 
     // Update original node to VA values.
     $node->set('field_office', $tricare ? self::TRICARE_SYSTEM_ID : self::VA_SYSTEM_ID);
@@ -229,7 +241,7 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
     $new_alias = "/lovell-federal-health-care-$fac_type/programs-$fac_type/" . $url_title;
 
     // Remove all existing aliases for this node.
-    $path_storage = \Drupal::entityTypeManager()->getStorage('path_alias');
+    $path_storage = $this->entityTypeManager->getStorage('path_alias');
     $aliases = $path_storage->loadByProperties(['path' => '/node/' . $node->id()]);
     foreach ($aliases as $alias) {
       $alias->delete();
@@ -256,7 +268,7 @@ class DuplicateLovellProgramPages extends BatchOperations implements BatchScript
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function setMenuLinks(bool $tricare, NodeInterface $node): void {
-    $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+    $menu_link_storage = $this->entityTypeManager->getStorage('menu_link_content');
     $section_value = $tricare ? 'tricare' : 'va';
 
     // Update menu link for this node.
