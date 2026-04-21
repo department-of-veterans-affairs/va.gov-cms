@@ -68,7 +68,7 @@ class ParagraphMigrator {
     $ids = $event->getDestinationIdValues();
     $dest_config = $event->getMigration()->getDestinationConfiguration();
     $dest_plugin = $dest_config['plugin'];
-    if (preg_match('/entity:(.+)/', $dest_plugin, $matches)) {
+    if (preg_match('/entity(?:_with_forward_draft)?:(.+)/', $dest_plugin, $matches)) {
       $dest_entity_id = $matches[1];
       $this->entity = \Drupal::entityTypeManager()->getStorage($dest_entity_id)->load($ids[0]);
     }

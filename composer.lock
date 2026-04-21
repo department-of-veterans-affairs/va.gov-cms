@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b0b3d6da40c53593197ff6481266f05",
+    "content-hash": "7f5805b446a5bf039908d9f652ae2f12",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -10909,6 +10909,58 @@
                 "source": "https://git.drupalcode.org/project/metatag",
                 "issues": "https://www.drupal.org/project/issues/metatag",
                 "docs": "https://www.drupal.org/docs/8/modules/metatag"
+            }
+        },
+        {
+            "name": "drupal/migrate_forward_draft",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/migrate_forward_draft.git",
+                "reference": "1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/migrate_forward_draft-1.0.1.zip",
+                "reference": "1.0.1",
+                "shasum": "ec2ca956e336144f055803587a6817c695e9209d"
+            },
+            "require": {
+                "drupal/core": "^10 || ^11"
+            },
+            "require-dev": {
+                "drupal/migrate_plus": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.1",
+                    "datestamp": "1776360261",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Sasser",
+                    "homepage": "https://www.drupal.org/user/490684",
+                    "email": "221539+dsasser@users.noreply.github.com"
+                },
+                {
+                    "name": "zachbutton",
+                    "homepage": "https://www.drupal.org/user/3866599"
+                }
+            ],
+            "description": "Migrate destination plugin that preserves forward draft revisions on migration reruns.",
+            "homepage": "https://www.drupal.org/project/migrate_forward_draft",
+            "support": {
+                "source": "https://git.drupalcode.org/project/migrate_forward_draft"
             }
         },
         {
@@ -27104,7 +27156,7 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3945",
+            "version": "v0.0.3946",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
@@ -27140,7 +27192,7 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3945"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3946"
             },
             "time": "2026-04-14T19:23:06+00:00"
         },
