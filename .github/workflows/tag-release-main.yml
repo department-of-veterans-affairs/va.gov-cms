@@ -9,10 +9,8 @@ on:
       timezone: 'America/New_York'
 
 permissions:
-  id-token: write
-  contents: write
-  checks: read
-  statuses: read
+  id-token: write # Required for OIDC with AWS
+  contents: read # Required for actions/checkout
 
 env:
   CMS_NOTIFICATIONS_SLACK: CJT90C0UT # cms-notifications
@@ -20,6 +18,10 @@ env:
 jobs:
   tag-and-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      checks: read
+      statuses: read
     outputs:
       NEW_TAG: ${{ steps.create-tag.outputs.NEW_TAG }}
     steps:
