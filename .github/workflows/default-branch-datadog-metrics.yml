@@ -1,5 +1,8 @@
 name: Send data about the default branch to DataDog.
 
+permissions:
+  contents: read
+
 #When DST, Use 345AM When not DST Use 245AM
 on:
   schedule:

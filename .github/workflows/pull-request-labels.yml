@@ -1,5 +1,10 @@
 name: Apply Labels, owners and reviewers to pull requests and issues.
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 on:
   issues:
     types:
