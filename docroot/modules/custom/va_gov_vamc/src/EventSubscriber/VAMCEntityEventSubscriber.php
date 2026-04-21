@@ -448,7 +448,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       $form = $this->confirmArchive($form_state, $form);
     }
     catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
-      $this->loggerFactory->get('va_gov_vamc')->error('Failed to confirm archiving facility health service: @message', ['@message' => $e->getMessage()]);
+      $this->loggerFactory->get('va_gov_vamc')->error($this->t('Failed to confirm archiving facility health service: @message', ['@message' => $e->getMessage()]));
     }
   }
 
@@ -533,6 +533,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
           ->condition('type', 'health_care_local_health_service')
           ->condition('status', 1)
           ->condition('field_regional_health_service', $entity->id())
+          ->accessCheck()
           ->execute();
         if (!empty($facility_nids)) {
           $facility_nodes = $facility_storage->loadMultiple($facility_nids);
@@ -542,13 +543,15 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
                 $facility_node->set('moderation_state', 'archived');
               }
               $facility_node->setUnpublished();
+              $facility_node->setNewRevision(TRUE);
+              $facility_node->setRevisionLogMessage($this->t('Automatically archived when parent system service was archived.'));
               $facility_node->save();
             }
             catch (InvalidPluginDefinitionException | PluginNotFoundException | EntityStorageException $e) {
-              $this->loggerFactory->get('va_gov_vamc')->error('Failed to archive facility health service node with ID @nid: @message', [
+              $this->loggerFactory->get('va_gov_vamc')->error($this->t('Failed to archive facility health service node with ID @nid: @message', [
                 '@nid' => $facility_node->id(),
                 '@message' => $e->getMessage(),
-              ]);
+              ]));
             }
           }
         }
