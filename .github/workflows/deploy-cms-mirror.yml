@@ -2,8 +2,8 @@ name: Deploy to CMS Mirror M - F at 3am ET
 on:
   workflow_dispatch:
   schedule:
-    # 08:00 UTC -> 3 a.m. Eastern during standard time, 4 a.m. during daylight saving
-    - cron: '0 8 * * 1-5'
+    - cron: '0 3 * * 1-5'
+      timezone: America/New_York
 
 env:
   CMS_NOTIFICATIONS_SLACK: CJT90C0UT # cms-notifications

@@ -2,8 +2,8 @@ name: Deploy to CMS Staging M - F at 3:30pm ET
 on:
   workflow_dispatch:
   schedule:
-    # 19:30 UTC -> 3:30 p.m. Eastern during daylight saving, 2:30 p.m. during standard time
-    - cron: '30 20 * * 1-5'
+    # 3:30 p.m. Eastern, weekdays
+    - cron: '30 15 * * 1-5'
       timezone: 'America/New_York'
 
 env:
@@ -42,7 +42,7 @@ jobs:
           SEMVER_TAG=$(echo "$IMAGES_JSON" | jq -r '
             sort_by(.imagePushedAt) | reverse |
             map(select(.imageTags != null) | .imageTags[]) |
-            map(select(test("^v[0-9]+\\.[0-9]+\\.[0-9]+$"))) |
+            map(select(test("^v1\\.[0-9]+\\.[0-9]+$"))) |
             first // ""
           ')
           echo "LAST_TAG=$SEMVER_TAG" >> "$GITHUB_ENV"
@@ -53,7 +53,7 @@ jobs:
         run: |
           IMAGE_TAG="${LAST_TAG:-}"
           echo "IMAGE_TAG=$IMAGE_TAG" >> "$GITHUB_OUTPUT"
-          if [[ "$IMAGE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [[ "$IMAGE_TAG" =~ ^v1\.[0-9]+\.[0-9]+$ ]]; then
             echo "IS_VALID=true" >> "$GITHUB_OUTPUT"
           else
             echo "IS_VALID=false" >> "$GITHUB_OUTPUT"

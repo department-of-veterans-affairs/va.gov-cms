@@ -1,0 +1,175 @@
+---
+name: Tag and Release Latest Passing Commit on Main
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 3:00 p.m. Eastern, weekdays
+    - cron: '0 15 * * 1-5'
+      timezone: 'America/New_York'
+
+permissions:
+  id-token: write # Required for OIDC with AWS
+  contents: read # Required for actions/checkout
+
+env:
+  CMS_NOTIFICATIONS_SLACK: CJT90C0UT # cms-notifications
+
+jobs:
+  tag-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      checks: read
+      statuses: read
+    outputs:
+      NEW_TAG: ${{ steps.create-tag.outputs.NEW_TAG }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
+        with:
+          ref: main
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Find latest passing commit on main
+        id: find-commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          # Walk recent commits on main and find the first one where all checks passed
+          for SHA in $(git log --first-parent --format='%H' -n 50 main); do
+            echo "Checking commit $SHA ..."
+            STATUS=$(gh api "repos/${{ github.repository }}/commits/${SHA}/status" --jq '.state')
+            CHECK_RUNS_RESPONSE=$(gh api --paginate "repos/${{ github.repository }}/commits/${SHA}/check-runs?per_page=100")
+            CHECK_RUNS=$(printf '%s\n' "$CHECK_RUNS_RESPONSE" | jq -s '[.[].check_runs[] | select(.conclusion == "success" or .conclusion == "skipped")] | length')
+            TOTAL_CHECK_RUNS=$(printf '%s\n' "$CHECK_RUNS_RESPONSE" | jq -s '[.[].check_runs[]] | length')
+
+            if [[ "$STATUS" == "success" && "$TOTAL_CHECK_RUNS" -gt 0 && "$CHECK_RUNS" -eq "$TOTAL_CHECK_RUNS" ]]; then
+              echo "Found passing commit: $SHA"
+              echo "COMMIT_SHA=$SHA" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          done
+
+          echo "::error::No recent commit on main has passed all status checks."
+          exit 1
+
+      - name: Determine next semver tag
+        id: next-tag
+        run: |
+          set -euo pipefail
+
+          # Find the latest vX.Y.Z tag
+          LATEST_TAG=$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-version:refname | head -n1)
+
+          if [ -z "$LATEST_TAG" ]; then
+            NEXT_TAG="v1.0.0"
+          else
+            # Strip leading 'v'
+            VERSION="${LATEST_TAG#v}"
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+            PATCH=$((PATCH + 1))
+            NEXT_TAG="v${MAJOR}.${MINOR}.${PATCH}"
+          fi
+
+          echo "NEXT_TAG=$NEXT_TAG" >> "$GITHUB_OUTPUT"
+          echo "Next tag will be: $NEXT_TAG"
+
+      - name: Check if commit is already in a previous release
+        id: check-existing
+        run: |
+          set -euo pipefail
+          COMMIT_SHA="${{ steps.find-commit.outputs.COMMIT_SHA }}"
+
+          # Check if commit is directly tagged
+          EXISTING=$(git tag --points-at "$COMMIT_SHA" | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' || true)
+          if [ -n "$EXISTING" ]; then
+            echo "Commit $COMMIT_SHA is already tagged as $EXISTING. Skipping."
+            echo "SKIP=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Check if commit is an ancestor of (i.e. contained in) any existing release tag
+          for TAG in $(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-version:refname); do
+            if git merge-base --is-ancestor "$COMMIT_SHA" "$TAG" 2>/dev/null; then
+              echo "Commit $COMMIT_SHA is already contained in release $TAG. Skipping."
+              echo "SKIP=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          done
+
+          echo "SKIP=false" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag and release
+        id: create-tag
+        if: steps.check-existing.outputs.SKIP != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          NEW_TAG="${{ steps.next-tag.outputs.NEXT_TAG }}"
+          COMMIT_SHA="${{ steps.find-commit.outputs.COMMIT_SHA }}"
+
+          git tag "$NEW_TAG" "$COMMIT_SHA"
+          git push origin "$NEW_TAG"
+
+          gh release create "$NEW_TAG" \
+            --target "$COMMIT_SHA" \
+            --title "$NEW_TAG" \
+            --generate-notes
+
+          echo "NEW_TAG=$NEW_TAG" >> "$GITHUB_OUTPUT"
+          echo "Created tag $NEW_TAG at commit $COMMIT_SHA"
+
+  notify-success-slack:
+    name: Notify Success (Slack)
+    runs-on: ubuntu-latest
+    needs:
+      - tag-and-release
+    if: needs.tag-and-release.result == 'success' && needs.tag-and-release.outputs.NEW_TAG != ''
+
+    steps:
+      - name: Notify Slack
+        uses: department-of-veterans-affairs/platform-release-tools-actions/slack-notify@8c496a4b0c9158d18edcd9be8722ed0f79e8c5b4
+        continue-on-error: true
+        with:
+          payload: '{"attachments": [{"color": "#2EB67D","blocks": [{"type": "section","text": {"type": "mrkdwn","text": "Tag and release ${{ needs.tag-and-release.outputs.NEW_TAG }} has been created successfully."}}]}]}'
+          channel_id: ${{ env.CMS_NOTIFICATIONS_SLACK }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  notify-failure-slack:
+    name: Notify Failure (Slack)
+    runs-on: ubuntu-latest
+    needs:
+      - tag-and-release
+    if: needs.tag-and-release.result == 'failure'
+
+    steps:
+      - name: Notify Slack
+        uses: department-of-veterans-affairs/platform-release-tools-actions/slack-notify@8c496a4b0c9158d18edcd9be8722ed0f79e8c5b4
+        continue-on-error: true
+        with:
+          payload: >
+            {
+              "attachments": [
+                {
+                  "color": "#E01E5A",
+                  "blocks": [
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": ":bangbang: <!subteam^S01JXBLLMJL|cms-devops-engineers> Tag and release workflow has failed."
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          channel_id: ${{ env.CMS_NOTIFICATIONS_SLACK }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
