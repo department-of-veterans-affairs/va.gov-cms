@@ -76,6 +76,7 @@ tasks:
       - ./tests/scripts/ci-wrapper.sh content-build-gql 'va:test:content-build-gql'
 
   set-check-status:
+    silent: true
     cmds:
       - |
         if [ "$SKIP_REPORTING" -ne 1 ]; then
