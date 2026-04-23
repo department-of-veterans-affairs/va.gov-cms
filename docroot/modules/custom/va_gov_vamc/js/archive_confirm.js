@@ -16,12 +16,70 @@
         form.addEventListener("submit", function (e) {
           var moderationState = form.querySelector('[name^="moderation_state"]');
           if (moderationState && moderationState.value === "archived") {
-            var confirmed = window.confirm(settings.message);
-            if (!confirmed) {
-              e.preventDefault();
-              e.stopImmediatePropagation();
-              return false;
+            e.preventDefault();
+            var modal = document.getElementById("va-gov-vamc-archive-modal");
+            if (!modal) {
+              modal = document.createElement("dialog");
+              modal.id = "va-gov-vamc-archive-modal";
+              modal.setAttribute("aria-modal", "true");
+              modal.setAttribute("role", "dialog");
+              modal.innerHTML = "\n                <form method=\"dialog\" class=\"va-gov-vamc-archive-modal-form\">\n                  <div id=\"va-gov-vamc-archive-modal-message\"></div>\n                  <div class=\"va-gov-vamc-archive-modal-actions\">\n                    <button value=\"cancel\" type=\"button\" id=\"va-gov-vamc-archive-cancel\">" + Drupal.t("Cancel") + "</button>\n                    <button value=\"confirm\" type=\"submit\" id=\"va-gov-vamc-archive-confirm\">" + Drupal.t("Confirm") + "</button>\n                  </div>\n                </form>";
+              document.body.appendChild(modal);
             }
+            modal.querySelector("#va-gov-vamc-archive-modal-message").textContent = settings.message;
+            var focusable = function focusable() {
+              return Array.from(modal.querySelectorAll("button"));
+            };
+            var trapFocus = function trapFocus(event) {
+              var f = focusable();
+              if (!f.length) return;
+              if (event.key === "Tab") {
+                var idx = f.indexOf(document.activeElement);
+                if (event.shiftKey) {
+                  if (idx === 0) {
+                    event.preventDefault();
+                    f[f.length - 1].focus();
+                  }
+                } else if (idx === f.length - 1) {
+                  event.preventDefault();
+                  f[0].focus();
+                }
+              }
+            };
+            modal.showModal();
+            setTimeout(function () {
+              focusable()[0]?.focus();
+            }, 0);
+            var escListener = function escListener(event) {
+              if (event.key === "Escape") {
+                modal.close("cancel");
+              }
+            };
+            modal.addEventListener("keydown", trapFocus);
+            window.addEventListener("keydown", escListener);
+            var cancelBtn = modal.querySelector("#va-gov-vamc-archive-cancel");
+            var confirmBtn = modal.querySelector("#va-gov-vamc-archive-confirm");
+            cancelBtn.onclick = function () {
+              return modal.close("cancel");
+            };
+            confirmBtn.onclick = function (evt) {
+              evt.preventDefault();
+              modal.close("confirm");
+            };
+            modal.addEventListener("close", function () {
+              modal.removeEventListener("keydown", trapFocus);
+              window.removeEventListener("keydown", escListener);
+              if (modal.returnValue === "confirm") {
+                modal.close();
+                form.submit();
+              }
+              setTimeout(function () {
+                modal.remove();
+              }, 100);
+            }, {
+              once: true
+            });
+            return false;
           }
         });
       });

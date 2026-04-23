@@ -23,3 +23,7 @@ set_vamc_system_health_service:
 archive_confirm:
   js:
     js/archive_confirm.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupalSettings
