@@ -124,6 +124,18 @@ jobs:
           echo "NEW_TAG=$NEW_TAG" >> "$GITHUB_OUTPUT"
           echo "Created tag $NEW_TAG at commit $COMMIT_SHA"
 
+  build-drupal-container:
+    name: Build Drupal Tag Container
+    needs: tag-and-release
+    if: needs.tag-and-release.result == 'success' && needs.tag-and-release.outputs.NEW_TAG != ''
+    uses: ./.github/workflows/build-drupal-tag-container.yml
+    with:
+      tag: ${{ needs.tag-and-release.outputs.NEW_TAG }}
+    permissions:
+      id-token: write
+      contents: read
+    secrets: inherit
+
   notify-success-slack:
     name: Notify Success (Slack)
     runs-on: ubuntu-latest
