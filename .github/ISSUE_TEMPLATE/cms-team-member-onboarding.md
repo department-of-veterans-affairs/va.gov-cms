@@ -245,7 +245,7 @@ Each repository includes READMEs to help with setup.
 ### Repositories
 * CMS: https://github.com/department-of-veterans-affairs/va.gov-cms - Drupal
 * content-build: https://github.com/department-of-veterans-affairs/vagov-content - Node.js, Metalsmith. Templating layer, "the back-end of the front-end"
-* vets-website: https://github.com/department-of-veterans-affairs/vets-website - Node.js / React apps. "The front-end of the front-end."
+* vets-website: https://va.ghe.com/software/vets-website - Node.js / React apps. "The front-end of the front-end."
 * vets-api: https://github.com/department-of-veterans-affairs/vets-api - Ruby
 * devops: https://github.com/department-of-veterans-affairs/devops - Primarily owned by Platform team, we contribute regex for redirects.
 
