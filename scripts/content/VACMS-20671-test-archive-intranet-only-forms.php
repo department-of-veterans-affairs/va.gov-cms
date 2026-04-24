@@ -60,9 +60,14 @@ if ($rowid_index === FALSE || $intranet_only_index === FALSE) {
 fputcsv($output, $header);
 
 $updated_rowid = NULL;
+$found_target = FALSE;
 while (($row = fgetcsv($input)) !== FALSE) {
   $current_rowid = $row[$rowid_index] ?? NULL;
   $should_update = FALSE;
+
+  if ($target_rowid !== NULL && (string) $current_rowid === (string) $target_rowid) {
+    $found_target = TRUE;
+  }
 
   if ($updated_rowid === NULL && isset($row[$intranet_only_index]) && $row[$intranet_only_index] !== '1') {
     if ($target_rowid === NULL) {
@@ -81,8 +86,8 @@ while (($row = fgetcsv($input)) !== FALSE) {
   fputcsv($output, $row);
 }
 
-// If target rowid was specified but not found, add it as a test row.
-if ($updated_rowid === NULL && $target_rowid !== NULL) {
+// If target rowid was specified but truly not found in the file, add it as a test row.
+if (!$found_target && $target_rowid !== NULL) {
   $new_row = array_fill(0, count($header), '');
   $new_row[$rowid_index] = $target_rowid;
   $new_row[$intranet_only_index] = '1';
