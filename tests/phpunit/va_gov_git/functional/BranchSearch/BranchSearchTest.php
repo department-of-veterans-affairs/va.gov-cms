@@ -24,7 +24,7 @@ class BranchSearchTest extends VaGovExistingSiteBase {
    * @dataProvider getDataProvider
    */
   public function testConstruct($serviceName) {
-    // Disable this test while migration is split between Platform and CMS repos.
+    // Disable this test while migration split between Platform and CMS repos.
     $this->markTestSkipped('Skipping while migration is still underway.');
     $branchSearch = \Drupal::service($serviceName);
     $this->assertInstanceOf(BranchSearch::class, $branchSearch);
@@ -52,7 +52,7 @@ class BranchSearchTest extends VaGovExistingSiteBase {
    * @dataProvider getRemoteBranchNamesContainingDataProvider
    */
   public function testGetRemoteBranchNamesContaining($serviceName, $searchTerm) {
-    // Disable this test while migration is split between Platform and CMS repos.
+    // Disable this test while migration split between Platform and CMS repos.
     $this->markTestSkipped('Skipping while migration is still underway.');
     $branchSearch = \Drupal::service($serviceName);
     $results = $branchSearch->getRemoteBranchNamesContaining($searchTerm);
