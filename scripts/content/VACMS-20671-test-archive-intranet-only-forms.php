@@ -10,6 +10,11 @@
  *   -- [rowid]
  */
 
+require_once __DIR__ . '/script-library.php';
+
+$env = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
+exit_if_not_local_or_tugboat($env);
+
 $target_rowid = $extra[0] ?? ($argv[1] ?? NULL);
 $csv_path = DRUPAL_ROOT . '/sites/default/files/migrate_source/va_forms_data.csv';
 
