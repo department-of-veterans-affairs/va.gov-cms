@@ -112,7 +112,7 @@ class VaGovMigrateService {
    *   Thrown if the storage handler couldn't be loaded.
    */
   public function archiveIntranetOnlyForms() {
-    $csv = Reader::createFromPath(DRUPAL_ROOT . '/sites/default/files/migrate_source/va_forms_data.csv', 'r');
+    $csv = Reader::from(DRUPAL_ROOT . '/sites/default/files/migrate_source/va_forms_data.csv', 'r');
     $csv->setHeaderOffset(0);
     $csv->setEnclosure('"');
     $csv->setDelimiter(',');
