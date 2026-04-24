@@ -55,5 +55,5 @@ See [MetricsCommands.php](../docroot/modules/custom/va_gov_backend/src/Commands/
 ### Outdated Content
 
 See
-[CMS Notification System](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/main/docroot/modules/custom/va_gov_notifications/README.md) for commands to test or
+[CMS Notification System](https://va.ghe.com/software/va.gov-cms/tree/main/docroot/modules/custom/va_gov_notifications/README.md) for commands to test or
 execute the various outdated content sends.

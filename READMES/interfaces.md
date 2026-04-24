@@ -17,7 +17,7 @@ Drupal is the source of truth about the status of a Feature Flag and any use of 
 
 After a Feature Flag and its matching Front End code have made it all the way to PROD, PR's should be created to first remove Feature Flag logic from the Front End and then Removed from the CMS after that.  We should strive for as few flags as possible in the system.  They are intended only to sync up deployments of Features, they are not intended to be used beyond both FE and CMS code making it to PROD.
 
-[FE Tools Team Feature Flag documentation](https://github.com/department-of-veterans-affairs/vspwiki/blob/master/frontend/pages/platform/tools/feature-toggles.md#testing-cms-feature-toggles)
+[FE Tools Team Feature Flag documentation](https://va.ghe.com/software/vspwiki/blob/master/frontend/pages/platform/tools/feature-toggles.md#testing-cms-feature-toggles)
 
 To see what is set on a give environment use
 `curl --proxy socks5h://127.0.0.1:2001 "http://prod.cms.va.gov/flags_list" | python -m json.tool`   This requires SOCKS Proxy to be activated.
@@ -28,7 +28,7 @@ To see what is set on a give environment use
 
 The Facilities API provides data about VA facilities (hospitals, clinics, mobile clinics, vet centers, outstations, mobile vet centers, cemeteries, and Veterans Benefits Administraion offices).
 
-[Facilities API Documentation](https://developer.va.gov/explore/facilities/docs/facilities) and the [code resides here](https://github.com/department-of-veterans-affairs/lighthouse-facilities).
+[Facilities API Documentation](https://developer.va.gov/explore/facilities/docs/facilities) and the [code resides here](https://va.ghe.com/software/lighthouse-facilities).
 
 ### Facility API Locally
 

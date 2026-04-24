@@ -1,13 +1,13 @@
 # Build Release Deploy (BRD)
 
 The "BRD" system is designed and maintained by the VSP DevOps Team using the
-[DevOps GitHub Repository](https://github.com/department-of-veterans-affairs/devops/ansible).
+[DevOps GitHub Repository](https://va.ghe.com/software/devops/ansible).
 
 The BRD system is used for many different apps in different languages. It uses
 Ansible roles to standardize a testing and release process across all of these
 apps.
 
-See the [README.md](https://github.com/department-of-veterans-affairs/devops/blob/master/README.md)
+See the [README.md](https://va.ghe.com/software/devops/blob/master/README.md)
 file from the DevOps Repo for more information.
 
 ## BRD OS
@@ -21,7 +21,7 @@ overrides and tasks are needed.
 ## CMS Server Configuration
 
 The BRD system contains an Ansible role for the CMS, located in the
-`ansible/build/roles/cms` folder of [the DevOps Repo](https://github.com/department-of-veterans-affairs/devops/tree/master/ansible/build/roles/cms).
+`ansible/build/roles/cms` folder of [the DevOps Repo](https://va.ghe.com/software/devops/tree/master/ansible/build/roles/cms).
 
 The CMS role includes the `geerlingguy.drupal` role which includes all the core
 requirements for Drupal.
@@ -29,7 +29,7 @@ requirements for Drupal.
 It also includes a number of customizations to ensure it works inside the BRD
 and VAEC Enterprise Cloud network.
 
-See the [`main.yml`](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/build/roles/cms/meta/main.yml) file for the roles and variable overrides needed to get CMS
+See the [`main.yml`](https://va.ghe.com/software/devops/blob/master/ansible/build/roles/cms/meta/main.yml) file for the roles and variable overrides needed to get CMS
 running on BRD servers.
 
 ## CMS Release Process
@@ -41,7 +41,7 @@ reads the source git repository and checks the latest commit of the default
 branch.
 
 1. If all commit status checks are passing, it automatically tags and verifies
-a [GitHub release](https://github.com/department-of-veterans-affairs/va.gov-cms/releases).
+a [GitHub release](https://va.ghe.com/software/va.gov-cms/releases).
 
 1. A new GitHub release triggers a **Build**, **Deploy**, and **Test** of a new
 server image.
@@ -73,7 +73,7 @@ to **Production**.
 
 ## CMS Ansible Tasks
 
-See [the DevOps repository](https://github.com/department-of-veterans-affairs/devops/tree/master/ansible/cms)
+See [the DevOps repository](https://va.ghe.com/software/devops/tree/master/ansible/cms)
 to view the additional Ansible tasks that are available to run on the site:
 
 - `cms_cron_run.yml`: Cron job for the site.

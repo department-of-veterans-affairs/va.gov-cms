@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityStorageException;
 /**
  * For VACMS-21680.
  *
- * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/21680
+ * @see https://va.ghe.com/software/va.gov-cms/issues/21680
  */
 class ArchivePastEvents extends BatchOperations implements BatchScriptInterface {
 

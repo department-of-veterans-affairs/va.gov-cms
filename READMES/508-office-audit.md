@@ -7,8 +7,8 @@ title: 508 Office Audit
 The CMS team requested an accessibility audit from the 508 Office. With this we need to have a process for bringing the issues from the audit into our backlog.
 
 ## Resources
-- We used [example audit files](https://github.com/department-of-veterans-affairs/VA.gov-team-forms/blob/main/Accessibility/508-audits.md) from the forms team to be able to have an idea of what we could receive.
-- We used the [labels](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/labels) that currently exist in our repo.
+- We used [example audit files](https://va.ghe.com/software/VA.gov-team-forms/blob/main/Accessibility/508-audits.md) from the forms team to be able to have an idea of what we could receive.
+- We used the [labels](https://va.ghe.com/software/va.gov-cms/issues/labels) that currently exist in our repo.
 - We currently have a way of automatically tagging things based on if they are in a checklist inside our repo.
 - We are looking into a 3rd party tool, [Advanced Issue Labeler](https://github.com/redhat-plumbers-in-action/advanced-issue-labeler), that uses [Github Issue Parser](https://github.com/stefanbuck/github-issue-parser) as a way to improve this automation.
 

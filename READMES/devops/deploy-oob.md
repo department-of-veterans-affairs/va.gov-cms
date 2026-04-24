@@ -68,7 +68,7 @@ If the PO is not already aware, we should inform them of:
 
 Verify that the `testing/cms-post-deploy-tests-staging` job containing the fix commit has completed successfully and that the combined status for the commit in GitHub is passing. 
 
-This can be verified from the [commits listing page](https://github.com/department-of-veterans-affairs/va.gov-cms/commits/main) or with an HTTPS API URL like [this](https://api.github.com/repos/department-of-veterans-affairs/va.gov-cms/commits/bbb7e0e809e17766a5df478c95fb1266d1a654b1/status).
+This can be verified from the [commits listing page](https://va.ghe.com/software/va.gov-cms/commits/main) or with an HTTPS API URL like [this](https://api.github.com/repos/department-of-veterans-affairs/va.gov-cms/commits/bbb7e0e809e17766a5df478c95fb1266d1a654b1/status).
 
 If this has not completed, the actual procedure can not take place.
 
@@ -139,7 +139,7 @@ Notify all Drupal engineers `@cms-engineers-group`  (product teams & CMS Team) i
 
 Chances are that any situation serious enough to require an out-of-band deploy will warrant a postmortem.
 
-To create the postmortem, follow the procedure [here](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/Postmortems). Note that this involves a pull request and review process. Don't just create it in `master` :slightly_smiling_face:
+To create the postmortem, follow the procedure [here](https://va.ghe.com/software/va.gov-team-sensitive/tree/master/Postmortems). Note that this involves a pull request and review process. Don't just create it in `master` :slightly_smiling_face:
 
 Remember that the purpose of a postmortem is to determine the root causes – the deficits in processes and tools – that made this situation possible, and reduce the likelihood of it happening again. It is not to assign blame, express guilt, etc.
 

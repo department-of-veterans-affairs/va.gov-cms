@@ -84,7 +84,7 @@ bundle into a release and deploy to production.
 
 ### Branch Protection Rules
 
-All of the tests in the [Branch Protection Rules](https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branches)
+All of the tests in the [Branch Protection Rules](https://va.ghe.com/software/va.gov-cms/settings/branches)
 are required to pass before the changes in a PR can be merged into `main`.
 
 ![GitHub comment with the output from a failed test.](images/github-test-fail-comment.png)
@@ -288,7 +288,7 @@ This will rerun the Cypress tests one by one and may resolve any failures that w
  
 ## Testing JSON API
 
-As part of building a page type with [next-build](https://github.com/department-of-veterans-affairs/next-build/) tests should be added to ensure that the queries required to build those pages are functional. These tests are located in `/tests/cypress/integration/features/api/`. They can be as simple as 
+As part of building a page type with [next-build](https://va.ghe.com/software/next-build/) tests should be added to ensure that the queries required to build those pages are functional. These tests are located in `/tests/cypress/integration/features/api/`. They can be as simple as 
 ```
 I should receive status code 200 when I request "[JSON API path with required includes and filters]"
 ```

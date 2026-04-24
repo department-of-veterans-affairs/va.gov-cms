@@ -4,7 +4,7 @@
  * @file
  * Re-order all VAMC system menus to match pattern.
  *
- *  @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/16233
+ *  @see https://va.ghe.com/software/va.gov-cms/issues/16233
  *
  * This updates 139 VAMC System menus. It takes roughly 38 minutes to run.
  * Running multiple times causes no issue.

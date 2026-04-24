@@ -20,7 +20,7 @@ Public Websites team will need to:
 
 - [ ] add the domain with **both www and non-www** to the [proxy-rewrite-whitelist.json](https://va.ghe.com/software/vets-website/blob/main/src/applications/proxy-rewrite/proxy-rewrite-whitelist.json) allow list, with `"cookieOnly": true` for staging testing. - .5hr
 
-- [ ] add the domain to Devops code that handles the TeamSite CORS allowed origins for `bucket-prod-va-gov-assets` and `bucket-preview-va-gov-assets`. The buckets are now part of the vets-api module, so you just need to make sure any needed origins are in the local allowed_origins list: https://github.com/department-of-veterans-affairs/devops/blob/master/terraform/environments/dsva-vagov-prod/main.tf#L274 - .5hr
+- [ ] add the domain to Devops code that handles the TeamSite CORS allowed origins for `bucket-prod-va-gov-assets` and `bucket-preview-va-gov-assets`. The buckets are now part of the vets-api module, so you just need to make sure any needed origins are in the local allowed_origins list: https://va.ghe.com/software/devops/blob/master/terraform/environments/dsva-vagov-prod/main.tf#L274 - .5hr
     - [ ] In your Devops PR, add an "Additional Steps" section to the PR description with the following checkboxes for the devops person to take on upon approving the PR ([rationale from Devops in Slack](https://dsva.slack.com/archives/CBU0KDSB1/p1740086549724649?thread_ts=1740081681.905719&cid=CBU0KDSB1))
         - [ ] Devops merged PR
         - [ ] Devops ran terraform
@@ -30,7 +30,7 @@ Public Websites team will need to:
 2-2.5hrs
 
 ## Additional context 
-[DEPO teamsite overview](https://depo-platform-documentation.scrollhelp.site/developer-docs/teamsite-overview) - explains the mechanisms, and has notes on testing, for the implementing team.  (And has an incorrect code pointer, ticketed here: https://github.com/department-of-veterans-affairs/va.gov-team/issues/43364)
+[DEPO teamsite overview](https://depo-platform-documentation.scrollhelp.site/developer-docs/teamsite-overview) - explains the mechanisms, and has notes on testing, for the implementing team.  (And has an incorrect code pointer, ticketed here: https://va.ghe.com/software/va.gov-team/issues/43364)
 
 After PW updates allowlists, the requesting team will need to test on Staging by setting a cookie in browser, per the TeamSite docs. The main issues are styling related, where styles from the site may affect the presentation of the header/footer. Those issues can/should be fixed by updating the CSS of the site / app (rather than by modifying styles for the header / footer globally). This is the bulk of their work, and if no style issues occur, it could potentially be a no-op. Once requesting team confirms that the injected header/footer work and they're ready to publish, PW will manage a separate issue to update code to `cookieOnly: false ` in order to permanently expose the header/footer on the site. 
 - Production cookie update ticket: 

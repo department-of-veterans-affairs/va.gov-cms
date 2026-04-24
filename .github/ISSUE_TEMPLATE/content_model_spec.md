@@ -21,6 +21,6 @@ SO THAT I can implement it in Drupal
 
 
 ## Acceptance Criteria
-- [ ] Proposed entities, fields, and field properties are documented using the [content model spec template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/content-model/drupal_content_model_spec_template.xlsx)
+- [ ] Proposed entities, fields, and field properties are documented using the [content model spec template](https://va.ghe.com/software/va.gov-team/blob/master/platform/cms/content-model/drupal_content_model_spec_template.xlsx)
 - [ ] Reviewed with engineering & product
 - [ ] Send to CMS Collab Cycle

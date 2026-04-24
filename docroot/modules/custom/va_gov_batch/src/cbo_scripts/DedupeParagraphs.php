@@ -20,7 +20,7 @@ class DedupeParagraphs extends BatchOperations implements BatchScriptInterface {
   public function getTitle(): string {
     return <<<TITLE
     For:
-      - VACMS-22602: https://github.com/department-of-veterans-affairs/va.gov-cms/issues/22602.
+      - VACMS-22602: https://va.ghe.com/software/va.gov-cms/issues/22602.
     TITLE;
   }
 

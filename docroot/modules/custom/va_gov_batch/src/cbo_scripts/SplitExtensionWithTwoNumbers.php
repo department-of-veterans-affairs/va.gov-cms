@@ -27,7 +27,7 @@ class SplitExtensionWithTwoNumbers extends BatchOperations implements BatchScrip
   public function getTitle(): string {
     return <<<TITLE
     For:
-      - VACMS-20371: https://github.com/department-of-veterans-affairs/va.gov-cms/issues/20371
+      - VACMS-20371: https://va.ghe.com/software/va.gov-cms/issues/20371
       - Splitting extensions when there are two
     TITLE;
   }

@@ -55,7 +55,7 @@ Helpdesk will use #sitewide-public-websites channel to request approvals
 
 
 #### Public Websites steps
-- [ ] Create a [Redirect, URL change, or vanity URL request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new/choose), to request the Vanity URL IA _must_ review & approve URL requests.
+- [ ] Create a [Redirect, URL change, or vanity URL request](https://va.ghe.com/software/va.gov-team/issues/new/choose), to request the Vanity URL IA _must_ review & approve URL requests.
 
 <insert_redirect_issue_link>
 

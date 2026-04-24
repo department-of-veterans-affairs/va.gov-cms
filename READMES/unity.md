@@ -63,7 +63,7 @@ can open a PR in the `va.gov-cms` repository:
 
 1. Determine the SHA of the WEB code you want to test.
 1. Put that SHA into the "reference" field in `composer.json`, as described above.
-1. Visit [Create Pull Request](https://github.com/department-of-veterans-affairs/va.gov-cms/compare?expand=1) page of the CMS repo, and describe your intentions.
+1. Visit [Create Pull Request](https://va.ghe.com/software/va.gov-cms/compare?expand=1) page of the CMS repo, and describe your intentions.
 1. Wait for the Deployment notification to give you a link to your new site.
 
 - You will see the text "va-cms-bot requested a deployment to Tugboat"

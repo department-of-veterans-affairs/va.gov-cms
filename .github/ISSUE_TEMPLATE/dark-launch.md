@@ -11,7 +11,7 @@ assignees: ''
 ## Description
 Use this issue to request dark launch of a CMS page that includes a React widget. 
 
-**Review documentation about the process** prior to submitting your ticket: [Dark launch Drupal content to Staging.va.gov](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/public-websites#4-publish-a-cms-page-only-to-staging-using-entityqueue-in-order-to-stage-cms--content-build--vets-website-for-viewing-off-of-va-network)
+**Review documentation about the process** prior to submitting your ticket: [Dark launch Drupal content to Staging.va.gov](https://va.ghe.com/software/va.gov-team/tree/master/products/public-websites#4-publish-a-cms-page-only-to-staging-using-entityqueue-in-order-to-stage-cms--content-build--vets-website-for-viewing-off-of-va-network)
   
   
 ### Staging/dark launch
@@ -35,7 +35,7 @@ Please tick the boxes for completed steps as we go, for cross-team visibility.
 - [ ] Strategic POC has given approval to publish node to Staging
 - [ ] Node is published with a revision log indicating dark launch and referencing this ticket #
 - [ ] Nightly CMS database sync from production to [content-build-branch-builds Tugboat](https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5) has run successfully
-- [ ] After the next merge to main in content-build, the [continuous integration Github action](https://github.com/department-of-veterans-affairs/content-build/actions/workflows/continuous-integration.yml) must run and be successful.
+- [ ] After the next merge to main in content-build, the [continuous integration Github action](https://va.ghe.com/software/content-build/actions/workflows/continuous-integration.yml) must run and be successful.
 - [ ] Verify: page is present on staging.va.gov and does not appear on va.gov (prod)
 
 ## Acceptance Criteria

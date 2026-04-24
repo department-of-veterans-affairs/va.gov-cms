@@ -206,7 +206,7 @@ function vagovclaro_preprocess_form_element(&$variables) {
  * re-adds aria-describedby after core removes it).
  *
  * @see https://www.drupal.org/project/drupal/issues/2421445
- * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7033
+ * @see https://va.ghe.com/software/va.gov-cms/issues/7033
  */
 function vagovclaro_preprocess_text_format_wrapper(&$variables) {
   if (isset($variables['attributes']['aria-describedby'])) {

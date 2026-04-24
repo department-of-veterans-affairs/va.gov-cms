@@ -4,7 +4,7 @@ In local, Tugboat, and BRD environments, Drupal uses [Memcache](https://memcache
 
 ## BRD (Staging and Production)
 
-BRD utilizes a Memcache cluster on [AWS ElastiCache](./elasticache.md).  The PECL memcache module is installed and configured [via Ansible](https://github.com/department-of-veterans-affairs/devops/pull/8943/files) and the Memcache nodes are listed explicitly in the `CMS_MEMCACHE_NODES` environment variable.
+BRD utilizes a Memcache cluster on [AWS ElastiCache](./elasticache.md).  The PECL memcache module is installed and configured [via Ansible](https://va.ghe.com/software/devops/pull/8943/files) and the Memcache nodes are listed explicitly in the `CMS_MEMCACHE_NODES` environment variable.
 
 This environment variable is read, split, and mapped in [settings.brd_common.php](./docroot/sites/default/settings/settings.brd_common.php) to populate `$settings['memcache']['servers']`.
 
@@ -22,7 +22,7 @@ ddev creates a single-node Memcache cluster, available at the hostname `memcache
 
 Memcache can be tested and interacted with directly using `telnet`.
 
-On BRD (using [ssm-session](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session)):
+On BRD (using [ssm-session](https://va.ghe.com/software/devops/tree/master/utilities/ssm-session)):
 
 ```sh
 $ ssm-session vagov-staging cms-test
@@ -225,7 +225,7 @@ The Memcache extension will be restored on the next deploy, or the file can simp
 
 If some profound issue with Memcache or its configuration is discovered, Memcache can be disabled by setting `CMS_MEMCACHE_NODES` to an empty string or unsetting it completely.
 
-`CMS_MEMCACHE_NODES` is set in [ansible/deployment/config/cms-vagov-prod.yml](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/cms-vagov-prod.yml).
+`CMS_MEMCACHE_NODES` is set in [ansible/deployment/config/cms-vagov-prod.yml](https://va.ghe.com/software/devops/blob/master/ansible/deployment/config/cms-vagov-prod.yml).
 
 This change will persist across deploys.
 

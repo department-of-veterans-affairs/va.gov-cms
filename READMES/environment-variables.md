@@ -44,13 +44,13 @@ The default values for Tugboat environments are templated from `.tugboat/.env.j2
 
 ### CMS in BRD
 
-The BRD environments for CMS include DEV, STAGING, and PROD. The environment variables for these are set in the [DevOps Repo](https://github.com/department-of-veterans-affairs/devops/tree/master/ansible/deployment/config).
+The BRD environments for CMS include DEV, STAGING, and PROD. The environment variables for these are set in the [DevOps Repo](https://va.ghe.com/software/devops/tree/master/ansible/deployment/config).
 
 The VA `devops` repo is private. Sensitive environment variables for BRD *may* be stored in AWS Systems Manager if it is deemed necessary, but it is not required.
 
 See the files:
- - [ansible/deployment/config/cms-vagov-staging](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/cms-vagov-staging.yml#L125)
- - [ansible/deployment/config/cms-vagov-prod](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/cms-vagov-prod.yml#L125)
+ - [ansible/deployment/config/cms-vagov-staging](https://va.ghe.com/software/devops/blob/master/ansible/deployment/config/cms-vagov-staging.yml#L125)
+ - [ansible/deployment/config/cms-vagov-prod](https://va.ghe.com/software/devops/blob/master/ansible/deployment/config/cms-vagov-prod.yml#L125)
 
 ### AWS Systems Manager / Parameter Store
 

@@ -1,12 +1,12 @@
 # VA.gov CMS
 
-This is the public/open documentation for the VA.gov Content Management System (CMS) for development, QA and DevOps topics. For product, design, support, research and cross-team documentation, visit the [platform/cms docs](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms). For private/sensitive documentation, visit the [private docs repo](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms). See [sensitive-guidance.md](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md) to read about what should be public vs. private. We follow the U.S. Digital Services Playbook and [default to open/public](https://playbook.cio.gov/#play13)).
+This is the public/open documentation for the VA.gov Content Management System (CMS) for development, QA and DevOps topics. For product, design, support, research and cross-team documentation, visit the [platform/cms docs](https://va.ghe.com/software/va.gov-team/tree/master/platform/cms). For private/sensitive documentation, visit the [private docs repo](https://va.ghe.com/software/va.gov-team-sensitive/tree/master/platform/cms). See [sensitive-guidance.md](https://va.ghe.com/software/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md) to read about what should be public vs. private. We follow the U.S. Digital Services Playbook and [default to open/public](https://playbook.cio.gov/#play13)).
 
 [VA.gov](https://www.va.gov) is constructed at the highest level by three projects:
 
 - the **CMS** or **Content Management System**, in this repository
 - the [**vets-website**](https://va.ghe.com/software/vets-website/) project, covering the many special- and general-purpose applications making up the website
-- the [**content-build**](https://github.com/department-of-veterans-affairs/content-build/) project, which extracts and processes the content from the CMS for display on the website
+- the [**content-build**](https://va.ghe.com/software/content-build/) project, which extracts and processes the content from the CMS for display on the website
 
 ## Contributing to this documentation
 
@@ -106,12 +106,12 @@ Built on [Drupal 10.1](https://www.drupal.org), the **CMS** employs the [Compose
 All of the source code used for generating VA.gov is open source, listed under the [department-of-veterans-affairs](https://github.com/department-of-veterans-affairs)
 organization on GitHub:
 
-- **CMS**: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) - Drupal 10.1
+- **CMS**: [va.ghe.com/software/va.gov-cms](https://va.ghe.com/software/va.gov-cms) - Drupal 10.1
 - **vets-website**: [va.ghe.com/software/vets-website](https://va.ghe.com/software/vets-website) - Node.js
-- **vets-api**: [github.com/department-of-veterans-affairs/vets-api](https://github.com/department-of-veterans-affairs/vets-api) - Ruby
-- **content-build**: [github.com/department-of-veterans-affairs/vagov-content](https://github.com/department-of-veterans-affairs/vagov-content) - Node.js, Metalsmith
+- **vets-api**: [va.ghe.com/software/vets-api](https://va.ghe.com/software/vets-api) - Ruby
+- **content-build**: [va.ghe.com/software/vagov-content](https://va.ghe.com/software/vagov-content) - Node.js, Metalsmith
 
-The VFS team deploys all of these apps using a Jenkins server, configured with a [private repository](https://github.com/department-of-veterans-affairs/devops).
+The VFS team deploys all of these apps using a Jenkins server, configured with a [private repository](https://va.ghe.com/software/devops).
 
 All development on these projects is done via Pull Requests.
 
@@ -119,9 +119,9 @@ All development on these projects is done via Pull Requests.
 
 The public-facing website at [VA.gov](https://www.va.gov) is a static site hosted on S3, composed of HTML, CSS, JavaScript, and images.
 
-[This codebase](https://github.com/department-of-veterans-affairs/va.gov-cms) is dedicated to the CMS, built on Drupal 10.
+[This codebase](https://va.ghe.com/software/va.gov-cms) is dedicated to the CMS, built on Drupal 10.
 
-The source code for generating the public site is located in the [vets-website](https://va.ghe.com/software/vets-website) repository. The component responsible for extracting raw content from the CMS and converting it to HTML is developed in a separate repository, [content-build](https://github.com/department-of-veterans-affairs/content-build).
+The source code for generating the public site is located in the [vets-website](https://va.ghe.com/software/vets-website) repository. The component responsible for extracting raw content from the CMS and converting it to HTML is developed in a separate repository, [content-build](https://va.ghe.com/software/content-build).
 
 #### Decoupled Drupal
 
@@ -138,7 +138,7 @@ In the normal content release process, GitHub Actions triggers a workflow that t
 
 ### Infrastructure
 
-This section outlines only the systems utilized by the CMS. See the READMEs in the [`vets-website`](https://va.ghe.com/software/vets-website) or [`content-build`](https://github.com/department-of-veterans-affairs/content-build) repositories for more information about those projects.
+This section outlines only the systems utilized by the CMS. See the READMEs in the [`vets-website`](https://va.ghe.com/software/vets-website) or [`content-build`](https://va.ghe.com/software/content-build) repositories for more information about those projects.
 
 #### CMS-CI: Pull Request and Demo/Ad-hoc Environments
 
@@ -158,7 +158,7 @@ This section outlines only the systems utilized by the CMS. See the READMEs in t
 
 The VFS Team maintains a system called **BRD**: _Build, Release, Deploy._
 
-The system is powered by Ansible Roles in the VA's "DevOps" repository, located at [github.com/department-of-veterans-affairs/devops/tree/master/ansible/build/roles/cms](https://github.com/department-of-veterans-affairs/devops/tree/master/ansible/build/roles/cms)
+The system is powered by Ansible Roles in the VA's "DevOps" repository, located at [va.ghe.com/software/devops/tree/master/ansible/build/roles/cms](https://va.ghe.com/software/devops/tree/master/ansible/build/roles/cms)
 
 The **BRD** system builds Amazon server images using Ansible, and tags those images for release along with the source code of CMS.
 

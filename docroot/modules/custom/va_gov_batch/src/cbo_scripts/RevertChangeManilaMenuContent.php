@@ -9,7 +9,7 @@ use Drupal\menu_link_content\Entity\MenuLinkContent;
 /**
  * For VACMS-20606.
  *
- * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/20606
+ * @see https://va.ghe.com/software/va.gov-cms/issues/20606
  */
 class RevertChangeManilaMenuContent extends BatchOperations implements BatchScriptInterface {
 

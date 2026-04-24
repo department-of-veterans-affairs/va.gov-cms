@@ -18,7 +18,7 @@ When does this request need to be live:
 (Note: This issue will be used from initial request through implementation to ensure all individuals working on this are notified of status updates.  Please do not create multiple issues to track different steps.)
 - [ ] Notify VA stakeholders as appropriate.
 - [ ] Ensure the related facility closure / rename issue is linked to this ticket.
-- [ ] Create a URL redirect in the [vsp-platform-revproxy](https://github.com/department-of-veterans-affairs/vsp-platform-revproxy) repo in `template-rendering/revproxy-vagov/vars/redirects.yml`
+- [ ] Create a URL redirect in the [vsp-platform-revproxy](https://va.ghe.com/software/vsp-platform-revproxy) repo in `template-rendering/revproxy-vagov/vars/redirects.yml`
 - [ ] Add the "Awaiting redirect" flag to the facility node with a revision log message that includes a link to this ticket, preserving the node's current moderation state. (may not be necessary if redirects deploy quickly)
 - [ ] Redirects deploy daily except Friday at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. After deploy, validate that the URL redirect is deployed. 
 - [ ] Update this ticket with a comment that the redirect has been deployed.

@@ -19,7 +19,7 @@ assignees: ''
 
 **Before Synthesis**
 - [ ] Cleaned up/organized research notes to summarize findings and identify themes
-- [ ] Topline summary of top-of-mind findings written and shared out with team (use this [template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/sharing-research/topline-summary-template.md))
+- [ ] Topline summary of top-of-mind findings written and shared out with team (use this [template](https://va.ghe.com/software/va.gov-team/blob/master/platform/research/sharing-research/topline-summary-template.md))
 - [ ] PM and Sitewide UX Lead consulted to see if they have feedback or additional questions for synthesis
 
 **Synthesis**
@@ -28,7 +28,7 @@ assignees: ''
 - [ ] Different paths participants took in prototypes have been documented/illustrated (usability testing)
 - [ ] Research questions from the Research Plan revisited to check whether they've all been answered
 - [ ] Hypotheses from the Research Plan revisited to see which can be confirmed
-- [ ] Research report drafted (use this [template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/sharing-research/research-findings-template.md))
+- [ ] Research report drafted (use this [template](https://va.ghe.com/software/va.gov-team/blob/master/platform/research/sharing-research/research-findings-template.md))
 
 **Collaboration with Sitewide UX Lead and others**
 - [ ] Some initial findings and potential recommendations shared (in Mural?) with Sitewide UX Lead and/or team members. What's important and what we might do next have been discussed.

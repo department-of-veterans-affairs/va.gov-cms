@@ -7,7 +7,7 @@
 1. [CMS Forms Data to Lighthouse](#cms-forms-data-to-lighthouse)
 1. [Points of Failure](#points-of-failure)
 
-More Forms product / technical information: [va.gov-team/products/find-a-va-form/engineering](https://github.com/department-of-veterans-affairs/va.gov-team/edit/master/products/find-a-va-form/engineering/engineering.md)
+More Forms product / technical information: [va.gov-team/products/find-a-va-form/engineering](https://va.ghe.com/software/va.gov-team/edit/master/products/find-a-va-form/engineering/engineering.md)
 ## Data Flow
 
 All times in ET.
@@ -23,7 +23,7 @@ All times in ET.
     formapi-- Vets API -->formsearch[[VA.gov Form Search]]
 ```
 
-* Forms DB infrastructure is owned by Office of Information Technology (OIT). Forms DB content is owned by Forms Managers from each VA administration. [Contacts](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/find-a-va-form#va-forms-contacts)
+* Forms DB infrastructure is owned by Office of Information Technology (OIT). Forms DB content is owned by Forms Managers from each VA administration. [Contacts](https://va.ghe.com/software/va.gov-team/tree/master/products/find-a-va-form#va-forms-contacts)
 * Drupal CMS is responsible for Forms content model, governance, and editorial experience.
 
 ## Forms Migration
@@ -46,7 +46,7 @@ Notifications are handled in va_gov_workflow/src/EventSubscriber/EntityEventSubs
 
 The Forms DB is the source of the form data migration. Each night at 11:30PM ET the Forms DB runs an export on cron to create a CSV file located at
 http://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt
-Our [task-periodic job](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/tasks-periodic.yml#L52) copies that file and places it here
+Our [task-periodic job](https://va.ghe.com/software/va.gov-cms/blob/main/tasks-periodic.yml#L52) copies that file and places it here
 https://prod.cms.va.gov/sites/default/files/migrate_source/va_forms_data.csv
 so that it can be available to all our network environments (CI & BRD).
 To run it in sandboxes it will need to be pulled down with our file sync command.
@@ -58,7 +58,7 @@ To run it in sandboxes it will need to be pulled down with our file sync command
 ## Editorial
 
 There are fields on the "VA form" nodes that are not connected to the migration because they do not exist in the source.  These fields can be edited as needed without being altered by subsequent runs of the migration.  Fields that are controlled by the data in the source are not available to be edited. In the event of bad data from the source (a bad file name or title) a site administrator can edit the fields.  These edits will be overwritten the next time the migration runs if the source row has changed.  This logic is handled in
-[_vagov_consumers_modify_va_form_fields()](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/docroot/modules/custom/va_gov_consumers/va_gov_consumers.module#L109).
+[_vagov_consumers_modify_va_form_fields()](https://va.ghe.com/software/va.gov-cms/blob/main/docroot/modules/custom/va_gov_consumers/va_gov_consumers.module#L109).
 
 [Forms management View](https://prod.cms.va.gov/admin/content/va-forms) can be used to see the status of forms.
 

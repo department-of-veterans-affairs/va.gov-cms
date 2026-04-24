@@ -20,11 +20,11 @@ To be clear, everything related to Lovell is tech debt because it does not follo
 
 ### Code locations
    - CMS
-     - [va_gov_lovell](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/main/docroot/modules/custom/va_gov_lovell)
-     - [va_gov_post](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/main/docroot/modules/custom/va_gov_post_api)
+     - [va_gov_lovell](https://va.ghe.com/software/va.gov-cms/tree/main/docroot/modules/custom/va_gov_lovell)
+     - [va_gov_post](https://va.ghe.com/software/va.gov-cms/tree/main/docroot/modules/custom/va_gov_post_api)
    - Content-Build
-      - [Menus](https://github.com/department-of-veterans-affairs/content-build/tree/main/src/site/stages/build/drupal/graphql/navigation-fragments/facilitySidebar.nav.graphql.js)
-      - [Pages](https://github.com/department-of-veterans-affairs/content-build/tree/main/src/site/stages/build/drupal/metalsmith-drupal.js)
+      - [Menus](https://va.ghe.com/software/content-build/tree/main/src/site/stages/build/drupal/graphql/navigation-fragments/facilitySidebar.nav.graphql.js)
+      - [Pages](https://va.ghe.com/software/content-build/tree/main/src/site/stages/build/drupal/metalsmith-drupal.js)
 
 ## Pages
 ### CMS

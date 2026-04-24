@@ -4,7 +4,7 @@
  * @file
  * Migrate data from VAMC Facility Service nodes to Service Location paragraphs.
  *
- *  @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/15559
+ *  @see https://va.ghe.com/software/va.gov-cms/issues/15559
  *
  * This updates ~15,800 Facility services. It takes roughly 2 hours to run.
  * It should only be run 1 time or it will duplicate phone data.
