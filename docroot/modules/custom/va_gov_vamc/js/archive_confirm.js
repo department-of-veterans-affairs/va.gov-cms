@@ -48,7 +48,8 @@
             };
             modal.showModal();
             setTimeout(function () {
-              focusable()[0]?.focus();
+              var f = focusable();
+              if (f[0]) f[0].focus();
             }, 0);
             var escListener = function escListener(event) {
               if (event.key === "Escape") {

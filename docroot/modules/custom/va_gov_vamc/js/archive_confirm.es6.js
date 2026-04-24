@@ -65,7 +65,8 @@
 
             modal.showModal();
             setTimeout(() => {
-              focusable()[0]?.focus();
+              const f = focusable();
+              if (f[0]) f[0].focus();
             }, 0);
 
             const escListener = (event) => {
