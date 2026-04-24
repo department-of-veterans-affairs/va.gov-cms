@@ -7,7 +7,7 @@ See [SiteStatusCommands.php](../docroot/modules/custom/va_gov_build_trigger/src/
 - `va-gov:disable-deploy-mode` -- Sets the Deploy Mode flag to FALSE. It is not normally necessary to perform this operation manually.
 - `va-gov:enable-deploy-mode` -- Sets the Deploy Mode flag to TRUE. It is not normally necessary to perform this operation manually.
 - `va-gov:get-deploy-mode` -- Indicates whether the CMS is currently in Deploy Mode, which is a precautionary measure used to prevent content changes while content is being deployed.
-- 
+-
 
 ### Content release commands
 
@@ -74,6 +74,5 @@ See [Commands.php](docroot/modules/custom/va_gov_live_field_migration/src/Comman
 
 ### Global commands
 
-See [Commands.php](docroot/modules/custom/va_gov_live_field_migration/src/Commands/Commands.php).
-- `va:gov-clean-revs` (vg-cr) -- Clean up bad node revisions.
+See [Commands.php](docroot/modules/custom/va_gov_migrate/src/Commands/Commands.php).
 - `va_gov_migrate:flag-missing-facilities` -- (alias va-gov-flag-missing-facilities) -- Flag any facilities that no longer exist in Facilty API.
