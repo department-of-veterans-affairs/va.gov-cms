@@ -79,8 +79,10 @@ if ($updated_rowid === NULL && $target_rowid !== NULL) {
   $new_row = array_fill(0, count($header), '');
   $new_row[$rowid_index] = $target_rowid;
   $new_row[$intranet_only_index] = '1';
-  $new_row[0] = $target_rowid; // FormNum
-  $new_row[1] = "Test Form {$target_rowid}"; // FormTitle
+  // FormNum.
+  $new_row[0] = $target_rowid;
+  // FormTitle.
+  $new_row[1] = "Test Form {$target_rowid}";
   fputcsv($output, $new_row);
   $updated_rowid = $target_rowid;
 }
