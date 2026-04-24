@@ -73,6 +73,8 @@ class RepositoryFactoryTest extends VaGovExistingSiteBase {
    * Test the getVetsWebsite() method.
    */
   public function testGetVetsWebsite() {
+    // Disable this test while migration is split between Platform and CMS repos.
+    $this->markTestSkipped('Skipping while migration is still underway.');
     $repository = \Drupal::service('va_gov_git.repository_factory')->getVetsWebsite();
     $this->assertInstanceOf(RepositoryInterface::class, $repository);
   }
