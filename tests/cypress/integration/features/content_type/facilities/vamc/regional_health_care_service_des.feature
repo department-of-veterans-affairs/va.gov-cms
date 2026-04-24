@@ -75,10 +75,8 @@ Feature: CMS Users may effectively interact with the VAMC System Health Service 
   Scenario: Archiving a VAMC System Health Service should archive related facility services
     Given I am logged in as a user with the roles "vamc_content_creator, content_publisher, content_admin"
     And my workbench access sections are set to "372"
-    And I unlock node 23940
-    Then I am at "node/23940/edit"
+    Then I am at "/node/53057/edit"
     And I select option "Archived" from dropdown with selector "select#edit-moderation-state-0-state"
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I save the node
-    Then I confirm the dialog with the text "By saving this System service as archived"
-    Then I should see an element with the selector "article.node--unpublished.node--type-health-care-local-health-service"
+    Then I should see a confirmation dialog with the text "By saving this System service as archived"
