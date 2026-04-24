@@ -103,7 +103,7 @@ Built on [Drupal 10.1](https://www.drupal.org), the **CMS** employs the [Compose
 
 ### Contributing
 
-All of the source code used for generating VA.gov is open source, listed under the [department-of-veterans-affairs](https://github.com/department-of-veterans-affairs)
+All of the source code used for generating VA.gov is open source, listed under the [department-of-veterans-affairs](https://va.ghe.com/software)
 organization on GitHub:
 
 - **CMS**: [va.ghe.com/software/va.gov-cms](https://va.ghe.com/software/va.gov-cms) - Drupal 10.1

@@ -85,7 +85,7 @@ Github + Zenhub are the tools required for sprint boards, epics, estimates, and 
 - [ ] New Hire: Create a Github user account
 - [ ] New Hire: Add your agency email address to your Github account at https://github.com/settings/emails
 - [ ] Delivery Manager: Creates a [Github request](https://va.ghe.com/software/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D) to add your Github user to the Dept of VA Github organization. This will provide you with access to view VA repositories.
-- [ ] New Hire: Accept the Github org invitation. It will appear as a yellow banner at the top of https://github.com/department-of-veterans-affairs
+- [ ] New Hire: Accept the Github org invitation. It will appear as a yellow banner at the top of https://va.ghe.com/software
 - [ ] Delivery Manager: After invite is accepted, add user to the [VFS-CMS team](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members). You must be added to this team to contribute to [va.gov-cms repository](https://va.ghe.com/software/va.gov-cms/) code and issues in Github.
 - [ ] New Hire: Install the [Zenhub browser extension](https://www.zenhub.com/extension) in your browser of choice
 - [ ] Delivery Manager: Log into app.zenhub.com, click "Invite your team" button in lower left sidebar, invite new hire via their agency email address. This will generate a license request that must be approved by Zenhub admins within the VA. In the meantime, new hires may see a "You do not have a license" message when they log in to app.zenhub.com.
