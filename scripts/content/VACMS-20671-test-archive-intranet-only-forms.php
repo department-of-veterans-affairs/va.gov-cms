@@ -5,7 +5,7 @@
  * Test harness for archiveIntranetOnlyForms().
  *
  * Usage:
- *   phpcs:ignore Generic.Files.LineLength.TooLong
+ *   phpcs:ignore Generic.Files.LineLength
  *   drush scr scripts/content/VACMS-20671-test-archive-intranet-only-forms.php -- [rowid]
  */
 
