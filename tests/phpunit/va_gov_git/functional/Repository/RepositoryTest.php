@@ -39,7 +39,7 @@ class RepositoryTest extends VaGovExistingSiteBase {
    * Test that we can instantiate the Vets-Website repository.
    */
   public function testConstructVetsWebsite() {
-    // Disable this test while migration is split between Platform and CMS repos.
+    // Disable this test while migration is split between Platform and CMS.
     $this->markTestSkipped('Skipping while migration is still underway.');
     $repository = \Drupal::service('va_gov_git.repository_factory')->getContentBuild();
     $this->assertInstanceOf(RepositoryInterface::class, $repository);
@@ -100,14 +100,14 @@ class RepositoryTest extends VaGovExistingSiteBase {
         FALSE,
       ],
       // [
-      //   'vets-website',
-      //   'refs/remotes/origin/main',
-      //   TRUE,
+      //  'vets-website',
+      //  'refs/remotes/origin/main',
+      //  TRUE,
       // ],
       // [
-      //   'vets-website',
-      //   'refs/remotes/origin/this-branch-does-not-exist',
-      //   FALSE,
+      //  'vets-website',
+      //  'refs/remotes/origin/this-branch-does-not-exist',
+      //  FALSE,
       // ],
     ];
   }
