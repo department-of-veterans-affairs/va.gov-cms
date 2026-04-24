@@ -19,4 +19,4 @@ See: https://www.drupal.org/node/895232 for further information.
 
 Current maintainers for va_gov_batch:
 
-- https://github.com/orgs/department-of-veterans-affairs/teams/public-websites-cms
+- https://va.ghe.com/orgs/software/teams/public-websites-cms

@@ -15,7 +15,7 @@ In order to access the Tugboat UI, you must have SOCKS running on your machine, 
 
 Any Github user in the department-of-veterans-affairs organization can log into Tugboat using Github credentials. Access is provided automatically, no manual steps.
 
-Tugboat management has been limited to [@platform-cms-devops-engineers](https://github.com/orgs/department-of-veterans-affairs/teams/platform-cms-devops-engineers) historically.
+Tugboat management has been limited to [@platform-cms-devops-engineers](https://va.ghe.com/orgs/software/teams/platform-cms-devops-engineers) historically.
 
 ### Granting Admin Access
 Admins permissions are needed to:
