@@ -7,7 +7,6 @@ See [SiteStatusCommands.php](../docroot/modules/custom/va_gov_build_trigger/src/
 - `va-gov:disable-deploy-mode` -- Sets the Deploy Mode flag to FALSE. It is not normally necessary to perform this operation manually.
 - `va-gov:enable-deploy-mode` -- Sets the Deploy Mode flag to TRUE. It is not normally necessary to perform this operation manually.
 - `va-gov:get-deploy-mode` -- Indicates whether the CMS is currently in Deploy Mode, which is a precautionary measure used to prevent content changes while content is being deployed.
--
 
 ### Content release commands
 
