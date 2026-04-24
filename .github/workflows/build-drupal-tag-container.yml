@@ -74,7 +74,7 @@ jobs:
           }
 
           EVENT='${{ github.event_name }}'
-          INPUT_TAG='${{ inputs.tag }}'
+          INPUT_TAG='${{ github.event.inputs.tag || inputs.tag }}'
           if [ "$EVENT" = "workflow_dispatch" ] || [ "$EVENT" = "workflow_call" ]; then
             if [ -n "$INPUT_TAG" ]; then
               SEMVER_TAG=$(normalize_input "$INPUT_TAG")
