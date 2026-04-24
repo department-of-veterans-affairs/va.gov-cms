@@ -75,7 +75,7 @@ jobs:
 
   deploy-to-dev:
     needs: build-and-push
-    uses: department-of-veterans-affairs/va.gov-cms/.github/workflows/update-manifest.yml@main
+    uses: ./.github/workflows/update-manifest.yml
     with:
       image_tag: ${{ github.sha }}
       app_name: cms
