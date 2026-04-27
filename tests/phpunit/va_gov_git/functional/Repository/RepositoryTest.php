@@ -100,14 +100,14 @@ class RepositoryTest extends VaGovExistingSiteBase {
         FALSE,
       ],
       // [
-      //  'vets-website',
-      //  'refs/remotes/origin/main',
-      //  TRUE,
+      // 'vets-website',
+      // 'refs/remotes/origin/main',
+      // TRUE,
       // ],
       // [
-      //  'vets-website',
-      //  'refs/remotes/origin/this-branch-does-not-exist',
-      //  FALSE,
+      // 'vets-website',
+      // 'refs/remotes/origin/this-branch-does-not-exist',
+      // FALSE,
       // ],
     ];
   }
