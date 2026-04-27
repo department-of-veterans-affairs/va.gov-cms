@@ -11,7 +11,7 @@ Codespaces is not currently in use. This README is strictly here for historical 
 1. Visit [github.com/codespaces](https://github.com/codespaces)
 2. Click the `...` link next to a codespace
 3. Select "Open with Codespaces"
-4. See [Getting Started](https://github.com/department-of-veterans-affairs/vets-website/blob/main/docs/GithubCodespaces.md#getting-started) in `vets-website` for more detail.
+4. See [Getting Started](https://va.ghe.com/software/vets-website/blob/main/docs/GithubCodespaces.md#getting-started) in `vets-website` for more detail.
 
 ## Local VS Code
 1. Download and install [Visual Studio Code](https://code.visualstudio.com/download)

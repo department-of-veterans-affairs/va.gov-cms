@@ -5,7 +5,7 @@ This is the public/open documentation for the VA.gov Content Management System (
 [VA.gov](https://www.va.gov) is constructed at the highest level by three projects:
 
 - the **CMS** or **Content Management System**, in this repository
-- the [**vets-website**](https://github.com/department-of-veterans-affairs/vets-website/) project, covering the many special- and general-purpose applications making up the website
+- the [**vets-website**](https://va.ghe.com/software/vets-website/) project, covering the many special- and general-purpose applications making up the website
 - the [**content-build**](https://github.com/department-of-veterans-affairs/content-build/) project, which extracts and processes the content from the CMS for display on the website
 
 ## Contributing to this documentation
@@ -107,7 +107,7 @@ All of the source code used for generating VA.gov is open source, listed under t
 organization on GitHub:
 
 - **CMS**: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) - Drupal 10.1
-- **vets-website**: [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website) - Node.js
+- **vets-website**: [va.ghe.com/software/vets-website](https://va.ghe.com/software/vets-website) - Node.js
 - **vets-api**: [github.com/department-of-veterans-affairs/vets-api](https://github.com/department-of-veterans-affairs/vets-api) - Ruby
 - **content-build**: [github.com/department-of-veterans-affairs/vagov-content](https://github.com/department-of-veterans-affairs/vagov-content) - Node.js, Metalsmith
 
@@ -121,7 +121,7 @@ The public-facing website at [VA.gov](https://www.va.gov) is a static site hoste
 
 [This codebase](https://github.com/department-of-veterans-affairs/va.gov-cms) is dedicated to the CMS, built on Drupal 10.
 
-The source code for generating the public site is located in the [vets-website](https://github.com/department-of-veterans-affairs/vets-website) repository. The component responsible for extracting raw content from the CMS and converting it to HTML is developed in a separate repository, [content-build](https://github.com/department-of-veterans-affairs/content-build).
+The source code for generating the public site is located in the [vets-website](https://va.ghe.com/software/vets-website) repository. The component responsible for extracting raw content from the CMS and converting it to HTML is developed in a separate repository, [content-build](https://github.com/department-of-veterans-affairs/content-build).
 
 #### Decoupled Drupal
 
@@ -138,7 +138,7 @@ In the normal content release process, GitHub Actions triggers a workflow that t
 
 ### Infrastructure
 
-This section outlines only the systems utilized by the CMS. See the READMEs in the [`vets-website`](https://github.com/department-of-veterans-affairs/vets-website) or [`content-build`](https://github.com/department-of-veterans-affairs/content-build) repositories for more information about those projects.
+This section outlines only the systems utilized by the CMS. See the READMEs in the [`vets-website`](https://va.ghe.com/software/vets-website) or [`content-build`](https://github.com/department-of-veterans-affairs/content-build) repositories for more information about those projects.
 
 #### CMS-CI: Pull Request and Demo/Ad-hoc Environments
 

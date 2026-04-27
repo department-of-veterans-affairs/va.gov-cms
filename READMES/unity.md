@@ -1,7 +1,7 @@
 ## WEB & CMS Integration
 
 This Drupal site acts solely as a CMS and Content API for the Front-End Website Generator.
-The actual website for va.gov is powered by the [vets-website](https://github.com/department-of-veterans-affairs/vets-website) repo.
+The actual website for va.gov is powered by the [vets-website](https://va.ghe.com/software/vets-website) repo.
 
 The `WEB` project is built on Metalsmith. The project consumes the Drupal CMS GraphQL endpoint and generates static files for VA.gov.
 

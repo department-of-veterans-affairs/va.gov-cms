@@ -8,7 +8,7 @@ source ~/.bashrc
 # Installs & builds vets-website dependencies for next-build preview.
 git config pull.rebase true
 if [ ! -d vets-website ]; then
-  git clone --filter=tree:0 https://github.com/department-of-veterans-affairs/vets-website.git vets-website
+  git clone --filter=tree:0 https://va.ghe.com/software/vets-website.git vets-website
   cd vets-website
 else
   cd vets-website
