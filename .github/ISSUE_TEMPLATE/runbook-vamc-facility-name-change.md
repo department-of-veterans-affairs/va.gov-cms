@@ -47,7 +47,7 @@ Do not change the moderation state of the node (e.g. "Draft", "Published") when 
 - [ ] Confirm the new title is displayed as the H1 header on the VAMC Facility homepage on the production site.
 
 #### STEP 2: Create a URL redirect ticket 
-- [ ] Open the following link in a new tab to create a URL redirect request ticket: [Create URL redirect request ticket for the Facilities team](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E)
+- [ ] Open the following link in a new tab to create a URL redirect request ticket: [Create URL redirect request ticket for the Facilities team](https://va.ghe.com/software/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E)
 
 #### STEP 3: Link to parent ticket
 - [ ] After creating the URL redirect ticket, please add the link to the top of this ticket and save your changes.

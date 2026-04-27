@@ -22,7 +22,7 @@ Please follow the following guidelines:
 
 - Do not attempt to work around GitHub's protective measures.  If you're trying to accomplish something in a GitHub Action that requires write permissions on a pull request, use the `pull_request_target` event instead and consult the examples in this repository.
 
-- If you are struggling to test your action because it uses `pull_request_target`, and therefore needs to be merged to `main` to take effect, use the [CMS Test repository](https://github.com/department-of-veterans-affairs/va.gov-cms-test/) instead during development and testing.  This will incur less suffering for all involved.
+- If you are struggling to test your action because it uses `pull_request_target`, and therefore needs to be merged to `main` to take effect, use the [CMS Test repository](https://va.ghe.com/software/va.gov-cms-test/) instead during development and testing.  This will incur less suffering for all involved.
 
 - Be careful with user-provided input, especially in scripts.  For example, do not read PR titles, comment bodies, or even the names of changed files in such a way that they might be executed as commands.
 

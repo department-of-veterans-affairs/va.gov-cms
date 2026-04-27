@@ -17,8 +17,8 @@ assignees: ''
 ### Templates
 
 Use the appropriate template for the group you're conducting research with:
-- [Editor-facing Conversation Guide Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/research/editor-moderation-guide.md)
-- [Veteran-facing Conversation Guide Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/planning/conversation-guide-template.md)
+- [Editor-facing Conversation Guide Template](https://va.ghe.com/software/va.gov-team/blob/master/platform/cms/research/editor-moderation-guide.md)
+- [Veteran-facing Conversation Guide Template](https://va.ghe.com/software/va.gov-team/blob/master/platform/research/planning/conversation-guide-template.md)
 
 ## Suggested workflow/tasks:
 - [ ] Brainstorm potential tasks

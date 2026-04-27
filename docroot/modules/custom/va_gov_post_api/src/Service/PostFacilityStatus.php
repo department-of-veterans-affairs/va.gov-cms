@@ -409,8 +409,8 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
   /**
    * Gathers the mental health phone number from the facility.
    *
-   * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/15686
-   * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/17862
+   * @see https://va.ghe.com/software/va.gov-cms/issues/15686
+   * @see https://va.ghe.com/software/va.gov-cms/issues/17862
    *
    * @return string
    *   The mental health phone number.

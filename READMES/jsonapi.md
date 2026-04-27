@@ -1,6 +1,6 @@
 # JSON:API
 
-The site uses [JSON:API](https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview) (from core) and some additional related modules as the mechanism for delivering JSON to Next.js for page data (see https://github.com/department-of-veterans-affairs/next-build for info and setup).
+The site uses [JSON:API](https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/api-overview) (from core) and some additional related modules as the mechanism for delivering JSON to Next.js for page data (see https://va.ghe.com/software/next-build for info and setup).
 
 The key point to know is that:
 

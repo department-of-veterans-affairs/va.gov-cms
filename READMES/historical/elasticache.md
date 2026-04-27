@@ -10,7 +10,7 @@ GraphQL queries increase load on Drupal backed VA.GOV-CMS database. By implement
 
 ## Research Findings
 
-Team tested build times<sup>[[4]](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/4461#issuecomment-806146870)</sup> and resource consumption of a PoC for Elasticache Memcache and found that a full build request was faster and consumed fewer resources<sup>[[5]](http://grafana.vfs.va.gov/d/dxf8a-6Zz/cms-dashboard?orgId=1&from=1616614756221&to=1616615896576&var-datasource=Prometheus%20(Utility)&var-environment=dev&var-app_name=cms-test)</sup> on the database server and only slightly more CPU on the app server. It is suspected that it is so much faster on a cold cache because the cache writes are faster with Memcache than RDS.
+Team tested build times<sup>[[4]](https://va.ghe.com/software/va.gov-cms/issues/4461#issuecomment-806146870)</sup> and resource consumption of a PoC for Elasticache Memcache and found that a full build request was faster and consumed fewer resources<sup>[[5]](http://grafana.vfs.va.gov/d/dxf8a-6Zz/cms-dashboard?orgId=1&from=1616614756221&to=1616615896576&var-datasource=Prometheus%20(Utility)&var-environment=dev&var-app_name=cms-test)</sup> on the database server and only slightly more CPU on the app server. It is suspected that it is so much faster on a cold cache because the cache writes are faster with Memcache than RDS.
 
 Cold cache (over 50% decrease)
 
@@ -55,7 +55,7 @@ The 50% decrease in response times for a vets-website GraphQL Build with our cur
 
 ## Implementation Details
 
-AWS Elasticache using Memcache is implemented in Terraform.<sup>[[2]](https://github.com/department-of-veterans-affairs/terraform-aws-vsp-cms/pull/21)</sup>
+AWS Elasticache using Memcache is implemented in Terraform.<sup>[[2]](https://va.ghe.com/software/terraform-aws-vsp-cms/pull/21)</sup>
 
 | Attribute | Value |
 | --- | ----------- |
@@ -85,11 +85,11 @@ Any changes to the above attributes will be applied during the predefined Mainte
 Memcache metrics are at the bottom of this page.
 
 ## References
-1. https://github.com/department-of-veterans-affairs/va.gov-cms/issues/4458
-1. https://github.com/department-of-veterans-affairs/terraform-aws-vsp-cms/pull/21
-1. https://github.com/department-of-veterans-affairs/devops/pull/8895
+1. https://va.ghe.com/software/va.gov-cms/issues/4458
+1. https://va.ghe.com/software/terraform-aws-vsp-cms/pull/21
+1. https://va.ghe.com/software/devops/pull/8895
 
-1. https://github.com/department-of-veterans-affairs/va.gov-cms/issues/4461#issuecomment-806146870
+1. https://va.ghe.com/software/va.gov-cms/issues/4461#issuecomment-806146870
 1. http://grafana.vfs.va.gov/d/dxf8a-6Zz/cms-dashboard?orgId=1&from=1616614756221&to=1616615896576&var-datasource=Prometheus%20(Utility)&var-environment=dev&var-app_name=cms-test
 
 ----

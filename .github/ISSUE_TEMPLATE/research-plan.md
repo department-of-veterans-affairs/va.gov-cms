@@ -16,8 +16,8 @@ assignees: ''
 
 ### Templates
 Use the appropriate template for the group you're conducting research with:
-- [Editor-facing Research Plan Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/research/sitewide-cms-editor-research-plan-template.md)
-- [Veteran-facing Research Plan Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/research-plan-template.md)
+- [Editor-facing Research Plan Template](https://va.ghe.com/software/va.gov-team/blob/master/platform/cms/research/sitewide-cms-editor-research-plan-template.md)
+- [Veteran-facing Research Plan Template](https://va.ghe.com/software/va.gov-team/blob/master/platform/research/research-plan-template.md)
 
 ## Suggested workflow/tasks:
 - [ ] Brainstorm ideas for research

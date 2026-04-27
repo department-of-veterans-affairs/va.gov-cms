@@ -2,7 +2,7 @@
 
 ## Background
 
-This document lists known services which depend on the CMS and the Drupal users required to consume content via Drupal's API. For a list of all of VA.gov-CMS's down stream dependencies look [here](https://github.com/department-of-veterans-affairs/va.gov-cms/edit/main/READMES/downstream_dependencies.md).
+This document lists known services which depend on the CMS and the Drupal users required to consume content via Drupal's API. For a list of all of VA.gov-CMS's down stream dependencies look [here](https://va.ghe.com/software/va.gov-cms/edit/main/READMES/downstream_dependencies.md).
 
 ## Users
 
@@ -10,7 +10,7 @@ This document lists known services which depend on the CMS and the Drupal users 
 | ----------- | ----------- | ----------- | ----------- |
 | Release Tools      | [#vsp-tools-fe](https://dsva.slack.com/archives/CQH357ZTP) | content_build_api       | Building content for VA.gov requires querying Drupal for that content in an authenticated way.       |
 | Lighthouse Forms API | [#va-forms](https://dsva.slack.com/archives/CUB5X5MGF)| forms_api        | Forms migration daily tasks must be authenticated       |
-| Facilities   | [#cms-lighthouse slack channel](https://app.slack.com/client/T03FECE8V/C02BTJTDFTN) - @facilities-team <br/> Adam Stinton (LH engineer)<br/> VA PO = Michelle Middaugh | facility_api        | Facilities API migration daily tasks must be authenticated. [Upstream notes](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/upstream-dependencies.md#lighthouse-facilities-api); [Downstream notes](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/downstream_dependencies.md)|
+| Facilities   | [#cms-lighthouse slack channel](https://app.slack.com/client/T03FECE8V/C02BTJTDFTN) - @facilities-team <br/> Adam Stinton (LH engineer)<br/> VA PO = Michelle Middaugh | facility_api        | Facilities API migration daily tasks must be authenticated. [Upstream notes](https://va.ghe.com/software/va.gov-cms/blob/main/READMES/upstream-dependencies.md#lighthouse-facilities-api); [Downstream notes](https://va.ghe.com/software/va.gov-cms/blob/main/READMES/downstream_dependencies.md)|
 | Virtual Agent   | [#va-virtual-agent-public](https://dsva.slack.com/archives/C01KTS3F493) | virtual_agent_api| ?       |
 | CMS   | [#cms-platform](https://dsva.slack.com/archives/C02HX4AQZ33)| datadog_api        | Datadog Synthetic metrics monitor GraphQL endpoint and require HTTP basic authentication       |
 

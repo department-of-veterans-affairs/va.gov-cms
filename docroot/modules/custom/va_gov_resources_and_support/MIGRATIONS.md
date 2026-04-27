@@ -8,7 +8,7 @@ The migration framework supports multiple use cases for migrating taxonomy tags 
 
 ## Context
 
-These migrations are part of the broader [R&S Tagging and Searching Iteration Epic](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/19492), which aims to:
+These migrations are part of the broader [R&S Tagging and Searching Iteration Epic](https://va.ghe.com/software/va.gov-cms/issues/19492), which aims to:
 
 - Improve findability of R&S content through enhanced taxonomy and tagging
 - Support the growth of R&S content (from 137 articles in September 2024, with 50% of Benefit Hubs content expected to migrate)
@@ -25,7 +25,7 @@ The migrations in this framework support the taxonomy enhancements:
 
 These migrations prepare for potential retirement of granular Veteran subtype tags by ensuring "All Veterans" is present wherever specific subtypes exist.
 
-For more details on the overall initiative, see the [Initiative Brief](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/resources-and-support/initiatives/2024-search-experience-enhancements-Phase-1).
+For more details on the overall initiative, see the [Initiative Brief](https://va.ghe.com/software/va.gov-team/tree/master/products/resources-and-support/initiatives/2024-search-experience-enhancements-Phase-1).
 
 ## Available Migrations
 

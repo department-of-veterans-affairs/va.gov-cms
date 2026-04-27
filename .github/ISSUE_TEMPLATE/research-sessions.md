@@ -23,7 +23,7 @@ assignees: ''
 - [Observer guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/observer-guidelines)
 
 **Recruitment Trackers**
-- Veteran-Facing research should follow [Platform guidance](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/teams/vsa/accessibility/research/recruitment.md) on recruitment tracking
+- Veteran-Facing research should follow [Platform guidance](https://va.ghe.com/software/va.gov-team/blob/master/teams/vsa/accessibility/research/recruitment.md) on recruitment tracking
   - [VA recruitment checker spreadsheet in Google Sheets](https://docs.google.com/spreadsheets/d/1pq7TSHZonfpzAQBJj6B2geGHlNUwZEs4DzEvxcRgu0o/edit?usp=sharing)
 - Editor-Facing research should track participants in the [VA.gov CMS UX research base](link TBD from CMS Platform team)
 

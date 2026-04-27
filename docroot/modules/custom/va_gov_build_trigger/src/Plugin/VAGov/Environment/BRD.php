@@ -92,14 +92,14 @@ class BRD extends EnvironmentPluginBase {
     try {
       if ($this->pendingContentBuildWorkflowRunExists()) {
         $vars = [
-          '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
+          '@job_link' => 'https://va.ghe.com/software/content-build/actions/workflows/content-release.yml',
         ];
         $message = $this->t('Changes will be included in a content release to VA.gov that\'s already in progress. <a href="@job_link">Check status</a>.', $vars);
       }
       else {
         $this->cbGitHubClient->triggerRepositoryDispatchEvent('content-release');
         $vars = [
-          '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
+          '@job_link' => 'https://va.ghe.com/software/content-build/actions/workflows/content-release.yml',
         ];
         $message = $this->t('The system started the process of releasing this content to go live on VA.gov. <a href="@job_link">Check content-build status</a>.', $vars);
       }
@@ -112,7 +112,7 @@ class BRD extends EnvironmentPluginBase {
     try {
       if ($this->pendingNextBuildWorkflowRunExists()) {
         $vars = [
-          '@job_link' => 'https://github.com/department-of-veterans-affairs/next-build/actions/workflows/content-release-prod.yml',
+          '@job_link' => 'https://va.ghe.com/software/next-build/actions/workflows/content-release-prod.yml',
         ];
         $message = $this->t('Changes will be included in a content release to VA.gov that\'s already in progress. <a href="@job_link">Check status</a>.', $vars);
       }
@@ -120,7 +120,7 @@ class BRD extends EnvironmentPluginBase {
         // Trigger the next-build workflow as well.
         $this->nbGitHubClient->triggerRepositoryDispatchEvent('content-release-prod');
         $vars = [
-          '@job_link' => 'https://github.com/department-of-veterans-affairs/next-build/actions/workflows/content-release-prod.yml',
+          '@job_link' => 'https://va.ghe.com/software/next-build/actions/workflows/content-release-prod.yml',
         ];
         $message = $this->t('The system started the process of releasing this content to go live on VA.gov. <a href="@job_link">Check next-build status</a>.', $vars);
       }
@@ -193,7 +193,7 @@ class BRD extends EnvironmentPluginBase {
    */
   protected function handleCbException(\Throwable $exception) : void {
     $message = $this->t('A content release request has failed with an Exception. Please visit <a href="@job_link">@job_link</a> for more information on the issue. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
-      '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
+      '@job_link' => 'https://va.ghe.com/software/content-build/actions/workflows/content-release.yml',
     ]);
     $this->messenger()->addError($message);
     $this->logger->error($message);
@@ -209,7 +209,7 @@ class BRD extends EnvironmentPluginBase {
    */
   protected function handleNbException(\Throwable $exception) : void {
     $message = $this->t('A content release request has failed with an Exception. Please visit <a href="@job_link">@job_link</a> for more information on the issue. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
-      '@job_link' => 'https://github.com/department-of-veterans-affairs/next-build/actions/workflows/content-release-prod.yml',
+      '@job_link' => 'https://va.ghe.com/software/next-build/actions/workflows/content-release-prod.yml',
     ]);
     $this->messenger()->addError($message);
     $this->logger->error($message);

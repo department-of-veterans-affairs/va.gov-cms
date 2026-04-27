@@ -89,7 +89,7 @@ class Status implements StatusInterface {
   public function getHumanReadableCurrentReleaseState() : string {
     return match ($this->getCurrentReleaseState()) {
       // An enum will make this more beautiful.
-      // @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/15556
+      // @see https://va.ghe.com/software/va.gov-cms/issues/15556
       ReleaseStateManager::STATE_READY => $this->t('Ready'),
       ReleaseStateManager::STATE_REQUESTED => $this->t('Requested'),
       ReleaseStateManager::STATE_DISPATCHED => $this->t('Dispatched'),

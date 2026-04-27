@@ -65,7 +65,7 @@ The response to any query is in JSON.
 
 ## Metalsmith GraphQL plugin
 
-Code: https://github.com/department-of-veterans-affairs/va.gov-cms/blob/develop/metalsmith_app/custom_plugins/metalsmith-graphql/index.js
+Code: https://va.ghe.com/software/va.gov-cms/blob/develop/metalsmith_app/custom_plugins/metalsmith-graphql/index.js
 
 This plugin connects to the Drupal content API and retrieves node and entity data using the GraphQL endpoint.
 

@@ -21,6 +21,7 @@ These backups do not contain Docker data and will not restore the ephemeral revi
 ### Deployment
 Manual for now. @SEE "Future" section
 1. Check for patches that need to be re-applied in va.gov-cms/.tugboat/patches/PATCHES.txt. Also can use `git status` and `git diff`, can possibly use `git stash`.
+<!-- @TODO-GH-MIGRATION check this link after migration -->
 1. (optional) `curl --location https://raw.githubusercontent.com/department-of-veterans-affairs/va.gov-cms/fb9e9c8f3746395710482150c53a973ad8ca0144/.tugboat/patches/race-condition.patch --remote-name`
 1. cd /opt/tugboat
 1. git fetch --tags
@@ -46,4 +47,4 @@ Manual for now. @SEE "Future" section
 We currently have a few modifications to Tugboat source code that we need to make sure are either reapplied, or evaluated on each deployment for removal.
 
 ### Future
-We had put Tugboat into the BRD system (PR [#8567](https://github.com/department-of-veterans-affairs/devops/pull/8567)) and were going to deploy it but have paused on that as the new ArgoCD + Kubernetes infrastructure is ready now, so we are going to port Tugboat into that system instead since Jenkins will be deprecated by Q4 2021. The possible difficulty in doing that will be that when scaling Tugboat horizontally Tugboat expects a Docker Swarm and thus will need to be adapted to K8s somehow.
+We had put Tugboat into the BRD system (PR [#8567](https://va.ghe.com/software/devops/pull/8567)) and were going to deploy it but have paused on that as the new ArgoCD + Kubernetes infrastructure is ready now, so we are going to port Tugboat into that system instead since Jenkins will be deprecated by Q4 2021. The possible difficulty in doing that will be that when scaling Tugboat horizontally Tugboat expects a Docker Swarm and thus will need to be adapted to K8s somehow.

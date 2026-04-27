@@ -39,7 +39,7 @@ Some editors have the ability to manually request a content release. This happen
 
 ### Manual request by devops/release tools team member
 
-Related workflow: https://github.com/department-of-veterans-affairs/content-build/actions/workflows/request-content-release.yml
+Related workflow: https://va.ghe.com/software/content-build/actions/workflows/request-content-release.yml
 
 Occasionally, a devops or release tools team member will need to request a content release from the CMS. The GHA workflow above is the mechanism used to do that. Note: that workflow is also triggered after the Daily Production Release in the content-build repository so that frontend changes are deployed to production as quickly as possible.
 
@@ -121,12 +121,12 @@ sequenceDiagram
 
 ## BRD Production
 
-The "Release content" page on the BRD production environment invokes the [same Github Action Workflow]https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml) as the automatic deploys. Accordingly the content build output should be identical.
+The "Release content" page on the BRD production environment invokes the [same Github Action Workflow]https://va.ghe.com/software/content-build/actions/workflows/content-release.yml) as the automatic deploys. Accordingly the content build output should be identical.
 
 
 ### Configuration
 
-The job configuration is stored in Drupal `settings.php`. Here are the settings for [production](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/docroot/sites/default/settings/settings.prod.php#L46). Settings for other environments can be found in the `*.settings.php` [files](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/sites/default/settings). The setting keys are:
+The job configuration is stored in Drupal `settings.php`. Here are the settings for [production](https://va.ghe.com/software/va.gov-cms/blob/main/docroot/sites/default/settings/settings.prod.php#L46). Settings for other environments can be found in the `*.settings.php` [files](https://va.ghe.com/software/va.gov-cms/blob/master/docroot/sites/default/settings). The setting keys are:
 
 ```php
 $settings['va_gov_frontend_build_type'] = 'brd';
@@ -140,7 +140,7 @@ Currently, content releases cannot be requested nor dispatched from the staging 
 
 ## Tugboat and Local Development Environments
 
-The Tugboat and local development versions of the release content page do not trigger a Github Actions workflow. Instead, they check out the latest version (or a specified branch or release) of the [frontend](https://github.com/department-of-veterans-affairs/content-build/), build it, and then perform a content release to the same environment that it was requested from (local environments will release content to the local environment, Tugboat environments will release content to that same Tugboat environment, etc).
+The Tugboat and local development versions of the release content page do not trigger a Github Actions workflow. Instead, they check out the latest version (or a specified branch or release) of the [frontend](https://va.ghe.com/software/content-build/), build it, and then perform a content release to the same environment that it was requested from (local environments will release content to the local environment, Tugboat environments will release content to that same Tugboat environment, etc).
 
 For more information on creating or releasing content from a preview environment, see [Environments](./environments.md).
 
@@ -151,7 +151,7 @@ Sometimes the state gets stuck and needs to be reset.  It can be done with a dru
 
 ## Other resources:
 
-* https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/accelerated_publishing/content-build
+* https://va.ghe.com/software/va.gov-team/tree/master/platform/cms/accelerated_publishing/content-build
 
 ----
 

@@ -488,7 +488,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 
     /*
      * @todo Remove this after root issue causing
-     * https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7373
+     * https://va.ghe.com/software/va.gov-cms/issues/7373
      * is resolved.
      */
     if ($node_type === 'vet_center') {
@@ -1602,7 +1602,7 @@ function va_gov_backend_toolbar() {
         '#value' => ' - ' . \Drupal::state()
           ->get("environment_indicator.current_release"),
         '#attributes' => [
-          'title' => 'See https://github.com/department-of-veterans-affairs/va.gov-cms for more info.',
+          'title' => 'See https://va.ghe.com/software/va.gov-cms for more info.',
           'class' => ['toolbar-icon', 'toolbar-icon-branch'],
         ],
       ],
@@ -1965,7 +1965,7 @@ function _va_gov_backend_apply_filter_to_tablefield_cells(FieldableEntityInterfa
  * Deprecated in va_gov_backend:9.2.3 and is removed from va_gov_backend:10.0.1
  *   This should be removed in #10675.
  *
- * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/10675
+ * @see https://va.ghe.com/software/va.gov-cms/issues/10675
  */
 function va_gov_backend_field_widget_single_element_tablefield_form_alter(&$element, FormStateInterface $form_state, $context): void {
   $element["#description"] = t('The first row will be formatted as the table header. The labels in the first row should accurately describe the corresponding columns.');

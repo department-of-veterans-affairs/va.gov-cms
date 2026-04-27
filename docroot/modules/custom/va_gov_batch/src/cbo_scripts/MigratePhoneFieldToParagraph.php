@@ -37,7 +37,7 @@ class MigratePhoneFieldToParagraph extends BatchOperations implements BatchScrip
   public function getTitle(): string {
     return <<<TITLE
     For:
-      - VACMS-17860: https://github.com/department-of-veterans-affairs/va.gov-cms/issues/17860.
+      - VACMS-17860: https://va.ghe.com/software/va.gov-cms/issues/17860.
     TITLE;
   }
 

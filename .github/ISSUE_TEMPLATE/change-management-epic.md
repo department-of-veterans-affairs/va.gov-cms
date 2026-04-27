@@ -50,4 +50,4 @@ If existing videos, list URLs:
 ## Known dependencies
 
 ## Acceptance Criteria
-- [ ] All tickets have been created and assigned per [Change Management Runbook](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/facilities/change-management)
+- [ ] All tickets have been created and assigned per [Change Management Runbook](https://va.ghe.com/software/va.gov-team/tree/master/products/facilities/change-management)

@@ -1,5 +1,5 @@
 @content_type__vamc_operating_status_and_alerts @skip
-  # Fix with issue https://github.com/department-of-veterans-affairs/va.gov-cms/issues/10219
+  # Fix with issue https://va.ghe.com/software/va.gov-cms/issues/10219
 Feature: Content Type: VAMC Operating Status
 
   Scenario: Log in and confirm that System-wide alerts can be created and edited

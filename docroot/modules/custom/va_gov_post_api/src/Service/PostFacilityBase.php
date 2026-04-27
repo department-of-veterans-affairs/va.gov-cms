@@ -295,7 +295,7 @@ abstract class PostFacilityBase {
    * @return string
    *   A string matching what the FE will do to make an html id.
    *
-   * @see https://github.com/department-of-veterans-affairs/content-build/blob/main/src/site/stages/build/plugins/modify-dom/add-id-to-subheadings.js#L9-L17
+   * @see https://va.ghe.com/software/content-build/blob/main/src/site/stages/build/plugins/modify-dom/add-id-to-subheadings.js#L9-L17
    */
   public function getFrontEndFragment($string = ''): string {
     $string = trim($string);

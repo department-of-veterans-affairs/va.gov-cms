@@ -9,9 +9,9 @@ with PHP-CLI and SQLite.
 
 ## Step 1: Get Source Code / Git Setup
 
-- Clone the repo: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) (Please clone the main repo rather than forking it.)
+- Clone the repo: [va.ghe.com/software/va.gov-cms](https://va.ghe.com/software/va.gov-cms) (Please clone the main repo rather than forking it.)
   ```sh
-   $ git clone git@github.com:department-of-veterans-affairs/va.gov-cms.git
+   $ git clone git@va.ghe.com:software/va.gov-cms.git
    $ cd va.gov-cms
   ```
 

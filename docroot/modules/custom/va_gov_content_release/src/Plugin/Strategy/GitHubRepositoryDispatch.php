@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class GitHubRepositoryDispatch extends StrategyPluginBase {
 
-  const JOB_LINK = 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml';
+  const JOB_LINK = 'https://va.ghe.com/software/content-build/actions/workflows/content-release.yml';
 
   /**
    * Github repository dispatch service.
