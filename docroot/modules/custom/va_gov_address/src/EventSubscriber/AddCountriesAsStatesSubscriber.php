@@ -7,12 +7,12 @@ use Drupal\address\Event\SubdivisionsEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Adds a Philippines to the US States.
+ * Adds select countries to the US States.
  *
  * This class follows the Centarro guidelines:
  * https://docs.drupalcommerce.org/v2/developer-guide/customers/addresses/#how-do-i-add-or-modify-subdivisions-for-a-country.
  */
-class AddPhilippinesAsStateSubscriber implements EventSubscriberInterface {
+class AddCountriesAsStatesSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
@@ -42,7 +42,25 @@ class AddPhilippinesAsStateSubscriber implements EventSubscriberInterface {
       'country_code' => 'US',
       'id' => 'PH',
     ];
-    ksort($definitions['subdivisions']);
+    // Add Germany as a state.
+    $definitions['subdivisions']['DEU'] = [
+      'code' => 'DEU',
+      'name' => 'Germany',
+      'country_code' => 'US',
+      'id' => 'DEU',
+    ];
+    // Add South Korea as a state.
+    $definitions['subdivisions']['KR'] = [
+      'code' => 'KR',
+      'name' => 'South Korea',
+      'country_code' => 'US',
+      'id' => 'KR',
+    ];
+
+    // Sort subdivisions by name.
+    uasort($definitions['subdivisions'], function ($a, $b) {
+      return strcmp($a['name'], $b['name']);
+    });
     $event->setDefinitions($definitions);
   }
 
