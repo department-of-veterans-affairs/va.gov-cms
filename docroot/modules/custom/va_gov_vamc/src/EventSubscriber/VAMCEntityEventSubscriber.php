@@ -2,10 +2,14 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
@@ -16,6 +20,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -112,6 +117,13 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
+   * Logger channel factory.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $loggerFactory;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -126,6 +138,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *   The deduper service.
    * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
    *   VA gov NotificationsManager service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
+   *   The Drupal logger service.
    */
   public function __construct(
     EntityTypeManager $entity_type_manager,
@@ -134,6 +148,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     UserPermsService $user_perms_service,
     ContentHardeningDeduper $content_hardening_deduper,
     NotificationsManager $notifications_manager,
+    LoggerChannelFactoryInterface $loggerFactory,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->currentUser = $currentUser;
@@ -141,6 +156,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
     $this->notificationsManager = $notifications_manager;
+    $this->loggerFactory = $loggerFactory;
   }
 
   /**
@@ -200,11 +216,24 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     $this->contentHardeningDeduper->removeDuplicate($entity);
     $this->removeFieldDataFromNonClinicalServices($entity);
+
+    if ($entity instanceof NodeInterface
+      && $entity->bundle() === 'health_care_local_facility'
+      && $entity->hasField('field_use_default_mental_health')
+    ) {
+      $use_default_checked = $entity->get('field_use_default_mental_health')->value;
+      if ($use_default_checked) {
+        $this->setMentalHealthNumberToDefault($entity);
+      }
+    }
   }
 
   /**
@@ -287,6 +316,70 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Sets the facility's mental health number to the default system number.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function setMentalHealthNumberToDefault($entity): void {
+    $node_storage = $this->entityTypeManager->getStorage('node');
+
+    $region_page = $entity->get('field_region_page')->entity;
+    if (empty($region_page)) {
+      return;
+    }
+
+    // Check for forward revisions.
+    $revision_ids = $node_storage->revisionIds($region_page);
+    $latest_forward_revision = NULL;
+    foreach (array_reverse($revision_ids) as $revision_id) {
+      if ($revision_id > $region_page->getRevisionId()) {
+        $revision = $node_storage->loadRevision($revision_id);
+        if ($revision) {
+          $latest_forward_revision = $revision;
+          break;
+        }
+      }
+    }
+    $region_page_to_check = $latest_forward_revision ?: $region_page;
+    $system_paragraph = $region_page_to_check?->get('field_default_mental_health_phon')->entity;
+    if (empty($system_paragraph)) {
+      return;
+    }
+    $phone_number = $system_paragraph->get('field_phone_number')->value;
+    $phone_extension = $system_paragraph->get('field_phone_extension')->value;
+    $phone_type = 'tel';
+
+    try {
+      $facility_paragraph = $entity->get('field_telephone')->entity;
+      if ($facility_paragraph) {
+        $facility_paragraph->set('field_phone_number', $phone_number);
+        $facility_paragraph->set('field_phone_extension', $phone_extension);
+        $facility_paragraph->set('field_phone_number_type', $phone_type);
+        $facility_paragraph->save();
+      }
+      else {
+        $values = [
+          'type' => 'phone_number',
+          'field_phone_number' => $phone_number,
+          'field_phone_extension' => $phone_extension,
+          'field_phone_number_type' => $phone_type,
+        ];
+        $new_paragraph = Paragraph::create($values);
+        $new_paragraph->save();
+        $entity->set('field_telephone', [
+          'target_id' => $new_paragraph->id(),
+          'target_revision_id' => $new_paragraph->getRevisionId(),
+        ]);
+      }
+    }
+    catch (EntityStorageException $e) {
+      $this->loggerFactory->get('va_gov_vamc')->error($this->t('An error occurred while updating the mental health phone number. %error',
+        ['%error' => $e->getMessage()]
+      ));
+    }
+  }
+
+  /**
    * Adds COVID status information to form and js library.
    *
    * @param array $form
@@ -335,6 +428,59 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $this->addCovidStatusData($form, $form_state);
+    $this->conditionalMentalHealthNumber($form, $form_state);
+  }
+
+  /**
+   * Hides the telephone field based on the default mental health checkbox.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  protected function conditionalMentalHealthNumber(array &$form, FormStateInterface $form_state): void {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    $node = $form_object->getEntity();
+    if ($node instanceof NodeInterface
+      && $node->hasField('field_use_default_mental_health')
+      && $node->hasField('field_telephone')
+    ) {
+      $target_id = $node->get('field_region_page')->target_id;
+      $region_page = NULL;
+      if ($target_id) {
+        try {
+          $region_page = $this->entityTypeManager
+            ->getStorage('node')
+            ->loadUnchanged($target_id);
+        }
+        catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
+          $this->loggerFactory->get('va_gov_vamc')->error($this->t('An error occurred while trying to load the target region page. %error',
+            ['%error' => $e->getMessage()]
+          ));
+        }
+      }
+      $system_paragraph = $region_page?->get('field_default_mental_health_phon')->entity;
+      if (!$system_paragraph || $system_paragraph->get('field_phone_number')->isEmpty()) {
+        $form['field_use_default_mental_health']['#access'] = FALSE;
+        return;
+      }
+      $form['field_telephone']['#states'] = [
+        'visible' => [
+          ':input[name="field_use_default_mental_health[value]"]' => ['checked' => FALSE],
+        ],
+        'invisible' => [
+          ':input[name="field_use_default_mental_health[value]"]' => ['checked' => TRUE],
+        ],
+        'enabled' => [
+          ':input[name="field_use_default_mental_health[value]"]' => ['checked' => FALSE],
+        ],
+        'disabled' => [
+          ':input[name="field_use_default_mental_health[value]"]' => ['checked' => TRUE],
+        ],
+      ];
+    }
   }
 
   /**

@@ -1,0 +1,26 @@
+uuid: e1f3bd90-2b8b-4f37-a1e1-5a420ee7a59f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_use_default_mental_health
+    - node.type.health_care_local_facility
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.health_care_local_facility.field_use_default_mental_health
+field_name: field_use_default_mental_health
+entity_type: node
+bundle: health_care_local_facility
+label: 'Use the default mental health number for this VAMC system?'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
