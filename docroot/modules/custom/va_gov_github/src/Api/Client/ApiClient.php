@@ -62,7 +62,7 @@ class ApiClient implements ApiClientInterface {
     $this->owner = $owner;
     $this->repository = $repository;
     $this->token = $token;
-    $this->rawClient = new RawApiClient();
+    $this->rawClient = new RawApiClient(null, null, 'https://va.ghe.com');
     $this->authenticate();
   }
 
