@@ -34,7 +34,7 @@ Detailed instructions for many IDEs can be found in [the ddev documentation](htt
 ```
 -> % ddev describe
 ┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Project: va-gov-cms ~/Code/github.com/department-of-veterans-affairs/va.gov-cms https://va-gov-cms.dd │
+│ Project: va-gov-cms ~/Code/va.ghe.com/software/va.gov-cms https://va-gov-cms.dd │
 │ ev.site                                                                                               │
 │ Docker environment: docker 20.10.13                                                                   │
 ├────────────┬──────┬────────────────────────────────────────────────────────────┬──────────────────────┤

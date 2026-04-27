@@ -21,6 +21,7 @@ These backups do not contain Docker data and will not restore the ephemeral revi
 ### Deployment
 Manual for now. @SEE "Future" section
 1. Check for patches that need to be re-applied in va.gov-cms/.tugboat/patches/PATCHES.txt. Also can use `git status` and `git diff`, can possibly use `git stash`.
+<!-- @TODO-GH-MIGRATION check this link after migration -->
 1. (optional) `curl --location https://raw.githubusercontent.com/department-of-veterans-affairs/va.gov-cms/fb9e9c8f3746395710482150c53a973ad8ca0144/.tugboat/patches/race-condition.patch --remote-name`
 1. cd /opt/tugboat
 1. git fetch --tags

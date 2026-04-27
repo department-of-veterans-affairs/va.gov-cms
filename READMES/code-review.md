@@ -43,7 +43,7 @@ The PR Owner will be the person `assigned` to the pull request.
 
 ### PR Reviewer
 
-A PR Reviewer is one or more person(s) responsible for reviewing all the changes a Pull Request introduces. There can be multiple PR Reviewers per PR. A PR Reviewer can be anyone that is part of the department-of-veterans-affairs/va.gov-cms group. If a change introduced by a Pull Request introduces an architectural change or a significant new feature, a Tech Lead and a Product Manager (as needed) should be the PR Reviewer.
+A PR Reviewer is one or more person(s) responsible for reviewing all the changes a Pull Request introduces. There can be multiple PR Reviewers per PR. A PR Reviewer can be anyone that is part of the software/va.gov-cms group. If a change introduced by a Pull Request introduces an architectural change or a significant new feature, a Tech Lead and a Product Manager (as needed) should be the PR Reviewer.
 
 * A PR Reviewer will self assign or be assigned by the PR Owner as a Reviewer on the Pull Request.
 * PR Reviewer Responsibilities

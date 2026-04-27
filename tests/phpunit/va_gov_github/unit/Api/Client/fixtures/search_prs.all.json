@@ -63,7 +63,7 @@
               "patch_url": "https:\/\/va.ghe.com\/software\/va.gov-cms\/pull\/14478.patch",
               "merged_at": null
           },
-          "body": "Closes #14460.\r\n\r\n## QA Steps\r\n\r\n- [ ] Test Drush commands:\r\n  - [ ] `drush va-gov-github:raw-api-client:request:get '\/emojis'`\r\n  - [ ] `drush va-gov-github:raw-api-client:current-user:repositories $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:raw-api-client:current-user:organizations $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:api-client:workflow-runs department-of-veterans-affairs content-build content-release.yml $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:api-client:search-issues department-of-veterans-affairs va.gov-cms 'CMS Team Sprint' $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:api-client:search-pull-requests department-of-veterans-affairs va.gov-cms 'revert' $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:api-client:repository-dispatch department-of-veterans-affairs content-build content-release $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:api-client:workflow-dispatch department-of-veterans-affairs va.gov-cms-test default-branch-datadog-metrics.yml main $GITHUB_TOKEN`\r\n  - [ ] Verify that a [content release](https:\/\/va.ghe.com\/software\/content-build\/actions\/workflows\/content-release.yml) was kicked off by the Drush `...repository-dispatch` command above:\r\n  -  ![Screenshot 2023-07-24 at 1 10 48 PM](https:\/\/va.ghe.com\/software\/va.gov-cms\/assets\/1318579\/db960f2f-ce8e-4428-9614-2d6ad3e11da3)\r\n  - [ ] Verify that a [DataDog metrics](https:\/\/va.ghe.com\/software\/va.gov-cms-test\/actions\/workflows\/default-branch-datadog-metrics.yml) job was kicked off by the Drush `...workflow-dispatch` command above:\r\n  - ![Screenshot 2023-07-24 at 1 12 29 PM](https:\/\/va.ghe.com\/software\/va.gov-cms\/assets\/1318579\/8af0675a-e60e-4a55-9063-6df98daea649)\r\n",
+          "body": "Closes #14460.\r\n\r\n## QA Steps\r\n\r\n- [ ] Test Drush commands:\r\n  - [ ] `drush va-gov-github:raw-api-client:request:get '\/emojis'`\r\n  - [ ] `drush va-gov-github:raw-api-client:current-user:repositories $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:raw-api-client:current-user:organizations $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:api-client:workflow-runs software content-build content-release.yml $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:api-client:search-issues software va.gov-cms 'CMS Team Sprint' $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:api-client:search-pull-requests software va.gov-cms 'revert' $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:api-client:repository-dispatch software content-build content-release $GITHUB_TOKEN`\r\n  - [ ] `drush va-gov-github:api-client:workflow-dispatch software va.gov-cms-test default-branch-datadog-metrics.yml main $GITHUB_TOKEN`\r\n  - [ ] Verify that a [content release](https:\/\/va.ghe.com\/software\/content-build\/actions\/workflows\/content-release.yml) was kicked off by the Drush `...repository-dispatch` command above:\r\n  -  ![Screenshot 2023-07-24 at 1 10 48 PM](https:\/\/va.ghe.com\/software\/va.gov-cms\/assets\/1318579\/db960f2f-ce8e-4428-9614-2d6ad3e11da3)\r\n  - [ ] Verify that a [DataDog metrics](https:\/\/va.ghe.com\/software\/va.gov-cms-test\/actions\/workflows\/default-branch-datadog-metrics.yml) job was kicked off by the Drush `...workflow-dispatch` command above:\r\n  - ![Screenshot 2023-07-24 at 1 12 29 PM](https:\/\/va.ghe.com\/software\/va.gov-cms\/assets\/1318579\/8af0675a-e60e-4a55-9063-6df98daea649)\r\n",
           "reactions": {
               "url": "https:\/\/api.va.ghe.com\/repos\/software\/va.gov-cms\/issues\/14478\/reactions",
               "total_count": 0,
@@ -1212,7 +1212,7 @@
               "patch_url": "https:\/\/va.ghe.com\/software\/va.gov-cms\/pull\/13661.patch",
               "merged_at": "2023-05-10T15:12:49Z"
           },
-          "body": "Reverts department-of-veterans-affairs\/va.gov-cms#13648\r\n\r\nI suspect this is causing issues with theming, but I don't know why.\r\n\r\n![Screenshot 2023-05-10 at 9 54 32 AM](https:\/\/va.ghe.com\/software\/va.gov-cms\/assets\/1318579\/8000e6b5-5a2c-4776-aeb3-63b2db934ffd)\r\n",
+          "body": "Reverts software\/va.gov-cms#13648\r\n\r\nI suspect this is causing issues with theming, but I don't know why.\r\n\r\n![Screenshot 2023-05-10 at 9 54 32 AM](https:\/\/va.ghe.com\/software\/va.gov-cms\/assets\/1318579\/8000e6b5-5a2c-4776-aeb3-63b2db934ffd)\r\n",
           "reactions": {
               "url": "https:\/\/api.va.ghe.com\/repos\/software\/va.gov-cms\/issues\/13661\/reactions",
               "total_count": 0,
@@ -1419,7 +1419,7 @@
               "patch_url": "https:\/\/va.ghe.com\/software\/va.gov-cms\/pull\/13524.patch",
               "merged_at": "2023-04-27T14:31:07Z"
           },
-          "body": "Reverts department-of-veterans-affairs\/va.gov-cms#13493.\r\n\r\nSeems to have broken the Storybook build process.",
+          "body": "Reverts software\/va.gov-cms#13493.\r\n\r\nSeems to have broken the Storybook build process.",
           "reactions": {
               "url": "https:\/\/api.va.ghe.com\/repos\/software\/va.gov-cms\/issues\/13524\/reactions",
               "total_count": 0,
@@ -1928,7 +1928,7 @@
               "patch_url": "https:\/\/va.ghe.com\/software\/va.gov-cms\/pull\/11994.patch",
               "merged_at": null
           },
-          "body": "Back-pocket revert, in the event the PR causes issues.\r\n\r\nReverts department-of-veterans-affairs\/va.gov-cms#11949",
+          "body": "Back-pocket revert, in the event the PR causes issues.\r\n\r\nReverts software\/va.gov-cms#11949",
           "reactions": {
               "url": "https:\/\/api.va.ghe.com\/repos\/software\/va.gov-cms\/issues\/11994\/reactions",
               "total_count": 0,
@@ -2173,7 +2173,7 @@
               "patch_url": "https:\/\/va.ghe.com\/software\/va.gov-cms\/pull\/13059.patch",
               "merged_at": "2023-03-23T19:26:02Z"
           },
-          "body": "Reverts department-of-veterans-affairs\/va.gov-cms#13055",
+          "body": "Reverts software\/va.gov-cms#13055",
           "reactions": {
               "url": "https:\/\/api.va.ghe.com\/repos\/software\/va.gov-cms\/issues\/13059\/reactions",
               "total_count": 0,
@@ -2537,7 +2537,7 @@
               "patch_url": "https:\/\/va.ghe.com\/software\/va.gov-cms\/pull\/12868.patch",
               "merged_at": "2023-03-07T19:21:16Z"
           },
-          "body": "Reverts department-of-veterans-affairs\/va.gov-cms#12781\r\n\r\nThis is being reverted due to https:\/\/dsva.slack.com\/archives\/CDHBKAL9W\/p1678134778777159    There were no db updates as part of the last release so this should be safe.\r\n\r\n##QA and testing\r\n\r\n- [x] Go to here.  https:\/\/web-6m9y4j2xgdtnqvfhwuoncclz1dpnabil.ci.cms.va.gov\/education\/survivor-dependent-benefits\/\r\n- [x] scroll to the first table and validate there are only two columns, not a weird counting column off to the right.\r\n",
+          "body": "Reverts software\/va.gov-cms#12781\r\n\r\nThis is being reverted due to https:\/\/dsva.slack.com\/archives\/CDHBKAL9W\/p1678134778777159    There were no db updates as part of the last release so this should be safe.\r\n\r\n##QA and testing\r\n\r\n- [x] Go to here.  https:\/\/web-6m9y4j2xgdtnqvfhwuoncclz1dpnabil.ci.cms.va.gov\/education\/survivor-dependent-benefits\/\r\n- [x] scroll to the first table and validate there are only two columns, not a weird counting column off to the right.\r\n",
           "reactions": {
               "url": "https:\/\/api.va.ghe.com\/repos\/software\/va.gov-cms\/issues\/12868\/reactions",
               "total_count": 0,

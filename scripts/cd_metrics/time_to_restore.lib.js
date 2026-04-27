@@ -55,7 +55,7 @@ import {
  * C - B). The time to restore for F is 345600 (F - E + E - D + D - C + C - B).
  */
 
-const owner = "department-of-veterans-affairs";
+const owner = "software";
 const repo = "va.gov-cms";
 
 /**

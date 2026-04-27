@@ -252,6 +252,7 @@ Each repository includes READMEs to help with setup.
 ### Build systems / Environments
 - [ ] Deployments: https://depo-platform-documentation.scrollhelp.site/developer-docs/deployments
   - [ ] [CMS & Front-end Repos & Build jobs - cheatsheet](https://docs.google.com/spreadsheets/d/164H07n4FChg-JxJZu964nfg2wAX0kPD0SjTfZMhzj_I/edit#gid=0) - unofficial documentation to help navigate build system timings / channels for notifications
+  <!-- @TODO-GH-MIGRATION check where this page lands after migration -->
 - [ ] [Front-end deployment dashboard](https://department-of-veterans-affairs.github.io/veteran-facing-services-tools/frontend-support-dashboard/) - **bookmark this** - displays the deployment status of commits in `content-build` and `vets-website`, through Dev > Staging > Prod
 - [ ] [Learn about the different Drupal environments](https://va.ghe.com/software/va.gov-cms/blob/main/READMES/environments.md) - explains the CMS > content build process and data source / snapshot timing for all lower environments
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://va.ghe.com/software/va.gov-cms/blob/main/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
@@ -325,6 +326,7 @@ Each repository includes READMEs to help with setup.
 
 **Tracking features**
 - [ ] [CMS & Front-end Repos & Build jobs - cheatsheet](https://docs.google.com/spreadsheets/d/164H07n4FChg-JxJZu964nfg2wAX0kPD0SjTfZMhzj_I/edit#gid=0) - unofficial documentation to help navigate understanding our build systems & channels for notifications
+<!-- @TODO-GH-MIGRATION check where this page lands after migration -->
 - [ ] [Front-end deployment dashboard](https://department-of-veterans-affairs.github.io/veteran-facing-services-tools/frontend-support-dashboard/) - **bookmark this** - displays the status of fixes/enhancements as they deploy through Dev > Staging > Prod (for both content-build and vets-website)
 
 </details>

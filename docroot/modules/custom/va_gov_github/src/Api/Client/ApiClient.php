@@ -18,7 +18,7 @@ use Psr\Http\Message\ResponseInterface;
 class ApiClient implements ApiClientInterface {
 
   /**
-   * The GitHub repository owner, e.g. 'department-of-veterans-affairs'.
+   * The GitHub repository owner, e.g. 'software'.
    *
    * @var string
    */

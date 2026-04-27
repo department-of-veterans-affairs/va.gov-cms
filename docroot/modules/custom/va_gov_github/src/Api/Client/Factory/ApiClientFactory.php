@@ -14,7 +14,7 @@ use Drupal\va_gov_github\Api\Settings\ApiSettingsInterface;
  */
 class ApiClientFactory implements ApiClientFactoryInterface {
 
-  const OWNER = 'department-of-veterans-affairs';
+  const OWNER = 'software';
   const VA_GOV_CMS = 'va.gov-cms';
   const CONTENT_BUILD = 'content-build';
   const VETS_WEBSITE = 'vets-website';

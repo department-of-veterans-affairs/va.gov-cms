@@ -13,7 +13,7 @@ Take the term Base to mean bottom or foundation: Base Preview is a container, bu
 ## Access
 In order to access the Tugboat UI, you must have SOCKS running on your machine, or be on the VA network (via CAG/Azure, on GFE, etc). 
 
-Any Github user in the department-of-veterans-affairs organization can log into Tugboat using Github credentials. Access is provided automatically, no manual steps.
+Any Github user in the organization can log into Tugboat using Github credentials. Access is provided automatically, no manual steps.
 
 Tugboat management has been limited to [@platform-cms-devops-engineers](https://va.ghe.com/orgs/software/teams/platform-cms-devops-engineers) historically.
 

@@ -4,7 +4,7 @@
 1. Enable, then run the sanitize DB job here > http://jenkins.vfs.va.gov/job/cms-test/job/cms-test-db-sanitize/, then disable it again. This will sanitize the newly synced PROD DB in CMS-TEST (not CMS) and make available for downstream CMS-TEST environments.
 
 ## To deploy the CMS to the CMS-TEST environment, follow these steps:
-1. Ensure that you have a git remote set up for the `va.gov-cms-test` branch (e.g. `git remote add upstream-test git@github.com:department-of-veterans-affairs/va.gov-cms-test.git`).
+1. Ensure that you have a git remote set up for the `va.gov-cms-test` branch (e.g. `git remote add upstream-test git@va.ghe.com:software/va.gov-cms-test.git`).
 1. `git pull --rebase origin main` - this will update your local `main` branch from CMS (not CMS-TEST)
 1. Create a new branch off of `main`, i.e. `git checkout -b cms-test-branch-20260203`
 1. `git push upstream-test cms-test-branch-20260203` (or whatever your branch name in the previous step is) - remember to use `upstream-test` in order to push the branch to the CMS-TEST repo.

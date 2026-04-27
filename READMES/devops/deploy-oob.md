@@ -68,7 +68,7 @@ If the PO is not already aware, we should inform them of:
 
 Verify that the `testing/cms-post-deploy-tests-staging` job containing the fix commit has completed successfully and that the combined status for the commit in GitHub is passing. 
 
-This can be verified from the [commits listing page](https://va.ghe.com/software/va.gov-cms/commits/main) or with an HTTPS API URL like [this](https://api.va.ghe.com/repos/department-of-veterans-affairs/va.gov-cms/commits/bbb7e0e809e17766a5df478c95fb1266d1a654b1/status).
+This can be verified from the [commits listing page](https://va.ghe.com/software/va.gov-cms/commits/main) or with an HTTPS API URL like [this](https://api.va.ghe.com/repos/software/va.gov-cms/commits/bbb7e0e809e17766a5df478c95fb1266d1a654b1/status).
 
 If this has not completed, the actual procedure can not take place.
 
