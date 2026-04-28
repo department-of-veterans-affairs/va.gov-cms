@@ -177,7 +177,10 @@ class LovellMenuLinkTreeManipulators {
   protected function getMenuSectionField($mid) {
     $lovell_type = '';
     if (!empty($this->menuEntities[$mid])) {
-      $lovell_type = $this->menuEntities[$mid]->field_menu_section->value;
+      $entity = $this->menuEntities[$mid];
+      if ($entity->hasField('field_menu_section') && !$entity->get('field_menu_section')->isEmpty()) {
+        $lovell_type = $entity->get('field_menu_section')->value;
+      }
     }
     return $lovell_type;
   }
