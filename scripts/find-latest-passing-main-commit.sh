@@ -7,7 +7,7 @@ set -euo pipefail
 # No tags/releases are created.
 
 MAX_COMMITS=0
-REPO="${REPO:-department-of-veterans-affairs/va.gov-cms}"
+REPO="${REPO:-}"
 VERBOSE=0
 JSON_MODE=0
 JSON_PRETTY=0
