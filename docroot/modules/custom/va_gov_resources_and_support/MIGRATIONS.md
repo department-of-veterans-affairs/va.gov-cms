@@ -22,6 +22,7 @@ The migrations in this framework support the taxonomy enhancements:
 - **ClpVaBenefitsMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to Campaign Landing Pages when specific Veteran subtypes exist
 - **VaBenefitsTaxonomyMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to VA Benefits taxonomy terms when specific Veteran subtypes exist
 - **RsCategoriesToTopicsMigration:** Adds Topics in Audience & Topics when R&S Categories (Primary or Additional) are present, using a fixed category-to-topic mapping
+- **RsPrimaryCategoryToAdditionalCategoriesMigration:** Copies each node’s R&S / Benefit category from Primary category into Additional categories (same `lc_categories` terms) in preparation for making categories optional 0-to-many on a single field
 
 These migrations prepare for potential retirement of granular Veteran subtype tags by ensuring "All Veterans" is present wherever specific subtypes exist.
 
@@ -80,7 +81,35 @@ For more details on the overall initiative, see the [Initiative Brief](https://g
 - Paragraph field: `field_topics` (Topics taxonomy)
 - All mapped topic term names must exist in the `topics` vocabulary.
 
-### 4. Campaign Landing Pages: Add "All Veterans" when Veteran Subtype Exists
+### 4. R&S Content: Primary category → Additional categories
+
+**Migration Class:** `RsPrimaryCategoryToAdditionalCategoriesMigration`
+
+**Description:** For all seven R&S content types, copies the term on `field_primary_category` into `field_other_categories` when it is not already listed there. The Primary field is **not** cleared (a separate change removes that field from the form and consumers).
+
+**Use Case:** Editors will rely only on Additional categories (0–many). Existing primary selections must appear in Additional so front ends and search that read Additional still show the same Benefit/R&S categories after Primary is retired.
+
+**Requirements:**
+
+- Content types: checklist, faq_multiple_q_a, media_list_images, support_resources_detail_page, q_a, step_by_step, media_list_videos
+- Source field: `field_primary_category` (R&S Categories taxonomy, `lc_categories`)
+- Destination field: `field_other_categories` (same vocabulary), cardinality **6**
+- **Idempotent:** Safe to re-run; nodes where the primary term is already in Additional are skipped without a new revision.
+- **Cardinality:** If a node already has six distinct additional terms and the primary is not among them, the migration logs an error and does not change that node (manual fix required).
+
+**Related:** [VACMS-24080](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/24080)
+
+#### Listing distinct primary category term names (for QA / issue AC)
+
+Run against the environment you are validating (e.g. staging before prod). Example Drush SQL query (adjust table prefix if not `node__field_primary_category`):
+
+```bash
+drush sql:query "SELECT DISTINCT tfd.name FROM node__field_primary_category npc INNER JOIN taxonomy_term_field_data tfd ON tfd.tid = npc.field_primary_category_target_id AND tfd.langcode = npc.langcode INNER JOIN node_field_data nfd ON nfd.nid = npc.entity_id AND nfd.langcode = npc.langcode WHERE npc.bundle IN ('checklist','faq_multiple_q_a','media_list_images','support_resources_detail_page','q_a','step_by_step','media_list_videos') AND npc.field_primary_category_target_id IS NOT NULL AND nfd.status = 1 ORDER BY tfd.name"
+```
+
+Omit `AND nfd.status = 1` to include unpublished R&S nodes. Paste the result into the GitHub issue for QA when requested.
+
+### 5. Campaign Landing Pages: Add "All Veterans" when Veteran Subtype Exists
 
 **Migration Class:** `ClpVaBenefitsMigration`
 
@@ -93,7 +122,7 @@ For more details on the overall initiative, see the [Initiative Brief](https://g
 - Field: `field_clp_audience` (Audience - Beneficiaries taxonomy)
 - The "All Veterans" term must exist in the `audience_beneficiaries` taxonomy.
 
-### 5. VA Benefits Taxonomy: Add "All Veterans" when Veteran Subtype Exists
+### 6. VA Benefits Taxonomy: Add "All Veterans" when Veteran Subtype Exists
 
 **Migration Class:** `VaBenefitsTaxonomyMigration`
 
@@ -122,6 +151,7 @@ Examples:
 drush codit-batch-operations:run PublicationRsCategoriesToOutreachHubMigration
 drush codit-batch-operations:run RsAddAllVeteransMigration
 drush codit-batch-operations:run RsCategoriesToTopicsMigration
+drush codit-batch-operations:run RsPrimaryCategoryToAdditionalCategoriesMigration
 drush codit-batch-operations:run ClpVaBenefitsMigration
 drush codit-batch-operations:run VaBenefitsTaxonomyMigration
 ```
@@ -168,6 +198,7 @@ All migration classes are located in `va_gov_batch/src/cbo_scripts/` to be disco
 - **PublicationRsCategoriesToOutreachHubMigration:** Migrates R&S Categories to Outreach Hub taxonomy for Publication content type.
 - **RsAddAllVeteransMigration:** Adds "All Veterans" to R&S content types when Veteran subtypes exist.
 - **RsCategoriesToTopicsMigration:** Adds Topics from Primary/Additional R&S Categories per category-to-topic mapping.
+- **RsPrimaryCategoryToAdditionalCategoriesMigration:** Copies Primary R&S category into Additional categories (same vocabulary) for all seven R&S content types.
 - **ClpVaBenefitsMigration:** Adds "All Veterans" to Campaign Landing Pages when Veteran subtypes exist.
 - **VaBenefitsTaxonomyMigration:** Adds "All Veterans" to VA Benefits taxonomy terms when Veteran subtypes exist.
 
@@ -213,6 +244,7 @@ After running migrations:
 
 ### Other Migrations
 - **RsCategoriesToTopicsMigration:** Adds Topics from Primary and Additional R&S Categories (category-to-topic mapping)
+- **RsPrimaryCategoryToAdditionalCategoriesMigration:** Copies Primary category into Additional categories for R&S content types
 
 ## Notes
 
