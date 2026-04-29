@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Finds the newest commit on main where
+# Finds the newest mainline commit on main where
 # required VA checks are present and passing. Outputs only the commit SHA to stdout.
-# It searches commits since the latest release tag first, then falls back to full main history.
+# It searches the first-parent chain since the latest release tag first, then falls back to full first-parent main history.
 # No tags/releases are created.
 
 MAX_COMMITS=0
@@ -34,6 +34,7 @@ Output:
   --json: prints a JSON object with selected_sha and skipped_summary.
   --json-pretty: same schema as --json, but indented.
   Search order: latest_tag..main, then full main history if needed.
+  Candidate commits are taken from main's first-parent chain only.
   Required checks: va/tests/cypress, va/tests/phpunit,
                    va/tests/status-error, va/tests/content-build-gql.
   Exits non-zero if no qualifying commit is found.
@@ -135,9 +136,9 @@ for RANGE in "${RANGES[@]}"; do
   SEARCHED_RANGES+=("$RANGE")
 
   if [[ "$MAX_COMMITS" -eq 0 ]]; then
-    CANDIDATES=$(git log --format='%H' "$RANGE" || true)
+    CANDIDATES=$(git log --first-parent --format='%H' "$RANGE" || true)
   else
-    CANDIDATES=$(git log --format='%H' -n "$MAX_COMMITS" "$RANGE" || true)
+    CANDIDATES=$(git log --first-parent --format='%H' -n "$MAX_COMMITS" "$RANGE" || true)
   fi
 
   if [[ -z "$CANDIDATES" ]]; then
