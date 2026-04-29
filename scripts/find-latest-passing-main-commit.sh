@@ -7,6 +7,7 @@ set -euo pipefail
 # No tags/releases are created.
 
 MAX_COMMITS=0
+FALLBACK_MAX_COMMITS=""
 REPO="${REPO:-}"
 VERBOSE=0
 JSON_MODE=0
@@ -16,11 +17,12 @@ REQUIRED_CHECKS_JSON='["va/tests/cypress","va/tests/phpunit","va/tests/status-er
 
 usage() {
   cat <<'EOF'
-Usage: find-latest-passing-main-commit.sh [--repo owner/name] [--max-commits N] [--verbose] [--json] [--json-pretty]
+Usage: find-latest-passing-main-commit.sh [--repo owner/name] [--max-commits N] [--fallback-max-commits N] [--verbose] [--json] [--json-pretty]
 
 Options:
   --repo owner/name   GitHub repository (defaults to current gh repo)
   --max-commits N     Number of commits to inspect (default: 0 = all since last tag)
+  --fallback-max-commits N  Cap for fallback full-main scan (default: same as --max-commits)
   --verbose           Print per-commit diagnostics to stderr
   --json              Print JSON output with selected SHA and skip summary
   --json-pretty       Same as --json, but pretty-printed
@@ -65,6 +67,15 @@ while [[ $# -gt 0 ]]; do
       MAX_COMMITS="$2"
       shift 2
       ;;
+    --fallback-max-commits)
+      if [[ $# -lt 2 || "${2-}" == -* ]]; then
+        log "Missing value for --fallback-max-commits (expected: non-negative integer)"
+        usage
+        exit 2
+      fi
+      FALLBACK_MAX_COMMITS="$2"
+      shift 2
+      ;;
     --verbose)
       VERBOSE=1
       shift
@@ -99,6 +110,11 @@ done
 
 if ! [[ "$MAX_COMMITS" =~ ^[0-9]+$ ]]; then
   log "--max-commits must be a non-negative integer"
+  exit 2
+fi
+
+if [[ -n "$FALLBACK_MAX_COMMITS" ]] && ! [[ "$FALLBACK_MAX_COMMITS" =~ ^[0-9]+$ ]]; then
+  log "--fallback-max-commits must be a non-negative integer"
   exit 2
 fi
 
@@ -145,10 +161,16 @@ SAMPLED_REASONS=()
 for RANGE in "${RANGES[@]}"; do
   SEARCHED_RANGES+=("$RANGE")
 
-  if [[ "$MAX_COMMITS" -eq 0 ]]; then
+  EFFECTIVE_MAX_COMMITS="$MAX_COMMITS"
+  # Apply a separate cap when scanning full main as a fallback path.
+  if [[ "$RANGE" == "main" && -n "$LATEST_TAG" && -n "$FALLBACK_MAX_COMMITS" ]]; then
+    EFFECTIVE_MAX_COMMITS="$FALLBACK_MAX_COMMITS"
+  fi
+
+  if [[ "$EFFECTIVE_MAX_COMMITS" -eq 0 ]]; then
     CANDIDATES=$(git log --first-parent --format='%H' "$RANGE" || true)
   else
-    CANDIDATES=$(git log --first-parent --format='%H' -n "$MAX_COMMITS" "$RANGE" || true)
+    CANDIDATES=$(git log --first-parent --format='%H' -n "$EFFECTIVE_MAX_COMMITS" "$RANGE" || true)
   fi
 
   if [[ -z "$CANDIDATES" ]]; then
@@ -158,10 +180,10 @@ for RANGE in "${RANGES[@]}"; do
 
   CANDIDATE_COUNT=$(printf '%s\n' "$CANDIDATES" | sed '/^$/d' | wc -l | tr -d ' ')
   if [[ "$VERBOSE" -eq 1 ]]; then
-    if [[ "$MAX_COMMITS" -eq 0 ]]; then
+    if [[ "$EFFECTIVE_MAX_COMMITS" -eq 0 ]]; then
       log "Evaluating range: $RANGE (candidates=$CANDIDATE_COUNT, max_commits=unlimited)"
     else
-      log "Evaluating range: $RANGE (candidates=$CANDIDATE_COUNT, max_commits=$MAX_COMMITS)"
+      log "Evaluating range: $RANGE (candidates=$CANDIDATE_COUNT, max_commits=$EFFECTIVE_MAX_COMMITS)"
     fi
   fi
 

@@ -38,7 +38,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          COMMIT_SHA=$(bash scripts/find-latest-passing-main-commit.sh --repo "${{ github.repository }}" --max-commits 0 --verbose)
+          COMMIT_SHA=$(bash scripts/find-latest-passing-main-commit.sh --repo "${{ github.repository }}" --max-commits 250 --fallback-max-commits 750 --verbose)
           echo "Found passing commit: $COMMIT_SHA"
           echo "COMMIT_SHA=$COMMIT_SHA" >> "$GITHUB_OUTPUT"
 
