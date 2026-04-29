@@ -38,40 +38,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-
-          # Only consider commits after the latest release tag to avoid
-          # walking back to already-tagged commits when recent checks are pending.
-          LATEST_TAG=$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-version:refname | head -n1)
-          if [ -n "$LATEST_TAG" ]; then
-            RANGE="${LATEST_TAG}..main"
-            echo "Searching for passing commits in range: $RANGE"
-          else
-            RANGE="main"
-            echo "No existing release tags found; searching all commits on main."
-          fi
-
-          CANDIDATES=$(git log --first-parent --format='%H' -n 50 $RANGE)
-          if [ -z "$CANDIDATES" ]; then
-            echo "::notice::No new commits since last release tag ${LATEST_TAG}."
-            exit 1
-          fi
-
-          for SHA in $CANDIDATES; do
-            echo "Checking commit $SHA ..."
-            STATUS=$(gh api "repos/${{ github.repository }}/commits/${SHA}/status" --jq '.state')
-            CHECK_RUNS_RESPONSE=$(gh api --paginate "repos/${{ github.repository }}/commits/${SHA}/check-runs?per_page=100")
-            CHECK_RUNS=$(printf '%s\n' "$CHECK_RUNS_RESPONSE" | jq -s '[.[].check_runs[] | select(.conclusion == "success" or .conclusion == "skipped")] | length')
-            TOTAL_CHECK_RUNS=$(printf '%s\n' "$CHECK_RUNS_RESPONSE" | jq -s '[.[].check_runs[]] | length')
-
-            if [[ "$STATUS" == "success" && "$TOTAL_CHECK_RUNS" -gt 0 && "$CHECK_RUNS" -eq "$TOTAL_CHECK_RUNS" ]]; then
-              echo "Found passing commit: $SHA"
-              echo "COMMIT_SHA=$SHA" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-          done
-
-          echo "::error::No new commits since ${LATEST_TAG:-initial} have passed all status checks."
-          exit 1
+          COMMIT_SHA=$(bash scripts/find-latest-passing-main-commit.sh --repo "${{ github.repository }}" --max-commits 250 --fallback-max-commits 750 --verbose)
+          echo "Found passing commit: $COMMIT_SHA"
+          echo "COMMIT_SHA=$COMMIT_SHA" >> "$GITHUB_OUTPUT"
 
       - name: Determine next semver tag
         id: next-tag
