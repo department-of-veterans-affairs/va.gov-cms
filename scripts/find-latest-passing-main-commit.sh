@@ -48,10 +48,20 @@ log() {
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --repo)
+      if [[ $# -lt 2 || "${2-}" == -* ]]; then
+        log "Missing value for --repo (expected: owner/name)"
+        usage
+        exit 2
+      fi
       REPO="$2"
       shift 2
       ;;
     --max-commits)
+      if [[ $# -lt 2 || "${2-}" == -* ]]; then
+        log "Missing value for --max-commits (expected: non-negative integer)"
+        usage
+        exit 2
+      fi
       MAX_COMMITS="$2"
       shift 2
       ;;
