@@ -9,7 +9,7 @@ use Drupal\va_gov_batch\BaseRsTagMigration;
 /**
  * Copy R&S Primary category into Additional categories (same vocabulary).
  *
- * For all seven R&S content types, each lc_categories term on
+ * For all seven R&S content types, the single lc_categories term on
  * field_primary_category is appended to field_other_categories if not already
  * present. field_primary_category is left unchanged (removed in a follow-up).
  *
