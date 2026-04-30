@@ -39,43 +39,54 @@
     "tests"
   ],
   "engines": {
-    "node": ">=16.0"
+    "node": ">=18.0"
   },
   "overrides": {
     "cipher-base": "^1.0.5",
-    "@cypress/request": "^3.0.0",
     "elliptic": "^6.6.1",
-    "pbkdf2": "^3.1.3"
-
+    "flatted": "^3.4.2",
+    "lodash": "^4.18.0",
+    "lodash-es": "^4.18.0",
+    "pbkdf2": "^3.1.3",
+    "picomatch": "^2.3.2",
+    "serialize-javascript": "^7.0.3",
+    "ws": "^8.17.1",
+    "glob": {
+      "minimatch": "^10.2.3"
+    }
+  },
+  "resolutions": {
+    "ws": "^8.17.1"
   },
   "devDependencies": {
     "@axe-core/webdriverjs": "^4.10.1",
     "@babel/core": "^7.23.2",
-    "@badeball/cypress-cucumber-preprocessor": "^18.0.4",
+    "@badeball/cypress-cucumber-preprocessor": "^22.0.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.2",
     "@cypress/webpack-preprocessor": "^5.17.1",
     "@faker-js/faker": "^6.3.1",
     "@octokit/rest": "^19.0.7",
-    "@testing-library/cypress": "^9.0.0",
+    "@testing-library/cypress": "^10.0.0",
     "axe-core": "^4.10.2",
     "babel-plugin-add-header-comment": "^1.0.3",
     "babel-preset-env": "^1.7.0",
     "chokidar": "^4.0.1",
     "cross-env": "^7.0.3",
-    "cypress": "^12.17.4",
-    "cypress-axe": "^1.4.0",
+    "cypress": "^14.0.0",
+    "cypress-axe": "^1.5.0",
     "cypress-failed-log": "^2.10.0",
     "cypress-file-upload": "^5.0.8",
-    "cypress-parallel": "^0.13.0",
-    "cypress-real-events": "^1.7.6",
-    "cypress-visual-regression": "^2.1.1",
-    "cypress-xpath": "^1.6.2",
+    "cypress-parallel": "^0.14.0",
+    "cypress-real-events": "^1.13.0",
+    "cypress-visual-regression": "^3.0.0",
+    "cypress-xpath": "^2.0.1",
     "debug": "^3.2.7",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^18.2.1",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-formatter-rdjson": "^1.0.5",
     "eslint-plugin-cypress": "^2.12.1",
-    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-react": "^7.32.2",
