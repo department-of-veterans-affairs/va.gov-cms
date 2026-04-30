@@ -8,6 +8,12 @@ on:
         description: 'Semver tag (cms/vX.Y.Z or vX.Y.Z (EKS)) to build. Leave blank to use latest.'
         required: false
         type: string
+  workflow_call:
+    inputs:
+      tag:
+        description: 'Semver tag to build (called from tag-release-main)'
+        required: true
+        type: string
   push:
     tags:
       - 'cms/v*.*.*'  # Only tags starting with cms/v and containing two dots
@@ -52,11 +58,14 @@ jobs:
             fi
           }
 
-          ensure_tag_exists() {
+          # Returns the full git tag ref (cms/vX.Y.Z or vX.Y.Z) if it exists, empty otherwise
+          resolve_tag_ref() {
             local semver="$1"
-            # Check for both cms/vX.Y.Z and vX.Y.Z tag formats
-            git rev-parse -q --verify "refs/tags/${TAG_PREFIX}${semver}" >/dev/null 2>&1 ||
-              git rev-parse -q --verify "refs/tags/${semver}" >/dev/null 2>&1
+            if git rev-parse -q --verify "refs/tags/${TAG_PREFIX}${semver}" >/dev/null 2>&1; then
+              echo "${TAG_PREFIX}${semver}"
+            elif git rev-parse -q --verify "refs/tags/${semver}" >/dev/null 2>&1; then
+              echo "${semver}"
+            fi
           }
 
           find_latest_tag() {
@@ -68,13 +77,15 @@ jobs:
           }
 
           EVENT='${{ github.event_name }}'
-          INPUT_TAG='${{ github.event.inputs.tag }}'
-          if [ "$EVENT" = "workflow_dispatch" ]; then
+          INPUT_TAG='${{ github.event.inputs.tag || inputs.tag }}'
+          if [ "$EVENT" = "workflow_dispatch" ] || [ "$EVENT" = "workflow_call" ]; then
             if [ -n "$INPUT_TAG" ]; then
               SEMVER_TAG=$(normalize_input "$INPUT_TAG")
               if [[ "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
-                if ensure_tag_exists "$SEMVER_TAG"; then
+                TAG_REF=$(resolve_tag_ref "$SEMVER_TAG")
+                if [ -n "$TAG_REF" ]; then
                   echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
+                  echo "TAG_REF=$TAG_REF" >> $GITHUB_OUTPUT
                   echo "is_valid=true" >> $GITHUB_OUTPUT
                   exit 0
                 else
@@ -101,7 +112,9 @@ jobs:
                 exit 1
               fi
               echo "Using latest semver tag: $SEMVER_TAG (repo tag $LATEST_TAG)"
+              TAG_REF=$(resolve_tag_ref "$SEMVER_TAG")
               echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
+              echo "TAG_REF=${TAG_REF:-$SEMVER_TAG}" >> $GITHUB_OUTPUT
               echo "is_valid=true" >> $GITHUB_OUTPUT
               exit 0
             fi
@@ -110,6 +123,7 @@ jobs:
             SEMVER_TAG=$(normalize_input "$RAW_TAG")
             if [[ "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
               echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
+              echo "TAG_REF=$RAW_TAG" >> $GITHUB_OUTPUT
               echo "is_valid=true" >> $GITHUB_OUTPUT
             else
               echo "::error title=Invalid Pushed Tag::Pushed tag $RAW_TAG failed semver validation after removing prefix." >&2
@@ -121,6 +135,13 @@ jobs:
         run: |
           echo "::error title=Build Aborted::Invalid or missing semver tag; failing build job." >&2
           exit 1
+      - name: Checkout tag ref
+        if: steps.select_tag.outputs.is_valid == 'true'
+        uses: actions/checkout@v6.0.2
+        with:
+          # Check out the exact tag so the Docker build context matches the release
+          ref: refs/tags/${{ steps.select_tag.outputs.TAG_REF }}
+          fetch-depth: 1
       - name: Configure AWS Credentials
         if: steps.select_tag.outputs.is_valid == 'true'
         uses: aws-actions/configure-aws-credentials@v6

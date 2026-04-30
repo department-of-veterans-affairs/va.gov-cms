@@ -57,11 +57,11 @@ and common calls look like:
 
 ### Data available from the facility locator api:
 
-* Example of variables that can be returned in a response. they are mostly straightforward. The ‘access’ element contains response times. A good source for the variables returned can be found in the vets-website repo in the facility locator’s MockLocatorApi.js at https://github.com/department-of-veterans-affairs/vets-website/blob/82c4c0c6968958efae5b62c1f1b67e8ab4041f3a/src/applications/facility-locator/api/MockLocatorApi.js
+* Example of variables that can be returned in a response. they are mostly straightforward. The ‘access’ element contains response times. A good source for the variables returned can be found in the vets-website repo in the facility locator’s MockLocatorApi.js at https://va.ghe.com/software/vets-website/blob/82c4c0c6968958efae5b62c1f1b67e8ab4041f3a/src/applications/facility-locator/api/MockLocatorApi.js
 
 ### How data is mapped to metalsmith templates:
 
-* Since this is a React widget displaying dynamic data it’s not using Metalsmith templates. The .jsx component files to support rendering are located in https://github.com/department-of-veterans-affairs/vets-website/tree/main/src/applications/facility-locator/components
+* Since this is a React widget displaying dynamic data it’s not using Metalsmith templates. The .jsx component files to support rendering are located in https://va.ghe.com/software/vets-website/tree/main/src/applications/facility-locator/components
 
 ## JSON API
 

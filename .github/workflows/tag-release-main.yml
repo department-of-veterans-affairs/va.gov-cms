@@ -38,24 +38,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-
-          # Walk recent commits on main and find the first one where all checks passed
-          for SHA in $(git log --first-parent --format='%H' -n 50 main); do
-            echo "Checking commit $SHA ..."
-            STATUS=$(gh api "repos/${{ github.repository }}/commits/${SHA}/status" --jq '.state')
-            CHECK_RUNS_RESPONSE=$(gh api --paginate "repos/${{ github.repository }}/commits/${SHA}/check-runs?per_page=100")
-            CHECK_RUNS=$(printf '%s\n' "$CHECK_RUNS_RESPONSE" | jq -s '[.[].check_runs[] | select(.conclusion == "success" or .conclusion == "skipped")] | length')
-            TOTAL_CHECK_RUNS=$(printf '%s\n' "$CHECK_RUNS_RESPONSE" | jq -s '[.[].check_runs[]] | length')
-
-            if [[ "$STATUS" == "success" && "$TOTAL_CHECK_RUNS" -gt 0 && "$CHECK_RUNS" -eq "$TOTAL_CHECK_RUNS" ]]; then
-              echo "Found passing commit: $SHA"
-              echo "COMMIT_SHA=$SHA" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-          done
-
-          echo "::error::No recent commit on main has passed all status checks."
-          exit 1
+          COMMIT_SHA=$(bash scripts/find-latest-passing-main-commit.sh --repo "${{ github.repository }}" --max-commits 250 --fallback-max-commits 750 --verbose)
+          echo "Found passing commit: $COMMIT_SHA"
+          echo "COMMIT_SHA=$COMMIT_SHA" >> "$GITHUB_OUTPUT"
 
       - name: Determine next semver tag
         id: next-tag
@@ -113,16 +98,38 @@ jobs:
           NEW_TAG="${{ steps.next-tag.outputs.NEXT_TAG }}"
           COMMIT_SHA="${{ steps.find-commit.outputs.COMMIT_SHA }}"
 
-          git tag "$NEW_TAG" "$COMMIT_SHA"
-          git push origin "$NEW_TAG"
+          # Push the tag (may already exist from a previous failed run)
+          if git ls-remote --tags origin "refs/tags/${NEW_TAG}" | grep -q "${NEW_TAG}"; then
+            echo "Tag $NEW_TAG already exists on remote (likely from a previous partial run)."
+          else
+            git tag "$NEW_TAG" "$COMMIT_SHA"
+            git push origin "$NEW_TAG"
+          fi
 
-          gh release create "$NEW_TAG" \
-            --target "$COMMIT_SHA" \
-            --title "$NEW_TAG" \
-            --generate-notes
+          # Create the release (retry-safe: --generate-notes is idempotent)
+          # If release already exists, this is a no-op error we can ignore.
+          if gh release view "$NEW_TAG" >/dev/null 2>&1; then
+            echo "Release $NEW_TAG already exists."
+          else
+            gh release create "$NEW_TAG" \
+              --target "$COMMIT_SHA" \
+              --title "$NEW_TAG" \
+              --generate-notes
+          fi
 
           echo "NEW_TAG=$NEW_TAG" >> "$GITHUB_OUTPUT"
           echo "Created tag $NEW_TAG at commit $COMMIT_SHA"
+
+  build-drupal-container:
+    name: Build Drupal Tag Container
+    needs: tag-and-release
+    if: needs.tag-and-release.result == 'success' && needs.tag-and-release.outputs.NEW_TAG != ''
+    uses: ./.github/workflows/build-drupal-tag-container.yml
+    with:
+      tag: ${{ needs.tag-and-release.outputs.NEW_TAG }}
+    permissions:
+      id-token: write
+      contents: read
 
   notify-success-slack:
     name: Notify Success (Slack)

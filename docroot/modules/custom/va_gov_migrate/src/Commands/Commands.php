@@ -31,18 +31,6 @@ class Commands extends DrushCommands {
   }
 
   /**
-   * Clean up bad node revisions.
-   *
-   * @command va:gov-clean-revs
-   * @aliases vg-cr,va-gov-clean-revs
-   */
-  public function cleanRevs() {
-    $messages = $this->vaGovMigrateService->cleanRevs();
-    $this->logger->log('success', $messages['success']);
-    $this->logger->warning($messages['warning']);
-  }
-
-  /**
    * Archive IntranetOnly forms in the CMS.
    *
    * @command va_gov_migrate:archive-intranet-only-forms
