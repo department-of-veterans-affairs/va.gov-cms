@@ -74,5 +74,5 @@
       });
     },
   };
-   
+
 })(jQuery, Drupal, once, drupalSettings);
