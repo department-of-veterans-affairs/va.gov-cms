@@ -1,4 +1,4 @@
-/* eslint-disable max-nested-callbacks */
+ 
 import { Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Then(

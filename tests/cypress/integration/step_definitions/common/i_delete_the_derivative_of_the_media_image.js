@@ -1,4 +1,4 @@
-/* eslint-disable max-nested-callbacks */
+ 
 import { Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Then(`I delete the {string} derivative of the media image`, (derivative) => {

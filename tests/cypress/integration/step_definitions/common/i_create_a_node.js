@@ -1,4 +1,4 @@
-/* eslint-disable max-nested-callbacks */
+ 
 import { Given } from "@badeball/cypress-cucumber-preprocessor";
 import { faker } from "@faker-js/faker";
 

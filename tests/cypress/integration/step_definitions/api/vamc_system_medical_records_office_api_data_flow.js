@@ -83,7 +83,7 @@ Given(
     cy.request(`/router/translate-path?path=${path}`).then((response) => {
       expect(response.status).to.eq(200);
       const { uuid } = response.body.entity;
-      // eslint-disable-next-line no-unused-expressions
+       
       expect(uuid, `Expected to find a UUID for path: ${path}`).to.not.be
         .undefined;
 
@@ -95,7 +95,7 @@ Given(
         expect(nodeResponse.body.data.id).to.eq(uuid);
         const regionPageId =
           nodeResponse.body.data.relationships.field_office.data.id;
-        // eslint-disable-next-line no-unused-expressions
+         
         expect(
           regionPageId,
           `Expected to find a field_office.id for vamc_system_medical_records_offi: ${uuid}`

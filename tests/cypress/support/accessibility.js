@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 const axeContext = {
   include: [["body"]],
   exclude: [
@@ -34,7 +34,7 @@ Cypress.Commands.add("checkAccessibility", () => {
     (violations) => {
       cy.accessibilityLog(violations);
       return cy.location("pathname").then((route) => {
-        // eslint-disable-next-line max-nested-callbacks
+         
         const violationData = violations.map((violation) => ({
           route,
           ...violation,
