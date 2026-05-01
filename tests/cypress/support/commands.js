@@ -273,7 +273,6 @@ Cypress.Commands.add("get_ckeditor", (element) => {
       const matches = editors.find((item) => item.element === element);
       console.log(matches);
       if (matches) {
-         
         instance = matches;
         console.log(instance);
       } else {
