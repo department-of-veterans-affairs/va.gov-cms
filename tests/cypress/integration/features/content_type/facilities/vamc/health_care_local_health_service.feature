@@ -58,3 +58,14 @@ Scenario: Editors should not be able to rename a VAMC Facility Health Service
   Then I scroll to position "bottom"
   And I click the "Unlock" link
   And I click the "Confirm break lock" button
+
+Scenario: A confirmation should show when archiving the last published facility service for a system health service
+  Given I am logged in as a user with the roles "vamc_content_creator, content_publisher, content_admin"
+# VA Providence health care
+  And my workbench access sections are set to "210"
+  When I am at "node/78660/edit"
+  And I select option "Archived" from dropdown with selector "select#edit-moderation-state-0-state"
+  And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
+  And I save the node
+  Then I should see a confirmation dialog with the text "This is the last published Facility health service for Whole health"
+
