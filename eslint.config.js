@@ -62,7 +62,7 @@ export default [
       "space-before-function-paren": "off",
       "max-len": "off",
       // Prettier as error
-      "prettier/prettier": " error",
+      "prettier/prettier": "error",
 
       // Code quality rules
       "consistent-return": "off",
