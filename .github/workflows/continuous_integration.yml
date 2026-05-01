@@ -47,7 +47,7 @@ jobs:
         with:
           reporter: github-pr-review
           eslint_flags: '--max-warnings 0 docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js tests/cypress/**/*.js'
-          fail_on_error: true
+          fail_level: error
 
   # Check for common PHP code smells with PHP_CodeSniffer.
   php_codesniffer:
@@ -141,7 +141,7 @@ jobs:
         # See also `composer va:test:stylelint-modules` in composer.json
         uses: reviewdog/action-stylelint@dd2b435cc6a7c82705307a9dee740c9bbaa10411 # v1.30.2
         with:
-          fail_on_error: true
+          fail_level: error
           github_token: ${{ secrets.github_token }}
           packages: 'stylelint-config-sass-guidelines stylelint-order'
           reporter: github-pr-review
@@ -151,7 +151,7 @@ jobs:
         # See also `composer va:test:stylelint-themes` in composer.json
         uses: reviewdog/action-stylelint@dd2b435cc6a7c82705307a9dee740c9bbaa10411 # v1.30.2
         with:
-          fail_on_error: true
+          fail_level: error
           github_token: ${{ secrets.github_token }}
           packages: 'stylelint-config-sass-guidelines stylelint-order'
           reporter: github-pr-review
