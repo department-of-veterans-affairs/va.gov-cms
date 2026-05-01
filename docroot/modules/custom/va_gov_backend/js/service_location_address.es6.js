@@ -25,7 +25,7 @@
 
       // Grab our address toggles.
       const checkboxes = document.querySelectorAll(
-        ".paragraph-type--service-location-address .form-checkbox"
+        ".paragraph-type--service-location-address .form-checkbox",
       );
       checkboxes.forEach((check) => {
         // Grab our closest address.
@@ -51,10 +51,10 @@
       });
 
       const serviceLocations = context.querySelectorAll(
-        ".paragraph-type--service-location"
+        ".paragraph-type--service-location",
       );
       const serviceLocationsToggles = context.querySelectorAll(
-        ".paragraph-type--service-location .paragraphs-dropdown-toggle"
+        ".paragraph-type--service-location .paragraphs-dropdown-toggle",
       );
       // If only one location, remove the delete button.
       if (serviceLocations.length < 2) {

@@ -38,14 +38,14 @@
               }
             } else {
               const usernameInput = document.querySelector(
-                ".js-login-username input"
+                ".js-login-username input",
               );
               if (usernameInput) {
                 usernameInput.focus();
               }
             }
           });
-        }
+        },
       );
     },
   };

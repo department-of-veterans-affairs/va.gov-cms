@@ -8,7 +8,7 @@ import { Given } from "@badeball/cypress-cucumber-preprocessor";
 function fetchFacilities(regionPageId) {
   return cy
     .request(
-      `/jsonapi/node/health_care_local_facility?filter[status]=1&filter[field_region_page.id]=${regionPageId}&page[limit]=50&page[offset]=0`
+      `/jsonapi/node/health_care_local_facility?filter[status]=1&filter[field_region_page.id]=${regionPageId}&page[limit]=50&page[offset]=0`,
     )
     .then((response) => {
       expect(response.status).to.eq(200);
@@ -36,17 +36,17 @@ function buildServiceParams(facilityIds) {
   facilityIds.forEach((facilityId, index) => {
     params.append(
       `filter[field_facility_location.id][condition][value][${index}]`,
-      facilityId
+      facilityId,
     );
   });
   // Then add the condition path and operator
   params.append(
     "filter[field_facility_location.id][condition][path]",
-    "field_facility_location.id"
+    "field_facility_location.id",
   );
   params.append(
     "filter[field_facility_location.id][condition][operator]",
-    "IN"
+    "IN",
   );
 
   return params;
@@ -59,7 +59,7 @@ function buildServiceParams(facilityIds) {
 function fetchServices(facilityIds) {
   const params = buildServiceParams(facilityIds);
   cy.request(
-    `/jsonapi/node/vha_facility_nonclinical_service?${params.toString()}`
+    `/jsonapi/node/vha_facility_nonclinical_service?${params.toString()}`,
   ).then((response) => {
     expect(response.status).to.eq(200);
   });
@@ -82,13 +82,13 @@ Given(
     // Request the router to translate the path to a UUID.
     cy.request(`/router/translate-path?path=${path}`).then((response) => {
       expect(response.status).to.eq(200);
-      const { uuid } = response.body.entity;       
+      const { uuid } = response.body.entity;
       expect(uuid, `Expected to find a UUID for path: ${path}`).to.not.be
         .undefined;
 
       // Process the node and fetch services
       cy.request(
-        `/jsonapi/node/vamc_system_medical_records_offi/${uuid}?include=field_office`
+        `/jsonapi/node/vamc_system_medical_records_offi/${uuid}?include=field_office`,
       ).then((nodeResponse) => {
         expect(nodeResponse.status).to.eq(200);
         expect(nodeResponse.body.data.id).to.eq(uuid);
@@ -96,12 +96,12 @@ Given(
           nodeResponse.body.data.relationships.field_office.data.id;
         expect(
           regionPageId,
-          `Expected to find a field_office.id for vamc_system_medical_records_offi: ${uuid}`
+          `Expected to find a field_office.id for vamc_system_medical_records_offi: ${uuid}`,
         ).to.not.be.undefined;
 
         // Fetch facilities for this region page, then fetch services
         fetchFacilitiesAndServices(regionPageId);
       });
     });
-  }
+  },
 );

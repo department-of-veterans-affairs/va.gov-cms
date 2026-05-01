@@ -7,11 +7,11 @@
     attach() {
       // Alert type toggle.
       const alertType = document.getElementById(
-        "edit-field-is-this-a-header-alert-"
+        "edit-field-is-this-a-header-alert-",
       );
       // Holds the scope field.
       const scopeContainer = document.getElementById(
-        "edit-field-node-reference-wrapper"
+        "edit-field-node-reference-wrapper",
       );
       alertType.addEventListener("change", () => {
         // Toggle scope visibility.

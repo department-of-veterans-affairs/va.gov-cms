@@ -15,9 +15,9 @@
        */
       tableDragChangedWarning() {
         return `<div class="tabledrag-changed-warning va-alert messages messages--warning" role="alert">${Drupal.theme(
-          "tableDragChangedMarker"
+          "tableDragChangedMarker",
         )} ${Drupal.t("You have unsaved changes.")}</div>`;
       },
-    }
+    },
   );
 })(jQuery, Drupal);

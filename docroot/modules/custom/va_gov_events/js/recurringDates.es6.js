@@ -9,21 +9,21 @@
       const dateFieldHandler = () => {
         const dateFields = [
           document.getElementById(
-            "edit-field-datetime-range-timezone-0-time-wrapper-value-date"
+            "edit-field-datetime-range-timezone-0-time-wrapper-value-date",
           ),
           document.getElementById(
-            "edit-field-datetime-range-timezone-0-time-wrapper-end-value-date"
+            "edit-field-datetime-range-timezone-0-time-wrapper-end-value-date",
           ),
           document.getElementById(
-            "edit-field-datetime-range-timezone-0-repeat-end-date"
+            "edit-field-datetime-range-timezone-0-repeat-end-date",
           ),
         ];
         const timeFields = [
           document.getElementById(
-            "edit-field-datetime-range-timezone-0-time-wrapper-value-time"
+            "edit-field-datetime-range-timezone-0-time-wrapper-value-time",
           ),
           document.getElementById(
-            "edit-field-datetime-range-timezone-0-time-wrapper-end-value-time"
+            "edit-field-datetime-range-timezone-0-time-wrapper-end-value-time",
           ),
         ];
         const today = new Date().toLocaleDateString();
@@ -71,7 +71,7 @@
               "edit-field-datetime-range-timezone-0-time-wrapper-value-date"
             ) {
               document.getElementById(
-                "edit-field-datetime-range-timezone-0-time-wrapper-end-value-date"
+                "edit-field-datetime-range-timezone-0-time-wrapper-end-value-date",
               ).value = `${maxyear}-${inputDate[1]}-${inputDate[2]}`;
             }
           }
@@ -88,23 +88,23 @@
       const checkInstanceBox = () => {
         if (
           document.getElementById(
-            "edit-field-datetime-range-timezone-0-manage-instances"
+            "edit-field-datetime-range-timezone-0-manage-instances",
           )
         ) {
           document.getElementById(
-            "edit-field-datetime-range-timezone-0-make-recurring"
+            "edit-field-datetime-range-timezone-0-make-recurring",
           ).checked = true;
         }
       };
 
       const hideNoneOption = () => {
         const recurringToggle = document.getElementById(
-          "edit-field-datetime-range-timezone-0-make-recurring"
+          "edit-field-datetime-range-timezone-0-make-recurring",
         );
         if (recurringToggle) {
           recurringToggle.addEventListener("click", () => {
             const options = document.querySelectorAll(
-              "#edit-field-datetime-range-timezone-0-repeat option"
+              "#edit-field-datetime-range-timezone-0-repeat option",
             );
             options[0].style.display = "none";
             if (recurringToggle.checked === false) {
@@ -119,7 +119,7 @@
       const createFauxInstancesButton = () => {
         if (
           !document.getElementById(
-            "edit-field-datetime-range-timezone-0-manage-instances"
+            "edit-field-datetime-range-timezone-0-manage-instances",
           ) &&
           !document.getElementById("manage-instances-faux-button")
         ) {
@@ -131,7 +131,7 @@
             "button",
             "button--small",
             "manage-instances",
-            "use-ajax"
+            "use-ajax",
           );
           const fauxButtonSpan = document.createElement("span");
           fauxButtonSpan.innerHTML = "Save changes first before editing series";
@@ -147,7 +147,7 @@
 
       // Get our "Make recurring" checkboxes.
       const recurringToggles = document.querySelectorAll(
-        ".make-recurring-toggle"
+        ".make-recurring-toggle",
       );
       const resetWrapDisplay = (array) => {
         array.forEach((element) => {
@@ -156,14 +156,14 @@
       };
       // Append the div with recurring options to the bool toggle.
       recurringToggles[0].parentElement.after(
-        document.getElementById("recurring-items-reveal-wrap")
+        document.getElementById("recurring-items-reveal-wrap"),
       );
 
       const wrapDisplayHandler = (
         value,
         allWrapsArray,
         daysWrap,
-        advancedWhichRepeatWrap
+        advancedWhichRepeatWrap,
       ) => {
         resetWrapDisplay(allWrapsArray);
         switch (value) {
@@ -185,7 +185,7 @@
         createFauxInstancesButton();
         recurringToggles.forEach((toggle) => {
           const daysWrap = document.getElementById(
-            `edit-field-datetime-range-timezone-0-repeat-advanced-byday--wrapper`
+            `edit-field-datetime-range-timezone-0-repeat-advanced-byday--wrapper`,
           );
           const advancedWhichRepeatWrap =
             document.getElementById(`repeat-on-the-wrap`);
@@ -195,7 +195,7 @@
           toggle.addEventListener("click", recurringWatchers);
           if (
             document.getElementById(
-              `edit-field-datetime-range-timezone-manage-instances`
+              `edit-field-datetime-range-timezone-manage-instances`,
             )
           ) {
             toggle.checked = true;
@@ -204,23 +204,23 @@
           // Show the instances div when the recurring checkbox is checked.
           if (toggle.checked) {
             document.getElementById(
-              "recurring-items-reveal-wrap"
+              "recurring-items-reveal-wrap",
             ).style.display = "block";
           } else {
             document.getElementById(
-              "recurring-items-reveal-wrap"
+              "recurring-items-reveal-wrap",
             ).style.display = "none";
           }
 
           const recurrenceSelectorType = document.getElementById(
-            `edit-field-datetime-range-timezone-0-repeat`
+            `edit-field-datetime-range-timezone-0-repeat`,
           );
           // Show our time repeat increment selection on load.
           wrapDisplayHandler(
             recurrenceSelectorType.value,
             allWrapsArray,
             daysWrap,
-            advancedWhichRepeatWrap
+            advancedWhichRepeatWrap,
           );
           // Show our time repeat increment selection on checnge.
           recurrenceSelectorType.addEventListener("change", (e) => {
@@ -228,7 +228,7 @@
               e.target.value,
               allWrapsArray,
               daysWrap,
-              advancedWhichRepeatWrap
+              advancedWhichRepeatWrap,
             );
           });
         });

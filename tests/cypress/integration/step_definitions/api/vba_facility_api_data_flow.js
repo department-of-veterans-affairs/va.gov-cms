@@ -8,7 +8,7 @@ function fetchServices(params) {
   cy.request(`/jsonapi/node/vba_facility_service?${params.toString()}`).then(
     (response) => {
       expect(response.status).to.eq(200);
-    }
+    },
   );
 }
 
@@ -24,7 +24,7 @@ Given(
 
       // Use the UUID to fetch the vab_facility node.
       cy.request(
-        `/jsonapi/node/vba_facility/${uuid}?include=field_office`
+        `/jsonapi/node/vba_facility/${uuid}?include=field_office`,
       ).then((listingResponse) => {
         expect(listingResponse.status).to.eq(200);
         expect(listingResponse.body.data.id).to.eq(uuid);
@@ -40,5 +40,5 @@ Given(
         fetchServices(params);
       });
     });
-  }
+  },
 );

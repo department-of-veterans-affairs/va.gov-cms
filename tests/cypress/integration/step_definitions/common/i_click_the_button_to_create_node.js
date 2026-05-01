@@ -6,7 +6,7 @@ Given(`I click the button to create node and continue`, () => {
   });
   cy.location("pathname", { timeout: 10000 }).should(
     "not.include",
-    "/node/add"
+    "/node/add",
   );
   cy.injectAxe();
   cy.checkAccessibility();
@@ -28,7 +28,7 @@ Given(`I click the button to create node`, () => {
   });
   cy.location("pathname", { timeout: 10000 }).should(
     "not.include",
-    "/node/add"
+    "/node/add",
   );
   cy.injectAxe();
   cy.checkAccessibility();

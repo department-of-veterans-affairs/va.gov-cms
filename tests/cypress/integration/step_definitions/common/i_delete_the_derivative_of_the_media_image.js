@@ -4,7 +4,7 @@ Then(`I delete the {string} derivative of the media image`, (derivative) => {
   cy.get("@mediaImageUrl").then((url) => {
     const derivativeUrl = url.replace(
       "/files/",
-      `/files/styles/${derivative}/public/`
+      `/files/styles/${derivative}/public/`,
     );
     const path = new URL(derivativeUrl).pathname;
     cy.wrap(derivativeUrl).as("mediaImageDerivativeUrl");
@@ -13,7 +13,7 @@ Then(`I delete the {string} derivative of the media image`, (derivative) => {
       (result) => {
         const publicPath = result.stdout;
         cy.exec(`rm "${path.replace("/sites/default/files", publicPath)}"`);
-      }
+      },
     );
   });
 });

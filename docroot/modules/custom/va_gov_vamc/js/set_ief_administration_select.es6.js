@@ -17,15 +17,15 @@
 
         // Grab the admin selector.
         const admins = context.querySelector(
-          ".field--type-entity-reference.field--name-field-administration select"
+          ".field--type-entity-reference.field--name-field-administration select",
         );
         const allAdmins = context.querySelectorAll(
-          ".field--name-field-banner-alert .field--type-entity-reference.field--name-field-administration.field--widget-options-select"
+          ".field--name-field-banner-alert .field--type-entity-reference.field--name-field-administration.field--widget-options-select",
         );
         // If user isn't admin, hide the selects.
         if (
           !adminRoles.some((item) =>
-            drupalSettings.gtm_data.userRoles.includes(item)
+            drupalSettings.gtm_data.userRoles.includes(item),
           ) &&
           allAdmins
         ) {
@@ -36,7 +36,7 @@
         // Set the values to match.
         if (admins) {
           admins.selectedIndex = [...admins.options].findIndex(
-            (option) => option.text === vamcSectionValue
+            (option) => option.text === vamcSectionValue,
           );
         }
       });

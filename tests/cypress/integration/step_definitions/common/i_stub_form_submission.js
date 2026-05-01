@@ -18,7 +18,7 @@ Given("I stub form submission for the current page", () => {
           req.body.is_under_test = "true";
         }
         req.continue();
-      }
+      },
     ).as("formSubmission");
   });
 });

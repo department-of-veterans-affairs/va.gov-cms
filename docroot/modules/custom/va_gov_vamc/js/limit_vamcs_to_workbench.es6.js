@@ -7,11 +7,11 @@
   const adminField = document.getElementById("edit-field-administration");
 
   const checkBoxDivs = document.querySelectorAll(
-    "#edit-field-banner-alert-vamcs div.js-form-type-checkbox"
+    "#edit-field-banner-alert-vamcs div.js-form-type-checkbox",
   );
 
   const selectListSystems = document.querySelectorAll(
-    "#edit-field-region-page option"
+    "#edit-field-region-page option",
   );
 
   const winnower = () => {
@@ -47,7 +47,7 @@
         drupalSettings.vagov_menu_access.current_user_roles;
       const adminRoles = ["content_admin", "administrator"];
       const adminTest = adminRoles.some((role) =>
-        currentUserRoles.includes(role)
+        currentUserRoles.includes(role),
       );
       if (!adminTest) {
         winnower();

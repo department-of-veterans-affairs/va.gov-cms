@@ -8,5 +8,5 @@ Given(
   `I select option {string} from dropdown with selector {string}`,
   (option, selector) => {
     cy.get(selector).select(option, { force: true });
-  }
+  },
 );

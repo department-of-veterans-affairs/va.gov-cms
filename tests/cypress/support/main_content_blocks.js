@@ -15,7 +15,7 @@ Cypress.Commands.add("addMainContentBlockWithRichText", (text) => {
   cy.get("div#drupal-modal").should("not.be.visible");
   cy.type_ckeditor(
     "edit-field-content-block-0-subform-field-wysiwyg-0-value",
-    text
+    text,
   );
 });
 
@@ -50,6 +50,6 @@ Cypress.Commands.add("addMainContentBlockWithFile", (type) => {
   cy.wait(1000);
   cy.findAllByLabelText("Link text").type(
     `[Test Data] ${faker.lorem.sentence()}`,
-    { force: true }
+    { force: true },
   );
 });

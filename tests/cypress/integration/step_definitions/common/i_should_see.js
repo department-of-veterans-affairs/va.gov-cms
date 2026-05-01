@@ -1,29 +1,29 @@
 import { Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Then("I should see an element with the selector {string}", (selector) =>
-  cy.get(selector).should("be.visible")
+  cy.get(selector).should("be.visible"),
 );
 Then("I should not see an element with the selector {string}", (selector) =>
-  cy.get(selector).should("not.be.visible")
+  cy.get(selector).should("not.be.visible"),
 );
 
 Then(`I should see {string}`, (text) => cy.contains(text).should("be.visible"));
 Then(`I should not see {string}`, (text) =>
-  cy.contains(text).should("not.be.visible")
+  cy.contains(text).should("not.be.visible"),
 );
 
 Then("I should see an element with the xpath {string}", (expression) =>
-  cy.xpath(expression).should("be.visible")
+  cy.xpath(expression).should("be.visible"),
 );
 Then("I should not see an element with the xpath {string}", (expression) =>
-  cy.xpath(expression).should("not.be.visible")
+  cy.xpath(expression).should("not.be.visible"),
 );
 
 Then("I should see xpath {string}", (expression) =>
-  cy.xpath(expression).should("be.visible")
+  cy.xpath(expression).should("be.visible"),
 );
 Then("I should not see xpath {string}", (expression) =>
-  cy.xpath(expression).should("not.be.visible")
+  cy.xpath(expression).should("not.be.visible"),
 );
 
 Then(
@@ -31,9 +31,9 @@ Then(
   (text, selector) => {
     cy.get(`${selector} option:not([class*="hidden-option"])`).should(
       "contain.text",
-      text
+      text,
     );
-  }
+  },
 );
 
 Then(
@@ -41,9 +41,9 @@ Then(
   (text, selector) => {
     cy.get(`${selector} option:not([class*="hidden-option"])`).should(
       "not.contain.text",
-      text
+      text,
     );
-  }
+  },
 );
 
 Then("I should see an image with the selector {string}", (selector) => {
@@ -57,13 +57,13 @@ Then("I should see an image with the selector {string}", (selector) => {
 
 Then("I should see a {string} file link", (type) => {
   cy.xpath(
-    `//a[contains(@class, "downloadable-file-link--${type}") and contains(@target, "_blank")]`
+    `//a[contains(@class, "downloadable-file-link--${type}") and contains(@target, "_blank")]`,
   ).should("be.visible");
 });
 
 Then("I should see a {string} downloadable file link", (type) => {
   cy.xpath(
-    `//a[contains(@class, "downloadable-file-link--${type}") and contains(@target, "_blank") and contains(@aria-label, "Download")]`
+    `//a[contains(@class, "downloadable-file-link--${type}") and contains(@target, "_blank") and contains(@aria-label, "Download")]`,
   ).should("be.visible");
 });
 

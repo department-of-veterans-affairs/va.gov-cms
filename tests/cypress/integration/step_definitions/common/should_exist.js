@@ -1,7 +1,7 @@
 import { Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Then("an element with the selector {string} should exist", (selector) =>
-  cy.get(selector).should("exist")
+  cy.get(selector).should("exist"),
 );
 
 Then("I wait for an element with the selector {string} to exist", (selector) =>
@@ -9,7 +9,7 @@ Then("I wait for an element with the selector {string} to exist", (selector) =>
     .get(selector, {
       timeout: 30000,
     })
-    .should("exist")
+    .should("exist"),
 );
 
 Then(
@@ -19,30 +19,30 @@ Then(
       .get(selector, {
         timeout: 30000,
       })
-      .should("not.exist")
+      .should("not.exist"),
 );
 
 Then("an element with the selector {string} should not exist", (selector) =>
-  cy.get(selector).should("not.exist")
+  cy.get(selector).should("not.exist"),
 );
 
 Then(`{string} should exist`, (text) => cy.contains(text).should("exist"));
 Then(`{string} should not exist`, (text) =>
-  cy.contains(text).should("not.exist")
+  cy.contains(text).should("not.exist"),
 );
 
 Then("an element with the xpath {string} should exist", (expression) =>
-  cy.xpath(expression).should("exist")
+  cy.xpath(expression).should("exist"),
 );
 Then("an element with the xpath {string} should not exist", (expression) =>
-  cy.xpath(expression).should("not.exist")
+  cy.xpath(expression).should("not.exist"),
 );
 
 Then("xpath {string} should exist", (expression) =>
-  cy.xpath(expression).should("exist")
+  cy.xpath(expression).should("exist"),
 );
 Then("xpath {string} should not exist", (expression) =>
-  cy.xpath(expression).should("not.exist")
+  cy.xpath(expression).should("not.exist"),
 );
 
 Then("an image with the selector {string} should exist", (selector) => {
@@ -55,9 +55,9 @@ Then("an image with the selector {string} should exist", (selector) => {
 });
 
 Then("the primary tab {string} should exist", (text) =>
-  cy.get(".tabs__tab a").contains(text).should("exist")
+  cy.get(".tabs__tab a").contains(text).should("exist"),
 );
 
 Then("the primary tab {string} should not exist", (text) =>
-  cy.get(".tabs__tab a").contains(text).should("not.exist")
+  cy.get(".tabs__tab a").contains(text).should("not.exist"),
 );

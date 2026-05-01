@@ -92,7 +92,7 @@
               // ignore
             }
           },
-          true
+          true,
         );
 
         document.addEventListener(
@@ -114,7 +114,7 @@
               // ignore
             }
           },
-          true
+          true,
         );
       }
 
@@ -138,17 +138,17 @@
         document.addEventListener(
           "mousedown",
           delegatedAltTextRegenerateHandler,
-          true
+          true,
         );
         document.addEventListener(
           "touchstart",
           delegatedAltTextRegenerateHandler,
-          true
+          true,
         );
         document.addEventListener(
           "keydown",
           delegatedAltTextRegenerateHandler,
-          true
+          true,
         );
       }
 

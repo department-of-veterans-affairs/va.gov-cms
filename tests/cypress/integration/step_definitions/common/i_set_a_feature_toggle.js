@@ -10,5 +10,5 @@ When(
       setValue = 1;
     }
     return cy.setAFeatureToggle(featureToggleMachineName, label, setValue);
-  }
+  },
 );

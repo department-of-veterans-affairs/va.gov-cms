@@ -12,11 +12,11 @@
         drupalSettings.vagov_menu_access.current_user_roles;
       const adminRoles = ["content_admin", "administrator"];
       const adminTest = adminRoles.some((role) =>
-        currentUserRoles.includes(role)
+        currentUserRoles.includes(role),
       );
       const menuEnableCheckbox = document.getElementById("edit-menu-enable");
       const parentMenuSelect = document.querySelector(
-        ".form-item-menu-menu-parent label"
+        ".form-item-menu-menu-parent label",
       );
       if (parentMenuSelect) {
         parentMenuSelect.classList.add("form-required");
@@ -45,7 +45,7 @@
 
         // When the menu link box is checked, fire logic.
         const parentOptions = context.querySelectorAll(
-          "#edit-menu-menu-parent option"
+          "#edit-menu-menu-parent option",
         );
 
         if (

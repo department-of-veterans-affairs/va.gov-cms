@@ -10,7 +10,7 @@ Given(`I publish the node`, () => {
     });
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.get("form.node-form").find("input#edit-submit").click();
   });

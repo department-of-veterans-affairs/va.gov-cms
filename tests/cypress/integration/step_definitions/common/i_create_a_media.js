@@ -5,7 +5,7 @@ const creators = {
   document: () => {
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Section").select("VACO");
     cy.get("#edit-field-document-0-upload")
@@ -19,19 +19,19 @@ const creators = {
       `[Test Data] ${faker.lorem.sentence()}`.substring(0, 60),
       {
         force: true,
-      }
+      },
     );
     cy.findAllByLabelText("External File URL").type(
       "https://en.wikipedia.org/wiki/Stradella_bass_system#/media/File:120-button_Stradella_chart.pdf",
       {
         force: true,
-      }
+      },
     );
     cy.findAllByLabelText("Description").type(
       faker.lorem.sentence().substring(0, 80),
       {
         force: true,
-      }
+      },
     );
     cy.findAllByLabelText("Section").select("VACO");
     cy.get("form.media-form").find("input#edit-submit").click();
@@ -40,7 +40,7 @@ const creators = {
   image: () => {
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Description").type(faker.lorem.sentence(), {
       force: true,
@@ -89,13 +89,13 @@ const creators = {
   video: () => {
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Video URL").type(
       "https://www.youtube.com/watch?v=XuXax5-pWzI",
       {
         force: true,
-      }
+      },
     );
     cy.findAllByLabelText("Description").type(faker.lorem.sentence(), {
       force: true,
@@ -110,7 +110,7 @@ Given("I create a {string} media", (mediaType) => {
   const creator = creators[mediaType];
   assert.isDefined(
     creator,
-    `I do not know how to create ${mediaType} media yet.  Please add a definition in ${__filename}.`
+    `I do not know how to create ${mediaType} media yet.  Please add a definition in ${__filename}.`,
   );
   cy.visit(`/media/add/${mediaType}`);
   cy.injectAxe();
@@ -119,7 +119,7 @@ Given("I create a {string} media", (mediaType) => {
   creator().then(() => {
     cy.location("pathname", { timeout: 10000 }).should(
       "not.include",
-      "/media/add"
+      "/media/add",
     );
     cy.injectAxe();
     cy.checkAccessibility();

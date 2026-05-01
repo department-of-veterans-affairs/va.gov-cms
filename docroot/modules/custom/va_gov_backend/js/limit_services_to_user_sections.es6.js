@@ -8,14 +8,14 @@
   const adminField = document.getElementById("edit-field-administration");
 
   const facilityFieldOptions = document.querySelectorAll(
-    "#edit-field-facility-location option"
+    "#edit-field-facility-location option",
   );
   const systemFieldOptions = document.querySelectorAll(
-    "#edit-field-regional-health-service option"
+    "#edit-field-regional-health-service option",
   );
   const facilityField = document.getElementById("edit-field-facility-location");
   const systemField = document.getElementById(
-    "edit-field-regional-health-service"
+    "edit-field-regional-health-service",
   );
 
   const winnower = () => {

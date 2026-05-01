@@ -8,7 +8,7 @@ Then(
   "I wait until element with selector {string} is not visible",
   (selector) => {
     cy.get(selector).should("not.be.visible");
-  }
+  },
 );
 
 Then("I wait until I see {string}", (text) => {

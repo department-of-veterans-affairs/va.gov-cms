@@ -6,7 +6,7 @@ Then(`I fill in {string} with {int} characters`, (label, length) => {
   cy.findAllByLabelText(label).clear({ force: true });
   cy.findAllByLabelText(label).type(
     faker.lorem.paragraphs(100).substring(0, length),
-    { force: true }
+    { force: true },
   );
   cy.findAllByLabelText(label).blur();
 });
@@ -20,7 +20,7 @@ Then(
       force: true,
     });
     cy.get(selector).blur();
-  }
+  },
 );
 
 Then(
@@ -32,12 +32,12 @@ Then(
     cy.get(selector).type(faker.lorem.paragraphs(100).substring(0, length), {
       force: true,
     });
-  }
+  },
 );
 
 Then(
   `I fill in ckeditor field {string} with {int} characters`,
   (label, length) => {
     cy.type_ckeditor(label, faker.lorem.paragraphs(100).substring(0, length));
-  }
+  },
 );

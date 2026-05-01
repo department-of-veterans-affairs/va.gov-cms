@@ -10,5 +10,5 @@ Given(
     }).then((response) => {
       expect(response.status).to.equal(status);
     });
-  }
+  },
 );

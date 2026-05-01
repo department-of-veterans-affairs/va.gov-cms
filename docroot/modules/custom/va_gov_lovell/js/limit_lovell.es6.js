@@ -7,20 +7,20 @@
   // Grab our fields and options.
   const adminField = document.getElementById("edit-field-administration");
   const adminFieldOptions = document.querySelectorAll(
-    "#edit-field-administration option"
+    "#edit-field-administration option",
   );
   const facilityField = document.getElementById("edit-field-facility-location");
   const facilityFieldOptions = document.querySelectorAll(
-    "#edit-field-facility-location option"
+    "#edit-field-facility-location option",
   );
   const systemField = document.getElementById(
-    "edit-field-regional-health-service"
+    "edit-field-regional-health-service",
   );
   const systemFieldOptions = document.querySelectorAll(
-    "#edit-field-regional-health-service option"
+    "#edit-field-regional-health-service option",
   );
   const regionPageOptions = document.querySelectorAll(
-    "#edit-field-region-page option"
+    "#edit-field-region-page option",
   );
 
   const lovellFederalText = "Lovell Federal health care";

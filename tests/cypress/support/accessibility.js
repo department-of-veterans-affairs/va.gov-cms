@@ -38,14 +38,14 @@ Cypress.Commands.add("checkAccessibility", () => {
           ...violation,
         }));
         const accessibilityViolations = Cypress.config(
-          "accessibilityViolations"
+          "accessibilityViolations",
         );
         accessibilityViolations.push(...violationData);
         Cypress.config("accessibilityViolations", accessibilityViolations);
       });
     },
     // Don't fail tests now that violations are reported in PR comments
-    skipFailures
+    skipFailures,
   );
 });
 
@@ -57,7 +57,7 @@ Cypress.Commands.add("accessibilityLog", (violations) => {
       description,
       target: nodes[0].target,
       nodes: nodes.length,
-    })
+    }),
   );
   cy.task("table", violationData);
 });
@@ -71,7 +71,7 @@ after(() => {
   const accessibilityViolations = Cypress.config("accessibilityViolations");
   const fileName = "cypress_accessibility_violations.json";
   const violations = JSON.parse(
-    JSON.stringify(accessibilityViolations, null, 2)
+    JSON.stringify(accessibilityViolations, null, 2),
   );
 
   cy.task("readFileMaybe", fileName).then((result) => {

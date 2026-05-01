@@ -6,7 +6,7 @@ Then(
     cy.get("#va-gov-vamc-archive-modal").should("be.visible");
     cy.get("#va-gov-vamc-archive-modal-message").should(
       "contain",
-      expectedText
+      expectedText,
     );
-  }
+  },
 );

@@ -9,14 +9,14 @@
       const forms = once(
         "va-gov-vamc-archive-confirm",
         document.querySelectorAll(
-          "form.node-regional-health-care-service-des-edit-form, form.node-regional-health-care-service-des-form"
+          "form.node-regional-health-care-service-des-edit-form, form.node-regional-health-care-service-des-form",
         ),
-        context
+        context,
       );
       forms.forEach((form) => {
         form.addEventListener("submit", (e) => {
           const moderationState = form.querySelector(
-            '[name^="moderation_state"]'
+            '[name^="moderation_state"]',
           );
           if (moderationState && moderationState.value === "archived") {
             e.preventDefault();
@@ -31,17 +31,17 @@
                   <div id="va-gov-vamc-archive-modal-message"></div>
                   <div class="va-gov-vamc-archive-modal-actions">
                     <button value="cancel" type="button" id="va-gov-vamc-archive-cancel">${Drupal.t(
-                      "Cancel"
+                      "Cancel",
                     )}</button>
                     <button value="confirm" type="submit" id="va-gov-vamc-archive-confirm">${Drupal.t(
-                      "Confirm"
+                      "Confirm",
                     )}</button>
                   </div>
                 </form>`;
               document.body.appendChild(modal);
             }
             modal.querySelector(
-              "#va-gov-vamc-archive-modal-message"
+              "#va-gov-vamc-archive-modal-message",
             ).textContent = settings.message;
 
             const focusable = () =>
@@ -82,10 +82,10 @@
             window.addEventListener("keydown", escListener);
 
             const cancelBtn = modal.querySelector(
-              "#va-gov-vamc-archive-cancel"
+              "#va-gov-vamc-archive-cancel",
             );
             const confirmBtn = modal.querySelector(
-              "#va-gov-vamc-archive-confirm"
+              "#va-gov-vamc-archive-confirm",
             );
             cancelBtn.onclick = () => modal.close("cancel");
             confirmBtn.onclick = (evt) => {
@@ -106,7 +106,7 @@
                   modal.remove();
                 }, 100);
               },
-              { once: true }
+              { once: true },
             );
             return false;
           }

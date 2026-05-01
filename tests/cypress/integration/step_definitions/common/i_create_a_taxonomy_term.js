@@ -7,7 +7,7 @@ const creators = {
     cy.scrollTo("top");
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     return cy.wait(1000);
   },
@@ -16,7 +16,7 @@ const creators = {
     cy.scrollTo("top");
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Description").type(faker.lorem.sentence(), {
       force: true,
@@ -25,19 +25,19 @@ const creators = {
   },
   health_care_service_taxonomy: () => {
     cy.visit(
-      "/admin/structure/taxonomy/manage/health_care_service_taxonomy/add"
+      "/admin/structure/taxonomy/manage/health_care_service_taxonomy/add",
     );
     cy.scrollTo("top");
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Description").type(faker.lorem.sentence(), {
       force: true,
     });
     cy.findAllByLabelText("Health Service API ID").type(
       faker.datatype.number(),
-      { force: true }
+      { force: true },
     );
 
     cy.get("#edit-moderation-state-0-state").select("published", {
@@ -51,11 +51,11 @@ const creators = {
     cy.scrollTo("top");
     cy.findAllByLabelText("Official Benefit name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.get("#edit-field-va-benefit-api-id-0-value").type(
       faker.datatype.number(),
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Teaser summary").type(faker.lorem.sentence(), {
       force: true,
@@ -75,12 +75,12 @@ Given("I create a {string} taxonomy term", (vocabulary) => {
   const creator = creators[vocabulary];
   assert.isNotNull(
     creator,
-    `I do not know how to create ${vocabulary} taxonomy terms yet.  Please add a definition in ${__filename}.`
+    `I do not know how to create ${vocabulary} taxonomy terms yet.  Please add a definition in ${__filename}.`,
   );
   creator().then(() => {
     cy.get("#edit-revision-log-message-0-value").type(
       `[Test revision log 1]${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.get("form.taxonomy-term-form").find("input#edit-submit").click();
     cy.contains("Created new term").should("exist");

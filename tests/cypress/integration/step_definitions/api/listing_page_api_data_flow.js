@@ -9,7 +9,7 @@ function fetchAndCheckListingPage(params, singleType) {
   cy.request(`/jsonapi/node/${singleType}?${params.toString()}`).then(
     (response) => {
       expect(response.status).to.eq(200);
-    }
+    },
   );
 }
 
@@ -20,7 +20,7 @@ Given(
     cy.request(`/router/translate-path?path=${path}`).then((response) => {
       expect(response.status).to.eq(200);
       const { uuid } = response.body.entity;
- 
+
       expect(uuid, `Expected to find a UUID for path: ${path}`).to.not.be
         .undefined;
 
@@ -74,8 +74,8 @@ Given(
           // Fetch the second page of items.
           filterParams[type].set("page[offset]", pageLength[type]);
           fetchAndCheckListingPage(filterParams[type], singleTypes[type]);
-        }
+        },
       );
     });
-  }
+  },
 );

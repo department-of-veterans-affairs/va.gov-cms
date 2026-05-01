@@ -25,7 +25,7 @@
     attach() {
       const magicheadTables =
         document.querySelectorAll(
-          "div.field--type-magichead table.field-multiple-table.draggable-table"
+          "div.field--type-magichead table.field-multiple-table.draggable-table",
         ) || [];
       const errors = {};
       magicheadTables.forEach((element) => {

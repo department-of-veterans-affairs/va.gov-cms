@@ -62,7 +62,7 @@
       // tableDrag.js API, and it's related prototype methods.
       const tables =
         document.querySelectorAll(
-          "div.field--type-magichead table.field-multiple-table.draggable-table"
+          "div.field--type-magichead table.field-multiple-table.draggable-table",
         ) || [];
       tables.forEach((element) => {
         const id = element.getAttribute("id");
