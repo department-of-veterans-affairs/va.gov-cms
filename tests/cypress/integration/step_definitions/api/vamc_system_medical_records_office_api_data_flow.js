@@ -95,7 +95,6 @@ Given(
         expect(nodeResponse.body.data.id).to.eq(uuid);
         const regionPageId =
           nodeResponse.body.data.relationships.field_office.data.id;
-         
         expect(
           regionPageId,
           `Expected to find a field_office.id for vamc_system_medical_records_offi: ${uuid}`
