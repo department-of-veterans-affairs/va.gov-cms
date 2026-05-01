@@ -1,6 +1,4 @@
- 
 import { Given } from "@badeball/cypress-cucumber-preprocessor";
- 
 import qs from "qs";
 
 Given("I stub form submission for the current page", () => {

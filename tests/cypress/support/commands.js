@@ -1,5 +1,4 @@
- 
- 
+/* eslint-disable no-console */
 import "@testing-library/cypress/add-commands";
 import "cypress-axe";
 import "cypress-file-upload";
@@ -275,7 +274,6 @@ Cypress.Commands.add("get_ckeditor", (element) => {
       const matches = editors.find((item) => item.element === element);
       console.log(matches);
       if (matches) {
-         
         instance = matches;
         console.log(instance);
       } else {

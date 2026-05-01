@@ -48,7 +48,9 @@
               Array.from(modal.querySelectorAll("button"));
             const trapFocus = (event) => {
               const f = focusable();
-              if (!f.length) {return;}
+              if (!f.length) {
+                return;
+              }
               if (event.key === "Tab") {
                 const idx = f.indexOf(document.activeElement);
                 if (event.shiftKey) {
@@ -66,7 +68,9 @@
             modal.showModal();
             setTimeout(() => {
               const f = focusable();
-              if (f[0]) {f[0].focus();}
+              if (f[0]) {
+                f[0].focus();
+              }
             }, 0);
 
             const escListener = (event) => {

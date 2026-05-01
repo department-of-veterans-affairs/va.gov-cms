@@ -82,8 +82,7 @@ Given(
     // Request the router to translate the path to a UUID.
     cy.request(`/router/translate-path?path=${path}`).then((response) => {
       expect(response.status).to.eq(200);
-      const { uuid } = response.body.entity;
-       
+      const { uuid } = response.body.entity;       
       expect(uuid, `Expected to find a UUID for path: ${path}`).to.not.be
         .undefined;
 
@@ -95,7 +94,6 @@ Given(
         expect(nodeResponse.body.data.id).to.eq(uuid);
         const regionPageId =
           nodeResponse.body.data.relationships.field_office.data.id;
-         
         expect(
           regionPageId,
           `Expected to find a field_office.id for vamc_system_medical_records_offi: ${uuid}`
