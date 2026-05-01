@@ -22,7 +22,7 @@ The migrations in this framework support the taxonomy enhancements:
 - **ClpVaBenefitsMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to Campaign Landing Pages when specific Veteran subtypes exist
 - **VaBenefitsTaxonomyMigration:** Simplifies Veteran audience tagging by adding "All Veterans" tags to VA Benefits taxonomy terms when specific Veteran subtypes exist
 - **RsCategoriesToTopicsMigration:** Adds Topics in Audience & Topics when R&S Categories (Primary or Additional) are present, using a fixed category-to-topic mapping
-- **RsPrimaryCategoryToAdditionalCategoriesMigration:** Copies each node’s R&S / Benefit category from Primary category into Additional categories (same `lc_categories` terms) in preparation for making categories optional 0-to-many on a single field
+- **RsPrimaryCategoryToAdditionalCategoriesMigration:** Copies each node’s R&S / Benefit category from Primary category into Additional categories (same `lc_categories` terms) in preparation for making categories optional and allowing multiple terms.
 
 These migrations prepare for potential retirement of granular Veteran subtype tags by ensuring "All Veterans" is present wherever specific subtypes exist.
 
