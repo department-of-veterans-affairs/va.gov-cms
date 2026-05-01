@@ -52,7 +52,7 @@ export default [
       prettier: eslintPluginPrettier,
     },
     rules: {
-      ...js.rules,
+      ...js.configs.recommended.rules,
       // Formatting rules off (Prettier handles formatting)
       "indent": "off",
       "quotes": "off",
