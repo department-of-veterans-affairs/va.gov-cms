@@ -27,7 +27,6 @@ use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
  * VA.gov VAMC Entity Event Subscriber.
