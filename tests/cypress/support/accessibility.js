@@ -33,7 +33,6 @@ Cypress.Commands.add("checkAccessibility", () => {
     (violations) => {
       cy.accessibilityLog(violations);
       return cy.location("pathname").then((route) => {
-         
         const violationData = violations.map((violation) => ({
           route,
           ...violation,
