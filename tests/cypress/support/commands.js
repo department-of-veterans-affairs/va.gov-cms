@@ -1,3 +1,4 @@
+/* eslint-disable-next-line max-nested-callbacks */
 /* eslint-disable no-console */
 import "@testing-library/cypress/add-commands";
 import "cypress-axe";
