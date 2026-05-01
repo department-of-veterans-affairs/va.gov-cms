@@ -2,6 +2,11 @@ import importPlugin from "eslint-plugin-import";
 import eslintPluginPrettier from "eslint-plugin-prettier";
 // Flat ESLint config for ESLint 9+
 import js from "@eslint/js";
+// Remove a rule from a rules object
+function withoutRule(rules, ruleName) {
+  const { [ruleName]: _, ...rest } = rules;
+  return rest;
+}
 import globals from "globals";
 
 // Remove any global keys with leading/trailing whitespace (ESLint 9 strict)
@@ -52,9 +57,8 @@ export default [
       prettier: eslintPluginPrettier,
     },
     rules: {
-      ...js.configs.recommended.rules,
-      // Workaround for structuredClone error in ESLint 9
-      "constructor-super": "off",
+      // Remove 'constructor-super' to avoid structuredClone error
+      ...withoutRule(js.configs.recommended.rules, "constructor-super"),
       // Formatting rules off (Prettier handles formatting)
       "indent": "off",
       "quotes": "off",
