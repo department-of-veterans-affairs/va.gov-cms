@@ -53,6 +53,8 @@ export default [
     },
     rules: {
       ...js.configs.recommended.rules,
+      // Workaround for structuredClone error in ESLint 9
+      "constructor-super": "off",
       // Formatting rules off (Prettier handles formatting)
       "indent": "off",
       "quotes": "off",
