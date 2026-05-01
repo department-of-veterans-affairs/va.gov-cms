@@ -82,8 +82,7 @@ Given(
     // Request the router to translate the path to a UUID.
     cy.request(`/router/translate-path?path=${path}`).then((response) => {
       expect(response.status).to.eq(200);
-      const { uuid } = response.body.entity;
-       
+      const { uuid } = response.body.entity;       
       expect(uuid, `Expected to find a UUID for path: ${path}`).to.not.be
         .undefined;
 
