@@ -11,7 +11,7 @@
       if (!settings || !settings.facilityCount || !settings.message) {
         return;
       }
-      var forms = once("va-gov-vamc-archive-confirm", document.querySelectorAll("form.node-regional-health-care-service-des-edit-form, form.node-regional-health-care-service-des-form"), context);
+      var forms = once("va-gov-vamc-archive-confirm", document.querySelectorAll(["form.node-regional-health-care-service-des-edit-form", "form.node-regional-health-care-service-des-form", "form.node-health-care-local-health-service-edit-form", "form.node-health-care-local-health-service-form"].join(", ")), context);
       forms.forEach(function (form) {
         form.addEventListener("submit", function (e) {
           var moderationState = form.querySelector('[name^="moderation_state"]');
