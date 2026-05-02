@@ -159,10 +159,7 @@ services:
       # Install/update packages managed by composer, including drush.
       # Composer options are in composer.json, 'config' key.
       - composer install
-      - bash -lc 'nvm install'
-      - bash -lc 'nvm use' # Use the version specified in .nvmrc
-      - bash -lc 'node -v'
-      - bash -lc 'npm install'
+      - bash ./scripts/tugboat-node-setup.sh
       - bash -lc 'composer va:theme:compile'
       - bash -lc 'composer va:web:install'
 
