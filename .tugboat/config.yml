@@ -161,6 +161,7 @@ services:
       - composer install
       - bash -lc 'nvm install'
       - bash -lc 'nvm use' # Use the version specified in .nvmrc
+      - bash -lc 'node -v'
       - bash -lc 'npm install'
       - bash -lc 'composer va:theme:compile'
       - bash -lc 'composer va:web:install'
@@ -194,6 +195,7 @@ services:
       - composer install
       - bash -lc 'nvm install'
       - bash -lc 'nvm use' # Use the version specified in .nvmrc
+      - bash -lc 'node -v'
       - bash -lc 'npm install'
       - bash -lc 'composer va:theme:compile'
       - bash -lc 'composer va:web:install'
