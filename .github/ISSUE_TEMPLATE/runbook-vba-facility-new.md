@@ -11,7 +11,7 @@ assignees: ''
 ## Intake
 - [ ] What triggered this runbook? (Flag in CMS from Lighthouse migration)
   - Trigger: <insert_trigger>
-  - If the trigger was an editor request to publish, please open a [Runbook - Launching an approved VBA Facility](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new/choose) ticket
+  - If the trigger was an editor request to publish, please open a [Runbook - Launching an approved VBA Facility](https://va.ghe.com/software/va.gov-cms/issues/new/choose) ticket
 
 - [ ] Link to facility in production:
   - Facility CMS link: <insert_facility_link>

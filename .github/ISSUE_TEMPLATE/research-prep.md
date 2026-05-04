@@ -21,12 +21,12 @@ assignees: ''
 - [ ] Update research plan and conversation guide with any timeline or protocol tweaks
 
 **Coordinate with Research-Ops and Perigean**
-- [ ] Create recruiting request and submit to VA Research-Ops. Use *Easy Recruitment Request* (for moderated research) or *Easy Recruitment Request for Unmoderated Cohorts* (for unmoderated research) on [this page](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/new/choose)
+- [ ] Create recruiting request and submit to VA Research-Ops. Use *Easy Recruitment Request* (for moderated research) or *Easy Recruitment Request for Unmoderated Cohorts* (for unmoderated research) on [this page](https://va.ghe.com/software/va.gov-research-repository/issues/new/choose)
   - Schedule 20-25% more sessions than the desired # of participants to account for no-shows & cancellations 
-- [ ] Create *New Research Intake* request from [this page](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/new/choose)
+- [ ] Create *New Research Intake* request from [this page](https://va.ghe.com/software/va.gov-research-repository/issues/new/choose)
   - [ ] In description, add links to github research folder and (from previous step) recruiting request form
   - [ ] Make yourself the assignee
-  - [ ] Add labels for the project's product, research methodology, audience, etc. from [this list](https://github.com/department-of-veterans-affairs/va.gov-research-repository/labels?page=1&sort=name-asc)
+  - [ ] Add labels for the project's product, research methodology, audience, etc. from [this list](https://va.ghe.com/software/va.gov-research-repository/labels?page=1&sort=name-asc)
 - [ ] Make agenda for kickoff meeting w/Perigean
 - [ ] Review Perigean's recruitment survey before kickoff meeting
 - [ ] Attend kickoff meeting with Perigean and Sitewide UX Lead and/or PM
@@ -54,7 +54,7 @@ assignees: ''
 - [ ] Review recruited participant list from Perigean for requirements met
 - [ ] Follow-up with Perigean re participant list, if needed
 - [ ] Make sure all research sessions scheduled by Perigean are in your calendar
-- [ ] Make signup sheet for observers, and share with team, stakeholders to sign up ([template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/products/facilities/regional-offices/research/observer_schedule_template.xlsx))
+- [ ] Make signup sheet for observers, and share with team, stakeholders to sign up ([template](https://va.ghe.com/software/va.gov-team/blob/master/products/facilities/regional-offices/research/observer_schedule_template.xlsx))
 - [ ] Invite signed up observers to each session and optional debrief session, per signup sheet
 - [ ] Add participant numbers, dates, and times into recruitment intake ticket Participant Tracker (to check off later after each session) 
 - [ ] Make notetaking doc in github for each session to share with Perigean right before each session starts (or all at once ahead of time if Perigean contact is OK with this)

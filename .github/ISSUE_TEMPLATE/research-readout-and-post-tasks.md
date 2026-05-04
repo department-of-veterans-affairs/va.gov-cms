@@ -43,8 +43,8 @@ assignees: ''
 
 **Add Findings to Research Repository**
 - Once your report is final, link to the relevant research repository:
-  - Veteran-facing research: [How to add research to Research Repo](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/70) > *What to do when you complete your research*
-  - Editor-facing research: [CMS Research Repository](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/research)
+  - Veteran-facing research: [How to add research to Research Repo](https://va.ghe.com/software/va.gov-research-repository/issues/70) > *What to do when you complete your research*
+  - Editor-facing research: [CMS Research Repository](https://va.ghe.com/software/va.gov-team/tree/master/platform/cms/research)
 
 **Delete and Archive Research Materials**
 - Review your notes and synthesis materials to make sure they don't contain any PII ([Personally Identifiable Information](https://depo-platform-documentation.scrollhelp.site/research-design/what-is-pii)). Then add them to your github research folder, and link to them in your research report.

@@ -3,7 +3,7 @@
    1. CMS Helpdesk
      Used to notify an editor(s) directly via email.
    2. [Sitewide Alert](#sitewide-alert)
-   3. [CMS Notification System](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/main/docroot/modules/custom/va_gov_notifications/README.md)
+   3. [CMS Notification System](https://va.ghe.com/software/va.gov-cms/tree/main/docroot/modules/custom/va_gov_notifications/README.md)
 
 
 ## Sitewide Alert

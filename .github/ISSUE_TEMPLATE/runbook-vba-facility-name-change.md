@@ -26,7 +26,7 @@ Facility API ID: <insert_facility_API_ID>
 **Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 What happens: The name change is made in Sandy's DB, that syncs to Lighthouse which syncs to Drupal.
 - [ ] Check that the title change in name field on the VBA node has shown up in Drupal.
-- [ ] If the node is published: Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. **URL changes no longer block the remaining steps in this ticket.**
+- [ ] If the node is published: Create a [URL change request](https://va.ghe.com/software/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. **URL changes no longer block the remaining steps in this ticket.**
 
 <insert_url_change_request_link>
 

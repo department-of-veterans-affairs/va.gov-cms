@@ -36,7 +36,7 @@ function va_gov_lovell_form_node_form_alter(array &$form, FormStateInterface &$f
 function va_gov_lovell_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.va_gov_lovell':
-      $text = 'Visit the <a href="https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/facilities-lovell.md">Facility Lovell README</a>';
+      $text = 'Visit the <a href="https://va.ghe.com/software/va.gov-cms/blob/main/READMES/facilities-lovell.md">Facility Lovell README</a>';
 
       return "<pre>{$text}</pre>";
   }

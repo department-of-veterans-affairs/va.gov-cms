@@ -140,7 +140,7 @@ jobs:
 
     steps:
       - name: Notify Slack
-        uses: department-of-veterans-affairs/platform-release-tools-actions/slack-notify@8c496a4b0c9158d18edcd9be8722ed0f79e8c5b4
+        uses: software/platform-release-tools-actions/slack-notify@8c496a4b0c9158d18edcd9be8722ed0f79e8c5b4
         continue-on-error: true
         with:
           payload: '{"attachments": [{"color": "#2EB67D","blocks": [{"type": "section","text": {"type": "mrkdwn","text": "Tag and release ${{ needs.tag-and-release.outputs.NEW_TAG }} has been created successfully."}}]}]}'
@@ -157,7 +157,7 @@ jobs:
 
     steps:
       - name: Notify Slack
-        uses: department-of-veterans-affairs/platform-release-tools-actions/slack-notify@8c496a4b0c9158d18edcd9be8722ed0f79e8c5b4
+        uses: software/platform-release-tools-actions/slack-notify@8c496a4b0c9158d18edcd9be8722ed0f79e8c5b4
         continue-on-error: true
         with:
           payload: >

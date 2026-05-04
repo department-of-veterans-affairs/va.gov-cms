@@ -12,7 +12,7 @@ use League\Csv\Statement;
 /**
  * For VACMS-20726.
  *
- * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/20726
+ * @see https://va.ghe.com/software/va.gov-cms/issues/20726
  */
 class ReactWidgetUpdatesForMHVMigration extends BatchOperations implements BatchScriptInterface {
 

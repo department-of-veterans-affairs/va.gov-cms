@@ -13,9 +13,9 @@ Take the term Base to mean bottom or foundation: Base Preview is a container, bu
 ## Access
 In order to access the Tugboat UI, you must have SOCKS running on your machine, or be on the VA network (via CAG/Azure, on GFE, etc). 
 
-Any Github user in the department-of-veterans-affairs organization can log into Tugboat using Github credentials. Access is provided automatically, no manual steps.
+Any Github user in the organization can log into Tugboat using Github credentials. Access is provided automatically, no manual steps.
 
-Tugboat management has been limited to [@platform-cms-devops-engineers](https://github.com/orgs/department-of-veterans-affairs/teams/platform-cms-devops-engineers) historically.
+Tugboat management has been limited to [@platform-cms-devops-engineers](https://va.ghe.com/orgs/software/teams/platform-cms-devops-engineers) historically.
 
 ### Granting Admin Access
 Admins permissions are needed to:
@@ -31,7 +31,7 @@ The following actions can be done directly on the tugboat server to add new admi
 
 New users have to be added to the tugboat database. The following steps will guide how to accomplish this.
 ### <a id="admin_access_steps"></a> Header
-1. Follow the readme in the devops repo to be able to start ssm sessions. Doc found [here](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session)
+1. Follow the readme in the devops repo to be able to start ssm sessions. Doc found [here](https://va.ghe.com/software/devops/tree/master/utilities/ssm-session)
 2. Login to the tugboat utility server by running `ssm-session utility`
 3. Once logged in, perform `sudo su` in order to run docker commands
 4. Next, you need to find the container running the tugboat database. To do this run `docker ps | grep tugboat-mongo`. Note the ID
@@ -79,7 +79,7 @@ At VA, our lower environments are each built from a Tugboat Base Preview, in som
 Each Repository's Base Preview image is refreshed on a daily schedule, which downloads and applies the previous day's Production Post Deployment Asset Files and Database backups. Then, when you launch your PR it launches from that state and doesn't have to sync the file assets or database snapshot and will only run your code updates (`drush updatedb`) and configuration import (`drush config:import`) and then posts a GitHub comment to your pull request with links to your preview environment(s).
 
 ## Other environments' uses of Tugboat and data
-[Environments & the Content Build Process](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md) (Github)
+[Environments & the Content Build Process](https://va.ghe.com/software/va.gov-cms/blob/main/READMES/environments.md) (Github)
 
 
 ## Getting started with CMS Pull Request Preview Environments
@@ -122,7 +122,7 @@ You have created a new CMS Demo Preview Environment.
 
 ### Human-friendly URLs for CMS Demo Preview Environments
 
-Default URL aliases for CMS and WEB UI are not readable. Alias enhancement is tracked in [#4162](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/4162).
+Default URL aliases for CMS and WEB UI are not readable. Alias enhancement is tracked in [#4162](https://va.ghe.com/software/va.gov-cms/issues/4162).
 
 Example:
 1. `https://cms-kewq6ooqnvg8hzjyzc1luyb4wm8bncmw.demo.cms.va.gov/`
@@ -195,7 +195,7 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 1. The generated URLs have only been observed to change when the file .tugboat/config.yml is modified by changing the name of a defined service, or changes the default service.
 1. You cannot search logs with a browser right now, it is a known issue. The alternative is to use the `tugboat` CLI tool to view logs. e.g. `tugboat log 6148dc56690c680da87db5f2 | grep -i 'error'`. You can get the service ID from the URL bar in the UI. 
 1. You cannot scroll the logs while they are outputting, you can only scroll once they are done. If you want to see previous output then use the Tugboat CLI tool with `tugboat log <service id>` and scroll that way. You can get the service ID from the URL bar in the UI. 
-1. Email won't be sent to existing users as their email addresses are blanked during the database sanitization process for the developer database snapshot (see [#6100](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6100)).  Email to new users, or users whose email addresses have been updated, can be sent and will be captured in the Tugboat interface. If you need to test email in Tugboat then edit a user and add an @example.com email address.
+1. Email won't be sent to existing users as their email addresses are blanked during the database sanitization process for the developer database snapshot (see [#6100](https://va.ghe.com/software/va.gov-cms/issues/6100)).  Email to new users, or users whose email addresses have been updated, can be sent and will be captured in the Tugboat interface. If you need to test email in Tugboat then edit a user and add an @example.com email address.
 1. Base preview images are **refreshed** automatically, not **rebuilt**.  This means that certain changes to Tugboat config, e.g. in the `init` phase, must be followed by a manual rebuild operation.  The nightly refresh will not incorporate the new changes.
 1. Pull requests with code in the body may cause a false alarm on the TIC and be rejected silently, and thus the Tugboat environment will not build automatically.  This is not an issue we or Tugboat can solve.  The only workaround is to build the PR branch manually. See this example of the string `filter_var()` in the webhook POST body causing a firewall block > https://dsva.slack.com/archives/C01A35JDH88/p1675984628181769?thread_ts=1675868445.789729&cid=C01A35JDH88.
 

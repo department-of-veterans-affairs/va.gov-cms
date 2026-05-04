@@ -1,6 +1,6 @@
 # CMS Login
 
-More info at https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md
+More info at https://va.ghe.com/software/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md
 
 ## How to request a CMS user account
 
@@ -26,7 +26,7 @@ Please see the [CMS knowledge base](https://prod.cms.va.gov/help/cms-basics/how-
 
 - If the `simplesaml_php` module is able to authenticate the user with the authentication name provided by SSOi, it will log the user in. (See `externalLoginRegister` in the `SimplesamlphpDrupalAuth` service)
 - If not, the module will attempt to match the name provided with a Drupal user account name (See `externalRegister` in the `SimplesamlphpDrupalAuth` service)
-- If this does not succeed, It will call `hook_simplesamlphp_auth_existing_user` as a last-ditch attempt to match a user. We [implement this hook](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4bfe6ce7c226668d715b28ff5ec176ea76827e0/docroot/modules/custom/va_gov_login/va_gov_login.module#L28) in the `va_gov_login` module and attempt to match the user by email address.
+- If this does not succeed, It will call `hook_simplesamlphp_auth_existing_user` as a last-ditch attempt to match a user. We [implement this hook](https://va.ghe.com/software/va.gov-cms/blob/f4bfe6ce7c226668d715b28ff5ec176ea76827e0/docroot/modules/custom/va_gov_login/va_gov_login.module#L28) in the `va_gov_login` module and attempt to match the user by email address.
 
 ## Sample SSOi Response
 ![Sample simplesaml response](images/ssoi-response.png)

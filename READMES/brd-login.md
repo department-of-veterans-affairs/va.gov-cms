@@ -10,7 +10,7 @@ to repair or update data after deployment. Generally speaking, this should
 only be performed by DevOps personnel, but this document is provided as a
 general reference and for onboarding DevOps personnel._
 
-DevOps has kindly provided the [`ssm-session`](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session)
+DevOps has kindly provided the [`ssm-session`](https://va.ghe.com/software/devops/tree/master/utilities/ssm-session)
 command line tool, which uses your existing AWS credentials to authenticate and
 access the running instance.
 
@@ -144,7 +144,7 @@ Because all of the environment variables provided to Apache are provided to
 your current user, operations should largely follow the format you've used for
 developing and testing in your local or Tugboat environment.
 
-For instance, see [the comment in this PR](https://github.com/department-of-veterans-affairs/va.gov-cms/pull/6889#issuecomment-967657412).
+For instance, see [the comment in this PR](https://va.ghe.com/software/va.gov-cms/pull/6889#issuecomment-967657412).
 
 A common pattern is to log in and run `drush scr` with an argument:
 

@@ -12,7 +12,7 @@ The above bolded section is a crucial point to pay attention to. This avoids usi
 
 ### Purpose of Lockable Resources for Job Blocking
 
-Defined in va.gov-cms issue [#2890](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/2890) Prod Database Backup jobs and Periodic Server Tasks **should not** run while a Production Deployment is in progress. Without this, multiple jobs that depend on the same underlying infrastructure can and will fail.
+Defined in va.gov-cms issue [#2890](https://va.ghe.com/software/va.gov-cms/issues/2890) Prod Database Backup jobs and Periodic Server Tasks **should not** run while a Production Deployment is in progress. Without this, multiple jobs that depend on the same underlying infrastructure can and will fail.
 
 This has been extended to all environments (Prod,Staging,Dev) and CMS-TEST Infrastructure.
 
@@ -22,7 +22,7 @@ https://plugins.jenkins.io/lockable-resources/
 
 https://github.com/jenkinsci/lockable-resources-plugin
 
-https://github.com/department-of-veterans-affairs/va.gov-cms/issues/2890
+https://va.ghe.com/software/va.gov-cms/issues/2890
 
 ## Jobs that Implement Lockable Resources
 
@@ -81,7 +81,7 @@ CMS Deploy job code snippet:
     ansiColor('xterm')
     // View resource locks in Jenkins here http://jenkins.vfs.va.gov/lockable-resources/
     // View documentation on job locking system here:
-    // https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/devops/jenkins-job-locking.md
+    // https://va.ghe.com/software/va.gov-cms/blob/main/READMES/devops/jenkins-job-locking.md
     lock(extra: [[resource: "deploys/job/cms-vagov-" + ENV_MAPPING["${environment}"] + "/ Block cms/job/cms-periodic-" + ENV_MAPPING["${environment}"] + "/"],
                  [resource: "deploys/job/cms-vagov-" + ENV_MAPPING["${environment}"] + "/ Block cms/job/cms-db-backup-" + ENV_MAPPING["${environment}"] + "/"],
                  [resource: "deploys/job/cms-vagov-" + ENV_MAPPING["${environment}"] + "/ Block testing/job/cms-post-deploy-tests-" + ENV_MAPPING["${environment}"] + "/"]
@@ -96,7 +96,7 @@ CMS Periodic job code snippet:
         ansiColor('xterm')
         // View resource locks in Jenkins here http://jenkins.vfs.va.gov/lockable-resources/
         // View documentation on job locking system here:
-        // https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/devops/jenkins-job-locking.md
+        // https://va.ghe.com/software/va.gov-cms/blob/main/READMES/devops/jenkins-job-locking.md
         lock(extra: [[resource: "deploys/job/cms-vagov-${env_mapping}/ Block cms/job/cms-periodic-${env_mapping}/"]])
     }
 ```

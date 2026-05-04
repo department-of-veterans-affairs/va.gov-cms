@@ -55,7 +55,7 @@ jobs:
           role-session-name: vsp-vagov-next-build-githubaction
 
       - name: Get bot token from Parameter Store
-        uses: department-of-veterans-affairs/action-inject-ssm-secrets@d8e6de3bde4dd728c9d732baef58b3c854b8c4bb # latest
+        uses: software/action-inject-ssm-secrets@d8e6de3bde4dd728c9d732baef58b3c854b8c4bb # latest
         with:
           ssm_parameter: /devops/VA_VSP_BOT_GITHUB_TOKEN
           env_variable_name: VA_VSP_BOT_GITHUB_TOKEN
@@ -63,7 +63,7 @@ jobs:
       - name: Check out Manifest Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v4.1.1
         with:
-          repository: department-of-veterans-affairs/vsp-infra-application-manifests
+          repository: software/vsp-infra-application-manifests
           token: ${{ env.VA_VSP_BOT_GITHUB_TOKEN }}
           fetch-depth: 1
           path: vsp-infra-application-manifests

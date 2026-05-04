@@ -50,7 +50,7 @@ jobs:
 
       # Get VA_CMS_BOT Github token from SSM. this will be used to approve a matching PR.
       - name: Get Parameter
-        uses: department-of-veterans-affairs/action-inject-ssm-secrets@d8e6de3bde4dd728c9d732baef58b3c854b8c4bb # latest
+        uses: software/action-inject-ssm-secrets@d8e6de3bde4dd728c9d732baef58b3c854b8c4bb # latest
         with:
           ssm_parameter: /cms/va-cms-bot/github_token
           env_variable_name: VA_CMS_BOT_TOKEN

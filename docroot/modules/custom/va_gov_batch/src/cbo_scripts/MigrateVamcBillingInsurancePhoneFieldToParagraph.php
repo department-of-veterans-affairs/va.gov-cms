@@ -13,7 +13,7 @@ class MigrateVamcBillingInsurancePhoneFieldToParagraph extends MigratePhoneField
   public function getTitle(): string {
     return <<<TITLE
     For:
-      - VACMS-17861: https://github.com/department-of-veterans-affairs/va.gov-cms/issues/17861.
+      - VACMS-17861: https://va.ghe.com/software/va.gov-cms/issues/17861.
     TITLE;
   }
 

@@ -9,7 +9,7 @@ const axeContext = {
       "iframe#jsd-widget", // Not really under our control.
     ],
     [
-      "ul.pager__items", // See department-of-veterans-affairs/va.gov-cms#12912.
+      "ul.pager__items", // See software/va.gov-cms#12912.
     ],
   ],
 };
@@ -20,7 +20,7 @@ const axeRuntimeOptions = {
     values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"],
   },
   rules: {
-    "aria-allowed-attr": { enabled: false }, // See department-of-veterans-affairs/va.gov-cms#14358
+    "aria-allowed-attr": { enabled: false }, // See software/va.gov-cms#14358
   },
 };
 

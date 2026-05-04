@@ -56,12 +56,12 @@ git remote -v
 The out put may look similar to:
 
 ```
-olivereri       git@github.com:olivereri/va.gov-cms (fetch)
-olivereri       git@github.com:olivereri/va.gov-cms (push)
-upstream        git@github.com:department-of-veterans-affairs/va.gov-cms.git (fetch)
-upstream        git@github.com:department-of-veterans-affairs/va.gov-cms.git (push)
-upstream-test   git@github.com:department-of-veterans-affairs/va.gov-cms-test.git (fetch)
-upstream-test   git@github.com:department-of-veterans-affairs/va.gov-cms-test.git (push)
+olivereri       git@va.ghe.com:olivereri/va.gov-cms (fetch)
+olivereri       git@va.ghe.com:olivereri/va.gov-cms (push)
+upstream        git@va.ghe.com:software/va.gov-cms.git (fetch)
+upstream        git@va.ghe.com:software/va.gov-cms.git (push)
+upstream-test   git@va.ghe.com:software/va.gov-cms-test.git (fetch)
+upstream-test   git@va.ghe.com:software/va.gov-cms-test.git (push)
 ```
 
 You can see that my personal fork remote is called `olivereri`, the va.gov-cms repo remote is called `upstream` and the va.gov-cms-test repo is called `upstream-test`. With that in mind these are the commands I would run to update my local:

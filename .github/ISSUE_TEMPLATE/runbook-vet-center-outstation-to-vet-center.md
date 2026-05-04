@@ -46,7 +46,7 @@ Facility API ID: <insert_facility_API_ID>
 - [ ] Communicate with editor (do they need to be onboarded)
 
 #### Close old Outstation and Create Vet Center URL
-- [ ] Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] Create a [URL change request](https://va.ghe.com/software/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
 

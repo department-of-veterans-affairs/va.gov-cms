@@ -45,20 +45,20 @@ few different ways:
 
 | Source | Alert Path | Support Severity Level |
 |--------|------------|------------------------|
-| [GraphQL API](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/downstream_dependencies.md) | DataDog to PagerDuty | High |
+| [GraphQL API](https://va.ghe.com/software/va.gov-cms/blob/master/READMES/downstream_dependencies.md) | DataDog to PagerDuty | High |
 | JSD Widget | Datadog to PagerDuty | Medium |
 | DNS | DataDog to PagerDuty | Urgent |
 | Drupal Emergency/Critical/Alert/Error | Drupal to Sentry to Slack | QA |
 | Drupal Warning/Info/Notice/Debug | None | None |
 | Prod CMS Down | Datadog to Slack, PagerDuty | Urgent |
-| [Drupal Post Content Webhook](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/downstream_dependencies.md) | GovDelivery, Drupal `post_api` to Slack | High |
+| [Drupal Post Content Webhook](https://va.ghe.com/software/va.gov-cms/blob/master/READMES/downstream_dependencies.md) | GovDelivery, Drupal `post_api` to Slack | High |
 | Drupal Flag List (`/flags_list`) | Datadog to Slack | High |
 | Content Build Fails | Github Actions to Datadog to PagerDuty; also reports into `#status-content-build` in Slack | High |
-| [Forms API](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/downstream_dependencies.md) | Datadog to PagerDuty | Medium |
-| [Health Service Descriptions](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/downstream_dependencies.md) | Drupal `post_api` to Slack | Medium |
+| [Forms API](https://va.ghe.com/software/va.gov-cms/blob/master/READMES/downstream_dependencies.md) | Datadog to PagerDuty | Medium |
+| [Health Service Descriptions](https://va.ghe.com/software/va.gov-cms/blob/master/READMES/downstream_dependencies.md) | Drupal `post_api` to Slack | Medium |
 | Tugboat Base Preview Accessible | DataDog to PagerDuty, Slack | Medium |
 | Tugoboat Server Resource | DataDog to PagerDuty, Slack | High                   |
-| [GovDeliveryAPI](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/upstream-dependencies.md) | Trigger Drupal Error | High |
+| [GovDeliveryAPI](https://va.ghe.com/software/va.gov-cms/blob/master/READMES/upstream-dependencies.md) | Trigger Drupal Error | High |
 | Periodic Job failure in Jenkins | Jenkins to Slack | Medium |
 | Daily Job in Jenkins | Jenkins to Slack | Medium |
 | Prod Deploy Warn | Jenkins to Slack | Medium |

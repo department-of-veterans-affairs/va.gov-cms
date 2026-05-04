@@ -13,7 +13,7 @@ on:
 
 jobs:
   backup-daily:
-    if: github.repository == 'department-of-veterans-affairs/va.gov-cms'
+    if: github.repository == 'software/va.gov-cms'
     runs-on: ubuntu-latest
     steps:
       # Cron set to run daily. Lets get the day of the week for the weekly backup steps.
@@ -34,7 +34,7 @@ jobs:
 
       # Will use in the future. CMS github actions user needs additional permissions to use SSM Parameter Store.
       #      - name: Get AWS IAM role
-      #        uses: department-of-veterans-affairs/action-inject-ssm-secrets@latest
+      #        uses: software/action-inject-ssm-secrets@latest
       #        with:
       #          ssm_parameter: /cms/github-actions/parameters/AWS_VAGOV_CMS_PROD_S3_ROLE
       #          env_variable_name: AWS_VAGOV_CMS_PROD_S3_ROLE

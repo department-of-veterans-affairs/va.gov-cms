@@ -18,7 +18,7 @@ use Psr\Http\Message\ResponseInterface;
 class ApiClient implements ApiClientInterface {
 
   /**
-   * The GitHub repository owner, e.g. 'department-of-veterans-affairs'.
+   * The GitHub repository owner, e.g. 'software'.
    *
    * @var string
    */
@@ -58,11 +58,11 @@ class ApiClient implements ApiClientInterface {
    * @throws \Drupal\va_gov_github\Exception\InvalidApiTokenException
    *   If the GitHub API token is provided, but is invalid.
    */
-  public function __construct(string $owner, string $repository, string $token = NULL) {
+  public function __construct(string $owner, string $repository, ?string $token = NULL) {
     $this->owner = $owner;
     $this->repository = $repository;
     $this->token = $token;
-    $this->rawClient = new RawApiClient();
+    $this->rawClient = new RawApiClient(NULL, NULL, 'https://va.ghe.com');
     $this->authenticate();
   }
 
@@ -85,7 +85,7 @@ class ApiClient implements ApiClientInterface {
     RawApiClient $rawClient,
     string $owner,
     string $repository,
-    string $token = NULL
+    ?string $token = NULL,
   ): self {
     $instance = new static($owner, $repository, $token);
     $instance->rawClient = $rawClient;

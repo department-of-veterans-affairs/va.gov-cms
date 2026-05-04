@@ -70,7 +70,7 @@ in PR description and provide any specific instructions for your peer to review
 
 1. review related code and instructions in both github repos
    * `https://github.com/agilesix/workflow_assignments`
-   * `https://github.com/department-of-veterans-affairs/va.gov-cms`
+   * `https://va.ghe.com/software/va.gov-cms`
 1. test functionality locally:
    * `cd docroot/modules/contrib/workflow_assignments`
    * `git fetch` to fetch any new PR branches

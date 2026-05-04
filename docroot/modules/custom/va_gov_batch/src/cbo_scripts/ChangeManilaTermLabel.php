@@ -10,7 +10,7 @@ use Drupal\taxonomy\TermInterface;
 /**
  * For VACMS-20606.
  *
- * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/20606
+ * @see https://va.ghe.com/software/va.gov-cms/issues/20606
  */
 class ChangeManilaTermLabel extends BatchOperations implements BatchScriptInterface {
 

@@ -36,7 +36,7 @@ EFS to S3 on an automated schedule. This document will describe the architecture
 
 # Architecture
 
-![image](https://github.com/department-of-veterans-affairs/va.gov-cms/assets/31904439/9618d869-5485-4547-a9ec-f7d301bbbf91)
+![image](https://va.ghe.com/software/va.gov-cms/assets/31904439/9618d869-5485-4547-a9ec-f7d301bbbf91)
 
 1. Every 5 minutes Cloudwatch Eventbridge triggers the execution of a Lambda function.
 2. A Lambda Function containing a simple Python script using AWS API calls to start a Datasync task execution. Lambda requires permission to execute Datasync tasks.
@@ -108,13 +108,13 @@ Determines what gets triggered by the defined rule and simply takes the ARN of t
 
 # Deployment
 ## Terraform
-Checkout the master branch of the [DevOps](https://github.com/department-of-veterans-affairs/devops) repository then browse to the `terraform/environments` folder. CMS.tf and CMS-Test.tf Terraform modules that reference the CMS
+Checkout the master branch of the [DevOps](https://va.ghe.com/software/devops) repository then browse to the `terraform/environments` folder. CMS.tf and CMS-Test.tf Terraform modules that reference the CMS
 Terraform Infrastructure repository are found in the environments `dsva-vagov-staging` and `dsva-vagov-prod`. Incrementing the version number of the `source` attribute to reflect that lastest release from the CMS TF infrastructure repository 
 will make the resource available to apply to the terraform state of each environment.
 ## Lambda
 While the Python script for the lambda function is tracked in the CMS Terraform Infrastructure repository there exists NO automated deployment of this code to lambda. Rather updates and changes should stay tracked in version
 control the script must be packaged in a zip archive and uploaded to the lambda deployment S3 bucket defined in the TF Lambda resource. AWS Provides documenation on how to package Python scripts and their dependencies (boto3)
-into a zip archive [here](https://github.com/department-of-veterans-affairs/devops)
+into a zip archive [here](https://va.ghe.com/software/devops)
 
 **Abide by these conventions:**
 
@@ -136,5 +136,5 @@ Otherwise, update the Terrafrom Lambda resource to reflect any file, archive, or
 # Pitfalls
 
 # References
-[CMS Terraform Infrastructure Repository](https://github.com/department-of-veterans-affairs/terraform-aws-vsp-cms)
-[Original Issue](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/16925)
+[CMS Terraform Infrastructure Repository](https://va.ghe.com/software/terraform-aws-vsp-cms)
+[Original Issue](https://va.ghe.com/software/va.gov-cms/issues/16925)

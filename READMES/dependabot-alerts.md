@@ -2,7 +2,7 @@
 
 ### Background
 
-Dependabot creates [alerts](https://github.com/department-of-veterans-affairs/va.gov-cms/security/dependabot) in response to security
+Dependabot creates [alerts](https://va.ghe.com/software/va.gov-cms/security/dependabot) in response to security
 vulnerabilities detected within project dependencies. In the case of the CMS, these dependencies can be any of several different 
 languages, installed through several package managers, span multiple subprojects and concerns within the greater CMS project, and be
 easily forgotten.

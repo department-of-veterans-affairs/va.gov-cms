@@ -11,7 +11,7 @@ assignees: ''
 ## Acceptance criteria
 
 ### Information needed from Product / VHA DM
-- [ ] The plain language name for the VAMC system. This should follow [the pattern](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/facilities/naming-schema): VA [region name] health care
+- [ ] The plain language name for the VAMC system. This should follow [the pattern](https://va.ghe.com/software/va.gov-team/tree/master/products/facilities/naming-schema): VA [region name] health care
 - [ ] Which VISN is this system in?
 
 ### Create a new menu through config PR [Drupal Engineer]
@@ -43,7 +43,7 @@ assignees: ''
 - [ ] Export the config file and create a PR to merge it into the va.gov-cms repo
 
 ### Enable menu in Content Build / Next Build [FE Engineer]
-- [ ] Update [facilitySidebar.nav.graphql.js](https://github.com/department-of-veterans-affairs/content-build/blob/main/src/site/stages/build/drupal/graphql/navigation-fragments/facilitySidebar.nav.graphql.js) with the machine name of the menu under FACILITY_MENU_NAMES and in the appropriate VISN
+- [ ] Update [facilitySidebar.nav.graphql.js](https://va.ghe.com/software/content-build/blob/main/src/site/stages/build/drupal/graphql/navigation-fragments/facilitySidebar.nav.graphql.js) with the machine name of the menu under FACILITY_MENU_NAMES and in the appropriate VISN
 
 ### Create initial VAMC System Drupal entities [CMS helpdesk or Sitewide team]
 - [ ] Add a new Term in the [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview) 
@@ -118,7 +118,7 @@ assignees: ''
 - [ ] Find the relevant menu and select edit menu
 - [ ] Ensure all menu links are nested in the proper place by opening each menu item individually and ensuring it has the correct parent link, and saving
 - [ ] Set some menu links to disabled, according to the [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh) 
-- [ ] Consult [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh) for menu settings (Here's a [backup static copy](https://github.com/department-of-veterans-affairs/va.gov-team/blob/1b010e72b992dbefa7305764b0058841131733bc/products/facilities/medical-centers/VAMC-Sitemap.xlsx) in case of access issues in the future)
+- [ ] Consult [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh) for menu settings (Here's a [backup static copy](https://va.ghe.com/software/va.gov-team/blob/1b010e72b992dbefa7305764b0058841131733bc/products/facilities/medical-centers/VAMC-Sitemap.xlsx) in case of access issues in the future)
 
 ### URL alias configuration [CMS helpdesk or Sitewide team]
 - [ ] Check that each page has the correct URL alias matching the [VAMC sitemap in sharepoint](https://dvagov.sharepoint.com/:x:/s/SitewideContract/EblgAS21OUtHloKK3a8ZvNIBHzV1S6uO2l4hj4dqYG0avQ?e=J8UVZh), and breadcrumb
@@ -127,7 +127,7 @@ assignees: ''
 ### User set up [CMS helpdesk]
 - [ ] Create users if needed
 - [ ] Assign users to the appropriate section
-- [ ] Follow guidance in [CMS User Administration documentation](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/user-administration)
+- [ ] Follow guidance in [CMS User Administration documentation](https://va.ghe.com/software/va.gov-team/tree/master/platform/cms/user-administration)
 
 ### VAMC editor tasks
 - [ ] Complete training if they haven't already

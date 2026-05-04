@@ -36,8 +36,8 @@ Projected start date: <insert_here>
 Your top priority is any onboarding paperwork provided by Contract Onboarding folks. Start tasks below after that.
 
 ### Process & Principles
-- [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
-- [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
+- [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://va.ghe.com/software/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
+- [ ] Read the [VA.gov platform mission and goals](https://va.ghe.com/software/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
 - [ ] Read the [VA's Office of the CTO (OCTO) engineering excellence guiding principles](https://dsva.slack.com/archives/C04KXPXL4/p1674065912579799) [post in DSVA slack]
 
 ### People
@@ -84,9 +84,9 @@ You'll receive an email from A6 COS directing you to the paperwork you should fi
 Github + Zenhub are the tools required for sprint boards, epics, estimates, and issue tracking for our team, as well as code version control. To work successfully:
 - [ ] New Hire: Create a Github user account
 - [ ] New Hire: Add your agency email address to your Github account at https://github.com/settings/emails
-- [ ] Delivery Manager: Creates a [Github request](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D) to add your Github user to the Dept of VA Github organization. This will provide you with access to view VA repositories.
-- [ ] New Hire: Accept the Github org invitation. It will appear as a yellow banner at the top of https://github.com/department-of-veterans-affairs
-- [ ] Delivery Manager: After invite is accepted, add user to the [VFS-CMS team](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members). You must be added to this team to contribute to [va.gov-cms repository](https://github.com/department-of-veterans-affairs/va.gov-cms/) code and issues in Github.
+- [ ] Delivery Manager: Creates a [Github request](https://va.ghe.com/software/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D) to add your Github user to the Dept of VA Github organization. This will provide you with access to view VA repositories.
+- [ ] New Hire: Accept the Github org invitation. It will appear as a yellow banner at the top of https://va.ghe.com/software
+- [ ] Delivery Manager: After invite is accepted, add user to the [VFS-CMS team](https://va.ghe.com/orgs/software/teams/vfs-cms-team/members). You must be added to this team to contribute to [va.gov-cms repository](https://va.ghe.com/software/va.gov-cms/) code and issues in Github.
 - [ ] New Hire: Install the [Zenhub browser extension](https://www.zenhub.com/extension) in your browser of choice
 - [ ] Delivery Manager: Log into app.zenhub.com, click "Invite your team" button in lower left sidebar, invite new hire via their agency email address. This will generate a license request that must be approved by Zenhub admins within the VA. In the meantime, new hires may see a "You do not have a license" message when they log in to app.zenhub.com.
 - [ ] VA Zenhub Admins: Must approve the license request. If they're slow about it, in DSVA slack, use @zenhub-admins to mention and request help. Licenses might not be approved until after the new hire has been fingerprinted.
@@ -94,13 +94,13 @@ Github + Zenhub are the tools required for sprint boards, epics, estimates, and 
 
 **Sprint boards:**
 You can view team sprint boards using either the Github view with Zenhub browser extension enabled, or the Zenhub webapp view.
-* CMS team: [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/#workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board), [Zenhub webapp view](https://app.zenhub.com/workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board)
+* CMS team: [Github view](https://va.ghe.com/software/va.gov-cms/#workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board), [Zenhub webapp view](https://app.zenhub.com/workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/board)
 )
 * Sitewide team also runs their sprints from the same repository, and any repo / workspace changes should be mindful of not impacting their workspace / board: 
-  * VA.gov Sitewide Product team: [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new/choose#workspaces/vagov-sitewide-product-team-6645154188a81a1f7a0a9464/board, [Zenhub webapp view](https://app.zenhub.com/workspaces/vagov-sitewide-product-team-6645154188a81a1f7a0a9464/board)
+  * VA.gov Sitewide Product team: [Github view](https://va.ghe.com/software/va.gov-cms/issues/new/choose#workspaces/vagov-sitewide-product-team-6645154188a81a1f7a0a9464/board, [Zenhub webapp view](https://app.zenhub.com/workspaces/vagov-sitewide-product-team-6645154188a81a1f7a0a9464/board)
 
 ### Process & Principles
-- [ ] Read about our teams' [Agile / sprint best practices](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
+- [ ] Read about our teams' [Agile / sprint best practices](https://va.ghe.com/software/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
 - [ ] How do Agile 6 and our partners work together on this project? Discuss with your Delivery Manager.
 - [ ] Read your team's Charter:
     * [CMS]()
@@ -140,15 +140,15 @@ The goal for this week is to get you set up with the tools you need to be succes
 ### Context & History: What products do we support?
 - [ ] Review [History of CMS / Sitewide product portfolio & teams mural](https://app.mural.co/t/vagov6717/m/vagov6717/1646745279937/9a5570c420939d84e875e8334fd73073e3a3971b?fromVisitorModal=true&sender=u0b235d03cbd64f7f93673243).
     - [ ] Discuss with your Delivery Manager and Product Manager for more context on your team's products.
-- [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
-- [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/raw/master/platform/cms/VA-CMS-Product-Sheets.pdf) (PDF download).
+- [ ] [Review the editor onboarding slides](https://va.ghe.com/software/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
+- [ ] Read the [product sheets](https://va.ghe.com/software/va.gov-team/raw/master/platform/cms/VA-CMS-Product-Sheets.pdf) (PDF download).
 
 ### Access & Delivery
 - [ ] [Opt out](https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/google-analytics-opt-out) of Google Analytics collection on VA.gov.
 - [ ] Opt out of analytics for Platform's website by clicking https://depo-platform-documentation.scrollhelp.site/?internal-user-opt-out=true. **You will not get a confirmation message** and will have to do this for every browser and every time you clear cookies. 
 
 #### Github for issue tracking and document sharing
-- [ ] [Intro to CMS Team Github](https://github.com/department-of-veterans-affairs/va.gov-cms#readme) - describes an overview of our project in terms of repositories and architecture
+- [ ] [Intro to CMS Team Github](https://va.ghe.com/software/va.gov-cms#readme) - describes an overview of our project in terms of repositories and architecture
     - [ ] New to Github and markdown? [Learn about writing on Github](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github) or [watch a tutorial video](https://youtu.be/TBbtbKplUoc)
 
 #### Slack for instant messaging
@@ -178,14 +178,14 @@ Drupal is the VA's content management system of choice. For anyone on our team, 
   - [ ] **Drupal production access**: (SOCKS or VA network required) - in DSVA #cms-support channel, use the Slack workflow to file a helpdesk support request. Ask the helpdesk to create a Drupal user for you in [prod.cms.va.gov](prod.cms.va.gov).
      * DevOps team members require an administrator account. (SOCKS or VA access with PIV card required)
      * Standard practice for other roles is to have minimal access in prod (content editor or even a blocked account) and full admin access in lower environments.
-  - [ ] [View Topic Dives](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/teams/sitewide/topic-dives) (short presentations on specific topics). Topics include site alerts, release and deploy, Facility API, etc.
+  - [ ] [View Topic Dives](https://va.ghe.com/software/va.gov-team/tree/master/teams/sitewide/topic-dives) (short presentations on specific topics). Topics include site alerts, release and deploy, Facility API, etc.
   - [ ] [Browse the VA Drupal CMS Knowledge Base articles](https://prod.cms.va.gov/help/).
   - [ ] What is Drupal? [Link list for Drupal context and community](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
   - [ ] If you have a Drupal.org account, add your Agency & VA. Drupal.org > Login > My Account > Edit profile > Work tab > Add your agency, and "Department of Veterans Affairs" & save. This will help our team track Drupal open source contributions.
 
 ##### Tugboat demo environments (Drupal)
 Tugboat is a development server platform where you can preview CMS code changes pre-production.
-  - [ ] [Tugboat for engineers](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/tugboat.md)
+  - [ ] [Tugboat for engineers](https://va.ghe.com/software/va.gov-cms/blob/main/READMES/tugboat.md)
   - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
 
 #### Other tools / access
@@ -208,7 +208,7 @@ By this point you should have enough context and access to be able to start cont
 - [ ] You'll receive an email confirming that you have been approved for remote access.
     - [ ] **Both**: You can contact Enterprise Service desk via provided instructions to set up your remote desktop access manually, if you need access prior to receiving your PIV card.
     - [ ] **If on Windows**: Windows users must use the Azure Virtual Desktop (AVD). [Instructions](https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdigital.va.gov%2Femployee-resources%2Fremote-access%2Fazure-virtual-desktop%2F&data=05%7C01%7C%7Cdec2e51d4f3b472b1dec08db921d522a%7Ce95f1b23abaf45ee821db7ab251ab3bf%7C0%7C0%7C638264426849334591%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=2yQ9gfPbUzsJSICXG1TvFY8LJhsVKE%2FGB12%2Bs%2FPNrlY%3D&reserved=0). You'll need network access to reach that link, which you should receive instructions in email for how to achieve.
-    - [ ] **If on Mac / Linux**: Mac users will also use Azure Virtual Desktop (AVD) _eventually._ As of Aug 2023, if you are a new hire on Mac, you are a guinea pig. Do your best with these instructions, ask your DM for help if they don't work, and ask your DM to update this [issuetemplate](https://github.com/department-of-veterans-affairs/va.gov-cms/edit/main/.github/ISSUE_TEMPLATE/cms-team-member-onboarding.md) with correct notes after it's all sorted out. Mac users have 2 options:
+    - [ ] **If on Mac / Linux**: Mac users will also use Azure Virtual Desktop (AVD) _eventually._ As of Aug 2023, if you are a new hire on Mac, you are a guinea pig. Do your best with these instructions, ask your DM for help if they don't work, and ask your DM to update this [issuetemplate](https://va.ghe.com/software/va.gov-cms/edit/main/.github/ISSUE_TEMPLATE/cms-team-member-onboarding.md) with correct notes after it's all sorted out. Mac users have 2 options:
         - [ ] 1. Azure web client: https://client.wvd.microsoft.com/arm/webclient/, IF you have a PIV card. There is an Azure desktop client but it won’t work on a mac because the mac application doesn’t support PIV authentication. . (Try using Firefox and make sure pop-ups are allowed, at least for the MS domain if not globally (they are not allowed by default). Enter your VA email address. Connect your PIV card reader to your computer, and insert the card in the reader. Select ‘Sign in using an X.509 certificate’.
         - [ ] 2. Citrix Access Gateway (CAG): use your Enterprise Service desk credentials or PIV card to log onto CAG and request an exemption [here](https://gcc02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fapps.gov.powerapps.us%2Fplay%2Fe%2Fdefault-e95f1b23-abaf-45ee-821d-b7ab251ab3bf%2Fa%2F5823591d-4113-4f49-ba75-ea95a5081b41%3FtenantId%3De95f1b23-abaf-45ee-821d-b7ab251ab3bf%26source%3Dportal&data=05%7C01%7C%7Cdec2e51d4f3b472b1dec08db921d522a%7Ce95f1b23abaf45ee821db7ab251ab3bf%7C0%7C0%7C638264426849490249%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=36fW8GZiUuh1AhaokCn47xqF41PolOoaT40f%2BfGsDBs%3D&reserved=0)
 - [ ] After your background check is complete, you will get an email to get your Personal Identify Verification (PIV) card. Contact your local VA office (where you got your fingerprints taken) for information about getting your [PIV card](https://www.oit.va.gov/programs/piv/how-to.cfm?).
@@ -234,27 +234,28 @@ Remove the sections that don't apply
 
  ### VA Platform documentation
  - [ ] [VA Platform documentation](https://depo-platform-documentation.scrollhelp.site/developer-docs/) - the VA Platform team centrally support all product development teams, including infrastructure and much developer tooling.
- - [ ] [VA Technical Architecture Overview](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/engineering/TechnicalArchitectureOverview.md) - describes technical architecture of va.gov (+ api.va.gov)
+ - [ ] [VA Technical Architecture Overview](https://va.ghe.com/software/va.gov-team-sensitive/blob/master/platform/engineering/TechnicalArchitectureOverview.md) - describes technical architecture of va.gov (+ api.va.gov)
 
 ### Dev environment configuration
 Each repository includes READMEs to help with setup.
-- [ ] CMS workflow: https://github.com/department-of-veterans-affairs/va.gov-cms#readme. (If you are developing for the front-end, you may not need to set up the CMS repo immediately. It's the home of much engineering documentation for our team, however, so is worth reviewing as a starting point.)
+- [ ] CMS workflow: https://va.ghe.com/software/va.gov-cms#readme. (If you are developing for the front-end, you may not need to set up the CMS repo immediately. It's the home of much engineering documentation for our team, however, so is worth reviewing as a starting point.)
 - [ ] Front-end workflow: https://depo-platform-documentation.scrollhelp.site/developer-docs/frontend-workflow
 - [ ] [Front-end steps to run & build VA.gov locally](https://depo-platform-documentation.scrollhelp.site/developer-docs/run-and-build-va-gov-locally)
 
 ### Repositories
-* CMS: https://github.com/department-of-veterans-affairs/va.gov-cms - Drupal
-* content-build: https://github.com/department-of-veterans-affairs/vagov-content - Node.js, Metalsmith. Templating layer, "the back-end of the front-end"
+* CMS: https://va.ghe.com/software/va.gov-cms - Drupal
+* content-build: https://va.ghe.com/software/vagov-content - Node.js, Metalsmith. Templating layer, "the back-end of the front-end"
 * vets-website: https://va.ghe.com/software/vets-website - Node.js / React apps. "The front-end of the front-end."
-* vets-api: https://github.com/department-of-veterans-affairs/vets-api - Ruby
-* devops: https://github.com/department-of-veterans-affairs/devops - Primarily owned by Platform team, we contribute regex for redirects.
+* vets-api: https://va.ghe.com/software/vets-api - Ruby
+* devops: https://va.ghe.com/software/devops - Primarily owned by Platform team, we contribute regex for redirects.
 
 ### Build systems / Environments
 - [ ] Deployments: https://depo-platform-documentation.scrollhelp.site/developer-docs/deployments
   - [ ] [CMS & Front-end Repos & Build jobs - cheatsheet](https://docs.google.com/spreadsheets/d/164H07n4FChg-JxJZu964nfg2wAX0kPD0SjTfZMhzj_I/edit#gid=0) - unofficial documentation to help navigate build system timings / channels for notifications
+  <!-- @TODO-GH-MIGRATION check where this page lands after migration -->
 - [ ] [Front-end deployment dashboard](https://department-of-veterans-affairs.github.io/veteran-facing-services-tools/frontend-support-dashboard/) - **bookmark this** - displays the deployment status of commits in `content-build` and `vets-website`, through Dev > Staging > Prod
-- [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md) - explains the CMS > content build process and data source / snapshot timing for all lower environments
-  - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
+- [ ] [Learn about the different Drupal environments](https://va.ghe.com/software/va.gov-cms/blob/main/READMES/environments.md) - explains the CMS > content build process and data source / snapshot timing for all lower environments
+  - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://va.ghe.com/software/va.gov-cms/blob/main/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
 
 ### Design system
  - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback]([https://design.va.gov/about/feedback](https://design.va.gov/about/feedback))
@@ -262,11 +263,11 @@ Each repository includes READMEs to help with setup.
 
 ### Tools & Resources
 - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
-  - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
+  - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://va.ghe.com/software/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
   - [ ] Test User Dashboard: https://tud.vfs.va.gov/ and [Test User Dashboard docs](https://depo-platform-documentation.scrollhelp.site/developer-docs/test-user-dashboard-guide). In lower environments, we are encouraged not to use our actual login credentials to test authed work. The TUD provides a set of test users you can use to login to various environments for testing.
   - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/developer-docs/get-access-to-datadog) to access monitoring metrics (write licenses are limited, so only read-only might be available)
 - [ ] [GraphQL Explorer](https://staging.cms.va.gov/graphql/explorer) - GraphQL acts as the Drupal content API, for building queries that can be used in FE templates. The Explorer (on Staging) will allow you to test those queries.
-- [ ] Browse the [Topic Dives videos](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/teams/sitewide/topic-dives) - includes CMS content, and some non-CMS topics for Sitewide teams as well
+- [ ] Browse the [Topic Dives videos](https://va.ghe.com/software/va.gov-team/tree/master/teams/sitewide/topic-dives) - includes CMS content, and some non-CMS topics for Sitewide teams as well
 
 </details>
 
@@ -275,26 +276,26 @@ Each repository includes READMEs to help with setup.
 
 ## Onboarding for DevOps members
 - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
-- [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
+- [ ] [IAM/SSO lower environment access](https://va.ghe.com/software/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
 - [ ] [Jenkins](http://jenkins.vfs.va.gov/) (SOCKS required)
 - [ ] [Grafana](http://grafana.vfs.va.gov/login) (SOCKS required)
 - [ ] [Sentry](http://sentry.vfs.va.gov.) (SOCKS required)
 - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
   - [ ] And request to be added to the `adhoc-vetsgov-devops` group.
 - [ ] sshuttle
-- [ ] [Venafi access](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14350)
-- [ ] [SSH access to CMS servers](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14357)
-- [ ] [Okta access for Datadog](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14396)
-- [ ] [Secure Access to GitHub Bot Account](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14345)
-- [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14346) (SOCKS or VA access required)
-- [ ] [PagerDuty access](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14393)
+- [ ] [Venafi access](https://va.ghe.com/software/va.gov-cms/issues/14350)
+- [ ] [SSH access to CMS servers](https://va.ghe.com/software/va.gov-cms/issues/14357)
+- [ ] [Okta access for Datadog](https://va.ghe.com/software/va.gov-cms/issues/14396)
+- [ ] [Secure Access to GitHub Bot Account](https://va.ghe.com/software/va.gov-cms/issues/14345)
+- [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://va.ghe.com/software/va.gov-cms/issues/14346) (SOCKS or VA access required)
+- [ ] [PagerDuty access](https://va.ghe.com/software/va.gov-cms/issues/14393)
 - [ ] Browse the [CMS topic dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
 </details>
 
 <details><summary>Onboarding for User Support members</summary>
 
 ## Onboarding for User Support members
- - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
+ - [ ] [Review the helpdesk Github repo](https://va.ghe.com/software/va.gov-team/tree/master/platform/cms/helpdesk).
  - [ ] [Review the helpdesk Google Drive](https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
  - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP) - request access from your DM
  - [ ] Ask your DM for access to [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx) - must access on VA network (requires PIV card + CAG access)
@@ -311,8 +312,8 @@ Each repository includes READMEs to help with setup.
 
 <details><summary>Onboarding for Product Managers</summary>
 
- - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
- - [ ] [VA doc: Expectations for how VA internal Product Lead / Product Owners work with contractor PMs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/octo/product/Product%20Expectations.md)
+ - [ ] Review [onboarding docs](https://va.ghe.com/software/va.gov-team/blob/master/platform/cms/onboarding/PM/)
+ - [ ] [VA doc: Expectations for how VA internal Product Lead / Product Owners work with contractor PMs](https://va.ghe.com/software/va.gov-team/blob/master/octo/product/Product%20Expectations.md)
  - [ ] [Request access to Google Analytics and Domo](https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/New-Users-to-Google-Analytics.1877704964.html)
 
 **VA Platform Collab Cycle**
@@ -321,10 +322,11 @@ Each repository includes READMEs to help with setup.
 
 **CMS Collab Cycle**
 - [ ] [CMS Collab Cycle documentation](LINK TBD on CMS provision of Plat Confluence access or migration of docs to DEPO website)
-- [ ] [CMS Collab Cycle kanban board](https://github.com/department-of-veterans-affairs/va.gov-cms#workspaces/cms-collaboration-cycle-reviews-62f50368ef32b60022d76d64/board?repos=154174777)
+- [ ] [CMS Collab Cycle kanban board](https://va.ghe.com/software/va.gov-cms#workspaces/cms-collaboration-cycle-reviews-62f50368ef32b60022d76d64/board?repos=154174777)
 
 **Tracking features**
 - [ ] [CMS & Front-end Repos & Build jobs - cheatsheet](https://docs.google.com/spreadsheets/d/164H07n4FChg-JxJZu964nfg2wAX0kPD0SjTfZMhzj_I/edit#gid=0) - unofficial documentation to help navigate understanding our build systems & channels for notifications
+<!-- @TODO-GH-MIGRATION check where this page lands after migration -->
 - [ ] [Front-end deployment dashboard](https://department-of-veterans-affairs.github.io/veteran-facing-services-tools/frontend-support-dashboard/) - **bookmark this** - displays the status of fixes/enhancements as they deploy through Dev > Staging > Prod (for both content-build and vets-website)
 
 </details>
@@ -369,7 +371,7 @@ Your discipline lead will assist with onboarding tasks / calls.
 
 - [ ] Review https://depo-platform-documentation.scrollhelp.site/research-design/
    - [ ] [Sign up for the next research and design orientation session](https://calendly.com/collaboration-cycle/design-orientation-for-va-gov-platform)
-   - [ ] After orientation, you should be added to the [va.gov-research-repository](https://github.com/department-of-veterans-affairs/va.gov-research-repository). Verify your access.
+   - [ ] After orientation, you should be added to the [va.gov-research-repository](https://va.ghe.com/software/va.gov-research-repository). Verify your access.
 - [ ] Join #research-ops channel in DSVA slack
 - [ ] Join DSVA #design slack channel and request that your agency and VA email addresses be added to the invite for the weekly Monday VA Design/UX Sync meeting (@mention Cailin O'Connor)
 

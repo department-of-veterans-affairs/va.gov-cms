@@ -71,7 +71,7 @@ class FormEventSubscriber implements EventSubscriberInterface {
    *   TMGMT job objects. We need the job object to construct the actual message
    *   of the text.
    *
-   *   See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/13780.
+   *   See https://va.ghe.com/software/va.gov-cms/issues/13780.
    */
   public function formAlter(FormAlterEvent $event) {
     if ($event->getFormId() === 'tmgmt_job_edit_form') {

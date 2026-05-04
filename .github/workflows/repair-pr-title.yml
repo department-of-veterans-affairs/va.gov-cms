@@ -16,7 +16,7 @@ jobs:
 
       - name: Repair PR title
         run: |
-          PR_API_URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
+          PR_API_URL="https://api.va.ghe.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
 
           # Retrieve the PR object.
           PR="$(curl \

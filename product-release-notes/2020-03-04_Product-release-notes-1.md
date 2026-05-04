@@ -15,7 +15,7 @@
 
 ## 🔗 New: Content automatically tested to find broken links
 
-![link reports](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/product-release-notes/screenshots/1-node-link-reports-2.png)
+![link reports](https://va.ghe.com/software/va.gov-cms/blob/main/product-release-notes/screenshots/1-node-link-reports-2.png)
 
 Broken links break builds, bringing big bummers! To avoid link-related problems, we’ve added a feature that will automatically test links and let you know what needs to be fixed.
 
@@ -28,12 +28,12 @@ Broken links break builds, bringing big bummers! To avoid link-related problems,
 
 ## 🔄 New: Form for rebuilding content demo environments
 
-![content demo environment](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/product-release-notes/screenshots/1-rebuild-form.png "content demo environment")
+![content demo environment](https://va.ghe.com/software/va.gov-cms/blob/main/product-release-notes/screenshots/1-rebuild-form.png "content demo environment")
 
 We extended our testing infrastructure to be useful for other teams who want to demo their unpublished content. Teams can now use a self-service form to rebuild their own content demo environments. 
 
 * Training required: contact VACMSSupport@va.gov to get training before using this form
-* Check out [the latest documentation](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md#step-by-step-instructions-1) for step by step guidance
+* Check out [the latest documentation](https://va.ghe.com/software/va.gov-cms/blob/main/READMES/environments.md#step-by-step-instructions-1) for step by step guidance
 
 ---
 
@@ -48,7 +48,7 @@ We fixed a problem that was preventing content editors from successfully cloning
 
 ## 🧚🏽 Improved: Streamlined editorial workflow options
 
-![screenshot: editorial workflow options](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-editorial-workflow-options.png)
+![screenshot: editorial workflow options](https://va.ghe.com/software/va.gov-cms/blob/master/product-release-notes/screenshots/1-editorial-workflow-options.png)
 We removed an outdated state from the editorial workflow called “staged.”
 
 * Content can be saved as content as “draft,” “in review,” or “published.” That’s it.
@@ -57,7 +57,7 @@ We removed an outdated state from the editorial workflow called “staged.”
 
 ## 🥢 Improved: Edit menu item titles at will
 
-![screenshot: menu item titles](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-menu-item-titles.jpg)
+![screenshot: menu item titles](https://va.ghe.com/software/va.gov-cms/blob/master/product-release-notes/screenshots/1-menu-item-titles.jpg)
 
 Previously the CMS wouldn’t allow you to change the menu link title in new drafts of already published content. Now you can edit and save those menu items during any stage of the editing workflow. 
 

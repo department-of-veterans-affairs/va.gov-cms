@@ -77,7 +77,7 @@ services:
       # https://stitcher.io/blog/php-8-jit-setup
       - echo "opcache.enable_cli = 1" >> /usr/local/etc/php/conf.d/php-cli.ini
       - echo "opcache.enable = 1" >> /usr/local/etc/php/conf.d/my-php.ini
-      # Disable JIT for now due to https://github.com/department-of-veterans-affairs/va.gov-cms/issues/11315
+      # Disable JIT for now due to https://va.ghe.com/software/va.gov-cms/issues/11315
       - echo "opcache.jit = disable" >> /usr/local/etc/php/conf.d/my-php.ini
       - echo "opcache.jit_buffer_size = 256M" >> /usr/local/etc/php/conf.d/my-php.ini
       # Explicitly set opcache.validate_timestamps for documentation in code. PHP default is 1. PROD is 0.

@@ -20,7 +20,7 @@ In our cases, we took two different approaches:
 
 - I (Eric Oliver) run MS Windows on my workstation. This presented an opportunity to run [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) and install [MicroK8s](https://microk8s.io/), a light-weight simple Kubernetes (k8s) distribution. Using WSL and MicroK8s appeared to be the quickest path to get K8s up and running with minimal configuration and deployment steps.  The end goal was to quickly bring up a K8s environment and quickly install [ArgoCD](https://argoproj.github.io/cd) to locally replicate VSP-Operations team's Production environment.  This would provide a safe space to explore and break K8s and ArgoCD, as well as explore deployment patterns and creating K8s hosted applications.  In the end this worked up until pods needed to communicate with each other. Unfortunately, I haven't found out why all other network communication works except for inter-pod communication. I'm not sure if it's a combination for WSL and MIcroK8s causing this issue but I would like to explore other options for locally running K8s.
 
-We documented our experiences with getting a cluster running [in this GitHub issue](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6355).
+We documented our experiences with getting a cluster running [in this GitHub issue](https://va.ghe.com/software/va.gov-cms/issues/6355).
 
 The factors in your decision-making may (and likely will) differ from ours and lead to different choices and different avenues of investigation.  This is a good thing.  Kubernetes is large and complex, built on many different technologies at different levels, and developing rapidly.  However, its sheer breadth should provide toeholds while you learn.
 

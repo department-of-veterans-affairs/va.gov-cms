@@ -2,7 +2,7 @@
 
 This module orchestrates the [messages stack](https://www.drupal.org/node/2180145) for email and Slack notifications.
 
-- [6102 Details and design intent](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/product-outlines/VA-Directive-6102-Notifications.md)
+- [6102 Details and design intent](https://va.ghe.com/software/va.gov-team/blob/master/platform/cms/product-outlines/VA-Directive-6102-Notifications.md)
 - [How to send and see email?](#how-to-send-and-see-email)
 - [How to add a new monthly outdated content email?](#how-to-add-a-new-monthly-outdated-content-email)
 - [The queues](https://prod.cms.va.gov/admin/config/system/queues)
@@ -19,7 +19,7 @@ This module orchestrates the [messages stack](https://www.drupal.org/node/218014
 
 ## VAMC facility editor email
 
-An email is sent once per month triggered by a Jenkins (cron-like) ["every_month" tasks-periodic](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/tasks-periodic.yml#L92).
+An email is sent once per month triggered by a Jenkins (cron-like) ["every_month" tasks-periodic](https://va.ghe.com/software/va.gov-cms/blob/main/tasks-periodic.yml#L92).
 
 ### Testing
 This can be tested locally and on tugboat by running
@@ -29,7 +29,7 @@ It is recommended when testing that you use at least 2 users, one who is assigne
 Calling it without the optional array of user ids will send it to all editors thate belong to that product who have outdated content.
 ## Vet Center facility editor email
 
-An email is sent once per month triggered by a Jenkins job (cron-like) running ["every_month" in tasks-periodic](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/tasks-periodic.yml#L92).
+An email is sent once per month triggered by a Jenkins job (cron-like) running ["every_month" in tasks-periodic](https://va.ghe.com/software/va.gov-cms/blob/main/tasks-periodic.yml#L92).
 
 ### Testing
 This can be tested locally and on tugboat by running
@@ -55,7 +55,7 @@ Once email notifications have been queued, The queue can be processed. To proces
 9. Add template name to '$types' in va_gov_notifications_mail_alter() in the .module file.
 10. Edit the section taxonomy term that represents the product you are adding, Make sure it has the right product assigned to it.
 11. Test with `drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('<product name>', '<template_name>', [<test user ids>]));"`
-12. Add entry to 'every_month' task in [tasks-periodic.yml](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/tasks-periodic.yml#L92).
+12. Add entry to 'every_month' task in [tasks-periodic.yml](https://va.ghe.com/software/va.gov-cms/blob/main/tasks-periodic.yml#L92).
 
 ## Cautions and Notes
 - On prod, mail can only be sent to va.gov email addresses.
