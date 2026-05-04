@@ -76,50 +76,30 @@ jobs:
             } | sort -V -r | head -n1
           }
 
-          EVENT='${{ github.event_name }}'
           INPUT_TAG='${{ github.event.inputs.tag || inputs.tag }}'
-          if [ "$EVENT" = "workflow_dispatch" ] || [ "$EVENT" = "workflow_call" ]; then
-            if [ -n "$INPUT_TAG" ]; then
-              SEMVER_TAG=$(normalize_input "$INPUT_TAG")
-              if [[ "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
-                TAG_REF=$(resolve_tag_ref "$SEMVER_TAG")
-                if [ -n "$TAG_REF" ]; then
-                  echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
-                  echo "TAG_REF=$TAG_REF" >> $GITHUB_OUTPUT
-                  echo "is_valid=true" >> $GITHUB_OUTPUT
-                  exit 0
-                else
-                  echo "::error title=Invalid Tag::Provided tag ${TAG_PREFIX}$SEMVER_TAG does not exist in repository." >&2
-                  echo "is_valid=false" >> $GITHUB_OUTPUT
-                  exit 1
-                fi
+          RAW_TAG="$GITHUB_REF_NAME"
+
+          # Priority order: explicit input, pushed tag ref, then latest semver.
+          if [ -n "$INPUT_TAG" ]; then
+            SEMVER_TAG=$(normalize_input "$INPUT_TAG")
+            if [[ "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
+              TAG_REF=$(resolve_tag_ref "$SEMVER_TAG")
+              if [ -n "$TAG_REF" ]; then
+                echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
+                echo "TAG_REF=$TAG_REF" >> $GITHUB_OUTPUT
+                echo "is_valid=true" >> $GITHUB_OUTPUT
+                exit 0
               else
-                echo "::error title=Invalid Semver::Provided tag $INPUT_TAG is not strict semver vX.Y.Z (prefix ${TAG_PREFIX} optional)." >&2
+                echo "::error title=Invalid Tag::Provided tag ${TAG_PREFIX}$SEMVER_TAG does not exist in repository." >&2
                 echo "is_valid=false" >> $GITHUB_OUTPUT
                 exit 1
               fi
             else
-              LATEST_TAG=$(find_latest_tag)
-              if [ -z "$LATEST_TAG" ]; then
-                echo "::error title=No Tags Found::No semver tags (${TAG_PREFIX}vX.Y.Z or vX.Y.Z) found in repository." >&2
-                echo "is_valid=false" >> $GITHUB_OUTPUT
-                exit 1
-              fi
-              SEMVER_TAG="$LATEST_TAG"
-              if [[ ! "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
-                echo "::error title=Invalid Tag Format::Latest tag $LATEST_TAG does not match expected semver pattern." >&2
-                echo "is_valid=false" >> $GITHUB_OUTPUT
-                exit 1
-              fi
-              echo "Using latest semver tag: $SEMVER_TAG (repo tag $LATEST_TAG)"
-              TAG_REF=$(resolve_tag_ref "$SEMVER_TAG")
-              echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
-              echo "TAG_REF=${TAG_REF:-$SEMVER_TAG}" >> $GITHUB_OUTPUT
-              echo "is_valid=true" >> $GITHUB_OUTPUT
-              exit 0
+              echo "::error title=Invalid Semver::Provided tag $INPUT_TAG is not strict semver vX.Y.Z (prefix ${TAG_PREFIX} optional)." >&2
+              echo "is_valid=false" >> $GITHUB_OUTPUT
+              exit 1
             fi
-          else
-            RAW_TAG="$GITHUB_REF_NAME"
+          elif [ "$GITHUB_REF_TYPE" = "tag" ]; then
             SEMVER_TAG=$(normalize_input "$RAW_TAG")
             if [[ "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
               echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
@@ -129,6 +109,25 @@ jobs:
               echo "::error title=Invalid Pushed Tag::Pushed tag $RAW_TAG failed semver validation after removing prefix." >&2
               echo "is_valid=false" >> $GITHUB_OUTPUT
             fi
+          else
+            LATEST_TAG=$(find_latest_tag)
+            if [ -z "$LATEST_TAG" ]; then
+              echo "::error title=No Tags Found::No semver tags (${TAG_PREFIX}vX.Y.Z or vX.Y.Z) found in repository." >&2
+              echo "is_valid=false" >> $GITHUB_OUTPUT
+              exit 1
+            fi
+            SEMVER_TAG="$LATEST_TAG"
+            if [[ ! "$SEMVER_TAG" =~ $SEMVER_REGEX ]]; then
+              echo "::error title=Invalid Tag Format::Latest tag $LATEST_TAG does not match expected semver pattern." >&2
+              echo "is_valid=false" >> $GITHUB_OUTPUT
+              exit 1
+            fi
+            echo "Using latest semver tag: $SEMVER_TAG (repo tag $LATEST_TAG)"
+            TAG_REF=$(resolve_tag_ref "$SEMVER_TAG")
+            echo "IMAGE_TAG=$SEMVER_TAG" >> $GITHUB_OUTPUT
+            echo "TAG_REF=${TAG_REF:-$SEMVER_TAG}" >> $GITHUB_OUTPUT
+            echo "is_valid=true" >> $GITHUB_OUTPUT
+            exit 0
           fi
       - name: Abort on invalid tag
         if: steps.select_tag.outputs.is_valid != 'true'
