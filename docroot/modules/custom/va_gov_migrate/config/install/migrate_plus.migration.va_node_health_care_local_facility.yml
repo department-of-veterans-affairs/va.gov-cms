@@ -24,7 +24,7 @@ source:
   data_parser_plugin: json
   urls:
     # This gets overridden in settings.php.
-    - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000',
+    - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000'
     - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=2'
     - 'https://sandbox-api.va.gov/services/va_facilities/v1/facilities?per_page=1000&page=3'
   headers:
@@ -192,6 +192,9 @@ process:
   field_mobile:
     plugin: convert_boolean
     source: mobile
+  field_use_default_mental_health:
+    plugin: default_value
+    default_value: false
   # Bring these in as unpublished.
   status:
     plugin: default_value

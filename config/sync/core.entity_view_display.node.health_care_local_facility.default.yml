@@ -26,6 +26,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_supplemental_status_more_i
     - field.field.node.health_care_local_facility.field_telephone
     - field.field.node.health_care_local_facility.field_timezone
+    - field.field.node.health_care_local_facility.field_use_default_mental_health
     - image.style.crop_3_2
     - node.type.health_care_local_facility
   module:
@@ -283,6 +284,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 22
+    region: content
+  field_use_default_mental_health:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 28
     region: content
   flag_email_node:
     settings: {  }
