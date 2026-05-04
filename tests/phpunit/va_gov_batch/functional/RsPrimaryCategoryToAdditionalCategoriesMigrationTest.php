@@ -39,6 +39,8 @@ class RsPrimaryCategoryToAdditionalCategoriesMigrationTest extends VaGovExisting
    * {@inheritdoc}
    */
   public function setUp(): void {
+    $this->markTestSkipped('Skipping RsPrimaryCategoryToAdditionalCategoriesMigrationTest. ExistingSiteBase is not supported tests are exhausting memory/resources and this one is not critical enough to run as it is a single use script.');
+
     parent::setUp();
     $vocab = Vocabulary::load('lc_categories');
     if (!$vocab) {
