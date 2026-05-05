@@ -5,9 +5,9 @@ Given(
   (text, selector) => {
     cy.get(`${selector} option:not([class*="hidden-option"])`).should(
       "contain.text",
-      text
+      text,
     );
-  }
+  },
 );
 
 Given(
@@ -15,7 +15,7 @@ Given(
   (text, selector) => {
     cy.get(`${selector} option:not([class*="hidden-option"])`).should(
       "not.contain.text",
-      text
+      text,
     );
-  }
+  },
 );

@@ -12,5 +12,5 @@ Then(
       cy.log(`Tracking user with user ID: ${userId}`);
       cy.trackEntity("users", userId, {});
     });
-  }
+  },
 );

@@ -5,14 +5,16 @@
 (function vaGovMediaIIFE(Drupal) {
   // Calls gtag for media events.
   function sendMediaEvent(eventAction, eventLabel) {
-    if (typeof gtag !== "function") return;
+    if (typeof gtag !== "function") {
+      return;
+    }
     try {
       gtag("event", "image_upload", {
         event_category: "Media",
         event_label: eventLabel,
         event_action: eventAction,
       });
-    } catch (err) {
+    } catch {
       // Swallow any gtag runtime errors to avoid breaking admin UI.
     }
   }
@@ -53,7 +55,9 @@
           "input[data-drupal-selector$='field-media-open-button']";
         const button =
           e.target && e.target.closest && e.target.closest(addMediaSelector);
-        if (!button || !isActivationEvent(e)) return;
+        if (!button || !isActivationEvent(e)) {
+          return;
+        }
         trackAddMediaClick();
       }
 
@@ -80,13 +84,15 @@
             try {
               const field =
                 e.target && e.target.closest && e.target.closest(altSelector);
-              if (!field) return;
+              if (!field) {
+                return;
+              }
               preFocusValue.set(field, field.value);
-            } catch (err) {
+            } catch {
               // ignore
             }
           },
-          true
+          true,
         );
 
         document.addEventListener(
@@ -95,18 +101,20 @@
             try {
               const field =
                 e.target && e.target.closest && e.target.closest(altSelector);
-              if (!field) return;
+              if (!field) {
+                return;
+              }
               const before = preFocusValue.get(field);
               // If the value changed since focus, track the alt-field change.
               if (field.value !== before) {
                 trackAltFieldChanged();
               }
               preFocusValue.delete(field);
-            } catch (err) {
+            } catch {
               // ignore
             }
           },
-          true
+          true,
         );
       }
 
@@ -118,7 +126,9 @@
           e.target &&
           e.target.closest &&
           e.target.closest(aiAltTextRegenerateSelector);
-        if (!button || !isActivationEvent(e)) return;
+        if (!button || !isActivationEvent(e)) {
+          return;
+        }
         trackAiAltGenerationClick();
       }
 
@@ -128,17 +138,17 @@
         document.addEventListener(
           "mousedown",
           delegatedAltTextRegenerateHandler,
-          true
+          true,
         );
         document.addEventListener(
           "touchstart",
           delegatedAltTextRegenerateHandler,
-          true
+          true,
         );
         document.addEventListener(
           "keydown",
           delegatedAltTextRegenerateHandler,
-          true
+          true,
         );
       }
 
@@ -148,7 +158,9 @@
           "button.js-form-submit.form-submit:not(.ai-alt-text-generation):not([data-drupal-selector*='ai-alt-text-generation'])";
         const button =
           e.target && e.target.closest && e.target.closest(submitSelector);
-        if (!button) return;
+        if (!button) {
+          return;
+        }
         trackSubmitClick();
       }
 

@@ -7,10 +7,10 @@
     attach() {
       const jumpLinkCorrect = () => {
         const jumpLink = document.querySelector(
-          ".region-highlighted .messages--error ul.item-list__comma-list li a"
+          ".region-highlighted .messages--error ul.item-list__comma-list li a",
         )
           ? document.querySelector(
-              ".region-highlighted .messages--error ul.item-list__comma-list li a"
+              ".region-highlighted .messages--error ul.item-list__comma-list li a",
             )
           : null;
         if (jumpLink && jumpLink.innerText === "Paths") {

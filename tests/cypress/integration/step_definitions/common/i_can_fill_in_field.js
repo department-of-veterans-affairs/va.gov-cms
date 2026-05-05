@@ -15,7 +15,7 @@ Then(
     cy.get(selector).clear({ force: true });
     cy.get(selector).type(value, { force: true });
     cy.get(selector).blur();
-  }
+  },
 );
 
 Then(
@@ -24,7 +24,7 @@ Then(
     cy.get(selector).focus();
     cy.get(selector).clear({ force: true });
     cy.get(selector).type(value, { force: true });
-  }
+  },
 );
 
 Then("I can fill in {string} field with fake text", (label) => {
@@ -36,7 +36,7 @@ Then(
   (selector) => {
     cy.get(selector).focus();
     cy.get(selector).type(faker.lorem.sentence(), { force: true });
-  }
+  },
 );
 
 Then("I can fill in {string} field with fake link", (label) => {

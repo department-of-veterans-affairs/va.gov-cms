@@ -7,7 +7,7 @@ Then(
     cy.get("@mediaImageUrl").then((url) => {
       const derivativeUrl = url.replace(
         "/files/",
-        `/files/styles/${derivative}/public/`
+        `/files/styles/${derivative}/public/`,
       );
       cy.wrap(derivativeUrl).as("mediaImageDerivativeUrl");
       cy.request({ url: derivativeUrl, encoding: "base64" }).then(
@@ -24,8 +24,8 @@ Then(
               cy.wrap(differences).should("be.lessThan", threshold);
             });
           });
-        }
+        },
       );
     });
-  }
+  },
 );

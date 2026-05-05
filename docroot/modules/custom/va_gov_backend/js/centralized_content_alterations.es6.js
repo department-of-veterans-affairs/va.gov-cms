@@ -10,7 +10,7 @@
     if (
       drupalSettings.gtm_data.contentType === "centralized_content" &&
       !adminRoles.some((item) =>
-        drupalSettings.gtm_data.userRoles.includes(item)
+        drupalSettings.gtm_data.userRoles.includes(item),
       )
     ) {
       // Make sure weights aren't toggled on.
@@ -18,15 +18,15 @@
 
       // Grab our National descriptor paragraphs.
       const ccParagraphs = dom.querySelectorAll(
-        "div.cc-special-treatment-paragraph.centralized_content_descriptor"
+        "div.cc-special-treatment-paragraph.centralized_content_descriptor",
       );
       // Grab our National wysiwyg paragraphs.
       const wysiParagraphs = dom.querySelectorAll(
-        ".draggable.paragraph-type--wysiwyg"
+        ".draggable.paragraph-type--wysiwyg",
       );
       // Grab our National wysiwyg textareas.
       const wysiParagraphsText = dom.querySelectorAll(
-        "div.field--name-field-wysiwyg"
+        "div.field--name-field-wysiwyg",
       );
 
       // Pull out the toggle drag handles on the descriptor paragraphs.
@@ -35,7 +35,7 @@
           item.parentElement.classList.add("cc-paragraph-header");
           if (item.parentElement.previousElementSibling) {
             item.parentElement.previousElementSibling.classList.add(
-              "cc-paragraph-toggle-remove"
+              "cc-paragraph-toggle-remove",
             );
           }
         }
@@ -47,7 +47,7 @@
           item &&
           item.previousElementSibling &&
           item.previousElementSibling.classList.contains(
-            "paragraph-type--centralized-content-descriptor"
+            "paragraph-type--centralized-content-descriptor",
           )
         ) {
           item.classList.add("cc-national-wysi-padding");
@@ -62,7 +62,7 @@
             .previousElementSibling
         ) {
           item.parentElement.parentElement.parentElement.parentElement.previousElementSibling.classList.add(
-            "cc-paragraph-toggle-remove"
+            "cc-paragraph-toggle-remove",
           );
         }
       });

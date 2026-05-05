@@ -8,5 +8,5 @@ Given(
   `I click the link with xpath {string} containing {string}`,
   (xpath, text) => {
     cy.xpath(xpath).contains(text).click({ force: true });
-  }
+  },
 );

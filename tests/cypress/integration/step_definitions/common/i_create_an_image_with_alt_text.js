@@ -37,10 +37,10 @@ When(
       faker.helpers.repeatString("a", charCount),
       {
         force: true,
-      }
+      },
     );
     focusOnNameField();
-  }
+  },
 );
 
 When("I update alt-text content to display {string}", (altTextContent) => {
@@ -54,6 +54,6 @@ Then("I should see no error message", () => {
   cy.get("div.form-item--error-message > strong").should(
     "have.attr",
     "style",
-    "display: none;"
+    "display: none;",
   );
 });

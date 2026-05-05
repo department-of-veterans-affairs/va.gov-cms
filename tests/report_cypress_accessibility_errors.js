@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
-const fs = require("fs");
-const { Octokit } = require("@octokit/rest");
-const { exit } = require("process");
+import fs from "fs";
+import { Octokit } from "@octokit/rest";
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -35,7 +34,7 @@ const token = "<!-- Cypress Accessibility Errors -->";
 //
 // eslint-disable-next-line camelcase
 if (owner === undefined || repo === undefined || issue_number === undefined) {
-  exit(0);
+  process.exit(0);
 }
 
 /**
@@ -159,13 +158,13 @@ const reportCypressErrors = async (violations) => {
  * unanticipated issues with the other CI tests that might be running at the
  * same time.
  */
-const reportAllAccessibilityViolations = () => {
+const reportAllAccessibilityViolations = async () => {
   try {
     const json = fs.readFileSync(
       "cypress_accessibility_violations.json",
       "utf8"
     );
-    reportCypressErrors(JSON.parse(json));
+    await reportCypressErrors(JSON.parse(json));
   } catch (error) {
     console.error(error);
   }

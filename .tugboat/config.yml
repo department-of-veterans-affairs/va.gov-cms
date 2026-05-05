@@ -159,8 +159,7 @@ services:
       # Install/update packages managed by composer, including drush.
       # Composer options are in composer.json, 'config' key.
       - composer install
-      - bash -lc 'nvm install'
-      - bash -lc 'npm install'
+      - bash ./scripts/tugboat-node-setup.sh
       - bash -lc 'composer va:theme:compile'
       - bash -lc 'composer va:web:install'
 
@@ -191,8 +190,7 @@ services:
       - j2 "${TUGBOAT_ROOT}/.next/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/403-error-document.html"
       - j2 "${TUGBOAT_ROOT}/.next/503-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/503-error-document.html"
       - composer install
-      - bash -lc 'nvm install'
-      - bash -lc 'npm install'
+      - bash -lc 'nvm install && nvm use && node -v && npm install'
       - bash -lc 'composer va:theme:compile'
       - bash -lc 'composer va:web:install'
       - bash -lc 'composer va:next:install'

@@ -4,100 +4,100 @@
 
 ((Drupal, once) => {
   const registrationRequiredBool = document.getElementById(
-    "edit-field-event-registrationrequired-value"
+    "edit-field-event-registrationrequired-value",
   );
   const includeRegistrationsBool = document.getElementById(
-    "edit-field-include-registration-info-value"
+    "edit-field-include-registration-info-value",
   );
   const fieldAdditionalRegistrationInfo = document.getElementById(
-    "edit-field-additional-information-abo-0-value"
+    "edit-field-additional-information-abo-0-value",
   );
   const ctaSelect = document.getElementById("edit-field-event-cta");
   const fieldLinkWrapper = document.getElementById("edit-field-link-wrapper");
   const fieldLinkInput = document.getElementById("edit-field-link-0-uri");
   const fieldLinkWrapperLabel = document.querySelector(
-    "#edit-field-link-wrapper label"
+    "#edit-field-link-wrapper label",
   );
   const fieldCtaEmailInput = document.getElementById(
-    "edit-field-cta-email-0-value"
+    "edit-field-cta-email-0-value",
   );
   const fieldCtaEmailWrapper = document.getElementById(
-    "edit-field-cta-email-wrapper"
+    "edit-field-cta-email-wrapper",
   );
   const fieldCtaEmailWrapperLabel = document.querySelector(
-    "#edit-field-cta-email-wrapper label"
+    "#edit-field-cta-email-wrapper label",
   );
   const fieldCtaHowToSignUp = document.getElementById(
-    "edit-field-how-to-sign-up"
+    "edit-field-how-to-sign-up",
   );
   const fieldCtaHowToSignUpWrapper = document.getElementById(
-    "edit-field-how-to-sign-up-wrapper"
+    "edit-field-how-to-sign-up-wrapper",
   );
   const fieldCtaHowToSignUpLabel = document.querySelector(
-    "#edit-field-how-to-sign-up-wrapper label"
+    "#edit-field-how-to-sign-up-wrapper label",
   );
   const fieldLocationTypeFacility = document.getElementById(
-    "edit-field-location-type-facility"
+    "edit-field-location-type-facility",
   );
   const fieldLocationTypeNonFacility = document.getElementById(
-    "edit-field-location-type-non-facility"
+    "edit-field-location-type-non-facility",
   );
   const includeLocationItemsRadios = document.getElementById(
-    "edit-field-location-type"
+    "edit-field-location-type",
   );
   const fieldLocationHumanreadable = document.getElementById(
-    "edit-field-location-humanreadable-0-value"
+    "edit-field-location-humanreadable-0-value",
   );
   const fieldLocationHumanreadableWrapper = document.getElementById(
-    "edit-field-location-humanreadable-wrapper"
+    "edit-field-location-humanreadable-wrapper",
   );
   const targetLocationElements = document.querySelectorAll(
-    "#edit-field-facility-location-wrapper, #edit-field-url-of-an-online-event-wrapper, #edit-field-location-humanreadable-wrapper, #edit-field-address-wrapper"
+    "#edit-field-facility-location-wrapper, #edit-field-url-of-an-online-event-wrapper, #edit-field-location-humanreadable-wrapper, #edit-field-address-wrapper",
   );
   const fieldFacilityLocationWrapper = document.getElementById(
-    "edit-field-facility-location-wrapper"
+    "edit-field-facility-location-wrapper",
   );
   const fieldFacilityLocation = document.getElementById(
-    "edit-field-facility-location-0-target-id"
+    "edit-field-facility-location-0-target-id",
   );
   const fieldFacilityLocationLabel = document.querySelector(
-    "label[for='edit-field-facility-location-0-target-id']"
+    "label[for='edit-field-facility-location-0-target-id']",
   );
   const fieldLocationTypeOnline = document.getElementById(
-    "edit-field-location-type-online"
+    "edit-field-location-type-online",
   );
   const fieldAddressWrapper = document.getElementById(
-    "edit-field-address-wrapper"
+    "edit-field-address-wrapper",
   );
   const fieldUrlOfOnlineEvent = document.getElementById(
-    "edit-field-url-of-an-online-event-0-uri"
+    "edit-field-url-of-an-online-event-0-uri",
   );
   const fieldUrlOfOnlineEventWrapper = document.getElementById(
-    "edit-field-url-of-an-online-event-wrapper"
+    "edit-field-url-of-an-online-event-wrapper",
   );
   const fieldAddressLine1 = document.getElementById(
-    "edit-field-address-0-address-address-line1"
+    "edit-field-address-0-address-address-line1",
   );
   const fieldAddressLine1Label = document.querySelector(
-    "label[for='edit-field-address-0-address-address-line1']"
+    "label[for='edit-field-address-0-address-address-line1']",
   );
   const fieldAddressLine2 = document.getElementById(
-    "edit-field-address-0-address-address-line2"
+    "edit-field-address-0-address-address-line2",
   );
   const fieldAddressLocality = document.getElementById(
-    "edit-field-address-0-address-locality"
+    "edit-field-address-0-address-locality",
   );
   const fieldAddressLocalityLabel = document.querySelector(
-    "label[for='edit-field-address-0-address-locality']"
+    "label[for='edit-field-address-0-address-locality']",
   );
   const fieldAddressAdminArea = document.getElementById(
-    "edit-field-address-0-address-administrative-area"
+    "edit-field-address-0-address-administrative-area",
   );
   const fieldAddressAdminAreaLabel = document.querySelector(
-    "label[for='edit-field-address-0-address-administrative-area']"
+    "label[for='edit-field-address-0-address-administrative-area']",
   );
   const targetRegistrationElements = document.querySelectorAll(
-    ".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper"
+    ".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper",
   );
 
   const safeValue = (el, val = "") => {
@@ -144,19 +144,19 @@
       fieldLinkWrapperLabel,
       fieldLinkWrapper,
       fieldLinkInput,
-      required
+      required,
     );
     toggleCtaInputRequired(
       fieldCtaEmailWrapperLabel,
       fieldCtaEmailWrapper,
       fieldCtaEmailInput,
-      required
+      required,
     );
     toggleCtaInputRequired(
       fieldCtaHowToSignUpLabel,
       fieldCtaHowToSignUpWrapper,
       fieldCtaHowToSignUp,
-      required
+      required,
     );
   };
 
@@ -199,14 +199,14 @@
           fieldCtaEmailWrapperLabel,
           fieldCtaEmailWrapper,
           fieldCtaEmailInput,
-          true
+          true,
         );
         // Also display the 'how to apply' field, and set the value accordingly.
         toggleCtaInputRequired(
           fieldCtaHowToSignUpLabel,
           fieldCtaHowToSignUpWrapper,
           fieldCtaHowToSignUp,
-          true
+          true,
         );
         fieldCtaHowToSignUp.value = "email";
       }
@@ -216,14 +216,14 @@
           fieldLinkWrapperLabel,
           fieldLinkWrapper,
           fieldLinkInput,
-          true
+          true,
         );
         // Also display the 'how to apply' field, and set the value accordingly.
         toggleCtaInputRequired(
           fieldCtaHowToSignUpLabel,
           fieldCtaHowToSignUpWrapper,
           fieldCtaHowToSignUp,
-          true
+          true,
         );
         fieldCtaHowToSignUp.value = "url";
       }
@@ -232,7 +232,7 @@
         toggleCtaInputRequired(
           fieldCtaHowToSignUpLabel,
           fieldCtaHowToSignUpWrapper,
-          fieldCtaHowToSignUpWrapper
+          fieldCtaHowToSignUpWrapper,
         );
       }
     }
@@ -245,7 +245,7 @@
         toggleCtaInputRequired(
           fieldCtaHowToSignUpLabel,
           fieldCtaHowToSignUpWrapper,
-          fieldCtaHowToSignUp
+          fieldCtaHowToSignUp,
         );
       }
     });
@@ -260,13 +260,13 @@
             fieldCtaEmailWrapperLabel,
             fieldCtaEmailWrapper,
             fieldCtaEmailInput,
-            false
+            false,
           );
           // Display url field and make required.
           toggleCtaInputRequired(
             fieldLinkWrapperLabel,
             fieldLinkWrapper,
-            fieldLinkInput
+            fieldLinkInput,
           );
           break;
 
@@ -278,13 +278,13 @@
             fieldLinkWrapperLabel,
             fieldLinkWrapper,
             fieldLinkInput,
-            false
+            false,
           );
           // Display email field and make required.
           toggleCtaInputRequired(
             fieldCtaEmailWrapperLabel,
             fieldCtaEmailWrapper,
-            fieldCtaEmailInput
+            fieldCtaEmailInput,
           );
           break;
 
@@ -294,13 +294,13 @@
             fieldLinkWrapperLabel,
             fieldLinkWrapper,
             fieldLinkInput,
-            false
+            false,
           );
           toggleCtaInputRequired(
             fieldCtaEmailWrapperLabel,
             fieldCtaEmailWrapper,
             fieldCtaEmailInput,
-            false
+            false,
           );
           fieldLinkInput.value = "";
           fieldCtaEmailInput.value = "";
@@ -395,7 +395,7 @@
       once(
         "vaGovEventFormHelpers",
         "#edit-field-include-registration-info-value",
-        context
+        context,
       ).forEach(() => {
         operate();
       });

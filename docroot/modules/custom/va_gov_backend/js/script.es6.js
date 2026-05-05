@@ -21,7 +21,7 @@
             function c(e) {
               $(e.target).parents("details:not([open])").each(fieldsetHandler);
             },
-            false
+            false,
           );
 
           if (fieldGroupInput.hasClass("error")) {
@@ -29,7 +29,7 @@
               .parents("details:not([open])")
               .each(fieldsetHandler);
           }
-        }
+        },
       );
     },
   };
@@ -45,10 +45,10 @@
 
         // Get the id from the node view output, or if on the form, the input.
         const facilityID = context.querySelector(
-          ".field--name-field-facility-locator-api-id .field__item"
+          ".field--name-field-facility-locator-api-id .field__item",
         )
           ? context.querySelector(
-              ".field--name-field-facility-locator-api-id .field__item"
+              ".field--name-field-facility-locator-api-id .field__item",
             ).textContent
           : context.querySelector("#edit-field-facility-locator-api-id-0-value")
               .value;
@@ -71,7 +71,7 @@
               // than using the global flag.
               .replace("[js_entry_facility_name]", facilityName)
               .replace("[js_entry_facility_name]", facilityName)
-              .replace("[js_entry_facility_id]", facilityID)
+              .replace("[js_entry_facility_id]", facilityID),
           );
         });
 
@@ -86,15 +86,15 @@
         if (
           drupalSettings.gtm_data.contentType &&
           targetTypes.some((item) =>
-            drupalSettings.gtm_data.contentType.includes(item)
+            drupalSettings.gtm_data.contentType.includes(item),
           ) &&
           !adminRoles.some((item) =>
-            drupalSettings.gtm_data.userRoles.includes(item)
+            drupalSettings.gtm_data.userRoles.includes(item),
           )
         ) {
           // The tooltip div.
           const targetFieldGroup = context.querySelector(
-            ".node__content > .not-editable.tooltip-layout"
+            ".node__content > .not-editable.tooltip-layout",
           );
 
           // Create a wrapper for our tooltip legend and facility name.
@@ -112,7 +112,7 @@
           // Facility name element.
           const fieldItem = context.createElement("div");
           const description = context.querySelector(
-            "#locations-and-contact-information .tooltip-layout .description"
+            "#locations-and-contact-information .tooltip-layout .description",
           );
           fieldItem.classList.add("field__item");
           fieldItem.innerHTML = facilityName;
@@ -123,7 +123,7 @@
           // Move our description below the legend.
           targetFieldGroup.insertBefore(
             description,
-            targetFieldGroup.firstChild
+            targetFieldGroup.firstChild,
           );
           // Plug our legend into the tootip div.
           targetFieldGroup.insertBefore(legend, targetFieldGroup.firstChild);
@@ -139,11 +139,11 @@
       // Don't allow more than 3 link teasers in clp spotlight panel.
       if (
         $(
-          "#field-clp-spotlight-link-teasers-add-more-wrapper .paragraphs-dropbutton-wrapper"
+          "#field-clp-spotlight-link-teasers-add-more-wrapper .paragraphs-dropbutton-wrapper",
         ).length > 3
       ) {
         $(
-          "#field-clp-spotlight-link-teasers-add-more-wrapper .field-add-more-submit.button--small.button"
+          "#field-clp-spotlight-link-teasers-add-more-wrapper .field-add-more-submit.button--small.button",
         ).css("display", "none");
       }
     },
@@ -153,7 +153,7 @@
     attach() {
       // Don't show remove button on first instance.
       const removeButtons = document.querySelectorAll(
-        '.field--name-field-service-location .paragraphs-dropbutton-wrapper input[value="Remove"]'
+        '.field--name-field-service-location .paragraphs-dropbutton-wrapper input[value="Remove"]',
       );
 
       if (removeButtons.length > 0) {
@@ -175,7 +175,7 @@
 
       // Collects element id of reusable alert - place alert button.
       $(
-        'input[id*="subform-field-alert-block-reference-entity-browser-entity-browser-open-modal"]'
+        'input[id*="subform-field-alert-block-reference-entity-browser-entity-browser-open-modal"]',
       ).each((idx, element) => {
         reusableAlertRemovedIds.push($(element).attr("id"));
       });
@@ -184,7 +184,7 @@
       $('div[id*="field-alert-block-reference-current-items-0"]').each(
         (idx, element) => {
           reusableAlertAddedIds.push($(element).attr("id"));
-        }
+        },
       );
 
       // Collects element id of a non reusable alert fieldset.
@@ -224,7 +224,7 @@
         nonReusableAlertSelectionIds.push(
           $(`#${value}`)
             .closest(
-              "div[id*='subform-field-alert-wrapper'],div[id*='alert-single-wrapper']"
+              "div[id*='subform-field-alert-wrapper'],div[id*='alert-single-wrapper']",
             )
             .find(".paragraphs-subform")
             .first()
@@ -232,7 +232,7 @@
             .children()
             .children(".fieldset-wrapper")
             .children()
-            .attr("id")
+            .attr("id"),
         );
 
         $.each(nonReusableAlertSelectionIds, (sectionKey, sectionValue) => {
@@ -248,20 +248,20 @@
     attach() {
       // Snowflake cases for entity browsers. And classic paragraphs.
       $("details#edit-field-clp-resources summary").addClass(
-        "js-form-required form-required"
+        "js-form-required form-required",
       );
       $("details#edit-field-clp-events-references summary").addClass(
-        "js-form-required form-required"
+        "js-form-required form-required",
       );
       $(
-        "details#edit-group-video .field--type-entity-reference.field--name-field-media span.fieldset-legend"
+        "details#edit-group-video .field--type-entity-reference.field--name-field-media span.fieldset-legend",
       ).addClass("js-form-required form-required");
       $("#edit-field-clp-stories-teasers-wrapper").attr({
         required: "required",
         "aria-required": "true",
       });
       $("#edit-field-clp-stories-teasers-wrapper strong").addClass(
-        "form-required"
+        "form-required",
       );
     },
   };
@@ -271,10 +271,10 @@
       // Make sure we trigger the link paragraph to appear when
       // empty form is on page.
       const addMoreLinks = document.getElementById(
-        "field-related-information-link-teaser-add-more"
+        "field-related-information-link-teaser-add-more",
       );
       const linkCount = document.querySelectorAll(
-        ".paragraph-type--link-teaser"
+        ".paragraph-type--link-teaser",
       ).length;
       if (addMoreLinks && linkCount < 1) {
         addMoreLinks.dispatchEvent(new MouseEvent("click"));

@@ -124,7 +124,7 @@ Cypress.Commands.add("drupalGetUserIdByUsername", (username) => {
 
     if (!userId) {
       throw new Error(
-        `Could not find Drupal user ID for username: ${username}`
+        `Could not find Drupal user ID for username: ${username}`,
       );
     }
 
@@ -149,7 +149,7 @@ Cypress.Commands.add(
   (username, severity = "Warning") => {
     const fields = ["wid", "date", "type", "severity", "message", "username"];
     const command = `watchdog:show --format=json --severity=${severity} --fields=${fields.join(
-      ","
+      ",",
     )}`;
     return cy.drupalDrushCommand(command).then((output) => {
       return cy
@@ -160,7 +160,7 @@ Cypress.Commands.add(
         .then((json) => {
           return cy.log(json).then(() => {
             return Object.values(json).filter(
-              (entry) => entry.username === username
+              (entry) => entry.username === username,
             );
           });
         })
@@ -170,13 +170,13 @@ Cypress.Commands.add(
           });
         });
     });
-  }
+  },
 );
 
 Cypress.Commands.add("dumpWatchdogToStdout", (severity = "Warning") => {
   const fields = ["wid", "date", "type", "severity", "message"];
   const command = `watchdog:show --format=json --severity=${severity} --fields=${fields.join(
-    ","
+    ",",
   )}`;
 
   return cy.drupalDrushCommand(command).then((output) => {
@@ -232,7 +232,7 @@ Cypress.Commands.add(
       cy.log(messages);
       expect(messages.length).to.equal(count);
     });
-  }
+  },
 );
 
 Cypress.Commands.add("drupalWatchdogHasNewErrors", (username, count) => {
@@ -244,7 +244,7 @@ Cypress.Commands.add("drupalWatchdogHasNewErrors", (username, count) => {
 
 Cypress.Commands.add("drupalUnlockNode", (nid, language = "en") => {
   return cy.drupalDrushEval(
-    `\\Drupal::service("content_lock")->release("${nid}", "${language}");`
+    `\\Drupal::service("content_lock")->release("${nid}", "${language}");`,
   );
 });
 
@@ -275,7 +275,6 @@ Cypress.Commands.add("get_ckeditor", (element) => {
       const matches = editors.find((item) => item.element === element);
       console.log(matches);
       if (matches) {
-        // eslint-disable-next-line prefer-destructuring
         instance = matches;
         console.log(instance);
       } else {
@@ -326,7 +325,7 @@ Cypress.Commands.add("getDataLayer", () => {
   return cy
     .window()
     .then((window) =>
-      window.dataLayer.filter((object) => object.event === "pageLoad").pop()
+      window.dataLayer.filter((object) => object.event === "pageLoad").pop(),
     );
 });
 

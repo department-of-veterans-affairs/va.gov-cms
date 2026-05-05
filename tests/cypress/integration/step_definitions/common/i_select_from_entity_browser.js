@@ -37,5 +37,5 @@ Given(
         cy.get("#edit-submit").click({ force: true });
       });
     cy.get(".entity-browser-modal iframe").should("not.exist");
-  }
+  },
 );

@@ -1,6 +1,4 @@
-/* eslint-disable max-nested-callbacks */
 import { Given } from "@badeball/cypress-cucumber-preprocessor";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import qs from "qs";
 
 Given("I stub form submission for the current page", () => {
@@ -20,7 +18,7 @@ Given("I stub form submission for the current page", () => {
           req.body.is_under_test = "true";
         }
         req.continue();
-      }
+      },
     ).as("formSubmission");
   });
 });

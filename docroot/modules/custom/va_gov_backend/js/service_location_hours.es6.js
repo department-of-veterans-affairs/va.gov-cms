@@ -18,7 +18,7 @@
             button.ariaLabel = "tooltip";
             button.setAttribute(
               "data-tippy",
-              "Why can't I edit this?\nVHA keeps these descriptions standardized to help Veterans identify the services they need."
+              "Why can't I edit this?\nVHA keeps these descriptions standardized to help Veterans identify the services they need.",
             );
             button.setAttribute("data-tippy-pos", "right");
             button.setAttribute("data-tippy-animate", "fade");
@@ -45,7 +45,7 @@
     attach(context) {
       // Grab our hour selects.
       const hourSelects = document.querySelectorAll(
-        ".field--name-field-hours input"
+        ".field--name-field-hours input",
       );
       context.addEventListener("load", () => {
         hourSelects.forEach((hourSelect) => {

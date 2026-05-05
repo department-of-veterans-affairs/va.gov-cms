@@ -55,7 +55,7 @@ gulp.task("watch", () => {
   gulp.watch(
     ["assets/scss/**/*.scss"],
     options,
-    gulp.series("sass", "clearcache")
+    gulp.series("sass", "clearcache"),
   );
 });
 gulp.task("watch").description = "watch SCSS";

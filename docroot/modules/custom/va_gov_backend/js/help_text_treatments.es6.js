@@ -46,7 +46,7 @@
             .previousElementSibling.nodeName === "LABEL"
         ) {
           item.previousElementSibling.previousElementSibling.previousElementSibling.after(
-            item
+            item,
           );
           item.style.margin = "0 0 10px 0px";
         }
@@ -66,7 +66,7 @@
             .nodeName === "LABEL"
         ) {
           item.previousElementSibling.previousElementSibling.firstElementChild.after(
-            item
+            item,
           );
           item.style.margin = "0 0 10px 0px";
         }
@@ -91,7 +91,7 @@
           item.style.textTransform = "none";
           item.style.margin = "0 0 10px 0px";
           item.previousElementSibling.firstElementChild.firstElementChild.firstElementChild.firstElementChild.after(
-            item
+            item,
           );
         }
       });

@@ -43,7 +43,7 @@
             },
             theme: "tippy_popover tippy_popover_center",
             allowHTML: true,
-          }
+          },
         );
       });
     },

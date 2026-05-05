@@ -9,7 +9,7 @@
         // Lovell - grab VAMC System field (if it exists).
         let tricareSystem = false;
         const vamcSystemSelector = subcontext.getElementById(
-          "edit-field-region-page"
+          "edit-field-region-page",
         );
         if (vamcSystemSelector !== null) {
           // The entity ID for the Lovell - TRICARE subsystem.
@@ -48,14 +48,14 @@
           systemSelect.addEventListener("change", () => {
             winnowTricareServices(
               context.querySelectorAll(
-                ".field--name-field-service-name-and-descripti select option"
-              )
+                ".field--name-field-service-name-and-descripti select option",
+              ),
             );
           });
           winnowTricareServices(
             context.querySelectorAll(
-              ".field--name-field-service-name-and-descripti select option"
-            )
+              ".field--name-field-service-name-and-descripti select option",
+            ),
           );
         }
       });

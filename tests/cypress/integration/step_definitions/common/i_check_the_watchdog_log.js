@@ -8,5 +8,5 @@ Given(
   `I check the watchdog log for {string} messages`,
   function watchdogLogHandler(severity) {
     cy.drupalGetWatchdogMessages(this.username, severity).then(cy.log);
-  }
+  },
 );

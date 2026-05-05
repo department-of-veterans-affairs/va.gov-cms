@@ -14,10 +14,10 @@
 
         // Get the id from the node view output, or if on the form, the input.
         const facilityID = context.querySelector(
-          ".field--name-field-facility-locator-api-id .field__item"
+          ".field--name-field-facility-locator-api-id .field__item",
         )
           ? context.querySelector(
-              ".field--name-field-facility-locator-api-id .field__item"
+              ".field--name-field-facility-locator-api-id .field__item",
             ).textContent
           : context.querySelector("#edit-field-facility-locator-api-id-0-value")
               .value;
@@ -40,7 +40,7 @@
               // than using the global flag.
               .replace("[js_entry_facility_name]", facilityName)
               .replace("[js_entry_facility_name]", facilityName)
-              .replace("[js_entry_facility_id]", facilityID)
+              .replace("[js_entry_facility_id]", facilityID),
           );
         });
 
@@ -51,15 +51,15 @@
         if (
           drupalSettings.gtm_data.contentType &&
           targetTypes.some((item) =>
-            drupalSettings.gtm_data.contentType.includes(item)
+            drupalSettings.gtm_data.contentType.includes(item),
           ) &&
           !adminRoles.some((item) =>
-            drupalSettings.gtm_data.userRoles.includes(item)
+            drupalSettings.gtm_data.userRoles.includes(item),
           )
         ) {
           // The tooltip div.
           const targetFieldGroup = context.querySelector(
-            ".node__content > .not-editable.tooltip-layout"
+            ".node__content > .not-editable.tooltip-layout",
           );
 
           // Create a wrapper for our tooltip legend and facility name.
@@ -77,7 +77,7 @@
           // Facility name element.
           const fieldItem = context.createElement("div");
           const description = context.querySelector(
-            "#locations-and-contact-information .tooltip-layout .description"
+            "#locations-and-contact-information .tooltip-layout .description",
           );
           fieldItem.classList.add("field__item");
           fieldItem.innerHTML = facilityName;
@@ -88,7 +88,7 @@
           // Move our description below the legend.
           targetFieldGroup.insertBefore(
             description,
-            targetFieldGroup.firstChild
+            targetFieldGroup.firstChild,
           );
           // Plug our legend into the tootip div.
           targetFieldGroup.insertBefore(legend, targetFieldGroup.firstChild);

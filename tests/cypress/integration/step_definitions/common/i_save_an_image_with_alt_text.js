@@ -38,8 +38,8 @@ When(
       faker.helpers.repeatString("a", charCount),
       {
         force: true,
-      }
+      },
     );
     clickSaveButton();
-  }
+  },
 );

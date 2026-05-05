@@ -9,14 +9,15 @@
         $("input.field_media_in_library[type=checkbox]:not(:checked)").each(
           () => {
             $(".ui-dialog-buttonpane button").first().hide();
-          }
+          },
         );
         $(
           once(
             "vaGovMediaLibraryReusableSaveAndSelect",
             "input.field_media_in_library",
-            context
-          )
+            // eslint-disable-next-line no-undef
+            context,
+          ),
         ).change((object) => {
           if (object.checked) {
             $(".ui-dialog-buttonpane button").first().show();

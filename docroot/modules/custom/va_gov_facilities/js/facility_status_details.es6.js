@@ -8,7 +8,7 @@
       // Hide/show and require facility status details based on status value.
       function detailsRequired(action) {
         const detailswrapper = document.querySelector(
-          ".field--name-field-operating-status-more-info"
+          ".field--name-field-operating-status-more-info",
         );
         const label = detailswrapper.querySelector(".form-item label");
         const details = detailswrapper.querySelector(".form-item textarea");
@@ -27,7 +27,7 @@
 
       // Grab the operating status radio buttons.
       const statusradios = document.querySelectorAll(
-        ".field--name-field-operating-status-facility .form-radio"
+        ".field--name-field-operating-status-facility .form-radio",
       );
       statusradios.forEach((radio) => {
         // Set initial visibility for status details based on status value.

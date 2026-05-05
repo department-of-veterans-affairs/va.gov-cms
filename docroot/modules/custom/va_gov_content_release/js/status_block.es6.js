@@ -18,7 +18,7 @@
         .on("load", () => {
           window.setInterval(() => {
             refreshStatusBlock(
-              settings.contentRelease.statusBlock.blockRefreshPath
+              settings.contentRelease.statusBlock.blockRefreshPath,
             );
           }, 10000);
         });

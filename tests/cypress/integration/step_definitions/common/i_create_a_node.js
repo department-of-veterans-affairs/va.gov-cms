@@ -17,11 +17,11 @@ const creators = {
       faker.lorem.sentence().substring(0, 50),
       {
         force: true,
-      }
+      },
     );
     cy.type_ckeditor(
       "edit-field-intro-text-limited-html-0-value",
-      faker.lorem.sentence()
+      faker.lorem.sentence(),
     );
     cy.findAllByLabelText("Product").select("All products", { force: true });
     cy.findAllByLabelText("Section").select("VACO", { force: true });
@@ -37,7 +37,7 @@ const creators = {
       faker.lorem.sentence().substring(0, 50),
       {
         force: true,
-      }
+      },
     );
     cy.findAllByLabelText("Section").select("VACO", { force: true });
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
@@ -50,7 +50,7 @@ const creators = {
       faker.lorem.sentence().substring(0, 35),
       {
         force: true,
-      }
+      },
     );
 
     // Hero banner
@@ -100,17 +100,17 @@ const creators = {
           faker.lorem.sentence().substring(0, 50),
           {
             force: true,
-          }
+          },
         );
         cy.findAllByLabelText("Introduction").type(faker.lorem.sentence(), {
           force: true,
         });
       });
     cy.get(
-      "#edit-field-clp-what-you-can-do-promos-entity-browser-entity-browser-open-modal"
+      "#edit-field-clp-what-you-can-do-promos-entity-browser-entity-browser-open-modal",
     ).should("exist");
     cy.get(
-      "#edit-field-clp-what-you-can-do-promos-entity-browser-entity-browser-open-modal"
+      "#edit-field-clp-what-you-can-do-promos-entity-browser-entity-browser-open-modal",
     ).click({
       force: true,
     });
@@ -159,7 +159,7 @@ const creators = {
       .iframe()
       .within(() => {
         cy.get(
-          '[data-drupal-selector="edit-media-0-fields-field-owner"]'
+          '[data-drupal-selector="edit-media-0-fields-field-owner"]',
         ).select("VACO", { force: true });
       });
     cy.get("iframe.entity-browser-modal-iframe")
@@ -189,7 +189,7 @@ const creators = {
       .iframe()
       .within(() => {
         cy.get(
-          '[data-drupal-selector="edit-inline-entity-form-field-owner"]'
+          '[data-drupal-selector="edit-inline-entity-form-field-owner"]',
         ).select("VACO", { force: true });
       });
     /** Set moderation state */
@@ -198,7 +198,7 @@ const creators = {
       .within(() => {
         cy.get("#edit-inline-entity-form-moderation-state-0-state").select(
           "draft",
-          { force: true }
+          { force: true },
         );
       });
     cy.get("iframe.entity-browser-modal-iframe")
@@ -241,7 +241,7 @@ const creators = {
   checklist: () => {
     cy.findAllByLabelText("Page title").type(
       `[Test Data] ${faker.lorem.sentence(3)}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
@@ -252,17 +252,17 @@ const creators = {
     });
     cy.get("#edit-field-related-information-0-subform-field-link-0-uri").type(
       "http://www.example.com/",
-      { force: true }
+      { force: true },
     );
     cy.get("#edit-field-related-information-0-subform-field-link-0-title").type(
       `[Test Link Title]${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.get(
-      "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value"
+      "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value",
     ).type(`[Test Header Value]${faker.lorem.sentence(3)}`, { force: true });
     cy.get(
-      "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value"
+      "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value",
     ).type(`[Test Items Value]${faker.lorem.sentence()}`, { force: true });
     cy.contains("All Veterans").parent().find("input").check({ force: true });
     return cy.wait(1000);
@@ -270,7 +270,7 @@ const creators = {
   documentation_page: () => {
     cy.findAllByLabelText("Page title").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
@@ -278,7 +278,7 @@ const creators = {
     cy.findAllByLabelText("Section").select("VACO", { force: true });
     cy.findAllByLabelText("Parent link").select(
       "-- CMS Knowledge Base (disabled)",
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("All products").check({ force: true });
     return cy.wait(1000);
@@ -286,31 +286,31 @@ const creators = {
   event: () => {
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.get(
-      "#edit-field-datetime-range-timezone-0-time-wrapper-value-date"
+      "#edit-field-datetime-range-timezone-0-time-wrapper-value-date",
     ).type("2025-11-04", { force: true });
     cy.get(
-      "#edit-field-datetime-range-timezone-0-time-wrapper-value-date"
+      "#edit-field-datetime-range-timezone-0-time-wrapper-value-date",
     ).type("2025-11-04", { force: true });
     cy.get(
-      "#edit-field-datetime-range-timezone-0-time-wrapper-value-time"
+      "#edit-field-datetime-range-timezone-0-time-wrapper-value-time",
     ).type("10:00:00", { force: true });
     cy.get(
-      "#edit-field-datetime-range-timezone-0-time-wrapper-end-value-time"
+      "#edit-field-datetime-range-timezone-0-time-wrapper-end-value-time",
     ).type("11:00:00", { force: true });
     cy.get("#edit-field-datetime-range-timezone-0-timezone").select("Phoenix");
     cy.get("#edit-field-datetime-range-timezone-0-make-recurring").check();
     cy.get("#edit-field-datetime-range-timezone-0-interval").type("1");
     cy.get("#edit-field-datetime-range-timezone-0-repeat-end-date").type(
       "2025-11-07",
-      { force: true }
+      { force: true },
     );
     cy.get("#edit-field-datetime-range-timezone-0-repeat").select("DAILY");
     cy.findAllByLabelText("Where should the event be listed?").select(
       "VA Alaska health care: Events",
-      { force: true }
+      { force: true },
     );
     cy.get("#edit-field-publish-to-outreach-cal-value").check();
     cy.findAllByLabelText("Section").select("--Outreach Hub", { force: true });
@@ -328,20 +328,20 @@ const creators = {
       });
       cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
         "VACO",
-        { force: true }
+        { force: true },
       );
     });
     cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log 1]${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.get("button").contains("Save and insert").click({ force: true });
     cy.get(
       'div.media-library-item[data-drupal-selector="edit-field-media-selection-0"]',
       {
         timeout: 20000,
-      }
+      },
     ).should("exist");
     cy.get(".media-library-item > input[type=hidden]").then((input) => {
       cy.trackEntity("media", input[0].value, { type: "image" });
@@ -349,7 +349,7 @@ const creators = {
     cy.findAllByLabelText("At a non-VA location").check({ force: true });
     cy.findAllByLabelText("Street address").type(
       faker.address.streetAddress(),
-      { force: true }
+      { force: true },
     );
 
     cy.findAllByLabelText("City").type(faker.address.city(), { force: true });
@@ -357,7 +357,7 @@ const creators = {
     cy.get("#edit-moderation-state-0-state").select("draft", { force: true });
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.get("form.node-form").find("input#edit-submit").click();
     cy.get(".node__content").contains("Wed, Nov 5 2025, 10:00am - 11:00am MST");
@@ -379,7 +379,7 @@ const creators = {
   health_care_region_detail_page: () => {
     cy.findAllByLabelText("Page title").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
@@ -387,11 +387,11 @@ const creators = {
     cy.findAllByLabelText("Section").select("VACO", { force: true });
     cy.findAllByLabelText("Related office or health care system").select(
       "VA Alaska health care",
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Parent link").select(
       "-------- Colonel Mary Louise Rasmuson",
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Meta description").type(faker.lorem.sentence(), {
       force: true,
@@ -401,7 +401,7 @@ const creators = {
   landing_page: () => {
     cy.findAllByLabelText("Page title").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
@@ -413,24 +413,24 @@ const creators = {
     cy.findAllByLabelText("Provide a menu link").check({ force: true });
     cy.findAllByLabelText("Menu link title").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Parent link").select("---- Disability", {
       force: true,
     });
     cy.contains("Add List of link teasers").click({ force: true });
     cy.get(
-      "input[id^=edit-field-spokes-0-subform-field-va-paragraphs-0-subform-field-link-0-uri"
+      "input[id^=edit-field-spokes-0-subform-field-va-paragraphs-0-subform-field-link-0-uri",
     ).type(faker.internet.url(), { force: true });
     cy.get(
-      "input[id^=edit-field-spokes-0-subform-field-va-paragraphs-0-subform-field-link-0-title"
+      "input[id^=edit-field-spokes-0-subform-field-va-paragraphs-0-subform-field-link-0-title",
     ).type(faker.company.companyName(), { force: true });
     return cy.wait(3000);
   },
   office: () => {
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Section").select("---VA Sheridan health care", {
       force: true,
@@ -438,7 +438,7 @@ const creators = {
     cy.findAllByLabelText("Provide a menu link").check({ force: true });
     cy.findAllByLabelText("Menu link title").type(
       `[Test Data] ${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Parent link").select("-- Outreach and events", {
       force: true,
@@ -448,14 +448,14 @@ const creators = {
   step_by_step: () => {
     cy.findAllByLabelText("Page title").type(
       `[Test Data] ${faker.lorem.word()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
     });
     cy.type_ckeditor(
       "edit-field-intro-text-limited-html-0-value",
-      faker.lorem.sentence()
+      faker.lorem.sentence(),
     );
     cy.findAllByLabelText("Section").select("VACO", { force: true });
     cy.findAllByLabelText("Section Header").type(faker.lorem.word(), {
@@ -470,28 +470,28 @@ const creators = {
     cy.findAllByLabelText("Claims and appeals status").check({ force: true });
     cy.type_ckeditor(
       "edit-field-steps-0-subform-field-step-0-subform-field-wysiwyg-0-value",
-      faker.lorem.sentence()
+      faker.lorem.sentence(),
     );
     cy.get("#edit-field-contact-information-0-top-links-remove-button").should(
-      "not.exist"
+      "not.exist",
     );
     return cy.wait(1000);
   },
   q_a: () => {
     cy.findAllByLabelText("Question").type(
       `[Test Data] ${faker.lorem.word()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("Text").type(faker.lorem.sentence(), {
       force: true,
     });
     cy.type_ckeditor(
       "edit-field-answer-0-subform-field-wysiwyg-0-value",
-      faker.lorem.sentence()
+      faker.lorem.sentence(),
     );
     cy.findAllByLabelText("Section").select("VACO", { force: true });
     cy.get("#edit-field-contact-information-0-top-links-remove-button").should(
-      "not.exist"
+      "not.exist",
     );
     return cy;
   },
@@ -499,11 +499,11 @@ const creators = {
     cy.findAllByLabelText("Section").select("VACO", { force: true });
     cy.findAllByLabelText("Press Release Title").type(
       `[Test Data] ${faker.lorem.word()}`,
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("News releases listing").select(
       "VA Albany health care: News releases",
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("City").type(`Albany`, { force: true });
     cy.findAllByLabelText("State").select("New York", { force: true });
@@ -512,7 +512,7 @@ const creators = {
     });
     cy.type_ckeditor(
       "edit-field-press-release-fulltext-0-value",
-      faker.lorem.paragraph()
+      faker.lorem.paragraph(),
     );
     return cy;
   },
@@ -523,13 +523,13 @@ const creators = {
     });
     cy.findAllByLabelText("Where should the story be listed?").select(
       "VA Albany health care: Stories",
-      { force: true }
+      { force: true },
     );
     cy.findAllByLabelText("First sentence (lede)").type(
       faker.lorem.sentence(),
       {
         force: true,
-      }
+      },
     );
     return cy;
   },
@@ -537,11 +537,11 @@ const creators = {
     cy.findAllByLabelText("Section").select("VACO", { force: true });
     cy.findAllByLabelText("Page title").type(
       `[Test Data] ${faker.lorem.word()}`,
-      { force: true }
+      { force: true },
     );
     cy.type_ckeditor(
       "edit-field-intro-text-limited-html-0-value",
-      faker.lorem.paragraph()
+      faker.lorem.paragraph(),
     );
     cy.findAllByLabelText("Meta description").type(faker.lorem.sentence(), {
       force: true,
@@ -551,7 +551,7 @@ const creators = {
     cy.findByText("An open-ended text field.").click({ force: true });
     cy.type_ckeditor(
       "edit-field-content-block-0-subform-field-wysiwyg-0-value",
-      faker.lorem.paragraph()
+      faker.lorem.paragraph(),
     );
     return cy;
   },
@@ -561,7 +561,7 @@ Given("I create a {string} node", (contentType) => {
   const creator = creators[contentType];
   assert.isNotNull(
     creator,
-    `I do not know how to create ${contentType} nodes yet.  Please add a definition in ${__filename}.`
+    `I do not know how to create ${contentType} nodes yet.  Please add a definition in ${__filename}.`,
   );
   cy.visit(`/node/add/${contentType}`);
   cy.injectAxe();
@@ -571,12 +571,12 @@ Given("I create a {string} node", (contentType) => {
   creator().then(() => {
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.get("form.node-form").find("input#edit-submit").click();
     cy.location("pathname", { timeout: 10000 }).should(
       "not.include",
-      "/node/add"
+      "/node/add",
     );
     cy.injectAxe();
     cy.checkAccessibility();
@@ -597,7 +597,7 @@ Given("I create a {string} node and continue", (contentType) => {
   const creator = creators[contentType];
   assert.isDefined(
     creator,
-    `I do not know how to create ${contentType} nodes yet.  Please add a definition in ${__filename}.`
+    `I do not know how to create ${contentType} nodes yet.  Please add a definition in ${__filename}.`,
   );
   cy.visit(`/node/add/${contentType}`);
   cy.injectAxe();
@@ -607,12 +607,12 @@ Given("I create a {string} node and continue", (contentType) => {
   creator().then(() => {
     cy.get("#edit-revision-log-0-value").type(
       `[Test revision log]${faker.lorem.sentence()}`,
-      { force: true }
+      { force: true },
     );
     cy.get("form.node-form").find("input#edit-save-continue").click();
     cy.location("pathname", { timeout: 10000 }).should(
       "not.include",
-      "/node/add"
+      "/node/add",
     );
     cy.injectAxe();
     cy.checkAccessibility();

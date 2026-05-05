@@ -16,5 +16,5 @@ Given(
     cy.get(selector).then(($input) => {
       expect($input[0].validationMessage).to.eq(html5Error);
     });
-  }
+  },
 );

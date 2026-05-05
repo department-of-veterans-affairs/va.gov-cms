@@ -25,7 +25,7 @@
         const tricareSystem = Drupal.isTricareSystem(context);
         // Grab the first selector that appears
         const serviceSelector = context.querySelector(
-          ".field--name-field-service-name-and-descripti select"
+          ".field--name-field-service-name-and-descripti select",
         );
         // Use the selection from first selector to determine whether or
         // not we show the taxonomy fields div.
@@ -48,7 +48,7 @@
         button.ariaLabel = "tooltip";
         button.setAttribute(
           "data-tippy",
-          `Why can't I edit this?\nNational editors keep these descriptions standardized to help Veterans identify the services they need.`
+          `Why can't I edit this?\nNational editors keep these descriptions standardized to help Veterans identify the services they need.`,
         );
         button.setAttribute("data-tippy-pos", "right");
         button.setAttribute("data-tippy-animate", "fade");
@@ -143,10 +143,10 @@
           }
         }
         const vbaForm = document.querySelector(
-          '[data-drupal-selector="node-vba-facility-service-form"]'
+          '[data-drupal-selector="node-vba-facility-service-form"]',
         );
         const vbaFormEdit = document.querySelector(
-          '[data-drupal-selector="node-vba-facility-service-edit-form"]'
+          '[data-drupal-selector="node-vba-facility-service-edit-form"]',
         );
         if (vbaForm || vbaFormEdit) {
           // VBA terms have nationalized regional data.
@@ -254,8 +254,8 @@
       $(context).ajaxComplete(() => {
         descriptionFill(
           context.querySelectorAll(
-            ".field--name-field-service-name-and-descripti select"
-          )
+            ".field--name-field-service-name-and-descripti select",
+          ),
         );
       });
 
@@ -263,8 +263,8 @@
       window.addEventListener("DOMContentLoaded", () => {
         descriptionFill(
           context.querySelectorAll(
-            ".field--name-field-service-name-and-descripti select"
-          )
+            ".field--name-field-service-name-and-descripti select",
+          ),
         );
         // Add a change event listener to the VAMC System field.
         const systemSelect = context.querySelector("#edit-field-region-page");
@@ -272,8 +272,8 @@
           systemSelect.addEventListener("change", () => {
             descriptionFill(
               context.querySelectorAll(
-                ".field--name-field-service-name-and-descripti select"
-              )
+                ".field--name-field-service-name-and-descripti select",
+              ),
             );
           });
         }

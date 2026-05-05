@@ -8,7 +8,7 @@ function fetchServices(params) {
   cy.request(`/jsonapi/node/vba_facility_service?${params.toString()}`).then(
     (response) => {
       expect(response.status).to.eq(200);
-    }
+    },
   );
 }
 
@@ -19,13 +19,12 @@ Given(
     cy.request(`/router/translate-path?path=${path}`).then((response) => {
       expect(response.status).to.eq(200);
       const { uuid } = response.body.entity;
-      // eslint-disable-next-line no-unused-expressions
       expect(uuid, `Expected to find a UUID for path: ${path}`).to.not.be
         .undefined;
 
       // Use the UUID to fetch the vab_facility node.
       cy.request(
-        `/jsonapi/node/vba_facility/${uuid}?include=field_office`
+        `/jsonapi/node/vba_facility/${uuid}?include=field_office`,
       ).then((listingResponse) => {
         expect(listingResponse.status).to.eq(200);
         expect(listingResponse.body.data.id).to.eq(uuid);
@@ -41,5 +40,5 @@ Given(
         fetchServices(params);
       });
     });
-  }
+  },
 );

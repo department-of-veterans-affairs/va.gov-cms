@@ -34,7 +34,7 @@
         data: {
           value() {
             return $(
-              "textarea[data-drupal-selector='edit-media-0-fields-image-0-alt']"
+              "textarea[data-drupal-selector='edit-media-0-fields-image-0-alt']",
             ).val();
           },
         },
@@ -46,7 +46,7 @@
   // Add messages with translations from backend.
   $.extend(
     $.validator.messages,
-    drupalSettings.clientside_validation_jquery.messages
+    drupalSettings.clientside_validation_jquery.messages,
   );
 
   /**
@@ -64,7 +64,7 @@
       // Example of how to do this is shown below.
       $(document).trigger(
         "cv-jquery-validate-options-update",
-        drupalSettings.cvJqueryValidateOptions
+        drupalSettings.cvJqueryValidateOptions,
       );
 
       // Process for all the forms on the page everytime,
@@ -74,5 +74,4 @@
       });
     },
   };
-  // eslint-disable-next-line no-undef
 })(jQuery, Drupal, once, drupalSettings);
