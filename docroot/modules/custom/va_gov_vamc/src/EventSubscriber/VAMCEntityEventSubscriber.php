@@ -257,8 +257,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       }
     }
 
-    $this->archiveFacilityServices($entity);
-    $this->archiveSystemService($entity);
+    $this->archiveFacilityServicesIfSystemServiceIsArchived($entity);
+    $this->archiveSystemServiceIfLastFacilityService($entity);
   }
 
   /**
@@ -530,7 +530,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function archiveFacilityServices(EntityInterface $entity): void {
+  public function archiveFacilityServicesIfSystemServiceIsArchived(EntityInterface $entity): void {
     if (
       $entity instanceof NodeInterface &&
       $entity->bundle() === 'regional_health_care_service_des' &&
@@ -566,35 +566,40 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Archives a system service if the last related facility service is archived.
+   * Archives the parent system service if this is the last published facility service being archived.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The facility service node.
+   * @param \Drupal\node\NodeInterface $facility_service
+   *   The facility service node being archived.
    */
-  public function archiveSystemService(EntityInterface $entity): void {
-    if (
-      $entity instanceof NodeInterface &&
-      $entity->bundle() === 'health_care_local_health_service' &&
-      $entity->hasField('moderation_state') &&
-      $entity->get('moderation_state')->value === 'archived' &&
-      $this->isLastFacilityService($entity)
-    ) {
-      $system_service = $entity->get('field_regional_health_service')->entity;
-      if ($system_service && $system_service->hasField('moderation_state')) {
-        if ($system_service->get('moderation_state')->value !== 'archived') {
-          try {
-            $this->archiveNode(
-              $system_service,
-              $this->t('Automatically archived when last related facility service was archived.')
-            );
-          }
-          catch (InvalidPluginDefinitionException | PluginNotFoundException | EntityStorageException $e) {
-            $this->loggerFactory->get('va_gov_vamc')->error('Failed to archive system service node with ID @nid: @message', [
-              '@nid' => $system_service->id(),
-              '@message' => $e->getMessage(),
-            ]);
-          }
-        }
+  protected function archiveSystemServiceIfLastFacilityService(NodeInterface $facility_service): void {
+    // Only proceed if this node is being archived.
+    if (!$facility_service->hasField('moderation_state') || $facility_service->get('moderation_state')->value !== 'archived') {
+      return;
+    }
+    // Get the parent system service node.
+    $system_service = $facility_service->get('field_regional_health_service')->entity ?? NULL;
+    if (!$system_service || !$system_service->hasField('moderation_state')) {
+      return;
+    }
+    // Query for other published facility services referencing this system service.
+    $facility_storage = $this->entityTypeManager->getStorage('node');
+    $published_facility_services = $facility_storage->getQuery()
+      ->condition('type', 'health_care_local_health_service')
+      ->condition('status', 1)
+      ->condition('field_regional_health_service', $system_service->id())
+      ->accessCheck(FALSE)
+      ->execute();
+    // Remove this node from the list (since it's being archived now).
+    $remaining = array_diff($published_facility_services, [$facility_service->id()]);
+    if (empty($remaining)) {
+      // Archive the system service if not already archived.
+      if ($system_service->get('moderation_state')->value !== 'archived') {
+        $system_service->set('moderation_state', 'archived');
+        $system_service->setUnpublished();
+        $system_service->setNewRevision(TRUE);
+        $system_service->setRevisionLogMessage('Automatically archived when last related facility service was archived.');
+        $system_service->save();
+        $this->loggerFactory->get('va_gov_vamc')->info('System service node @nid archived because last related facility service was archived.', ['@nid' => $system_service->id()]);
       }
     }
   }
@@ -661,18 +666,15 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
           }
         }
         elseif ($node->bundle() === 'health_care_local_health_service') {
-          $system_service = $node->get('field_regional_health_service')->entity;
-          if ($system_service) {
-            $published_facility_services = $this->getFacilityServiceNids($node, TRUE);
-            $remaining = array_diff($published_facility_services, [$node->id()]);
-            if (empty($remaining)) {
-              $form['#attached']['library'][] = 'va_gov_vamc/archive_confirm';
-              $archive_message = $this->buildArchiveConfirmationMessage(FALSE, 1, $system_service->label());
-              $form['#attached']['drupalSettings']['va_gov_vamc']['archiveConfirm'] = [
-                'facilityCount' => 1,
-                'message' => $archive_message,
-              ];
-            }
+          if ($this->isLastFacilityService($node)) {
+            $form['#attached']['library'][] = 'va_gov_vamc/archive_confirm';
+            $system_service = $node->get('field_regional_health_service')->entity;
+            $system_title = $system_service ? $system_service->label() : $this->t('the parent system service');
+            $archive_message = $this->buildArchiveConfirmationMessage(FALSE, 1, $system_title);
+            $form['#attached']['drupalSettings']['va_gov_vamc']['archiveConfirm'] = [
+              'facilityCount' => 1,
+              'message' => $archive_message,
+            ];
           }
         }
       }
@@ -819,9 +821,14 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    */
   private function archiveNode(EntityInterface $node, string $log_message = ''): void {
     if ($node instanceof NodeInterface && $node->hasField('moderation_state')) {
+      // Prevent re-archiving and unnecessary saves if already archived.
+      if ($node->get('moderation_state')->value === 'archived') {
+        return;
+      }
       $node->set('moderation_state', 'archived');
       $node->setUnpublished();
       $node->setNewRevision(TRUE);
+      $node->setRevisionUserId(1317);
       if ($log_message) {
         $node->setRevisionLogMessage($log_message);
       }
