@@ -73,6 +73,8 @@ class BranchSearchFactoryTest extends VaGovExistingSiteBase {
    * Test the getVetsWebsite() method.
    */
   public function testGetVetsWebsite() {
+    // Disable this test while migration split between Platform and CMS repos.
+    $this->markTestSkipped('Skipping while migration is still underway.');
     $branchSearch = \Drupal::service('va_gov_git.branch_search_factory')->getVetsWebsite();
     $this->assertInstanceOf(BranchSearchInterface::class, $branchSearch);
   }

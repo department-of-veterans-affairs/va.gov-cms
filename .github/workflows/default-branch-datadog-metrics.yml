@@ -64,7 +64,7 @@ jobs:
         env:
           GITHUB_REPOSITORY: "${{ github.repository }}"
       - name: Send Metrics to DataDog.
-        uses: masci/datadog@d7cb6cfc2ba13f7c2ae5227a26f2e2f42a7d179e # v2.0.2
+        uses: masci/datadog@7696b770aa52aee8a8bffcd1fd52c0a71423ce04 # v2.0.3
         with:
           api-key: ${{ secrets.DATADOG_API_KEY }}
           api-url: https://api.ddog-gov.com
@@ -156,7 +156,7 @@ jobs:
           echo "Lines Denominator: ${lines_denominator}";
 
       - name: Send Metrics to DataDog.
-        uses: masci/datadog@d7cb6cfc2ba13f7c2ae5227a26f2e2f42a7d179e # v2.0.2
+        uses: masci/datadog@7696b770aa52aee8a8bffcd1fd52c0a71423ce04 # v2.0.3
         with:
           api-key: ${{ secrets.DATADOG_API_KEY }}
           api-url: https://api.ddog-gov.com
@@ -277,7 +277,7 @@ jobs:
           echo "nonpublic_class_constants=$(jq '.nonPublicClassConstants' phploc.json)" >> $GITHUB_OUTPUT
 
       - name: Send Metrics to DataDog.
-        uses: masci/datadog@d7cb6cfc2ba13f7c2ae5227a26f2e2f42a7d179e # v2.0.2
+        uses: masci/datadog@7696b770aa52aee8a8bffcd1fd52c0a71423ce04 # v2.0.3
         with:
           api-key: ${{ secrets.DATADOG_API_KEY }}
           api-url: https://api.ddog-gov.com

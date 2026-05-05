@@ -2,8 +2,11 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -22,6 +25,7 @@ use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
  * VA.gov VAMC Entity Event Subscriber.
@@ -112,6 +116,13 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
+   * Logger channel factory.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $loggerFactory;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -126,6 +137,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
    *   The deduper service.
    * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
    *   VA gov NotificationsManager service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
+   *   The Drupal logger service.
    */
   public function __construct(
     EntityTypeManager $entity_type_manager,
@@ -134,6 +147,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     UserPermsService $user_perms_service,
     ContentHardeningDeduper $content_hardening_deduper,
     NotificationsManager $notifications_manager,
+    LoggerChannelFactoryInterface $loggerFactory,
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->currentUser = $currentUser;
@@ -141,6 +155,22 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
     $this->notificationsManager = $notifications_manager;
+    $this->loggerFactory = $loggerFactory;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create($container) {
+    return new static(
+      $container->get('entity_type.manager'),
+      $container->get('current_user'),
+      $container->get('va_gov_workflow.flagger'),
+      $container->get('va_gov_user.user_perms'),
+      $container->get('va_gov_vamc.content_hardening_deduper'),
+      $container->get('va_gov_notifications.notifications_manager'),
+      $container->get('logger.factory')
+    );
   }
 
   /**
@@ -226,6 +256,8 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
         $this->notificationsManager->sendMessageOnFieldChange('title', $entity, 'Facility title changed:', 'va_facility_title_change', self::USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
     }
+
+    $this->archiveFacilityServices($entity);
   }
 
   /**
@@ -411,6 +443,16 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     if (!$is_admin) {
       $this->disableSystemHealthServiceChange($form, $form_state);
     }
+
+    try {
+      $form = $this->confirmArchive($form_state, $form);
+    }
+    catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
+      $this->loggerFactory->get('va_gov_vamc')
+        ->error('Failed to confirm archiving facility health service: @message',
+          ['@message' => $e->getMessage()]
+        );
+    }
   }
 
   /**
@@ -465,6 +507,104 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       $form['field_service_name_and_descripti']['widget']['#description'] =
         $this->t('This field cannot be changed after creation. Please contact an administrator if you need to update it.');
     }
+  }
+
+  /**
+   * Archives all related facility services.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The system service node.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function archiveFacilityServices(EntityInterface $entity): void {
+    if (
+      $entity instanceof NodeInterface &&
+      $entity->bundle() === 'regional_health_care_service_des' &&
+      !$entity->isNew() &&
+      $entity->hasField('moderation_state') &&
+      $entity->get('moderation_state')->value === 'archived'
+    ) {
+      // Only run if the previous state was not already archived.
+      $original = $entity->original ?? NULL;
+      $was_archived = $original && $original->hasField('moderation_state') && $original->get('moderation_state')->value === 'archived';
+      if (!$was_archived) {
+        $facility_storage = $this->entityTypeManager->getStorage('node');
+        $facility_nids = $facility_storage->getQuery()
+          ->condition('type', 'health_care_local_health_service')
+          ->condition('status', 1)
+          ->condition('field_regional_health_service', $entity->id())
+          ->accessCheck(FALSE)
+          ->execute();
+        if (!empty($facility_nids)) {
+          $facility_nodes = $facility_storage->loadMultiple($facility_nids);
+          foreach ($facility_nodes as $facility_node) {
+            try {
+              if ($facility_node->hasField('moderation_state')) {
+                $facility_node->set('moderation_state', 'archived');
+              }
+              $facility_node->setUnpublished();
+              $facility_node->setNewRevision(TRUE);
+              $facility_node->setRevisionLogMessage($this->t('Automatically archived when parent system service was archived.'));
+              $facility_node->save();
+            }
+            catch (InvalidPluginDefinitionException | PluginNotFoundException | EntityStorageException $e) {
+              $this->loggerFactory->get('va_gov_vamc')->error('Failed to archive facility health service node with ID @nid: @message', [
+                '@nid' => $facility_node->id(),
+                '@message' => $e->getMessage(),
+              ]);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Confirms with the user that they really want to archive.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param array $form
+   *   The form.
+   *
+   * @return array
+   *   The updated form array.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function confirmArchive(FormStateInterface $form_state, array $form): array {
+    $form_object = $form_state->getFormObject();
+    if (method_exists($form_object, 'getEntity')) {
+      /** @var \Drupal\node\NodeInterface $node */
+      $node = $form_object->getEntity();
+      if ($node instanceof NodeInterface && !$node->isNew()) {
+        $facility_count = $this->entityTypeManager->getStorage('node')
+          ->getQuery()
+          ->condition('type', 'health_care_local_health_service')
+          ->condition('status', 1)
+          ->condition('field_regional_health_service', $node->id())
+          ->accessCheck(FALSE)
+          ->count()
+          ->execute();
+
+        if ($facility_count > 0) {
+          // Attach the archive_confirm JS library.
+          $form['#attached']['library'][] = 'va_gov_vamc/archive_confirm';
+          // Build the confirmation message.
+          $archive_message = $this->t('There are @count published VAMC Facility health services associated to this System health service. By saving this System service as archived, all the associated Facility health services will be automatically archived as well.', ['@count' => $facility_count]);
+          // Pass data to JS via drupalSettings.
+          $form['#attached']['drupalSettings']['va_gov_vamc']['archiveConfirm'] = [
+            'facilityCount' => $facility_count,
+            'message' => $archive_message,
+          ];
+        }
+      }
+    }
+    return $form;
   }
 
   /**

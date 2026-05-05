@@ -1,6 +1,6 @@
 # Removing deprecated fields
 
-1. Remove all graphql, template, and transformer references from vets-website codebase. Example Pr: https://github.com/department-of-veterans-affairs/vets-website/pull/15791
+1. Remove all graphql, template, and transformer references from vets-website codebase. Example Pr: https://va.ghe.com/software/vets-website/pull/15791
 2. After #1 is merged and deployed to prod, remove field instance from va.gov-cms config. Example Pr: https://github.com/department-of-veterans-affairs/va.gov-cms/pull/4093
 3. After #2 is merged and deployed to prod, remove empty field tables from db. Example Pr: https://github.com/department-of-veterans-affairs/va.gov-cms/pull/4116
 

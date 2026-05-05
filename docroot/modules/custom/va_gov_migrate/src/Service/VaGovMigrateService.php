@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_migrate\Service;
 
 use Drupal\Core\Database\Connection;
-use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\migrate_plus\DataFetcherPluginManager;
 use Drupal\migrate_plus\Entity\Migration;
@@ -99,45 +98,6 @@ class VaGovMigrateService {
   }
 
   /**
-   * Clean up bad node revisions.
-   */
-  public function cleanRevs() {
-    $time = 1572551719;
-
-    $query = $this->database->select('node_revision', 'nr');
-    $query->condition('revision_timestamp', $time);
-    $query->fields('nr', ['vid']);
-    $vids = $query->execute()->fetchCol();
-
-    $query = $this->database->select('node_revision', 'nr');
-    $query->condition('revision_log', 'Update of status by migration.');
-    $query->condition('nid', 1884);
-    $query->fields('nr', ['vid']);
-    $more_vids = $query->execute()->fetchCol();
-
-    $vids = array_merge($vids, $more_vids);
-    $this->migrateChannelLogger->info('Attempting to Delete ' . count($vids) . ' node revisions');
-    $missed_vids = [];
-    foreach ($vids as $vid) {
-      try {
-        $this->migrateChannelLogger->info('Deleting: ' . $vid);
-        $this->entityTypeManager->getStorage('node')->deleteRevision($vid);
-      }
-      catch (EntityStorageException $e) {
-        $this->migrateChannelLogger->warning('Vid ' . $vid . ' could not be deleted: ' . $e->getMessage());
-        $missed_vids[] = $vid;
-      }
-    }
-
-    $count = count($vids) - count($missed_vids);
-    // @phpstan-ignore-next-line
-    return [
-      'success' => "Deleted {$count} revision(s).",
-      'warning' => 'The following revisions were not deleted: ' . implode(', ', $missed_vids),
-    ];
-  }
-
-  /**
    * Archive IntranetOnly forms in the CMS.
    *
    * @throws \League\Csv\UnavailableStream
@@ -152,7 +112,7 @@ class VaGovMigrateService {
    *   Thrown if the storage handler couldn't be loaded.
    */
   public function archiveIntranetOnlyForms() {
-    $csv = Reader::createFromPath(DRUPAL_ROOT . '/sites/default/files/migrate_source/va_forms_data.csv', 'r');
+    $csv = Reader::from(DRUPAL_ROOT . '/sites/default/files/migrate_source/va_forms_data.csv', 'r');
     $csv->setHeaderOffset(0);
     $csv->setEnclosure('"');
     $csv->setDelimiter(',');
