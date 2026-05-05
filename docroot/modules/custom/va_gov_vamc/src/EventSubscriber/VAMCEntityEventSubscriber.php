@@ -566,7 +566,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Archives the parent system service if this is the last published facility service being archived.
+   * Archives the system service if this is the last facility service archived.
    *
    * @param \Drupal\node\NodeInterface $facility_service
    *   The facility service node being archived.
@@ -581,7 +581,7 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
     if (!$system_service || !$system_service->hasField('moderation_state')) {
       return;
     }
-    // Query for other published facility services referencing this system service.
+    // Query for other facility services referencing this system service.
     $facility_storage = $this->entityTypeManager->getStorage('node');
     $published_facility_services = $facility_storage->getQuery()
       ->condition('type', 'health_care_local_health_service')
