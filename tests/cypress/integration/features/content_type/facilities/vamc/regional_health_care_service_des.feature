@@ -72,7 +72,7 @@ Feature: CMS Users may effectively interact with the VAMC System Health Service 
     And I click the "Unlock" link
     And I click the "Confirm break lock" button
 
-  Scenario: Archiving a VAMC System Health Service should archive related facility services
+  Scenario: A confirmation should show when archiving a system health service with related facility services
     Given I am logged in as a user with the roles "vamc_content_creator, content_publisher, content_admin"
     And my workbench access sections are set to "372"
     Then I am at "/node/53057/edit"
